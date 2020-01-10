@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/oxygen_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/oxygen_btn"
+            android:layout_width="80dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="6dp" />
+
+        <TextView
+            android:id="@+id/oxygen_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="8"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/oxygen_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="O"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/oxygen_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Oxygen"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/sulfur_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/sulfur_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/sulfur_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="16"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/sulfur_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="S"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/sulfur_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Sulfur"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/selenium_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/selenium_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/selenium_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="34"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/selenium_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Se"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/selenium_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Selenium"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/tellurium_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/tellurium_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/tellurium_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="52"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tellurium_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Te"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tellurium_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Tellurium"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/polonium_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/polonium_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/polonium_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="84"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/polonium_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Po"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/polonium_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Polonium"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/livermorium_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/livermorium_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/livermorium_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="116"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/livermorium_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Lv"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/livermorium_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Livermorium"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+
+</LinearLayout>

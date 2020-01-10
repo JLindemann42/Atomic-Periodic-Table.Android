@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/helium_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/helium_btn"
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/helium_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="2"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/helium_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="He"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/helium_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Helium"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/neon_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/neon_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/neon_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="10"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/neon_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Ne"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/neon_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Neon"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/argon"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/argon_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/argon_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="18"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/argon_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Ar"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/argon_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Argon"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/krypton_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/krypton_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/krypton_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="36"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/krypton_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Kr"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/krypton_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Krypton"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/xenon_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/xenon_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/xenon_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="54"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/xenon_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Xe"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/xenon_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Xenon"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/radon_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/radon_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/radon_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="86"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/radon_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Rn"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/radon_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Radon"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/oganesson_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/oganesson_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/oganesson_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="118"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/oganesson_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Og"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/oganesson_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Oganesson"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+
+</LinearLayout>

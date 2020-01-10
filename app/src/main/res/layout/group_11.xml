@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/copper_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/copper_btn"
+            android:layout_width="80dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="6dp" />
+
+        <TextView
+            android:id="@+id/copper_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="29"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/copper_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Cu"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/copper_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Copper"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/silver_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/silver_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/silver_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="47"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/silver_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Ag"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/silver_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Silver"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/gold_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/gold_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/gold_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="79"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/gold_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Au"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/gold_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Gold"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/roentgenium_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/roentgenium_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/roentgenium_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="111"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/roentgenium_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Rg"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/roentgenium_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Roentgenium"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+
+</LinearLayout>

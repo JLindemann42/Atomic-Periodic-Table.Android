@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/manganese_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/manganese_btn"
+            android:layout_width="80dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="6dp" />
+
+        <TextView
+            android:id="@+id/manganese_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="25"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/manganese_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Mn"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/manganese_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Manganese"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/technetium_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/technetium_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/technetium_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="43"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/technetium_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Tc"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/technetium_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Technetium"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/rhenium_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/rhenium_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/rhenium_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="75"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/rhenium_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Re"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/rhenium_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Rhenium"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/bohrium_frame"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="2dp"
+        android:elevation="0dp">
+
+        <Button
+            android:id="@+id/bohrium_btn"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp" />
+
+        <TextView
+            android:id="@+id/bohrium_number"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="14dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="top|end"
+            android:text="107"
+            android:textAlignment="gravity"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/bohrium_element"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:text="Bh"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/bohrium_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:alpha="0.9"
+            android:elevation="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:text="Bohrium"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="10sp" />
+    </FrameLayout>
+
+
+</LinearLayout>

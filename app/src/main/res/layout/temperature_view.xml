@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/rounded_box"
+        android:backgroundTint="?attr/colorPrimary"
+        android:elevation="1dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="9dp"
+            android:drawableStart="@drawable/ic_temp_icon"
+            android:drawablePadding="9dp"
+            android:text="Temperatures"
+            android:textColor="?attr/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.75"
+            android:background="?attr/actionMenuTextColor" />
+
+        <TextView
+            android:id="@+id/element_boiling_kelvin_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Boiling Point (Kelvin):"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/element_boiling_kelvin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="element_name"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textVisew"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
+
+        <TextView
+            android:id="@+id/element_boiling_celsius_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Boiling Point (°C):"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/element_boiling_celsius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="element_name"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
+
+        <TextView
+            android:id="@+id/element_boiling_fahrenheit_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Boiling Point (°F):"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/element_boiling_fahrenheit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="element_name"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/space3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
+
+        <TextView
+            android:id="@+id/element_melting_kelvin_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Melting Point (Kelvin):"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/element_melting_kelvin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="element_name"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/space4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
+
+        <TextView
+            android:id="@+id/element_melting_celsius_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Melting Point (°C):"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/element_melting_celsius"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="element_name"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/space5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
+
+        <TextView
+            android:id="@+id/element_melting_fahrenheit_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Melting Point (°F):"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/element_melting_fahrenheit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="element_name"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+</LinearLayout>

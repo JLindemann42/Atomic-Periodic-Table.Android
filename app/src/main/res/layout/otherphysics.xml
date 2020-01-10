@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/physics_properties"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="9dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/rounded_box"
+        android:backgroundTint="?attr/colorPrimary"
+        android:elevation="1dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="9dp"
+            android:drawableStart="@drawable/overview_icon"
+            android:drawablePadding="9dp"
+            android:text="Thermodynamic Properties"
+            android:textColor="?attr/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.75"
+            android:background="?attr/actionMenuTextColor" />
+
+        <TextView
+            android:id="@+id/phase_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Phase (STP):"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/phase_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="phase_text"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
+
+        <TextView
+            android:id="@+id/fusion_heat_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Fusion heat (per mol atoms):"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/fusion_heat_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="fusion_heat_text"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
+
+        <TextView
+            android:id="@+id/specific_heat_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Specific Heat Capacity:"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/specific_heat_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="specific_heat_text"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
+
+        <TextView
+            android:id="@+id/vaporization_heat_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Vaporization Heat:"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/vaporization_heat_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="vaporization_heat_text"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</LinearLayout>

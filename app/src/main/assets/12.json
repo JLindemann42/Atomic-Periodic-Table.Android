@@ -1,0 +1,33 @@
+[
+  {
+    "element": "Magnesium",
+    "element_atomic_number": "12",
+    "element_appearance": "Shiny Grey Solid",
+    "element_shells_electrons": "K2 L8 M2 N0 O0 P0 Q0 R0",
+    "element_electrons": "12",
+    "element_protons": "12",
+    "element_neutron_common": "12",
+    "element_density": "0.0000899 (g/cm^3)",
+    "element_block": "s - block",
+    "element_crystal_structure": "Hexagonal",
+    "element_electrical_conductivity": "N/A",
+    "element_magnetic_type": "Diamagnetic",
+    "element_volume_magnetic_susceptibility": "-2.23*10^9",
+
+    "element_group": "Other Nonmetals",
+    "element_atomicmass": "1,00784u",
+    "element_year": "1766",
+    "element_discovered_name": "Henry Cavendish",
+    "element_electronegativty": "2.2",
+    "element_boiling_kelvin": "20.271 K",
+    "element_boiling_celsius": "-252.879 °C",
+    "element_boiling_fahrenheit": "-423.182 °F",
+    "element_melting_kelvin": "13.99 K",
+    "element_melting_celsius": "-259.16 °C",
+    "element_melting_fahrenheit": "-434.49 °F",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Electron_shell_001_Hydrogen_-_no_label.svg/800px-Electron_shell_001_Hydrogen_-_no_label.svg.png",
+    "spectral_img": "",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/CSIRO_ScienceImage_2893_Crystalised_magnesium.jpg/800px-CSIRO_ScienceImage_2893_Crystalised_magnesium.jpg",
+    "wikilink": "https://en.wikipedia.org/wiki/Hydrogen"
+  }
+]

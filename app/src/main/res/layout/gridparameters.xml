@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pro_box"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="18dp"
+            android:elevation="1dp"
+            android:visibility="visible"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/pro_version"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:elevation="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:textAlignment="center"
+                android:text="PRO Version required to view"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/grid_parameters"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="18dp"
+            android:background="@drawable/rounded_box"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="1dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="9dp"
+                android:drawableStart="@drawable/overview_icon"
+                android:drawablePadding="9dp"
+                android:text="Grid Parameters"
+                android:textColor="?attr/colorAccent"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.75"
+                android:background="?attr/actionMenuTextColor" />
+
+            <TextView
+                android:id="@+id/crystal_structure_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="2dp"
+                android:text="Crystal Structure:"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/crystal_structure_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="8dp"
+                android:text="crystal_structure_text"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:alpha="0.25"
+                android:background="?attr/actionMenuTextColor" />
+
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

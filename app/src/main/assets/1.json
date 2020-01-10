@@ -1,0 +1,66 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Hydrogen",
+
+
+
+    "element": "Hydrogen",
+    "element_year": "1766",
+    "element_discovered_name": "Henry Cavendish",
+    "element_group": "Other Nonmetals",
+    "element_appearance": "Colorless Gas",
+    "element_electrons": "1",
+    "element_protons": "1",
+    "element_neutron_common": "0",
+
+
+
+    "element_atomic_number": "1",
+    "element_atomicmass": "1.00784u",
+    "element_density": "0.0000899 (g/cm^3)",
+    "element_electronegativty": "2.2",
+    "element_block": "s - block",
+    "element_shells_electrons": "K1 L0 M0 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Electron_shell_001_Hydrogen_-_no_label.svg/800px-Electron_shell_001_Hydrogen_-_no_label.svg.png",
+
+
+
+    "element_boiling_kelvin": "20.271 K",
+    "element_boiling_celsius": "-252.879 °C",
+    "element_boiling_fahrenheit": "-423.182 °F",
+    "element_melting_kelvin": "13.99 K",
+    "element_melting_celsius": "-259.16 °C",
+    "element_melting_fahrenheit": "-434.49 °F",
+
+
+
+    "element_electron_config": "1s^1",
+    "element_ion_charge": "H+, H-",
+    "element_ionization_energy": "13.59844 eV",
+    "element_atomic_radius": "53 pm",
+    "element_covalent_radius": "38 pm",
+    "element_van_der_waals": "120 pm",
+
+
+
+    "element_phase": "gas",
+    "element_fusion_heat": "0.0585 kJ/mol",
+    "element_specific_heat_capacity": "14.30 J/(g·K)",
+    "element_vaporization_heat": "0.904",
+
+
+
+
+
+
+
+
+
+    "element_crystal_structure": "Hexagonal",
+    "element_electrical_conductivity": "N/A",
+    "element_magnetic_type": "Diamagnetic",
+    "element_volume_magnetic_susceptibility": "-2.23*10^9",
+    "spectral_img": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Hydrogen_spectrum_visible.png/1920px-Hydrogen_spectrum_visible.png",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Hydrogen_discharge_tube.jpg/1920px-Hydrogen_discharge_tube.jpg"
+  }
+]

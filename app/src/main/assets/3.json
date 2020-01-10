@@ -1,0 +1,29 @@
+[
+  {
+    "element": "Lithium",
+    "element_appearance": "Silvery White",
+    "element_atomic_number": "3",
+    "element_shells_electrons": "K2 L1 M0 N0 O0 P0 Q0 R0",
+    "element_electrons": "3",
+    "element_protons": "3",
+    "element_neutron_common": "4",
+    "element_density": "0.534 (g/cm^3)",
+
+    "element_group": "Alkali Metals",
+    "element_atomicmass": "6.941u",
+    "element_year": "1817",
+    "element_block": "s - block",
+    "element_discovered_name": "Johan August Arfwedson",
+    "element_electronegativty": "0.98",
+    "element_boiling_kelvin": "1603 K",
+    "element_boiling_celsius": "1330 °C",
+    "element_boiling_fahrenheit": "2426 °F",
+    "element_melting_kelvin": "453.65 K",
+    "element_melting_celsius": "180.5 °C",
+    "element_melting_fahrenheit": "356.90 °F",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Electron_shell_003_Lithium_-_no_label.svg/800px-Electron_shell_003_Lithium_-_no_label.svg.png",
+    "spectral_img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Lithium_spectrum_visible.png/1920px-Lithium_spectrum_visible.png",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Limetal.JPG/800px-Limetal.JPG",
+    "wikilink": "https://en.wikipedia.org/wiki/Lithium"
+  }
+]

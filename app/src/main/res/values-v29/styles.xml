@@ -1,0 +1,31 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorPrimary">@color/colorLightPrimary</item>
+        <item name="colorPrimaryDark">@color/colorLightPrimaryDark</item>
+        <item name="colorAccent">@color/colorLightAccent</item>
+        <item name="actionMenuTextColor">@color/colorLightText</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+        <!-- Optional, but recommended for full edge-to-edge rendering -->
+        <item name="android:statusBarColor">@color/colorLightPrimary</item>
+        <item name="android:fontFamily">@font/manropefamily</item>
+    </style>
+
+    <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="colorPrimary">@color/colorDarkPrimary</item>
+        <item name="colorPrimaryDark">@color/colorDarkPrimaryDark</item>
+        <item name="colorAccent">@color/colorDarkAccent</item>
+        <item name="actionMenuTextColor">@color/colorDarkText</item>
+        <item name="android:navigationBarColor">@color/colorDarkPrimary</item>
+
+        <!-- Optional, but recommended for full edge-to-edge rendering -->
+        <item name="android:statusBarColor">@color/colorDarkPrimary</item>
+    </style>
+
+</resources>
