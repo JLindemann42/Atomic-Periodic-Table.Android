@@ -35,8 +35,6 @@ import java.io.InputStream
 
 class ElementInfoActivity : AppCompatActivity() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -75,7 +73,8 @@ class ElementInfoActivity : AppCompatActivity() {
         shell.visibility = View.GONE
         onClickShell()
         onClickClose()
-
+        onClickNext()
+        onClickPrevious()
 
 
         elementAnim(overview_inc, properties_inc)
@@ -189,6 +188,8 @@ class ElementInfoActivity : AppCompatActivity() {
             covalent_radius_text.text = covalentRadius
             van_der_waals_radius_text.text = vanDerWaalsRadius
 
+            config_data.text = elementShellElectrons
+
 
             loadImage(url)
             loadModelView(elementModelUrl)
@@ -208,12 +209,12 @@ class ElementInfoActivity : AppCompatActivity() {
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 
     private fun onClickShell() {
         electron_view.setOnClickListener {
-            showAnim(shell)
+            anim(shell)
         }
     }
 
@@ -230,6 +231,13 @@ class ElementInfoActivity : AppCompatActivity() {
             view.animate().setDuration(300)
             view.animate().alpha(1.0f)
         }
+    }
+
+    private fun anim(view: View) {
+        view.visibility = View.VISIBLE
+        view.alpha = 0.0f
+        view.animate().setDuration(300)
+        view.animate().alpha(1.0f)
     }
 
     private fun hideAnim(view: View) {
@@ -259,8 +267,10 @@ class ElementInfoActivity : AppCompatActivity() {
         Picasso.get().load(url.toString()).into(element_image)
     }
 
+
     private fun loadModelView(url: String?) {
         Picasso.get().load(url.toString()).into(model_view)
+        Picasso.get().load(url.toString()).into(card_model_view)
     }
 
     fun wikiListener(url: String?) { //Wikipedia webView
@@ -289,6 +299,33 @@ class ElementInfoActivity : AppCompatActivity() {
                     CustomTab.intent.setPackage(PACKAGE_NAME)
             }
             CustomTab.launchUrl(this, CustomTab.intent.data)
+        }
+    }
+
+    private fun onClickPrevious() {
+        previous_btn.setOnClickListener {
+
+            val elementSendAndLoadPreference = ElementSendAndLoad(this)
+            val elementSendAndLoadValue: Int? = elementSendAndLoadPreference.getValue()
+
+            if (elementSendAndLoadValue!! > 1) {
+                elementSendAndLoadPreference.setValue(elementSendAndLoadValue!! - 1)
+                readJson()
+            }
+
+        }
+    }
+
+    private fun onClickNext() {
+        next_btn.setOnClickListener {
+
+            val elementSendAndLoadPreference = ElementSendAndLoad(this)
+            val elementSendAndLoadValue: Int? = elementSendAndLoadPreference.getValue()
+
+            if (elementSendAndLoadValue!! < 118) {
+                elementSendAndLoadPreference.setValue(elementSendAndLoadValue!! + 1)
+                readJson()
+            }
         }
     }
 }

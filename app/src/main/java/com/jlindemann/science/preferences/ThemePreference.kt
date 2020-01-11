@@ -10,7 +10,7 @@ class ThemePreference(context : Context) {
     val preference = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
     fun getValue() : Int{
-        return preference.getInt (PREFERENCE_VALUE, 2)
+        return preference.getInt (PREFERENCE_VALUE, 100)
     }
 
     fun setValue(count:Int) {

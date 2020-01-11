@@ -1,43 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alpha="0.5"
-    android:background="?attr/colorPrimaryDark"
+    android:clickable="true"
     android:elevation="100dp"
-    android:orientation="vertical">
+    android:focusable="true"
+    android:orientation="vertical"
+    app:cardBackgroundColor="#54818181"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="100dp">
 
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="18dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <com.github.mmin18.widget.RealtimeBlurView
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            app:realtimeBlurRadius="12dp"
+            app:realtimeOverlayColor="#A8000000" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/close_shell_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|center_vertical"
-                android:src="@drawable/ic_arrow_back_white"
-                app:backgroundTint="?attr/colorPrimary"
-                app:fabSize="mini" />
-
-        </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/close_shell_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|top"
+            android:layout_margin="18dp"
+            android:src="@drawable/ic_arrow_back_white"
+            app:backgroundTint="?attr/colorPrimary"
+            app:fabSize="mini" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/card_model_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="240dp"
             app:srcCompat="@drawable/ic_launcher_background" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/config_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="258dp"
+            android:gravity="center_horizontal"
+            android:text="Electron Shell Configuration"
+            android:textColor="#FEFEFE"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/config_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="284dp"
+            android:alpha="0.8"
+            android:gravity="center_horizontal"
+            android:text="Electron Shell Configuration"
+            android:textColor="#FEFEFE"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+</androidx.cardview.widget.CardView>

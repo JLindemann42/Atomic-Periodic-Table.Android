@@ -20,6 +20,7 @@ object Utils {
 
     fun fadeInAnim(view: View, time: Long) {
 
+        view.visibility = View.VISIBLE
         view.alpha = 0.0f
         view.animate().setDuration(time)
         view.animate().alpha(1.0f)

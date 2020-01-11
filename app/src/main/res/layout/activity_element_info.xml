@@ -8,18 +8,6 @@
     android:fitsSystemWindows="true"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/shell"
-        layout="@layout/shell_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="100dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:id="@+id/commom_title_back"
         android:layout_width="match_parent"
@@ -40,7 +28,7 @@
                 android:id="@+id/status_place"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical"/>
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -83,7 +71,7 @@
                     android:text="Periodic Table"
                     android:textAlignment="center"
                     android:textColor="?attr/actionMenuTextColor"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
             </FrameLayout>
 
@@ -102,14 +90,48 @@
             android:background="?attr/colorPrimaryDark"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/element_image"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:layout_marginTop="80dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background" />
+                android:layout_marginTop="80dp">
+
+                <ImageView
+                    android:id="@+id/element_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/previous_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_margin="18dp"
+                    android:clickable="true"
+                    android:elevation="6dp"
+                    android:tint="?attr/colorAccent"
+                    app:backgroundTint="?attr/colorPrimary"
+                    app:elevation="6dp"
+                    app:fabSize="mini"
+                    app:srcCompat="@drawable/ic_arrow_back_white" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/next_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_margin="18dp"
+                    android:clickable="true"
+                    android:elevation="6dp"
+                    android:rotation="180"
+                    android:tint="?attr/colorAccent"
+                    app:backgroundTint="?attr/colorPrimary"
+                    app:elevation="6dp"
+                    app:fabSize="mini"
+                    app:srcCompat="@drawable/ic_arrow_back_white" />
+            </FrameLayout>
 
             <include
                 android:id="@+id/overview_inc"
@@ -142,5 +164,21 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <include
+        android:id="@+id/shell"
+        layout="@layout/shell_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="130dp"
+        android:elevation="112dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">science</string>
+
+
+
+    <string name="personalization_settings">Personalization</string>
 </resources>
