@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Nitrogen",
+    "link": "https://4.imimg.com/data4/DL/IG/MY-3137311/liquid-nitrogen-gas-500x500.jpg",
+
+    "element": "Nitrogen",
+    "element_year": "1772",
+    "element_discovered_name": "Daniel Rutherford",
+    "element_group": "Reactive Nonmetal",
+    "element_appearance": "Colorless gas, solid or liquid",
+    "element_electrons": "7",
+    "element_protons": "7",
+    "element_neutron_common": "7",
+
+    "element_atomic_number": "7",
+    "element_atomicmass": "14.007 (u)",
+    "element_density": "0.001251 (g/cm^3)",
+    "element_electronegativty": "3.04",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L5 M0 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Electron_shell_007_Nitrogen_%28diatomic_nonmetal%29_-_no_label.svg/1280px-Electron_shell_007_Nitrogen_%28diatomic_nonmetal%29_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "77.355 (K)",
+    "element_boiling_celsius": "−195.795 (°C)",
+    "element_boiling_fahrenheit": "−320.431 (°F)",
+    "element_melting_kelvin": "63.15 (K)",
+    "element_melting_celsius": "−210.00 (°C)",
+    "element_melting_fahrenheit": "−346.00 (°F)",
+
+    "element_electron_config": "2s^2 2p^3",
+    "element_ion_charge": "N^3-",
+    "element_ionization_energy": "14.53414 (eV)",
+    "element_atomic_radius": "56 (pm)",
+    "element_covalent_radius": "75 (pm)",
+    "element_van_der_waals": "155 (pm)",
+
+    "element_phase": "Gas",
+    "element_fusion_heat": "0.71 (N2) (kJ/mol)",
+    "element_specific_heat_capacity": "1.040 (N2) J/(g·K)",
+    "element_vaporization_heat": "5.57 (N2) (kJ/mol)"
+  }
+]

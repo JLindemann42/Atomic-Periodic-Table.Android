@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Beryllium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Be-140g.jpg",
+
+    "element": "Beryllium",
+    "element_year": "1798",
+    "element_discovered_name": "Louis Nicolas Vauquelin",
+    "element_group": "Alkaline earth metal",
+    "element_appearance": "White Gray Metallic",
+    "element_electrons": "4",
+    "element_protons": "4",
+    "element_neutron_common": "5",
+
+    "element_atomic_number": "4",
+    "element_atomicmass": "9.01218 (u)",
+    "element_density": "1.85 (g/cm^3)",
+    "element_electronegativty": "1.57",
+    "element_block": "s - block",
+    "element_shells_electrons": "K2 L2 M0 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Electron_shell_004_Beryllium_-_no_label.svg/1280px-Electron_shell_004_Beryllium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2742 (K)",
+    "element_boiling_celsius": "2469 (°C)",
+    "element_boiling_fahrenheit": "4476 (°F)",
+    "element_melting_kelvin": "1560 (K)",
+    "element_melting_celsius": "1287 (°C)",
+    "element_melting_fahrenheit": "2349 (°F)",
+
+    "element_electron_config": "2s^2",
+    "element_ion_charge": "Be^2+",
+    "element_ionization_energy": "9.3227 (eV)",
+    "element_atomic_radius": "112 (pm)",
+    "element_covalent_radius": "90 (pm)",
+    "element_van_der_waals": "153 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "7.95 (kJ/mol)",
+    "element_specific_heat_capacity": "1.825 J/(g·K)",
+    "element_vaporization_heat": "297 (kJ/mol)"
+  }
+]

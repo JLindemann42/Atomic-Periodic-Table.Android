@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.activity_element_info.*
 import kotlinx.android.synthetic.main.atomic_view.*
 import kotlinx.android.synthetic.main.overview_view.*
 import kotlinx.android.synthetic.main.overview_view.element_name
-import kotlinx.android.synthetic.main.gridparameters.*
 import kotlinx.android.synthetic.main.otherphysics.*
 import kotlinx.android.synthetic.main.properties_view.*
 import kotlinx.android.synthetic.main.shell_view.*
@@ -105,7 +104,6 @@ class ElementInfoActivity : AppCompatActivity() {
         var jsonstring : String? = null
 
         try {
-
             //Setup json reader
             val ElementSendAndLoadPreference = ElementSendAndLoad(this)
             val ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
@@ -145,7 +143,10 @@ class ElementInfoActivity : AppCompatActivity() {
             val elementAppearance = jsonObject.optString("element_appearance", "---")
             val elementBlock = jsonObject.optString("element_block", "---")
             val elementCrystalStructure = jsonObject.optString("element_crystal_structure", "---")
+            val fusionHeat = jsonObject.optString("element_fusion_heat", "---")
             val specificHeatCapacity = jsonObject.optString("element_specific_heat_capacity", "---")
+            val vaporizationHeat = jsonObject.optString("element_vaporization_heat", "---")
+            val phaseText = jsonObject.optString("element_phase", "---")
 
             //atomic view
             val electronConfig = jsonObject.optString("element_electron_config", "---")
@@ -154,8 +155,6 @@ class ElementInfoActivity : AppCompatActivity() {
             val atomicRadius = jsonObject.optString("element_atomic_radius", "---")
             val covalentRadius = jsonObject.optString("element_covalent_radius", "---")
             val vanDerWaalsRadius = jsonObject.optString("element_van_der_waals", "---")
-
-
 
             //set elements
             element_name.text = element
@@ -179,7 +178,11 @@ class ElementInfoActivity : AppCompatActivity() {
             element_density.text = elementDensity
             element_block.text = elementBlock
             element_appearance.text = elementAppearance
+
+            phase_text.text = phaseText
+            fusion_heat_text.text = fusionHeat
             specific_heat_text.text = specificHeatCapacity
+            vaporization_heat_text.text = vaporizationHeat
 
             electron_config_text.text = electronConfig
             ion_charge_text.text = ionCharge
@@ -190,15 +193,22 @@ class ElementInfoActivity : AppCompatActivity() {
 
             config_data.text = elementShellElectrons
 
-
+            if (phaseText.toString() == "Solid") {
+                phase_icon.setImageDrawable(getDrawable(R.drawable.solid))
+            }
+            if (phaseText.toString() == "Gas") {
+                phase_icon.setImageDrawable(getDrawable(R.drawable.gas))
+            }
+            if (phaseText.toString() == "Liquid") {
+                phase_icon.setImageDrawable(getDrawable(R.drawable.liquid))
+            }
             loadImage(url)
             loadModelView(elementModelUrl)
             wikiListener(wikipedia)
-
         }
+
         catch (e: IOException) {
             element_title.text = "Not able to load json"
-
             val stringText = "Couldn't load element:"
             val ElementSendAndLoadPreference = ElementSendAndLoad(this)
             val ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
@@ -221,15 +231,6 @@ class ElementInfoActivity : AppCompatActivity() {
     private fun onClickClose() {
         close_shell_btn.setOnClickListener {
             hideAnim(shell)
-        }
-    }
-
-    private fun showAnim(view: View) {
-        model_view.setOnClickListener {
-            view.visibility = View.VISIBLE
-            view.alpha = 0.0f
-            view.animate().setDuration(300)
-            view.animate().alpha(1.0f)
         }
     }
 
@@ -271,12 +272,14 @@ class ElementInfoActivity : AppCompatActivity() {
     private fun loadModelView(url: String?) {
         Picasso.get().load(url.toString()).into(model_view)
         Picasso.get().load(url.toString()).into(card_model_view)
+
     }
+
+
 
     fun wikiListener(url: String?) { //Wikipedia webView
         wikipedia_btn.setOnClickListener {
             val PACKAGE_NAME = "com.android.chrome"
-
 
             val customTabBuilder = CustomTabsIntent.Builder()
 
@@ -284,7 +287,6 @@ class ElementInfoActivity : AppCompatActivity() {
             customTabBuilder.setToolbarColor(ContextCompat.getColor(this@ElementInfoActivity,R.color.colorLightPrimary))
             customTabBuilder.setSecondaryToolbarColor(ContextCompat.getColor(this@ElementInfoActivity,R.color.colorLightPrimary))
             customTabBuilder.setShowTitle(true)
-
 
             val CustomTab = customTabBuilder.build()
             val intent = CustomTab.intent

@@ -16,7 +16,7 @@
 
 
     "element_atomic_number": "1",
-    "element_atomicmass": "1.00784u",
+    "element_atomicmass": "1.00784 (u)",
     "element_density": "0.0000899 (g/cm^3)",
     "element_electronegativty": "2.2",
     "element_block": "s - block",
@@ -25,28 +25,28 @@
 
 
 
-    "element_boiling_kelvin": "20.271 K",
-    "element_boiling_celsius": "-252.879 °C",
-    "element_boiling_fahrenheit": "-423.182 °F",
-    "element_melting_kelvin": "13.99 K",
-    "element_melting_celsius": "-259.16 °C",
-    "element_melting_fahrenheit": "-434.49 °F",
+    "element_boiling_kelvin": "20.271 (K)",
+    "element_boiling_celsius": "-252.879 (°C)",
+    "element_boiling_fahrenheit": "-423.182 (°F)",
+    "element_melting_kelvin": "13.99 (K)",
+    "element_melting_celsius": "-259.16 (°C)",
+    "element_melting_fahrenheit": "-434.49 (°F)",
 
 
 
     "element_electron_config": "1s^1",
-    "element_ion_charge": "H+, H-",
-    "element_ionization_energy": "13.59844 eV",
-    "element_atomic_radius": "53 pm",
-    "element_covalent_radius": "38 pm",
-    "element_van_der_waals": "120 pm",
+    "element_ion_charge": "H^+, H^-",
+    "element_ionization_energy": "13.59844 (eV)",
+    "element_atomic_radius": "53 (pm)",
+    "element_covalent_radius": "38 (pm)",
+    "element_van_der_waals": "120 (pm)",
 
 
 
-    "element_phase": "gas",
-    "element_fusion_heat": "0.0585 kJ/mol",
-    "element_specific_heat_capacity": "14.30 J/(g·K)",
-    "element_vaporization_heat": "0.904",
+    "element_phase": "Gas",
+    "element_fusion_heat": "0.12 (H2) (kJ/mol)",
+    "element_specific_heat_capacity": "14.304 J/(g·K)",
+    "element_vaporization_heat": "0.90 (H2) (kJ/mol)",
 
 
 

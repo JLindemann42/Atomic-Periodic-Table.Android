@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Oxygen",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Liquid_oxygen_in_a_beaker_4.jpg",
+
+    "element": "Oxygen",
+    "element_year": "1771",
+    "element_discovered_name": "Carl Wilhelm Scheele",
+    "element_group": "Reactive Nonmetal",
+    "element_appearance": "Gas: Colorless, solid or liquid: pale blue",
+    "element_electrons": "8",
+    "element_protons": "8",
+    "element_neutron_common": "8",
+
+    "element_atomic_number": "8",
+    "element_atomicmass": "15.999 (u)",
+    "element_density": "0.001429 (g/cm^3)",
+    "element_electronegativty": "3.44",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L6 M0 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Electron_shell_008_Oxygen_%28diatomic_nonmetal%29_-_no_label.svg/1280px-Electron_shell_008_Oxygen_%28diatomic_nonmetal%29_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "90.188 (K)",
+    "element_boiling_celsius": "−182.962 (°C)",
+    "element_boiling_fahrenheit": "−297.332 (°F)",
+    "element_melting_kelvin": "54.36 (K)",
+    "element_melting_celsius": "−218.79 (°C)",
+    "element_melting_fahrenheit": "−361.82 (°F)",
+
+    "element_electron_config": "2s^2 2p^4",
+    "element_ion_charge": "O^2-",
+    "element_ionization_energy": "13.61806 (eV)",
+    "element_atomic_radius": "48 (pm)",
+    "element_covalent_radius": "73 (pm)",
+    "element_van_der_waals": "152 (pm)",
+
+    "element_phase": "Gas",
+    "element_fusion_heat": "0.44 (O2) (kJ/mol)",
+    "element_specific_heat_capacity": "0.918 (O2) J/(g·K)",
+    "element_vaporization_heat": "6.82 (O2) (kJ/mol)"
+  }
+]

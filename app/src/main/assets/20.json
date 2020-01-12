@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Calcium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/9/96/Calcium_unter_Argon_Schutzgasatmosph%C3%A4re.jpg",
+
+    "element": "Calcium",
+    "element_year": "1808",
+    "element_discovered_name": "Humphry Davy",
+    "element_group": "Alkaline Earth Metals",
+    "element_appearance": "Dull Gray, Silver, with a pale yellow tint",
+    "element_electrons": "20",
+    "element_protons": "20",
+    "element_neutron_common": "20",
+
+    "element_atomic_number": "20",
+    "element_atomicmass": "40.078 (u)",
+    "element_density": "1.54 (g/cm^3)",
+    "element_electronegativty": "1.00",
+    "element_block": "s - block",
+    "element_shells_electrons": "K2 L8 M8 N2 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Electron_shell_020_Calcium_-_no_label.svg/1280px-Electron_shell_020_Calcium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1757 (K)",
+    "element_boiling_celsius": "1484 (°C)",
+    "element_boiling_fahrenheit": "2703 (°F)",
+    "element_melting_kelvin": "1115 (K)",
+    "element_melting_celsius": "842 (°C)",
+    "element_melting_fahrenheit": "1548 (°F)",
+
+    "element_electron_config": "4s^2",
+    "element_ion_charge": "Ca^2+",
+    "element_ionization_energy": "6.11316 (eV)",
+    "element_atomic_radius": "194 (pm)",
+    "element_covalent_radius": "174 (pm)",
+    "element_van_der_waals": "231 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "8.54 (kJ/mol)",
+    "element_specific_heat_capacity": "0.647 J/(g·K)",
+    "element_vaporization_heat": "154.7 (kJ/mol)"
+  }
+]

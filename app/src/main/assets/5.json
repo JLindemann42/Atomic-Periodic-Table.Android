@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Boron",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/1/19/Boron_R105.jpg",
+
+    "element": "Boron",
+    "element_year": "1808",
+    "element_discovered_name": "Joseph Louis Gay-Lussac",
+    "element_group": "Metalloids",
+    "element_appearance": "Black Brown",
+    "element_electrons": "5",
+    "element_protons": "5",
+    "element_neutron_common": "6",
+
+    "element_atomic_number": "5",
+    "element_atomicmass": "10.81 (u)",
+    "element_density": "2.08 (g/cm^3)",
+    "element_electronegativty": "2.04",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L3 M0 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Electron_shell_005_Boron_-_no_label.svg/1280px-Electron_shell_005_Boron_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "4200 (K)",
+    "element_boiling_celsius": "3927 (°C)",
+    "element_boiling_fahrenheit": "7101 (°F)",
+    "element_melting_kelvin": "2349 (K)",
+    "element_melting_celsius": "2076 (°C)",
+    "element_melting_fahrenheit": "3769 (°F)",
+
+    "element_electron_config": "2s^2 2p^1",
+    "element_ion_charge": "---",
+    "element_ionization_energy": "8.29803 (eV)",
+    "element_atomic_radius": "87 (pm)",
+    "element_covalent_radius": "82 (pm)",
+    "element_van_der_waals": "192 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "50.2 (kJ/mol)",
+    "element_specific_heat_capacity": "1.825 J/(g·K)",
+    "element_vaporization_heat": "480 (kJ/mol)"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Potassium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Potassium-2.jpg",
+
+    "element": "Potassium",
+    "element_year": "1807",
+    "element_discovered_name": "Humphry Davy",
+    "element_group": "Alkali Metals",
+    "element_appearance": "Silvery Gray",
+    "element_electrons": "19",
+    "element_protons": "19",
+    "element_neutron_common": "20",
+
+    "element_atomic_number": "19",
+    "element_atomicmass": "39.0983 (u)",
+    "element_density": "0.89 (g/cm^3)",
+    "element_electronegativty": "0.82",
+    "element_block": "s - block",
+    "element_shells_electrons": "K2 L8 M8 N1 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Electron_shell_019_Potassium_-_no_label.svg/1280px-Electron_shell_019_Potassium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1032 (K)",
+    "element_boiling_celsius": "759 (°C)",
+    "element_boiling_fahrenheit": "1398 (°F)",
+    "element_melting_kelvin": "336.7 (K)",
+    "element_melting_celsius": "63.5 (°C)",
+    "element_melting_fahrenheit": "146.3 (°F)",
+
+    "element_electron_config": "4s^1",
+    "element_ion_charge": "K^+",
+    "element_ionization_energy": "4.34066 (eV)",
+    "element_atomic_radius": "243 (pm)",
+    "element_covalent_radius": "196 (pm)",
+    "element_van_der_waals": "275 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "2.33 (kJ/mol)",
+    "element_specific_heat_capacity": "0.757 J/(g·K)",
+    "element_vaporization_heat": "76.90 (kJ/mol)"
+  }
+]

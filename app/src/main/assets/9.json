@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Fluorine",
+    "link": "https://www.thoughtco.com/thmb/rt0-YEcTOFfKmttM805rtJvfdsw=/600x600/filters:fill(auto,1)/fluorinesimulant-56a12c323df78cf772681c61.jpg",
+
+    "element": "Fluorine",
+    "element_year": "1810",
+    "element_discovered_name": "André-Marie Ampère ",
+    "element_group": "Reactive Nonmetal",
+    "element_appearance": "Yellow",
+    "element_electrons": "9",
+    "element_protons": "9",
+    "element_neutron_common": "10",
+
+    "element_atomic_number": "9",
+    "element_atomicmass": "18.9984 (u)",
+    "element_density": "0.001696 (g/cm^3)",
+    "element_electronegativty": "3.98",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L7 M0 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Electron_shell_009_Fluorine_%28diatomic_nonmetal%29_-_no_label.svg/1280px-Electron_shell_009_Fluorine_%28diatomic_nonmetal%29_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "85.03 (K)",
+    "element_boiling_celsius": "−188.11 (°C)",
+    "element_boiling_fahrenheit": "−306.60 (°F)",
+    "element_melting_kelvin": "53.48 (K)",
+    "element_melting_celsius": "−219.67 (°C)",
+    "element_melting_fahrenheit": "−363.41 (°F)",
+
+    "element_electron_config": "2s^2 2p^5",
+    "element_ion_charge": "F^-",
+    "element_ionization_energy": "17.42282 (eV)",
+    "element_atomic_radius": "42 (pm)",
+    "element_covalent_radius": "71 (pm)",
+    "element_van_der_waals": "147 (pm)",
+
+    "element_phase": "Gas",
+    "element_fusion_heat": "0.51 (F2) (kJ/mol)",
+    "element_specific_heat_capacity": "0.824 (F2) J/(g·K)",
+    "element_vaporization_heat": "6.62 (F2) (kJ/mol)"
+  }
+]

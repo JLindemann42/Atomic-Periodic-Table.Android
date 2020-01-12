@@ -40,30 +40,61 @@
             android:alpha="0.75"
             android:background="?attr/actionMenuTextColor" />
 
-        <TextView
-            android:id="@+id/phase_title"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="2dp"
-            android:text="Phase (STP):"
-            android:textColor="?attr/actionMenuTextColor"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/phase_text"
+            <ImageView
+                android:id="@+id/phase_icon"
+                android:layout_width="64dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_weight="0"
+                android:background="?attr/colorPrimary"
+                android:backgroundTint="?attr/colorPrimary"
+                android:padding="18dp"
+                android:tint="?attr/actionMenuTextColor"
+                app:srcCompat="@drawable/solid" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="64dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/phase_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginBottom="2dp"
+                    android:text="Phase (STP):"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/phase_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="phase_text"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="8dp"
-            android:text="phase_text"
-            android:textColor="?attr/actionMenuTextColor"
-            android:textSize="14sp" />
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView6"
@@ -82,7 +113,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
-            android:text="Fusion heat (per mol atoms):"
+            android:text="Fusion heat:"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp"
             android:textStyle="bold" />

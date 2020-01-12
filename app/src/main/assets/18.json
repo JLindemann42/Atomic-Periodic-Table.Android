@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Argon",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Argon_discharge_tube.jpg/1920px-Argon_discharge_tube.jpg",
+
+    "element": "Argon",
+    "element_year": "1894",
+    "element_discovered_name": "William Ramsay",
+    "element_group": "Noblegases",
+    "element_appearance": "Colorless Gas",
+    "element_electrons": "18",
+    "element_protons": "18",
+    "element_neutron_common": "22",
+
+    "element_atomic_number": "18",
+    "element_atomicmass": "39.95 (u)",
+    "element_density": "0.001784 (g/cm^3)",
+    "element_electronegativty": "---",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 M8 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Electron_shell_018_Argon_-_no_label.svg/1280px-Electron_shell_018_Argon_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "87.302 (K)",
+    "element_boiling_celsius": "−185.848 (°C)",
+    "element_boiling_fahrenheit": "−302.526 (°F)",
+    "element_melting_kelvin": "83.81 (K)",
+    "element_melting_celsius": "−189.34 (°C)",
+    "element_melting_fahrenheit": "−308.81 (°F)",
+
+    "element_electron_config": "3s^2 3p^6",
+    "element_ion_charge": "---",
+    "element_ionization_energy": "15.75962 (eV)",
+    "element_atomic_radius": "71 (pm)",
+    "element_covalent_radius": "97 (pm)",
+    "element_van_der_waals": "188 (pm)",
+
+    "element_phase": "Gas",
+    "element_fusion_heat": "1.18 (kJ/mol)",
+    "element_specific_heat_capacity": "0.520 J/(g·K)",
+    "element_vaporization_heat": "6.43 (kJ/mol)"
+  }
+]

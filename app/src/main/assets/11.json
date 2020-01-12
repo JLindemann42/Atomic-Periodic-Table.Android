@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Sodium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Na_%28Sodium%29.jpg/1920px-Na_%28Sodium%29.jpg",
+
+    "element": "Sodium",
+    "element_year": "1807",
+    "element_discovered_name": "Humphry Davy",
+    "element_group": "Alkali Metals",
+    "element_appearance": "Silvery White Metall",
+    "element_electrons": "11",
+    "element_protons": "11",
+    "element_neutron_common": "12",
+
+    "element_atomic_number": "11",
+    "element_atomicmass": "22.9898 (u)",
+    "element_density": "0.97 (g/cm^3)",
+    "element_electronegativty": "0.93",
+    "element_block": "s - block",
+    "element_shells_electrons": "K2 L8 M1 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Electron_shell_011_Sodium_-_no_label.svg/1280px-Electron_shell_011_Sodium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1156.090 (K)",
+    "element_boiling_celsius": "882.940 (°C)",
+    "element_boiling_fahrenheit": "1621.292 (°F)",
+    "element_melting_kelvin": "370.944 (K)",
+    "element_melting_celsius": "97.794 (°C)",
+    "element_melting_fahrenheit": "208.029 (°F)",
+
+    "element_electron_config": "3s^1",
+    "element_ion_charge": "Na^+",
+    "element_ionization_energy": "5.13908 (eV)",
+    "element_atomic_radius": "190 (pm)",
+    "element_covalent_radius": "154 (pm)",
+    "element_van_der_waals": "227 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "2.60 (kJ/mol)",
+    "element_specific_heat_capacity": "1.228 J/(g·K)",
+    "element_vaporization_heat": "97.42 (kJ/mol)"
+  }
+]

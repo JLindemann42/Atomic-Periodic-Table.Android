@@ -1,15 +1,19 @@
 package com.jlindemann.science.utils
 
-import android.content.Intent
-import android.graphics.Color
+import android.R
+import android.content.Context
 import android.os.Handler
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import com.jlindemann.science.activities.ElementInfoActivity
-import com.jlindemann.science.preferences.ElementSendAndLoad
+import android.widget.ImageView
+import okhttp3.*
+import java.io.IOException
+import java.io.InputStream
+
 
 object Utils {
+
 
     fun gestureSetup(window: Window) {
         window.setFlags(
@@ -36,6 +40,7 @@ object Utils {
         }, time+1)
 
     }
+
 
 
 }

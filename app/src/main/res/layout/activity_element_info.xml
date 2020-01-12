@@ -113,7 +113,6 @@
                     android:elevation="6dp"
                     android:tint="?attr/colorAccent"
                     app:backgroundTint="?attr/colorPrimary"
-                    app:elevation="6dp"
                     app:fabSize="mini"
                     app:srcCompat="@drawable/ic_arrow_back_white" />
 
@@ -121,16 +120,14 @@
                     android:id="@+id/next_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
+                    android:layout_gravity="end|center_vertical"
                     android:layout_margin="18dp"
                     android:clickable="true"
                     android:elevation="6dp"
-                    android:rotation="180"
                     android:tint="?attr/colorAccent"
                     app:backgroundTint="?attr/colorPrimary"
-                    app:elevation="6dp"
                     app:fabSize="mini"
-                    app:srcCompat="@drawable/ic_arrow_back_white" />
+                    app:srcCompat="@drawable/ic_arrow_back_white180" />
             </FrameLayout>
 
             <include

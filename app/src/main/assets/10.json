@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Neon",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Neon_discharge_tube.jpg/1920px-Neon_discharge_tube.jpg",
+
+    "element": "Neon",
+    "element_year": "1898",
+    "element_discovered_name": "William Ramsay",
+    "element_group": "Noble Gases",
+    "element_appearance": "Colorless Gas",
+    "element_electrons": "10",
+    "element_protons": "10",
+    "element_neutron_common": "10",
+
+    "element_atomic_number": "10",
+    "element_atomicmass": "20.1797 (u)",
+    "element_density": "0.0009002 (g/cm^3)",
+    "element_electronegativty": "---",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 M0 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Electron_shell_010_Neon_-_no_label.svg/1280px-Electron_shell_010_Neon_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "27.104 (K)",
+    "element_boiling_celsius": "−246.046 (°C)",
+    "element_boiling_fahrenheit": "−410.883 (°F)",
+    "element_melting_kelvin": "24.56 (K)",
+    "element_melting_celsius": "−248.59 (°C)",
+    "element_melting_fahrenheit": "−415.46 (°F)",
+
+    "element_electron_config": "2s^2 2p^6",
+    "element_ion_charge": "---",
+    "element_ionization_energy": "21.5646 (eV)",
+    "element_atomic_radius": "38 (pm)",
+    "element_covalent_radius": "69 (pm)",
+    "element_van_der_waals": "154 (pm)",
+
+    "element_phase": "Gas",
+    "element_fusion_heat": "0.328 (kJ/mol)",
+    "element_specific_heat_capacity": "1.030 J/(g·K)",
+    "element_vaporization_heat": "1.71 (kJ/mol)"
+  }
+]
