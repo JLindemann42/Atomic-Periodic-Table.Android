@@ -209,6 +209,13 @@
                             android:textSize="12sp" />
                     </LinearLayout>
 
+                    <Switch
+                        android:id="@+id/reduced_internet_switch"
+                        android:layout_width="64dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="18dp"
+                        android:gravity="center" />
+
                 </LinearLayout>
 
                 <View

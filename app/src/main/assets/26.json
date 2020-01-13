@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Iron",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Iron_electrolytic_and_1cm3_cube.jpg/1280px-Iron_electrolytic_and_1cm3_cube.jpg ",
+
+    "element": "Iron",
+    "element_year": "Deep Antique",
+    "element_discovered_name": "---",
+    "element_group": "Transition Metals",
+    "element_appearance": "Lostrus Metallic",
+    "element_electrons": "26",
+    "element_protons": "26",
+    "element_neutron_common": "30",
+
+    "element_atomic_number": "26",
+    "element_atomicmass": "55.845 (u)",
+    "element_density": "7.87 (g/cm^3)",
+    "element_electronegativty": "1.83",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M14 N2 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Electron_shell_026_Iron_-_no_label.svg/800px-Electron_shell_026_Iron_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "3134 (K)",
+    "element_boiling_celsius": "2862 (°C)",
+    "element_boiling_fahrenheit": "5182 (°F)",
+    "element_melting_kelvin": "1811 (K)",
+    "element_melting_celsius": "1538 (°C)",
+    "element_melting_fahrenheit": "2800 (°F)",
+
+    "element_electron_config": "3d^6 4s^2",
+    "element_ion_charge": "Fe^2+, Fe^3+",
+    "element_ionization_energy": "7.9024 (eV)",
+    "element_atomic_radius": "156 (pm)",
+    "element_covalent_radius": "125 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "13.81 (kJ/mol)",
+    "element_specific_heat_capacity": "0.449 J/(g·K)",
+    "element_vaporization_heat": "340 (kJ/mol)"
+  }
+]
