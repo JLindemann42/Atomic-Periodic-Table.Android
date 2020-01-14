@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Arsenic",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Arsen_1a.jpg",
+
+    "element": "Arsenic",
+    "element_year": "---",
+    "element_discovered_name": "---",
+    "element_group": "Metalloids",
+    "element_appearance": "Grayish White",
+    "element_electrons": "33",
+    "element_protons": "33",
+    "element_neutron_common": "42",
+
+    "element_atomic_number": "33",
+    "element_atomicmass": "74.9216 (u)",
+    "element_density": "5.75 (g/cm^3)",
+    "element_electronegativty": "2.18",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 18 N5 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Electron_shell_033_Arsenic_-_no_label.svg/1280px-Electron_shell_033_Arsenic_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "--- (K)",
+    "element_boiling_celsius": "--- (°C)",
+    "element_boiling_fahrenheit": "--- (°F)",
+    "element_melting_kelvin": "---  (K)",
+    "element_melting_celsius": "--- (°C)",
+    "element_melting_fahrenheit": "--- (°F)",
+
+    "element_electron_config": "3d^10 4s^2 4p^3",
+    "element_ion_charge": "As^3-",
+    "element_ionization_energy": "9.7886 (eV)",
+    "element_atomic_radius": "114 (pm)",
+    "element_covalent_radius": "119 (pm)",
+    "element_van_der_waals": "185",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "24.44 (kJ/mol)",
+    "element_specific_heat_capacity": "0.329 J/(g·K)",
+    "element_vaporization_heat": "32.4 (kJ/mol)"
+  }
+]
