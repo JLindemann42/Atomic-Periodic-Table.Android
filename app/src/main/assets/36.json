@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Krypton",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Krypton_discharge_tube.jpg/1920px-Krypton_discharge_tube.jpg",
+
+    "element": "Krypton",
+    "element_year": "1898",
+    "element_discovered_name": "William Ramsay",
+    "element_group": "Noble Gases",
+    "element_appearance": "Colorless Gas",
+    "element_electrons": "36",
+    "element_protons": "36",
+    "element_neutron_common": "48",
+
+    "element_atomic_number": "36",
+    "element_atomicmass": "83.798 (u)",
+    "element_density": "0.0003749 (g/cm^3)",
+    "element_electronegativty": "3.00",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 18 N8 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Electron_shell_036_Krypton_-_no_label.svg/1280px-Electron_shell_036_Krypton_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "119.93 (K)",
+    "element_boiling_celsius": "-153.415 (°C)",
+    "element_boiling_fahrenheit": "−244.147 (°F)",
+    "element_melting_kelvin": "115.78 (K)",
+    "element_melting_celsius": "−157.37 (°C)",
+    "element_melting_fahrenheit": "−157.37 (°F)",
+
+    "element_electron_config": "3d^10 4s^2 4p^6",
+    "element_ion_charge": "---",
+    "element_ionization_energy": "13.99961 (eV)",
+    "element_atomic_radius": "88 (pm)",
+    "element_covalent_radius": "110 (pm)",
+    "element_van_der_waals": "202 (pm)",
+
+    "element_phase": "Gas",
+    "element_fusion_heat": "1.64 (kJ/mol)",
+    "element_specific_heat_capacity": "0.248 J/(g·K)",
+    "element_vaporization_heat": "9.08 (kJ/mol)"
+  }
+]

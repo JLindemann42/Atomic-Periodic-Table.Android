@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Zirconium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Zirconium_crystal_bar_and_1cm3_cube.jpg/1920px-Zirconium_crystal_bar_and_1cm3_cube.jpg",
+
+    "element": "Zirconium",
+    "element_year": "1789",
+    "element_discovered_name": "Martin Heinrich Klaproth",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery White",
+    "element_electrons": "40",
+    "element_protons": "40",
+    "element_neutron_common": "50",
+
+    "element_atomic_number": "40",
+    "element_atomicmass": "91.224 (u)",
+    "element_density": "6.52 (g/cm^3)",
+    "element_electronegativty": "1.33",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 18 N10 O2 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Electron_shell_040_Zirconium_-_no_label.svg/1280px-Electron_shell_040_Zirconium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "4650 (K)",
+    "element_boiling_celsius": "4377 (°C)",
+    "element_boiling_fahrenheit": "7911 (°F)",
+    "element_melting_kelvin": "2128 (K)",
+    "element_melting_celsius": "1855 (°C)",
+    "element_melting_fahrenheit": "3371 (°F)",
+
+    "element_electron_config": "4d^2 5s^2",
+    "element_ion_charge": "Zr^4+",
+    "element_ionization_energy": "6.63390 (eV)",
+    "element_atomic_radius": "206 (pm)",
+    "element_covalent_radius": "148 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "21.00 (kJ/mol)",
+    "element_specific_heat_capacity": "0.278 J/(g·K)",
+    "element_vaporization_heat": "580 (kJ/mol)"
+  }
+]

@@ -32,7 +32,7 @@
     "element_ionization_energy": "5.99930 (eV)",
     "element_atomic_radius": "136 (pm)",
     "element_covalent_radius": "126 (pm)",
-    "element_van_der_waals": "187",
+    "element_van_der_waals": "187 (pm)",
 
     "element_phase": "Solid",
     "element_fusion_heat": "5.576 (kJ/mol)",
