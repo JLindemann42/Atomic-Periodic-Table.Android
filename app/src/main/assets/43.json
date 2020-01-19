@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Technetium",
+    "link": "http://www.galleries.com/minerals/silicate/gadolini/gadolini.jpg",
+
+    "element": "Technetium",
+    "element_year": "1937",
+    "element_discovered_name": "Emilio Segrè",
+    "element_group": "Transition Metals",
+    "element_appearance": "Shiny Gray Metallic",
+    "element_electrons": "43",
+    "element_protons": "43",
+    "element_neutron_common": "56",
+
+    "element_atomic_number": "43",
+    "element_atomicmass": "98.906 (u)",
+    "element_density": "11 (g/cm^3)",
+    "element_electronegativty": "1.9",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 18 N13 O2 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Electron_shell_043_Technetium_-_no_label.svg/1024px-Electron_shell_043_Technetium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "4538 (K)",
+    "element_boiling_celsius": "4265 (°C)",
+    "element_boiling_fahrenheit": "7709 (°F)",
+    "element_melting_kelvin": "2430 (K)",
+    "element_melting_celsius": "2157 (°C)",
+    "element_melting_fahrenheit": "3915 (°F)",
+
+    "element_electron_config": "4d^5 5s^2",
+    "element_ion_charge": "Tc^7+",
+    "element_ionization_energy": "7.28 (eV)",
+    "element_atomic_radius": "183 (pm)",
+    "element_covalent_radius": "156 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "33.29 (kJ/mol)",
+    "element_specific_heat_capacity": "--- J/(g·K)",
+    "element_vaporization_heat": "550 (kJ/mol)"
+  }
+]

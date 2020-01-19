@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Ruthenium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Ruthenium_a_half_bar.jpg/1920px-Ruthenium_a_half_bar.jpg",
+
+    "element": "Ruthenium",
+    "element_year": "1844",
+    "element_discovered_name": "Karl Ernst Claus",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery White Metallic",
+    "element_electrons": "44",
+    "element_protons": "44",
+    "element_neutron_common": "58",
+
+    "element_atomic_number": "44",
+    "element_atomicmass": "101.07 (u)",
+    "element_density": "12.1 (g/cm^3)",
+    "element_electronegativty": "2.2",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 18 N15 O1 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Electron_shell_044_Ruthenium_-_no_label.svg/1024px-Electron_shell_044_Ruthenium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "4423 (K)",
+    "element_boiling_celsius": "4150 (°C)",
+    "element_boiling_fahrenheit": "7502 (°F)",
+    "element_melting_kelvin": "2607 (K)",
+    "element_melting_celsius": "2334 (°C)",
+    "element_melting_fahrenheit": "4233 (°F)",
+
+    "element_electron_config": "4d^7 5s^1",
+    "element_ion_charge": "Ru^3+, Ru^4+",
+    "element_ionization_energy": "7.36050 (eV)",
+    "element_atomic_radius": "178 (pm)",
+    "element_covalent_radius": "126 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "38.59 (kJ/mol)",
+    "element_specific_heat_capacity": "0.238 J/(g·K)",
+    "element_vaporization_heat": "591.6 (kJ/mol)"
+  }
+]
