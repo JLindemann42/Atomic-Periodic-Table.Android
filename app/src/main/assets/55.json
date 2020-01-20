@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Caesium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Cesium.jpg/1920px-Cesium.jpg",
+
+    "element": "Caesium",
+    "element_year": "1860",
+    "element_discovered_name": "Robert Bunsen",
+    "element_group": "Alkali Metals",
+    "element_appearance": "Pale Gold",
+    "element_electrons": "55",
+    "element_protons": "55",
+    "element_neutron_common": "78",
+
+    "element_atomic_number": "55",
+    "element_atomicmass": "132.9055 (u)",
+    "element_density": "1.93 (g/cm^3)",
+    "element_electronegativty": "0.79",
+    "element_block": "s - block",
+    "element_shells_electrons": "K2 L8 18 N18 O8 P1 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Electron_shell_055_Caesium_-_no_label.svg/1280px-Electron_shell_055_Caesium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "944 (K)",
+    "element_boiling_celsius": "671 (°C)",
+    "element_boiling_fahrenheit": "1240 (°F)",
+    "element_melting_kelvin": "301.7 (K)",
+    "element_melting_celsius": "28.5 (°C)",
+    "element_melting_fahrenheit": "83.3 (°F)",
+
+    "element_electron_config": "6s^1",
+    "element_ion_charge": "Cs^+",
+    "element_ionization_energy": "3.89390 (eV)",
+    "element_atomic_radius": "298 (pm)",
+    "element_covalent_radius": "225 (pm)",
+    "element_van_der_waals": "343",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "2.09 (kJ/mol)",
+    "element_specific_heat_capacity": "0.242 J/(g·K)",
+    "element_vaporization_heat": "63.9 (kJ/mol)"
+  }
+]

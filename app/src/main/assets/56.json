@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Barium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/1/16/Barium_unter_Argon_Schutzgas_Atmosph%C3%A4re.jpg",
+
+    "element": "Barium",
+    "element_year": "1772",
+    "element_discovered_name": "Carl Wilhelm Scheele",
+    "element_group": "Alkaline Earth Metals",
+    "element_appearance": "Silvery Gray with a Pale Yellow Tint",
+    "element_electrons": "56",
+    "element_protons": "56",
+    "element_neutron_common": "82",
+
+    "element_atomic_number": "56",
+    "element_atomicmass": "137.327 (u)",
+    "element_density": "3.62 (g/cm^3)",
+    "element_electronegativty": "0.89",
+    "element_block": "s - block",
+    "element_shells_electrons": "K2 L8 18 N18 O8 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Electron_shell_056_Barium_-_no_label.svg/1280px-Electron_shell_056_Barium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2118 (K)",
+    "element_boiling_celsius": "1845 (°C)",
+    "element_boiling_fahrenheit": "3353 (°F)",
+    "element_melting_kelvin": "1000 (K)",
+    "element_melting_celsius": "727 (°C)",
+    "element_melting_fahrenheit": "1341 (°F)",
+
+    "element_electron_config": "6s^2",
+    "element_ion_charge": "Ba^2+",
+    "element_ionization_energy": "5.21170 (eV)",
+    "element_atomic_radius": "253 (pm)",
+    "element_covalent_radius": "198 (pm)",
+    "element_van_der_waals": "268",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "7.12 (kJ/mol)",
+    "element_specific_heat_capacity": "0.204 J/(g·K)",
+    "element_vaporization_heat": "140 (kJ/mol)"
+  }
+]
