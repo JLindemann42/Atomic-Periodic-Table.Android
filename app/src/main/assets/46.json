@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Palladium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Palladium_%2846_Pd%29.jpg",
+
+    "element": "Palladium",
+    "element_year": "1802",
+    "element_discovered_name": "William Hyde Wollaston",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery White",
+    "element_electrons": "46",
+    "element_protons": "46",
+    "element_neutron_common": "60",
+
+    "element_atomic_number": "46",
+    "element_atomicmass": "106.42 (u)",
+    "element_density": "12.0 (g/cm^3)",
+    "element_electronegativty": "2.20",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 18 N18 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Electron_shell_046_Palladium_-_no_label.svg/800px-Electron_shell_046_Palladium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "3236 (K)",
+    "element_boiling_celsius": "2963 (°C)",
+    "element_boiling_fahrenheit": "5365 (°F)",
+    "element_melting_kelvin": "1828.05 (K)",
+    "element_melting_celsius": "1554.9 (°C)",
+    "element_melting_fahrenheit": "2830.82 (°F)",
+
+    "element_electron_config": "4d^10",
+    "element_ion_charge": "Pd^2+, Pd^4+",
+    "element_ionization_energy": "8.3369 (eV)",
+    "element_atomic_radius": "169 (pm)",
+    "element_covalent_radius": "131 (pm)",
+    "element_van_der_waals": "163",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "16.74 (kJ/mol)",
+    "element_specific_heat_capacity": "0.246 J/(g·K)",
+    "element_vaporization_heat": "362 (kJ/mol)"
+  }
+]

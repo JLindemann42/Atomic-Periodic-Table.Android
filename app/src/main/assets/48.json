@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Cadmium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Silver_crystal.jpg/800px-Silver_crystal.jpg",
+
+    "element": "Cadmium",
+    "element_year": "1817",
+    "element_discovered_name": "Karl Samuel Leberecht Hermann",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery bluish-gray Metallic",
+    "element_electrons": "48",
+    "element_protons": "48",
+    "element_neutron_common": "66",
+
+    "element_atomic_number": "48",
+    "element_atomicmass": "112.414 (u)",
+    "element_density": "8.69 (g/cm^3)",
+    "element_electronegativty": "1.69",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 18 N18 O2 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Electron_shell_048_Cadmium_-_no_label.svg/800px-Electron_shell_048_Cadmium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1040 (K)",
+    "element_boiling_celsius": "767 (°C)",
+    "element_boiling_fahrenheit": "1413 (°F)",
+    "element_melting_kelvin": "594.22 (K)",
+    "element_melting_celsius": "321.07 (°C)",
+    "element_melting_fahrenheit": "609.93 (°F)",
+
+    "element_electron_config": "4d^10 5s^2",
+    "element_ion_charge": "Cd^2+",
+    "element_ionization_energy": "8.9938 (eV)",
+    "element_atomic_radius": "161 (pm)",
+    "element_covalent_radius": "148 (pm)",
+    "element_van_der_waals": "158",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "6.21 (kJ/mol)",
+    "element_specific_heat_capacity": "0.232 J/(g·K)",
+    "element_vaporization_heat": "99.87 (kJ/mol)"
+  }
+]
