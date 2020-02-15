@@ -27,7 +27,7 @@
             android:gravity="center"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
-            android:text="Periodic Table"
+            android:text="Atomic"
             android:textAlignment="center"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="26sp"
