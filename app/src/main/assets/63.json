@@ -1,0 +1,42 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Europium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Europium.jpg/800px-Europium.jpg",
+
+    "element": "Europium",
+    "element_year": "1896",
+    "element_discovered_name": "Eugène-Anatole Demarçay",
+    "element_group": "Lanthanoids",
+    "element_appearance": "Silvery White",
+    "element_electrons": "63",
+    "element_protons": "63",
+    "element_neutron_common": "90",
+
+    "element_atomic_number": "63",
+    "element_atomicmass": "151.964 (u)",
+    "element_density": "5.24 (g/cm^3)",
+    "element_electronegativty": "1.2",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 18 N25 O8 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Electron_shell_063_Europium_-_no_label.svg/800px-Electron_shell_063_Europium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1802 (K)",
+    "element_boiling_celsius": "1529 (°C)",
+    "element_boiling_fahrenheit": "2784 (°F)",
+    "element_melting_kelvin": "1099 (K)",
+    "element_melting_celsius": "826 (°C)",
+    "element_melting_fahrenheit": "1519 (°F)",
+
+    "element_electron_config": "4f^7 6s^2",
+    "element_ion_charge": "Eu^3+, Eu^2+",
+    "element_ionization_energy": "5.6704 (eV)",
+    "element_atomic_radius": "231 (pm)",
+    "element_covalent_radius": "--- (pm)",
+    "element_van_der_waals": "---",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "9.21 (kJ/mol)",
+    "element_specific_heat_capacity": "0.182 J/(g·K)",
+    "element_vaporization_heat": "176 (kJ/mol)"
+  }
+]

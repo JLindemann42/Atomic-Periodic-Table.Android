@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:background="?attr/colorPrimary">
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_weight="1"
+        android:fadeScrollbars="true"
+        android:fadingEdge="horizontal"
+        android:fadingEdgeLength="18dp"
+        android:paddingStart="9dp"
+        android:paddingEnd="0dp"
+        android:requiresFadingEdge="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/molar_mass_lay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="Atomic Mass:"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/molar_mass_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="molar_mass_f"
+                    android:textColor="?attr/actionMenuTextColor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/phase_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="STP Phase:"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/phase_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="phase_f"
+                    android:textColor="?attr/actionMenuTextColor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/density_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="Density:"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/density_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="density_f"
+                    android:textColor="?attr/actionMenuTextColor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/electronegativity_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="Electronegativity:"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/electronegativity_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="electronegativity_f"
+                    android:textColor="?attr/actionMenuTextColor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/boiling_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="Boiling Point:"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/boiling_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="boiling_f"
+                    android:textColor="?attr/actionMenuTextColor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/melting_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="Melting Point:"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/melting_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="melting_f"
+                    android:textColor="?attr/actionMenuTextColor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fusion_heat_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="Fusion Heat:"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/fusion_heat_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="fusion_heat_f"
+                    android:textColor="?attr/actionMenuTextColor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/specific_heat_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="Specific Heat Capacity:"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/specific_heat_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="specific_heat_f"
+                    android:textColor="?attr/actionMenuTextColor" />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/vaporization_heat_lay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingStart="9dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:gravity="center_vertical"
+                android:text="Vaporization Heat:"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/vaporization_heat_f"
+                android:layout_width="wrap_content"
+                android:layout_height="52dp"
+                android:alpha="0.85"
+                android:gravity="center_vertical"
+                android:paddingStart="9dp"
+                android:paddingEnd="9dp"
+                android:text="vaporization_heat_f"
+                android:textColor="?attr/actionMenuTextColor" />
+
+        </LinearLayout>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/edit_fav_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="9dp"
+        android:alpha="0.85"
+        android:elevation="0dp"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_edit"
+        app:backgroundTint="?attr/colorPrimary"
+        app:borderWidth="0dp"
+        app:elevation="0dp"
+        app:fabSize="mini" />
+
+</LinearLayout>

@@ -28,4 +28,14 @@
         <item name="android:statusBarColor">@color/colorDarkPrimary</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/colorLightPrimaryDark</item>
+        <item name="android:windowSplashscreenContent">@drawable/background</item>
+        <item name="android:navigationBarColor">@color/colorLightPrimary</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
 </resources>

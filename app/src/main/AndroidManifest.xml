@@ -11,11 +11,15 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".MainActivity"
+            android:label="MAINACTIVITY"
+            android:screenOrientation="portrait"
+            />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+        <activity android:name="com.jlindemann.science.activities.SplashActivity" android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
@@ -28,6 +32,17 @@
             android:name=".activities.SettingsActivity"
             android:label="SETTINGS"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.FavoritePageActivity"
+            android:label="FAVORITEPAGE"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.SolubilityActivity"
+            android:label="SOLUBILITYPAGE"
+            android:screenOrientation="portrait" />
+
 
     </application>
 

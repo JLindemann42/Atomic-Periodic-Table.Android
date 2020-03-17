@@ -1,5 +1,6 @@
 package com.jlindemann.science.activities
 
+import android.content.Intent
 import android.content.res.Configuration
 import android.location.Location
 import android.os.Bundle
@@ -36,6 +37,8 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_settings)
+
+        openFavoriteBarSettingPage()
 
         back_btn.setOnClickListener {
             this.onBackPressed()
@@ -104,6 +107,13 @@ class SettingsActivity : AppCompatActivity() {
         }
         theme_background.setOnClickListener {
             Utils.fadeOutAnim(theme_panel, 300)
+        }
+    }
+
+    fun openFavoriteBarSettingPage() {
+        favorite_settings.setOnClickListener {
+            val intent = Intent(this, FavoritePageActivity::class.java)
+            startActivity(intent)
         }
     }
 

@@ -91,9 +91,17 @@
             android:orientation="vertical">
 
             <FrameLayout
+                android:id="@+id/frame"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:layout_marginTop="80dp">
+                android:layout_marginTop="100dp">
+
+                <include
+                    android:id="@+id/ldn_place"
+                    layout="@layout/loading_view"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_horizontal|center_vertical" />
 
                 <ImageView
                     android:id="@+id/element_image"
@@ -130,6 +138,18 @@
                     app:srcCompat="@drawable/ic_arrow_back_white180" />
             </FrameLayout>
 
+            <Space
+                android:id="@+id/offline_div"
+                android:layout_width="wrap_content"
+                android:layout_height="110dp"
+                android:visibility="gone" />
+
+            <include
+                android:id="@+id/favorite_bar"
+                layout="@layout/favorite_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
             <include
                 android:id="@+id/overview_inc"
                 layout="@layout/overview_view"
@@ -157,6 +177,10 @@
                 layout="@layout/otherphysics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="36dp" />
 
         </LinearLayout>
 

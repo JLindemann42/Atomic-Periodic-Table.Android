@@ -48,7 +48,7 @@
                     android:layout_marginStart="12dp"
                     android:elevation="0dp"
                     android:src="@drawable/ic_arrow_back_white"
-                    app:backgroundTint="?attr/colorPrimary"
+                    app:backgroundTint="?attr/actionMenuTextColor"
                     app:borderWidth="0dp"
                     app:elevation="0dp"
                     app:fabSize="normal" />
@@ -155,6 +155,68 @@
 
                 <View
                     android:id="@+id/divider_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/favorite_settings"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:elevation="8dp">
+
+                <LinearLayout
+                    android:id="@+id/favorite_setting_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorPrimary"
+                    android:theme="@style/ThemeOverlay.AppCompat.Light">
+
+                    <ImageView
+                        android:id="@+id/favorite_settings_icon"
+                        android:layout_width="64dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0"
+                        android:background="?attr/colorPrimary"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:padding="18dp"
+                        android:tint="?attr/actionMenuTextColor"
+                        app:srcCompat="@drawable/ic_star" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/settings_favorite_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="4dp"
+                            android:text="Favorite Bar"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/settings_favorite_content"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:alpha="0.5"
+                            android:paddingEnd="18dp"
+                            android:text="Select Replace Me"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider_view2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"

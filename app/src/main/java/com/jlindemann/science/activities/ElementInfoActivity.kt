@@ -1,5 +1,6 @@
 package com.jlindemann.science.activities
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -14,13 +15,15 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import com.jlindemann.science.R
 import com.jlindemann.science.extensions.getStatusBarHeight
-import com.jlindemann.science.preferences.ElementSendAndLoad
-import com.jlindemann.science.preferences.ProVersion
-import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_element_info.*
+import kotlinx.android.synthetic.main.activity_element_info.back_btn
+import kotlinx.android.synthetic.main.activity_element_info.element_title
+import kotlinx.android.synthetic.main.activity_favorite_settings_page.*
 import kotlinx.android.synthetic.main.atomic_view.*
+import kotlinx.android.synthetic.main.favorite_bar.*
 import kotlinx.android.synthetic.main.overview_view.*
 import kotlinx.android.synthetic.main.overview_view.element_name
 import kotlinx.android.synthetic.main.otherphysics.*
@@ -31,6 +34,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
+import java.net.ConnectException
 
 class ElementInfoActivity : AppCompatActivity() {
 
@@ -74,30 +78,31 @@ class ElementInfoActivity : AppCompatActivity() {
         onClickClose()
         onClickNext()
         onClickPrevious()
-
+        favoriteBarSetup()
 
         elementAnim(overview_inc, properties_inc)
 
         back_btn.setOnClickListener {
             super.onBackPressed()
         }
+        edit_fav_btn.setOnClickListener {
+            val intent = Intent(this, FavoritePageActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun layoutParams() {
-
         val layout: LinearLayout = findViewById(R.id.commom_title_back)
         val layout2: LinearLayout = findViewById(R.id.status_place)
-
         val params: ViewGroup.LayoutParams = layout.layoutParams
         val params2: ViewGroup.LayoutParams = layout2.layoutParams
+
         params.height = (80 + getStatusBarHeight())
         params2.height = (getStatusBarHeight())
+
         layout.layoutParams = params
         layout2.layoutParams = params2
-
-
     }
-
 
     fun readJson() {
 
@@ -157,6 +162,7 @@ class ElementInfoActivity : AppCompatActivity() {
             val vanDerWaalsRadius = jsonObject.optString("element_van_der_waals", "---")
 
             //set elements
+            element_title.text = element
             element_name.text = element
             electrons_el.text = elementElectrons
             element_year.text = elementYear
@@ -202,6 +208,31 @@ class ElementInfoActivity : AppCompatActivity() {
             if (phaseText.toString() == "Liquid") {
                 phase_icon.setImageDrawable(getDrawable(R.drawable.liquid))
             }
+
+            //set element data for favorite bar
+            molar_mass_f.text = elementAtomicWeight
+            phase_f.text = phaseText
+            electronegativity_f.text = elementElectronegativity
+            density_f.text = elementDensity
+
+            val degreePreference = DegreePreference(this)
+            var degreePrefValue = degreePreference.getValue()
+
+            if (degreePrefValue == 0) {
+                boiling_f.text = elementBoilingKelvin
+                melting_f.text = elementMeltingKelvin
+            }
+            if (degreePrefValue == 1) {
+                boiling_f.text = elementBoilingCelsius
+                melting_f.text = elementMeltingCelsius
+            }
+            if (degreePrefValue == 2) {
+                boiling_f.text = elementBoilingFahrenheit
+                melting_f.text = elementMeltingFahrenheit
+            }
+
+            specific_heat_f.text = specificHeatCapacity
+
             loadImage(url)
             loadModelView(elementModelUrl)
             wikiListener(wikipedia)
@@ -216,6 +247,98 @@ class ElementInfoActivity : AppCompatActivity() {
             showToast("$stringText$name")
         }
 
+    }
+
+    fun favoriteBarSetup() {
+        //Favorite Molar
+        val molarPreference = FavoriteBarPreferences(this)
+        var molarPrefValue = molarPreference.getValue()
+        if (molarPrefValue == 1) {
+            molar_mass_lay.visibility = View.VISIBLE
+        }
+        if (molarPrefValue == 0) {
+            molar_mass_lay.visibility = View.GONE
+        }
+
+        //Favorite Phase
+        val phasePreferences = FavoritePhase(this)
+        var phasePrefValue = phasePreferences.getValue()
+        if (phasePrefValue == 1) {
+            phase_lay.visibility = View.VISIBLE
+        }
+        if (phasePrefValue == 0) {
+            phase_lay.visibility = View.GONE
+        }
+
+        //Electronegativity Phase
+        val electronegativityPreferences = ElectronegativityPreference(this)
+        var electronegativityPrefValue = electronegativityPreferences.getValue()
+        if (electronegativityPrefValue == 1) {
+            electronegativity_lay.visibility = View.VISIBLE
+        }
+        if (electronegativityPrefValue == 0) {
+            electronegativity_lay.visibility = View.GONE
+        }
+
+        //Density
+        val densityPreference = DensityPreference(this)
+        var densityPrefValue = densityPreference.getValue()
+        if (densityPrefValue == 1) {
+            density_lay.visibility = View.VISIBLE
+        }
+        if (densityPrefValue == 0) {
+            density_lay.visibility = View.GONE
+        }
+
+        //Boiling
+        val boilingPreference = BoilingPreference(this)
+        var boilingPrefValue = boilingPreference.getValue()
+        if (boilingPrefValue == 1) {
+            boiling_lay.visibility = View.VISIBLE
+        }
+        if (boilingPrefValue == 0) {
+            boiling_lay.visibility = View.GONE
+        }
+
+        //Melting
+        val meltingPreference = MeltingPreference(this)
+        var meltingPrefValue = meltingPreference.getValue()
+        if (meltingPrefValue == 1) {
+            melting_lay.visibility = View.VISIBLE
+        }
+        if (meltingPrefValue == 0) {
+            melting_lay.visibility = View.GONE
+        }
+
+        //Fusion Heat
+        val fusionHeatPreference = FusionHeatPreference(this)
+        var fusionHeatValue = fusionHeatPreference.getValue()
+        if (fusionHeatValue == 1) {
+            fusion_heat_lay.visibility = View.VISIBLE
+        }
+        if (fusionHeatValue == 0) {
+            fusion_heat_lay.visibility = View.GONE
+        }
+
+        //Specific Heat
+        val specificHeatPreference = SpecificHeatPreference(this)
+        var specificHeatValue = specificHeatPreference.getValue()
+        if (specificHeatValue == 1) {
+            specific_heat_lay.visibility = View.VISIBLE
+        }
+        if (specificHeatValue == 0) {
+            specific_heat_lay.visibility = View.GONE
+        }
+
+        //Vaporization Heat
+        val vaporizationHeatPreference = VaporizationHeatPreference(this)
+        var vaporizationHeatValue = vaporizationHeatPreference.getValue()
+        if (vaporizationHeatValue == 1) {
+            vaporization_heat_lay.visibility = View.VISIBLE
+        }
+        if (vaporizationHeatValue == 0) {
+            vaporization_heat_lay.visibility = View.GONE
+        }
     }
 
     private fun showToast(message: String) {
@@ -265,25 +388,28 @@ class ElementInfoActivity : AppCompatActivity() {
     }
 
     private fun loadImage(url: String?) {
-        Picasso.get().load(url.toString()).into(element_image)
-    }
 
+        try {
+            Picasso.get().load(url.toString()).into(element_image)
+        }
+
+        catch(e: ConnectException) {
+            offline_div.visibility = View.VISIBLE
+            frame.visibility = View.GONE
+        }
+    }
 
     private fun loadModelView(url: String?) {
         Picasso.get().load(url.toString()).into(model_view)
         Picasso.get().load(url.toString()).into(card_model_view)
-
     }
 
-
-
-    fun wikiListener(url: String?) { //Wikipedia webView
+    fun wikiListener(url: String?) {
         wikipedia_btn.setOnClickListener {
             val PACKAGE_NAME = "com.android.chrome"
-
             val customTabBuilder = CustomTabsIntent.Builder()
 
-            //Set settings for CustomTab
+            //Set appearance settings for CustomTab
             customTabBuilder.setToolbarColor(ContextCompat.getColor(this@ElementInfoActivity,R.color.colorLightPrimary))
             customTabBuilder.setSecondaryToolbarColor(ContextCompat.getColor(this@ElementInfoActivity,R.color.colorLightPrimary))
             customTabBuilder.setShowTitle(true)
@@ -313,6 +439,9 @@ class ElementInfoActivity : AppCompatActivity() {
             if (elementSendAndLoadValue!! > 1) {
                 elementSendAndLoadPreference.setValue(elementSendAndLoadValue!! - 1)
                 readJson()
+
+                Utils.jsonTransition(scr_view, 200)
+
             }
 
         }
@@ -327,6 +456,8 @@ class ElementInfoActivity : AppCompatActivity() {
             if (elementSendAndLoadValue!! < 118) {
                 elementSendAndLoadPreference.setValue(elementSendAndLoadValue!! + 1)
                 readJson()
+
+                Utils.jsonTransition(scr_view, 200)
             }
         }
     }

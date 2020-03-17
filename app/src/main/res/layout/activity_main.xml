@@ -20,19 +20,27 @@
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/title_tv"
+        <FrameLayout
+            android:id="@+id/search_box"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:gravity="center"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="Atomic"
-            android:textAlignment="center"
-            android:textColor="?attr/actionMenuTextColor"
-            android:textSize="26sp"
-            android:textStyle="bold" />
+            android:layout_height="match_parent"
+            android:layout_margin="18dp"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:elevation="4dp">
 
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="18dp"
+                android:drawableStart="@drawable/ic_search"
+                android:drawablePadding="18dp"
+                android:gravity="center_vertical"
+                android:text="Search Elements"
+                android:textColor="?attr/actionMenuTextColor" />
+        </FrameLayout>
     </LinearLayout>
 
     <FrameLayout
@@ -751,6 +759,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/nav_bar"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:elevation="2dp"
@@ -829,16 +838,38 @@
             android:textColor="?attr/colorPrimary"
             android:visibility="gone" />
 
-
     </FrameLayout>
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:id="@+id/nav_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#00E0E0E0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:realtimeBlurRadius="10dp" />
 
     <include
         android:id="@+id/nav_menu_include"
-        layout="@layout/nav_menu"
+        layout="@layout/nav_menu_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="100dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent" />
+
+    <include
+        android:id="@+id/search_menu_include"
+        layout="@layout/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="2000dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        app:layout_constraintStart_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

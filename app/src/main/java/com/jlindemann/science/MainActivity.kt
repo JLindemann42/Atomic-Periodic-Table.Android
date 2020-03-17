@@ -2,26 +2,25 @@ package com.jlindemann.science
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Bitmap
-import android.graphics.ColorSpace
 import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.animation.ScaleAnimation
-import android.widget.FrameLayout
-import android.widget.HorizontalScrollView
 import android.widget.ScrollView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginTop
+import androidx.fragment.app.FragmentActivity
 import com.jlindemann.science.activities.ElementInfoActivity
 import com.jlindemann.science.activities.SettingsActivity
+import com.jlindemann.science.activities.SolubilityActivity
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.Utils
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.group_1.*
 import kotlinx.android.synthetic.main.group_10.*
@@ -41,9 +40,7 @@ import kotlinx.android.synthetic.main.group_6.*
 import kotlinx.android.synthetic.main.group_7.*
 import kotlinx.android.synthetic.main.group_8.*
 import kotlinx.android.synthetic.main.group_9.*
-import java.lang.Math.pow
-import java.lang.Math.sqrt
-import kotlin.math.sqrt
+import kotlinx.android.synthetic.main.nav_menu_view.*
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -52,7 +49,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var mScaleDetector: ScaleGestureDetector
     lateinit var gestureDetector: GestureDetector
 
-    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val themePreference = ThemePreference(this)
@@ -91,17 +87,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setOnCLickListenerSetups()
         setupNavListeners()
         detailViewDisabled()
+        onClickNav()
+        sliding_layout.setPanelState(PanelState.COLLAPSED)
 
         gestureDetector = GestureDetector(this, GestureListener())
 
+
+        //Currently Disabled (Change min and max scale to enable zoom)
         mScaleDetector = ScaleGestureDetector(this, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
             override fun onScale(detector: ScaleGestureDetector): Boolean {
                 val scale = 1 - detector.scaleFactor
                 val prevScale = mScale
                 mScale += scale
-                if (mScale < 1f) // Minimum scale condition:
+                if (mScale < 1f) // Minimum scale
                     mScale = 1f
-                if (mScale > 1) // Maximum scale condition:
+                if (mScale > 1) // Maximum scale
                     mScale = 1f
                 val scaleAnimation = ScaleAnimation(
                     1f / prevScale,
@@ -111,20 +111,70 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     detector.focusX,
                     detector.focusY
                 )
+
                 scaleAnimation.duration = 0
                 scaleAnimation.fillAfter = true
                 val layout =
                     scrollViewZoom as ScrollView
                 layout.startAnimation(scaleAnimation)
                 return true
+
             }
         })
 
-        if (Build.VERSION.SDK_INT >= 27) {
+        //Currently does nothing as landscape mode is disabled in App manifest
+        if (Build.VERSION.SDK_INT >= 28) {
             val attribute = window.attributes
             attribute.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
 
+        sliding_layout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
+            override fun onPanelSlide(panel: View?, slideOffset: Float) {
+                //Empty
+            }
+            override fun onPanelStateChanged(
+                panel: View?,
+                previousState: PanelState,
+                newState: PanelState
+            ) {
+                if (sliding_layout.getPanelState() === PanelState.COLLAPSED) {
+                    nav_menu_include.visibility = View.GONE
+                    nav_background.visibility = View.GONE
+                }
+            }
+        })
+    }
+
+    override fun onBackPressed() {
+        if (sliding_layout != null &&
+            (sliding_layout.getPanelState() === PanelState.EXPANDED || sliding_layout.getPanelState() === PanelState.ANCHORED)
+        ) {
+            sliding_layout.setPanelState(PanelState.COLLAPSED)
+        }
+        if (search_menu_include.visibility == View.VISIBLE) {
+            search_menu_include.visibility = View.GONE
+            nav_bar.visibility = View.VISIBLE
+        }
+        else {
+            super.onBackPressed()
+        }
+    }
+
+    private fun onClickNav() {
+        menu_btn.setOnClickListener {
+            nav_menu_include.visibility = View.VISIBLE
+            nav_background.visibility = View.VISIBLE
+            sliding_layout.setPanelState(PanelState.EXPANDED)
+        }
+        search_box.setOnClickListener {
+            search_menu_include.visibility = View.VISIBLE
+            Utils.fadeInAnim(search_menu_include, 300)
+            nav_bar.visibility = View.GONE
+        }
+        solubility_btn.setOnClickListener {
+            val intent = Intent(this, SolubilityActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     //dispatchTouchEvent() (scrollZoom)
@@ -149,9 +199,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setupNavListeners() {
-        menu_btn.setOnClickListener() {
-            nav_menu_include.visibility = View.VISIBLE
-        }
 
         settings_btn.setOnClickListener() {
             val intent = Intent(this, SettingsActivity::class.java)
@@ -407,7 +454,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.silicon_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
-                val ElementSend= ElementSendAndLoad(this)
+                val ElementSend = ElementSendAndLoad(this)
                 ElementSend.setValue(14)
                 startActivity(intent)
             }

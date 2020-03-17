@@ -40,6 +40,9 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.github.ar-android:AndroidSvgLoader:1.0.2'
+    implementation 'com.lapism:search:1.0.0'
+
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
 
