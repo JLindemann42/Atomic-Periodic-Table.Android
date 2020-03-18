@@ -22,4 +22,6 @@
 
     <color name="wikipedia">#EBECF0</color>
     <color name="transparent">#00000000</color>
+
+    <color name="motion_down">#54E68A5C</color>
 </resources>

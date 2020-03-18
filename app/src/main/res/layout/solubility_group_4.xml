@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout
+        android:id="@+id/k_view"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="92dp"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="K^+"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+
+        <TextView
+            android:id="@+id/space"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="?attr/actionMenuTextColor"
+            android:elevation="4dp" />
+
+        <TextView
+            android:id="@+id/sol_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="@drawable/chart_outline"
+            android:gravity="center"
+            android:text="S"
+            android:textAlignment="center"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:id="@+id/sol_2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="@drawable/chart_outline"
+            android:gravity="center"
+            android:text="S"
+            android:textAlignment="center"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:id="@+id/sol_3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="@drawable/chart_outline"
+            android:gravity="center"
+            android:text="S"
+            android:textAlignment="center"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:id="@+id/sol_4"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="@drawable/chart_outline"
+            android:gravity="center"
+            android:text="S"
+            android:textAlignment="center"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:id="@+id/sol_5"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="@drawable/chart_outline"
+            android:gravity="center"
+            android:text="S"
+            android:textAlignment="center"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:id="@+id/sol_6"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="@drawable/chart_outline"
+            android:gravity="center"
+            android:text="S"
+            android:textAlignment="center"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:id="@+id/sol_7"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="@drawable/chart_outline"
+            android:gravity="center"
+            android:text="S"
+            android:textAlignment="center"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:id="@+id/sol_8"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="@drawable/chart_outline"
+            android:gravity="center"
+            android:text="S"
+            android:textAlignment="center"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:id="@+id/sol_9"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="@drawable/chart_outline"
+            android:gravity="center"
+            android:text="S"
+            android:textAlignment="center"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:id="@+id/sol_10"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="@drawable/chart_outline"
+            android:gravity="center"
+            android:text="S"
+            android:textAlignment="center"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:id="@+id/sol_11"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="@drawable/chart_outline"
+            android:gravity="center"
+            android:text="S"
+            android:textAlignment="center"
+            android:textColor="?attr/colorAccent" />
+
+        <TextView
+            android:id="@+id/sol_12"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="@drawable/chart_outline"
+            android:gravity="center"
+            android:text="S"
+            android:textAlignment="center"
+            android:textColor="?attr/colorAccent" />
+    </LinearLayout>

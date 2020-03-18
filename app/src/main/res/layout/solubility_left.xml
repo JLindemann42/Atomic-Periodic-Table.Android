@@ -1,0 +1,184 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="94dp"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="92dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/space_empty"
+            android:layout_width="match_parent"
+            android:layout_height="1.5dp"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp" />
+
+        <TextView
+            android:id="@+id/fluorine_minus"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="F^-"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/chlorine_minus"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="Cl^-"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/bromine_mins"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="Br^-"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/iodine_mins"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="I^-"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/OH_mins"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="OH^-"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/sulfur_mins"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="S^2-"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/so4_mins"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="SO4^2-"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/co3_mins"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="CO3^2-"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/no3_mins"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="NO3^-"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/po4_mins"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="PO4^3-"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/CrO_mins"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="CrO4^2-"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/CH3_mins"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/row_height"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:text="CH3CO2^-"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/seperator_"
+        android:layout_width="2dp"
+        android:layout_height="436dp"
+        android:layout_marginTop="42dp"
+        android:layout_weight="1"
+        android:background="?attr/actionMenuTextColor"
+        android:elevation="4dp" />
+
+</LinearLayout>

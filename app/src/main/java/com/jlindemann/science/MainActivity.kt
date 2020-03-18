@@ -146,14 +146,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        if (sliding_layout != null &&
-            (sliding_layout.getPanelState() === PanelState.EXPANDED || sliding_layout.getPanelState() === PanelState.ANCHORED)
-        ) {
+        if (nav_background.visibility == View.VISIBLE) {
             sliding_layout.setPanelState(PanelState.COLLAPSED)
+            return
         }
         if (search_menu_include.visibility == View.VISIBLE) {
             search_menu_include.visibility = View.GONE
             nav_bar.visibility = View.VISIBLE
+            return
         }
         else {
             super.onBackPressed()

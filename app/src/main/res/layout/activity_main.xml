@@ -844,13 +844,13 @@
         android:id="@+id/nav_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#1BE0E0E0"
         android:visibility="gone"
-        android:background="#00E0E0E0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:realtimeBlurRadius="10dp" />
+        app:realtimeBlurRadius="8dp" />
 
     <include
         android:id="@+id/nav_menu_include"

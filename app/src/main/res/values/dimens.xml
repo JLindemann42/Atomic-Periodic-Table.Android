@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="status_bar_height">30dp</dimen>
+
+    <dimen name="row_height">36dp</dimen>
 </resources>
