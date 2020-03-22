@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="element_list">
+        <item>Hydrogen</item>
+        <item>Helium</item>
+        <item>Lithium</item>
+    </string-array>
+
+</resources>

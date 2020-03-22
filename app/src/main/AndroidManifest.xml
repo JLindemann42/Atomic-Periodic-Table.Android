@@ -13,7 +13,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
             android:label="MAINACTIVITY"
-            android:screenOrientation="portrait"
             />
 
         <activity android:name="com.jlindemann.science.activities.SplashActivity" android:theme="@style/SplashTheme">
@@ -25,23 +24,19 @@
 
         <activity
             android:name=".activities.ElementInfoActivity"
-            android:label="ELEMENTINFOACTIVITY"
-            android:screenOrientation="portrait" />
+            android:label="ELEMENTINFOACTIVITY" />
 
         <activity
             android:name=".activities.SettingsActivity"
-            android:label="SETTINGS"
-            android:screenOrientation="portrait" />
+            android:label="SETTINGS" />
 
         <activity
             android:name=".activities.FavoritePageActivity"
-            android:label="FAVORITEPAGE"
-            android:screenOrientation="portrait" />
+            android:label="FAVORITEPAGE" />
 
         <activity
             android:name=".activities.SolubilityActivity"
-            android:label="SOLUBILITYPAGE"
-            android:screenOrientation="portrait" />
+            android:label="SOLUBILITYPAGE" />
 
 
     </application>

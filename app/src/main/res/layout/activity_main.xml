@@ -812,7 +812,7 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:background="@drawable/rounded_extended_btn"
             android:backgroundTint="?attr/colorAccent"
-            android:drawableStart="@drawable/ic_settings_outline"
+            android:drawableStart="@drawable/ic_detail"
             android:drawablePadding="6dp"
             android:drawableTint="?attr/colorPrimary"
             android:elevation="24dp"
@@ -828,7 +828,7 @@
             android:layout_gravity="center_horizontal|center_vertical"
             android:background="@drawable/rounded_extended_btn"
             android:backgroundTint="?attr/colorAccent"
-            android:drawableStart="@drawable/ic_settings_outline"
+            android:drawableStart="@drawable/ic_simple"
             android:drawablePadding="6dp"
             android:drawableTint="?attr/colorPrimary"
             android:elevation="24dp"
@@ -844,13 +844,13 @@
         android:id="@+id/nav_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#1BE0E0E0"
+        android:background="#A8000000"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:realtimeBlurRadius="8dp" />
+        app:realtimeBlurRadius="4dp" />
 
     <include
         android:id="@+id/nav_menu_include"

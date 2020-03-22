@@ -18,8 +18,8 @@
             android:layout_width="80dp"
             android:layout_height="78dp"
             android:layout_gravity="center"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
+            android:background="@drawable/element_nodetail"
+            
             android:elevation="6dp" />
 
         <TextView
@@ -75,8 +75,8 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
+            android:background="@drawable/element_nodetail"
+            
             android:elevation="1dp" />
 
         <TextView
@@ -132,7 +132,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/toast"
+            android:background="@drawable/element_nodetail"
             android:backgroundTint="#F5C5A7"
             android:elevation="1dp" />
 
@@ -176,7 +176,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/toast"
+            android:background="@drawable/element_nodetail"
             android:backgroundTint="#E68A5C"
             android:elevation="1dp" />
 

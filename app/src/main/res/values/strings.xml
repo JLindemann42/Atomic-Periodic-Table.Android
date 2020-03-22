@@ -2,4 +2,9 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
+
+    <string name="other_settings">Others</string>
+    <string name="experimental_title">Experimental Settings</string>
+    <string name="experimental_text">Additional experimental settings</string>
+
 </resources>

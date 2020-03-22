@@ -10,8 +10,8 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 4
-        versionName "0.01"
+        versionCode 6
+        versionName "0.02"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

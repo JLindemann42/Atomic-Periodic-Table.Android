@@ -8,7 +8,9 @@ import android.os.Bundle
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.animation.ScaleAnimation
+import android.widget.ArrayAdapter
 import android.widget.ScrollView
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -16,6 +18,7 @@ import androidx.fragment.app.FragmentActivity
 import com.jlindemann.science.activities.ElementInfoActivity
 import com.jlindemann.science.activities.SettingsActivity
 import com.jlindemann.science.activities.SolubilityActivity
+import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
@@ -41,6 +44,7 @@ import kotlinx.android.synthetic.main.group_7.*
 import kotlinx.android.synthetic.main.group_8.*
 import kotlinx.android.synthetic.main.group_9.*
 import kotlinx.android.synthetic.main.nav_menu_view.*
+import kotlinx.android.synthetic.main.search_layout.*
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -87,8 +91,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setOnCLickListenerSetups()
         setupNavListeners()
         detailViewDisabled()
+        detailViewEnabled()
         onClickNav()
         sliding_layout.setPanelState(PanelState.COLLAPSED)
+
 
         gestureDetector = GestureDetector(this, GestureListener())
 
@@ -139,11 +145,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             ) {
                 if (sliding_layout.getPanelState() === PanelState.COLLAPSED) {
                     nav_menu_include.visibility = View.GONE
-                    nav_background.visibility = View.GONE
+                    Utils.fadeOutAnim(nav_background, 100)
                 }
             }
         })
     }
+
 
     override fun onBackPressed() {
         if (nav_background.visibility == View.VISIBLE) {
@@ -153,6 +160,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         if (search_menu_include.visibility == View.VISIBLE) {
             search_menu_include.visibility = View.GONE
             nav_bar.visibility = View.VISIBLE
+            Utils.fadeOutAnim(nav_background, 100)
             return
         }
         else {
@@ -164,12 +172,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         menu_btn.setOnClickListener {
             nav_menu_include.visibility = View.VISIBLE
             nav_background.visibility = View.VISIBLE
+            Utils.fadeInAnim(nav_background, 200)
             sliding_layout.setPanelState(PanelState.EXPANDED)
         }
         search_box.setOnClickListener {
             search_menu_include.visibility = View.VISIBLE
             Utils.fadeInAnim(search_menu_include, 300)
             nav_bar.visibility = View.GONE
+        }
+        nav_background.setOnClickListener {
+            search_menu_include.visibility = View.GONE
+            sliding_layout.setPanelState(PanelState.COLLAPSED)
+            nav_bar.visibility = View.VISIBLE
+            Utils.fadeOutAnim(nav_background, 100)
         }
         solubility_btn.setOnClickListener {
             val intent = Intent(this, SolubilityActivity::class.java)
@@ -208,7 +223,109 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun detailViewDisabled() {
         detail_btn_disabled.setOnClickListener {
-            hydrogen_btn.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.non_metals), PorterDuff.Mode.MULTIPLY);
+
+            //Non Metals
+            hydrogen_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail)
+            carbon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail)
+            nitrogen_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail)
+            oxygen_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail)
+            phosphorus_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail)
+            sulfur_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail)
+            selenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail)
+            fluorine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail)
+            chlorine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail)
+            bromine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail)
+            iodine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail)
+
+            //Alkali Metals
+            lithium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_alkali_metal)
+            sodium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_alkali_metal)
+            potassium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_alkali_metal)
+            rubidium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_alkali_metal)
+            caesium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_alkali_metal)
+            francium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_alkali_metal)
+
+            //Alkaline Earth Metals
+            beryllium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_alkaline)
+            magnesium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_alkaline)
+            calcium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_alkaline)
+            strontium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_alkaline)
+            barium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_alkaline)
+            radium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_alkaline)
+
+            //Transition Metals
+            scandium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            yttrium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            titanium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            zirconium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            hafnium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            rutherfordium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            vanadium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            niobium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            tantalum_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            dubnium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            chromium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            molybdenum_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            tungsten_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            seaborgium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            manganese_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            technetium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            rhenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            bohrium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            iron_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            ruthenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            osmium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            hassium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            cobalt_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            rhodium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            iridium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            meitnerium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            nickel_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            palladium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            platinum_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            darmstadtium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            copper_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            silver_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            gold_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            roentgenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            zinc_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            cadmium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            mercury_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+            copernicium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_transition)
+
+            //Post transitional
+            aluminium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_post_transition)
+            gallium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_post_transition)
+            indium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_post_transition)
+            tin_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_post_transition)
+            thallium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_post_transition)
+            lead_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_post_transition)
+            bismuth_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_post_transition)
+            polonium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_post_transition)
+            nihonium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_post_transition)
+            flerovium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_post_transition)
+            moscovium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_post_transition)
+            livermorium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_post_transition)
+            tennessine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_post_transition)
+
+            //Metalloids
+            boron_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_metalloids)
+            silicon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_metalloids)
+            germanium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_metalloids)
+            arsenic_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_metalloids)
+            antimony_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_metalloids)
+            tellurium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_metalloids)
+            astatine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_metalloids)
+
+            //Noble Gas
+            helium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_noble)
+            neon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_noble)
+            argon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_noble)
+            krypton_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_noble)
+            xenon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_noble)
+            radon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_noble)
+            oganesson_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_noble)
+
             detail_btn_disabled.visibility = View.GONE
             detail_btn_enabled.visibility = View.VISIBLE
         }
@@ -216,14 +333,109 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun detailViewEnabled() {
         detail_btn_enabled.setOnClickListener {
-            val themePreference = ThemePreference(this)
-            var themePrefValue = themePreference.getValue()
-            if (themePrefValue == 0) {
-                hydrogen_btn.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.colorLightPrimary), PorterDuff.Mode.MULTIPLY);
-            }
-            if (themePrefValue == 1) {
-                hydrogen_btn.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.colorDarkPrimary), PorterDuff.Mode.MULTIPLY);
-            }
+
+            //Non Metals
+            hydrogen_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            carbon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            nitrogen_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            oxygen_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            phosphorus_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            sulfur_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            selenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            fluorine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            chlorine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            bromine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            iodine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+
+            //Alkali Metals
+            lithium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            sodium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            potassium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            rubidium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            caesium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            francium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+
+            //Alkaline Earth Metals
+            beryllium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            magnesium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            calcium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            strontium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            barium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            radium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+
+            //Transition Metals
+            scandium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            ytterbium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            titanium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            zirconium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            hafnium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            ruthenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            vanadium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            niobium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            tantalum_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            dubnium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            chromium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            molybdenum_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            tungsten_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            seaborgium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            manganese_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            technetium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            rhenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            bohrium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            iron_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            ruthenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            osmium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            hassium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            cobalt_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            rhodium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            iridium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            meitnerium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            nickel_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            palladium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            platinum_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            darmstadtium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            copper_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            silver_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            gold_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            roentgenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            zinc_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            cadmium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            mercury_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            copernicium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+
+            //Post transitional
+            aluminium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            gallium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            indium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            tin_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            thallium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            lead_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            bismuth_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            polonium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            nihonium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            flerovium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            moscovium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            livermorium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            tennessine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+
+            //Metalloids
+            boron_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            silicon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            germanium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            arsenic_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            antimony_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            tellurium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            astatine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+
+            //Noble Gas
+            helium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            neon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            argon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            krypton_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            xenon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            radon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            oganesson_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+
             detail_btn_disabled.visibility = View.VISIBLE
             detail_btn_enabled.visibility = View.GONE
         }

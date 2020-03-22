@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="?attr/colorPrimary"
     android:layout_width="match_parent"
@@ -28,9 +29,10 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/close_search_btn"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
+                android:layout_margin="9dp"
                 android:src="@drawable/ic_close"
                 android:tint="?attr/actionMenuTextColor"
                 app:backgroundTint="?attr/colorPrimaryDark"
@@ -41,7 +43,8 @@
                 android:id="@+id/detail_search_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="36dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginEnd="18dp"
                 android:background="@android:color/transparent"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
@@ -58,5 +61,10 @@
         </FrameLayout>
 
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/element_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

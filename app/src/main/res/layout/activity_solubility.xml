@@ -74,6 +74,37 @@
                                 layout="@layout/solubility_group_7"
                                 android:layout_width="92dp"
                                 android:layout_height="wrap_content" />
+
+                            <include
+                                layout="@layout/solubility_group_8"
+                                android:layout_width="92dp"
+                                android:layout_height="wrap_content" />
+
+                            <include
+                                layout="@layout/solubility_group_9"
+                                android:layout_width="92dp"
+                                android:layout_height="wrap_content" />
+
+                            <include
+                                layout="@layout/solubility_group_10"
+                                android:layout_width="92dp"
+                                android:layout_height="wrap_content" />
+
+                            <include
+                                layout="@layout/solubility_group_11"
+                                android:layout_width="92dp"
+                                android:layout_height="wrap_content" />
+
+                            <include
+                                layout="@layout/solubility_group_12"
+                                android:layout_width="92dp"
+                                android:layout_height="wrap_content" />
+
+                            <include
+                                layout="@layout/solubility_group_13"
+                                android:layout_width="92dp"
+                                android:layout_height="wrap_content" />
+
                         </LinearLayout>
                     </ScrollView>
 

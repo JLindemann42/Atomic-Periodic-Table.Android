@@ -243,7 +243,7 @@
                         android:backgroundTint="?attr/colorPrimary"
                         android:padding="18dp"
                         android:tint="?attr/actionMenuTextColor"
-                        app:srcCompat="@drawable/ic_themes" />
+                        app:srcCompat="@drawable/ic_data" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -266,7 +266,7 @@
                             android:layout_marginBottom="10dp"
                             android:alpha="0.5"
                             android:paddingEnd="18dp"
-                            android:text="Reduces internet usage by hiding images etc."
+                            android:text="Disables loading of images"
                             android:textColor="?attr/actionMenuTextColor"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -281,6 +281,85 @@
                 </LinearLayout>
 
                 <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/other_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="?attr/colorPrimary"
+                android:paddingStart="18dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:text="@string/other_settings"
+                android:textAllCaps="true"
+                android:textColor="?attr/colorAccent"
+                android:textStyle="normal|bold" />
+
+            <RelativeLayout
+                android:id="@+id/experimental_settings"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:elevation="8dp">
+
+                <LinearLayout
+                    android:id="@+id/exp_lay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorPrimary"
+                    android:theme="@style/ThemeOverlay.AppCompat.Light">
+
+                    <ImageView
+                        android:id="@+id/texperimental_settings_icon"
+                        android:layout_width="64dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0"
+                        android:background="?attr/colorPrimary"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:padding="18dp"
+                        android:tint="?attr/actionMenuTextColor"
+                        app:srcCompat="@drawable/ic_experimental" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/experimental_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="4dp"
+                            android:text="@string/experimental_title"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/experimentalcontent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:alpha="0.5"
+                            android:paddingEnd="18dp"
+                            android:text="@string/experimental_text"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider_view22"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
