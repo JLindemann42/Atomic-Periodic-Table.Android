@@ -11,13 +11,12 @@ import android.view.animation.ScaleAnimation
 import android.widget.ArrayAdapter
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
-import com.jlindemann.science.activities.ElementInfoActivity
-import com.jlindemann.science.activities.SettingsActivity
-import com.jlindemann.science.activities.SolubilityActivity
+import com.jlindemann.science.activities.*
 import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.ThemePreference
@@ -45,6 +44,10 @@ import kotlinx.android.synthetic.main.group_8.*
 import kotlinx.android.synthetic.main.group_9.*
 import kotlinx.android.synthetic.main.nav_menu_view.*
 import kotlinx.android.synthetic.main.search_layout.*
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.IOException
+import java.io.InputStream
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -151,7 +154,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-
     override fun onBackPressed() {
         if (nav_background.visibility == View.VISIBLE) {
             sliding_layout.setPanelState(PanelState.COLLAPSED)
@@ -188,6 +190,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
         solubility_btn.setOnClickListener {
             val intent = Intent(this, SolubilityActivity::class.java)
+            startActivity(intent)
+        }
+        isotopes_btn.setOnClickListener {
+            val intent = Intent(this, IsotopesActivity::class.java)
+            startActivity(intent)
+        }
+        dictionary_btn.setOnClickListener {
+            val intent = Intent(this, DictionaryActivity::class.java)
             startActivity(intent)
         }
     }

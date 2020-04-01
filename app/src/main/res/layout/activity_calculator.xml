@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/theme_panel"
+        layout="@layout/theme_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:elevation="100dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/commom_title_back"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="?attr/colorPrimary"
+        android:elevation="8dp"
+        android:fitsSystemWindows="true"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/status_place"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="vertical"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="12dp"
+                    android:backgroundTint="?attr/colorPrimary"
+                    app:borderWidth="0dp"
+                    android:elevation="0dp"
+                    android:src="@drawable/ic_arrow_back_white"
+                    app:elevation="0dp"
+                    app:fabSize="normal" />
+
+                <TextView
+                    android:id="@+id/element_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Calculator"
+                    android:textAlignment="center"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_marginTop="110dp"
+        android:elevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:orientation="horizontal"
+            android:padding="18dp">
+
+            <FrameLayout
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="9dp"
+                android:layout_marginEnd="9dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimaryDark"
+                android:elevation="2dp">
+
+                <EditText
+                    android:id="@+id/edit_element_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/manroperegular"
+                    android:hint="Element"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="0dp"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColorHint="?attr/actionMenuTextColor"
+                    android:textSize="12sp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimaryDark"
+                android:elevation="2dp">
+
+                <EditText
+                    android:id="@+id/edit_number_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:autoText="true"
+                    android:background="@android:color/transparent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/manroperegular"
+                    android:gravity="center"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="0dp"
+                    android:text="1"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColorHint="?attr/actionMenuTextColor"
+                    android:textSize="12sp" />
+            </FrameLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>

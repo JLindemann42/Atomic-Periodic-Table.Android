@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import com.jlindemann.science.R
 import com.jlindemann.science.extensions.getStatusBarHeight
 import com.jlindemann.science.preferences.*
+import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_element_info.*
@@ -72,6 +73,7 @@ class ElementInfoActivity : AppCompatActivity() {
         if (proPrefValue == 0) {
             //Hide pro elements here
         }
+
 
         shell.visibility = View.GONE
         onClickShell()
@@ -244,7 +246,8 @@ class ElementInfoActivity : AppCompatActivity() {
             val ElementSendAndLoadPreference = ElementSendAndLoad(this)
             val ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
             val name = ElementSendAndLoadValue
-            showToast("$stringText$name")
+
+            ToastUtil.showToast(this, "$stringText$name")
         }
 
     }
@@ -341,10 +344,6 @@ class ElementInfoActivity : AppCompatActivity() {
         }
     }
 
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
-
     private fun onClickShell() {
         electron_view.setOnClickListener {
             anim(shell)
@@ -426,7 +425,7 @@ class ElementInfoActivity : AppCompatActivity() {
                 if (TextUtils.equals(packageName, PACKAGE_NAME))
                     CustomTab.intent.setPackage(PACKAGE_NAME)
             }
-            CustomTab.launchUrl(this, CustomTab.intent.data)
+            CustomTab.intent.data?.let { it1 -> CustomTab.launchUrl(this, it1) }
         }
     }
 

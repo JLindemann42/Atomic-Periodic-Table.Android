@@ -38,6 +38,17 @@
             android:name=".activities.SolubilityActivity"
             android:label="SOLUBILITYPAGE" />
 
+        <activity
+            android:name=".activities.CalculatorActivity"
+            android:label="CALCULATORPAGE" />
+
+        <activity
+            android:name=".activities.DictionaryActivity"
+            android:label="DICTIONARYPAGE" />
+
+        <activity
+            android:name=".activities.IsotopesActivity"
+            android:label="ISOTPOESPAGE" />
 
     </application>
 

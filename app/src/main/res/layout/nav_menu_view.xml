@@ -94,19 +94,19 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/calculator_btn"
+                android:id="@+id/isotopes_btn"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:background="?attr/colorPrimary"
                 android:backgroundTint="?attr/colorPrimary"
-                android:drawableStart="@drawable/ic_calculator"
+                android:drawableStart="@drawable/ic_isotopes"
                 android:drawablePadding="18dp"
                 android:drawableTint="?attr/actionMenuTextColor"
                 android:elevation="0dp"
                 android:gravity="center_vertical"
                 android:padding="18dp"
                 android:shadowColor="?attr/colorAccent"
-                android:text="Calculators"
+                android:text="Isotopes"
                 android:textAllCaps="true"
                 android:textColor="?attr/actionMenuTextColor"
                 android:textColorHighlight="?attr/actionMenuTextColor"

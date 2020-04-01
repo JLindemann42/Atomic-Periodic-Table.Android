@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:background="@drawable/toast"
+    android:backgroundTint="?attr/colorPrimaryDark"
+    android:layout_height="90dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/iso_name_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="isotope_name"
+            android:textColor="?attr/actionMenuTextColor"
+            android:layout_marginStart="18dp"
+            android:layout_gravity="center_vertical"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/iso_z_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="isotope_name"
+                android:layout_marginTop="4dp"
+                android:textColor="?attr/actionMenuTextColor"
+                android:layout_marginStart="18dp" />
+
+            <TextView
+                android:id="@+id/iso_n_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="isotope_name"
+                android:textColor="?attr/actionMenuTextColor"
+                android:layout_marginStart="18dp" />
+
+            <TextView
+                android:id="@+id/iso_a_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="isotope_name"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:textColor="?attr/actionMenuTextColor"
+                android:layout_marginStart="18dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

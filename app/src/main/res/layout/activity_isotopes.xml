@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/theme_panel"
+        layout="@layout/theme_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:elevation="100dp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/commom_title_back"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:background="?attr/colorPrimary"
+        android:elevation="8dp"
+        android:fitsSystemWindows="true"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/status_place"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:orientation="vertical"/>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/back_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="12dp"
+                    android:backgroundTint="?attr/colorPrimary"
+                    app:borderWidth="0dp"
+                    android:elevation="0dp"
+                    android:src="@drawable/ic_arrow_back_white"
+                    app:elevation="0dp"
+                    app:fabSize="normal" />
+
+                <TextView
+                    android:id="@+id/element_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Isotopes"
+                    android:textAlignment="center"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="109dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:id="@+id/hyd_iso"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:id="@+id/icon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorAccent">
+
+                    <TextView
+                        android:id="@+id/icon_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="H"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorPrimary" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="72dp"
+                    android:text="@string/hydrogen"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/hel_iso"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorAccent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="He"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorPrimary" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="72dp"
+                    android:text="@string/helium"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/lit_iso"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorAccent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Li"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorPrimary" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="72dp"
+                    android:text="@string/lithium"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/ber_iso"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorAccent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Be"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorPrimary" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="72dp"
+                    android:text="@string/Beryllium"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/bor_iso"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorAccent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="B"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorPrimary" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="72dp"
+                    android:text="@string/Boron"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/car_iso"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorAccent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="C"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorPrimary" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="72dp"
+                    android:text="@string/Carbon"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/nit_iso"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorAccent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="N"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorPrimary" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="72dp"
+                    android:text="@string/Nitrogen"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/oxy_iso"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorAccent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="O"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorPrimary" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="72dp"
+                    android:text="@string/Oxygen"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/flu_iso"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorAccent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="F"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorPrimary" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="72dp"
+                    android:text="@string/Fluorine"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/neo_iso"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="9dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true">
+
+                <FrameLayout
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="18dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorAccent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Ne"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorPrimary" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="72dp"
+                    android:text="@string/Neon"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/background_i"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.66"
+        android:background="#000000"
+        android:elevation="20dp"
+        android:visibility="gone" />
+
+    <include
+        layout="@layout/isotope_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

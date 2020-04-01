@@ -16,7 +16,7 @@
 
 
     "element_atomic_number": "1",
-    "element_atomicmass": "1.00784 (u)",
+    "element_atomicmass": "1.00784",
     "element_density": "0.0000899 (g/cm^3)",
     "element_electronegativty": "2.2",
     "element_block": "s - block",
@@ -49,7 +49,33 @@
     "element_vaporization_heat": "0.90 (H2) (kJ/mol)",
 
 
+    "iso_1": "H-1",
+    "iso_mass_1": "1.00782503224",
+    "iso_half_1": "Stable",
+    "iso_Z_1": "1",
+    "iso_N_1": "0",
+    "iso_A_1": "1",
 
+    "iso_2": "H-2",
+    "iso_mass_2": "2.01410177811",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "1",
+    "iso_N_2": "1",
+    "iso_A_2": "2",
+
+    "iso_3": "H-3",
+    "iso_mass_3": "3.01604928199",
+    "iso_half_3": "12.32 Years",
+    "iso_Z_3": "1",
+    "iso_N_3": "2",
+    "iso_A_3": "3",
+
+    "iso_4": "H-4",
+    "iso_mass_4": "4.02677",
+    "iso_half_4": "1.39×10^−22 (s)",
+    "iso_Z_4": "1",
+    "iso_N_4": "3",
+    "iso_A_4": "4",
 
 
 

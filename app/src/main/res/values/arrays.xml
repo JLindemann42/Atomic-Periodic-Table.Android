@@ -6,4 +6,12 @@
         <item>Lithium</item>
     </string-array>
 
+    <array name="calcArray">
+        <item>H</item>
+        <item>He</item>
+        <item>third</item>
+        <item>fourth</item>
+        <item>fifth</item>
+    </array>
+
 </resources>

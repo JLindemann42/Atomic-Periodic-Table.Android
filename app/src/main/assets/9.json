@@ -37,6 +37,41 @@
     "element_phase": "Gas",
     "element_fusion_heat": "0.51 (F2) (kJ/mol)",
     "element_specific_heat_capacity": "0.824 (F2) J/(g·K)",
-    "element_vaporization_heat": "6.62 (F2) (kJ/mol)"
+    "element_vaporization_heat": "6.62 (F2) (kJ/mol)",
+
+    "iso_1": "F-17",
+    "iso_mass_1": "17.00209524",
+    "iso_half_1": "64.370 (s)",
+    "iso_Z_1": "9",
+    "iso_N_1": "8",
+    "iso_A_1": "17",
+
+    "iso_2": "F-18",
+    "iso_mass_2": "18.0009373",
+    "iso_half_2": "109.739 (min)",
+    "iso_Z_2": "9",
+    "iso_N_2": "9",
+    "iso_A_2": "18",
+
+    "iso_3": "F-19",
+    "iso_mass_3": "18.9984031629",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "9",
+    "iso_N_3": "10",
+    "iso_A_3": "19",
+
+    "iso_4": "F-20",
+    "iso_mass_4": "19.99998125",
+    "iso_half_4": "11.163 (s)",
+    "iso_Z_4": "9",
+    "iso_N_4": "11",
+    "iso_A_4": "20",
+
+    "iso_5": "F-21",
+    "iso_mass_5": "20.9999489",
+    "iso_half_5": "4.158 (s)",
+    "iso_Z_5": "9",
+    "iso_N_5": "12",
+    "iso_A_5": "21"
   }
 ]

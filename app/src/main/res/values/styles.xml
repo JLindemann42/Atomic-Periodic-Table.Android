@@ -35,4 +35,11 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <declare-styleable name="ShadowView">
+        <attr name="shadowDx" format="dimension" />
+        <attr name="shadowDy" format="dimension" />
+        <attr name="shadowRadius" format="dimension" />
+        <attr name="shadowAlpha" format="integer" />
+    </declare-styleable>
+
 </resources>

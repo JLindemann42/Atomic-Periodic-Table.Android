@@ -37,6 +37,41 @@
     "element_phase": "Solid",
     "element_fusion_heat": "50.2 (kJ/mol)",
     "element_specific_heat_capacity": "1.825 J/(g·K)",
-    "element_vaporization_heat": "480 (kJ/mol)"
+    "element_vaporization_heat": "480 (kJ/mol)",
+
+    "iso_1": "Be-8",
+    "iso_mass_1": "8.0246073",
+    "iso_half_1": "0.770 (s)",
+    "iso_Z_1": "5",
+    "iso_N_1": "3",
+    "iso_A_1": "8",
+
+    "iso_2": "B-9",
+    "iso_mass_2": "9.0133296",
+    "iso_half_2": "800×10−21 (s)",
+    "iso_Z_2": "5",
+    "iso_N_2": "4",
+    "iso_A_2": "9",
+
+    "iso_3": "B-10",
+    "iso_mass_3": "10.012936862",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "5",
+    "iso_N_3": "5",
+    "iso_A_3": "10",
+
+    "iso_4": "Be-11",
+    "iso_mass_4": "11.009305167",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "5",
+    "iso_N_4": "6",
+    "iso_A_4": "11",
+
+    "iso_5": "Be-12",
+    "iso_mass_5": "12.0143526",
+    "iso_half_5": "20,20 ms",
+    "iso_Z_5": "5",
+    "iso_N_5": "7",
+    "iso_A_5": "12"
   }
 ]

@@ -30,6 +30,15 @@ object Utils {
 
     }
 
+    fun fadeInAnimCard(view: View, time: Long) {
+
+        view.visibility = View.VISIBLE
+        view.alpha = 0.0f
+        view.animate().setDuration(time)
+        view.animate().alpha(0.85f)
+
+    }
+
     fun fadeOutAnim(view: View, time: Long) {
         view.animate().setDuration(time)
         view.animate().alpha(0.0f)
@@ -39,6 +48,7 @@ object Utils {
         }, time+1)
 
     }
+
 
     fun jsonTransition(view: View, time: Long) {
         //Fade out

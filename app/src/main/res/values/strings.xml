@@ -3,8 +3,22 @@
 
     <string name="personalization_settings">Personalization</string>
 
-    <string name="other_settings">Others</string>
+    <string name="other_settings">Advanced</string>
     <string name="experimental_title">Experimental Settings</string>
     <string name="experimental_text">Additional experimental settings</string>
+    <string name="clear_cache_title">Clear Cache</string>
+    <string name="clear_cache_text">cache_size</string>
+
+
+    <string name="hydrogen">Hydrogen</string>
+    <string name="helium">Helium</string>
+    <string name="lithium">Lithium</string>
+    <string name="Beryllium">Beryllium</string>
+    <string name="Boron">Boron</string>
+    <string name="Carbon">Carbon</string>
+    <string name="Nitrogen">Nitrogen</string>
+    <string name="Oxygen">Oxygen</string>
+    <string name="Fluorine">Fluorine</string>
+    <string name="Neon">Neon</string>
 
 </resources>
