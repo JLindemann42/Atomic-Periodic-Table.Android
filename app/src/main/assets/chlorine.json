@@ -1,0 +1,84 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Chlorine",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Chlorine_ampoule.jpg",
+
+    "element": "Chlorine",
+    "element_year": "1774",
+    "element_discovered_name": "Carl Wilhelm Scheele",
+    "element_group": "Reactive Nonmetals",
+    "element_appearance": "Pale yellow/ green gas",
+    "element_electrons": "17",
+    "element_protons": "17",
+    "element_neutron_common": "18",
+
+    "element_atomic_number": "17",
+    "element_atomicmass": "35.45 (u)",
+    "element_density": "0.003214 (g/cm^3)",
+    "element_electronegativty": "3.16",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 M7 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Electron_shell_017_Chlorine_%28diatomic_nonmetal%29_-_no_label.svg/1280px-Electron_shell_017_Chlorine_%28diatomic_nonmetal%29_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "239.11 (K)",
+    "element_boiling_celsius": "−34.04 (°C)",
+    "element_boiling_fahrenheit": "−29.27 (°F)",
+    "element_melting_kelvin": "171.6 (K)",
+    "element_melting_celsius": "−101.5 (°C)",
+    "element_melting_fahrenheit": "−150.7 (°F)",
+
+    "element_electron_config": "3s^2 3p^5",
+    "element_ion_charge": "Cl^-",
+    "element_ionization_energy": "12.96764 (eV)",
+    "element_atomic_radius": "79 (pm)",
+    "element_covalent_radius": "99 (pm)",
+    "element_van_der_waals": "175 (pm)",
+
+    "element_phase": "Gas",
+    "element_fusion_heat": "0.479 (Cl2) (kJ/mol)",
+    "element_specific_heat_capacity": "0.479 (Cl2) J/(g·K)",
+    "element_vaporization_heat": "20.41 (Cl2) (kJ/mol)",
+
+    "iso_1": "Cl-35",
+    "iso_mass_1": "34.96885269",
+    "iso_half_1": "Stable",
+    "iso_Z_1": "17",
+    "iso_N_1": "18",
+    "iso_A_1": "35",
+
+    "iso_2": "Cl-36",
+    "iso_mass_2": "35.96830682",
+    "iso_half_2": "3.013(15)×10^5",
+    "iso_Z_2": "17",
+    "iso_N_2": "19",
+    "iso_A_2": "36",
+
+    "iso_3": "Cl-37",
+    "iso_mass_3": "36.96590258",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "17",
+    "iso_N_3": "20",
+    "iso_A_3": "37",
+
+    "iso_4": "Cl-38",
+    "iso_mass_4": "37.96801042",
+    "iso_half_4": "37.24 (min)",
+    "iso_Z_4": "17",
+    "iso_N_4": "21",
+    "iso_A_4": "38",
+
+    "iso_5": "Cl-39",
+    "iso_mass_5": "38.9680082",
+    "iso_half_5": "56.2 (min)",
+    "iso_Z_5": "17",
+    "iso_N_5": "22",
+    "iso_A_5": "39",
+
+    "iso_6": "Cl-40",
+    "iso_mass_6": "39.97042",
+    "iso_half_6": "1.35 (min)",
+    "iso_Z_6": "17",
+    "iso_N_6": "23",
+    "iso_A_6": "40"
+  }
+]

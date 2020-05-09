@@ -1,0 +1,91 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Molybdenum",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Molybdenum_crystaline_fragment_and_1cm3_cube.jpg/1920px-Molybdenum_crystaline_fragment_and_1cm3_cube.jpg",
+
+    "element": "Molybdenum",
+    "element_year": "1778",
+    "element_discovered_name": "Carl Wilhelm Scheele",
+    "element_group": "Transition Metals",
+    "element_appearance": "Gray Metallic",
+    "element_electrons": "42",
+    "element_protons": "42",
+    "element_neutron_common": "56",
+
+    "element_atomic_number": "42",
+    "element_atomicmass": "95.95 (u)",
+    "element_density": "10.2 (g/cm^3)",
+    "element_electronegativty": "2.16",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 18 N13 O1 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Electron_shell_042_Molybdenum_-_no_label.svg/1024px-Electron_shell_042_Molybdenum_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "4912 (K)",
+    "element_boiling_celsius": "4639 (°C)",
+    "element_boiling_fahrenheit": "8382 (°F)",
+    "element_melting_kelvin": "2896 (K)",
+    "element_melting_celsius": "2623 (°C)",
+    "element_melting_fahrenheit": "4753 (°F)",
+
+    "element_electron_config": "4d^5 5s^1",
+    "element_ion_charge": "Mo^6+",
+    "element_ionization_energy": "7.09243 (eV)",
+    "element_atomic_radius": "190 (pm)",
+    "element_covalent_radius": "145 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "37.48 (kJ/mol)",
+    "element_specific_heat_capacity": "0.251 J/(g·K)",
+    "element_vaporization_heat": "617 (kJ/mol)",
+
+    "iso_1": "Mo-93",
+    "iso_mass_1": "92.906813",
+    "iso_half_1": "3500 (years)",
+    "iso_Z_1": "42",
+    "iso_N_1": "51",
+    "iso_A_1": "93",
+
+    "iso_2": "Mo-94",
+    "iso_mass_2": "93.9050883",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "42",
+    "iso_N_2": "52",
+    "iso_A_2": "94",
+
+    "iso_3": "Mo-95",
+    "iso_mass_3": "94.9058421",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "42",
+    "iso_N_3": "53",
+    "iso_A_3": "95",
+
+    "iso_4": "Mo-96",
+    "iso_mass_4": "95.9046795",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "42",
+    "iso_N_4": "54",
+    "iso_A_4": "96",
+
+    "iso_5": "Mo-97",
+    "iso_mass_5": "96.9060215",
+    "iso_half_5": "Stable",
+    "iso_Z_5": "42",
+    "iso_N_5": "55",
+    "iso_A_5": "97",
+
+    "iso_6": "Mo-98",
+    "iso_mass_6": "97.90540482",
+    "iso_half_6": "Observationally Stable",
+    "iso_Z_6": "42",
+    "iso_N_6": "56",
+    "iso_A_6": "98",
+
+    "iso_7": "Mo-99",
+    "iso_mass_7": "98.9077119",
+    "iso_half_7": "2.7489 (days)",
+    "iso_Z_7": "42",
+    "iso_N_7": "57",
+    "iso_A_7": "99"
+  }
+]

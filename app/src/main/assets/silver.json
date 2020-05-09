@@ -1,0 +1,84 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Silver",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Silver_crystal.jpg/800px-Silver_crystal.jpg",
+
+    "element": "Silver",
+    "element_year": "Deep Antiquity",
+    "element_discovered_name": "---",
+    "element_group": "Transition Metals",
+    "element_appearance": "Lustrous White Metal",
+    "element_electrons": "47",
+    "element_protons": "47",
+    "element_neutron_common": "60",
+
+    "element_atomic_number": "47",
+    "element_atomicmass": "107.8682 (u)",
+    "element_density": "10.5 (g/cm^3)",
+    "element_electronegativty": "1.93",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 18 N18 O1 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Electron_shell_047_Silver_-_no_label.svg/800px-Electron_shell_047_Silver_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2435 (K)",
+    "element_boiling_celsius": "2162 (°C)",
+    "element_boiling_fahrenheit": "3924 (°F)",
+    "element_melting_kelvin": "1234.93 (K)",
+    "element_melting_celsius": "961.78 (°C)",
+    "element_melting_fahrenheit": "1763.2 (°F)",
+
+    "element_electron_config": "4d^10 5s^1",
+    "element_ion_charge": "Ag^+",
+    "element_ionization_energy": "7.5762 (eV)",
+    "element_atomic_radius": "165 (pm)",
+    "element_covalent_radius": "153 (pm)",
+    "element_van_der_waals": "172",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "11.28 (kJ/mol)",
+    "element_specific_heat_capacity": "0.235 J/(g·K)",
+    "element_vaporization_heat": "258 (kJ/mol)",
+
+    "iso_1": "Ag-105",
+    "iso_mass_1": "104.906529",
+    "iso_half_1": "41.29 (days)",
+    "iso_Z_1": "47",
+    "iso_N_1": "58",
+    "iso_A_1": "105",
+
+    "iso_2": "Ag-106",
+    "iso_mass_2": "105.906669",
+    "iso_half_2": "23.96 (min)",
+    "iso_Z_2": "47",
+    "iso_N_2": "59",
+    "iso_A_2": "106",
+
+    "iso_3": "Ag-107",
+    "iso_mass_3": "106.905097",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "47",
+    "iso_N_3": "60",
+    "iso_A_3": "107",
+
+    "iso_4": "Ag-108",
+    "iso_mass_4": "107.905956",
+    "iso_half_4": "2.37 (min)",
+    "iso_Z_4": "47",
+    "iso_N_4": "61",
+    "iso_A_4": "108",
+
+    "iso_5": "Ag-109",
+    "iso_mass_5": "108.904752",
+    "iso_half_5": "Stable",
+    "iso_Z_5": "47",
+    "iso_N_5": "62",
+    "iso_A_5": "109",
+
+    "iso_6": "Ag-110",
+    "iso_mass_6": "109.906107",
+    "iso_half_6": "24.6 (s)",
+    "iso_Z_6": "47",
+    "iso_N_6": "63",
+    "iso_A_6": "110"
+  }
+]

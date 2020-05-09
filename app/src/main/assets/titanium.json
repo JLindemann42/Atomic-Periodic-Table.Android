@@ -1,0 +1,98 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Titanium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Titan-crystal_bar.JPG/1024px-Titan-crystal_bar.JPG",
+
+    "element": "Titanium",
+    "element_year": "1791",
+    "element_discovered_name": "William Gregor",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery White-white Metallic",
+    "element_electrons": "22",
+    "element_protons": "22",
+    "element_neutron_common": "26",
+
+    "element_atomic_number": "22",
+    "element_atomicmass": "47.867 (u)",
+    "element_density": "4.506 (g/cm^3)",
+    "element_electronegativty": "1.54",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M10 N2 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Electron_shell_022_Titanium_-_no_label.svg/800px-Electron_shell_022_Titanium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "3560 (K)",
+    "element_boiling_celsius": "3287 (°C)",
+    "element_boiling_fahrenheit": "5949 (°F)",
+    "element_melting_kelvin": "1941 (K)",
+    "element_melting_celsius": "1668 (°C)",
+    "element_melting_fahrenheit": "3034 (°F)",
+
+    "element_electron_config": "3d^2 4s^2",
+    "element_ion_charge": "Ti^4+, Ti^3+",
+    "element_ionization_energy": "6.8281 (eV)",
+    "element_atomic_radius": "76 (pm)",
+    "element_covalent_radius": "136 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "14.15 (kJ/mol)",
+    "element_specific_heat_capacity": "0.523 J/(g·K)",
+    "element_vaporization_heat": "425 (kJ/mol)",
+
+    "iso_1": "Ti-44",
+    "iso_mass_1": "43.9596901",
+    "iso_half_1": "60.0 (years)",
+    "iso_Z_1": "22",
+    "iso_N_1": "22",
+    "iso_A_1": "44",
+
+    "iso_2": "Ti-45",
+    "iso_mass_2": "44.9581256",
+    "iso_half_2": "184.8 (min)",
+    "iso_Z_2": "22",
+    "iso_N_2": "23",
+    "iso_A_2": "45",
+
+    "iso_3": "Ti-46",
+    "iso_mass_3": "45.9526316",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "22",
+    "iso_N_3": "24",
+    "iso_A_3": "46",
+
+    "iso_4": "Ti-47",
+    "iso_mass_4": "46.9517631",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "22",
+    "iso_N_4": "25",
+    "iso_A_4": "47",
+
+    "iso_5": "Ti-48",
+    "iso_mass_5": "47.9479463",
+    "iso_half_5": "Stable",
+    "iso_Z_5": "22",
+    "iso_N_5": "26",
+    "iso_A_5": "48",
+
+    "iso_6": "Ti-49",
+    "iso_mass_6": "48.9478700",
+    "iso_half_6": "Stable",
+    "iso_Z_6": "22",
+    "iso_N_6": "27",
+    "iso_A_6": "49",
+
+    "iso_7": "Ti-50",
+    "iso_mass_7": "49.9447912",
+    "iso_half_7": "Stable (d)",
+    "iso_Z_7": "22",
+    "iso_N_7": "48",
+    "iso_A_7": "50",
+
+    "iso_8": "Ti-51",
+    "iso_mass_8": "50.946615",
+    "iso_half_8": "5.76 (min)",
+    "iso_Z_8": "22",
+    "iso_N_8": "29",
+    "iso_A_8": "51"
+  }
+]

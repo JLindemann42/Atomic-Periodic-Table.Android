@@ -1,0 +1,70 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Arsenic",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Arsen_1a.jpg",
+
+    "element": "Arsenic",
+    "element_year": "---",
+    "element_discovered_name": "---",
+    "element_group": "Metalloids",
+    "element_appearance": "Grayish White",
+    "element_electrons": "33",
+    "element_protons": "33",
+    "element_neutron_common": "42",
+
+    "element_atomic_number": "33",
+    "element_atomicmass": "74.9216 (u)",
+    "element_density": "5.75 (g/cm^3)",
+    "element_electronegativty": "2.18",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 18 N5 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Electron_shell_033_Arsenic_-_no_label.svg/1280px-Electron_shell_033_Arsenic_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "--- (K)",
+    "element_boiling_celsius": "--- (°C)",
+    "element_boiling_fahrenheit": "--- (°F)",
+    "element_melting_kelvin": "---  (K)",
+    "element_melting_celsius": "--- (°C)",
+    "element_melting_fahrenheit": "--- (°F)",
+
+    "element_electron_config": "3d^10 4s^2 4p^3",
+    "element_ion_charge": "As^3-",
+    "element_ionization_energy": "9.7886 (eV)",
+    "element_atomic_radius": "114 (pm)",
+    "element_covalent_radius": "119 (pm)",
+    "element_van_der_waals": "185 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "24.44 (kJ/mol)",
+    "element_specific_heat_capacity": "0.329 J/(g·K)",
+    "element_vaporization_heat": "32.4 (kJ/mol)",
+
+    "iso_1": "As-73",
+    "iso_mass_1": "72.923825",
+    "iso_half_1": "80.30 (days)",
+    "iso_Z_1": "33",
+    "iso_N_1": "40",
+    "iso_A_1": "73",
+
+    "iso_2": "As-74",
+    "iso_mass_2": "73.9239287",
+    "iso_half_2": "17.77 (days)",
+    "iso_Z_2": "33",
+    "iso_N_2": "41",
+    "iso_A_2": "74",
+
+    "iso_3": "As-75",
+    "iso_mass_3": "74.9215965",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "33",
+    "iso_N_3": "42",
+    "iso_A_3": "75",
+
+    "iso_4": "As-76",
+    "iso_mass_4": "75.922394",
+    "iso_half_4": "1.0942 (days)",
+    "iso_Z_4": "33",
+    "iso_N_4": "43",
+    "iso_A_4": "76"
+  }
+]

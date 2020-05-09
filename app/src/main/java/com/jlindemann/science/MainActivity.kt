@@ -1,22 +1,24 @@
 package com.jlindemann.science
 
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.PorterDuff
 import android.os.Build
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.animation.ScaleAnimation
-import android.widget.ArrayAdapter
+import android.view.inputmethod.InputMethodManager
 import android.widget.ScrollView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.activities.*
+import com.jlindemann.science.adapter.Element
 import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.ThemePreference
@@ -44,13 +46,13 @@ import kotlinx.android.synthetic.main.group_8.*
 import kotlinx.android.synthetic.main.group_9.*
 import kotlinx.android.synthetic.main.nav_menu_view.*
 import kotlinx.android.synthetic.main.search_layout.*
-import org.json.JSONArray
-import org.json.JSONObject
-import java.io.IOException
-import java.io.InputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.OnElementClickListener2 {
+    private var elementList = ArrayList<Element>()
+    var mAdapter = ElementAdapter(elementList, this)
 
     var mScale = 1f
     lateinit var mScaleDetector: ScaleGestureDetector
@@ -59,7 +61,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val themePreference = ThemePreference(this)
-        var themePrefValue = themePreference.getValue()
+        val themePrefValue = themePreference.getValue()
 
         if (themePrefValue == 100) {
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
@@ -87,15 +89,105 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             window.setStatusBarColor(getColor(R.color.colorDarkPrimary))
         }
 
-        val ElementSendAndLoadPreference = ElementSendAndLoad(this)
-        var ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
-
         setContentView(R.layout.activity_main)
+
+        val recyclerView = findViewById<RecyclerView>(R.id.element_recyclerview)
+        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        val elements = ArrayList<Element>()
+        elements.add(Element("hydrogen", "H"))
+        elements.add(Element("helium", "He"))
+        elements.add(Element("lithium", "Li"))
+        elements.add(Element("beryllium", "Be"))
+        elements.add(Element("boron", "B"))
+        elements.add(Element("carbon", "C"))
+        elements.add(Element("nitrogen", "N"))
+        elements.add(Element("oxygen", "O"))
+        elements.add(Element("fluorine", "F"))
+        elements.add(Element("neon", "Ne"))
+        elements.add(Element("sodium", "Na"))
+        elements.add(Element("magnesium", "Mg"))
+        elements.add(Element("aluminium", "Al"))
+        elements.add(Element("silicon", "Si"))
+        elements.add(Element("phosphorus", "P"))
+        elements.add(Element("sulfur", "S"))
+        elements.add(Element("chlorine", "Cl"))
+        elements.add(Element("argon", "Ar"))
+        elements.add(Element("potassium", "K"))
+        elements.add(Element("calcium", "Ca"))
+        elements.add(Element("scandium", "Sc"))
+        elements.add(Element("titanium", "Ti"))
+        elements.add(Element("vanadium", "V"))
+        elements.add(Element("chromium", "Cr"))
+        elements.add(Element("manganese", "Mn"))
+        elements.add(Element("iron", "Fe"))
+        elements.add(Element("cobalt", "Co"))
+        elements.add(Element("nickel", "Ni"))
+        elements.add(Element("copper", "Cu"))
+        elements.add(Element("zinc", "Zn"))
+        elements.add(Element("gallium", "Ga"))
+        elements.add(Element("germanium", "Ge"))
+        elements.add(Element("arsenic", "As"))
+        elements.add(Element("selenium", "Se"))
+        elements.add(Element("bromine", "Br"))
+        elements.add(Element("krypton", "Kr"))
+        elements.add(Element("rubidium", "Rb"))
+        elements.add(Element("strontium", "Sr"))
+        elements.add(Element("yttrium", "Y"))
+        elements.add(Element("zirconium", "Zr"))
+        elements.add(Element("niobium", "Nb"))
+        elements.add(Element("molybdenum", "Mo"))
+        elements.add(Element("technetium", "Tc"))
+        elements.add(Element("ruthenium", "Ru"))
+        elements.add(Element("rhodium", "Rh"))
+        elements.add(Element("palladium", "Ph"))
+        elements.add(Element("silver", "Ag"))
+        elements.add(Element("cadmium", "Cs"))
+        elements.add(Element("indium", "Id"))
+        elements.add(Element("tin", "Sn"))
+        elements.add(Element("antimony", "Sb"))
+        elements.add(Element("tellurium", "Te"))
+        elements.add(Element("iodine", "I"))
+        elements.add(Element("xenon", "Xe"))
+        elements.add(Element("barium","Ba"))
+        elements.add(Element("lanthanum","La"))
+        elements.add(Element("cerium","Ce"))
+        elements.add(Element("praseodymium","Pr"))
+        elements.add(Element("neodymium","Nd"))
+        elements.add(Element("promethium","Pm"))
+        elements.add(Element("samarium","Sm"))
+        elements.add(Element("europium","Eu"))
+        elements.add(Element("gadolinium","Gd"))
+        val adapter = ElementAdapter(elements, this)
+        recyclerView.adapter = adapter
+
+        edit_element.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                filter(s.toString(), elements, recyclerView)
+            }
+        })
+
         setOnCLickListenerSetups()
         setupNavListeners()
         detailViewDisabled()
         detailViewEnabled()
         onClickNav()
+        searchListener()
         sliding_layout.setPanelState(PanelState.COLLAPSED)
 
 
@@ -154,6 +246,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
+    private fun filter(text: String, list: ArrayList<Element>, recyclerView: RecyclerView) {
+        val filteredList: ArrayList<Element> = ArrayList()
+        for (item in list) {
+            if (item.element.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
+                filteredList.add(item)
+                Log.v("SSDD2", filteredList.toString())
+            }
+        }
+        mAdapter.filterList(filteredList)
+        mAdapter.notifyDataSetChanged()
+        recyclerView.adapter = ElementAdapter(filteredList, this)
+    }
+
+    override fun elementClickListener2(item: Element, position: Int) {
+        val elementSendAndLoad = ElementSendAndLoad(this)
+        elementSendAndLoad.setValue(item.element)
+
+        val intent = Intent(this, ElementInfoActivity::class.java)
+        startActivity(intent)
+    }
+
     override fun onBackPressed() {
         if (nav_background.visibility == View.VISIBLE) {
             sliding_layout.setPanelState(PanelState.COLLAPSED)
@@ -170,17 +283,33 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    private fun searchListener() {
+        search_box.setOnClickListener {
+            Utils.fadeInAnim(search_menu_include, 300)
+            nav_bar.visibility = View.GONE
+
+            edit_element.requestFocus()
+            val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(edit_element, InputMethodManager.SHOW_IMPLICIT)
+        }
+        close_element_search.setOnClickListener {
+            Utils.fadeOutAnim(search_menu_include, 300)
+            nav_bar.visibility = View.VISIBLE
+
+            val view = this.currentFocus
+            if (view != null) {
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(view.windowToken, 0)
+            }
+        }
+    }
+
     private fun onClickNav() {
         menu_btn.setOnClickListener {
             nav_menu_include.visibility = View.VISIBLE
             nav_background.visibility = View.VISIBLE
             Utils.fadeInAnim(nav_background, 200)
             sliding_layout.setPanelState(PanelState.EXPANDED)
-        }
-        search_box.setOnClickListener {
-            search_menu_include.visibility = View.VISIBLE
-            Utils.fadeInAnim(search_menu_include, 300)
-            nav_bar.visibility = View.GONE
         }
         nav_background.setOnClickListener {
             search_menu_include.visibility = View.GONE
@@ -193,7 +322,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             startActivity(intent)
         }
         isotopes_btn.setOnClickListener {
-            val intent = Intent(this, IsotopesActivity::class.java)
+            val intent = Intent(this, IsotopesActivityExperimental::class.java)
             startActivity(intent)
         }
         dictionary_btn.setOnClickListener {
@@ -589,6 +718,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         mendelevium_btn.setOnClickListener { onClick(mendelevium_btn) }
         nobelium_btn.setOnClickListener { onClick(nobelium_btn) }
         lawrencium_btn.setOnClickListener { onClick(lawrencium_btn) }
+
     }
 
     override fun onClick(v: View) {
@@ -598,712 +728,713 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.hydrogen_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(1)
+                ElementSend.setValue("hydrogen")
                 startActivity(intent)
             }
             R.id.helium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(2)
+                ElementSend.setValue("helium")
                 startActivity(intent)
             }
             R.id.lithium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(3)
+                ElementSend.setValue("lithium")
                 startActivity(intent)
             }
             R.id.beryllium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(4)
+                ElementSend.setValue("beryllium")
                 startActivity(intent)
             }
             R.id.boron_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(5)
+                ElementSend.setValue("boron")
                 startActivity(intent)
             }
             R.id.carbon_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(6)
+                ElementSend.setValue("carbon")
                 startActivity(intent)
             }
             R.id.nitrogen_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(7)
+                ElementSend.setValue("nitrogen")
                 startActivity(intent)
             }
             R.id.oxygen_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(8)
+                ElementSend.setValue("oxygen")
                 startActivity(intent)
             }
             R.id.fluorine_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(9)
+                ElementSend.setValue("fluorine")
                 startActivity(intent)
             }
             R.id.neon_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(10)
+                ElementSend.setValue("neon")
                 startActivity(intent)
             }
 
             R.id.sodium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(11)
+                ElementSend.setValue("sodium")
                 startActivity(intent)
             }
             R.id.magnesium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(12)
+                ElementSend.setValue("magnesium")
                 startActivity(intent)
             }
             R.id.aluminium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(13)
+                ElementSend.setValue("aluminium")
                 startActivity(intent)
             }
             R.id.silicon_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend = ElementSendAndLoad(this)
-                ElementSend.setValue(14)
+                ElementSend.setValue("silicon")
                 startActivity(intent)
             }
             R.id.phosphorus_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(15)
+                ElementSend.setValue("phosphorus")
                 startActivity(intent)
             }
             R.id.sulfur_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(16)
+                ElementSend.setValue("sulfur")
                 startActivity(intent)
             }
             R.id.chlorine_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(17)
+                ElementSend.setValue("chlorine")
                 startActivity(intent)
             }
             R.id.argon_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(18)
+                ElementSend.setValue("argon")
                 startActivity(intent)
             }
             R.id.potassium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(19)
+                ElementSend.setValue("potassium")
                 startActivity(intent)
             }
             R.id.calcium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(20)
+                ElementSend.setValue("calcium")
                 startActivity(intent)
             }
             R.id.scandium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(21)
+                ElementSend.setValue("scandium")
                 startActivity(intent)
             }
             R.id.titanium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(22)
+                ElementSend.setValue("titanium")
                 startActivity(intent)
             }
             R.id.vanadium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(23)
+                ElementSend.setValue("vanadium")
                 startActivity(intent)
             }
             R.id.chromium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(24)
+                ElementSend.setValue("chromium")
                 startActivity(intent)
             }
             R.id.manganese_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(25)
+                ElementSend.setValue("manganese")
                 startActivity(intent)
             }
             R.id.iron_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(26)
+                ElementSend.setValue("iron")
                 startActivity(intent)
             }
             R.id.cobalt_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(27)
+                ElementSend.setValue("cobalt")
                 startActivity(intent)
             }
             R.id.nickel_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(28)
+                ElementSend.setValue("nickel")
                 startActivity(intent)
             }
             R.id.copper_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(29)
+                ElementSend.setValue("copper")
                 startActivity(intent)
             }
             R.id.zinc_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(30)
+                ElementSend.setValue("zinc")
                 startActivity(intent)
             }
             R.id.gallium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(31)
+                ElementSend.setValue("gallium")
                 startActivity(intent)
             }
             R.id.germanium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(32)
+                ElementSend.setValue("germanium")
                 startActivity(intent)
             }
             R.id.arsenic_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(33)
+                ElementSend.setValue("arsenic")
                 startActivity(intent)
             }
             R.id.selenium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(34)
+                ElementSend.setValue("selenium")
                 startActivity(intent)
             }
             R.id.bromine_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(35)
+                ElementSend.setValue("bromine")
                 startActivity(intent)
             }
             R.id.krypton_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(36)
+                ElementSend.setValue("krypton")
                 startActivity(intent)
             }
             R.id.rubidium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(37)
+                ElementSend.setValue("rubidium")
                 startActivity(intent)
             }
             R.id.strontium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(38)
+                ElementSend.setValue("strantium")
                 startActivity(intent)
             }
             R.id.yttrium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(39)
+                ElementSend.setValue("yttrium")
                 startActivity(intent)
             }
             R.id.zirconium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(40)
+                ElementSend.setValue("zirconium")
                 startActivity(intent)
             }
             R.id.niobium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(41)
+                ElementSend.setValue("niobium")
                 startActivity(intent)
             }
             R.id.molybdenum_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(42)
+                ElementSend.setValue("molybdenum")
                 startActivity(intent)
             }
             R.id.technetium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(43)
+                ElementSend.setValue("technetium")
                 startActivity(intent)
             }
             R.id.ruthenium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(44)
+                ElementSend.setValue("ruthenium")
                 startActivity(intent)
             }
             R.id.rhodium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(45)
+                ElementSend.setValue("rhodium")
                 startActivity(intent)
             }
             R.id.palladium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(46)
+                ElementSend.setValue("palladium")
                 startActivity(intent)
             }
             R.id.silver_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(47)
+                ElementSend.setValue("silver")
                 startActivity(intent)
             }
             R.id.cadmium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(48)
+                ElementSend.setValue("cadmium")
                 startActivity(intent)
             }
             R.id.indium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(49)
+                ElementSend.setValue("indium")
                 startActivity(intent)
             }
             R.id.tin_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(50)
+                ElementSend.setValue("tin")
                 startActivity(intent)
             }
             R.id.antimony_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(51)
+                ElementSend.setValue("antimony")
                 startActivity(intent)
             }
             R.id.tellurium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(52)
+                ElementSend.setValue("tellurium")
                 startActivity(intent)
             }
             R.id.iodine_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(53)
+                ElementSend.setValue("iodine")
                 startActivity(intent)
             }
             R.id.xenon_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(54)
+                ElementSend.setValue("xenon")
                 startActivity(intent)
             }
             R.id.caesium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(55)
+                ElementSend.setValue("caesium")
                 startActivity(intent)
             }
             R.id.barium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(56)
+                ElementSend.setValue("barium")
                 startActivity(intent)
             }
             R.id.lanthanum_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(57)
+                ElementSend.setValue("lanthanum")
                 startActivity(intent)
             }
             R.id.cerium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(58)
+                ElementSend.setValue("cerium")
                 startActivity(intent)
             }
             R.id.praseodymium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(59)
+                ElementSend.setValue("praseodymium")
                 startActivity(intent)
             }
             R.id.neodymium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(60)
+                ElementSend.setValue("neodymium")
                 startActivity(intent)
             }
             R.id.promethium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(61)
+                ElementSend.setValue("promethium")
                 startActivity(intent)
             }
             R.id.samarium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(62)
+                ElementSend.setValue("samarium")
                 startActivity(intent)
             }
             R.id.europium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(63)
+                ElementSend.setValue("europium")
                 startActivity(intent)
             }
             R.id.gadolinium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(64)
+                ElementSend.setValue("gadolinium")
                 startActivity(intent)
             }
             R.id.terbium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(65)
+                ElementSend.setValue("terbium")
                 startActivity(intent)
             }
             R.id.dysprosium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(66)
+                ElementSend.setValue("dysprosium")
                 startActivity(intent)
             }
             R.id.holmium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(67)
+                ElementSend.setValue("holmium")
                 startActivity(intent)
             }
             R.id.erbium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(68)
+                ElementSend.setValue("erbium")
                 startActivity(intent)
             }
             R.id.thulium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(69)
+                ElementSend.setValue("thulium")
                 startActivity(intent)
             }
             R.id.ytterbium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(70)
+                ElementSend.setValue("ytterbium")
                 startActivity(intent)
             }
             R.id.lutetium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(71)
+                ElementSend.setValue("lutetium")
                 startActivity(intent)
             }
             R.id.hafnium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(72)
+                ElementSend.setValue("hafnium")
                 startActivity(intent)
             }
             R.id.tantalum_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(73)
+                ElementSend.setValue("tantalum")
                 startActivity(intent)
             }
             R.id.tungsten_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(74)
+                ElementSend.setValue("tungsten")
                 startActivity(intent)
             }
             R.id.rhenium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(75)
+                ElementSend.setValue("rhenium")
                 startActivity(intent)
             }
             R.id.osmium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(76)
+                ElementSend.setValue("osmium")
                 startActivity(intent)
             }
             R.id.iridium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(77)
+                ElementSend.setValue("iridium")
                 startActivity(intent)
             }
             R.id.platinum_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(78)
+                ElementSend.setValue("platinum")
                 startActivity(intent)
             }
             R.id.gold_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(79)
+                ElementSend.setValue("gold")
                 startActivity(intent)
             }
             R.id.mercury_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(80)
+                ElementSend.setValue("mercury")
                 startActivity(intent)
             }
             R.id.thallium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(81)
+                ElementSend.setValue("thallium")
                 startActivity(intent)
             }
             R.id.lead_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(82)
+                ElementSend.setValue("lead")
                 startActivity(intent)
             }
             R.id.bismuth_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(83)
+                ElementSend.setValue("bismuth")
                 startActivity(intent)
             }
             R.id.polonium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(84)
+                ElementSend.setValue("polonium")
                 startActivity(intent)
             }
             R.id.astatine_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(85)
+                ElementSend.setValue("astatine")
                 startActivity(intent)
             }
             R.id.radon_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(86)
+                ElementSend.setValue("radon")
                 startActivity(intent)
             }
             R.id.francium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(87)
+                ElementSend.setValue("francium")
                 startActivity(intent)
             }
             R.id.radium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(88)
+                ElementSend.setValue("radium")
                 startActivity(intent)
             }
             R.id.actinium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(89)
+                ElementSend.setValue("actinium")
                 startActivity(intent)
             }
             R.id.thorium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(90)
+                ElementSend.setValue("thorium")
                 startActivity(intent)
             }
             R.id.protactinium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(91)
+                ElementSend.setValue("protactinium")
                 startActivity(intent)
             }
             R.id.uranium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(92)
+                ElementSend.setValue("uranium")
                 startActivity(intent)
             }
             R.id.neptunium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(93)
+                ElementSend.setValue("neptunium")
                 startActivity(intent)
             }
             R.id.plutonium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(94)
+                ElementSend.setValue("plutonium")
                 startActivity(intent)
             }
             R.id.americium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(95)
+                ElementSend.setValue("americium")
                 startActivity(intent)
             }
             R.id.curium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(96)
+                ElementSend.setValue("curium")
                 startActivity(intent)
             }
             R.id.berkelium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(97)
+                ElementSend.setValue("berkelium")
                 startActivity(intent)
             }
             R.id.californium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(98)
+                ElementSend.setValue("californium")
                 startActivity(intent)
             }
             R.id.einsteinium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(99)
+                ElementSend.setValue("einsteinium")
                 startActivity(intent)
             }
             R.id.fermium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(100)
+                ElementSend.setValue("fermium")
                 startActivity(intent)
             }
             R.id.mendelevium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(101)
+                ElementSend.setValue("mendelevium")
                 startActivity(intent)
             }
             R.id.nobelium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(102)
+                ElementSend.setValue("nobelium")
                 startActivity(intent)
             }
             R.id.lawrencium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(103)
+                ElementSend.setValue("lawrencium")
                 startActivity(intent)
             }
             R.id.rutherfordium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(104)
+                ElementSend.setValue("rutherfordium")
                 startActivity(intent)
             }
             R.id.dubnium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(105)
+                ElementSend.setValue("dubnium")
                 startActivity(intent)
             }
             R.id.seaborgium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(106)
+                ElementSend.setValue("seaborgium")
                 startActivity(intent)
             }
             R.id.bohrium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(107)
+                ElementSend.setValue("bohrium")
                 startActivity(intent)
             }
             R.id.hassium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(108)
+                ElementSend.setValue("hassium")
                 startActivity(intent)
             }
             R.id.meitnerium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(109)
+                ElementSend.setValue("meitnerium")
                 startActivity(intent)
             }
             R.id.darmstadtium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(110)
+                ElementSend.setValue("darmstadtium")
                 startActivity(intent)
             }
             R.id.roentgenium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(111)
+                ElementSend.setValue("roentgenium")
                 startActivity(intent)
             }
             R.id.copernicium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(112)
+                ElementSend.setValue("copernicium")
                 startActivity(intent)
             }
             R.id.nihonium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(113)
+                ElementSend.setValue("nihonium")
                 startActivity(intent)
             }
             R.id.flerovium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(114)
+                ElementSend.setValue("flerovium")
                 startActivity(intent)
             }
             R.id.moscovium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(115)
+                ElementSend.setValue("moscovium")
                 startActivity(intent)
             }
             R.id.livermorium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(116)
+                ElementSend.setValue("livermorium")
                 startActivity(intent)
             }
             R.id.tennessine_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(117)
+                ElementSend.setValue("tennessine")
                 startActivity(intent)
             }
             R.id.oganesson_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue(118)
+                ElementSend.setValue("oganesson")
                 startActivity(intent)
             }
+
 
             else -> {
             }

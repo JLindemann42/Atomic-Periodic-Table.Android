@@ -1,0 +1,84 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Phosphorus",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/8/88/PhosphComby.jpg",
+
+    "element": "Phosphorus",
+    "element_year": "1669",
+    "element_discovered_name": "Hennig Brand",
+    "element_group": "Other Nonmetal",
+    "element_appearance": "Colourless, waxy white, yellow, scarlet, red, violet, black",
+    "element_electrons": "15",
+    "element_protons": "15",
+    "element_neutron_common": "16",
+
+    "element_atomic_number": "15",
+    "element_atomicmass": "30.9738 (u)",
+    "element_density": "White: 1.823 (g/cm^3)",
+    "element_electronegativty": "2.19",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 M5 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Electron_shell_015_Phosphorus_%28polyatomic_nonmetal%29_-_no_label.svg/1280px-Electron_shell_015_Phosphorus_%28polyatomic_nonmetal%29_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "White: 553.7 (K)",
+    "element_boiling_celsius": "White: 280.5 (°C)",
+    "element_boiling_fahrenheit": "White: 536.9 (°F)",
+    "element_melting_kelvin": "White: 317.3 (K)",
+    "element_melting_celsius": "White: 44.15 (°C)",
+    "element_melting_fahrenheit": "White: 111.5 (°F)",
+
+    "element_electron_config": "3s^2 3p^3",
+    "element_ion_charge": "P^3-",
+    "element_ionization_energy": "10.48669 (eV)",
+    "element_atomic_radius": "98 (pm)",
+    "element_covalent_radius": "106 (pm)",
+    "element_van_der_waals": "180 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "White: 0.66 (kJ/mol)",
+    "element_specific_heat_capacity": "White: 0.769 J/(g·K)",
+    "element_vaporization_heat": "12.4 (kJ/mol)",
+
+    "iso_1": "P-30",
+    "iso_mass_1": "29.97831349",
+    "iso_half_1": "2.498 (min)",
+    "iso_Z_1": "15",
+    "iso_N_1": "15",
+    "iso_A_1": "30",
+
+    "iso_2": "P-31",
+    "iso_mass_2": "30.9737619986",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "15",
+    "iso_N_2": "16",
+    "iso_A_2": "31",
+
+    "iso_3": "P-32",
+    "iso_mass_3": "31.97390764",
+    "iso_half_3": "14.268 (Days)",
+    "iso_Z_3": "15",
+    "iso_N_3": "17",
+    "iso_A_3": "32",
+
+    "iso_4": "P-33",
+    "iso_mass_4": "33.9736459",
+    "iso_half_4": "12.43 (s)",
+    "iso_Z_4": "15",
+    "iso_N_4": "18",
+    "iso_A_4": "33",
+
+    "iso_5": "P-34",
+    "iso_mass_5": "34.9733141",
+    "iso_half_5": "47.3 (s)",
+    "iso_Z_5": "15",
+    "iso_N_5": "19",
+    "iso_A_5": "34",
+
+    "iso_6": "P-35",
+    "iso_mass_6": "35.978260",
+    "iso_half_6": "5.6 (s)",
+    "iso_Z_6": "15",
+    "iso_N_6": "20",
+    "iso_A_6": "35"
+  }
+]

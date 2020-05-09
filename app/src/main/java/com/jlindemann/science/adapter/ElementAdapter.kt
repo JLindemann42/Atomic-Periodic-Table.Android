@@ -1,54 +1,50 @@
 package com.jlindemann.science.adapter
 
-import android.content.Context
-import android.content.res.Resources
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
+import com.jlindemann.science.MainActivity
 import com.jlindemann.science.R
 
-class ElementAdapter(private val context: Context,
-                      private val list: Array<String>
-) : RecyclerView.Adapter<ElementAdapter.CategoryViewHolder>() {
-    companion object ResMap {
-        val KEYWORDS: Array<String> = arrayOf("Hydrogen", "Helium", "Lithium")
+class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnElementClickListener2) : RecyclerView.Adapter<ElementAdapter.ViewHolder>() {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.initialize(elementList[position], clickListener)
     }
 
-
-    var onClickItem: ((string: String) -> Unit)? = null
-
-    override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(list[holder.adapterPosition])
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.isotope_list_item, parent, false)
+        return ViewHolder(v)
     }
 
-    override fun getItemCount(): Int = list.size
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        return CategoryViewHolder(LayoutInflater.from(context).inflate(R.layout.element_list, parent, false))
+    override fun getItemCount(): Int {
+        return elementList.size
     }
 
-    inner class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        @BindView(R.id.title2)
-        lateinit var categoryName: TextView
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val textViewElement = itemView.findViewById(R.id.tv_iso_type) as TextView
+        private val textViewShort = itemView.findViewById(R.id.ic_iso_type) as TextView
 
-        private var category: String? = null
+        fun initialize(item: Element, action: OnElementClickListener2) {
+            textViewElement.text = item.element
+            textViewElement.text = item.element.capitalize()
+            textViewShort.text = item.short
 
-        init {
-            ButterKnife.bind(this, itemView)
             itemView.setOnClickListener {
-                category?.let {
-                    onClickItem?.invoke(it)
-                }
+                action.elementClickListener2(item, adapterPosition)
             }
         }
+    }
 
-        fun bind(cate: String) {
-            category = cate
-            categoryName.text = cate
-        }
+    interface OnElementClickListener2 {
+        fun elementClickListener2(item: Element, position: Int)
+    }
+
+    fun filterList(filteredList: ArrayList<Element>) {
+        elementList = filteredList
+        notifyDataSetChanged()
+        Log.v("filter", "work")
     }
 }

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent">
+
+        <FrameLayout
+            android:id="@+id/common_title_back_iso"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:alpha="0.975"
+            android:background="?attr/colorPrimary"
+            android:elevation="8dp"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/title_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/back_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:elevation="0dp"
+                        android:src="@drawable/ic_arrow_back_white"
+                        app:backgroundTint="@color/transparent"
+                        app:borderWidth="0dp"
+                        app:elevation="0dp"
+                        app:fabSize="normal" />
+
+                    <TextView
+                        android:id="@+id/element_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="Isotopes"
+                        android:textAlignment="center"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/search_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="12dp"
+                        android:elevation="0dp"
+                        android:src="@drawable/ic_search"
+                        android:tint="?attr/actionMenuTextColor"
+                        app:backgroundTint="@color/transparent"
+                        app:borderWidth="0dp"
+                        app:elevation="0dp"
+                        app:fabSize="normal" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/search_bar_iso"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:visibility="gone">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/close_iso_search"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="9dp"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:elevation="0dp"
+                        android:focusable="true"
+                        android:src="@drawable/ic_close"
+                        android:tint="?attr/actionMenuTextColor"
+                        app:backgroundTint="?attr/colorPrimary"
+                        app:borderWidth="0dp"
+                        app:elevation="0dp"
+                        app:fabCustomSize="36dp"
+                        app:fabSize="auto" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="54dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginBottom="18dp"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:elevation="0dp">
+
+                        <EditText
+                            android:id="@+id/edit_iso"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="18dp"
+                            android:layout_marginEnd="18dp"
+                            android:background="@android:color/transparent"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:fontFamily="@font/manroperegular"
+                            android:hint="Search For Isotopes"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:paddingStart="0dp"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColorHint="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id='@+id/r_view'
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="80dp"
+            android:clipToPadding="false"
+            android:paddingTop="9dp"
+            android:paddingBottom="60dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/background_i2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:elevation="10dp"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/panel_info"
+        layout="@layout/panel_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="parent" />
+
+    <include
+        layout="@layout/isotope_panel"
+        android:id="@+id/slid_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="24dp"
+        android:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

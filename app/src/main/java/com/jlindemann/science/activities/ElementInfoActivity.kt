@@ -3,19 +3,26 @@ package com.jlindemann.science.activities
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsets
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.updatePadding
 import com.jlindemann.science.R
+import com.jlindemann.science.R2.id.bottom
 import com.jlindemann.science.extensions.getStatusBarHeight
 import com.jlindemann.science.preferences.*
+import com.jlindemann.science.utils.Pasteur
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
@@ -36,8 +43,9 @@ import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
 import java.net.ConnectException
+import com.jlindemann.science.activities.BaseActivity.*
 
-class ElementInfoActivity : AppCompatActivity() {
+class ElementInfoActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +67,6 @@ class ElementInfoActivity : AppCompatActivity() {
         var ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
 
         setContentView(R.layout.activity_element_info)
-
         Utils.fadeInAnim(scr_view, 300)
         readJson()
 
@@ -73,16 +80,15 @@ class ElementInfoActivity : AppCompatActivity() {
         if (proPrefValue == 0) {
             //Hide pro elements here
         }
-
-
+        
         shell.visibility = View.GONE
         onClickShell()
         onClickClose()
-        onClickNext()
-        onClickPrevious()
-        favoriteBarSetup()
 
+        favoriteBarSetup()
         elementAnim(overview_inc, properties_inc)
+
+        view.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         back_btn.setOnClickListener {
             super.onBackPressed()
@@ -93,18 +99,16 @@ class ElementInfoActivity : AppCompatActivity() {
         }
     }
 
-    fun layoutParams() {
-        val layout: LinearLayout = findViewById(R.id.commom_title_back)
-        val layout2: LinearLayout = findViewById(R.id.status_place)
-        val params: ViewGroup.LayoutParams = layout.layoutParams
-        val params2: ViewGroup.LayoutParams = layout2.layoutParams
+    override fun onApplySystemInsets(top: Int, bottom: Int) {
+        val params = frame.layoutParams as ViewGroup.MarginLayoutParams
+        params.topMargin += top
+        frame.layoutParams = params
 
-        params.height = (80 + getStatusBarHeight())
-        params2.height = (getStatusBarHeight())
-
-        layout.layoutParams = params
-        layout2.layoutParams = params2
+        val params2 = common_title_back.layoutParams as ViewGroup.LayoutParams
+        params2.height += top
+        common_title_back.layoutParams = params2
     }
+
 
     fun readJson() {
 
@@ -429,35 +433,5 @@ class ElementInfoActivity : AppCompatActivity() {
         }
     }
 
-    private fun onClickPrevious() {
-        previous_btn.setOnClickListener {
 
-            val elementSendAndLoadPreference = ElementSendAndLoad(this)
-            val elementSendAndLoadValue: Int? = elementSendAndLoadPreference.getValue()
-
-            if (elementSendAndLoadValue!! > 1) {
-                elementSendAndLoadPreference.setValue(elementSendAndLoadValue!! - 1)
-                readJson()
-
-                Utils.jsonTransition(scr_view, 200)
-
-            }
-
-        }
-    }
-
-    private fun onClickNext() {
-        next_btn.setOnClickListener {
-
-            val elementSendAndLoadPreference = ElementSendAndLoad(this)
-            val elementSendAndLoadValue: Int? = elementSendAndLoadPreference.getValue()
-
-            if (elementSendAndLoadValue!! < 118) {
-                elementSendAndLoadPreference.setValue(elementSendAndLoadValue!! + 1)
-                readJson()
-
-                Utils.jsonTransition(scr_view, 200)
-            }
-        }
-    }
 }

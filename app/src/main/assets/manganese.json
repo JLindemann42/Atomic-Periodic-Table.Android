@@ -1,0 +1,70 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Manganese",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/8/86/Mangan_1-crop.jpg",
+
+    "element": "Manganese",
+    "element_year": "1774",
+    "element_discovered_name": "Carl Wilhelm Scheele ",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery Metallic",
+    "element_electrons": "25",
+    "element_protons": "25",
+    "element_neutron_common": "30",
+
+    "element_atomic_number": "25",
+    "element_atomicmass": "54.9380 (u)",
+    "element_density": "7.3 (g/cm^3)",
+    "element_electronegativty": "1.55",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M13 N2 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Electron_shell_025_Manganese_-_no_label.svg/800px-Electron_shell_025_Manganese_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2334 (K)",
+    "element_boiling_celsius": "2061 (°C)",
+    "element_boiling_fahrenheit": "3742 (°F)",
+    "element_melting_kelvin": "1519 (K)",
+    "element_melting_celsius": "1246 (°C)",
+    "element_melting_fahrenheit": "2275 (°F)",
+
+    "element_electron_config": "3d^5 4s^2",
+    "element_ion_charge": "Mn^2+, Mn^4+",
+    "element_ionization_energy": "7.43402 (eV)",
+    "element_atomic_radius": "161 (pm)",
+    "element_covalent_radius": "139 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "12.91 (kJ/mol)",
+    "element_specific_heat_capacity": "0.479 J/(g·K)",
+    "element_vaporization_heat": "221 (kJ/mol)",
+
+    "iso_1": "Mn-53",
+    "iso_mass_1": "52.9412901",
+    "iso_half_1": "3.7×10^6 (years)",
+    "iso_Z_1": "25",
+    "iso_N_1": "28",
+    "iso_A_1": "53",
+
+    "iso_2": "Mn-54",
+    "iso_mass_2": "53.9403589",
+    "iso_half_2": "312.03 (days)",
+    "iso_Z_2": "25",
+    "iso_N_2": "29",
+    "iso_A_2": "54",
+
+    "iso_3": "Mn-55",
+    "iso_mass_3": "54.9380451",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "25",
+    "iso_N_3": "30",
+    "iso_A_3": "55",
+
+    "iso_4": "Mn-56",
+    "iso_mass_4": "55.9389049",
+    "iso_half_4": "2.5789 (h)",
+    "iso_Z_4": "25",
+    "iso_N_4": "31",
+    "iso_A_4": "56"
+  }
+]

@@ -1,0 +1,77 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Niobium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Niobium_crystals_and_1cm3_cube.jpg/1024px-Niobium_crystals_and_1cm3_cube.jpg",
+
+    "element": "Niobium",
+    "element_year": "1801",
+    "element_discovered_name": "Charles Hatchett",
+    "element_group": "Transition Metals",
+    "element_appearance": "Gray metallic, bluish when oxidised",
+    "element_electrons": "41",
+    "element_protons": "41",
+    "element_neutron_common": "52",
+
+    "element_atomic_number": "41",
+    "element_atomicmass": "92.9064 (u)",
+    "element_density": "8.57 (g/cm^3)",
+    "element_electronegativty": "1.6",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 18 N12 O1 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Electron_shell_041_Niobium_-_no_label.svg/800px-Electron_shell_041_Niobium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "5017 (K)",
+    "element_boiling_celsius": "4744 (°C)",
+    "element_boiling_fahrenheit": "8571 (°F)",
+    "element_melting_kelvin": "2750 (K)",
+    "element_melting_celsius": "2477 (°C)",
+    "element_melting_fahrenheit": "4491 (°F)",
+
+    "element_electron_config": "4d^4 5s^1",
+    "element_ion_charge": "Nb^5+, Nb^3+",
+    "element_ionization_energy": "6.75885 (eV)",
+    "element_atomic_radius": "198 (pm)",
+    "element_covalent_radius": "137 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "30 (kJ/mol)",
+    "element_specific_heat_capacity": "0.265 J/(g·K)",
+    "element_vaporization_heat": "689.9 (kJ/mol)",
+
+    "iso_1": "Nb-90",
+    "iso_mass_1": "89.911265",
+    "iso_half_1": "14.60 (hours)",
+    "iso_Z_1": "41",
+    "iso_N_1": "49",
+    "iso_A_1": "90",
+
+    "iso_2": "Nb-91",
+    "iso_mass_2": "90.906996",
+    "iso_half_2": "680 (years)",
+    "iso_Z_2": "41",
+    "iso_N_2": "50",
+    "iso_A_2": "91",
+
+    "iso_3": "Nb-92",
+    "iso_mass_3": "91.907194",
+    "iso_half_3": "3.47×10^7 (years)",
+    "iso_Z_3": "41",
+    "iso_N_3": "51",
+    "iso_A_3": "92",
+
+    "iso_4": "Nb-93",
+    "iso_mass_4": "92.9063781",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "41",
+    "iso_N_4": "52",
+    "iso_A_4": "93",
+
+    "iso_5": "Nb-94",
+    "iso_mass_5": "93.9072839",
+    "iso_half_5": "2.03×10^4 (years)",
+    "iso_Z_5": "41",
+    "iso_N_5": "53",
+    "iso_A_5": "94"
+  }
+]

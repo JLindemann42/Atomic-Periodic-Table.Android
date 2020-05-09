@@ -8,76 +8,72 @@
     android:fitsSystemWindows="true"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/commom_title_back"
+    <FrameLayout
+        android:id="@+id/common_title_back"
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:background="?attr/colorPrimary"
+        android:layout_height="80dp"
+        android:alpha="0.975"
         android:elevation="8dp"
-        android:fitsSystemWindows="true"
+        android:background="?attr/colorPrimary"
         android:gravity="center|center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:gravity="bottom"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/status_place"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="vertical"/>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/back_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="12dp"
-                    android:elevation="0dp"
-                    android:src="@drawable/ic_arrow_back_white"
-                    app:backgroundTint="?attr/colorPrimary"
-                    app:borderWidth="0dp"
-                    app:elevation="0dp"
-                    app:fabSize="normal" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/wikipedia_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="12dp"
-                    android:elevation="0dp"
-                    android:src="@drawable/ic_wikipedia_logo"
-                    app:backgroundTint="?attr/colorPrimary"
-                    app:borderWidth="0dp"
-                    app:elevation="0dp"
-                    app:fabSize="normal" />
-
-
-                <TextView
-                    android:id="@+id/element_title"
+                  <FrameLayout
+                    android:id="@+id/title_box"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="Periodic Table"
-                    android:textAlignment="center"
-                    android:textColor="?attr/actionMenuTextColor"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
+                    android:layout_height="80dp">
 
-        </LinearLayout>
+                     <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/back_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:elevation="0dp"
+                        android:src="@drawable/ic_arrow_back_white"
+                         app:backgroundTint="@color/transparent"
+                        app:borderWidth="0dp"
+                        app:elevation="0dp"
+                        app:fabSize="normal" />
 
-    </LinearLayout>
+                     <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/wikipedia_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="12dp"
+                        android:elevation="0dp"
+                        android:src="@drawable/ic_wikipedia_logo"
+                        app:backgroundTint="@color/transparent"
+                        app:borderWidth="0dp"
+                        app:elevation="0dp"
+                        app:fabSize="normal" />
+
+
+                    <TextView
+                        android:id="@+id/element_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="Periodic Table"
+                        android:textAlignment="center"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+
+            </LinearLayout>
+
+    </FrameLayout>
 
     <ScrollView
         android:id="@+id/scr_view"
@@ -94,7 +90,7 @@
                 android:id="@+id/frame"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:layout_marginTop="100dp">
+                android:layout_marginTop="80dp">
 
                 <include
                     android:id="@+id/ldn_place"
@@ -120,6 +116,7 @@
                     android:clickable="true"
                     android:elevation="6dp"
                     android:tint="?attr/colorAccent"
+                    android:visibility="gone"
                     app:backgroundTint="?attr/colorPrimary"
                     app:fabSize="mini"
                     app:srcCompat="@drawable/ic_arrow_back_white" />
@@ -133,6 +130,7 @@
                     android:clickable="true"
                     android:elevation="6dp"
                     android:tint="?attr/colorAccent"
+                    android:visibility="gone"
                     app:backgroundTint="?attr/colorPrimary"
                     app:fabSize="mini"
                     app:srcCompat="@drawable/ic_arrow_back_white180" />

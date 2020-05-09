@@ -7,6 +7,8 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import kotlinx.android.synthetic.main.isotope_panel.*
 import okhttp3.*
 import java.io.IOException
 import java.io.InputStream
@@ -28,6 +30,10 @@ object Utils {
         view.animate().setDuration(time)
         view.animate().alpha(1.0f)
 
+    }
+
+    fun slideUp(panel: SlidingUpPanelLayout) {
+        panel.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
     }
 
     fun fadeInAnimCard(view: View, time: Long) {

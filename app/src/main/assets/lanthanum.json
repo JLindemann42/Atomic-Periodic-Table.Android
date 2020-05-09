@@ -1,0 +1,70 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Lanthanum",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Lanthanum-2.jpg",
+
+    "element": "Lanthanum",
+    "element_year": "1838",
+    "element_discovered_name": "Carl Gustaf Mosander",
+    "element_group": "Lanthanoids",
+    "element_appearance": "Silvery White",
+    "element_electrons": "57",
+    "element_protons": "57",
+    "element_neutron_common": "82",
+
+    "element_atomic_number": "57",
+    "element_atomicmass": "138.905 (u)",
+    "element_density": "6.15 (g/cm^3)",
+    "element_electronegativty": "1.10",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 18 N18 O9 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Electron_shell_057_Lanthanum_-_no_label.svg/1280px-Electron_shell_057_Lanthanum_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1193 (K)",
+    "element_boiling_celsius": "920 (°C)",
+    "element_boiling_fahrenheit": "1688 (°F)",
+    "element_melting_kelvin": "3737 (K)",
+    "element_melting_celsius": "3464 (°C)",
+    "element_melting_fahrenheit": "6267 (°F)",
+
+    "element_electron_config": "5d^1 6s^2",
+    "element_ion_charge": "La^3+",
+    "element_ionization_energy": "5.5769 (eV)",
+    "element_atomic_radius": "195 (pm)",
+    "element_covalent_radius": "169 (pm)",
+    "element_van_der_waals": "---",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "6.20 (kJ/mol)",
+    "element_specific_heat_capacity": "0.195 J/(g·K)",
+    "element_vaporization_heat": "400 (kJ/mol)",
+
+    "iso_1": "La-137",
+    "iso_mass_1": "136.906494",
+    "iso_half_1": "6×10^4 (Years)",
+    "iso_Z_1": "57",
+    "iso_N_1": "80",
+    "iso_A_1": "137",
+
+    "iso_2": "La-138",
+    "iso_mass_2": "137.907112",
+    "iso_half_2": "1.02×10^11 (years)",
+    "iso_Z_2": "57",
+    "iso_N_2": "81",
+    "iso_A_2": "138",
+
+    "iso_3": "La-139",
+    "iso_mass_3": "138.9063533",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "57",
+    "iso_N_3": "82",
+    "iso_A_3": "139",
+
+    "iso_4": "La-140",
+    "iso_mass_4": "139.9094776",
+    "iso_half_4": "1.6781 (days)",
+    "iso_Z_4": "57",
+    "iso_N_4": "83",
+    "iso_A_4": "140"
+  }
+]

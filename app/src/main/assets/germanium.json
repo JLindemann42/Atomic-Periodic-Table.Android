@@ -1,0 +1,98 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Germanium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/0/08/Polycrystalline-germanium.jpg",
+
+    "element": "Germanium",
+    "element_year": "1886",
+    "element_discovered_name": "Clemens Winkler",
+    "element_group": "Metalloids",
+    "element_appearance": "Grayish White",
+    "element_electrons": "32",
+    "element_protons": "32",
+    "element_neutron_common": "40",
+
+    "element_atomic_number": "32",
+    "element_atomicmass": "72.630 (u)",
+    "element_density": "5.3234 (g/cm^3)",
+    "element_electronegativty": "2.01",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 18 N4 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Electron_shell_032_Germanium_-_no_label.svg/1280px-Electron_shell_032_Germanium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "3106 (K)",
+    "element_boiling_celsius": "2833 (°C)",
+    "element_boiling_fahrenheit": "5131 (°F)",
+    "element_melting_kelvin": "1211.40  (K)",
+    "element_melting_celsius": "938.25 (°C)",
+    "element_melting_fahrenheit": "1720.85 (°F)",
+
+    "element_electron_config": "3d^10 4s^2 4p^2",
+    "element_ion_charge": "Ge^4+,",
+    "element_ionization_energy": "7.8994 (eV)",
+    "element_atomic_radius": "125 (pm)",
+    "element_covalent_radius": "122 (pm)",
+    "element_van_der_waals": "211 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "36.94 (kJ/mol)",
+    "element_specific_heat_capacity": "0.320 J/(g·K)",
+    "element_vaporization_heat": "334 (kJ/mol)",
+
+    "iso_1": "Ge-69",
+    "iso_mass_1": "68.9279645",
+    "iso_half_1": "39.05 (hours)",
+    "iso_Z_1": "32",
+    "iso_N_1": "37",
+    "iso_A_1": "69",
+
+    "iso_2": "Ge-70",
+    "iso_mass_2": "69.9242474",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "32",
+    "iso_N_2": "38",
+    "iso_A_2": "70",
+
+    "iso_3": "Ge-71",
+    "iso_mass_3": "70.9249510",
+    "iso_half_3": "11.43 (days)",
+    "iso_Z_3": "32",
+    "iso_N_3": "39",
+    "iso_A_3": "71",
+
+    "iso_4": "Ge-72",
+    "iso_mass_4": "71.9220758",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "32",
+    "iso_N_4": "40",
+    "iso_A_4": "72",
+
+    "iso_5": "Ge-73",
+    "iso_mass_5": "72.9234589",
+    "iso_half_5": "Stable",
+    "iso_Z_5": "32",
+    "iso_N_5": "41",
+    "iso_A_5": "73",
+
+    "iso_6": "Ge-74",
+    "iso_mass_6": "73.9211778",
+    "iso_half_6": "Stable",
+    "iso_Z_6": "32",
+    "iso_N_6": "42",
+    "iso_A_6": "74",
+
+    "iso_7": "Ge-75",
+    "iso_mass_7": "74.9228589",
+    "iso_half_7": "82.78 (min)",
+    "iso_Z_7": "32",
+    "iso_N_7": "43",
+    "iso_A_7": "75",
+
+    "iso_8": "Ge-76",
+    "iso_mass_8": "75.9214026",
+    "iso_half_8": "1.926×10^21 (years)",
+    "iso_Z_8": "32",
+    "iso_N_8": "44",
+    "iso_A_8": "67"
+  }
+]

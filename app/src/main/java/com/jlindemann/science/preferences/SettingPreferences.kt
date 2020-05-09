@@ -52,3 +52,20 @@ class enableZoomPreference(context : Context) {
         editor.apply()
     }
 }
+
+class isoPref(context : Context) {
+    val PREFERENCE_NAME = "iso_pref"
+    val PREFERENCE_VALUE = "iso_value"
+
+    val preference = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
+
+    fun getValue() : String {
+        return preference.getString (PREFERENCE_VALUE, "hydrogen")!!
+    }
+
+    fun setValue(count: String) {
+        val editor = preference.edit()
+        editor.putString(PREFERENCE_VALUE,count)
+        editor.apply()
+    }
+}

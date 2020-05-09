@@ -1,0 +1,70 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Gallium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/9/92/Gallium_crystals.jpg",
+
+    "element": "Gallium",
+    "element_year": "1875",
+    "element_discovered_name": "Lecoq de Boisbaudran",
+    "element_group": "Post-Transition Metals",
+    "element_appearance": "Silvery Blue",
+    "element_electrons": "31",
+    "element_protons": "31",
+    "element_neutron_common": "38",
+
+    "element_atomic_number": "31",
+    "element_atomicmass": "69.723 (u)",
+    "element_density": "5.91 (g/cm^3)",
+    "element_electronegativty": "1.81",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 18 N3 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Electron_shell_031_Gallium_-_no_label.svg/1280px-Electron_shell_031_Gallium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2673 (K)",
+    "element_boiling_celsius": "2400 (°C)",
+    "element_boiling_fahrenheit": "4352 (°F)",
+    "element_melting_kelvin": "302.9146 (K)",
+    "element_melting_celsius": "29.7646 (°C)",
+    "element_melting_fahrenheit": "85.5763 (°F)",
+
+    "element_electron_config": "3d^10 4s^2 4p^1",
+    "element_ion_charge": "Ga^3+,",
+    "element_ionization_energy": "5.99930 (eV)",
+    "element_atomic_radius": "136 (pm)",
+    "element_covalent_radius": "126 (pm)",
+    "element_van_der_waals": "187 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "5.576 (kJ/mol)",
+    "element_specific_heat_capacity": "0.371 J/(g·K)",
+    "element_vaporization_heat": "254 (kJ/mol)",
+
+    "iso_1": "Ga-68",
+    "iso_mass_1": "67.9279801",
+    "iso_half_1": "67.71 (min)",
+    "iso_Z_1": "31",
+    "iso_N_1": "37",
+    "iso_A_1": "68",
+
+    "iso_2": "Ga-69",
+    "iso_mass_2": "68.9255736",
+    "iso_half_2": " Stable",
+    "iso_Z_2": "31",
+    "iso_N_2": "38",
+    "iso_A_2": "69",
+
+    "iso_3": "Ga-70",
+    "iso_mass_3": "69.9260220",
+    "iso_half_3": "21.14 (min)",
+    "iso_Z_3": "31",
+    "iso_N_3": "39",
+    "iso_A_3": "70",
+
+    "iso_4": "Ga-71",
+    "iso_mass_4": "70.9247013",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "31",
+    "iso_N_4": "40",
+    "iso_A_4": "71"
+  }
+]

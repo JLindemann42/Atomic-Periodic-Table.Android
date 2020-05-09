@@ -1,0 +1,107 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Chromium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Chromium_crystals_and_1cm3_cube.jpg/1024px-Chromium_crystals_and_1cm3_cube.jpg",
+
+    "element": "Chromium",
+    "element_year": "1797",
+    "element_discovered_name": "Louis Nicolas Vauquelin",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery Metal",
+    "element_electrons": "24",
+    "element_protons": "24",
+    "element_neutron_common": "28",
+
+    "element_atomic_number": "24",
+    "element_atomicmass": "51.9961 (u)",
+    "element_density": "7.15 (g/cm^3)",
+    "element_electronegativty": "1.66",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M13 N1 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Electron_shell_024_Chromium_-_no_label.svg/800px-Electron_shell_024_Chromium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2944 (K)",
+    "element_boiling_celsius": "2671 (°C)",
+    "element_boiling_fahrenheit": "4840 (°F)",
+    "element_melting_kelvin": "2180 (K)",
+    "element_melting_celsius": "1907 (°C)",
+    "element_melting_fahrenheit": "3465 (°F)",
+
+    "element_electron_config": "3d^5 4s^1",
+    "element_ion_charge": "Cr^3+, Cr^2+",
+    "element_ionization_energy": "6.7665 (eV)",
+    "element_atomic_radius": "166 (pm)",
+    "element_covalent_radius": "127 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "21.0 (kJ/mol)",
+    "element_specific_heat_capacity": "0.449 J/(g·K)",
+    "element_vaporization_heat": "339.5 (kJ/mol)",
+
+    "iso_1": "Cr-49",
+    "iso_mass_1": "48.9513357",
+    "iso_half_1": "42.3 (min)",
+    "iso_Z_1": "24",
+    "iso_N_1": "25",
+    "iso_A_1": "49",
+
+    "iso_2": "Cr-50",
+    "iso_mass_2": "49.9460442",
+    "iso_half_2": "Observationally Stable",
+    "iso_Z_2": "24",
+    "iso_N_2": "26",
+    "iso_A_2": "50",
+
+    "iso_3": "Cr-51",
+    "iso_mass_3": "50.9447674",
+    "iso_half_3": "27.7025 (days)",
+    "iso_Z_3": "24",
+    "iso_N_3": "27",
+    "iso_A_3": "51",
+
+    "iso_4": "Cr-52",
+    "iso_mass_4": "51.9405075",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "24",
+    "iso_N_4": "28",
+    "iso_A_4": "52",
+
+    "iso_5": "Cr-53",
+    "iso_mass_5": "52.9406494",
+    "iso_half_5": "Stable",
+    "iso_Z_5": "24",
+    "iso_N_5": "29",
+    "iso_A_5": "53",
+
+    "iso_6": "Cr-54",
+    "iso_mass_6": "53.9388804",
+    "iso_half_6": "Stable",
+    "iso_Z_6": "24",
+    "iso_N_6": "30",
+    "iso_A_6": "54",
+
+    "iso_7": "Cr-55",
+    "iso_mass_7": "54.9408397",
+    "iso_half_7": "3.497 (min)",
+    "iso_Z_7": "24",
+    "iso_N_7": "31",
+    "iso_A_7": "55",
+
+    "iso_8": "Cr-56",
+    "iso_mass_8": "55.9406531",
+    "iso_half_8": "5.94 (min)",
+    "iso_Z_8": "24",
+    "iso_N_8": "32",
+    "iso_A_8": "56",
+
+    "iso_9": "Cr-57",
+    "iso_mass_9": "56.943613",
+    "iso_half_9": "21.1 (s)",
+    "iso_Z_9": "24",
+    "iso_N_9": "33",
+    "iso_A_9": "57"
+
+
+  }
+]

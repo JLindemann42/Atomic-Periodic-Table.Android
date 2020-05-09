@@ -1,0 +1,77 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Europium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Europium.jpg/800px-Europium.jpg",
+
+    "element": "Europium",
+    "element_year": "1896",
+    "element_discovered_name": "Eugène-Anatole Demarçay",
+    "element_group": "Lanthanoids",
+    "element_appearance": "Silvery White",
+    "element_electrons": "63",
+    "element_protons": "63",
+    "element_neutron_common": "90",
+
+    "element_atomic_number": "63",
+    "element_atomicmass": "151.964 (u)",
+    "element_density": "5.24 (g/cm^3)",
+    "element_electronegativty": "1.2",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 18 N25 O8 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Electron_shell_063_Europium_-_no_label.svg/800px-Electron_shell_063_Europium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1802 (K)",
+    "element_boiling_celsius": "1529 (°C)",
+    "element_boiling_fahrenheit": "2784 (°F)",
+    "element_melting_kelvin": "1099 (K)",
+    "element_melting_celsius": "826 (°C)",
+    "element_melting_fahrenheit": "1519 (°F)",
+
+    "element_electron_config": "4f^7 6s^2",
+    "element_ion_charge": "Eu^3+, Eu^2+",
+    "element_ionization_energy": "5.6704 (eV)",
+    "element_atomic_radius": "231 (pm)",
+    "element_covalent_radius": "--- (pm)",
+    "element_van_der_waals": "---",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "9.21 (kJ/mol)",
+    "element_specific_heat_capacity": "0.182 J/(g·K)",
+    "element_vaporization_heat": "176 (kJ/mol)",
+
+    "iso_1": "Eu-150",
+    "iso_mass_1": "149.919702",
+    "iso_half_1": "36.9 (years)",
+    "iso_Z_1": "63",
+    "iso_N_1": "87",
+    "iso_A_1": "150",
+
+    "iso_2": "Eu-151",
+    "iso_mass_2": "150.9198502",
+    "iso_half_2": "4.62×10^18 (years)",
+    "iso_Z_2": "63",
+    "iso_N_2": "88",
+    "iso_A_2": "151",
+
+    "iso_3": "Eu-152",
+    "iso_mass_3": "151.9217445",
+    "iso_half_3": "13.537 (years)",
+    "iso_Z_3": "63",
+    "iso_N_3": "89",
+    "iso_A_3": "152",
+
+    "iso_4": "Eu-153",
+    "iso_mass_4": "152.9212303",
+    "iso_half_4": "Observationally Stable",
+    "iso_Z_4": "63",
+    "iso_N_4": "90",
+    "iso_A_4": "153",
+
+    "iso_5": "Eu-154",
+    "iso_mass_5": "153.9229792",
+    "iso_half_5": "8.593 (years(",
+    "iso_Z_5": "63",
+    "iso_N_5": "91",
+    "iso_A_5": "154"
+  }
+]

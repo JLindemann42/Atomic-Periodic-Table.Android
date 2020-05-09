@@ -1,0 +1,77 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Caesium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Cesium.jpg/1920px-Cesium.jpg",
+
+    "element": "Caesium",
+    "element_year": "1860",
+    "element_discovered_name": "Robert Bunsen",
+    "element_group": "Alkali Metals",
+    "element_appearance": "Pale Gold",
+    "element_electrons": "55",
+    "element_protons": "55",
+    "element_neutron_common": "78",
+
+    "element_atomic_number": "55",
+    "element_atomicmass": "132.9055 (u)",
+    "element_density": "1.93 (g/cm^3)",
+    "element_electronegativty": "0.79",
+    "element_block": "s - block",
+    "element_shells_electrons": "K2 L8 18 N18 O8 P1 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Electron_shell_055_Caesium_-_no_label.svg/1280px-Electron_shell_055_Caesium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "944 (K)",
+    "element_boiling_celsius": "671 (°C)",
+    "element_boiling_fahrenheit": "1240 (°F)",
+    "element_melting_kelvin": "301.7 (K)",
+    "element_melting_celsius": "28.5 (°C)",
+    "element_melting_fahrenheit": "83.3 (°F)",
+
+    "element_electron_config": "6s^1",
+    "element_ion_charge": "Cs^+",
+    "element_ionization_energy": "3.89390 (eV)",
+    "element_atomic_radius": "298 (pm)",
+    "element_covalent_radius": "225 (pm)",
+    "element_van_der_waals": "343",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "2.09 (kJ/mol)",
+    "element_specific_heat_capacity": "0.242 J/(g·K)",
+    "element_vaporization_heat": "63.9 (kJ/mol)",
+
+    "iso_1": "Cs-132",
+    "iso_mass_1": "131.9064343",
+    "iso_half_1": "6.480 (days)",
+    "iso_Z_1": "55",
+    "iso_N_1": "77",
+    "iso_A_1": "132",
+
+    "iso_2": "Cs-133",
+    "iso_mass_2": "132.905451933",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "55",
+    "iso_N_2": "78",
+    "iso_A_2": "133",
+
+    "iso_3": "Cs-134",
+    "iso_mass_3": "133.906718475",
+    "iso_half_3": "2.0652 (Years)",
+    "iso_Z_3": "55",
+    "iso_N_3": "79",
+    "iso_A_3": "134",
+
+    "iso_4": "Cs-135",
+    "iso_mass_4": "134.9059770",
+    "iso_half_4": "2.3x10^6 (Years)",
+    "iso_Z_4": "55",
+    "iso_N_4": "80",
+    "iso_A_4": "135",
+
+    "iso_5": "Cs-136",
+    "iso_mass_5": "135.9073116",
+    "iso_half_5": "13.16 (Days)",
+    "iso_Z_5": "55",
+    "iso_N_5": "81",
+    "iso_A_5": "136"
+  }
+]

@@ -1,0 +1,77 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Rubidium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Rb5.JPG/1920px-Rb5.JPG",
+
+    "element": "Rubidium",
+    "element_year": "1861",
+    "element_discovered_name": "Robert Bunsen",
+    "element_group": "Alkali Metals",
+    "element_appearance": "Gray White",
+    "element_electrons": "37",
+    "element_protons": "37",
+    "element_neutron_common": "48",
+
+    "element_atomic_number": "37",
+    "element_atomicmass": "85.4678 (u)",
+    "element_density": "1.53 (g/cm^3)",
+    "element_electronegativty": "0.82",
+    "element_block": "s - block",
+    "element_shells_electrons": "K2 L8 18 N8 O1 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Electron_shell_037_Rubidium_-_no_label.svg/1280px-Electron_shell_037_Rubidium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "961 (K)",
+    "element_boiling_celsius": "688 (°C)",
+    "element_boiling_fahrenheit": "1270 (°F)",
+    "element_melting_kelvin": "312.45 (K)",
+    "element_melting_celsius": "39.30 (°C)",
+    "element_melting_fahrenheit": "102.74 (°F)",
+
+    "element_electron_config": "5s^1",
+    "element_ion_charge": "Rb^+",
+    "element_ionization_energy": "4.17713 (eV)",
+    "element_atomic_radius": "265 (pm)",
+    "element_covalent_radius": "211 (pm)",
+    "element_van_der_waals": "303 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "2.19 (kJ/mol)",
+    "element_specific_heat_capacity": "0.363 J/(g·K)",
+    "element_vaporization_heat": "75.77 (kJ/mol)",
+
+    "iso_1": "Rb-83",
+    "iso_mass_1": "82.915110",
+    "iso_half_1": "86.2 (days)",
+    "iso_Z_1": "37",
+    "iso_N_1": "46",
+    "iso_A_1": "83",
+
+    "iso_2": "Rb-84",
+    "iso_mass_2": "83.914385",
+    "iso_half_2": "33.1 (days)",
+    "iso_Z_2": "37",
+    "iso_N_2": "47",
+    "iso_A_2": "84",
+
+    "iso_3": "Rb-85",
+    "iso_mass_3": "84.911789738",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "37",
+    "iso_N_3": "48",
+    "iso_A_3": "85",
+
+    "iso_4": "Rb-86",
+    "iso_mass_4": "85.91116742",
+    "iso_half_4": "18.642 (days)",
+    "iso_Z_4": "37",
+    "iso_N_4": "49",
+    "iso_A_4": "86",
+
+    "iso_5": "Rb-87",
+    "iso_mass_5": "86.909180527",
+    "iso_half_5": "4.923×10^10",
+    "iso_Z_5": "37",
+    "iso_N_5": "50",
+    "iso_A_5": "87"
+  }
+]

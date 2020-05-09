@@ -1,0 +1,70 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Rhodium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Rhodium_powder_pressed_melted.jpg/1280px-Rhodium_powder_pressed_melted.jpg",
+
+    "element": "Rhodium",
+    "element_year": "1804",
+    "element_discovered_name": "William Hyde Wollaston",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery White Metallic",
+    "element_electrons": "45",
+    "element_protons": "45",
+    "element_neutron_common": "58",
+
+    "element_atomic_number": "45",
+    "element_atomicmass": "102.9055 (u)",
+    "element_density": "12.4 (g/cm^3)",
+    "element_electronegativty": "2.28",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 18 N16 O1 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Electron_shell_045_Rhodium_-_no_label.svg/800px-Electron_shell_045_Rhodium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "3968 (K)",
+    "element_boiling_celsius": "3695 (°C)",
+    "element_boiling_fahrenheit": "6683 (°F)",
+    "element_melting_kelvin": "2237 (K)",
+    "element_melting_celsius": "1964 (°C)",
+    "element_melting_fahrenheit": "3567 (°F)",
+
+    "element_electron_config": "4d^8 5s^1",
+    "element_ion_charge": "Rh^3+",
+    "element_ionization_energy": "7.45890 (eV)",
+    "element_atomic_radius": "173 (pm)",
+    "element_covalent_radius": "135 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "26.59 (kJ/mol)",
+    "element_specific_heat_capacity": "0.243 J/(g·K)",
+    "element_vaporization_heat": "494 (kJ/mol)",
+
+    "iso_1": "Rh-101",
+    "iso_mass_1": "100.906164",
+    "iso_half_1": "3.3 (years)",
+    "iso_Z_1": "45",
+    "iso_N_1": "56",
+    "iso_A_1": "101",
+
+    "iso_2": "Rh-102",
+    "iso_mass_2": "101.906843196",
+    "iso_half_2": "207.0 (days)",
+    "iso_Z_2": "45",
+    "iso_N_2": "57",
+    "iso_A_2": "102",
+
+    "iso_3": "Rh-103",
+    "iso_mass_3": "102.905504",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "45",
+    "iso_N_3": "68",
+    "iso_A_3": "103",
+
+    "iso_4": "Rh-104",
+    "iso_mass_4": "103.906656",
+    "iso_half_4": "42.3 (s)",
+    "iso_Z_4": "45",
+    "iso_N_4": "69",
+    "iso_A_4": "104"
+  }
+]

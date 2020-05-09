@@ -7,8 +7,10 @@
         <item name="colorPrimaryDark">@color/colorLightPrimaryDark</item>
         <item name="colorAccent">@color/colorLightAccent</item>
         <item name="actionMenuTextColor">@color/colorLightText</item>
-        <item name="android:navigationBarColor">@color/colorLightPrimary</item>
-        <item name="android:statusBarColor">@color/colorLightPrimary</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+
+        <!-- Optional, but recommended for full edge-to-edge rendering -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:fontFamily">@font/manropefamily</item>
     </style>
 

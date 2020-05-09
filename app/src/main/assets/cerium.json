@@ -1,0 +1,91 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Cerium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Cerium2.jpg",
+
+    "element": "Cerium",
+    "element_year": "1803",
+    "element_discovered_name": "Martin Heinrich Klaproth",
+    "element_group": "Lanthanoids",
+    "element_appearance": "Silvery White",
+    "element_electrons": "58",
+    "element_protons": "58",
+    "element_neutron_common": "82",
+
+    "element_atomic_number": "58",
+    "element_atomicmass": "140.116 (u)",
+    "element_density": "6.770 (g/cm^3)",
+    "element_electronegativty": "1.12",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 18 N19 O9 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Electron_shell_058_Cerium_-_no_label.svg/1280px-Electron_shell_058_Cerium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1068 (K)",
+    "element_boiling_celsius": "795 (°C)",
+    "element_boiling_fahrenheit": "1463 (°F)",
+    "element_melting_kelvin": "3716 (K)",
+    "element_melting_celsius": "3443 (°C)",
+    "element_melting_fahrenheit": "6229 (°F)",
+
+    "element_electron_config": "4f^1 5d^1 6s^2",
+    "element_ion_charge": "Ce^3+",
+    "element_ionization_energy": "5.5387 (eV)",
+    "element_atomic_radius": "158 (pm)",
+    "element_covalent_radius": "--- (pm)",
+    "element_van_der_waals": "---",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "5.46 (kJ/mol)",
+    "element_specific_heat_capacity": "0.192 J/(g·K)",
+    "element_vaporization_heat": "398 (kJ/mol)",
+
+    "iso_1": "Ce-137",
+    "iso_mass_1": "136.907806",
+    "iso_half_1": "9.0 (hours)",
+    "iso_Z_1": "58",
+    "iso_N_1": "79",
+    "iso_A_1": "137",
+
+    "iso_2": "Ce-138",
+    "iso_mass_2": "137.905991",
+    "iso_half_2": "Observationally Stable",
+    "iso_Z_2": "58",
+    "iso_N_2": "80",
+    "iso_A_2": "138",
+
+    "iso_3": "Ce-139",
+    "iso_mass_3": "138.906653",
+    "iso_half_3": "137.641 (days)",
+    "iso_Z_3": "58",
+    "iso_N_3": "81",
+    "iso_A_3": "139",
+
+    "iso_4": "Ce-140",
+    "iso_mass_4": "139.9054387",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "58",
+    "iso_N_4": "82",
+    "iso_A_4": "140",
+
+    "iso_5": "Ce-141",
+    "iso_mass_5": "140.9082763",
+    "iso_half_5": "32.508 (days)",
+    "iso_Z_5": "58",
+    "iso_N_5": "83",
+    "iso_A_5": "141",
+
+    "iso_6": "Ce-142",
+    "iso_mass_6": "141.909244",
+    "iso_half_6": "Observationally Stable",
+    "iso_Z_6": "58",
+    "iso_N_6": "84",
+    "iso_A_6": "142",
+
+    "iso_7": "Ce-143",
+    "iso_mass_7": "142.912386",
+    "iso_half_7": "33.039 (hours)",
+    "iso_Z_7": "58",
+    "iso_N_7": "85",
+    "iso_A_7": "143"
+  }
+]

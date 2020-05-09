@@ -1,0 +1,91 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Gadolinium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Gadolinium-4.jpg",
+
+    "element": "Gadolinium",
+    "element_year": "1880",
+    "element_discovered_name": "Jean Charles Galissard de Marignac",
+    "element_group": "Lanthanoids",
+    "element_appearance": "Silvery White",
+    "element_electrons": "64",
+    "element_protons": "64",
+    "element_neutron_common": "94",
+
+    "element_atomic_number": "64",
+    "element_atomicmass": "157.25 (u)",
+    "element_density": "7.90 (g/cm^3)",
+    "element_electronegativty": "1.20",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 18 N25 O9 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Electron_shell_064_Gadolinium_-_no_label.svg/800px-Electron_shell_064_Gadolinium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "3273 (K)",
+    "element_boiling_celsius": "3000 (°C)",
+    "element_boiling_fahrenheit": "5432 (°F)",
+    "element_melting_kelvin": "1585 (K)",
+    "element_melting_celsius": "1312 (°C)",
+    "element_melting_fahrenheit": "2394 (°F)",
+
+    "element_electron_config": "4f^7 5d^1 6s^2",
+    "element_ion_charge": "Gd^3+",
+    "element_ionization_energy": "6.1501 (eV)",
+    "element_atomic_radius": "233 (pm)",
+    "element_covalent_radius": "--- (pm)",
+    "element_van_der_waals": "---",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "10.0 (kJ/mol)",
+    "element_specific_heat_capacity": "0.236 J/(g·K)",
+    "element_vaporization_heat": "301.3 (kJ/mol)",
+
+    "iso_1": "Gd-153",
+    "iso_mass_1": "152.9217495",
+    "iso_half_1": "240.4 (days)",
+    "iso_Z_1": "64",
+    "iso_N_1": "89",
+    "iso_A_1": "153",
+
+    "iso_2": "Gd-154",
+    "iso_mass_2": "153.9208656",
+    "iso_half_2": "Observationally Stable",
+    "iso_Z_2": "64",
+    "iso_N_2": "90",
+    "iso_A_2": "154",
+
+    "iso_3": "Gd-155",
+    "iso_mass_3": "154.9226220",
+    "iso_half_3": "Observationally Stable",
+    "iso_Z_3": "64",
+    "iso_N_3": "91",
+    "iso_A_3": "155",
+
+    "iso_4": "Gd-156",
+    "iso_mass_4": "155.9221227",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "64",
+    "iso_N_4": "92",
+    "iso_A_4": "156",
+
+    "iso_5": "Gd-157",
+    "iso_mass_5": "156.9239601",
+    "iso_half_5": "Stable",
+    "iso_Z_5": "64",
+    "iso_N_5": "93",
+    "iso_A_5": "157",
+
+    "iso_6": "Gd-158",
+    "iso_mass_6": "157.9241039",
+    "iso_half_6": "Stable",
+    "iso_Z_6": "64",
+    "iso_N_6": "94",
+    "iso_A_6": "158",
+
+    "iso_7": "Gd-159",
+    "iso_mass_7": "158.9263887",
+    "iso_half_7": "18.479 (hours)",
+    "iso_Z_7": "64",
+    "iso_N_7": "95",
+    "iso_A_7": "159"
+  }
+]

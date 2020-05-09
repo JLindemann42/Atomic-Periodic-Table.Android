@@ -1,0 +1,84 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Magnesium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/CSIRO_ScienceImage_2893_Crystalised_magnesium.jpg/220px-CSIRO_ScienceImage_2893_Crystalised_magnesium.jpg",
+
+    "element": "Magnesium",
+    "element_year": "1755",
+    "element_discovered_name": "Joseph Black",
+    "element_group": "Alkaline Earth Metals",
+    "element_appearance": "Shiny Grey Solid",
+    "element_electrons": "12",
+    "element_protons": "12",
+    "element_neutron_common": "12",
+
+    "element_atomic_number": "12",
+    "element_atomicmass": "24.305 (u)",
+    "element_density": "1.74 (g/cm^3)",
+    "element_electronegativty": "1.31",
+    "element_block": "s - block",
+    "element_shells_electrons": "K2 L8 M2 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Electron_shell_012_Magnesium_-_no_label.svg/1280px-Electron_shell_012_Magnesium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1363 (K)",
+    "element_boiling_celsius": "1091 (°C)",
+    "element_boiling_fahrenheit": "1994 (°F)",
+    "element_melting_kelvin": "923 (K)",
+    "element_melting_celsius": "650 (°C)",
+    "element_melting_fahrenheit": "1202 (°F)",
+
+    "element_electron_config": "3s^2",
+    "element_ion_charge": "Na^+",
+    "element_ionization_energy": "7.64624 (eV)",
+    "element_atomic_radius": "145 (pm)",
+    "element_covalent_radius": "130 (pm)",
+    "element_van_der_waals": "174 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "8.48 (kJ/mol)",
+    "element_specific_heat_capacity": "1.023 J/(g·K)",
+    "element_vaporization_heat": "128 (kJ/mol)",
+
+    "iso_1": "Mg-22",
+    "iso_mass_1": "21.9995707",
+    "iso_half_1": "3.8755 (s)",
+    "iso_Z_1": "12",
+    "iso_N_1": "10",
+    "iso_A_1": "22",
+
+    "iso_2": "Mg-23",
+    "iso_mass_2": "22.99412394",
+    "iso_half_2": "11.317 (s)",
+    "iso_Z_2": "12",
+    "iso_N_2": "11",
+    "iso_A_2": "23",
+
+    "iso_3": "Mg-24",
+    "iso_mass_3": "23.985041697",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "12",
+    "iso_N_3": "12",
+    "iso_A_3": "24",
+
+    "iso_4": "Mg-25",
+    "iso_mass_4": "24.98583696",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "12",
+    "iso_N_4": "13",
+    "iso_A_4": "25",
+
+    "iso_5": "Mg-26",
+    "iso_mass_5": "25.98259297",
+    "iso_half_5": "Stable",
+    "iso_Z_5": "12",
+    "iso_N_5": "14",
+    "iso_A_5": "26",
+
+    "iso_6": "Mg-27",
+    "iso_mass_6": "26.98434063",
+    "iso_half_6": "9.435 (min)",
+    "iso_Z_6": "12",
+    "iso_N_6": "15",
+    "iso_A_6": "27"
+  }
+]

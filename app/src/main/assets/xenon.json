@@ -1,0 +1,63 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Xenon",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Xenon_discharge_tube.jpg/1920px-Xenon_discharge_tube.jpg",
+
+    "element": "Xenon",
+    "element_year": "1898",
+    "element_discovered_name": "William Ramsay",
+    "element_group": "Noble Gases",
+    "element_appearance": "Colorless Gas",
+    "element_electrons": "54",
+    "element_protons": "54",
+    "element_neutron_common": "78",
+
+    "element_atomic_number": "54",
+    "element_atomicmass": "131.293 (u)",
+    "element_density": "0.005894 (g/cm^3)",
+    "element_electronegativty": "2.6",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 18 N18 O8 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Electron_shell_054_Xenon_-_no_label.svg/1280px-Electron_shell_054_Xenon_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "165.051 (K)",
+    "element_boiling_celsius": "−108.099 (°C)",
+    "element_boiling_fahrenheit": "−162.578 (°F)",
+    "element_melting_kelvin": "161.40 (K)",
+    "element_melting_celsius": "−111.75 (°C)",
+    "element_melting_fahrenheit": "−169.15 (°F)",
+
+    "element_electron_config": "4d^10 5s^2 5p^6",
+    "element_ion_charge": "---",
+    "element_ionization_energy": "12.1298 (eV)",
+    "element_atomic_radius": "108 (pm)",
+    "element_covalent_radius": "130 (pm)",
+    "element_van_der_waals": "216",
+
+    "element_phase": "Gas",
+    "element_fusion_heat": "2.27 (kJ/mol)",
+    "element_specific_heat_capacity": "0.158 J/(g·K)",
+    "element_vaporization_heat": "12.57 (kJ/mol)",
+
+    "iso_1": "Xe-131",
+    "iso_mass_1": "130.9050824",
+    "iso_half_1": "Stable",
+    "iso_Z_1": "54",
+    "iso_N_1": "77",
+    "iso_A_1": "131",
+
+    "iso_2": "Xe-132",
+    "iso_mass_2": "131.9041535",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "54",
+    "iso_N_2": "78",
+    "iso_A_2": "132",
+
+    "iso_3": "Xe-133",
+    "iso_mass_3": "132.9059107",
+    "iso_half_3": "5.2475 (days)",
+    "iso_Z_3": "54",
+    "iso_N_3": "79",
+    "iso_A_3": "133"
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Yttrium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Yttrium_sublimed_dendritic_and_1cm3_cube.jpg/1920px-Yttrium_sublimed_dendritic_and_1cm3_cube.jpg",
+
+    "element": "Yttrium",
+    "element_year": "1794",
+    "element_discovered_name": "Johan Gadolin",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery White",
+    "element_electrons": "39",
+    "element_protons": "39",
+    "element_neutron_common": "50",
+
+    "element_atomic_number": "39",
+    "element_atomicmass": "88.9058 (u)",
+    "element_density": "4.47 (g/cm^3)",
+    "element_electronegativty": "1.22",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 18 N9 O2 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Electron_shell_039_Yttrium_-_no_label.svg/1280px-Electron_shell_039_Yttrium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "3203 (K)",
+    "element_boiling_celsius": "2930 (°C)",
+    "element_boiling_fahrenheit": "5306 (°F)",
+    "element_melting_kelvin": "1799 (K)",
+    "element_melting_celsius": "1526 (°C)",
+    "element_melting_fahrenheit": "2779 (°F)",
+
+    "element_electron_config": "4d^1 5s^2",
+    "element_ion_charge": "Y^3+",
+    "element_ionization_energy": "6.2171 (eV)",
+    "element_atomic_radius": "212 (pm)",
+    "element_covalent_radius": "162 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "11.4 (kJ/mol)",
+    "element_specific_heat_capacity": "0.298 J/(g·K)",
+    "element_vaporization_heat": "380 (kJ/mol)",
+
+    "iso_1": "Y-88",
+    "iso_mass_1": "87.9095011",
+    "iso_half_1": "106.616 (days)",
+    "iso_Z_1": "39",
+    "iso_N_1": "49",
+    "iso_A_1": "88",
+
+    "iso_2": "Y-89",
+    "iso_mass_2": "88.9058483",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "39",
+    "iso_N_2": "50",
+    "iso_A_2": "89",
+
+    "iso_3": "Y-90",
+    "iso_mass_3": "89.9071519",
+    "iso_half_3": "64.053 (hours)",
+    "iso_Z_3": "39",
+    "iso_N_3": "51",
+    "iso_A_3": "90",
+
+    "iso_4": "Y-91",
+    "iso_mass_4": "90.907305",
+    "iso_half_4": "58.51 (days)",
+    "iso_Z_4": "39",
+    "iso_N_4": "52",
+    "iso_A_4": "91",
+
+    "iso_5": "Y-92",
+    "iso_mass_5": "91.908949",
+    "iso_half_5": "3.54 (hours)",
+    "iso_Z_5": "39",
+    "iso_N_5": "53",
+    "iso_A_5": "92",
+
+    "iso_6": "Y-93",
+    "iso_mass_6": "92.909583",
+    "iso_half_6": "10.18 (hours)",
+    "iso_Z_6": "39",
+    "iso_N_6": "54",
+    "iso_A_6": "93",
+
+    "iso_7": "Y-94",
+    "iso_mass_7": "93.911595",
+    "iso_half_7": "18.7 (min)",
+    "iso_Z_7": "39",
+    "iso_N_7": "55",
+    "iso_A_7": "94",
+
+    "iso_8": "Y-95",
+    "iso_mass_8": "94.912821",
+    "iso_half_8": "10.3 (min)",
+    "iso_Z_8": "39",
+    "iso_N_8": "56",
+    "iso_A_8": "95"
+  }
+]

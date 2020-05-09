@@ -12,6 +12,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme"
             android:label="MAINACTIVITY"
             />
 
@@ -24,14 +25,17 @@
 
         <activity
             android:name=".activities.ElementInfoActivity"
+            android:theme="@style/AppTheme"
             android:label="ELEMENTINFOACTIVITY" />
 
         <activity
             android:name=".activities.SettingsActivity"
+            android:theme="@style/AppTheme"
             android:label="SETTINGS" />
 
         <activity
             android:name=".activities.FavoritePageActivity"
+            android:theme="@style/AppTheme"
             android:label="FAVORITEPAGE" />
 
         <activity
@@ -40,15 +44,24 @@
 
         <activity
             android:name=".activities.CalculatorActivity"
+            android:theme="@style/AppTheme"
             android:label="CALCULATORPAGE" />
 
         <activity
             android:name=".activities.DictionaryActivity"
+            android:theme="@style/AppTheme"
             android:label="DICTIONARYPAGE" />
 
         <activity
             android:name=".activities.IsotopesActivity"
+            android:theme="@style/AppTheme"
             android:label="ISOTPOESPAGE" />
+
+        <activity
+            android:name=".activities.IsotopesActivityExperimental"
+            android:theme="@style/AppTheme"
+            android:label="ISOTPOESPAGEEXP" />
+
 
     </application>
 

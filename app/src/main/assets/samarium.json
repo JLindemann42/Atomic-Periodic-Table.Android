@@ -1,0 +1,70 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Samarium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/8/88/Samarium-2.jpg",
+
+    "element": "Samarium",
+    "element_year": "1879",
+    "element_discovered_name": "Lecoq de Boisbaudran",
+    "element_group": "Lanthanoids",
+    "element_appearance": "Silvery White",
+    "element_electrons": "62",
+    "element_protons": "62",
+    "element_neutron_common": "90",
+
+    "element_atomic_number": "62",
+    "element_atomicmass": "150.36 (u)",
+    "element_density": "7.52 (g/cm^3)",
+    "element_electronegativty": "1.17",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 18 N24 O8 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Electron_shell_062_Samarium_-_no_label.svg/800px-Electron_shell_062_Samarium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2173 (K)",
+    "element_boiling_celsius": "1900 (°C)",
+    "element_boiling_fahrenheit": "3452 (°F)",
+    "element_melting_kelvin": "1345 (K)",
+    "element_melting_celsius": "1072 (°C)",
+    "element_melting_fahrenheit": "1962 (°F)",
+
+    "element_electron_config": "4f^6 6s^2",
+    "element_ion_charge": "Sm^3+, Sm^2+",
+    "element_ionization_energy": "5.6436 (eV)",
+    "element_atomic_radius": "238 (pm)",
+    "element_covalent_radius": "--- (pm)",
+    "element_van_der_waals": "---",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "8.62 (kJ/mol)",
+    "element_specific_heat_capacity": "0.197 J/(g·K)",
+    "element_vaporization_heat": "165 (kJ/mol)",
+
+    "iso_1": "Sm-148",
+    "iso_mass_1": "147.9148227",
+    "iso_half_1": "7×10^15 (years)",
+    "iso_Z_1": "62",
+    "iso_N_1": "86",
+    "iso_A_1": "148",
+
+    "iso_2": "Sm-149",
+    "iso_mass_2": "148.9171847",
+    "iso_half_2": "Observationally Stable",
+    "iso_Z_2": "62",
+    "iso_N_2": "87",
+    "iso_A_2": "149",
+
+    "iso_3": "Sm-150",
+    "iso_mass_3": "149.9172755",
+    "iso_half_3": "Observationally Stable",
+    "iso_Z_3": "62",
+    "iso_N_3": "88",
+    "iso_A_3": "150",
+
+    "iso_4": "Sm-151",
+    "iso_mass_4": "150.9199324",
+    "iso_half_4": "88.8 (years)",
+    "iso_Z_4": "62",
+    "iso_N_4": "89",
+    "iso_A_4": "151"
+  }
+]

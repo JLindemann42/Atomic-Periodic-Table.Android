@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="element_list">
-        <item>Hydrogen</item>
-        <item>Helium</item>
-        <item>Lithium</item>
+        <item name="hydrogen">Hydrogen</item>
+        <item name="helium">Helium</item>
+        <item name="lithium">Lithium</item>
+        <item name="Beryllium">Beryllium</item>
+        <item name="Boron">Boron</item>
+        <item name="Carbon">Carbon</item>
+        <item name="Nitrogen">Nitrogen</item>
+        <item name="Oxygen">Oxygen</item>
+        <item name="Fluorine">Fluorine</item>
+        <item name="Neon">Neon</item>
+        <item name="Sodium">Sodium</item>
+        <item name="Magnesium">Magnesium</item>
+        <item name="Aluminium">Aluminium</item>
+        <item name="Silicon">Silicon</item>
+        <item name="Phosphorus">Phosphorus</item>
+        <item name="Sulfur">Sulfur</item>
+        <item name="Chlorine">Chlorine</item>
+        <item name="Argon">Argon</item>
+        <item name="Potassium">Potassium</item>
+        <item name="Calcium">Calcium</item>
+        <item name="Scandium">Scandium</item>
+        <item name="Titanium">Titanium</item>
+        <item name="Vanadium">Vanadium</item>
+        <item name="Chromium">Manganese</item>
     </string-array>
 
     <array name="calcArray">
@@ -13,5 +34,5 @@
         <item>fourth</item>
         <item>fifth</item>
     </array>
-
+    
 </resources>

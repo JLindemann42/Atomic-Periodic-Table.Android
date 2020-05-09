@@ -1,0 +1,77 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Zirconium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Zirconium_crystal_bar_and_1cm3_cube.jpg/1920px-Zirconium_crystal_bar_and_1cm3_cube.jpg",
+
+    "element": "Zirconium",
+    "element_year": "1789",
+    "element_discovered_name": "Martin Heinrich Klaproth",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery White",
+    "element_electrons": "40",
+    "element_protons": "40",
+    "element_neutron_common": "50",
+
+    "element_atomic_number": "40",
+    "element_atomicmass": "91.224 (u)",
+    "element_density": "6.52 (g/cm^3)",
+    "element_electronegativty": "1.33",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 18 N10 O2 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Electron_shell_040_Zirconium_-_no_label.svg/1280px-Electron_shell_040_Zirconium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "4650 (K)",
+    "element_boiling_celsius": "4377 (°C)",
+    "element_boiling_fahrenheit": "7911 (°F)",
+    "element_melting_kelvin": "2128 (K)",
+    "element_melting_celsius": "1855 (°C)",
+    "element_melting_fahrenheit": "3371 (°F)",
+
+    "element_electron_config": "4d^2 5s^2",
+    "element_ion_charge": "Zr^4+",
+    "element_ionization_energy": "6.63390 (eV)",
+    "element_atomic_radius": "206 (pm)",
+    "element_covalent_radius": "148 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "21.00 (kJ/mol)",
+    "element_specific_heat_capacity": "0.278 J/(g·K)",
+    "element_vaporization_heat": "580 (kJ/mol)",
+
+    "iso_1": "Zr-89",
+    "iso_mass_1": "88.908890",
+    "iso_half_1": "78.41 (hours)",
+    "iso_Z_1": "40",
+    "iso_N_1": "49",
+    "iso_A_1": "89",
+
+    "iso_2": "Zr-90",
+    "iso_mass_2": "89.9047044",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "40",
+    "iso_N_2": "50",
+    "iso_A_2": "90",
+
+    "iso_3": "Zr-91",
+    "iso_mass_3": "90.9056458",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "40",
+    "iso_N_3": "51",
+    "iso_A_3": "91",
+
+    "iso_4": "Zr-92",
+    "iso_mass_4": "91.9050408",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "40",
+    "iso_N_4": "52",
+    "iso_A_4": "92",
+
+    "iso_5": "Zr-93",
+    "iso_mass_5": "92.9064760",
+    "iso_half_5": "1.53×10^6 (years)",
+    "iso_Z_5": "40",
+    "iso_N_5": "53",
+    "iso_A_5": "93"
+  }
+]

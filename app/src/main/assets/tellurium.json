@@ -1,0 +1,91 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Tellurium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Tellurium2.jpg",
+
+    "element": "Tellurium",
+    "element_year": "1782",
+    "element_discovered_name": "Franz-Joseph Müller von Reichenstein ",
+    "element_group": "Metalloids",
+    "element_appearance": "Silvery Lustrous Gray",
+    "element_electrons": "52",
+    "element_protons": "52",
+    "element_neutron_common": "78",
+
+    "element_atomic_number": "52",
+    "element_atomicmass": "127.60 (u)",
+    "element_density": "6.24 (g/cm^3)",
+    "element_electronegativty": "2.1",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 18 N18 O6 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Electron_shell_052_Tellurium_-_no_label.svg/1280px-Electron_shell_052_Tellurium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1261 (K)",
+    "element_boiling_celsius": "988 (°C)",
+    "element_boiling_fahrenheit": "1810 (°F)",
+    "element_melting_kelvin": "722.66 (K)",
+    "element_melting_celsius": "449.51 (°C)",
+    "element_melting_fahrenheit": "841.12 (°F)",
+
+    "element_electron_config": "4d^10 5s^2 5p^4",
+    "element_ion_charge": "Te^2-",
+    "element_ionization_energy": "9.0096 (eV)",
+    "element_atomic_radius": "123 (pm)",
+    "element_covalent_radius": "135 (pm)",
+    "element_van_der_waals": "206",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "17.49 (kJ/mol)",
+    "element_specific_heat_capacity": "0.202 J/(g·K)",
+    "element_vaporization_heat": "114.1 (kJ/mol)",
+
+    "iso_1": "Te-123",
+    "iso_mass_1": "122.9042700",
+    "iso_half_1": "Observationally ",
+    "iso_Z_1": "52",
+    "iso_N_1": "71",
+    "iso_A_1": "123",
+
+    "iso_2": "Te-124",
+    "iso_mass_2": "123.9028179",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "52",
+    "iso_N_2": "72",
+    "iso_A_2": "124",
+
+    "iso_3": "Te-125",
+    "iso_mass_3": "124.9044307",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "52",
+    "iso_N_3": "73",
+    "iso_A_3": "125",
+
+    "iso_4": "Te-126",
+    "iso_mass_4": "125.9033117",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "52",
+    "iso_N_4": "74",
+    "iso_A_4": "126",
+
+    "iso_5": "Te-127",
+    "iso_mass_5": "126.9052263",
+    "iso_half_5": "9.35 (hours)",
+    "iso_Z_5": "52",
+    "iso_N_5": "75",
+    "iso_A_5": "127",
+
+    "iso_6": "Te-128",
+    "iso_mass_6": "127.9044631",
+    "iso_half_6": "2.2×10^24 (Years)",
+    "iso_Z_6": "52",
+    "iso_N_6": "76",
+    "iso_A_6": "128",
+
+    "iso_7": "Te-129",
+    "iso_mass_7": "128.9065982",
+    "iso_half_7": "69.67 (min)",
+    "iso_Z_7": "52",
+    "iso_N_7": "77",
+    "iso_A_7": "129"
+  }
+]

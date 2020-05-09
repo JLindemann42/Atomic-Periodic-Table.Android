@@ -7,43 +7,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="?attr/colorPrimary"
+        android:clickable="true"
         android:elevation="0dp"
         android:fitsSystemWindows="true"
         android:gravity="center|center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/close_element_search"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="9dp"
+            android:clickable="true"
+            android:elevation="0dp"
+            android:focusable="true"
+            android:src="@drawable/ic_close"
+            app:backgroundTint="@color/transparent"
+            app:borderWidth="0dp"
+            app:elevation="0dp"
+            app:fabCustomSize="36dp"
+            app:fabSize="auto" />
+
         <FrameLayout
-            android:id="@+id/search_bar"
+            android:id="@+id/search_bar_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="18dp"
+            android:layout_marginStart="54dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="18dp"
             android:background="@drawable/toast"
             android:backgroundTint="?attr/colorPrimaryDark"
-            android:elevation="0dp">
+            android:elevation="0dp"
+            android:visibility="visible">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/close_search_btn"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
-                android:layout_margin="9dp"
-                android:src="@drawable/ic_close"
-                android:tint="?attr/actionMenuTextColor"
-                app:backgroundTint="?attr/colorPrimaryDark"
-                app:borderWidth="0dp"
-                app:elevation="0dp" />
 
             <EditText
-                android:id="@+id/detail_search_et"
+                android:id="@+id/edit_element"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="45dp"
+                android:layout_marginStart="18dp"
                 android:layout_marginEnd="18dp"
                 android:background="@android:color/transparent"
                 android:focusable="true"
@@ -56,15 +66,17 @@
                 android:paddingStart="0dp"
                 android:textColor="?attr/actionMenuTextColor"
                 android:textColorHint="?attr/actionMenuTextColor"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
         </FrameLayout>
-
-    </LinearLayout>
+    </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/element_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="9dp"
+        android:paddingBottom="60dp" />
 
 </LinearLayout>

@@ -1,0 +1,84 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Silicon",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/e/e9/SiliconCroda.jpg",
+
+    "element": "Silicon",
+    "element_year": "1824",
+    "element_discovered_name": "Jöns Jacob Berzelius",
+    "element_group": "Metalloids",
+    "element_appearance": "Crystalline, reflective with bluish-tinged faces",
+    "element_electrons": "14",
+    "element_protons": "14",
+    "element_neutron_common": "14",
+
+    "element_atomic_number": "14",
+    "element_atomicmass": "28.085 (u)",
+    "element_density": "2.3290 (g/cm^3)",
+    "element_electronegativty": "1.90",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 M4 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Electron_shell_014_Silicon_-_no_label.svg/1280px-Electron_shell_014_Silicon_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "3538 (K)",
+    "element_boiling_celsius": "3265 (°C)",
+    "element_boiling_fahrenheit": "5909 (°F)",
+    "element_melting_kelvin": "1687 (K)",
+    "element_melting_celsius": "1414 (°C)",
+    "element_melting_fahrenheit": "2577 (°F)",
+
+    "element_electron_config": "3s^2 3p^2",
+    "element_ion_charge": "---",
+    "element_ionization_energy": "8.15169 (eV)",
+    "element_atomic_radius": "111 (pm)",
+    "element_covalent_radius": "111 (pm)",
+    "element_van_der_waals": "210 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "50.21 (kJ/mol)",
+    "element_specific_heat_capacity": "0.705 J/(g·K)",
+    "element_vaporization_heat": "359 (kJ/mol)",
+
+    "iso_1": "Si-27",
+    "iso_mass_1": "26.98670469",
+    "iso_half_1": "4.15 (s)",
+    "iso_Z_1": "14",
+    "iso_N_1": "13",
+    "iso_A_1": "27",
+
+    "iso_2": "Si-28",
+    "iso_mass_2": "27.9769265350",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "14",
+    "iso_N_2": "14",
+    "iso_A_2": "28",
+
+    "iso_3": "Si-29",
+    "iso_mass_3": "28.9764946653",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "14",
+    "iso_N_3": "15",
+    "iso_A_3": "29",
+
+    "iso_4": "Si-30",
+    "iso_mass_4": "29.973770137",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "14",
+    "iso_N_4": "16",
+    "iso_A_4": "30",
+
+    "iso_5": "Si-31",
+    "iso_mass_5": "30.97536319",
+    "iso_half_5": "157.36 (min)",
+    "iso_Z_5": "14",
+    "iso_N_5": "17",
+    "iso_A_5": "31",
+
+    "iso_6": "Si-32",
+    "iso_mass_6": "31.9741515",
+    "iso_half_6": "153 (Years)",
+    "iso_Z_6": "14",
+    "iso_N_6": "18",
+    "iso_A_6": "32"
+  }
+]

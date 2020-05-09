@@ -346,6 +346,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/box_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -385,6 +386,7 @@
                                 android:textColor="?attr/actionMenuTextColor"
                                 android:textSize="14sp"
                                 android:textStyle="normal" />
+
                             <TextView
                                 android:id="@+id/iso_massa_2"
                                 android:layout_width="match_parent"
@@ -397,6 +399,7 @@
                                 android:textColor="?attr/actionMenuTextColor"
                                 android:textSize="14sp"
                                 android:textStyle="normal" />
+
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -486,10 +489,10 @@
                         </LinearLayout>
 
 
-
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/box_3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -635,6 +638,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/box_4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
@@ -1067,6 +1071,1299 @@
                         </LinearLayout>
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/box_7"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="18dp"
+                        android:background="@drawable/rounded_box"
+                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/iso_name_7"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="18dp"
+                                android:layout_marginBottom="3dp"
+                                android:gravity="center"
+                                android:text="iso_name_7"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/iso_half_7"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="6dp"
+                                android:gravity="center"
+                                android:text="iso_half_7"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/iso_massa_7"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="6dp"
+                                android:gravity="center"
+                                android:text="iso_half_7"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Protons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_z_7"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_z_7"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Neutrons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_n_7"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_n_7"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Nucleons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_a_7"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_a_7"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/box_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="18dp"
+                        android:background="@drawable/rounded_box"
+                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/iso_name_8"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="18dp"
+                                android:layout_marginBottom="3dp"
+                                android:gravity="center"
+                                android:text="iso_name_8"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/iso_half_8"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="6dp"
+                                android:gravity="center"
+                                android:text="iso_half_8"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/iso_massa_8"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="6dp"
+                                android:gravity="center"
+                                android:text="iso_half_8"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Protons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_z_8"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_z_8"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Neutrons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_n_8"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_n_8"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Nucleons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_a_8"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_a_8"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/box_9"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="18dp"
+                        android:background="@drawable/rounded_box"
+                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/iso_name_9"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="18dp"
+                                android:layout_marginBottom="3dp"
+                                android:gravity="center"
+                                android:text="iso_name_9"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/iso_half_9"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="6dp"
+                                android:gravity="center"
+                                android:text="iso_half_9"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/iso_massa_9"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="6dp"
+                                android:gravity="center"
+                                android:text="iso_half_9"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Protons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_z_9"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_z_9"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Neutrons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_n_9"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_n_9"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Nucleons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_a_9"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_a_9"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/box_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="18dp"
+                        android:background="@drawable/rounded_box"
+                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/iso_name_10"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="18dp"
+                                android:layout_marginBottom="3dp"
+                                android:gravity="center"
+                                android:text="iso_name_4"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/iso_half_10"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center"
+                                android:text="iso_half_4"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/iso_massa_10"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="10dp"
+                                android:gravity="center"
+                                android:text="iso_half_1"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Protons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_z_10"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_z_4"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Neutrons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_n_10"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_n_4"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Nucleons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_a_10"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_a_4"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/box_11"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="18dp"
+                        android:background="@drawable/rounded_box"
+                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/iso_name_11"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="18dp"
+                                android:layout_marginBottom="3dp"
+                                android:gravity="center"
+                                android:text="iso_name_4"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/iso_half_11"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="11dp"
+                                android:gravity="center"
+                                android:text="iso_half_4"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/iso_massa_11"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="11dp"
+                                android:gravity="center"
+                                android:text="iso_half_1"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Protons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_z_11"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_z_4"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Neutrons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_n_11"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_n_4"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Nucleons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_a_11"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_a_4"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/box_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="18dp"
+                        android:background="@drawable/rounded_box"
+                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/iso_name_12"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="18dp"
+                                android:layout_marginBottom="3dp"
+                                android:gravity="center"
+                                android:text="iso_name_4"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/iso_half_12"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="12dp"
+                                android:gravity="center"
+                                android:text="iso_half_4"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <TextView
+                                android:id="@+id/iso_massa_12"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginBottom="12dp"
+                                android:gravity="center"
+                                android:text="iso_half_1"
+                                android:textAlignment="center"
+                                android:textColor="?attr/actionMenuTextColor"
+                                android:textSize="14sp"
+                                android:textStyle="normal" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Protons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_z_12"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_z_4"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Neutrons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_n_12"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_n_4"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="100dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:text="Nucleons:"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor" />
+
+                                    <TextView
+                                        android:id="@+id/iso_a_12"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="18dp"
+                                        android:gravity="center"
+                                        android:text="iso_a_4"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="24sp" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/box_13"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_margin="18dp"
+                            android:background="@drawable/rounded_box"
+                            android:backgroundTint="?attr/colorPrimaryDark"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/iso_name_13"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="18dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:gravity="center"
+                                    android:text="iso_name_4"
+                                    android:textAlignment="center"
+                                    android:textColor="?attr/actionMenuTextColor"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/iso_half_13"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:gravity="center"
+                                    android:text="iso_half_4"
+                                    android:textAlignment="center"
+                                    android:textColor="?attr/actionMenuTextColor"
+                                    android:textSize="14sp"
+                                    android:textStyle="normal" />
+
+                                <TextView
+                                    android:id="@+id/iso_massa_13"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginBottom="12dp"
+                                    android:gravity="center"
+                                    android:text="iso_half_1"
+                                    android:textAlignment="center"
+                                    android:textColor="?attr/actionMenuTextColor"
+                                    android:textSize="14sp"
+                                    android:textStyle="normal" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:orientation="horizontal">
+
+                                    <LinearLayout
+                                        android:layout_width="100dp"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:text="Protons:"
+                                            android:textAlignment="center"
+                                            android:textColor="?attr/actionMenuTextColor" />
+
+                                        <TextView
+                                            android:id="@+id/iso_z_13"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="18dp"
+                                            android:gravity="center"
+                                            android:text="iso_z_4"
+                                            android:textAlignment="center"
+                                            android:textColor="?attr/actionMenuTextColor"
+                                            android:textSize="24sp" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="100dp"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:text="Neutrons:"
+                                            android:textAlignment="center"
+                                            android:textColor="?attr/actionMenuTextColor" />
+
+                                        <TextView
+                                            android:id="@+id/iso_n_13"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="18dp"
+                                            android:gravity="center"
+                                            android:text="iso_n_4"
+                                            android:textAlignment="center"
+                                            android:textColor="?attr/actionMenuTextColor"
+                                            android:textSize="24sp" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="100dp"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:text="Nucleons:"
+                                            android:textAlignment="center"
+                                            android:textColor="?attr/actionMenuTextColor" />
+
+                                        <TextView
+                                            android:id="@+id/iso_a_13"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginBottom="18dp"
+                                            android:gravity="center"
+                                            android:text="iso_a_4"
+                                            android:textAlignment="center"
+                                            android:textColor="?attr/actionMenuTextColor"
+                                            android:textSize="24sp" />
+                                    </LinearLayout>
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/box_14"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:layout_margin="18dp"
+                                android:background="@drawable/rounded_box"
+                                android:backgroundTint="?attr/colorPrimaryDark"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/iso_name_14"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="18dp"
+                                        android:layout_marginBottom="3dp"
+                                        android:gravity="center"
+                                        android:text="iso_name_4"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="18sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:id="@+id/iso_half_14"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="3dp"
+                                        android:layout_marginBottom="12dp"
+                                        android:gravity="center"
+                                        android:text="iso_half_4"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="14sp"
+                                        android:textStyle="normal" />
+
+                                    <TextView
+                                        android:id="@+id/iso_massa_14"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="3dp"
+                                        android:layout_marginBottom="12dp"
+                                        android:gravity="center"
+                                        android:text="iso_half_1"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/actionMenuTextColor"
+                                        android:textSize="14sp"
+                                        android:textStyle="normal" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:orientation="horizontal">
+
+                                        <LinearLayout
+                                            android:layout_width="100dp"
+                                            android:layout_height="match_parent"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center"
+                                                android:text="Protons:"
+                                                android:textAlignment="center"
+                                                android:textColor="?attr/actionMenuTextColor" />
+
+                                            <TextView
+                                                android:id="@+id/iso_z_14"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginBottom="18dp"
+                                                android:gravity="center"
+                                                android:text="iso_z_4"
+                                                android:textAlignment="center"
+                                                android:textColor="?attr/actionMenuTextColor"
+                                                android:textSize="24sp" />
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="100dp"
+                                            android:layout_height="match_parent"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center"
+                                                android:text="Neutrons:"
+                                                android:textAlignment="center"
+                                                android:textColor="?attr/actionMenuTextColor" />
+
+                                            <TextView
+                                                android:id="@+id/iso_n_14"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginBottom="18dp"
+                                                android:gravity="center"
+                                                android:text="iso_n_4"
+                                                android:textAlignment="center"
+                                                android:textColor="?attr/actionMenuTextColor"
+                                                android:textSize="24sp" />
+
+                                        </LinearLayout>
+
+                                        <LinearLayout
+                                            android:layout_width="100dp"
+                                            android:layout_height="wrap_content"
+                                            android:gravity="center"
+                                            android:orientation="vertical">
+
+                                            <TextView
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center"
+                                                android:text="Nucleons:"
+                                                android:textAlignment="center"
+                                                android:textColor="?attr/actionMenuTextColor" />
+
+                                            <TextView
+                                                android:id="@+id/iso_a_14"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="wrap_content"
+                                                android:layout_marginBottom="18dp"
+                                                android:gravity="center"
+                                                android:text="iso_a_4"
+                                                android:textAlignment="center"
+                                                android:textColor="?attr/actionMenuTextColor"
+                                                android:textSize="24sp" />
+                                        </LinearLayout>
+
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/box_15"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="18dp"
+                                    android:background="@drawable/rounded_box"
+                                    android:backgroundTint="?attr/colorPrimaryDark"
+                                    android:gravity="center_horizontal"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:id="@+id/iso_name_15"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="18dp"
+                                            android:layout_marginBottom="3dp"
+                                            android:gravity="center"
+                                            android:text="iso_name_4"
+                                            android:textAlignment="center"
+                                            android:textColor="?attr/actionMenuTextColor"
+                                            android:textSize="18sp"
+                                            android:textStyle="bold" />
+
+                                        <TextView
+                                            android:id="@+id/iso_half_15"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="3dp"
+                                            android:layout_marginBottom="12dp"
+                                            android:gravity="center"
+                                            android:text="iso_half_4"
+                                            android:textAlignment="center"
+                                            android:textColor="?attr/actionMenuTextColor"
+                                            android:textSize="14sp"
+                                            android:textStyle="normal" />
+
+                                        <TextView
+                                            android:id="@+id/iso_massa_15"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="3dp"
+                                            android:layout_marginBottom="12dp"
+                                            android:gravity="center"
+                                            android:text="iso_half_1"
+                                            android:textAlignment="center"
+                                            android:textColor="?attr/actionMenuTextColor"
+                                            android:textSize="14sp"
+                                            android:textStyle="normal" />
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:gravity="center"
+                                            android:orientation="horizontal">
+
+                                            <LinearLayout
+                                                android:layout_width="100dp"
+                                                android:layout_height="match_parent"
+                                                android:gravity="center"
+                                                android:orientation="vertical">
+
+                                                <TextView
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:gravity="center"
+                                                    android:text="Protons:"
+                                                    android:textAlignment="center"
+                                                    android:textColor="?attr/actionMenuTextColor" />
+
+                                                <TextView
+                                                    android:id="@+id/iso_z_15"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginBottom="18dp"
+                                                    android:gravity="center"
+                                                    android:text="iso_z_4"
+                                                    android:textAlignment="center"
+                                                    android:textColor="?attr/actionMenuTextColor"
+                                                    android:textSize="24sp" />
+                                            </LinearLayout>
+
+                                            <LinearLayout
+                                                android:layout_width="100dp"
+                                                android:layout_height="match_parent"
+                                                android:gravity="center"
+                                                android:orientation="vertical">
+
+                                                <TextView
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:gravity="center"
+                                                    android:text="Neutrons:"
+                                                    android:textAlignment="center"
+                                                    android:textColor="?attr/actionMenuTextColor" />
+
+                                                <TextView
+                                                    android:id="@+id/iso_n_15"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginBottom="18dp"
+                                                    android:gravity="center"
+                                                    android:text="iso_n_4"
+                                                    android:textAlignment="center"
+                                                    android:textColor="?attr/actionMenuTextColor"
+                                                    android:textSize="24sp" />
+
+                                            </LinearLayout>
+
+                                            <LinearLayout
+                                                android:layout_width="100dp"
+                                                android:layout_height="wrap_content"
+                                                android:gravity="center"
+                                                android:orientation="vertical">
+
+                                                <TextView
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:gravity="center"
+                                                    android:text="Nucleons:"
+                                                    android:textAlignment="center"
+                                                    android:textColor="?attr/actionMenuTextColor" />
+
+                                                <TextView
+                                                    android:id="@+id/iso_a_15"
+                                                    android:layout_width="match_parent"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginBottom="18dp"
+                                                    android:gravity="center"
+                                                    android:text="iso_a_4"
+                                                    android:textAlignment="center"
+                                                    android:textColor="?attr/actionMenuTextColor"
+                                                    android:textSize="24sp" />
+                                            </LinearLayout>
+
+                                        </LinearLayout>
+                                    </LinearLayout>
+
+                    </LinearLayout>
+                            </LinearLayout>
                 </LinearLayout>
             </ScrollView>
 

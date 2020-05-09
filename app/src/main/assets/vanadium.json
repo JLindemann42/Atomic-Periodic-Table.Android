@@ -1,0 +1,78 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Vanadium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Vanadium_etched.jpg/800px-Vanadium_etched.jpg",
+
+    "element": "Vanadium",
+    "element_year": "1801",
+    "element_discovered_name": "Andrés Manuel del Río",
+    "element_group": "Transition Metals",
+    "element_appearance": "Blue-, silver-, gray metal",
+    "element_electrons": "23",
+    "element_protons": "23",
+    "element_neutron_common": "28",
+
+    "element_atomic_number": "23",
+    "element_atomicmass": "50.9415 (u)",
+    "element_density": "6.0 (g/cm^3)",
+    "element_electronegativty": "1.63",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M11 N2 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Electron_shell_023_Vanadium_-_no_label.svg/800px-Electron_shell_023_Vanadium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "3680 (K)",
+    "element_boiling_celsius": "3407 (°C)",
+    "element_boiling_fahrenheit": "6165 (°F)",
+    "element_melting_kelvin": "2183 (K)",
+    "element_melting_celsius": "1910 (°C)",
+    "element_melting_fahrenheit": "3470 (°F)",
+
+    "element_electron_config": "3d^3 4s^2",
+    "element_ion_charge": "V^3+, V^5+",
+    "element_ionization_energy": "6.7462 (eV)",
+    "element_atomic_radius": "171 (pm)",
+    "element_covalent_radius": "125 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "21.5 (kJ/mol)",
+    "element_specific_heat_capacity": "0.489 J/(g·K)",
+    "element_vaporization_heat": "453 (kJ/mol)",
+
+    "iso_1": "V-48",
+    "iso_mass_1": "47.9522537",
+    "iso_half_1": "15.9735 (days)",
+    "iso_Z_1": "23",
+    "iso_N_1": "25",
+    "iso_A_1": "48",
+
+    "iso_2": "V-49",
+    "iso_mass_2": "48.9485161",
+    "iso_half_2": "329 (days)",
+    "iso_Z_2": "23",
+    "iso_N_2": "26",
+    "iso_A_2": "49",
+
+    "iso_3": "V-50",
+    "iso_mass_3": "49.9471585",
+    "iso_half_3": "1.4×10^17 (years)",
+    "iso_Z_3": "23",
+    "iso_N_3": "27",
+    "iso_A_3": "50",
+
+    "iso_4": "V-51",
+    "iso_mass_4": "50.9439595",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "23",
+    "iso_N_4": "28",
+    "iso_A_4": "51",
+
+    "iso_5": "V-52",
+    "iso_mass_5": "51.9447755",
+    "iso_half_5": "3.743 (min)",
+    "iso_Z_5": "23",
+    "iso_N_5": "29",
+    "iso_A_5": "52"
+
+  }
+]

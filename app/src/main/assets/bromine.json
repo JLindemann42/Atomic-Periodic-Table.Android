@@ -1,0 +1,77 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Bromine",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Bromine_vial_in_acrylic_cube.jpg/1280px-Bromine_vial_in_acrylic_cube.jpg",
+
+    "element": "Bromine",
+    "element_year": "1825",
+    "element_discovered_name": "Antoine Jérôme Balard ",
+    "element_group": "Halogens",
+    "element_appearance": "Reddish- Brown",
+    "element_electrons": "35",
+    "element_protons": "35",
+    "element_neutron_common": "44",
+
+    "element_atomic_number": "35",
+    "element_atomicmass": "79.904 (u)",
+    "element_density": "Br2: 3.1028 (g/cm^3)",
+    "element_electronegativty": "2.96",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 18 N7 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Electron_shell_035_Bromine_%28diatomic_nonmetal%29_-_no_label.svg/1280px-Electron_shell_035_Bromine_%28diatomic_nonmetal%29_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "Br2: 332.0 (K)",
+    "element_boiling_celsius": "Br2: 58.8 (°C)",
+    "element_boiling_fahrenheit": "Br2: 137.8 (°F)",
+    "element_melting_kelvin": "Br2: 265.8 (K)",
+    "element_melting_celsius": "Br2: -7.2 (°C)",
+    "element_melting_fahrenheit": "Br2: 19 (°F)",
+
+    "element_electron_config": "3d^10 4s^2 4p^5",
+    "element_ion_charge": "Br^-",
+    "element_ionization_energy": "11.81381 (eV)",
+    "element_atomic_radius": "94 (pm)",
+    "element_covalent_radius": "114 (pm)",
+    "element_van_der_waals": "185 (pm)",
+
+    "element_phase": "Liquid",
+    "element_fusion_heat": "Br2: 10.57 (kJ/mol)",
+    "element_specific_heat_capacity": "Br2: 0.474 J/(g·K)",
+    "element_vaporization_heat": "Br2: 29.96 (kJ/mol)",
+
+    "iso_1": "Br-78",
+    "iso_mass_1": "77.921146",
+    "iso_half_1": "6.46 (min)",
+    "iso_Z_1": "35",
+    "iso_N_1": "43",
+    "iso_A_1": "78",
+
+    "iso_2": "Br-79",
+    "iso_mass_2": "78.9183371",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "35",
+    "iso_N_2": "44",
+    "iso_A_2": "79",
+
+    "iso_3": "Br-80",
+    "iso_mass_3": "79.9185293",
+    "iso_half_3": "17.68 (min)",
+    "iso_Z_3": "35",
+    "iso_N_3": "45",
+    "iso_A_3": "80",
+
+    "iso_4": "Br-81",
+    "iso_mass_4": "80.9162906",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "35",
+    "iso_N_4": "46",
+    "iso_A_4": "81",
+
+    "iso_5": "Br-82",
+    "iso_mass_5": "81.9168041",
+    "iso_half_5": "35.282 (hours)",
+    "iso_Z_5": "35",
+    "iso_N_5": "47",
+    "iso_A_5": "82"
+  }
+]

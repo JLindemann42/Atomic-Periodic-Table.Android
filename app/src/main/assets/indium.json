@@ -1,0 +1,70 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Indium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Indium.jpg/800px-Indium.jpg",
+
+    "element": "Indium",
+    "element_year": "1863",
+    "element_discovered_name": "Ferdinand Reich",
+    "element_group": "Post-Transition Metals",
+    "element_appearance": "Silvery bluish-gray Metallic",
+    "element_electrons": "49",
+    "element_protons": "49",
+    "element_neutron_common": "67",
+
+    "element_atomic_number": "49",
+    "element_atomicmass": "114.818 (u)",
+    "element_density": "7.31 (g/cm^3)",
+    "element_electronegativty": "1.78",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 18 N18 O3 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Electron_shell_049_Indium_-_no_label.svg/800px-Electron_shell_049_Indium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2345 (K)",
+    "element_boiling_celsius": "2072 (°C)",
+    "element_boiling_fahrenheit": "3762 (°F)",
+    "element_melting_kelvin": "429.7485 (K)",
+    "element_melting_celsius": "156.5985 (°C)",
+    "element_melting_fahrenheit": "313.8773 (°F)",
+
+    "element_electron_config": "4d^10 5s^2 5p^1",
+    "element_ion_charge": "In^3+",
+    "element_ionization_energy": "5.78636 (eV)",
+    "element_atomic_radius": "156 (pm)",
+    "element_covalent_radius": "144 (pm)",
+    "element_van_der_waals": "193",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "3.281 (kJ/mol)",
+    "element_specific_heat_capacity": "0.233 J/(g·K)",
+    "element_vaporization_heat": "231.8 (kJ/mol)",
+
+    "iso_1": "In-112",
+    "iso_mass_1": "111.905532",
+    "iso_half_1": "14.97 (min)",
+    "iso_Z_1": "49",
+    "iso_N_1": "63",
+    "iso_A_1": "112",
+
+    "iso_2": "In-113",
+    "iso_mass_2": "112.904058",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "49",
+    "iso_N_2": "64",
+    "iso_A_2": "113",
+
+    "iso_3": "In-114",
+    "iso_mass_3": "113.904914",
+    "iso_half_3": "71.9 (s)",
+    "iso_Z_3": "49",
+    "iso_N_3": "65",
+    "iso_A_3": "114",
+
+    "iso_4": "In-115",
+    "iso_mass_4": "114.903878",
+    "iso_half_4": "4.41×10^14 (years)",
+    "iso_Z_4": "49",
+    "iso_N_4": "66",
+    "iso_A_4": "116"
+  }
+]

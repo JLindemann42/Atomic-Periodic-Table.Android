@@ -1,0 +1,84 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Sulfur",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Sulfur-sample.jpg/1920px-Sulfur-sample.jpg",
+
+    "element": "Sulfur",
+    "element_year": "<600 BCE",
+    "element_discovered_name": "---",
+    "element_group": "Other Nonmetals",
+    "element_appearance": "Lemon yellow sintered microcrystals",
+    "element_electrons": "16",
+    "element_protons": "16",
+    "element_neutron_common": "16",
+
+    "element_atomic_number": "16",
+    "element_atomicmass": "32.06 (u)",
+    "element_density": "2.07 (g/cm^3)",
+    "element_electronegativty": "2.58",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 M6 N0 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Electron_shell_016_Sulfur_%28polyatomic_nonmetal%29_-_no_label.svg/1280px-Electron_shell_016_Sulfur_%28polyatomic_nonmetal%29_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "717.8 (K)",
+    "element_boiling_celsius": "444.6 (°C)",
+    "element_boiling_fahrenheit": "832.3 (°F)",
+    "element_melting_kelvin": "388.36 (K)",
+    "element_melting_celsius": "115.21 (°C)",
+    "element_melting_fahrenheit": "239.38 (°F)",
+
+    "element_electron_config": "3s^2 3p^4",
+    "element_ion_charge": "S^2-",
+    "element_ionization_energy": "10.36001 (eV)",
+    "element_atomic_radius": "98 (pm)",
+    "element_covalent_radius": "106 (pm)",
+    "element_van_der_waals": "180 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "1.72 (kJ/mol)",
+    "element_specific_heat_capacity": "0.710 J/(g·K)",
+    "element_vaporization_heat": "9.8 (kJ/mol)",
+
+    "iso_1": "S-31",
+    "iso_mass_1": "30.97955701",
+    "iso_half_1": "2.5534 (s)",
+    "iso_Z_1": "16",
+    "iso_N_1": "15",
+    "iso_A_1": "31",
+
+    "iso_2": "S-32",
+    "iso_mass_2": "31.9720711744",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "16",
+    "iso_N_2": "16",
+    "iso_A_2": "32",
+
+    "iso_3": "S-33",
+    "iso_mass_3": "32.9714589099",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "16",
+    "iso_N_3": "17",
+    "iso_A_3": "33",
+
+    "iso_4": "S-34",
+    "iso_mass_4": "33.96786701",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "16",
+    "iso_N_4": "18",
+    "iso_A_4": "34",
+
+    "iso_5": "S-35",
+    "iso_mass_5": "34.96903232",
+    "iso_half_5": "87.37 (Days)",
+    "iso_Z_5": "16",
+    "iso_N_5": "19",
+    "iso_A_5": "35",
+
+    "iso_6": "S-36",
+    "iso_mass_6": "35.96708070",
+    "iso_half_6": "Stable",
+    "iso_Z_6": "16",
+    "iso_N_6": "20",
+    "iso_A_6": "36"
+  }
+]

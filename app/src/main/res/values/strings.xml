@@ -9,7 +9,6 @@
     <string name="clear_cache_title">Clear Cache</string>
     <string name="clear_cache_text">cache_size</string>
 
-
     <string name="hydrogen">Hydrogen</string>
     <string name="helium">Helium</string>
     <string name="lithium">Lithium</string>
@@ -20,5 +19,19 @@
     <string name="Oxygen">Oxygen</string>
     <string name="Fluorine">Fluorine</string>
     <string name="Neon">Neon</string>
+    <string name="Sodium">Sodium</string>
+    <string name="Magnesium">Magnesium</string>
+    <string name="Aluminium">Aluminium</string>
+    <string name="Silicon">Silicon</string>
+    <string name="Phosphorus">Phosphorus</string>
+    <string name="Sulfur">Sulfur</string>
+    <string name="Chlorine">Chlorine</string>
+    <string name="Argon">Argon</string>
+    <string name="Potassium">Potassium</string>
+    <string name="Calcium">Calcium</string>
+    <string name="Scandium">Scandium</string>
+    <string name="Titanium">Titanium</string>
+    <string name="Vanadium">Vanadium</string>
+    <string name="Chromium">Manganese</string>
 
 </resources>

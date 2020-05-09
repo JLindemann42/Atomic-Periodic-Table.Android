@@ -1,0 +1,77 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Cobalt",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Kobalt_electrolytic_and_1cm3_cube.jpg/1024px-Kobalt_electrolytic_and_1cm3_cube.jpg ",
+
+    "element": "Cobalt",
+    "element_year": "1735",
+    "element_discovered_name": "Georg Brandt ",
+    "element_group": "Transition Metals",
+    "element_appearance": "Bluish Gray Metal",
+    "element_electrons": "27",
+    "element_protons": "27",
+    "element_neutron_common": "32",
+
+    "element_atomic_number": "27",
+    "element_atomicmass": "58.9332 (u)",
+    "element_density": "8.86 (g/cm^3)",
+    "element_electronegativty": "1.88",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M15 N2 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Electron_shell_027_Cobalt_-_no_label.svg/800px-Electron_shell_027_Cobalt_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "3200 (K)",
+    "element_boiling_celsius": "2927 (°C)",
+    "element_boiling_fahrenheit": "5301 (°F)",
+    "element_melting_kelvin": "1768 (K)",
+    "element_melting_celsius": "1495 (°C)",
+    "element_melting_fahrenheit": "2723 (°F)",
+
+    "element_electron_config": "3d^7 4s^2",
+    "element_ion_charge": "Co^2+, Co^3+",
+    "element_ionization_energy": "7.8810 (eV)",
+    "element_atomic_radius": "152 (pm)",
+    "element_covalent_radius": "126 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "16.06 (kJ/mol)",
+    "element_specific_heat_capacity": "0.421 J/(g·K)",
+    "element_vaporization_heat": "377 (kJ/mol)",
+
+    "iso_1": "Co-56",
+    "iso_mass_1": "55.9398393",
+    "iso_half_1": "77.233 (days)",
+    "iso_Z_1": "27",
+    "iso_N_1": "29",
+    "iso_A_1": "56",
+
+    "iso_2": "Co-57",
+    "iso_mass_2": "56.9362914",
+    "iso_half_2": "271.74 (days)",
+    "iso_Z_2": "27",
+    "iso_N_2": "30",
+    "iso_A_2": "57",
+
+    "iso_3": "Co-58",
+    "iso_mass_3": "57.9357528",
+    "iso_half_3": "70.86 (days)",
+    "iso_Z_3": "27",
+    "iso_N_3": "31",
+    "iso_A_3": "58",
+
+    "iso_4": "Co-59",
+    "iso_mass_4": "58.9331950",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "27",
+    "iso_N_4": "32",
+    "iso_A_4": "59",
+
+    "iso_5": "Co-60",
+    "iso_mass_5": "59.9338171",
+    "iso_half_5": "5.2713 (years)",
+    "iso_Z_5": "27",
+    "iso_N_5": "33",
+    "iso_A_5": "60"
+  }
+]

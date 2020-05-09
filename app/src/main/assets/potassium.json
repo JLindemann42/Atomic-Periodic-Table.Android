@@ -1,0 +1,84 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Potassium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Potassium-2.jpg",
+
+    "element": "Potassium",
+    "element_year": "1807",
+    "element_discovered_name": "Humphry Davy",
+    "element_group": "Alkali Metals",
+    "element_appearance": "Silvery Gray",
+    "element_electrons": "19",
+    "element_protons": "19",
+    "element_neutron_common": "20",
+
+    "element_atomic_number": "19",
+    "element_atomicmass": "39.0983 (u)",
+    "element_density": "0.89 (g/cm^3)",
+    "element_electronegativty": "0.82",
+    "element_block": "s - block",
+    "element_shells_electrons": "K2 L8 M8 N1 O0 P0 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Electron_shell_019_Potassium_-_no_label.svg/1280px-Electron_shell_019_Potassium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1032 (K)",
+    "element_boiling_celsius": "759 (°C)",
+    "element_boiling_fahrenheit": "1398 (°F)",
+    "element_melting_kelvin": "336.7 (K)",
+    "element_melting_celsius": "63.5 (°C)",
+    "element_melting_fahrenheit": "146.3 (°F)",
+
+    "element_electron_config": "4s^1",
+    "element_ion_charge": "K^+",
+    "element_ionization_energy": "4.34066 (eV)",
+    "element_atomic_radius": "243 (pm)",
+    "element_covalent_radius": "196 (pm)",
+    "element_van_der_waals": "275 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "2.33 (kJ/mol)",
+    "element_specific_heat_capacity": "0.757 J/(g·K)",
+    "element_vaporization_heat": "76.90 (kJ/mol)",
+
+    "iso_1": "K-38",
+    "iso_mass_1": "37.96908112",
+    "iso_half_1": "7.636 (min)",
+    "iso_Z_1": "19",
+    "iso_N_1": "19",
+    "iso_A_1": "38",
+
+    "iso_2": "K-39",
+    "iso_mass_2": "38.963706487",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "19",
+    "iso_N_2": "20",
+    "iso_A_2": "39",
+
+    "iso_3": "K-40",
+    "iso_mass_3": "39.96399817",
+    "iso_half_3": "1.248(3)×10^9 (Years)",
+    "iso_Z_3": "19",
+    "iso_N_3": "21",
+    "iso_A_3": "40",
+
+    "iso_4": "K-41",
+    "iso_mass_4": "40.961825258",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "19",
+    "iso_N_4": "22",
+    "iso_A_4": "41",
+
+    "iso_5": "K-42",
+    "iso_mass_5": "41.96240231",
+    "iso_half_5": "12.355 (h)",
+    "iso_Z_5": "19",
+    "iso_N_5": "23",
+    "iso_A_5": "42",
+
+    "iso_6": "K-43",
+    "iso_mass_6": "42.9607347",
+    "iso_half_6": "22.3 (h)",
+    "iso_Z_6": "19",
+    "iso_N_6": "24",
+    "iso_A_6": "43"
+  }
+]

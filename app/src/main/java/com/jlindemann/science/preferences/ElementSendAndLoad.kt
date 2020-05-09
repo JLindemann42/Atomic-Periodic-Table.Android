@@ -9,13 +9,13 @@ class ElementSendAndLoad(context: Context) {
 
     val preference = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
-    fun getValue() : Int?{
-        return preference.getInt(PREFERENCE_VALUE, 1)
+    fun getValue() : String?{
+        return preference.getString(PREFERENCE_VALUE, "hydrogen")
     }
 
-    fun setValue(count: Int) {
+    fun setValue(string: String) {
         val editor = preference.edit()
-        editor.putInt(PREFERENCE_VALUE, count)
+        editor.putString(PREFERENCE_VALUE, string)
         editor.apply()
     }
 }
