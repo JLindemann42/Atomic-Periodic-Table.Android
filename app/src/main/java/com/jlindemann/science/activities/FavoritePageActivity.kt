@@ -6,6 +6,7 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,12 +22,11 @@ import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_favorite_settings_page.*
 import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_settings.back_btn
 import kotlinx.android.synthetic.main.activity_settings.theme_panel
 import kotlinx.android.synthetic.main.favorite_bar.*
 import kotlinx.android.synthetic.main.theme_panel.*
 
-class FavoritePageActivity : AppCompatActivity() {
+class FavoritePageActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,7 @@ class FavoritePageActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_favorite_settings_page)
 
-        back_btn.setOnClickListener {
+        back_btn_fav.setOnClickListener {
             this.onBackPressed()
         }
 
@@ -156,9 +156,18 @@ class FavoritePageActivity : AppCompatActivity() {
             vaporization_heat_check.isChecked = false
         }
         onCheckboxClicked()
-
+        viewf.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
     }
 
+    override fun onApplySystemInsets(top: Int, bottom: Int) {
+        val params = common_title_back_fav.layoutParams as ViewGroup.LayoutParams
+        params.height += top
+        common_title_back_fav.layoutParams = params
+
+        val params2 = general_header.layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin += top
+        general_header.layoutParams = params2
+    }
     override fun onBackPressed() {
         if (theme_panel.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(theme_panel, 300) //Start Close Animation

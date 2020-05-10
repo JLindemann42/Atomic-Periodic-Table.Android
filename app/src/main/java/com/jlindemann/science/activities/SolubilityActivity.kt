@@ -12,6 +12,7 @@ import com.jlindemann.science.R2.id.view
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
 import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.activity_solubility.*
 import kotlinx.android.synthetic.main.solubility_group_1.*
 import kotlinx.android.synthetic.main.solubility_group_2.*
 import kotlinx.android.synthetic.main.solubility_group_3.*

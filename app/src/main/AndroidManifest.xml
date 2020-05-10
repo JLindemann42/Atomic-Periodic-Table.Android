@@ -39,6 +39,11 @@
             android:label="FAVORITEPAGE" />
 
         <activity
+            android:name=".settings.ExperimentalActivity"
+            android:theme="@style/AppTheme"
+            android:label="EXPERIMENTAL_PAGE" />
+
+        <activity
             android:name=".activities.SolubilityActivity"
             android:label="SOLUBILITYPAGE" />
 
@@ -51,11 +56,6 @@
             android:name=".activities.DictionaryActivity"
             android:theme="@style/AppTheme"
             android:label="DICTIONARYPAGE" />
-
-        <activity
-            android:name=".activities.IsotopesActivity"
-            android:theme="@style/AppTheme"
-            android:label="ISOTPOESPAGE" />
 
         <activity
             android:name=".activities.IsotopesActivityExperimental"

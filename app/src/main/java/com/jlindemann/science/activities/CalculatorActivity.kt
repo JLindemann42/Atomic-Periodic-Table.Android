@@ -9,7 +9,6 @@ import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import kotlinx.android.synthetic.main.activity_calculator.*
-import kotlinx.android.synthetic.main.activity_settings.back_btn
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.InputStream

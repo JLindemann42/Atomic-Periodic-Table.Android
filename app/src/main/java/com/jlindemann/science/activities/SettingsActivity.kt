@@ -5,10 +5,12 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import com.jlindemann.science.R
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.settings.ExperimentalActivity
+import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.theme_panel.*
@@ -17,16 +19,15 @@ import java.text.DecimalFormat
 import kotlin.math.log10
 import kotlin.math.pow
 
-
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Utils.gestureSetup(window)
-
         val themePreference = ThemePreference(this)
-        var themePrefValue = themePreference.getValue()
+        val themePrefValue = themePreference.getValue()
+
+        Utils.gestureSetup(window)
 
         if (themePrefValue == 0) {
             setTheme(R.style.AppTheme)
@@ -36,14 +37,26 @@ class SettingsActivity : AppCompatActivity() {
         }
         setContentView(R.layout.activity_settings)
 
-        openFavoriteBarSettingPage()
+        openPages()
         themeSettings()
         initializeCache()
         cacheSettings()
 
-        back_btn.setOnClickListener {
+        view.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+
+        back_btn_set.setOnClickListener {
             this.onBackPressed()
         }
+    }
+
+    override fun onApplySystemInsets(top: Int, bottom: Int) {
+        val params = common_title_back_set.layoutParams as ViewGroup.LayoutParams
+        params.height += top
+        common_title_back_set.layoutParams = params
+
+        val params2 = personalization_header.layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin += top
+        personalization_header.layoutParams = params2
     }
 
     override fun onBackPressed() {
@@ -51,12 +64,18 @@ class SettingsActivity : AppCompatActivity() {
             Utils.fadeOutAnim(theme_panel, 300) //Start Close Animation
             return
         }
-        super.onBackPressed()
+        else {
+            super.onBackPressed()
+        }
     }
 
-    private fun openFavoriteBarSettingPage() {
+    private fun openPages() {
         favorite_settings.setOnClickListener {
             val intent = Intent(this, FavoritePageActivity::class.java)
+            startActivity(intent)
+        }
+        experimental_settings.setOnClickListener {
+            val intent = Intent(this, ExperimentalActivity::class.java)
             startActivity(intent)
         }
     }

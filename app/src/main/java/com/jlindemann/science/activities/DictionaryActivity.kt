@@ -7,7 +7,6 @@ import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.RenderScriptBlur
 import com.jlindemann.science.utils.RenderScriptProvider
 import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_settings.back_btn
 import kotlinx.android.synthetic.main.activity_dictionary.*
 
 class DictionaryActivity : AppCompatActivity() {
