@@ -275,7 +275,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/terbium"
+            android:id="@+id/terbium_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
@@ -332,7 +332,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/berkelium"
+            android:id="@+id/berkelium_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"

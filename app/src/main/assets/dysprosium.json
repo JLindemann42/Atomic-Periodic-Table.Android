@@ -1,0 +1,91 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Dysprosium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Dy_chips.jpg",
+
+    "element": "Dysprosium",
+    "element_year": "1886",
+    "element_discovered_name": "Lecoq de Boisbaudran",
+    "element_group": "Lanthanoids",
+    "element_appearance": "Silvery White",
+    "element_electrons": "66",
+    "element_protons": "66",
+    "element_neutron_common": "98",
+
+    "element_atomic_number": "66",
+    "element_atomicmass": "162.500 (u)",
+    "element_density": "8.540 (g/cm^3)",
+    "element_electronegativty": "1.22",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 M18 N28 O8 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Electron_shell_066_Dysprosium_-_no_label.svg/1024px-Electron_shell_066_Dysprosium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2840 (K)",
+    "element_boiling_celsius": "2562 (°C)",
+    "element_boiling_fahrenheit": "4653 (°F)",
+    "element_melting_kelvin": "1680 (K)",
+    "element_melting_celsius": "1407 (°C)",
+    "element_melting_fahrenheit": "2565 (°F)",
+
+    "element_electron_config": "4f^10 6s^2",
+    "element_ion_charge": "Dy^3+",
+    "element_ionization_energy": "5.9389 (eV)",
+    "element_atomic_radius": "228 (pm)",
+    "element_covalent_radius": "--- (pm)",
+    "element_van_der_waals": "---",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "11.06 (kJ/mol)",
+    "element_specific_heat_capacity": "0.170 J/(g·K)",
+    "element_vaporization_heat": "280 (kJ/mol)",
+
+    "iso_1": "Dy-159",
+    "iso_mass_1": "158.9257392",
+    "iso_half_1": "144.4 (days)",
+    "iso_Z_1": "66",
+    "iso_N_1": "93",
+    "iso_A_1": "159",
+
+    "iso_2": "Dy-160",
+    "iso_mass_2": "159.9251975",
+    "iso_half_2": "Observationally Stable",
+    "iso_Z_2": "66",
+    "iso_N_2": "94",
+    "iso_A_2": "160",
+
+    "iso_3": "Dy-161",
+    "iso_mass_3": "160.9269334",
+    "iso_half_3": "Observationally Stable",
+    "iso_Z_3": "66",
+    "iso_N_3": "95",
+    "iso_A_3": "161",
+
+    "iso_4": "Dy-162",
+    "iso_mass_4": "161.9267984",
+    "iso_half_4": "Observationally Stable",
+    "iso_Z_4": "66",
+    "iso_N_4": "96",
+    "iso_A_4": "162",
+
+    "iso_5": "Dy-163",
+    "iso_mass_5": "162.9287312",
+    "iso_half_5": "Stable",
+    "iso_Z_5": "66",
+    "iso_N_5": "97",
+    "iso_A_5": "163",
+
+    "iso_6": "Dy-164",
+    "iso_mass_6": "163.9291748",
+    "iso_half_6": "Stable",
+    "iso_Z_6": "66",
+    "iso_N_6": "98",
+    "iso_A_6": "164",
+
+    "iso_7": "Dy-165",
+    "iso_mass_7": "164.9317033",
+    "iso_half_7": "2.334 (hours)",
+    "iso_Z_7": "66",
+    "iso_N_7": "99",
+    "iso_A_7": "164"
+  }
+]

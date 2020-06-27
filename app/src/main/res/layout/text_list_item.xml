@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="18dp"
+    android:layout_marginTop="9dp"
+    android:layout_marginEnd="18dp"
+    android:layout_marginBottom="9dp"
+    android:background="@drawable/toast"
+    android:backgroundTint="?attr/colorPrimary"
+    android:clickable="true"
+    android:elevation="4dp"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        android:text="tv_title"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="54dp"
+        android:alpha="0.85"
+        android:text="tv_text"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/wiki_btn"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_gravity="bottom"
+        android:drawableEnd="@drawable/ic_arrow_back_white180"
+        android:drawablePadding="9dp"
+        android:drawableTint="?attr/colorAccent"
+        android:paddingEnd="18dp"
+        android:text="Read more on Wikipedia"
+        android:textAlignment="textEnd"
+        android:textColor="?attr/colorAccent"
+        android:textSize="16sp" />
+
+</FrameLayout>

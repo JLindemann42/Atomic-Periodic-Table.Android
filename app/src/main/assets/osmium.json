@@ -1,0 +1,70 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Osmium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Osmium_crystals.jpg/1024px-Osmium_crystals.jpg",
+
+    "element": "Osmium",
+    "element_year": "1803",
+    "element_discovered_name": "Smithson Tennant",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery, blue cast",
+    "element_electrons": "76",
+    "element_protons": "76",
+    "element_neutron_common": "116",
+
+    "element_atomic_number": "76",
+    "element_atomicmass": "190.23 (u)",
+    "element_density": "22.59 (g/cm^3)",
+    "element_electronegativty": "2.2",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M8 N32 O14 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Electron_shell_076_Osmium_-_no_label.svg/800px-Electron_shell_076_Osmium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "5285 (K)",
+    "element_boiling_celsius": "5012 (°C)",
+    "element_boiling_fahrenheit": "9054 (°F)",
+    "element_melting_kelvin": "3306 (K)",
+    "element_melting_celsius": "3033 (°C)",
+    "element_melting_fahrenheit": "5491 (°F)",
+
+    "element_electron_config": "4f^14, 5d^6, 6s^2",
+    "element_ion_charge": "Os^4+",
+    "element_ionization_energy": "8.4382 (eV)",
+    "element_atomic_radius": "185 (pm)",
+    "element_covalent_radius": "128 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "57.85 (kJ/mol)",
+    "element_specific_heat_capacity": "0.130 J/(g·K)",
+    "element_vaporization_heat": "678 (kJ/mol)",
+
+    "iso_1": "Os-185",
+    "iso_mass_1": "184.9540423",
+    "iso_half_1": "93.6 (days)",
+    "iso_Z_1": "76",
+    "iso_N_1": "109",
+    "iso_A_1": "185",
+
+    "iso_2": "Os-186",
+    "iso_mass_2": "185.9538382",
+    "iso_half_2": "2.0×10^15 (years)",
+    "iso_Z_2": "76",
+    "iso_N_2": "110",
+    "iso_A_2": "186",
+
+    "iso_3": "Os-187",
+    "iso_mass_3": "186.9557505",
+    "iso_half_3": "Observationally Stable",
+    "iso_Z_3": "76",
+    "iso_N_3": "111",
+    "iso_A_3": "187",
+
+    "iso_4": "Os-188",
+    "iso_mass_4": "187.9558382",
+    "iso_half_4": "Observationally Stable",
+    "iso_Z_4": "76",
+    "iso_N_4": "112",
+    "iso_A_4": "188"
+  }
+]

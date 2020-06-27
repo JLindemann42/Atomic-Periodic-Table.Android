@@ -1,0 +1,98 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Platinum",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Platinum_crystals.jpg/800px-Platinum_crystals.jpg",
+
+    "element": "Platinum",
+    "element_year": "1735",
+    "element_discovered_name": "Antonio de Ulloa",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery white",
+    "element_electrons": "78",
+    "element_protons": "78",
+    "element_neutron_common": "117",
+
+    "element_atomic_number": "78",
+    "element_atomicmass": "195.084 (u)",
+    "element_density": "21.45 (g/cm^3)",
+    "element_electronegativty": "2.28",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O17 P1 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Electron_shell_078_Platinum_-_no_label.svg/800px-Electron_shell_078_Platinum_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "4098 (K)",
+    "element_boiling_celsius": "3825 (°C)",
+    "element_boiling_fahrenheit": "6917 (°F)",
+    "element_melting_kelvin": "2041.4 (K)",
+    "element_melting_celsius": "1768.3 (°C)",
+    "element_melting_fahrenheit": "3214.9 (°F)",
+
+    "element_electron_config": "4f^14, 5d^9, 6s^1",
+    "element_ion_charge": "Pt^2+, Pt^4+",
+    "element_ionization_energy": "8.9587 (eV)",
+    "element_atomic_radius": "177 (pm)",
+    "element_covalent_radius": "128 (pm)",
+    "element_van_der_waals": "175 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "22.17 (kJ/mol)",
+    "element_specific_heat_capacity": "0.133 J/(g·K)",
+    "element_vaporization_heat": "510 (kJ/mol)",
+
+    "iso_1": "Pt-190",
+    "iso_mass_1": "189.959932",
+    "iso_half_1": "6.5×10^11 (years)",
+    "iso_Z_1": "78",
+    "iso_N_1": "112",
+    "iso_A_1": "190",
+
+    "iso_2": "Pt-191",
+    "iso_mass_2": "190.961677",
+    "iso_half_2": "2.862 (days)",
+    "iso_Z_2": "78",
+    "iso_N_2": "113",
+    "iso_A_2": "191",
+
+    "iso_3": "Pt-192",
+    "iso_mass_3": "191.9610380",
+    "iso_half_3": "Observationally Stable",
+    "iso_Z_3": "78",
+    "iso_N_3": "114",
+    "iso_A_3": "192",
+
+    "iso_4": "Pt-193",
+    "iso_mass_4": "192.9629874",
+    "iso_half_4": "50 (years)",
+    "iso_Z_4": "78",
+    "iso_N_4": "115",
+    "iso_A_4": "193",
+
+    "iso_5": "Pt-194",
+    "iso_mass_5": "193.9626803",
+    "iso_half_5": "Stable",
+    "iso_Z_5": "78",
+    "iso_N_5": "116",
+    "iso_A_5": "194",
+
+    "iso_6": "Pt-195",
+    "iso_mass_6": "194.9647911",
+    "iso_half_6": "Stable",
+    "iso_Z_6": "78",
+    "iso_N_6": "117",
+    "iso_A_6": "195",
+
+    "iso_7": "Pt-196",
+    "iso_mass_7": "195.9649515",
+    "iso_half_7": "Stable",
+    "iso_Z_7": "78",
+    "iso_N_7": "118",
+    "iso_A_7": "196",
+
+    "iso_8": "Pt-197",
+    "iso_mass_8": "196.9673402",
+    "iso_half_8": "19.8915 (hours)",
+    "iso_Z_8": "78",
+    "iso_N_8": "119",
+    "iso_A_8": "197"
+  }
+]

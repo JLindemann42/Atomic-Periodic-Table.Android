@@ -1,0 +1,84 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Astatine",
+    "link": "https://",
+
+    "element": "Astatine",
+    "element_year": "Dale R. Corson",
+    "element_discovered_name": "1940",
+    "element_group": "Halogens",
+    "element_appearance": "unknown, probably metallic",
+    "element_electrons": "85",
+    "element_protons": "85",
+    "element_neutron_common": "125",
+
+    "element_atomic_number": "85",
+    "element_atomicmass": "210 (u)",
+    "element_density": "--- (g/cm^3)",
+    "element_electronegativty": "2.2",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O18 P7 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Electron_shell_085_Astatine_%28metalloid%29_-_no_label.svg/800px-Electron_shell_085_Astatine_%28metalloid%29_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "503.15 (K)",
+    "element_boiling_celsius": "230.0 (°C)",
+    "element_boiling_fahrenheit": "446.0 (°F)",
+    "element_melting_kelvin": "609.95 (K)",
+    "element_melting_celsius": "336.8 (°C)",
+    "element_melting_fahrenheit": "638.24 (°F)",
+
+    "element_electron_config": "4f^14, 5d^10, 6s^2, 6p^5",
+    "element_ion_charge": "At^-",
+    "element_ionization_energy": "--- (eV)",
+    "element_atomic_radius": "127 (pm)",
+    "element_covalent_radius": "--- (pm)",
+    "element_van_der_waals": "202 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "--- (kJ/mol)",
+    "element_specific_heat_capacity": "--- J/(g·K)",
+    "element_vaporization_heat": "--- (kJ/mol)",
+
+    "iso_1": "At-210",
+    "iso_mass_1": "209.987148",
+    "iso_half_1": "8.1 (hours)",
+    "iso_Z_1": "85",
+    "iso_N_1": "125",
+    "iso_A_1": "210",
+
+    "iso_2": "At-211",
+    "iso_mass_2": "210.9874963",
+    "iso_half_2": "7.214 (hours)",
+    "iso_Z_2": "85",
+    "iso_N_2": "126",
+    "iso_A_2": "211",
+
+    "iso_3": "At-212",
+    "iso_mass_3": "211.990745",
+    "iso_half_3": "0.314 (s)",
+    "iso_Z_3": "85",
+    "iso_N_3": "127",
+    "iso_A_3": "212",
+
+    "iso_4": "At-213",
+    "iso_mass_4": "212.992937",
+    "iso_half_4": "125 (ns)",
+    "iso_Z_4": "85",
+    "iso_N_4": "128",
+    "iso_A_4": "213",
+
+    "iso_5": "At-214",
+    "iso_mass_5": "213.996372",
+    "iso_half_5": "558 (ns)",
+    "iso_Z_5": "85",
+    "iso_N_5": "129",
+    "iso_A_5": "214",
+
+    "iso_6": "At-215",
+    "iso_mass_6": "214.998653",
+    "iso_half_6": "0.10 (ms)",
+    "iso_Z_6": "85",
+    "iso_N_6": "130",
+    "iso_A_6": "215"
+  }
+]

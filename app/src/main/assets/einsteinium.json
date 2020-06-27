@@ -1,0 +1,63 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Einsteinium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/5/55/Einsteinium.jpg",
+
+    "element": "Einsteinium",
+    "element_year": "Lawrence Berkeley National Laboratory",
+    "element_discovered_name": "1952",
+    "element_group": "Actinide",
+    "element_appearance": "Silvery",
+    "element_electrons": "99",
+    "element_protons": "99",
+    "element_neutron_common": "153",
+
+    "element_atomic_number": "99",
+    "element_atomicmass": "253 (u)",
+    "element_density": "8.84 (g/cm^3)",
+    "element_electronegativty": "1.3",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O29 P8 Q2 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Electron_shell_099_Einsteinium_-_no_label.svg/800px-Electron_shell_099_Einsteinium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1269 (K)",
+    "element_boiling_celsius": "996 (°C)",
+    "element_boiling_fahrenheit": "1825 (°F)",
+    "element_melting_kelvin": "1133 (K)",
+    "element_melting_celsius": "860 (°C)",
+    "element_melting_fahrenheit": "1580 (°F)",
+
+    "element_electron_config": "5f^11, 7s^2",
+    "element_ion_charge": "Es^3+",
+    "element_ionization_energy": "6.42 (eV)",
+    "element_atomic_radius": "--- (pm)",
+    "element_covalent_radius": "---",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "--- (kJ/mol)",
+    "element_specific_heat_capacity": "--- J/(g·K)",
+    "element_vaporization_heat": "--- (kJ/mol)",
+
+    "iso_1": "Es-251",
+    "iso_mass_1": "251.079992",
+    "iso_half_1": "33 (hours)",
+    "iso_Z_1": "99",
+    "iso_N_1": "152",
+    "iso_A_1": "251",
+
+    "iso_2": "Es-252",
+    "iso_mass_2": "252.08298",
+    "iso_half_2": "471.7 (days)",
+    "iso_Z_2": "99",
+    "iso_N_2": "153",
+    "iso_A_2": "252",
+
+    "iso_3": "Es-253",
+    "iso_mass_3": "253.0848247",
+    "iso_half_3": "20.47 (days)",
+    "iso_Z_3": "99",
+    "iso_N_3": "154",
+    "iso_A_3": "253"
+  }
+]

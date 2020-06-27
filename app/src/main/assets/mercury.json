@@ -1,0 +1,77 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Mercury",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Pouring_liquid_mercury_bionerd.jpg/800px-Pouring_liquid_mercury_bionerd.jpg",
+
+    "element": "Mercury",
+    "element_year": "Deep Antiquity",
+    "element_discovered_name": "---",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery",
+    "element_electrons": "80",
+    "element_protons": "80",
+    "element_neutron_common": "122",
+
+    "element_atomic_number": "80",
+    "element_atomicmass": "200.592 (u)",
+    "element_density": "13.534 (g/cm^3)",
+    "element_electronegativty": "2.00",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O18 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Electron_shell_080_Mercury_-_no_label.svg/800px-Electron_shell_080_Mercury_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "629.88 (K)",
+    "element_boiling_celsius": "356.73 (°C)",
+    "element_boiling_fahrenheit": "674.11 (°F)",
+    "element_melting_kelvin": "234.321 (K)",
+    "element_melting_celsius": "−38.829 (°C)",
+    "element_melting_fahrenheit": "−37.8922 (°F)",
+
+    "element_electron_config": "4f^14, 5d^10, 6s^2",
+    "element_ion_charge": "Hg^2+",
+    "element_ionization_energy": "10.43750 (eV)",
+    "element_atomic_radius": "171 (pm)",
+    "element_covalent_radius": "149 (pm)",
+    "element_van_der_waals": "155 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "2.29 (kJ/mol)",
+    "element_specific_heat_capacity": "0.140 J/(g·K)",
+    "element_vaporization_heat": "59.11 (kJ/mol)",
+
+    "iso_1": "Hg-199",
+    "iso_mass_1": "198.9682799",
+    "iso_half_1": "Stable",
+    "iso_Z_1": "80",
+    "iso_N_1": "119",
+    "iso_A_1": "199",
+
+    "iso_2": "Hg-200",
+    "iso_mass_2": "199.9683260",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "80",
+    "iso_N_2": "120",
+    "iso_A_2": "200",
+
+    "iso_3": "Hg-201",
+    "iso_mass_3": "200.9703023",
+    "iso_half_3": "Stable",
+    "iso_Z_3": "80",
+    "iso_N_3": "121",
+    "iso_A_3": "201",
+
+    "iso_4": "Hg-202",
+    "iso_mass_4": "201.9706430",
+    "iso_half_4": "Stable",
+    "iso_Z_4": "80",
+    "iso_N_4": "122",
+    "iso_A_4": "202",
+
+    "iso_5": "Hg-203",
+    "iso_mass_5": "202.9728725",
+    "iso_half_5": "46.595 (days)",
+    "iso_Z_5": "80",
+    "iso_N_5": "123",
+    "iso_A_5": "203"
+  }
+]

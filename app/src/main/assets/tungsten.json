@@ -1,0 +1,77 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Tungsten",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Wolfram_evaporated_crystals_and_1cm3_cube.jpg/1024px-Wolfram_evaporated_crystals_and_1cm3_cube.jpg",
+
+    "element": "Tungsten",
+    "element_year": "1783",
+    "element_discovered_name": "Juan José Elhuyar",
+    "element_group": "Transition Metals",
+    "element_appearance": "Grayish White",
+    "element_electrons": "74",
+    "element_protons": "74",
+    "element_neutron_common": "110",
+
+    "element_atomic_number": "74",
+    "element_atomicmass": "183.84 (u)",
+    "element_density": "19.25   (g/cm^3)",
+    "element_electronegativty": "2.36",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M8 N32 O12 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Electron_shell_074_Tungsten_-_no_label.svg/800px-Electron_shell_074_Tungsten_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "6203 (K)",
+    "element_boiling_celsius": "5930 (°C)",
+    "element_boiling_fahrenheit": "10706 (°F)",
+    "element_melting_kelvin": "3695 (K)",
+    "element_melting_celsius": "3422 (°C)",
+    "element_melting_fahrenheit": "6192 (°F)",
+
+    "element_electron_config": "4f^14, 5d^4, 6s^2",
+    "element_ion_charge": "W^6+",
+    "element_ionization_energy": "7.8640 (eV)",
+    "element_atomic_radius": "193 (pm)",
+    "element_covalent_radius": "146 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "52.31 (kJ/mol)",
+    "element_specific_heat_capacity": "0.132 J/(g·K)",
+    "element_vaporization_heat": "\t806.7 (kJ/mol)",
+
+    "iso_1": "W-179",
+    "iso_mass_1": "178.947070",
+    "iso_half_1": "37.05 (min)",
+    "iso_Z_1": "74",
+    "iso_N_1": "105",
+    "iso_A_1": "179",
+
+    "iso_2": "W-180",
+    "iso_mass_2": "179.946704",
+    "iso_half_2": "1.8×10^18 (years)",
+    "iso_Z_2": "74",
+    "iso_N_2": "106",
+    "iso_A_2": "180",
+
+    "iso_3": "W-181",
+    "iso_mass_3": "180.948197",
+    "iso_half_3": "121.2 (days)",
+    "iso_Z_3": "74",
+    "iso_N_3": "107",
+    "iso_A_3": "181",
+
+    "iso_4": "W-182",
+    "iso_mass_4": "181.9482042",
+    "iso_half_4": "Observationally Stable ",
+    "iso_Z_4": "74",
+    "iso_N_4": "108",
+    "iso_A_4": "182",
+
+    "iso_5": "W-183",
+    "iso_mass_5": "182.9502230",
+    "iso_half_5": "Observationally Stable",
+    "iso_Z_5": "74",
+    "iso_N_5": "109",
+    "iso_A_5": "183"
+  }
+]

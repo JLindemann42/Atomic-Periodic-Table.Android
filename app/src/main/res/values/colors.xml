@@ -13,6 +13,11 @@
     <color name="colorDarkError">#B00020</color>
     <color name="colorDarkText">#E9EAEE</color>
 
+    <color name="background">#B3000000</color>
+    <color name="background_status">#AD000000</color>
+
+    <color name="wikipediaColor">#FFFFFF</color>
+
     <!-- Period System colrs-->
     <color name="lanthanoids">#F5C5A7</color>
     <color name="actinoids">#E68A5C</color>
@@ -21,7 +26,7 @@
     <color name="non_metals">#81c784</color>
     <color name="alkali_metals">#FF6666</color>
     <color name="alkaline">#FFC370</color>
-    <color name="transition_metals">#FFC0BE</color>
+    <color name="transition_metals">#E1A8A6</color>
     <color name="post_transition_metals">#AEAEAE</color>
     <color name="metalloids">#B8B888</color>
     <color name="noble_gas">#61C1C1</color>

@@ -1,0 +1,63 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Tantalum",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Tantalum_single_crystal_and_1cm3_cube.jpg/1024px-Tantalum_single_crystal_and_1cm3_cube.jpg",
+
+    "element": "Tantalum",
+    "element_year": "1802",
+    "element_discovered_name": "Anders Gustaf Ekeberg",
+    "element_group": "Transition Metals",
+    "element_appearance": "Gray Blue",
+    "element_electrons": "73",
+    "element_protons": "73",
+    "element_neutron_common": "108",
+
+    "element_atomic_number": "73",
+    "element_atomicmass": "180.947 (u)",
+    "element_density": "16.4  (g/cm^3)",
+    "element_electronegativty": "1.5",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M8 N32 O11 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Electron_shell_073_Tantalum_-_no_label.svg",
+
+    "element_boiling_kelvin": "5731 (K)",
+    "element_boiling_celsius": "5458 (°C)",
+    "element_boiling_fahrenheit": "9856 (°F)",
+    "element_melting_kelvin": "3290 (K)",
+    "element_melting_celsius": "3017 (°C)",
+    "element_melting_fahrenheit": "5463 (°F)",
+
+    "element_electron_config": "4f^14, 5d^3, 6s^2",
+    "element_ion_charge": "Ta^5+",
+    "element_ionization_energy": "7.5496 (eV)",
+    "element_atomic_radius": "200 (pm)",
+    "element_covalent_radius": "138 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "36.57 (kJ/mol)",
+    "element_specific_heat_capacity": "0.140 J/(g·K)",
+    "element_vaporization_heat": "732.8 (kJ/mol)",
+
+    "iso_1": "Ta-180",
+    "iso_mass_1": "179.9474648",
+    "iso_half_1": "8.152 (hours)",
+    "iso_Z_1": "73",
+    "iso_N_1": "107",
+    "iso_A_1": "180",
+
+    "iso_2": "Ta-181",
+    "iso_mass_2": "180.9479958",
+    "iso_half_2": "Observationally stable",
+    "iso_Z_2": "73",
+    "iso_N_2": "108",
+    "iso_A_2": "181",
+
+    "iso_3": "Ta-182",
+    "iso_mass_3": "181.9501518",
+    "iso_half_3": "114.43 (days)",
+    "iso_Z_3": "73",
+    "iso_N_3": "109",
+    "iso_A_3": "182"
+  }
+]

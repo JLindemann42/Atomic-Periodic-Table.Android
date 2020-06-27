@@ -275,7 +275,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/neodymium"
+            android:id="@+id/neodymium_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
@@ -332,7 +332,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/uranium"
+            android:id="@+id/uranium_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"

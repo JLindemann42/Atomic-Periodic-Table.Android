@@ -1,0 +1,84 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Hafnium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Hf-crystal_bar.jpg/1280px-Hf-crystal_bar.jpg",
+
+    "element": "Hafnium",
+    "element_year": "1922",
+    "element_discovered_name": "Dirk Coster",
+    "element_group": "Transition Metals",
+    "element_appearance": "Steel Gray",
+    "element_electrons": "72",
+    "element_protons": "72",
+    "element_neutron_common": "108",
+
+    "element_atomic_number": "72",
+    "element_atomicmass": "178.486 (u)",
+    "element_density": "13.3 (g/cm^3)",
+    "element_electronegativty": "1.3",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M8 N32 O10 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Electron_shell_072_Hafnium_-_no_label.svg/800px-Electron_shell_072_Hafnium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "4876 (K)",
+    "element_boiling_celsius": "4603 (°C)",
+    "element_boiling_fahrenheit": "8317 (°F)",
+    "element_melting_kelvin": "2506 (K)",
+    "element_melting_celsius": "2233 (°C)",
+    "element_melting_fahrenheit": "4051 (°F)",
+
+    "element_electron_config": "4f^14, 5d^2, 6s^2",
+    "element_ion_charge": "Hf^4+",
+    "element_ionization_energy": "6.82507 (eV)",
+    "element_atomic_radius": "208 (pm)",
+    "element_covalent_radius": "150 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "27.2 (kJ/mol)",
+    "element_specific_heat_capacity": "0.144 J/(g·K)",
+    "element_vaporization_heat": "648 (kJ/mol)",
+
+    "iso_1": "Hf-161",
+    "iso_mass_1": "160.950275",
+    "iso_half_1": "18.2 (s)",
+    "iso_Z_1": "72",
+    "iso_N_1": "89",
+    "iso_A_1": "161",
+
+    "iso_2": "Hf-162",
+    "iso_mass_2": "161.94721",
+    "iso_half_2": "39.4 (s)",
+    "iso_Z_2": "72",
+    "iso_N_2": "90",
+    "iso_A_2": "162",
+
+    "iso_3": "Hf-163",
+    "iso_mass_3": "162.94709",
+    "iso_half_3": "40.0 (s)",
+    "iso_Z_3": "72",
+    "iso_N_3": "91",
+    "iso_A_3": "163",
+
+    "iso_4": "Hf-164",
+    "iso_mass_4": "163.944367",
+    "iso_half_4": "111 (s)",
+    "iso_Z_4": "72",
+    "iso_N_4": "92",
+    "iso_A_4": "164",
+
+    "iso_5": "Hf-165",
+    "iso_mass_5": "164.94457",
+    "iso_half_5": "76 (s)",
+    "iso_Z_5": "72",
+    "iso_N_5": "93",
+    "iso_A_5": "165",
+
+    "iso_6": "Hf-166",
+    "iso_mass_6": "165.94218",
+    "iso_half_6": "6.77 (min)",
+    "iso_Z_6": "72",
+    "iso_N_6": "94",
+    "iso_A_6": "166"
+  }
+]

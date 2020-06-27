@@ -7,7 +7,14 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
+import com.jlindemann.science.MainActivity
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import kotlinx.android.synthetic.main.group_1.*
+import kotlinx.android.synthetic.main.group_14.*
+import kotlinx.android.synthetic.main.group_15.*
+import kotlinx.android.synthetic.main.group_16.*
+import kotlinx.android.synthetic.main.group_17.*
 import kotlinx.android.synthetic.main.isotope_panel.*
 import okhttp3.*
 import java.io.IOException
@@ -24,12 +31,10 @@ object Utils {
 
 
     fun fadeInAnim(view: View, time: Long) {
-
         view.visibility = View.VISIBLE
         view.alpha = 0.0f
         view.animate().setDuration(time)
         view.animate().alpha(1.0f)
-
     }
 
     fun slideUp(panel: SlidingUpPanelLayout) {

@@ -1,0 +1,70 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Rhenium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Rhenium_single_crystal_bar_and_1cm3_cube.jpg/1024px-Rhenium_single_crystal_bar_and_1cm3_cube.jpg",
+
+    "element": "Rhenium",
+    "element_year": "1908",
+    "element_discovered_name": "Masataka Ogawa",
+    "element_group": "Transition Metals",
+    "element_appearance": "Silvery Grayish",
+    "element_electrons": "75",
+    "element_protons": "75",
+    "element_neutron_common": "112",
+
+    "element_atomic_number": "75",
+    "element_atomicmass": "186.207 (u)",
+    "element_density": "21.02 (g/cm^3)",
+    "element_electronegativty": "1.9",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M8 N32 O13 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Electron_shell_075_Rhenium_-_no_label.svg/800px-Electron_shell_075_Rhenium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "5903 (K)",
+    "element_boiling_celsius": "5630 (°C)",
+    "element_boiling_fahrenheit": "10170 (°F)",
+    "element_melting_kelvin": "3459 (K)",
+    "element_melting_celsius": "3186 (°C)",
+    "element_melting_fahrenheit": "5767 (°F)",
+
+    "element_electron_config": "4f^14, 5d^5, 6s^2",
+    "element_ion_charge": "Re^7+",
+    "element_ionization_energy": "7.8335 (eV)",
+    "element_atomic_radius": "188 (pm)",
+    "element_covalent_radius": "159 (pm)",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "60.43 (kJ/mol)",
+    "element_specific_heat_capacity": "0.137 J/(g·K)",
+    "element_vaporization_heat": "704 (kJ/mol)",
+
+    "iso_1": "Re-183",
+    "iso_mass_1": "182.950820",
+    "iso_half_1": "70.0 (days)",
+    "iso_Z_1": "75",
+    "iso_N_1": "108",
+    "iso_A_1": "183",
+
+    "iso_2": "Re-184",
+    "iso_mass_2": "183.952521",
+    "iso_half_2": "38.0 (days)",
+    "iso_Z_2": "75",
+    "iso_N_2": "109",
+    "iso_A_2": "184",
+
+    "iso_3": "Re-185",
+    "iso_mass_3": "184.9529550",
+    "iso_half_3": "Observationally Stable",
+    "iso_Z_3": "75",
+    "iso_N_3": "110",
+    "iso_A_3": "185",
+
+    "iso_4": "Re-186",
+    "iso_mass_4": "185.9549861",
+    "iso_half_4": "3.7186 (days)",
+    "iso_Z_4": "75",
+    "iso_N_4": "111",
+    "iso_A_4": "186"
+  }
+]

@@ -1,6 +1,7 @@
 package com.jlindemann.science.activities
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,12 +9,12 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.adapter.IsotopeAdapter
-import com.jlindemann.science.adapter.Element
+import com.jlindemann.science.model.Element
+import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
@@ -21,7 +22,6 @@ import com.jlindemann.science.utils.Utils
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
 import kotlinx.android.synthetic.main.isotope_panel.*
-import kotlinx.android.synthetic.main.search_layout.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -37,86 +37,26 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Utils.gestureSetup(window)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
-        Utils.gestureSetup(window)
 
-        if (themePrefValue == 0) {
-            setTheme(R.style.AppTheme)
+        if (themePrefValue == 100) {
+            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_NO -> { setTheme(R.style.AppTheme) }
+                Configuration.UI_MODE_NIGHT_YES -> { setTheme(R.style.AppThemeDark) }
+            }
         }
-        if (themePrefValue == 1) {
-            setTheme(R.style.AppThemeDark)
-        }
+        if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
+        if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_isotopes_experimental) //Don't move down (Needs to be before we call our functions)
 
         val recyclerView = findViewById<RecyclerView>(R.id.r_view)
         sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val elements = ArrayList<Element>()
-        elements.add(Element("hydrogen", "H"))
-        elements.add(Element("helium", "He"))
-        elements.add(Element("lithium", "Li"))
-        elements.add(Element("beryllium", "Be"))
-        elements.add(Element("boron", "B"))
-        elements.add(Element("carbon", "C"))
-        elements.add(Element("nitrogen", "N"))
-        elements.add(Element("oxygen", "O"))
-        elements.add(Element("fluorine", "F"))
-        elements.add(Element("neon", "Ne"))
-        elements.add(Element("sodium", "Na"))
-        elements.add(Element("magnesium", "Mg"))
-        elements.add(Element("aluminium", "Al"))
-        elements.add(Element("silicon", "Si"))
-        elements.add(Element("phosphorus", "P"))
-        elements.add(Element("sulfur", "S"))
-        elements.add(Element("chlorine", "Cl"))
-        elements.add(Element("argon", "Ar"))
-        elements.add(Element("potassium", "K"))
-        elements.add(Element("calcium", "Ca"))
-        elements.add(Element("scandium", "Sc"))
-        elements.add(Element("titanium", "Ti"))
-        elements.add(Element("vanadium", "V"))
-        elements.add(Element("chromium", "Cr"))
-        elements.add(Element("manganese", "Mn"))
-        elements.add(Element("iron", "Fe"))
-        elements.add(Element("cobalt", "Co"))
-        elements.add(Element("nickel", "Ni"))
-        elements.add(Element("copper", "Cu"))
-        elements.add(Element("zinc", "Zn"))
-        elements.add(Element("gallium", "Ga"))
-        elements.add(Element("germanium", "Ge"))
-        elements.add(Element("arsenic", "As"))
-        elements.add(Element("selenium", "Se"))
-        elements.add(Element("bromine", "Br"))
-        elements.add(Element("krypton", "Kr"))
-        elements.add(Element("rubidium", "Rb"))
-        elements.add(Element("strontium", "Sr"))
-        elements.add(Element("yttrium", "Y"))
-        elements.add(Element("zirconium", "Zr"))
-        elements.add(Element("niobium", "Nb"))
-        elements.add(Element("molybdenum", "Mo"))
-        elements.add(Element("technetium", "Tc"))
-        elements.add(Element("ruthenium", "Ru"))
-        elements.add(Element("rhodium", "Rh"))
-        elements.add(Element("palladium", "Ph"))
-        elements.add(Element("silver", "Ag"))
-        elements.add(Element("cadmium", "Cs"))
-        elements.add(Element("indium", "Id"))
-        elements.add(Element("tin", "Sn"))
-        elements.add(Element("antimony", "Sb"))
-        elements.add(Element("tellurium", "Te"))
-        elements.add(Element("iodine", "I"))
-        elements.add(Element("xenon", "Xe"))
-        elements.add(Element("caesium","Cs"))
-        elements.add(Element("barium","Ba"))
-        elements.add(Element("lanthanum","La"))
-        elements.add(Element("cerium","Ce"))
-        elements.add(Element("praseodymium","Pr"))
-        elements.add(Element("neodymium","Nd"))
-        elements.add(Element("promethium","Pm"))
-        elements.add(Element("samarium","Sm"))
-        elements.add(Element("europium","Eu"))
-        elements.add(Element("gadolinium","Gd"))
+        ElementModel.getList(elements)
+
         val adapter = IsotopeAdapter(elements, this)
         recyclerView.adapter = adapter
 

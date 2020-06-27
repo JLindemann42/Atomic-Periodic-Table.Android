@@ -21,8 +21,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
         super.onCreate(savedInstanceState)
 
         window.statusBarColor = Color.TRANSPARENT
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 
     override fun onStart() {

@@ -1,7 +1,7 @@
 [
   {
     "wikilink": "https://en.wikipedia.org/wiki/Iodine",
-    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Sample_of_iodine.jpg/2560px-Sample_of_iodine.jpg",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Sample_of_iodine.jpg/1920px-Sample_of_iodine.jpg",
 
     "element": "Iodine",
     "element_year": "1811",
@@ -100,6 +100,6 @@
     "iso_half_9": "20.8 (hours)",
     "iso_Z_9": "53",
     "iso_N_9": "80",
-    "iso_A_9": "133",
+    "iso_A_9": "133"
   }
 ]

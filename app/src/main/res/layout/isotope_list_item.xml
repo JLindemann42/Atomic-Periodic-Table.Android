@@ -15,6 +15,7 @@
     android:focusable="true">
 
     <FrameLayout
+        android:id="@+id/elemntCard"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_gravity="center_vertical"
@@ -37,5 +38,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="72dp"
+        android:textColor="?attr/actionMenuTextColor" />
+
+    <TextView
+        android:id="@+id/tv_iso_numb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginEnd="18dp"
         android:textColor="?attr/actionMenuTextColor" />
 </FrameLayout>

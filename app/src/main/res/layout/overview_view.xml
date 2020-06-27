@@ -232,7 +232,7 @@
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -351,7 +351,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-        </LinearLayout>
+        </FrameLayout>
 
     </LinearLayout>
 </LinearLayout>

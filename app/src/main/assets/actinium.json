@@ -1,0 +1,84 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Actinium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Radium226.jpg",
+
+    "element": "Actinium",
+    "element_year": "Friedrich Oskar Giesel",
+    "element_discovered_name": "1902",
+    "element_group": "Actinide",
+    "element_appearance": "Silvery white, blue glow",
+    "element_electrons": "89",
+    "element_protons": "89",
+    "element_neutron_common": "138",
+
+    "element_atomic_number": "89",
+    "element_atomicmass": "227 (u)",
+    "element_density": "10 (g/cm^3)",
+    "element_electronegativty": "1.1",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O18 P9 Q2 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Electron_shell_089_Actinium_-_no_label.svg/800px-Electron_shell_089_Actinium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "3500 (K)",
+    "element_boiling_celsius": "3200 (°C)",
+    "element_boiling_fahrenheit": "5800 (°F)",
+    "element_melting_kelvin": "1500 (K)",
+    "element_melting_celsius": "1227 (°C)",
+    "element_melting_fahrenheit": "2240 (°F)",
+
+    "element_electron_config": "6d^1, 7s^2",
+    "element_ion_charge": "Ac^4+",
+    "element_ionization_energy": "5.17 (eV)",
+    "element_atomic_radius": "--- (pm)",
+    "element_covalent_radius": "---",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "14 (kJ/mol)",
+    "element_specific_heat_capacity": "0.120 J/(g·K)",
+    "element_vaporization_heat": "400 (kJ/mol)",
+
+    "iso_1": "Ac-224",
+    "iso_mass_1": "224.021723",
+    "iso_half_1": "2.78 (hours)",
+    "iso_Z_1": "89",
+    "iso_N_1": "135",
+    "iso_A_1": "224",
+
+    "iso_2": "Ac-225",
+    "iso_mass_2": "225.023230",
+    "iso_half_2": "10.0 (days)",
+    "iso_Z_2": "89",
+    "iso_N_2": "136",
+    "iso_A_2": "225",
+
+    "iso_3": "Ac-226",
+    "iso_mass_3": "226.026098",
+    "iso_half_3": "29.37 (hours)",
+    "iso_Z_3": "89",
+    "iso_N_3": "137",
+    "iso_A_3": "226",
+
+    "iso_4": "Ac-227",
+    "iso_mass_4": "227.0277521",
+    "iso_half_4": "21.772 (years)",
+    "iso_Z_4": "89",
+    "iso_N_4": "138",
+    "iso_A_4": "227",
+
+    "iso_5": "Ac-228",
+    "iso_mass_5": "228.0310211",
+    "iso_half_5": "6.13 (hours)",
+    "iso_Z_5": "89",
+    "iso_N_5": "139",
+    "iso_A_5": "228",
+
+    "iso_6": "Ac-229",
+    "iso_mass_6": "229.03302",
+    "iso_half_6": "62.7 (min)",
+    "iso_Z_6": "89",
+    "iso_N_6": "140",
+    "iso_A_6": "229"
+  }
+]

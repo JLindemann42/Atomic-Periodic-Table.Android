@@ -389,7 +389,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/ytterbium"
+            android:id="@+id/ytterbium_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
@@ -446,7 +446,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/nobelium"
+            android:id="@+id/nobelium_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"

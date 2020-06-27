@@ -4,44 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/view_main"
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:background="?attr/colorPrimaryDark"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/commom_title_back"
+    <FrameLayout
+        android:id="@+id/common_title_back_main"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:alpha="0.975"
         android:background="?attr/colorPrimary"
         android:elevation="0dp"
-        android:fitsSystemWindows="true"
         android:gravity="center|center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
-        <FrameLayout
-            android:id="@+id/search_box"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="18dp"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
-            android:elevation="4dp">
+            android:gravity="bottom"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="18dp"
-                android:drawableStart="@drawable/ic_search"
-                android:drawablePadding="18dp"
-                android:gravity="center_vertical"
-                android:text="Search Elements"
-                android:textColor="?attr/actionMenuTextColor" />
-        </FrameLayout>
-    </LinearLayout>
+            <FrameLayout
+                android:id="@+id/title_box"
+                android:layout_width="match_parent"
+                android:layout_height="80dp">
+
+                <FrameLayout
+                    android:id="@+id/search_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="18dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:elevation="4dp">
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="18dp"
+                        android:drawableStart="@drawable/ic_search"
+                        android:drawablePadding="18dp"
+                        android:gravity="center_vertical"
+                        android:text="Search Elements"
+                        android:textColor="?attr/actionMenuTextColor" />
+                </FrameLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/frame_layout"
@@ -758,36 +774,38 @@
         </HorizontalScrollView>
     </FrameLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/more_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="?attr/colorAccent"
+        android:clickable="true"
+        android:elevation="4dp"
+        android:focusable="true"
+        android:src="@drawable/ic_more"
+        android:tint="?attr/colorPrimary"
+        app:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/nav_bar_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <FrameLayout
-        android:id="@+id/nav_bar"
+        android:id="@+id/nav_bar_main"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="60dp"
+        android:background="?attr/colorPrimary"
         android:elevation="2dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toEndOf="parent">
 
         <FrameLayout
+            android:id="@+id/nav_content"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_gravity="bottom"
-            android:background="?attr/colorPrimary"
-            android:elevation="2dp">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/menu_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginBottom="0dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foregroundGravity="center_vertical"
-                android:src="@drawable/ic_menu_outline"
-                android:tint="?attr/actionMenuTextColor"
-                app:backgroundTint="?attr/colorPrimary"
-                app:borderWidth="0dp"
-                app:elevation="0dp" />
+            android:layout_gravity="top"
+            android:orientation="horizontal">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/settings_btn"
@@ -803,40 +821,22 @@
                 app:borderWidth="0dp"
                 app:elevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/menu_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="0dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:foregroundGravity="center_vertical"
+                android:src="@drawable/ic_menu_outline"
+                android:tint="?attr/actionMenuTextColor"
+                app:backgroundTint="?attr/colorPrimary"
+                app:borderWidth="0dp"
+                app:elevation="0dp" />
         </FrameLayout>
-
-        <Button
-            android:id="@+id/detail_btn_disabled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:background="@drawable/rounded_extended_btn"
-            android:backgroundTint="?attr/colorAccent"
-            android:drawableStart="@drawable/ic_detail"
-            android:drawablePadding="6dp"
-            android:drawableTint="?attr/colorPrimary"
-            android:elevation="24dp"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:text="Detailed View"
-            android:textColor="?attr/colorPrimary" />
-
-        <Button
-            android:id="@+id/detail_btn_enabled"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:background="@drawable/rounded_extended_btn"
-            android:backgroundTint="?attr/colorAccent"
-            android:drawableStart="@drawable/ic_simple"
-            android:drawablePadding="6dp"
-            android:drawableTint="?attr/colorPrimary"
-            android:elevation="24dp"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:text="Standard View"
-            android:textColor="?attr/colorPrimary"
-            android:visibility="gone" />
 
     </FrameLayout>
 
@@ -845,12 +845,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#A8000000"
+        android:elevation="12dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:realtimeBlurRadius="4dp" />
+        app:realtimeBlurRadius="4dp"
+        app:realtimeOverlayColor="#A80B0B0B" />
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:id="@+id/hover_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#A8000000"
+        android:elevation="12dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:realtimeBlurRadius="4dp"
+        app:realtimeOverlayColor="#A80B0B0B" />
 
     <include
         android:id="@+id/nav_menu_include"
@@ -860,6 +876,16 @@
         android:elevation="100dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent" />
+
+    <include
+        android:id="@+id/hover_menu_include"
+        layout="@layout/hover_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="108dp"
+        android:elevation="102dp"
+        android:visibility="gone"
         app:layout_constraintStart_toEndOf="parent" />
 
     <include

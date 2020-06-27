@@ -446,7 +446,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/lutetium"
+            android:id="@+id/lutetium_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
@@ -503,7 +503,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/lawrencium"
+            android:id="@+id/lawrencium_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"

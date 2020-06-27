@@ -1,0 +1,63 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Terbium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Terbium-2.jpg",
+
+    "element": "Terbium",
+    "element_year": "1843",
+    "element_discovered_name": "Carl Gustaf Mosander",
+    "element_group": "Lanthanoids",
+    "element_appearance": "Silvery White",
+    "element_electrons": "65",
+    "element_protons": "65",
+    "element_neutron_common": "94",
+
+    "element_atomic_number": "65",
+    "element_atomicmass": "158.925 (u)",
+    "element_density": "8.23  (g/cm^3)",
+    "element_electronegativty": "1.2",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 M18 N27 O8 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Electron_shell_065_Terbium_-_no_label.svg/1024px-Electron_shell_065_Terbium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "3396 (K)",
+    "element_boiling_celsius": "3123 (°C)",
+    "element_boiling_fahrenheit": "5653 (°F)",
+    "element_melting_kelvin": "1629 (K)",
+    "element_melting_celsius": "1356 (°C)",
+    "element_melting_fahrenheit": "2473 (°F)",
+
+    "element_electron_config": "4f^9 6s^2",
+    "element_ion_charge": "Tb^3+",
+    "element_ionization_energy": "5.8638 (eV)",
+    "element_atomic_radius": "225 (pm)",
+    "element_covalent_radius": "--- (pm)",
+    "element_van_der_waals": "---",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "10.15 (kJ/mol)",
+    "element_specific_heat_capacity": "0.182 J/(g·K)",
+    "element_vaporization_heat": "391 (kJ/mol)",
+
+    "iso_1": "Tb-158",
+    "iso_mass_1": "157.9254131",
+    "iso_half_1": "180 (years)",
+    "iso_Z_1": "65",
+    "iso_N_1": "93",
+    "iso_A_1": "158",
+
+    "iso_2": "Tb-159",
+    "iso_mass_2": "158.92534681",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "65",
+    "iso_N_2": "94",
+    "iso_A_2": "159",
+
+    "iso_3": "Tb-160",
+    "iso_mass_3": "159.9271676",
+    "iso_half_3": "72.3 (days)",
+    "iso_Z_3": "65",
+    "iso_N_3": "95",
+    "iso_A_3": "160",
+  }
+]

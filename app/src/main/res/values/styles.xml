@@ -20,8 +20,8 @@
         <item name="colorPrimaryDark">@color/colorDarkPrimaryDark</item>
         <item name="colorAccent">@color/colorDarkAccent</item>
         <item name="actionMenuTextColor">@color/colorDarkText</item>
-        <item name="android:navigationBarColor">@color/colorDarkPrimary</item>
-        <item name="android:statusBarColor">@color/colorDarkPrimary</item>
+        <item name="android:navigationBarColor">@color/transparent</item>
+        <item name="android:statusBarColor">@color/transparent</item>
     </style>
 
     <style name="ToggleStyle">

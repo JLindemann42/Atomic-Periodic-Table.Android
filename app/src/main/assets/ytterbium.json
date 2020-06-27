@@ -1,0 +1,56 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Ytterbium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Ytterbium-3.jpg",
+
+    "element": "Ytterbium",
+    "element_year": "1878",
+    "element_discovered_name": "Jean Charles Galissard de Marignac",
+    "element_group": "Lanthanoids",
+    "element_appearance": "Silvery White (with a pale yellow tint)",
+    "element_electrons": "70",
+    "element_protons": "70",
+    "element_neutron_common": "104",
+
+    "element_atomic_number": "70",
+    "element_atomicmass": "173.045 (u)",
+    "element_density": "6.90 (g/cm^3)",
+    "element_electronegativty": "---",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O8 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Electron_shell_070_Ytterbium_-_no_label.svg/800px-Electron_shell_070_Ytterbium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1469 (K)",
+    "element_boiling_celsius": "1196 (°C)",
+    "element_boiling_fahrenheit": "2185 (°F)",
+    "element_melting_kelvin": "1097 (K)",
+    "element_melting_celsius": "824 (°C)",
+    "element_melting_fahrenheit": "1515 (°F)",
+
+    "element_electron_config": "4f^14 6s^2",
+    "element_ion_charge": "Yb^3+, Yb^2+",
+    "element_ionization_energy": "6.25416 (eV)",
+    "element_atomic_radius": "222 (pm)",
+    "element_covalent_radius": "--- (pm)",
+    "element_van_der_waals": "---",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "7.66 (kJ/mol)",
+    "element_specific_heat_capacity": "0.155 J/(g·K)",
+    "element_vaporization_heat": "129 (kJ/mol)",
+
+    "iso_1": "Yb-169",
+    "iso_mass_1": "168.935190",
+    "iso_half_1": "32.026 (days)",
+    "iso_Z_1": "70",
+    "iso_N_1": "99",
+    "iso_A_1": "169",
+
+    "iso_2": "Yb-170",
+    "iso_mass_2": "169.9347618",
+    "iso_half_2": "Observationally Stable",
+    "iso_Z_2": "70",
+    "iso_N_2": "100",
+    "iso_A_2": "170"
+  }
+]

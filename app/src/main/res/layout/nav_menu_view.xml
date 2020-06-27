@@ -10,7 +10,7 @@
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         android:id="@+id/sliding_layout"
         android:layout_width="match_parent"
-        android:layout_height="320dp"
+        android:layout_height="264dp"
         android:elevation="101dp"
         android:gravity="bottom"
         sothree:umanoFadeColor="@android:color/transparent"
@@ -91,7 +91,8 @@
                 android:textColor="?attr/actionMenuTextColor"
                 android:textColorHighlight="?attr/actionMenuTextColor"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/isotopes_btn"

@@ -2,6 +2,7 @@ package com.jlindemann.science.activities
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -50,18 +51,18 @@ class ElementInfoActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        //Setup theme
+        Utils.gestureSetup(window)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
 
-        Utils.gestureSetup(window)
-
-        if (themePrefValue == 0) {
-            setTheme(R.style.AppTheme)
+        if (themePrefValue == 100) {
+            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_NO -> { setTheme(R.style.AppTheme) }
+                Configuration.UI_MODE_NIGHT_YES -> { setTheme(R.style.AppThemeDark) }
+            }
         }
-        if (themePrefValue == 1) {
-            setTheme(R.style.AppThemeDark)
-        }
+        if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
+        if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
 
         val ElementSendAndLoadPreference = ElementSendAndLoad(this)
         var ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()

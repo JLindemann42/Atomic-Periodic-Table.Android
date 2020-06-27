@@ -1,0 +1,49 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Seaborgium",
+    "link": "empty",
+
+    "element": "Seaborgium",
+    "element_year": "---",
+    "element_discovered_name": "---",
+    "element_group": "Transition Metals",
+    "element_appearance": "---",
+    "element_electrons": "---",
+    "element_protons": "---",
+    "element_neutron_common": "---",
+
+    "element_atomic_number": "107",
+    "element_atomicmass": "267 (u)",
+    "element_density": "--- (g/cm^3)",
+    "element_electronegativty": "---",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O32 P13 Q2 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Electron_shell_107_Bohrium_-_no_label.svg/800px-Electron_shell_107_Bohrium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "--- (K)",
+    "element_boiling_celsius": "--- (°C)",
+    "element_boiling_fahrenheit": "--- (°F)",
+    "element_melting_kelvin": "--- (K)",
+    "element_melting_celsius": "--- (°C)",
+    "element_melting_fahrenheit": "--- (°F)",
+
+    "element_electron_config": "5f^14, 6d^5. 7s^2",
+    "element_ion_charge": "---",
+    "element_ionization_energy": "---",
+    "element_atomic_radius": "--- (pm)",
+    "element_covalent_radius": "---",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "--- (kJ/mol)",
+    "element_specific_heat_capacity": "--- J/(g·K)",
+    "element_vaporization_heat": "--- (kJ/mol)",
+
+    "iso_1": "--",
+    "iso_mass_1": "--",
+    "iso_half_1": "--",
+    "iso_Z_1": "--",
+    "iso_N_1": "--",
+    "iso_A_1": "--"
+  }
+]

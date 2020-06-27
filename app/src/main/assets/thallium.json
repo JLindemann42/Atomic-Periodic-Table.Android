@@ -1,0 +1,63 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Thallium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Thallium_pieces_in_ampoule.jpg",
+
+    "element": "Thallium",
+    "element_year": "1861",
+    "element_discovered_name": "William Crookes",
+    "element_group": "Post-Transition Metals",
+    "element_appearance": "Silvery white",
+    "element_electrons": "81",
+    "element_protons": "81",
+    "element_neutron_common": "124",
+
+    "element_atomic_number": "81",
+    "element_atomicmass": "204.38 (u)",
+    "element_density": "11.22 (g/cm^3)",
+    "element_electronegativty": "1.62",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O18 P3 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Electron_shell_081_Thallium_-_no_label.svg/800px-Electron_shell_081_Thallium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1746 (K)",
+    "element_boiling_celsius": "1473 (°C)",
+    "element_boiling_fahrenheit": "2683 (°F)",
+    "element_melting_kelvin": "577 (K)",
+    "element_melting_celsius": "304 (°C)",
+    "element_melting_fahrenheit": "579 (°F)",
+
+    "element_electron_config": "4f^14, 5d^10, 6s^2, 6p^1",
+    "element_ion_charge": "Tl^+, Tl^3+",
+    "element_ionization_energy": "6.1082 (eV)",
+    "element_atomic_radius": "156 (pm)",
+    "element_covalent_radius": "148 (pm)",
+    "element_van_der_waals": "196 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "4.14 (kJ/mol)",
+    "element_specific_heat_capacity": "0.129 J/(g·K)",
+    "element_vaporization_heat": "165 (kJ/mol)",
+
+    "iso_1": "Tl-202",
+    "iso_mass_1": "201.972106",
+    "iso_half_1": "12.23 (days)",
+    "iso_Z_1": "81",
+    "iso_N_1": "121",
+    "iso_A_1": "202",
+
+    "iso_2": "Tl-203",
+    "iso_mass_2": "202.9723442",
+    "iso_half_2": "Stable",
+    "iso_Z_2": "81",
+    "iso_N_2": "122",
+    "iso_A_2": "203",
+
+    "iso_3": "Tl-204",
+    "iso_mass_3": "203.9738635",
+    "iso_half_3": "3.78 (years)",
+    "iso_Z_3": "81",
+    "iso_N_3": "123",
+    "iso_A_3": "204"
+  }
+]

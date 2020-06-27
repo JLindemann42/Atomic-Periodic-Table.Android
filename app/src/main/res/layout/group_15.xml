@@ -389,7 +389,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/erbium"
+            android:id="@+id/erbium_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
@@ -446,7 +446,7 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/fermium"
+            android:id="@+id/fermium_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"

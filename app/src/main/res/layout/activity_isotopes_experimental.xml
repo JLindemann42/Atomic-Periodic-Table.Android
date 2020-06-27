@@ -132,23 +132,26 @@
                             android:textColorHint="?attr/actionMenuTextColor"
                             android:textSize="14sp" />
                     </FrameLayout>
-
                 </FrameLayout>
-
             </LinearLayout>
-
         </FrameLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.chauthai.overscroll.RecyclerViewBouncy
             android:id='@+id/r_view'
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="80dp"
+
+            android:background="?attr/colorPrimaryDark"
             android:clipToPadding="false"
             android:paddingTop="9dp"
-            android:paddingBottom="60dp">
+            android:paddingBottom="60dp"
 
-        </androidx.recyclerview.widget.RecyclerView>
+            app:friction="144"
+            app:gapLimit="180"
+            app:speedFactor="6"
+            app:tension="1400"></com.chauthai.overscroll.RecyclerViewBouncy>
+
     </FrameLayout>
 
     <TextView

@@ -10,6 +10,7 @@ object Pasteur {
 
     fun init(debug: Boolean) {
         debugMode = debug
+
     }
 
     fun d(tag: String?, string: String) {

@@ -24,17 +24,18 @@ class SettingsActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Utils.gestureSetup(window)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
 
-        Utils.gestureSetup(window)
-
-        if (themePrefValue == 0) {
-            setTheme(R.style.AppTheme)
+        if (themePrefValue == 100) {
+            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_NO -> { setTheme(R.style.AppTheme) }
+                Configuration.UI_MODE_NIGHT_YES -> { setTheme(R.style.AppThemeDark) }
+            }
         }
-        if (themePrefValue == 1) {
-            setTheme(R.style.AppThemeDark)
-        }
+        if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
+        if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_settings)
 
         openPages()
@@ -96,11 +97,13 @@ class SettingsActivity : BaseActivity() {
 
     private fun getDirSize(dir: File?): Long {
         var size: Long = 0
-        for (file in dir!!.listFiles()) {
-            if (file != null && file.isDirectory) {
-                size += getDirSize(file)
-            } else if (file != null && file.isFile) {
-                size += file.length()
+        if (dir != null) {
+            for (file in dir.listFiles()) {
+                if (file != null && file.isDirectory) {
+                    size += getDirSize(file)
+                } else if (file != null && file.isFile) {
+                    size += file.length()
+                }
             }
         }
         return size
@@ -126,6 +129,16 @@ class SettingsActivity : BaseActivity() {
                     setTheme(R.style.AppThemeDark)
                 } // Night mode is active, we're using dark theme
             }
+            Utils.fadeOutAnim(theme_panel, 300)
+            val delayChange = Handler()
+            delayChange.postDelayed({
+                finish()
+                overridePendingTransition(0, 0)
+                startActivity(getIntent())
+                SettingsActivity().finish()
+                System.exit(0)
+                overridePendingTransition(0, 0)
+            }, 302)
         }
         light_btn.setOnClickListener {
             val themePreference = ThemePreference(this)

@@ -1,0 +1,98 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Lead",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lead_electrolytic_and_1cm3_cube.jpg/800px-Lead_electrolytic_and_1cm3_cube.jpg",
+
+    "element": "Lead",
+    "element_year": "Deep Antiquity",
+    "element_discovered_name": "---",
+    "element_group": "Post-Transition Metal",
+    "element_appearance": "Metallic Gray",
+    "element_electrons": "82",
+    "element_protons": "82",
+    "element_neutron_common": "126",
+
+    "element_atomic_number": "82",
+    "element_atomicmass": "207.2 (u)",
+    "element_density": "10.66 (g/cm^3)",
+    "element_electronegativty": "1.87",
+    "element_block": "p - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O18 P4 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Electron_shell_082_Lead_-_no_label.svg/800px-Electron_shell_082_Lead_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2022 (K)",
+    "element_boiling_celsius": "1749 (°C)",
+    "element_boiling_fahrenheit": "3180 (°F)",
+    "element_melting_kelvin": "600.61 (K)",
+    "element_melting_celsius": "327.46 (°C)",
+    "element_melting_fahrenheit": "621.43 (°F)",
+
+    "element_electron_config": "4f^14, 5d^10, 6s^2, 6p^2",
+    "element_ion_charge": "Pb^2+, Pb^4+",
+    "element_ionization_energy": "7.41666 (eV)",
+    "element_atomic_radius": "154 (pm)",
+    "element_covalent_radius": "147 (pm)",
+    "element_van_der_waals": "202 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "4.77 (kJ/mol)",
+    "element_specific_heat_capacity": "0.129 J/(g·K)",
+    "element_vaporization_heat": "179.5 (kJ/mol)",
+
+    "iso_1": "Pb-203",
+    "iso_mass_1": "202.973391",
+    "iso_half_1": "51.873 (hours)",
+    "iso_Z_1": "82",
+    "iso_N_1": "121",
+    "iso_A_1": "203",
+
+    "iso_2": "Pb-204",
+    "iso_mass_2": "203.9730436",
+    "iso_half_2": "Observationally Stable",
+    "iso_Z_2": "82",
+    "iso_N_2": "122",
+    "iso_A_2": "204",
+
+    "iso_3": "Pb-205",
+    "iso_mass_3": "204.9744818",
+    "iso_half_3": "1.73×10^7 (years)",
+    "iso_Z_3": "82",
+    "iso_N_3": "123",
+    "iso_A_3": "205",
+
+    "iso_4": "Pb-206",
+    "iso_mass_4": "205.9744653",
+    "iso_half_4": "Observationally Stable",
+    "iso_Z_4": "82",
+    "iso_N_4": "124",
+    "iso_A_4": "206",
+
+    "iso_5": "Pb-207",
+    "iso_mass_5": "206.9758969",
+    "iso_half_5": "Observationally Stable",
+    "iso_Z_5": "82",
+    "iso_N_5": "125",
+    "iso_A_5": "207",
+
+    "iso_6": "Pb-208",
+    "iso_mass_6": "207.9766521",
+    "iso_half_6": "Observationally Stable",
+    "iso_Z_6": "82",
+    "iso_N_6": "126",
+    "iso_A_6": "208",
+
+    "iso_7": "Pb-209",
+    "iso_mass_7": "208.9810901",
+    "iso_half_7": "3.253 (hours)",
+    "iso_Z_7": "82",
+    "iso_N_7": "127",
+    "iso_A_7": "209",
+
+    "iso_8": "Pb-210",
+    "iso_mass_8": "209.9841885",
+    "iso_half_8": "22.3 (years)",
+    "iso_Z_8": "82",
+    "iso_N_8": "128",
+    "iso_A_8": "210"
+  }
+]

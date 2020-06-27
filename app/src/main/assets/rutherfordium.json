@@ -1,0 +1,56 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Rutherfordium",
+    "link": "empty",
+
+    "element": "Rutherfordium",
+    "element_year": "Lawrence Berkeley National Laboratory",
+    "element_discovered_name": "1969",
+    "element_group": "Transition Metals",
+    "element_appearance": "---",
+    "element_electrons": "104",
+    "element_protons": "104",
+    "element_neutron_common": "163",
+
+    "element_atomic_number": "104",
+    "element_atomicmass": "267 (u)",
+    "element_density": "23.2 (g/cm^3)",
+    "element_electronegativty": "---",
+    "element_block": "d - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O32 P10 Q2 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Electron_shell_104_Rutherfordium_-_no_label.svg/800px-Electron_shell_104_Rutherfordium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "5800 (K)",
+    "element_boiling_celsius": "5500 (°C)",
+    "element_boiling_fahrenheit": "9900 (°F)",
+    "element_melting_kelvin": "2400 (K)",
+    "element_melting_celsius": "2100 (°C)",
+    "element_melting_fahrenheit": "3800 (°F)",
+
+    "element_electron_config": "5f^14, 6d^2. 7s^2",
+    "element_ion_charge": "---",
+    "element_ionization_energy": "6.0 (eV)",
+    "element_atomic_radius": "--- (pm)",
+    "element_covalent_radius": "---",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "--- (kJ/mol)",
+    "element_specific_heat_capacity": "--- J/(g·K)",
+    "element_vaporization_heat": "--- (kJ/mol)",
+
+    "iso_1": "Rf-262",
+    "iso_mass_1": "262.10993",
+    "iso_half_1": "2.3 (min)",
+    "iso_Z_1": "104",
+    "iso_N_1": "158",
+    "iso_A_1": "262",
+
+    "iso_2": "Rf-267",
+    "iso_mass_2": "267.12179",
+    "iso_half_2": "2.5 (hours)",
+    "iso_Z_2": "104",
+    "iso_N_2": "163",
+    "iso_A_2": "267"
+  }
+]

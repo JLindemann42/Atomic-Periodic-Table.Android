@@ -1,0 +1,63 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Holmium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Holmium2.jpg",
+
+    "element": "Holmium",
+    "element_year": "1878",
+    "element_discovered_name": "Jacques-Louis Soret",
+    "element_group": "Lanthanoids",
+    "element_appearance": "Silvery White",
+    "element_electrons": "67",
+    "element_protons": "67",
+    "element_neutron_common": "98",
+
+    "element_atomic_number": "67",
+    "element_atomicmass": "164.930 (u)",
+    "element_density": "8.79 (g/cm^3)",
+    "element_electronegativty": "1.23",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 M18 N29 O8 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Electron_shell_067_Holmium_-_no_label.svg/1024px-Electron_shell_067_Holmium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2873 (K)",
+    "element_boiling_celsius": "2600 (°C)",
+    "element_boiling_fahrenheit": "4712 (°F)",
+    "element_melting_kelvin": "1734 (K)",
+    "element_melting_celsius": "1461 (°C)",
+    "element_melting_fahrenheit": "2662 (°F)",
+
+    "element_electron_config": "4f^11 6s^2",
+    "element_ion_charge": "Ho^3+",
+    "element_ionization_energy": "6.0215 (eV)",
+    "element_atomic_radius": "226 (pm)",
+    "element_covalent_radius": "--- (pm)",
+    "element_van_der_waals": "---",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "17.0 (kJ/mol)",
+    "element_specific_heat_capacity": "0.165 J/(g·K)",
+    "element_vaporization_heat": "251 (kJ/mol)",
+
+    "iso_1": "Ho-164",
+    "iso_mass_1": "163.9302335",
+    "iso_half_1": "29 (min)",
+    "iso_Z_1": "67",
+    "iso_N_1": "97",
+    "iso_A_1": "164",
+
+    "iso_2": "Ho-165",
+    "iso_mass_2": "164.9303221",
+    "iso_half_2": "Observationally Stable",
+    "iso_Z_2": "67",
+    "iso_N_2": "98",
+    "iso_A_2": "165",
+
+    "iso_3": "Ho-166",
+    "iso_mass_3": "165.9322842",
+    "iso_half_3": "26.83 (hours)",
+    "iso_Z_3": "67",
+    "iso_N_3": "99",
+    "iso_A_3": "166",
+  }
+]

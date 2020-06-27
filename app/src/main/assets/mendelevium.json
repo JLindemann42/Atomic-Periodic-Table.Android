@@ -1,0 +1,70 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Mendelevium",
+    "link": "empty",
+
+    "element": "Mendelevium",
+    "element_year": "Lawrence Berkeley National Laboratory",
+    "element_discovered_name": "1955",
+    "element_group": "Actinide",
+    "element_appearance": "---",
+    "element_electrons": "101",
+    "element_protons": "101",
+    "element_neutron_common": "157",
+
+    "element_atomic_number": "101",
+    "element_atomicmass": "258 (u)",
+    "element_density": "10.3 (g/cm^3)",
+    "element_electronegativty": "1.3",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O31 P8 Q2 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Electron_shell_101_Mendelevium_-_no_label.svg/800px-Electron_shell_101_Mendelevium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "--- (K)",
+    "element_boiling_celsius": "--- (°C)",
+    "element_boiling_fahrenheit": "--- (°F)",
+    "element_melting_kelvin": "1100 (K)",
+    "element_melting_celsius": "827 (°C)",
+    "element_melting_fahrenheit": "1521 (°F)",
+
+    "element_electron_config": "5f^13, 7s^2",
+    "element_ion_charge": "Md^2+, Md^3+",
+    "element_ionization_energy": "6.58 (eV)",
+    "element_atomic_radius": "--- (pm)",
+    "element_covalent_radius": "---",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "--- (kJ/mol)",
+    "element_specific_heat_capacity": "--- J/(g·K)",
+    "element_vaporization_heat": "--- (kJ/mol)",
+
+    "iso_1": "Md-256",
+    "iso_mass_1": "256.09389",
+    "iso_half_1": "77 (min)",
+    "iso_Z_1": "101",
+    "iso_N_1": "155",
+    "iso_A_1": "256",
+
+    "iso_2": "Md-257",
+    "iso_mass_2": "257.0955424",
+    "iso_half_2": "5.52 (hours)",
+    "iso_Z_2": "101",
+    "iso_N_2": "156",
+    "iso_A_2": "257",
+
+    "iso_3": "Md-258",
+    "iso_mass_3": "258.098431",
+    "iso_half_3": "51.5 (days)",
+    "iso_Z_3": "101",
+    "iso_N_3": "157",
+    "iso_A_3": "258",
+
+    "iso_4": "Md-259",
+    "iso_mass_4": "259.10051",
+    "iso_half_4": "1.60 (hours)",
+    "iso_Z_4": "101",
+    "iso_N_4": "158",
+    "iso_A_4": "259"
+  }
+]

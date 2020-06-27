@@ -1,5 +1,6 @@
 package com.jlindemann.science.activities
 
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.view.MotionEvent
@@ -26,14 +27,18 @@ class SolubilityActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Utils.gestureSetup(window)
 
+        Utils.gestureSetup(window)
         val themePreference = ThemePreference(this)
-        var themePrefValue = themePreference.getValue()
-        if (themePrefValue == 0) {
-            setTheme(R.style.AppTheme)
+        val themePrefValue = themePreference.getValue()
+
+        if (themePrefValue == 100) {
+            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_NO -> { setTheme(R.style.AppTheme) }
+                Configuration.UI_MODE_NIGHT_YES -> { setTheme(R.style.AppThemeDark) }
+            }
         }
-        if (themePrefValue == 1) {
-            setTheme(R.style.AppThemeDark)
-        }
+        if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
+        if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_solubility) //Don't move down (Needs to be before we call our functions)
 
         //onClickListeners() //Disabled as a result of conflicts between ACTION_DOWN and ScrollView

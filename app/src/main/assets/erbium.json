@@ -1,0 +1,77 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Erbium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/1/12/Erbium-crop.jpg",
+
+    "element": "Erbium",
+    "element_year": "1843",
+    "element_discovered_name": "Carl Gustaf Mosander",
+    "element_group": "Lanthanoids",
+    "element_appearance": "Silvery White",
+    "element_electrons": "68",
+    "element_protons": "68",
+    "element_neutron_common": "98",
+
+    "element_atomic_number": "68",
+    "element_atomicmass": "167.259 (u)",
+    "element_density": "9.066 (g/cm^3)",
+    "element_electronegativty": "1.24",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 M18 N30 O8 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Electron_shell_068_Erbium_-_no_label.svg/800px-Electron_shell_068_Erbium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "3141 (K)",
+    "element_boiling_celsius": "2868 (°C)",
+    "element_boiling_fahrenheit": "5194 (°F)",
+    "element_melting_kelvin": "1802 (K)",
+    "element_melting_celsius": "1529 (°C)",
+    "element_melting_fahrenheit": "2784 (°F)",
+
+    "element_electron_config": "4f^12 6s^2",
+    "element_ion_charge": "Er^3+",
+    "element_ionization_energy": "6.1077 (eV)",
+    "element_atomic_radius": "226 (pm)",
+    "element_covalent_radius": "--- (pm)",
+    "element_van_der_waals": "---",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "19.90 (kJ/mol)",
+    "element_specific_heat_capacity": "0.168 J/(g·K)",
+    "element_vaporization_heat": "280 (kJ/mol)",
+
+    "iso_1": "Er-165",
+    "iso_mass_1": "164.930726",
+    "iso_half_1": "10.36 (hours)",
+    "iso_Z_1": "68",
+    "iso_N_1": "97",
+    "iso_A_1": "165",
+
+    "iso_2": "Er-166",
+    "iso_mass_2": "165.9302931",
+    "iso_half_2": "Observationally Stable",
+    "iso_Z_2": "68",
+    "iso_N_2": "98",
+    "iso_A_2": "166",
+
+    "iso_3": "Er-167",
+    "iso_mass_3": "166.9320482",
+    "iso_half_3": "Observationally Stable",
+    "iso_Z_3": "68",
+    "iso_N_3": "99",
+    "iso_A_3": "167",
+
+    "iso_4": "Er-168",
+    "iso_mass_4": "167.9323702",
+    "iso_half_4": "Observationally Stable",
+    "iso_Z_4": "68",
+    "iso_N_4": "100",
+    "iso_A_4": "168",
+
+    "iso_5": "Er-169",
+    "iso_mass_5": "168.9345904",
+    "iso_half_5": "9.392 (days)",
+    "iso_Z_5": "68",
+    "iso_N_5": "101",
+    "iso_A_5": "169"
+  }
+]

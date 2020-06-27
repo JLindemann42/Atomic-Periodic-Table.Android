@@ -17,7 +17,6 @@ import com.jlindemann.science.utils.Utils
 import kotlinx.android.synthetic.main.activity_experimental_settings_page.*
 import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
 import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_settings.view
 import kotlinx.android.synthetic.main.solubility_group_1.*
 import kotlinx.android.synthetic.main.solubility_group_2.*
 import kotlinx.android.synthetic.main.solubility_group_3.*

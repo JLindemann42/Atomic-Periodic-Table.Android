@@ -1,0 +1,84 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Californium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/9/93/Californium.jpg",
+
+    "element": "Californium",
+    "element_year": "Lawrence Berkeley National Laboratory",
+    "element_discovered_name": "1950",
+    "element_group": "Actinide",
+    "element_appearance": "Silvery",
+    "element_electrons": "98",
+    "element_protons": "98",
+    "element_neutron_common": "153",
+
+    "element_atomic_number": "98",
+    "element_atomicmass": "251 (u)",
+    "element_density": "15.1 (g/cm^3)",
+    "element_electronegativty": "1.3",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O28 P8 Q2 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Electron_shell_098_Californium_-_no_label.svg/800px-Electron_shell_098_Californium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "1743 (K)",
+    "element_boiling_celsius": "1470 (°C)",
+    "element_boiling_fahrenheit": "2678 (°F)",
+    "element_melting_kelvin": "1173 (K)",
+    "element_melting_celsius": "900 (°C)",
+    "element_melting_fahrenheit": "1652 (°F)",
+
+    "element_electron_config": "5f^10, 7s^2",
+    "element_ion_charge": "Cf^3+",
+    "element_ionization_energy": "6.2817 (eV)",
+    "element_atomic_radius": "--- (pm)",
+    "element_covalent_radius": "---",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "--- (kJ/mol)",
+    "element_specific_heat_capacity": "--- J/(g·K)",
+    "element_vaporization_heat": "--- (kJ/mol)",
+
+    "iso_1": "Cf-248",
+    "iso_mass_1": "248.072185",
+    "iso_half_1": "333.5 (days)",
+    "iso_Z_1": "98",
+    "iso_N_1": "150",
+    "iso_A_1": "248",
+
+    "iso_2": "Cf-249",
+    "iso_mass_2": "249.0748535",
+    "iso_half_2": "351 (years)",
+    "iso_Z_2": "98",
+    "iso_N_2": "151",
+    "iso_A_2": "249",
+
+    "iso_3": "Cf-250",
+    "iso_mass_3": "250.0764061",
+    "iso_half_3": "13.08 (years)",
+    "iso_Z_3": "98",
+    "iso_N_3": "152",
+    "iso_A_3": "250",
+
+    "iso_4": "Cf-251",
+    "iso_mass_4": "251.079587",
+    "iso_half_4": "900 (years)",
+    "iso_Z_4": "98",
+    "iso_N_4": "153",
+    "iso_A_4": "251",
+
+    "iso_5": "Cf-252",
+    "iso_mass_5": "252.081626",
+    "iso_half_5": "2.645 (years)",
+    "iso_Z_5": "98",
+    "iso_N_5": "154",
+    "iso_A_5": "252",
+
+    "iso_6": "Cf-253",
+    "iso_mass_6": "253.085133",
+    "iso_half_6": "17.81 (days)",
+    "iso_Z_6": "98",
+    "iso_N_6": "155",
+    "iso_A_6": "253"
+  }
+]

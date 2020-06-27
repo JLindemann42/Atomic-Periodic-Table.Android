@@ -1,0 +1,98 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Radium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Radium226.jpg",
+
+    "element": "Radium",
+    "element_year": "Marie Curie",
+    "element_discovered_name": "1898",
+    "element_group": "Alkaline Earth Metals",
+    "element_appearance": "Silvery white metallic",
+    "element_electrons": "88",
+    "element_protons": "88",
+    "element_neutron_common": "138",
+
+    "element_atomic_number": "88",
+    "element_atomicmass": "226 (u)",
+    "element_density": "5.5  (g/cm^3)",
+    "element_electronegativty": "0.9",
+    "element_block": "s - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O18 P8 Q2 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Electron_shell_088_Radium_-_no_label.svg/800px-Electron_shell_088_Radium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2010 (K)",
+    "element_boiling_celsius": "1737 (°C)",
+    "element_boiling_fahrenheit": "3159 (°F)",
+    "element_melting_kelvin": "973 (K)",
+    "element_melting_celsius": "700 (°C)",
+    "element_melting_fahrenheit": "1292 (°F)",
+
+    "element_electron_config": "7s^2",
+    "element_ion_charge": "Ra^2+",
+    "element_ionization_energy": "5.2784 (eV)",
+    "element_atomic_radius": "--- (pm)",
+    "element_covalent_radius": "---",
+    "element_van_der_waals": "283 (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "8.5 (kJ/mol)",
+    "element_specific_heat_capacity": "--- J/(g·K)",
+    "element_vaporization_heat": "113 (kJ/mol)",
+
+    "iso_1": "Ra-222",
+    "iso_mass_1": "222.015375",
+    "iso_half_1": "38.0 (s)",
+    "iso_Z_1": "88",
+    "iso_N_1": "134",
+    "iso_A_1": "222",
+
+    "iso_2": "Ra-223",
+    "iso_mass_2": "223.0185022",
+    "iso_half_2": "11.43 (days)",
+    "iso_Z_2": "88",
+    "iso_N_2": "135",
+    "iso_A_2": "223",
+
+    "iso_3": "Ra-224",
+    "iso_mass_3": "224.0202118",
+    "iso_half_3": "3.6319 (days)",
+    "iso_Z_3": "88",
+    "iso_N_3": "136",
+    "iso_A_3": "224",
+
+    "iso_4": "Ra-225",
+    "iso_mass_4": "225.023612",
+    "iso_half_4": "14.9 (days)",
+    "iso_Z_4": "88",
+    "iso_N_4": "137",
+    "iso_A_4": "225",
+
+    "iso_5": "Ra-226",
+    "iso_mass_5": "226.0254098",
+    "iso_half_5": "1600 (years)",
+    "iso_Z_5": "88",
+    "iso_N_5": "138",
+    "iso_A_5": "226",
+
+    "iso_6": "Ra-227",
+    "iso_mass_6": "227.0291778",
+    "iso_half_6": "42.2 (min)",
+    "iso_Z_6": "88",
+    "iso_N_6": "139",
+    "iso_A_6": "227",
+
+    "iso_7": "Ra-228",
+    "iso_mass_7": "228.0310703",
+    "iso_half_7": "5.75 (years)",
+    "iso_Z_7": "88",
+    "iso_N_7": "140",
+    "iso_A_7": "228",
+
+    "iso_8": "Ra-229",
+    "iso_mass_8": "229.034958",
+    "iso_half_8": "4.0 (min)",
+    "iso_Z_8": "88",
+    "iso_N_8": "141",
+    "iso_A_8": "229"
+  }
+]

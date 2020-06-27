@@ -32,22 +32,18 @@ class FavoritePageActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
         Utils.gestureSetup(window)
-
         val themePreference = ThemePreference(this)
-        var themePrefValue = themePreference.getValue()
+        val themePrefValue = themePreference.getValue()
 
-        if (themePrefValue == 0) {
-            setTheme(R.style.AppTheme)
+        if (themePrefValue == 100) {
+            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_NO -> { setTheme(R.style.AppTheme) }
+                Configuration.UI_MODE_NIGHT_YES -> { setTheme(R.style.AppThemeDark) }
+            }
         }
-        if (themePrefValue == 1) {
-            setTheme(R.style.AppThemeDark)
-        }
-
+        if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
+        if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_favorite_settings_page)
-
-        back_btn_fav.setOnClickListener {
-            this.onBackPressed()
-        }
 
         val molarPreference = FavoriteBarPreferences(this)
         var molarPrefValue = molarPreference.getValue()
@@ -157,6 +153,10 @@ class FavoritePageActivity : BaseActivity() {
         }
         onCheckboxClicked()
         viewf.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+
+        back_btn_fav.setOnClickListener {
+            this.onBackPressed()
+        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
@@ -168,18 +168,6 @@ class FavoritePageActivity : BaseActivity() {
         params2.topMargin += top
         general_header.layoutParams = params2
     }
-    override fun onBackPressed() {
-        if (theme_panel.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(theme_panel, 300) //Start Close Animation
-            return
-        }
-        super.onBackPressed()
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
 
     fun onCheckboxClicked() {
         //Molar Mass

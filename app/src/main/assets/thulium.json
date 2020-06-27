@@ -1,0 +1,63 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Thulium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Thulium_sublimed_dendritic_and_1cm3_cube.jpg/800px-Thulium_sublimed_dendritic_and_1cm3_cube.jpg",
+
+    "element": "Thulium",
+    "element_year": "1879",
+    "element_discovered_name": "Per Teodor Cleve",
+    "element_group": "Lanthanoids",
+    "element_appearance": "Silvery Gray",
+    "element_electrons": "69",
+    "element_protons": "69",
+    "element_neutron_common": "100",
+
+    "element_atomic_number": "69",
+    "element_atomicmass": "168.934 (u)",
+    "element_density": "9.32 (g/cm^3)",
+    "element_electronegativty": "1.25",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 M18 N31 O8 P2 Q0 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Electron_shell_069_Thulium_-_no_label.svg/800px-Electron_shell_069_Thulium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2223 (K)",
+    "element_boiling_celsius": "1950 (°C)",
+    "element_boiling_fahrenheit": "3542 (°F)",
+    "element_melting_kelvin": "1818 (K)",
+    "element_melting_celsius": "1545 (°C)",
+    "element_melting_fahrenheit": "2813 (°F)",
+
+    "element_electron_config": "4f^13 6s^2",
+    "element_ion_charge": "Tm^3+",
+    "element_ionization_energy": "6.18431 (eV)",
+    "element_atomic_radius": "222 (pm)",
+    "element_covalent_radius": "--- (pm)",
+    "element_van_der_waals": "---",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "16.84 (kJ/mol)",
+    "element_specific_heat_capacity": "0.160 J/(g·K)",
+    "element_vaporization_heat": "191 (kJ/mol)",
+
+    "iso_1": "Tm-168",
+    "iso_mass_1": "167.934173",
+    "iso_half_1": "93.1 (days)",
+    "iso_Z_1": "69",
+    "iso_N_1": "99",
+    "iso_A_1": "168",
+
+    "iso_2": "Tm-169",
+    "iso_mass_2": "168.9342133",
+    "iso_half_2": "Observationally Stable",
+    "iso_Z_2": "69",
+    "iso_N_2": "100",
+    "iso_A_2": "169",
+
+    "iso_3": "Tm-170",
+    "iso_mass_3": "169.9358014",
+    "iso_half_3": "128.6 (days)",
+    "iso_Z_3": "69",
+    "iso_N_3": "101",
+    "iso_A_3": "170"
+  }
+]

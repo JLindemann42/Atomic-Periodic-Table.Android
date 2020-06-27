@@ -3,8 +3,10 @@ package com.jlindemann.science
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -12,20 +14,25 @@ import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.animation.ScaleAnimation
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.ScrollView
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.activities.*
-import com.jlindemann.science.adapter.Element
 import com.jlindemann.science.adapter.ElementAdapter
+import com.jlindemann.science.model.Element
+import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ElementSendAndLoad
+import com.jlindemann.science.preferences.SearchPreferences
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.filter_view.*
 import kotlinx.android.synthetic.main.group_1.*
 import kotlinx.android.synthetic.main.group_10.*
 import kotlinx.android.synthetic.main.group_11.*
@@ -44,15 +51,16 @@ import kotlinx.android.synthetic.main.group_6.*
 import kotlinx.android.synthetic.main.group_7.*
 import kotlinx.android.synthetic.main.group_8.*
 import kotlinx.android.synthetic.main.group_9.*
+import kotlinx.android.synthetic.main.hover_menu.*
 import kotlinx.android.synthetic.main.nav_menu_view.*
 import kotlinx.android.synthetic.main.search_layout.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.OnElementClickListener2 {
+class MainActivity : BaseActivity(), View.OnClickListener, ElementAdapter.OnElementClickListener2 {
     private var elementList = ArrayList<Element>()
-    var mAdapter = ElementAdapter(elementList, this)
+    var mAdapter = ElementAdapter(elementList, this, this)
 
     var mScale = 1f
     lateinit var mScaleDetector: ScaleGestureDetector
@@ -60,104 +68,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Utils.gestureSetup(window)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
 
         if (themePrefValue == 100) {
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                Configuration.UI_MODE_NIGHT_NO -> {
-                    setTheme(R.style.AppTheme)
-                    window.setNavigationBarColor(getColor(R.color.colorLightPrimary))
-                    window.setStatusBarColor(getColor(R.color.colorLightPrimary))
-                }
-                Configuration.UI_MODE_NIGHT_YES -> {
-                    setTheme(R.style.AppThemeDark)
-                    window.setNavigationBarColor(getColor(R.color.colorDarkPrimary))
-                    window.setStatusBarColor(getColor(R.color.colorDarkPrimary))
-                }
+                Configuration.UI_MODE_NIGHT_NO -> { setTheme(R.style.AppTheme) }
+                Configuration.UI_MODE_NIGHT_YES -> { setTheme(R.style.AppThemeDark) }
             }
         }
-
-        if (themePrefValue == 0) {
-            setTheme(R.style.AppTheme)
-            window.setNavigationBarColor(getColor(R.color.colorLightPrimary))
-            window.setStatusBarColor(getColor(R.color.colorLightPrimary))
-        }
-        if (themePrefValue == 1) {
-            setTheme(R.style.AppThemeDark)
-            window.setNavigationBarColor(getColor(R.color.colorDarkPrimary))
-            window.setStatusBarColor(getColor(R.color.colorDarkPrimary))
-        }
-
+        if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
+        if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_main)
 
         val recyclerView = findViewById<RecyclerView>(R.id.element_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val elements = ArrayList<Element>()
-        elements.add(Element("hydrogen", "H"))
-        elements.add(Element("helium", "He"))
-        elements.add(Element("lithium", "Li"))
-        elements.add(Element("beryllium", "Be"))
-        elements.add(Element("boron", "B"))
-        elements.add(Element("carbon", "C"))
-        elements.add(Element("nitrogen", "N"))
-        elements.add(Element("oxygen", "O"))
-        elements.add(Element("fluorine", "F"))
-        elements.add(Element("neon", "Ne"))
-        elements.add(Element("sodium", "Na"))
-        elements.add(Element("magnesium", "Mg"))
-        elements.add(Element("aluminium", "Al"))
-        elements.add(Element("silicon", "Si"))
-        elements.add(Element("phosphorus", "P"))
-        elements.add(Element("sulfur", "S"))
-        elements.add(Element("chlorine", "Cl"))
-        elements.add(Element("argon", "Ar"))
-        elements.add(Element("potassium", "K"))
-        elements.add(Element("calcium", "Ca"))
-        elements.add(Element("scandium", "Sc"))
-        elements.add(Element("titanium", "Ti"))
-        elements.add(Element("vanadium", "V"))
-        elements.add(Element("chromium", "Cr"))
-        elements.add(Element("manganese", "Mn"))
-        elements.add(Element("iron", "Fe"))
-        elements.add(Element("cobalt", "Co"))
-        elements.add(Element("nickel", "Ni"))
-        elements.add(Element("copper", "Cu"))
-        elements.add(Element("zinc", "Zn"))
-        elements.add(Element("gallium", "Ga"))
-        elements.add(Element("germanium", "Ge"))
-        elements.add(Element("arsenic", "As"))
-        elements.add(Element("selenium", "Se"))
-        elements.add(Element("bromine", "Br"))
-        elements.add(Element("krypton", "Kr"))
-        elements.add(Element("rubidium", "Rb"))
-        elements.add(Element("strontium", "Sr"))
-        elements.add(Element("yttrium", "Y"))
-        elements.add(Element("zirconium", "Zr"))
-        elements.add(Element("niobium", "Nb"))
-        elements.add(Element("molybdenum", "Mo"))
-        elements.add(Element("technetium", "Tc"))
-        elements.add(Element("ruthenium", "Ru"))
-        elements.add(Element("rhodium", "Rh"))
-        elements.add(Element("palladium", "Ph"))
-        elements.add(Element("silver", "Ag"))
-        elements.add(Element("cadmium", "Cs"))
-        elements.add(Element("indium", "Id"))
-        elements.add(Element("tin", "Sn"))
-        elements.add(Element("antimony", "Sb"))
-        elements.add(Element("tellurium", "Te"))
-        elements.add(Element("iodine", "I"))
-        elements.add(Element("xenon", "Xe"))
-        elements.add(Element("barium","Ba"))
-        elements.add(Element("lanthanum","La"))
-        elements.add(Element("cerium","Ce"))
-        elements.add(Element("praseodymium","Pr"))
-        elements.add(Element("neodymium","Nd"))
-        elements.add(Element("promethium","Pm"))
-        elements.add(Element("samarium","Sm"))
-        elements.add(Element("europium","Eu"))
-        elements.add(Element("gadolinium","Gd"))
-        val adapter = ElementAdapter(elements, this)
+        ElementModel.getList(elements)
+
+        val adapter = ElementAdapter(elements, this, this)
         recyclerView.adapter = adapter
 
         edit_element.addTextChangedListener(object : TextWatcher {
@@ -166,16 +96,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
                 start: Int,
                 count: Int,
                 after: Int
-            ) {
-            }
-
+            ) {}
             override fun onTextChanged(
                 s: CharSequence,
                 start: Int,
                 before: Int,
                 count: Int
-            ) {
-            }
+            ) {}
 
             override fun afterTextChanged(s: Editable) {
                 filter(s.toString(), elements, recyclerView)
@@ -189,11 +116,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
         onClickNav()
         searchListener()
         sliding_layout.setPanelState(PanelState.COLLAPSED)
-
+        searchFilter(elements, recyclerView)
+        initElectroView(elements)
+        nameInit(elements)
 
         gestureDetector = GestureDetector(this, GestureListener())
-
-
         //Currently Disabled (Change min and max scale to enable zoom)
         mScaleDetector = ScaleGestureDetector(this, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
             override fun onScale(detector: ScaleGestureDetector): Boolean {
@@ -222,12 +149,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
 
             }
         })
+        more_btn.setOnClickListener { openHover() }
+        hover_background.setOnClickListener { closeHover() }
+        random_btn.setOnClickListener { getRandomItem() }
 
-        //Currently does nothing as landscape mode is disabled in App manifest
         if (Build.VERSION.SDK_INT >= 28) {
             val attribute = window.attributes
             attribute.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         }
+
+        view_main.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         sliding_layout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View?, slideOffset: Float) {
@@ -246,6 +177,101 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
         })
     }
 
+
+    private fun getRandomItem() {
+        val elements = ArrayList<Element>()
+        ElementModel.getList(elements)
+
+        val randomNumber = (0..117).random()
+
+        val item = elements[randomNumber]
+
+        val elementSendAndLoad = ElementSendAndLoad(this)
+        elementSendAndLoad.setValue(item.element)
+
+        val intent = Intent(this, ElementInfoActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun onApplySystemInsets(top: Int, bottom: Int) {
+        val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
+        params.height += top
+        common_title_back_main.layoutParams = params
+
+        val params2 = nav_bar_main.layoutParams as ViewGroup.LayoutParams
+        params2.height += bottom
+        nav_bar_main.layoutParams = params2
+
+        val params3 = more_btn.layoutParams as ViewGroup.MarginLayoutParams
+        params3.bottomMargin += bottom
+        more_btn.layoutParams = params3
+
+        val params4 = common_title_back_search.layoutParams as ViewGroup.LayoutParams
+        params4.height += top
+        common_title_back_search.layoutParams = params4
+
+        val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
+        params5.bottomMargin += bottom
+        hover_menu_include.layoutParams = params5
+
+        val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
+        params6.topMargin += top
+        scrollView.layoutParams = params6
+
+        val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams
+        params7.height += bottom
+        sliding_layout.layoutParams = params7
+    }
+
+    private fun openHover() {
+        Utils.fadeInAnim(hover_background, 150)
+        Utils.fadeInAnim(hover_menu_include, 150)
+    }
+
+    private fun closeHover() {
+        Utils.fadeOutAnim(hover_background, 150)
+        Utils.fadeOutAnim(hover_menu_include, 150)
+    }
+
+    private fun searchFilter(list: ArrayList<Element>, recyclerView: RecyclerView) {
+        filter_box.visibility = View.GONE
+        background.visibility = View.GONE
+
+        filter_btn.setOnClickListener {
+            Utils.fadeInAnim(filter_box, 150)
+            Utils.fadeInAnim(background, 150)
+        }
+        background.setOnClickListener {
+            Utils.fadeOutAnim(filter_box, 150)
+            Utils.fadeOutAnim(background, 150)
+        }
+
+        elmt_numb_btn.setOnClickListener {
+            val searchPreference = SearchPreferences(this)
+            searchPreference.setValue(0)
+
+            val filtList: ArrayList<Element> = ArrayList()
+            for (item in list) {
+                filtList.add(item)
+            }
+            mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = ElementAdapter(filtList, this, this)
+        }
+        electro_btn.setOnClickListener {
+            val searchPreference = SearchPreferences(this)
+            searchPreference.setValue(1)
+
+            val filtList: ArrayList<Element> = ArrayList()
+            for (item in list) {
+                filtList.add(item)
+            }
+            mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = ElementAdapter(filtList, this, this)
+        }
+    }
+
     private fun filter(text: String, list: ArrayList<Element>, recyclerView: RecyclerView) {
         val filteredList: ArrayList<Element> = ArrayList()
         for (item in list) {
@@ -256,7 +282,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
         }
         mAdapter.filterList(filteredList)
         mAdapter.notifyDataSetChanged()
-        recyclerView.adapter = ElementAdapter(filteredList, this)
+        recyclerView.adapter = ElementAdapter(filteredList, this, this)
     }
 
     override fun elementClickListener2(item: Element, position: Int) {
@@ -270,12 +296,23 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
     override fun onBackPressed() {
         if (nav_background.visibility == View.VISIBLE) {
             sliding_layout.setPanelState(PanelState.COLLAPSED)
+            Utils.fadeOutAnim(nav_background, 150)
+            return
+        }
+        if (hover_background.visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(hover_background, 150)
+            Utils.fadeOutAnim(hover_menu_include, 150)
             return
         }
         if (search_menu_include.visibility == View.VISIBLE) {
-            search_menu_include.visibility = View.GONE
-            nav_bar.visibility = View.VISIBLE
-            Utils.fadeOutAnim(nav_background, 100)
+            Utils.fadeInAnim(nav_bar_main, 150)
+            Utils.fadeOutAnim(nav_background, 150)
+            Utils.fadeOutAnim(search_menu_include, 150)
+            return
+        }
+        if (search_menu_include.visibility == View.VISIBLE && background.visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(background, 150)
+            Utils.fadeOutAnim(filter_box, 150)
             return
         }
         else {
@@ -286,15 +323,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
     private fun searchListener() {
         search_box.setOnClickListener {
             Utils.fadeInAnim(search_menu_include, 300)
-            nav_bar.visibility = View.GONE
+            nav_bar_main.visibility = View.GONE
 
             edit_element.requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(edit_element, InputMethodManager.SHOW_IMPLICIT)
+            Utils.fadeOutAnim(filter_box, 150)
+            Utils.fadeOutAnim(background, 150)
         }
         close_element_search.setOnClickListener {
             Utils.fadeOutAnim(search_menu_include, 300)
-            nav_bar.visibility = View.VISIBLE
+            nav_bar_main.visibility = View.VISIBLE
 
             val view = this.currentFocus
             if (view != null) {
@@ -309,12 +348,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
             nav_menu_include.visibility = View.VISIBLE
             nav_background.visibility = View.VISIBLE
             Utils.fadeInAnim(nav_background, 200)
+            window.setStatusBarColor(getColor(R.color.background_status))
             sliding_layout.setPanelState(PanelState.EXPANDED)
         }
         nav_background.setOnClickListener {
             search_menu_include.visibility = View.GONE
             sliding_layout.setPanelState(PanelState.COLLAPSED)
-            nav_bar.visibility = View.VISIBLE
+            nav_bar_main.visibility = View.VISIBLE
             Utils.fadeOutAnim(nav_background, 100)
         }
         solubility_btn.setOnClickListener {
@@ -360,9 +400,110 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
         }
     }
 
-    private fun detailViewDisabled() {
-        detail_btn_disabled.setOnClickListener {
+    private fun initElectroView(list: ArrayList<Element>) {
+        electron_btn.setOnClickListener {
+            closeHover()
 
+            for (item in list) {
+                val name = item.element
+                val extText = "_text"
+                val eView = "$name$extText"
+                val extBtn = "_btn"
+                val eViewBtn = "$name$extBtn"
+                val resID = resources.getIdentifier(eView, "id", packageName)
+                val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
+
+                if (resID == 0) {
+                    ToastUtil.showToast(this, "Error (electro)")
+                }
+                else {
+                    if (item.electro == 0.0) {
+                        val text = findViewById<TextView>(resID)
+                        text.text = "---"
+                    }
+                    else {
+                        val text = findViewById<TextView>(resID)
+                        text.text = (item.electro).toString()
+                    }
+                }
+                if (resIDB == 0) {
+                    ToastUtil.showToast(this, "Error (electro back)")
+                }
+                else {
+                    if (item.electro == 0.0) {
+                        val btn = findViewById<Button>(resIDB)
+                        val themePreference = ThemePreference(this)
+                        val themePrefValue = themePreference.getValue()
+
+                        if (themePrefValue == 100) {
+                            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                                Configuration.UI_MODE_NIGHT_NO -> { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
+                                Configuration.UI_MODE_NIGHT_YES -> { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
+                            }
+                        }
+                        if (themePrefValue == 0) { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
+                        if (themePrefValue == 1) { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
+                    }
+                    else {
+                        if (item.electro > 1) {
+                            val btn = findViewById<Button>(resIDB)
+                            btn.background.setTint(Color.argb(255, 255, 225.div(item.electro).toInt(), 0))
+                        }
+                        else {
+                            val btn = findViewById<Button>(resIDB)
+                            btn.background.setTint(Color.argb(255, 255, 214, 0))
+                        }
+                    }
+                }
+            }
+            Utils.fadeOutAnim(electron_btn_frame, 150)
+            val delay = Handler()
+            delay.postDelayed({
+                Utils.fadeInAnim(electron_btn_frame_hide, 150)
+            }, 151)
+        }
+    }
+
+    private fun nameInit(list: ArrayList<Element>) {
+        electron_btn_hide.setOnClickListener {
+            closeHover()
+
+            for (item in list) {
+                val name = item.element
+                val extText = "_text"
+                val eView = "$name$extText"
+                val extBtn = "_btn"
+                val eViewBtn = "$name$extBtn"
+                val resID = resources.getIdentifier(eView, "id", packageName)
+                val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
+
+                val text = findViewById<TextView>(resID)
+                text.text = (item.element)
+                val btn = findViewById<Button>(resIDB)
+                val themePreference = ThemePreference(this)
+                val themePrefValue = themePreference.getValue()
+
+                if (themePrefValue == 100) {
+                    when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                        Configuration.UI_MODE_NIGHT_NO -> { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
+                        Configuration.UI_MODE_NIGHT_YES -> { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
+                    }
+                }
+                if (themePrefValue == 0) { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
+                if (themePrefValue == 1) { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
+            }
+
+            Utils.fadeOutAnim(electron_btn_frame_hide, 150)
+            val delay = Handler()
+            delay.postDelayed({
+                Utils.fadeInAnim(electron_btn_frame, 150)
+            }, 151)
+        }
+    }
+
+    private fun detailViewDisabled() {
+        detail_btn.setOnClickListener {
+            closeHover()
             //Non Metals
             hydrogen_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail)
             carbon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail)
@@ -465,13 +606,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
             radon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_noble)
             oganesson_btn.background = ContextCompat.getDrawable(this, R.drawable.element_detail_noble)
 
-            detail_btn_disabled.visibility = View.GONE
-            detail_btn_enabled.visibility = View.VISIBLE
+            Utils.fadeOutAnim(detail_btn_frame, 150)
+            val delay = Handler()
+            delay.postDelayed({
+                Utils.fadeInAnim(detail_btn_frame_close, 150)
+            }, 151)
         }
     }
 
     private fun detailViewEnabled() {
-        detail_btn_enabled.setOnClickListener {
+        detail_btn_close.setOnClickListener {
+            closeHover()
 
             //Non Metals
             hydrogen_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
@@ -499,8 +644,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
             magnesium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
             calcium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
             strontium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            yttrium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
             barium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
             radium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            rutherfordium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
 
             //Transition Metals
             scandium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
@@ -575,8 +722,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
             radon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
             oganesson_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
 
-            detail_btn_disabled.visibility = View.VISIBLE
-            detail_btn_enabled.visibility = View.GONE
+            Utils.fadeOutAnim(detail_btn_frame_close, 150)
+            val delay = Handler()
+            delay.postDelayed({
+                Utils.fadeInAnim(detail_btn_frame, 150)
+            }, 151)
         }
     }
 
@@ -951,7 +1101,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, ElementAdapter.O
             R.id.strontium_btn -> {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend= ElementSendAndLoad(this)
-                ElementSend.setValue("strantium")
+                ElementSend.setValue("strontium")
                 startActivity(intent)
             }
             R.id.yttrium_btn -> {

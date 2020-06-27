@@ -1,0 +1,77 @@
+[
+  {
+    "wikilink": "https://en.wikipedia.org/wiki/Americium",
+    "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Americium_microscope.jpg/800px-Americium_microscope.jpg",
+
+    "element": "Americium",
+    "element_year": "Glenn T. Seaborg",
+    "element_discovered_name": "1944",
+    "element_group": "Actinide",
+    "element_appearance": "Silvery White",
+    "element_electrons": "95",
+    "element_protons": "95",
+    "element_neutron_common": "148",
+
+    "element_atomic_number": "95",
+    "element_atomicmass": "243 (u)",
+    "element_density": "12 (g/cm^3)",
+    "element_electronegativty": "1.3",
+    "element_block": "f - block",
+    "element_shells_electrons": "K2 L8 M18 N32 O25 P8 Q2 R0",
+    "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Electron_shell_095_Americium_-_no_label.svg/800px-Electron_shell_095_Americium_-_no_label.svg.png",
+
+    "element_boiling_kelvin": "2880 (K)",
+    "element_boiling_celsius": "2607 (°C)",
+    "element_boiling_fahrenheit": "4725 (°F)",
+    "element_melting_kelvin": "1449 (K)",
+    "element_melting_celsius": "1176 (°C)",
+    "element_melting_fahrenheit": "2149 (°F)",
+
+    "element_electron_config": "5f^7, 7s^2",
+    "element_ion_charge": "Am^3+, Am^4+",
+    "element_ionization_energy": "5.9738 (eV)",
+    "element_atomic_radius": "--- (pm)",
+    "element_covalent_radius": "---",
+    "element_van_der_waals": "--- (pm)",
+
+    "element_phase": "Solid",
+    "element_fusion_heat": "14.39 (kJ/mol)",
+    "element_specific_heat_capacity": "0.11 J/(g·K)",
+    "element_vaporization_heat": "--- (kJ/mol)",
+
+    "iso_1": "Am-240",
+    "iso_mass_1": "240.055300",
+    "iso_half_1": "50.8 (hours)",
+    "iso_Z_1": "95",
+    "iso_N_1": "145",
+    "iso_A_1": "240",
+
+    "iso_2": "Am-241",
+    "iso_mass_2": "241.0568291",
+    "iso_half_2": "432.2 (years)",
+    "iso_Z_2": "95",
+    "iso_N_2": "146",
+    "iso_A_2": "241",
+
+    "iso_3": "Am-242",
+    "iso_mass_3": "242.0595492",
+    "iso_half_3": "16.02 (hours)",
+    "iso_Z_3": "95",
+    "iso_N_3": "147",
+    "iso_A_3": "242",
+
+    "iso_4": "Am-243",
+    "iso_mass_4": "243.0613811",
+    "iso_half_4": "7370 (years)",
+    "iso_Z_4": "95",
+    "iso_N_4": "148",
+    "iso_A_4": "253",
+
+    "iso_5": "Am-244",
+    "iso_mass_5": "244.0642848",
+    "iso_half_5": "10.1 (hours)",
+    "iso_Z_5": "95",
+    "iso_N_5": "149",
+    "iso_A_5": "244"
+  }
+]
