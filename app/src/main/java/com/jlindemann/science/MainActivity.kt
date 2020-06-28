@@ -112,13 +112,13 @@ class MainActivity : BaseActivity(), View.OnClickListener, ElementAdapter.OnElem
         setOnCLickListenerSetups()
         setupNavListeners()
         detailViewDisabled()
-        detailViewEnabled()
+        detailViewEnabled(elements)
         onClickNav()
         searchListener()
         sliding_layout.setPanelState(PanelState.COLLAPSED)
         searchFilter(elements, recyclerView)
-        initElectroView(elements)
-        nameInit(elements)
+        electroView(elements)
+        nameView(elements)
 
         gestureDetector = GestureDetector(this, GestureListener())
         //Currently Disabled (Change min and max scale to enable zoom)
@@ -400,62 +400,11 @@ class MainActivity : BaseActivity(), View.OnClickListener, ElementAdapter.OnElem
         }
     }
 
-    private fun initElectroView(list: ArrayList<Element>) {
+    private fun electroView(list: ArrayList<Element>) {
         electron_btn.setOnClickListener {
             closeHover()
+            initElectro(list)
 
-            for (item in list) {
-                val name = item.element
-                val extText = "_text"
-                val eView = "$name$extText"
-                val extBtn = "_btn"
-                val eViewBtn = "$name$extBtn"
-                val resID = resources.getIdentifier(eView, "id", packageName)
-                val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
-
-                if (resID == 0) {
-                    ToastUtil.showToast(this, "Error (electro)")
-                }
-                else {
-                    if (item.electro == 0.0) {
-                        val text = findViewById<TextView>(resID)
-                        text.text = "---"
-                    }
-                    else {
-                        val text = findViewById<TextView>(resID)
-                        text.text = (item.electro).toString()
-                    }
-                }
-                if (resIDB == 0) {
-                    ToastUtil.showToast(this, "Error (electro back)")
-                }
-                else {
-                    if (item.electro == 0.0) {
-                        val btn = findViewById<Button>(resIDB)
-                        val themePreference = ThemePreference(this)
-                        val themePrefValue = themePreference.getValue()
-
-                        if (themePrefValue == 100) {
-                            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                                Configuration.UI_MODE_NIGHT_NO -> { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
-                                Configuration.UI_MODE_NIGHT_YES -> { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
-                            }
-                        }
-                        if (themePrefValue == 0) { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
-                        if (themePrefValue == 1) { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
-                    }
-                    else {
-                        if (item.electro > 1) {
-                            val btn = findViewById<Button>(resIDB)
-                            btn.background.setTint(Color.argb(255, 255, 225.div(item.electro).toInt(), 0))
-                        }
-                        else {
-                            val btn = findViewById<Button>(resIDB)
-                            btn.background.setTint(Color.argb(255, 255, 214, 0))
-                        }
-                    }
-                }
-            }
             Utils.fadeOutAnim(electron_btn_frame, 150)
             val delay = Handler()
             delay.postDelayed({
@@ -464,40 +413,98 @@ class MainActivity : BaseActivity(), View.OnClickListener, ElementAdapter.OnElem
         }
     }
 
-    private fun nameInit(list: ArrayList<Element>) {
+    private fun nameView(list: ArrayList<Element>) {
         electron_btn_hide.setOnClickListener {
             closeHover()
-
-            for (item in list) {
-                val name = item.element
-                val extText = "_text"
-                val eView = "$name$extText"
-                val extBtn = "_btn"
-                val eViewBtn = "$name$extBtn"
-                val resID = resources.getIdentifier(eView, "id", packageName)
-                val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
-
-                val text = findViewById<TextView>(resID)
-                text.text = (item.element)
-                val btn = findViewById<Button>(resIDB)
-                val themePreference = ThemePreference(this)
-                val themePrefValue = themePreference.getValue()
-
-                if (themePrefValue == 100) {
-                    when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                        Configuration.UI_MODE_NIGHT_NO -> { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
-                        Configuration.UI_MODE_NIGHT_YES -> { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
-                    }
-                }
-                if (themePrefValue == 0) { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
-                if (themePrefValue == 1) { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
-            }
+            initName(list)
 
             Utils.fadeOutAnim(electron_btn_frame_hide, 150)
             val delay = Handler()
             delay.postDelayed({
                 Utils.fadeInAnim(electron_btn_frame, 150)
             }, 151)
+        }
+    }
+
+    private fun initElectro(list: ArrayList<Element>) {
+        for (item in list) {
+            val name = item.element
+            val extText = "_text"
+            val eView = "$name$extText"
+            val extBtn = "_btn"
+            val eViewBtn = "$name$extBtn"
+            val resID = resources.getIdentifier(eView, "id", packageName)
+            val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
+
+            if (resID == 0) {
+                ToastUtil.showToast(this, "Error (electro)")
+            }
+            else {
+                if (item.electro == 0.0) {
+                    val text = findViewById<TextView>(resID)
+                    text.text = "---"
+                }
+                else {
+                    val text = findViewById<TextView>(resID)
+                    text.text = (item.electro).toString()
+                }
+            }
+            if (resIDB == 0) {
+                ToastUtil.showToast(this, "Error (electro back)")
+            }
+            else {
+                if (item.electro == 0.0) {
+                    val btn = findViewById<Button>(resIDB)
+                    val themePreference = ThemePreference(this)
+                    val themePrefValue = themePreference.getValue()
+
+                    if (themePrefValue == 100) {
+                        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                            Configuration.UI_MODE_NIGHT_NO -> { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
+                            Configuration.UI_MODE_NIGHT_YES -> { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
+                        }
+                    }
+                    if (themePrefValue == 0) { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
+                    if (themePrefValue == 1) { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
+                }
+                else {
+                    if (item.electro > 1) {
+                        val btn = findViewById<Button>(resIDB)
+                        btn.background.setTint(Color.argb(255, 255, 225.div(item.electro).toInt(), 0))
+                    }
+                    else {
+                        val btn = findViewById<Button>(resIDB)
+                        btn.background.setTint(Color.argb(255, 255, 214, 0))
+                    }
+                }
+            }
+        }
+    }
+
+    private fun initName(list: ArrayList<Element>) {
+        for (item in list) {
+            val name = item.element
+            val extText = "_text"
+            val eView = "$name$extText"
+            val extBtn = "_btn"
+            val eViewBtn = "$name$extBtn"
+            val resID = resources.getIdentifier(eView, "id", packageName)
+            val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
+
+            val text = findViewById<TextView>(resID)
+            text.text = (item.element)
+            val btn = findViewById<Button>(resIDB)
+            val themePreference = ThemePreference(this)
+            val themePrefValue = themePreference.getValue()
+
+            if (themePrefValue == 100) {
+                when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                    Configuration.UI_MODE_NIGHT_NO -> { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
+                    Configuration.UI_MODE_NIGHT_YES -> { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
+                }
+            }
+            if (themePrefValue == 0) { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
+            if (themePrefValue == 1) { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
         }
     }
 
@@ -614,113 +621,11 @@ class MainActivity : BaseActivity(), View.OnClickListener, ElementAdapter.OnElem
         }
     }
 
-    private fun detailViewEnabled() {
+    private fun detailViewEnabled(list: ArrayList<Element>) {
         detail_btn_close.setOnClickListener {
             closeHover()
 
-            //Non Metals
-            hydrogen_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            carbon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            nitrogen_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            oxygen_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            phosphorus_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            sulfur_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            selenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            fluorine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            chlorine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            bromine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            iodine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-
-            //Alkali Metals
-            lithium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            sodium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            potassium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            rubidium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            caesium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            francium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-
-            //Alkaline Earth Metals
-            beryllium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            magnesium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            calcium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            strontium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            yttrium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            barium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            radium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            rutherfordium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-
-            //Transition Metals
-            scandium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            ytterbium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            titanium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            zirconium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            hafnium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            ruthenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            vanadium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            niobium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            tantalum_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            dubnium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            chromium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            molybdenum_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            tungsten_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            seaborgium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            manganese_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            technetium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            rhenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            bohrium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            iron_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            ruthenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            osmium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            hassium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            cobalt_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            rhodium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            iridium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            meitnerium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            nickel_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            palladium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            platinum_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            darmstadtium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            copper_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            silver_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            gold_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            roentgenium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            zinc_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            cadmium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            mercury_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            copernicium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-
-            //Post transitional
-            aluminium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            gallium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            indium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            tin_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            thallium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            lead_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            bismuth_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            polonium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            nihonium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            flerovium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            moscovium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            livermorium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            tennessine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-
-            //Metalloids
-            boron_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            silicon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            germanium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            arsenic_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            antimony_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            tellurium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            astatine_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-
-            //Noble Gas
-            helium_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            neon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            argon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            krypton_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            xenon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            radon_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
-            oganesson_btn.background = ContextCompat.getDrawable(this, R.drawable.element_nodetail)
+            initName(list)
 
             Utils.fadeOutAnim(detail_btn_frame_close, 150)
             val delay = Handler()
