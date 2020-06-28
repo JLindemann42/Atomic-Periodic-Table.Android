@@ -3,6 +3,7 @@ package com.jlindemann.science.activities
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -422,48 +423,67 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             iso_half_15.text = half15
             iso_massa_15.text = mass15
 
-            if (iso_name_2.text == "---") {
-                box_2.visibility = View.GONE
-            }
-            if (iso_name_3.text == "---") {
-                box_3.visibility = View.GONE
-            }
-            if (iso_name_4.text == "---") {
-                box_4.visibility = View.GONE
-            }
-            if (iso_name_5.text == "---") {
-                box_5.visibility = View.GONE
-            }
-            if (iso_name_6.text == "---") {
-                box_6.visibility = View.GONE
-            }
-            if (iso_name_7.text == "---") {
-                box_7.visibility = View.GONE
-            }
-            if (iso_name_8.text == "---") {
-                box_8.visibility = View.GONE
-            }
-            if (iso_name_9.text == "---") {
-                box_9.visibility = View.GONE
-            }
-            if (iso_name_10.text == "---") {
-                box_10.visibility = View.GONE
-            }
-            if (iso_name_11.text == "---") {
-                box_11.visibility = View.GONE
-            }
-            if (iso_name_12.text == "---") {
-                box_12.visibility = View.GONE
-            }
-            if (iso_name_13.text == "---") {
-                box_13.visibility = View.GONE
-            }
-            if (iso_name_14.text == "---") {
-                box_14.visibility = View.GONE
-            }
-            if (iso_name_15.text == "---") {
-                box_15.visibility = View.GONE
-            }
+            val delay = Handler()
+
+            box_2.visibility = View.VISIBLE
+            box_3.visibility = View.VISIBLE
+            box_4.visibility = View.VISIBLE
+            box_5.visibility = View.VISIBLE
+            box_6.visibility = View.VISIBLE
+            box_7.visibility = View.VISIBLE
+            box_8.visibility = View.VISIBLE
+            box_9.visibility = View.VISIBLE
+            box_10.visibility = View.VISIBLE
+            box_11.visibility = View.VISIBLE
+            box_12.visibility = View.VISIBLE
+            box_13.visibility = View.VISIBLE
+            box_15.visibility = View.VISIBLE
+
+            delay.postDelayed({
+                if (iso_name_2.text == "---") {
+                    box_2.visibility = View.GONE
+                }
+                if (iso_name_3.text == "---") {
+                    box_3.visibility = View.GONE
+                }
+                if (iso_name_4.text == "---") {
+                    box_4.visibility = View.GONE
+                }
+                if (iso_name_5.text == "---") {
+                    box_5.visibility = View.GONE
+                }
+                if (iso_name_6.text == "---") {
+                    box_6.visibility = View.GONE
+                }
+                if (iso_name_7.text == "---") {
+                    box_7.visibility = View.GONE
+                }
+                if (iso_name_8.text == "---") {
+                    box_8.visibility = View.GONE
+                }
+                if (iso_name_9.text == "---") {
+                    box_9.visibility = View.GONE
+                }
+                if (iso_name_10.text == "---") {
+                    box_10.visibility = View.GONE
+                }
+                if (iso_name_11.text == "---") {
+                    box_11.visibility = View.GONE
+                }
+                if (iso_name_12.text == "---") {
+                    box_12.visibility = View.GONE
+                }
+                if (iso_name_13.text == "---") {
+                    box_13.visibility = View.GONE
+                }
+                if (iso_name_14.text == "---") {
+                    box_14.visibility = View.GONE
+                }
+                if (iso_name_15.text == "---") {
+                    box_15.visibility = View.GONE
+                }
+            }, 5)
+
         }
         catch (e: IOException) {
 
