@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.jlindemann.science.R
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.preferences.offlinePreference
 import com.jlindemann.science.settings.ExperimentalActivity
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
@@ -42,6 +43,7 @@ class SettingsActivity : BaseActivity() {
         themeSettings()
         initializeCache()
         cacheSettings()
+        initOfflineSwitches()
 
         view.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
@@ -67,6 +69,22 @@ class SettingsActivity : BaseActivity() {
         }
         else {
             super.onBackPressed()
+        }
+    }
+
+    private fun initOfflineSwitches() {
+        val offlinePreferences = offlinePreference(this)
+        val offlinePrefValue = offlinePreferences.getValue()
+        offline_internet_switch.isChecked = offlinePrefValue == 1
+
+        offline_internet_switch.setOnCheckedChangeListener { compoundButton, b ->
+            if (offline_internet_switch.isChecked) {
+                val offlinePreference = offlinePreference(this)
+                offlinePreference.setValue(1)
+            } else {
+                val offlinePreference = offlinePreference(this)
+                offlinePreference.setValue(0)
+            }
         }
     }
 
@@ -134,7 +152,7 @@ class SettingsActivity : BaseActivity() {
             delayChange.postDelayed({
                 finish()
                 overridePendingTransition(0, 0)
-                startActivity(getIntent())
+                startActivity(intent)
                 SettingsActivity().finish()
                 System.exit(0)
                 overridePendingTransition(0, 0)
@@ -150,7 +168,7 @@ class SettingsActivity : BaseActivity() {
             delayChange.postDelayed({
                 finish()
                 overridePendingTransition(0, 0)
-                startActivity(getIntent())
+                startActivity(intent)
                 SettingsActivity().finish()
                 System.exit(0)
                 overridePendingTransition(0, 0)
@@ -166,13 +184,12 @@ class SettingsActivity : BaseActivity() {
             delayChange.postDelayed({
                 finish()
                 overridePendingTransition(0, 0)
-                startActivity(getIntent())
+                startActivity(intent)
                 SettingsActivity().finish()
                 System.exit(0)
                 overridePendingTransition(0, 0)
             }, 302)
         }
-
         themes_settings.setOnClickListener {
             Utils.fadeInAnim(theme_panel, 300)
         }

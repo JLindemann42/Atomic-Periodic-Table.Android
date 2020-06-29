@@ -85,6 +85,12 @@
             android:background="?attr/colorPrimaryDark"
             android:orientation="vertical">
 
+            <Space
+                android:id="@+id/offline_space"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="80dp" />
+
             <FrameLayout
                 android:id="@+id/frame"
                 android:layout_width="match_parent"

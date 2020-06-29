@@ -85,6 +85,7 @@ class ElementInfoActivity : BaseActivity() {
         shell.visibility = View.GONE
         onClickShell()
         onClickClose()
+        offlineCheck()
 
         favoriteBarSetup()
         elementAnim(overview_inc, properties_inc)
@@ -105,11 +106,28 @@ class ElementInfoActivity : BaseActivity() {
         params.topMargin += top
         frame.layoutParams = params
 
+        val paramsO = offline_space.layoutParams as ViewGroup.MarginLayoutParams
+        paramsO.topMargin += top
+        offline_space.layoutParams = paramsO
+
         val params2 = common_title_back.layoutParams as ViewGroup.LayoutParams
         params2.height += top
         common_title_back.layoutParams = params2
     }
 
+    private fun offlineCheck() {
+        val offlinePreferences = offlinePreference(this)
+        val offlinePrefValue = offlinePreferences.getValue()
+
+        if (offlinePrefValue == 1) {
+            frame.visibility = View.GONE
+            offline_space.visibility = View.VISIBLE
+        }
+        else {
+            frame.visibility = View.VISIBLE
+            offline_space.visibility = View.GONE
+        }
+    }
 
     fun readJson() {
 
@@ -240,8 +258,12 @@ class ElementInfoActivity : BaseActivity() {
 
             specific_heat_f.text = specificHeatCapacity
 
-            loadImage(url)
-            loadModelView(elementModelUrl)
+            val offlinePreferences = offlinePreference(this)
+            val offlinePrefValue = offlinePreferences.getValue()
+            if (offlinePrefValue == 0) {
+                loadImage(url)
+                loadModelView(elementModelUrl)
+            }
             wikiListener(wikipedia)
         }
 

@@ -41,10 +41,10 @@
                 android:layout_height="22dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="9dp"
-                android:text="Random"
+                android:text="Random Element"
                 android:textAlignment="center"
                 android:textColor="@color/colorLightPrimary"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -76,7 +76,7 @@
                 android:text="Details"
                 android:textAlignment="center"
                 android:textColor="@color/colorLightPrimary"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -109,7 +109,7 @@
                 android:text="Standard"
                 android:textAlignment="center"
                 android:textColor="@color/colorLightPrimary"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -141,7 +141,7 @@
                 android:text="Electronegativity"
                 android:textAlignment="center"
                 android:textColor="@color/colorLightPrimary"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -174,7 +174,7 @@
                 android:text="Element Name"
                 android:textAlignment="center"
                 android:textColor="@color/colorLightPrimary"
-                android:textSize="12sp" />
+                android:textSize="11sp" />
         </LinearLayout>
 
     </LinearLayout>
