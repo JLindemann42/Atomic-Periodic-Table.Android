@@ -814,7 +814,7 @@
                 android:layout_gravity="end"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/ic_settings_outline"
+                android:src="@drawable/ic_settings"
                 android:tint="?attr/actionMenuTextColor"
                 app:backgroundTint="?attr/colorPrimary"
                 app:borderWidth="0dp"

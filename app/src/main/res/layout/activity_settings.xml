@@ -378,7 +378,8 @@
                 android:id="@+id/experimental_settings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:elevation="8dp">
+                android:elevation="8dp"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/exp_lay"

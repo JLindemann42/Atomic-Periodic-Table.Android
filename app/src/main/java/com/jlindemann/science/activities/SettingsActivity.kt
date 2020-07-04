@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.jlindemann.science.R
+import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.offlinePreference
 import com.jlindemann.science.settings.ExperimentalActivity
@@ -46,6 +47,11 @@ class SettingsActivity : BaseActivity() {
         initOfflineSwitches()
 
         view.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+
+        info_btn_set.setOnClickListener {
+            val intent = Intent(this, AboutActivity::class.java)
+            startActivity(intent)
+        }
 
         back_btn_set.setOnClickListener {
             this.onBackPressed()
