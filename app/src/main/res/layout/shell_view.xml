@@ -30,7 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|top"
             android:layout_margin="18dp"
-            android:src="@drawable/ic_arrow_back_white"
+            android:src="@drawable/ic_arrow_back_whit"
+            android:rotation="180"
             app:backgroundTint="?attr/colorPrimary"
             app:fabSize="mini" />
 

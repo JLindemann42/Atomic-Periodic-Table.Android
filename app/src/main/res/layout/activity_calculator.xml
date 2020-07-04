@@ -49,7 +49,8 @@
                     android:backgroundTint="?attr/colorPrimary"
                     app:borderWidth="0dp"
                     android:elevation="0dp"
-                    android:src="@drawable/ic_arrow_back_white"
+                    android:src="@drawable/ic_arrow_back_whit"
+                    android:rotation="180"
                     app:elevation="0dp"
                     app:fabSize="normal" />
 

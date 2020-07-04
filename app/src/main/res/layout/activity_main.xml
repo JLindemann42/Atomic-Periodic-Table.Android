@@ -827,7 +827,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_gravity="start"
-                android:src="@drawable/ic_menu_outline"
+                android:src="@drawable/ic_menu"
                 android:tint="?attr/actionMenuTextColor"
                 app:backgroundTint="?attr/colorPrimary"
                 app:borderWidth="0dp"

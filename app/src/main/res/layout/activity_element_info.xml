@@ -37,7 +37,7 @@
                           android:layout_gravity="center_vertical"
                           android:layout_marginStart="12dp"
                           android:elevation="0dp"
-                          android:src="@drawable/ic_arrow_back_white"
+                          android:src="@drawable/ic_arrow_back_whit"
                           app:backgroundTint="@color/transparent"
                           app:borderWidth="0dp"
                           app:elevation="0dp"
@@ -124,7 +124,7 @@
                     android:visibility="gone"
                     app:backgroundTint="?attr/colorPrimary"
                     app:fabSize="mini"
-                    app:srcCompat="@drawable/ic_arrow_back_white" />
+                    app:srcCompat="@drawable/ic_arrow_back_whit" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/next_btn"
@@ -138,7 +138,7 @@
                     android:visibility="gone"
                     app:backgroundTint="?attr/colorPrimary"
                     app:fabSize="mini"
-                    app:srcCompat="@drawable/ic_arrow_back_white180" />
+                    app:srcCompat="@drawable/ic_arrow_back_whit" />
             </FrameLayout>
 
             <Space

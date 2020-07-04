@@ -1,28 +1,16 @@
 package com.jlindemann.science.activities
 
+import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
-import android.view.MotionEvent
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.jlindemann.science.R
-import com.jlindemann.science.R2.id.view
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
 import kotlinx.android.synthetic.main.activity_info.*
-import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_solubility.*
 import kotlinx.android.synthetic.main.activity_solubility.back_btn
-import kotlinx.android.synthetic.main.solubility_group_1.*
-import kotlinx.android.synthetic.main.solubility_group_2.*
-import kotlinx.android.synthetic.main.solubility_group_3.*
-import kotlinx.android.synthetic.main.solubility_group_4.*
-import kotlinx.android.synthetic.main.solubility_group_5.*
-import kotlinx.android.synthetic.main.solubility_group_6.*
+
 
 class AboutActivity : BaseActivity() {
 
@@ -41,7 +29,9 @@ class AboutActivity : BaseActivity() {
         }
         if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
-        setContentView(R.layout.activity_solubility)
+        setContentView(R.layout.activity_info)
+
+        setupLinks()
 
         back_btn.setOnClickListener {
             this.onBackPressed()
@@ -56,6 +46,17 @@ class AboutActivity : BaseActivity() {
         val params2 = imageView3.layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin += top
         imageView3.layoutParams = params2
+    }
+
+    private fun setupLinks() {
+        pro.setOnClickListener {
+            val marketUri: Uri = Uri.parse("market://details?id=com.jlindemannpro.papersplash")
+            startActivity(Intent(Intent.ACTION_VIEW, marketUri))
+        }
+        sta.setOnClickListener {
+            val marketUri: Uri = Uri.parse("market://details?id=com.jlindemann.papersplash")
+            startActivity(Intent(Intent.ACTION_VIEW, marketUri))
+        }
     }
 }
 

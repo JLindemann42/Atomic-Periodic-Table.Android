@@ -78,6 +78,7 @@
                 android:orientation="horizontal">
 
                 <FrameLayout
+                    android:id="@+id/pro"
                     android:layout_width="118dp"
                     android:layout_height="118dp"
                     android:layout_margin="18dp"
@@ -106,6 +107,7 @@
                 </FrameLayout>
 
                 <FrameLayout
+                    android:id="@+id/sta"
                     android:layout_width="118dp"
                     android:layout_height="118dp"
                     android:layout_margin="18dp"
@@ -164,7 +166,8 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="12dp"
                         android:elevation="0dp"
-                        android:src="@drawable/ic_arrow_back_white"
+                        android:src="@drawable/ic_arrow_back_whit"
+                        android:rotation="180"
                         app:backgroundTint="@color/transparent"
                         app:borderWidth="0dp"
                         app:elevation="0dp"
