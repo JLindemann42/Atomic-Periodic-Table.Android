@@ -525,7 +525,6 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
     private fun detailViewEnabled(list: ArrayList<Element>) {
         detail_btn_close.setOnClickListener {
             closeHover()
-
             initName(list)
 
             Utils.fadeOutAnim(detail_btn_frame_close, 150)

@@ -33,7 +33,7 @@ class AboutActivity : BaseActivity() {
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_info)
 
-        view_main.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        view_info.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         setupLinks()
 
