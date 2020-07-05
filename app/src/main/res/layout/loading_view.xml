@@ -4,10 +4,22 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
-    <ProgressBar
+    <TextView
+        android:id="@+id/no_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:text="No Image"
+        android:textColor="?attr/actionMenuTextColor"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/pro_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:max="100"
         android:progress="33"
         android:progressTint="?attr/colorAccent" />

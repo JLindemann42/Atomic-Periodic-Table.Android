@@ -147,7 +147,8 @@
                         android:layout_marginStart="12dp"
                         android:backgroundTint="?attr/colorPrimary"
                         android:elevation="0dp"
-                        android:src="@drawable/ic_arrow_back_white"
+                        android:src="@drawable/ic_arrow_back_whit"
+                        android:rotation="180"
                         app:borderWidth="0dp"
                         app:elevation="0dp"
                         app:fabSize="normal" />

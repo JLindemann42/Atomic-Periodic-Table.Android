@@ -72,6 +72,12 @@
             android:theme="@style/AppTheme"
             android:label="ISOTPOESPAGEEXP" />
 
+        <activity
+            android:name=".activities.AboutActivity"
+            android:resizeableActivity="false"
+            android:theme="@style/AppTheme"
+            android:label="ABOUTPAGE" />
+
 
     </application>
 

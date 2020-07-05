@@ -38,7 +38,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="12dp"
                     android:elevation="0dp"
-                    android:src="@drawable/ic_arrow_back_white"
+                    android:src="@drawable/ic_arrow_back_whit"
+                    android:rotation="180"
                     app:backgroundTint="@color/transparent"
                     app:borderWidth="0dp"
                     app:elevation="0dp"
@@ -231,71 +232,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/reduced_settings"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:elevation="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?attr/colorPrimary"
-                    android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                    <ImageView
-                        android:layout_width="64dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0"
-                        android:background="?attr/colorPrimary"
-                        android:backgroundTint="?attr/colorPrimary"
-                        android:padding="18dp"
-                        android:tint="?attr/actionMenuTextColor"
-                        app:srcCompat="@drawable/ic_data" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginBottom="4dp"
-                            android:text="Reduced Internet Mode"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="16sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="10dp"
-                            android:alpha="0.5"
-                            android:paddingEnd="18dp"
-                            android:text="Disables loading of images"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <Switch
-                        android:id="@+id/reduced_internet_switch"
-                        android:layout_width="64dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginEnd="18dp"
-                        android:gravity="center" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:backgroundTint="?attr/colorPrimaryDark"
-                    android:visibility="invisible" />
-            </RelativeLayout>
-
-            <RelativeLayout
                 android:id="@+id/offline_settings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -338,7 +274,7 @@
                             android:layout_marginBottom="10dp"
                             android:alpha="0.5"
                             android:paddingEnd="18dp"
-                            android:text="Disables all internet services"
+                            android:text="Disables loading of images"
                             android:textColor="?attr/actionMenuTextColor"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -443,7 +379,8 @@
                 android:id="@+id/experimental_settings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:elevation="8dp">
+                android:elevation="8dp"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:id="@+id/exp_lay"

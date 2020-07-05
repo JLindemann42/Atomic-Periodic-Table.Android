@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -45,6 +46,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.net.ConnectException
 import com.jlindemann.science.activities.BaseActivity.*
+import kotlinx.android.synthetic.main.loading_view.*
 
 class ElementInfoActivity : BaseActivity() {
 
@@ -85,6 +87,7 @@ class ElementInfoActivity : BaseActivity() {
         shell.visibility = View.GONE
         onClickShell()
         onClickClose()
+        offlineCheck()
 
         favoriteBarSetup()
         elementAnim(overview_inc, properties_inc)
@@ -105,11 +108,28 @@ class ElementInfoActivity : BaseActivity() {
         params.topMargin += top
         frame.layoutParams = params
 
+        val paramsO = offline_space.layoutParams as ViewGroup.MarginLayoutParams
+        paramsO.topMargin += top
+        offline_space.layoutParams = paramsO
+
         val params2 = common_title_back.layoutParams as ViewGroup.LayoutParams
         params2.height += top
         common_title_back.layoutParams = params2
     }
 
+    private fun offlineCheck() {
+        val offlinePreferences = offlinePreference(this)
+        val offlinePrefValue = offlinePreferences.getValue()
+
+        if (offlinePrefValue == 1) {
+            frame.visibility = View.GONE
+            offline_space.visibility = View.VISIBLE
+        }
+        else {
+            frame.visibility = View.VISIBLE
+            offline_space.visibility = View.GONE
+        }
+    }
 
     fun readJson() {
 
@@ -223,7 +243,7 @@ class ElementInfoActivity : BaseActivity() {
             density_f.text = elementDensity
 
             val degreePreference = DegreePreference(this)
-            var degreePrefValue = degreePreference.getValue()
+            val degreePrefValue = degreePreference.getValue()
 
             if (degreePrefValue == 0) {
                 boiling_f.text = elementBoilingKelvin
@@ -238,10 +258,23 @@ class ElementInfoActivity : BaseActivity() {
                 melting_f.text = elementMeltingFahrenheit
             }
 
+            if (url == "empty") {
+                Utils.fadeInAnim(no_img, 150)
+                pro_bar.visibility = View.GONE
+            }
+            else {
+                Utils.fadeInAnim(pro_bar, 150)
+                no_img.visibility = View.GONE
+            }
+
             specific_heat_f.text = specificHeatCapacity
 
-            loadImage(url)
-            loadModelView(elementModelUrl)
+            val offlinePreferences = offlinePreference(this)
+            val offlinePrefValue = offlinePreferences.getValue()
+            if (offlinePrefValue == 0) {
+                loadImage(url)
+                loadModelView(elementModelUrl)
+            }
             wikiListener(wikipedia)
         }
 
