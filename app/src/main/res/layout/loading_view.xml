@@ -11,7 +11,7 @@
         android:layout_gravity="center"
         android:text="No Image"
         android:textColor="?attr/actionMenuTextColor"
-        android:textSize="18sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         android:visibility="gone" />
 

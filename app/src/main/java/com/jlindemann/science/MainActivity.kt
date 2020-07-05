@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -78,7 +79,6 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
 
         val adapter = ElementAdapter(elements, this, this)
         recyclerView.adapter = adapter
-
         edit_element.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
                 s: CharSequence,
@@ -109,50 +109,13 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         searchFilter(elements, recyclerView)
         electroView(elements)
         nameView(elements)
+        mediaListeners()
 
-        gestureDetector = GestureDetector(this, GestureListener())
-        //Currently Disabled (Change min and max scale to enable zoom)
-        mScaleDetector = ScaleGestureDetector(
-            this,
-            object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-                override fun onScale(detector: ScaleGestureDetector): Boolean {
-                    val scale = 1 - detector.scaleFactor
-                    val prevScale = mScale
-                    mScale += scale
-                    if (mScale < 1f) // Minimum scale
-                        mScale = 1f
-                    if (mScale > 1) // Maximum scale
-                        mScale = 1f
-                    val scaleAnimation = ScaleAnimation(
-                        1f / prevScale,
-                        1f / mScale,
-                        1f / prevScale,
-                        1f / mScale,
-                        detector.focusX,
-                        detector.focusY
-                    )
-
-                    scaleAnimation.duration = 0
-                    scaleAnimation.fillAfter = true
-                    val layout =
-                        scrollViewZoom as ScrollView
-                    layout.startAnimation(scaleAnimation)
-                    return true
-
-                }
-            })
         more_btn.setOnClickListener { openHover() }
         hover_background.setOnClickListener { closeHover() }
         random_btn.setOnClickListener { getRandomItem() }
 
-        if (Build.VERSION.SDK_INT >= 28) {
-            val attribute = window.attributes
-            attribute.layoutInDisplayCutoutMode =
-                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
-        }
-
-        view_main.systemUiVisibility =
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        view_main.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         sliding_layout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View?, slideOffset: Float) {
@@ -237,7 +200,6 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             Utils.fadeOutAnim(filter_box, 150)
             Utils.fadeOutAnim(background, 150)
         }
-
         elmt_numb_btn.setOnClickListener {
             val searchPreference = SearchPreferences(this)
             searchPreference.setValue(0)
@@ -335,6 +297,29 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         }
     }
 
+    private fun mediaListeners() {
+        twitter_button.setOnClickListener {
+            val uri = Uri.parse(getString(R.string.twitter))
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
+        facebook_button.setOnClickListener {
+            val uri = Uri.parse(getString(R.string.facebook))
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
+        instagram_button.setOnClickListener {
+            val uri = Uri.parse(getString(R.string.instagram))
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
+        homepage_button.setOnClickListener {
+            val uri = Uri.parse(getString(R.string.homepage))
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
+        }
+    }
+
     private fun onClickNav() {
         menu_btn.setOnClickListener {
             nav_menu_include.visibility = View.VISIBLE
@@ -363,29 +348,7 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         }
     }
 
-    //dispatchTouchEvent() (scrollZoom)
-    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
-        super.dispatchTouchEvent(event)
-        mScaleDetector.onTouchEvent(event)
-        gestureDetector.onTouchEvent(event)
-        return gestureDetector.onTouchEvent(event)
-    }
-
-    //GestureListener (ScrollZoom)
-    private class GestureListener : SimpleOnGestureListener() {
-        override fun onDown(e: MotionEvent): Boolean {
-            return true
-        }
-
-        // event when double tap occurs
-        override fun onDoubleTap(e: MotionEvent): Boolean {
-            // double tap fired.
-            return true
-        }
-    }
-
     private fun setupNavListeners() {
-
         settings_btn.setOnClickListener() {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
