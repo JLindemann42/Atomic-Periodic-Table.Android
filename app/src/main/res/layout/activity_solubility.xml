@@ -151,6 +151,7 @@
                         android:rotation="180"
                         app:borderWidth="0dp"
                         app:elevation="0dp"
+                        app:pressedTranslationZ="0dp"
                         app:fabSize="normal" />
 
                     <TextView

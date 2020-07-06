@@ -382,6 +382,11 @@ class ElementInfoActivity : BaseActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        favoriteBarSetup()
+    }
+
     private fun onClickShell() {
         electron_view.setOnClickListener {
             anim(shell)

@@ -31,32 +31,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp">
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <ImageButton
                     android:id="@+id/back_btn_set"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="12dp"
-                    android:elevation="0dp"
-                    android:src="@drawable/ic_arrow_back_whit"
+                    android:layout_marginStart="18dp"
                     android:rotation="180"
-                    app:backgroundTint="@color/transparent"
-                    app:borderWidth="0dp"
-                    app:elevation="0dp"
-                    app:fabSize="normal" />
+                    android:src="@drawable/ic_arrow_back_whit" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <ImageButton
                     android:id="@+id/info_btn_set"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
                     android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="12dp"
-                    android:elevation="0dp"
-                    android:src="@drawable/ic_info"
-                    app:backgroundTint="@color/transparent"
-                    app:borderWidth="0dp"
-                    app:elevation="0dp"
-                    app:fabSize="normal" />
+                    android:layout_marginEnd="18dp"
+                    android:src="@drawable/ic_info" />
 
                 <TextView
                     android:id="@+id/element_title"
