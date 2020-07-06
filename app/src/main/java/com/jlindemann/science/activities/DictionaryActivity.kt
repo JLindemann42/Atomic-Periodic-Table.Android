@@ -27,7 +27,6 @@ import com.jlindemann.science.model.Element
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
 import kotlinx.android.synthetic.main.activity_dictionary.*
-import kotlinx.android.synthetic.main.activity_dictionary.back_btn
 import kotlinx.android.synthetic.main.activity_dictionary.close_iso_search
 import kotlinx.android.synthetic.main.activity_dictionary.edit_iso
 import kotlinx.android.synthetic.main.activity_dictionary.search_bar_iso
@@ -63,7 +62,7 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         clickSearch()
 
         view_dic.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        back_btn.setOnClickListener {
+        back_btn_d.setOnClickListener {
             this.onBackPressed()
         }
     }

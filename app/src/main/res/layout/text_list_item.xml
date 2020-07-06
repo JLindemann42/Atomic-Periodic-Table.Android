@@ -42,7 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:layout_gravity="bottom"
-        android:drawableEnd="@drawable/ic_arrow_back_white180"
+        android:drawableEnd="@drawable/ic_arrow_back_whit"
         android:drawablePadding="9dp"
         android:drawableTint="?attr/colorAccent"
         android:paddingEnd="18dp"

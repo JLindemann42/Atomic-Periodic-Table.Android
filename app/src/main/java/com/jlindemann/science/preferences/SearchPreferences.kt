@@ -10,7 +10,7 @@ class SearchPreferences(context : Context) {
     val preference = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
     fun getValue() : Int{
-        return preference.getInt (PREFERENCE_VALUE, 1)
+        return preference.getInt (PREFERENCE_VALUE, 0)
         //0 == Element Number
         //1 == Electronegativity
         //2 == STP Phase
