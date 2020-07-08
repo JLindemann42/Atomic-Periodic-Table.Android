@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:alpha="0.5"
+    android:alpha="1"
     android:clickable="true"
     android:elevation="100dp"
     android:focusable="true"
@@ -21,8 +21,9 @@
         <com.github.mmin18.widget.RealtimeBlurView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:realtimeBlurRadius="12dp"
-            app:realtimeOverlayColor="#A8000000" />
+            app:realtimeBlurRadius="1dp"
+            android:alpha="0.95"
+            app:realtimeOverlayColor="@color/colorDarkPrimary" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/close_shell_btn"
@@ -30,8 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|top"
             android:layout_margin="18dp"
-            android:src="@drawable/ic_arrow_back_whit"
             android:rotation="180"
+            android:src="@drawable/ic_close"
             app:backgroundTint="?attr/colorPrimary"
             app:fabSize="mini" />
 
@@ -57,6 +58,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="284dp"
+            android:alpha="0.8"
+            android:gravity="center_horizontal"
+            android:text="Electron Shell Configuration"
+            android:textColor="#FEFEFE"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/e_config_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="320dp"
+            android:gravity="center_horizontal"
+            android:text="Electron Configuration"
+            android:textColor="#FEFEFE"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/e_config_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="344dp"
             android:alpha="0.8"
             android:gravity="center_horizontal"
             android:text="Electron Shell Configuration"

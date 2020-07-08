@@ -10,6 +10,8 @@
         <item name="colorPrimaryDark">@color/colorLightPrimaryDark</item>
         <item name="colorAccent">@color/colorLightAccent</item>
         <item name="actionMenuTextColor">@color/colorLightText</item>>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">

@@ -1,28 +1,14 @@
 package com.jlindemann.science.settings
 
-import android.graphics.Color
+import android.graphics.Insets
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.jlindemann.science.R
-import com.jlindemann.science.R2.id.view
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
 import kotlinx.android.synthetic.main.activity_experimental_settings_page.*
-import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
-import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.solubility_group_1.*
-import kotlinx.android.synthetic.main.solubility_group_2.*
-import kotlinx.android.synthetic.main.solubility_group_3.*
-import kotlinx.android.synthetic.main.solubility_group_4.*
-import kotlinx.android.synthetic.main.solubility_group_5.*
-import kotlinx.android.synthetic.main.solubility_group_6.*
 
 class ExperimentalActivity : BaseActivity() {
 

@@ -21,8 +21,6 @@ import java.io.IOException
 import java.io.InputStream
 
 object Utils {
-
-
     fun gestureSetup(window: Window) {
         window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,

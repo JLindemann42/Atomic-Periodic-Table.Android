@@ -39,7 +39,10 @@
                     android:layout_margin="18dp"
                     android:background="@drawable/toast"
                     android:backgroundTint="?attr/colorPrimary"
-                    android:elevation="4dp">
+                    android:clickable="true"
+                    android:elevation="4dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/c_ripple">
 
                     <TextView
                         android:id="@+id/textView5"

@@ -45,6 +45,10 @@ class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
             textViewElement.text = item.element.capitalize()
             textViewShort.text = item.short
 
+            itemView.foreground = ContextCompat.getDrawable(con, R.drawable.c_ripple)
+            itemView.isClickable = true
+            itemView.isFocusable = true
+
             if (searchPrefValue == 0) {
                 textViewNumb.text = item.number.toString()
             }

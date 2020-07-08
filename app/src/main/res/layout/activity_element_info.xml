@@ -176,13 +176,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/i_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="18dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorAccent"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true"
+                android:foreground="@drawable/c_ripple"
+                android:text="Submit Data Issue"
+                android:textColor="?attr/colorPrimary" />
+
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="36dp" />
+                android:layout_height="60dp" />
 
         </LinearLayout>
 
     </ScrollView>
+
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:id="@+id/shell_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#A8000000"
+        android:elevation="12dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:realtimeBlurRadius="4dp"
+        app:realtimeOverlayColor="#A80B0B0B" />
 
     <include
         android:id="@+id/shell"

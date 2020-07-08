@@ -10,6 +10,7 @@
         android:id="@+id/view_dic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorPrimaryDark"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="parent">

@@ -7,19 +7,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.updatePadding
 import com.jlindemann.science.R
 import com.jlindemann.science.preferences.ThemePreference
-import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_info.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_solubility.back_btn
+import kotlinx.android.synthetic.main.activity_submit.*
 
 
-class AboutActivity : BaseActivity() {
+class SubmitActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Utils.gestureSetup(window)
         
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
@@ -32,11 +30,10 @@ class AboutActivity : BaseActivity() {
         }
         if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
-        setContentView(R.layout.activity_info)
+        setContentView(R.layout.activity_submit)
 
-        view_info.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-
-        setupLinks()
+        view_sub.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        issueListener()
 
         back_btn.setOnClickListener {
             this.onBackPressed()
@@ -44,23 +41,22 @@ class AboutActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        val params = common_title_back_info.layoutParams as ViewGroup.LayoutParams
+        val params = common_title_back_sub.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back_info.layoutParams = params
+        common_title_back_sub.layoutParams = params
 
-        val params2 = imageView3.layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin += top
-        imageView3.layoutParams = params2
+        val params2 = i_box.layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + 36
+        i_box.layoutParams = params2
     }
 
-    private fun setupLinks() {
-        pro.setOnClickListener {
-            val marketUri: Uri = Uri.parse("market://details?id=com.jlindemannpro.papersplash")
-            startActivity(Intent(Intent.ACTION_VIEW, marketUri))
-        }
-        sta.setOnClickListener {
-            val marketUri: Uri = Uri.parse("market://details?id=com.jlindemann.papersplash")
-            startActivity(Intent(Intent.ACTION_VIEW, marketUri))
+    private fun issueListener() {
+        i_btn.setOnClickListener {
+            val title = i_title.text
+            val content = i_content.text
+            val uri = Uri.parse("mailto:jlindemann.dev@gmail.com?subject=#issue $title&body=$content")
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            startActivity(intent)
         }
     }
 }

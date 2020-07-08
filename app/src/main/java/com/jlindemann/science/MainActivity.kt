@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
+import android.graphics.Insets
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -12,12 +13,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
-import android.view.GestureDetector.SimpleOnGestureListener
-import android.view.animation.ScaleAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
-import android.widget.ScrollView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.activities.*
@@ -70,6 +70,10 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         if (themePrefValue == 1) {
             setTheme(R.style.AppThemeDark)
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+        }
+
         setContentView(R.layout.activity_main)
 
         val recyclerView = findViewById<RecyclerView>(R.id.element_recyclerview)
@@ -114,8 +118,9 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         more_btn.setOnClickListener { openHover() }
         hover_background.setOnClickListener { closeHover() }
         random_btn.setOnClickListener { getRandomItem() }
-
-        view_main.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            view_main.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        }
 
         sliding_layout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View?, slideOffset: Float) {
@@ -149,33 +154,35 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
-        params.height += top
-        common_title_back_main.layoutParams = params
 
-        val params2 = nav_bar_main.layoutParams as ViewGroup.LayoutParams
-        params2.height += bottom
-        nav_bar_main.layoutParams = params2
+            val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
+            params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            common_title_back_main.layoutParams = params
 
-        val params3 = more_btn.layoutParams as ViewGroup.MarginLayoutParams
-        params3.bottomMargin += bottom
-        more_btn.layoutParams = params3
+            val params2 = nav_bar_main.layoutParams as ViewGroup.LayoutParams
+            params2.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
+            nav_bar_main.layoutParams = params2
 
-        val params4 = common_title_back_search.layoutParams as ViewGroup.LayoutParams
-        params4.height += top
-        common_title_back_search.layoutParams = params4
+            val params3 = more_btn.layoutParams as ViewGroup.MarginLayoutParams
+            params3.bottomMargin = bottom + (resources.getDimensionPixelSize(R.dimen.nav_bar))/2
+            more_btn.layoutParams = params3
 
-        val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
-        params5.bottomMargin += bottom
-        hover_menu_include.layoutParams = params5
+            val params4 = common_title_back_search.layoutParams as ViewGroup.LayoutParams
+            params4.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            common_title_back_search.layoutParams = params4
 
-        val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
-        params6.topMargin += top
-        scrollView.layoutParams = params6
+            val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
+            params5.bottomMargin = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
+            hover_menu_include.layoutParams = params5
 
-        val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams
-        params7.height += bottom
-        sliding_layout.layoutParams = params7
+            val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
+            params6.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            scrollView.layoutParams = params6
+
+            val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams
+            params7.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_view)
+            sliding_layout.layoutParams = params7
+
     }
 
     private fun openHover() {
@@ -279,9 +286,16 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             nav_bar_main.visibility = View.GONE
 
             edit_element.requestFocus()
-            val imm: InputMethodManager =
-                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(edit_element, InputMethodManager.SHOW_IMPLICIT)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                view_main.doOnLayout {
+                    window.insetsController?.show(WindowInsets.Type.ime())
+                }
+            }
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.showSoftInput(edit_element, InputMethodManager.SHOW_IMPLICIT)
+            }
+
             Utils.fadeOutAnim(filter_box, 150)
             Utils.fadeOutAnim(background, 150)
         }
@@ -291,8 +305,15 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
 
             val view = this.currentFocus
             if (view != null) {
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                    view_main.doOnLayout {
+                        window.insetsController?.hide(WindowInsets.Type.ime())
+                    }
+                }
+                else {
+                    val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(view.windowToken, 0)
+                }
             }
         }
     }
@@ -325,7 +346,6 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             nav_menu_include.visibility = View.VISIBLE
             nav_background.visibility = View.VISIBLE
             Utils.fadeInAnim(nav_background, 200)
-            window.setStatusBarColor(getColor(R.color.background_status))
             sliding_layout.setPanelState(PanelState.EXPANDED)
         }
         nav_background.setOnClickListener {
@@ -543,6 +563,9 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
 
             val btn = findViewById<Button>(resIDB)
+            btn.foreground = ContextCompat.getDrawable(this, R.drawable.c_ripple);
+            btn.isClickable = true
+            btn.isFocusable = true
             btn.setOnClickListener {
                 val intent = Intent(this, ElementInfoActivity::class.java)
                 val ElementSend = ElementSendAndLoad(this)

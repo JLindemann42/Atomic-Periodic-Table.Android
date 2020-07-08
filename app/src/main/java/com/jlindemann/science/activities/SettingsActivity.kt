@@ -2,17 +2,16 @@ package com.jlindemann.science.activities
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.graphics.Insets
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.jlindemann.science.R
-import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.offlinePreference
 import com.jlindemann.science.settings.ExperimentalActivity
-import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.theme_panel.*
@@ -46,6 +45,10 @@ class SettingsActivity : BaseActivity() {
         cacheSettings()
         initOfflineSwitches()
 
+        offline_settings.setOnClickListener {
+            offline_internet_switch.toggle()
+        }
+
         view.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         info_btn_set.setOnClickListener {
@@ -56,15 +59,19 @@ class SettingsActivity : BaseActivity() {
         back_btn_set.setOnClickListener {
             this.onBackPressed()
         }
+        submit_settings.setOnClickListener {
+            val intent = Intent(this, SubmitActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
         val params = common_title_back_set.layoutParams as ViewGroup.LayoutParams
-        params.height += top
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         common_title_back_set.layoutParams = params
 
         val params2 = personalization_header.layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin += top
+        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         personalization_header.layoutParams = params2
     }
 

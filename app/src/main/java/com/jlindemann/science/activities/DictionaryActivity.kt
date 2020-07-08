@@ -3,6 +3,7 @@ package com.jlindemann.science.activities
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.Insets
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -20,10 +21,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.adapter.DictionaryAdapter
-import com.jlindemann.science.adapter.IsotopeAdapter
 import com.jlindemann.science.model.Dictionary
 import com.jlindemann.science.model.DictionaryModel
-import com.jlindemann.science.model.Element
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
 import kotlinx.android.synthetic.main.activity_dictionary.*
@@ -32,7 +31,6 @@ import kotlinx.android.synthetic.main.activity_dictionary.edit_iso
 import kotlinx.android.synthetic.main.activity_dictionary.search_bar_iso
 import kotlinx.android.synthetic.main.activity_dictionary.search_btn
 import kotlinx.android.synthetic.main.activity_dictionary.title_box
-import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -69,11 +67,11 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
         val params = rc_view.layoutParams as ViewGroup.MarginLayoutParams
-        params.topMargin += top
+        params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         rc_view.layoutParams = params
 
         val params2 = common_title_back_dic.layoutParams as ViewGroup.LayoutParams
-        params2.height += top
+        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         common_title_back_dic.layoutParams = params2
     }
 

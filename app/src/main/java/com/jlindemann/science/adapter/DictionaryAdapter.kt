@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.model.Dictionary
@@ -36,6 +37,10 @@ class DictionaryAdapter(var dictionaryList: ArrayList<Dictionary>, var clickList
             heading.text = item.heading
             text.text = item.text
             val url = item.wiki
+
+            wikiBtn.foreground = ContextCompat.getDrawable(con, R.drawable.c_ripple)
+            wikiBtn.isClickable = true
+            wikiBtn.isFocusable = true
 
             wikiBtn.setOnClickListener {
                 action.dictionaryClickListener(item, wikiBtn, url, adapterPosition)
