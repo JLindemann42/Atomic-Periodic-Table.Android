@@ -3,35 +3,23 @@ package com.jlindemann.science.activities
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.Insets
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsets
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.updatePadding
 import com.jlindemann.science.R
-import com.jlindemann.science.R2.id.bottom
-import com.jlindemann.science.extensions.getStatusBarHeight
 import com.jlindemann.science.preferences.*
-import com.jlindemann.science.utils.Pasteur
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_element_info.*
 import kotlinx.android.synthetic.main.activity_element_info.back_btn
 import kotlinx.android.synthetic.main.activity_element_info.element_title
-import kotlinx.android.synthetic.main.activity_favorite_settings_page.*
 import kotlinx.android.synthetic.main.atomic_view.*
 import kotlinx.android.synthetic.main.favorite_bar.*
 import kotlinx.android.synthetic.main.overview_view.*
@@ -45,7 +33,6 @@ import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
 import java.net.ConnectException
-import com.jlindemann.science.activities.BaseActivity.*
 import kotlinx.android.synthetic.main.loading_view.*
 
 class ElementInfoActivity : BaseActivity() {
@@ -101,11 +88,24 @@ class ElementInfoActivity : BaseActivity() {
             val intent = Intent(this, FavoritePageActivity::class.java)
             startActivity(intent)
         }
+        i_btn.setOnClickListener {
+            val intent = Intent(this, SubmitActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    override fun onBackPressed() {
+        if (shell_background.visibility == View.VISIBLE) {
+            hideAnim(shell)
+            Utils.fadeOutAnim(shell_background, 300)
+            return
+        }
+        else { super.onBackPressed() }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
         val params = frame.layoutParams as ViewGroup.MarginLayoutParams
-        params.topMargin += top
+        params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         frame.layoutParams = params
 
         val paramsO = offline_space.layoutParams as ViewGroup.MarginLayoutParams
@@ -113,7 +113,7 @@ class ElementInfoActivity : BaseActivity() {
         offline_space.layoutParams = paramsO
 
         val params2 = common_title_back.layoutParams as ViewGroup.LayoutParams
-        params2.height += top
+        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         common_title_back.layoutParams = params2
     }
 
@@ -224,7 +224,9 @@ class ElementInfoActivity : BaseActivity() {
             covalent_radius_text.text = covalentRadius
             van_der_waals_radius_text.text = vanDerWaalsRadius
 
+            //Shell View items
             config_data.text = elementShellElectrons
+            e_config_data.text = electronConfig
 
             if (phaseText.toString() == "Solid") {
                 phase_icon.setImageDrawable(getDrawable(R.drawable.solid))
@@ -390,12 +392,18 @@ class ElementInfoActivity : BaseActivity() {
     private fun onClickShell() {
         electron_view.setOnClickListener {
             anim(shell)
+            Utils.fadeInAnim(shell_background, 300)
         }
     }
 
     private fun onClickClose() {
         close_shell_btn.setOnClickListener {
             hideAnim(shell)
+            Utils.fadeOutAnim(shell_background, 300)
+        }
+        shell_background.setOnClickListener {
+            hideAnim(shell)
+            Utils.fadeOutAnim(shell_background, 300)
         }
     }
 

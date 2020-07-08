@@ -2,13 +2,15 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version">1.0.1 Build 21</string>
+    <string name="app_version">1.0.2 Build 24</string>
 
     <string name="other_settings">Advanced</string>
     <string name="experimental_title">Experimental Settings</string>
     <string name="experimental_text">Additional experimental settings</string>
     <string name="clear_cache_title">Clear Cache</string>
     <string name="clear_cache_text">cache_size</string>
+    <string name="submit_title">Report Issue</string>
+    <string name="submit_text">Report bugs and data errors</string>
 
     <string name="hydrogen">Hydrogen</string>
     <string name="helium">Helium</string>

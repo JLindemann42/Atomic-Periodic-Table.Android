@@ -13,8 +13,8 @@
         android:alpha="1"
         android:clickable="true"
         android:focusable="true"
-        app:realtimeBlurRadius="18dp"
-        app:realtimeOverlayColor="#40000000" />
+        app:realtimeBlurRadius="4dp"
+        app:realtimeOverlayColor="#A80B0B0B" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,6 +61,9 @@
             android:onClick="onClick"
             android:text="System Default"
             android:textAlignment="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/c_ripple"
             android:textColor="?attr/colorPrimary" />
 
         <Button
@@ -80,6 +83,9 @@
             android:hapticFeedbackEnabled="true"
             android:onClick="onClick"
             android:text="Light"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/c_ripple"
             android:textAlignment="center"
             android:textColor="?attr/colorPrimary" />
 
@@ -101,6 +107,9 @@
             android:hapticFeedbackEnabled="true"
             android:onClick="onClick"
             android:text="Dark"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="@drawable/c_ripple"
             android:textAlignment="center"
             android:textColor="?attr/colorPrimary" />
 

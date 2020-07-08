@@ -1,30 +1,16 @@
 package com.jlindemann.science.activities
 
-import android.content.res.ColorStateList
 import android.content.res.Configuration
-import android.location.Location
+import android.graphics.Insets
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.toColor
-import butterknife.OnClick
-import com.google.gson.Gson
-import com.google.gson.annotations.JsonAdapter
 import com.jlindemann.science.R
-import com.jlindemann.science.R2.id.view
 import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.Utils
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_favorite_settings_page.*
-import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_settings.theme_panel
-import kotlinx.android.synthetic.main.favorite_bar.*
-import kotlinx.android.synthetic.main.theme_panel.*
 
 class FavoritePageActivity : BaseActivity() {
 
@@ -161,11 +147,11 @@ class FavoritePageActivity : BaseActivity() {
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
         val params = common_title_back_fav.layoutParams as ViewGroup.LayoutParams
-        params.height += top
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         common_title_back_fav.layoutParams = params
 
         val params2 = general_header.layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin += top
+        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         general_header.layoutParams = params2
     }
 

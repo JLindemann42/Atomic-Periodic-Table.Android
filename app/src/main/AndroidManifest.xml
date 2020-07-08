@@ -10,11 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_blue_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:resizeableActivity="false"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme"
-            android:resizeableActivity="false"
+            android:windowSoftInputMode="adjustNothing"
             android:label="MAINACTIVITY"
             />
 
@@ -28,56 +27,52 @@
         <activity
             android:name=".activities.ElementInfoActivity"
             android:theme="@style/AppTheme"
-            android:resizeableActivity="false"
             android:label="ELEMENTINFOACTIVITY" />
 
         <activity
             android:name=".activities.SettingsActivity"
-            android:resizeableActivity="false"
             android:theme="@style/AppTheme"
             android:label="SETTINGS" />
 
         <activity
             android:name=".activities.FavoritePageActivity"
-            android:resizeableActivity="false"
             android:theme="@style/AppTheme"
             android:label="FAVORITEPAGE" />
 
         <activity
             android:name=".settings.ExperimentalActivity"
-            android:resizeableActivity="false"
             android:theme="@style/AppTheme"
             android:label="EXPERIMENTAL_PAGE" />
 
         <activity
             android:name=".activities.SolubilityActivity"
-            android:resizeableActivity="false"
             android:label="SOLUBILITYPAGE" />
 
         <activity
             android:name=".activities.CalculatorActivity"
-            android:resizeableActivity="false"
             android:theme="@style/AppTheme"
             android:label="CALCULATORPAGE" />
 
         <activity
             android:name=".activities.DictionaryActivity"
-            android:resizeableActivity="false"
             android:theme="@style/AppTheme"
             android:label="DICTIONARYPAGE" />
 
         <activity
             android:name=".activities.IsotopesActivityExperimental"
-            android:resizeableActivity="false"
             android:theme="@style/AppTheme"
             android:label="ISOTPOESPAGEEXP" />
 
         <activity
             android:name=".activities.AboutActivity"
-            android:resizeableActivity="false"
             android:theme="@style/AppTheme"
             android:label="ABOUTPAGE" />
 
+        <activity
+            android:name=".activities.SubmitActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing"
+            android:label="SUBMITPAGE" />
 
     </application>
 

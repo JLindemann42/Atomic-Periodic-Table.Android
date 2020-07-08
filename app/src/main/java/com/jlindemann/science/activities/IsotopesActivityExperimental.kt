@@ -2,6 +2,7 @@ package com.jlindemann.science.activities
 
 import android.content.Context
 import android.content.res.Configuration
+import android.graphics.Insets
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -33,7 +34,7 @@ import kotlin.collections.ArrayList
 
 class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementClickListener {
     private var elementList = ArrayList<Element>()
-    var mAdapter = IsotopeAdapter(elementList, this)
+    var mAdapter = IsotopeAdapter(elementList, this, this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +59,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         val elements = ArrayList<Element>()
         ElementModel.getList(elements)
 
-        val adapter = IsotopeAdapter(elements, this)
+        val adapter = IsotopeAdapter(elements, this, this)
         recyclerView.adapter = adapter
 
         edit_iso.addTextChangedListener(object : TextWatcher {
@@ -146,16 +147,16 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         }
         mAdapter.filterList(filteredList)
         mAdapter.notifyDataSetChanged()
-        recyclerView.adapter = IsotopeAdapter(filteredList, this)
+        recyclerView.adapter = IsotopeAdapter(filteredList, this, this)
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
         val params = r_view.layoutParams as ViewGroup.MarginLayoutParams
-        params.topMargin += top
+        params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         r_view.layoutParams = params
 
         val params2 = common_title_back_iso.layoutParams as ViewGroup.LayoutParams
-        params2.height += top
+        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         common_title_back_iso.layoutParams = params2
     }
 
