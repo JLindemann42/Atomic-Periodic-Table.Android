@@ -44,7 +44,7 @@
                         android:clickable="true"
                         android:elevation="0dp"
                         android:focusable="true"
-                        android:src="@drawable/ic_arrow"
+                        android:src="@drawable/ic_sort"
                         app:backgroundTint="@color/transparent"
                         app:borderWidth="0dp"
                         app:elevation="0dp"
@@ -134,10 +134,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginTop="71dp"
+        android:layout_marginTop="64dp"
         android:layout_marginEnd="9dp"
         android:clickable="true"
-        android:elevation="4dp"
+        android:elevation="8dp"
         android:focusable="true" />
 
 </FrameLayout>

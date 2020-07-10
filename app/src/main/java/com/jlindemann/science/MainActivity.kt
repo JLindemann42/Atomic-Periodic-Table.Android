@@ -36,6 +36,10 @@ import kotlinx.android.synthetic.main.filter_view.*
 import kotlinx.android.synthetic.main.hover_menu.*
 import kotlinx.android.synthetic.main.nav_menu_view.*
 import kotlinx.android.synthetic.main.search_layout.*
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.IOException
+import java.io.InputStream
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -112,6 +116,7 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         sliding_layout.setPanelState(PanelState.COLLAPSED)
         searchFilter(elements, recyclerView)
         electroView(elements)
+        weightView(elements)
         nameView(elements)
         mediaListeners()
 
@@ -154,7 +159,36 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
+            params.height += top
+            common_title_back_main.layoutParams = params
 
+            val params2 = nav_bar_main.layoutParams as ViewGroup.LayoutParams
+            params2.height += bottom
+            nav_bar_main.layoutParams = params2
+
+            val params3 = more_btn.layoutParams as ViewGroup.MarginLayoutParams
+            params3.bottomMargin += bottom
+            more_btn.layoutParams = params3
+
+            val params4 = common_title_back_search.layoutParams as ViewGroup.LayoutParams
+            params4.height += top
+            common_title_back_search.layoutParams = params4
+
+            val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
+            params5.bottomMargin += bottom
+            hover_menu_include.layoutParams = params5
+
+            val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
+            params6.topMargin += top
+            scrollView.layoutParams = params6
+
+            val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams
+            params7.height += bottom
+            sliding_layout.layoutParams = params7
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_main.layoutParams = params
@@ -182,7 +216,7 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams
             params7.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_view)
             sliding_layout.layoutParams = params7
-
+        }
     }
 
     private fun openHover() {
@@ -207,7 +241,7 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             Utils.fadeOutAnim(filter_box, 150)
             Utils.fadeOutAnim(background, 150)
         }
-        elmt_numb_btn.setOnClickListener {
+        elmt_numb_btn2.setOnClickListener {
             val searchPreference = SearchPreferences(this)
             searchPreference.setValue(0)
 
@@ -215,6 +249,8 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             for (item in list) {
                 filtList.add(item)
             }
+            Utils.fadeOutAnim(filter_box, 150)
+            Utils.fadeOutAnim(background, 150)
             mAdapter.filterList(filtList)
             mAdapter.notifyDataSetChanged()
             recyclerView.adapter = ElementAdapter(filtList, this, this)
@@ -227,6 +263,25 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             for (item in list) {
                 filtList.add(item)
             }
+            Utils.fadeOutAnim(filter_box, 150)
+            Utils.fadeOutAnim(background, 150)
+            mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = ElementAdapter(filtList, this, this)
+        }
+        alphabet_btn.setOnClickListener {
+            val searchPreference = SearchPreferences(this)
+            searchPreference.setValue(2)
+
+            val filtList: ArrayList<Element> = ArrayList()
+            for (item in list) {
+                filtList.add(item)
+            }
+            Utils.fadeOutAnim(filter_box, 150)
+            Utils.fadeOutAnim(background, 150)
+            filtList.sortWith(Comparator { lhs, rhs ->
+                if (lhs.element < rhs.element) -1 else if (lhs.element < rhs.element) 1 else 0
+            })
             mAdapter.filterList(filtList)
             mAdapter.notifyDataSetChanged()
             recyclerView.adapter = ElementAdapter(filtList, this, this)
@@ -240,6 +295,13 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
                 filteredList.add(item)
                 Log.v("SSDD2", filteredList.toString())
             }
+        }
+        val searchPreference = SearchPreferences(this)
+        val searchPrefValue = searchPreference.getValue()
+        if (searchPrefValue == 2) {
+            filteredList.sortWith(Comparator { lhs, rhs ->
+                if (lhs.element < rhs.element) -1 else if (lhs.element < rhs.element) 1 else 0
+            })
         }
         mAdapter.filterList(filteredList)
         mAdapter.notifyDataSetChanged()
@@ -388,6 +450,19 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         }
     }
 
+    private fun weightView(list: ArrayList<Element>) {
+        weight_btn.setOnClickListener {
+            closeHover()
+            initWeight(list)
+
+            Utils.fadeOutAnim(weight_btn_frame, 150)
+            val delay = Handler()
+            delay.postDelayed({
+                Utils.fadeInAnim(weight_btn_frame_hide, 150)
+            }, 151)
+        }
+    }
+
     private fun nameView(list: ArrayList<Element>) {
         electron_btn_hide.setOnClickListener {
             closeHover()
@@ -397,6 +472,16 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             val delay = Handler()
             delay.postDelayed({
                 Utils.fadeInAnim(electron_btn_frame, 150)
+            }, 151)
+        }
+        weight_btn_hide.setOnClickListener {
+            closeHover()
+            initName(list)
+
+            Utils.fadeOutAnim(weight_btn_frame_hide, 150)
+            val delay = Handler()
+            delay.postDelayed({
+                Utils.fadeInAnim(weight_btn_frame, 150)
             }, 151)
         }
     }
@@ -553,6 +638,32 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
                 Utils.fadeInAnim(detail_btn_frame, 150)
             }, 151)
         }
+    }
+
+    private fun initWeight(list: ArrayList<Element>) {
+            for (item in list) {
+                val namee = item.element
+                val extText = "_text"
+                val eView = "$namee$extText"
+                val resIDB = resources.getIdentifier(eView, "id", packageName)
+
+                val iText = findViewById<TextView>(resIDB)
+
+                var jsonstring : String? = null
+                try {
+                    val ext = ".json"
+                    val ElementJson: String? = "$namee$ext"
+                    val inputStream: InputStream = assets.open(ElementJson.toString())
+                    jsonstring = inputStream.bufferedReader().use { it.readText() }
+
+                    val jsonArray = JSONArray(jsonstring)
+                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+
+                    val elementAtomicWeight = jsonObject.optString("element_atomicmass", "---")
+                    iText.text = elementAtomicWeight
+                }
+                catch(e: IOException) { }
+            }
     }
 
     private fun setOnCLickListenerSetups(list: ArrayList<Element>) {

@@ -23,7 +23,6 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
 
         window.statusBarColor = Color.TRANSPARENT
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
     }
 
     override fun onStart() {
@@ -40,15 +39,8 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
     open fun onApplySystemInsets(top: Int, bottom: Int) = Unit
 
     override fun onApplyWindowInsets(v: View, insets: WindowInsets): WindowInsets {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            Pasteur.info(TAG, "height: ${insets.systemWindowInsetBottom}")
-            onApplySystemInsets((insets.systemWindowInsetTop), (insets.systemWindowInsetBottom))
-            return insets.consumeSystemWindowInsets()
-        }
-        else {
-            Pasteur.info(TAG, "height: ${insets.systemWindowInsetBottom}")
-            onApplySystemInsets((insets.systemWindowInsetTop), (insets.systemWindowInsetBottom))
-            return insets.consumeSystemWindowInsets()
-        }
+        Pasteur.info(TAG, "height: ${insets.systemWindowInsetBottom}")
+        onApplySystemInsets(insets.systemWindowInsetTop, insets.systemWindowInsetBottom)
+        return insets.consumeSystemWindowInsets()
     }
 }

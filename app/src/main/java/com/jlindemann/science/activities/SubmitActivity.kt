@@ -4,14 +4,17 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Insets
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.updatePadding
 import com.jlindemann.science.R
 import com.jlindemann.science.preferences.ThemePreference
+import kotlinx.android.synthetic.main.activity_solubility.*
 import kotlinx.android.synthetic.main.activity_solubility.back_btn
 import kotlinx.android.synthetic.main.activity_submit.*
+import kotlinx.android.synthetic.main.activity_submit.view_sub
 
 
 class SubmitActivity : BaseActivity() {
@@ -41,13 +44,24 @@ class SubmitActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        val params = common_title_back_sub.layoutParams as ViewGroup.LayoutParams
-        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back_sub.layoutParams = params
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val params = common_title_back_sub.layoutParams as ViewGroup.LayoutParams
+            params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            common_title_back_sub.layoutParams = params
 
-        val params2 = i_box.layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + 36
-        i_box.layoutParams = params2
+            val params2 = i_box.layoutParams as ViewGroup.MarginLayoutParams
+            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + 36
+            i_box.layoutParams = params2
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            val params = common_title_back_sub.layoutParams as ViewGroup.LayoutParams
+            params.height += top
+            common_title_back_sub.layoutParams = params
+
+            val params2 = i_box.layoutParams as ViewGroup.MarginLayoutParams
+            params2.topMargin += top
+            i_box.layoutParams = params2
+        }
     }
 
     private fun issueListener() {

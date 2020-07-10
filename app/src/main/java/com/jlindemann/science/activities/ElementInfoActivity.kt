@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Insets
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
@@ -17,6 +18,7 @@ import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.activity_dictionary.*
 import kotlinx.android.synthetic.main.activity_element_info.*
 import kotlinx.android.synthetic.main.activity_element_info.back_btn
 import kotlinx.android.synthetic.main.activity_element_info.element_title
@@ -104,17 +106,32 @@ class ElementInfoActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        val params = frame.layoutParams as ViewGroup.MarginLayoutParams
-        params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        frame.layoutParams = params
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val params = frame.layoutParams as ViewGroup.MarginLayoutParams
+            params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            frame.layoutParams = params
 
-        val paramsO = offline_space.layoutParams as ViewGroup.MarginLayoutParams
-        paramsO.topMargin += top
-        offline_space.layoutParams = paramsO
+            val paramsO = offline_space.layoutParams as ViewGroup.MarginLayoutParams
+            paramsO.topMargin += top
+            offline_space.layoutParams = paramsO
 
-        val params2 = common_title_back.layoutParams as ViewGroup.LayoutParams
-        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back.layoutParams = params2
+            val params2 = common_title_back.layoutParams as ViewGroup.LayoutParams
+            params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            common_title_back.layoutParams = params2
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            val params = frame.layoutParams as ViewGroup.MarginLayoutParams
+            params.topMargin += top
+            frame.layoutParams = params
+
+            val paramsO = offline_space.layoutParams as ViewGroup.MarginLayoutParams
+            paramsO.topMargin += top
+            offline_space.layoutParams = paramsO
+
+            val params2 = common_title_back.layoutParams as ViewGroup.LayoutParams
+            params2.height += top
+            common_title_back.layoutParams = params2
+        }
     }
 
     private fun offlineCheck() {

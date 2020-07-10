@@ -68,6 +68,9 @@ class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
                     }
                 }
             }
+            if (searchPrefValue == 2) {
+                textViewNumb.text = item.number.toString()
+            }
 
 
             itemView.setOnClickListener {

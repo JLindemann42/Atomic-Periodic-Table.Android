@@ -2,6 +2,7 @@ package com.jlindemann.science.activities
 
 import android.content.res.Configuration
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -52,13 +53,24 @@ class SolubilityActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        val paramsO = boxm.layoutParams as ViewGroup.MarginLayoutParams
-        paramsO.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        boxm.layoutParams = paramsO
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val paramsO = boxm.layoutParams as ViewGroup.MarginLayoutParams
+            paramsO.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            boxm.layoutParams = paramsO
 
-        val params2 = common_title_back_sul.layoutParams as ViewGroup.LayoutParams
-        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back_sul.layoutParams = params2
+            val params2 = common_title_back_sul.layoutParams as ViewGroup.LayoutParams
+            params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            common_title_back_sul.layoutParams = params2
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            val paramsO = boxm.layoutParams as ViewGroup.MarginLayoutParams
+            paramsO.topMargin += top
+            boxm.layoutParams = paramsO
+
+            val params2 = common_title_back_sul.layoutParams as ViewGroup.LayoutParams
+            params2.height += top
+            common_title_back_sul.layoutParams = params2
+        }
     }
 
 
