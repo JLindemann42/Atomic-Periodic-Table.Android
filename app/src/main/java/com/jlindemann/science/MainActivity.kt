@@ -48,10 +48,6 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
     private var elementList = ArrayList<Element>()
     var mAdapter = ElementAdapter(elementList, this, this)
 
-    var mScale = 1f
-    lateinit var mScaleDetector: ScaleGestureDetector
-    lateinit var gestureDetector: GestureDetector
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Utils.gestureSetup(window)
@@ -109,15 +105,12 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
 
         setOnCLickListenerSetups(elements)
         setupNavListeners()
-        detailViewDisabled(elements)
-        detailViewEnabled(elements)
+        setupHover(elements)
         onClickNav()
         searchListener()
         sliding_layout.setPanelState(PanelState.COLLAPSED)
         searchFilter(elements, recyclerView)
-        electroView(elements)
-        weightView(elements)
-        nameView(elements)
+
         mediaListeners()
 
         more_btn.setOnClickListener { openHover() }
@@ -145,6 +138,13 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         })
     }
 
+    private fun setupHover(elements: ArrayList<Element>) {
+        detailViewDisabled(elements)
+        detailViewEnabled(elements)
+        electroView(elements)
+        weightView(elements)
+        nameView(elements)
+    }
 
     private fun getRandomItem() {
         val elements = ArrayList<Element>()
@@ -158,67 +158,6 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         startActivity(intent)
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
-            params.height += top
-            common_title_back_main.layoutParams = params
-
-            val params2 = nav_bar_main.layoutParams as ViewGroup.LayoutParams
-            params2.height += bottom
-            nav_bar_main.layoutParams = params2
-
-            val params3 = more_btn.layoutParams as ViewGroup.MarginLayoutParams
-            params3.bottomMargin += bottom
-            more_btn.layoutParams = params3
-
-            val params4 = common_title_back_search.layoutParams as ViewGroup.LayoutParams
-            params4.height += top
-            common_title_back_search.layoutParams = params4
-
-            val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
-            params5.bottomMargin += bottom
-            hover_menu_include.layoutParams = params5
-
-            val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
-            params6.topMargin += top
-            scrollView.layoutParams = params6
-
-            val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams
-            params7.height += bottom
-            sliding_layout.layoutParams = params7
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
-            params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            common_title_back_main.layoutParams = params
-
-            val params2 = nav_bar_main.layoutParams as ViewGroup.LayoutParams
-            params2.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
-            nav_bar_main.layoutParams = params2
-
-            val params3 = more_btn.layoutParams as ViewGroup.MarginLayoutParams
-            params3.bottomMargin = bottom + (resources.getDimensionPixelSize(R.dimen.nav_bar))/2
-            more_btn.layoutParams = params3
-
-            val params4 = common_title_back_search.layoutParams as ViewGroup.LayoutParams
-            params4.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            common_title_back_search.layoutParams = params4
-
-            val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
-            params5.bottomMargin = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
-            hover_menu_include.layoutParams = params5
-
-            val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
-            params6.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            scrollView.layoutParams = params6
-
-            val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams
-            params7.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_view)
-            sliding_layout.layoutParams = params7
-        }
-    }
-
     private fun openHover() {
         Utils.fadeInAnim(hover_background, 150)
         Utils.fadeInAnim(hover_menu_include, 150)
@@ -227,65 +166,6 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
     private fun closeHover() {
         Utils.fadeOutAnim(hover_background, 150)
         Utils.fadeOutAnim(hover_menu_include, 150)
-    }
-
-    private fun searchFilter(list: ArrayList<Element>, recyclerView: RecyclerView) {
-        filter_box.visibility = View.GONE
-        background.visibility = View.GONE
-
-        filter_btn.setOnClickListener {
-            Utils.fadeInAnim(filter_box, 150)
-            Utils.fadeInAnim(background, 150)
-        }
-        background.setOnClickListener {
-            Utils.fadeOutAnim(filter_box, 150)
-            Utils.fadeOutAnim(background, 150)
-        }
-        elmt_numb_btn2.setOnClickListener {
-            val searchPreference = SearchPreferences(this)
-            searchPreference.setValue(0)
-
-            val filtList: ArrayList<Element> = ArrayList()
-            for (item in list) {
-                filtList.add(item)
-            }
-            Utils.fadeOutAnim(filter_box, 150)
-            Utils.fadeOutAnim(background, 150)
-            mAdapter.filterList(filtList)
-            mAdapter.notifyDataSetChanged()
-            recyclerView.adapter = ElementAdapter(filtList, this, this)
-        }
-        electro_btn.setOnClickListener {
-            val searchPreference = SearchPreferences(this)
-            searchPreference.setValue(1)
-
-            val filtList: ArrayList<Element> = ArrayList()
-            for (item in list) {
-                filtList.add(item)
-            }
-            Utils.fadeOutAnim(filter_box, 150)
-            Utils.fadeOutAnim(background, 150)
-            mAdapter.filterList(filtList)
-            mAdapter.notifyDataSetChanged()
-            recyclerView.adapter = ElementAdapter(filtList, this, this)
-        }
-        alphabet_btn.setOnClickListener {
-            val searchPreference = SearchPreferences(this)
-            searchPreference.setValue(2)
-
-            val filtList: ArrayList<Element> = ArrayList()
-            for (item in list) {
-                filtList.add(item)
-            }
-            Utils.fadeOutAnim(filter_box, 150)
-            Utils.fadeOutAnim(background, 150)
-            filtList.sortWith(Comparator { lhs, rhs ->
-                if (lhs.element < rhs.element) -1 else if (lhs.element < rhs.element) 1 else 0
-            })
-            mAdapter.filterList(filtList)
-            mAdapter.notifyDataSetChanged()
-            recyclerView.adapter = ElementAdapter(filtList, this, this)
-        }
     }
 
     private fun filter(text: String, list: ArrayList<Element>, recyclerView: RecyclerView) {
@@ -417,7 +297,7 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             Utils.fadeOutAnim(nav_background, 100)
         }
         solubility_btn.setOnClickListener {
-            val intent = Intent(this, SolubilityActivity::class.java)
+            val intent = Intent(this, TableActivity::class.java)
             startActivity(intent)
         }
         isotopes_btn.setOnClickListener {
@@ -683,6 +563,125 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
                 ElementSend.setValue(item.element)
                 startActivity(intent)
             }
+        }
+    }
+    private fun searchFilter(list: ArrayList<Element>, recyclerView: RecyclerView) {
+        filter_box.visibility = View.GONE
+        background.visibility = View.GONE
+
+        filter_btn.setOnClickListener {
+            Utils.fadeInAnim(filter_box, 150)
+            Utils.fadeInAnim(background, 150)
+        }
+        background.setOnClickListener {
+            Utils.fadeOutAnim(filter_box, 150)
+            Utils.fadeOutAnim(background, 150)
+        }
+        elmt_numb_btn2.setOnClickListener {
+            val searchPreference = SearchPreferences(this)
+            searchPreference.setValue(0)
+
+            val filtList: ArrayList<Element> = ArrayList()
+            for (item in list) {
+                filtList.add(item)
+            }
+            Utils.fadeOutAnim(filter_box, 150)
+            Utils.fadeOutAnim(background, 150)
+            mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = ElementAdapter(filtList, this, this)
+        }
+        electro_btn.setOnClickListener {
+            val searchPreference = SearchPreferences(this)
+            searchPreference.setValue(1)
+
+            val filtList: ArrayList<Element> = ArrayList()
+            for (item in list) {
+                filtList.add(item)
+            }
+            Utils.fadeOutAnim(filter_box, 150)
+            Utils.fadeOutAnim(background, 150)
+            mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = ElementAdapter(filtList, this, this)
+        }
+        alphabet_btn.setOnClickListener {
+            val searchPreference = SearchPreferences(this)
+            searchPreference.setValue(2)
+
+            val filtList: ArrayList<Element> = ArrayList()
+            for (item in list) {
+                filtList.add(item)
+            }
+            Utils.fadeOutAnim(filter_box, 150)
+            Utils.fadeOutAnim(background, 150)
+            filtList.sortWith(Comparator { lhs, rhs ->
+                if (lhs.element < rhs.element) -1 else if (lhs.element < rhs.element) 1 else 0
+            })
+            mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = ElementAdapter(filtList, this, this)
+        }
+    }
+
+    override fun onApplySystemInsets(top: Int, bottom: Int) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
+            params.height += top
+            common_title_back_main.layoutParams = params
+
+            val params2 = nav_bar_main.layoutParams as ViewGroup.LayoutParams
+            params2.height += bottom
+            nav_bar_main.layoutParams = params2
+
+            val params3 = more_btn.layoutParams as ViewGroup.MarginLayoutParams
+            params3.bottomMargin += bottom
+            more_btn.layoutParams = params3
+
+            val params4 = common_title_back_search.layoutParams as ViewGroup.LayoutParams
+            params4.height += top
+            common_title_back_search.layoutParams = params4
+
+            val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
+            params5.bottomMargin += bottom
+            hover_menu_include.layoutParams = params5
+
+            val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
+            params6.topMargin += top
+            scrollView.layoutParams = params6
+
+            val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams
+            params7.height += bottom
+            sliding_layout.layoutParams = params7
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
+            params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            common_title_back_main.layoutParams = params
+
+            val params2 = nav_bar_main.layoutParams as ViewGroup.LayoutParams
+            params2.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
+            nav_bar_main.layoutParams = params2
+
+            val params3 = more_btn.layoutParams as ViewGroup.MarginLayoutParams
+            params3.bottomMargin = bottom + (resources.getDimensionPixelSize(R.dimen.nav_bar))/2
+            more_btn.layoutParams = params3
+
+            val params4 = common_title_back_search.layoutParams as ViewGroup.LayoutParams
+            params4.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            common_title_back_search.layoutParams = params4
+
+            val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
+            params5.bottomMargin = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
+            hover_menu_include.layoutParams = params5
+
+            val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
+            params6.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            scrollView.layoutParams = params6
+
+            val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams
+            params7.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_view)
+            sliding_layout.layoutParams = params7
         }
     }
 }

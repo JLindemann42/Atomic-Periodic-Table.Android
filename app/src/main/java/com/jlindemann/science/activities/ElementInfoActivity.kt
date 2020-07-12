@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import com.jlindemann.science.R
+import com.jlindemann.science.model.Element
+import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
@@ -22,14 +24,13 @@ import kotlinx.android.synthetic.main.activity_dictionary.*
 import kotlinx.android.synthetic.main.activity_element_info.*
 import kotlinx.android.synthetic.main.activity_element_info.back_btn
 import kotlinx.android.synthetic.main.activity_element_info.element_title
-import kotlinx.android.synthetic.main.atomic_view.*
+import kotlinx.android.synthetic.main.d_atomic.*
+import kotlinx.android.synthetic.main.d_overview.*
+import kotlinx.android.synthetic.main.d_properties.*
+import kotlinx.android.synthetic.main.d_temperatures.*
+import kotlinx.android.synthetic.main.d_thermodynamic.*
 import kotlinx.android.synthetic.main.favorite_bar.*
-import kotlinx.android.synthetic.main.overview_view.*
-import kotlinx.android.synthetic.main.overview_view.element_name
-import kotlinx.android.synthetic.main.otherphysics.*
-import kotlinx.android.synthetic.main.properties_view.*
 import kotlinx.android.synthetic.main.shell_view.*
-import kotlinx.android.synthetic.main.temperature_view.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -201,6 +202,7 @@ class ElementInfoActivity : BaseActivity() {
             val electronConfig = jsonObject.optString("element_electron_config", "---")
             val ionCharge = jsonObject.optString("element_ion_charge", "---")
             val ionizationEnergies = jsonObject.optString("element_ionization_energy", "---")
+            val atomicRadiusE = jsonObject.optString("element_atomic_radius_e", "---")
             val atomicRadius = jsonObject.optString("element_atomic_radius", "---")
             val covalentRadius = jsonObject.optString("element_covalent_radius", "---")
             val vanDerWaalsRadius = jsonObject.optString("element_van_der_waals", "---")
@@ -238,6 +240,7 @@ class ElementInfoActivity : BaseActivity() {
             ion_charge_text.text = ionCharge
             ionization_energies_text.text = ionizationEnergies
             atomic_radius_text.text = atomicRadius
+            atomic_radius_e_text.text = atomicRadiusE
             covalent_radius_text.text = covalentRadius
             van_der_waals_radius_text.text = vanDerWaalsRadius
 

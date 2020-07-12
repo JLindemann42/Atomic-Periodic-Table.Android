@@ -1,9 +1,9 @@
 [
   {
-    "wikilink": "https://en.wikipedia.org/wiki/Seaborgium",
+    "wikilink": "https://en.wikipedia.org/wiki/Bohrium",
     "link": "empty",
 
-    "element": "Seaborgium",
+    "element": "Bohrium",
     "element_year": "---",
     "element_discovered_name": "---",
     "element_group": "Transition Metals",
@@ -30,6 +30,7 @@
     "element_electron_config": "5f^14, 6d^5. 7s^2",
     "element_ion_charge": "---",
     "element_ionization_energy": "---",
+    "element_atomic_radius_e": "--- (pm)",
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",
     "element_van_der_waals": "--- (pm)",

@@ -69,6 +69,11 @@
             android:label="ABOUTPAGE" />
 
         <activity
+            android:name=".activities.TableActivity"
+            android:theme="@style/AppTheme"
+            android:label="TABLEPAGE" />
+
+        <activity
             android:name=".activities.SubmitActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing"
