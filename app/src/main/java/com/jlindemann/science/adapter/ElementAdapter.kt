@@ -72,7 +72,6 @@ class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
                 textViewNumb.text = item.number.toString()
             }
 
-
             itemView.setOnClickListener {
                 action.elementClickListener2(item, adapterPosition)
             }

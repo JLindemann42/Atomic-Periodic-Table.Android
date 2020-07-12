@@ -71,6 +71,10 @@ class TableActivity : BaseActivity() {
             val intent = Intent(this, SolubilityActivity::class.java)
             startActivity(intent)
         }
+        ele_table.setOnClickListener {
+            val intent = Intent(this, ElectrodeActivity::class.java)
+            startActivity(intent)
+        }
     }
 
 }

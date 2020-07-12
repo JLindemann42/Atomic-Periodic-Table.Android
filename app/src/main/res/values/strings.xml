@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version">1.1 Build 26</string>
+    <string name="app_version">1.1 Build 27</string>
 
     <string name="other_settings">Advanced</string>
     <string name="experimental_title">Experimental Settings</string>
@@ -41,5 +41,11 @@
     <string name="instagram">https://www.instagram.com/jlindemanndev</string>
     <string name="facebook">https://www.facebook.com/jlindemanndev</string>
     <string name="homepage">https://www.jlindemann.se/homepage</string>
+
+    <string name="solubility_info_t">Solubility Help</string>
+    <string name="solubility_info_c">"S: Soluble\nSs: Slightly Soluble\nI: Insoluble"</string>
+
+    <string name="electrochemical_series">Electrochemical Series</string>
+    <string name="electrochemical_series_search">Search for Element</string>
 
 </resources>

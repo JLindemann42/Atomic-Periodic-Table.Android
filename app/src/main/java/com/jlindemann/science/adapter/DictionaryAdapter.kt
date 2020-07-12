@@ -9,10 +9,11 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.DictionaryActivity
+import com.jlindemann.science.activities.ElectrodeActivity
 import com.jlindemann.science.model.Dictionary
-import com.jlindemann.science.model.Element
 
-class DictionaryAdapter(var dictionaryList: ArrayList<Dictionary>, var clickListener: OnDictionaryClickListener, val con: Context) : RecyclerView.Adapter<DictionaryAdapter.ViewHolder>() {
+class DictionaryAdapter(var dictionaryList: ArrayList<Dictionary>, var clickListener: DictionaryActivity, val con: Context) : RecyclerView.Adapter<DictionaryAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.initialize(dictionaryList[position], clickListener, con)

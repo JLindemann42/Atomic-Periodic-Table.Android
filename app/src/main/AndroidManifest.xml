@@ -74,6 +74,11 @@
             android:label="TABLEPAGE" />
 
         <activity
+            android:name=".activities.ElectrodeActivity"
+            android:theme="@style/AppTheme"
+            android:label="ELECTRODEPAGE" />
+
+        <activity
             android:name=".activities.SubmitActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing"

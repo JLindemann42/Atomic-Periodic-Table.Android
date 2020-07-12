@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/colorPrimaryDark"
-    android:elevation="8dp"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/view_ele"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent">
 
         <FrameLayout
-            android:id="@+id/common_title_back_search"
+            android:id="@+id/common_title_back_elo"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:alpha="0.975"
@@ -35,38 +36,77 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp">
 
+                    <ImageButton
+                        android:id="@+id/back_btn"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="18dp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_arrow_back_whit" />
+
+                    <ImageButton
+                        android:id="@+id/search_btn"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="18dp"
+                        android:src="@drawable/ic_search" />
+
+                    <TextView
+                        android:id="@+id/element_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/electrochemical_series"
+                        android:textAlignment="center"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/search_bar_ele"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:visibility="gone">
+
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/filter_btn"
+                        android:id="@+id/close_ele_search"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_marginEnd="9dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="9dp"
+                        android:layout_weight="1"
                         android:clickable="true"
                         android:elevation="0dp"
                         android:focusable="true"
-                        android:src="@drawable/ic_sort"
-                        app:backgroundTint="@color/transparent"
+                        android:src="@drawable/ic_close"
+                        android:tint="?attr/actionMenuTextColor"
+                        app:backgroundTint="?attr/colorPrimary"
                         app:borderWidth="0dp"
                         app:elevation="0dp"
                         app:fabCustomSize="36dp"
                         app:fabSize="auto" />
 
                     <FrameLayout
-                        android:id="@+id/search_bar_element"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="54dp"
                         android:layout_marginTop="18dp"
-                        android:layout_marginEnd="54dp"
+                        android:layout_marginEnd="18dp"
                         android:layout_marginBottom="18dp"
                         android:background="@drawable/toast"
                         android:backgroundTint="?attr/colorPrimaryDark"
-                        android:elevation="0dp"
-                        android:visibility="visible">
-
+                        android:elevation="0dp">
 
                         <EditText
-                            android:id="@+id/edit_element"
+                            android:id="@+id/edit_ele"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginStart="18dp"
@@ -75,7 +115,7 @@
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:fontFamily="@font/manroperegular"
-                            android:hint="Search For Elements"
+                            android:hint="@string/electrochemical_series_search"
                             android:imeOptions="actionSearch"
                             android:inputType="text"
                             android:maxLines="1"
@@ -83,61 +123,26 @@
                             android:textColor="?attr/actionMenuTextColor"
                             android:textColorHint="?attr/actionMenuTextColor"
                             android:textSize="14sp" />
-
                     </FrameLayout>
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/close_element_search"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="9dp"
-                        android:clickable="true"
-                        android:elevation="0dp"
-                        android:focusable="true"
-                        android:src="@drawable/ic_close"
-                        app:backgroundTint="@color/transparent"
-                        app:borderWidth="0dp"
-                        app:elevation="0dp"
-                        app:fabCustomSize="36dp"
-                        app:fabSize="auto" />
-
                 </FrameLayout>
-
             </LinearLayout>
         </FrameLayout>
 
         <com.chauthai.overscroll.RecyclerViewBouncy
-            android:id="@+id/element_recyclerview"
+            android:id="@+id/e_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="80dp"
+
+            android:background="?attr/colorPrimaryDark"
             android:clipToPadding="false"
             android:paddingTop="9dp"
             android:paddingBottom="60dp"
+
             app:friction="144"
             app:gapLimit="180"
             app:speedFactor="6"
-            app:tension="1400" />
+            app:tension="1400"></com.chauthai.overscroll.RecyclerViewBouncy>
+    </FrameLayout>
 
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="true"
-        android:focusable="true" />
-
-    <include
-        android:id="@+id/filter_box"
-        layout="@layout/filter_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="9dp"
-        android:clickable="true"
-        android:elevation="8dp"
-        android:focusable="true" />
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
