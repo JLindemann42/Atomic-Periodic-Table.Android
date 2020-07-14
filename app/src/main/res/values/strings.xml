@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version">1.1 Build 27</string>
+    <string name="app_version">1.1 Build 28</string>
 
     <string name="other_settings">Advanced</string>
     <string name="experimental_title">Experimental Settings</string>
@@ -47,5 +47,7 @@
 
     <string name="electrochemical_series">Electrochemical Series</string>
     <string name="electrochemical_series_search">Search for Element</string>
+
+    <string name="short_voltage"> (Volt)</string>
 
 </resources>

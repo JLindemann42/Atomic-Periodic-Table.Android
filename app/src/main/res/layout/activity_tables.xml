@@ -70,69 +70,57 @@
         <FrameLayout
             android:id="@+id/sol_table"
             android:layout_width="match_parent"
-            android:layout_height="92dp"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="@drawable/c_ripple"
+            android:layout_height="82dp"
             android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/first_item"
             android:layout_marginEnd="@dimen/margin"
             android:layout_marginBottom="9dp"
-            android:layout_marginTop="@dimen/first_item">
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:foreground="@drawable/c_ripple">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Solubility Table"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="?attr/actionMenuTextColor"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/margin"
-                android:layout_marginEnd="98dp" />
+                android:layout_marginEnd="98dp"
+                android:text="Solubility Table"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_margin="@dimen/margin"
-                android:layout_gravity="center_vertical|end"
-                android:src="@drawable/ic_open" />
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/ele_table"
             android:layout_width="match_parent"
-            android:layout_height="92dp"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="@drawable/c_ripple"
+            android:layout_height="82dp"
             android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="9dp"
             android:layout_marginEnd="@dimen/margin"
             android:layout_marginBottom="9dp"
-            android:layout_marginTop="9dp">
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:foreground="@drawable/c_ripple">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Electrochemical series"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="?attr/actionMenuTextColor"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/margin"
-                android:layout_marginEnd="98dp" />
+                android:layout_marginEnd="98dp"
+                android:text="Electrochemical series"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:layout_margin="@dimen/margin"
-                android:layout_gravity="center_vertical|end"
-                android:src="@drawable/ic_open" />
         </FrameLayout>
 
 

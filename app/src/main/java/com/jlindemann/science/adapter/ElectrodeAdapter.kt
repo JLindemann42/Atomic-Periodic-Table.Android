@@ -19,7 +19,7 @@ class ElectrodeAdapter(var list: ArrayList<Series>, var clickListener: Electrode
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.isotope_list_item, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.electrode_list_item, parent, false)
         return ViewHolder(v)
     }
 
@@ -28,15 +28,20 @@ class ElectrodeAdapter(var list: ArrayList<Series>, var clickListener: Electrode
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val textViewElement = itemView.findViewById(R.id.tv_iso_type) as TextView
-        private val textViewShort = itemView.findViewById(R.id.ic_iso_type) as TextView
-        private val textViewNumb = itemView.findViewById(R.id.tv_iso_numb) as TextView
+        private val textViewName = itemView.findViewById(R.id.tv_name) as TextView
+        private val textViewShort = itemView.findViewById(R.id.tv_short) as TextView
+        private val textViewCharge = itemView.findViewById(R.id.tv_charge) as TextView
+        private val textViewVoltage = itemView.findViewById(R.id.tv_voltage) as TextView
 
         fun initialize(item: Series, action: OnSeriesClickListener, context: Context) {
-            textViewElement.text = item.name
-            textViewElement.text = item.name.capitalize()
-            textViewShort.text = item.charge
-            textViewNumb.text = item.voltage.toString()
+            textViewName.text = item.name
+            textViewName.text = item.name.capitalize()
+            textViewShort.text = item.short
+            val voltage = item.voltage.toString()
+            val shortVolt = " (Volt)"
+            val textVolt = voltage + shortVolt
+            textViewVoltage.text = textVolt
+            textViewCharge.text = item.charge
 
             itemView.foreground = ContextCompat.getDrawable(context, R.drawable.c_ripple)
             itemView.isClickable = true
