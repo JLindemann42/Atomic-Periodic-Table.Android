@@ -3,6 +3,7 @@ package com.jlindemann.science.activities
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Insets
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -22,7 +23,9 @@ import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import kotlinx.android.synthetic.main.activity_favorite_settings_page.*
 import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
+import kotlinx.android.synthetic.main.activity_isotopes_experimental.title_box
 import kotlinx.android.synthetic.main.isotope_panel.*
 import org.json.JSONArray
 import org.json.JSONObject
@@ -151,13 +154,24 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        val params = r_view.layoutParams as ViewGroup.MarginLayoutParams
-        params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        r_view.layoutParams = params
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val params = r_view.layoutParams as ViewGroup.MarginLayoutParams
+            params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            r_view.layoutParams = params
 
-        val params2 = common_title_back_iso.layoutParams as ViewGroup.LayoutParams
-        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back_iso.layoutParams = params2
+            val params2 = common_title_back_iso.layoutParams as ViewGroup.LayoutParams
+            params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            common_title_back_iso.layoutParams = params2
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            val params = r_view.layoutParams as ViewGroup.MarginLayoutParams
+            params.topMargin += top
+            r_view.layoutParams = params
+
+            val params2 = common_title_back_iso.layoutParams as ViewGroup.LayoutParams
+            params2.height += top
+            common_title_back_iso.layoutParams = params2
+        }
     }
 
     override fun elementClickListener(item: Element, position: Int) {

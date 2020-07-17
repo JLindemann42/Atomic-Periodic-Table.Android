@@ -143,16 +143,18 @@
             app:gapLimit="180"
             app:speedFactor="6"
             app:tension="1400"></com.chauthai.overscroll.RecyclerViewBouncy>
-
     </FrameLayout>
 
-    <TextView
+    <com.github.mmin18.widget.RealtimeBlurView
         android:id="@+id/background_i2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#80000000"
-        android:elevation="10dp"
-        android:visibility="gone" />
+        android:alpha="1"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        app:realtimeBlurRadius="4dp"
+        app:realtimeOverlayColor="#A80B0B0B" />
 
     <include
         android:id="@+id/panel_info"

@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:layout_width="118dp"
+            android:layout_width="98dp"
             android:layout_height="match_parent"
             android:layout_weight="0.33"
             android:orientation="vertical">
@@ -49,7 +49,7 @@
 
         <LinearLayout
             android:id="@+id/detail_btn_frame"
-            android:layout_width="118dp"
+            android:layout_width="98dp"
             android:layout_height="match_parent"
             android:layout_weight="0.33"
             android:orientation="vertical">
@@ -73,7 +73,7 @@
                 android:layout_height="22dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="9dp"
-                android:text="Details"
+                android:text="Groups"
                 android:textAlignment="center"
                 android:textColor="@color/colorLightPrimary"
                 android:textSize="11sp" />
@@ -81,7 +81,7 @@
 
         <LinearLayout
             android:id="@+id/detail_btn_frame_close"
-            android:layout_width="118dp"
+            android:layout_width="98dp"
             android:layout_height="match_parent"
             android:layout_weight="0.33"
             android:orientation="vertical"
@@ -99,14 +99,14 @@
                 android:tint="?attr/colorPrimary"
                 app:borderWidth="0dp"
                 app:elevation="6dp"
-                app:srcCompat="@drawable/ic_detail" />
+                app:srcCompat="@drawable/ic_dictionary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="9dp"
-                android:text="Standard"
+                android:text="Element Name"
                 android:textAlignment="center"
                 android:textColor="@color/colorLightPrimary"
                 android:textSize="11sp" />
@@ -114,7 +114,7 @@
 
         <LinearLayout
             android:id="@+id/electron_btn_frame"
-            android:layout_width="118dp"
+            android:layout_width="98dp"
             android:layout_height="match_parent"
             android:layout_weight="0.33"
             android:orientation="vertical">
@@ -146,7 +146,7 @@
 
         <LinearLayout
             android:id="@+id/electron_btn_frame_hide"
-            android:layout_width="118dp"
+            android:layout_width="98dp"
             android:layout_height="match_parent"
             android:layout_weight="0.33"
             android:orientation="vertical"
@@ -154,6 +154,71 @@
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/electron_btn_hide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="?attr/colorAccent"
+                android:clickable="true"
+                android:elevation="6dp"
+                android:focusable="true"
+                android:tint="?attr/colorPrimary"
+                app:borderWidth="0dp"
+                app:elevation="6dp"
+                app:srcCompat="@drawable/ic_dictionary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="9dp"
+                android:text="Element Name"
+                android:textAlignment="center"
+                android:textColor="@color/colorLightPrimary"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/weight_btn_frame"
+            android:layout_width="98dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:orientation="vertical">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/weight_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="?attr/colorAccent"
+                android:clickable="true"
+                android:elevation="6dp"
+                android:focusable="true"
+                android:tint="?attr/colorPrimary"
+                app:borderWidth="0dp"
+                app:elevation="6dp"
+                app:srcCompat="@drawable/ic_weight_outline" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="9dp"
+                android:text="Atomic Weight"
+                android:textAlignment="center"
+                android:textColor="@color/colorLightPrimary"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/weight_btn_frame_hide"
+            android:layout_width="98dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.33"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/weight_btn_hide"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

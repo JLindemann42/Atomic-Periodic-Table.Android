@@ -31,6 +31,7 @@
     "element_ion_charge": "Nd^3+",
     "element_ionization_energy": "5.5250 (eV)",
     "element_atomic_radius": "206 (pm)",
+    "element_atomic_radius_e": "185 (pm)",
     "element_covalent_radius": "--- (pm)",
     "element_van_der_waals": "---",
 

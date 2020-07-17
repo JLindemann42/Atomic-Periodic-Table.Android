@@ -30,6 +30,7 @@
     "element_electron_config": "3d^2 4s^2",
     "element_ion_charge": "Ti^4+, Ti^3+",
     "element_ionization_energy": "6.8281 (eV)",
+    "element_atomic_radius_e": "140 (pm)",
     "element_atomic_radius": "76 (pm)",
     "element_covalent_radius": "136 (pm)",
     "element_van_der_waals": "--- (pm)",

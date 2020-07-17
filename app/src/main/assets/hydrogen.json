@@ -2,8 +2,6 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Hydrogen",
 
-
-
     "element": "Hydrogen",
     "element_year": "1766",
     "element_discovered_name": "Henry Cavendish",
@@ -13,17 +11,13 @@
     "element_protons": "1",
     "element_neutron_common": "0",
 
-
-
     "element_atomic_number": "1",
-    "element_atomicmass": "1.00784",
+    "element_atomicmass": "1.00784 (u)",
     "element_density": "0.0000899 (g/cm^3)",
     "element_electronegativty": "2.2",
     "element_block": "s - block",
     "element_shells_electrons": "K1 L0 M0 N0 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Electron_shell_001_Hydrogen_-_no_label.svg/800px-Electron_shell_001_Hydrogen_-_no_label.svg.png",
-
-
 
     "element_boiling_kelvin": "20.271 (K)",
     "element_boiling_celsius": "-252.879 (°C)",
@@ -32,22 +26,18 @@
     "element_melting_celsius": "-259.16 (°C)",
     "element_melting_fahrenheit": "-434.49 (°F)",
 
-
-
     "element_electron_config": "1s^1",
     "element_ion_charge": "H^+, H^-",
     "element_ionization_energy": "13.59844 (eV)",
+    "element_atomic_radius_e": "25 (pm)",
     "element_atomic_radius": "53 (pm)",
     "element_covalent_radius": "38 (pm)",
     "element_van_der_waals": "120 (pm)",
-
-
 
     "element_phase": "Gas",
     "element_fusion_heat": "0.12 (H2) (kJ/mol)",
     "element_specific_heat_capacity": "14.304 J/(g·K)",
     "element_vaporization_heat": "0.90 (H2) (kJ/mol)",
-
 
     "iso_1": "H-1",
     "iso_mass_1": "1.00782503224",

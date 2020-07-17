@@ -6,5 +6,8 @@
     <dimen name="nav_bar">60dp</dimen>
     <dimen name="nav_view">264dp</dimen>
 
+    <dimen name="first_item">98dp</dimen>
+    <dimen name="margin">18dp</dimen>
+
     <dimen name="row_height">36dp</dimen>
 </resources>

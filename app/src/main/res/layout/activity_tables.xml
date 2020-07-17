@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <FrameLayout
+        android:id="@+id/view_sub"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?attr/colorPrimaryDark">
+
+    <FrameLayout
+            android:id="@+id/common_title_back_tab"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:alpha="1"
+            android:elevation="4dp"
+            android:background="?attr/colorPrimary"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/title_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp">
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/back_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="12dp"
+                        android:elevation="0dp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_arrow_back_whit"
+                        app:backgroundTint="@color/transparent"
+                        app:borderWidth="0dp"
+                        app:elevation="0dp"
+                        app:fabSize="normal"
+                        app:pressedTranslationZ="0dp" />
+
+                    <TextView
+                        android:id="@+id/element_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="Tables"
+                        android:textAlignment="center"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+        </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/sol_table"
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/first_item"
+            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginBottom="9dp"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:foreground="@drawable/c_ripple">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginEnd="98dp"
+                android:text="Solubility Table"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/ele_table"
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginBottom="9dp"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:foreground="@drawable/c_ripple">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginEnd="98dp"
+                android:text="Electrochemical series"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>

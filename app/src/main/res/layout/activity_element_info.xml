@@ -115,6 +115,7 @@
                     android:layout_margin="18dp"
                     android:clickable="true"
                     android:elevation="6dp"
+                    android:rotation="180"
                     android:tint="?attr/colorAccent"
                     android:visibility="gone"
                     app:backgroundTint="?attr/colorPrimary"
@@ -150,29 +151,29 @@
 
             <include
                 android:id="@+id/overview_inc"
-                layout="@layout/overview_view"
+                layout="@layout/d_overview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <include
                 android:id="@+id/properties_inc"
-                layout="@layout/properties_view"
+                layout="@layout/d_properties"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <include
-                layout="@layout/temperature_view"
+                layout="@layout/d_temperatures"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <include
-                layout="@layout/atomic_view"
+                layout="@layout/d_atomic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
             <include
                 android:id="@+id/addition_physics"
-                layout="@layout/otherphysics"
+                layout="@layout/d_thermodynamic"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -180,7 +181,10 @@
                 android:id="@+id/i_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="18dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="18dp"
                 android:background="@drawable/toast"
                 android:backgroundTint="?attr/colorAccent"
                 android:clickable="true"

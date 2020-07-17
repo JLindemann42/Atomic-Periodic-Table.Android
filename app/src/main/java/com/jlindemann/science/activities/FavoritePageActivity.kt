@@ -2,6 +2,7 @@ package com.jlindemann.science.activities
 
 import android.content.res.Configuration
 import android.graphics.Insets
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.core.content.ContextCompat
 import com.jlindemann.science.R
 import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.Utils
+import kotlinx.android.synthetic.main.activity_element_info.*
 import kotlinx.android.synthetic.main.activity_favorite_settings_page.*
 
 class FavoritePageActivity : BaseActivity() {
@@ -146,13 +148,24 @@ class FavoritePageActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        val params = common_title_back_fav.layoutParams as ViewGroup.LayoutParams
-        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back_fav.layoutParams = params
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val params = common_title_back_fav.layoutParams as ViewGroup.LayoutParams
+            params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            common_title_back_fav.layoutParams = params
 
-        val params2 = general_header.layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        general_header.layoutParams = params2
+            val params2 = general_header.layoutParams as ViewGroup.MarginLayoutParams
+            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            general_header.layoutParams = params2
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            val params = common_title_back_fav.layoutParams as ViewGroup.LayoutParams
+            params.height += top
+            common_title_back_fav.layoutParams = params
+
+            val params2 = general_header.layoutParams as ViewGroup.MarginLayoutParams
+            params2.topMargin += top
+            general_header.layoutParams = params2
+        }
     }
 
     fun onCheckboxClicked() {

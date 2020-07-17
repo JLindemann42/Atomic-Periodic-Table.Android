@@ -8,6 +8,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/info_panel"
+        layout="@layout/panel_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone" />
+
         <FrameLayout
             android:id="@+id/common_title_back_sul"
             android:layout_width="match_parent"
@@ -52,11 +60,20 @@
                         android:textColor="?attr/actionMenuTextColor"
                         android:textSize="20sp"
                         android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/info_btn"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_marginEnd="18dp"
+                        android:src="@drawable/ic_info" />
                 </FrameLayout>
             </LinearLayout>
         </FrameLayout>
 
-        <FrameLayout
+    <FrameLayout
         android:id="@+id/boxm"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

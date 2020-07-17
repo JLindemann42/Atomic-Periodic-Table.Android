@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Insets
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -44,13 +45,24 @@ class AboutActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        val params = common_title_back_info.layoutParams as ViewGroup.LayoutParams
-        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back_info.layoutParams = params
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val params = common_title_back_info.layoutParams as ViewGroup.LayoutParams
+            params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            common_title_back_info.layoutParams = params
 
-        val params2 = imageView3.layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin += top
-        imageView3.layoutParams = params2
+            val params2 = imageView3.layoutParams as ViewGroup.MarginLayoutParams
+            params2.topMargin += top
+            imageView3.layoutParams = params2
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            val params = common_title_back_info.layoutParams as ViewGroup.LayoutParams
+            params.height += top
+            common_title_back_info.layoutParams = params
+
+            val params2 = imageView3.layoutParams as ViewGroup.MarginLayoutParams
+            params2.topMargin += top
+            imageView3.layoutParams = params2
+        }
     }
 
     private fun setupLinks() {

@@ -30,6 +30,7 @@
     "element_electron_config": "4d^5 5s^1",
     "element_ion_charge": "Mo^6+",
     "element_ionization_energy": "7.09243 (eV)",
+    "element_atomic_radius_e": "145 (pm)",
     "element_atomic_radius": "190 (pm)",
     "element_covalent_radius": "145 (pm)",
     "element_van_der_waals": "--- (pm)",
