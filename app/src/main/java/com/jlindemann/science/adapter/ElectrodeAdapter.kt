@@ -15,7 +15,7 @@ import com.jlindemann.science.model.Series
 
 class ElectrodeAdapter(var list: ArrayList<Series>, var clickListener: ElectrodeActivity, val context: Context) : RecyclerView.Adapter<ElectrodeAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.initialize(list[position], clickListener, context)
+        holder.initialize(list[position], context)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -33,7 +33,7 @@ class ElectrodeAdapter(var list: ArrayList<Series>, var clickListener: Electrode
         private val textViewCharge = itemView.findViewById(R.id.tv_charge) as TextView
         private val textViewVoltage = itemView.findViewById(R.id.tv_voltage) as TextView
 
-        fun initialize(item: Series, action: OnSeriesClickListener, context: Context) {
+        fun initialize(item: Series, context: Context) {
             textViewName.text = item.name
             textViewName.text = item.name.capitalize()
             textViewShort.text = item.short
@@ -47,15 +47,9 @@ class ElectrodeAdapter(var list: ArrayList<Series>, var clickListener: Electrode
             itemView.isClickable = true
             itemView.isFocusable = true
 
-            itemView.setOnClickListener {
-                action.seriesClickListener(item, adapterPosition)
-            }
         }
     }
 
-    interface OnSeriesClickListener {
-        fun seriesClickListener(item: Series, position: Int)
-    }
 
     fun filterList(filteredList: ArrayList<Series>) {
         list = filteredList

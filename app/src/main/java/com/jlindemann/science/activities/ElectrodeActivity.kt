@@ -30,7 +30,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class ElectrodeActivity : BaseActivity(), ElectrodeAdapter.OnSeriesClickListener {
+class ElectrodeActivity : BaseActivity() {
     private var seriesList = ArrayList<Series>()
     var mAdapter = ElectrodeAdapter(seriesList, this, this)
 
@@ -152,10 +152,6 @@ class ElectrodeActivity : BaseActivity(), ElectrodeAdapter.OnSeriesClickListener
                 imm.hideSoftInputFromWindow(view.windowToken, 0)
             }
         }
-    }
-
-    override fun seriesClickListener(item: Series, position: Int) {
-        TODO("Not yet implemented")
     }
 
 

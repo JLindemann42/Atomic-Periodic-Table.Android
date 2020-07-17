@@ -73,7 +73,7 @@
                 android:layout_height="22dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="9dp"
-                android:text="Details"
+                android:text="Groups"
                 android:textAlignment="center"
                 android:textColor="@color/colorLightPrimary"
                 android:textSize="11sp" />
@@ -99,14 +99,14 @@
                 android:tint="?attr/colorPrimary"
                 app:borderWidth="0dp"
                 app:elevation="6dp"
-                app:srcCompat="@drawable/ic_detail" />
+                app:srcCompat="@drawable/ic_dictionary" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="22dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="9dp"
-                android:text="Standard"
+                android:text="Element Name"
                 android:textAlignment="center"
                 android:textColor="@color/colorLightPrimary"
                 android:textSize="11sp" />
