@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Tantalum_single_crystal_and_1cm3_cube.jpg/1024px-Tantalum_single_crystal_and_1cm3_cube.jpg",
 
     "element": "Tantalum",
+    "short": "Ta",
     "element_year": "1802",
     "element_discovered_name": "Anders Gustaf Ekeberg",
     "element_group": "Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "36.57 (kJ/mol)",
     "element_specific_heat_capacity": "0.140 J/(g·K)",
     "element_vaporization_heat": "732.8 (kJ/mol)",
+
+    "oxidation_state_neg": "3 1",
+    "oxidation_state_pos": "1 2 3 4 5",
 
     "iso_1": "Ta-180",
     "iso_mass_1": "179.9474648",

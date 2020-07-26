@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Be-140g.jpg",
 
     "element": "Beryllium",
+    "short": "Be",
     "element_year": "1798",
     "element_discovered_name": "Louis Nicolas Vauquelin",
     "element_group": "Alkaline earth metal",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "7.95 (kJ/mol)",
     "element_specific_heat_capacity": "1.825 J/(g·K)",
     "element_vaporization_heat": "297 (kJ/mol)",
+
+    "oxidation_state_neg": "0",
+    "oxidation_state_pos": "1, 2",
 
     "iso_1": "Be-7",
     "iso_mass_1": "7.01692872",

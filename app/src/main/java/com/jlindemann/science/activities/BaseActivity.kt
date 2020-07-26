@@ -20,14 +20,10 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        window.statusBarColor = Color.TRANSPARENT
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 
     override fun onStart() {
         super.onStart()
-
         val content = findViewById<View>(android.R.id.content)
         content.setOnApplyWindowInsetsListener(this)
 

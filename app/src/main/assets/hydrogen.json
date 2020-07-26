@@ -3,6 +3,7 @@
     "wikilink": "https://en.wikipedia.org/wiki/Hydrogen",
 
     "element": "Hydrogen",
+    "short": "H",
     "element_year": "1766",
     "element_discovered_name": "Henry Cavendish",
     "element_group": "Other Nonmetals",
@@ -38,6 +39,9 @@
     "element_fusion_heat": "0.12 (H2) (kJ/mol)",
     "element_specific_heat_capacity": "14.304 J/(g·K)",
     "element_vaporization_heat": "0.90 (H2) (kJ/mol)",
+
+    "oxidation_state_neg": "1",
+    "oxidation_state_pos": "1",
 
     "iso_1": "H-1",
     "iso_mass_1": "1.00782503224",

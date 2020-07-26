@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Thallium_pieces_in_ampoule.jpg",
 
     "element": "Thallium",
+    "short": "Tl",
     "element_year": "1861",
     "element_discovered_name": "William Crookes",
     "element_group": "Post-Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "4.14 (kJ/mol)",
     "element_specific_heat_capacity": "0.129 J/(g·K)",
     "element_vaporization_heat": "165 (kJ/mol)",
+
+    "oxidation_state_neg": "5 2 1",
+    "oxidation_state_pos": "1 2 3",
 
     "iso_1": "Tl-202",
     "iso_mass_1": "201.972106",

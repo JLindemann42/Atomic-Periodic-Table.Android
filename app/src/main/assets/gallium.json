@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/9/92/Gallium_crystals.jpg",
 
     "element": "Gallium",
+    "short": "Ga",
     "element_year": "1875",
     "element_discovered_name": "Lecoq de Boisbaudran",
     "element_group": "Post-Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "5.576 (kJ/mol)",
     "element_specific_heat_capacity": "0.371 J/(g·K)",
     "element_vaporization_heat": "254 (kJ/mol)",
+
+    "oxidation_state_neg": "5 4 3 2 1",
+    "oxidation_state_pos": "1 2 3",
 
     "iso_1": "Ga-68",
     "iso_mass_1": "67.9279801",

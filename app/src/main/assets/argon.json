@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Argon_discharge_tube.jpg/1920px-Argon_discharge_tube.jpg",
 
     "element": "Argon",
+    "short": "Ar",
     "element_year": "1894",
     "element_discovered_name": "William Ramsay",
     "element_group": "Noblegases",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "1.18 (kJ/mol)",
     "element_specific_heat_capacity": "0.520 J/(g·K)",
     "element_vaporization_heat": "6.43 (kJ/mol)",
+
+    "oxidation_state_neg": "0",
+    "oxidation_state_pos": "",
 
     "iso_1": "Ar-35",
     "iso_mass_1": "34.9752577",

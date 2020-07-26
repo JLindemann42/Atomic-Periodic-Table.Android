@@ -4,8 +4,9 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Fermium-Ytterbium_Alloy.jpg",
 
     "element": "Fermium",
-    "element_year": "Lawrence Berkeley National Laboratory",
-    "element_discovered_name": "1952",
+    "short": "Fm",
+    "element_year": "1952",
+    "element_discovered_name": "Lawrence Berkeley National Laboratory",
     "element_group": "Actinide",
     "element_appearance": "---",
     "element_electrons": "100",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "2 3",
 
     "iso_1": "Fm-256",
     "iso_mass_1": "256.091774",

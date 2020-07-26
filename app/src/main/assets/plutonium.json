@@ -4,8 +4,9 @@
     "link": "http://nuclearweaponarchive.org/Library/Plutonium/Puingot.jpg",
 
     "element": "Plutonium",
-    "element_year": "Glenn T. Seaborg",
-    "element_discovered_name": "1940",
+    "short": "Pu",
+    "element_year": "1940",
+    "element_discovered_name": "Glenn T. Seaborg",
     "element_group": "Actinide",
     "element_appearance": "Silvery White",
     "element_electrons": "94",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "2.82 (kJ/mol)",
     "element_specific_heat_capacity": "0.13 J/(g·K)",
     "element_vaporization_heat": "333.5 (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "2 3 4 5 6 7",
 
     "iso_1": "Pu-235",
     "iso_mass_1": "235.045286",

@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Bromine_vial_in_acrylic_cube.jpg/1280px-Bromine_vial_in_acrylic_cube.jpg",
 
     "element": "Bromine",
+    "short": "Br",
     "element_year": "1825",
     "element_discovered_name": "Antoine Jérôme Balard ",
     "element_group": "Halogens",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "Br2: 10.57 (kJ/mol)",
     "element_specific_heat_capacity": "Br2: 0.474 J/(g·K)",
     "element_vaporization_heat": "Br2: 29.96 (kJ/mol)",
+
+    "oxidation_state_neg": "1",
+    "oxidation_state_pos": "1 3 4 5 7",
 
     "iso_1": "Br-78",
     "iso_mass_1": "77.921146",

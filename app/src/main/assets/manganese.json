@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/8/86/Mangan_1-crop.jpg",
 
     "element": "Manganese",
+    "short": "Mn",
     "element_year": "1774",
     "element_discovered_name": "Carl Wilhelm Scheele ",
     "element_group": "Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "12.91 (kJ/mol)",
     "element_specific_heat_capacity": "0.479 J/(g·K)",
     "element_vaporization_heat": "221 (kJ/mol)",
+
+    "oxidation_state_neg": "3 2 1 0",
+    "oxidation_state_pos": "1 2 3 4 5 6 7",
 
     "iso_1": "Mn-53",
     "iso_mass_1": "52.9412901",

@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Scandium_sublimed_dendritic_and_1cm3_cube.jpg/220px-Scandium_sublimed_dendritic_and_1cm3_cube.jpg",
 
     "element": "Scandium",
+    "short": "Sc",
     "element_year": "1879",
     "element_discovered_name": "Lars Fredrik Nilson",
     "element_group": "Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "14.1 (kJ/mol)",
     "element_specific_heat_capacity": "0.568 J/(g·K)",
     "element_vaporization_heat": "332.7 (kJ/mol)",
+
+    "oxidation_state_neg": "0",
+    "oxidation_state_pos": "1 2 3",
 
     "iso_1": "Sc-44",
     "iso_mass_1": "43.9594028",

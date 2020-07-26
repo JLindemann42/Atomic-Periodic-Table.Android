@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Helium_discharge_tube.jpg/1920px-Helium_discharge_tube.jpg",
 
     "element": "Helium",
+    "short": "He",
     "element_year": "1868",
     "element_discovered_name": "Pierre Janssen",
     "element_group": "Noble Gases",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "0.02 (kJ/mol)",
     "element_specific_heat_capacity": "5.193 J/(g·K)",
     "element_vaporization_heat": "0.083 (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "",
 
     "iso_1": "He-3",
     "iso_mass_1": "3.01602932265",

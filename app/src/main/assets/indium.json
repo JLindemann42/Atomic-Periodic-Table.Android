@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Indium.jpg/800px-Indium.jpg",
 
     "element": "Indium",
+    "short": "In",
     "element_year": "1863",
     "element_discovered_name": "Ferdinand Reich",
     "element_group": "Post-Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "3.281 (kJ/mol)",
     "element_specific_heat_capacity": "0.233 J/(g·K)",
     "element_vaporization_heat": "231.8 (kJ/mol)",
+
+    "oxidation_state_neg": "5 2 1",
+    "oxidation_state_pos": "1 2 3",
 
     "iso_1": "In-112",
     "iso_mass_1": "111.905532",

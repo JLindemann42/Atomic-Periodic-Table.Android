@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/8/88/PhosphComby.jpg",
 
     "element": "Phosphorus",
+    "short": "P",
     "element_year": "1669",
     "element_discovered_name": "Hennig Brand",
     "element_group": "Other Nonmetal",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "White: 0.66 (kJ/mol)",
     "element_specific_heat_capacity": "White: 0.769 J/(g·K)",
     "element_vaporization_heat": "12.4 (kJ/mol)",
+
+    "oxidation_state_neg": "3 2 1 0",
+    "oxidation_state_pos": "1 2 3 4 5",
 
     "iso_1": "P-30",
     "iso_mass_1": "29.97831349",

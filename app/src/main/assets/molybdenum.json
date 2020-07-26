@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Molybdenum_crystaline_fragment_and_1cm3_cube.jpg/1920px-Molybdenum_crystaline_fragment_and_1cm3_cube.jpg",
 
     "element": "Molybdenum",
+    "short": "Mo",
     "element_year": "1778",
     "element_discovered_name": "Carl Wilhelm Scheele",
     "element_group": "Transition Metals",
@@ -39,6 +40,8 @@
     "element_fusion_heat": "37.48 (kJ/mol)",
     "element_specific_heat_capacity": "0.251 J/(g·K)",
     "element_vaporization_heat": "617 (kJ/mol)",
+    "oxidation_state_neg": "4 2 1 0",
+    "oxidation_state_pos": "1 2 3 4 5 6",
 
     "iso_1": "Mo-93",
     "iso_mass_1": "92.906813",

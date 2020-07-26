@@ -233,9 +233,9 @@
                     android:background="@drawable/toast_outline"
                     android:clickable="true"
                     android:elevation="2dp"
-                    android:foreground="@drawable/c_ripple"
                     android:focusable="true"
-                    android:text="Celcius"
+                    android:foreground="@drawable/c_ripple"
+                    android:text="Celsius"
                     android:textAllCaps="false"
                     android:textColor="?attr/actionMenuTextColor"
                     android:textSize="14sp" />

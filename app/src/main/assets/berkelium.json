@@ -4,8 +4,9 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Berkelium_metal.jpg",
 
     "element": "Berkelium",
-    "element_year": "Lawrence Berkeley National Laboratory",
-    "element_discovered_name": "1949",
+    "short": "Bk",
+    "element_year": "1949",
+    "element_discovered_name": "Lawrence Berkeley National Laboratory",
     "element_group": "Actinide",
     "element_appearance": "Silvery",
     "element_electrons": "97",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "2 3 4 5",
 
     "iso_1": "Bk-246",
     "iso_mass_1": "246.06867",

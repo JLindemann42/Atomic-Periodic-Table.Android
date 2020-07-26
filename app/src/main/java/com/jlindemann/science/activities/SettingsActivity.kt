@@ -26,8 +26,6 @@ class SettingsActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Utils.gestureSetup(window)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
 
@@ -68,7 +66,6 @@ class SettingsActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val params = common_title_back_set.layoutParams as ViewGroup.LayoutParams
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_set.layoutParams = params
@@ -76,16 +73,7 @@ class SettingsActivity : BaseActivity() {
             val params2 = personalization_header.layoutParams as ViewGroup.MarginLayoutParams
             params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             personalization_header.layoutParams = params2
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            val params = common_title_back_set.layoutParams as ViewGroup.LayoutParams
-            params.height += top
-            common_title_back_set.layoutParams = params
 
-            val params2 = personalization_header.layoutParams as ViewGroup.MarginLayoutParams
-            params2.topMargin += top
-            personalization_header.layoutParams = params2
-        }
     }
 
     override fun onBackPressed() {

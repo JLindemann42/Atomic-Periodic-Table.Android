@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Terbium-2.jpg",
 
     "element": "Terbium",
+    "short": "Tb",
     "element_year": "1843",
     "element_discovered_name": "Carl Gustaf Mosander",
     "element_group": "Lanthanoids",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "10.15 (kJ/mol)",
     "element_specific_heat_capacity": "0.182 J/(g·K)",
     "element_vaporization_heat": "391 (kJ/mol)",
+
+    "oxidation_state_neg": "0",
+    "oxidation_state_pos": "1 2 3 4",
 
     "iso_1": "Tb-158",
     "iso_mass_1": "157.9254131",

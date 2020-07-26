@@ -4,8 +4,9 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/5/55/Einsteinium.jpg",
 
     "element": "Einsteinium",
-    "element_year": "Lawrence Berkeley National Laboratory",
-    "element_discovered_name": "1952",
+    "short": "Es",
+    "element_year": "1952",
+    "element_discovered_name": "Lawrence Berkeley National Laboratory",
     "element_group": "Actinide",
     "element_appearance": "Silvery",
     "element_electrons": "99",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "2 3 4",
 
     "iso_1": "Es-251",
     "iso_mass_1": "251.079992",

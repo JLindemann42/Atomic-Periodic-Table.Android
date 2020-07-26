@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Gadolinium-4.jpg",
 
     "element": "Gadolinium",
+    "short": "Gd",
     "element_year": "1880",
     "element_discovered_name": "Jean Charles Galissard de Marignac",
     "element_group": "Lanthanoids",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "10.0 (kJ/mol)",
     "element_specific_heat_capacity": "0.236 J/(g·K)",
     "element_vaporization_heat": "301.3 (kJ/mol)",
+
+    "oxidation_state_neg": "0",
+    "oxidation_state_pos": "1 2 3",
 
     "iso_1": "Gd-153",
     "iso_mass_1": "152.9217495",

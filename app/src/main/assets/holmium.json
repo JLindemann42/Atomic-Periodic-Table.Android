@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Holmium2.jpg",
 
     "element": "Holmium",
+    "short": "Ho",
     "element_year": "1878",
     "element_discovered_name": "Jacques-Louis Soret",
     "element_group": "Lanthanoids",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "17.0 (kJ/mol)",
     "element_specific_heat_capacity": "0.165 J/(g·K)",
     "element_vaporization_heat": "251 (kJ/mol)",
+
+    "oxidation_state_neg": "0",
+    "oxidation_state_pos": "2 3",
 
     "iso_1": "Ho-164",
     "iso_mass_1": "163.9302335",

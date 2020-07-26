@@ -8,85 +8,129 @@
         android:orientation="vertical"
         android:background="?attr/colorPrimaryDark">
 
-        <LinearLayout
-            android:id="@+id/i_box"
-            android:orientation="vertical"
+        <TextView
+            android:id="@+id/background"
             android:layout_width="match_parent"
-            android:layout_height="360dp"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="98dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="18dp"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
-            android:elevation="2dp">
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true" />
 
-            <EditText
-                android:id="@+id/i_title"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="18dp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorPrimaryDark"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:fontFamily="@font/manroperegular"
-                android:hint="Issue"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingStart="18dp"
-                android:paddingEnd="18dp"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textColorHint="?attr/actionMenuTextColor"
-                android:textSize="14sp" />
+        <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/i_content"
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="18dp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorPrimaryDark"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:fontFamily="@font/manroperegular"
-                android:hint="Describe Issue"
-                android:imeOptions="actionSearch"
-                android:gravity="top"
-                android:inputType="text"
-                android:maxLines="1"
-                android:paddingStart="18dp"
-                android:paddingTop="18dp"
-                android:paddingBottom="18dp"
-                android:paddingEnd="18dp"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textColorHint="?attr/actionMenuTextColor"
-                android:textSize="14sp" />
+        <include
+            android:id="@+id/drop_issue"
+            layout="@layout/drop_issue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="126dp"
+            android:visibility="gone" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/i_btn"
+        <LinearLayout
+                android:id="@+id/i_box"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="360dp"
                 android:layout_marginStart="18dp"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="98dp"
                 android:layout_marginEnd="18dp"
                 android:layout_marginBottom="18dp"
                 android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorAccent"
-                android:clickable="true"
+                android:backgroundTint="?attr/colorPrimary"
                 android:elevation="2dp"
-                android:focusable="true"
-                android:foreground="@drawable/c_ripple"
-                android:text="Send issue"
-                android:textColor="?attr/colorPrimary" />
-        </LinearLayout>
+                android:orientation="vertical">
 
-        <FrameLayout
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="18dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/drop_btn"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="@drawable/c_ripple"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="18dp"
+                        android:drawableStart="@drawable/ic_arrow"
+                        android:drawablePadding="9dp"
+                        android:elevation="1dp"
+                        android:gravity="center_vertical"
+                        android:text="Data Issue"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                    <EditText
+                        android:id="@+id/i_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="18dp"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/manroperegular"
+                        android:hint="Issue"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColorHint="?attr/actionMenuTextColor"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/i_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorPrimaryDark"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/manroperegular"
+                    android:gravity="top"
+                    android:hint="Description"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="18dp"
+                    android:paddingTop="18dp"
+                    android:paddingEnd="18dp"
+                    android:paddingBottom="18dp"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColorHint="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/i_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginBottom="18dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorAccent"
+                    android:clickable="true"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/c_ripple"
+                    android:text="Send issue"
+                    android:textColor="?attr/colorPrimary" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
             android:id="@+id/common_title_back_sub"
             android:layout_width="match_parent"
             android:layout_height="80dp"
@@ -141,4 +185,4 @@
             </LinearLayout>
         </FrameLayout>
 
-    </FrameLayout>
+</FrameLayout>

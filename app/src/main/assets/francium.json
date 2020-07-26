@@ -4,6 +4,7 @@
     "link": "http://www.chemistrylearner.com/wp-content/uploads/2018/02/Francium.jpg",
 
     "element": "Francium",
+    "short": "Fr",
     "element_year": "Marguerite Perey",
     "element_discovered_name": "1939",
     "element_group": "Alkali metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "2 (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "65 (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "1",
 
     "iso_1": "Fr-221",
     "iso_mass_1": "221.014255",

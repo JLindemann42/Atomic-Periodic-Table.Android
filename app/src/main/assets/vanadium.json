@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Vanadium_etched.jpg/800px-Vanadium_etched.jpg",
 
     "element": "Vanadium",
+    "short": "V",
     "element_year": "1801",
     "element_discovered_name": "Andrés Manuel del Río",
     "element_group": "Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "21.5 (kJ/mol)",
     "element_specific_heat_capacity": "0.489 J/(g·K)",
     "element_vaporization_heat": "453 (kJ/mol)",
+
+    "oxidation_state_neg": "3 1 0",
+    "oxidation_state_pos": "1 2 3 4 5",
 
     "iso_1": "V-48",
     "iso_mass_1": "47.9522537",

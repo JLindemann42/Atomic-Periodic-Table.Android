@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Osmium_crystals.jpg/1024px-Osmium_crystals.jpg",
 
     "element": "Osmium",
+    "short": "Os",
     "element_year": "1803",
     "element_discovered_name": "Smithson Tennant",
     "element_group": "Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "57.85 (kJ/mol)",
     "element_specific_heat_capacity": "0.130 J/(g·K)",
     "element_vaporization_heat": "678 (kJ/mol)",
+
+    "oxidation_state_neg": "4 2 1 0",
+    "oxidation_state_pos": "1 2 3 4 5 6 7 8",
 
     "iso_1": "Os-185",
     "iso_mass_1": "184.9540423",

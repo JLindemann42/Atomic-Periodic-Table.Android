@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Kobalt_electrolytic_and_1cm3_cube.jpg/1024px-Kobalt_electrolytic_and_1cm3_cube.jpg ",
 
     "element": "Cobalt",
+    "short": "Co",
     "element_year": "1735",
     "element_discovered_name": "Georg Brandt ",
     "element_group": "Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "16.06 (kJ/mol)",
     "element_specific_heat_capacity": "0.421 J/(g·K)",
     "element_vaporization_heat": "377 (kJ/mol)",
+
+    "oxidation_state_neg": "3 1 0",
+    "oxidation_state_pos": "1 2 3 4 5",
 
     "iso_1": "Co-56",
     "iso_mass_1": "55.9398393",

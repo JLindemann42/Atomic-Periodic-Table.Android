@@ -4,6 +4,7 @@
     "link": "empty",
 
     "element": "Bohrium",
+    "short": "Bh",
     "element_year": "---",
     "element_discovered_name": "---",
     "element_group": "Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "7",
 
     "iso_1": "--",
     "iso_mass_1": "--",

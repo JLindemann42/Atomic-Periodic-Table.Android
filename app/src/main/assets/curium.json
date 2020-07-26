@@ -4,8 +4,9 @@
     "link": "https://upload.wikimedia.org/wikipedia/en/6/69/Curium.jpg",
 
     "element": "Curium",
-    "element_year": "Glenn T. Seaborg",
-    "element_discovered_name": "1944",
+    "short": "Cm",
+    "element_year": "1944",
+    "element_discovered_name": "Glenn T. Seaborg",
     "element_group": "Actinide",
     "element_appearance": "Silvery Metallic",
     "element_electrons": "96",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "15 (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "3 4 5 6",
 
     "iso_1": "Cm-242",
     "iso_mass_1": "242.0588358",

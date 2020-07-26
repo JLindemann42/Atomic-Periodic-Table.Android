@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/9/96/Calcium_unter_Argon_Schutzgasatmosph%C3%A4re.jpg",
 
     "element": "Calcium",
+    "short": "Ca",
     "element_year": "1808",
     "element_discovered_name": "Humphry Davy",
     "element_group": "Alkaline Earth Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "8.54 (kJ/mol)",
     "element_specific_heat_capacity": "0.647 J/(g·K)",
     "element_vaporization_heat": "154.7 (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "1 2",
 
     "iso_1": "Ca-39",
     "iso_mass_1": "38.9707108",

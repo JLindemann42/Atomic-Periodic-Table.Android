@@ -4,6 +4,7 @@
     "link": "https://www.thoughtco.com/thmb/rt0-YEcTOFfKmttM805rtJvfdsw=/600x600/filters:fill(auto,1)/fluorinesimulant-56a12c323df78cf772681c61.jpg",
 
     "element": "Fluorine",
+    "short": "F",
     "element_year": "1810",
     "element_discovered_name": "André-Marie Ampère ",
     "element_group": "Reactive Nonmetal",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "0.51 (F2) (kJ/mol)",
     "element_specific_heat_capacity": "0.824 (F2) J/(g·K)",
     "element_vaporization_heat": "6.62 (F2) (kJ/mol)",
+
+    "oxidation_state_neg": "1",
+    "oxidation_state_pos": "",
 
     "iso_1": "F-17",
     "iso_mass_1": "17.00209524",

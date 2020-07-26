@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Radium226.jpg",
 
     "element": "Radium",
+    "short": "Ra",
     "element_year": "Marie Curie",
     "element_discovered_name": "1898",
     "element_group": "Alkaline Earth Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "8.5 (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "113 (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "2",
 
     "iso_1": "Ra-222",
     "iso_mass_1": "222.015375",

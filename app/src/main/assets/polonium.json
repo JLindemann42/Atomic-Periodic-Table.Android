@@ -4,8 +4,9 @@
     "link": "https://upload.wikimedia.org/wikipedia/en/6/66/Polonium.jpg",
 
     "element": "Polonium",
-    "element_year": "Pierre and Marie Curie",
-    "element_discovered_name": "1898",
+    "short": "Po",
+    "element_year": "1898",
+    "element_discovered_name": "Pierre and Marie Curie",
     "element_group": "Metalloids",
     "element_appearance": "Silvery",
     "element_electrons": "84",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "13 (kJ/mol)",
     "element_specific_heat_capacity": "0.094 J/(g·K)",
     "element_vaporization_heat": "102.91 (kJ/mol)",
+
+    "oxidation_state_neg": "2",
+    "oxidation_state_pos": "2 4 5 6",
 
     "iso_1": "Po-207",
     "iso_mass_1": "206.981593",

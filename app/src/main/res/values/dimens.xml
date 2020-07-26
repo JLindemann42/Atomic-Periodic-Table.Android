@@ -9,5 +9,7 @@
     <dimen name="first_item">98dp</dimen>
     <dimen name="margin">18dp</dimen>
 
+    <dimen name="submit_drop">126dp</dimen>
+
     <dimen name="row_height">36dp</dimen>
 </resources>

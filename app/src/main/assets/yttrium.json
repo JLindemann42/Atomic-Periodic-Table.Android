@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Yttrium_sublimed_dendritic_and_1cm3_cube.jpg/1920px-Yttrium_sublimed_dendritic_and_1cm3_cube.jpg",
 
     "element": "Yttrium",
+    "short": "Y",
     "element_year": "1794",
     "element_discovered_name": "Johan Gadolin",
     "element_group": "Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "11.4 (kJ/mol)",
     "element_specific_heat_capacity": "0.298 J/(g·K)",
     "element_vaporization_heat": "380 (kJ/mol)",
+
+    "oxidation_state_neg": "0",
+    "oxidation_state_pos": "1 2 3",
 
     "iso_1": "Y-88",
     "iso_mass_1": "87.9095011",

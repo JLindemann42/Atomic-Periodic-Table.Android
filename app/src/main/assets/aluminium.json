@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Aluminium-4.jpg",
 
     "element": "Aluminium",
+    "short": "Al",
     "element_year": "1825",
     "element_discovered_name": "Hans Christian Ørsted",
     "element_group": "Post-transition Metal",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "10.789 (kJ/mol)",
     "element_specific_heat_capacity": "0.897 J/(g·K)",
     "element_vaporization_heat": "294 (kJ/mol)",
+
+    "oxidation_state_neg": "1 2",
+    "oxidation_state_pos": "1 2 3",
 
     "iso_1": "Al-25",
     "iso_mass_1": "24.99042831",

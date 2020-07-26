@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Rhenium_single_crystal_bar_and_1cm3_cube.jpg/1024px-Rhenium_single_crystal_bar_and_1cm3_cube.jpg",
 
     "element": "Rhenium",
+    "short": "Re",
     "element_year": "1908",
     "element_discovered_name": "Masataka Ogawa",
     "element_group": "Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "60.43 (kJ/mol)",
     "element_specific_heat_capacity": "0.137 J/(g·K)",
     "element_vaporization_heat": "704 (kJ/mol)",
+
+    "oxidation_state_neg": "3 1 0",
+    "oxidation_state_pos": "1 2 3 4 5 6 7",
 
     "iso_1": "Re-183",
     "iso_mass_1": "182.950820",

@@ -4,6 +4,7 @@
     "link": "https://4.imimg.com/data4/DL/IG/MY-3137311/liquid-nitrogen-gas-500x500.jpg",
 
     "element": "Nitrogen",
+    "short": "N",
     "element_year": "1772",
     "element_discovered_name": "Daniel Rutherford",
     "element_group": "Other Nonmetal",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "0.71 (N2) (kJ/mol)",
     "element_specific_heat_capacity": "1.040 (N2) J/(g·K)",
     "element_vaporization_heat": "5.57 (N2) (kJ/mol)",
+
+    "oxidation_state_neg": "3 2 1",
+    "oxidation_state_pos": "1 2 3 4 5",
 
     "iso_1": "N-13",
     "iso_mass_1": "13.00573861",

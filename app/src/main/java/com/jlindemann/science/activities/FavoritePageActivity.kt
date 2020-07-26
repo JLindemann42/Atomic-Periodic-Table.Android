@@ -18,8 +18,6 @@ class FavoritePageActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Utils.gestureSetup(window)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
 
@@ -148,7 +146,6 @@ class FavoritePageActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val params = common_title_back_fav.layoutParams as ViewGroup.LayoutParams
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_fav.layoutParams = params
@@ -156,16 +153,6 @@ class FavoritePageActivity : BaseActivity() {
             val params2 = general_header.layoutParams as ViewGroup.MarginLayoutParams
             params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             general_header.layoutParams = params2
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            val params = common_title_back_fav.layoutParams as ViewGroup.LayoutParams
-            params.height += top
-            common_title_back_fav.layoutParams = params
-
-            val params2 = general_header.layoutParams as ViewGroup.MarginLayoutParams
-            params2.topMargin += top
-            general_header.layoutParams = params2
-        }
     }
 
     fun onCheckboxClicked() {

@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Wolfram_evaporated_crystals_and_1cm3_cube.jpg/1024px-Wolfram_evaporated_crystals_and_1cm3_cube.jpg",
 
     "element": "Tungsten",
+    "short": "W",
     "element_year": "1783",
     "element_discovered_name": "Juan José Elhuyar",
     "element_group": "Transition Metals",
@@ -38,7 +39,10 @@
     "element_phase": "Solid",
     "element_fusion_heat": "52.31 (kJ/mol)",
     "element_specific_heat_capacity": "0.132 J/(g·K)",
-    "element_vaporization_heat": "\t806.7 (kJ/mol)",
+    "element_vaporization_heat": "806.7 (kJ/mol)",
+
+    "oxidation_state_neg": "4 2 1 0",
+    "oxidation_state_pos": "1 2 3 4 5 6",
 
     "iso_1": "W-179",
     "iso_mass_1": "178.947070",

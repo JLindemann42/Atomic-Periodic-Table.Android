@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Dy_chips.jpg",
 
     "element": "Dysprosium",
+    "short": "Dy",
     "element_year": "1886",
     "element_discovered_name": "Lecoq de Boisbaudran",
     "element_group": "Lanthanoids",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "11.06 (kJ/mol)",
     "element_specific_heat_capacity": "0.170 J/(g·K)",
     "element_vaporization_heat": "280 (kJ/mol)",
+
+    "oxidation_state_neg": "0",
+    "oxidation_state_pos": "2 3 4",
 
     "iso_1": "Dy-159",
     "iso_mass_1": "158.9257392",

@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Potassium-2.jpg",
 
     "element": "Potassium",
+    "short": "K",
     "element_year": "1807",
     "element_discovered_name": "Humphry Davy",
     "element_group": "Alkali Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "2.33 (kJ/mol)",
     "element_specific_heat_capacity": "0.757 J/(g·K)",
     "element_vaporization_heat": "76.90 (kJ/mol)",
+
+    "oxidation_state_neg": "1",
+    "oxidation_state_pos": "1",
 
     "iso_1": "K-38",
     "iso_mass_1": "37.96908112",

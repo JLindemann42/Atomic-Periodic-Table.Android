@@ -20,8 +20,6 @@ class AboutActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Utils.gestureSetup(window)
-        
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
 
@@ -45,7 +43,6 @@ class AboutActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val params = common_title_back_info.layoutParams as ViewGroup.LayoutParams
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_info.layoutParams = params
@@ -53,16 +50,7 @@ class AboutActivity : BaseActivity() {
             val params2 = imageView3.layoutParams as ViewGroup.MarginLayoutParams
             params2.topMargin += top
             imageView3.layoutParams = params2
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            val params = common_title_back_info.layoutParams as ViewGroup.LayoutParams
-            params.height += top
-            common_title_back_info.layoutParams = params
 
-            val params2 = imageView3.layoutParams as ViewGroup.MarginLayoutParams
-            params2.topMargin += top
-            imageView3.layoutParams = params2
-        }
     }
 
     private fun setupLinks() {

@@ -41,8 +41,6 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Utils.gestureSetup(window)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
 
@@ -154,7 +152,6 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val params = r_view.layoutParams as ViewGroup.MarginLayoutParams
             params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             r_view.layoutParams = params
@@ -162,16 +159,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             val params2 = common_title_back_iso.layoutParams as ViewGroup.LayoutParams
             params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_iso.layoutParams = params2
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            val params = r_view.layoutParams as ViewGroup.MarginLayoutParams
-            params.topMargin += top
-            r_view.layoutParams = params
 
-            val params2 = common_title_back_iso.layoutParams as ViewGroup.LayoutParams
-            params2.height += top
-            common_title_back_iso.layoutParams = params2
-        }
     }
 
     override fun elementClickListener(item: Element, position: Int) {

@@ -216,9 +216,39 @@
         app:realtimeBlurRadius="4dp"
         app:realtimeOverlayColor="#A80B0B0B" />
 
+    <com.github.mmin18.widget.RealtimeBlurView
+        android:id="@+id/detail_emission_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#A8000000"
+        android:elevation="12dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:realtimeBlurRadius="4dp"
+        app:realtimeOverlayColor="#A80B0B0B" />
+
     <include
         android:id="@+id/shell"
         layout="@layout/shell_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="130dp"
+        android:elevation="112dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/detail_emission"
+        layout="@layout/detail_emission"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="30dp"

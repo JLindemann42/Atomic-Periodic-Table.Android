@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:id="@+id/view_main"
     android:orientation="vertical"
-    android:fitsSystemWindows="true"
     android:background="?attr/colorPrimaryDark"
     tools:context=".MainActivity">
 

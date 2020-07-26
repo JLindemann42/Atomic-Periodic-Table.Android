@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Ruthenium_a_half_bar.jpg/1920px-Ruthenium_a_half_bar.jpg",
 
     "element": "Ruthenium",
+    "short": "Ru",
     "element_year": "1844",
     "element_discovered_name": "Karl Ernst Claus",
     "element_group": "Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "38.59 (kJ/mol)",
     "element_specific_heat_capacity": "0.238 J/(g·K)",
     "element_vaporization_heat": "591.6 (kJ/mol)",
+
+    "oxidation_state_neg": "4 2 0",
+    "oxidation_state_pos": "1 2 3 4 5 6 7 8",
 
     "iso_1": "Ru-95",
     "iso_mass_1": "94.910413",

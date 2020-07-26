@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Iron_electrolytic_and_1cm3_cube.jpg/1280px-Iron_electrolytic_and_1cm3_cube.jpg ",
 
     "element": "Iron",
+    "short": "Fe",
     "element_year": "Deep Antique",
     "element_discovered_name": "---",
     "element_group": "Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "13.81 (kJ/mol)",
     "element_specific_heat_capacity": "0.449 J/(g·K)",
     "element_vaporization_heat": "340 (kJ/mol)",
+
+    "oxidation_state_neg": "4 2 1 0",
+    "oxidation_state_pos": "1 2 3 4 5 6 7",
 
     "iso_1": "Fe-53",
     "iso_mass_1": "52.9453079",

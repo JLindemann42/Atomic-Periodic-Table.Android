@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Liquid_oxygen_in_a_beaker_4.jpg",
 
     "element": "Oxygen",
+    "short": "O",
     "element_year": "1771",
     "element_discovered_name": "Carl Wilhelm Scheele",
     "element_group": "Other Nonmetal",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "0.44 (O2) (kJ/mol)",
     "element_specific_heat_capacity": "0.918 (O2) J/(g·K)",
     "element_vaporization_heat": "6.82 (O2) (kJ/mol)",
+
+    "oxidation_state_neg": "2 1 0",
+    "oxidation_state_pos": "1 2",
 
     "iso_1": "O-14",
     "iso_mass_1": "14.008596706",

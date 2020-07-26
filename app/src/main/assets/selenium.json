@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/4/47/SeBlackRed.jpg",
 
     "element": "Selenium",
+    "short": "Se",
     "element_year": "1817",
     "element_discovered_name": "Jöns Jakob Berzelius",
     "element_group": "Other Nonmetals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "Gray: 6.69 (kJ/mol)",
     "element_specific_heat_capacity": "0.321 J/(g·K)",
     "element_vaporization_heat": "26 (kJ/mol)",
+
+    "oxidation_state_neg": "2 1",
+    "oxidation_state_pos": "1 2 3 4 5 6",
 
     "iso_1": "Se-73",
     "iso_mass_1": "72.926765",

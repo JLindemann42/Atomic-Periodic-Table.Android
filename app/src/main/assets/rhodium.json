@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Rhodium_powder_pressed_melted.jpg/1280px-Rhodium_powder_pressed_melted.jpg",
 
     "element": "Rhodium",
+    "short": "Rh",
     "element_year": "1804",
     "element_discovered_name": "William Hyde Wollaston",
     "element_group": "Transition Metals",
@@ -39,6 +40,9 @@
     "element_fusion_heat": "26.59 (kJ/mol)",
     "element_specific_heat_capacity": "0.243 J/(g·K)",
     "element_vaporization_heat": "494 (kJ/mol)",
+
+    "oxidation_state_neg": "3 1 0",
+    "oxidation_state_pos": "1 2 3 4 5 6",
 
     "iso_1": "Rh-101",
     "iso_mass_1": "100.906164",
