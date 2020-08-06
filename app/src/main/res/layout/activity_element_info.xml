@@ -172,6 +172,11 @@
                 android:layout_height="wrap_content" />
 
             <include
+                layout="@layout/d_electromagnetic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
                 android:id="@+id/addition_physics"
                 layout="@layout/d_thermodynamic"
                 android:layout_width="match_parent"

@@ -13,6 +13,12 @@
     "element_protons": "5",
     "element_neutron_common": "6",
 
+    "electrical_type": "Insulator",
+    "resistivity": "10000",
+    "resistivity_mult": "1",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
+
     "element_atomic_number": "5",
     "element_atomicmass": "10.81 (u)",
     "element_density": "2.08 (g/cm^3)",

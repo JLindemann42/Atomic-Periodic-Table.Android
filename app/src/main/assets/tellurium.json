@@ -13,6 +13,12 @@
     "element_protons": "52",
     "element_neutron_common": "78",
 
+    "electrical_type": "Semiconductor",
+    "resistivity": "1",
+    "resistivity_mult": "0.0001",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
+
     "element_atomic_number": "52",
     "element_atomicmass": "127.60 (u)",
     "element_density": "6.24 (g/cm^3)",

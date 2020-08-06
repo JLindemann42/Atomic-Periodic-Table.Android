@@ -13,6 +13,12 @@
     "element_protons": "27",
     "element_neutron_common": "32",
 
+    "electrical_type": "Conductor",
+    "resistivity": "6",
+    "resistivity_mult": "0.00000001",
+    "magnetic_type": "Ferromagnetic",
+    "superconducting_point": "---",
+
     "element_atomic_number": "27",
     "element_atomicmass": "58.9332 (u)",
     "element_density": "8.86 (g/cm^3)",

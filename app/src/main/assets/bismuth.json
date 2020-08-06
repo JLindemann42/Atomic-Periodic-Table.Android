@@ -13,6 +13,12 @@
     "element_protons": "83",
     "element_neutron_common": "126",
 
+    "electrical_type": "Conductor",
+    "resistivity": "1.3",
+    "resistivity_mult": "0.000001",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
+
     "element_atomic_number": "83",
     "element_atomicmass": "208.980 (u)",
     "element_density": "9.78 (g/cm^3)",

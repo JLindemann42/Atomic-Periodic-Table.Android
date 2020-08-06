@@ -28,6 +28,7 @@ import kotlinx.android.synthetic.main.activity_element_info.*
 import kotlinx.android.synthetic.main.activity_element_info.back_btn
 import kotlinx.android.synthetic.main.activity_element_info.element_title
 import kotlinx.android.synthetic.main.d_atomic.*
+import kotlinx.android.synthetic.main.d_electromagnetic.*
 import kotlinx.android.synthetic.main.d_overview.*
 import kotlinx.android.synthetic.main.d_properties.*
 import kotlinx.android.synthetic.main.d_temperatures.*
@@ -43,6 +44,9 @@ import java.net.ConnectException
 import kotlinx.android.synthetic.main.loading_view.*
 import kotlinx.android.synthetic.main.oxidiation_states.*
 import kotlinx.android.synthetic.main.shell_view.card_model_view
+import kotlin.math.pow
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 class ElementInfoActivity : BaseActivity() {
 
@@ -211,6 +215,22 @@ class ElementInfoActivity : BaseActivity() {
             val oxidationNeg1 = jsonObject.optString("oxidation_state_neg", "---")
             val oxidationPos1 = jsonObject.optString("oxidation_state_pos", "---")
 
+            //Electromagnetic Properties
+            val electricalType = jsonObject.optString("electrical_type", "---")
+            val resistivity = jsonObject.optString("resistivity", "---")
+            val rMultiplier = jsonObject.optString("resistivity_mult", "---")
+            val magneticType = jsonObject.optString("magnetic_type", "---")
+            val superconductingPoint = jsonObject.optString("superconducting_point", "---")
+
+            if (rMultiplier == "---") {
+                element_resistivity.text = "---"
+            }
+            else {
+                val input = resistivity.toFloat() * rMultiplier.toFloat()
+                val output = input.pow(-1).toString()
+                element_resistivity.text = output.replace("E", "*10^") + " (S/m)"
+            }
+
             //set elements
             element_title.text = element
             element_name.text = element
@@ -252,6 +272,11 @@ class ElementInfoActivity : BaseActivity() {
             config_data.text = elementShellElectrons
             e_config_data.text = electronConfig
 
+            //Electromagnetic Properties Items
+            element_electrical_type.text = electricalType
+            element_magnetic_type.text = magneticType
+            element_superconducting_point.text = superconductingPoint + " (K)"
+
             if (phaseText.toString() == "Solid") {
                 phase_icon.setImageDrawable(getDrawable(R.drawable.solid))
             }
@@ -261,7 +286,6 @@ class ElementInfoActivity : BaseActivity() {
             if (phaseText.toString() == "Liquid") {
                 phase_icon.setImageDrawable(getDrawable(R.drawable.liquid))
             }
-
 
             if (oxidationNeg1.contains(0.toString())) { ox0.text = "0"
                 ox0.background.setTint(getColor(R.color.non_metals)) }

@@ -10,7 +10,7 @@
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         android:id="@+id/sliding_layout"
         android:layout_width="match_parent"
-        android:layout_height="264dp"
+        android:layout_height="320dp"
         android:elevation="101dp"
         android:gravity="bottom"
         sothree:umanoFadeColor="@android:color/transparent"
@@ -52,6 +52,29 @@
                 android:alpha="0.85"
                 android:background="?attr/actionMenuTextColor"
                 android:elevation="0dp" />
+
+            <Button
+                android:id="@+id/blog_btn"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:background="?attr/colorPrimary"
+                android:backgroundTint="?attr/colorPrimary"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_blog"
+                android:drawablePadding="18dp"
+                android:drawableTint="?attr/actionMenuTextColor"
+                android:elevation="0dp"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple"
+                android:gravity="center_vertical"
+                android:padding="18dp"
+                android:shadowColor="?attr/colorAccent"
+                android:text="Blog"
+                android:textAllCaps="true"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textColorHighlight="?attr/actionMenuTextColor"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/solubility_btn"

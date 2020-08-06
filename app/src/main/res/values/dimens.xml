@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="status_bar_height">30dp</dimen>
+    <!-- General Dimensions -->
+    <dimen name="margin">18dp</dimen>
+    <dimen name="margin_space">9dp</dimen>
+    <dimen name="default_card_elevation">2dp</dimen>
+    <dimen name="title_bar_elevation">4dp</dimen>
 
+    <dimen name="status_bar_height">30dp</dimen>
     <dimen name="title_bar">80dp</dimen>
     <dimen name="nav_bar">60dp</dimen>
-    <dimen name="nav_view">264dp</dimen>
+    <dimen name="nav_view">320dp</dimen>
 
     <dimen name="first_item">98dp</dimen>
-    <dimen name="margin">18dp</dimen>
+
 
     <dimen name="submit_drop">126dp</dimen>
+    <dimen name="hover_menu_margin">100dp</dimen>
 
     <dimen name="row_height">36dp</dimen>
 </resources>

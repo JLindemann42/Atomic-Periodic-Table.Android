@@ -49,9 +49,9 @@ class TableActivity : BaseActivity() {
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_tab.layoutParams = params
 
-            val params2 = sol_table.layoutParams as ViewGroup.MarginLayoutParams
+            val params2 = ele_table.layoutParams as ViewGroup.MarginLayoutParams
             params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + 36
-            sol_table.layoutParams = params2
+            ele_table.layoutParams = params2
     }
 
     private fun tableListeners() {
@@ -61,6 +61,10 @@ class TableActivity : BaseActivity() {
         }
         ele_table.setOnClickListener {
             val intent = Intent(this, ElectrodeActivity::class.java)
+            startActivity(intent)
+        }
+        equ_table.setOnClickListener {
+            val intent = Intent(this, EquationsActivity::class.java)
             startActivity(intent)
         }
     }

@@ -13,6 +13,12 @@
     "element_protons": "86",
     "element_neutron_common": "136",
 
+    "electrical_type": "---",
+    "resistivity": "---",
+    "resistivity_mult": "---",
+    "magnetic_type": "---",
+    "superconducting_point": "---",
+
     "element_atomic_number": "86",
     "element_atomicmass": "222 (u)",
     "element_density": "0.0098 (g/cm^3)",

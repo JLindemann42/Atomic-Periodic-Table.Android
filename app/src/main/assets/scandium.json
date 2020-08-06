@@ -13,6 +13,12 @@
     "element_protons": "21",
     "element_neutron_common": "24",
 
+    "electrical_type": "Conductor",
+    "resistivity": "5.5",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "0.05",
+
     "element_atomic_number": "21",
     "element_atomicmass": "44.9559 (u)",
     "element_density": "2.99 (g/cm^3)",

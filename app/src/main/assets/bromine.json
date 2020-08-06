@@ -13,6 +13,12 @@
     "element_protons": "35",
     "element_neutron_common": "44",
 
+    "electrical_type": "Insulator",
+    "resistivity": "1",
+    "resistivity_mult": "10000000000",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
+
     "element_atomic_number": "35",
     "element_atomicmass": "79.904 (u)",
     "element_density": "Br2: 3.1028 (g/cm^3)",

@@ -13,6 +13,12 @@
     "element_protons": "53",
     "element_neutron_common": "74",
 
+    "electrical_type": "Insulator",
+    "resistivity": "1",
+    "resistivity_mult": "10000000",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
+
     "element_atomic_number": "53",
     "element_atomicmass": "126.9045 (u)",
     "element_density": "4.933 (g/cm^3)",

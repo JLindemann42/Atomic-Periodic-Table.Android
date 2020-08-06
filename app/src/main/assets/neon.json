@@ -13,6 +13,12 @@
     "element_protons": "10",
     "element_neutron_common": "10",
 
+    "electrical_type": "---",
+    "resistivity": "---",
+    "resistivity_mult": "---",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
+
     "element_atomic_number": "10",
     "element_atomicmass": "20.1797 (u)",
     "element_density": "0.0009002 (g/cm^3)",

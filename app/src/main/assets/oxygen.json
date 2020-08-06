@@ -13,6 +13,12 @@
     "element_protons": "8",
     "element_neutron_common": "8",
 
+    "electrical_type": "---",
+    "resistivity": "---",
+    "resistivity_mult": "---",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "---",
+
     "element_atomic_number": "8",
     "element_atomicmass": "15.999 (u)",
     "element_density": "0.001429 (g/cm^3)",

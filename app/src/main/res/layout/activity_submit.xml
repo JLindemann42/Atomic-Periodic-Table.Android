@@ -151,20 +151,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp">
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    <ImageButton
                         android:id="@+id/back_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="12dp"
-                        android:elevation="0dp"
+                        android:layout_marginStart="18dp"
                         android:rotation="180"
-                        android:src="@drawable/ic_arrow_back_whit"
-                        app:backgroundTint="@color/transparent"
-                        app:borderWidth="0dp"
-                        app:elevation="0dp"
-                        app:fabSize="normal"
-                        app:pressedTranslationZ="0dp" />
+                        android:src="@drawable/ic_arrow_back_whit" />
 
                     <TextView
                         android:id="@+id/element_title"

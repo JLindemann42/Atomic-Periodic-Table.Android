@@ -13,6 +13,12 @@
     "element_protons": "97",
     "element_neutron_common": "150",
 
+    "electrical_type": "---",
+    "resistivity": "---",
+    "resistivity_mult": "---",
+    "magnetic_type": "---",
+    "superconducting_point": "---",
+
     "element_atomic_number": "97",
     "element_atomicmass": "247 (u)",
     "element_density": "Beta: 13.25 (g/cm^3)",

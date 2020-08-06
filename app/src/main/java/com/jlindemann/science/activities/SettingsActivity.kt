@@ -63,6 +63,10 @@ class SettingsActivity : BaseActivity() {
             val intent = Intent(this, SubmitActivity::class.java)
             startActivity(intent)
         }
+        licenses_settings.setOnClickListener {
+            val intent = Intent(this, LicensesActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
