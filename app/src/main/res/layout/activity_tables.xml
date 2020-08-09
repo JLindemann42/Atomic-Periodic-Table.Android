@@ -63,11 +63,38 @@
         android:orientation="vertical">
 
         <FrameLayout
-            android:id="@+id/ele_table"
+            android:id="@+id/ph_table"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginStart="@dimen/margin"
             android:layout_marginTop="@dimen/first_item"
+            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin_space"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:clickable="true"
+            android:elevation="@dimen/default_card_elevation"
+            android:focusable="true"
+            android:foreground="@drawable/c_ripple">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginEnd="98dp"
+                android:text="@string/table_ph"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/ele_table"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin_space"
             android:layout_marginEnd="@dimen/margin"
             android:layout_marginBottom="@dimen/margin_space"
             android:background="@drawable/toast"

@@ -8,6 +8,7 @@
 
     <dimen name="status_bar_height">30dp</dimen>
     <dimen name="title_bar">80dp</dimen>
+    <dimen name="title_bar_ph">124dp</dimen>
     <dimen name="nav_bar">60dp</dimen>
     <dimen name="nav_view">320dp</dimen>
 

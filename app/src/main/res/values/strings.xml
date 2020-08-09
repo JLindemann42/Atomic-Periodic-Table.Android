@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version">1.2.2 Build 38</string>
+    <string name="app_version">1.3 Build 39</string>
 
     <!-- Activity Settings-->
     <string name="other_settings">Advanced</string>
@@ -17,12 +17,23 @@
 
     <!-- Activity Table-->
     <string name="activity_table_title">Tables</string>
+    <string name="table_ph">Acid/ Base (pH) Indicators</string>
     <string name="table_electrochemical">Electrochemical Series</string>
     <string name="table_equations">Formulas</string>
     <string name="table_solubility">Solubility Table</string>
 
     <!-- Activity Equations -->
     <string name="activity_equations_title">Formulas</string>
+
+    <!-- Activity pH -->
+    <string name="activity_ph_title">pH Indicators</string>
+    <string name="activity_ph_acid">Acid</string>
+    <string name="activity_ph_neutral">Neutral</string>
+    <string name="activity_ph_alkaline">Alkaline</string>
+    <string name="activity_ph_methyl_orange">Methyl-orange</string>
+    <string name="activity_ph_bromothymol_blue">Bromothymol Blue</string>
+    <string name="activity_ph_congo_red">Congo Red</string>
+    <string name="activity_ph_phenolphthalein">Phenolphthalein</string>
 
     <!-- Social-Media Links-->
     <string name="twitter">https://www.twitter.com/jlindemanndev</string>

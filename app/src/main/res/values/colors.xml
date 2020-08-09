@@ -37,4 +37,14 @@
     <color name="transparent">#00000000</color>
 
     <color name="motion_down">#54E68A5C</color>
+
+    <color name="red">#F32B1C</color>
+    <color name="orange">#FF5722</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="blue">#0D47A1</color>
+    <color name="green">#388E3C</color>
+    <color name="purple">#6027C5</color>
+    <color name="pink">#F6528A</color>
+    <color name="colorless">#CFCFCF</color>
+
 </resources>

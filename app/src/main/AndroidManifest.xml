@@ -96,6 +96,12 @@
             android:windowSoftInputMode="adjustNothing"
             android:label="EQUATIONSACTIVITY" />
 
+        <activity
+            android:name=".activities.phActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing"
+            android:label="PHACTIVITY" />
+
     </application>
 
 </manifest>
