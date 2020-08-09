@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Chromium_crystals_and_1cm3_cube.jpg/1024px-Chromium_crystals_and_1cm3_cube.jpg",
 
     "element": "Chromium",
+    "short": "Cr",
     "element_year": "1797",
     "element_discovered_name": "Louis Nicolas Vauquelin",
     "element_group": "Transition Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "24",
     "element_protons": "24",
     "element_neutron_common": "28",
+
+    "electrical_type": "Conductor",
+    "resistivity": "1.3",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Antiferromagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "24",
     "element_atomicmass": "51.9961 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "21.0 (kJ/mol)",
     "element_specific_heat_capacity": "0.449 J/(g·K)",
     "element_vaporization_heat": "339.5 (kJ/mol)",
+
+    "oxidation_state_neg": "4 2 1 0",
+    "oxidation_state_pos": "1 2 3 4 5 6",
 
     "iso_1": "Cr-49",
     "iso_mass_1": "48.9513357",

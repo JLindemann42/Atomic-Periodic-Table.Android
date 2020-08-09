@@ -3,6 +3,7 @@ package com.jlindemann.science.activities
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.Color
 import android.graphics.Insets
 import android.net.Uri
 import android.os.Build
@@ -11,8 +12,10 @@ import android.os.Handler
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColor
 import com.jlindemann.science.R
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
@@ -25,10 +28,12 @@ import kotlinx.android.synthetic.main.activity_element_info.*
 import kotlinx.android.synthetic.main.activity_element_info.back_btn
 import kotlinx.android.synthetic.main.activity_element_info.element_title
 import kotlinx.android.synthetic.main.d_atomic.*
+import kotlinx.android.synthetic.main.d_electromagnetic.*
 import kotlinx.android.synthetic.main.d_overview.*
 import kotlinx.android.synthetic.main.d_properties.*
 import kotlinx.android.synthetic.main.d_temperatures.*
 import kotlinx.android.synthetic.main.d_thermodynamic.*
+import kotlinx.android.synthetic.main.detail_emission.*
 import kotlinx.android.synthetic.main.favorite_bar.*
 import kotlinx.android.synthetic.main.shell_view.*
 import org.json.JSONArray
@@ -37,13 +42,16 @@ import java.io.IOException
 import java.io.InputStream
 import java.net.ConnectException
 import kotlinx.android.synthetic.main.loading_view.*
+import kotlinx.android.synthetic.main.oxidiation_states.*
+import kotlinx.android.synthetic.main.shell_view.card_model_view
+import kotlin.math.pow
+import kotlin.math.roundToInt
+import kotlin.math.roundToLong
 
 class ElementInfoActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Utils.gestureSetup(window)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
 
@@ -75,8 +83,8 @@ class ElementInfoActivity : BaseActivity() {
         }
         
         shell.visibility = View.GONE
-        onClickShell()
-        onClickClose()
+        detail_emission.visibility = View.GONE
+        detailViews()
         offlineCheck()
 
         favoriteBarSetup()
@@ -99,15 +107,19 @@ class ElementInfoActivity : BaseActivity() {
 
     override fun onBackPressed() {
         if (shell_background.visibility == View.VISIBLE) {
-            hideAnim(shell)
+            Utils.fadeOutAnim(shell, 300)
             Utils.fadeOutAnim(shell_background, 300)
+            return
+        }
+        if (detail_emission.visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(detail_emission, 300)
+            Utils.fadeOutAnim(detail_emission_background, 300)
             return
         }
         else { super.onBackPressed() }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val params = frame.layoutParams as ViewGroup.MarginLayoutParams
             params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             frame.layoutParams = params
@@ -119,20 +131,7 @@ class ElementInfoActivity : BaseActivity() {
             val params2 = common_title_back.layoutParams as ViewGroup.LayoutParams
             params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back.layoutParams = params2
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            val params = frame.layoutParams as ViewGroup.MarginLayoutParams
-            params.topMargin += top
-            frame.layoutParams = params
 
-            val paramsO = offline_space.layoutParams as ViewGroup.MarginLayoutParams
-            paramsO.topMargin += top
-            offline_space.layoutParams = paramsO
-
-            val params2 = common_title_back.layoutParams as ViewGroup.LayoutParams
-            params2.height += top
-            common_title_back.layoutParams = params2
-        }
     }
 
     private fun offlineCheck() {
@@ -142,16 +141,22 @@ class ElementInfoActivity : BaseActivity() {
         if (offlinePrefValue == 1) {
             frame.visibility = View.GONE
             offline_space.visibility = View.VISIBLE
+            sp_img.visibility = View.GONE
+            sp_offline.visibility = View.VISIBLE
+            sp_offline.text = "Go online for emission lines"
         }
         else {
             frame.visibility = View.VISIBLE
             offline_space.visibility = View.GONE
+            sp_img.visibility = View.VISIBLE
+            sp_offline.visibility = View.GONE
         }
     }
 
     fun readJson() {
 
         var jsonstring : String? = null
+        ox_view.refreshDrawableState()
 
         try {
             //Setup json reader
@@ -171,6 +176,7 @@ class ElementInfoActivity : BaseActivity() {
             //optStrings from jsonObject or fallback
             val element= jsonObject.optString("element", "---")
             val url = jsonObject.optString("link", "---")
+            val short = jsonObject.optString("short", "---")
             val elementElectrons = jsonObject.optString("element_electrons", "---")
             val elementShellElectrons = jsonObject.optString("element_shells_electrons", "---")
             val elementYear = jsonObject.optString("element_year", "---")
@@ -179,7 +185,7 @@ class ElementInfoActivity : BaseActivity() {
             val elementNeutronsCommon = jsonObject.optString("element_neutron_common", "---")
             val elementGroup = jsonObject.optString("element_group", "---")
             val elementElectronegativity = jsonObject.optString("element_electronegativty", "---")
-            var wikipedia = jsonObject.optString("wikilink", "---")
+            val wikipedia = jsonObject.optString("wikilink", "---")
             val elementBoilingKelvin = jsonObject.optString("element_boiling_kelvin", "---")
             val elementBoilingCelsius = jsonObject.optString("element_boiling_celsius", "---")
             val elementBoilingFahrenheit = jsonObject.optString("element_boiling_fahrenheit", "---")
@@ -206,6 +212,24 @@ class ElementInfoActivity : BaseActivity() {
             val atomicRadius = jsonObject.optString("element_atomic_radius", "---")
             val covalentRadius = jsonObject.optString("element_covalent_radius", "---")
             val vanDerWaalsRadius = jsonObject.optString("element_van_der_waals", "---")
+            val oxidationNeg1 = jsonObject.optString("oxidation_state_neg", "---")
+            val oxidationPos1 = jsonObject.optString("oxidation_state_pos", "---")
+
+            //Electromagnetic Properties
+            val electricalType = jsonObject.optString("electrical_type", "---")
+            val resistivity = jsonObject.optString("resistivity", "---")
+            val rMultiplier = jsonObject.optString("resistivity_mult", "---")
+            val magneticType = jsonObject.optString("magnetic_type", "---")
+            val superconductingPoint = jsonObject.optString("superconducting_point", "---")
+
+            if (rMultiplier == "---") {
+                element_resistivity.text = "---"
+            }
+            else {
+                val input = resistivity.toFloat() * rMultiplier.toFloat()
+                val output = input.pow(-1).toString()
+                element_resistivity.text = output.replace("E", "*10^") + " (S/m)"
+            }
 
             //set elements
             element_title.text = element
@@ -248,6 +272,11 @@ class ElementInfoActivity : BaseActivity() {
             config_data.text = elementShellElectrons
             e_config_data.text = electronConfig
 
+            //Electromagnetic Properties Items
+            element_electrical_type.text = electricalType
+            element_magnetic_type.text = magneticType
+            element_superconducting_point.text = superconductingPoint + " (K)"
+
             if (phaseText.toString() == "Solid") {
                 phase_icon.setImageDrawable(getDrawable(R.drawable.solid))
             }
@@ -257,6 +286,39 @@ class ElementInfoActivity : BaseActivity() {
             if (phaseText.toString() == "Liquid") {
                 phase_icon.setImageDrawable(getDrawable(R.drawable.liquid))
             }
+
+            if (oxidationNeg1.contains(0.toString())) { ox0.text = "0"
+                ox0.background.setTint(getColor(R.color.non_metals)) }
+            if (oxidationNeg1.contains(1.toString())) { m1ox.text = "-1"
+                m1ox.background.setTint(getColor(R.color.noble_gas)) }
+            if (oxidationNeg1.contains(2.toString())) { m2ox.text = "-2"
+                m2ox.background.setTint(getColor(R.color.noble_gas)) }
+            if (oxidationNeg1.contains(3.toString())) { m3ox.text = "-3"
+                m3ox.background.setTint(getColor(R.color.noble_gas)) }
+            if (oxidationNeg1.contains(4.toString())) { m4ox.text = "-4"
+                m4ox.background.setTint(getColor(R.color.noble_gas)) }
+            if (oxidationNeg1.contains(5.toString())) { m5ox.text = "-5"
+                m5ox.background.setTint(getColor(R.color.noble_gas)) }
+
+
+            if (oxidationPos1.contains(1.toString())) { p1ox.text = "+1"
+                p1ox.background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(2.toString())) { p2ox.text = "+2"
+                p2ox.background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(3.toString())) { p3ox.text = "+3"
+                p3ox.background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(4.toString())) { p4ox.text = "+4"
+                p4ox.background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(5.toString())) { p5ox.text = "+5"
+                p5ox.background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(6.toString())) { p6ox.text = "+6"
+                p6ox.background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(7.toString())) { p7ox.text = "+7"
+                p7ox.background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(8.toString())) { p8ox.text = "+8"
+                p8ox.background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(9.toString())) { p9ox.text = "+9"
+                p9ox.background.setTint(getColor(R.color.alkali_metals)) }
 
             //set element data for favorite bar
             molar_mass_f.text = elementAtomicWeight
@@ -296,6 +358,7 @@ class ElementInfoActivity : BaseActivity() {
             if (offlinePrefValue == 0) {
                 loadImage(url)
                 loadModelView(elementModelUrl)
+                loadSp(short)
             }
             wikiListener(wikipedia)
         }
@@ -409,39 +472,32 @@ class ElementInfoActivity : BaseActivity() {
         favoriteBarSetup()
     }
 
-    private fun onClickShell() {
+    private fun detailViews() {
         electron_view.setOnClickListener {
-            anim(shell)
+            Utils.fadeInAnim(shell, 300)
             Utils.fadeInAnim(shell_background, 300)
         }
-    }
-
-    private fun onClickClose() {
         close_shell_btn.setOnClickListener {
-            hideAnim(shell)
+            Utils.fadeOutAnim(shell, 300)
             Utils.fadeOutAnim(shell_background, 300)
         }
         shell_background.setOnClickListener {
-            hideAnim(shell)
+            Utils.fadeOutAnim(shell, 300)
             Utils.fadeOutAnim(shell_background, 300)
         }
-    }
 
-    private fun anim(view: View) {
-        view.visibility = View.VISIBLE
-        view.alpha = 0.0f
-        view.animate().setDuration(300)
-        view.animate().alpha(1.0f)
-    }
-
-    private fun hideAnim(view: View) {
-        view.animate().setDuration(300)
-        view.animate().alpha(0.0f)
-        val handler = Handler()
-        handler.postDelayed({
-            view.visibility = View.GONE
-        }, 200)
-
+        sp_img.setOnClickListener {
+            Utils.fadeInAnim(detail_emission, 300)
+            Utils.fadeInAnim(detail_emission_background, 300)
+        }
+        close_emission_btn.setOnClickListener {
+            Utils.fadeOutAnim(detail_emission, 300)
+            Utils.fadeOutAnim(detail_emission_background, 300)
+        }
+        detail_emission_background.setOnClickListener {
+            Utils.fadeOutAnim(detail_emission, 300)
+            Utils.fadeOutAnim(detail_emission_background, 300)
+        }
     }
 
     private fun elementAnim(view: View, view2: View) {
@@ -458,14 +514,26 @@ class ElementInfoActivity : BaseActivity() {
     }
 
     private fun loadImage(url: String?) {
-
-        try {
-            Picasso.get().load(url.toString()).into(element_image)
-        }
-
+        try { Picasso.get().load(url.toString()).into(element_image) }
         catch(e: ConnectException) {
             offline_div.visibility = View.VISIBLE
             frame.visibility = View.GONE
+        }
+    }
+
+    private fun loadSp(url: String?) {
+        val hUrl = "http://www.jlindemann.se/atomic/emission_lines/"
+        val ext = ".gif"
+        val fURL = hUrl + url + ext
+        try {
+            Picasso.get().load(fURL).into(sp_img)
+            Picasso.get().load(fURL).into(sp_img_detail)
+        }
+
+        catch(e: ConnectException) {
+            sp_img.visibility = View.GONE
+            sp_offline.text = "No Data"
+            sp_offline.visibility = View.VISIBLE
         }
     }
 
@@ -479,7 +547,6 @@ class ElementInfoActivity : BaseActivity() {
             val PACKAGE_NAME = "com.android.chrome"
             val customTabBuilder = CustomTabsIntent.Builder()
 
-            //Set appearance settings for CustomTab
             customTabBuilder.setToolbarColor(ContextCompat.getColor(this@ElementInfoActivity,R.color.colorLightPrimary))
             customTabBuilder.setSecondaryToolbarColor(ContextCompat.getColor(this@ElementInfoActivity,R.color.colorLightPrimary))
             customTabBuilder.setShowTitle(true)
@@ -490,7 +557,6 @@ class ElementInfoActivity : BaseActivity() {
 
             val packageManager = packageManager
             val resolveInfoList = packageManager.queryIntentActivities(CustomTab.intent, PackageManager.MATCH_DEFAULT_ONLY)
-
             for (resolveInfo in resolveInfoList) {
                 val packageName = resolveInfo.activityInfo.packageName
                 if (TextUtils.equals(packageName, PACKAGE_NAME))

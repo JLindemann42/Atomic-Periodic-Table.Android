@@ -4,13 +4,20 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/9/93/Californium.jpg",
 
     "element": "Californium",
-    "element_year": "Lawrence Berkeley National Laboratory",
-    "element_discovered_name": "1950",
+    "short": "Cf",
+    "element_year": "1950",
+    "element_discovered_name": "Lawrence Berkeley National Laboratory",
     "element_group": "Actinide",
     "element_appearance": "Silvery",
     "element_electrons": "98",
     "element_protons": "98",
     "element_neutron_common": "153",
+
+    "electrical_type": "---",
+    "resistivity": "---",
+    "resistivity_mult": "---",
+    "magnetic_type": "---",
+    "superconducting_point": "---",
 
     "element_atomic_number": "98",
     "element_atomicmass": "251 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "2 3 4 5",
 
     "iso_1": "Cf-248",
     "iso_mass_1": "248.072185",

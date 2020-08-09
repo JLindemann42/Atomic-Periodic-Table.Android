@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/1/19/Boron_R105.jpg",
 
     "element": "Boron",
+    "short": "Be",
     "element_year": "1808",
     "element_discovered_name": "Joseph Louis Gay-Lussac",
     "element_group": "Metalloids",
@@ -11,6 +12,12 @@
     "element_electrons": "5",
     "element_protons": "5",
     "element_neutron_common": "6",
+
+    "electrical_type": "Insulator",
+    "resistivity": "10000",
+    "resistivity_mult": "1",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "5",
     "element_atomicmass": "10.81 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "50.2 (kJ/mol)",
     "element_specific_heat_capacity": "1.825 J/(g·K)",
     "element_vaporization_heat": "480 (kJ/mol)",
+
+    "oxidation_state_neg": "5 1 0",
+    "oxidation_state_pos": "1 2 3",
 
     "iso_1": "Be-8",
     "iso_mass_1": "8.0246073",

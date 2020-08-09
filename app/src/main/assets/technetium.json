@@ -4,6 +4,7 @@
     "link": "http://www.galleries.com/minerals/silicate/gadolini/gadolini.jpg",
 
     "element": "Technetium",
+    "short": "Tc",
     "element_year": "1937",
     "element_discovered_name": "Emilio Segrè",
     "element_group": "Transition Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "43",
     "element_protons": "43",
     "element_neutron_common": "56",
+
+    "electrical_type": "Conductor",
+    "resistivity": "2",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "7.8",
 
     "element_atomic_number": "43",
     "element_atomicmass": "98.906 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "33.29 (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "550 (kJ/mol)",
+
+    "oxidation_state_neg": "3 1 0",
+    "oxidation_state_pos": "1 2 3 4 5 6 7",
 
     "iso_1": "Tc-96",
     "iso_mass_1": "95.907871",

@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Lutetium_sublimed_dendritic_and_1cm3_cube.jpg/800px-Lutetium_sublimed_dendritic_and_1cm3_cube.jpg",
 
     "element": "Lutetium",
+    "short": "Lu",
     "element_year": "1906",
     "element_discovered_name": "Carl Auer von Welsbach",
     "element_group": "Lanthanoids",
@@ -11,6 +12,12 @@
     "element_electrons": "71",
     "element_protons": "71",
     "element_neutron_common": "104",
+
+    "electrical_type": "Conductor",
+    "resistivity": "5.6",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "0.1",
 
     "element_atomic_number": "71",
     "element_atomicmass": "174.9668 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "22 (kJ/mol)",
     "element_specific_heat_capacity": "0.154 J/(g·K)",
     "element_vaporization_heat": "414 (kJ/mol)",
+
+    "oxidation_state_neg": "0",
+    "oxidation_state_pos": "2 3",
 
     "iso_1": "Lu-163",
     "iso_mass_1": "162.94118",

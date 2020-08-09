@@ -3,6 +3,7 @@
     "wikilink": "https://en.wikipedia.org/wiki/Hydrogen",
 
     "element": "Hydrogen",
+    "short": "H",
     "element_year": "1766",
     "element_discovered_name": "Henry Cavendish",
     "element_group": "Other Nonmetals",
@@ -10,6 +11,12 @@
     "element_electrons": "1",
     "element_protons": "1",
     "element_neutron_common": "0",
+
+    "electrical_type": "",
+    "resistivity": "---",
+    "resistivity_mult": "---",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "0.022",
 
     "element_atomic_number": "1",
     "element_atomicmass": "1.00784 (u)",
@@ -38,6 +45,9 @@
     "element_fusion_heat": "0.12 (H2) (kJ/mol)",
     "element_specific_heat_capacity": "14.304 J/(g·K)",
     "element_vaporization_heat": "0.90 (H2) (kJ/mol)",
+
+    "oxidation_state_neg": "1",
+    "oxidation_state_pos": "1",
 
     "iso_1": "H-1",
     "iso_mass_1": "1.00782503224",

@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/0/08/Polycrystalline-germanium.jpg",
 
     "element": "Germanium",
+    "short": "Ge",
     "element_year": "1886",
     "element_discovered_name": "Clemens Winkler",
     "element_group": "Metalloids",
@@ -11,6 +12,12 @@
     "element_electrons": "32",
     "element_protons": "32",
     "element_neutron_common": "40",
+
+    "electrical_type": "Semiconductor",
+    "resistivity": "5",
+    "resistivity_mult": "0.0001",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "32",
     "element_atomicmass": "72.630 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "36.94 (kJ/mol)",
     "element_specific_heat_capacity": "0.320 J/(g·K)",
     "element_vaporization_heat": "334 (kJ/mol)",
+
+    "oxidation_state_neg": "4 3 2 10",
+    "oxidation_state_pos": "1 2 3 4",
 
     "iso_1": "Ge-69",
     "iso_mass_1": "68.9279645",

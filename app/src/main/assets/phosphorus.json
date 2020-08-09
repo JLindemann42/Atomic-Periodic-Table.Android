@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/8/88/PhosphComby.jpg",
 
     "element": "Phosphorus",
+    "short": "P",
     "element_year": "1669",
     "element_discovered_name": "Hennig Brand",
     "element_group": "Other Nonmetal",
@@ -11,6 +12,12 @@
     "element_electrons": "15",
     "element_protons": "15",
     "element_neutron_common": "16",
+
+    "electrical_type": "Conductor",
+    "resistivity": "1",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "15",
     "element_atomicmass": "30.9738 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "White: 0.66 (kJ/mol)",
     "element_specific_heat_capacity": "White: 0.769 J/(g·K)",
     "element_vaporization_heat": "12.4 (kJ/mol)",
+
+    "oxidation_state_neg": "3 2 1 0",
+    "oxidation_state_pos": "1 2 3 4 5",
 
     "iso_1": "P-30",
     "iso_mass_1": "29.97831349",

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,7 @@ class DictionaryAdapter(var dictionaryList: ArrayList<Dictionary>, var clickList
         private val heading = itemView.findViewById(R.id.tv_title) as TextView
         private val text = itemView.findViewById(R.id.tv_text) as TextView
         private val wikiBtn = itemView.findViewById(R.id.wiki_btn) as Button
+        private val frame = itemView.findViewById(R.id.rCard) as FrameLayout
 
         fun initialize(item: Dictionary, action: OnDictionaryClickListener, con: Context) {
 

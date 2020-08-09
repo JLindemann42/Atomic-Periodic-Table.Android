@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/e/e9/SiliconCroda.jpg",
 
     "element": "Silicon",
+    "short": "Si",
     "element_year": "1824",
     "element_discovered_name": "Jöns Jacob Berzelius",
     "element_group": "Metalloids",
@@ -11,6 +12,12 @@
     "element_electrons": "14",
     "element_protons": "14",
     "element_neutron_common": "14",
+
+    "electrical_type": "Semiconductor",
+    "resistivity": "1",
+    "resistivity_mult": "0.001",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "14",
     "element_atomicmass": "28.085 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "50.21 (kJ/mol)",
     "element_specific_heat_capacity": "0.705 J/(g·K)",
     "element_vaporization_heat": "359 (kJ/mol)",
+
+    "oxidation_state_neg": "4 3 2 1 0",
+    "oxidation_state_pos": "1 2 3 4",
 
     "iso_1": "Si-27",
     "iso_mass_1": "26.98670469",

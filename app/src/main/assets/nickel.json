@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/5/57/Nickel_chunk.jpg",
 
     "element": "Nickel",
+    "short": "Ni",
     "element_year": "1751",
     "element_discovered_name": "Axel Fredrik Cronstedt",
     "element_group": "Transition Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "28",
     "element_protons": "28",
     "element_neutron_common": "30",
+
+    "electrical_type": "Conductor",
+    "resistivity": "7",
+    "resistivity_mult": "0.00000001",
+    "magnetic_type": "Ferromagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "28",
     "element_atomicmass": "58.6934 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "17.04 (kJ/mol)",
     "element_specific_heat_capacity": "0.444 J/(g·K)",
     "element_vaporization_heat": "379 (kJ/mol)",
+
+    "oxidation_state_neg": "2 1 0",
+    "oxidation_state_pos": "1 2 3 4 5",
 
     "iso_1": "Ni-57",
     "iso_mass_1": "56.9397935",

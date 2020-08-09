@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Gold_nugget_%28Australia%29_4_%2816848647509%29.jpg/1024px-Gold_nugget_%28Australia%29_4_%2816848647509%29.jpg",
 
     "element": "Gold",
+    "short": "Au",
     "element_year": "Deep Antiquity",
     "element_discovered_name": "---",
     "element_group": "Transition Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "79",
     "element_protons": "79",
     "element_neutron_common": "118",
+
+    "electrical_type": "Conductor",
+    "resistivity": "2.2",
+    "resistivity_mult": "0.00000001",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "79",
     "element_atomicmass": "196.967 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "12.55 (kJ/mol)",
     "element_specific_heat_capacity": "0.129 J/(g·K)",
     "element_vaporization_heat": "342 (kJ/mol)",
+
+    "oxidation_state_neg": "3 2 1 0",
+    "oxidation_state_pos": "1 2 3 5",
 
     "iso_1": "Au-196",
     "iso_mass_1": "195.966570",

@@ -36,8 +36,6 @@ class ElectrodeActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Utils.gestureSetup(window)
-
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
 
@@ -61,7 +59,6 @@ class ElectrodeActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val params = e_view.layoutParams as ViewGroup.MarginLayoutParams
             params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             e_view.layoutParams = params
@@ -69,16 +66,7 @@ class ElectrodeActivity : BaseActivity() {
             val params2 = common_title_back_elo.layoutParams as ViewGroup.LayoutParams
             params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_elo.layoutParams = params2
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            val params = e_view.layoutParams as ViewGroup.MarginLayoutParams
-            params.topMargin += top
-            e_view.layoutParams = params
 
-            val params2 = common_title_back_elo.layoutParams as ViewGroup.LayoutParams
-            params2.height += top
-            common_title_back_elo.layoutParams = params2
-        }
     }
 
     private fun recyclerView() {

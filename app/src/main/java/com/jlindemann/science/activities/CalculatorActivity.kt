@@ -18,7 +18,6 @@ class CalculatorActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Utils.gestureSetup(window)
 
         val themePreference = ThemePreference(this)
         var themePrefValue = themePreference.getValue()

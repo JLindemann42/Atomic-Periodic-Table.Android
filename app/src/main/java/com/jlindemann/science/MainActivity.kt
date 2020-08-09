@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
-import android.graphics.Insets
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -22,12 +21,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.activities.*
 import com.jlindemann.science.adapter.ElementAdapter
-import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.SearchPreferences
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.TabUtil
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -51,54 +50,27 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Utils.gestureSetup(window)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
-
         if (themePrefValue == 100) {
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                Configuration.UI_MODE_NIGHT_NO -> {
-                    setTheme(R.style.AppTheme)
-                }
-                Configuration.UI_MODE_NIGHT_YES -> {
-                    setTheme(R.style.AppThemeDark)
-                }
+                Configuration.UI_MODE_NIGHT_NO -> { setTheme(R.style.AppTheme) }
+                Configuration.UI_MODE_NIGHT_YES -> { setTheme(R.style.AppThemeDark) }
             }
         }
-        if (themePrefValue == 0) {
-            setTheme(R.style.AppTheme)
-        }
-        if (themePrefValue == 1) {
-            setTheme(R.style.AppThemeDark)
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.setDecorFitsSystemWindows(false)
-        }
+        if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
+        if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
 
         setContentView(R.layout.activity_main)
-
         val recyclerView = findViewById<RecyclerView>(R.id.element_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val elements = ArrayList<Element>()
         ElementModel.getList(elements)
-
         val adapter = ElementAdapter(elements, this, this)
         recyclerView.adapter = adapter
         edit_element.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                s: CharSequence,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
-            override fun onTextChanged(
-                s: CharSequence,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-            }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
                 filter(s.toString(), elements, recyclerView)
             }
@@ -109,28 +81,24 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         setupHover(elements)
         onClickNav()
         searchListener()
-        sliding_layout.setPanelState(PanelState.COLLAPSED)
+        sliding_layout.panelState = PanelState.COLLAPSED
         searchFilter(elements, recyclerView)
-
         mediaListeners()
-
         more_btn.setOnClickListener { openHover() }
         hover_background.setOnClickListener { closeHover() }
         random_btn.setOnClickListener { getRandomItem() }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            view_main.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        view_main.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        if (themePrefValue == 1) {
+            search_box.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
+        }
+        else {
+            search_box.setBackground(ContextCompat.getDrawable(this, R.drawable.toast))
         }
 
-        sliding_layout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
-            override fun onPanelSlide(panel: View?, slideOffset: Float) {
-                //Empty
-            }
 
-            override fun onPanelStateChanged(
-                panel: View?,
-                previousState: PanelState,
-                newState: PanelState
-            ) {
+        sliding_layout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
+            override fun onPanelSlide(panel: View?, slideOffset: Float) {}
+            override fun onPanelStateChanged(panel: View?, previousState: PanelState, newState: PanelState) {
                 if (sliding_layout.getPanelState() === PanelState.COLLAPSED) {
                     nav_menu_include.visibility = View.GONE
                     Utils.fadeOutAnim(nav_background, 100)
@@ -309,6 +277,11 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             val intent = Intent(this, DictionaryActivity::class.java)
             startActivity(intent)
         }
+        blog_btn.setOnClickListener{
+            val packageManager = packageManager
+            val blogURL = "https://www.jlindemann.se/homepage/blog"
+            TabUtil.openCustomTab(blog_btn, blogURL, packageManager, this)
+        }
     }
 
     private fun setupNavListeners() {
@@ -389,7 +362,7 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
                 val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
 
                 if (resID == 0) {
-                    ToastUtil.showToast(this, "Error (electro)")
+                    ToastUtil.showToast(this, "Error on find IdView")
                 } else {
                     if (item.electro == 0.0) {
                         val text = findViewById<TextView>(resID)
@@ -400,7 +373,7 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
                     }
                 }
                 if (resIDB == 0) {
-                    ToastUtil.showToast(this, "Error (electro back)")
+                    ToastUtil.showToast(this, "Error on find IdView")
                 } else {
                     if (item.electro == 0.0) {
                         val btn = findViewById<Button>(resIDB)
@@ -562,7 +535,6 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
 
                     val jsonArray = JSONArray(jsonstring)
                     val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-
                     val elementAtomicWeight = jsonObject.optString("element_atomicmass", "---")
                     iText.text = elementAtomicWeight
                 }
@@ -650,63 +622,32 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
-            params.height += top
-            common_title_back_main.layoutParams = params
+        val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        common_title_back_main.layoutParams = params
 
-            val params2 = nav_bar_main.layoutParams as ViewGroup.LayoutParams
-            params2.height += bottom
-            nav_bar_main.layoutParams = params2
+        val params2 = nav_bar_main.layoutParams as ViewGroup.LayoutParams
+        params2.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
+        nav_bar_main.layoutParams = params2
 
-            val params3 = more_btn.layoutParams as ViewGroup.MarginLayoutParams
-            params3.bottomMargin += bottom
-            more_btn.layoutParams = params3
+        val params3 = more_btn.layoutParams as ViewGroup.MarginLayoutParams
+        params3.bottomMargin = bottom + (resources.getDimensionPixelSize(R.dimen.nav_bar))/2
+        more_btn.layoutParams = params3
 
-            val params4 = common_title_back_search.layoutParams as ViewGroup.LayoutParams
-            params4.height += top
-            common_title_back_search.layoutParams = params4
+        val params4 = common_title_back_search.layoutParams as ViewGroup.LayoutParams
+        params4.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        common_title_back_search.layoutParams = params4
 
-            val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
-            params5.bottomMargin += bottom + 36
-            hover_menu_include.layoutParams = params5
+        val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
+        params5.bottomMargin = bottom + resources.getDimensionPixelSize(R.dimen.hover_menu_margin)
+        hover_menu_include.layoutParams = params5
 
-            val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
-            params6.topMargin += top
-            scrollView.layoutParams = params6
+        val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
+        params6.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        scrollView.layoutParams = params6
 
-            val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams
-            params7.height += bottom
-            sliding_layout.layoutParams = params7
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
-            params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            common_title_back_main.layoutParams = params
-
-            val params2 = nav_bar_main.layoutParams as ViewGroup.LayoutParams
-            params2.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
-            nav_bar_main.layoutParams = params2
-
-            val params3 = more_btn.layoutParams as ViewGroup.MarginLayoutParams
-            params3.bottomMargin = bottom + (resources.getDimensionPixelSize(R.dimen.nav_bar))/2
-            more_btn.layoutParams = params3
-
-            val params4 = common_title_back_search.layoutParams as ViewGroup.LayoutParams
-            params4.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            common_title_back_search.layoutParams = params4
-
-            val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
-            params5.bottomMargin = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar) + 36
-            hover_menu_include.layoutParams = params5
-
-            val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
-            params6.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            scrollView.layoutParams = params6
-
-            val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams
-            params7.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_view)
-            sliding_layout.layoutParams = params7
-        }
+        val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams
+        params7.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_view)
+        sliding_layout.layoutParams = params7
     }
 }

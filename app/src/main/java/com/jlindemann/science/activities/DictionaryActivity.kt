@@ -41,8 +41,6 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Utils.gestureSetup(window)
-
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
 
@@ -66,7 +64,6 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val params = rc_view.layoutParams as ViewGroup.MarginLayoutParams
             params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             rc_view.layoutParams = params
@@ -74,16 +71,7 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
             val params2 = common_title_back_dic.layoutParams as ViewGroup.LayoutParams
             params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_dic.layoutParams = params2
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            val params = rc_view.layoutParams as ViewGroup.MarginLayoutParams
-            params.topMargin += top
-            rc_view.layoutParams = params
 
-            val params2 = common_title_back_dic.layoutParams as ViewGroup.LayoutParams
-            params2.height += top
-            common_title_back_dic.layoutParams = params2
-        }
     }
 
     private fun recyclerView() {
@@ -178,7 +166,6 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
 
             val packageManager = packageManager
             val resolveInfoList = packageManager.queryIntentActivities(CustomTab.intent, PackageManager.MATCH_DEFAULT_ONLY)
-
             for (resolveInfo in resolveInfoList) {
                 val packageName = resolveInfo.activityInfo.packageName
                 if (TextUtils.equals(packageName, packageNameString))
@@ -187,8 +174,6 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
             CustomTab.intent.data?.let { it1 -> CustomTab.launchUrl(this, it1) }
         }
     }
-
-
 }
 
 

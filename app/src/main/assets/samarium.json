@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/8/88/Samarium-2.jpg",
 
     "element": "Samarium",
+    "short": "Sm",
     "element_year": "1879",
     "element_discovered_name": "Lecoq de Boisbaudran",
     "element_group": "Lanthanoids",
@@ -11,6 +12,12 @@
     "element_electrons": "62",
     "element_protons": "62",
     "element_neutron_common": "90",
+
+    "electrical_type": "Conductor",
+    "resistivity": "9.4",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "62",
     "element_atomicmass": "150.36 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "8.62 (kJ/mol)",
     "element_specific_heat_capacity": "0.197 J/(g·K)",
     "element_vaporization_heat": "165 (kJ/mol)",
+
+    "oxidation_state_neg": "0",
+    "oxidation_state_pos": "2 3",
 
     "iso_1": "Sm-148",
     "iso_mass_1": "147.9148227",

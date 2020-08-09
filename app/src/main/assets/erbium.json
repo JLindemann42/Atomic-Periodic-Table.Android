@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/1/12/Erbium-crop.jpg",
 
     "element": "Erbium",
+    "short": "Er",
     "element_year": "1843",
     "element_discovered_name": "Carl Gustaf Mosander",
     "element_group": "Lanthanoids",
@@ -11,6 +12,12 @@
     "element_electrons": "68",
     "element_protons": "68",
     "element_neutron_common": "98",
+
+    "electrical_type": "Conductor",
+    "resistivity": "8.6",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "68",
     "element_atomicmass": "167.259 (u)",

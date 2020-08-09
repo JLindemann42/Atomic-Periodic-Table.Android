@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/1/16/Barium_unter_Argon_Schutzgas_Atmosph%C3%A4re.jpg",
 
     "element": "Barium",
+    "short": "Ba",
     "element_year": "1772",
     "element_discovered_name": "Carl Wilhelm Scheele",
     "element_group": "Alkaline Earth Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "56",
     "element_protons": "56",
     "element_neutron_common": "82",
+
+    "electrical_type": "Conductor",
+    "resistivity": "3.5",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "56",
     "element_atomicmass": "137.327 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "7.12 (kJ/mol)",
     "element_specific_heat_capacity": "0.204 J/(g·K)",
     "element_vaporization_heat": "140 (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "1 2",
 
     "iso_1": "Ba-133",
     "iso_mass_1": "132.9060075",

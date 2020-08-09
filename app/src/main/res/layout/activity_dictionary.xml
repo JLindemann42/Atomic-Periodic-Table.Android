@@ -140,6 +140,9 @@
             android:paddingTop="9dp"
             android:paddingBottom="60dp"
 
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:verticalScrollbarPosition="defaultPosition"
             app:friction="144"
             app:gapLimit="180"
             app:speedFactor="6"

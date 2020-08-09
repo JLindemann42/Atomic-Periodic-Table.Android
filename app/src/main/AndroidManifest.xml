@@ -84,6 +84,18 @@
             android:windowSoftInputMode="adjustNothing"
             android:label="SUBMITPAGE" />
 
+        <activity
+            android:name=".activities.LicensesActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing"
+            android:label="LICENSESPAGE" />
+
+        <activity
+            android:name=".activities.EquationsActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing"
+            android:label="EQUATIONSACTIVITY" />
+
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@
     "link": "https://",
 
     "element": "Astatine",
+    "short": "At",
     "element_year": "Dale R. Corson",
     "element_discovered_name": "1940",
     "element_group": "Halogens",
@@ -11,6 +12,12 @@
     "element_electrons": "85",
     "element_protons": "85",
     "element_neutron_common": "125",
+
+    "electrical_type": "---",
+    "resistivity": "---",
+    "resistivity_mult": "---",
+    "magnetic_type": "---",
+    "superconducting_point": "---",
 
     "element_atomic_number": "85",
     "element_atomicmass": "210 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
+
+    "oxidation_state_neg": "1",
+    "oxidation_state_pos": "1 3 5 7",
 
     "iso_1": "At-210",
     "iso_mass_1": "209.987148",

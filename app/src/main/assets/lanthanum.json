@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Lanthanum-2.jpg",
 
     "element": "Lanthanum",
+    "short": "La",
     "element_year": "1838",
     "element_discovered_name": "Carl Gustaf Mosander",
     "element_group": "Lanthanoids",
@@ -11,6 +12,12 @@
     "element_electrons": "57",
     "element_protons": "57",
     "element_neutron_common": "82",
+
+    "electrical_type": "Conductor",
+    "resistivity": "6.1",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "4.88",
 
     "element_atomic_number": "57",
     "element_atomicmass": "138.905 (u)",
@@ -38,6 +45,9 @@
     "element_phase": "Solid",
     "element_fusion_heat": "6.20 (kJ/mol)",
     "element_specific_heat_capacity": "0.195 J/(g·K)",
+
+    "oxidation_state_neg": "0",
+    "oxidation_state_pos": "1 2 3",
     "element_vaporization_heat": "400 (kJ/mol)",
 
     "iso_1": "La-137",

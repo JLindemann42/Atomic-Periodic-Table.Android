@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Palladium_%2846_Pd%29.jpg",
 
     "element": "Palladium",
+    "short": "Pd",
     "element_year": "1802",
     "element_discovered_name": "William Hyde Wollaston",
     "element_group": "Transition Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "46",
     "element_protons": "46",
     "element_neutron_common": "60",
+
+    "electrical_type": "Conductor",
+    "resistivity": "1",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "46",
     "element_atomicmass": "106.42 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "16.74 (kJ/mol)",
     "element_specific_heat_capacity": "0.246 J/(g·K)",
     "element_vaporization_heat": "362 (kJ/mol)",
+
+    "oxidation_state_neg": "0",
+    "oxidation_state_pos": "1 2 3 4",
 
     "iso_1": "Pd-101",
     "iso_mass_1": "100.908289",

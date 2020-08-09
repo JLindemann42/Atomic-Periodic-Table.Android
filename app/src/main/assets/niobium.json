@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Niobium_crystals_and_1cm3_cube.jpg/1024px-Niobium_crystals_and_1cm3_cube.jpg",
 
     "element": "Niobium",
+    "short": "Nb",
     "element_year": "1801",
     "element_discovered_name": "Charles Hatchett",
     "element_group": "Transition Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "41",
     "element_protons": "41",
     "element_neutron_common": "52",
+
+    "electrical_type": "Conductor",
+    "resistivity": "1.5",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "9.25",
 
     "element_atomic_number": "41",
     "element_atomicmass": "92.9064 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "30 (kJ/mol)",
     "element_specific_heat_capacity": "0.265 J/(g·K)",
     "element_vaporization_heat": "689.9 (kJ/mol)",
+
+    "oxidation_state_neg": "3 1",
+    "oxidation_state_pos": "1 2 3 4 5",
 
     "iso_1": "Nb-90",
     "iso_mass_1": "89.911265",

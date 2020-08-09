@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Antimony-4.jpg",
 
     "element": "Antimony",
+    "short": "Sb",
     "element_year": "---",
     "element_discovered_name": "---",
     "element_group": "Metalloids",
@@ -11,6 +12,12 @@
     "element_electrons": "51",
     "element_protons": "51",
     "element_neutron_common": "70",
+
+    "electrical_type": "Conductor",
+    "resistivity": "4",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "51",
     "element_atomicmass": "121.760 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "19.79 (kJ/mol)",
     "element_specific_heat_capacity": "0.217 J/(g·K)",
     "element_vaporization_heat": "193.43 (kJ/mol)",
+
+    "oxidation_state_neg": "3 2 1 0",
+    "oxidation_state_pos": "1 2 3 4 5",
 
     "iso_1": "Sb-120",
     "iso_mass_1": "119.905072",

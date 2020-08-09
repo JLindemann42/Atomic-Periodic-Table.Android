@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Rhenium_single_crystal_bar_and_1cm3_cube.jpg/1024px-Rhenium_single_crystal_bar_and_1cm3_cube.jpg",
 
     "element": "Rhenium",
+    "short": "Re",
     "element_year": "1908",
     "element_discovered_name": "Masataka Ogawa",
     "element_group": "Transition Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "75",
     "element_protons": "75",
     "element_neutron_common": "112",
+
+    "electrical_type": "Conductor",
+    "resistivity": "1.8",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "1.7",
 
     "element_atomic_number": "75",
     "element_atomicmass": "186.207 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "60.43 (kJ/mol)",
     "element_specific_heat_capacity": "0.137 J/(g·K)",
     "element_vaporization_heat": "704 (kJ/mol)",
+
+    "oxidation_state_neg": "3 1 0",
+    "oxidation_state_pos": "1 2 3 4 5 6 7",
 
     "iso_1": "Re-183",
     "iso_mass_1": "182.950820",

@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Ytterbium-3.jpg",
 
     "element": "Ytterbium",
+    "short": "Yb",
     "element_year": "1878",
     "element_discovered_name": "Jean Charles Galissard de Marignac",
     "element_group": "Lanthanoids",
@@ -11,6 +12,12 @@
     "element_electrons": "70",
     "element_protons": "70",
     "element_neutron_common": "104",
+
+    "electrical_type": "Conductor",
+    "resistivity": "2.8",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "70",
     "element_atomicmass": "173.045 (u)",

@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Neodymium2.jpg",
 
     "element": "Neodymium",
+    "short": "Nd",
     "element_year": "1885",
     "element_discovered_name": "Carl Auer von Welsbach",
     "element_group": "Lanthanoids",
@@ -11,6 +12,12 @@
     "element_electrons": "60",
     "element_protons": "60",
     "element_neutron_common": "82",
+
+    "electrical_type": "Conductor",
+    "resistivity": "6.4",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "60",
     "element_atomicmass": "144.242 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "7.14 (kJ/mol)",
     "element_specific_heat_capacity": "0.190 J/(g·K)",
     "element_vaporization_heat": "289 (kJ/mol)",
+
+    "oxidation_state_neg": "0",
+    "oxidation_state_pos": "2 3 4",
 
     "iso_1": "Nd-144",
     "iso_mass_1": "143.9100873",

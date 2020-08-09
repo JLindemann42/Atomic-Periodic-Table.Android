@@ -25,7 +25,6 @@ class TableActivity : BaseActivity() {
         
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
-
         if (themePrefValue == 100) {
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 Configuration.UI_MODE_NIGHT_NO -> { setTheme(R.style.AppTheme) }
@@ -46,24 +45,13 @@ class TableActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             val params = common_title_back_tab.layoutParams as ViewGroup.LayoutParams
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_tab.layoutParams = params
 
-            val params2 = sol_table.layoutParams as ViewGroup.MarginLayoutParams
+            val params2 = ele_table.layoutParams as ViewGroup.MarginLayoutParams
             params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + 36
-            sol_table.layoutParams = params2
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            val params = common_title_back_tab.layoutParams as ViewGroup.LayoutParams
-            params.height += top
-            common_title_back_tab.layoutParams = params
-
-            val params2 = sol_table.layoutParams as ViewGroup.MarginLayoutParams
-            params2.topMargin += top
-            sol_table.layoutParams = params2
-        }
+            ele_table.layoutParams = params2
     }
 
     private fun tableListeners() {
@@ -73,6 +61,10 @@ class TableActivity : BaseActivity() {
         }
         ele_table.setOnClickListener {
             val intent = Intent(this, ElectrodeActivity::class.java)
+            startActivity(intent)
+        }
+        equ_table.setOnClickListener {
+            val intent = Intent(this, EquationsActivity::class.java)
             startActivity(intent)
         }
     }

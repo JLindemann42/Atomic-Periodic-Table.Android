@@ -6,12 +6,14 @@
     <color name="colorLightAccent">#1B94E4</color>
     <color name="colorLightError">#B00020</color>
     <color name="colorLightText">#202125</color>
+    <color name="colorLightRipple">#54202125</color>
 
     <color name="colorDarkPrimary">#121212</color>
     <color name="colorDarkPrimaryDark">#000000</color>
     <color name="colorDarkAccent">#1B94E4</color>
     <color name="colorDarkError">#B00020</color>
     <color name="colorDarkText">#E9EAEE</color>
+    <color name="colorDarkRipple">#54E9EAEE</color>
 
     <color name="background">#B3000000</color>
     <color name="background_status">#AD000000</color>

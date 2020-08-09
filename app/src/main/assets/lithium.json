@@ -4,6 +4,7 @@
     "link": "https://www.power-technology.com/wp-content/uploads/sites/7/2019/11/lithium.png",
 
     "element": "Lithium",
+    "short": "Li",
     "element_year": "1817",
     "element_discovered_name": "Johan August Arfwedson",
     "element_group": "Alkali Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "3",
     "element_protons": "3",
     "element_neutron_common": "4",
+
+    "electrical_type": "Conductor",
+    "resistivity": "9.4",
+    "resistivity_mult": "0.00000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "3",
     "element_atomicmass": "6.94 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "3.0 (kJ/mol)",
     "element_specific_heat_capacity": "3.582 J/(g·K)",
     "element_vaporization_heat": "147 (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "1",
 
     "iso_1": "Li-5",
     "iso_mass_1": "5.01254",

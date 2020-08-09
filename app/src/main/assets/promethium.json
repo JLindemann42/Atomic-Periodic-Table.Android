@@ -4,6 +4,7 @@
     "link": "http://www.twnree.com/wp-content/uploads/2012/02/61-Promethium.jpg",
 
     "element": "Promethium",
+    "short": "Pm",
     "element_year": "1942",
     "element_discovered_name": "Chien Shiung Wu",
     "element_group": "Lanthanoids",
@@ -11,6 +12,12 @@
     "element_electrons": "61",
     "element_protons": "61",
     "element_neutron_common": "85",
+
+    "electrical_type": "Conductor",
+    "resistivity": "7.5",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "61",
     "element_atomicmass": "144.912 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "7.7 (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "290 (kJ/mol)",
+
+    "oxidation_state_neg": "2 3",
+    "oxidation_state_pos": "",
 
     "iso_1": "Pm-154",
     "iso_mass_1": "153.92646",

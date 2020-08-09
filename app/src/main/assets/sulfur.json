@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Sulfur-sample.jpg/1920px-Sulfur-sample.jpg",
 
     "element": "Sulfur",
+    "short": "S",
     "element_year": "<600 BCE",
     "element_discovered_name": "---",
     "element_group": "Other Nonmetals",
@@ -11,6 +12,12 @@
     "element_electrons": "16",
     "element_protons": "16",
     "element_neutron_common": "16",
+
+    "electrical_type": "Insulator",
+    "resistivity": "1",
+    "resistivity_mult": "1000000000000000",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "16",
     "element_atomicmass": "32.06 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "1.72 (kJ/mol)",
     "element_specific_heat_capacity": "0.710 J/(g·K)",
     "element_vaporization_heat": "9.8 (kJ/mol)",
+
+    "oxidation_state_neg": "2 1 0",
+    "oxidation_state_pos": "1 2 3 4 5 6",
 
     "iso_1": "S-31",
     "iso_mass_1": "30.97955701",

@@ -4,13 +4,20 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/HEUraniumC.jpg/800px-HEUraniumC.jpg",
 
     "element": "Uranium",
-    "element_year": "Martin Heinrich Klaproth",
-    "element_discovered_name": "1789",
+    "short": "U",
+    "element_year": "1789",
+    "element_discovered_name": "Martin Heinrich Klaproth",
     "element_group": "Actinide",
     "element_appearance": "Silvery Gray Metallic",
     "element_electrons": "92",
     "element_protons": "92",
     "element_neutron_common": "146",
+
+    "electrical_type": "Conductor",
+    "resistivity": "2.8",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "0.68",
 
     "element_atomic_number": "92",
     "element_atomicmass": "238.028 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "9.14 (kJ/mol)",
     "element_specific_heat_capacity": "0.12 J/(g·K)",
     "element_vaporization_heat": "417.1 (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "1 2 3 4 5 6",
 
     "iso_1": "U-231",
     "iso_mass_1": "231.036294",

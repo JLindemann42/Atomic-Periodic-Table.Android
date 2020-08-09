@@ -4,13 +4,20 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Radium226.jpg",
 
     "element": "Actinium",
-    "element_year": "Friedrich Oskar Giesel",
-    "element_discovered_name": "1902",
+    "short": "Ac",
+    "element_year": "1902",
+    "element_discovered_name": "Friedrich Oskar Giesel",
     "element_group": "Actinide",
     "element_appearance": "Silvery white, blue glow",
     "element_electrons": "89",
     "element_protons": "89",
     "element_neutron_common": "138",
+
+    "electrical_type": "---",
+    "resistivity": "---",
+    "resistivity_mult": "---",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "0.6",
 
     "element_atomic_number": "89",
     "element_atomicmass": "227 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "14 (kJ/mol)",
     "element_specific_heat_capacity": "0.120 J/(g·K)",
     "element_vaporization_heat": "400 (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "3",
 
     "iso_1": "Ac-224",
     "iso_mass_1": "224.021723",

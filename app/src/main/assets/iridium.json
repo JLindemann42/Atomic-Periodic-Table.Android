@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Iridium-2.jpg",
 
     "element": "Iridium",
+    "short": "Ir",
     "element_year": "1803",
     "element_discovered_name": "Smithson Tennant",
     "element_group": "Transition Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "77",
     "element_protons": "77",
     "element_neutron_common": "116",
+
+    "electrical_type": "Conductor",
+    "resistivity": "4.7",
+    "resistivity_mult": "0.00000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "0.11",
 
     "element_atomic_number": "77",
     "element_atomicmass": "192.217 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "41.12 (kJ/mol)",
     "element_specific_heat_capacity": "0.131 J/(g·K)",
     "element_vaporization_heat": "564 (kJ/mol)",
+
+    "oxidation_state_neg": "3 1 0",
+    "oxidation_state_pos": "1 2 3 4 5 6 7 8 9",
 
     "iso_1": "Ir-190",
     "iso_mass_1": "189.9605460",

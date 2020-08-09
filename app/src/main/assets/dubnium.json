@@ -4,6 +4,7 @@
     "link": "empty",
 
     "element": "Dubnium",
+    "short": "Db",
     "element_year": "Lawrence Berkeley National Laboratory",
     "element_discovered_name": "1970",
     "element_group": "Transition Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "105",
     "element_protons": "105",
     "element_neutron_common": "163",
+
+    "electrical_type": "---",
+    "resistivity": "---",
+    "resistivity_mult": "---",
+    "magnetic_type": "---",
+    "superconducting_point": "---",
 
     "element_atomic_number": "105",
     "element_atomicmass": "268 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "5",
 
     "iso_1": "Db-268",
     "iso_mass_1": "268.12567",

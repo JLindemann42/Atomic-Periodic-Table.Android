@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Sn-Alpha-Beta.jpg/1024px-Sn-Alpha-Beta.jpg",
 
     "element": "Tin",
+    "short": "Sn",
     "element_year": "Deep Antiquity",
     "element_discovered_name": "---",
     "element_group": "Post-Transition Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "50",
     "element_protons": "50",
     "element_neutron_common": "70",
+
+    "electrical_type": "Conductor",
+    "resistivity": "1.1",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "3.72",
 
     "element_atomic_number": "50",
     "element_atomicmass": "118.710 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "7.173 (kJ/mol)",
     "element_specific_heat_capacity": "0.228 J/(g·K)",
     "element_vaporization_heat": "296.1 (kJ/mol)",
+
+    "oxidation_state_neg": "4 3 2 1 0",
+    "oxidation_state_pos": "1 2 3 4",
 
     "iso_1": "Sn-113",
     "iso_mass_1": "112.905171",

@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Silver_crystal.jpg/800px-Silver_crystal.jpg",
 
     "element": "Silver",
+    "short": "Ag",
     "element_year": "Deep Antiquity",
     "element_discovered_name": "---",
     "element_group": "Transition Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "47",
     "element_protons": "47",
     "element_neutron_common": "60",
+
+    "electrical_type": "Conductor",
+    "resistivity": "1.6",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "47",
     "element_atomicmass": "107.8682 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "11.28 (kJ/mol)",
     "element_specific_heat_capacity": "0.235 J/(g·K)",
     "element_vaporization_heat": "258 (kJ/mol)",
+
+    "oxidation_state_neg": "2 1",
+    "oxidation_state_pos": "1 2 3",
 
     "iso_1": "Ag-105",
     "iso_mass_1": "104.906529",

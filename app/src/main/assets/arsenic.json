@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Arsen_1a.jpg",
 
     "element": "Arsenic",
+    "short": "As",
     "element_year": "---",
     "element_discovered_name": "---",
     "element_group": "Metalloids",
@@ -11,6 +12,12 @@
     "element_electrons": "33",
     "element_protons": "33",
     "element_neutron_common": "42",
+
+    "electrical_type": "Conductor",
+    "resistivity": "3",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "33",
     "element_atomicmass": "74.9216 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "24.44 (kJ/mol)",
     "element_specific_heat_capacity": "0.329 J/(g·K)",
     "element_vaporization_heat": "32.4 (kJ/mol)",
+
+    "oxidation_state_neg": "3 2 1 0",
+    "oxidation_state_pos": "1 2 3 4 5",
 
     "iso_1": "As-73",
     "iso_mass_1": "72.923825",

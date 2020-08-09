@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Platinum_crystals.jpg/800px-Platinum_crystals.jpg",
 
     "element": "Platinum",
+    "short": "Pt",
     "element_year": "1735",
     "element_discovered_name": "Antonio de Ulloa",
     "element_group": "Transition Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "78",
     "element_protons": "78",
     "element_neutron_common": "117",
+
+    "electrical_type": "Conductor",
+    "resistivity": "1.1",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "78",
     "element_atomicmass": "195.084 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "22.17 (kJ/mol)",
     "element_specific_heat_capacity": "0.133 J/(g·K)",
     "element_vaporization_heat": "510 (kJ/mol)",
+
+    "oxidation_state_neg": "3 2 1 0",
+    "oxidation_state_pos": "1 2 3 4 5 6",
 
     "iso_1": "Pt-190",
     "iso_mass_1": "189.959932",

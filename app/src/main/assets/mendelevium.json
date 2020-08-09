@@ -4,13 +4,20 @@
     "link": "empty",
 
     "element": "Mendelevium",
-    "element_year": "Lawrence Berkeley National Laboratory",
-    "element_discovered_name": "1955",
+    "short": "Md",
+    "element_year": "1955",
+    "element_discovered_name": "Lawrence Berkeley National Laboratory",
     "element_group": "Actinide",
     "element_appearance": "---",
     "element_electrons": "101",
     "element_protons": "101",
     "element_neutron_common": "157",
+
+    "electrical_type": "---",
+    "resistivity": "---",
+    "resistivity_mult": "---",
+    "magnetic_type": "---",
+    "superconducting_point": "---",
 
     "element_atomic_number": "101",
     "element_atomicmass": "258 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "2 3",
 
     "iso_1": "Md-256",
     "iso_mass_1": "256.09389",

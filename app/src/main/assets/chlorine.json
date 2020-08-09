@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Chlorine_ampoule.jpg",
 
     "element": "Chlorine",
+    "short": "Cl",
     "element_year": "1774",
     "element_discovered_name": "Carl Wilhelm Scheele",
     "element_group": "Reactive Nonmetals",
@@ -11,6 +12,12 @@
     "element_electrons": "17",
     "element_protons": "17",
     "element_neutron_common": "18",
+
+    "electrical_type": "Insulator",
+    "resistivity": "100",
+    "resistivity_mult": "1",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "17",
     "element_atomicmass": "35.45 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "0.479 (Cl2) (kJ/mol)",
     "element_specific_heat_capacity": "0.479 (Cl2) J/(g·K)",
     "element_vaporization_heat": "20.41 (Cl2) (kJ/mol)",
+
+    "oxidation_state_neg": "1",
+    "oxidation_state_pos": "1 2 3 4 5 6 7",
 
     "iso_1": "Cl-35",
     "iso_mass_1": "34.96885269",

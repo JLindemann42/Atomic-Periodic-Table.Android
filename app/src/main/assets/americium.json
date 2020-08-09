@@ -4,13 +4,20 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Americium_microscope.jpg/800px-Americium_microscope.jpg",
 
     "element": "Americium",
-    "element_year": "Glenn T. Seaborg",
-    "element_discovered_name": "1944",
+    "short": "Am",
+    "element_year": "1944",
+    "element_discovered_name": "Glenn T. Seaborg",
     "element_group": "Actinide",
     "element_appearance": "Silvery White",
     "element_electrons": "95",
     "element_protons": "95",
     "element_neutron_common": "148",
+
+    "electrical_type": "---",
+    "resistivity": "---",
+    "resistivity_mult": "---",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "0.6",
 
     "element_atomic_number": "95",
     "element_atomicmass": "243 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "14.39 (kJ/mol)",
     "element_specific_heat_capacity": "0.11 J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "2 3 4 5 6 7",
 
     "iso_1": "Am-240",
     "iso_mass_1": "240.055300",

@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:id="@+id/view_main"
     android:orientation="vertical"
-    android:fitsSystemWindows="true"
     android:background="?attr/colorPrimaryDark"
     tools:context=".MainActivity">
 
@@ -37,8 +36,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="18dp"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorPrimary"
                     android:clickable="true"
                     android:elevation="4dp"
                     android:focusable="true"

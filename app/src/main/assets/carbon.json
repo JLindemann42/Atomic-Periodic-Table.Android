@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Graphite-and-diamond-with-scale.jpg",
 
     "element": "Carbon",
+    "short": "C",
     "element_year": "Deep Antiquity",
     "element_discovered_name": "---",
     "element_group": "Other Nonmetal",
@@ -11,6 +12,12 @@
     "element_electrons": "6",
     "element_protons": "6",
     "element_neutron_common": "6",
+
+    "electrical_type": "Conductor",
+    "resistivity": "1",
+    "resistivity_mult": "0.00001",
+    "magnetic_type": "Diamagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "6",
     "element_atomicmass": "12.011 (u)",
@@ -36,6 +43,9 @@
     "element_fusion_heat": "117 (kJ/mol)",
     "element_specific_heat_capacity": "0.709 J/(g·K)",
     "element_vaporization_heat": "715 (kJ/mol)",
+
+    "oxidation_state_neg": "4 3 2 1 0",
+    "oxidation_state_pos": "1 2 3 4",
 
     "iso_1": "C-10",
     "iso_mass_1": "10.01685322",

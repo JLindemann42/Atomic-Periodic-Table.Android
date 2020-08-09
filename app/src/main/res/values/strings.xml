@@ -2,8 +2,9 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version">1.1.2 Build 30   </string>
+    <string name="app_version">1.2.2 Build 38</string>
 
+    <!-- Activity Settings-->
     <string name="other_settings">Advanced</string>
     <string name="experimental_title">Experimental Settings</string>
     <string name="experimental_text">Additional experimental settings</string>
@@ -11,32 +12,19 @@
     <string name="clear_cache_text">cache_size</string>
     <string name="submit_title">Report Issue</string>
     <string name="submit_text">Report bugs and data errors</string>
+    <string name="licenses_title">Licenses</string>
+    <string name="licenses_text">Licenses of works used by Atomic</string>
 
-    <string name="hydrogen">Hydrogen</string>
-    <string name="helium">Helium</string>
-    <string name="lithium">Lithium</string>
-    <string name="Beryllium">Beryllium</string>
-    <string name="Boron">Boron</string>
-    <string name="Carbon">Carbon</string>
-    <string name="Nitrogen">Nitrogen</string>
-    <string name="Oxygen">Oxygen</string>
-    <string name="Fluorine">Fluorine</string>
-    <string name="Neon">Neon</string>
-    <string name="Sodium">Sodium</string>
-    <string name="Magnesium">Magnesium</string>
-    <string name="Aluminium">Aluminium</string>
-    <string name="Silicon">Silicon</string>
-    <string name="Phosphorus">Phosphorus</string>
-    <string name="Sulfur">Sulfur</string>
-    <string name="Chlorine">Chlorine</string>
-    <string name="Argon">Argon</string>
-    <string name="Potassium">Potassium</string>
-    <string name="Calcium">Calcium</string>
-    <string name="Scandium">Scandium</string>
-    <string name="Titanium">Titanium</string>
-    <string name="Vanadium">Vanadium</string>
-    <string name="Chromium">Manganese</string>
+    <!-- Activity Table-->
+    <string name="activity_table_title">Tables</string>
+    <string name="table_electrochemical">Electrochemical Series</string>
+    <string name="table_equations">Formulas</string>
+    <string name="table_solubility">Solubility Table</string>
 
+    <!-- Activity Equations -->
+    <string name="activity_equations_title">Formulas</string>
+
+    <!-- Social-Media Links-->
     <string name="twitter">https://www.twitter.com/jlindemanndev</string>
     <string name="instagram">https://www.instagram.com/jlindemanndev</string>
     <string name="facebook">https://www.facebook.com/jlindemanndev</string>
@@ -49,5 +37,21 @@
     <string name="electrochemical_series_search">Search for Element</string>
 
     <string name="short_voltage"> (Volt)</string>
+
+    <string name="data_issue">Data Issue</string>
+    <string name="bug">Bug</string>
+    <string name="question">Question</string>
+
+
+
+    <string name="wikipedia_license">Wikipedia Commons</string>
+    <string name="wikipedia_license_text">CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL SERVICES.
+        DISTRIBUTION OF THIS LICENSE DOES NOT CREATE AN ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS INFORMATION ON AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES REGARDING THE INFORMATION PROVIDED, AND DISCLAIMS LIABILITY FOR DAMAGES RESULTING FROM ITS USE.\n\nTHE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE").
+        THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
+        BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE. TO THE EXTENT THIS LICENSE MAY BE CONSIDERED TO BE A CONTRACT, THE LICENSOR GRANTS YOU THE RIGHTS CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND CONDITIONS.</string>
+
+    <string name="sothree_license">Android Sliding Up Panel</string>
+    <string name="sothree_license_text">Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
+    \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>
 
 </resources>

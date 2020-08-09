@@ -4,6 +4,7 @@
     "link": "empty",
 
     "element": "Nihonium",
+    "short": "Nh",
     "element_year": "---",
     "element_discovered_name": "---",
     "element_group": "Transition Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "---",
     "element_protons": "---",
     "element_neutron_common": "---",
+
+    "electrical_type": "---",
+    "resistivity": "---",
+    "resistivity_mult": "---",
+    "magnetic_type": "---",
+    "superconducting_point": "---",
 
     "element_atomic_number": "113",
     "element_atomicmass": "286 (u)",

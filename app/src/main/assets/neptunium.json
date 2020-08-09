@@ -4,13 +4,20 @@
     "link": "http://www.chemistrylearner.com/wp-content/uploads/2018/02/Neptunium-Element.jpg",
 
     "element": "Neptunium",
-    "element_year": "Edwin McMillan",
-    "element_discovered_name": "1940",
+    "short": "Np",
+    "element_year": "1940",
+    "element_discovered_name": "Edwin McMillan",
     "element_group": "Actinide",
     "element_appearance": "Silvery Metallic",
     "element_electrons": "93",
     "element_protons": "93",
     "element_neutron_common": "144",
+
+    "electrical_type": "Conductor",
+    "resistivity": "1.2",
+    "resistivity_mult": "0.000001",
+    "magnetic_type": "---",
+    "superconducting_point": "---",
 
     "element_atomic_number": "93",
     "element_atomicmass": "237 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "3.20 (kJ/mol)",
     "element_specific_heat_capacity": "0.12 J/(g·K)",
     "element_vaporization_heat": "336 (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "2 3 4 5 6 7",
 
     "iso_1": "Np-234",
     "iso_mass_1": "234.042895",

@@ -4,6 +4,7 @@
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Strontium_destilled_crystals.jpg/2560px-Strontium_destilled_crystals.jpg",
 
     "element": "Strontium",
+    "short": "Sr",
     "element_year": "1787",
     "element_discovered_name": "William Cruickshank",
     "element_group": "Alkaline Earth Metals",
@@ -11,6 +12,12 @@
     "element_electrons": "38",
     "element_protons": "38",
     "element_neutron_common": "50",
+
+    "electrical_type": "Conductor",
+    "resistivity": "1.3",
+    "resistivity_mult": "0.0000001",
+    "magnetic_type": "Paramagnetic",
+    "superconducting_point": "---",
 
     "element_atomic_number": "38",
     "element_atomicmass": "87.62 (u)",
@@ -39,6 +46,9 @@
     "element_fusion_heat": "7.43 (kJ/mol)",
     "element_specific_heat_capacity": "0.301 J/(g·K)",
     "element_vaporization_heat": "136.9 (kJ/mol)",
+
+    "oxidation_state_neg": "",
+    "oxidation_state_pos": "1 2",
 
     "iso_1": "Sr-84",
     "iso_mass_1": "83.913425",
