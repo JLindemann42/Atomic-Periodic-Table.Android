@@ -60,8 +60,8 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         }
         if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
-
         setContentView(R.layout.activity_main)
+
         val recyclerView = findViewById<RecyclerView>(R.id.element_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val elements = ArrayList<Element>()
@@ -71,9 +71,7 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         edit_element.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable) {
-                filter(s.toString(), elements, recyclerView)
-            }
+            override fun afterTextChanged(s: Editable) { filter(s.toString(), elements, recyclerView) }
         })
 
         setOnCLickListenerSetups(elements)
@@ -95,11 +93,10 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             search_box.setBackground(ContextCompat.getDrawable(this, R.drawable.toast))
         }
 
-
         sliding_layout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View?, slideOffset: Float) {}
             override fun onPanelStateChanged(panel: View?, previousState: PanelState, newState: PanelState) {
-                if (sliding_layout.getPanelState() === PanelState.COLLAPSED) {
+                if (sliding_layout.panelState === PanelState.COLLAPSED) {
                     nav_menu_include.visibility = View.GONE
                     Utils.fadeOutAnim(nav_background, 100)
                 }
@@ -257,7 +254,7 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             nav_menu_include.visibility = View.VISIBLE
             nav_background.visibility = View.VISIBLE
             Utils.fadeInAnim(nav_background, 200)
-            sliding_layout.setPanelState(PanelState.EXPANDED)
+            sliding_layout.panelState = PanelState.EXPANDED
         }
         nav_background.setOnClickListener {
             search_menu_include.visibility = View.GONE
@@ -280,12 +277,12 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         blog_btn.setOnClickListener{
             val packageManager = packageManager
             val blogURL = "https://www.jlindemann.se/homepage/blog"
-            TabUtil.openCustomTab(blog_btn, blogURL, packageManager, this)
+            TabUtil.openCustomTab(blogURL, packageManager, this)
         }
     }
 
     private fun setupNavListeners() {
-        settings_btn.setOnClickListener() {
+        settings_btn.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }

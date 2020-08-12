@@ -150,6 +150,12 @@
                 android:layout_height="wrap_content" />
 
             <include
+                android:id="@+id/description_inc"
+                layout="@layout/d_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
                 android:id="@+id/overview_inc"
                 layout="@layout/d_overview"
                 android:layout_width="match_parent"
