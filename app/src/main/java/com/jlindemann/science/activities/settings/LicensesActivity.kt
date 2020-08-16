@@ -1,47 +1,16 @@
-package com.jlindemann.science.activities
+package com.jlindemann.science.activities.settings
 
-import android.content.Context
-import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.text.Editable
-import android.text.TextUtils
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
-import com.jlindemann.science.adapter.DictionaryAdapter
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.animations.Anim
-import com.jlindemann.science.model.Dictionary
-import com.jlindemann.science.model.DictionaryModel
 import com.jlindemann.science.preferences.ThemePreference
-import com.jlindemann.science.utils.Utils
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import kotlinx.android.synthetic.main.activity_dictionary.*
 import kotlinx.android.synthetic.main.activity_dictionary.back_btn_d
-import kotlinx.android.synthetic.main.activity_dictionary.close_iso_search
-import kotlinx.android.synthetic.main.activity_dictionary.edit_iso
-import kotlinx.android.synthetic.main.activity_dictionary.search_bar_iso
-import kotlinx.android.synthetic.main.activity_dictionary.search_btn
-import kotlinx.android.synthetic.main.activity_dictionary.title_box
-import kotlinx.android.synthetic.main.activity_element_info.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_settings_licenses.*
 import kotlinx.android.synthetic.main.license_info.*
-import kotlinx.android.synthetic.main.nav_menu_view.*
-import kotlinx.android.synthetic.main.search_layout.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class LicensesActivity : BaseActivity() {
@@ -67,7 +36,7 @@ class LicensesActivity : BaseActivity() {
         }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         val params2 = common_title_back_lic.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         common_title_back_lic.layoutParams = params2

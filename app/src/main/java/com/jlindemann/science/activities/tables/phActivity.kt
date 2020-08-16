@@ -1,30 +1,17 @@
-package com.jlindemann.science.activities
+package com.jlindemann.science.activities.tables
 
-import android.content.Context
 import android.content.res.Configuration
-import android.content.res.Resources
-import android.graphics.ColorMatrixColorFilter
 import android.os.Bundle
 import android.os.Handler
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
-import com.jlindemann.science.adapter.EquationsAdapter
-import com.jlindemann.science.animations.Anim
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.model.*
 import com.jlindemann.science.preferences.ThemePreference
-import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_equations.*
 import kotlinx.android.synthetic.main.activity_ph.*
-import kotlinx.android.synthetic.main.equations_info.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -123,7 +110,7 @@ class phActivity : BaseActivity()  {
         }, 1)
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         val paramsTitle = common_title_back_ph.layoutParams as ViewGroup.LayoutParams
         paramsTitle.height = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
         common_title_back_ph.layoutParams = paramsTitle

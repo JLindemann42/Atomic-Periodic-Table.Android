@@ -31,7 +31,7 @@ class ExperimentalActivity : BaseActivity() {
         }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         val params = common_title_back_exp.layoutParams as ViewGroup.LayoutParams
         params.height += top
         common_title_back_exp.layoutParams = params

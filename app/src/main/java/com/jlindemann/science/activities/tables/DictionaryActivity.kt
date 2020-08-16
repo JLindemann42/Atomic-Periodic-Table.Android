@@ -1,10 +1,9 @@
-package com.jlindemann.science.activities
+package com.jlindemann.science.activities.tables
 
 import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -20,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.DictionaryAdapter
 import com.jlindemann.science.model.Dictionary
 import com.jlindemann.science.model.DictionaryModel
@@ -63,7 +63,7 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
             val params = rc_view.layoutParams as ViewGroup.MarginLayoutParams
             params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             rc_view.layoutParams = params

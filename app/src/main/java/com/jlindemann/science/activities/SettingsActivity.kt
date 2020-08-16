@@ -2,19 +2,17 @@ package com.jlindemann.science.activities
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Insets
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.settings.*
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.offlinePreference
 import com.jlindemann.science.settings.ExperimentalActivity
 import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.theme_panel.*
 import java.io.File
@@ -55,7 +53,6 @@ class SettingsActivity : BaseActivity() {
             val intent = Intent(this, AboutActivity::class.java)
             startActivity(intent)
         }
-
         back_btn_set.setOnClickListener {
             this.onBackPressed()
         }
@@ -67,16 +64,33 @@ class SettingsActivity : BaseActivity() {
             val intent = Intent(this, LicensesActivity::class.java)
             startActivity(intent)
         }
+        unit_settings.setOnClickListener {
+            val intent = Intent(this, UnitActivity::class.java)
+            startActivity(intent)
+        }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
-            val params = common_title_back_set.layoutParams as ViewGroup.LayoutParams
-            params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            common_title_back_set.layoutParams = params
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
+        val params = common_title_back_set.layoutParams as ViewGroup.LayoutParams
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        common_title_back_set.layoutParams = params
 
-            val params2 = personalization_header.layoutParams as ViewGroup.MarginLayoutParams
-            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            personalization_header.layoutParams = params2
+        val titleParam = title_box_settings.layoutParams as ViewGroup.MarginLayoutParams
+        titleParam.rightMargin = right
+        titleParam.leftMargin = left
+        title_box_settings.layoutParams = titleParam
+
+        val themeParam = themepanel.layoutParams as ViewGroup.MarginLayoutParams
+        themeParam.rightMargin = right + (resources.getDimensionPixelSize(R.dimen.margin)*2)
+        themeParam.leftMargin = left + (resources.getDimensionPixelSize(R.dimen.margin)*2)
+        themepanel.layoutParams = themeParam
+
+        val params2 = personalization_header.layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        personalization_header.layoutParams = params2
+
+        personalization_box.setPadding(left, 0, right, 0)
+        advanced_box.setPadding(left, 0, right, 0)
 
     }
 

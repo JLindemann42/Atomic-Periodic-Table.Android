@@ -138,11 +138,13 @@
             android:clipToPadding="false"
             android:paddingTop="9dp"
             android:paddingBottom="60dp"
-
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:verticalScrollbarPosition="defaultPosition"
             app:friction="144"
             app:gapLimit="180"
             app:speedFactor="6"
-            app:tension="1400"></com.chauthai.overscroll.RecyclerViewBouncy>
+            app:tension="1400"/>
     </FrameLayout>
 
     <com.github.mmin18.widget.RealtimeBlurView

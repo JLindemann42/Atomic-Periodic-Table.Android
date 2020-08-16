@@ -35,7 +35,10 @@
                     android:id="@+id/search_box"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="18dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:layout_marginBottom="18dp"
                     android:clickable="true"
                     android:elevation="4dp"
                     android:focusable="true"
@@ -64,717 +67,733 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <HorizontalScrollView
+        <org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView
             android:id="@+id/scrollView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="80dp"
-            android:paddingBottom="60dp">
+            android:fillViewport="true">
 
-            <ScrollView
-                android:id="@+id/scrollViewZoom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="60dp">
+
+                <LinearLayout
+                    android:id="@+id/leftBar"
+                    android:layout_width="36dp"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorPrimary"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="end"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp" />
+
+                    <FrameLayout
+                        android:layout_width="24dp"
+                        android:layout_height="96dp"
+                        android:layout_gravity="end"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_numbers1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="1"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="24dp"
+                        android:layout_height="96dp"
+                        android:layout_gravity="end"
+
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_numbers2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="2"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="24dp"
+                        android:layout_height="96dp"
+                        android:layout_gravity="end"
+
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_numbers3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="3"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="24dp"
+                        android:layout_height="96dp"
+                        android:layout_gravity="end"
+
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_numbers4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="4"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="24dp"
+                        android:layout_height="96dp"
+                        android:layout_gravity="end"
+
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_numbers5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="5"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="24dp"
+                        android:layout_height="96dp"
+                        android:layout_gravity="end"
+
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_numbers6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="6"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="24dp"
+                        android:layout_height="96dp"
+                        android:layout_gravity="end"
+
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_numbers7"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="7"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="24dp"
+                        android:layout_height="96dp"
+                        android:layout_gravity="end"
+
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp"></FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="24dp"
+                        android:layout_height="260dp"
+                        android:layout_gravity="end"
+
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/one"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="1"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="98dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
 
-                        <FrameLayout
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp" />
-
-                        <FrameLayout
-                            android:layout_width="24dp"
-                            android:layout_height="96dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_numbers1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="1"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="24dp"
-                            android:layout_height="96dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_numbers2"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="2"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="24dp"
-                            android:layout_height="96dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_numbers3"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="3"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="24dp"
-                            android:layout_height="96dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_numbers4"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="4"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="24dp"
-                            android:layout_height="96dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_numbers5"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="5"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="24dp"
-                            android:layout_height="96dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_numbers6"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="6"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="24dp"
-                            android:layout_height="96dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_numbers7"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="7"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="24dp"
-                            android:layout_height="96dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp"></FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="24dp"
-                            android:layout_height="220dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/one"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="1"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_1"
+                        <TextView
+                            android:id="@+id/list_number2"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="2"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
 
-
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <include
+                        layout="@layout/group_2"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="98dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number2"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="2"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="292dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number3"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="3"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_3"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="292dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number4"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="4"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_4"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="292dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number5"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="5"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_5"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="292dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number6"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="6"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_6"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="292dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number7"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="7"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_7"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="292dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number8"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="8"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_8"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="292dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number9"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="9"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_9"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="292dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number10"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="10"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_10"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="292dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number11"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="11"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_11"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="292dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number12"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="12"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_12"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="98dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number13"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="13"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_13"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="98dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number14"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="14"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_14"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="98dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number15"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="15"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_15"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="98dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number16"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="16"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_16"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="96dp"
-                            android:layout_height="24dp"
-                            android:layout_marginBottom="98dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number17"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:text="17"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_17"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <FrameLayout
-                            android:layout_width="105dp"
-                            android:layout_height="24dp"
-                            android:background="?attr/colorPrimary"
-                            android:elevation="0dp">
-
-                            <TextView
-                                android:id="@+id/list_number18"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:elevation="24dp"
-                                android:gravity="center"
-                                android:paddingEnd="9dp"
-                                android:text="18"
-                                android:textColor="?attr/actionMenuTextColor"
-                                android:textSize="14sp" />
-                        </FrameLayout>
-
-                        <include
-                            layout="@layout/group_18"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:paddingEnd="9dp" />
-
-                    </LinearLayout>
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
-            </ScrollView>
-        </HorizontalScrollView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="292dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="3"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="292dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="4"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="292dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number5"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="5"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="292dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="6"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="292dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number7"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="7"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="292dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number8"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="8"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="292dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number9"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="9"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="292dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number10"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="10"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="292dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number11"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="11"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_11"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="292dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number12"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="12"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="98dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number13"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="13"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="98dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number14"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="14"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_14"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="98dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number15"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="15"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="98dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number16"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="16"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_16"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="96dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="98dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number17"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:text="17"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_17"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:layout_width="105dp"
+                        android:layout_height="24dp"
+                        android:background="?attr/colorPrimary"
+                        android:elevation="0dp">
+
+                        <TextView
+                            android:id="@+id/list_number18"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:elevation="24dp"
+                            android:gravity="center"
+                            android:paddingEnd="9dp"
+                            android:text="18"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+
+                    <include
+                        layout="@layout/group_18"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingEnd="9dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView>
+
     </FrameLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -808,6 +827,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_gravity="top"
+            android:fitsSystemWindows="true"
             android:orientation="horizontal">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -827,9 +847,9 @@
                 android:id="@+id/menu_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:clickable="true"
                 android:focusable="true"
-                android:layout_gravity="start"
                 android:src="@drawable/ic_menu"
                 android:tint="?attr/actionMenuTextColor"
                 app:backgroundTint="?attr/colorPrimary"
@@ -882,7 +902,7 @@
         layout="@layout/hover_menu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="108dp"
+        android:layout_marginBottom="36dp"
         android:elevation="102dp"
         android:visibility="gone"
         app:layout_constraintStart_toEndOf="parent" />

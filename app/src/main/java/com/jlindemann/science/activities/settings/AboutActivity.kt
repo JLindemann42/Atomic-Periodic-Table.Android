@@ -1,18 +1,15 @@
-package com.jlindemann.science.activities
+package com.jlindemann.science.activities.settings
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Insets
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.preferences.ThemePreference
-import com.jlindemann.science.utils.Utils
 import kotlinx.android.synthetic.main.activity_info.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_solubility.back_btn
 
 
@@ -42,7 +39,7 @@ class AboutActivity : BaseActivity() {
         }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
             val params = common_title_back_info.layoutParams as ViewGroup.LayoutParams
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_info.layoutParams = params
@@ -50,6 +47,11 @@ class AboutActivity : BaseActivity() {
             val params2 = imageView3.layoutParams as ViewGroup.MarginLayoutParams
             params2.topMargin += top
             imageView3.layoutParams = params2
+
+            val titleParam = title_box_info.layoutParams as ViewGroup.MarginLayoutParams
+            titleParam.rightMargin = right
+            titleParam.leftMargin = left
+            title_box_info.layoutParams = titleParam
 
     }
 

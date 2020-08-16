@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="234dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/toast"
     android:backgroundTint="?attr/colorPrimary"
@@ -10,33 +10,37 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/alphabet_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:clickable="true"
             android:drawableStart="@drawable/ic_alphab"
             android:drawablePadding="9dp"
             android:drawableTint="?attr/actionMenuTextColor"
-            android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/d_ripple"
             android:gravity="center_vertical"
             android:padding="9dp"
-            android:layout_marginTop="18dp"
+            android:paddingEnd="36dp"
             android:text="Alphabetical"
             android:textColor="?attr/actionMenuTextColor" />
+
         <TextView
             android:id="@+id/elmt_numb_btn2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:drawableStart="@drawable/overview_icon"
             android:drawablePadding="9dp"
             android:drawableTint="?attr/actionMenuTextColor"
-            android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/d_ripple"
             android:gravity="center_vertical"
             android:padding="9dp"
+            android:paddingEnd="36dp"
             android:text="Element Number"
             android:textColor="?attr/actionMenuTextColor" />
 
@@ -45,14 +49,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="18dp"
+            android:clickable="true"
             android:drawableStart="@drawable/fav_electronegativity"
             android:drawablePadding="9dp"
             android:drawableTint="?attr/actionMenuTextColor"
-            android:clickable="true"
             android:focusable="true"
             android:foreground="@drawable/d_ripple"
             android:gravity="center_vertical"
             android:padding="9dp"
+            android:paddingEnd="36dp"
             android:text="Electronegativity"
             android:textColor="?attr/actionMenuTextColor" />
 

@@ -20,11 +20,13 @@ import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.activities.*
+import com.jlindemann.science.activities.tables.DictionaryActivity
 import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.SearchPreferences
+import com.jlindemann.science.preferences.TemperatureUnits
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.TabUtil
 import com.jlindemann.science.utils.ToastUtil
@@ -76,22 +78,18 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
 
         setOnCLickListenerSetups(elements)
         setupNavListeners()
-        setupHover(elements)
         onClickNav()
         searchListener()
         sliding_layout.panelState = PanelState.COLLAPSED
         searchFilter(elements, recyclerView)
         mediaListeners()
+        hoverListeners(elements)
         more_btn.setOnClickListener { openHover() }
         hover_background.setOnClickListener { closeHover() }
         random_btn.setOnClickListener { getRandomItem() }
         view_main.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        if (themePrefValue == 1) {
-            search_box.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
-        }
-        else {
-            search_box.setBackground(ContextCompat.getDrawable(this, R.drawable.toast))
-        }
+        search_box.setBackground(ContextCompat.getDrawable(this, R.drawable.toast))
+
 
         sliding_layout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View?, slideOffset: Float) {}
@@ -102,14 +100,6 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
                 }
             }
         })
-    }
-
-    private fun setupHover(elements: ArrayList<Element>) {
-        detailViewDisabled(elements)
-        detailViewEnabled(elements)
-        electroView(elements)
-        weightView(elements)
-        nameView(elements)
     }
 
     private fun getRandomItem() {
@@ -125,13 +115,13 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
     }
 
     private fun openHover() {
-        Utils.fadeInAnim(hover_background, 150)
-        Utils.fadeInAnim(hover_menu_include, 150)
+        Utils.fadeInAnim(hover_background, 200)
+        Utils.fadeInAnim(hover_menu_include, 300)
     }
 
     private fun closeHover() {
-        Utils.fadeOutAnim(hover_background, 150)
-        Utils.fadeOutAnim(hover_menu_include, 150)
+        Utils.fadeOutAnim(hover_background, 200)
+        Utils.fadeOutAnim(hover_menu_include, 300)
     }
 
     private fun filter(text: String, list: ArrayList<Element>, recyclerView: RecyclerView) {
@@ -203,7 +193,6 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
                 val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.showSoftInput(edit_element, InputMethodManager.SHOW_IMPLICIT)
             }
-
             Utils.fadeOutAnim(filter_box, 150)
             Utils.fadeOutAnim(background, 150)
         }
@@ -214,11 +203,8 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             val view = this.currentFocus
             if (view != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    view_main.doOnLayout {
-                        window.insetsController?.hide(WindowInsets.Type.ime())
-                    }
-                }
-                else {
+                    view_main.doOnLayout { window.insetsController?.hide(WindowInsets.Type.ime()) }
+                } else {
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(view.windowToken, 0)
                 }
@@ -281,6 +267,17 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         }
     }
 
+    private fun hoverListeners(elements: ArrayList<Element>) {
+        h_name_btn.setOnClickListener { initName(elements) }
+        h_group_btn.setOnClickListener { initGroups(elements) }
+        h_electronegativity_btn.setOnClickListener { initElectro(elements) }
+        atomic_weight_btn.setOnClickListener { initWeight(elements) }
+        boiling_btn.setOnClickListener { initBoiling(elements) }
+        melting_point.setOnClickListener { initMelting(elements) }
+        h_phase_btn.setOnClickListener { initPhase(elements) }
+        h_year_btn.setOnClickListener { initYear(elements) }
+    }
+
     private fun setupNavListeners() {
         settings_btn.setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
@@ -288,66 +285,110 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         }
     }
 
-    private fun electroView(list: ArrayList<Element>) {
-        electron_btn.setOnClickListener {
-            closeHover()
-            initElectro(list)
-
-            Utils.fadeOutAnim(electron_btn_frame, 150)
-            Utils.fadeOutAnim(weight_btn_frame_hide, 150)
-            Utils.fadeOutAnim(detail_btn_frame_close, 150)
-            val delay = Handler()
-            delay.postDelayed({
-                Utils.fadeInAnim(electron_btn_frame_hide, 150)
-                Utils.fadeInAnim(weight_btn_frame, 150)
-                Utils.fadeInAnim(detail_btn_frame, 150)
-            }, 151)
-        }
+    private fun initBoiling(list: ArrayList<Element>) {
+        val delay = Handler()
+        initName(elementList)
+        closeHover()
+        delay.postDelayed({
+            for (item in list) {
+                val name = item.element
+                val extText = "_text"
+                val eView = "$name$extText"
+                val iText = findViewById<TextView>(resources.getIdentifier(eView, "id", packageName))
+                var jsonString : String? = null
+                try {
+                    val ext = ".json"
+                    val ElementJson: String? = "$name$ext"
+                    val inputStream: InputStream = assets.open(ElementJson.toString())
+                    jsonString = inputStream.bufferedReader().use { it.readText() }
+                    val jsonArray = JSONArray(jsonString)
+                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    val tempPreference = TemperatureUnits(this)
+                    val tempPrefValue = tempPreference.getValue()
+                    val elementAtomicWeight = jsonObject.optString("element_boiling_$tempPrefValue", "---")
+                    iText.text = elementAtomicWeight
+                } catch(e: IOException) { }
+            } },10)
     }
 
-    private fun weightView(list: ArrayList<Element>) {
-        weight_btn.setOnClickListener {
-            closeHover()
-            initWeight(list)
-
-            Utils.fadeOutAnim(weight_btn_frame, 150)
-            Utils.fadeOutAnim(electron_btn_frame_hide, 150)
-            Utils.fadeOutAnim(detail_btn_frame_close, 150)
-            val delay = Handler()
-            delay.postDelayed({
-                Utils.fadeInAnim(weight_btn_frame_hide, 150)
-                Utils.fadeInAnim(electron_btn_frame, 150)
-                Utils.fadeInAnim(detail_btn_frame, 150)
-            }, 151)
-        }
+    private fun initMelting(list: ArrayList<Element>) {
+        val delay = Handler()
+        initName(elementList)
+        closeHover()
+        delay.postDelayed({
+            for (item in list) {
+                val name = item.element
+                val extText = "_text"
+                val eView = "$name$extText"
+                val iText = findViewById<TextView>(resources.getIdentifier(eView, "id", packageName))
+                var jsonString : String? = null
+                try {
+                    val ext = ".json"
+                    val ElementJson: String? = "$name$ext"
+                    val inputStream: InputStream = assets.open(ElementJson.toString())
+                    jsonString = inputStream.bufferedReader().use { it.readText() }
+                    val jsonArray = JSONArray(jsonString)
+                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    val tempPreference = TemperatureUnits(this)
+                    val tempPrefValue = tempPreference.getValue()
+                    val elementAtomicWeight = jsonObject.optString("element_melting_$tempPrefValue", "---")
+                    iText.text = elementAtomicWeight
+                } catch(e: IOException) { }
+            } },10)
     }
 
-    private fun nameView(list: ArrayList<Element>) {
-        electron_btn_hide.setOnClickListener {
-            closeHover()
-            initName(list)
+    private fun initPhase(list: ArrayList<Element>) {
+        val delay = Handler()
+        initName(elementList)
+        closeHover()
+        delay.postDelayed({
+            for (item in list) {
+                val name = item.element
+                val extText = "_text"
+                val eView = "$name$extText"
+                val iText = findViewById<TextView>(resources.getIdentifier(eView, "id", packageName))
+                var jsonString : String? = null
+                try {
+                    val ext = ".json"
+                    val ElementJson: String? = "$name$ext"
+                    val inputStream: InputStream = assets.open(ElementJson.toString())
+                    jsonString = inputStream.bufferedReader().use { it.readText() }
+                    val jsonArray = JSONArray(jsonString)
+                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    val elementAtomicWeight = jsonObject.optString("element_phase", "---")
+                    iText.text = elementAtomicWeight
+                } catch(e: IOException) { }
+            } },10)
+    }
 
-            Utils.fadeOutAnim(electron_btn_frame_hide, 150)
-            val delay = Handler()
-            delay.postDelayed({
-                Utils.fadeInAnim(electron_btn_frame, 150)
-            }, 151)
-        }
-        weight_btn_hide.setOnClickListener {
-            closeHover()
-            initName(list)
-
-            Utils.fadeOutAnim(weight_btn_frame_hide, 150)
-            val delay = Handler()
-            delay.postDelayed({
-                Utils.fadeInAnim(weight_btn_frame, 150)
-            }, 151)
-        }
+    private fun initYear(list: ArrayList<Element>) {
+        val delay = Handler()
+        initName(elementList)
+        closeHover()
+        delay.postDelayed({
+            for (item in list) {
+                val name = item.element
+                val extText = "_text"
+                val eView = "$name$extText"
+                val iText = findViewById<TextView>(resources.getIdentifier(eView, "id", packageName))
+                var jsonString : String? = null
+                try {
+                    val ext = ".json"
+                    val ElementJson: String? = "$name$ext"
+                    val inputStream: InputStream = assets.open(ElementJson.toString())
+                    jsonString = inputStream.bufferedReader().use { it.readText() }
+                    val jsonArray = JSONArray(jsonString)
+                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    val elementAtomicWeight = jsonObject.optString("element_year", "---")
+                    iText.text = elementAtomicWeight
+                } catch(e: IOException) { }
+            } },10)
     }
 
     private fun initElectro(list: ArrayList<Element>) {
         val delay = Handler()
         initName(elementList)
+        closeHover()
         delay.postDelayed({
             for (item in list) {
                 val name = item.element
@@ -357,7 +398,6 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
                 val eViewBtn = "$name$extBtn"
                 val resID = resources.getIdentifier(eView, "id", packageName)
                 val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
-
                 if (resID == 0) {
                     ToastUtil.showToast(this, "Error on find IdView")
                 } else {
@@ -379,31 +419,16 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
 
                         if (themePrefValue == 100) {
                             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                                Configuration.UI_MODE_NIGHT_NO -> {
-                                    btn.background.setTint(Color.argb(255, 254, 254, 254))
-                                }
-                                Configuration.UI_MODE_NIGHT_YES -> {
-                                    btn.background.setTint(Color.argb(255, 18, 18, 18))
-                                }
+                                Configuration.UI_MODE_NIGHT_NO -> { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
+                                Configuration.UI_MODE_NIGHT_YES -> { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
                             }
                         }
-                        if (themePrefValue == 0) {
-                            btn.background.setTint(Color.argb(255, 254, 254, 254))
-                        }
-                        if (themePrefValue == 1) {
-                            btn.background.setTint(Color.argb(255, 18, 18, 18))
-                        }
+                        if (themePrefValue == 0) { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
+                        if (themePrefValue == 1) { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
                     } else {
                         if (item.electro > 1) {
                             val btn = findViewById<Button>(resIDB)
-                            btn.background.setTint(
-                                Color.argb(
-                                    255,
-                                    255,
-                                    225.div(item.electro).toInt(),
-                                    0
-                                )
-                            )
+                            btn.background.setTint(Color.argb(255, 255, 225.div(item.electro).toInt(), 0))
                         } else {
                             val btn = findViewById<Button>(resIDB)
                             btn.background.setTint(Color.argb(255, 255, 214, 0))
@@ -417,6 +442,7 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
     private fun initName(list: ArrayList<Element>) {
         for (item in list) {
             val name = item.element
+            closeHover()
             val extText = "_text"
             val eView = "$name$extText"
             val extBtn = "_btn"
@@ -433,24 +459,23 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
             if (themePrefValue == 100) {
                 when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                     Configuration.UI_MODE_NIGHT_NO -> {
-                        btn.background.setTint(Color.argb(255, 254, 254, 254))
+                        btn.background.setTint(resources.getColor(R.color.colorLightPrimary))
                     }
                     Configuration.UI_MODE_NIGHT_YES -> {
-                        btn.background.setTint(Color.argb(255, 18, 18, 18))
+                        btn.background.setTint(resources.getColor(R.color.colorDarkPrimary))
                     }
                 }
             }
             if (themePrefValue == 0) {
-                btn.background.setTint(Color.argb(255, 254, 254, 254))
+                btn.background.setTint(resources.getColor(R.color.colorLightPrimary))
             }
             if (themePrefValue == 1) {
-                btn.background.setTint(Color.argb(255, 18, 18, 18))
+                btn.background.setTint(resources.getColor(R.color.colorDarkPrimary))
             }
         }
     }
 
-    private fun detailViewDisabled(list: ArrayList<Element>) {
-        detail_btn.setOnClickListener {
+    private fun initGroups(list: ArrayList<Element>) {
             val delay = Handler()
             initName(list)
             delay.postDelayed({
@@ -483,37 +508,14 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
                     if ((item.number == 2) or (item.number == 10) or (item.number == 18) or (item.number == 36) or (item.number == 54) or (item.number == 86)) {
                         btn.background.setTint(Color.argb(255, 97, 193, 193))
                     }
-
-                    Utils.fadeOutAnim(detail_btn_frame, 150)
-                    Utils.fadeOutAnim(electron_btn_frame_hide, 150)
-                    Utils.fadeOutAnim(weight_btn_frame_hide, 150)
-                    val delay = Handler()
-                    delay.postDelayed({
-                        Utils.fadeInAnim(detail_btn_frame_close, 150)
-                        Utils.fadeInAnim(electron_btn_frame, 150)
-                        Utils.fadeInAnim(weight_btn_frame, 150)
-                    }, 151)
                 }
             }, 10)
-        }
-    }
-
-    private fun detailViewEnabled(list: ArrayList<Element>) {
-        detail_btn_close.setOnClickListener {
-            closeHover()
-            initName(list)
-
-            Utils.fadeOutAnim(detail_btn_frame_close, 150)
-            val delay = Handler()
-            delay.postDelayed({
-                Utils.fadeInAnim(detail_btn_frame, 150)
-            }, 151)
-        }
     }
 
     private fun initWeight(list: ArrayList<Element>) {
         val delay = Handler()
         initName(list)
+        closeHover()
         delay.postDelayed({
             for (item in list) {
                 val namee = item.element
@@ -618,7 +620,9 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
+        navLin.setPadding(left, 0, right, 0)
+
         val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         common_title_back_main.layoutParams = params
@@ -635,8 +639,22 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         params4.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         common_title_back_search.layoutParams = params4
 
+        val navSide = nav_content.layoutParams as ViewGroup.MarginLayoutParams
+        navSide.rightMargin = right
+        navSide.leftMargin = left
+        nav_content.layoutParams = navSide
+
+        val barSide = search_box.layoutParams as ViewGroup.MarginLayoutParams
+        barSide.rightMargin = right + resources.getDimensionPixelSize(R.dimen.margin)
+        barSide.leftMargin = left + resources.getDimensionPixelSize(R.dimen.margin)
+        search_box.layoutParams = barSide
+
+        val numb = leftBar.layoutParams as ViewGroup.LayoutParams
+        numb.width = left + resources.getDimensionPixelSize(R.dimen.left_bar)
+        leftBar.layoutParams = numb
+
         val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
-        params5.bottomMargin = bottom + resources.getDimensionPixelSize(R.dimen.hover_menu_margin)
+        params5.bottomMargin = bottom
         hover_menu_include.layoutParams = params5
 
         val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams

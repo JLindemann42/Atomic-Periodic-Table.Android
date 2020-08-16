@@ -1,28 +1,23 @@
-package com.jlindemann.science.activities
+package com.jlindemann.science.activities.tables
 
 import android.content.Context
 import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
-import com.jlindemann.science.adapter.DictionaryAdapter
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.ElectrodeAdapter
-import com.jlindemann.science.model.Dictionary
-import com.jlindemann.science.model.DictionaryModel
 import com.jlindemann.science.model.Series
 import com.jlindemann.science.model.SeriesModel
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_dictionary.*
 import kotlinx.android.synthetic.main.activity_dictionary.search_btn
 import kotlinx.android.synthetic.main.activity_dictionary.title_box
 import kotlinx.android.synthetic.main.activity_electrode.*
@@ -58,7 +53,7 @@ class ElectrodeActivity : BaseActivity() {
         }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
             val params = e_view.layoutParams as ViewGroup.MarginLayoutParams
             params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             e_view.layoutParams = params

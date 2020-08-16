@@ -139,7 +139,6 @@
             android:clipToPadding="false"
             android:paddingTop="9dp"
             android:paddingBottom="60dp"
-
             android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical"
             android:verticalScrollbarPosition="defaultPosition"

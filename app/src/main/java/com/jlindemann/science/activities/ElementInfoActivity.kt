@@ -3,27 +3,21 @@ package com.jlindemann.science.activities
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.graphics.Color
-import android.graphics.Insets
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.toColor
 import com.jlindemann.science.R
-import com.jlindemann.science.model.Element
-import com.jlindemann.science.model.ElementModel
+import com.jlindemann.science.activities.settings.FavoritePageActivity
+import com.jlindemann.science.activities.settings.SubmitActivity
 import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_dictionary.*
 import kotlinx.android.synthetic.main.activity_element_info.*
 import kotlinx.android.synthetic.main.activity_element_info.back_btn
 import kotlinx.android.synthetic.main.activity_element_info.element_title
@@ -45,8 +39,6 @@ import kotlinx.android.synthetic.main.loading_view.*
 import kotlinx.android.synthetic.main.oxidiation_states.*
 import kotlinx.android.synthetic.main.shell_view.card_model_view
 import kotlin.math.pow
-import kotlin.math.roundToInt
-import kotlin.math.roundToLong
 
 class ElementInfoActivity : BaseActivity() {
 
@@ -119,7 +111,7 @@ class ElementInfoActivity : BaseActivity() {
         else { super.onBackPressed() }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
             val params = frame.layoutParams as ViewGroup.MarginLayoutParams
             params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             frame.layoutParams = params
@@ -175,6 +167,7 @@ class ElementInfoActivity : BaseActivity() {
 
             //optStrings from jsonObject or fallback
             val element= jsonObject.optString("element", "---")
+            val description = jsonObject.optString("description", "---")
             val url = jsonObject.optString("link", "---")
             val short = jsonObject.optString("short", "---")
             val elementElectrons = jsonObject.optString("element_electrons", "---")
@@ -231,8 +224,29 @@ class ElementInfoActivity : BaseActivity() {
                 element_resistivity.text = output.replace("E", "*10^") + " (S/m)"
             }
 
+            description_name.setOnClickListener {
+                description_name.maxLines = 100
+                description_name.requestLayout()
+                dsc_btn.text = "collapse"
+            }
+            dsc_btn.setOnClickListener {
+                if (dsc_btn.text == "..more") {
+                    description_name.maxLines = 100
+                    description_name.requestLayout()
+                    dsc_btn.text = "collapse"
+                }
+                else {
+                    description_name.maxLines = 4
+                    description_name.requestLayout()
+                    dsc_btn.text = "..more"
+                }
+            }
+
+
+
             //set elements
             element_title.text = element
+            description_name.text = description
             element_name.text = element
             electrons_el.text = elementElectrons
             element_year.text = elementYear

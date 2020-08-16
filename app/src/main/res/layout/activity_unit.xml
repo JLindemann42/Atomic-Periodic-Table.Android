@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="1">
+
+    <FrameLayout
+        android:id="@+id/view_unit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/temp_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="80dp"
+                    android:background="?attr/colorPrimary"
+                    android:paddingStart="18dp"
+                    android:paddingTop="9dp"
+                    android:paddingBottom="9dp"
+                    android:text="Temperatures"
+                    android:textAllCaps="true"
+                    android:textColor="?attr/colorAccent"
+                    android:textStyle="normal|bold" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:background="?attr/colorPrimary"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/kelvin_btn"
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="36dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginEnd="9dp"
+                        android:layout_marginBottom="9dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/toast_outline"
+                        android:clickable="true"
+                        android:elevation="2dp"
+                        android:focusable="true"
+                        android:foreground="@drawable/c_ripple"
+                        android:text="Kelvin"
+                        android:textAllCaps="false"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/celsius_btn"
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_margin="9dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/toast_outline"
+                        android:clickable="true"
+                        android:elevation="2dp"
+                        android:focusable="true"
+                        android:foreground="@drawable/c_ripple"
+                        android:text="Celsius"
+                        android:textAllCaps="false"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:textSize="14sp" />
+
+                    <Button
+                        android:id="@+id/fahrenheit_btn"
+                        style="@style/Widget.AppCompat.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginStart="9dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginEnd="36dp"
+                        android:layout_marginBottom="9dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/toast_outline"
+                        android:clickable="true"
+                        android:elevation="2dp"
+                        android:focusable="true"
+                        android:foreground="@drawable/c_ripple"
+                        android:text="Fahrenheit"
+                        android:textAllCaps="false"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <FrameLayout
+            android:id="@+id/common_title_back_unit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_bar"
+            android:alpha="0.975"
+            android:background="?attr/colorPrimary"
+            android:elevation="@dimen/title_bar_elevation"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/title_box_unit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/title_bar">
+
+                    <ImageButton
+                        android:id="@+id/back_btn_unit"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="18dp"
+                        android:rotation="180"
+                        android:src="@drawable/ic_arrow_back_whit" />
+
+                    <TextView
+                        android:id="@+id/element_title_unit"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/title_bar"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/activity_unit_title"
+                        android:textAlignment="center"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+        </FrameLayout>
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

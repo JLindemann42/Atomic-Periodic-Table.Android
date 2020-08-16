@@ -12,6 +12,9 @@
         <item name="actionMenuTextColor">@color/colorLightText</item>>
         <item name="android:fontFamily">@font/manropefamily</item>
         <item name="rippleColor">@color/colorLightRipple</item>
+        <item name="itemRippleColor">@color/colorLightRippleItem</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
@@ -24,6 +27,9 @@
         <item name="android:navigationBarColor">@color/transparent</item>
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="rippleColor">@color/colorDarkRipple</item>
+        <item name="itemRippleColor">@color/colorDarkRippleItem</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+
     </style>
 
     <style name="ToggleStyle"></style>
@@ -35,6 +41,7 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
 
     <declare-styleable name="ShadowView">

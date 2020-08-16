@@ -1,18 +1,15 @@
-package com.jlindemann.science.activities
+package com.jlindemann.science.activities.settings
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Insets
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.updatePadding
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_solubility.*
 import kotlinx.android.synthetic.main.activity_solubility.back_btn
 import kotlinx.android.synthetic.main.activity_submit.*
 import kotlinx.android.synthetic.main.activity_submit.view_sub
@@ -44,7 +41,7 @@ class SubmitActivity : BaseActivity() {
         }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
             val params = common_title_back_sub.layoutParams as ViewGroup.LayoutParams
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_sub.layoutParams = params

@@ -11,6 +11,9 @@
         <item name="colorAccent">@color/colorLightAccent</item>
         <item name="actionMenuTextColor">@color/colorLightText</item>>
         <item name="rippleColor">@color/colorLightRipple</item>
+        <item name="chipSurfaceColor">@color/colorLightChipSurface</item>
+        <item name="itemRippleColor">@color/colorLightRippleItem</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
@@ -23,6 +26,10 @@
         <item name="android:navigationBarColor">@color/transparent</item>
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="rippleColor">@color/colorDarkRipple</item>
+        <item name="chipSurfaceColor">@color/colorDarkChipSurface</item>
+        <item name="itemRippleColor">@color/colorDarkRippleItem</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+
     </style>
 
     <style name="ToggleStyle"></style>
@@ -33,6 +40,7 @@
         <item name="android:navigationBarColor">@color/colorLightPrimaryDark</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 

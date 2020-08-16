@@ -31,17 +31,20 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:text="Read More"
         android:textSize="14sp"
         style="@style/TextAppearance.AppCompat.Widget.Button"
         android:background="@color/transparent"
-        android:foreground="@drawable/c_ripple"
+        android:foreground="@drawable/text_ripple"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="?attr/colorAccent"
+        android:layout_marginEnd="9dp"
         android:paddingStart="9dp"
-        android:paddingEnd="9dp" />
+        android:paddingEnd="9dp"
+        android:layout_marginBottom="9dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

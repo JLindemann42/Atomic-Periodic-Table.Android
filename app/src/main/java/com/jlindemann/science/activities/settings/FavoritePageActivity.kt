@@ -1,17 +1,14 @@
-package com.jlindemann.science.activities
+package com.jlindemann.science.activities.settings
 
 import android.content.res.Configuration
-import android.graphics.Insets
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.core.content.ContextCompat
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.preferences.*
-import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_element_info.*
 import kotlinx.android.synthetic.main.activity_favorite_settings_page.*
 
 class FavoritePageActivity : BaseActivity() {
@@ -145,7 +142,7 @@ class FavoritePageActivity : BaseActivity() {
         }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
             val params = common_title_back_fav.layoutParams as ViewGroup.LayoutParams
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_fav.layoutParams = params

@@ -151,7 +151,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         recyclerView.adapter = IsotopeAdapter(filteredList, this, this)
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
             val params = r_view.layoutParams as ViewGroup.MarginLayoutParams
             params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             r_view.layoutParams = params

@@ -1,4 +1,4 @@
-package com.jlindemann.science.activities
+package com.jlindemann.science.activities.tables
 
 import android.content.Context
 import android.content.res.Configuration
@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.EquationsAdapter
 import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Equation
@@ -55,7 +56,7 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
         }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
             val params = equ_recycler.layoutParams as ViewGroup.MarginLayoutParams
             params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             equ_recycler.layoutParams = params
@@ -162,7 +163,11 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
         if (themePrefValue == 1) {
             e_title.colorFilter = ColorMatrixColorFilter(NEGATIVE)
         }
-
+        if (themePrefValue == 100) {
+            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_YES -> { e_title.colorFilter = ColorMatrixColorFilter(NEGATIVE) }
+            }
+        }
         e_text.text = text
     }
 

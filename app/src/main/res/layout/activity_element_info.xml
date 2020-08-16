@@ -104,6 +104,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
                     android:adjustViewBounds="true"
+                    android:elevation="2dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_launcher_background" />
 
@@ -146,12 +147,6 @@
             <include
                 android:id="@+id/favorite_bar"
                 layout="@layout/favorite_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                android:id="@+id/description_inc"
-                layout="@layout/d_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
