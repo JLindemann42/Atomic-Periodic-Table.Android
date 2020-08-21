@@ -276,6 +276,7 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
         melting_point.setOnClickListener { initMelting(elements) }
         h_phase_btn.setOnClickListener { initPhase(elements) }
         h_year_btn.setOnClickListener { initYear(elements) }
+        h_fusion_btn.setOnClickListener { initHeat(elements) }
     }
 
     private fun setupNavListeners() {
@@ -485,6 +486,21 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
                     val extBtn = "_btn"
                     val eViewBtn = "$name$extBtn"
                     val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
+                    
+                    val iText = findViewById<TextView>(resIDB)
+                    var jsonstring : String? = null
+                    try {
+                        val ext = ".json"
+                        val ElementJson: String? = "$name$ext"
+                        val inputStream: InputStream = assets.open(ElementJson.toString())
+                        jsonstring = inputStream.bufferedReader().use { it.readText() }
+
+                        val jsonArray = JSONArray(jsonstring)
+                        val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                        val elementGroup = jsonObject.optString("element_group", "---")
+                        iText.text = elementGroup
+                    }
+                    catch(e: IOException) { }
 
                     val btn = findViewById<Button>(resIDB)
                     if ((item.number == 3) or (item.number == 11) or (item.number == 19) or (item.number == 37) or (item.number == 55) or (item.number == 87)) {
@@ -536,6 +552,98 @@ class MainActivity : BaseActivity(), ElementAdapter.OnElementClickListener2 {
                     val jsonObject: JSONObject = jsonArray.getJSONObject(0)
                     val elementAtomicWeight = jsonObject.optString("element_atomicmass", "---")
                     iText.text = elementAtomicWeight
+                }
+                catch(e: IOException) { }
+            }
+        }, 10)
+    }
+
+    private fun initHeat(list: ArrayList<Element>) {
+        initName(list)
+        closeHover()
+        val delay = Handler()
+        delay.postDelayed({
+            for (item in list) {
+                val name = item.element
+                val extText = "_text"
+                val eView = "$name$extText"
+                val resID = resources.getIdentifier(eView, "id", packageName)
+
+                val iText = findViewById<TextView>(resID)
+
+                var jsonstring : String? = null
+                try {
+                    val ext = ".json"
+                    val ElementJson: String? = "$name$ext"
+                    val inputStream: InputStream = assets.open(ElementJson.toString())
+                    jsonstring = inputStream.bufferedReader().use { it.readText() }
+
+                    val jsonArray = JSONArray(jsonstring)
+                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    val elementFusionHeat = jsonObject.optString("element_fusion_heat", "---")
+                    iText.text = elementFusionHeat
+                }
+                catch(e: IOException) { }
+            }
+
+        }, 10)
+
+    }
+
+    private fun initSpecific(list: ArrayList<Element>) {
+        initName(list)
+        closeHover()
+        val delay = Handler()
+        delay.postDelayed({
+            for (item in list) {
+                val name = item.element
+                val extText = "_text"
+                val eView = "$name$extText"
+                val resID = resources.getIdentifier(eView, "id", packageName)
+
+                val iText = findViewById<TextView>(resID)
+
+                var jsonstring : String? = null
+                try {
+                    val ext = ".json"
+                    val ElementJson: String? = "$name$ext"
+                    val inputStream: InputStream = assets.open(ElementJson.toString())
+                    jsonstring = inputStream.bufferedReader().use { it.readText() }
+
+                    val jsonArray = JSONArray(jsonstring)
+                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    val elementSpecificHeat = jsonObject.optString("element_specific_heat_capacity", "---")
+                    iText.text = elementSpecificHeat
+                }
+                catch(e: IOException) { }
+            }
+        }, 10)
+    }
+
+    private fun initVape(list: ArrayList<Element>) {
+        initName(list)
+        closeHover()
+        val delay = Handler()
+        delay.postDelayed({
+            for (item in list) {
+                val name = item.element
+                val extText = "_text"
+                val eView = "$name$extText"
+                val resID = resources.getIdentifier(eView, "id", packageName)
+
+                val iText = findViewById<TextView>(resID)
+
+                var jsonstring : String? = null
+                try {
+                    val ext = ".json"
+                    val ElementJson: String? = "$name$ext"
+                    val inputStream: InputStream = assets.open(ElementJson.toString())
+                    jsonstring = inputStream.bufferedReader().use { it.readText() }
+
+                    val jsonArray = JSONArray(jsonstring)
+                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    val elementVapeHeat = jsonObject.optString("element_vaporization_heat", "---")
+                    iText.text = elementVapeHeat
                 }
                 catch(e: IOException) { }
             }

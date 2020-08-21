@@ -806,7 +806,7 @@
         android:clickable="true"
         android:elevation="4dp"
         android:focusable="true"
-        android:src="@drawable/ic_more"
+        android:src="@drawable/ic_filter"
         android:tint="?attr/colorPrimary"
         app:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="@id/nav_bar_main"

@@ -203,6 +203,60 @@
                         android:text="Year Discovered"
                         android:textColor="?attr/actionMenuTextColor" />
 
+                    <TextView
+                        android:id="@+id/h_fusion_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_heat"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Fusion Heat"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                    <TextView
+                        android:id="@+id/h_specific_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_heat"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Specific Heat Capacity"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                    <TextView
+                        android:id="@+id/h_vaporizaton_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_vaporization"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Vaporization Heat"
+                        android:textColor="?attr/actionMenuTextColor" />
+
                 </LinearLayout>
             </ScrollView>
         </FrameLayout>
