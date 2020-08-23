@@ -54,14 +54,15 @@ class ElectrodeActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-            val params = e_view.layoutParams as ViewGroup.MarginLayoutParams
-            params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            e_view.layoutParams = params
+        e_view.setPadding(
+            0,
+            resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top,
+            0,
+            resources.getDimensionPixelSize(R.dimen.title_bar))
 
-            val params2 = common_title_back_elo.layoutParams as ViewGroup.LayoutParams
-            params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            common_title_back_elo.layoutParams = params2
-
+        val params2 = common_title_back_elo.layoutParams as ViewGroup.LayoutParams
+        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        common_title_back_elo.layoutParams = params2
     }
 
     private fun recyclerView() {

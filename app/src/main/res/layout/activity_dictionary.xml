@@ -133,8 +133,6 @@
             android:id='@+id/rc_view'
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="80dp"
-
             android:backgroundTint="?attr/colorPrimaryDark"
             android:clipToPadding="false"
             android:paddingTop="9dp"

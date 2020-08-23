@@ -96,13 +96,37 @@ class FavoritePageActivity : BaseActivity() {
 
         //Melting Point
         val meltingPreference = MeltingPreference(this)
-        var meltingPrefValue = meltingPreference.getValue()
+        val meltingPrefValue = meltingPreference.getValue()
         if (meltingPrefValue == 1) {
             melting_check.isChecked = true
         }
         if (meltingPrefValue == 0) {
             melting_check.isChecked = false
         }
+
+        //Atomic Radius Emp Point
+        val AtomicEmpPreference = AtomicRadiusEmpPreference(this)
+        val AtomicEmpPrefValue = AtomicEmpPreference.getValue()
+        if (AtomicEmpPrefValue == 1) { atomic_radius_empirical_check.isChecked = true }
+        if (AtomicEmpPrefValue == 0) { atomic_radius_empirical_check.isChecked = false }
+
+        //Atomic Radius Cal Point
+        val AtomicCalPreference = AtomicRadiusCalPreference(this)
+        val AtomicCalPrefValue = AtomicCalPreference.getValue()
+        if (AtomicCalPrefValue == 1) { atomic_radius_calculated_check.isChecked = true }
+        if (AtomicCalPrefValue == 0) { atomic_radius_calculated_check.isChecked = false }
+
+        //Covalent Radius Point
+        val CovalentPreference = AtomicCovalentPreference(this)
+        val AtomicCovalentPrefValue = CovalentPreference.getValue()
+        if (AtomicCovalentPrefValue == 1) { covalent_radius_check.isChecked = true }
+        if (AtomicCovalentPrefValue == 0) { covalent_radius_check.isChecked = false }
+
+        //Covalent Radius Point
+        val VanPreference = AtomicVanPreference(this)
+        val VanprefValue = VanPreference.getValue()
+        if (VanprefValue == 1) { van_der_waals_radius_check.isChecked = true }
+        if (VanprefValue == 0) { van_der_waals_radius_check.isChecked = false }
 
         //Specific Heat Capacity
         val specificHeatPreference = SpecificHeatPreference(this)
@@ -250,16 +274,42 @@ class FavoritePageActivity : BaseActivity() {
 
         //Melting Point
         val meltingPreference = MeltingPreference(this)
-        var meltingPrefValue = meltingPreference.getValue()
-        var meltingCheckBox:CheckBox = melting_check
+        val meltingCheckBox:CheckBox = melting_check
         meltingCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                meltingPreference.setValue(1)
-            }
-            else {
-                meltingPreference.setValue(0)
-            }
+            if (isChecked) { meltingPreference.setValue(1) }
+            else { meltingPreference.setValue(0) }
+        }
 
+        //Atomic Radius Empirical Point
+        val atomicEmpiricalPreference = AtomicRadiusEmpPreference(this)
+        val atomicEmpiricalBox:CheckBox = atomic_radius_empirical_check
+        atomicEmpiricalBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) { atomicEmpiricalPreference.setValue(1) }
+            else { atomicEmpiricalPreference.setValue(0) }
+        }
+
+        //Atomic Radius Calculated Point
+        val atomicCalculatedPreference = AtomicRadiusCalPreference(this)
+        val atomicCalculatedBox:CheckBox = atomic_radius_calculated_check
+        atomicCalculatedBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) { atomicCalculatedPreference.setValue(1) }
+            else { atomicCalculatedPreference.setValue(0) }
+        }
+
+        //Covalent Radius Point
+        val covalentPreference = AtomicCovalentPreference(this)
+        val covalentCheckBox:CheckBox = covalent_radius_check
+        covalentCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) { covalentPreference.setValue(1) }
+            else { covalentPreference.setValue(0) }
+        }
+
+        //Van Der Waals Radius Point
+        val vanPreference = AtomicVanPreference(this)
+        val vanCheckBox:CheckBox = van_der_waals_radius_check
+        vanCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) { vanPreference.setValue(1) }
+            else { vanPreference.setValue(0) }
         }
 
         //Specific Heat Point

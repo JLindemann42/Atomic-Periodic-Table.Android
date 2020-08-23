@@ -64,14 +64,15 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-            val params = rc_view.layoutParams as ViewGroup.MarginLayoutParams
-            params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            rc_view.layoutParams = params
+        rc_view.setPadding(
+            0,
+            resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top,
+            0,
+            resources.getDimensionPixelSize(R.dimen.title_bar))
 
-            val params2 = common_title_back_dic.layoutParams as ViewGroup.LayoutParams
-            params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            common_title_back_dic.layoutParams = params2
-
+        val params2 = common_title_back_dic.layoutParams as ViewGroup.LayoutParams
+        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        common_title_back_dic.layoutParams = params2
     }
 
     private fun recyclerView() {

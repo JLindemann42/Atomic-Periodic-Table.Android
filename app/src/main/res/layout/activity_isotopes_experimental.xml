@@ -132,8 +132,6 @@
             android:id='@+id/r_view'
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="80dp"
-
             android:background="?attr/colorPrimaryDark"
             android:clipToPadding="false"
             android:paddingTop="9dp"
@@ -144,7 +142,7 @@
             app:friction="144"
             app:gapLimit="180"
             app:speedFactor="6"
-            app:tension="1400"/>
+            app:tension="1400" />
     </FrameLayout>
 
     <com.github.mmin18.widget.RealtimeBlurView

@@ -8,7 +8,7 @@
     android:elevation="8dp"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -122,7 +122,7 @@
             app:speedFactor="6"
             app:tension="1400" />
 
-    </LinearLayout>
+    </FrameLayout>
 
     <TextView
         android:id="@+id/background"

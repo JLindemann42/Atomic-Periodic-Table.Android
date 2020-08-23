@@ -57,14 +57,15 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-            val params = equ_recycler.layoutParams as ViewGroup.MarginLayoutParams
-            params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            equ_recycler.layoutParams = params
+        equ_recycler.setPadding(
+            0,
+            resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top,
+            0,
+            resources.getDimensionPixelSize(R.dimen.title_bar))
 
-            val params2 = common_title_back_equ.layoutParams as ViewGroup.LayoutParams
-            params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            common_title_back_equ.layoutParams = params2
-
+        val params2 = common_title_back_equ.layoutParams as ViewGroup.LayoutParams
+        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        common_title_back_equ.layoutParams = params2
     }
 
     private fun recyclerView() {

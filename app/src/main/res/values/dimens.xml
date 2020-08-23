@@ -6,6 +6,10 @@
     <dimen name="default_card_elevation">2dp</dimen>
     <dimen name="title_bar_elevation">4dp</dimen>
 
+    <dimen name="groups">8dp</dimen>
+    <dimen name="groupsb">10dp</dimen>
+    <dimen name="groups2b">20dp</dimen>
+
     <dimen name="status_bar_height">30dp</dimen>
     <dimen name="title_bar">80dp</dimen>
     <dimen name="title_bar_ph">124dp</dimen>
