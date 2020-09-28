@@ -7,284 +7,284 @@
     android:orientation="vertical">
 
 
-        <LinearLayout
-            android:id="@+id/physics_properties"
+    <LinearLayout
+        android:id="@+id/physics_properties"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/toast"
+        android:backgroundTint="?attr/colorPrimary"
+        android:elevation="2dp"
+        android:orientation="vertical">
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:layout_marginBottom="9dp"
             android:layout_marginTop="9dp"
             android:layout_marginEnd="18dp"
-            android:background="@drawable/rounded_box"
-            android:backgroundTint="?attr/colorPrimary"
-            android:elevation="1dp"
-            android:orientation="vertical">
+            android:layout_marginBottom="9dp"
+            android:drawableStart="@drawable/overview_icon"
+            android:drawablePadding="9dp"
+            android:text="Atomic Properties"
+            android:textColor="?attr/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="9dp"
-                android:drawableStart="@drawable/overview_icon"
-                android:drawablePadding="9dp"
-                android:text="Atomic Properties"
-                android:textColor="?attr/colorAccent"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.75"
+            android:background="?attr/actionMenuTextColor" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.75"
-                android:background="?attr/actionMenuTextColor" />
+        <TextView
+            android:id="@+id/electron_Config_title2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Oxidation States:"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/electron_Config_title2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="2dp"
-                android:text="Oxidation States:"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+        <include
+            android:id="@+id/ox_view"
+            layout="@layout/oxidiation_states"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-            <include
-                android:id="@+id/ox_view"
-                layout="@layout/oxidiation_states"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/electron_Config_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Electron Configuration:"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/electron_Config_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="2dp"
-                android:text="Electron Configuration:"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/electron_config_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="electron_config_text"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/electron_config_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="8dp"
-                android:text="electron_config_text"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp" />
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
-                android:alpha="0.25"
-                android:background="?attr/actionMenuTextColor" />
+        <TextView
+            android:id="@+id/ion_charge_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Ion Charge:"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/ion_charge_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="2dp"
-                android:text="Ion Charge:"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/ion_charge_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="ion_charge_text"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/ion_charge_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="8dp"
-                android:text="ion_charge_text"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
-                android:alpha="0.25"
-                android:background="?attr/actionMenuTextColor" />
+        <TextView
+            android:id="@+id/ionization_energies_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Ionization Energies:"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/ionization_energies_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="2dp"
-                android:text="Ionization Energies:"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/ionization_energies_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="ionization_energies_text"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/ionization_energies_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="8dp"
-                android:text="ionization_energies_text"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp" />
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
 
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
-                android:alpha="0.25"
-                android:background="?attr/actionMenuTextColor" />
+        <TextView
+            android:id="@+id/atomic_radius_e_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Atomic Radius (Empirical):"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/atomic_radius_e_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="2dp"
-                android:text="Atomic Radius (Empirical):"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/atomic_radius_e_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="atomic_radius_e_text"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/atomic_radius_e_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="8dp"
-                android:text="atomic_radius_e_text"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
-                android:alpha="0.25"
-                android:background="?attr/actionMenuTextColor" />
+        <TextView
+            android:id="@+id/atomic_radius_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Atomic Radius (Calculated):"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/atomic_radius_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="2dp"
-                android:text="Atomic Radius (Calculated):"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/atomic_radius_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="atomic_radius_text"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/atomic_radius_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="8dp"
-                android:text="atomic_radius_text"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
-                android:alpha="0.25"
-                android:background="?attr/actionMenuTextColor" />
+        <TextView
+            android:id="@+id/covalent_radius_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Covalent Radius:"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/covalent_radius_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="2dp"
-                android:text="Covalent Radius:"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/covalent_radius_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="covalent_radius_text"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/covalent_radius_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="8dp"
-                android:text="covalent_radius_text"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/actionMenuTextColor" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginEnd="18dp"
-                android:alpha="0.25"
-                android:background="?attr/actionMenuTextColor" />
+        <TextView
+            android:id="@+id/van_der_waals_radius_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="Van Der Waals Radius:"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/van_der_waals_radius_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="2dp"
-                android:text="Van Der Waals Radius:"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/van_der_waals_radius_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="van_der_waals_radius_text"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/van_der_waals_radius_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="8dp"
-                android:text="van_der_waals_radius_text"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="14sp" />
-
-        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

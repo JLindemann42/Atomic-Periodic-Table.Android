@@ -17,7 +17,7 @@
         <FrameLayout
             android:id="@+id/common_title_back_iso"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="56dp"
             android:alpha="0.975"
             android:background="?attr/colorPrimary"
             android:elevation="8dp"
@@ -34,31 +34,31 @@
                 <FrameLayout
                     android:id="@+id/title_box"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp">
+                    android:layout_height="56dp">
 
                     <ImageButton
                         android:id="@+id/back_btn"
                         style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="18dp"
                         android:rotation="180"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <ImageButton
                         android:id="@+id/search_btn"
                         style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
                         android:layout_gravity="center_vertical|end"
-                        android:layout_marginEnd="18dp"
                         android:src="@drawable/ic_search" />
 
                     <TextView
                         android:id="@+id/element_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:alpha="0.9"
+                        android:layout_height="56dp"
                         android:gravity="center"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
@@ -73,44 +73,32 @@
                 <FrameLayout
                     android:id="@+id/search_bar_iso"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="56dp"
                     android:visibility="gone">
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    <ImageButton
                         android:id="@+id/close_iso_search"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="56dp"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_height="56dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="9dp"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:elevation="0dp"
-                        android:focusable="true"
-                        android:src="@drawable/ic_close"
-                        android:tint="?attr/actionMenuTextColor"
-                        app:backgroundTint="?attr/colorPrimary"
-                        app:borderWidth="0dp"
-                        app:elevation="0dp"
-                        app:fabCustomSize="36dp"
-                        app:fabSize="auto" />
+                        android:rotation="180"
+                        android:alpha="0.9"
+                        android:src="@drawable/ic_arrow_back_whit"/>
 
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="54dp"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginEnd="18dp"
-                        android:layout_marginBottom="18dp"
-                        android:background="@drawable/toast"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:layout_marginStart="56dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
                         android:elevation="0dp">
 
                         <EditText
                             android:id="@+id/edit_iso"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="18dp"
-                            android:layout_marginEnd="18dp"
                             android:background="@android:color/transparent"
                             android:focusable="true"
                             android:focusableInTouchMode="true"
@@ -142,19 +130,18 @@
             app:friction="144"
             app:gapLimit="180"
             app:speedFactor="6"
-            app:tension="1400" />
+            app:tension="1400" >
+
+        </com.chauthai.overscroll.RecyclerViewBouncy>
     </FrameLayout>
 
-    <com.github.mmin18.widget.RealtimeBlurView
+    <TextView
         android:id="@+id/background_i2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="1"
-        android:visibility="gone"
-        android:clickable="true"
-        android:focusable="true"
-        app:realtimeBlurRadius="4dp"
-        app:realtimeOverlayColor="#A80B0B0B" />
+        android:alpha="0.6"
+        android:background="@color/colorLightText"
+        android:visibility="gone" />
 
     <include
         android:id="@+id/panel_info"

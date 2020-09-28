@@ -12,6 +12,13 @@ object Utils {
         view.animate().alpha(1.0f)
     }
 
+    fun fadeInAnimBack(view: View, time: Long) {
+        view.visibility = View.VISIBLE
+        view.alpha = 0.0f
+        view.animate().setDuration(time)
+        view.animate().alpha(0.6f)
+    }
+
     fun slideUp(panel: SlidingUpPanelLayout) {
         panel.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
     }

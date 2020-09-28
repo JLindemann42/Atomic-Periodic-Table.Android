@@ -169,7 +169,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         elementSendAndLoad.setValue(item.element)
         drawCard()
 
-        Utils.fadeInAnim(background_i2, 200)
+        Utils.fadeInAnimBack(background_i2, 200)
         Utils.fadeInAnim(slid_panel, 200)
         sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
     }

@@ -118,7 +118,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     }
 
     private fun openHover() {
-        Utils.fadeInAnim(hover_background, 200)
+        Utils.fadeInAnimBack(hover_background, 200)
         Utils.fadeInAnim(hover_menu_include, 300)
     }
 
@@ -242,7 +242,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         menu_btn.setOnClickListener {
             nav_menu_include.visibility = View.VISIBLE
             nav_background.visibility = View.VISIBLE
-            Utils.fadeInAnim(nav_background, 200)
+            Utils.fadeInAnimBack(nav_background, 200)
             sliding_layout.panelState = PanelState.EXPANDED
         }
         nav_background.setOnClickListener {
@@ -300,7 +300,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
             val btn = findViewById<Button>(resIDB)
             btn.foreground = ContextCompat.getDrawable(this,
-                R.drawable.c_ripple
+                R.drawable.t_ripple
             );
             btn.isClickable = true
             btn.isFocusable = true
@@ -375,7 +375,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         navLin.setPadding(left, 0, right, 0)
 
         val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
-        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar_main)
         common_title_back_main.layoutParams = params
 
         val params2 = nav_bar_main.layoutParams as ViewGroup.LayoutParams
@@ -402,8 +402,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         nav_content.layoutParams = navSide
 
         val barSide = search_box.layoutParams as ViewGroup.MarginLayoutParams
-        barSide.rightMargin = right + resources.getDimensionPixelSize(R.dimen.margin)
-        barSide.leftMargin = left + resources.getDimensionPixelSize(R.dimen.margin)
+        barSide.rightMargin = right + resources.getDimensionPixelSize(R.dimen.search_margin_side)
+        barSide.leftMargin = left + resources.getDimensionPixelSize(R.dimen.search_margin_side)
         search_box.layoutParams = barSide
 
         val numb = leftBar.layoutParams as ViewGroup.LayoutParams
@@ -415,7 +415,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         hover_menu_include.layoutParams = params5
 
         val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
-        params6.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        params6.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_main) + resources.getDimensionPixelSize(R.dimen.groups)
         scrollView.layoutParams = params6
 
         val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams

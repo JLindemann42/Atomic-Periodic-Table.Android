@@ -12,10 +12,10 @@
     <FrameLayout
         android:id="@+id/common_title_back_main"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="72dp"
         android:alpha="0.975"
-        android:background="?attr/colorPrimary"
-        android:elevation="0dp"
+        android:background="?attr/colorPrimaryDark"
+        android:elevation="2dp"
         android:gravity="center|center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,18 +29,15 @@
             <FrameLayout
                 android:id="@+id/title_box"
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
+                android:layout_height="72dp">
 
                 <FrameLayout
                     android:id="@+id/search_box"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:layout_marginBottom="18dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
                     android:clickable="true"
-                    android:elevation="4dp"
+                    android:elevation="2dp"
                     android:focusable="true"
                     android:foreground="@drawable/c_ripple">
 
@@ -49,12 +46,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="18dp"
+                        android:layout_marginStart="16dp"
+                        android:alpha="0.9"
                         android:drawableStart="@drawable/ic_search"
-                        android:drawablePadding="18dp"
+                        android:drawablePadding="16dp"
                         android:gravity="center_vertical"
                         android:text="Search Elements"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:textSize="16sp" />
                 </FrameLayout>
 
             </FrameLayout>
@@ -71,7 +70,7 @@
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="72dp"
             android:fillViewport="true">
 
             <LinearLayout
@@ -82,23 +81,23 @@
 
                 <LinearLayout
                     android:id="@+id/leftBar"
-                    android:layout_width="36dp"
+                    android:layout_width="28dp"
                     android:layout_height="match_parent"
-                    android:background="?attr/colorPrimary"
+                    android:background="?attr/colorPrimaryDark"
                     android:orientation="vertical">
 
                     <FrameLayout
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="end"
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp" />
 
                     <FrameLayout
                         android:layout_width="24dp"
                         android:layout_height="96dp"
                         android:layout_gravity="end"
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -117,7 +116,7 @@
                         android:layout_height="96dp"
                         android:layout_gravity="end"
 
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -136,7 +135,7 @@
                         android:layout_height="96dp"
                         android:layout_gravity="end"
 
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -155,7 +154,7 @@
                         android:layout_height="96dp"
                         android:layout_gravity="end"
 
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -174,7 +173,7 @@
                         android:layout_height="96dp"
                         android:layout_gravity="end"
 
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -193,7 +192,7 @@
                         android:layout_height="96dp"
                         android:layout_gravity="end"
 
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -212,7 +211,7 @@
                         android:layout_height="96dp"
                         android:layout_gravity="end"
 
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -231,7 +230,7 @@
                         android:layout_height="96dp"
                         android:layout_gravity="end"
 
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp"></FrameLayout>
 
                     <FrameLayout
@@ -239,7 +238,7 @@
                         android:layout_height="260dp"
                         android:layout_gravity="end"
 
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp" />
 
                 </LinearLayout>
@@ -253,7 +252,7 @@
                     <FrameLayout
                         android:layout_width="96dp"
                         android:layout_height="24dp"
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -284,7 +283,7 @@
                         android:layout_width="96dp"
                         android:layout_height="24dp"
                         android:layout_marginBottom="98dp"
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -313,8 +312,8 @@
                     <FrameLayout
                         android:layout_width="96dp"
                         android:layout_height="24dp"
-                        android:layout_marginBottom="292dp"
-                        android:background="?attr/colorPrimary"
+                        android:layout_marginBottom="290dp"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -343,8 +342,8 @@
                     <FrameLayout
                         android:layout_width="96dp"
                         android:layout_height="24dp"
-                        android:layout_marginBottom="292dp"
-                        android:background="?attr/colorPrimary"
+                        android:layout_marginBottom="290dp"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -373,8 +372,8 @@
                     <FrameLayout
                         android:layout_width="96dp"
                         android:layout_height="24dp"
-                        android:layout_marginBottom="292dp"
-                        android:background="?attr/colorPrimary"
+                        android:layout_marginBottom="290dp"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -403,8 +402,8 @@
                     <FrameLayout
                         android:layout_width="96dp"
                         android:layout_height="24dp"
-                        android:layout_marginBottom="292dp"
-                        android:background="?attr/colorPrimary"
+                        android:layout_marginBottom="290dp"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -433,8 +432,8 @@
                     <FrameLayout
                         android:layout_width="96dp"
                         android:layout_height="24dp"
-                        android:layout_marginBottom="292dp"
-                        android:background="?attr/colorPrimary"
+                        android:layout_marginBottom="290dp"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -463,8 +462,8 @@
                     <FrameLayout
                         android:layout_width="96dp"
                         android:layout_height="24dp"
-                        android:layout_marginBottom="292dp"
-                        android:background="?attr/colorPrimary"
+                        android:layout_marginBottom="290dp"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -493,8 +492,8 @@
                     <FrameLayout
                         android:layout_width="96dp"
                         android:layout_height="24dp"
-                        android:layout_marginBottom="292dp"
-                        android:background="?attr/colorPrimary"
+                        android:layout_marginBottom="290dp"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -525,8 +524,8 @@
                     <FrameLayout
                         android:layout_width="96dp"
                         android:layout_height="24dp"
-                        android:layout_marginBottom="292dp"
-                        android:background="?attr/colorPrimary"
+                        android:layout_marginBottom="290dp"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -555,8 +554,8 @@
                     <FrameLayout
                         android:layout_width="96dp"
                         android:layout_height="24dp"
-                        android:layout_marginBottom="292dp"
-                        android:background="?attr/colorPrimary"
+                        android:layout_marginBottom="290dp"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -586,8 +585,8 @@
                     <FrameLayout
                         android:layout_width="96dp"
                         android:layout_height="24dp"
-                        android:layout_marginBottom="292dp"
-                        android:background="?attr/colorPrimary"
+                        android:layout_marginBottom="290dp"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -618,7 +617,7 @@
                         android:layout_width="96dp"
                         android:layout_height="24dp"
                         android:layout_marginBottom="98dp"
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -649,7 +648,7 @@
                         android:layout_width="96dp"
                         android:layout_height="24dp"
                         android:layout_marginBottom="98dp"
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -679,7 +678,7 @@
                         android:layout_width="96dp"
                         android:layout_height="24dp"
                         android:layout_marginBottom="98dp"
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/colorPrimaryDark"
                         android:elevation="0dp">
 
                         <TextView
@@ -709,8 +708,8 @@
                         android:layout_width="96dp"
                         android:layout_height="24dp"
                         android:layout_marginBottom="98dp"
-                        android:background="?attr/colorPrimary"
-                        android:elevation="0dp">
+                        android:background="?attr/colorPrimaryDark"
+                        android:elevation="2dp">
 
                         <TextView
                             android:id="@+id/list_number16"
@@ -739,8 +738,8 @@
                         android:layout_width="96dp"
                         android:layout_height="24dp"
                         android:layout_marginBottom="98dp"
-                        android:background="?attr/colorPrimary"
-                        android:elevation="0dp">
+                        android:background="?attr/colorPrimaryDark"
+                        android:elevation="2dp">
 
                         <TextView
                             android:id="@+id/list_number17"
@@ -768,8 +767,8 @@
                     <FrameLayout
                         android:layout_width="105dp"
                         android:layout_height="24dp"
-                        android:background="?attr/colorPrimary"
-                        android:elevation="0dp">
+                        android:background="?attr/colorPrimaryDark"
+                        android:elevation="2dp">
 
                         <TextView
                             android:id="@+id/list_number18"
@@ -861,33 +860,23 @@
 
     </FrameLayout>
 
-    <com.github.mmin18.widget.RealtimeBlurView
+    <TextView
         android:id="@+id/nav_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#A8000000"
-        android:elevation="12dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:realtimeBlurRadius="4dp"
-        app:realtimeOverlayColor="#A80B0B0B" />
+        android:alpha="0.6"
+        android:background="@color/colorLightText"
+        android:elevation="4dp"
+        android:visibility="gone" />
 
-    <com.github.mmin18.widget.RealtimeBlurView
+    <TextView
         android:id="@+id/hover_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#A8000000"
-        android:elevation="12dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:realtimeBlurRadius="4dp"
-        app:realtimeOverlayColor="#A80B0B0B" />
+        android:alpha="0.6"
+        android:background="@color/colorLightText"
+        android:elevation="4dp"
+        android:visibility="gone" />
 
     <include
         android:id="@+id/nav_menu_include"

@@ -125,18 +125,14 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
     private fun clickSearch() {
         search_btn_equ.setOnClickListener {
             Utils.fadeInAnim(search_bar_equ, 150)
-
-            val delayOpen = Handler()
-            delayOpen.postDelayed({
-                Utils.fadeOutAnim(title_box_equ, 150)
-            }, 151)
+            Utils.fadeOutAnim(title_box_equ, 1)
 
             edit_equ.requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(edit_equ, InputMethodManager.SHOW_IMPLICIT)
         }
         close_equ_search.setOnClickListener {
-            Utils.fadeOutAnim(search_bar_equ, 150)
+            Utils.fadeOutAnim(search_bar_equ, 1)
 
             val delayClose = Handler()
             delayClose.postDelayed({

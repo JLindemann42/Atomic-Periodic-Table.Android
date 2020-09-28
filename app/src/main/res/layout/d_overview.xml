@@ -9,12 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="18dp"
-        android:layout_marginBottom="9dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="18dp"
-        android:background="@drawable/rounded_box"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/toast"
         android:backgroundTint="?attr/colorPrimary"
-        android:elevation="1dp"
+        android:elevation="2dp"
         android:orientation="vertical">
 
         <TextView
@@ -39,16 +39,16 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="4dp"
-            android:layout_height="24dp">
+            android:layout_height="24dp"
+            android:layout_marginTop="4dp">
 
             <TextView
                 android:id="@+id/description_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="18dp"
                 android:layout_marginEnd="18dp"
-                android:layout_gravity="center_vertical"
                 android:text="Description:"
                 android:textColor="?attr/actionMenuTextColor"
                 android:textSize="14sp"
@@ -58,8 +58,8 @@
                 android:id="@+id/wikipedia_description"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:layout_marginEnd="18dp"
                 android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="18dp"
                 android:src="@drawable/ic_wikipedia_logo" />
 
         </FrameLayout>
@@ -70,10 +70,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
-            android:maxLines="4"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="0dp"
+            android:maxLines="4"
             android:text="description_name"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
@@ -92,8 +92,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
             android:background="?attr/actionMenuTextColor" />
@@ -298,8 +298,8 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_margin="18dp"
-            android:background="@drawable/rounded_box"
-            android:backgroundTint="?attr/colorPrimaryDark"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/chipSurfaceColor"
             android:gravity="center"
             android:orientation="horizontal">
 

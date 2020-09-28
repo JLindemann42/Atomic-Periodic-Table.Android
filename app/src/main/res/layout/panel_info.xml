@@ -6,15 +6,12 @@
     android:layout_height="match_parent"
     android:elevation="28dp">
 
-    <com.github.mmin18.widget.RealtimeBlurView
+    <TextView
         android:id="@+id/info_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="1"
-        android:clickable="true"
-        android:focusable="true"
-        app:realtimeBlurRadius="4dp"
-        app:realtimeOverlayColor="#A80B0B0B" />
+        android:alpha="0.6"
+        android:background="?actionMenuTextColor" />
 
     <FrameLayout
         android:layout_width="240dp"

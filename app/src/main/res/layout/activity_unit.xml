@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:alpha="1">
+    android:alpha="1"
+    android:background="?attr/colorPrimaryDark">
 
     <FrameLayout
         android:id="@+id/view_unit"
@@ -27,8 +28,8 @@
                     android:id="@+id/temp_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="80dp"
-                    android:background="?attr/colorPrimary"
+                    android:layout_marginTop="56dp"
+                    android:background="?attr/colorPrimaryDark"
                     android:paddingStart="18dp"
                     android:paddingTop="9dp"
                     android:paddingBottom="9dp"
@@ -41,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:background="?attr/colorPrimary"
+                    android:background="?attr/colorPrimaryDark"
                     android:orientation="horizontal">
 
                     <Button
@@ -117,7 +118,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="56dp"
                 android:layout_gravity="bottom"
                 android:orientation="vertical">
 
@@ -129,17 +130,18 @@
                     <ImageButton
                         android:id="@+id/back_btn_unit"
                         style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="18dp"
                         android:rotation="180"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <TextView
                         android:id="@+id/element_title_unit"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="@dimen/title_bar"
+                        android:layout_marginStart="70dp"
+                        android:alpha="0.9"
                         android:gravity="center"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"

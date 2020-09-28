@@ -6,133 +6,154 @@
     android:elevation="100dp"
     android:orientation="vertical">
 
-    <com.github.mmin18.widget.RealtimeBlurView
-        android:id="@+id/theme_background"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="1"
-        android:clickable="true"
-        android:focusable="true"
-        app:realtimeBlurRadius="4dp"
-        app:realtimeOverlayColor="#A80B0B0B" />
-
     <LinearLayout
-        android:id="@+id/themepanel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:elevation="2dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.2">
+            android:layout_weight="0.25">
 
         </FrameLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center"
-            android:layout_marginStart="36dp"
-            android:layout_marginEnd="36dp"
-            android:layout_weight="0.6"
-            android:background="@drawable/toast"
+            android:layout_weight="0.5"
             android:backgroundTint="?attr/colorPrimary"
-            android:clickable="true"
-            android:elevation="2dp"
-            android:focusable="true"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp">
 
-            <TextView
-                android:id="@+id/textView4"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:layout_marginBottom="8dp"
-                android:text="Select Theme"
-                android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/system_button"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="18dp"
+                android:layout_gravity="center"
                 android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorAccent"
-                android:backgroundTintMode="src_in"
+                android:backgroundTint="?attr/colorPrimary"
                 android:clickable="true"
-                android:elevation="1dp"
+                android:elevation="8dp"
                 android:focusable="true"
-                android:fontFamily="@font/manroperegular"
-                android:foreground="@drawable/c_ripple"
-                android:foregroundTintMode="src_in"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="onClick"
-                android:text="System Default"
-                android:textAlignment="center"
-                android:textColor="?attr/colorPrimary" />
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/light_btn"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="18dp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorAccent"
-                android:backgroundTintMode="src_in"
-                android:clickable="true"
-                android:elevation="1dp"
-                android:focusable="true"
-                android:fontFamily="@font/manroperegular"
-                android:foreground="@drawable/c_ripple"
-                android:foregroundTintMode="src_in"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="onClick"
-                android:text="Light"
-                android:textAlignment="center"
-                android:textColor="?attr/colorPrimary" />
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:alpha="1.0"
+                    android:text="Select Theme"
+                    android:textAlignment="viewStart"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/dark_btn"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="18dp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorAccent"
-                android:backgroundTintMode="src_in"
-                android:clickable="true"
-                android:elevation="1dp"
-                android:focusable="true"
-                android:fontFamily="@font/manroperegular"
-                android:foreground="@drawable/c_ripple"
-                android:foregroundTintMode="src_in"
-                android:hapticFeedbackEnabled="true"
-                android:onClick="onClick"
-                android:text="Dark"
-                android:textAlignment="center"
-                android:textColor="?attr/colorPrimary" />
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-        </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/system_default_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:clickable="true"
+                            android:drawableStart="@drawable/ic_radio_checked"
+                            android:drawablePadding="20dp"
+                            android:focusable="true"
+                            android:foreground="@drawable/d_ripple"
+                            android:gravity="center_vertical"
+                            android:paddingStart="20dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="8dp"
+                            android:text="System Default"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/light_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:clickable="true"
+                            android:drawableStart="@drawable/ic_radio_unchecked"
+                            android:drawablePadding="20dp"
+                            android:focusable="true"
+                            android:foreground="@drawable/d_ripple"
+                            android:gravity="center_vertical"
+                            android:paddingStart="20dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="8dp"
+                            android:text="Light"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/dark_btn"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:clickable="true"
+                            android:drawableStart="@drawable/ic_radio_unchecked"
+                            android:drawablePadding="20dp"
+                            android:focusable="true"
+                            android:foreground="@drawable/d_ripple"
+                            android:gravity="center_vertical"
+                            android:paddingStart="20dp"
+                            android:paddingTop="8dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="8dp"
+                            android:text="Dark"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+                </ScrollView>
+
+                <TextView
+                    android:id="@+id/cancel_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_margin="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="@drawable/c_ripple"
+                    android:gravity="center_vertical"
+                    android:padding="8dp"
+                    android:text="Cancel"
+                    android:textColor="?attr/colorAccent"
+                    android:textFontWeight="600"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </FrameLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.2">
+            android:layout_weight="0.25" />
 
-        </FrameLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/theme_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.6"
+        android:background="@color/colorLightText" />
 
 </FrameLayout>

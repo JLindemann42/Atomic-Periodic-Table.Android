@@ -35,16 +35,17 @@
                         android:layout_width="54dp"
                         android:layout_height="54dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="18dp"
                         android:rotation="180"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <TextView
                         android:id="@+id/element_title"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="@dimen/title_bar"
+                        android:layout_marginStart="70dp"
                         android:gravity="center"
                         android:paddingStart="0dp"
+                        android:alpha="0.9"
                         android:paddingEnd="0dp"
                         android:text="@string/activity_table_title"
                         android:textAlignment="center"

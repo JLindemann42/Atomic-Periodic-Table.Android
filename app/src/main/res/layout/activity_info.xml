@@ -27,7 +27,7 @@
                     android:id="@+id/imageView3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="80dp"
+                    android:layout_marginTop="56dp"
                     app:srcCompat="@drawable/jlo" />
 
                 <TextView
@@ -107,6 +107,7 @@
                             android:layout_margin="9dp"
                             android:text="PaperSplash PRO"
                             android:textAlignment="center"
+                            android:textColor="?attr/actionMenuTextColor"
                             android:textSize="11sp" />
                     </FrameLayout>
 
@@ -136,6 +137,7 @@
                             android:layout_margin="9dp"
                             android:text="PaperSplash"
                             android:textAlignment="center"
+                            android:textColor="?attr/actionMenuTextColor"
                             android:textSize="11sp" />
                     </FrameLayout>
                 </LinearLayout>
@@ -146,7 +148,7 @@
         <FrameLayout
             android:id="@+id/common_title_back_info"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="56dp"
             android:alpha="0.975"
             android:background="?attr/colorPrimaryDark"
             android:gravity="center|center_vertical"
@@ -162,14 +164,13 @@
                 <FrameLayout
                     android:id="@+id/title_box_info"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp">
+                    android:layout_height="56dp">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/back_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="12dp"
                         android:elevation="0dp"
                         android:src="@drawable/ic_arrow_back_whit"
                         android:rotation="180"
@@ -181,8 +182,10 @@
 
                     <TextView
                         android:id="@+id/element_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:alpha="0.9"
+                        android:layout_height="56dp"
                         android:gravity="center"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"

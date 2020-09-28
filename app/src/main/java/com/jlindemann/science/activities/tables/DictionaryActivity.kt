@@ -126,18 +126,14 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
     private fun clickSearch() {
         search_btn.setOnClickListener {
             Utils.fadeInAnim(search_bar_iso, 150)
-
-            val delayOpen = Handler()
-            delayOpen.postDelayed({
-                Utils.fadeOutAnim(title_box, 150)
-            }, 151)
+            Utils.fadeOutAnim(title_box, 1)
 
             edit_iso.requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(edit_iso, InputMethodManager.SHOW_IMPLICIT)
         }
         close_iso_search.setOnClickListener {
-            Utils.fadeOutAnim(search_bar_iso, 150)
+            Utils.fadeOutAnim(search_bar_iso, 1)
 
             val delayClose = Handler()
             delayClose.postDelayed({

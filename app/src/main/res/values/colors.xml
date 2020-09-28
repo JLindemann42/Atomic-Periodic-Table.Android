@@ -10,9 +10,9 @@
     <color name="colorLightRippleItem">#A81B94E4</color>
     <color name="colorLightChipSurface">#EBEBEB</color>
 
-    <color name="colorDarkPrimary">#323235</color>
-    <color name="colorDarkPrimaryDark">#222222</color>
-    <color name="colorDarkAccent">#8AB4FB</color>
+    <color name="colorDarkPrimary">#313235</color>
+    <color name="colorDarkPrimaryDark">#202124</color>
+    <color name="colorDarkAccent">#85AEEF</color>
     <color name="colorDarkError">#B00020</color>
     <color name="colorDarkText">#E9EAEE</color>
     <color name="colorDarkRipple">#40E9EAEE</color>

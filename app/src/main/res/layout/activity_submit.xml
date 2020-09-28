@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="126dp"
+            android:layout_marginTop="100dp"
             android:visibility="gone" />
 
         <LinearLayout
@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
                 android:layout_marginStart="18dp"
-                android:layout_marginTop="98dp"
+                android:layout_marginTop="74dp"
                 android:layout_marginEnd="18dp"
                 android:layout_marginBottom="18dp"
                 android:background="@drawable/toast"
@@ -133,7 +133,7 @@
     <FrameLayout
             android:id="@+id/common_title_back_sub"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="56dp"
             android:alpha="1"
             android:elevation="4dp"
             android:background="?attr/colorPrimary"
@@ -149,22 +149,23 @@
                 <FrameLayout
                     android:id="@+id/title_box"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp">
+                    android:layout_height="56dp">
 
                     <ImageButton
                         android:id="@+id/back_btn"
                         style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="18dp"
                         android:rotation="180"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <TextView
                         android:id="@+id/element_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:alpha="0.9"
+                        android:layout_height="56dp"
                         android:gravity="center"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"

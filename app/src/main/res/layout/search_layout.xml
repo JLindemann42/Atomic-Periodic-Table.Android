@@ -16,7 +16,7 @@
         <FrameLayout
             android:id="@+id/common_title_back_search"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="56dp"
             android:alpha="0.975"
             android:background="?attr/colorPrimary"
             android:elevation="8dp"
@@ -33,14 +33,13 @@
                 <FrameLayout
                     android:id="@+id/title_box"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp">
+                    android:layout_height="56dp">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/filter_btn"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
                         android:layout_gravity="center_vertical|end"
-                        android:layout_marginEnd="9dp"
                         android:clickable="true"
                         android:elevation="0dp"
                         android:focusable="true"
@@ -48,19 +47,17 @@
                         app:backgroundTint="@color/transparent"
                         app:borderWidth="0dp"
                         app:elevation="0dp"
-                        app:fabCustomSize="36dp"
                         app:fabSize="auto" />
 
                     <FrameLayout
                         android:id="@+id/search_bar_element"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="54dp"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginEnd="54dp"
-                        android:layout_marginBottom="18dp"
+                        android:layout_marginStart="56dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="56dp"
+                        android:layout_marginBottom="8dp"
                         android:background="@drawable/toast"
-                        android:backgroundTint="?attr/colorPrimaryDark"
                         android:elevation="0dp"
                         android:visibility="visible">
 
@@ -69,8 +66,6 @@
                             android:id="@+id/edit_element"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginStart="18dp"
-                            android:layout_marginEnd="18dp"
                             android:background="@android:color/transparent"
                             android:focusable="true"
                             android:focusableInTouchMode="true"
@@ -88,10 +83,9 @@
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/close_element_search"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="9dp"
                         android:clickable="true"
                         android:elevation="0dp"
                         android:focusable="true"
@@ -99,7 +93,6 @@
                         app:backgroundTint="@color/transparent"
                         app:borderWidth="0dp"
                         app:elevation="0dp"
-                        app:fabCustomSize="36dp"
                         app:fabSize="auto" />
 
                 </FrameLayout>

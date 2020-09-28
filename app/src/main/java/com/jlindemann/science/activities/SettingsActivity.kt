@@ -37,6 +37,22 @@ class SettingsActivity : BaseActivity() {
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_settings)
 
+        if (themePrefValue == 100) {
+            system_default_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_checked, 0, 0, 0)
+            light_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            dark_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+        }
+        if (themePrefValue == 0) {
+            system_default_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            light_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_checked, 0, 0, 0)
+            dark_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+        }
+        if (themePrefValue == 1) {
+            system_default_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            light_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            dark_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_checked, 0, 0, 0)
+        }
+
         openPages()
         themeSettings()
         initializeCache()
@@ -79,11 +95,6 @@ class SettingsActivity : BaseActivity() {
         titleParam.rightMargin = right
         titleParam.leftMargin = left
         title_box_settings.layoutParams = titleParam
-
-        val themeParam = themepanel.layoutParams as ViewGroup.MarginLayoutParams
-        themeParam.rightMargin = right + (resources.getDimensionPixelSize(R.dimen.margin)*2)
-        themeParam.leftMargin = left + (resources.getDimensionPixelSize(R.dimen.margin)*2)
-        themepanel.layoutParams = themeParam
 
         val params2 = personalization_header.layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
@@ -167,7 +178,7 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun themeSettings() {
-        system_button.setOnClickListener {
+        system_default_btn.setOnClickListener {
             val themePreference = ThemePreference(this)
             themePreference.setValue(100)
             val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
@@ -226,6 +237,9 @@ class SettingsActivity : BaseActivity() {
             Utils.fadeInAnim(theme_panel, 300)
         }
         theme_background.setOnClickListener {
+            Utils.fadeOutAnim(theme_panel, 300)
+        }
+        cancel_btn.setOnClickListener {
             Utils.fadeOutAnim(theme_panel, 300)
         }
     }
