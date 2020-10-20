@@ -15,7 +15,7 @@
         android:layout_height="72dp"
         android:alpha="0.975"
         android:background="?attr/colorPrimaryDark"
-        android:elevation="2dp"
+        android:elevation="4dp"
         android:gravity="center|center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
@@ -64,7 +64,348 @@
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:elevation="2dp">
+
+        <TextView
+            android:id="@+id/corner"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="72dp"
+            android:background="?attr/colorPrimary"
+            android:elevation="8dp" />
+
+        <HorizontalScrollView
+            android:id="@+id/topBar"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="72dp"
+            android:background="?attr/colorPrimary"
+            android:clickable="false"
+            android:elevation="8dp"
+            android:fadeScrollbars="true"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="100dp"
+            android:focusable="false"
+            android:scrollIndicators="none"
+            android:scrollbarFadeDuration="24"
+            android:scrollbarThumbHorizontal="@color/transparent"
+            android:scrollbarThumbVertical="@color/transparent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/top_number"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number2"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number3"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="3"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number4"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="4"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number5"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="5"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number6"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="6"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number7"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="7"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number8"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="8"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number9"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="9"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number10"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="10"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number11"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="11"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number12"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="12"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number13"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="13"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number14"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="14"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number15"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="15"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number16"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="16"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number17"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="17"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/top_number18"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="18"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <ScrollView
+            android:id="@+id/leftBar"
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="104dp"
+            android:background="?attr/colorPrimary"
+            android:clickable="true"
+            android:elevation="8dp"
+            android:fadeScrollbars="true"
+            android:fadingEdge="vertical"
+            android:fadingEdgeLength="36dp"
+            android:focusable="false"
+            android:scrollIndicators="none"
+            android:scrollbarFadeDuration="24"
+            android:scrollbarThumbHorizontal="@color/transparent"
+            android:scrollbarThumbVertical="@color/transparent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/list_numbers"
+                    android:layout_width="32dp"
+                    android:layout_height="96dp"
+                    android:layout_gravity="end"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="32dp"
+                    android:layout_height="96dp"
+                    android:layout_gravity="end"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="2"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/list_numbers3"
+                    android:layout_width="32dp"
+                    android:layout_height="96dp"
+                    android:layout_gravity="end"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="3"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/list_numbers4"
+                    android:layout_width="32dp"
+                    android:layout_height="96dp"
+                    android:layout_gravity="end"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="4"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/list_numbers5"
+                    android:layout_width="32dp"
+                    android:layout_height="96dp"
+                    android:layout_gravity="end"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="5"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/list_numbers6"
+                    android:layout_width="32dp"
+                    android:layout_height="96dp"
+                    android:layout_gravity="end"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="6"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/list_numbers7"
+                    android:layout_width="32dp"
+                    android:layout_height="96dp"
+                    android:layout_gravity="end"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:text="7"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/list_numbers8"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:elevation="24dp"
+                    android:gravity="center"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </ScrollView>
 
         <org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView
             android:id="@+id/scrollView"
@@ -77,194 +418,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingBottom="60dp">
-
-                <LinearLayout
-                    android:id="@+id/leftBar"
-                    android:layout_width="28dp"
-                    android:layout_height="match_parent"
-                    android:background="?attr/colorPrimaryDark"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_gravity="end"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp" />
-
-                    <FrameLayout
-                        android:layout_width="24dp"
-                        android:layout_height="96dp"
-                        android:layout_gravity="end"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_numbers1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="1"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="24dp"
-                        android:layout_height="96dp"
-                        android:layout_gravity="end"
-
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_numbers2"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="2"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="24dp"
-                        android:layout_height="96dp"
-                        android:layout_gravity="end"
-
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_numbers3"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="3"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="24dp"
-                        android:layout_height="96dp"
-                        android:layout_gravity="end"
-
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_numbers4"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="4"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="24dp"
-                        android:layout_height="96dp"
-                        android:layout_gravity="end"
-
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_numbers5"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="5"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="24dp"
-                        android:layout_height="96dp"
-                        android:layout_gravity="end"
-
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_numbers6"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="6"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="24dp"
-                        android:layout_height="96dp"
-                        android:layout_gravity="end"
-
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_numbers7"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="7"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="24dp"
-                        android:layout_height="96dp"
-                        android:layout_gravity="end"
-
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp"></FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="24dp"
-                        android:layout_height="260dp"
-                        android:layout_gravity="end"
-
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp" />
-
-                </LinearLayout>
+                android:paddingBottom="100dp">
 
                 <LinearLayout
                     android:id="@+id/one"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="1"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:layout_marginStart="32dp"
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_1"
@@ -277,25 +439,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="98dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number2"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="2"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_2"
@@ -307,25 +452,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="290dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number3"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="3"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_3"
@@ -337,25 +465,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="290dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number4"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="4"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_4"
@@ -367,25 +478,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="290dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number5"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="5"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_5"
@@ -397,25 +491,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="290dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number6"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="6"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_6"
@@ -427,25 +504,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="290dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number7"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="7"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_7"
@@ -457,25 +517,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="290dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number8"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="8"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_8"
@@ -487,26 +530,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="290dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number9"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="9"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_9"
@@ -519,25 +544,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="290dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number10"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="10"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_10"
@@ -549,26 +557,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="290dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number11"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="11"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_11"
@@ -580,26 +570,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="290dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number12"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="12"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_12"
@@ -611,26 +583,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="98dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number13"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="13"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_13"
@@ -642,25 +596,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="98dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number14"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="14"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_14"
@@ -672,25 +609,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="98dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="0dp">
-
-                        <TextView
-                            android:id="@+id/list_number15"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="15"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_15"
@@ -702,25 +622,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="98dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="2dp">
-
-                        <TextView
-                            android:id="@+id/list_number16"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="16"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_16"
@@ -732,25 +635,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="96dp"
-                        android:layout_height="24dp"
-                        android:layout_marginBottom="98dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="2dp">
-
-                        <TextView
-                            android:id="@+id/list_number17"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:text="17"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_17"
@@ -762,25 +648,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <FrameLayout
-                        android:layout_width="105dp"
-                        android:layout_height="24dp"
-                        android:background="?attr/colorPrimaryDark"
-                        android:elevation="2dp">
-
-                        <TextView
-                            android:id="@+id/list_number18"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:elevation="24dp"
-                            android:gravity="center"
-                            android:paddingEnd="9dp"
-                            android:text="18"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </FrameLayout>
+                    android:orientation="vertical"
+                    android:paddingTop="32dp">
 
                     <include
                         layout="@layout/group_18"
@@ -803,11 +672,11 @@
         android:layout_marginBottom="32dp"
         android:backgroundTint="?attr/colorAccent"
         android:clickable="true"
-        android:elevation="4dp"
+        android:elevation="10dp"
         android:focusable="true"
         android:src="@drawable/ic_filter"
         android:tint="?attr/colorPrimary"
-        app:elevation="4dp"
+        app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="@id/nav_bar_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -818,7 +687,7 @@
         android:layout_height="60dp"
         android:background="?attr/colorPrimary"
         android:clickable="true"
-        android:elevation="2dp"
+        android:elevation="8dp"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="parent">
@@ -866,7 +735,7 @@
         android:layout_height="match_parent"
         android:alpha="0.6"
         android:background="@color/colorLightText"
-        android:elevation="4dp"
+        android:elevation="12dp"
         android:visibility="gone" />
 
     <TextView
@@ -875,7 +744,7 @@
         android:layout_height="match_parent"
         android:alpha="0.6"
         android:background="@color/colorLightText"
-        android:elevation="4dp"
+        android:elevation="12dp"
         android:visibility="gone" />
 
     <include

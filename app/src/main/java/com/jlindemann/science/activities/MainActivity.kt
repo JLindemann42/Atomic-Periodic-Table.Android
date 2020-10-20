@@ -39,6 +39,7 @@ import kotlinx.android.synthetic.main.filter_view.*
 import kotlinx.android.synthetic.main.hover_menu.*
 import kotlinx.android.synthetic.main.nav_menu_view.*
 import kotlinx.android.synthetic.main.search_layout.*
+import org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -78,6 +79,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         })
 
         setOnCLickListenerSetups(elements)
+        scrollAdapter()
         setupNavListeners()
         onClickNav()
         searchListener()
@@ -93,7 +95,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             R.drawable.toast
         ))
 
-
         sliding_layout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View?, slideOffset: Float) {}
             override fun onPanelStateChanged(panel: View?, previousState: PanelState, newState: PanelState) {
@@ -103,6 +104,13 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                 }
             }
         })
+    }
+
+    private fun scrollAdapter() {
+        scrollView.setOnScrollChangeListener { v: TwoWayNestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            leftBar.scrollTo(0, scrollY)
+            topBar.scrollTo(scrollX, 0)
+        }
     }
 
     private fun getRandomItem() {
@@ -170,11 +178,13 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             Utils.fadeInAnim(nav_bar_main, 150)
             Utils.fadeOutAnim(nav_background, 150)
             Utils.fadeOutAnim(search_menu_include, 150)
+            Utils.fadeInAnim(more_btn, 300)
             return
         }
         if (search_menu_include.visibility == View.VISIBLE && background.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(background, 150)
             Utils.fadeOutAnim(filter_box, 150)
+            Utils.fadeInAnim(more_btn, 300)
             return
         } else {
             super.onBackPressed()
@@ -185,12 +195,11 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         search_box.setOnClickListener {
             Utils.fadeInAnim(search_menu_include, 300)
             nav_bar_main.visibility = View.GONE
+            Utils.fadeOutAnim(more_btn, 300)
 
             edit_element.requestFocus()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                view_main.doOnLayout {
-                    window.insetsController?.show(WindowInsets.Type.ime())
-                }
+                window.insetsController?.show(WindowInsets.Type.ime())
             }
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
                 val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -201,6 +210,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         }
         close_element_search.setOnClickListener {
             Utils.fadeOutAnim(search_menu_include, 300)
+            Utils.fadeInAnim(more_btn, 300)
             nav_bar_main.visibility = View.VISIBLE
 
             val view = this.currentFocus
@@ -406,16 +416,32 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         barSide.leftMargin = left + resources.getDimensionPixelSize(R.dimen.search_margin_side)
         search_box.layoutParams = barSide
 
+        val leftScrollBar = leftBar.layoutParams as ViewGroup.MarginLayoutParams
+        leftScrollBar.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_main) + resources.getDimensionPixelSize(R.dimen.left_bar)
+        leftBar.layoutParams = leftScrollBar
+
+        val topScrollBar = topBar.layoutParams as ViewGroup.MarginLayoutParams
+        topScrollBar.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_main)
+        topBar.layoutParams = topScrollBar
+
         val numb = leftBar.layoutParams as ViewGroup.LayoutParams
         numb.width = left + resources.getDimensionPixelSize(R.dimen.left_bar)
         leftBar.layoutParams = numb
+
+        val cornerP = corner.layoutParams as ViewGroup.LayoutParams
+        cornerP.width = left + resources.getDimensionPixelSize(R.dimen.left_bar)
+        corner.layoutParams = cornerP
+
+        val cornerM = corner.layoutParams as ViewGroup.MarginLayoutParams
+        cornerM.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_main)
+        corner.layoutParams = cornerM
 
         val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
         params5.bottomMargin = bottom
         hover_menu_include.layoutParams = params5
 
         val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
-        params6.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_main) + resources.getDimensionPixelSize(R.dimen.groups)
+        params6.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_main)
         scrollView.layoutParams = params6
 
         val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="96dp">
 
     <FrameLayout
         android:id="@+id/beryllium_frame"
@@ -19,7 +21,7 @@
             android:layout_height="78dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="6dp" />
 
         <TextView
@@ -63,10 +65,10 @@
         android:id="@+id/magnesium_frame"
         android:layout_width="92dp"
         android:layout_height="92dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
         android:elevation="0dp">
 
@@ -76,7 +78,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="1dp" />
 
         <TextView
@@ -120,10 +122,10 @@
         android:id="@+id/calcium_frame"
         android:layout_width="92dp"
         android:layout_height="92dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
         android:elevation="0dp">
 
@@ -133,7 +135,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="1dp" />
 
         <TextView
@@ -177,10 +179,10 @@
         android:id="@+id/strontium_frame"
         android:layout_width="92dp"
         android:layout_height="92dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
         android:elevation="0dp">
 
@@ -190,7 +192,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="1dp" />
 
         <TextView
@@ -234,10 +236,10 @@
         android:id="@+id/barium_frame"
         android:layout_width="92dp"
         android:layout_height="92dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
         android:elevation="0dp">
 
@@ -247,7 +249,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="1dp" />
 
         <TextView
@@ -291,10 +293,10 @@
         android:id="@+id/radium_frame"
         android:layout_width="92dp"
         android:layout_height="92dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
         android:elevation="0dp">
 
@@ -304,7 +306,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="1dp" />
 
         <TextView

@@ -47,7 +47,7 @@ class SubmitActivity : BaseActivity() {
             common_title_back_sub.layoutParams = params
 
             val params2 = i_box.layoutParams as ViewGroup.MarginLayoutParams
-            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + 36
+            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.search_margin_side)
             i_box.layoutParams = params2
 
             val params3 = drop_issue.layoutParams as ViewGroup.MarginLayoutParams
@@ -67,6 +67,7 @@ class SubmitActivity : BaseActivity() {
 
     private fun dropSelector() {
         var type = "#data_issue"
+        buildForm(type)
         drop_btn.setOnClickListener {
             Utils.fadeInAnim(drop_issue, 150)
             Utils.fadeInAnim(background, 150)
@@ -101,11 +102,11 @@ class SubmitActivity : BaseActivity() {
 
     private fun buildForm(type: String) {
         i_btn.setOnClickListener {
-            val title = i_title.text
-            val content = i_content.text
-            val uri = Uri.parse("mailto:jlindemann.dev@gmail.com?subject=$type $title&body=$content")
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            startActivity(intent)
+            val title = i_title.text.toString()
+            val content = i_content.text.toString()
+            val request = Intent(Intent.ACTION_VIEW)
+            request.data = Uri.parse(Uri.parse("mailto:jlindemann.dev@gmail.com?subject=$type $title&body=$content").toString())
+            startActivity(request)
         }
     }
 

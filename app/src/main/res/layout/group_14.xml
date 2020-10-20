@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="96dp">
 
     <FrameLayout
         android:id="@+id/carbon_frame"
         android:layout_width="92dp"
         android:layout_height="92dp"
+        android:layout_margin="2dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
         android:elevation="0dp">
 
         <Button
@@ -19,7 +21,7 @@
             android:layout_height="78dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="6dp" />
 
         <TextView
@@ -63,11 +65,11 @@
         android:id="@+id/silicon_frame"
         android:layout_width="92dp"
         android:layout_height="92dp"
+        android:layout_margin="2dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="6dp"
-        android:layout_marginBottom="2dp"
         android:elevation="0dp">
 
         <Button
@@ -76,7 +78,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="1dp" />
 
         <TextView
@@ -120,11 +122,11 @@
         android:id="@+id/germanium_frame"
         android:layout_width="92dp"
         android:layout_height="92dp"
+        android:layout_margin="2dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="6dp"
-        android:layout_marginBottom="2dp"
         android:elevation="0dp">
 
         <Button
@@ -133,7 +135,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="1dp" />
 
         <TextView
@@ -177,11 +179,11 @@
         android:id="@+id/tin_frame"
         android:layout_width="92dp"
         android:layout_height="92dp"
+        android:layout_margin="2dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="6dp"
-        android:layout_marginBottom="2dp"
         android:elevation="0dp">
 
         <Button
@@ -190,7 +192,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="1dp" />
 
         <TextView
@@ -234,11 +236,11 @@
         android:id="@+id/lead_frame"
         android:layout_width="92dp"
         android:layout_height="92dp"
+        android:layout_margin="2dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="6dp"
-        android:layout_marginBottom="2dp"
         android:elevation="0dp">
 
         <Button
@@ -247,7 +249,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="1dp" />
 
         <TextView
@@ -291,11 +293,11 @@
         android:id="@+id/flerovium_frame"
         android:layout_width="92dp"
         android:layout_height="92dp"
+        android:layout_margin="2dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="6dp"
-        android:layout_marginBottom="2dp"
         android:elevation="0dp">
 
         <Button
@@ -304,7 +306,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="1dp" />
 
         <TextView
@@ -348,11 +350,10 @@
         android:id="@+id/holmium_frame"
         android:layout_width="92dp"
         android:layout_height="92dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="2dp"
         android:elevation="0dp">
 
         <Button
@@ -361,7 +362,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="1dp" />
 
         <TextView
@@ -405,11 +406,11 @@
         android:id="@+id/einsteinium_frame"
         android:layout_width="92dp"
         android:layout_height="92dp"
+        android:layout_margin="2dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="6dp"
-        android:layout_marginBottom="2dp"
         android:elevation="0dp">
 
         <Button
@@ -418,7 +419,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            
+
             android:elevation="1dp" />
 
         <TextView
