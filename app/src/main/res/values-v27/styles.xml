@@ -12,6 +12,7 @@
         <item name="actionMenuTextColor">@color/colorLightText</item>>
         <item name="android:fontFamily">@font/manropefamily</item>
         <item name="rippleColor">@color/colorLightRipple</item>
+        <item name="chipSurfaceColor">@color/colorLightChipSurface</item>
         <item name="itemRippleColor">@color/colorLightRippleItem</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
 
@@ -27,6 +28,7 @@
         <item name="android:navigationBarColor">@color/transparent</item>
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="rippleColor">@color/colorDarkRipple</item>
+        <item name="chipSurfaceColor">@color/colorDarkChipSurface</item>
         <item name="itemRippleColor">@color/colorDarkRippleItem</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
 

@@ -61,9 +61,7 @@
                 android:layout_gravity="center_vertical|end"
                 android:layout_marginEnd="18dp"
                 android:src="@drawable/ic_wikipedia_logo" />
-
         </FrameLayout>
-
 
         <TextView
             android:id="@+id/description_name"
@@ -293,126 +291,117 @@
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
-        <FrameLayout
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="18dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="8dp"
+            android:text="Most Common Isotope"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="76dp"
+            android:orientation="horizontal"
             android:background="@drawable/toast"
+            android:weightSum="3"
             android:backgroundTint="?attr/chipSurfaceColor"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:layout_marginTop="9dp"
+            android:layout_marginBottom="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginStart="18dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginTop="9dp"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/electrons_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginBottom="8dp"
                     android:gravity="center"
-                    android:text="Most Common Isotope:"
+                    android:text="Electrons"
+                    android:textAlignment="center"
+                    android:textColor="?attr/actionMenuTextColor" />
+
+                <TextView
+                    android:id="@+id/element_electrons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:gravity="center"
+                    android:text="Electrons"
                     android:textAlignment="center"
                     android:textColor="?attr/actionMenuTextColor"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/electrons_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Electrons:"
-                            android:textAlignment="center"
-                            android:textColor="?attr/actionMenuTextColor" />
-
-                        <TextView
-                            android:id="@+id/element_electrons"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="18dp"
-                            android:gravity="center"
-                            android:text="Electrons:"
-                            android:textAlignment="center"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="24sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="100dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/element_protons_title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Protons:"
-                            android:textAlignment="center"
-                            android:textColor="?attr/actionMenuTextColor" />
-
-                        <TextView
-                            android:id="@+id/element_protons"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="18dp"
-                            android:gravity="center"
-                            android:text="Protons:"
-                            android:textAlignment="center"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="24sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/element_title2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Neutrons:"
-                            android:textAlignment="center"
-                            android:textColor="?attr/actionMenuTextColor" />
-
-                        <TextView
-                            android:id="@+id/element_neutrons_common"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="18dp"
-                            android:gravity="center"
-                            android:text="Neutrons:"
-                            android:textAlignment="center"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="24sp" />
-                    </LinearLayout>
-
-                </LinearLayout>
+                    android:textSize="24sp" />
             </LinearLayout>
 
-        </FrameLayout>
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_marginTop="9dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/element_protons_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Protons"
+                    android:textAlignment="center"
+                    android:textColor="?attr/actionMenuTextColor" />
+                <TextView
+                    android:id="@+id/element_protons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:gravity="center"
+                    android:text="Protons"
+                    android:textAlignment="center"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="24sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginTop="9dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/element_title2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Neutrons"
+                    android:textAlignment="center"
+                    android:textColor="?attr/actionMenuTextColor" />
+
+                <TextView
+                    android:id="@+id/element_neutrons_common"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    android:gravity="center"
+                    android:text="Neutrons"
+                    android:textAlignment="center"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

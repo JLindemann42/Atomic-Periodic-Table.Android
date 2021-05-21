@@ -69,7 +69,6 @@ class ElementInfoActivity : InfoExtension() {
         //Setup depending on PRO version
         val proPreference = ProVersion(this)
         val proPrefValue = proPreference.getValue()
-
         if (proPrefValue == 1) {
             //Show pro elements here
         }
