@@ -3,18 +3,15 @@ package com.jlindemann.science.activities
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,10 +24,8 @@ import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.SearchPreferences
-import com.jlindemann.science.preferences.TemperatureUnits
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.TabUtil
-import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
@@ -40,10 +35,6 @@ import kotlinx.android.synthetic.main.hover_menu.*
 import kotlinx.android.synthetic.main.nav_menu_view.*
 import kotlinx.android.synthetic.main.search_layout.*
 import org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView
-import org.json.JSONArray
-import org.json.JSONObject
-import java.io.IOException
-import java.io.InputStream
 import java.util.*
 import kotlin.collections.ArrayList
 

@@ -126,7 +126,7 @@
             </LinearLayout>
         </FrameLayout>
 
-        <com.chauthai.overscroll.RecyclerViewBouncy
+        <androidx.recyclerview.widget.RecyclerView
             android:id='@+id/rc_view'
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -136,11 +136,7 @@
             android:paddingBottom="60dp"
             android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical"
-            android:verticalScrollbarPosition="defaultPosition"
-            app:friction="144"
-            app:gapLimit="180"
-            app:speedFactor="6"
-            app:tension="1400" />
+            android:verticalScrollbarPosition="defaultPosition" />
 
     </FrameLayout>
 

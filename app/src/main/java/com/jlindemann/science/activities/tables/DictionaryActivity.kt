@@ -115,7 +115,7 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         for (item in list) {
             if (item.heading.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
                 filteredList.add(item)
-                Log.v("SSDD2", filteredList.toString())
+                Log.v("Filtered", filteredList.toString())
             }
         }
         mAdapter.filterList(filteredList)

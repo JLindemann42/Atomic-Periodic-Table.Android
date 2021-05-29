@@ -15,10 +15,13 @@ import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
+import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.adapter.IsotopeAdapter
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ElementSendAndLoad
+import com.jlindemann.science.preferences.IsoPreferences
+import com.jlindemann.science.preferences.SearchPreferences
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
@@ -26,7 +29,10 @@ import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.activity_favorite_settings_page.*
 import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
 import kotlinx.android.synthetic.main.activity_isotopes_experimental.title_box
+import kotlinx.android.synthetic.main.filter_view.*
+import kotlinx.android.synthetic.main.filter_view_iso.*
 import kotlinx.android.synthetic.main.isotope_panel.*
+import kotlinx.android.synthetic.main.search_layout.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -114,7 +120,53 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
 
         view1.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         clickSearch()
+        searchFilter(elements, recyclerView)
         back_btn.setOnClickListener { this.onBackPressed() }
+    }
+
+    private fun searchFilter(list: ArrayList<Element>, recyclerView: RecyclerView) {
+        filter_btn2.setOnClickListener {
+            Utils.fadeInAnim(iso_filter_box, 150)
+            Utils.fadeInAnim(filter_background, 150)
+        }
+        filter_background.setOnClickListener {
+            Utils.fadeOutAnim(iso_filter_box, 150)
+            Utils.fadeOutAnim(filter_background, 150)
+        }
+        iso_alphabet_btn.setOnClickListener {
+            val isoPreference = IsoPreferences(this)
+            isoPreference.setValue(0)
+            ToastUtil.showToast(this, "0")
+
+            val filtList: ArrayList<Element> = ArrayList()
+            for (item in list) {
+                filtList.add(item)
+            }
+            Utils.fadeOutAnim(iso_filter_box, 150)
+            Utils.fadeOutAnim(filter_background, 150)
+            filtList.sortWith(Comparator { lhs, rhs ->
+                if (lhs.element < rhs.element) -1 else if (lhs.element < rhs.element) 1 else 0
+            })
+            mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = IsotopeAdapter(filtList, this, this)
+        }
+        iso_element_numb_btn.setOnClickListener {
+            val isoPreference = IsoPreferences(this)
+            isoPreference.setValue(1)
+            ToastUtil.showToast(this, "1")
+
+
+            val filtList: ArrayList<Element> = ArrayList()
+            for (item in list) {
+                filtList.add(item)
+            }
+            Utils.fadeOutAnim(iso_filter_box, 150)
+            Utils.fadeOutAnim(filter_background, 150)
+            mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = IsotopeAdapter(filtList, this, this)
+        }
     }
 
     private fun clickSearch() {
@@ -139,6 +191,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     }
 
     private fun filter(text: String, list: ArrayList<Element>, recyclerView: RecyclerView) {
+        val isoPreference = IsoPreferences(this)
+        val isoPrefValue = isoPreference.getValue()
         val filteredList: ArrayList<Element> = ArrayList()
         for (item in list) {
             if (item.element.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
@@ -146,6 +200,12 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
                 Log.v("SSDD2", filteredList.toString())
             }
         }
+        if (isoPrefValue == 0) {
+            filteredList.sortWith(Comparator { lhs, rhs ->
+                if (lhs.element < rhs.element) -1 else if (lhs.element < rhs.element) 1 else 0
+            })
+        }
+
         mAdapter.filterList(filteredList)
         mAdapter.notifyDataSetChanged()
         recyclerView.adapter = IsotopeAdapter(filteredList, this, this)
@@ -178,6 +238,10 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         if (background_i2.visibility == View.VISIBLE) {
             sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             return
+        }
+        if (filter_background.visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(filter_background, 150)
+            Utils.fadeOutAnim(iso_filter_box, 150)
         }
         else {
             super.onBackPressed()

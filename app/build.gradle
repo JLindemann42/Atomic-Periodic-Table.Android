@@ -7,19 +7,16 @@ android {
     signingConfigs {
         config {
             storeFile file('C:\\Users\\jonat\\OneDrive\\Skrivbord\\app\\science_keys.jks')
-            storePassword 'Chuuh9ohNeeh1'
-            keyAlias 'science_keys'
-            keyPassword 'Chuuh9ohNeeh1'
         }
     }
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "31-rc4"
     defaultConfig {
         applicationId "com.jlindemann.science"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 49
-        versionName "1.3.5"
+        versionCode 50
+        versionName "1.4.0-dev"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version">1.3.5 Build 49</string>
+    <string name="app_version">1.4.0-dev Build 50</string>
 
     <!-- Activity Element Info-->
     <string name="element_description_title">Description</string>

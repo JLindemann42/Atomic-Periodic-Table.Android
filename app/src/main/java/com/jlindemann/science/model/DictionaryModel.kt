@@ -56,6 +56,12 @@ object DictionaryModel {
         dictionary.add(Dictionary("Intensity", "In physics, intensity of radiant energy is the power transferred per unit area, where the area is measured on the plane perpendicular to the direction of propagation of the energy.", "https://en.wikipedia.org/wiki/Intensity_(physics)"))
         dictionary.add(Dictionary("Centripetal Force", "A centripetal force (from Latin centrum, \"center\" and petere, \"to seek\") is a force that makes a body follow a curved path. Its direction is always orthogonal to the motion of the body and towards the fixed point of the instantaneous center of curvature of the path.", "https://en.wikipedia.org/wiki/Centripetal_force"))
         dictionary.add(Dictionary("Momentum", "In Newtonian mechanics, linear momentum, translational momentum, or simply momentum (pl. momenta) is the product of the mass and velocity of an object.", "https://en.wikipedia.org/wiki/Momentum"))
+        dictionary.add(Dictionary("Spectrum", "A spectrum (plural spectra or spectrums) is a condition that is not limited to a specific set of values but can vary, without steps, across a continuum. The word was first used scientifically in optics to describe the rainbow of colors in visible light after passing through a prism. As scientific understanding of light advanced, it came to apply to the entire electromagnetic spectrum. It thereby became a mapping of a range of magnitudes (wavelengths) to a range of qualities, which are the perceived \"colors of the rainbow\" and other properties which correspond to wavelengths that lie outside of the visible light spectrum.", "https://en.wikipedia.org/wiki/Spectrum"))
+        dictionary.add(Dictionary("Electromagnetic Spectrum", "The electromagnetic spectrum is the range of frequencies (the spectrum) of electromagnetic radiation and their respective wavelengths and photon energies.", "https://en.wikipedia.org/wiki/Electromagnetic_spectrum"))
+
+
+
+
     }
 }
 //Template

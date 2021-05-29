@@ -2,14 +2,14 @@
 
 buildscript {
     ext.kotlin_version = '1.4.21'
-    ext.support_lib_version = '30.0.0'
+    ext.support_lib_version = '31-rc4'
     repositories {
         google()
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.android.tools.build:gradle:4.1.3'
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.1.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
