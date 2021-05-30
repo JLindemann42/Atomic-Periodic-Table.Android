@@ -8,11 +8,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/jonat/OneDrive/Documents/Git/Atomic/app/src/main/res/drawable/c_ripple.xml" value="0.3972222222222222" />
+        <entry key="..\:/Users/jonat/OneDrive/Documents/Git/Atomic/app/src/main/res/drawable/chip_ripple.xml" value="0.3972222222222222" />
+        <entry key="..\:/Users/jonat/OneDrive/Documents/Git/Atomic/app/src/main/res/drawable/d_ripple.xml" value="0.3972222222222222" />
         <entry key="..\:/Users/jonat/OneDrive/Documents/Git/Atomic/app/src/main/res/layout/activity_dictionary.xml" value="0.2817028985507246" />
         <entry key="..\:/Users/jonat/OneDrive/Documents/Git/Atomic/app/src/main/res/layout/activity_electrode.xml" value="0.184375" />
         <entry key="..\:/Users/jonat/OneDrive/Documents/Git/Atomic/app/src/main/res/layout/activity_equations.xml" value="0.184375" />
         <entry key="..\:/Users/jonat/OneDrive/Documents/Git/Atomic/app/src/main/res/layout/activity_isotopes_experimental.xml" value="0.184375" />
         <entry key="..\:/Users/jonat/OneDrive/Documents/Git/Atomic/app/src/main/res/layout/activity_main.xml" value="0.3007246376811594" />
+        <entry key="..\:/Users/jonat/OneDrive/Documents/Git/Atomic/app/src/main/res/layout/activity_ph.xml" value="0.5882744836775483" />
         <entry key="..\:/Users/jonat/OneDrive/Documents/Git/Atomic/app/src/main/res/layout/activity_tables.xml" value="0.184375" />
         <entry key="..\:/Users/jonat/OneDrive/Documents/Git/Atomic/app/src/main/res/layout/filter_view_iso.xml" value="0.8375" />
         <entry key="..\:/Users/jonat/OneDrive/Documents/Git/Atomic/app/src/main/res/layout/search_layout.xml" value="0.20878623188405798" />

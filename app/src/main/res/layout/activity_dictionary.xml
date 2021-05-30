@@ -18,7 +18,7 @@
         <FrameLayout
             android:id="@+id/common_title_back_dic"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="100dp"
             android:alpha="0.975"
             android:background="?attr/colorPrimary"
             android:elevation="8dp"
@@ -43,8 +43,8 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_gravity="center_vertical"
-                        android:rotation="180"
                         android:alpha="0.9"
+                        android:rotation="180"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <ImageButton
@@ -52,16 +52,16 @@
                         style="?android:attr/borderlessButtonStyle"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        android:alpha="0.9"
                         android:layout_gravity="center_vertical|end"
+                        android:alpha="0.9"
                         android:src="@drawable/ic_search" />
 
                     <TextView
                         android:id="@+id/element_title"
                         android:layout_width="wrap_content"
+                        android:layout_height="56dp"
                         android:layout_marginStart="70dp"
                         android:alpha="0.9"
-                        android:layout_height="56dp"
                         android:gravity="center"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
@@ -82,19 +82,19 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
-                        android:background="?attr/colorPrimary"
+                        android:layout_gravity="bottom"
                         android:alpha="0.5"
-                        android:layout_gravity="bottom"/>
+                        android:background="?attr/colorPrimary" />
 
                     <ImageButton
                         android:id="@+id/close_iso_search"
-                        android:layout_width="56dp"
                         style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_gravity="center_vertical"
-                        android:rotation="180"
                         android:alpha="0.9"
-                        android:src="@drawable/ic_arrow_back_whit"/>
+                        android:rotation="180"
+                        android:src="@drawable/ic_arrow_back_whit" />
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -123,6 +123,91 @@
                             android:textSize="14sp" />
                     </FrameLayout>
                 </FrameLayout>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_gravity="bottom">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/chemistry_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="18dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="9dp"
+                            android:background="@drawable/chip"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="@drawable/chip_ripple"
+                            android:paddingStart="9dp"
+                            android:paddingEnd="9dp"
+                            android:text="@string/chip_chemistry"
+                            android:textAllCaps="false"
+                            android:textColor="?attr/actionMenuTextColor" />
+
+                        <Button
+                            android:id="@+id/physics_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="9dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="9dp"
+                            android:background="@drawable/chip"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="@drawable/chip_ripple"
+                            android:paddingStart="9dp"
+                            android:paddingEnd="9dp"
+                            android:text="@string/chip_physics"
+                            android:textAllCaps="false"
+                            android:textColor="?attr/actionMenuTextColor" />
+
+                        <Button
+                            android:id="@+id/math_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="9dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="9dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/chip"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="@drawable/chip_ripple"
+                            android:paddingStart="9dp"
+                            android:paddingEnd="9dp"
+                            android:text="@string/chip_math"
+                            android:textAllCaps="false"
+                            android:textColor="?attr/actionMenuTextColor" />
+
+                        <Button
+                            android:id="@+id/reactions_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="9dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="9dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/chip"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="@drawable/chip_ripple"
+                            android:paddingStart="9dp"
+                            android:paddingEnd="9dp"
+                            android:text="@string/chip_reactions"
+                            android:textAllCaps="false"
+                            android:textColor="?attr/actionMenuTextColor" />
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
             </LinearLayout>
         </FrameLayout>
 

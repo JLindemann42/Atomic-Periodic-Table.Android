@@ -21,16 +21,24 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.DictionaryAdapter
+import com.jlindemann.science.adapter.IsotopeAdapter
+import com.jlindemann.science.model.*
 import com.jlindemann.science.model.Dictionary
-import com.jlindemann.science.model.DictionaryModel
+import com.jlindemann.science.preferences.DictionaryPreferences
+import com.jlindemann.science.preferences.IsoPreferences
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
+import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.activity_dictionary.*
 import kotlinx.android.synthetic.main.activity_dictionary.close_iso_search
 import kotlinx.android.synthetic.main.activity_dictionary.edit_iso
 import kotlinx.android.synthetic.main.activity_dictionary.search_bar_iso
 import kotlinx.android.synthetic.main.activity_dictionary.search_btn
 import kotlinx.android.synthetic.main.activity_dictionary.title_box
+import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
+import kotlinx.android.synthetic.main.activity_ph.*
+import kotlinx.android.synthetic.main.isotope_panel.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -54,39 +62,90 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_dictionary) //REMEMBER: Never move any function calls above this
 
+        val recyclerView = findViewById<RecyclerView>(R.id.rc_view)
+        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        val itemse = ArrayList<Dictionary>()
+        DictionaryModel.getList(itemse)
+
         recyclerView()
         clickSearch()
-
+        chipListeners(itemse, recyclerView)
+        val dictionaryPreference = DictionaryPreferences(this)
         view_dic.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         back_btn_d.setOnClickListener {
             this.onBackPressed()
         }
     }
 
+    private fun chipListeners(list: ArrayList<Dictionary>, recyclerView: RecyclerView) {
+        chemistry_btn.setOnClickListener {
+            updateButtonColor("chemistry_btn")
+            val dictionaryPreference = DictionaryPreferences(this)
+            dictionaryPreference.setValue("chemistry")
+            edit_iso.setText("test")
+            edit_iso.setText("")
+        }
+        physics_btn.setOnClickListener {
+            updateButtonColor("physics_btn")
+            val dictionaryPreference = DictionaryPreferences(this)
+            dictionaryPreference.setValue("physics")
+            edit_iso.setText("test1")
+            edit_iso.setText("")
+        }
+        math_btn.setOnClickListener {
+            updateButtonColor("math_btn")
+            val dictionaryPreference = DictionaryPreferences(this)
+            dictionaryPreference.setValue("math")
+            edit_iso.setText("test1")
+            edit_iso.setText("")
+        }
+        reactions_btn.setOnClickListener {
+            updateButtonColor("reactions_btn")
+            val dictionaryPreference = DictionaryPreferences(this)
+            dictionaryPreference.setValue("reactions")
+            edit_iso.setText("test1")
+            edit_iso.setText("")
+        }
+    }
+
+    private fun updateButtonColor(btn: String) {
+        chemistry_btn.background = getDrawable(R.drawable.chip)
+        physics_btn.background = getDrawable(R.drawable.chip)
+        math_btn.background = getDrawable(R.drawable.chip)
+        reactions_btn.background = getDrawable(R.drawable.chip)
+
+        val delay = Handler()
+        delay.postDelayed({
+            val resIDB = resources.getIdentifier(btn, "id", packageName)
+            val button = findViewById<Button>(resIDB)
+            button.background = getDrawable(R.drawable.chip_active)
+        }, 200)
+    }
+
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         rc_view.setPadding(
             0,
-            resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top,
+            resources.getDimensionPixelSize(R.dimen.title_bar_ph) + top,
             0,
-            resources.getDimensionPixelSize(R.dimen.title_bar))
+            resources.getDimensionPixelSize(R.dimen.title_bar_ph))
 
         val params2 = common_title_back_dic.layoutParams as ViewGroup.LayoutParams
-        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
         common_title_back_dic.layoutParams = params2
     }
 
     private fun recyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.rc_view)
         val dictionaryList = ArrayList<Dictionary>()
-
         DictionaryModel.getList(dictionaryList)
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val adapter = DictionaryAdapter(dictionaryList, this, this)
         recyclerView.adapter = adapter
 
-        dictionaryList.sortWith(Comparator { lhs, rhs ->
-            if (lhs.heading < rhs.heading) -1 else if (lhs.heading < rhs.heading) 1 else 0
-        })
+            dictionaryList.sortWith(Comparator { lhs, rhs ->
+                if (lhs.heading < rhs.heading) -1 else if (lhs.heading < rhs.heading) 1 else 0
+            })
+
 
         adapter.notifyDataSetChanged()
 
@@ -95,17 +154,17 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
                 s: CharSequence,
                 start: Int,
                 count: Int,
-                after: Int
+                after: Int,
             ) {}
             override fun onTextChanged(
                 s: CharSequence,
                 start: Int,
                 before: Int,
-                count: Int
+                count: Int,
             ){}
-
             override fun afterTextChanged(s: Editable) {
-                filter(s.toString(), dictionaryList, recyclerView)
+                    filter(s.toString(), dictionaryList, recyclerView)
+
             }
         })
     }
@@ -113,14 +172,17 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
     private fun filter(text: String, list: ArrayList<Dictionary>, recyclerView: RecyclerView) {
         val filteredList: ArrayList<Dictionary> = ArrayList()
         for (item in list) {
+            val dictionaryPreference = DictionaryPreferences(this)
+            val dictionaryPrefValue1 = dictionaryPreference.getValue()
             if (item.heading.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
-                filteredList.add(item)
-                Log.v("Filtered", filteredList.toString())
+                    if (item.category.toLowerCase(Locale.ROOT).contains(dictionaryPrefValue1.toLowerCase(Locale.ROOT))) {
+                        filteredList.add(item)
+                }
             }
+            mAdapter.notifyDataSetChanged()
+            mAdapter.filterList(filteredList)
+            recyclerView.adapter = DictionaryAdapter(filteredList, this, this)
         }
-        mAdapter.filterList(filteredList)
-        mAdapter.notifyDataSetChanged()
-        recyclerView.adapter = DictionaryAdapter(filteredList, this, this)
     }
 
     private fun clickSearch() {

@@ -136,7 +136,6 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         iso_alphabet_btn.setOnClickListener {
             val isoPreference = IsoPreferences(this)
             isoPreference.setValue(0)
-            ToastUtil.showToast(this, "0")
 
             val filtList: ArrayList<Element> = ArrayList()
             for (item in list) {
@@ -154,8 +153,6 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         iso_element_numb_btn.setOnClickListener {
             val isoPreference = IsoPreferences(this)
             isoPreference.setValue(1)
-            ToastUtil.showToast(this, "1")
-
 
             val filtList: ArrayList<Element> = ArrayList()
             for (item in list) {

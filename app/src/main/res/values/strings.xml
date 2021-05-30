@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version">1.4.0-dev Build 50</string>
+    <string name="app_version">1.4.0-Build.52-dev1</string>
 
     <!-- Activity Element Info-->
     <string name="element_description_title">Description</string>
@@ -58,6 +58,15 @@
     <string name="data_issue">Data Issue</string>
     <string name="bug">Bug</string>
     <string name="question">Question</string>
+
+    <!-- Dictionary -->
+    <string name="chip_chemistry">Chemistry</string>
+    <string name="chip_physics">Physics</string>
+    <string name="chip_math">Mathematics</string>
+    <string name="chip_reactions">Reactions</string>
+
+
+
 
 
 
