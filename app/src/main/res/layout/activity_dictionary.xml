@@ -135,6 +135,25 @@
                         android:orientation="horizontal">
 
                         <Button
+                            android:id="@+id/clear_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="18dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="9dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/chip"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="@drawable/chip_ripple"
+                            android:paddingStart="9dp"
+                            android:paddingEnd="9dp"
+                            android:text="Clear Filter"
+                            android:visibility="gone"
+                            android:textAllCaps="false"
+                            android:textColor="?attr/actionMenuTextColor" />
+
+                        <Button
                             android:id="@+id/chemistry_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

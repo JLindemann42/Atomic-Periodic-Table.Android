@@ -70,6 +70,7 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         recyclerView()
         clickSearch()
         chipListeners(itemse, recyclerView)
+
         val dictionaryPreference = DictionaryPreferences(this)
         view_dic.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         back_btn_d.setOnClickListener {
@@ -120,6 +121,20 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
             val button = findViewById<Button>(resIDB)
             button.background = getDrawable(R.drawable.chip_active)
         }, 200)
+
+        clear_btn.visibility = View.VISIBLE
+        clear_btn.setOnClickListener {
+            val resIDB = resources.getIdentifier(btn, "id", packageName)
+            val button = findViewById<Button>(resIDB)
+            button.background = getDrawable(R.drawable.chip)
+
+            val dictionaryPreference = DictionaryPreferences(this)
+            dictionaryPreference.setValue("")
+            edit_iso.setText("test1")
+            edit_iso.setText("")
+
+            clear_btn.visibility = View.GONE
+        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
