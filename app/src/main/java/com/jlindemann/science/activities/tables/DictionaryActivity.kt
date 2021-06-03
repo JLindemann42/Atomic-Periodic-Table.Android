@@ -42,7 +42,6 @@ import kotlinx.android.synthetic.main.isotope_panel.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-
 class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickListener {
     private var dictionaryList = ArrayList<Dictionary>()
     var mAdapter = DictionaryAdapter(dictionaryList, this, this)
@@ -70,6 +69,7 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         recyclerView()
         clickSearch()
         chipListeners(itemse, recyclerView)
+        clear_btn.visibility = View.GONE
 
         val dictionaryPreference = DictionaryPreferences(this)
         view_dic.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -126,13 +126,11 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         clear_btn.setOnClickListener {
             val resIDB = resources.getIdentifier(btn, "id", packageName)
             val button = findViewById<Button>(resIDB)
-            button.background = getDrawable(R.drawable.chip)
-
             val dictionaryPreference = DictionaryPreferences(this)
+            button.background = getDrawable(R.drawable.chip)
             dictionaryPreference.setValue("")
             edit_iso.setText("test1")
             edit_iso.setText("")
-
             clear_btn.visibility = View.GONE
         }
     }
@@ -143,7 +141,6 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
             resources.getDimensionPixelSize(R.dimen.title_bar_ph) + top,
             0,
             resources.getDimensionPixelSize(R.dimen.title_bar_ph))
-
         val params2 = common_title_back_dic.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
         common_title_back_dic.layoutParams = params2
@@ -156,30 +153,16 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val adapter = DictionaryAdapter(dictionaryList, this, this)
         recyclerView.adapter = adapter
-
-            dictionaryList.sortWith(Comparator { lhs, rhs ->
-                if (lhs.heading < rhs.heading) -1 else if (lhs.heading < rhs.heading) 1 else 0
-            })
-
+        dictionaryList.sortWith(Comparator { lhs, rhs ->
+            if (lhs.heading < rhs.heading) -1 else if (lhs.heading < rhs.heading) 1 else 0
+        })
 
         adapter.notifyDataSetChanged()
-
         edit_iso.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                s: CharSequence,
-                start: Int,
-                count: Int,
-                after: Int,
-            ) {}
-            override fun onTextChanged(
-                s: CharSequence,
-                start: Int,
-                before: Int,
-                count: Int,
-            ){}
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int, ) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int, ){}
             override fun afterTextChanged(s: Editable) {
                     filter(s.toString(), dictionaryList, recyclerView)
-
             }
         })
     }

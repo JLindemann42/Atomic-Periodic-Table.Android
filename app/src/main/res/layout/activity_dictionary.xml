@@ -142,14 +142,14 @@
                             android:layout_marginTop="1dp"
                             android:layout_marginBottom="9dp"
                             android:layout_weight="1"
-                            android:background="@drawable/chip"
+                            android:background="@drawable/chip_outline"
                             android:clickable="true"
                             android:focusable="true"
                             android:foreground="@drawable/chip_ripple"
                             android:paddingStart="9dp"
                             android:paddingEnd="9dp"
                             android:text="Clear Filter"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             android:textAllCaps="false"
                             android:textColor="?attr/actionMenuTextColor" />
 
