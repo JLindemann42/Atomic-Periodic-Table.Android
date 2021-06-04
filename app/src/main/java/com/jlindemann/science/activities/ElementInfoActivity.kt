@@ -50,7 +50,7 @@ class ElementInfoActivity : InfoExtension() {
         super.onCreate(savedInstanceState)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
-
+        
         if (themePrefValue == 100) {
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 Configuration.UI_MODE_NIGHT_NO -> { setTheme(R.style.AppTheme) }
@@ -59,38 +59,21 @@ class ElementInfoActivity : InfoExtension() {
         }
         if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
-
         val ElementSendAndLoadPreference = ElementSendAndLoad(this)
         var ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
-
         setContentView(R.layout.activity_element_info)
         Utils.fadeInAnim(scr_view, 300)
         readJson()
-
-        //Setup depending on PRO version
-        val proPreference = ProVersion(this)
-        val proPrefValue = proPreference.getValue()
-        if (proPrefValue == 1) {
-            //Show pro elements here
-        }
-        if (proPrefValue == 0) {
-            //Hide pro elements here
-        }
-        
         shell.visibility = View.GONE
         detail_emission.visibility = View.GONE
         detailViews()
         offlineCheck()
         nextPrev()
         favoriteBarSetup()
-
         elementAnim(overview_inc, properties_inc)
-
         view.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        back_btn.setOnClickListener {
-            super.onBackPressed()
-        }
+        back_btn.setOnClickListener { super.onBackPressed() }
         edit_fav_btn.setOnClickListener {
             val intent = Intent(this, FavoritePageActivity::class.java)
             startActivity(intent)
@@ -127,10 +110,7 @@ class ElementInfoActivity : InfoExtension() {
             val params2 = common_title_back.layoutParams as ViewGroup.LayoutParams
             params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back.layoutParams = params2
-
     }
-
-
 
     private fun offlineCheck() {
         val offlinePreferences = offlinePreference(this)
@@ -169,7 +149,6 @@ class ElementInfoActivity : InfoExtension() {
             Utils.fadeOutAnim(shell, 300)
             Utils.fadeOutAnim(shell_background, 300)
         }
-
         sp_img.setOnClickListener {
             Utils.fadeInAnim(detail_emission, 300)
             Utils.fadeInAnim(detail_emission_background, 300)
@@ -214,7 +193,6 @@ class ElementInfoActivity : InfoExtension() {
                 ElementModel.getList(elements)
                 val item = elements[currentNumb.toInt()]
                 val elementSendAndLoad = ElementSendAndLoad(this)
-
                 elementSendAndLoad.setValue(item.element)
                 readJson()
             }
@@ -237,7 +215,6 @@ class ElementInfoActivity : InfoExtension() {
                 ElementModel.getList(elements)
                 val item = elements[currentNumb.toInt()-2]
                 val elementSendAndLoad = ElementSendAndLoad(this)
-
                 elementSendAndLoad.setValue(item.element)
                 readJson()
             }
