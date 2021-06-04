@@ -14,6 +14,9 @@
     "element_protons": "17",
     "element_neutron_common": "18",
 
+    "radioactive": "No",
+    "neutron_cross_sectional": "35.5 (b)",
+
     "electrical_type": "Insulator",
     "resistivity": "100",
     "resistivity_mult": "1",

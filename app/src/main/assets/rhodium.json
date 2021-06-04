@@ -14,6 +14,9 @@
     "element_protons": "45",
     "element_neutron_common": "58",
 
+    "radioactive": "No",
+    "neutron_cross_sectional": "144.8 (b)",
+
     "electrical_type": "Conductor",
     "resistivity": "4.3",
     "resistivity_mult": "0.00000001",

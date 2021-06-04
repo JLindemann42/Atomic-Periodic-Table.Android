@@ -1,5 +1,6 @@
 package com.jlindemann.science.extensions
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Color
@@ -17,6 +18,8 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginStart
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.ElementInfoActivity
+import com.jlindemann.science.activities.IsotopesActivityExperimental
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.Pasteur
@@ -27,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_element_info.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.d_atomic.*
 import kotlinx.android.synthetic.main.d_electromagnetic.*
+import kotlinx.android.synthetic.main.d_nuclear.*
 import kotlinx.android.synthetic.main.d_overview.*
 import kotlinx.android.synthetic.main.d_properties.*
 import kotlinx.android.synthetic.main.d_temperatures.*
@@ -155,6 +159,10 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             val magneticType = jsonObject.optString("magnetic_type", "---")
             val superconductingPoint = jsonObject.optString("superconducting_point", "---")
 
+            //Nuclear Properties
+            val isRadioactive = jsonObject.optString("radioactive", "---")
+            val neutronCrossSection = jsonObject.optString("neutron_cross_sectional", "---")
+
             if (rMultiplier == "---") {
                 element_resistivity.text = "---"
             }
@@ -206,6 +214,18 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             element_density.text = elementDensity
             element_block.text = elementBlock
             element_appearance.text = elementAppearance
+
+            //Nuclear Properties
+            radioactive_text.text = isRadioactive
+            neutron_cross_sectional_text.text = neutronCrossSection
+            isotopes_frame.setOnClickListener {
+                val isoPreference = ElementSendAndLoad(this)
+                isoPreference.setValue(element.toLowerCase()) //Send element number
+                val isoSend = sendIso(this)
+                isoSend.setValue("true") //Set flag for sent
+                val intent = Intent(this, IsotopesActivityExperimental::class.java)
+                startActivity(intent) //Send intent
+            }
 
             phase_text.text = phaseText
             fusion_heat_text.text = fusionHeat
@@ -495,5 +515,4 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             vaporization_heat_lay.visibility = View.GONE
         }
     }
-
 }

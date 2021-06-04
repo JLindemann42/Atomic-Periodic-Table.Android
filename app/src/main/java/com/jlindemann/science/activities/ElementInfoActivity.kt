@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.activity_element_info.back_btn
 import kotlinx.android.synthetic.main.activity_element_info.element_title
 import kotlinx.android.synthetic.main.d_atomic.*
 import kotlinx.android.synthetic.main.d_electromagnetic.*
+import kotlinx.android.synthetic.main.d_nuclear.*
 import kotlinx.android.synthetic.main.d_overview.*
 import kotlinx.android.synthetic.main.d_properties.*
 import kotlinx.android.synthetic.main.d_temperatures.*
@@ -129,6 +130,8 @@ class ElementInfoActivity : InfoExtension() {
 
     }
 
+
+
     private fun offlineCheck() {
         val offlinePreferences = offlinePreference(this)
         val offlinePrefValue = offlinePreferences.getValue()
@@ -191,7 +194,6 @@ class ElementInfoActivity : InfoExtension() {
             view2.animate().setDuration(150)
             view2.animate().alpha(1.0f)
         }, 150)
-
     }
 
     private fun nextPrev() {

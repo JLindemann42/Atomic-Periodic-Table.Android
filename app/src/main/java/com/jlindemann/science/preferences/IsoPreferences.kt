@@ -21,3 +21,23 @@ class IsoPreferences(context : Context) {
         editor.apply()
     }
 }
+
+class sendIso(context : Context) {
+
+    val PREFERENCE_NAME = "send_Iso_pref"
+    val PREFERENCE_VALUE = "send_iso_value"
+
+    val preference = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
+
+    fun getValue() : String{
+        return preference.getString (PREFERENCE_VALUE, "false")!!
+        //0 == Not sent
+        //1 == Sent
+    }
+
+    fun setValue(count:String) {
+        val editor = preference.edit()
+        editor.putString(PREFERENCE_VALUE,count)
+        editor.apply()
+    }
+}

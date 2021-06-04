@@ -14,6 +14,9 @@
     "element_protons": "14",
     "element_neutron_common": "14",
 
+    "radioactive": "No",
+    "neutron_cross_sectional": "0.171 (b)",
+
     "electrical_type": "Semiconductor",
     "resistivity": "1",
     "resistivity_mult": "0.001",
