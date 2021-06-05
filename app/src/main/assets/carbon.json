@@ -37,7 +37,12 @@
 
     "element_electron_config": "2s^2 2p^2",
     "element_ion_charge": "---",
-    "element_ionization_energy": "11.26030 (eV)",
+    "element_ionization_energy1": "11.26030 (eV)",
+    "element_ionization_energy2": "24.38332 (eV)",
+    "element_ionization_energy3": "47.8878 (eV)",
+    "element_ionization_energy4": "64.4939 (eV)",
+    "element_ionization_energy5": "392.087 (eV)",
+    "element_ionization_energy6": "489.99334 (eV)",
     "element_atomic_radius_e": "70 (pm)",
     "element_atomic_radius": "67 (pm)",
     "element_covalent_radius": "77 (pm)",

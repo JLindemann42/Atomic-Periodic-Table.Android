@@ -136,6 +136,10 @@ class SettingsActivity : BaseActivity() {
             val intent = Intent(this, FavoritePageActivity::class.java)
             startActivity(intent)
         }
+        order_settings.setOnClickListener {
+            val intent = Intent(this, OrderActivity::class.java)
+            startActivity(intent)
+        }
         experimental_settings.setOnClickListener {
             val intent = Intent(this, ExperimentalActivity::class.java)
             startActivity(intent)

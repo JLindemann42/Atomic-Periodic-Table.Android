@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:id="@+id/view_ord"
+    android:fitsSystemWindows="true"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/common_title_back_ord"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:alpha="0.975"
+        android:elevation="8dp"
+        android:background="?attr/colorPrimary"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/title_box"
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
+
+                <ImageButton
+                    android:id="@+id/back_btn_ord"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical"
+                    android:rotation="180"
+                    android:src="@drawable/ic_arrow_back_whit" />
+
+                <TextView
+                    android:id="@+id/orderpage_title"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:alpha="0.9"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Card Order"
+                    android:textAlignment="center"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
+        android:id="@+id/ord_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:item_layout="@layout/row_order_item"
+
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

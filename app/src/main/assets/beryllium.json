@@ -40,7 +40,10 @@
 
     "element_electron_config": "2s^2",
     "element_ion_charge": "Be^2+",
-    "element_ionization_energy": "9.3227 (eV)",
+    "element_ionization_energy1": "9.3227 (eV)",
+    "element_ionization_energy2": "18.21115 (eV)",
+    "element_ionization_energy3": "153.89620 (eV)",
+    "element_ionization_energy4": "217.71858 (eV)",
     "element_atomic_radius_e": "105 (pm)",
     "element_atomic_radius": "112 (pm)",
     "element_covalent_radius": "90 (pm)",

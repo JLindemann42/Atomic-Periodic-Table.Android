@@ -68,7 +68,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="18dp"
                 android:background="@drawable/rounded_box"
-                android:backgroundTint="?attr/colorPrimaryDark"
+                android:backgroundTint="?attr/chipSurfaceColor"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -213,7 +213,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -358,7 +358,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -504,7 +504,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -650,7 +650,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -795,7 +795,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -940,7 +940,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -1085,7 +1085,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -1229,7 +1229,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -1373,7 +1373,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -1517,7 +1517,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -1662,7 +1662,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -1807,7 +1807,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -1950,7 +1950,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -2095,7 +2095,7 @@
                         android:layout_gravity="center"
                         android:layout_margin="16dp"
                         android:background="@drawable/rounded_box"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:gravity="center_horizontal"
                         android:orientation="vertical">
 
@@ -2238,7 +2238,7 @@
                             android:layout_gravity="center"
                             android:layout_margin="18dp"
                             android:background="@drawable/rounded_box"
-                            android:backgroundTint="?attr/colorPrimaryDark"
+                            android:backgroundTint="?attr/chipSurfaceColor"
                             android:gravity="center_horizontal"
                             android:orientation="vertical">
 

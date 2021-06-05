@@ -50,7 +50,7 @@ class ElementInfoActivity : InfoExtension() {
         super.onCreate(savedInstanceState)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
-        
+
         if (themePrefValue == 100) {
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 Configuration.UI_MODE_NIGHT_NO -> { setTheme(R.style.AppTheme) }
