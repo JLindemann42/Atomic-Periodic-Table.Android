@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Oxygen",
     "link": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Liquid_oxygen_in_a_beaker_4.jpg",
+    "description": "Oxygen is the chemical element with the symbol O and atomic number 8. It is a member of the chalcogen group in the periodic table, a highly reactive nonmetal, and an oxidizing agent that readily forms oxides with most elements as well as with other compounds. After hydrogen and helium, oxygen is the third-most abundant element in the universe by mass. At standard temperature and pressure, two atoms of the element bind to form dioxygen, a colorless and odorless diatomic gas with the formula O2. Diatomic oxygen gas constitutes 20.95% of the Earth's atmosphere. Oxygen makes up almost half of the Earth's crust in the form of oxides",
 
     "element": "Oxygen",
     "short": "O",
@@ -12,6 +13,9 @@
     "element_electrons": "8",
     "element_protons": "8",
     "element_neutron_common": "8",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "0.00019 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",
@@ -36,7 +40,14 @@
 
     "element_electron_config": "2s^2 2p^4",
     "element_ion_charge": "O^2-",
-    "element_ionization_energy": "13.61806 (eV)",
+    "element_ionization_energy1": "13.61806 (eV)",
+    "element_ionization_energy2": "35.11730 (eV)",
+    "element_ionization_energy3": "54.9355 (eV)",
+    "element_ionization_energy4": "77.41353 (eV)",
+    "element_ionization_energy5": "113.8990 (eV)",
+    "element_ionization_energy6": "138.1197 (eV)",
+    "element_ionization_energy7": "739.29 (eV)",
+    "element_ionization_energy8": "871.4101 (eV)",
     "element_atomic_radius_e": "60 (pm)",
     "element_atomic_radius": "48 (pm)",
     "element_covalent_radius": "73 (pm)",

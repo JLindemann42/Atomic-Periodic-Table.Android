@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Hafnium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Hf-crystal_bar.jpg/1280px-Hf-crystal_bar.jpg",
+    "description": "Hafnium is a chemical element with the symbol Hf and atomic number 72. A lustrous, silvery gray, tetravalent transition metal, hafnium chemically resembles zirconium and is found in many zirconium minerals. Its existence was predicted by Dmitri Mendeleev in 1869, though it was not identified until 1923, by Coster and Hevesy, making it the last stable element to be discovered. Hafnium is named after Hafnia, the Latin name for Copenhagen, where it was discovered.",
 
     "element": "Hafnium",
     "short": "Hf",
@@ -12,6 +13,9 @@
     "element_electrons": "72",
     "element_protons": "72",
     "element_neutron_common": "108",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "104 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "3",

@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/tennessine",
     "link": "empty",
+    "description": "Tennessine is a synthetic chemical element with the symbol Ts and atomic number 117. It is the second-heaviest known element and the penultimate element of the 7th period of the periodic table.\nThe discovery of tennessine was officially announced in Dubna, Russia, by a Russian–American collaboration in April 2010, which makes it the most recently discovered element as of 2020. One of its daughter isotopes was created directly in 2011, partially confirming the results of the experiment. The experiment itself was repeated successfully by the same collaboration in 2012 and by a joint German–American team in May 2014. In December 2015, the Joint Working Party of the International Union of Pure and Applied Chemistry (IUPAC) and the International Union of Pure and Applied Physics, which evaluates claims of discovery of new elements, recognized the element and assigned the priority to the Russian–American team. In June 2016, the IUPAC published a declaration stating that the discoverers had suggested the name tennessine after Tennessee, United States. In November 2016, they officially adopted the name \"tennessine\".\n\n",
 
     "element": "tennessine",
     "short": "Ts",
@@ -12,6 +13,9 @@
     "element_electrons": "---",
     "element_protons": "---",
     "element_neutron_common": "---",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "--- (b)",
 
     "electrical_type": "---",
     "resistivity": "---",

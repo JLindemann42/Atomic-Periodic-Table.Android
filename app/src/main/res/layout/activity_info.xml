@@ -14,134 +14,141 @@
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="parent">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                app:srcCompat="@drawable/jlo" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="match_parent"
-                android:layout_height="38dp"
-                android:layout_marginTop="0dp"
-                android:text="J.LINDEMANN"
-                android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="@id/common_title_back_info" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginTop="0dp"
-                android:text="Atomic - Periodic Table"
-                android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="20sp"
-                app:layout_constraintTop_toTopOf="@id/common_title_back_info" />
-
-            <TextView
-                android:id="@+id/version_number"
-                android:layout_width="match_parent"
-                android:layout_height="16dp"
-                android:layout_marginTop="0dp"
-                android:text="@string/app_version"
-                android:textAlignment="center"
-                android:textColor="?attr/colorAccent"
-                android:textSize="12sp"
-                app:layout_constraintTop_toTopOf="@id/common_title_back_info" />
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_marginTop="42dp"
-                android:text="More apps made by us"
-                android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="20sp"
-                app:layout_constraintTop_toTopOf="@id/common_title_back_info" />
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <FrameLayout
-                    android:id="@+id/pro"
-                    android:layout_width="118dp"
-                    android:layout_height="118dp"
-                    android:layout_margin="18dp"
-                    android:alpha="1"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:elevation="4dp">
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="56dp"
+                    app:srcCompat="@drawable/jlo" />
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="32dp"
-                        android:elevation="2dp"
-                        app:srcCompat="@drawable/papersplash_icon_round" />
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:layout_marginTop="0dp"
+                    android:text="J.LINDEMANN"
+                    android:textAlignment="center"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="@id/common_title_back_info" />
 
-                    <TextView
-                        android:id="@+id/textView14"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_margin="9dp"
-                        android:text="PaperSplash PRO"
-                        android:textAlignment="center"
-                        android:textSize="11sp" />
-                </FrameLayout>
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="0dp"
+                    android:text="Atomic - Periodic Table"
+                    android:textAlignment="center"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toTopOf="@id/common_title_back_info" />
 
-                <FrameLayout
-                    android:id="@+id/sta"
-                    android:layout_width="118dp"
-                    android:layout_height="118dp"
-                    android:layout_margin="18dp"
-                    android:alpha="1"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:elevation="4dp">
+                <TextView
+                    android:id="@+id/version_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="16dp"
+                    android:layout_marginTop="0dp"
+                    android:text="@string/app_version"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toTopOf="@id/common_title_back_info" />
 
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="32dp"
-                        android:elevation="2dp"
-                        app:srcCompat="@drawable/paplo" />
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="42dp"
+                    android:text="More apps made by us"
+                    android:textAlignment="center"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="20sp"
+                    app:layout_constraintTop_toTopOf="@id/common_title_back_info" />
 
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_margin="9dp"
-                        android:text="PaperSplash"
-                        android:textAlignment="center"
-                        android:textSize="11sp" />
-                </FrameLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/pro"
+                        android:layout_width="118dp"
+                        android:layout_height="118dp"
+                        android:layout_margin="18dp"
+                        android:alpha="1"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:elevation="4dp">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="32dp"
+                            android:elevation="2dp"
+                            app:srcCompat="@drawable/papersplash_icon_round" />
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="9dp"
+                            android:text="PaperSplash PRO"
+                            android:textAlignment="center"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="11sp" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/sta"
+                        android:layout_width="118dp"
+                        android:layout_height="118dp"
+                        android:layout_margin="18dp"
+                        android:alpha="1"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:elevation="4dp">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="32dp"
+                            android:elevation="2dp"
+                            app:srcCompat="@drawable/paplo" />
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_margin="9dp"
+                            android:text="PaperSplash"
+                            android:textAlignment="center"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="11sp" />
+                    </FrameLayout>
+                </LinearLayout>
+
             </LinearLayout>
-
-        </LinearLayout>
+        </ScrollView>
 
         <FrameLayout
             android:id="@+id/common_title_back_info"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="56dp"
             android:alpha="0.975"
             android:background="?attr/colorPrimaryDark"
             android:gravity="center|center_vertical"
@@ -155,16 +162,15 @@
                 android:orientation="vertical">
 
                 <FrameLayout
-                    android:id="@+id/title_box"
+                    android:id="@+id/title_box_info"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp">
+                    android:layout_height="56dp">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/back_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="12dp"
                         android:elevation="0dp"
                         android:src="@drawable/ic_arrow_back_whit"
                         android:rotation="180"
@@ -176,8 +182,10 @@
 
                     <TextView
                         android:id="@+id/element_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:alpha="0.9"
+                        android:layout_height="56dp"
                         android:gravity="center"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"

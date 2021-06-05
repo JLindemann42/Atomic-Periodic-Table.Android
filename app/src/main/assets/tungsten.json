@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Tungsten",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Wolfram_evaporated_crystals_and_1cm3_cube.jpg/1024px-Wolfram_evaporated_crystals_and_1cm3_cube.jpg",
+    "description": "Tungsten, or wolfram,[8][9] is a chemical element with the symbol W and atomic number 74. The name tungsten comes from the former Swedish name for the tungstate mineral scheelite, tungsten which means \"heavy stone\". Tungsten is a rare metal found naturally on Earth almost exclusively combined with other elements in chemical compounds rather than alone. It was identified as a new element in 1781 and first isolated as a metal in 1783. Its important ores include wolframite and scheelite.",
 
     "element": "Tungsten",
     "short": "W",
@@ -12,6 +13,9 @@
     "element_electrons": "74",
     "element_protons": "74",
     "element_neutron_common": "110",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "18.3 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "5",

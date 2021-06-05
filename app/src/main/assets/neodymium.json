@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Neodymium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Neodymium2.jpg",
+    "description": "Neodymium is a chemical element with the symbol Nd and atomic number 60. Neodymium belongs to the lanthanide series and is a rare-earth element. It is a hard, slightly malleable silvery metal that quickly tarnishes in air and moisture. When oxidized, neodymium reacts quickly to produce pink, purple/blue and yellow compounds in the +2, +3 and +4 oxidation states. Neodymium was discovered in 1885 by the Austrian chemist Carl Auer von Welsbach. It is present in significant quantities in the ore minerals monazite and bastnäsite. Neodymium is not found naturally in metallic form or unmixed with other lanthanides, and it is usually refined for general use. Although neodymium is classed as a rare-earth element, it is fairly common, no rarer than cobalt, nickel, or copper, and is widely distributed in the Earth's crust. Most of the world's commercial neodymium is mined in China.",
 
     "element": "Neodymium",
     "short": "Nd",
@@ -12,6 +13,9 @@
     "element_electrons": "60",
     "element_protons": "60",
     "element_neutron_common": "82",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "49 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "6.4",

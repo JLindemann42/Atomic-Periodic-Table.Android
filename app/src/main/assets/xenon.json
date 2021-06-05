@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Xenon",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Xenon_discharge_tube.jpg/1920px-Xenon_discharge_tube.jpg",
+    "description": "Xenon is a chemical element with the symbol Xe and atomic number 54. It is a colorless, dense, odorless noble gas found in Earth's atmosphere in trace amounts.[11] Although generally unreactive, xenon can undergo a few chemical reactions such as the formation of xenon hexafluoroplatinate, the first noble gas compound to be synthesized.",
 
     "element": "Xenon",
     "short": "Xe",
@@ -12,6 +13,9 @@
     "element_electrons": "54",
     "element_protons": "54",
     "element_neutron_common": "78",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "23.9 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",

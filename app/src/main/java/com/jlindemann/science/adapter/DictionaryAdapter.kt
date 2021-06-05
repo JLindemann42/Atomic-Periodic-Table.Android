@@ -10,8 +10,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.DictionaryActivity
-import com.jlindemann.science.activities.ElectrodeActivity
+import com.jlindemann.science.activities.tables.DictionaryActivity
 import com.jlindemann.science.model.Dictionary
 
 class DictionaryAdapter(var dictionaryList: ArrayList<Dictionary>, var clickListener: DictionaryActivity, val con: Context) : RecyclerView.Adapter<DictionaryAdapter.ViewHolder>() {

@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Einsteinium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/5/55/Einsteinium.jpg",
+    "description": "Einsteinium is a synthetic element with the symbol Es and atomic number 99. As a member of the actinide series, it is the seventh transuranic element.\n\nEinsteinium was discovered as a component of the debris of the first hydrogen bomb explosion in 1952, and named after Albert Einstein. Its most common isotope einsteinium-253 (half-life 20.47 days) is produced artificially from decay of californium-253 in a few dedicated high-power nuclear reactors with a total yield on the order of one milligram per year. The reactor synthesis is followed by a complex process of separating einsteinium-253 from other actinides and products of their decay. Other isotopes are synthesized in various laboratories, but in much smaller amounts, by bombarding heavy actinide elements with light ions. Owing to the small amounts of produced einsteinium and the short half-life of its most easily produced isotope, there are currently almost no practical applications for it outside basic scientific research. In particular, einsteinium was used to synthesize, for the first time, 17 atoms of the new element mendelevium in 1955.",
 
     "element": "Einsteinium",
     "short": "Es",
@@ -12,6 +13,9 @@
     "element_electrons": "99",
     "element_protons": "99",
     "element_neutron_common": "153",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "160 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",

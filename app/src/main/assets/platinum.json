@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Platinum",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Platinum_crystals.jpg/800px-Platinum_crystals.jpg",
+    "description": "Platinum is a chemical element with the symbol Pt and atomic number 78. It is a dense, malleable, ductile, highly unreactive, precious, silverish-white transition metal. Its name is derived from the Spanish term platino, meaning \"little silver\".",
 
     "element": "Platinum",
     "short": "Pt",
@@ -12,6 +13,9 @@
     "element_electrons": "78",
     "element_protons": "78",
     "element_neutron_common": "117",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "0.96 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "1.1",

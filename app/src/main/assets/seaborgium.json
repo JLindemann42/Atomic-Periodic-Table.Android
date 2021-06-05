@@ -2,16 +2,20 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Seaborgium",
     "link": "empty",
+    "description": "Seaborgium is a synthetic chemical element with the symbol Sg and atomic number 106. It is named after the American nuclear chemist Glenn T. Seaborg. As a synthetic element, it can be created in a laboratory but is not found in nature. It is also radioactive; the most stable known isotope, Sg-269, has a half-life of approximately 14 minutes",
 
     "element": "Seaborgium",
     "short": "Sg",
-    "element_year": "Lawrence Berkeley National Laboratory",
-    "element_discovered_name": "1974",
+    "element_year": "1974",
+    "element_discovered_name": "Lawrence Berkeley National Laboratory",
     "element_group": "Transition Metals",
     "element_appearance": "---",
     "element_electrons": "106",
     "element_protons": "106",
     "element_neutron_common": "163",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "--- (b)",
 
     "electrical_type": "---",
     "resistivity": "---",

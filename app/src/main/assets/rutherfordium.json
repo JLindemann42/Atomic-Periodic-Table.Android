@@ -2,16 +2,20 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Rutherfordium",
     "link": "empty",
+    "description": "Rutherfordium is a synthetic chemical element with the symbol Rf and atomic number 104, named after New Zealand physicist Ernest Rutherford. As a synthetic element, it is not found in nature and can only be created in a laboratory. It is radioactive; the most stable known isotope, Rf-267, has a half-life of approximately 1.3 hours.",
 
     "element": "Rutherfordium",
     "short": "Rf",
-    "element_year": "Lawrence Berkeley National Laboratory",
-    "element_discovered_name": "1969",
+    "element_year": "1969",
+    "element_discovered_name": "Lawrence Berkeley National Laboratory",
     "element_group": "Transition Metals",
     "element_appearance": "---",
     "element_electrons": "104",
     "element_protons": "104",
     "element_neutron_common": "163",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "767 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",

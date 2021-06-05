@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Plutonium",
     "link": "http://nuclearweaponarchive.org/Library/Plutonium/Puingot.jpg",
+    "description": "Plutonium is a radioactive chemical element with the symbol Pu and atomic number 94. It is an actinide metal of silvery-gray appearance that tarnishes when exposed to air, and forms a dull coating when oxidized. The element normally exhibits six allotropes and four oxidation states. It reacts with carbon, halogens, nitrogen, silicon, and hydrogen. When exposed to moist air, it forms oxides and hydrides that can expand the sample up to 70% in volume, which in turn flake off as a powder that is pyrophoric. It is radioactive and can accumulate in bones, which makes the handling of plutonium dangerous.",
 
     "element": "Plutonium",
     "short": "Pu",
@@ -12,6 +13,9 @@
     "element_electrons": "94",
     "element_protons": "94",
     "element_neutron_common": "150",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "1017.3 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "1.5",

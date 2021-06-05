@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Phosphorus",
     "link": "https://upload.wikimedia.org/wikipedia/commons/8/88/PhosphComby.jpg",
+    "description": "Phosphorus is a chemical element with the symbol P and atomic number 15. Elemental phosphorus exists in two major forms, white phosphorus and red phosphorus, but because it is highly reactive, phosphorus is never found as a free element on Earth. It has a concentration in the Earth's crust of about one gram per kilogram (compare copper at about 0.06 grams). In minerals, phosphorus generally occurs as phosphate.",
 
     "element": "Phosphorus",
     "short": "P",
@@ -12,6 +13,9 @@
     "element_electrons": "15",
     "element_protons": "15",
     "element_neutron_common": "16",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "0.172 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "1",

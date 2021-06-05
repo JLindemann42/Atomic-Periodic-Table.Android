@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Cobalt",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Kobalt_electrolytic_and_1cm3_cube.jpg/1024px-Kobalt_electrolytic_and_1cm3_cube.jpg ",
+    "description": "Cobalt is a chemical element with the symbol Co and atomic number 27. Like nickel, cobalt is found in the Earth's crust only in chemically combined form, save for small deposits found in alloys of natural meteoric iron. The free element, produced by reductive smelting, is a hard, lustrous, silver-gray metal.",
 
     "element": "Cobalt",
     "short": "Co",
@@ -12,6 +13,9 @@
     "element_electrons": "27",
     "element_protons": "27",
     "element_neutron_common": "32",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "37.2 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "6",

@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Calcium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/9/96/Calcium_unter_Argon_Schutzgasatmosph%C3%A4re.jpg",
+    "description": "Calcium is a chemical element with the symbol Ca and atomic number 20. As an alkaline earth metal, calcium is a reactive metal that forms a dark oxide-nitride layer when exposed to air. Its physical and chemical properties are most similar to its heavier homologues strontium and barium. It is the fifth most abundant element in Earth's crust and the third most abundant metal, after iron and aluminium. The most common calcium compound on Earth is calcium carbonate, found in limestone and the fossilised remnants of early sea life; gypsum, anhydrite, fluorite, and apatite are also sources of calcium. The name derives from Latin calx \"lime\", which was obtained from heating limestone.",
 
     "element": "Calcium",
     "short": "Ca",
@@ -12,6 +13,9 @@
     "element_electrons": "20",
     "element_protons": "20",
     "element_neutron_common": "20",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "0.43 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "3.4",

@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Barium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/1/16/Barium_unter_Argon_Schutzgas_Atmosph%C3%A4re.jpg",
+    "description": "Barium is a chemical element with the symbol Ba and atomic number 56. It is the fifth element in group 2 and is a soft, silvery alkaline earth metal. Because of its high chemical reactivity, barium is never found in nature as a free element. Its hydroxide, known in pre-modern times as baryta, does not occur as a mineral, but can be prepared by heating barium carbonate.",
 
     "element": "Barium",
     "short": "Ba",
@@ -12,6 +13,9 @@
     "element_electrons": "56",
     "element_protons": "56",
     "element_neutron_common": "82",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "1.3 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "3.5",

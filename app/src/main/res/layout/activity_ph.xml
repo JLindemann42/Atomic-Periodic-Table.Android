@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="1">
+
+    <FrameLayout
+        android:id="@+id/view_ph"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent">
+
+        <FrameLayout
+            android:id="@+id/common_title_back_ph"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_bar_ph"
+            android:alpha="0.975"
+            android:background="?attr/colorPrimary"
+            android:elevation="@dimen/title_bar_elevation"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_gravity="bottom">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/bromothymol_blue_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="9dp"
+                        android:layout_marginBottom="9dp"
+                        android:background="@drawable/chip"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:foreground="@drawable/c_ripple"
+                        android:paddingStart="9dp"
+                        android:paddingEnd="9dp"
+                        android:text="@string/activity_ph_bromothymol_blue"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/methyl_orange_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="9dp"
+                        android:layout_marginBottom="9dp"
+                        android:background="@drawable/chip"
+                        android:clickable="true"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/c_ripple"
+                        android:paddingStart="9dp"
+                        android:paddingEnd="9dp"
+                        android:text="@string/activity_ph_methyl_orange"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/congo_red_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="9dp"
+                        android:layout_marginBottom="9dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/chip"
+                        android:clickable="true"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/c_ripple"
+                        android:paddingStart="9dp"
+                        android:paddingEnd="9dp"
+                        android:text="@string/activity_ph_congo_red"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/phenolphthalein_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="9dp"
+                        android:layout_marginBottom="9dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/chip"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="@drawable/c_ripple"
+                        android:paddingStart="9dp"
+                        android:paddingEnd="9dp"
+                        android:text="@string/activity_ph_phenolphthalein"
+                        android:textAllCaps="false" />
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="44dp"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/title_box_ph"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/title_bar">
+
+                    <ImageButton
+                        android:id="@+id/back_btn_ph"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_vertical"
+                        android:rotation="180"
+                        android:src="@drawable/ic_arrow_back_whit" />
+
+                    <TextView
+                        android:id="@+id/element_title"
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:alpha="0.9"
+                        android:layout_height="@dimen/title_bar"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/activity_ph_title"
+                        android:textAlignment="center"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/ph_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimaryDark"
+            android:layout_marginTop="@dimen/title_bar_ph"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/left"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="start"
+                    android:tint="#E91E63"
+                    app:srcCompat="@drawable/ph_edge" />
+
+                <ImageView
+                    android:id="@+id/center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:alpha="0.5"
+                    android:elevation="2dp"
+                    android:tint="#FF5722"
+                    app:srcCompat="@drawable/ph_center" />
+
+                <ImageView
+                    android:id="@+id/right"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:rotation="180"
+                    android:tint="@color/alkaline"
+                    app:srcCompat="@drawable/ph_edge" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="9dp">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="2dp"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginBottom="9dp"
+                            android:alpha="0.66"
+                            android:background="?attr/actionMenuTextColor"
+                            android:layout_gravity="center_horizontal" />
+
+                        <TextView
+                            android:id="@+id/acid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:alpha="1"
+                            android:text="@string/activity_ph_acid"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="26sp" />
+
+                        <TextView
+                            android:id="@+id/acid_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:alpha="1"
+                            android:text="@string/activity_ph_acid"
+                            android:textAlignment="center"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="2dp"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginBottom="9dp"
+                            android:alpha="0.66"
+                            android:background="?attr/actionMenuTextColor"
+                            android:layout_gravity="center_horizontal" />
+
+                        <TextView
+                            android:id="@+id/neutral"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:alpha="1"
+                            android:text="@string/activity_ph_neutral"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="26sp" />
+
+                        <TextView
+                            android:id="@+id/neutral_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:alpha="1"
+                            android:text="@string/activity_ph_neutral"
+                            android:textAlignment="center"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.33">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="2dp"
+                            android:layout_height="36dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginBottom="9dp"
+                            android:alpha="0.66"
+                            android:background="?attr/actionMenuTextColor"
+                            android:layout_gravity="center_horizontal" />
+
+                        <TextView
+                            android:id="@+id/alkaline"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:alpha="1"
+                            android:text="@string/activity_ph_alkaline"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="26sp" />
+
+                        <TextView
+                            android:id="@+id/alkaline_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:alpha="1"
+                            android:text="@string/activity_ph_alkaline"
+                            android:textAlignment="center"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+
+                </FrameLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

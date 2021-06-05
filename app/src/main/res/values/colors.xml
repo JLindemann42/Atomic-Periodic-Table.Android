@@ -3,17 +3,21 @@
 
     <color name="colorLightPrimary">#FEFEFE</color>
     <color name="colorLightPrimaryDark">#F5F5F5</color>
-    <color name="colorLightAccent">#1B94E4</color>
+    <color name="colorLightAccent">#1C73E8</color>
     <color name="colorLightError">#B00020</color>
     <color name="colorLightText">#202125</color>
-    <color name="colorLightRipple">#54202125</color>
+    <color name="colorLightRipple">#40202125</color>
+    <color name="colorLightRippleItem">#A81B94E4</color>
+    <color name="colorLightChipSurface">#EBEBEB</color>
 
-    <color name="colorDarkPrimary">#121212</color>
-    <color name="colorDarkPrimaryDark">#000000</color>
-    <color name="colorDarkAccent">#1B94E4</color>
+    <color name="colorDarkPrimary">#313235</color>
+    <color name="colorDarkPrimaryDark">#202124</color>
+    <color name="colorDarkAccent">#85AEEF</color>
     <color name="colorDarkError">#B00020</color>
     <color name="colorDarkText">#E9EAEE</color>
-    <color name="colorDarkRipple">#54E9EAEE</color>
+    <color name="colorDarkRipple">#40E9EAEE</color>
+    <color name="colorDarkRippleItem">#A81B94E4</color>
+    <color name="colorDarkChipSurface">#141414</color>
 
     <color name="background">#B3000000</color>
     <color name="background_status">#AD000000</color>
@@ -37,4 +41,14 @@
     <color name="transparent">#00000000</color>
 
     <color name="motion_down">#54E68A5C</color>
+
+    <color name="red">#F32B1C</color>
+    <color name="orange">#FF5722</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="blue">#0D47A1</color>
+    <color name="green">#388E3C</color>
+    <color name="purple">#6027C5</color>
+    <color name="pink">#F6528A</color>
+    <color name="colorless">#CFCFCF</color>
+
 </resources>

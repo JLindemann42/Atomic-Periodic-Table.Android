@@ -1,6 +1,7 @@
 package com.jlindemann.science.adapter
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.ColorMatrixColorFilter
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +11,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.ElectrodeActivity
-import com.jlindemann.science.activities.EquationsActivity
-import com.jlindemann.science.model.Dictionary
-import com.jlindemann.science.model.Element
+import com.jlindemann.science.activities.tables.EquationsActivity
 import com.jlindemann.science.model.Equation
-import com.jlindemann.science.model.Series
 import com.jlindemann.science.preferences.ThemePreference
-import kotlinx.android.synthetic.main.equations_info.*
 
 class EquationsAdapter(var list: ArrayList<Equation>, var clickListener: EquationsActivity, val context: Context) : RecyclerView.Adapter<EquationsAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -40,14 +36,25 @@ class EquationsAdapter(var list: ArrayList<Equation>, var clickListener: Equatio
 
         fun initialize(item: Equation, action: OnEquationClickListener, context: Context) {
             equTitle.text = item.equationTitle
-            if (item.category == "Physics") {
-                equCategory.text = "Phy"
-            }
+            if (item.category == "Mechanics") { equCategory.text = "Me" }
+            if (item.category == "General") { equCategory.text = "Ge" }
+            if (item.category == "Theory of Relativity") { equCategory.text = "TR" }
+            if (item.category == "Thermodynamics") { equCategory.text = "Th" }
+            if (item.category == "Wavelengths") { equCategory.text = "Wv" }
+            if (item.category == "Electricity") { equCategory.text = "El" }
+            if (item.category == "Magnetism and Induction") { equCategory.text = "MI" }
+            if (item.category == "Atomic Physics") { equCategory.text = "AP" }
+            if (item.category == "Nuclear Physics") { equCategory.text = "NP" }
             equImg.setImageResource(item.equation)
             val themePreference = ThemePreference(context)
             val themePrefValue = themePreference.getValue()
             if (themePrefValue == 1) {
                 equImg.colorFilter = ColorMatrixColorFilter(NEGATIVE)
+            }
+            if (themePrefValue == 100) {
+                when (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                    Configuration.UI_MODE_NIGHT_YES -> { equImg.colorFilter = ColorMatrixColorFilter(NEGATIVE) }
+                }
             }
             itemView.foreground = ContextCompat.getDrawable(context, R.drawable.c_ripple)
             itemView.isClickable = true

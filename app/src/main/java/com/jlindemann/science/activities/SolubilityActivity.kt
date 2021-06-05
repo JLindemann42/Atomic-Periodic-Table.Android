@@ -53,7 +53,7 @@ class SolubilityActivity : BaseActivity() {
         }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
             val paramsO = boxm.layoutParams as ViewGroup.MarginLayoutParams
             paramsO.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             boxm.layoutParams = paramsO

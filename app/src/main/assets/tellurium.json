@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Tellurium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/c/c1/Tellurium2.jpg",
+    "description": "Tellurium is a chemical element with the symbol Te and atomic number 52. It is a brittle, mildly toxic, rare, silver-white metalloid. Tellurium is chemically related to selenium and sulfur, all three of which are chalcogens. It is occasionally found in native form as elemental crystals. Tellurium is far more common in the Universe as a whole than on Earth. Its extreme rarity in the Earth's crust, comparable to that of platinum, is due partly to its formation of a volatile hydride that caused tellurium to be lost to space as a gas during the hot nebular formation of Earth, and partly to tellurium's low affinity for oxygen, which causes it to bind preferentially to other chalcophiles in dense minerals that sink into the core.",
 
     "element": "Tellurium",
     "short": "Te",
@@ -12,6 +13,9 @@
     "element_electrons": "52",
     "element_protons": "52",
     "element_neutron_common": "78",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "4.7 (b)",
 
     "electrical_type": "Semiconductor",
     "resistivity": "1",

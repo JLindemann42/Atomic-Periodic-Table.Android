@@ -3,244 +3,293 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:elevation="18dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="18dp"
-        android:weightSum="0.99"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="parent">
 
-        <LinearLayout
-            android:layout_width="98dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.2">
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/menu"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="36dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:clickable="true"
+            android:elevation="2dp"
+            android:focusable="true"
             android:orientation="vertical">
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/random_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:backgroundTint="?attr/colorAccent"
-                android:clickable="true"
-                android:elevation="6dp"
-                android:focusable="true"
-                android:tint="?attr/colorPrimary"
-                app:borderWidth="0dp"
-                app:elevation="6dp"
-                app:srcCompat="@drawable/ic_random" />
-
             <TextView
-                android:layout_width="wrap_content"
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="18dp"
+                android:alpha="0.8"
+                android:text="Display Mode"
+                android:textAlignment="viewStart"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="54dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/h_name_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/overview_icon"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Element Name (Default)"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                    <TextView
+                        android:id="@+id/h_group_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_detail"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Element Groups"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                    <TextView
+                        android:id="@+id/h_electronegativity_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/fav_electronegativity"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Electronegativity"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                    <TextView
+                        android:id="@+id/atomic_weight_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_weight_outline"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Atomic Weight"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                    <TextView
+                        android:id="@+id/boiling_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_temperature"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Boiling Point"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                    <TextView
+                        android:id="@+id/melting_point"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_temperature"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Melting Point"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                    <TextView
+                        android:id="@+id/h_phase_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/gas"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Phase (STP)"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                    <TextView
+                        android:id="@+id/h_year_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_dictionary"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Year Discovered"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                    <TextView
+                        android:id="@+id/h_fusion_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_heat"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Fusion Heat"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                    <TextView
+                        android:id="@+id/h_specific_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_heat"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Specific Heat Capacity"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                    <TextView
+                        android:id="@+id/h_vaporizaton_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_vaporization"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Vaporization Heat"
+                        android:textColor="?attr/actionMenuTextColor" />
+
+                </LinearLayout>
+            </ScrollView>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3">
+
+            <Button
+                android:id="@+id/random_btn"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="36dp"
                 android:layout_marginTop="9dp"
+                android:layout_marginEnd="36dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorAccent"
+                android:backgroundTintMode="src_in"
+                android:clickable="true"
+                android:elevation="1dp"
+                android:focusable="true"
+                android:fontFamily="@font/manroperegular"
+                android:foreground="@drawable/c_ripple"
+                android:foregroundTintMode="src_in"
+                android:hapticFeedbackEnabled="true"
+                android:onClick="onClick"
                 android:text="Random Element"
                 android:textAlignment="center"
-                android:textColor="@color/colorLightPrimary"
-                android:textSize="11sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/detail_btn_frame"
-            android:layout_width="98dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33"
-            android:orientation="vertical">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/detail_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:backgroundTint="?attr/colorAccent"
-                android:clickable="true"
-                android:elevation="6dp"
-                android:focusable="true"
-                android:tint="?attr/colorPrimary"
-                app:borderWidth="0dp"
-                app:elevation="6dp"
-                app:srcCompat="@drawable/ic_menu" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="9dp"
-                android:text="Groups"
-                android:textAlignment="center"
-                android:textColor="@color/colorLightPrimary"
-                android:textSize="11sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/detail_btn_frame_close"
-            android:layout_width="98dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/detail_btn_close"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:backgroundTint="?attr/colorAccent"
-                android:clickable="true"
-                android:elevation="6dp"
-                android:focusable="true"
-                android:tint="?attr/colorPrimary"
-                app:borderWidth="0dp"
-                app:elevation="6dp"
-                app:srcCompat="@drawable/ic_dictionary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="9dp"
-                android:text="Element Name"
-                android:textAlignment="center"
-                android:textColor="@color/colorLightPrimary"
-                android:textSize="11sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/electron_btn_frame"
-            android:layout_width="98dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33"
-            android:orientation="vertical">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/electron_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:backgroundTint="?attr/colorAccent"
-                android:clickable="true"
-                android:elevation="6dp"
-                android:focusable="true"
-                android:tint="?attr/colorPrimary"
-                app:borderWidth="0dp"
-                app:elevation="6dp"
-                app:srcCompat="@drawable/fav_electronegativity" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="9dp"
-                android:text="Electronegativity"
-                android:textAlignment="center"
-                android:textColor="@color/colorLightPrimary"
-                android:textSize="11sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/electron_btn_frame_hide"
-            android:layout_width="98dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/electron_btn_hide"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:backgroundTint="?attr/colorAccent"
-                android:clickable="true"
-                android:elevation="6dp"
-                android:focusable="true"
-                android:tint="?attr/colorPrimary"
-                app:borderWidth="0dp"
-                app:elevation="6dp"
-                app:srcCompat="@drawable/ic_dictionary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="9dp"
-                android:text="Element Name"
-                android:textAlignment="center"
-                android:textColor="@color/colorLightPrimary"
-                android:textSize="11sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/weight_btn_frame"
-            android:layout_width="98dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33"
-            android:orientation="vertical">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/weight_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:backgroundTint="?attr/colorAccent"
-                android:clickable="true"
-                android:elevation="6dp"
-                android:focusable="true"
-                android:tint="?attr/colorPrimary"
-                app:borderWidth="0dp"
-                app:elevation="6dp"
-                app:srcCompat="@drawable/ic_weight_outline" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="9dp"
-                android:text="Atomic Weight"
-                android:textAlignment="center"
-                android:textColor="@color/colorLightPrimary"
-                android:textSize="11sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/weight_btn_frame_hide"
-            android:layout_width="98dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.33"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/weight_btn_hide"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:backgroundTint="?attr/colorAccent"
-                android:clickable="true"
-                android:elevation="6dp"
-                android:focusable="true"
-                android:tint="?attr/colorPrimary"
-                app:borderWidth="0dp"
-                app:elevation="6dp"
-                app:srcCompat="@drawable/ic_dictionary" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="9dp"
-                android:text="Element Name"
-                android:textAlignment="center"
-                android:textColor="@color/colorLightPrimary"
-                android:textSize="11sp" />
-        </LinearLayout>
+                android:textColor="?attr/colorPrimary" />
+        </FrameLayout>
 
     </LinearLayout>
 

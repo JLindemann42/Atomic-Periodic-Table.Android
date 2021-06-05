@@ -2,18 +2,15 @@ package com.jlindemann.science.activities
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Insets
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.updatePadding
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.tables.ElectrodeActivity
+import com.jlindemann.science.activities.tables.EquationsActivity
+import com.jlindemann.science.activities.tables.phActivity
 import com.jlindemann.science.preferences.ThemePreference
-import kotlinx.android.synthetic.main.activity_solubility.*
 import kotlinx.android.synthetic.main.activity_solubility.back_btn
-import kotlinx.android.synthetic.main.activity_submit.*
 import kotlinx.android.synthetic.main.activity_submit.view_sub
 import kotlinx.android.synthetic.main.activity_tables.*
 
@@ -44,14 +41,14 @@ class TableActivity : BaseActivity() {
         }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
             val params = common_title_back_tab.layoutParams as ViewGroup.LayoutParams
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_tab.layoutParams = params
 
-            val params2 = ele_table.layoutParams as ViewGroup.MarginLayoutParams
+            val params2 = ph_table.layoutParams as ViewGroup.MarginLayoutParams
             params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + 36
-            ele_table.layoutParams = params2
+            ph_table.layoutParams = params2
     }
 
     private fun tableListeners() {
@@ -65,6 +62,10 @@ class TableActivity : BaseActivity() {
         }
         equ_table.setOnClickListener {
             val intent = Intent(this, EquationsActivity::class.java)
+            startActivity(intent)
+        }
+        ph_table.setOnClickListener {
+            val intent = Intent(this, phActivity::class.java)
             startActivity(intent)
         }
     }

@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Hassium",
     "link": "empty",
+    "description": "Hassium is a chemical element with the symbol Hs and the atomic number 108. Hassium is highly radioactive; the most stable known isotope, Hs-269, has a half-life of approximately 16 seconds. One of its isotopes, Hs-270, has magic numbers of both protons and neutrons for deformed nuclei, which gives it greater stability against spontaneous fission. Hassium has only been produced in a laboratory, in very small quantities. Natural occurrences of the element have been hypothesised, but none has ever been found.",
 
     "element": "Hassium",
     "short": "Hs",
@@ -12,6 +13,9 @@
     "element_electrons": "---",
     "element_protons": "---",
     "element_neutron_common": "---",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "767 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",

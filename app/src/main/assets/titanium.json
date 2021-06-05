@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Titanium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Titan-crystal_bar.JPG/1024px-Titan-crystal_bar.JPG",
+    "description": "Titanium is a chemical element with the symbol Ti and atomic number 22. It is a lustrous transition metal with a silver color, low density, and high strength. Titanium is resistant to corrosion in sea water, aqua regia, and chlorine.",
 
     "element": "Titanium",
     "short": "Ti",
@@ -12,6 +13,9 @@
     "element_electrons": "22",
     "element_protons": "22",
     "element_neutron_common": "26",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "6.09 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "4",

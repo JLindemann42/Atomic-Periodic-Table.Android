@@ -25,17 +25,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
-            android:layout_marginTop="126dp"
+            android:layout_marginTop="100dp"
             android:visibility="gone" />
 
-        <LinearLayout
+            <LinearLayout
                 android:id="@+id/i_box"
                 android:layout_width="match_parent"
                 android:layout_height="360dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="98dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="18dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="72dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:background="@drawable/toast"
                 android:backgroundTint="?attr/colorPrimary"
                 android:elevation="2dp"
@@ -49,16 +49,16 @@
 
                     <TextView
                         android:id="@+id/drop_btn"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="@drawable/c_ripple"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="18dp"
+                        android:clickable="true"
                         android:drawableStart="@drawable/ic_arrow"
                         android:drawablePadding="9dp"
                         android:elevation="1dp"
+                        android:focusable="true"
+                        android:foreground="@drawable/c_ripple"
                         android:gravity="center_vertical"
                         android:text="Data Issue"
                         android:textColor="?attr/actionMenuTextColor" />
@@ -70,7 +70,7 @@
                         android:layout_marginStart="18dp"
                         android:layout_marginEnd="18dp"
                         android:background="@drawable/toast"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/chipSurfaceColor"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:fontFamily="@font/manroperegular"
@@ -93,7 +93,7 @@
                     android:layout_marginTop="18dp"
                     android:layout_marginEnd="18dp"
                     android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorPrimaryDark"
+                    android:backgroundTint="?attr/chipSurfaceColor"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:fontFamily="@font/manroperegular"
@@ -127,13 +127,13 @@
                     android:text="Send issue"
                     android:textColor="?attr/colorPrimary" />
 
-        </LinearLayout>
+            </LinearLayout>
     </FrameLayout>
 
     <FrameLayout
             android:id="@+id/common_title_back_sub"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="56dp"
             android:alpha="1"
             android:elevation="4dp"
             android:background="?attr/colorPrimary"
@@ -149,22 +149,23 @@
                 <FrameLayout
                     android:id="@+id/title_box"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp">
+                    android:layout_height="56dp">
 
                     <ImageButton
                         android:id="@+id/back_btn"
                         style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="18dp"
                         android:rotation="180"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <TextView
                         android:id="@+id/element_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:alpha="0.9"
+                        android:layout_height="56dp"
                         android:gravity="center"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"

@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Neptunium",
     "link": "http://www.chemistrylearner.com/wp-content/uploads/2018/02/Neptunium-Element.jpg",
+    "description": "Neptunium is a chemical element with the symbol Np and atomic number 93. A radioactive actinide metal, neptunium is the first transuranic element. Its position in the periodic table just after uranium, named after the planet Uranus, led to it being named after Neptune, the next planet beyond Uranus. A neptunium atom has 93 protons and 93 electrons, of which seven are valence electrons. Neptunium metal is silvery and tarnishes when exposed to air. The element occurs in three allotropic forms and it normally exhibits five oxidation states, ranging from +3 to +7. It is radioactive, poisonous, pyrophoric, and capable of accumulating in bones, which makes the handling of neptunium dangerous.",
 
     "element": "Neptunium",
     "short": "Np",
@@ -12,6 +13,9 @@
     "element_electrons": "93",
     "element_protons": "93",
     "element_neutron_common": "144",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "180 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "1.2",

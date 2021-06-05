@@ -2,16 +2,20 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Dubnium",
     "link": "empty",
+    "description": "Dubnium is a synthetic chemical element with the symbol Db and atomic number 105. Dubnium is highly radioactive: the most stable known isotope, dubnium-268, has a half-life of about 28 hours. This greatly limits the extent of research on dubnium.",
 
     "element": "Dubnium",
     "short": "Db",
-    "element_year": "Lawrence Berkeley National Laboratory",
-    "element_discovered_name": "1970",
+    "element_year": "1970",
+    "element_discovered_name": "Lawrence Berkeley National Laboratory",
     "element_group": "Transition Metals",
     "element_appearance": "---",
     "element_electrons": "105",
     "element_protons": "105",
     "element_neutron_common": "163",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "--- (b)",
 
     "electrical_type": "---",
     "resistivity": "---",

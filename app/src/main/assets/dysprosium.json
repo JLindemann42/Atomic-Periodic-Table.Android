@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Dysprosium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Dy_chips.jpg",
+    "description": "Dysprosium is a chemical element with the symbol Dy and atomic number 66. It is a rare-earth element with a metallic silver luster. Dysprosium is never found in nature as a free element, though it is found in various minerals, such as xenotime. Naturally occurring dysprosium is composed of seven isotopes, the most abundant of which is Dy-164.",
 
     "element": "Dysprosium",
     "short": "Dy",
@@ -12,6 +13,9 @@
     "element_electrons": "66",
     "element_protons": "66",
     "element_neutron_common": "98",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "920 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "9.1",

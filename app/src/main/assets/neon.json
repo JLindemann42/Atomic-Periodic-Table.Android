@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Neon",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Neon_discharge_tube.jpg/1920px-Neon_discharge_tube.jpg",
+    "description": "Neon is a chemical element with the symbol Ne and atomic number 10. It is a noble gas. Neon is a colorless, odorless, inert monatomic gas under standard conditions, with about two-thirds the density of air. It was discovered (along with krypton and xenon) in 1898 as one of the three residual rare inert elements remaining in dry air, after nitrogen, oxygen, argon and carbon dioxide were removed. Neon was the second of these three rare gases to be discovered and was immediately recognized as a new element from its bright red emission spectrum. The name neon is derived from the Greek word, νέον, neuter singular form of νέος (neos), meaning new. Neon is chemically inert, and no uncharged neon compounds are known. The compounds of neon currently known include ionic molecules, molecules held together by van der Waals forces and clathrates.",
 
     "element": "Neon",
     "short": "Ne",
@@ -12,6 +13,9 @@
     "element_electrons": "10",
     "element_protons": "10",
     "element_neutron_common": "10",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "0.04 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",
@@ -36,7 +40,16 @@
 
     "element_electron_config": "2s^2 2p^6",
     "element_ion_charge": "---",
-    "element_ionization_energy": "21.5646 (eV)",
+    "element_ionization_energy1": "21.5646 (eV)",
+    "element_ionization_energy2": "40.96328 (eV)",
+    "element_ionization_energy3": "63.45 (eV)",
+    "element_ionization_energy4": "97.12 (eV)",
+    "element_ionization_energy5": "126.21 (eV)",
+    "element_ionization_energy6": "157.93 (eV)",
+    "element_ionization_energy7": "207.2759 (eV)",
+    "element_ionization_energy8": "239.0989 (eV)",
+    "element_ionization_energy9": "1195.8286 (eV)",
+    "element_ionization_energy10": "1362.1995 (eV)",
     "element_atomic_radius_e": "160 (pm)",
     "element_atomic_radius": "38 (pm)",
     "element_covalent_radius": "69 (pm)",

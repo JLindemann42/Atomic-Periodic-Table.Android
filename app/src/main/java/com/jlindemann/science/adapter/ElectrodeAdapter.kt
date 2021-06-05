@@ -8,9 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.ElectrodeActivity
-import com.jlindemann.science.model.Dictionary
-import com.jlindemann.science.model.Element
+import com.jlindemann.science.activities.tables.ElectrodeActivity
 import com.jlindemann.science.model.Series
 
 class ElectrodeAdapter(var list: ArrayList<Series>, var clickListener: ElectrodeActivity, val context: Context) : RecyclerView.Adapter<ElectrodeAdapter.ViewHolder>() {

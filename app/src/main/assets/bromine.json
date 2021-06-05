@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Bromine",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Bromine_vial_in_acrylic_cube.jpg/1280px-Bromine_vial_in_acrylic_cube.jpg",
+    "description": "Bromine is a chemical element with the symbol Br and atomic number 35. It is the third-lightest halogen, and is a fuming red-brown liquid at room temperature that evaporates readily to form a similarly coloured gas. Its properties are thus intermediate between those of chlorine and iodine. Isolated independently by two chemists, Carl Jacob Löwig (in 1825) and Antoine Jérôme Balard (in 1826), its name was derived from the Ancient Greek βρῶμος (\"stench\"), referencing its sharp and disagreeable smell.",
 
     "element": "Bromine",
     "short": "Br",
@@ -12,6 +13,9 @@
     "element_electrons": "35",
     "element_protons": "35",
     "element_neutron_common": "44",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "6.8 (b)",
 
     "electrical_type": "Insulator",
     "resistivity": "1",
