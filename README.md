@@ -11,4 +11,4 @@ Follo on socialmedia for updates [TWITTER](https://twitter.com/jlindemanndev)
 
 Visit the [website](https://www.jlindemann.se/homepage/atomic) for download
 
-Play Store: [Link]https://play.google.com/store/apps/details?id=com.jlindemann.science
+Play Store: [Link](https://play.google.com/store/apps/details?id=com.jlindemann.science)
