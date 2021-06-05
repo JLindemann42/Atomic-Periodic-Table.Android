@@ -1,6 +1,6 @@
 #  'Atomic - Periodic Table' for Android
 
-![](.design/hero.png)
+![](./design/hero.png)
 
 ## Introduction
 A periodic table for all your science needs for both schoolwork and more!
