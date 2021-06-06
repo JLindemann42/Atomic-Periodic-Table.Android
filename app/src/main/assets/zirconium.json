@@ -39,7 +39,11 @@
 
     "element_electron_config": "4d^2 5s^2",
     "element_ion_charge": "Zr^4+",
-    "element_ionization_energy": "6.63390 (eV)",
+    "element_ionization_energy1": "6.63390 (eV)",
+    "element_ionization_energy2": "13.13 (eV)",
+    "element_ionization_energy3": "22.99 (eV)",
+    "element_ionization_energy4": "34.34 (eV)",
+    "element_ionization_energy5": "80.348 (eV)",
     "element_atomic_radius_e": "155 (pm)",
     "element_atomic_radius": "206 (pm)",
     "element_covalent_radius": "148 (pm)",
