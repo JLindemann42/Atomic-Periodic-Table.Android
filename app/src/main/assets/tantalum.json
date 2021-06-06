@@ -40,7 +40,7 @@
 
     "element_electron_config": "4f^14, 5d^3, 6s^2",
     "element_ion_charge": "Ta^5+",
-    "element_ionization_energy": "7.5496 (eV)",
+    "element_ionization_energy1": "7.5496 (eV)",
     "element_atomic_radius_e": "145 (pm)",
     "element_atomic_radius": "200 (pm)",
     "element_covalent_radius": "138 (pm)",

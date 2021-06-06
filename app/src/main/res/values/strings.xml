@@ -41,6 +41,10 @@
     <string name="activity_ph_congo_red">Congo Red</string>
     <string name="activity_ph_phenolphthalein">Phenolphthalein</string>
 
+    <!-- Activity Ion -->
+    <string name="activity_io_title">Ionization Energies</string>
+
+
     <!-- Social-Media Links-->
     <string name="twitter">https://www.twitter.com/jlindemanndev</string>
     <string name="instagram">https://www.instagram.com/jlindemanndev</string>
