@@ -129,4 +129,11 @@
             android:verticalScrollbarPosition="defaultPosition" />
     </FrameLayout>
 
+    <include
+        android:id="@+id/ion_detail"
+        layout="@layout/ion_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
