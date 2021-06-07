@@ -62,56 +62,33 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val elements = ArrayList<Element>()
         ElementModel.getList(elements)
-
         val adapter = IsotopeAdapter(elements, this, this)
         recyclerView.adapter = adapter
 
         edit_iso.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                s: CharSequence,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
-
-            override fun onTextChanged(
-                s: CharSequence,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                filter(s.toString(), elements, recyclerView)
-            }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable) { filter(s.toString(), elements, recyclerView) }
         })
 
         sliding_layout_i.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
-            override fun onPanelSlide(panel: View?, slideOffset: Float) {
-                //Empty
-            }
-            override fun onPanelStateChanged(
-                panel: View?,
-                previousState: SlidingUpPanelLayout.PanelState,
-                newState: SlidingUpPanelLayout.PanelState
-            ) {
+            override fun onPanelSlide(panel: View?, slideOffset: Float) { }
+            override fun onPanelStateChanged(panel: View?, previousState: SlidingUpPanelLayout.PanelState, newState: SlidingUpPanelLayout.PanelState) {
                 if (sliding_layout_i.panelState === SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                    Utils.fadeOutAnim(background_i2, 100)
-                    Utils.fadeOutAnim(slid_panel, 200)
+                    Utils.fadeOutAnim(background_i2, 300)
+                    Utils.fadeOutAnim(slid_panel, 300)
                 }
             }
         })
 
         background_i2.setOnClickListener{
             if (panel_info.visibility == View.VISIBLE) {
-                Utils.fadeOutAnim(panel_info, 200)
-                Utils.fadeOutAnim(background_i2, 200)
+                Utils.fadeOutAnim(panel_info, 300)
+                Utils.fadeOutAnim(background_i2, 300)
             }
             else {
-                Utils.fadeOutAnim(sliding_layout_i, 200)
-                Utils.fadeOutAnim(background_i2, 200)
+                Utils.fadeOutAnim(sliding_layout_i, 300)
+                Utils.fadeOutAnim(background_i2, 300)
             }
         }
 
@@ -207,12 +184,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        r_view.setPadding(
-            0,
-            resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top,
-            0,
-            resources.getDimensionPixelSize(R.dimen.title_bar))
-
+        r_view.setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
         val params2 = common_title_back_iso.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         common_title_back_iso.layoutParams = params2
@@ -224,8 +196,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         elementSendAndLoad.setValue(item.element)
         drawCard()
 
-        Utils.fadeInAnimBack(background_i2, 200)
-        Utils.fadeInAnim(slid_panel, 200)
+        Utils.fadeInAnimBack(background_i2, 300)
+        Utils.fadeInAnim(slid_panel, 300)
         sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
     }
 
@@ -233,8 +205,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         val isoSent = sendIso(this)
         if (isoSent.getValue() == "true") {
             drawCard()
-            Utils.fadeInAnimBack(background_i2, 200)
-            Utils.fadeInAnim(slid_panel, 200)
+            Utils.fadeInAnimBack(background_i2, 300)
+            Utils.fadeInAnim(slid_panel, 300)
             sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
             isoSent.setValue("false")
         }
@@ -242,7 +214,6 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
 
     override fun onBackPressed() {
         if (background_i2.visibility == View.VISIBLE) {
-            sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             return
         }
         if (filter_background.visibility == View.VISIBLE) {

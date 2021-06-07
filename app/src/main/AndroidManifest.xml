@@ -73,6 +73,17 @@
         </activity>
 
         <activity
+            android:name=".activities.tables.IonActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:label="IONPAGE" >
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".settings.ExperimentalActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"

@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version">1.4.0-Build.53-dev2</string>
+    <string name="app_version">1.4.0-Build.54-dev4</string>
 
     <!-- Activity Element Info-->
     <string name="element_description_title">Description</string>
@@ -40,6 +40,10 @@
     <string name="activity_ph_bromothymol_blue">Bromothymol Blue</string>
     <string name="activity_ph_congo_red">Congo Red</string>
     <string name="activity_ph_phenolphthalein">Phenolphthalein</string>
+
+    <!-- Activity Ion -->
+    <string name="activity_io_title">Ionization Energies</string>
+
 
     <!-- Social-Media Links-->
     <string name="twitter">https://www.twitter.com/jlindemanndev</string>

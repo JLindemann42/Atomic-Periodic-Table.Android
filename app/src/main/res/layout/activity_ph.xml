@@ -40,66 +40,70 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="9dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginBottom="9dp"
                         android:background="@drawable/chip"
                         android:clickable="true"
                         android:focusable="true"
-                        android:textColor="?attr/actionMenuTextColor"
-                        android:foreground="@drawable/c_ripple"
+                        android:foreground="@drawable/chip_ripple"
                         android:paddingStart="9dp"
                         android:paddingEnd="9dp"
                         android:text="@string/activity_ph_bromothymol_blue"
-                        android:textAllCaps="false" />
+                        android:textAllCaps="false"
+                        android:textColor="?attr/actionMenuTextColor" />
 
                     <Button
                         android:id="@+id/methyl_orange_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="9dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginBottom="9dp"
                         android:background="@drawable/chip"
                         android:clickable="true"
-                        android:textColor="?attr/actionMenuTextColor"
                         android:focusable="true"
-                        android:foreground="@drawable/c_ripple"
+                        android:foreground="@drawable/chip_ripple"
                         android:paddingStart="9dp"
                         android:paddingEnd="9dp"
                         android:text="@string/activity_ph_methyl_orange"
-                        android:textAllCaps="false" />
+                        android:textAllCaps="false"
+                        android:textColor="?attr/actionMenuTextColor" />
 
                     <Button
                         android:id="@+id/congo_red_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="9dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginBottom="9dp"
                         android:layout_weight="1"
                         android:background="@drawable/chip"
                         android:clickable="true"
-                        android:textColor="?attr/actionMenuTextColor"
                         android:focusable="true"
-                        android:foreground="@drawable/c_ripple"
+                        android:foreground="@drawable/chip_ripple"
                         android:paddingStart="9dp"
                         android:paddingEnd="9dp"
                         android:text="@string/activity_ph_congo_red"
-                        android:textAllCaps="false" />
+                        android:textAllCaps="false"
+                        android:textColor="?attr/actionMenuTextColor" />
 
                     <Button
                         android:id="@+id/phenolphthalein_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="9dp"
+                        android:layout_marginTop="2dp"
                         android:layout_marginBottom="9dp"
                         android:layout_weight="1"
                         android:background="@drawable/chip"
-                        android:textColor="?attr/actionMenuTextColor"
                         android:clickable="true"
                         android:focusable="true"
-                        android:foreground="@drawable/c_ripple"
+                        android:foreground="@drawable/chip_ripple"
                         android:paddingStart="9dp"
                         android:paddingEnd="9dp"
                         android:text="@string/activity_ph_phenolphthalein"
-                        android:textAllCaps="false" />
+                        android:textAllCaps="false"
+                        android:textColor="?attr/actionMenuTextColor" />
 
                 </LinearLayout>
 
