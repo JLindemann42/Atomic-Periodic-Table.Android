@@ -60,6 +60,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:text="element_name"
+            android:textIsSelectable="true"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
@@ -93,6 +94,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:text="element_name"
+            android:textIsSelectable="true"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
@@ -126,6 +128,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:text="element_name"
+            android:textIsSelectable="true"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
@@ -160,6 +163,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:text="element_name"
+            android:textIsSelectable="true"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
@@ -193,6 +197,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="18dp"
             android:text="element_block"
+            android:textIsSelectable="true"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
@@ -238,6 +243,7 @@
                         android:layout_marginEnd="18dp"
                         android:layout_marginBottom="8dp"
                         android:text="element_electrons"
+                        android:textIsSelectable="true"
                         android:textColor="?attr/actionMenuTextColor"
                         android:textSize="12sp" />
                 </LinearLayout>

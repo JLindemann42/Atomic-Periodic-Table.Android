@@ -85,6 +85,7 @@
                     android:layout_marginEnd="18dp"
                     android:layout_marginBottom="8dp"
                     android:text="phase_text"
+                    android:textIsSelectable="true"
                     android:textColor="?attr/actionMenuTextColor"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -128,6 +129,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:text="fusion_heat_text"
+            android:textIsSelectable="true"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
@@ -162,6 +164,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:text="specific_heat_text"
+            android:textIsSelectable="true"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
@@ -196,6 +199,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:text="vaporization_heat_text"
+            android:textIsSelectable="true"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
