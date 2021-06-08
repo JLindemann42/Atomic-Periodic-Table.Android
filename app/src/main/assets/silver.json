@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Silver",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Silver_crystal.jpg/800px-Silver_crystal.jpg",
+    "description": "Silver is a chemical element with the symbol Ag (from the Latin argentum, derived from the Proto-Indo-European h₂erǵ: \"shiny\" or \"white\") and atomic number 47. A soft, white, lustrous transition metal, it exhibits the highest electrical conductivity, thermal conductivity, and reflectivity of any metal. The metal is found in the Earth's crust in the pure, free elemental form (\"native silver\"), as an alloy with gold and other metals, and in minerals such as argentite and chlorargyrite. Most silver is produced as a byproduct of copper, gold, lead, and zinc refining.",
 
     "element": "Silver",
     "short": "Ag",
@@ -12,6 +13,9 @@
     "element_electrons": "47",
     "element_protons": "47",
     "element_neutron_common": "60",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "63.6 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "1.6",
@@ -36,7 +40,9 @@
 
     "element_electron_config": "4d^10 5s^1",
     "element_ion_charge": "Ag^+",
-    "element_ionization_energy": "7.5762 (eV)",
+    "element_ionization_energy1": "7.5762 (eV)",
+    "element_ionization_energy2": "21.49 (eV)",
+    "element_ionization_energy3": "34.83 (eV)",
     "element_atomic_radius_e": "160 (pm)",
     "element_atomic_radius": "165 (pm)",
     "element_covalent_radius": "153 (pm)",

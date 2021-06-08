@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Moscovium",
     "link": "empty",
+    "description": "Moscovium is a synthetic chemical element with the symbol Mc and atomic number 115. It was first synthesized in 2003 by a joint team of Russian and American scientists at the Joint Institute for Nuclear Research (JINR) in Dubna, Russia. In December 2015, it was recognized as one of four new elements by the Joint Working Party of international scientific bodies IUPAC and IUPAP. On 28 November 2016, it was officially named after the Moscow Oblast, in which the JINR is situated",
 
     "element": "Moscovium",
     "short": "Mc",
@@ -12,6 +13,9 @@
     "element_electrons": "---",
     "element_protons": "---",
     "element_neutron_common": "---",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "767 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",
@@ -36,7 +40,7 @@
 
     "element_electron_config": "5f^14, 6d^10, 7s^2, 7p^3",
     "element_ion_charge": "---",
-    "element_ionization_energy": "---",
+    "element_ionization_energy1": "---",
     "element_atomic_radius_e": "--- (pm)",
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",

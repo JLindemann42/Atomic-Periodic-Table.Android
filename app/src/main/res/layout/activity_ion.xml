@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/view_ion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent">
+
+        <FrameLayout
+            android:id="@+id/common_title_back_ion"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:alpha="0.975"
+            android:background="?attr/colorPrimary"
+            android:elevation="8dp"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/title_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                    <ImageButton
+                        android:id="@+id/back_btn_ion"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_vertical"
+                        android:rotation="180"
+                        android:src="@drawable/ic_arrow_back_whit" />
+
+                    <ImageButton
+                        android:id="@+id/search_btn_ion"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:src="@drawable/ic_search" />
+
+                    <TextView
+                        android:id="@+id/element_title"
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:alpha="0.9"
+                        android:layout_height="56dp"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/activity_io_title"
+                        android:textAlignment="center"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/search_bar_ion"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:visibility="gone">
+
+                    <ImageButton
+                        android:id="@+id/close_ele_search_ion"
+                        android:layout_width="56dp"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_vertical"
+                        android:rotation="180"
+                        android:alpha="0.9"
+                        android:src="@drawable/ic_arrow_back_whit"/>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="56dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:elevation="0dp">
+
+                        <EditText
+                            android:id="@+id/edit_ion"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:fontFamily="@font/manroperegular"
+                            android:hint="@string/electrochemical_series_search"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:paddingStart="0dp"
+                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColorHint="?attr/actionMenuTextColor"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+                </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ion_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimaryDark"
+            android:clipToPadding="false"
+            android:paddingTop="9dp"
+            android:paddingBottom="60dp"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:verticalScrollbarPosition="defaultPosition" />
+    </FrameLayout>
+
+    <include
+        android:id="@+id/ion_detail"
+        layout="@layout/ion_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

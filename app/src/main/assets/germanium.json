@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Germanium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/0/08/Polycrystalline-germanium.jpg",
+    "description": "Germanium is a chemical element with the symbol Ge and atomic number 32. It is a lustrous, hard-brittle, grayish-white metalloid in the carbon group, chemically similar to its group neighbours silicon and tin. Pure germanium is a semiconductor with an appearance similar to elemental silicon. Like silicon, germanium naturally reacts and forms complexes with oxygen in nature.",
 
     "element": "Germanium",
     "short": "Ge",
@@ -12,6 +13,9 @@
     "element_electrons": "32",
     "element_protons": "32",
     "element_neutron_common": "40",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "2.2 (b)",
 
     "electrical_type": "Semiconductor",
     "resistivity": "5",
@@ -36,7 +40,11 @@
 
     "element_electron_config": "3d^10 4s^2 4p^2",
     "element_ion_charge": "Ge^4+,",
-    "element_ionization_energy": "7.8994 (eV)",
+    "element_ionization_energy1": "7.8994 (eV)",
+    "element_ionization_energy2": "15.93462 (eV)",
+    "element_ionization_energy3": "34.2241 (eV)",
+    "element_ionization_energy4": "45.7131 (eV)",
+    "element_ionization_energy5": "93.5 (eV)",
     "element_atomic_radius_e": "125 (pm)",
     "element_atomic_radius": "125 (pm)",
     "element_covalent_radius": "122 (pm)",

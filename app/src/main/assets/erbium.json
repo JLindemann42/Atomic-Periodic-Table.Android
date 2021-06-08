@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Erbium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/1/12/Erbium-crop.jpg",
+    "description": "Erbium is a chemical element with the symbol Er and atomic number 68. A silvery-white solid metal when artificially isolated, natural erbium is always found in chemical combination with other elements. It is a lanthanide, a rare earth element, originally found in the gadolinite mine in Ytterby in Sweden, from which it got its name.",
 
     "element": "Erbium",
     "short": "Er",
@@ -12,6 +13,9 @@
     "element_electrons": "68",
     "element_protons": "68",
     "element_neutron_common": "98",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "160 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "8.6",
@@ -36,7 +40,10 @@
 
     "element_electron_config": "4f^12 6s^2",
     "element_ion_charge": "Er^3+",
-    "element_ionization_energy": "6.1077 (eV)",
+    "element_ionization_energy1": "6.1077 (eV)",
+    "element_ionization_energy2": "11.93 (eV)",
+    "element_ionization_energy3": "22.74 (eV)",
+    "element_ionization_energy4": "42.7 (eV)",
     "element_atomic_radius_e": "175 (pm)",
     "element_atomic_radius": "226 (pm)",
     "element_covalent_radius": "--- (pm)",

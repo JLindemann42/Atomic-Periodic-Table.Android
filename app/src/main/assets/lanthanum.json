@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Lanthanum",
     "link": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Lanthanum-2.jpg",
+    "description": "Lanthanum is a chemical element with the symbol La and atomic number 57. It is a soft, ductile, silvery-white metal that tarnishes slowly when exposed to air and is soft enough to be cut with a knife. It is the eponym of the lanthanide series, a group of 15 similar elements between lanthanum and lutetium in the periodic table, of which lanthanum is the first and the prototype. It is also sometimes considered the first element of the 6th-period transition metals, which would put it in group 3, although lutetium is sometimes placed in this position instead. Lanthanum is traditionally counted among the rare earth elements. The usual oxidation state is +3. Lanthanum has no biological role in humans but is essential to some bacteria. It is not particularly toxic to humans but does show some antimicrobial activity.",
 
     "element": "Lanthanum",
     "short": "La",
@@ -12,6 +13,9 @@
     "element_electrons": "57",
     "element_protons": "57",
     "element_neutron_common": "82",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "8.98 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "6.1",
@@ -36,7 +40,11 @@
 
     "element_electron_config": "5d^1 6s^2",
     "element_ion_charge": "La^3+",
-    "element_ionization_energy": "5.5769 (eV)",
+    "element_ionization_energy1": "5.5769 (eV)",
+    "element_ionization_energy2": "11.060 (eV)",
+    "element_ionization_energy3": "19.1773 (eV)",
+    "element_ionization_energy4": "49.95 (eV)",
+    "element_ionization_energy5": "61.6 (eV)",
     "element_atomic_radius_e": "195 (pm)",
     "element_atomic_radius": "195 (pm)",
     "element_covalent_radius": "169 (pm)",

@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Gallium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/9/92/Gallium_crystals.jpg",
+    "description": "Gallium is a chemical element with the symbol Ga and atomic number 31. Elemental gallium is a soft, silvery metal at standard temperature and pressure; however in its liquid state it becomes silvery white. If too much force is applied, the gallium may fracture conchoidally. It is in group 13 of the periodic table, and thus has similarities to the other metals of the group, aluminium, indium, and thallium. Gallium does not occur as a free element in nature, but as gallium(III) compounds in trace amounts in zinc ores and in bauxite. Elemental gallium is a liquid at temperatures greater than 29.76 °C (85.57 °F), and will melt in a person's hands at normal human body temperature of 37 °C (99 °F).",
 
     "element": "Gallium",
     "short": "Ga",
@@ -12,6 +13,9 @@
     "element_electrons": "31",
     "element_protons": "31",
     "element_neutron_common": "38",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "2.9 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "1.4",
@@ -36,7 +40,10 @@
 
     "element_electron_config": "3d^10 4s^2 4p^1",
     "element_ion_charge": "Ga^3+,",
-    "element_ionization_energy": "5.99930 (eV)",
+    "element_ionization_energy1": "5.99930 (eV)",
+    "element_ionization_energy2": "20.5142 (eV)",
+    "element_ionization_energy3": "30.71 (eV)",
+    "element_ionization_energy4": "64 (eV)",
     "element_atomic_radius_e": "130 (pm)",
     "element_atomic_radius": "136 (pm)",
     "element_covalent_radius": "126 (pm)",

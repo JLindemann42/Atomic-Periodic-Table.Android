@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Meitnerium",
     "link": "empty",
+    "description": "Meitnerium is a synthetic chemical element with the symbol Mt and atomic number 109. It is an extremely radioactive synthetic element (an element not found in nature, but can be created in a laboratory). The most stable known isotope, meitnerium-278, has a half-life of 4.5 seconds, although the unconfirmed meitnerium-282 may have a longer half-life of 67 seconds. The GSI Helmholtz Centre for Heavy Ion Research near Darmstadt, Germany, first created this element in 1982. It is named after Lise Meitner.",
 
     "element": "Meitnerium",
     "short": "Mt",
@@ -12,6 +13,9 @@
     "element_electrons": "---",
     "element_protons": "---",
     "element_neutron_common": "---",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "767 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",
@@ -36,7 +40,7 @@
 
     "element_electron_config": "5f^14, 6d^7. 7s^2",
     "element_ion_charge": "---",
-    "element_ionization_energy": "---",
+    "element_ionization_energy1": "---",
     "element_atomic_radius_e": "--- (pm)",
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",

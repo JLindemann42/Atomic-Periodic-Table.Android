@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Radium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Radium226.jpg",
+    "description": "Radium is a chemical element with the symbol Ra and atomic number 88. It is the sixth element in group 2 of the periodic table, also known as the alkaline earth metals. Pure radium is silvery-white, but it readily reacts with nitrogen (rather than oxygen) on exposure to air, forming a black surface layer of radium nitride (Ra3N2). All isotopes of radium are highly radioactive, with the most stable isotope being radium-226, which has a half-life of 1600 years and decays into radon gas (specifically the isotope radon-222). When radium decays, ionizing radiation is a product, which can excite fluorescent chemicals and cause radioluminescence.",
 
     "element": "Radium",
     "short": "Ra",
@@ -12,6 +13,9 @@
     "element_electrons": "88",
     "element_protons": "88",
     "element_neutron_common": "138",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "12.8 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "1",
@@ -36,7 +40,8 @@
 
     "element_electron_config": "7s^2",
     "element_ion_charge": "Ra^2+",
-    "element_ionization_energy": "5.2784 (eV)",
+    "element_ionization_energy1": "5.2784 (eV)",
+    "element_ionization_energy2": "10.14716 (eV)",
     "element_atomic_radius_e": "215 (pm)",
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",

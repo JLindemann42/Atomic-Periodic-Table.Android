@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Nobelium",
     "link": "empty",
+    "description": "Nobelium is a synthetic chemical element with the symbol No and atomic number 102. It is named in honor of Alfred Nobel, the inventor of dynamite and benefactor of science. A radioactive metal, it is the tenth transuranic element and is the penultimate member of the actinide series. Like all elements with atomic number over 100, nobelium can only be produced in particle accelerators by bombarding lighter elements with charged particles. A total of twelve nobelium isotopes are known to exist; the most stable is No-259 with a half-life of 58 minutes, but the shorter-lived No-255 (half-life 3.1 minutes) is most commonly used in chemistry because it can be produced on a larger scale.",
 
     "element": "Nobelium",
     "short": "No",
@@ -12,6 +13,9 @@
     "element_electrons": "102",
     "element_protons": "102",
     "element_neutron_common": "157",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "767 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",
@@ -36,7 +40,7 @@
 
     "element_electron_config": "5f^14, 7s^2",
     "element_ion_charge": "No^2+, No^3+",
-    "element_ionization_energy": "6.65 (eV)",
+    "element_ionization_energy1": "6.65 (eV)",
     "element_atomic_radius_e": "--- (pm)",
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",

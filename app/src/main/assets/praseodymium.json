@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Praseodymium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Praseodymium.jpg",
+    "description": "Praseodymium is a chemical element with the symbol Pr and atomic number 59. It is the third member of the lanthanide series and is traditionally considered to be one of the rare-earth metals. Praseodymium is a soft, silvery, malleable and ductile metal, valued for its magnetic, electrical, chemical, and optical properties. It is too reactive to be found in native form, and pure praseodymium metal slowly develops a green oxide coating when exposed to air.",
 
     "element": "Praseodymium",
     "short": "Pr",
@@ -12,6 +13,9 @@
     "element_electrons": "59",
     "element_protons": "59",
     "element_neutron_common": "82",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "11.5 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "7",
@@ -36,7 +40,11 @@
 
     "element_electron_config": "4f^3 6s^2",
     "element_ion_charge": "Pr^3+",
-    "element_ionization_energy": "5.473 (eV)",
+    "element_ionization_energy1": "5.473 (eV)",
+    "element_ionization_energy2": "10.55 (eV)",
+    "element_ionization_energy3": "21.624 (eV)",
+    "element_ionization_energy4": "38.98 (eV)",
+    "element_ionization_energy5": "57.53 (eV)",
     "element_atomic_radius_e": "185 (pm)",
     "element_atomic_radius": "247 (pm)",
     "element_covalent_radius": "--- (pm)",

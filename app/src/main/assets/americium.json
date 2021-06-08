@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Americium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Americium_microscope.jpg/800px-Americium_microscope.jpg",
+    "description": "Americium is a synthetic radioactive chemical element with the symbol Am and atomic number 95. It is a transuranic member of the actinide series, in the periodic table located under the lanthanide element europium, and thus by analogy was named after the Americas.",
 
     "element": "Americium",
     "short": "Am",
@@ -12,6 +13,9 @@
     "element_electrons": "95",
     "element_protons": "95",
     "element_neutron_common": "148",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "75.3 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",
@@ -36,7 +40,7 @@
 
     "element_electron_config": "5f^7, 7s^2",
     "element_ion_charge": "Am^3+, Am^4+",
-    "element_ionization_energy": "5.9738 (eV)",
+    "element_ionization_energy1": "5.9738 (eV)",
     "element_atomic_radius_e": "175 (pm)",
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",

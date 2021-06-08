@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Nitrogen",
     "link": "https://4.imimg.com/data4/DL/IG/MY-3137311/liquid-nitrogen-gas-500x500.jpg",
+    "description": "Nitrogen is the chemical element with the symbol N and atomic number 7. It was first discovered and isolated by Scottish physician Daniel Rutherford in 1772. Although Carl Wilhelm Scheele and Henry Cavendish had independently done so at about the same time, Rutherford is generally accorded the credit because his work was published first. The name nitrogène was suggested by French chemist Jean-Antoine-Claude Chaptal in 1790 when it was found that nitrogen was present in nitric acid and nitrates. Antoine Lavoisier suggested instead the name azote, from the Greek ἀζωτικός \"no life\", as it is an asphyxiant gas; this name is instead used in many languages, such as French, Italian, Russian, Romanian and Turkish, and appears in the English names of some nitrogen compounds such as hydrazine, azides and azo compounds.",
 
     "element": "Nitrogen",
     "short": "N",
@@ -12,6 +13,9 @@
     "element_electrons": "7",
     "element_protons": "7",
     "element_neutron_common": "7",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "1.91 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",
@@ -36,7 +40,13 @@
 
     "element_electron_config": "2s^2 2p^3",
     "element_ion_charge": "N^3-",
-    "element_ionization_energy": "14.53414 (eV)",
+    "element_ionization_energy1": "14.53414 (eV)",
+    "element_ionization_energy2": "29.6013 (eV)",
+    "element_ionization_energy3": "47.44924 (eV)",
+    "element_ionization_energy4": "77.4735 (eV)",
+    "element_ionization_energy5": "97.8902 (eV)",
+    "element_ionization_energy6": "552.0718 (eV)",
+    "element_ionization_energy7": "667.046 (eV)",
     "element_atomic_radius_e": "65 (pm)",
     "element_atomic_radius": "56 (pm)",
     "element_covalent_radius": "75 (pm)",

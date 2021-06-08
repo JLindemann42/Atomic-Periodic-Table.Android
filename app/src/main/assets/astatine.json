@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Astatine",
     "link": "https://",
+    "description": "Astatine is a chemical element with the symbol At and atomic number 85. It is the rarest naturally occurring element in the Earth's crust, occurring only as the decay product of various heavier elements. All of astatine's isotopes are short-lived; the most stable is astatine-210, with a half-life of 8.1 hours. A sample of the pure element has never been assembled, because any macroscopic specimen would be immediately vaporized by the heat of its own radioactivity.",
 
     "element": "Astatine",
     "short": "At",
@@ -12,6 +13,9 @@
     "element_electrons": "85",
     "element_protons": "85",
     "element_neutron_common": "125",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "--- (b)",
 
     "electrical_type": "---",
     "resistivity": "---",
@@ -36,7 +40,7 @@
 
     "element_electron_config": "4f^14, 5d^10, 6s^2, 6p^5",
     "element_ion_charge": "At^-",
-    "element_ionization_energy": "--- (eV)",
+    "element_ionization_energy1": "--- (eV)",
     "element_atomic_radius_e": "--- (pm)",
     "element_atomic_radius": "127 (pm)",
     "element_covalent_radius": "--- (pm)",

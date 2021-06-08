@@ -11,7 +11,7 @@
     <FrameLayout
         android:id="@+id/common_title_back_fav"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="56dp"
         android:alpha="0.975"
         android:elevation="8dp"
         android:background="?attr/colorPrimary"
@@ -28,22 +28,23 @@
             <FrameLayout
                 android:id="@+id/title_box"
                 android:layout_width="match_parent"
-                android:layout_height="80dp">
+                android:layout_height="56dp">
 
                 <ImageButton
                     android:id="@+id/back_btn_fav"
                     style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="18dp"
                     android:rotation="180"
                     android:src="@drawable/ic_arrow_back_whit" />
 
                 <TextView
                     android:id="@+id/element_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:alpha="0.9"
+                    android:layout_height="56dp"
                     android:gravity="center"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
@@ -73,10 +74,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="80dp"
+                android:layout_marginTop="56dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginBottom="0dp"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/colorPrimaryDark"
                 android:paddingStart="18dp"
                 android:paddingTop="9dp"
                 android:paddingBottom="9dp"
@@ -88,10 +89,10 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="?attr/colorPrimary"
-                android:foreground="@drawable/d_ripple"
+                android:background="?attr/colorPrimaryDark"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple">
 
                 <CheckBox
                     android:id="@+id/molar_mass_check"
@@ -99,21 +100,31 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="18dp"
                     android:layout_marginEnd="18dp"
+                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:buttonTintMode="src_in"
                     android:checked="true"
                     android:drawableEnd="@drawable/ic_weight_outline"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Molar Mass"
                     android:textColor="?attr/actionMenuTextColor" />
+
             </FrameLayout>
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.5"
+                android:background="?attr/rippleColor" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:foreground="@drawable/d_ripple"
+                android:background="?attr/colorPrimaryDark"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/colorPrimary">
+                android:foreground="@drawable/d_ripple">
 
                 <CheckBox
                     android:id="@+id/phase_check"
@@ -121,6 +132,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="18dp"
                     android:layout_marginEnd="18dp"
+                    android:buttonTint="?attr/actionMenuTextColor"
                     android:checked="true"
                     android:drawableEnd="@drawable/fav_gas"
                     android:drawablePadding="9dp"
@@ -129,13 +141,20 @@
                     android:textColor="?attr/actionMenuTextColor" />
             </FrameLayout>
 
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.5"
+                android:background="?attr/rippleColor" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:foreground="@drawable/d_ripple"
+                android:background="?attr/colorPrimaryDark"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/colorPrimary">
+                android:foreground="@drawable/d_ripple">
 
                 <CheckBox
                     android:id="@+id/electronegativity_check"
@@ -143,6 +162,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="18dp"
                     android:layout_marginEnd="18dp"
+                    android:buttonTint="?attr/actionMenuTextColor"
                     android:checked="true"
                     android:drawableEnd="@drawable/fav_electronegativity"
                     android:drawablePadding="9dp"
@@ -151,13 +171,20 @@
                     android:textColor="?attr/actionMenuTextColor" />
             </FrameLayout>
 
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.5"
+                android:background="?attr/rippleColor" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:foreground="@drawable/d_ripple"
+                android:background="?attr/colorPrimaryDark"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/colorPrimary">
+                android:foreground="@drawable/d_ripple">
 
                 <CheckBox
                     android:id="@+id/density_check"
@@ -165,6 +192,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="18dp"
                     android:layout_marginEnd="18dp"
+                    android:buttonTint="?attr/actionMenuTextColor"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_weight_outline"
                     android:drawablePadding="9dp"
@@ -181,7 +209,7 @@
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginBottom="0dp"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/colorPrimaryDark"
                 android:paddingStart="18dp"
                 android:paddingTop="9dp"
                 android:paddingBottom="9dp"
@@ -194,7 +222,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/colorPrimaryDark"
                 android:orientation="horizontal">
 
                 <Button
@@ -210,8 +238,8 @@
                     android:background="@drawable/toast_outline"
                     android:clickable="true"
                     android:elevation="2dp"
-                    android:foreground="@drawable/c_ripple"
                     android:focusable="true"
+                    android:foreground="@drawable/chip_ripple"
                     android:text="Kelvin"
                     android:textAllCaps="false"
                     android:textColor="?attr/actionMenuTextColor"
@@ -228,7 +256,7 @@
                     android:clickable="true"
                     android:elevation="2dp"
                     android:focusable="true"
-                    android:foreground="@drawable/c_ripple"
+                    android:foreground="@drawable/chip_ripple"
                     android:text="Celsius"
                     android:textAllCaps="false"
                     android:textColor="?attr/actionMenuTextColor"
@@ -247,22 +275,29 @@
                     android:background="@drawable/toast_outline"
                     android:clickable="true"
                     android:elevation="2dp"
-                    android:foreground="@drawable/c_ripple"
                     android:focusable="true"
+                    android:foreground="@drawable/chip_ripple"
                     android:text="Fahrenheit"
                     android:textAllCaps="false"
                     android:textColor="?attr/actionMenuTextColor"
                     android:textSize="14sp" />
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/textView29"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.5"
+                android:background="?attr/rippleColor" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:foreground="@drawable/d_ripple"
+                android:background="?attr/colorPrimaryDark"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/colorPrimary">
+                android:foreground="@drawable/d_ripple">
 
                 <CheckBox
                     android:id="@+id/boiling_check"
@@ -275,17 +310,26 @@
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Boiling Point"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:buttonTint="?attr/actionMenuTextColor" />
+
             </FrameLayout>
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.5"
+                android:background="?attr/rippleColor" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:foreground="@drawable/d_ripple"
+                android:background="?attr/colorPrimaryDark"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/colorPrimary">
+                android:foreground="@drawable/d_ripple">
 
                 <CheckBox
                     android:id="@+id/melting_check"
@@ -293,11 +337,145 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="18dp"
                     android:layout_marginEnd="18dp"
+                    android:buttonTint="?attr/actionMenuTextColor"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_temperature"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Melting Point"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="?attr/colorPrimaryDark"
+                android:paddingStart="18dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:text="Atomic Properties"
+                android:textAllCaps="true"
+                android:textColor="?attr/colorAccent"
+                android:textStyle="normal|bold" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="?attr/colorPrimaryDark"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple">
+
+                <CheckBox
+                    android:id="@+id/atomic_radius_empirical_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:checked="false"
+                    android:drawableEnd="@drawable/ic_radius"
+                    android:drawablePadding="9dp"
+                    android:layoutDirection="rtl"
+                    android:text="Show Atomic Radius (Empirical)"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.5"
+                android:background="?attr/rippleColor" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="?attr/colorPrimaryDark"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple">
+
+                <CheckBox
+                    android:id="@+id/atomic_radius_calculated_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:checked="false"
+                    android:drawableEnd="@drawable/ic_radius"
+                    android:drawablePadding="9dp"
+                    android:layoutDirection="rtl"
+                    android:text="Show Atomic Radius (Calculated)"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.5"
+                android:background="?attr/rippleColor" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="?attr/colorPrimaryDark"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple">
+
+                <CheckBox
+                    android:id="@+id/covalent_radius_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:checked="false"
+                    android:drawableEnd="@drawable/ic_radius"
+                    android:drawablePadding="9dp"
+                    android:layoutDirection="rtl"
+                    android:text="Show Covalent Radius"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.5"
+                android:background="?attr/rippleColor" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:background="?attr/colorPrimaryDark"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple">
+
+                <CheckBox
+                    android:id="@+id/van_der_waals_radius_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp"
+                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:checked="false"
+                    android:drawableEnd="@drawable/ic_radius"
+                    android:drawablePadding="9dp"
+                    android:layoutDirection="rtl"
+                    android:text="Show Van Der Waals Radius"
                     android:textColor="?attr/actionMenuTextColor" />
             </FrameLayout>
 
@@ -309,7 +487,7 @@
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginBottom="0dp"
-                android:background="?attr/colorPrimary"
+                android:background="?attr/colorPrimaryDark"
                 android:paddingStart="18dp"
                 android:paddingTop="9dp"
                 android:paddingBottom="9dp"
@@ -322,10 +500,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:foreground="@drawable/d_ripple"
+                android:background="?attr/colorPrimaryDark"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/colorPrimary">
+                android:foreground="@drawable/d_ripple">
 
                 <CheckBox
                     android:id="@+id/fusion_heat_check"
@@ -333,6 +511,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="18dp"
                     android:layout_marginEnd="18dp"
+                    android:buttonTint="?attr/actionMenuTextColor"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_heat"
                     android:drawablePadding="9dp"
@@ -341,14 +520,21 @@
                     android:textColor="?attr/actionMenuTextColor" />
             </FrameLayout>
 
+            <TextView
+                android:id="@+id/textView27"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.5"
+                android:background="?attr/rippleColor" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:foreground="@drawable/d_ripple"
+                android:background="?attr/colorPrimaryDark"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/colorPrimary">
+                android:foreground="@drawable/d_ripple">
 
                 <CheckBox
                     android:id="@+id/specific_heat_check"
@@ -356,6 +542,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="18dp"
                     android:layout_marginEnd="18dp"
+                    android:buttonTint="?attr/actionMenuTextColor"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_heat"
                     android:drawablePadding="9dp"
@@ -364,14 +551,21 @@
                     android:textColor="?attr/actionMenuTextColor" />
             </FrameLayout>
 
+            <TextView
+                android:id="@+id/textView28"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:alpha="0.5"
+                android:background="?attr/rippleColor" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:foreground="@drawable/d_ripple"
+                android:background="?attr/colorPrimaryDark"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/colorPrimary">
+                android:foreground="@drawable/d_ripple">
 
                 <CheckBox
                     android:id="@+id/vaporization_heat_check"
@@ -384,7 +578,8 @@
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Vaporization Heat"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:buttonTint="?attr/actionMenuTextColor" />
             </FrameLayout>
 
             <androidx.legacy.widget.Space

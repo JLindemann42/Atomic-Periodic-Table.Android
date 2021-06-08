@@ -2,19 +2,17 @@ package com.jlindemann.science.activities
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.Insets
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.settings.*
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.offlinePreference
 import com.jlindemann.science.settings.ExperimentalActivity
 import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
 import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.theme_panel.*
 import java.io.File
@@ -39,6 +37,22 @@ class SettingsActivity : BaseActivity() {
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_settings)
 
+        if (themePrefValue == 100) {
+            system_default_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_checked, 0, 0, 0)
+            light_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            dark_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+        }
+        if (themePrefValue == 0) {
+            system_default_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            light_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_checked, 0, 0, 0)
+            dark_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+        }
+        if (themePrefValue == 1) {
+            system_default_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            light_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            dark_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_checked, 0, 0, 0)
+        }
+
         openPages()
         themeSettings()
         initializeCache()
@@ -55,7 +69,6 @@ class SettingsActivity : BaseActivity() {
             val intent = Intent(this, AboutActivity::class.java)
             startActivity(intent)
         }
-
         back_btn_set.setOnClickListener {
             this.onBackPressed()
         }
@@ -67,16 +80,28 @@ class SettingsActivity : BaseActivity() {
             val intent = Intent(this, LicensesActivity::class.java)
             startActivity(intent)
         }
+        unit_settings.setOnClickListener {
+            val intent = Intent(this, UnitActivity::class.java)
+            startActivity(intent)
+        }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
-            val params = common_title_back_set.layoutParams as ViewGroup.LayoutParams
-            params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            common_title_back_set.layoutParams = params
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
+        val params = common_title_back_set.layoutParams as ViewGroup.LayoutParams
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        common_title_back_set.layoutParams = params
 
-            val params2 = personalization_header.layoutParams as ViewGroup.MarginLayoutParams
-            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            personalization_header.layoutParams = params2
+        val titleParam = title_box_settings.layoutParams as ViewGroup.MarginLayoutParams
+        titleParam.rightMargin = right
+        titleParam.leftMargin = left
+        title_box_settings.layoutParams = titleParam
+
+        val params2 = personalization_header.layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        personalization_header.layoutParams = params2
+
+        personalization_box.setPadding(left, 0, right, 0)
+        advanced_box.setPadding(left, 0, right, 0)
 
     }
 
@@ -109,6 +134,10 @@ class SettingsActivity : BaseActivity() {
     private fun openPages() {
         favorite_settings.setOnClickListener {
             val intent = Intent(this, FavoritePageActivity::class.java)
+            startActivity(intent)
+        }
+        order_settings.setOnClickListener {
+            val intent = Intent(this, OrderActivity::class.java)
             startActivity(intent)
         }
         experimental_settings.setOnClickListener {
@@ -153,7 +182,7 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun themeSettings() {
-        system_button.setOnClickListener {
+        system_default_btn.setOnClickListener {
             val themePreference = ThemePreference(this)
             themePreference.setValue(100)
             val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
@@ -212,6 +241,9 @@ class SettingsActivity : BaseActivity() {
             Utils.fadeInAnim(theme_panel, 300)
         }
         theme_background.setOnClickListener {
+            Utils.fadeOutAnim(theme_panel, 300)
+        }
+        cancel_btn.setOnClickListener {
             Utils.fadeOutAnim(theme_panel, 300)
         }
     }

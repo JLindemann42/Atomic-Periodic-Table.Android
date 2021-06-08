@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Rhodium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Rhodium_powder_pressed_melted.jpg/1280px-Rhodium_powder_pressed_melted.jpg",
+    "description": "Rhodium is a chemical element with the symbol Rh and atomic number 45. It is a rare, silvery-white, hard, corrosion-resistant, and chemically inert transition metal. It is a noble metal and a member of the platinum group. It has only one naturally occurring isotope, Rh-103. Naturally occurring rhodium is usually found as free metal, as an alloy with similar metals, and rarely as a chemical compound in minerals such as bowieite and rhodplumsite. It is one of the rarest and most valuable precious metals.",
 
     "element": "Rhodium",
     "short": "Rh",
@@ -12,6 +13,9 @@
     "element_electrons": "45",
     "element_protons": "45",
     "element_neutron_common": "58",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "144.8 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "4.3",
@@ -36,7 +40,9 @@
 
     "element_electron_config": "4d^8 5s^1",
     "element_ion_charge": "Rh^3+",
-    "element_ionization_energy": "7.45890 (eV)",
+    "element_ionization_energy1": "7.45890 (eV)",
+    "element_ionization_energy2": "18.08 (eV)",
+    "element_ionization_energy3": "31.06 (eV)",
     "element_atomic_radius_e": "135 (pm)",
     "element_atomic_radius": "173 (pm)",
     "element_covalent_radius": "135 (pm)",

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="52dp"
+    android:elevation="2dp"
     android:background="?attr/colorPrimary">
 
     <HorizontalScrollView
@@ -188,7 +189,114 @@
                     android:paddingEnd="9dp"
                     android:text="melting_f"
                     android:textColor="?attr/actionMenuTextColor" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/a_empirical_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="Atomic Radius (Empirical):"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/a_empirical_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="a_empirical_f"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/a_calculated_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="Atomic Radius (Calculated):"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/a_calculated_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="a_calculated_f"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/covalent_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="Covalent Radius:"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/covalent_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="covalent_f"
+                    android:textColor="?attr/actionMenuTextColor" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/van_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="Van Der Waals Radius:"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/van_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="van_f"
+                    android:textColor="?attr/actionMenuTextColor" />
             </LinearLayout>
 
             <LinearLayout

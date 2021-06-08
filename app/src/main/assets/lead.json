@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Lead",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lead_electrolytic_and_1cm3_cube.jpg/800px-Lead_electrolytic_and_1cm3_cube.jpg",
+    "description": "Lead (/ˈlɛd/) is a chemical element with the symbol Pb (from the Latin plumbum) and atomic number 82. It is a heavy metal that is denser than most common materials. Lead is soft and malleable, and also has a relatively low melting point. When freshly cut, lead is silvery with a hint of blue; it tarnishes to a dull gray color when exposed to air. Lead has the highest atomic number of any stable element and three of its isotopes are endpoints of major nuclear decay chains of heavier elements.",
 
     "element": "Lead",
     "short": "Pb",
@@ -12,6 +13,9 @@
     "element_electrons": "82",
     "element_protons": "82",
     "element_neutron_common": "126",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "0.171 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "2.1",
@@ -36,7 +40,11 @@
 
     "element_electron_config": "4f^14, 5d^10, 6s^2, 6p^2",
     "element_ion_charge": "Pb^2+, Pb^4+",
-    "element_ionization_energy": "7.41666 (eV)",
+    "element_ionization_energy1": "7.41666 (eV)",
+    "element_ionization_energy2": "15.0322 (eV)",
+    "element_ionization_energy3": "31.9373 (eV)",
+    "element_ionization_energy4": "42.32 (eV)",
+    "element_ionization_energy5": "68.8 (eV)",
     "element_atomic_radius_e": "180 (pm)",
     "element_atomic_radius": "154 (pm)",
     "element_covalent_radius": "147 (pm)",

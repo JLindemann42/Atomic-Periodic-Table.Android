@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Iodine",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Sample_of_iodine.jpg/1920px-Sample_of_iodine.jpg",
+    "description": "Iodine is a chemical element with the symbol I and atomic number 53. The heaviest of the stable halogens, it exists as a lustrous, purple-black non-metallic solid at standard conditions that melts to form a deep violet liquid at 114 degrees Celsius, and boils to a violet gas at 184 degrees Celsius. However, it sublimes easily with gentle heat, resulting in a widespread misconception even taught in some science textbooks that it does not melt. The element was discovered by the French chemist Bernard Courtois in 1811, and was named two years later by Joseph Louis Gay-Lussac, after the Greek ἰώδης \"violet-coloured\".",
 
     "element": "Iodine",
     "short": "I",
@@ -12,6 +13,9 @@
     "element_electrons": "53",
     "element_protons": "53",
     "element_neutron_common": "74",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "6.2 (b)",
 
     "electrical_type": "Insulator",
     "resistivity": "1",
@@ -36,7 +40,9 @@
 
     "element_electron_config": "4d^10 5s^2 5p^5",
     "element_ion_charge": "I^-",
-    "element_ionization_energy": "10.45126 (eV)",
+    "element_ionization_energy1": "10.45126 (eV)",
+    "element_ionization_energy2": "19.1313 (eV)",
+    "element_ionization_energy3": "33 (eV)",
     "element_atomic_radius_e": "140 (pm)",
     "element_atomic_radius": "115 (pm)",
     "element_covalent_radius": "133 (pm)",

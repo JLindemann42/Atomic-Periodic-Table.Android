@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Lawrencium",
     "link": "empty",
+    "description": "Lawrencium is a synthetic chemical element with the symbol Lr (formerly Lw) and atomic number 103. It is named in honor of Ernest Lawrence, inventor of the cyclotron, a device that was used to discover many artificial radioactive elements. A radioactive metal, lawrencium is the eleventh transuranic element and is also the final member of the actinide series. Like all elements with atomic number over 100, lawrencium can only be produced in particle accelerators by bombarding lighter elements with charged particles. Thirteen isotopes of lawrencium are currently known; the most stable is Lr-266 with a half-life of 11 hours, but the shorter-lived Lr-260 (half-life 2.7 minutes) is most commonly used in chemistry because it can be produced on a larger scale.",
 
     "element": "Lawrencium",
     "short": "Lr",
@@ -12,6 +13,9 @@
     "element_electrons": "103",
     "element_protons": "103",
     "element_neutron_common": "163",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "--- (b)",
 
     "electrical_type": "---",
     "resistivity": "---",
@@ -36,7 +40,7 @@
 
     "element_electron_config": "5f^14, 7s^2, 7p^1",
     "element_ion_charge": "Lr^3+",
-    "element_ionization_energy": "4.9 (eV)",
+    "element_ionization_energy1": "4.9 (eV)",
     "element_atomic_radius_e": "--- (pm)",
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",

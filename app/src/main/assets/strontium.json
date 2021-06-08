@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Strontium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Strontium_destilled_crystals.jpg/2560px-Strontium_destilled_crystals.jpg",
+    "description": "Strontium is the chemical element with the symbol Sr and atomic number 38. An alkaline earth metal, strontium is a soft silver-white yellowish metallic element that is highly chemically reactive. The metal forms a dark oxide layer when it is exposed to air. Strontium has physical and chemical properties similar to those of its two vertical neighbors in the periodic table, calcium and barium. It occurs naturally mainly in the minerals celestine and strontianite, and is mostly mined from these.",
 
     "element": "Strontium",
     "short": "Sr",
@@ -12,6 +13,9 @@
     "element_electrons": "38",
     "element_protons": "38",
     "element_neutron_common": "50",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "1.28 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "1.3",
@@ -36,7 +40,17 @@
 
     "element_electron_config": "5s^2",
     "element_ion_charge": "Sr^2+",
-    "element_ionization_energy": "5.6949 (eV)",
+    "element_ionization_energy1": "5.6949 (eV)",
+    "element_ionization_energy2": "11.03013 (eV)",
+    "element_ionization_energy3": "42.89 (eV)",
+    "element_ionization_energy4": "57 (eV)",
+    "element_ionization_energy5": "71.6 (eV)",
+    "element_ionization_energy6": "90.8 (eV)",
+    "element_ionization_energy7": "106 (eV)",
+    "element_ionization_energy8": "122.3 (eV)",
+    "element_ionization_energy9": "162 (eV)",
+    "element_ionization_energy10": "177 (eV)",
+    "element_ionization_energy11": "324.1 (eV)",
     "element_atomic_radius_e": "200 (pm)",
     "element_atomic_radius": "219 (pm)",
     "element_covalent_radius": "192 (pm)",

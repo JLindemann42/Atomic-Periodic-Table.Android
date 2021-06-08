@@ -2,7 +2,10 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version">1.2.2 Build 38</string>
+    <string name="app_version">1.4.0-Build.55</string>
+
+    <!-- Activity Element Info-->
+    <string name="element_description_title">Description</string>
 
     <!-- Activity Settings-->
     <string name="other_settings">Advanced</string>
@@ -17,12 +20,30 @@
 
     <!-- Activity Table-->
     <string name="activity_table_title">Tables</string>
+    <string name="table_ph">Acid/ Base (pH) Indicators</string>
     <string name="table_electrochemical">Electrochemical Series</string>
     <string name="table_equations">Formulas</string>
     <string name="table_solubility">Solubility Table</string>
 
+    <!-- Activity Unit-->
+    <string name="activity_unit_title">Table Units</string>
+
     <!-- Activity Equations -->
     <string name="activity_equations_title">Formulas</string>
+
+    <!-- Activity pH -->
+    <string name="activity_ph_title">pH Indicators</string>
+    <string name="activity_ph_acid">Acid</string>
+    <string name="activity_ph_neutral">Neutral</string>
+    <string name="activity_ph_alkaline">Alkaline</string>
+    <string name="activity_ph_methyl_orange">Methyl-orange</string>
+    <string name="activity_ph_bromothymol_blue">Bromothymol Blue</string>
+    <string name="activity_ph_congo_red">Congo Red</string>
+    <string name="activity_ph_phenolphthalein">Phenolphthalein</string>
+
+    <!-- Activity Ion -->
+    <string name="activity_io_title">Ionization Energies</string>
+
 
     <!-- Social-Media Links-->
     <string name="twitter">https://www.twitter.com/jlindemanndev</string>
@@ -42,6 +63,15 @@
     <string name="bug">Bug</string>
     <string name="question">Question</string>
 
+    <!-- Dictionary -->
+    <string name="chip_chemistry">Chemistry</string>
+    <string name="chip_physics">Physics</string>
+    <string name="chip_math">Mathematics</string>
+    <string name="chip_reactions">Reactions</string>
+
+
+
+
 
 
     <string name="wikipedia_license">Wikipedia Commons</string>
@@ -49,7 +79,6 @@
         DISTRIBUTION OF THIS LICENSE DOES NOT CREATE AN ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS INFORMATION ON AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES REGARDING THE INFORMATION PROVIDED, AND DISCLAIMS LIABILITY FOR DAMAGES RESULTING FROM ITS USE.\n\nTHE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE").
         THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
         BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE. TO THE EXTENT THIS LICENSE MAY BE CONSIDERED TO BE A CONTRACT, THE LICENSOR GRANTS YOU THE RIGHTS CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND CONDITIONS.</string>
-
     <string name="sothree_license">Android Sliding Up Panel</string>
     <string name="sothree_license_text">Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
     \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>

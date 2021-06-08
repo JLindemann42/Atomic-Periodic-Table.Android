@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Yttrium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Yttrium_sublimed_dendritic_and_1cm3_cube.jpg/1920px-Yttrium_sublimed_dendritic_and_1cm3_cube.jpg",
+    "description": "Yttrium is a chemical element with the symbol Y and atomic number 39. It is a silvery-metallic transition metal chemically similar to the lanthanides and has often been classified as a \"rare-earth element\". Yttrium is almost always found in combination with lanthanide elements in rare-earth minerals, and is never found in nature as a free element. Y-89 is the only stable isotope, and the only isotope found in the Earth's crust.",
 
     "element": "Yttrium",
     "short": "Y",
@@ -12,6 +13,9 @@
     "element_electrons": "39",
     "element_protons": "39",
     "element_neutron_common": "50",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "1.28 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "5.6",
@@ -36,7 +40,18 @@
 
     "element_electron_config": "4d^1 5s^2",
     "element_ion_charge": "Y^3+",
-    "element_ionization_energy": "6.2171 (eV)",
+    "element_ionization_energy1": "6.2171 (eV)",
+    "element_ionization_energy2": "12.24 (eV)",
+    "element_ionization_energy3": "20.52 (eV)",
+    "element_ionization_energy4": "60.597 (eV)",
+    "element_ionization_energy5": "77.0 (eV)",
+    "element_ionization_energy6": "93.0 (eV)",
+    "element_ionization_energy7": "116 (eV)",
+    "element_ionization_energy8": "129 (eV)",
+    "element_ionization_energy9": "146.2 (eV)",
+    "element_ionization_energy10": "191 (eV)",
+    "element_ionization_energy11": "206 (eV)",
+    "element_ionization_energy12": "374.0 (eV)",
     "element_atomic_radius_e": "180 (pm)",
     "element_atomic_radius": "212 (pm)",
     "element_covalent_radius": "162 (pm)",

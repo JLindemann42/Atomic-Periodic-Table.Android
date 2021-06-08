@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Radon",
     "link": "http://images-of-elements.com/radon.jpg",
+    "description": "Radon is a chemical element with the symbol Rn and atomic number 86. It is a radioactive, colorless, odorless, tasteless noble gas. It occurs naturally in minute quantities as an intermediate step in the normal radioactive decay chains through which thorium and uranium slowly decay into lead and various other short-lived radioactive elements. Radon itself is the immediate decay product of radium. Its most stable isotope, Rn-222, has a half-life of 3.8 days, making radon one of the rarest elements since it decays so quickly. Since thorium and uranium are two of the most common radioactive elements on Earth, and they have three isotopes with very long half-lives (on the order of several billion years) radon will be present on Earth long into the future in spite of its short half-life as it is continually being generated. The decay of radon produces many other short-lived nuclides known as radon daughters, ending at stable isotopes of lead.",
 
     "element": "Radon",
     "short": "Rn",
@@ -12,6 +13,9 @@
     "element_electrons": "86",
     "element_protons": "86",
     "element_neutron_common": "136",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "0.72 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",
@@ -36,7 +40,7 @@
 
     "element_electron_config": "4f^14, 5d^10, 6s^2, 6p^6",
     "element_ion_charge": "---",
-    "element_ionization_energy": "10.74850 (eV)",
+    "element_ionization_energy1": "10.74850 (eV)",
     "element_atomic_radius_e": "--- (pm)",
     "element_atomic_radius": "120 (pm)",
     "element_covalent_radius": "220",

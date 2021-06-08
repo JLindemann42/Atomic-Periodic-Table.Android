@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Selenium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/4/47/SeBlackRed.jpg",
+    "description": "Selenium is a chemical element with the symbol Se and atomic number 34. It is a nonmetal (more rarely considered a metalloid) with properties that are intermediate between the elements above and below in the periodic table, sulfur and tellurium, and also has similarities to arsenic. It rarely occurs in its elemental state or as pure ore compounds in the Earth's crust. Selenium—from Ancient Greek σελήνη (selḗnē) \"Moon\" – was discovered in 1817 by Jöns Jacob Berzelius, who noted the similarity of the new element to the previously discovered tellurium (named for the Earth).",
 
     "element": "Selenium",
     "short": "Se",
@@ -12,6 +13,9 @@
     "element_electrons": "34",
     "element_protons": "34",
     "element_neutron_common": "46",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "11.7 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",
@@ -36,7 +40,13 @@
 
     "element_electron_config": "3d^10 4s^2 4p^4",
     "element_ion_charge": "Se^2-",
-    "element_ionization_energy": "9.75238 (eV)",
+    "element_ionization_energy1": "9.75238 (eV)",
+    "element_ionization_energy2": "21.19 (eV)",
+    "element_ionization_energy3": "30.8204 (eV)",
+    "element_ionization_energy4": "42.9450(eV)",
+    "element_ionization_energy5": "68.3 (eV)",
+    "element_ionization_energy6": "81.7 (eV)",
+    "element_ionization_energy7": "155.4 (eV)",
     "element_atomic_radius_e": "115 (pm)",
     "element_atomic_radius": "103 (pm)",
     "element_covalent_radius": "116 (pm)",

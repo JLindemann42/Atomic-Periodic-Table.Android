@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Tin",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Sn-Alpha-Beta.jpg/1024px-Sn-Alpha-Beta.jpg",
+    "description": "Tin is a chemical element with the symbol Sn (from Latin: stannum) and atomic number 50. Tin is a silvery metal that characteristically has a faint yellow hue. Tin, like indium, is soft enough to be cut without much force. When a bar of tin is bent, the so-called “tin cry” can be heard as a result of sliding tin crystals reforming; this trait is shared by indium, cadmium, and frozen mercury.",
 
     "element": "Tin",
     "short": "Sn",
@@ -12,6 +13,9 @@
     "element_electrons": "50",
     "element_protons": "50",
     "element_neutron_common": "70",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "0.626 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "1.1",
@@ -36,7 +40,11 @@
 
     "element_electron_config": "4d^10 5s^2 5p^2",
     "element_ion_charge": "Sn^4+, Sn^2+",
-    "element_ionization_energy": "7.3439 (eV)",
+    "element_ionization_energy1": "7.3439 (eV)",
+    "element_ionization_energy2": "14.63225 (eV)",
+    "element_ionization_energy3": "30.50260 (eV)",
+    "element_ionization_energy4": "40.73502 (eV)",
+    "element_ionization_energy5": "72.28 (eV)",
     "element_atomic_radius_e": "145 (pm)",
     "element_atomic_radius": "145 (pm)",
     "element_covalent_radius": "141 (pm)",

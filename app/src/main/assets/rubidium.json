@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Rubidium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Rb5.JPG/1920px-Rb5.JPG",
+    "description": "Rubidium is the chemical element with the symbol Rb and atomic number 37. Rubidium is a very soft, silvery-white metal in the alkali metal group. Rubidium metal shares similarities to potassium metal and caesium metal in physical appearance, softness and conductivity. Rubidium cannot be stored under atmospheric oxygen, as a highly exothermic reaction will ensue, sometimes even resulting in the metal catching fire.",
 
     "element": "Rubidium",
     "short": "Rb",
@@ -12,6 +13,9 @@
     "element_electrons": "37",
     "element_protons": "37",
     "element_neutron_common": "48",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "0.38 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "1.2",
@@ -36,7 +40,16 @@
 
     "element_electron_config": "5s^1",
     "element_ion_charge": "Rb^+",
-    "element_ionization_energy": "4.17713 (eV)",
+    "element_ionization_energy1": "4.17713 (eV)",
+    "element_ionization_energy2": "27.285 (eV)",
+    "element_ionization_energy3": "40 (eV)",
+    "element_ionization_energy4": "52.6 (eV)",
+    "element_ionization_energy5": "71.0 (eV)",
+    "element_ionization_energy6": "84.4 (eV)",
+    "element_ionization_energy7": "99.2 (eV)",
+    "element_ionization_energy8": "136 (eV)",
+    "element_ionization_energy9": "150 (eV)",
+    "element_ionization_energy10": "277.1 (eV)",
     "element_atomic_radius_e": "235 (pm)",
     "element_atomic_radius": "265 (pm)",
     "element_covalent_radius": "211 (pm)",

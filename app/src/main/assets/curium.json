@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Curium",
     "link": "https://upload.wikimedia.org/wikipedia/en/6/69/Curium.jpg",
+    "description": "Curium is a transuranic radioactive chemical element with the symbol Cm and atomic number 96. This element of the actinide series was named after Marie and Pierre Curie – both were known for their research on radioactivity. Curium was first intentionally produced and identified in July 1944 by the group of Glenn T. Seaborg at the University of California, Berkeley. The discovery was kept secret and only released to the public in November 1947. Most curium is produced by bombarding uranium or plutonium with neutrons in nuclear reactors – one tonne of spent nuclear fuel contains about 20 grams of curium.",
 
     "element": "Curium",
     "short": "Cm",
@@ -12,6 +13,9 @@
     "element_electrons": "96",
     "element_protons": "96",
     "element_neutron_common": "151",
+
+    "radioactive": "Yes",
+    "neutron_cross_sectional": "79 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",
@@ -36,7 +40,7 @@
 
     "element_electron_config": "5f^7, 6d^1, 7s^2",
     "element_ion_charge": "Cm^3+",
-    "element_ionization_energy": "5.9915 (eV)",
+    "element_ionization_energy1": "5.9915 (eV)",
     "element_atomic_radius_e": "176 (pm)",
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",

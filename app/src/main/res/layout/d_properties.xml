@@ -9,12 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="18dp"
-        android:layout_marginBottom="9dp"
         android:layout_marginTop="9dp"
         android:layout_marginEnd="18dp"
-        android:background="@drawable/rounded_box"
+        android:layout_marginBottom="9dp"
+        android:background="@drawable/toast"
         android:backgroundTint="?attr/colorPrimary"
-        android:elevation="1dp"
+        android:elevation="2dp"
         android:orientation="vertical">
 
         <TextView
@@ -60,6 +60,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:text="element_name"
+            android:textIsSelectable="true"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
@@ -93,6 +94,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:text="element_name"
+            android:textIsSelectable="true"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
@@ -126,6 +128,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:text="element_name"
+            android:textIsSelectable="true"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
@@ -160,6 +163,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:text="element_name"
+            android:textIsSelectable="true"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
@@ -193,6 +197,7 @@
             android:layout_marginTop="2dp"
             android:layout_marginEnd="18dp"
             android:text="element_block"
+            android:textIsSelectable="true"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp" />
 
@@ -201,9 +206,9 @@
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:layout_margin="18dp"
-            android:backgroundTint="?attr/colorPrimaryDark"
+            android:backgroundTint="?attr/chipSurfaceColor"
             android:elevation="0dp"
-            app:cardCornerRadius="18dp"
+            app:cardCornerRadius="8dp"
             app:cardElevation="0dp">
 
             <FrameLayout
@@ -238,6 +243,7 @@
                         android:layout_marginEnd="18dp"
                         android:layout_marginBottom="8dp"
                         android:text="element_electrons"
+                        android:textIsSelectable="true"
                         android:textColor="?attr/actionMenuTextColor"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -278,16 +284,16 @@
 
         <TextView
             android:id="@+id/sp_offline"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Go online for emission lines"
-            android:textColor="?attr/actionMenuTextColor"
             android:layout_marginStart="18dp"
+            android:layout_marginTop="9dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="18dp"
-            android:layout_marginTop="9dp"
-            android:textSize="18sp"/>
+            android:text="Go online for emission lines"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="18sp"
+            android:visibility="gone" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -296,7 +302,18 @@
             android:layout_marginTop="4dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="18dp"
-            app:cardCornerRadius="18dp">
+            app:cardCornerRadius="8dp">
+
+            <ImageView
+                android:id="@+id/open_btn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="8dp"
+                android:background="@android:color/white"
+                android:backgroundTint="@android:color/white"
+                android:elevation="4dp"
+                app:srcCompat="@drawable/ic_open" />
 
             <ImageView
                 android:id="@+id/sp_img"
@@ -308,7 +325,6 @@
                 app:srcCompat="@drawable/ic_launcher_background" />
 
         </androidx.cardview.widget.CardView>
-
 
 
     </LinearLayout>

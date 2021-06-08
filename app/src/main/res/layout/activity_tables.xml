@@ -35,16 +35,17 @@
                         android:layout_width="54dp"
                         android:layout_height="54dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="18dp"
                         android:rotation="180"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <TextView
                         android:id="@+id/element_title"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="@dimen/title_bar"
+                        android:layout_marginStart="70dp"
                         android:gravity="center"
                         android:paddingStart="0dp"
+                        android:alpha="0.9"
                         android:paddingEnd="0dp"
                         android:text="@string/activity_table_title"
                         android:textAlignment="center"
@@ -57,13 +58,17 @@
             </LinearLayout>
         </FrameLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <FrameLayout
-            android:id="@+id/ele_table"
+            android:id="@+id/ph_table"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_marginStart="@dimen/margin"
@@ -83,10 +88,65 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/margin"
                 android:layout_marginEnd="98dp"
+                android:text="@string/table_ph"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_end2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="18dp"
+                android:alpha="0.8"
+                android:drawableEnd="@drawable/outline_chevron_right_24"
+                android:drawablePadding="4dp"
+                android:drawableTint="?attr/actionMenuTextColor"
+                android:elegantTextHeight="true"
+                android:textAlignment="center"
+                android:textColor="?attr/actionMenuTextColor" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/ele_table"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin_space"
+            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin_space"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:clickable="true"
+            android:elevation="@dimen/default_card_elevation"
+            android:focusable="true"
+            android:foreground="@drawable/c_ripple">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginEnd="98dp"
                 android:text="@string/table_electrochemical"
                 android:textColor="?attr/actionMenuTextColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_end3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="18dp"
+                android:alpha="0.8"
+                android:drawableEnd="@drawable/outline_chevron_right_24"
+                android:drawablePadding="4dp"
+                android:drawableTint="?attr/actionMenuTextColor"
+                android:elegantTextHeight="true"
+                android:textAlignment="center"
+                android:textColor="?attr/actionMenuTextColor" />
         </FrameLayout>
 
         <FrameLayout
@@ -114,6 +174,61 @@
                 android:textColor="?attr/actionMenuTextColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_end4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="18dp"
+                android:alpha="0.8"
+                android:drawableEnd="@drawable/outline_chevron_right_24"
+                android:drawablePadding="4dp"
+                android:drawableTint="?attr/actionMenuTextColor"
+                android:elegantTextHeight="true"
+                android:textAlignment="center"
+                android:textColor="?attr/actionMenuTextColor" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/ion_table"
+            android:layout_width="match_parent"
+            android:layout_height="82dp"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin_space"
+            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin_space"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:clickable="true"
+            android:elevation="@dimen/default_card_elevation"
+            android:focusable="true"
+            android:foreground="@drawable/c_ripple">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginEnd="98dp"
+                android:text="Ionization Energies"
+                android:textColor="?attr/actionMenuTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_end5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="18dp"
+                android:alpha="0.8"
+                android:drawableEnd="@drawable/outline_chevron_right_24"
+                android:drawablePadding="4dp"
+                android:drawableTint="?attr/actionMenuTextColor"
+                android:elegantTextHeight="true"
+                android:textAlignment="center"
+                android:textColor="?attr/actionMenuTextColor" />
         </FrameLayout>
 
         <FrameLayout
@@ -141,9 +256,22 @@
                 android:textColor="?attr/actionMenuTextColor"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_end6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="18dp"
+                android:drawableEnd="@drawable/outline_chevron_right_24"
+                android:drawablePadding="4dp"
+                android:drawableTint="?attr/actionMenuTextColor"
+                android:elegantTextHeight="true"
+                android:textAlignment="center"
+                android:textColor="?attr/actionMenuTextColor"
+                android:alpha="0.8" />
         </FrameLayout>
-
-
     </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

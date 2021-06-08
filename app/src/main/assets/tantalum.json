@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Tantalum",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Tantalum_single_crystal_and_1cm3_cube.jpg/1024px-Tantalum_single_crystal_and_1cm3_cube.jpg",
+    "description": "Tantalum is a chemical element with the symbol Ta and atomic number 73. Previously known as tantalium, it is named after Tantalus, a villain from Greek mythology. Tantalum is a rare, hard, blue-gray, lustrous transition metal that is highly corrosion-resistant. It is part of the refractory metals group, which are widely used as minor components in alloys. The chemical inertness of tantalum makes it a valuable substance for laboratory equipment, and as a substitute for platinum. Its main use today is in tantalum capacitors in electronic equipment such as mobile phones, DVD players, video game systems and computers. Tantalum, always together with the chemically similar niobium, occurs in the mineral groups tantalite, columbite and coltan (a mix of columbite and tantalite, though not recognised as a separate mineral species). Tantalum is considered a technology-critical element.",
 
     "element": "Tantalum",
     "short": "Ta",
@@ -12,6 +13,9 @@
     "element_electrons": "73",
     "element_protons": "73",
     "element_neutron_common": "108",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "20.6 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "1.3",
@@ -36,7 +40,7 @@
 
     "element_electron_config": "4f^14, 5d^3, 6s^2",
     "element_ion_charge": "Ta^5+",
-    "element_ionization_energy": "7.5496 (eV)",
+    "element_ionization_energy1": "7.5496 (eV)",
     "element_atomic_radius_e": "145 (pm)",
     "element_atomic_radius": "200 (pm)",
     "element_covalent_radius": "138 (pm)",

@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Thulium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Thulium_sublimed_dendritic_and_1cm3_cube.jpg/800px-Thulium_sublimed_dendritic_and_1cm3_cube.jpg",
+    "description": "Thulium is a chemical element with the symbol Tm and atomic number 69. It is the thirteenth and third-last element in the lanthanide series. Like the other lanthanides, the most common oxidation state is +3, seen in its oxide, halides and other compounds; because it occurs so late in the series, however, the +2 oxidation state is also stabilized by the nearly full 4f shell that results. In aqueous solution, like compounds of other late lanthanides, soluble thulium compounds form coordination complexes with nine water molecules.",
 
     "element": "Thulium",
     "short": "Tm",
@@ -12,6 +13,9 @@
     "element_electrons": "69",
     "element_protons": "69",
     "element_neutron_common": "100",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "100 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "7",
@@ -36,7 +40,10 @@
 
     "element_electron_config": "4f^13 6s^2",
     "element_ion_charge": "Tm^3+",
-    "element_ionization_energy": "6.18431 (eV)",
+    "element_ionization_energy1": "6.18431 (eV)",
+    "element_ionization_energy2": "12.05 (eV)",
+    "element_ionization_energy3": "23.68 (eV)",
+    "element_ionization_energy4": "42.7 (eV)",
     "element_atomic_radius_e": "175 (pm)",
     "element_atomic_radius": "222 (pm)",
     "element_covalent_radius": "--- (pm)",

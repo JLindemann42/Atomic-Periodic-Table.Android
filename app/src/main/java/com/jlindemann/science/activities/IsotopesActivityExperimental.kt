@@ -15,18 +15,21 @@ import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
+import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.adapter.IsotopeAdapter
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
-import com.jlindemann.science.preferences.ElementSendAndLoad
-import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import kotlinx.android.synthetic.main.activity_favorite_settings_page.*
 import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
 import kotlinx.android.synthetic.main.activity_isotopes_experimental.title_box
+import kotlinx.android.synthetic.main.filter_view.*
+import kotlinx.android.synthetic.main.filter_view_iso.*
 import kotlinx.android.synthetic.main.isotope_panel.*
+import kotlinx.android.synthetic.main.search_layout.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -59,62 +62,83 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val elements = ArrayList<Element>()
         ElementModel.getList(elements)
-
         val adapter = IsotopeAdapter(elements, this, this)
         recyclerView.adapter = adapter
 
         edit_iso.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(
-                s: CharSequence,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
-
-            override fun onTextChanged(
-                s: CharSequence,
-                start: Int,
-                before: Int,
-                count: Int
-            ) {
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                filter(s.toString(), elements, recyclerView)
-            }
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable) { filter(s.toString(), elements, recyclerView) }
         })
 
         sliding_layout_i.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
-            override fun onPanelSlide(panel: View?, slideOffset: Float) {
-                //Empty
-            }
-            override fun onPanelStateChanged(
-                panel: View?,
-                previousState: SlidingUpPanelLayout.PanelState,
-                newState: SlidingUpPanelLayout.PanelState
-            ) {
+            override fun onPanelSlide(panel: View?, slideOffset: Float) { }
+            override fun onPanelStateChanged(panel: View?, previousState: SlidingUpPanelLayout.PanelState, newState: SlidingUpPanelLayout.PanelState) {
                 if (sliding_layout_i.panelState === SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                    Utils.fadeOutAnim(background_i2, 100)
-                    Utils.fadeOutAnim(slid_panel, 200)
+                    Utils.fadeOutAnim(background_i2, 300)
+                    Utils.fadeOutAnim(slid_panel, 300)
                 }
             }
         })
 
         background_i2.setOnClickListener{
             if (panel_info.visibility == View.VISIBLE) {
-                Utils.fadeOutAnim(panel_info, 200)
-                Utils.fadeOutAnim(background_i2, 200)
+                Utils.fadeOutAnim(panel_info, 300)
+                Utils.fadeOutAnim(background_i2, 300)
             }
             else {
-                Utils.fadeOutAnim(sliding_layout_i, 200)
-                Utils.fadeOutAnim(background_i2, 200)
+                Utils.fadeOutAnim(sliding_layout_i, 300)
+                Utils.fadeOutAnim(background_i2, 300)
             }
         }
 
         view1.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         clickSearch()
+        searchFilter(elements, recyclerView)
+        sentIsotope()
         back_btn.setOnClickListener { this.onBackPressed() }
+    }
+
+    private fun searchFilter(list: ArrayList<Element>, recyclerView: RecyclerView) {
+        filter_btn2.setOnClickListener {
+            Utils.fadeInAnim(iso_filter_box, 150)
+            Utils.fadeInAnim(filter_background, 150)
+        }
+        filter_background.setOnClickListener {
+            Utils.fadeOutAnim(iso_filter_box, 150)
+            Utils.fadeOutAnim(filter_background, 150)
+        }
+        iso_alphabet_btn.setOnClickListener {
+            val isoPreference = IsoPreferences(this)
+            isoPreference.setValue(0)
+
+            val filtList: ArrayList<Element> = ArrayList()
+            for (item in list) {
+                filtList.add(item)
+            }
+            Utils.fadeOutAnim(iso_filter_box, 150)
+            Utils.fadeOutAnim(filter_background, 150)
+            filtList.sortWith(Comparator { lhs, rhs ->
+                if (lhs.element < rhs.element) -1 else if (lhs.element < rhs.element) 1 else 0
+            })
+            mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = IsotopeAdapter(filtList, this, this)
+        }
+        iso_element_numb_btn.setOnClickListener {
+            val isoPreference = IsoPreferences(this)
+            isoPreference.setValue(1)
+
+            val filtList: ArrayList<Element> = ArrayList()
+            for (item in list) {
+                filtList.add(item)
+            }
+            Utils.fadeOutAnim(iso_filter_box, 150)
+            Utils.fadeOutAnim(filter_background, 150)
+            mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = IsotopeAdapter(filtList, this, this)
+        }
     }
 
     private fun clickSearch() {
@@ -139,6 +163,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     }
 
     private fun filter(text: String, list: ArrayList<Element>, recyclerView: RecyclerView) {
+        val isoPreference = IsoPreferences(this)
+        val isoPrefValue = isoPreference.getValue()
         val filteredList: ArrayList<Element> = ArrayList()
         for (item in list) {
             if (item.element.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
@@ -146,19 +172,22 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
                 Log.v("SSDD2", filteredList.toString())
             }
         }
+        if (isoPrefValue == 0) {
+            filteredList.sortWith(Comparator { lhs, rhs ->
+                if (lhs.element < rhs.element) -1 else if (lhs.element < rhs.element) 1 else 0
+            })
+        }
+
         mAdapter.filterList(filteredList)
         mAdapter.notifyDataSetChanged()
         recyclerView.adapter = IsotopeAdapter(filteredList, this, this)
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int) {
-            val params = r_view.layoutParams as ViewGroup.MarginLayoutParams
-            params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            r_view.layoutParams = params
-
-            val params2 = common_title_back_iso.layoutParams as ViewGroup.LayoutParams
-            params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            common_title_back_iso.layoutParams = params2
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
+        r_view.setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
+        val params2 = common_title_back_iso.layoutParams as ViewGroup.LayoutParams
+        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        common_title_back_iso.layoutParams = params2
 
     }
 
@@ -167,15 +196,29 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         elementSendAndLoad.setValue(item.element)
         drawCard()
 
-        Utils.fadeInAnim(background_i2, 200)
-        Utils.fadeInAnim(slid_panel, 200)
+        Utils.fadeInAnimBack(background_i2, 300)
+        Utils.fadeInAnim(slid_panel, 300)
         sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+    }
+
+    private fun sentIsotope() {
+        val isoSent = sendIso(this)
+        if (isoSent.getValue() == "true") {
+            drawCard()
+            Utils.fadeInAnimBack(background_i2, 300)
+            Utils.fadeInAnim(slid_panel, 300)
+            sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+            isoSent.setValue("false")
+        }
     }
 
     override fun onBackPressed() {
         if (background_i2.visibility == View.VISIBLE) {
-            sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             return
+        }
+        if (filter_background.visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(filter_background, 150)
+            Utils.fadeOutAnim(iso_filter_box, 150)
         }
         else {
             super.onBackPressed()

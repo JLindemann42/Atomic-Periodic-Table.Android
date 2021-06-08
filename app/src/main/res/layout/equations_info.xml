@@ -6,21 +6,13 @@
     android:layout_height="match_parent"
     android:elevation="28dp">
 
-    <com.github.mmin18.widget.RealtimeBlurView
+    <TextView
         android:id="@+id/l_background_e"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#A8000000"
-        android:elevation="12dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:realtimeBlurRadius="4dp"
-        app:realtimeOverlayColor="#A80B0B0B" />
+        android:alpha="0.6"
+        android:background="@color/colorLightText"
+        android:visibility="visible" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -63,7 +55,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="124dp"
+            android:layout_marginTop="136dp"
             android:layout_weight="0.5">
 
             <LinearLayout

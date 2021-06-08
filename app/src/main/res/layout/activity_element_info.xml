@@ -11,61 +11,63 @@
     <FrameLayout
         android:id="@+id/common_title_back"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="56dp"
         android:alpha="0.975"
-        android:elevation="8dp"
         android:background="?attr/colorPrimary"
+        android:elevation="8dp"
         android:gravity="center|center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:gravity="bottom"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="bottom"
             android:orientation="vertical">
 
-                <FrameLayout
-                    android:id="@+id/title_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp">
+            <FrameLayout
+                android:id="@+id/title_box"
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
 
-                    <ImageButton
-                        android:id="@+id/back_btn"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="18dp"
-                        android:rotation="180"
-                        android:src="@drawable/ic_arrow_back_whit" />
+                <ImageButton
+                    android:id="@+id/back_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical"
+                    android:rotation="180"
+                    android:alpha="0.9"
+                    android:src="@drawable/ic_arrow_back_whit" />
 
-                    <ImageButton
-                        android:id="@+id/wikipedia_btn"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
-                        android:layout_gravity="center_vertical|end"
-                        android:layout_marginEnd="18dp"
-                        android:padding="14dp"
-                        android:scaleType="fitStart"
-                        android:src="@drawable/ic_wikipedia_logo" />
+                <ImageButton
+                    android:id="@+id/wikipedia_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:padding="16dp"
+                    android:alpha="0.9"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/ic_wikipedia_logo" />
 
-                    <TextView
-                        android:id="@+id/element_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:gravity="center"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="0dp"
-                        android:text="Periodic Table"
-                        android:textAlignment="center"
-                        android:textColor="?attr/actionMenuTextColor"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
+                <TextView
+                    android:id="@+id/element_title"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:paddingStart="0dp"
+                    android:alpha="0.9"
+                    android:paddingEnd="0dp"
+                    android:text="Periodic Table"
+                    android:textAlignment="center"
+                    android:textColor="?attr/actionMenuTextColor"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
 
-            </LinearLayout>
+        </LinearLayout>
 
     </FrameLayout>
 
@@ -84,13 +86,13 @@
                 android:id="@+id/offline_space"
                 android:visibility="gone"
                 android:layout_width="match_parent"
-                android:layout_height="80dp" />
+                android:layout_height="56dp" />
 
             <FrameLayout
                 android:id="@+id/frame"
                 android:layout_width="match_parent"
                 android:layout_height="240dp"
-                android:layout_marginTop="80dp">
+                android:layout_marginTop="56dp">
 
                 <include
                     android:id="@+id/ldn_place"
@@ -104,6 +106,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
                     android:adjustViewBounds="true"
+                    android:elevation="2dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_launcher_background" />
 
@@ -114,10 +117,10 @@
                     android:layout_gravity="start|center_vertical"
                     android:layout_margin="18dp"
                     android:clickable="true"
-                    android:elevation="6dp"
+                    android:elevation="8dp"
                     android:rotation="180"
                     android:tint="?attr/colorAccent"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:backgroundTint="?attr/colorPrimary"
                     app:fabSize="mini"
                     app:srcCompat="@drawable/ic_arrow_back_whit" />
@@ -129,9 +132,9 @@
                     android:layout_gravity="end|center_vertical"
                     android:layout_margin="18dp"
                     android:clickable="true"
-                    android:elevation="6dp"
+                    android:elevation="8dp"
                     android:tint="?attr/colorAccent"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:backgroundTint="?attr/colorPrimary"
                     app:fabSize="mini"
                     app:srcCompat="@drawable/ic_arrow_back_whit" />
@@ -179,6 +182,11 @@
             <include
                 android:id="@+id/addition_physics"
                 layout="@layout/d_thermodynamic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/d_nuclear"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

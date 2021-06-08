@@ -5,11 +5,20 @@
     <dimen name="margin_space">9dp</dimen>
     <dimen name="default_card_elevation">2dp</dimen>
     <dimen name="title_bar_elevation">4dp</dimen>
+    <dimen name="search_margin">8dp</dimen>
+    <dimen name="search_margin_side">16dp</dimen>
+
+    <dimen name="groups">8dp</dimen>
+    <dimen name="groupsb">10dp</dimen>
+    <dimen name="groups2b">20dp</dimen>
 
     <dimen name="status_bar_height">30dp</dimen>
-    <dimen name="title_bar">80dp</dimen>
+    <dimen name="title_bar">56dp</dimen>
+    <dimen name="title_bar_main">68dp</dimen>
+    <dimen name="title_bar_ph">100dp</dimen>
     <dimen name="nav_bar">60dp</dimen>
     <dimen name="nav_view">320dp</dimen>
+    <dimen name="left_bar">32dp</dimen>
 
     <dimen name="first_item">98dp</dimen>
 

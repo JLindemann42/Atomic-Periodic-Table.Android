@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Arsenic",
     "link": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Arsen_1a.jpg",
+    "description": "Arsenic is a chemical element with the symbol As and atomic number 33. Arsenic occurs in many minerals, usually in combination with sulfur and metals, but also as a pure elemental crystal. Arsenic is a metalloid. It has various allotropes, but only the gray form, which has a metallic appearance, is important to industry.",
 
     "element": "Arsenic",
     "short": "As",
@@ -12,6 +13,9 @@
     "element_electrons": "33",
     "element_protons": "33",
     "element_neutron_common": "42",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "4.3 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "3",
@@ -36,7 +40,12 @@
 
     "element_electron_config": "3d^10 4s^2 4p^3",
     "element_ion_charge": "As^3-",
-    "element_ionization_energy": "9.7886 (eV)",
+    "element_ionization_energy1": "9.7886 (eV)",
+    "element_ionization_energy2": "18.633 (eV)",
+    "element_ionization_energy3": "28.351 (eV)",
+    "element_ionization_energy4": "50.13 (eV)",
+    "element_ionization_energy5": "62.63 (eV)",
+    "element_ionization_energy6": "127.6 (eV)",
     "element_atomic_radius_e": "115 (pm)",
     "element_atomic_radius": "114 (pm)",
     "element_covalent_radius": "119 (pm)",

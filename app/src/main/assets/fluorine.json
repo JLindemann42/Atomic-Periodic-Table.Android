@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Fluorine",
     "link": "https://www.thoughtco.com/thmb/rt0-YEcTOFfKmttM805rtJvfdsw=/600x600/filters:fill(auto,1)/fluorinesimulant-56a12c323df78cf772681c61.jpg",
+    "description": "Fluorine is a chemical element with the symbol F and atomic number 9. It is the lightest halogen and exists as a highly toxic pale yellow diatomic gas at standard conditions. As the most electronegative element, it is extremely reactive, as it reacts with all other elements, except for argon, neon, and helium.",
 
     "element": "Fluorine",
     "short": "F",
@@ -12,6 +13,9 @@
     "element_electrons": "9",
     "element_protons": "9",
     "element_neutron_common": "10",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "0.0096 (b)",
 
     "electrical_type": "---",
     "resistivity": "---",
@@ -36,7 +40,15 @@
 
     "element_electron_config": "2s^2 2p^5",
     "element_ion_charge": "F^-",
-    "element_ionization_energy": "17.42282 (eV)",
+    "element_ionization_energy1": "17.42282 (eV)",
+    "element_ionization_energy2": "34.97082 (eV)",
+    "element_ionization_energy3": "62.7084 (eV)",
+    "element_ionization_energy4": "87.1398 (eV)",
+    "element_ionization_energy5": "114.2428 (eV)",
+    "element_ionization_energy6": "157.1651 (eV)",
+    "element_ionization_energy7": "185.186 (eV)",
+    "element_ionization_energy8": "953.9112 (eV)",
+    "element_ionization_energy9": "1103.1176 (eV)",
     "element_atomic_radius_e": "50 (pm)",
     "element_atomic_radius": "42 (pm)",
     "element_covalent_radius": "71 (pm)",

@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Technetium",
     "link": "http://www.galleries.com/minerals/silicate/gadolini/gadolini.jpg",
+    "description": "Technetium is a chemical element with the symbol Tc and atomic number 43. It is the lightest element whose isotopes are all radioactive, none of which is stable other than the fully-ionized state of Tc-97. Nearly all available technetium is produced as a synthetic element, and only about 18,000 tons are estimated to exist at any given time in the Earth's crust. Naturally-occurring technetium is a spontaneous fission product in uranium ore and thorium ore, the most common source, or the product of neutron capture in molybdenum ores. The silvery gray, crystalline transition metal lies between manganese and rhenium in group 7 of the periodic table, and its chemical properties are intermediate between those of both adjacent elements. The most common naturally-occurring isotope is Tc-99.",
 
     "element": "Technetium",
     "short": "Tc",
@@ -12,6 +13,9 @@
     "element_electrons": "43",
     "element_protons": "43",
     "element_neutron_common": "56",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "20 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "2",
@@ -36,7 +40,9 @@
 
     "element_electron_config": "4d^5 5s^2",
     "element_ion_charge": "Tc^7+",
-    "element_ionization_energy": "7.28 (eV)",
+    "element_ionization_energy1": "7.28 (eV)",
+    "element_ionization_energy2": "15.26 (eV)",
+    "element_ionization_energy3": "29.54 (eV)",
     "element_atomic_radius_e": "135 (pm)",
     "element_atomic_radius": "183 (pm)",
     "element_covalent_radius": "156 (pm)",

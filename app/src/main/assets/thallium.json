@@ -2,6 +2,7 @@
   {
     "wikilink": "https://en.wikipedia.org/wiki/Thallium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Thallium_pieces_in_ampoule.jpg",
+    "description": "Thallium is a chemical element with the symbol Tl and atomic number 81. It is a gray post-transition metal that is not found free in nature. When isolated, thallium resembles tin, but discolors when exposed to air. Chemists William Crookes and Claude-Auguste Lamy discovered thallium independently in 1861, in residues of sulfuric acid production. Both used the newly developed method of flame spectroscopy, in which thallium produces a notable green spectral line. Thallium, from Greek θαλλός, thallós, meaning \"a green shoot or twig\", was named by Crookes. It was isolated by both Lamy and Crookes in 1862; Lamy by electrolysis, and Crookes by precipitation and melting of the resultant powder. Crookes exhibited it as a powder precipitated by zinc at the International exhibition, which opened on 1 May that year.",
 
     "element": "Thallium",
     "short": "Tl",
@@ -12,6 +13,9 @@
     "element_electrons": "81",
     "element_protons": "81",
     "element_neutron_common": "124",
+
+    "radioactive": "No",
+    "neutron_cross_sectional": "3.43 (b)",
 
     "electrical_type": "Conductor",
     "resistivity": "1.5",
@@ -36,7 +40,9 @@
 
     "element_electron_config": "4f^14, 5d^10, 6s^2, 6p^1",
     "element_ion_charge": "Tl^+, Tl^3+",
-    "element_ionization_energy": "6.1082 (eV)",
+    "element_ionization_energy1": "6.1082 (eV)",
+    "element_ionization_energy2": "20.428 (eV)",
+    "element_ionization_energy3": "29.83 (eV)",
     "element_atomic_radius_e": "190 (pm)",
     "element_atomic_radius": "156 (pm)",
     "element_covalent_radius": "148 (pm)",
