@@ -214,11 +214,13 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
 
     override fun onBackPressed() {
         if (background_i2.visibility == View.VISIBLE) {
+            sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             return
         }
         if (filter_background.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(filter_background, 150)
             Utils.fadeOutAnim(iso_filter_box, 150)
+            return
         }
         else {
             super.onBackPressed()
