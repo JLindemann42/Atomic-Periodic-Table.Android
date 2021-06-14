@@ -28,7 +28,7 @@
     "element_density": "0.005894 (g/cm^3)",
     "element_electronegativty": "2.6",
     "element_block": "p - block",
-    "element_shells_electrons": "K2 L8 18 N18 O8 P0 Q0 R0",
+    "element_shells_electrons": "K2 L8 M18 N18 O8 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Electron_shell_054_Xenon_-_no_label.svg/1280px-Electron_shell_054_Xenon_-_no_label.svg.png",
 
     "element_boiling_kelvin": "165.051 (K)",
