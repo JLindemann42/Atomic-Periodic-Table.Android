@@ -149,7 +149,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
-            android:text="Electronegativty:"
+            android:text="Electronegativity:"
             android:textColor="?attr/actionMenuTextColor"
             android:textSize="14sp"
             android:textStyle="bold" />
