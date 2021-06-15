@@ -10,13 +10,17 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.*
+import android.view.GestureDetector.SimpleOnGestureListener
+import android.view.ViewTreeObserver.OnScrollChangedListener
+import android.view.animation.ScaleAnimation
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
+import com.jlindemann.science.R2
 import com.jlindemann.science.activities.tables.DictionaryActivity
 import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.extensions.TableExtension
@@ -42,6 +46,10 @@ import kotlin.collections.ArrayList
 class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     private var elementList = ArrayList<Element>()
     var mAdapter = ElementAdapter(elementList, this, this)
+
+    var mScale = 1f
+    lateinit var mScaleDetector: ScaleGestureDetector
+    lateinit var gestureDetector: GestureDetector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +94,58 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             R.drawable.toast
         ))
 
+        gestureDetector = GestureDetector(this, GestureListener())
+        mScaleDetector = ScaleGestureDetector(this, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+            override fun onScale(detector: ScaleGestureDetector): Boolean {
+                val scale = 1 - detector.scaleFactor
+                val pScale = mScale
+                mScale += scale
+                mScale += scale
+                if (mScale < 1f)
+                    mScale = 1f
+                if (mScale > 12.5f)
+                    mScale = 12.5f
+                val scaleAnimation = ScaleAnimation(
+                    1f / pScale,
+                    1f / mScale,
+                    1f / pScale,
+                    1f / mScale,
+                    detector.focusX,
+                    detector.focusY
+                )
+                if (mScale > 1f) {
+                    topBar.visibility = View.GONE
+                    leftBar.visibility = View.GONE
+                    corner.visibility = View.GONE
+                }
+                if (mScale == 1f) {
+                    topBar.visibility = View.VISIBLE
+                    leftBar.visibility = View.VISIBLE
+                    corner.visibility = View.VISIBLE
+                }
+                scaleAnimation.duration = 0
+                scaleAnimation.fillAfter = true
+                val layout = scrollLin as LinearLayout
+                layout.startAnimation(scaleAnimation)
+                return true
+            }
+        })
+
+        scrollView.getViewTreeObserver()
+            .addOnScrollChangedListener(object : OnScrollChangedListener {
+                var y = 0f
+                override fun onScrollChanged() {
+                    if (scrollView.getScrollY() > y) {
+                        Utils.fadeOutAnim(nav_bar_main, 150)
+                        Utils.fadeOutAnim(more_btn, 150)
+                    } else {
+                        Utils.fadeInAnim(nav_bar_main, 150)
+                        Utils.fadeInAnim(more_btn, 150)
+                    }
+                    y = scrollView.getScrollY().toFloat()
+                }
+            })
+
         sliding_layout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View?, slideOffset: Float) {}
             override fun onPanelStateChanged(panel: View?, previousState: PanelState, newState: PanelState) {
@@ -95,6 +155,18 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                 }
             }
         })
+    }
+
+    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+        super.dispatchTouchEvent(event)
+        mScaleDetector.onTouchEvent(event)
+        gestureDetector.onTouchEvent(event)
+        return gestureDetector.onTouchEvent(event)
+    }
+
+    private class GestureListener : SimpleOnGestureListener() {
+        override fun onDown(e: MotionEvent): Boolean { return true }
+        override fun onDoubleTap(e: MotionEvent): Boolean { return true }
     }
 
     private fun scrollAdapter() {

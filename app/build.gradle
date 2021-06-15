@@ -15,8 +15,8 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 56
-        versionName "1.4.1"
+        versionCode 57
+        versionName "1.5.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -26,9 +26,7 @@ android {
             signingConfig signingConfigs.config
 
             android.applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "atomic_build.${defaultConfig.versionName}" + ".${defaultConfig.versionCode}.aab"
-                }
+                variant.outputs.all {}
             }
         }
     }
