@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.tables.ElectrodeActivity
-import com.jlindemann.science.activities.tables.EquationsActivity
-import com.jlindemann.science.activities.tables.IonActivity
-import com.jlindemann.science.activities.tables.phActivity
+import com.jlindemann.science.activities.tables.*
 import com.jlindemann.science.preferences.ThemePreference
 import kotlinx.android.synthetic.main.activity_solubility.back_btn
 import kotlinx.android.synthetic.main.activity_submit.view_sub
@@ -67,6 +64,10 @@ class TableActivity : BaseActivity() {
         }
         ion_table.setOnClickListener {
             val intent = Intent(this, IonActivity::class.java)
+            startActivity(intent)
+        }
+        nuc_table.setOnClickListener {
+            val intent = Intent(this, NuclideActivity::class.java)
             startActivity(intent)
         }
         ph_table.setOnClickListener {

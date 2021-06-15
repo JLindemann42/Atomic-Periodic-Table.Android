@@ -54,11 +54,7 @@ class ElectrodeActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        e_view.setPadding(
-            0,
-            resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top,
-            0,
-            resources.getDimensionPixelSize(R.dimen.title_bar))
+        e_view.setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
 
         val params2 = common_title_back_elo.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)

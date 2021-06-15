@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/view_nuc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent">
+
+        <FrameLayout
+            android:id="@+id/common_title_back_nuc"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:alpha="0.975"
+            android:background="?attr/colorPrimary"
+            android:elevation="8dp"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/title_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                    <ImageButton
+                        android:id="@+id/nuc_back_btn"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_vertical"
+                        android:rotation="180"
+                        android:src="@drawable/ic_arrow_back_whit" />
+
+                    <TextView
+                        android:id="@+id/nuc_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="56dp"
+                        android:layout_marginStart="70dp"
+                        android:alpha="0.9"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="Nuclide Table"
+                        android:textAlignment="center"
+                        android:textColor="?attr/actionMenuTextColor"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+        <LinearLayout
+            android:id="@+id/scrollNuc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="100dp">
+        <FrameLayout
+            android:id="@+id/nuc_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        </LinearLayout>
+        </org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

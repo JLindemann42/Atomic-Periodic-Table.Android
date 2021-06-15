@@ -35,7 +35,6 @@
             android:label="ELEMENTINFOACTIVITY">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -46,7 +45,6 @@
             android:label="SETTINGS">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -57,7 +55,6 @@
             android:label="FAVORITEPAGE" >
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -68,7 +65,6 @@
             android:label="ORDERPAGE" >
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -79,7 +75,6 @@
             android:label="IONPAGE" >
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -90,7 +85,6 @@
             android:label="EXPERIMENTAL_PAGE">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -100,7 +94,6 @@
             android:label="SOLUBILITYPAGE">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -111,7 +104,6 @@
             android:label="CALCULATORPAGE">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -122,7 +114,6 @@
             android:label="DICTIONARYPAGE">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -133,7 +124,6 @@
             android:label="ISOTPOESPAGEEXP">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -144,7 +134,6 @@
             android:label="ABOUTPAGE">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -155,7 +144,6 @@
             android:label="TABLEPAGE">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -166,7 +154,6 @@
             android:label="ELECTRODEPAGE">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -178,7 +165,6 @@
             android:label="SUBMITPAGE">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -190,7 +176,6 @@
             android:label="LICENSESPAGE">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -202,7 +187,6 @@
             android:label="EQUATIONSACTIVITY">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -214,7 +198,6 @@
             android:label="PHACTIVITY">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -226,7 +209,17 @@
             android:label="activity_unit">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activities.tables.NuclideActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing"
+            android:label="activity_nuclide">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
             </intent-filter>
         </activity>
 
