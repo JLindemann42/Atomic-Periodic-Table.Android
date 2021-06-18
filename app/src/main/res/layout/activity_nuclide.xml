@@ -64,24 +64,43 @@
         </FrameLayout>
 
         <org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView
-            android:id="@+id/scrollView"
+            android:id="@+id/scrollViewNuc"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:fillViewport="true"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="horizontal|vertical">
 
-        <LinearLayout
-            android:id="@+id/scrollNuc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingBottom="100dp">
-        <FrameLayout
-            android:id="@+id/nuc_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            <LinearLayout
+                android:id="@+id/scrollNuc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <FrameLayout
+                    android:id="@+id/nuc_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
         </org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView>
+
+        <SeekBar
+            android:id="@+id/seekBarNuc"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="end"
+            android:layout_marginTop="240dp"
+            android:layout_marginEnd="-100dp"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:indeterminate="false"
+            android:max="24"
+            android:min="1"
+            android:progress="1"
+            android:rotation="270" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

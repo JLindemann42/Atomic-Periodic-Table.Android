@@ -2,9 +2,9 @@ package com.jlindemann.science.model
 
 object ElementModel {
     fun getList(elements: ArrayList<Element>) {
-        elements.add(Element("hydrogen", "H", 1, 2.20, 4))
-        elements.add(Element("helium", "He", 2, 0.0, 4))
-        elements.add(Element("lithium", "Li", 3, 0.98, 4))
+        elements.add(Element("hydrogen", "H", 1, 2.20, 7))
+        elements.add(Element("helium", "He", 2, 0.0, 8))
+        elements.add(Element("lithium", "Li", 3, 0.98, 11))
         elements.add(Element("beryllium", "Be", 4, 1.57, 4))
         elements.add(Element("boron", "B", 5, 2.04, 5))
         elements.add(Element("carbon", "C", 6, 2.55, 6))

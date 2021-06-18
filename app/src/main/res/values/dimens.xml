@@ -22,7 +22,7 @@
 
     <dimen name="first_item">98dp</dimen>
 
-    <dimen name="item_nuclide">72dp</dimen>
+    <dimen name="item_nuclide">36dp</dimen>
 
     <dimen name="submit_drop">126dp</dimen>
     <dimen name="hover_menu_margin">100dp</dimen>
