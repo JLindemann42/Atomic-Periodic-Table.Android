@@ -28,15 +28,11 @@ import java.io.InputStream
 
 
 abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsListener {
-    companion object {
-        private const val TAG = "BaseActivity"
-    }
+    companion object { private const val TAG = "BaseActivity" }
 
     private var systemUiConfigured = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState) }
 
     override fun onStart() {
         super.onStart()

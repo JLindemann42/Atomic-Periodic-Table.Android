@@ -3,6 +3,7 @@ package com.jlindemann.science.activities.tables
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
 import android.view.animation.ScaleAnimation
 import android.widget.*
@@ -11,6 +12,7 @@ import androidx.core.text.isDigitsOnly
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.activities.MainActivity
+import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ThemePreference
@@ -19,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_electrode.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_nuclide.*
 import kotlinx.android.synthetic.main.item_nuclide.*
+import kotlinx.android.synthetic.main.stub_nuclide.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -45,7 +48,16 @@ class NuclideActivity : BaseActivity() {
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_nuclide) //REMEMBER: Never move any function calls above this
 
-        addViews(elementLists)
+        viewStub.inflate()
+        scrollViewNuc.visibility = View.INVISIBLE
+        val handler = Handler()
+        handler.postDelayed({
+            addViews(elementLists)
+            val h = Handler()
+            h.postDelayed({
+                Anim.fadeIn(scrollViewNuc, 300)
+            }, 50)
+        }, 100)
 
         gestureDetector = GestureDetector(this, NuclideActivity.GestureListener())
         mScaleDetector = ScaleGestureDetector(this, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
@@ -61,8 +73,11 @@ class NuclideActivity : BaseActivity() {
                 val scaleAnimation = ScaleAnimation(1f / pScale, 1f / mScale, 1f / pScale, 1f / mScale, detector.focusX, detector.focusY)
                 scaleAnimation.duration = 0
                 scaleAnimation.fillAfter = true
+                scaleAnimation.willChangeBounds()
+                scaleAnimation.willChangeTransformationMatrix()
                 val layout = nuc_view as FrameLayout
                 layout.startAnimation(scaleAnimation)
+
                 return true
             }
         })
@@ -75,7 +90,6 @@ class NuclideActivity : BaseActivity() {
                 val layout = nuc_view as FrameLayout
                 layout.startAnimation(scaleAnimation)
             }
-
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
@@ -113,6 +127,7 @@ class NuclideActivity : BaseActivity() {
         t.text = "1"
 
         dLayout.addView(mLayout, param)
+        text_load_nuc.visibility = View.GONE
 
         for (item in list) {
             var jsonString: String? = null
@@ -157,9 +172,7 @@ class NuclideActivity : BaseActivity() {
                         }
                         else {
                             if (themePrefValue == 100) {
-                                when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {Configuration.UI_MODE_NIGHT_NO -> {
-                                    frame.background.setTint(resources.getColor(R.color.colorLightPrimary))
-                                }
+                                when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {Configuration.UI_MODE_NIGHT_NO -> { frame.background.setTint(resources.getColor(R.color.colorLightPrimary)) }
                                     Configuration.UI_MODE_NIGHT_YES -> { frame.background.setTint(resources.getColor(R.color.colorDarkPrimary)) }
                                 }
                             }

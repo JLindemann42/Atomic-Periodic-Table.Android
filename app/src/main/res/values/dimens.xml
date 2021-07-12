@@ -6,6 +6,7 @@
     <dimen name="default_card_elevation">2dp</dimen>
     <dimen name="title_bar_elevation">4dp</dimen>
     <dimen name="search_margin">8dp</dimen>
+    <dimen name="panel_margin">6dp</dimen>
     <dimen name="search_margin_side">16dp</dimen>
 
     <dimen name="groups">8dp</dimen>
