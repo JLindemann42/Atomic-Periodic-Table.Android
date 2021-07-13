@@ -72,29 +72,49 @@
             </LinearLayout>
         </FrameLayout>
 
-        <org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView
-            android:id="@+id/scrollViewNuc"
+        <com.otaliastudios.zoom.ZoomLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:scrollbarStyle="insideOverlay"
-            android:scrollbars="horizontal|vertical">
+            app:overScrollHorizontal="true"
+            app:overScrollVertical="true"
+            app:overPinchable="true"
+            app:horizontalPanEnabled="true"
+            app:verticalPanEnabled="true"
+            app:zoomEnabled="true"
+            app:flingEnabled="true"
+            app:scrollEnabled="true"
+            app:oneFingerScrollEnabled="true"
+            app:twoFingersScrollEnabled="true"
+            app:threeFingersScrollEnabled="true"
+            app:minZoom="0.66"
+            app:minZoomType="zoom"
+            app:maxZoom="12.5"
+            app:maxZoomType="zoom"
+            app:animationDuration="200"
+            app:hasClickableChildren="true">
 
-            <LinearLayout
-                android:id="@+id/scrollNuc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <FrameLayout
+                android:id="@+id/scrollViewNuc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <ViewStub
-                    android:id="@+id/viewStub"
+                <LinearLayout
+                    android:id="@+id/scrollNuc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout="@layout/stub_nuclide" />
+                    android:orientation="horizontal">
 
-            </LinearLayout>
-        </org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView>
+                    <ViewStub
+                        android:id="@+id/viewStub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout="@layout/stub_nuclide" />
+
+                </LinearLayout>
+            </FrameLayout>
+
+        </com.otaliastudios.zoom.ZoomLayout>
 
         <SeekBar
             android:id="@+id/seekBarNuc"

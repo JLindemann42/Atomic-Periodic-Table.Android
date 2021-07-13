@@ -66,16 +66,16 @@ class NuclideActivity : BaseActivity() {
                 val pScale = mScale
                 mScale += scale
                 mScale += scale
-                if (mScale < 0.5f)
-                    mScale = 0.5f
-                if (mScale > 24f)
-                    mScale = 24f
+                if (mScale < 1f)
+                    mScale = 1f
+                if (mScale > 1f)
+                    mScale = 1f
                 val scaleAnimation = ScaleAnimation(1f / pScale, 1f / mScale, 1f / pScale, 1f / mScale, detector.focusX, detector.focusY)
                 scaleAnimation.duration = 0
                 scaleAnimation.fillAfter = true
                 scaleAnimation.willChangeBounds()
                 scaleAnimation.willChangeTransformationMatrix()
-                val layout = nuc_view as FrameLayout
+                val layout = scrollNuc as LinearLayout
                 layout.startAnimation(scaleAnimation)
 
                 return true
@@ -87,7 +87,7 @@ class NuclideActivity : BaseActivity() {
                 val scaleAnimation = ScaleAnimation(1f / currentValue, 1f / currentValue, 1f / currentValue, 1f / currentValue)
                 scaleAnimation.duration = 0
                 scaleAnimation.fillAfter = true
-                val layout = nuc_view as FrameLayout
+                val layout = scrollNuc as LinearLayout
                 layout.startAnimation(scaleAnimation)
             }
             override fun onStartTrackingTouch(p0: SeekBar?) {}
@@ -101,7 +101,7 @@ class NuclideActivity : BaseActivity() {
         super.dispatchTouchEvent(event)
         mScaleDetector.onTouchEvent(event)
         gestureDetector.onTouchEvent(event)
-        return gestureDetector.onTouchEvent(event)
+        return mScaleDetector.onTouchEvent(event)
     }
 
     private class GestureListener : GestureDetector.SimpleOnGestureListener() {
