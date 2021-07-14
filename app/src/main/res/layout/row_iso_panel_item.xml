@@ -26,6 +26,7 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginBottom="3dp"
                 android:gravity="center"
+                android:textIsSelectable="true"
                 android:text="iso_name_1"
                 android:textAlignment="center"
                 android:textColor="?attr/actionMenuTextColor"
@@ -38,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="6dp"
+                android:textIsSelectable="true"
                 android:gravity="center"
                 android:text="iso_half_2"
                 android:textAlignment="center"
@@ -51,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
                 android:layout_marginBottom="6dp"
+                android:textIsSelectable="true"
                 android:gravity="center"
                 android:text="iso_half_1"
                 android:textAlignment="center"
@@ -75,6 +78,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Protons:"
+                        android:textIsSelectable="true"
                         android:textAlignment="center"
                         android:textColor="?attr/actionMenuTextColor" />
 
@@ -82,6 +86,7 @@
                         android:id="@+id/i_z"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textIsSelectable="true"
                         android:layout_marginBottom="18dp"
                         android:gravity="center"
                         android:text="iso_z_2"
@@ -100,6 +105,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:textIsSelectable="true"
                         android:text="Neutrons:"
                         android:textAlignment="center"
                         android:textColor="?attr/actionMenuTextColor" />
@@ -120,6 +126,7 @@
                 <LinearLayout
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:textIsSelectable="true"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -129,6 +136,7 @@
                         android:gravity="center"
                         android:text="Nucleons:"
                         android:textAlignment="center"
+                        android:textIsSelectable="true"
                         android:textColor="?attr/actionMenuTextColor" />
 
                     <TextView
