@@ -27,4 +27,13 @@
             android:layout_margin="9dp"
             android:textSize="5sp" />
 
+        <TextView
+            android:id="@+id/nuclide_decay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="4dp"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="6sp" />
+
 </FrameLayout>

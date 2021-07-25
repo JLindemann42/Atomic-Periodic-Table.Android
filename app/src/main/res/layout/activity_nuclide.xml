@@ -131,7 +131,7 @@
             android:min="1"
             android:progress="1"
             android:rotation="270"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

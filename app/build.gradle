@@ -9,12 +9,12 @@ android {
             storeFile file('C:\\Users\\jonat\\OneDrive\\Skrivbord\\app\\science_keys.jks')
         }
     }
-    compileSdkVersion 30
-    buildToolsVersion "31-rc4"
+    compileSdkVersion 31
+    buildToolsVersion "31.0.0"
     defaultConfig {
         applicationId "com.jlindemann.science"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 58
         versionName "1.5.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

@@ -113,8 +113,6 @@ class NuclideActivity : BaseActivity() {
         ElementModel.getList(list)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
-
-        //Add neutron
         val dLayout = nuc_view
         val inflate = layoutInflater
         val mLayout: View = inflate.inflate(R.layout.item_nuclide, dLayout, false)
@@ -144,14 +142,16 @@ class NuclideActivity : BaseActivity() {
                     val isoN = "iso_N_"
                     val isoZ = "iso_Z_"
                     val isoHalf = "iso_half_"
+                    val decayType = "decay_type_"
                     val number = i.toString()
                     val nJson: String = "$isoN$number"
                     val zJson: String = "$isoZ$number"
                     val halfJson: String = "$isoHalf$number"
+                    val decayTypeString = "$decayType$number"
                     val n = jsonObject.optString(nJson, "-")
                     val z = jsonObject.optString(zJson, "-")
                     val half = jsonObject.optString(halfJson, "-")
-
+                    val decayTypeResult = jsonObject.optString(decayTypeString, "default")
                     val mainLayout = nuc_view
                     val inflater = layoutInflater
                     val myLayout: View = inflater.inflate(R.layout.item_nuclide, mainLayout, false)
@@ -163,21 +163,65 @@ class NuclideActivity : BaseActivity() {
                         val short = myLayout.findViewById(R.id.nuclide_element) as TextView
                         val top = myLayout.findViewById(R.id.nuclide_number) as TextView
                         val frame = myLayout.findViewById(R.id.item_nuclide_frame) as FrameLayout
+                        val decay = myLayout.findViewById(R.id.nuclide_decay) as TextView
+
                         short.text = item.short
                         top.text = (z.toInt() + n.toInt()).toString()
-                        if ((half.capitalize()).contains("Stable")) {
+                        decay.text = decayTypeResult
+                        if (decayTypeResult == "stable") {
                             frame.background.setTint(Color.argb(255, 42, 50, 61))
                             short.setTextColor(resources.getColor(R.color.colorLightPrimary))
                             top.setTextColor(resources.getColor(R.color.colorLightPrimary))
                         }
-                        else {
-                            if (themePrefValue == 100) {
-                                when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {Configuration.UI_MODE_NIGHT_NO -> { frame.background.setTint(resources.getColor(R.color.colorLightPrimary)) }
-                                    Configuration.UI_MODE_NIGHT_YES -> { frame.background.setTint(resources.getColor(R.color.colorDarkPrimary)) }
-                                }
-                            }
-                            if (themePrefValue == 0) { frame.background.setTint(resources.getColor(R.color.colorLightPrimary)) }
-                            if (themePrefValue == 1) { frame.background.setTint(resources.getColor(R.color.colorDarkPrimary)) }
+                        if (decayTypeResult == "3p") {
+                            frame.background.setTint(Color.argb(255, 137, 0, 7))
+                            short.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                            top.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                        }
+                        if (decayTypeResult == "2p") {
+                            frame.background.setTint(Color.argb(255, 154, 0, 7))
+                            short.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                            top.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                        }
+                        if (decayTypeResult == "p") {
+                            frame.background.setTint(Color.argb(255, 211, 47, 47))
+                            short.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                            top.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                        }
+                        if (decayTypeResult == "B+") {
+                            frame.background.setTint(Color.argb(255, 211, 102, 89))
+                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                        }
+                        if (decayTypeResult == "2B-") {
+                            frame.background.setTint(Color.argb(255, 3, 155, 229))
+                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                        }
+                        if (decayTypeResult == "B-") {
+                            frame.background.setTint(Color.argb(255, 89, 204, 255))
+                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                        }
+                        if (decayTypeResult == "n") {
+                            frame.background.setTint(Color.argb(255, 78, 186, 170))
+                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                        }
+                        if (decayTypeResult == "2n") {
+                            frame.background.setTint(Color.argb(255, 0, 137, 123))
+                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                        }
+                        if (decayTypeResult == "a") {
+                            frame.background.setTint(Color.argb(255, 255, 235, 59))
+                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                        }
+                        if (decayTypeResult == "e- capture") {
+                            frame.background.setTint(Color.argb(255, 176, 0, 78))
+                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
                         }
                         mainLayout.addView(myLayout, params)
                     }
