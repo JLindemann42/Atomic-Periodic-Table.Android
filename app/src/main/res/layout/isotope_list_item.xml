@@ -8,10 +8,11 @@
     android:layout_marginTop="9dp"
     android:layout_marginEnd="18dp"
     android:layout_marginBottom="9dp"
-    android:background="@drawable/toast"
-    android:backgroundTint="?attr/colorPrimary"
+    android:background="@drawable/toast_card"
+    android:backgroundTint="?attr/colorSurfaceVariant"
+    android:foreground="@drawable/toast_card_outline_ripple"
     android:clickable="true"
-    android:elevation="2dp"
+    android:elevation="0dp"
     android:focusable="true">
 
     <FrameLayout
@@ -21,7 +22,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="18dp"
         android:background="@drawable/toast"
-        android:backgroundTint="?attr/colorAccent">
+        android:backgroundTint="?attr/colorPrimary">
 
         <TextView
             android:id="@+id/ic_iso_type"
@@ -29,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAlignment="center"
-            android:textColor="?attr/colorPrimary" />
+            android:textColor="?attr/colorOnPrimary" />
     </FrameLayout>
 
     <TextView
@@ -38,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginStart="72dp"
-        android:textColor="?attr/actionMenuTextColor" />
+        android:textColor="?attr/colorOnSurfaceVariant" />
 
     <TextView
         android:id="@+id/tv_iso_numb"
@@ -49,8 +50,8 @@
         android:alpha="0.8"
         android:elegantTextHeight="true"
         android:drawableEnd="@drawable/outline_chevron_right_24"
-        android:drawableTint="?attr/actionMenuTextColor"
+        android:drawableTint="?attr/colorTertiary"
         android:drawablePadding="4dp"
-        android:textColor="?attr/actionMenuTextColor" />
+        android:textColor="?attr/colorTertiary" />
 
 </FrameLayout>

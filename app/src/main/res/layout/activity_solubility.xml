@@ -5,6 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:id="@+id/view_sub"
+        android:background="?attr/backgroundColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -20,12 +21,17 @@
             android:id="@+id/common_title_back_sul"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:alpha="0.975"
-            android:background="?attr/colorPrimary"
-            android:elevation="8dp"
+            android:background="?attr/colorSurface"
+            android:elevation="2dp"
             android:gravity="center|center_vertical"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,6 +51,7 @@
                         android:layout_height="56dp"
                         android:layout_gravity="center_vertical"
                         android:rotation="180"
+                        app:tint="?attr/colorOnSecondaryContainer"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <TextView
@@ -58,7 +65,7 @@
                         android:paddingEnd="0dp"
                         android:text="Solubility Table"
                         android:textAlignment="center"
-                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -68,6 +75,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_gravity="center_vertical|end"
+                        app:tint="?attr/colorOnSecondaryContainer"
                         android:src="@drawable/ic_info" />
                 </FrameLayout>
             </LinearLayout>
@@ -78,8 +86,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="56dp"
-        android:background="?attr/colorPrimary"
-        android:elevation="8dp">
+        android:background="?attr/backgroundColor"
+        android:elevation="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"

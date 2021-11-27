@@ -2,10 +2,29 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version">v1.5.0-Build.58-dev5</string>
+    <string name="app_version">v2.0.0-Build.58-dev5</string>
+
+    <string name="open_table_button">Open table</string>
 
     <!-- Activity Element Info-->
     <string name="element_description_title">Description</string>
+
+    <!-- Activity Favorite Settings -->
+    <string name="favorite_settings_title">Favorite Bar</string>
+    <string name="favorite_settings_general">General</string>
+    <string name="favorite_settings_temperatures">Temperatures</string>
+    <string name="favorite_settings_atomic_properties">Atomic properties</string>
+    <string name="favorite_settings_thermodynamics">Thermodynamics</string>
+
+    <!-- Activity Unit Settings -->
+    <string name="unit_settings_title">Table Units</string>
+    <string name="unit_temperature">Temperatures</string>
+
+    <!-- Activity Isotopes -->
+    <string name="isotopes_title">Isotopes</string>
+
+    <!-- Activity pH -->
+    <string name="ph_title">pH-Indicators</string>
 
     <!-- Activity Settings-->
     <string name="other_settings">Advanced</string>
@@ -13,17 +32,38 @@
     <string name="experimental_text">Additional experimental settings</string>
     <string name="clear_cache_title">Clear Cache</string>
     <string name="clear_cache_text">cache_size</string>
+    <string name="submit_activity_title">Submit issue</string>
+    <string name="submit_data_i">Data Issue</string>
+    <string name="submit_bug">Bug</string>
+    <string name="submit_question">Question</string>
+    <string name="submit_issue">Issue</string>
+    <string name="description">Description</string>
+    <string name="submit_send">Submit issue</string>
     <string name="submit_title">Report Issue</string>
     <string name="submit_text">Report bugs and data errors</string>
     <string name="licenses_title">Licenses</string>
     <string name="licenses_text">Licenses of works used by Atomic</string>
+    <string name="info_title">Information</string>
+    <string name="info_text">App version and details</string>
+
+    <!-- Activity Licenses-->
+    <string name="license_title">Licenses</string>
 
     <!-- Activity Table-->
     <string name="activity_table_title">Tables</string>
-    <string name="table_ph">Acid/ Base (pH) Indicators</string>
+    <string name="table_ph">pH-Indicators</string>
+    <string name="table_ph_text">A pH-indicator table for colors on different acid/ base levels</string>
     <string name="table_electrochemical">Electrochemical Series</string>
+    <string name="table_electrochemical_text">A table with an electrochemical series, sorted by (-) to (+) voltage</string>
     <string name="table_equations">Formulas</string>
+    <string name="table_equations_text">A table containing formulas for math, physics and chemistry</string>
     <string name="table_solubility">Solubility Table</string>
+    <string name="table_solubility_text">A table with information of different substances solubility</string>
+    <string name="table_ionization">Ionization Energies</string>
+    <string name="table_ionization_text">A table with different elements ionization energies</string>
+    <string name="table_nuclide">Table of Nuclides</string>
+    <string name="table_nuclide_text">A two-dimensional table of nuclide, with color differentiating decay type</string>
+
 
     <!-- Activity Unit-->
     <string name="activity_unit_title">Table Units</string>
@@ -70,10 +110,6 @@
     <string name="chip_reactions">Reactions</string>
 
 
-
-
-
-
     <string name="wikipedia_license">Wikipedia Commons</string>
     <string name="wikipedia_license_text">CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL SERVICES.
         DISTRIBUTION OF THIS LICENSE DOES NOT CREATE AN ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS INFORMATION ON AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES REGARDING THE INFORMATION PROVIDED, AND DISCLAIMS LIABILITY FOR DAMAGES RESULTING FROM ITS USE.\n\nTHE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE").
@@ -82,5 +118,7 @@
     <string name="sothree_license">Android Sliding Up Panel</string>
     <string name="sothree_license_text">Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
     \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

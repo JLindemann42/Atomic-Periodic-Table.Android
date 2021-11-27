@@ -7,12 +7,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="9dp"
-        android:background="@drawable/toast"
-        android:backgroundTint="?attr/colorPrimary"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:elevation="2dp"
         android:orientation="vertical">
 
@@ -25,9 +21,9 @@
             android:layout_marginBottom="9dp"
             android:drawableStart="@drawable/ic_temperature"
             android:drawablePadding="9dp"
-            android:drawableTint="?attr/colorAccent"
+            android:drawableTint="?attr/colorPrimary"
             android:text="Temperatures"
-            android:textColor="?attr/colorAccent"
+            android:textColor="?attr/colorPrimary"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -35,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:alpha="0.75"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_boiling_kelvin_title"
@@ -46,7 +42,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Boiling Point (Kelvin):"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -60,7 +56,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -70,7 +66,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_boiling_celsius_title"
@@ -81,7 +77,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Boiling Point (°C):"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -95,7 +91,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -105,7 +101,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_boiling_fahrenheit_title"
@@ -116,7 +112,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Boiling Point (°F):"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -130,7 +126,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -140,7 +136,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_melting_kelvin_title"
@@ -151,7 +147,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Melting Point (Kelvin):"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -165,7 +161,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -175,7 +171,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_melting_celsius_title"
@@ -186,7 +182,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Melting Point (°C):"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -200,7 +196,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -210,7 +206,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_melting_fahrenheit_title"
@@ -221,7 +217,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Melting Point (°F):"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -235,7 +231,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

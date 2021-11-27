@@ -6,17 +6,24 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="?attr/colorPrimaryDark">
+        android:background="?attr/backgroundColor">
 
     <FrameLayout
             android:id="@+id/common_title_back_tab"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_bar"
             android:alpha="1"
-            android:elevation="@dimen/title_bar_elevation"
-            android:background="?attr/colorPrimary"
+            android:elevation="1dp"
+            android:background="?attr/colorSurface"
             android:gravity="center|center_vertical"
             android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/common_title_table_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -39,7 +46,7 @@
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <TextView
-                        android:id="@+id/element_title"
+                        android:id="@+id/tables_title"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/title_bar"
                         android:layout_marginStart="70dp"
@@ -49,267 +56,437 @@
                         android:paddingEnd="0dp"
                         android:text="@string/activity_table_title"
                         android:textAlignment="center"
-                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="20sp"
                         android:textStyle="bold" />
-
                 </FrameLayout>
-
             </LinearLayout>
         </FrameLayout>
 
     <ScrollView
+        android:id="@+id/table_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="100dp"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tables_title_downstate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="28dp"
+            android:text="@string/activity_table_title"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="32sp"
+            android:textStyle="normal" />
 
         <FrameLayout
             android:id="@+id/ph_table"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
-            android:layout_marginTop="@dimen/first_item"
+            android:layout_marginTop="@dimen/margin_space_card"
             android:layout_marginEnd="@dimen/margin"
-            android:layout_marginBottom="@dimen/margin_space"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
+            android:layout_marginBottom="@dimen/margin_space_card"
+            android:background="@drawable/toast_card"
+            android:backgroundTint="?attr/colorSurfaceVariant"
             android:clickable="true"
-            android:elevation="@dimen/default_card_elevation"
+            android:elevation="0dp"
             android:focusable="true"
             android:foreground="@drawable/c_ripple">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginEnd="98dp"
-                android:text="@string/table_ph"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_end2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginEnd="18dp"
-                android:alpha="0.8"
-                android:drawableEnd="@drawable/outline_chevron_right_24"
-                android:drawablePadding="4dp"
-                android:drawableTint="?attr/actionMenuTextColor"
-                android:elegantTextHeight="true"
-                android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/table_ph"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/table_ph_text"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/ph_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="end"
+                    android:text="@string/open_table_button"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="16sp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:foreground="@drawable/c_ripple"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </LinearLayout>
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/ele_table"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
-            android:layout_marginTop="@dimen/margin_space"
+            android:layout_marginTop="@dimen/margin_space_card"
             android:layout_marginEnd="@dimen/margin"
-            android:layout_marginBottom="@dimen/margin_space"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
+            android:layout_marginBottom="@dimen/margin_space_card"
+            android:background="@drawable/toast_card"
+            android:backgroundTint="?attr/colorSurfaceVariant"
             android:clickable="true"
-            android:elevation="@dimen/default_card_elevation"
+            android:elevation="0dp"
             android:focusable="true"
             android:foreground="@drawable/c_ripple">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginEnd="98dp"
-                android:text="@string/table_electrochemical"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_end3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginEnd="18dp"
-                android:alpha="0.8"
-                android:drawableEnd="@drawable/outline_chevron_right_24"
-                android:drawablePadding="4dp"
-                android:drawableTint="?attr/actionMenuTextColor"
-                android:elegantTextHeight="true"
-                android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/table_electrochemical"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/table_electrochemical_text"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/ele_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="end"
+                    android:text="@string/open_table_button"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="16sp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:foreground="@drawable/c_ripple"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </LinearLayout>
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/equ_table"
             android:layout_width="match_parent"
-            android:layout_height="82dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
-            android:layout_marginTop="@dimen/margin_space"
+            android:layout_marginTop="@dimen/margin_space_card"
             android:layout_marginEnd="@dimen/margin"
-            android:layout_marginBottom="@dimen/margin_space"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
+            android:layout_marginBottom="@dimen/margin_space_card"
+            android:background="@drawable/toast_card"
+            android:backgroundTint="?attr/colorSurfaceVariant"
             android:clickable="true"
-            android:elevation="@dimen/default_card_elevation"
+            android:elevation="0dp"
             android:focusable="true"
             android:foreground="@drawable/c_ripple">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginEnd="98dp"
-                android:text="@string/table_equations"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_end4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginEnd="18dp"
-                android:alpha="0.8"
-                android:drawableEnd="@drawable/outline_chevron_right_24"
-                android:drawablePadding="4dp"
-                android:drawableTint="?attr/actionMenuTextColor"
-                android:elegantTextHeight="true"
-                android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/table_equations"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/table_equations_text"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/equ_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="end"
+                    android:text="@string/open_table_button"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="16sp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:foreground="@drawable/c_ripple"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </LinearLayout>
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/ion_table"
             android:layout_width="match_parent"
-            android:layout_height="82dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
-            android:layout_marginTop="@dimen/margin_space"
+            android:layout_marginTop="@dimen/margin_space_card"
             android:layout_marginEnd="@dimen/margin"
-            android:layout_marginBottom="@dimen/margin_space"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
+            android:layout_marginBottom="@dimen/margin_space_card"
+            android:background="@drawable/toast_card"
+            android:backgroundTint="?attr/colorSurfaceVariant"
             android:clickable="true"
-            android:elevation="@dimen/default_card_elevation"
+            android:elevation="0dp"
             android:focusable="true"
             android:foreground="@drawable/c_ripple">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginEnd="98dp"
-                android:text="Ionization Energies"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_end5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginEnd="18dp"
-                android:alpha="0.8"
-                android:drawableEnd="@drawable/outline_chevron_right_24"
-                android:drawablePadding="4dp"
-                android:drawableTint="?attr/actionMenuTextColor"
-                android:elegantTextHeight="true"
-                android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/table_ionization"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/table_ionization_text"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/ion_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="end"
+                    android:text="@string/open_table_button"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="16sp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:foreground="@drawable/c_ripple"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </LinearLayout>
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/nuc_table"
             android:layout_width="match_parent"
-            android:layout_height="82dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
-            android:layout_marginTop="@dimen/margin_space"
+            android:layout_marginTop="@dimen/margin_space_card"
             android:layout_marginEnd="@dimen/margin"
-            android:layout_marginBottom="@dimen/margin_space"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
+            android:layout_marginBottom="@dimen/margin_space_card"
+            android:background="@drawable/toast_card"
+            android:backgroundTint="?attr/colorSurfaceVariant"
             android:clickable="true"
-            android:elevation="@dimen/default_card_elevation"
+            android:elevation="0dp"
             android:focusable="true"
             android:foreground="@drawable/c_ripple">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginEnd="98dp"
-                android:text="Nuclide Table"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginEnd="18dp"
-                android:alpha="0.8"
-                android:drawableEnd="@drawable/outline_chevron_right_24"
-                android:drawablePadding="4dp"
-                android:drawableTint="?attr/actionMenuTextColor"
-                android:elegantTextHeight="true"
-                android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/table_nuclide"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/table_nuclide_text"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/nuc_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="end"
+                    android:text="@string/open_table_button"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="16sp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:foreground="@drawable/c_ripple"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </LinearLayout>
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/sol_table"
             android:layout_width="match_parent"
-            android:layout_height="82dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
-            android:layout_marginTop="@dimen/margin_space"
+            android:layout_marginTop="@dimen/margin_space_card"
             android:layout_marginEnd="@dimen/margin"
-            android:layout_marginBottom="@dimen/margin_space"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
+            android:layout_marginBottom="@dimen/margin_space_card"
+            android:background="@drawable/toast_card"
+            android:backgroundTint="?attr/colorSurfaceVariant"
             android:clickable="true"
-            android:elevation="@dimen/default_card_elevation"
+            android:elevation="0dp"
             android:focusable="true"
             android:foreground="@drawable/c_ripple">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginEnd="98dp"
-                android:text="@string/table_solubility"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_end6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                android:layout_marginEnd="18dp"
-                android:drawableEnd="@drawable/outline_chevron_right_24"
-                android:drawablePadding="4dp"
-                android:drawableTint="?attr/actionMenuTextColor"
-                android:elegantTextHeight="true"
-                android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor"
-                android:alpha="0.8" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/table_solubility"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/table_solubility_text"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/sol_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="end"
+                    android:text="@string/open_table_button"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="14sp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:foreground="@drawable/c_ripple"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </LinearLayout>
         </FrameLayout>
     </LinearLayout>
     </ScrollView>

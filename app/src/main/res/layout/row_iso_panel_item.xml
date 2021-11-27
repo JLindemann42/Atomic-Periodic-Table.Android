@@ -3,14 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/toast_card"
+        android:layout_marginTop="@dimen/margin_space_card"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin_space_card"
+        android:backgroundTint="?attr/colorSecondaryContainer"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/toast_card"
+        android:backgroundTint="?attr/colorSecondary"
+        android:alpha="0.0"/>
+
     <LinearLayout
         android:id="@+id/i_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="16dp"
-        android:background="@drawable/rounded_box"
-        android:backgroundTint="?attr/chipSurfaceColor"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -29,7 +44,7 @@
                 android:textIsSelectable="true"
                 android:text="iso_name_1"
                 android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor"
+                android:textColor="?attr/colorOnPrimaryContainer"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -43,7 +58,7 @@
                 android:gravity="center"
                 android:text="iso_half_2"
                 android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor"
+                android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal" />
 
@@ -57,7 +72,7 @@
                 android:gravity="center"
                 android:text="iso_half_1"
                 android:textAlignment="center"
-                android:textColor="?attr/actionMenuTextColor"
+                android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal" />
 
@@ -80,7 +95,7 @@
                         android:text="Protons:"
                         android:textIsSelectable="true"
                         android:textAlignment="center"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
                         android:id="@+id/i_z"
@@ -91,7 +106,7 @@
                         android:gravity="center"
                         android:text="iso_z_2"
                         android:textAlignment="center"
-                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="24sp" />
                 </LinearLayout>
 
@@ -108,7 +123,7 @@
                         android:textIsSelectable="true"
                         android:text="Neutrons:"
                         android:textAlignment="center"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
                         android:id="@+id/i_n"
@@ -118,7 +133,7 @@
                         android:gravity="center"
                         android:text="iso_n_2"
                         android:textAlignment="center"
-                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="24sp" />
 
                 </LinearLayout>
@@ -137,7 +152,7 @@
                         android:text="Nucleons:"
                         android:textAlignment="center"
                         android:textIsSelectable="true"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
                         android:id="@+id/i_a"
@@ -147,7 +162,7 @@
                         android:gravity="center"
                         android:text="iso_a_2"
                         android:textAlignment="center"
-                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="24sp" />
                 </LinearLayout>
 

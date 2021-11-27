@@ -6,13 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="72dp"
     android:layout_marginStart="@dimen/margin"
-    android:layout_marginTop="@dimen/margin_space"
+    android:layout_marginTop="@dimen/margin_space_card"
     android:layout_marginEnd="@dimen/margin"
-    android:layout_marginBottom="@dimen/margin_space"
-    android:background="@drawable/toast"
-    android:backgroundTint="?attr/colorPrimary"
+    android:layout_marginBottom="@dimen/margin_space_card"
+    android:background="@drawable/toast_card"
+    android:backgroundTint="?attr/colorSurfaceVariant"
     android:clickable="true"
-    android:elevation="2dp"
     android:focusable="true">
 
     <FrameLayout
@@ -21,7 +20,7 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="18dp"
         android:background="@drawable/toast"
-        android:backgroundTint="?attr/colorAccent">
+        android:backgroundTint="?attr/colorPrimary">
 
         <TextView
             android:id="@+id/ic_equ"
@@ -29,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textAlignment="center"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="12sp" />
     </FrameLayout>
 
@@ -46,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="18dp"
-            android:textColor="?attr/actionMenuTextColor" />
+            android:textColor="?attr/colorOnSurfaceVariant" />
 
 
         <ImageView

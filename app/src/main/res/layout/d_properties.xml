@@ -8,12 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="9dp"
-        android:background="@drawable/toast"
-        android:backgroundTint="?attr/colorPrimary"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:elevation="2dp"
         android:orientation="vertical">
 
@@ -26,9 +22,9 @@
             android:layout_marginBottom="9dp"
             android:drawableStart="@drawable/ic_isotopes"
             android:drawablePadding="9dp"
-            android:drawableTint="?attr/colorAccent"
+            android:drawableTint="?attr/colorPrimary"
             android:text="Properties"
-            android:textColor="?attr/colorAccent"
+            android:textColor="?attr/colorPrimary"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -36,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:alpha="0.75"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_atomic_number_title"
@@ -47,7 +43,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Atomic Number:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -61,7 +57,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -70,7 +66,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_atomic_weight_title"
@@ -81,7 +77,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Atomic Weight (Relative Atomic Mass):"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -95,7 +91,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -104,7 +100,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_density_title"
@@ -115,7 +111,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Density:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -129,7 +125,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -139,7 +135,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_electronegativty_title"
@@ -150,7 +146,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Electronegativity:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -164,7 +160,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -174,7 +170,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_block_title"
@@ -185,7 +181,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Block:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -198,17 +194,17 @@
             android:layout_marginEnd="18dp"
             android:text="element_block"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/electron_view"
             android:layout_width="match_parent"
             android:layout_height="140dp"
-            android:layout_margin="18dp"
-            android:backgroundTint="?attr/chipSurfaceColor"
+            android:layout_margin="16dp"
+            android:backgroundTint="?attr/colorSurfaceVariant"
             android:elevation="0dp"
-            app:cardCornerRadius="8dp"
+            app:cardCornerRadius="24dp"
             app:cardElevation="0dp">
 
             <FrameLayout
@@ -230,7 +226,7 @@
                         android:layout_marginEnd="18dp"
                         android:layout_marginBottom="2dp"
                         android:text="Electron Shell:"
-                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -244,7 +240,7 @@
                         android:layout_marginBottom="8dp"
                         android:text="element_electrons"
                         android:textIsSelectable="true"
-                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="12sp" />
                 </LinearLayout>
 
@@ -278,7 +274,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Emission Spectrum:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -291,18 +287,18 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="18dp"
             android:text="Go online for emission lines"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="18sp"
             android:visibility="gone" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="18dp"
-            app:cardCornerRadius="8dp">
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            app:cardCornerRadius="24dp">
 
             <ImageView
                 android:id="@+id/open_btn2"
@@ -310,10 +306,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_margin="8dp"
-                android:background="@android:color/white"
-                android:backgroundTint="@android:color/white"
+                android:background="@color/transparent"
+                android:backgroundTint="@color/transparent"
                 android:elevation="4dp"
-                app:srcCompat="@drawable/ic_open" />
+                app:srcCompat="@drawable/ic_open"
+                app:tint="?attr/colorTertiary"/>
 
             <ImageView
                 android:id="@+id/sp_img"

@@ -12,7 +12,7 @@
         android:layout_marginBottom="24dp"
         android:gravity="center_horizontal"
         android:text="Isotope"
-        android:textColor="?attr/actionMenuTextColor"
+        android:textColor="?attr/colorOnSecondaryContainer"
         android:textSize="28sp"
         android:textStyle="bold" />
 </FrameLayout>

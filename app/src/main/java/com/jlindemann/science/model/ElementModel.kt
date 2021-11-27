@@ -43,11 +43,11 @@ object ElementModel {
         elements.add(Element("yttrium", "Y", 39, 1.22, 35))
         elements.add(Element("zirconium", "Zr", 40, 1.33, 36))
         elements.add(Element("niobium", "Nb", 41, 1.6, 36))
-        elements.add(Element("molybdenum", "Mo", 42, 2.16, 7))
-        elements.add(Element("technetium", "Tc", 43, 1.9, 5))
-        elements.add(Element("ruthenium", "Ru", 44, 2.2, 11))
-        elements.add(Element("rhodium", "Rh", 45, 2.28, 4))
-        elements.add(Element("palladium", "Ph", 46, 2.20, 9))
+        elements.add(Element("molybdenum", "Mo", 42, 2.16, 36))
+        elements.add(Element("technetium", "Tc", 43, 1.9, 35))
+        elements.add(Element("ruthenium", "Ru", 44, 2.2, 36))
+        elements.add(Element("rhodium", "Rh", 45, 2.28, 34))
+        elements.add(Element("palladium", "Pd", 46, 2.20, 35))
         elements.add(Element("silver", "Ag", 47, 1.93, 6))
         elements.add(Element("cadmium", "Cd", 48, 1.69, 11))
         elements.add(Element("indium", "In", 49, 1.78, 4))
@@ -121,4 +121,5 @@ object ElementModel {
         elements.add(Element("tennessine", "Ts", 117, 0.0, 0))
         elements.add(Element("oganesson", "Og", 118, 0.0, 0))
     }
+
 }

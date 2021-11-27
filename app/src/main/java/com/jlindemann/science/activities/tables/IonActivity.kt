@@ -16,12 +16,13 @@ import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.EquationsAdapter
 import com.jlindemann.science.adapter.IonAdapter
+import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Equation
 import com.jlindemann.science.model.Ion
 import com.jlindemann.science.model.IonModel
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_dictionary.search_btn
+import kotlinx.android.synthetic.main.activity_dictionary.*
 import kotlinx.android.synthetic.main.activity_dictionary.title_box
 import kotlinx.android.synthetic.main.activity_electrode.*
 import kotlinx.android.synthetic.main.activity_equations.*
@@ -103,6 +104,10 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
         val params2 = common_title_back_ion.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         common_title_back_ion.layoutParams = params2
+
+        val searchEmptyImgPrm = empty_search_box_ion.layoutParams as ViewGroup.MarginLayoutParams
+        searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
+        empty_search_box_ion.layoutParams = searchEmptyImgPrm
     }
 
     private fun recyclerView() {
@@ -124,6 +129,15 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
     private fun filter(text: String, list: ArrayList<Ion>, recyclerView: RecyclerView) {
         val filteredList: ArrayList<Ion> = ArrayList()
         for (item in list) { if (item.name.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) { filteredList.add(item) } }
+        val handler = android.os.Handler()
+        handler.postDelayed({
+            if (recyclerView.adapter!!.itemCount == 0) {
+                Anim.fadeIn(empty_search_box_ion, 300)
+            }
+            else {
+                empty_search_box_ion.visibility = View.GONE
+            }
+        }, 10)
         mAdapter.filterList(filteredList)
         mAdapter.notifyDataSetChanged()
         recyclerView.adapter = IonAdapter(filteredList, this, this)

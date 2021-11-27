@@ -4,12 +4,14 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.CheckBox
 import androidx.core.content.ContextCompat
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.preferences.*
 import kotlinx.android.synthetic.main.activity_favorite_settings_page.*
+import kotlinx.android.synthetic.main.activity_tables.*
 
 class FavoritePageActivity : BaseActivity() {
 
@@ -69,19 +71,19 @@ class FavoritePageActivity : BaseActivity() {
         val degreePreference = DegreePreference(this)
         var degreePrefValue = degreePreference.getValue()
         if (degreePrefValue == 0) {
-            kelvin_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline_high))
-            celsius_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
-            fahrenheit_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
+            kelvin_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_active))
+            celsius_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
+            fahrenheit_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
         }
         if (degreePrefValue == 1) {
-            kelvin_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
-            celsius_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline_high))
-            fahrenheit_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
+            kelvin_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
+            celsius_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_active))
+            fahrenheit_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
         }
         if (degreePrefValue == 2) {
-            kelvin_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
-            celsius_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
-            fahrenheit_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline_high))
+            kelvin_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
+            celsius_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
+            fahrenheit_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_active))
         }
 
         //Boiling Point
@@ -161,6 +163,29 @@ class FavoritePageActivity : BaseActivity() {
         onCheckboxClicked()
         viewf.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
+        //Title Controller
+        common_title_back_fav_color.visibility = View.INVISIBLE
+        favorite_set_title.visibility = View.INVISIBLE
+        common_title_back_fav.elevation = (resources.getDimension(R.dimen.zero_elevation))
+        fav_set_scroll.getViewTreeObserver()
+            .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
+                var y = 300f
+                override fun onScrollChanged() {
+                    if (fav_set_scroll.getScrollY() > 150) {
+                        common_title_back_fav_color.visibility = View.VISIBLE
+                        favorite_set_title.visibility = View.VISIBLE
+                        favorite_set_title_downstate.visibility = View.INVISIBLE
+                        common_title_back_fav.elevation = (resources.getDimension(R.dimen.one_elevation))
+                    } else {
+                        common_title_back_fav_color.visibility = View.INVISIBLE
+                        favorite_set_title.visibility = View.INVISIBLE
+                        favorite_set_title_downstate.visibility = View.VISIBLE
+                        common_title_back_fav.elevation = (resources.getDimension(R.dimen.zero_elevation))
+                    }
+                    y = fav_set_scroll.getScrollY().toFloat()
+                }
+            })
+
         back_btn_fav.setOnClickListener {
             this.onBackPressed()
         }
@@ -171,9 +196,9 @@ class FavoritePageActivity : BaseActivity() {
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_fav.layoutParams = params
 
-            val params2 = general_header.layoutParams as ViewGroup.MarginLayoutParams
-            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            general_header.layoutParams = params2
+            val params2 = favorite_set_title_downstate.layoutParams as ViewGroup.MarginLayoutParams
+            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+            favorite_set_title_downstate.layoutParams = params2
     }
 
     fun onCheckboxClicked() {
@@ -195,27 +220,27 @@ class FavoritePageActivity : BaseActivity() {
             var degreePrefValue = degreePreference.getValue()
 
             degreePreference.setValue(0)
-            kelvin_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline_high))
-            celsius_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
-            fahrenheit_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
+            kelvin_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_active))
+            celsius_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
+            fahrenheit_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
         }
         celsius_btn.setOnClickListener {
             val degreePreference = DegreePreference(this)
             var degreePrefValue = degreePreference.getValue()
 
             degreePreference.setValue(1)
-            kelvin_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
-            celsius_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline_high))
-            fahrenheit_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
+            kelvin_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
+            celsius_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_active))
+            fahrenheit_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
         }
         fahrenheit_btn.setOnClickListener {
             val degreePreference = DegreePreference(this)
             var degreePrefValue = degreePreference.getValue()
 
             degreePreference.setValue(2)
-            kelvin_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
-            celsius_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline))
-            fahrenheit_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.toast_outline_high))
+            kelvin_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
+            celsius_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
+            fahrenheit_btn.setBackground(ContextCompat.getDrawable(this, R.drawable.chip_active))
         }
 
         //STP Phase

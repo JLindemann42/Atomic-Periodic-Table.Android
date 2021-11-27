@@ -10,21 +10,67 @@
         android:id="@+id/view_dic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorPrimaryDark"
+        android:background="?attr/backgroundColor"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/empty_search_box_dic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="56dp"
+            android:visibility="gone"
+            android:elevation="1dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/empty_dic_search_image"
+                android:layout_width="164dp"
+                android:layout_marginTop="80dp"
+                android:layout_height="164dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/graphic_light_search" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="42dp"
+                android:layout_marginEnd="42dp"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="24sp"
+                android:text="No results"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="?attr/colorOnBackground"
+                android:layout_marginStart="42dp"
+                android:layout_marginEnd="42dp"
+                android:textSize="16sp"
+                android:text="Try searching for another word or check your spelling."/>
+        </LinearLayout>
 
         <FrameLayout
             android:id="@+id/common_title_back_dic"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:alpha="0.975"
-            android:background="?attr/colorPrimary"
+            android:background="?attr/colorSurface"
             android:elevation="8dp"
             android:gravity="center|center_vertical"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/common_title_dictionary_color"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,6 +91,7 @@
                         android:layout_gravity="center_vertical"
                         android:alpha="0.9"
                         android:rotation="180"
+                        app:tint="?attr/colorOnSecondaryContainer"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <ImageButton
@@ -54,6 +101,7 @@
                         android:layout_height="56dp"
                         android:layout_gravity="center_vertical|end"
                         android:alpha="0.9"
+                        app:tint="?attr/colorOnSecondaryContainer"
                         android:src="@drawable/ic_search" />
 
                     <TextView
@@ -67,7 +115,7 @@
                         android:paddingEnd="0dp"
                         android:text="Dictionary"
                         android:textAlignment="center"
-                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -83,8 +131,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="2dp"
                         android:layout_gravity="bottom"
-                        android:alpha="0.5"
-                        android:background="?attr/colorPrimary" />
+                        android:alpha="0.5" />
 
                     <ImageButton
                         android:id="@+id/close_iso_search"
@@ -94,6 +141,7 @@
                         android:layout_gravity="center_vertical"
                         android:alpha="0.9"
                         android:rotation="180"
+                        app:tint="?attr/colorOnSecondaryContainer"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <FrameLayout
@@ -118,8 +166,8 @@
                             android:inputType="text"
                             android:maxLines="1"
                             android:paddingStart="0dp"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textColorHint="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:textColorHint="?attr/colorOnSecondaryContainer"
                             android:textSize="14sp" />
                     </FrameLayout>
                 </FrameLayout>
@@ -137,26 +185,26 @@
                         <Button
                             android:id="@+id/clear_btn"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="32dp"
                             android:layout_marginStart="18dp"
                             android:layout_marginTop="1dp"
                             android:layout_marginBottom="9dp"
                             android:layout_weight="1"
-                            android:background="@drawable/chip_outline"
+                            android:background="@drawable/chip_filled"
                             android:clickable="true"
                             android:focusable="true"
                             android:foreground="@drawable/chip_ripple"
-                            android:paddingStart="9dp"
-                            android:paddingEnd="9dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
                             android:text="Clear Filter"
                             android:visibility="visible"
                             android:textAllCaps="false"
-                            android:textColor="?attr/actionMenuTextColor" />
+                            android:textColor="?attr/colorOnSecondaryContainer" />
 
                         <Button
                             android:id="@+id/chemistry_btn"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="32dp"
                             android:layout_marginStart="18dp"
                             android:layout_marginTop="1dp"
                             android:layout_marginBottom="9dp"
@@ -164,16 +212,16 @@
                             android:clickable="true"
                             android:focusable="true"
                             android:foreground="@drawable/chip_ripple"
-                            android:paddingStart="9dp"
-                            android:paddingEnd="9dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/chip_chemistry"
                             android:textAllCaps="false"
-                            android:textColor="?attr/actionMenuTextColor" />
+                            android:textColor="?attr/colorOnSecondaryContainer" />
 
                         <Button
                             android:id="@+id/physics_btn"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="32dp"
                             android:layout_marginStart="9dp"
                             android:layout_marginTop="1dp"
                             android:layout_marginBottom="9dp"
@@ -181,16 +229,16 @@
                             android:clickable="true"
                             android:focusable="true"
                             android:foreground="@drawable/chip_ripple"
-                            android:paddingStart="9dp"
-                            android:paddingEnd="9dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/chip_physics"
                             android:textAllCaps="false"
-                            android:textColor="?attr/actionMenuTextColor" />
+                            android:textColor="?attr/colorOnSecondaryContainer" />
 
                         <Button
                             android:id="@+id/math_btn"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="32dp"
                             android:layout_marginStart="9dp"
                             android:layout_marginTop="1dp"
                             android:layout_marginBottom="9dp"
@@ -199,16 +247,16 @@
                             android:clickable="true"
                             android:focusable="true"
                             android:foreground="@drawable/chip_ripple"
-                            android:paddingStart="9dp"
-                            android:paddingEnd="9dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/chip_math"
                             android:textAllCaps="false"
-                            android:textColor="?attr/actionMenuTextColor" />
+                            android:textColor="?attr/colorOnSecondaryContainer" />
 
                         <Button
                             android:id="@+id/reactions_btn"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="32dp"
                             android:layout_marginStart="9dp"
                             android:layout_marginTop="1dp"
                             android:layout_marginBottom="9dp"
@@ -217,11 +265,11 @@
                             android:clickable="true"
                             android:focusable="true"
                             android:foreground="@drawable/chip_ripple"
-                            android:paddingStart="9dp"
-                            android:paddingEnd="9dp"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
                             android:text="@string/chip_reactions"
                             android:textAllCaps="false"
-                            android:textColor="?attr/actionMenuTextColor" />
+                            android:textColor="?attr/colorOnSecondaryContainer" />
 
                     </LinearLayout>
 
@@ -234,7 +282,7 @@
             android:id='@+id/rc_view'
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="?attr/colorPrimaryDark"
+            android:backgroundTint="?attr/backgroundColor"
             android:clipToPadding="false"
             android:paddingTop="9dp"
             android:paddingBottom="60dp"

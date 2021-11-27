@@ -1,0 +1,106 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:padding="@dimen/widget_margin"
+    android:theme="@style/ThemeOverlay.Science.AppWidgetContainer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:background="@drawable/toast_widget"
+        android:backgroundTint="@android:color/system_accent1_50">
+
+        <FrameLayout
+            android:id="@+id/widget_search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:elevation="1dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/toast_widget"
+            android:backgroundTint="@android:color/system_accent1_200">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:elevation="2dp"
+                    android:padding="6dp"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/ic_launcher_round"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="2dp"
+                    android:text="Search for element"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:textColor="@android:color/system_accent2_800" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </FrameLayout>
+
+        <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/toast_widget"
+        android:backgroundTint="@android:color/system_accent1_200">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:weightSum="0.99"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.33"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="2dp"
+                    android:background="@drawable/toast_widget_card"
+                    android:backgroundTint="@android:color/system_accent1_50"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.33"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:background="@drawable/toast_widget_card"
+                    android:backgroundTint="@android:color/system_accent1_50"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.33"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="2dp"
+                    android:background="@drawable/toast_widget_card"
+                    android:backgroundTint="@android:color/system_accent1_50"/>
+
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+</RelativeLayout>

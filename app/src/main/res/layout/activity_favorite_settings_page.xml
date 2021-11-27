@@ -6,18 +6,25 @@
     android:layout_width="match_parent"
     android:id="@+id/viewf"
     android:fitsSystemWindows="true"
+    android:background="?attr/backgroundColor"
     android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/common_title_back_fav"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:alpha="0.975"
-        android:elevation="8dp"
-        android:background="?attr/colorPrimary"
+        android:elevation="1dp"
+        android:background="?attr/colorSurface"
         android:gravity="center|center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/common_title_back_fav_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
 
         <LinearLayout
             android:gravity="bottom"
@@ -37,10 +44,12 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center_vertical"
                     android:rotation="180"
+                    android:elevation="2dp"
+                    app:tint="?attr/colorOnSecondaryContainer"
                     android:src="@drawable/ic_arrow_back_whit" />
 
                 <TextView
-                    android:id="@+id/element_title"
+                    android:id="@+id/favorite_set_title"
                     android:layout_width="wrap_content"
                     android:layout_marginStart="70dp"
                     android:alpha="0.9"
@@ -48,21 +57,20 @@
                     android:gravity="center"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
-                    android:text="Favorites"
+                    android:text="@string/favorite_settings_title"
                     android:textAlignment="center"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="normal" />
             </FrameLayout>
         </LinearLayout>
     </FrameLayout>
 
     <ScrollView
+        android:id="@+id/fav_set_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorPrimaryDark"
-        android:backgroundTintMode="?attr/colorPrimaryDark"
-        android:elevation="2dp">
+        android:elevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,26 +78,36 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/favorite_set_title_downstate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="28dp"
+                android:text="@string/favorite_settings_title"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="32sp"
+                android:textStyle="normal" />
+
+            <TextView
                 android:id="@+id/general_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
-                android:layout_marginTop="56dp"
+                android:layout_marginTop="@dimen/margin_space_card"
                 android:layout_marginEnd="0dp"
                 android:layout_marginBottom="0dp"
-                android:background="?attr/colorPrimaryDark"
-                android:paddingStart="18dp"
+                android:paddingStart="@dimen/margin"
                 android:paddingTop="9dp"
                 android:paddingBottom="9dp"
-                android:text="General"
-                android:textAllCaps="true"
-                android:textColor="?attr/colorAccent"
-                android:textStyle="normal|bold" />
+                android:text="@string/favorite_settings_general"
+                android:textColor="?attr/colorPrimary"
+                android:textStyle="normal|normal" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="?attr/colorPrimaryDark"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/d_ripple">
@@ -98,16 +116,16 @@
                     android:id="@+id/molar_mass_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:buttonTint="?attr/colorPrimary"
                     android:buttonTintMode="src_in"
                     android:checked="true"
                     android:drawableEnd="@drawable/ic_weight_outline"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Molar Mass"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
 
             </FrameLayout>
 
@@ -121,7 +139,6 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="?attr/colorPrimaryDark"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/d_ripple">
@@ -130,15 +147,15 @@
                     android:id="@+id/phase_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:buttonTint="?attr/colorPrimary"
                     android:checked="true"
                     android:drawableEnd="@drawable/fav_gas"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show STP Phase"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </FrameLayout>
 
             <TextView
@@ -151,7 +168,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="?attr/colorPrimaryDark"
+                
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/d_ripple">
@@ -160,15 +177,15 @@
                     android:id="@+id/electronegativity_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:buttonTint="?attr/colorPrimary"
                     android:checked="true"
                     android:drawableEnd="@drawable/fav_electronegativity"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Electronegativity"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </FrameLayout>
 
             <TextView
@@ -181,7 +198,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:background="?attr/colorPrimaryDark"
+                
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/d_ripple">
@@ -190,15 +207,15 @@
                     android:id="@+id/density_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:buttonTint="?attr/colorPrimary"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_weight_outline"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Density"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </FrameLayout>
 
             <TextView
@@ -209,20 +226,17 @@
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginBottom="0dp"
-                android:background="?attr/colorPrimaryDark"
-                android:paddingStart="18dp"
+                android:paddingStart="@dimen/margin"
                 android:paddingTop="9dp"
                 android:paddingBottom="9dp"
-                android:text="Temperatures"
-                android:textAllCaps="true"
+                android:text="@string/favorite_settings_temperatures"
                 android:textColor="?attr/colorAccent"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|normal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
-                android:background="?attr/colorPrimaryDark"
                 android:orientation="horizontal">
 
                 <Button
@@ -235,14 +249,14 @@
                     android:layout_marginEnd="9dp"
                     android:layout_marginBottom="9dp"
                     android:layout_weight="1"
-                    android:background="@drawable/toast_outline"
+                    android:background="@drawable/chip_outline"
                     android:clickable="true"
                     android:elevation="2dp"
                     android:focusable="true"
                     android:foreground="@drawable/chip_ripple"
                     android:text="Kelvin"
                     android:textAllCaps="false"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="14sp" />
 
                 <Button
@@ -256,10 +270,10 @@
                     android:clickable="true"
                     android:elevation="2dp"
                     android:focusable="true"
-                    android:foreground="@drawable/chip_ripple"
+                    android:foreground="@drawable/chip_outline"
                     android:text="Celsius"
                     android:textAllCaps="false"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="14sp" />
 
                 <Button
@@ -272,14 +286,14 @@
                     android:layout_marginEnd="36dp"
                     android:layout_marginBottom="9dp"
                     android:layout_weight="1"
-                    android:background="@drawable/toast_outline"
+                    android:background="@drawable/chip_outline"
                     android:clickable="true"
                     android:elevation="2dp"
                     android:focusable="true"
                     android:foreground="@drawable/chip_ripple"
                     android:text="Fahrenheit"
                     android:textAllCaps="false"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="14sp" />
             </LinearLayout>
 
@@ -294,7 +308,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="?attr/colorPrimaryDark"
+                
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/d_ripple">
@@ -303,15 +317,15 @@
                     android:id="@+id/boiling_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_temperature"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Boiling Point"
-                    android:textColor="?attr/actionMenuTextColor"
-                    android:buttonTint="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:buttonTint="?attr/colorPrimary" />
 
             </FrameLayout>
 
@@ -326,7 +340,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="?attr/colorPrimaryDark"
+                
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/d_ripple">
@@ -335,15 +349,15 @@
                     android:id="@+id/melting_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:buttonTint="?attr/colorPrimary"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_temperature"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Melting Point"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </FrameLayout>
 
             <TextView
@@ -353,20 +367,19 @@
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginBottom="0dp"
-                android:background="?attr/colorPrimaryDark"
-                android:paddingStart="18dp"
+                
+                android:paddingStart="@dimen/margin"
                 android:paddingTop="9dp"
                 android:paddingBottom="9dp"
-                android:text="Atomic Properties"
-                android:textAllCaps="true"
+                android:text="@string/favorite_settings_atomic_properties"
                 android:textColor="?attr/colorAccent"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|normal" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="?attr/colorPrimaryDark"
+                
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/d_ripple">
@@ -375,15 +388,15 @@
                     android:id="@+id/atomic_radius_empirical_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:buttonTint="?attr/colorPrimary"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_radius"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Atomic Radius (Empirical)"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </FrameLayout>
 
             <TextView
@@ -397,7 +410,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="?attr/colorPrimaryDark"
+                
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/d_ripple">
@@ -406,15 +419,15 @@
                     android:id="@+id/atomic_radius_calculated_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:buttonTint="?attr/colorPrimary"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_radius"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Atomic Radius (Calculated)"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </FrameLayout>
 
             <TextView
@@ -428,7 +441,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="?attr/colorPrimaryDark"
+                
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/d_ripple">
@@ -437,15 +450,15 @@
                     android:id="@+id/covalent_radius_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:buttonTint="?attr/colorPrimary"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_radius"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Covalent Radius"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </FrameLayout>
 
             <TextView
@@ -459,7 +472,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="?attr/colorPrimaryDark"
+                
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/d_ripple">
@@ -468,15 +481,15 @@
                     android:id="@+id/van_der_waals_radius_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:buttonTint="?attr/colorPrimary"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_radius"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Van Der Waals Radius"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </FrameLayout>
 
             <TextView
@@ -487,20 +500,18 @@
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="0dp"
                 android:layout_marginBottom="0dp"
-                android:background="?attr/colorPrimaryDark"
-                android:paddingStart="18dp"
+                android:paddingStart="@dimen/margin"
                 android:paddingTop="9dp"
                 android:paddingBottom="9dp"
-                android:text="Thermodynamics"
-                android:textAllCaps="true"
+                android:text="@string/favorite_settings_thermodynamics"
                 android:textColor="?attr/colorAccent"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|normal" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="?attr/colorPrimaryDark"
+                
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/d_ripple">
@@ -509,15 +520,15 @@
                     android:id="@+id/fusion_heat_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:buttonTint="?attr/colorPrimary"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_heat"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Fusion Heat"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </FrameLayout>
 
             <TextView
@@ -531,7 +542,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="?attr/colorPrimaryDark"
+                
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/d_ripple">
@@ -540,15 +551,15 @@
                     android:id="@+id/specific_heat_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:buttonTint="?attr/actionMenuTextColor"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:buttonTint="?attr/colorPrimary"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_heat"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Specific Heat Capacity"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </FrameLayout>
 
             <TextView
@@ -562,7 +573,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="?attr/colorPrimaryDark"
+                
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/d_ripple">
@@ -571,15 +582,15 @@
                     android:id="@+id/vaporization_heat_check"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
                     android:checked="false"
                     android:drawableEnd="@drawable/ic_vaporization"
                     android:drawablePadding="9dp"
                     android:layoutDirection="rtl"
                     android:text="Show Vaporization Heat"
-                    android:textColor="?attr/actionMenuTextColor"
-                    android:buttonTint="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:buttonTint="?attr/colorPrimary" />
             </FrameLayout>
 
             <androidx.legacy.widget.Space

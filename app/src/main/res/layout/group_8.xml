@@ -16,7 +16,7 @@
         android:layout_marginBottom="0dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/iron_btn"
             android:layout_width="80dp"
             android:layout_height="78dp"
@@ -74,7 +74,7 @@
         android:layout_marginBottom="0dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/ruthenium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -132,7 +132,7 @@
         android:layout_marginBottom="0dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/osmium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -190,7 +190,7 @@
         android:layout_marginBottom="0dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/hassium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -247,7 +247,7 @@
         android:layout_marginBottom="0dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/promethium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -305,7 +305,7 @@
         android:layout_marginBottom="0dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/neptunium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"

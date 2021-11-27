@@ -28,13 +28,20 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
+            android:background="@drawable/half_toast"
+            android:backgroundTint="?attr/colorSurface"
             android:clickable="true"
             android:focusable="true"
             android:gravity="center|top"
             android:orientation="vertical"
             android:textSize="16sp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/half_toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:alpha="0.11"/>
 
             <FrameLayout
                 android:id="@+id/drag_frame"
@@ -52,7 +59,7 @@
                     android:layout_margin="16dp"
                     android:alpha="0.85"
                     android:background="@drawable/toast"
-                    android:backgroundTint="?attr/actionMenuTextColor"
+                    android:backgroundTint="?attr/colorOnSecondaryContainer"
                     android:elevation="4dp"
                     android:gravity="center_horizontal" />
             </FrameLayout>
@@ -63,6 +70,7 @@
                 android:scrollbars="vertical"
                 android:verticalScrollbarPosition="defaultPosition"
                 android:layout_width="match_parent"
+                android:layout_marginTop="36dp"
                 android:layout_height="match_parent">
 
                 <LinearLayout

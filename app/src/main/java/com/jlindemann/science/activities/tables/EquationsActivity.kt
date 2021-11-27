@@ -21,6 +21,7 @@ import com.jlindemann.science.model.EquationModel
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
 import kotlinx.android.synthetic.main.activity_equations.*
+import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
 import kotlinx.android.synthetic.main.equations_info.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -66,6 +67,10 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
         val params2 = common_title_back_equ.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         common_title_back_equ.layoutParams = params2
+
+        val searchEmptyImgPrm = empty_search_box_equ.layoutParams as ViewGroup.MarginLayoutParams
+        searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
+        empty_search_box_equ.layoutParams = searchEmptyImgPrm
     }
 
     private fun recyclerView() {
@@ -117,6 +122,15 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
                 filteredList.add(item)
             }
         }
+        val handler = android.os.Handler()
+        handler.postDelayed({
+            if (recyclerView.adapter!!.itemCount == 0) {
+                Anim.fadeIn(empty_search_box_equ, 300)
+            }
+            else {
+                empty_search_box_equ.visibility = View.GONE
+            }
+        }, 10)
         mAdapter.filterList(filteredList)
         mAdapter.notifyDataSetChanged()
         recyclerView.adapter = EquationsAdapter(filteredList, this, this)

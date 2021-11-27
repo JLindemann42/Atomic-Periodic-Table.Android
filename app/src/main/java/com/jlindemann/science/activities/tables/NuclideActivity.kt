@@ -7,21 +7,16 @@ import android.os.Handler
 import android.view.*
 import android.view.animation.ScaleAnimation
 import android.widget.*
-import androidx.core.content.ContextCompat
 import androidx.core.text.isDigitsOnly
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
-import com.jlindemann.science.activities.MainActivity
 import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ThemePreference
-import com.jlindemann.science.utils.ToastUtil
-import kotlinx.android.synthetic.main.activity_electrode.*
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_nuclide.*
-import kotlinx.android.synthetic.main.item_nuclide.*
 import kotlinx.android.synthetic.main.stub_nuclide.*
+import kotlinx.coroutines.runBlocking
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -49,14 +44,14 @@ class NuclideActivity : BaseActivity() {
         setContentView(R.layout.activity_nuclide) //REMEMBER: Never move any function calls above this
 
         viewStub.inflate()
-        scrollViewNuc.visibility = View.INVISIBLE
+
+        runOnUiThread {
+            ldn_place.visibility = View.VISIBLE
+        }
+
         val handler = Handler()
         handler.postDelayed({
-            addViews(elementLists)
-            val h = Handler()
-            h.postDelayed({
-                Anim.fadeIn(scrollViewNuc, 300)
-            }, 50)
+                addViews(elementLists)
         }, 100)
 
         gestureDetector = GestureDetector(this, NuclideActivity.GestureListener())
@@ -109,125 +104,128 @@ class NuclideActivity : BaseActivity() {
         override fun onDoubleTap(e: MotionEvent): Boolean { return true }
     }
 
-    fun addViews(list: ArrayList<Element>) {
-        ElementModel.getList(list)
-        val themePreference = ThemePreference(this)
-        val themePrefValue = themePreference.getValue()
-        val dLayout = nuc_view
-        val inflate = layoutInflater
-        val mLayout: View = inflate.inflate(R.layout.item_nuclide, dLayout, false)
-        val param = RelativeLayout.LayoutParams(resources.getDimensionPixelSize(R.dimen.item_nuclide), resources.getDimensionPixelSize(R.dimen.item_nuclide))
-        param.leftMargin = resources.getDimensionPixelSize(R.dimen.item_nuclide)*0
-        param.topMargin = resources.getDimensionPixelSize(R.dimen.item_nuclide)*1
-        val s = mLayout.findViewById(R.id.nuclide_element) as TextView
-        val t = mLayout.findViewById(R.id.nuclide_number) as TextView
-        s.text = "n"
-        t.text = "1"
+    fun addViews(list: ArrayList<Element>)  {
+            ElementModel.getList(list)
+            val dLayout = nuc_view
+            val inflate = layoutInflater
+            val mLayout: View = inflate.inflate(R.layout.item_nuclide, dLayout, false)
+            val param = RelativeLayout.LayoutParams(
+                resources.getDimensionPixelSize(R.dimen.item_nuclide),
+                resources.getDimensionPixelSize(R.dimen.item_nuclide)
+            )
+            param.leftMargin = resources.getDimensionPixelSize(R.dimen.item_nuclide) * 0
+            param.topMargin = resources.getDimensionPixelSize(R.dimen.item_nuclide) * 1
+            val s = mLayout.findViewById(R.id.nuclide_element) as TextView
+            val t = mLayout.findViewById(R.id.nuclide_number) as TextView
+            s.text = "n"
+            t.text = "1"
+            dLayout.addView(mLayout, param)
+            ldn_place.visibility = View.GONE
 
-        dLayout.addView(mLayout, param)
-        text_load_nuc.visibility = View.GONE
+            for (item in list) {
+                var jsonString: String? = null
+                try {
+                    val hyd = item.element
+                    val ext = ".json"
+                    val elementJson: String? = "$hyd$ext"
+                    val inputStream: InputStream = assets.open(elementJson.toString())
+                    jsonString = inputStream.bufferedReader().use { it.readText() }
+                    val jsonArray = JSONArray(jsonString)
+                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
 
-        for (item in list) {
-            var jsonString: String? = null
-            try {
-                val hyd = item.element
-                val ext = ".json"
-                val elementJson: String? = "$hyd$ext"
-                val inputStream: InputStream = assets.open(elementJson.toString())
-                jsonString = inputStream.bufferedReader().use { it.readText() }
-                val jsonArray = JSONArray(jsonString)
-                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    for (i in 1..item.isotopes) {
+                        val isoN = "iso_N_"
+                        val isoZ = "iso_Z_"
+                        val isoHalf = "iso_half_"
+                        val decayType = "decay_type_"
+                        val number = i.toString()
+                        val nJson: String = "$isoN$number"
+                        val zJson: String = "$isoZ$number"
+                        val halfJson: String = "$isoHalf$number"
+                        val decayTypeString = "$decayType$number"
+                        val n = jsonObject.optString(nJson, "-")
+                        val z = jsonObject.optString(zJson, "-")
+                        val half = jsonObject.optString(halfJson, "-")
 
-                for (i in 1..item.isotopes) {
-                    val isoN = "iso_N_"
-                    val isoZ = "iso_Z_"
-                    val isoHalf = "iso_half_"
-                    val decayType = "decay_type_"
-                    val number = i.toString()
-                    val nJson: String = "$isoN$number"
-                    val zJson: String = "$isoZ$number"
-                    val halfJson: String = "$isoHalf$number"
-                    val decayTypeString = "$decayType$number"
-                    val n = jsonObject.optString(nJson, "-")
-                    val z = jsonObject.optString(zJson, "-")
-                    val half = jsonObject.optString(halfJson, "-")
-                    val decayTypeResult = jsonObject.optString(decayTypeString, "default")
-                    val mainLayout = nuc_view
-                    val inflater = layoutInflater
-                    val myLayout: View = inflater.inflate(R.layout.item_nuclide, mainLayout, false)
-                    val params = RelativeLayout.LayoutParams(resources.getDimensionPixelSize(R.dimen.item_nuclide), resources.getDimensionPixelSize(R.dimen.item_nuclide))
+                        val decayTypeResult = jsonObject.optString(decayTypeString, "default")
+                        val mainLayout = nuc_view
+                        val inflater = layoutInflater
+                        val myLayout: View = inflater.inflate(R.layout.item_nuclide, mainLayout, false)
+                        val params = RelativeLayout.LayoutParams(resources.getDimensionPixelSize(R.dimen.item_nuclide), resources.getDimensionPixelSize(R.dimen.item_nuclide))
 
-                    if (n.isDigitsOnly() && z.isDigitsOnly()) {
-                        params.leftMargin = resources.getDimensionPixelSize(R.dimen.item_nuclide)*(z.toInt())
-                        params.topMargin = resources.getDimensionPixelSize(R.dimen.item_nuclide)*(n.toInt())
-                        val short = myLayout.findViewById(R.id.nuclide_element) as TextView
-                        val top = myLayout.findViewById(R.id.nuclide_number) as TextView
-                        val frame = myLayout.findViewById(R.id.item_nuclide_frame) as FrameLayout
-                        val decay = myLayout.findViewById(R.id.nuclide_decay) as TextView
+                        if (n.isDigitsOnly() && z.isDigitsOnly()) {
+                            params.leftMargin = resources.getDimensionPixelSize(R.dimen.item_nuclide) * (z.toInt())
+                            params.topMargin = resources.getDimensionPixelSize(R.dimen.item_nuclide) * (n.toInt())
+                            val short = myLayout.findViewById(R.id.nuclide_element) as TextView
+                            val top = myLayout.findViewById(R.id.nuclide_number) as TextView
+                            val frame = myLayout.findViewById(R.id.item_nuclide_frame) as FrameLayout
+                            val decay = myLayout.findViewById(R.id.nuclide_decay) as TextView
 
-                        short.text = item.short
-                        top.text = (z.toInt() + n.toInt()).toString()
-                        decay.text = decayTypeResult
-                        if (decayTypeResult == "stable") {
-                            frame.background.setTint(Color.argb(255, 42, 50, 61))
-                            short.setTextColor(resources.getColor(R.color.colorLightPrimary))
-                            top.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                            short.text = item.short
+                            top.text = (z.toInt() + n.toInt()).toString()
+                            decay.text = decayTypeResult
+                            if (decayTypeResult == "stable") {
+                                frame.background.setTint(Color.argb(255, 42, 50, 61))
+                                short.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                                top.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                            }
+                            if (decayTypeResult == "3p") {
+                                frame.background.setTint(Color.argb(255, 137, 0, 7))
+                                short.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                                top.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                            }
+                            if (decayTypeResult == "2p") {
+                                frame.background.setTint(Color.argb(255, 154, 0, 7))
+                                short.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                                top.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                            }
+                            if (decayTypeResult == "p") {
+                                frame.background.setTint(Color.argb(255, 211, 47, 47))
+                                short.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                                top.setTextColor(resources.getColor(R.color.colorLightPrimary))
+                            }
+                            if (decayTypeResult == "B+") {
+                                frame.background.setTint(Color.argb(255, 211, 102, 89))
+                                short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                                top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            }
+                            if (decayTypeResult == "2B-") {
+                                frame.background.setTint(Color.argb(255, 3, 155, 229))
+                                short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                                top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            }
+                            if (decayTypeResult == "B-") {
+                                frame.background.setTint(Color.argb(255, 89, 204, 255))
+                                short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                                top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            }
+                            if (decayTypeResult == "n") {
+                                frame.background.setTint(Color.argb(255, 78, 186, 170))
+                                short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                                top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            }
+                            if (decayTypeResult == "2n") {
+                                frame.background.setTint(Color.argb(255, 0, 137, 123))
+                                short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                                top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            }
+                            if (decayTypeResult == "a") {
+                                frame.background.setTint(Color.argb(255, 255, 235, 59))
+                                short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                                top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            }
+                            if (decayTypeResult == "e- capture") {
+                                frame.background.setTint(Color.argb(255, 176, 0, 78))
+                                short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                                top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
+                            }
+                            mainLayout.addView(myLayout, params)
                         }
-                        if (decayTypeResult == "3p") {
-                            frame.background.setTint(Color.argb(255, 137, 0, 7))
-                            short.setTextColor(resources.getColor(R.color.colorLightPrimary))
-                            top.setTextColor(resources.getColor(R.color.colorLightPrimary))
-                        }
-                        if (decayTypeResult == "2p") {
-                            frame.background.setTint(Color.argb(255, 154, 0, 7))
-                            short.setTextColor(resources.getColor(R.color.colorLightPrimary))
-                            top.setTextColor(resources.getColor(R.color.colorLightPrimary))
-                        }
-                        if (decayTypeResult == "p") {
-                            frame.background.setTint(Color.argb(255, 211, 47, 47))
-                            short.setTextColor(resources.getColor(R.color.colorLightPrimary))
-                            top.setTextColor(resources.getColor(R.color.colorLightPrimary))
-                        }
-                        if (decayTypeResult == "B+") {
-                            frame.background.setTint(Color.argb(255, 211, 102, 89))
-                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                        }
-                        if (decayTypeResult == "2B-") {
-                            frame.background.setTint(Color.argb(255, 3, 155, 229))
-                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                        }
-                        if (decayTypeResult == "B-") {
-                            frame.background.setTint(Color.argb(255, 89, 204, 255))
-                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                        }
-                        if (decayTypeResult == "n") {
-                            frame.background.setTint(Color.argb(255, 78, 186, 170))
-                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                        }
-                        if (decayTypeResult == "2n") {
-                            frame.background.setTint(Color.argb(255, 0, 137, 123))
-                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                        }
-                        if (decayTypeResult == "a") {
-                            frame.background.setTint(Color.argb(255, 255, 235, 59))
-                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                        }
-                        if (decayTypeResult == "e- capture") {
-                            frame.background.setTint(Color.argb(255, 176, 0, 78))
-                            short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                            top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
-                        }
-                        mainLayout.addView(myLayout, params)
                     }
+                } catch (e: IOException) {
                 }
-            } catch (e: IOException) { }
-        }
+            }
+
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {

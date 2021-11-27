@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="?attr/backgroundColor"
     android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/view_lic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorPrimaryDark"
+        android:background="?attr/backgroundColor"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="parent">
@@ -19,12 +20,19 @@
             android:id="@+id/common_title_back_lic"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:alpha="0.975"
-            android:background="?attr/colorPrimary"
-            android:elevation="8dp"
+            android:background="?attr/colorSurface"
+            android:elevation="1dp"
             android:gravity="center|center_vertical"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/common_title_back_lic_color"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:elevation="1dp"
+                android:alpha="0.11"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,10 +52,12 @@
                         android:layout_height="56dp"
                         android:layout_gravity="center_vertical"
                         android:rotation="180"
+                        android:elevation="8dp"
+                        app:tint="?attr/colorOnPrimaryContainer"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <TextView
-                        android:id="@+id/element_title"
+                        android:id="@+id/license_title"
                         android:layout_width="wrap_content"
                         android:layout_marginStart="70dp"
                         android:alpha="0.9"
@@ -55,9 +65,9 @@
                         android:gravity="center"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
-                        android:text="Licenses"
+                        android:text="@string/license_title"
                         android:textAlignment="center"
-                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -66,23 +76,40 @@
             </LinearLayout>
         </FrameLayout>
 
+        <ScrollView
+            android:id="@+id/license_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
         <LinearLayout
             android:id="@+id/licenses_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="80dp"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/license_title_downstate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="28dp"
+                android:text="@string/license_title"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="32sp"
+                android:textStyle="normal" />
 
             <FrameLayout
                 android:id="@+id/l_wiki_btn"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="9dp"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginBottom="@dimen/margin_space_card"
                 android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorPrimary"
+                android:backgroundTint="?attr/colorSurfaceVariant"
                 android:clickable="true"
                 android:elevation="2dp"
                 android:focusable="true">
@@ -91,10 +118,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
                     android:text="Wikipedia Commons"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSurfaceVariant" />
 
             </FrameLayout>
 
@@ -102,12 +129,12 @@
                 android:id="@+id/l_sothree_btn"
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="9dp"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="@dimen/margin_space_card"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginBottom="@dimen/margin_space_card"
                 android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorPrimary"
+                android:backgroundTint="?attr/colorSurfaceVariant"
                 android:clickable="true"
                 android:elevation="2dp"
                 android:focusable="true">
@@ -116,14 +143,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
                     android:text="Sothree Android Sliding Up Panel"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSurfaceVariant" />
 
             </FrameLayout>
-
         </LinearLayout>
+        </ScrollView>
+
 
         <include
             android:id="@+id/l_inc"

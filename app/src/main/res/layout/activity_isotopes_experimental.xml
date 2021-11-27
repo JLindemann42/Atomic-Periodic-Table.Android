@@ -14,6 +14,47 @@
         app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="parent">
 
+        <LinearLayout
+            android:id="@+id/empty_search_box_iso"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="56dp"
+            android:visibility="gone"
+            android:elevation="1dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/empty_iso_search_image"
+                android:layout_width="164dp"
+                android:layout_marginTop="44dp"
+                android:layout_height="164dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/graphic_light_search" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="42dp"
+                android:layout_marginEnd="42dp"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="24sp"
+                android:text="No results"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginStart="42dp"
+                android:layout_marginEnd="42dp"
+                android:textSize="16sp"
+                android:text="Try searching for another word or check your spelling."/>
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/filter_background"
             android:layout_width="match_parent"
@@ -40,12 +81,18 @@
             android:id="@+id/common_title_back_iso"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:alpha="0.975"
-            android:background="?attr/colorPrimary"
+            android:background="?attr/colorSurface"
             android:elevation="8dp"
             android:gravity="center|center_vertical"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/common_title_isotope_color"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -66,6 +113,7 @@
                         android:layout_height="56dp"
                         android:layout_gravity="center_vertical"
                         android:rotation="180"
+                        app:tint="?attr/colorOnSecondaryContainer"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <ImageButton
@@ -74,6 +122,7 @@
                         android:layout_width="56dp"
                         android:layout_height="56dp"
                         android:layout_gravity="center_vertical|end"
+                        app:tint="?attr/colorOnSecondaryContainer"
                         android:src="@drawable/ic_search" />
 
                     <TextView
@@ -85,9 +134,9 @@
                         android:gravity="center"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
-                        android:text="Isotopes"
+                        android:text="@string/isotopes_title"
                         android:textAlignment="center"
-                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
@@ -121,6 +170,7 @@
                         android:layout_gravity="center_vertical"
                         android:alpha="0.9"
                         android:rotation="180"
+                        app:tint="?attr/colorOnSecondaryContainer"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <FrameLayout
@@ -139,14 +189,13 @@
                             android:background="@android:color/transparent"
                             android:focusable="true"
                             android:focusableInTouchMode="true"
-                            android:fontFamily="@font/manroperegular"
                             android:hint="Search For Isotopes"
                             android:imeOptions="actionSearch"
                             android:inputType="text"
                             android:maxLines="1"
                             android:paddingStart="0dp"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textColorHint="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:textColorHint="?attr/colorOnSecondaryContainer"
                             android:textSize="14sp" />
                     </FrameLayout>
                 </FrameLayout>
@@ -157,7 +206,7 @@
             android:id='@+id/r_view'
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/colorPrimaryDark"
+            android:background="?attr/backgroundColor"
             android:clipToPadding="false"
             android:paddingTop="9dp"
             android:paddingBottom="60dp"
@@ -173,7 +222,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.6"
-        android:background="@color/colorLightText"
+        android:background="?attr/colorOnSurface"
         android:visibility="gone" />
 
     <include

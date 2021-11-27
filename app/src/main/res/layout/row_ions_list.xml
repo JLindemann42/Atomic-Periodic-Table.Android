@@ -9,14 +9,13 @@
         android:id="@+id/ionCard"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="9dp"
-        android:background="@drawable/toast"
-        android:backgroundTint="?attr/colorPrimary"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/toast_card"
+        android:backgroundTint="?attr/colorSurfaceVariant"
         android:clickable="true"
-        android:elevation="2dp"
         android:focusable="true">
 
         <FrameLayout
@@ -26,7 +25,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="18dp"
             android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorAccent">
+            android:backgroundTint="?attr/colorPrimary">
 
             <TextView
                 android:id="@+id/tv_short_d"
@@ -34,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textAlignment="center"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="?attr/colorOnPrimary" />
         </FrameLayout>
 
 
@@ -49,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="72dp"
-                android:textColor="?attr/actionMenuTextColor"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:textStyle="bold" />
 
             <TextView
@@ -57,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="72dp"
-                android:textColor="?attr/actionMenuTextColor" />
+                android:textColor="?attr/colorOnSurfaceVariant" />
 
         </LinearLayout>
 
@@ -70,10 +69,10 @@
             android:alpha="0.8"
             android:drawableEnd="@drawable/outline_chevron_right_24"
             android:drawablePadding="4dp"
-            android:drawableTint="?attr/actionMenuTextColor"
+            android:drawableTint="?attr/colorTertiary"
             android:elegantTextHeight="true"
             android:textAlignment="center"
-            android:textColor="?attr/actionMenuTextColor" />
+            android:textColor="?attr/colorTertiary" />
 
     </FrameLayout>
 

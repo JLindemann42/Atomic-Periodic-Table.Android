@@ -15,7 +15,7 @@
         android:layout_marginEnd="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/nitrogen_btn"
             android:layout_width="80dp"
             android:layout_height="78dp"
@@ -72,7 +72,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/phosphorus_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -129,7 +129,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/arsenic_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -186,7 +186,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/antimony_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -243,7 +243,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/bismuth_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -300,7 +300,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/moscovium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -356,7 +356,7 @@
         android:layout_marginEnd="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/erbium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -413,7 +413,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/fermium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"

@@ -26,17 +26,22 @@
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="0.8"
-            android:backgroundTint="?attr/colorPrimary"
+            android:backgroundTint="?attr/colorSurface"
             android:orientation="vertical"
             android:paddingStart="24dp"
             android:paddingEnd="24dp">
+            
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorPrimary"
                 android:clickable="true"
                 android:elevation="8dp"
                 android:focusable="true"
@@ -52,7 +57,7 @@
                     android:alpha="1.0"
                     android:text="Element Ionization"
                     android:textAlignment="viewStart"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorPrimary"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -75,7 +80,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -85,7 +90,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -95,7 +100,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -105,7 +110,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -115,7 +120,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -125,7 +130,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -135,7 +140,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -145,7 +150,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -155,7 +160,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -165,7 +170,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -175,7 +180,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -185,7 +190,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -195,7 +200,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -205,7 +210,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -215,7 +220,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -225,7 +230,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -235,7 +240,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -245,7 +250,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -255,7 +260,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -265,7 +270,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -275,7 +280,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -285,7 +290,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -295,7 +300,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -305,7 +310,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -315,7 +320,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -325,7 +330,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -335,7 +340,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -345,7 +350,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -355,7 +360,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 
@@ -365,7 +370,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="4dp"
                             android:text="TextView"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textIsSelectable="true"
                             android:textSize="16sp" />
 

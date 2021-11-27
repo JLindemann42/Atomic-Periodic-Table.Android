@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="?attr/colorPrimaryDark">
+        android:background="?attr/backgroundColor">
 
         <TextView
             android:id="@+id/background"
@@ -15,130 +15,168 @@
             android:clickable="true"
             android:focusable="true" />
 
-        <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include
-            android:id="@+id/drop_issue"
-            layout="@layout/drop_issue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="100dp"
-            android:visibility="gone" />
-
-            <LinearLayout
-                android:id="@+id/i_box"
+            <ScrollView
+                android:id="@+id/submit_scroll"
                 android:layout_width="match_parent"
-                android:layout_height="360dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="72dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorPrimary"
-                android:elevation="2dp"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:layout_marginTop="18dp"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/drop_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="18dp"
-                        android:clickable="true"
-                        android:drawableStart="@drawable/ic_arrow"
-                        android:drawablePadding="9dp"
-                        android:elevation="1dp"
-                        android:focusable="true"
-                        android:foreground="@drawable/c_ripple"
-                        android:gravity="center_vertical"
-                        android:text="Data Issue"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:id="@+id/submit_title_downstate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="28dp"
+                        android:text="@string/submit_activity_title"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="32sp"
+                        android:textStyle="normal" />
 
-                    <EditText
-                        android:id="@+id/i_title"
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                <include
+                    android:id="@+id/drop_issue"
+                    layout="@layout/drop_issue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="36dp"
+                    android:layout_marginTop="32dp"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/i_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorSurfaceVariant"
+                    android:elevation="2dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="54dp"
-                        android:layout_marginStart="18dp"
-                        android:layout_marginEnd="18dp"
+                        android:layout_marginTop="@dimen/margin"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/drop_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/margin"
+                            android:clickable="true"
+                            android:drawableStart="@drawable/ic_arrow"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="?attr/colorOnSurfaceVariant"
+                            android:elevation="1dp"
+                            android:focusable="true"
+                            android:foreground="@drawable/c_ripple"
+                            android:gravity="center_vertical"
+                            android:text="@string/submit_data_i"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+
+                        <EditText
+                            android:id="@+id/i_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:layout_marginStart="@dimen/margin"
+                            android:layout_marginEnd="@dimen/margin"
+                            android:background="@drawable/toast"
+                            android:backgroundTint="?attr/colorSurface"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:hint="@string/submit_issue"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:paddingStart="18dp"
+                            android:paddingEnd="18dp"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textColorHint="?attr/colorOnSurface"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/i_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="180dp"
+                        android:layout_marginStart="@dimen/margin"
+                        android:layout_marginTop="@dimen/margin"
+                        android:layout_marginEnd="@dimen/margin"
                         android:background="@drawable/toast"
-                        android:backgroundTint="?attr/chipSurfaceColor"
+                        android:backgroundTint="?attr/colorSurface"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
-                        android:fontFamily="@font/manroperegular"
-                        android:hint="Issue"
+                        android:gravity="top"
+                        android:hint="Description"
                         android:imeOptions="actionSearch"
                         android:inputType="text"
                         android:maxLines="1"
                         android:paddingStart="18dp"
+                        android:paddingTop="18dp"
                         android:paddingEnd="18dp"
-                        android:textColor="?attr/actionMenuTextColor"
-                        android:textColorHint="?attr/actionMenuTextColor"
+                        android:paddingBottom="18dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurface"
                         android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/i_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="@dimen/margin"
+                        android:layout_marginTop="@dimen/margin"
+                        android:layout_marginEnd="@dimen/margin"
+                        android:layout_marginBottom="@dimen/margin"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:clickable="true"
+                        android:elevation="2dp"
+                        android:focusable="true"
+                        android:layout_gravity="end"
+                        android:gravity="center_vertical"
+                        android:drawableEnd="@drawable/ic_send"
+                        android:drawableTint="?attr/colorOnPrimary"
+                        android:paddingEnd="16dp"
+                        android:drawablePadding="8dp"
+                        android:paddingStart="24dp"
+                        android:foreground="@drawable/c_ripple"
+                        android:textStyle="normal"
+                        android:text="@string/submit_send"
+                        android:textSize="16sp"
+                        android:textColor="?attr/colorOnPrimary" />
+
                 </LinearLayout>
-
-                <EditText
-                    android:id="@+id/i_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/chipSurfaceColor"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:fontFamily="@font/manroperegular"
-                    android:gravity="top"
-                    android:hint="Description"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:paddingStart="18dp"
-                    android:paddingTop="18dp"
-                    android:paddingEnd="18dp"
-                    android:paddingBottom="18dp"
-                    android:textColor="?attr/actionMenuTextColor"
-                    android:textColorHint="?attr/actionMenuTextColor"
-                    android:textSize="14sp" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/i_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginTop="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:layout_marginBottom="18dp"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorAccent"
-                    android:clickable="true"
-                    android:elevation="2dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/c_ripple"
-                    android:text="Send issue"
-                    android:textColor="?attr/colorPrimary" />
-
-            </LinearLayout>
-    </FrameLayout>
-
+                    </FrameLayout>
+                </LinearLayout>
+            </ScrollView>
     <FrameLayout
             android:id="@+id/common_title_back_sub"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:alpha="1"
-            android:elevation="4dp"
-            android:background="?attr/colorPrimary"
+            android:elevation="1dp"
+            android:background="?attr/colorSurface"
             android:gravity="center|center_vertical"
             android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/common_title_back_sub_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -158,10 +196,11 @@
                         android:layout_height="56dp"
                         android:layout_gravity="center_vertical"
                         android:rotation="180"
+                        app:tint="?attr/colorOnSecondaryContainer"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <TextView
-                        android:id="@+id/element_title"
+                        android:id="@+id/submit_title"
                         android:layout_width="wrap_content"
                         android:layout_marginStart="70dp"
                         android:alpha="0.9"
@@ -169,16 +208,12 @@
                         android:gravity="center"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
-                        android:text="Submit Issue"
+                        android:text="@string/submit_activity_title"
                         android:textAlignment="center"
-                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="20sp"
                         android:textStyle="bold" />
-
-
                 </FrameLayout>
-
             </LinearLayout>
         </FrameLayout>
-
 </FrameLayout>

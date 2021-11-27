@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.adapter.IsotopeAdapter
+import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.*
@@ -181,6 +182,15 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
                 if (lhs.element < rhs.element) -1 else if (lhs.element < rhs.element) 1 else 0
             })
         }
+        val handler = android.os.Handler()
+        handler.postDelayed({
+            if (recyclerView.adapter!!.itemCount == 0) {
+                Anim.fadeIn(empty_search_box_iso, 300)
+            }
+            else {
+                empty_search_box_iso.visibility = View.GONE
+            }
+        }, 10)
         mAdapter.filterList(filteredList)
         mAdapter.notifyDataSetChanged()
         recyclerView.adapter = IsotopeAdapter(filteredList, this, this)
@@ -300,6 +310,10 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         val params3 = sliding_layout_i.layoutParams as ViewGroup.MarginLayoutParams
         params3.topMargin = top + resources.getDimensionPixelSize(R.dimen.panel_margin)
         sliding_layout_i.layoutParams = params3
+
+        val searchEmptyImgPrm = empty_search_box_iso.layoutParams as ViewGroup.MarginLayoutParams
+        searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
+        empty_search_box_iso.layoutParams = searchEmptyImgPrm
     }
 }
 

@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     android:id="@+id/view_main"
     android:orientation="vertical"
-    android:background="?attr/colorPrimaryDark"
+    android:background="?attr/backgroundColor"
     tools:context=".activities.MainActivity">
 
     <FrameLayout
         android:id="@+id/common_title_back_main"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:alpha="0.975"
-        android:background="?attr/colorPrimaryDark"
+        android:alpha="1"
+        android:background="?attr/colorSurface"
         android:elevation="4dp"
         android:gravity="center|center_vertical"
         android:orientation="horizontal"
@@ -37,9 +37,18 @@
                     android:layout_height="48dp"
                     android:layout_gravity="center_vertical"
                     android:clickable="true"
-                    android:elevation="2dp"
+                    android:elevation="0dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorSurface"
                     android:focusable="true"
                     android:foreground="@drawable/c_ripple">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:alpha="0.11"/>
 
                     <TextView
                         android:id="@+id/textView5"
@@ -52,7 +61,7 @@
                         android:drawablePadding="16dp"
                         android:gravity="center_vertical"
                         android:text="Search Elements"
-                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="16sp" />
                 </FrameLayout>
 
@@ -65,15 +74,15 @@
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="2dp">
+        android:elevation="0dp">
 
         <TextView
             android:id="@+id/corner"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginTop="72dp"
-            android:background="?attr/colorPrimary"
-            android:elevation="8dp" />
+            android:background="?attr/colorSurface"
+            android:elevation="4dp" />
 
         <HorizontalScrollView
             android:id="@+id/topBar"
@@ -81,9 +90,9 @@
             android:layout_height="32dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="72dp"
-            android:background="?attr/colorPrimary"
+            android:background="?attr/colorSurface"
             android:clickable="false"
-            android:elevation="8dp"
+            android:elevation="4dp"
             android:fadeScrollbars="true"
             android:fadingEdge="horizontal"
             android:fadingEdgeLength="100dp"
@@ -304,9 +313,9 @@
             android:layout_width="32dp"
             android:layout_height="match_parent"
             android:layout_marginTop="104dp"
-            android:background="?attr/colorPrimary"
+            android:background="?attr/colorSurface"
             android:clickable="true"
-            android:elevation="8dp"
+            android:elevation="4dp"
             android:fadeScrollbars="true"
             android:fadingEdge="vertical"
             android:fadingEdgeLength="36dp"
@@ -672,12 +681,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="32dp"
-        android:backgroundTint="?attr/colorAccent"
+        android:backgroundTint="?attr/colorPrimary"
         android:clickable="true"
         android:elevation="10dp"
         android:focusable="true"
+        app:borderWidth="0dp"
         android:src="@drawable/ic_filter"
-        android:tint="?attr/colorPrimary"
+        android:tint="?attr/colorOnPrimary"
         app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="@id/nav_bar_main"
         app:layout_constraintEnd_toEndOf="parent"
@@ -687,12 +697,20 @@
         android:id="@+id/nav_bar_main"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorSurface"
         android:clickable="true"
+        android:alpha="1"
         android:elevation="8dp"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.08"
+            android:elevation="9dp"
+            android:background="?attr/colorPrimary"/>
 
         <FrameLayout
             android:id="@+id/nav_content"
@@ -710,8 +728,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_settings"
-                android:tint="?attr/actionMenuTextColor"
-                app:backgroundTint="?attr/colorPrimary"
+                android:tint="?attr/colorOnSecondaryContainer"
+                app:backgroundTint="@color/transparent"
                 app:borderWidth="0dp"
                 app:elevation="0dp" />
 
@@ -723,8 +741,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_menu"
-                android:tint="?attr/actionMenuTextColor"
-                app:backgroundTint="?attr/colorPrimary"
+                android:tint="?attr/colorOnSecondaryContainer"
+                app:backgroundTint="@color/transparent"
                 app:borderWidth="0dp"
                 app:elevation="0dp" />
         </FrameLayout>

@@ -3,13 +3,24 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/toast"
-    android:backgroundTint="?attr/colorPrimary"
+    android:backgroundTint="?attr/colorSurface"
     android:elevation="24dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/half_up_toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:alpha="0.11"/>
 
         <TextView
             android:id="@+id/iso_alphabet_btn"
@@ -19,14 +30,25 @@
             android:clickable="true"
             android:drawableStart="@drawable/ic_alphab"
             android:drawablePadding="9dp"
-            android:drawableTint="?attr/actionMenuTextColor"
+            android:drawableTint="?attr/colorOnSecondaryContainer"
             android:focusable="true"
             android:foreground="@drawable/d_ripple"
             android:gravity="center_vertical"
             android:padding="9dp"
             android:paddingEnd="36dp"
             android:text="Alphabetical"
-            android:textColor="?attr/actionMenuTextColor" />
+            android:textColor="?attr/colorOnSecondaryContainer" />
+        </FrameLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/half_down_toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:alpha="0.11"/>
 
         <TextView
             android:id="@+id/iso_element_numb_btn"
@@ -36,14 +58,14 @@
             android:clickable="true"
             android:drawableStart="@drawable/overview_icon"
             android:drawablePadding="9dp"
-            android:drawableTint="?attr/actionMenuTextColor"
+            android:drawableTint="?attr/colorOnSecondaryContainer"
             android:focusable="true"
             android:foreground="@drawable/d_ripple"
             android:gravity="center_vertical"
             android:padding="9dp"
             android:paddingEnd="36dp"
             android:text="Element Number"
-            android:textColor="?attr/actionMenuTextColor" />
-
+            android:textColor="?attr/colorOnSecondaryContainer" />
+        </FrameLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

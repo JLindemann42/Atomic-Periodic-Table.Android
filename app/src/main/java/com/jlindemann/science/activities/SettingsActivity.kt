@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.TextView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.*
@@ -13,7 +14,11 @@ import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.offlinePreference
 import com.jlindemann.science.settings.ExperimentalActivity
 import com.jlindemann.science.utils.Utils
+import kotlinx.android.synthetic.main.activity_element_info.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.activity_settings.element_title
+import kotlinx.android.synthetic.main.activity_settings.view
 import kotlinx.android.synthetic.main.theme_panel.*
 import java.io.File
 import java.text.DecimalFormat
@@ -65,7 +70,30 @@ class SettingsActivity : BaseActivity() {
 
         view.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        info_btn_set.setOnClickListener {
+        //Title Controller
+        common_title_settings_color.visibility = View.INVISIBLE
+        element_title.visibility = View.INVISIBLE
+        common_title_back_set.elevation = (resources.getDimension(R.dimen.zero_elevation))
+        scroll_settings.getViewTreeObserver()
+            .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
+                var y = 300f
+                override fun onScrollChanged() {
+                    if (scroll_settings.getScrollY() > 150) {
+                        common_title_settings_color.visibility = View.VISIBLE
+                        element_title.visibility = View.VISIBLE
+                        element_title_downstate.visibility = View.INVISIBLE
+                        common_title_back_set.elevation = (resources.getDimension(R.dimen.one_elevation))
+                    } else {
+                        common_title_settings_color.visibility = View.INVISIBLE
+                        element_title.visibility = View.INVISIBLE
+                        element_title_downstate.visibility = View.VISIBLE
+                        common_title_back_set.elevation = (resources.getDimension(R.dimen.zero_elevation))
+                    }
+                    y = scroll_settings.getScrollY().toFloat()
+                }
+            })
+
+        about_settings.setOnClickListener {
             val intent = Intent(this, AboutActivity::class.java)
             startActivity(intent)
         }
@@ -96,9 +124,9 @@ class SettingsActivity : BaseActivity() {
         titleParam.leftMargin = left
         title_box_settings.layoutParams = titleParam
 
-        val params2 = personalization_header.layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        personalization_header.layoutParams = params2
+        val params2 = element_title_downstate.layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        element_title_downstate.layoutParams = params2
 
         personalization_box.setPadding(left, 0, right, 0)
         advanced_box.setPadding(left, 0, right, 0)

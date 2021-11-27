@@ -8,10 +8,9 @@
     android:layout_marginTop="9dp"
     android:layout_marginEnd="18dp"
     android:layout_marginBottom="9dp"
-    android:background="@drawable/toast"
-    android:backgroundTint="?attr/colorPrimary"
+    android:background="@drawable/toast_card"
+    android:backgroundTint="?attr/colorSurfaceVariant"
     android:clickable="true"
-    android:elevation="4dp"
     android:focusable="true">
 
 
@@ -21,8 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="18dp"
         android:text="tv_title"
-        android:textColor="?attr/actionMenuTextColor"
-        android:textSize="18sp"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
@@ -32,25 +31,30 @@
         android:layout_marginStart="18dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="18dp"
-        android:layout_marginBottom="54dp"
+        android:layout_marginBottom="70dp"
         android:alpha="0.85"
         android:text="tv_text"
-        android:textColor="?attr/actionMenuTextColor"
-        android:textSize="14sp" />
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="16sp" />
 
-    <Button
+    <TextView
         android:id="@+id/wiki_btn"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_gravity="bottom"
-        android:drawableEnd="@drawable/ic_arrow_back_whit"
-        android:drawablePadding="9dp"
-        android:drawableTint="?attr/colorAccent"
-        android:paddingEnd="18dp"
-        android:text="Read more on Wikipedia"
-        android:textAlignment="textEnd"
-        android:textColor="?attr/colorAccent"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:drawableStart="@drawable/ic_open"
+        android:drawablePadding="8dp"
+        android:drawableTint="?attr/colorOnPrimary"
+        android:background="@drawable/toast"
+        android:backgroundTint="?attr/colorPrimary"
+        android:gravity="center"
+        android:paddingStart="16dp"
+        android:paddingEnd="24dp"
+        android:text="Read more"
+        android:textColor="?attr/colorOnPrimary"
         android:textSize="16sp" />
 
 </FrameLayout>
