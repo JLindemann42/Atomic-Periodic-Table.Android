@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_nuclide_frame"
+    android:layout_width="32dp"
+    android:layout_height="32dp"
+    android:background="@drawable/toast"
+    android:foreground="@drawable/c_ripple"
+    android:clickable="true"
+    android:elevation="2dp"
+    android:focusable="true">
+
+        <TextView
+            android:id="@+id/nuclide_element"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/nuclide_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:textColor="?attr/actionMenuTextColor"
+            android:layout_margin="9dp"
+            android:textSize="5sp" />
+
+        <TextView
+            android:id="@+id/nuclide_decay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="4dp"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="6sp" />
+
+</FrameLayout>

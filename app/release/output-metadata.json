@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.jlindemann.science",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "versionCode": 56,
+      "versionName": "1.4.1",
+      "outputFile": "app-release.apk"
+    }
+  ]
+}

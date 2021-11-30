@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorLightPrimary">@android:color/system_neutral1_10</color>
+    <color name="colorLightPrimaryDark">#F5F5F5</color>
+    <color name="colorLightAccent">#1C73E8</color>
+    <color name="colorLightError">#B00020</color>
+    <color name="colorLightText">#202125</color>
+    <color name="colorLightRipple">#40202125</color>
+    <color name="colorLightRippleItem">#A81B94E4</color>
+    <color name="colorLightChipSurface">#EBEBEB</color>
+
+    <color name="element_box_light">@android:color/system_accent1_100</color>
+    <color name="element_box_dark">@android:color/system_accent2_700</color>
+
+
+
+    <color name="light_accent">@android:color/system_accent1_100</color>
+
+    <color name="light_search_bar_color">@android:color/system_neutral2_50</color>
+
+    <color name="colorDarkPrimary">#313235</color>
+    <color name="colorDarkPrimaryDark">#202124</color>
+    <color name="colorDarkAccent">#85AEEF</color>
+    <color name="colorDarkError">#B00020</color>
+    <color name="colorDarkText">#E9EAEE</color>
+    <color name="colorDarkRipple">#40E9EAEE</color>
+    <color name="colorDarkRippleItem">#A81B94E4</color>
+    <color name="colorDarkChipSurface">#141414</color>
+
+    <color name="background">#B3000000</color>
+    <color name="background_status">#AD000000</color>
+
+    <color name="wikipediaColor">#FFFFFF</color>
+
+    <!-- Period System colrs-->
+    <color name="lanthanoids">#F5C5A7</color>
+    <color name="actinoids">#E68A5C</color>
+
+    <!-- Category Colors -->
+    <color name="non_metals">#81c784</color>
+    <color name="alkali_metals">#FF6666</color>
+    <color name="alkaline">#FFC370</color>
+    <color name="transition_metals">#E1A8A6</color>
+    <color name="post_transition_metals">#AEAEAE</color>
+    <color name="metalloids">#B8B888</color>
+    <color name="noble_gas">#61C1C1</color>
+
+    <color name="wikipedia">#EBECF0</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="motion_down">#54E68A5C</color>
+
+    <color name="red">#F32B1C</color>
+    <color name="orange">#FF5722</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="blue">#0D47A1</color>
+    <color name="green">#388E3C</color>
+    <color name="purple">#6027C5</color>
+    <color name="pink">#F6528A</color>
+    <color name="colorless">#CFCFCF</color>
+
+</resources>

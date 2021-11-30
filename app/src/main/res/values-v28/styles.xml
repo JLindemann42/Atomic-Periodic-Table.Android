@@ -2,33 +2,85 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#0856CF</item>
+        <item name="colorOnPrimary">#ffffff</item>
+        <item name="colorPrimaryContainer">#D9E2FF</item>
+        <item name="colorOnPrimaryContainer">#00184A</item>
+
+        <item name="colorSecondary">#585E71</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#DDE2FA</item>
+        <item name="colorOnSecondaryContainer">#151B2C</item>
+
+        <item name="colorTertiary">#735571</item>
+        <item name="colorOnTertiary">#FFFFFF</item>
+        <item name="colorTertiaryContainer">#FED7F9</item>
+        <item name="colorOnTertiaryContainer">#2B122C</item>
+
+        <item name="colorSurface">#FEFBFF</item>
+        <item name="colorOnSurface">#1B1B1E</item>
+
+        <item name="colorSurfaceVariant">#E2E2EC</item>
+        <item name="colorOnSurfaceVariant">#44464E</item>
+        <item name="colorOutline">#75767F</item>
+
+        <item name="backgroundColor">#FEFBFF</item>
+        <item name="colorOnBackground">#1B1B1E</item>
+
+        <item name="colorPrimaryDark">#FEFBFF</item>
+        <item name="colorContainer">#D9E2FF</item>
+        <item name="colorAccent">#0856CF</item>
+        <item name="chipSurfaceColor">#E2E2EC</item>
+
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="colorPrimary">@color/colorLightPrimary</item>
-        <item name="colorPrimaryDark">@color/colorLightPrimary</item>
-        <item name="colorAccent">@color/colorLightAccent</item>
+
         <item name="actionMenuTextColor">@color/colorLightText</item>>
         <item name="android:fontFamily">@font/manropefamily</item>
         <item name="rippleColor">@color/colorLightRipple</item>
         <item name="itemRippleColor">@color/colorLightRippleItem</item>
-        <item name="chipSurfaceColor">@color/colorLightChipSurface</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
 
     </style>
 
     <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#b0c5ff</item>
+        <item name="colorOnPrimary">#002B76</item>
+        <item name="colorPrimaryContainer">#003FA4</item>
+        <item name="colorOnPrimaryContainer">#D9E2FF</item>
+
+        <item name="colorSecondary">#C0C6DD</item>
+        <item name="colorOnSecondary">#2A3042</item>
+        <item name="colorSecondaryContainer">#404659</item>
+        <item name="colorOnSecondaryContainer">#DDE2FA</item>
+
+        <item name="colorTertiary">#E1BBDD</item>
+        <item name="colorOnTertiary">#422742</item>
+        <item name="colorTertiaryContainer">#5A3D59</item>
+        <item name="colorOnTertiaryContainer">#FED7F9</item>
+
+        <item name="colorSurface">#1B1B1E</item>
+        <item name="colorOnSurface">#E4E2E6</item>
+
+        <item name="colorSurfaceVariant">#44464E</item>
+        <item name="colorOnSurfaceVariant">#C5C6D0</item>
+        <item name="colorOutline">#8F909A</item>
+
+        <item name="colorPrimaryDark">#1B1B1E</item>
+        <item name="colorContainer">#B0C5FF</item>
+        <item name="colorAccent">#0856CF</item>
+        <item name="chipSurfaceColor">#1B1B1E</item>
+
+        <item name="backgroundColor">#1B1B1E</item>
+        <item name="colorOnBackground">#E4E2E6</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="colorPrimary">@color/colorDarkPrimary</item>
-        <item name="colorPrimaryDark">@color/colorDarkPrimaryDark</item>
         <item name="android:windowLightNavigationBar">false</item>
-        <item name="colorAccent">@color/colorDarkAccent</item>
         <item name="actionMenuTextColor">@color/colorDarkText</item>
         <item name="android:navigationBarColor">@color/transparent</item>
         <item name="android:statusBarColor">@color/transparent</item>
         <item name="rippleColor">@color/colorDarkRipple</item>
-        <item name="chipSurfaceColor">@color/colorDarkChipSurface</item>
         <item name="itemRippleColor">@color/colorDarkRippleItem</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
 

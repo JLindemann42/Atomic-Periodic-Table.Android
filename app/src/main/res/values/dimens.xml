@@ -1,30 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- General Dimensions -->
-    <dimen name="margin">18dp</dimen>
-    <dimen name="margin_space">9dp</dimen>
+    <dimen name="margin">16dp</dimen>
+    <dimen name="margin_space">4dp</dimen>
+    <dimen name="margin_space_card">8dp</dimen>
     <dimen name="default_card_elevation">2dp</dimen>
     <dimen name="title_bar_elevation">4dp</dimen>
     <dimen name="search_margin">8dp</dimen>
+    <dimen name="panel_margin">6dp</dimen>
     <dimen name="search_margin_side">16dp</dimen>
+
+    <dimen name="zero_elevation">0dp</dimen>
+    <dimen name="one_elevation">1dp</dimen>
+
+    <dimen name="header_down_margin">48dp</dimen>
 
     <dimen name="groups">8dp</dimen>
     <dimen name="groupsb">10dp</dimen>
     <dimen name="groups2b">20dp</dimen>
 
     <dimen name="status_bar_height">30dp</dimen>
-    <dimen name="title_bar">56dp</dimen>
+    <dimen name="title_bar">63dp</dimen>
     <dimen name="title_bar_main">68dp</dimen>
     <dimen name="title_bar_ph">100dp</dimen>
-    <dimen name="nav_bar">60dp</dimen>
+    <dimen name="nav_bar">68dp</dimen>
     <dimen name="nav_view">320dp</dimen>
     <dimen name="left_bar">32dp</dimen>
 
+    <dimen name="art_margin">40dp</dimen>
+
     <dimen name="first_item">98dp</dimen>
 
+    <dimen name="item_nuclide">36dp</dimen>
 
     <dimen name="submit_drop">126dp</dimen>
     <dimen name="hover_menu_margin">100dp</dimen>
 
     <dimen name="row_height">36dp</dimen>
+
+    <!--
+Refer to App Widget Documentation for margin information
+http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
+    -->
+    <dimen name="widget_margin">0dp</dimen>
 </resources>

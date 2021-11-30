@@ -4,8 +4,8 @@
     android:id="@+id/view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimaryDark"
-    android:backgroundTint="?attr/colorPrimaryDark"
+    android:background="?attr/backgroundColor"
+    android:backgroundTint="?attr/backgroundColor"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
@@ -13,17 +13,25 @@
         android:id="@+id/common_title_back_set"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:alpha="0.975"
-        android:background="?attr/colorPrimary"
-        android:elevation="8dp"
+        android:alpha="1"
+        android:background="?attr/colorSurface"
+        android:elevation="0dp"
         android:gravity="center|center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/common_title_settings_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="bottom"
+            android:elevation="0dp"
             android:orientation="vertical">
 
             <FrameLayout
@@ -36,8 +44,9 @@
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    android:layout_gravity="center_vertical"
                     android:rotation="180"
+                    android:layout_gravity="center_vertical"
+                    app:tint="?attr/colorOnSecondaryContainer"
                     android:src="@drawable/ic_arrow_back_whit" />
 
                 <ImageButton
@@ -45,6 +54,8 @@
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
+                    android:visibility="gone"
+                    app:tint="?attr/colorOnSecondaryContainer"
                     android:layout_gravity="center_vertical|end"
                     android:src="@drawable/ic_info" />
 
@@ -52,14 +63,14 @@
                     android:id="@+id/element_title"
                     android:layout_width="wrap_content"
                     android:layout_height="56dp"
-                    android:layout_marginStart="72dp"
+                    android:layout_marginStart="70dp"
                     android:alpha="0.9"
                     android:gravity="center"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
                     android:text="Settings"
                     android:textAlignment="center"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </FrameLayout>
@@ -67,51 +78,58 @@
     </FrameLayout>
 
     <ScrollView
+        android:id="@+id/scroll_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorPrimaryDark"
-        android:backgroundTint="?attr/colorPrimaryDark"
-        android:elevation="2dp">
+        android:elevation="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimaryDark"
-            android:backgroundTint="?attr/colorPrimaryDark"
+            android:paddingBottom="100dp"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/element_title_downstate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="28dp"
+                android:text="Settings"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="32sp"
+                android:textStyle="normal" />
 
             <LinearLayout
                 android:id="@+id/personalization_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/colorPrimaryDark"
+                android:background="?attr/backgroundColor"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/personalization_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="56dp"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="0dp"
-                    android:background="?attr/colorPrimaryDark"
-                    android:elevation="2dp"
+                    android:background="?attr/backgroundColor"
+                    android:elevation="0dp"
                     android:paddingStart="16dp"
                     android:paddingTop="8dp"
                     android:paddingBottom="8dp"
                     android:text="@string/personalization_settings"
                     android:textAllCaps="false"
-                    android:textColor="?attr/colorAccent"
-                    android:textStyle="normal|bold" />
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="normal" />
 
                 <RelativeLayout
                     android:id="@+id/themes_settings"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:background="?attr/colorPrimaryDark"
+                    android:background="?attr/backgroundColor"
                     android:clickable="true"
-                    android:elevation="2dp"
+                    android:elevation="0dp"
                     android:focusable="true"
                     android:foreground="@drawable/d_ripple">
 
@@ -119,7 +137,7 @@
                         android:id="@+id/quick_download_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?attr/colorPrimaryDark"
+                        android:background="?attr/backgroundColor"
                         android:theme="@style/ThemeOverlay.AppCompat.Light">
 
                         <ImageView
@@ -127,10 +145,10 @@
                             android:layout_width="56dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0"
-                            android:background="?attr/colorPrimaryDark"
-                            android:backgroundTint="?attr/colorPrimaryDark"
-                            android:padding="12dp"
-                            android:tint="?attr/actionMenuTextColor"
+                            android:background="?attr/backgroundColor"
+                            android:backgroundTint="?attr/backgroundColor"
+                            android:padding="10dp"
+                            app:tint="?attr/colorOnBackground"
                             app:srcCompat="@drawable/ic_themes" />
 
                         <LinearLayout
@@ -148,7 +166,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
                                 android:text="Themes"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -159,7 +177,7 @@
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
                                 android:text="Select Theme"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -170,23 +188,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/backgroundColor"
                         android:visibility="invisible" />
                 </RelativeLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:alpha="0.5"
-                    android:background="?attr/rippleColor" />
 
                 <RelativeLayout
                     android:id="@+id/favorite_settings"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:background="?attr/colorPrimaryDark"
+                    android:background="?attr/backgroundColor"
                     android:clickable="true"
-                    android:elevation="2dp"
+                    android:elevation="0dp"
                     android:focusable="true"
                     android:foreground="@drawable/d_ripple">
 
@@ -194,7 +206,7 @@
                         android:id="@+id/favorite_setting_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?attr/colorPrimaryDark"
+                        android:background="?attr/backgroundColor"
                         android:theme="@style/ThemeOverlay.AppCompat.Light">
 
                         <ImageView
@@ -202,10 +214,10 @@
                             android:layout_width="56dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0"
-                            android:background="?attr/colorPrimaryDark"
-                            android:backgroundTint="?attr/colorPrimaryDark"
-                            android:padding="12dp"
-                            android:tint="?attr/actionMenuTextColor"
+                            android:background="?attr/backgroundColor"
+                            android:backgroundTint="?attr/backgroundColor"
+                            android:padding="10dp"
+                            app:tint="?attr/colorOnBackground"
                             app:srcCompat="@drawable/ic_star" />
 
                         <LinearLayout
@@ -223,7 +235,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
                                 android:text="Favorite Bar"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -234,7 +246,7 @@
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
                                 android:text="Personalise the favorite bar"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -245,24 +257,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/backgroundColor"
                         android:visibility="invisible" />
                 </RelativeLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:alpha="0.5"
-                    android:background="?attr/rippleColor"
-                    android:visibility="gone" />
 
                 <RelativeLayout
                     android:id="@+id/order_settings"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:background="?attr/colorPrimaryDark"
+                    android:background="?attr/backgroundColor"
                     android:clickable="true"
-                    android:elevation="2dp"
+                    android:elevation="0dp"
                     android:focusable="true"
                     android:foreground="@drawable/d_ripple"
                     android:visibility="gone">
@@ -271,7 +276,7 @@
                         android:id="@+id/order_setting_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?attr/colorPrimaryDark"
+                        android:background="?attr/backgroundColor"
                         android:theme="@style/ThemeOverlay.AppCompat.Light">
 
                         <ImageView
@@ -279,11 +284,11 @@
                             android:layout_width="56dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0"
-                            android:background="?attr/colorPrimaryDark"
-                            android:backgroundTint="?attr/colorPrimaryDark"
-                            android:padding="12dp"
+                            android:background="?attr/backgroundColor"
+                            android:backgroundTint="?attr/backgroundColor"
+                            android:padding="10dp"
                             app:srcCompat="@drawable/ic_alphab"
-                            app:tint="?attr/actionMenuTextColor" />
+                            app:tint="?attr/colorOnBackground" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -300,7 +305,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
                                 android:text="Detail Card Order"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -311,7 +316,7 @@
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
                                 android:text="Customize order of Detail Cards"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -321,24 +326,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/backgroundColor"
                         android:visibility="invisible" />
                 </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:alpha="0.5"
-                    android:background="?attr/rippleColor" />
 
                 <RelativeLayout
                     android:id="@+id/unit_settings"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:background="?attr/colorPrimaryDark"
+                    android:background="?attr/backgroundColor"
                     android:clickable="true"
-                    android:elevation="2dp"
+                    android:elevation="0dp"
                     android:focusable="true"
                     android:foreground="@drawable/d_ripple">
 
@@ -346,7 +344,7 @@
                         android:id="@+id/unit_setting_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?attr/colorPrimaryDark"
+                        android:background="?attr/backgroundColor"
                         android:theme="@style/ThemeOverlay.AppCompat.Light">
 
                         <ImageView
@@ -354,10 +352,10 @@
                             android:layout_width="56dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0"
-                            android:background="?attr/colorPrimaryDark"
-                            android:backgroundTint="?attr/colorPrimaryDark"
-                            android:padding="12dp"
-                            android:tint="?attr/actionMenuTextColor"
+                            android:background="?attr/backgroundColor"
+                            android:backgroundTint="?attr/backgroundColor"
+                            android:padding="10dp"
+                            app:tint="?attr/colorOnBackground"
                             app:srcCompat="@drawable/ic_unit" />
 
                         <LinearLayout
@@ -375,7 +373,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
                                 android:text="Table Units"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -386,7 +384,7 @@
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
                                 android:text="Customize the units in the main table"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -396,41 +394,34 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/backgroundColor"
                         android:visibility="invisible" />
                 </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:alpha="0.5"
-                    android:background="?attr/rippleColor" />
 
                 <RelativeLayout
                     android:id="@+id/offline_settings"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:background="?attr/colorPrimaryDark"
+                    android:background="?attr/backgroundColor"
                     android:clickable="true"
-                    android:elevation="2dp"
+                    android:elevation="0dp"
                     android:focusable="true"
                     android:foreground="@drawable/d_ripple">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?attr/colorPrimaryDark"
+                        android:background="?attr/backgroundColor"
                         android:theme="@style/ThemeOverlay.AppCompat.Light">
 
                         <ImageView
                             android:layout_width="56dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0"
-                            android:background="?attr/colorPrimaryDark"
-                            android:backgroundTint="?attr/colorPrimaryDark"
-                            android:padding="12dp"
-                            android:tint="?attr/actionMenuTextColor"
+                            android:background="?attr/backgroundColor"
+                            android:backgroundTint="?attr/backgroundColor"
+                            android:padding="10dp"
+                            app:tint="?attr/colorOnBackground"
                             app:srcCompat="@drawable/ic_data" />
 
                         <LinearLayout
@@ -447,7 +438,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
                                 android:text="Offline Mode"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -457,15 +448,19 @@
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
                                 android:text="Disables loading of images"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
-                        <Switch
+                        <androidx.appcompat.widget.SwitchCompat
                             android:id="@+id/offline_internet_switch"
-                            android:layout_width="64dp"
+                            android:layout_width="100dp"
                             android:layout_height="match_parent"
-                            android:layout_marginEnd="18dp"
+                            android:thumb="@drawable/switch_thumb"
+                            app:track="@drawable/switch_track"
+                            android:scaleX="1.2"
+                            android:scaleY="1.2"
+                            android:layout_marginEnd="24dp"
                             android:gravity="center" />
 
                     </LinearLayout>
@@ -474,16 +469,25 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/backgroundColor"
                         android:visibility="invisible" />
                 </RelativeLayout>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/divider_settings_1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:alpha="0.5"
+                android:background="?attr/colorOutline" />
 
             <LinearLayout
                 android:id="@+id/advanced_box"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?attr/colorPrimaryDark"
+                android:background="?attr/backgroundColor"
                 android:orientation="vertical">
 
                 <TextView
@@ -494,23 +498,23 @@
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_marginBottom="0dp"
-                    android:background="?attr/colorPrimaryDark"
-                    android:elevation="2dp"
+                    android:background="?attr/backgroundColor"
+                    android:elevation="0dp"
                     android:paddingStart="16dp"
-                    android:paddingTop="8dp"
+                    android:paddingTop="24dp"
                     android:paddingBottom="8dp"
                     android:text="@string/other_settings"
                     android:textAllCaps="false"
-                    android:textColor="?attr/colorAccent"
-                    android:textStyle="normal|bold" />
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="normal" />
 
                 <RelativeLayout
                     android:id="@+id/clear_cache_settings"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:background="?attr/colorPrimaryDark"
+                    android:background="?attr/backgroundColor"
                     android:clickable="true"
-                    android:elevation="2dp"
+                    android:elevation="0dp"
                     android:focusable="true"
                     android:foreground="@drawable/d_ripple">
 
@@ -518,7 +522,7 @@
                         android:id="@+id/cache_lay"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?attr/colorPrimaryDark"
+                        android:background="?attr/backgroundColor"
                         android:foreground="@drawable/d_ripple"
                         android:theme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -527,10 +531,10 @@
                             android:layout_width="56dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0"
-                            android:background="?attr/colorPrimaryDark"
-                            android:backgroundTint="?attr/colorPrimaryDark"
-                            android:padding="12dp"
-                            android:tint="?attr/actionMenuTextColor"
+                            android:background="?attr/backgroundColor"
+                            android:backgroundTint="?attr/backgroundColor"
+                            android:padding="10dp"
+                            app:tint="?attr/colorOnBackground"
                             app:srcCompat="@drawable/ic_close" />
 
                         <LinearLayout
@@ -548,7 +552,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
                                 android:text="@string/clear_cache_title"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -559,7 +563,7 @@
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
                                 android:text="@string/clear_cache_text"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -569,24 +573,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/backgroundColor"
                         android:visibility="invisible" />
                 </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:alpha="0.5"
-                    android:background="?attr/rippleColor" />
 
                 <RelativeLayout
                     android:id="@+id/submit_settings"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:background="?attr/colorPrimaryDark"
+                    android:background="?attr/backgroundColor"
                     android:clickable="true"
-                    android:elevation="2dp"
+                    android:elevation="0dp"
                     android:focusable="true"
                     android:foreground="@drawable/d_ripple">
 
@@ -594,7 +591,7 @@
                         android:id="@+id/submit_lay"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?attr/colorPrimaryDark"
+                        android:background="?attr/backgroundColor"
                         android:theme="@style/ThemeOverlay.AppCompat.Light">
 
                         <ImageView
@@ -602,10 +599,10 @@
                             android:layout_width="56dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0"
-                            android:background="?attr/colorPrimaryDark"
-                            android:backgroundTint="?attr/colorPrimaryDark"
-                            android:padding="12dp"
-                            android:tint="?attr/actionMenuTextColor"
+                            android:background="?attr/backgroundColor"
+                            android:backgroundTint="?attr/backgroundColor"
+                            android:padding="10dp"
+                            app:tint="?attr/colorOnBackground"
                             app:srcCompat="@drawable/ic_bug" />
 
                         <LinearLayout
@@ -623,7 +620,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
                                 android:text="@string/submit_title"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -634,7 +631,7 @@
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
                                 android:text="@string/submit_text"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -644,24 +641,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/backgroundColor"
                         android:visibility="invisible" />
                 </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/textView19"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:alpha="0.5"
-                    android:background="?attr/rippleColor" />
 
                 <RelativeLayout
                     android:id="@+id/licenses_settings"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
-                    android:background="?attr/colorPrimaryDark"
+                    android:background="?attr/backgroundColor"
                     android:clickable="true"
-                    android:elevation="2dp"
+                    android:elevation="0dp"
                     android:focusable="true"
                     android:foreground="@drawable/d_ripple">
 
@@ -669,7 +659,7 @@
                         android:id="@+id/licenses_lay"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?attr/colorPrimaryDark"
+                        android:background="?attr/backgroundColor"
                         android:theme="@style/ThemeOverlay.AppCompat.Light">
 
                         <ImageView
@@ -677,10 +667,10 @@
                             android:layout_width="56dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0"
-                            android:background="?attr/colorPrimaryDark"
-                            android:backgroundTint="?attr/colorPrimaryDark"
-                            android:padding="12dp"
-                            android:tint="?attr/actionMenuTextColor"
+                            android:background="?attr/backgroundColor"
+                            android:backgroundTint="?attr/backgroundColor"
+                            android:padding="10dp"
+                            app:tint="?attr/colorOnBackground"
                             app:srcCompat="@drawable/overview_icon" />
 
                         <LinearLayout
@@ -698,7 +688,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
                                 android:text="@string/licenses_title"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -709,7 +699,7 @@
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
                                 android:text="@string/licenses_text"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -719,7 +709,76 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/backgroundColor"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/about_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="?attr/backgroundColor"
+                    android:clickable="true"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/d_ripple">
+
+                    <LinearLayout
+                        android:id="@+id/about_lay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/backgroundColor"
+                        android:theme="@style/ThemeOverlay.AppCompat.Light">
+
+                        <ImageView
+                            android:id="@+id/about_settings_icon"
+                            android:layout_width="56dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0"
+                            android:background="?attr/backgroundColor"
+                            android:backgroundTint="?attr/backgroundColor"
+                            android:padding="10dp"
+                            app:tint="?attr/colorOnBackground"
+                            app:srcCompat="@drawable/ic_info" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/about_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="4dp"
+                                android:text="@string/info_title"
+                                android:textColor="?attr/colorOnBackground"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/about_content"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:alpha="0.5"
+                                android:paddingEnd="18dp"
+                                android:text="@string/info_text"
+                                android:textColor="?attr/colorOnBackground"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:backgroundTint="?attr/backgroundColor"
                         android:visibility="invisible" />
                 </RelativeLayout>
 
@@ -734,7 +793,7 @@
                         android:id="@+id/exp_lay"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?attr/colorPrimary"
+                        android:background="?attr/backgroundColor"
                         android:theme="@style/ThemeOverlay.AppCompat.Light">
 
                         <ImageView
@@ -742,10 +801,10 @@
                             android:layout_width="56dp"
                             android:layout_height="match_parent"
                             android:layout_weight="0"
-                            android:background="?attr/colorPrimary"
-                            android:backgroundTint="?attr/colorPrimary"
-                            android:padding="12dp"
-                            android:tint="?attr/actionMenuTextColor"
+                            android:background="?attr/backgroundColor"
+                            android:backgroundTint="?attr/backgroundColor"
+                            android:padding="10dp"
+                            app:tint="?attr/colorOnBackground"
                             app:srcCompat="@drawable/ic_experimental" />
 
                         <LinearLayout
@@ -762,7 +821,7 @@
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
                                 android:text="@string/experimental_title"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -773,7 +832,7 @@
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
                                 android:text="@string/experimental_text"
-                                android:textColor="?attr/actionMenuTextColor"
+                                android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
 
@@ -784,7 +843,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/colorPrimaryDark"
+                        android:backgroundTint="?attr/backgroundColor"
                         android:visibility="invisible" />
                 </RelativeLayout>
             </LinearLayout>

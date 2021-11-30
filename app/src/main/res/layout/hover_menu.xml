@@ -28,12 +28,19 @@
             android:layout_marginStart="36dp"
             android:layout_marginEnd="36dp"
             android:layout_weight="0.5"
-            android:background="@drawable/toast"
-            android:backgroundTint="?attr/colorPrimary"
+            android:background="@drawable/toast_hover"
+            android:backgroundTint="?attr/colorSurface"
             android:clickable="true"
             android:elevation="2dp"
             android:focusable="true"
             android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:alpha="0.11"/>
 
             <TextView
                 android:id="@+id/textView4"
@@ -45,7 +52,7 @@
                 android:alpha="0.8"
                 android:text="Display Mode"
                 android:textAlignment="viewStart"
-                android:textColor="?attr/actionMenuTextColor"
+                android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -66,7 +73,7 @@
                         android:clickable="true"
                         android:drawableStart="@drawable/overview_icon"
                         android:drawablePadding="18dp"
-                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:drawableTint="?attr/colorOnSecondaryContainer"
                         android:focusable="true"
                         android:foreground="@drawable/d_ripple"
                         android:gravity="center_vertical"
@@ -75,7 +82,7 @@
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
                         android:text="Element Name (Default)"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
                         android:id="@+id/h_group_btn"
@@ -84,7 +91,7 @@
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_detail"
                         android:drawablePadding="18dp"
-                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:drawableTint="?attr/colorOnSecondaryContainer"
                         android:focusable="true"
                         android:foreground="@drawable/d_ripple"
                         android:gravity="center_vertical"
@@ -93,7 +100,7 @@
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
                         android:text="Element Groups"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
                         android:id="@+id/h_electronegativity_btn"
@@ -102,7 +109,7 @@
                         android:clickable="true"
                         android:drawableStart="@drawable/fav_electronegativity"
                         android:drawablePadding="18dp"
-                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:drawableTint="?attr/colorOnSecondaryContainer"
                         android:focusable="true"
                         android:foreground="@drawable/d_ripple"
                         android:gravity="center_vertical"
@@ -111,7 +118,7 @@
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
                         android:text="Electronegativity"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
                         android:id="@+id/atomic_weight_btn"
@@ -120,7 +127,7 @@
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_weight_outline"
                         android:drawablePadding="18dp"
-                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:drawableTint="?attr/colorOnSecondaryContainer"
                         android:focusable="true"
                         android:foreground="@drawable/d_ripple"
                         android:gravity="center_vertical"
@@ -129,7 +136,7 @@
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
                         android:text="Atomic Weight"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
                         android:id="@+id/boiling_btn"
@@ -138,7 +145,7 @@
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_temperature"
                         android:drawablePadding="18dp"
-                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:drawableTint="?attr/colorOnSecondaryContainer"
                         android:focusable="true"
                         android:foreground="@drawable/d_ripple"
                         android:gravity="center_vertical"
@@ -147,7 +154,7 @@
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
                         android:text="Boiling Point"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
                         android:id="@+id/melting_point"
@@ -156,7 +163,7 @@
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_temperature"
                         android:drawablePadding="18dp"
-                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:drawableTint="?attr/colorOnSecondaryContainer"
                         android:focusable="true"
                         android:foreground="@drawable/d_ripple"
                         android:gravity="center_vertical"
@@ -165,7 +172,7 @@
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
                         android:text="Melting Point"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
                         android:id="@+id/h_phase_btn"
@@ -174,7 +181,7 @@
                         android:clickable="true"
                         android:drawableStart="@drawable/gas"
                         android:drawablePadding="18dp"
-                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:drawableTint="?attr/colorOnSecondaryContainer"
                         android:focusable="true"
                         android:foreground="@drawable/d_ripple"
                         android:gravity="center_vertical"
@@ -183,7 +190,7 @@
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
                         android:text="Phase (STP)"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
                         android:id="@+id/h_year_btn"
@@ -192,7 +199,7 @@
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_dictionary"
                         android:drawablePadding="18dp"
-                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:drawableTint="?attr/colorOnSecondaryContainer"
                         android:focusable="true"
                         android:foreground="@drawable/d_ripple"
                         android:gravity="center_vertical"
@@ -201,7 +208,7 @@
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
                         android:text="Year Discovered"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
                         android:id="@+id/h_fusion_btn"
@@ -210,7 +217,7 @@
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_heat"
                         android:drawablePadding="18dp"
-                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:drawableTint="?attr/colorOnSecondaryContainer"
                         android:focusable="true"
                         android:foreground="@drawable/d_ripple"
                         android:gravity="center_vertical"
@@ -219,7 +226,7 @@
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
                         android:text="Fusion Heat"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
                         android:id="@+id/h_specific_btn"
@@ -228,7 +235,7 @@
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_heat"
                         android:drawablePadding="18dp"
-                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:drawableTint="?attr/colorOnSecondaryContainer"
                         android:focusable="true"
                         android:foreground="@drawable/d_ripple"
                         android:gravity="center_vertical"
@@ -237,7 +244,7 @@
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
                         android:text="Specific Heat Capacity"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
                         android:id="@+id/h_vaporizaton_btn"
@@ -246,7 +253,7 @@
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_vaporization"
                         android:drawablePadding="18dp"
-                        android:drawableTint="?attr/actionMenuTextColor"
+                        android:drawableTint="?attr/colorOnSecondaryContainer"
                         android:focusable="true"
                         android:foreground="@drawable/d_ripple"
                         android:gravity="center_vertical"
@@ -255,7 +262,7 @@
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
                         android:text="Vaporization Heat"
-                        android:textColor="?attr/actionMenuTextColor" />
+                        android:textColor="?attr/colorOnSecondaryContainer" />
 
                 </LinearLayout>
             </ScrollView>
@@ -276,19 +283,20 @@
                 android:layout_marginEnd="36dp"
                 android:layout_weight="0.1"
                 android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorAccent"
+                android:backgroundTint="?attr/colorPrimary"
                 android:backgroundTintMode="src_in"
                 android:clickable="true"
                 android:elevation="1dp"
                 android:focusable="true"
-                android:fontFamily="@font/manroperegular"
                 android:foreground="@drawable/c_ripple"
                 android:foregroundTintMode="src_in"
                 android:hapticFeedbackEnabled="true"
                 android:onClick="onClick"
                 android:text="Random Element"
                 android:textAlignment="center"
-                android:textColor="?attr/colorPrimary" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="?attr/colorOnPrimary"
+                android:textStyle="normal|bold" />
         </FrameLayout>
 
     </LinearLayout>

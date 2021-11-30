@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -8,13 +8,8 @@
         android:id="@+id/overview_box"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="18dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="9dp"
-        android:background="@drawable/toast"
-        android:backgroundTint="?attr/colorPrimary"
-        android:elevation="2dp"
+        android:layout_marginTop="@dimen/margin_space_card"
+        android:layout_marginBottom="@dimen/margin_space_card"
         android:orientation="vertical">
 
         <TextView
@@ -35,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:alpha="0.75"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -50,7 +45,7 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginEnd="18dp"
                 android:text="Description:"
-                android:textColor="?attr/actionMenuTextColor"
+                android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -74,7 +69,7 @@
             android:layout_marginBottom="0dp"
             android:maxLines="4"
             android:text="description_name"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -85,7 +80,7 @@
             android:layout_marginEnd="18dp"
             android:alpha="0.66"
             android:text="..more"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -95,7 +90,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/english_name"
@@ -106,7 +101,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="English Name:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -120,7 +115,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -130,7 +125,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/year_discovered"
@@ -141,7 +136,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Year Discovered:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -155,7 +150,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_year"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -165,7 +160,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/discovered_by"
@@ -176,7 +171,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Discovered By:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -190,7 +185,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_discovered_by"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -200,7 +195,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/group"
@@ -211,7 +206,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Group:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -225,7 +220,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_discovered_by"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -235,7 +230,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/appearence_title"
@@ -246,7 +241,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Appearance:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -260,7 +255,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
             android:text="element_discovered_by"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -270,7 +265,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/electrons"
@@ -281,7 +276,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Electrons:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -295,31 +290,36 @@
             android:layout_marginBottom="8dp"
             android:text="element_electrons"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:orientation="vertical"
+            android:backgroundTint="?attr/colorSurfaceVariant"
+            android:background="@drawable/toast"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:text="Most Common Isotope"
-            android:textAlignment="center"
-            android:textColor="?attr/actionMenuTextColor"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:text="Most Common Isotope"
+                android:textAlignment="center"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="76dp"
             android:orientation="horizontal"
-            android:background="@drawable/toast"
-            android:weightSum="3"
-            android:backgroundTint="?attr/chipSurfaceColor"
-            android:layout_marginTop="9dp"
-            android:layout_marginBottom="18dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginStart="18dp">
+            android:weightSum="3">
 
             <LinearLayout
                 android:layout_width="100dp"
@@ -336,7 +336,7 @@
                     android:gravity="center"
                     android:text="Electrons"
                     android:textAlignment="center"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
 
                 <TextView
                     android:id="@+id/element_electrons"
@@ -347,7 +347,7 @@
                     android:text="Electrons"
                     android:textIsSelectable="true"
                     android:textAlignment="center"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="24sp" />
             </LinearLayout>
 
@@ -366,7 +366,7 @@
                     android:gravity="center"
                     android:text="Protons"
                     android:textAlignment="center"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
                 <TextView
                     android:id="@+id/element_protons"
                     android:layout_width="match_parent"
@@ -376,7 +376,7 @@
                     android:text="Protons"
                     android:textIsSelectable="true"
                     android:textAlignment="center"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="24sp" />
 
             </LinearLayout>
@@ -396,7 +396,7 @@
                     android:gravity="center"
                     android:text="Neutrons"
                     android:textAlignment="center"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
 
                 <TextView
                     android:id="@+id/element_neutrons_common"
@@ -407,11 +407,11 @@
                     android:text="Neutrons"
                     android:textIsSelectable="true"
                     android:textAlignment="center"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="24sp" />
             </LinearLayout>
 
         </LinearLayout>
-
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

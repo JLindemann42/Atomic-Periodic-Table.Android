@@ -12,12 +12,17 @@
         android:id="@+id/common_title_back"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:alpha="0.975"
-        android:background="?attr/colorPrimary"
-        android:elevation="8dp"
+        android:background="?attr/colorSurface"
+        android:elevation="1dp"
         android:gravity="center|center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,6 +43,7 @@
                     android:layout_gravity="center_vertical"
                     android:rotation="180"
                     android:alpha="0.9"
+                    app:tint="?attr/colorOnSecondaryContainer"
                     android:src="@drawable/ic_arrow_back_whit" />
 
                 <ImageButton
@@ -49,6 +55,7 @@
                     android:padding="16dp"
                     android:alpha="0.9"
                     android:scaleType="fitStart"
+                    app:tint="?attr/colorOnSecondaryContainer"
                     android:src="@drawable/ic_wikipedia_logo" />
 
                 <TextView
@@ -62,7 +69,7 @@
                     android:paddingEnd="0dp"
                     android:text="Periodic Table"
                     android:textAlignment="center"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </FrameLayout>
@@ -79,7 +86,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimaryDark"
+            android:background="?attr/backgroundColor"
             android:orientation="vertical">
 
             <Space
@@ -119,9 +126,9 @@
                     android:clickable="true"
                     android:elevation="8dp"
                     android:rotation="180"
-                    android:tint="?attr/colorAccent"
+                    android:tint="?attr/colorPrimary"
                     android:visibility="visible"
-                    app:backgroundTint="?attr/colorPrimary"
+                    app:backgroundTint="?attr/colorSurface"
                     app:fabSize="mini"
                     app:srcCompat="@drawable/ic_arrow_back_whit" />
 
@@ -133,9 +140,9 @@
                     android:layout_margin="18dp"
                     android:clickable="true"
                     android:elevation="8dp"
-                    android:tint="?attr/colorAccent"
+                    android:tint="?attr/colorPrimary"
                     android:visibility="visible"
-                    app:backgroundTint="?attr/colorPrimary"
+                    app:backgroundTint="?attr/colorSurface"
                     app:fabSize="mini"
                     app:srcCompat="@drawable/ic_arrow_back_whit" />
             </FrameLayout>
@@ -199,13 +206,13 @@
                 android:layout_marginEnd="18dp"
                 android:layout_marginBottom="18dp"
                 android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorAccent"
+                android:backgroundTint="?attr/colorPrimary"
                 android:clickable="true"
                 android:elevation="2dp"
                 android:focusable="true"
                 android:foreground="@drawable/c_ripple"
                 android:text="Submit Data Issue"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="?attr/colorOnPrimary" />
 
             <Space
                 android:layout_width="match_parent"

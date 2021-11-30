@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="52dp"
-    android:elevation="2dp"
-    android:background="?attr/colorPrimary">
+    android:background="?attr/colorSurface">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="?attr/colorPrimary"
+        android:alpha="0.11"/>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:elevation="2dp">
 
     <HorizontalScrollView
         android:layout_width="match_parent"
@@ -21,7 +29,6 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -36,7 +43,7 @@
                     android:layout_height="52dp"
                     android:gravity="center_vertical"
                     android:text="Atomic Mass:"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textStyle="bold" />
 
                 <TextView
@@ -48,7 +55,7 @@
                     android:paddingStart="9dp"
                     android:paddingEnd="9dp"
                     android:text="molar_mass_f"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
 
             </LinearLayout>
 
@@ -64,7 +71,7 @@
                     android:layout_height="52dp"
                     android:gravity="center_vertical"
                     android:text="STP Phase:"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textStyle="bold" />
 
                 <TextView
@@ -76,7 +83,7 @@
                     android:paddingStart="9dp"
                     android:paddingEnd="9dp"
                     android:text="phase_f"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
 
             </LinearLayout>
 
@@ -92,7 +99,7 @@
                     android:layout_height="52dp"
                     android:gravity="center_vertical"
                     android:text="Density:"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textStyle="bold" />
 
                 <TextView
@@ -104,7 +111,7 @@
                     android:paddingStart="9dp"
                     android:paddingEnd="9dp"
                     android:text="density_f"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
 
             </LinearLayout>
 
@@ -120,7 +127,7 @@
                     android:layout_height="52dp"
                     android:gravity="center_vertical"
                     android:text="Electronegativity:"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textStyle="bold" />
 
                 <TextView
@@ -132,7 +139,7 @@
                     android:paddingStart="9dp"
                     android:paddingEnd="9dp"
                     android:text="electronegativity_f"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
 
             </LinearLayout>
 
@@ -148,7 +155,7 @@
                     android:layout_height="52dp"
                     android:gravity="center_vertical"
                     android:text="Boiling Point:"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textStyle="bold" />
 
                 <TextView
@@ -160,7 +167,7 @@
                     android:paddingStart="9dp"
                     android:paddingEnd="9dp"
                     android:text="boiling_f"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
 
             </LinearLayout>
 
@@ -176,7 +183,7 @@
                     android:layout_height="52dp"
                     android:gravity="center_vertical"
                     android:text="Melting Point:"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textStyle="bold" />
 
                 <TextView
@@ -188,7 +195,7 @@
                     android:paddingStart="9dp"
                     android:paddingEnd="9dp"
                     android:text="melting_f"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </LinearLayout>
 
             <LinearLayout
@@ -203,7 +210,7 @@
                     android:layout_height="52dp"
                     android:gravity="center_vertical"
                     android:text="Atomic Radius (Empirical):"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textStyle="bold" />
 
                 <TextView
@@ -215,7 +222,7 @@
                     android:paddingStart="9dp"
                     android:paddingEnd="9dp"
                     android:text="a_empirical_f"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </LinearLayout>
 
             <LinearLayout
@@ -230,7 +237,7 @@
                     android:layout_height="52dp"
                     android:gravity="center_vertical"
                     android:text="Atomic Radius (Calculated):"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textStyle="bold" />
 
                 <TextView
@@ -242,7 +249,7 @@
                     android:paddingStart="9dp"
                     android:paddingEnd="9dp"
                     android:text="a_calculated_f"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </LinearLayout>
 
             <LinearLayout
@@ -257,7 +264,7 @@
                     android:layout_height="52dp"
                     android:gravity="center_vertical"
                     android:text="Covalent Radius:"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textStyle="bold" />
 
                 <TextView
@@ -269,7 +276,7 @@
                     android:paddingStart="9dp"
                     android:paddingEnd="9dp"
                     android:text="covalent_f"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </LinearLayout>
 
             <LinearLayout
@@ -284,7 +291,7 @@
                     android:layout_height="52dp"
                     android:gravity="center_vertical"
                     android:text="Van Der Waals Radius:"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textStyle="bold" />
 
                 <TextView
@@ -296,7 +303,7 @@
                     android:paddingStart="9dp"
                     android:paddingEnd="9dp"
                     android:text="van_f"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </LinearLayout>
 
             <LinearLayout
@@ -311,7 +318,7 @@
                     android:layout_height="52dp"
                     android:gravity="center_vertical"
                     android:text="Fusion Heat:"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textStyle="bold" />
 
                 <TextView
@@ -323,7 +330,7 @@
                     android:paddingStart="9dp"
                     android:paddingEnd="9dp"
                     android:text="fusion_heat_f"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
 
             </LinearLayout>
 
@@ -339,7 +346,7 @@
                     android:layout_height="52dp"
                     android:gravity="center_vertical"
                     android:text="Specific Heat Capacity:"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textStyle="bold" />
 
                 <TextView
@@ -351,7 +358,7 @@
                     android:paddingStart="9dp"
                     android:paddingEnd="9dp"
                     android:text="specific_heat_f"
-                    android:textColor="?attr/actionMenuTextColor" />
+                    android:textColor="?attr/colorOnSecondaryContainer" />
 
             </LinearLayout>
 
@@ -367,7 +374,7 @@
                 android:layout_height="52dp"
                 android:gravity="center_vertical"
                 android:text="Vaporization Heat:"
-                android:textColor="?attr/actionMenuTextColor"
+                android:textColor="?attr/colorOnSecondaryContainer"
                 android:textStyle="bold" />
 
             <TextView
@@ -379,7 +386,7 @@
                 android:paddingStart="9dp"
                 android:paddingEnd="9dp"
                 android:text="vaporization_heat_f"
-                android:textColor="?attr/actionMenuTextColor" />
+                android:textColor="?attr/colorOnSecondaryContainer" />
 
         </LinearLayout>
 
@@ -395,10 +402,11 @@
         android:alpha="0.85"
         android:elevation="0dp"
         android:foregroundGravity="center"
+        android:tint="?attr/colorOnSecondaryContainer"
         android:src="@drawable/ic_edit"
-        app:backgroundTint="?attr/colorPrimary"
+        app:backgroundTint="@color/transparent"
         app:borderWidth="0dp"
         app:elevation="0dp"
         app:fabSize="mini" />
-
 </LinearLayout>
+</FrameLayout>

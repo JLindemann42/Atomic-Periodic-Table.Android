@@ -12,7 +12,7 @@
         android:layout_marginTop="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/hydrogen_btn"
             android:layout_width="78dp"
             android:layout_height="78dp"
@@ -66,7 +66,7 @@
         android:layout_marginTop="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/lithium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -121,7 +121,7 @@
         android:layout_marginTop="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/sodium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -176,7 +176,7 @@
         android:layout_marginTop="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/potassium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -231,7 +231,7 @@
         android:layout_marginTop="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/rubidium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -286,7 +286,7 @@
         android:layout_marginTop="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/caesium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -341,7 +341,7 @@
         android:layout_marginTop="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/francium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"

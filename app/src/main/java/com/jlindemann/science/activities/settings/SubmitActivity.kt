@@ -6,12 +6,17 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
+import kotlinx.android.synthetic.main.activity_favorite_settings_page.*
+import kotlinx.android.synthetic.main.activity_ph.*
+import kotlinx.android.synthetic.main.activity_settings.*
 import kotlinx.android.synthetic.main.activity_solubility.back_btn
 import kotlinx.android.synthetic.main.activity_submit.*
+import kotlinx.android.synthetic.main.activity_submit.submit_title
 import kotlinx.android.synthetic.main.activity_submit.view_sub
 import kotlinx.android.synthetic.main.drop_issue.*
 
@@ -36,6 +41,29 @@ class SubmitActivity : BaseActivity() {
         view_sub.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         dropSelector()
 
+        //Title Controller
+        common_title_back_sub_color.visibility = View.INVISIBLE
+        submit_title.visibility = View.INVISIBLE
+        common_title_back_sub.elevation = (resources.getDimension(R.dimen.zero_elevation))
+        submit_scroll.getViewTreeObserver()
+            .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
+                var y = 200f
+                override fun onScrollChanged() {
+                    if (submit_scroll.getScrollY() > 150f) {
+                        common_title_back_sub_color.visibility = View.VISIBLE
+                        submit_title.visibility = View.VISIBLE
+                        submit_title_downstate.visibility = View.INVISIBLE
+                        common_title_back_sub.elevation = (resources.getDimension(R.dimen.one_elevation))
+                    } else {
+                        common_title_back_sub_color.visibility = View.INVISIBLE
+                        submit_title.visibility = View.INVISIBLE
+                        submit_title_downstate.visibility = View.VISIBLE
+                        common_title_back_sub.elevation = (resources.getDimension(R.dimen.zero_elevation))
+                    }
+                    y = submit_scroll.getScrollY().toFloat()
+                }
+            })
+
         back_btn.setOnClickListener {
             this.onBackPressed()
         }
@@ -46,13 +74,9 @@ class SubmitActivity : BaseActivity() {
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             common_title_back_sub.layoutParams = params
 
-            val params2 = i_box.layoutParams as ViewGroup.MarginLayoutParams
-            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.search_margin_side)
-            i_box.layoutParams = params2
-
-            val params3 = drop_issue.layoutParams as ViewGroup.MarginLayoutParams
-            params3.topMargin = top + resources.getDimensionPixelSize(R.dimen.submit_drop)
-            drop_issue.layoutParams = params3
+            val params2 = submit_title_downstate.layoutParams as ViewGroup.MarginLayoutParams
+            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        submit_title_downstate.layoutParams = params2
 
     }
 

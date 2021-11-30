@@ -31,7 +31,7 @@ class DictionaryAdapter(var dictionaryList: ArrayList<Dictionary>, var clickList
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val heading = itemView.findViewById(R.id.tv_title) as TextView
         private val text = itemView.findViewById(R.id.tv_text) as TextView
-        private val wikiBtn = itemView.findViewById(R.id.wiki_btn) as Button
+        private val wikiBtn = itemView.findViewById(R.id.wiki_btn) as TextView
         private val frame = itemView.findViewById(R.id.rCard) as FrameLayout
 
         fun initialize(item: Dictionary, action: OnDictionaryClickListener, con: Context) {
@@ -40,7 +40,7 @@ class DictionaryAdapter(var dictionaryList: ArrayList<Dictionary>, var clickList
             text.text = item.text
             val url = item.wiki
 
-            wikiBtn.foreground = ContextCompat.getDrawable(con, R.drawable.c_ripple)
+            wikiBtn.foreground = ContextCompat.getDrawable(con, R.drawable.toast_card_ripple)
             wikiBtn.isClickable = true
             wikiBtn.isFocusable = true
 
@@ -51,7 +51,7 @@ class DictionaryAdapter(var dictionaryList: ArrayList<Dictionary>, var clickList
     }
 
     interface OnDictionaryClickListener {
-        fun dictionaryClickListener(item: Dictionary, wiki: Button, url: String, position: Int)
+        fun dictionaryClickListener(item: Dictionary, wiki: TextView, url: String, position: Int)
     }
 
     fun filterList(filteredList: ArrayList<Dictionary>) {

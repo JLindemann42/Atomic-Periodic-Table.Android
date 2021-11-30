@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/view_nuc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?attr/colorSurface"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent">
+
+        <include
+            android:id="@+id/ldn_place"
+            layout="@layout/loading_view"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center_horizontal|center_vertical" />
+
+        <FrameLayout
+            android:id="@+id/common_title_back_nuc"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="?attr/colorSurface"
+            android:elevation="8dp"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/title_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                    <ImageButton
+                        android:id="@+id/nuc_back_btn"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_vertical"
+                        android:rotation="180"
+                        app:tint="?attr/colorOnSecondaryContainer"
+                        android:src="@drawable/ic_arrow_back_whit" />
+
+                    <TextView
+                        android:id="@+id/nuc_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="56dp"
+                        android:layout_marginStart="70dp"
+                        android:alpha="0.9"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="Nuclide Table"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <com.otaliastudios.zoom.ZoomLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:overScrollHorizontal="true"
+            app:overScrollVertical="true"
+            app:overPinchable="true"
+            app:horizontalPanEnabled="true"
+            app:verticalPanEnabled="true"
+            app:zoomEnabled="true"
+            app:flingEnabled="true"
+            app:scrollEnabled="true"
+            app:oneFingerScrollEnabled="true"
+            app:twoFingersScrollEnabled="true"
+            app:threeFingersScrollEnabled="true"
+            app:minZoom="0.66"
+            app:minZoomType="zoom"
+            app:maxZoom="12.5"
+            app:maxZoomType="zoom"
+            app:animationDuration="200"
+            app:hasClickableChildren="true">
+
+            <FrameLayout
+                android:id="@+id/scrollViewNuc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/scrollNuc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ViewStub
+                        android:id="@+id/viewStub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout="@layout/stub_nuclide" />
+
+                </LinearLayout>
+            </FrameLayout>
+
+        </com.otaliastudios.zoom.ZoomLayout>
+
+        <SeekBar
+            android:id="@+id/seekBarNuc"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="240dp"
+            android:layout_marginEnd="-100dp"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:indeterminate="false"
+            android:max="24"
+            android:min="1"
+            android:progress="1"
+            android:rotation="270"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

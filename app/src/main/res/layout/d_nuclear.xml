@@ -10,12 +10,8 @@
         android:id="@+id/physics_properties"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="9dp"
-        android:background="@drawable/toast"
-        android:backgroundTint="?attr/colorPrimary"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:elevation="2dp"
         android:orientation="vertical">
 
@@ -28,9 +24,9 @@
             android:layout_marginBottom="9dp"
             android:drawableStart="@drawable/ic_nucleari"
             android:drawablePadding="9dp"
-            android:drawableTint="?attr/colorAccent"
+            android:drawableTint="?attr/colorPrimary"
             android:text="Nuclear Properties"
-            android:textColor="?attr/colorAccent"
+            android:textColor="?attr/colorPrimary"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -38,7 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:alpha="0.75"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/radioactive_title"
@@ -49,7 +45,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Radioactive:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -63,7 +59,7 @@
             android:layout_marginBottom="8dp"
             android:text="radioactive_text"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -72,7 +68,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <FrameLayout
             android:id="@+id/isotopes_frame"
@@ -86,10 +82,9 @@
                 android:layout_width="64dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
-                android:background="?attr/colorPrimary"
-                android:backgroundTint="?attr/colorPrimary"
                 android:padding="18dp"
                 android:rotation="270"
+                app:tint="?attr/colorTertiary"
                 app:srcCompat="@drawable/ic_arrow" />
 
             <LinearLayout
@@ -107,7 +102,7 @@
                     android:layout_marginEnd="18dp"
                     android:layout_marginBottom="2dp"
                     android:text="Isotopes:"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -120,7 +115,7 @@
                     android:layout_marginEnd="18dp"
                     android:layout_marginBottom="8dp"
                     android:text="View all Isotopes"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="14sp" />
             </LinearLayout>
         </FrameLayout>
@@ -131,7 +126,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/neutron_cross_sectional_title"
@@ -142,7 +137,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Neutron Cross Sectional:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -156,7 +151,7 @@
             android:layout_marginBottom="8dp"
             android:text="neutron_cross_sectional_text"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

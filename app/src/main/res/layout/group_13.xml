@@ -15,7 +15,7 @@
         android:layout_marginEnd="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/boron_btn"
             android:layout_width="80dp"
             android:layout_height="78dp"
@@ -72,7 +72,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/aluminium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -129,7 +129,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/gallium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -186,7 +186,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/indium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -243,7 +243,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/thallium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -300,7 +300,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/nihonium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -356,7 +356,7 @@
         android:layout_marginEnd="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/dysprosium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -413,7 +413,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/californium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"

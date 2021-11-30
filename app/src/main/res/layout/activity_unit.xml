@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:alpha="1"
-    android:background="?attr/colorPrimaryDark">
+    android:background="?attr/backgroundColor">
 
     <FrameLayout
         android:id="@+id/view_unit"
@@ -16,6 +15,7 @@
         app:layout_constraintEnd_toStartOf="parent">
 
         <ScrollView
+            android:id="@+id/unit_scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -25,24 +25,34 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/unit_title_downstate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="1dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="28dp"
+                    android:text="@string/activity_unit_title"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="32sp"
+                    android:textStyle="normal" />
+
+                <TextView
                     android:id="@+id/temp_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="56dp"
-                    android:background="?attr/colorPrimaryDark"
-                    android:paddingStart="18dp"
-                    android:paddingTop="9dp"
-                    android:paddingBottom="9dp"
-                    android:text="Temperatures"
-                    android:textAllCaps="true"
-                    android:textColor="?attr/colorAccent"
-                    android:textStyle="normal|bold" />
+                    android:layout_marginTop="@dimen/margin_space_card"
+                    android:paddingStart="@dimen/margin"
+                    android:paddingTop="@dimen/margin_space_card"
+                    android:paddingBottom="@dimen/margin_space_card"
+                    android:text="@string/unit_temperature"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="normal" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:background="?attr/colorPrimaryDark"
                     android:orientation="horizontal">
 
                     <Button
@@ -51,11 +61,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
                         android:layout_marginStart="36dp"
-                        android:layout_marginTop="9dp"
-                        android:layout_marginEnd="9dp"
-                        android:layout_marginBottom="9dp"
+                        android:layout_marginTop="@dimen/margin_space_card"
+                        android:layout_marginEnd="@dimen/margin_space_card"
+                        android:layout_marginBottom="@dimen/margin_space_card"
                         android:layout_weight="1"
-                        android:background="@drawable/toast_outline"
+                        android:background="@drawable/chip_outline"
                         android:clickable="true"
                         android:elevation="2dp"
                         android:focusable="true"
@@ -70,9 +80,9 @@
                         style="@style/Widget.AppCompat.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
-                        android:layout_margin="9dp"
+                        android:layout_margin="@dimen/margin_space_card"
                         android:layout_weight="1"
-                        android:background="@drawable/toast_outline"
+                        android:background="@drawable/chip_outline"
                         android:clickable="true"
                         android:elevation="2dp"
                         android:focusable="true"
@@ -87,12 +97,12 @@
                         style="@style/Widget.AppCompat.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="36dp"
-                        android:layout_marginStart="9dp"
-                        android:layout_marginTop="9dp"
+                        android:layout_marginStart="@dimen/margin_space_card"
+                        android:layout_marginTop="@dimen/margin_space_card"
                         android:layout_marginEnd="36dp"
-                        android:layout_marginBottom="9dp"
+                        android:layout_marginBottom="@dimen/margin_space_card"
                         android:layout_weight="1"
-                        android:background="@drawable/toast_outline"
+                        android:background="@drawable/chip_outline"
                         android:clickable="true"
                         android:elevation="2dp"
                         android:focusable="true"
@@ -109,12 +119,18 @@
             android:id="@+id/common_title_back_unit"
             android:layout_width="match_parent"
             android:layout_height="@dimen/title_bar"
-            android:alpha="0.975"
-            android:background="?attr/colorPrimary"
+            android:background="?attr/colorSurface"
             android:elevation="@dimen/title_bar_elevation"
             android:gravity="center|center_vertical"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/common_title_back_unit_color"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -134,10 +150,11 @@
                         android:layout_height="56dp"
                         android:layout_gravity="center_vertical"
                         android:rotation="180"
+                        app:tint="?attr/colorOnSecondaryContainer"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <TextView
-                        android:id="@+id/element_title_unit"
+                        android:id="@+id/unit_title"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/title_bar"
                         android:layout_marginStart="70dp"
@@ -147,7 +164,7 @@
                         android:paddingEnd="0dp"
                         android:text="@string/activity_unit_title"
                         android:textAlignment="center"
-                        android:textColor="?attr/actionMenuTextColor"
+                        android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 

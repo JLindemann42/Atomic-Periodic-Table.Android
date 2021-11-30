@@ -24,235 +24,324 @@
             android:gravity="center"
             android:textSize="16sp" />
 
+
         <LinearLayout
             android:id="@+id/navLin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/half_toast"
-            android:backgroundTint="?attr/colorPrimary"
+            android:backgroundTint="?attr/colorSurface"
             android:gravity="center|top"
             android:orientation="vertical"
             android:textSize="16sp">
 
-
-            <TextView
-                android:id="@+id/drag_icon"
-                android:layout_width="36dp"
-                android:layout_height="8dp"
-                android:layout_margin="18dp"
-                android:alpha="0.85"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/actionMenuTextColor"
-                android:elevation="4dp"
-                android:gravity="center_horizontal" />
-
-            <TextView
-                android:id="@+id/drag_icon2"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.85"
-                android:background="?attr/actionMenuTextColor"
-                android:elevation="0dp" />
+                android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/blog_btn"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:background="?attr/colorPrimary"
-                android:backgroundTint="?attr/colorPrimary"
-                android:clickable="true"
-                android:drawableStart="@drawable/ic_blog"
-                android:drawablePadding="18dp"
-                android:drawableTint="?attr/actionMenuTextColor"
-                android:elevation="0dp"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple"
-                android:gravity="center_vertical"
-                android:padding="18dp"
-                android:shadowColor="?attr/colorAccent"
-                android:text="Blog"
-                android:textAllCaps="true"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textColorHighlight="?attr/actionMenuTextColor"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:background="@drawable/half_toast"
+                    android:alpha="0.11"/>
 
-            <Button
-                android:id="@+id/solubility_btn"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:background="?attr/colorPrimary"
-                android:backgroundTint="?attr/colorPrimary"
-                android:clickable="true"
-                android:drawableStart="@drawable/ic_menu"
-                android:drawablePadding="18dp"
-                android:drawableTint="?attr/actionMenuTextColor"
-                android:elevation="0dp"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple"
-                android:gravity="center_vertical"
-                android:padding="18dp"
-                android:shadowColor="?attr/colorAccent"
-                android:text="Tables"
-                android:textAllCaps="true"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textColorHighlight="?attr/actionMenuTextColor"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/drag_icon"
+                    android:layout_width="36dp"
+                    android:layout_height="8dp"
+                    android:layout_margin="18dp"
+                    android:alpha="0.85"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorOnSecondaryContainer"
+                    android:elevation="4dp"
+                    android:textAlignment="center"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center"/>
 
-            <Button
-                android:id="@+id/electronegativity_btn"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:background="?attr/colorPrimary"
-                android:backgroundTint="?attr/colorPrimary"
-                android:clickable="true"
-                android:drawableStart="@drawable/fav_electronegativity"
-                android:drawablePadding="18dp"
-                android:drawableTint="?attr/actionMenuTextColor"
-                android:elevation="0dp"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple"
-                android:gravity="center_vertical"
-                android:padding="18dp"
-                android:shadowColor="?attr/colorAccent"
-                android:text="Electronegativity Table"
-                android:textAllCaps="true"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textColorHighlight="?attr/actionMenuTextColor"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                <TextView
+                    android:id="@+id/drag_icon2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="42dp"
+                    android:alpha="0.85"
+                    android:background="?attr/colorOnSecondaryContainer"
+                    android:elevation="1dp" />
 
-            <Button
-                android:id="@+id/isotopes_btn"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:background="?attr/colorPrimary"
-                android:backgroundTint="?attr/colorPrimary"
-                android:clickable="true"
-                android:drawableStart="@drawable/ic_isotopes"
-                android:drawablePadding="18dp"
-                android:drawableTint="?attr/actionMenuTextColor"
-                android:elevation="0dp"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple"
-                android:gravity="center_vertical"
-                android:padding="18dp"
-                android:shadowColor="?attr/colorAccent"
-                android:text="Isotopes"
-                android:textAllCaps="true"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textColorHighlight="?attr/actionMenuTextColor"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+            </FrameLayout>
 
-            <Button
-                android:id="@+id/dictionary_btn"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:background="?attr/colorPrimary"
-                android:backgroundTint="?attr/colorPrimary"
-                android:clickable="true"
-                android:drawableStart="@drawable/ic_dictionary"
-                android:drawablePadding="18dp"
-                android:drawableTint="?attr/actionMenuTextColor"
-                android:elevation="0dp"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple"
-                android:gravity="center_vertical"
-                android:padding="18dp"
-                android:shadowColor="?attr/colorAccent"
-                android:text="Dictionary"
-                android:textAllCaps="true"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textColorHighlight="?attr/actionMenuTextColor"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                android:layout_height="54dp">
+
+                <TextView
+                    android:id="@+id/blog_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:background="?attr/colorSurface"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_blog"
+                    android:drawablePadding="18dp"
+                    android:drawableTint="?attr/colorOnSecondaryContainer"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/d_ripple"
+                    android:gravity="center_vertical"
+                    android:padding="18dp"
+                    android:text="Blog"
+                    style="@style/TextAppearance.AppCompat.Button"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:elevation="0dp"
+                    android:background="?attr/colorPrimary"
+                    android:alpha="0.11"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp">
+
+                <TextView
+                    android:id="@+id/solubility_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:background="?attr/colorSurface"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_menu"
+                    android:drawablePadding="18dp"
+                    android:drawableTint="?attr/colorOnSecondaryContainer"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/d_ripple"
+                    android:gravity="center_vertical"
+                    android:padding="18dp"
+                    android:text="Tables"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:elevation="0dp"
+                    android:background="?attr/colorPrimary"
+                    android:alpha="0.11"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="54dp">
+
+                <TextView
+                    android:id="@+id/electronegativity_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:background="?attr/colorSecondaryContainer"
+                    android:backgroundTint="?attr/colorSecondaryContainer"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/fav_electronegativity"
+                    android:drawablePadding="18dp"
+                    android:drawableTint="?attr/colorOnSecondaryContainer"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/d_ripple"
+                    android:gravity="center_vertical"
+                    android:padding="18dp"
+                    android:shadowColor="?attr/colorAccent"
+                    android:text="Electronegativity Table"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:elevation="0dp"
+                    android:background="?attr/colorPrimary"
+                    android:alpha="0.11"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp">
+
+                <TextView
+                    android:id="@+id/isotopes_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:background="?attr/colorSurface"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_isotopes"
+                    android:drawablePadding="18dp"
+                    android:drawableTint="?attr/colorOnSecondaryContainer"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/d_ripple"
+                    android:gravity="center_vertical"
+                    android:padding="18dp"
+                    android:text="Isotopes"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:elevation="0dp"
+                    android:background="?attr/colorPrimary"
+                    android:alpha="0.11"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp">
+
+                <TextView
+                    android:id="@+id/dictionary_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:background="?attr/colorSurface"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_dictionary"
+                    android:drawablePadding="18dp"
+                    android:drawableTint="?attr/colorOnSecondaryContainer"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/d_ripple"
+                    android:gravity="center_vertical"
+                    android:padding="18dp"
+                    android:text="Dictionary"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:elevation="0dp"
+                    android:background="?attr/colorPrimary"
+                    android:alpha="0.11"/>
+
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/space5"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="?attr/actionMenuTextColor" />
+                android:background="?attr/colorOnSecondaryContainer" />
 
-            <LinearLayout
-                android:id="@+id/socialmedia_layout"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:background="?attr/colorSurface">
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/twitter_button"
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorPrimary"
+                    android:elevation="1dp"
+                    android:alpha="0.11"/>
+
+                <LinearLayout
+                    android:id="@+id/socialmedia_layout"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
+                    android:layout_height="match_parent"
                     android:elevation="0dp"
-                    android:focusable="true"
-                    android:src="@drawable/ic_twitter_outline"
-                    android:tint="?attr/actionMenuTextColor"
-                    app:backgroundTint="?attr/colorPrimary"
-                    app:borderWidth="0dp"
-                    app:elevation="0dp"
-                    sothree:backgroundTint="?attr/colorPrimary"
-                    sothree:borderWidth="0dp"
-                    sothree:elevation="0dp" />
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/instagram_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:src="@drawable/ic_instagram_outline"
-                    android:tint="?attr/actionMenuTextColor"
-                    app:backgroundTint="?attr/colorPrimary"
-                    app:borderWidth="0dp"
-                    app:elevation="0dp"
-                    sothree:backgroundTint="?attr/colorPrimary"
-                    sothree:borderWidth="0dp"
-                    sothree:elevation="0dp" />
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/twitter_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:elevation="0dp"
+                        android:focusable="true"
+                        android:src="@drawable/ic_twitter_outline"
+                        android:tint="?attr/colorOnSecondaryContainer"
+                        app:borderWidth="0dp"
+                        app:elevation="0dp"
+                        sothree:backgroundTint="@color/transparent"
+                        sothree:borderWidth="0dp"
+                        sothree:elevation="0dp" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/facebook_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:src="@drawable/ic_facebook_outline"
-                    android:tint="?attr/actionMenuTextColor"
-                    app:backgroundTint="?attr/colorPrimary"
-                    app:borderWidth="0dp"
-                    app:elevation="0dp"
-                    sothree:backgroundTint="?attr/colorPrimary"
-                    sothree:borderWidth="0dp"
-                    sothree:elevation="0dp" />
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/instagram_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:elevation="0dp"
+                        android:focusable="true"
+                        android:src="@drawable/ic_instagram_outline"
+                        android:tint="?attr/colorOnSecondaryContainer"
+                        app:borderWidth="0dp"
+                        app:elevation="0dp"
+                        sothree:backgroundTint="@color/transparent"
+                        sothree:borderWidth="0dp"
+                        sothree:elevation="0dp" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/homepage_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:src="@drawable/ic_web_outline"
-                    android:tint="?attr/actionMenuTextColor"
-                    android:visibility="visible"
-                    app:backgroundTint="?attr/colorPrimary"
-                    app:borderWidth="0dp"
-                    app:elevation="0dp"
-                    sothree:backgroundTint="?attr/colorPrimary"
-                    sothree:borderWidth="0dp"
-                    sothree:elevation="0dp" />
-            </LinearLayout>
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/facebook_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:elevation="0dp"
+                        android:focusable="true"
+                        android:src="@drawable/ic_facebook_outline"
+                        android:tint="?attr/colorOnSecondaryContainer"
+                        app:borderWidth="0dp"
+                        app:elevation="0dp"
+                        sothree:backgroundTint="@color/transparent"
+                        sothree:borderWidth="0dp"
+                        sothree:elevation="0dp" />
 
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/homepage_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:clickable="true"
+                        android:elevation="0dp"
+                        android:focusable="true"
+                        android:src="@drawable/ic_web_outline"
+                        android:tint="?attr/colorOnSecondaryContainer"
+                        android:visibility="visible"
+                        app:borderWidth="0dp"
+                        app:elevation="0dp"
+                        sothree:backgroundTint="@color/transparent"
+                        sothree:borderWidth="0dp"
+                        sothree:elevation="0dp" />
+                </LinearLayout>
+
+            </FrameLayout>
 
         </LinearLayout>
 

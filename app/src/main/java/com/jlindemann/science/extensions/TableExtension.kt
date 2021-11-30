@@ -7,7 +7,6 @@ import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
-import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginStart
@@ -20,23 +19,19 @@ import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.equations_info.*
+import kotlinx.android.synthetic.main.group_3.*
 import kotlinx.android.synthetic.main.search_layout.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
 
-
 abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsListener {
-    companion object {
-        private const val TAG = "BaseActivity"
-    }
+    companion object { private const val TAG = "BaseActivity" }
 
     private var systemUiConfigured = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    override fun onCreate(savedInstanceState: Bundle?) { super.onCreate(savedInstanceState) }
 
     override fun onStart() {
         super.onStart()
@@ -75,7 +70,7 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
 
             val text = findViewById<TextView>(resID)
             text.text = item.element.capitalize()
-            val btn = findViewById<Button>(resIDB)
+            val btn = findViewById<TextView>(resIDB)
             val themePreference = ThemePreference(this)
             val themePrefValue = themePreference.getValue()
 
@@ -85,16 +80,31 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
             params.bottomMargin = resources.getDimensionPixelSize(R.dimen.groups2b)
             text.layoutParams = params
             text.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            btn.elevation = (resources.getDimension(R.dimen.zero_elevation))
+            lanthanoids_btn.elevation = (resources.getDimension(R.dimen.zero_elevation))
+            actinoids_btn.elevation = (resources.getDimension(R.dimen.zero_elevation))
+
 
             if (themePrefValue == 100) {
                 when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {Configuration.UI_MODE_NIGHT_NO -> {
-                        btn.background.setTint(resources.getColor(R.color.colorLightPrimary))
+                        btn.background.setTint(resources.getColor(R.color.element_box_light))
+                        lanthanoids_btn.background.setTint(resources.getColor(R.color.element_box_light))
+                        actinoids_btn.background.setTint(resources.getColor(R.color.element_box_light))
                     }
-                    Configuration.UI_MODE_NIGHT_YES -> { btn.background.setTint(resources.getColor(R.color.colorDarkPrimary)) }
+                    Configuration.UI_MODE_NIGHT_YES -> {
+                        btn.background.setTint(resources.getColor(R.color.element_box_dark))
+                        lanthanoids_btn.background.setTint(resources.getColor(R.color.element_box_dark))
+                        actinoids_btn.background.setTint(resources.getColor(R.color.element_box_dark)) }
                 }
             }
-            if (themePrefValue == 0) { btn.background.setTint(resources.getColor(R.color.colorLightPrimary)) }
-            if (themePrefValue == 1) { btn.background.setTint(resources.getColor(R.color.colorDarkPrimary)) }
+            if (themePrefValue == 0) {
+                    btn.background.setTint(resources.getColor(R.color.element_box_light))
+                    lanthanoids_btn.background.setTint(resources.getColor(R.color.element_box_light))
+                    actinoids_btn.background.setTint(resources.getColor(R.color.element_box_light)) }
+            if (themePrefValue == 1) {
+                    btn.background.setTint(resources.getColor(R.color.element_box_dark))
+                    lanthanoids_btn.background.setTint(resources.getColor(R.color.element_box_dark))
+                    actinoids_btn.background.setTint(resources.getColor(R.color.element_box_dark)) }
         }
     }
 
@@ -226,7 +236,7 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
                     ToastUtil.showToast(this, "Error on find IdView")
                 } else {
                     if (item.electro == 0.0) {
-                        val btn = findViewById<Button>(resIDB)
+                        val btn = findViewById<TextView>(resIDB)
                         val themePreference = ThemePreference(this)
                         val themePrefValue = themePreference.getValue()
 
@@ -240,10 +250,10 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
                         if (themePrefValue == 1) { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
                     } else {
                         if (item.electro > 1) {
-                            val btn = findViewById<Button>(resIDB)
+                            val btn = findViewById<TextView>(resIDB)
                             btn.background.setTint(Color.argb(255, 255, 225.div(item.electro).toInt(), 0))
                         } else {
-                            val btn = findViewById<Button>(resIDB)
+                            val btn = findViewById<TextView>(resIDB)
                             btn.background.setTint(Color.argb(255, 255, 214, 0))
                         }
                     }
@@ -288,7 +298,7 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
                 }
                 catch(e: IOException) { }
 
-                val btn = findViewById<Button>(resIDB)
+                val btn = findViewById<TextView>(resIDB)
                 if ((item.number == 3) or (item.number == 11) or (item.number == 19) or (item.number == 37) or (item.number == 55) or (item.number == 87)) {
                     btn.background.setTint(Color.argb(255, 255, 102, 102))
                 }

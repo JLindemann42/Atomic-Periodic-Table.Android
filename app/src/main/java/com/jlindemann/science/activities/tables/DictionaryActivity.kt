@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.TextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.DictionaryAdapter
 import com.jlindemann.science.adapter.IsotopeAdapter
+import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.*
 import com.jlindemann.science.model.Dictionary
 import com.jlindemann.science.preferences.DictionaryPreferences
@@ -36,6 +38,7 @@ import kotlinx.android.synthetic.main.activity_dictionary.edit_iso
 import kotlinx.android.synthetic.main.activity_dictionary.search_bar_iso
 import kotlinx.android.synthetic.main.activity_dictionary.search_btn
 import kotlinx.android.synthetic.main.activity_dictionary.title_box
+import kotlinx.android.synthetic.main.activity_electrode.*
 import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
 import kotlinx.android.synthetic.main.activity_ph.*
 import kotlinx.android.synthetic.main.isotope_panel.*
@@ -144,6 +147,10 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         val params2 = common_title_back_dic.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
         common_title_back_dic.layoutParams = params2
+
+        val searchEmptyImgPrm = empty_search_box_dic.layoutParams as ViewGroup.MarginLayoutParams
+        searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
+        empty_search_box_dic.layoutParams = searchEmptyImgPrm
     }
 
     private fun recyclerView() {
@@ -177,6 +184,15 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
                         filteredList.add(item)
                 }
             }
+            val handler = android.os.Handler()
+            handler.postDelayed({
+                if (recyclerView.adapter!!.itemCount == 0) {
+                    Anim.fadeIn(empty_search_box_dic, 300)
+                }
+                else {
+                    empty_search_box_dic.visibility = View.GONE
+                }
+            }, 10)
             mAdapter.notifyDataSetChanged()
             mAdapter.filterList(filteredList)
             recyclerView.adapter = DictionaryAdapter(filteredList, this, this)
@@ -208,7 +224,7 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         }
     }
 
-    override fun dictionaryClickListener(item: Dictionary, wiki: Button, url: String, position: Int) {
+    override fun dictionaryClickListener(item: Dictionary, wiki: TextView, url: String, position: Int) {
         wiki.setOnClickListener {
             val packageNameString = "com.android.chrome"
             val customTabBuilder = CustomTabsIntent.Builder()

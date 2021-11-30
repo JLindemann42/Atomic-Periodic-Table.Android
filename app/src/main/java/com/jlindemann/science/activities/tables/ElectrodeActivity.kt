@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.ElectrodeAdapter
+import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Series
 import com.jlindemann.science.model.SeriesModel
 import com.jlindemann.science.preferences.ThemePreference
@@ -21,6 +22,7 @@ import com.jlindemann.science.utils.Utils
 import kotlinx.android.synthetic.main.activity_dictionary.search_btn
 import kotlinx.android.synthetic.main.activity_dictionary.title_box
 import kotlinx.android.synthetic.main.activity_electrode.*
+import kotlinx.android.synthetic.main.activity_equations.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -54,15 +56,15 @@ class ElectrodeActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        e_view.setPadding(
-            0,
-            resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top,
-            0,
-            resources.getDimensionPixelSize(R.dimen.title_bar))
+        e_view.setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
 
         val params2 = common_title_back_elo.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         common_title_back_elo.layoutParams = params2
+
+        val searchEmptyImgPrm = empty_search_box_ele.layoutParams as ViewGroup.MarginLayoutParams
+        searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
+        empty_search_box_ele.layoutParams = searchEmptyImgPrm
     }
 
     private fun recyclerView() {
@@ -73,7 +75,6 @@ class ElectrodeActivity : BaseActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val adapter = ElectrodeAdapter(series, this, this)
         recyclerView.adapter = adapter
-
 
         adapter.notifyDataSetChanged()
 
@@ -104,6 +105,15 @@ class ElectrodeActivity : BaseActivity() {
                 filteredList.add(item)
             }
         }
+        val handler = android.os.Handler()
+        handler.postDelayed({
+            if (recyclerView.adapter!!.itemCount == 0) {
+                Anim.fadeIn(empty_search_box_ele, 300)
+            }
+            else {
+                empty_search_box_ele.visibility = View.GONE
+            }
+        }, 10)
         mAdapter.filterList(filteredList)
         mAdapter.notifyDataSetChanged()
         recyclerView.adapter = ElectrodeAdapter(filteredList, this, this)

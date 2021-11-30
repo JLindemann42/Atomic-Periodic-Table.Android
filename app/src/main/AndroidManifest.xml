@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jlindemann.science">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -9,227 +10,214 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_blue_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <receiver android:name=".ShortCommandWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/short_command_widget_info" />
+        </receiver>
+
+        <activity
+            android:name=".activities.MainActivity"
+            android:label="MAINACTIVITY"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustNothing"
-            android:label="MAINACTIVITY">
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name="com.jlindemann.science.activities.SplashActivity" android:theme="@style/SplashTheme">
+        <activity
+            android:name=".activities.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.ElementInfoActivity"
-            android:theme="@style/AppTheme"
+            android:label="ELEMENTINFOACTIVITY"
             android:screenOrientation="portrait"
-            android:label="ELEMENTINFOACTIVITY">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.SettingsActivity"
-            android:theme="@style/AppTheme"
+            android:label="SETTINGS"
             android:screenOrientation="portrait"
-            android:label="SETTINGS">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.settings.FavoritePageActivity"
+            android:label="FAVORITEPAGE"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:label="FAVORITEPAGE" >
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.settings.OrderActivity"
+            android:label="ORDERPAGE"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:label="ORDERPAGE" >
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.tables.IonActivity"
+            android:label="IONPAGE"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:label="IONPAGE" >
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".settings.ExperimentalActivity"
+            android:label="EXPERIMENTAL_PAGE"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:label="EXPERIMENTAL_PAGE">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.SolubilityActivity"
-            android:screenOrientation="portrait"
-            android:label="SOLUBILITYPAGE">
+            android:label="SOLUBILITYPAGE"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.CalculatorActivity"
-            android:theme="@style/AppTheme"
+            android:label="CALCULATORPAGE"
             android:screenOrientation="portrait"
-            android:label="CALCULATORPAGE">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.tables.DictionaryActivity"
-            android:theme="@style/AppTheme"
+            android:label="DICTIONARYPAGE"
             android:screenOrientation="portrait"
-            android:label="DICTIONARYPAGE">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.IsotopesActivityExperimental"
-            android:theme="@style/AppTheme"
+            android:label="ISOTPOESPAGEEXP"
             android:screenOrientation="portrait"
-            android:label="ISOTPOESPAGEEXP">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.settings.AboutActivity"
-            android:theme="@style/AppTheme"
+            android:label="ABOUTPAGE"
             android:screenOrientation="portrait"
-            android:label="ABOUTPAGE">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.TableActivity"
-            android:theme="@style/AppTheme"
+            android:label="TABLEPAGE"
             android:screenOrientation="portrait"
-            android:label="TABLEPAGE">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.tables.ElectrodeActivity"
-            android:theme="@style/AppTheme"
+            android:label="ELECTRODEPAGE"
             android:screenOrientation="portrait"
-            android:label="ELECTRODEPAGE">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.settings.SubmitActivity"
-            android:theme="@style/AppTheme"
+            android:label="SUBMITPAGE"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing"
-            android:label="SUBMITPAGE">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.settings.LicensesActivity"
-            android:theme="@style/AppTheme"
+            android:label="LICENSESPAGE"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing"
-            android:label="LICENSESPAGE">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.tables.EquationsActivity"
-            android:theme="@style/AppTheme"
+            android:label="EQUATIONSACTIVITY"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing"
-            android:label="EQUATIONSACTIVITY">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.tables.phActivity"
-            android:theme="@style/AppTheme"
+            android:label="PHACTIVITY"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing"
-            android:label="PHACTIVITY">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activities.settings.UnitActivity"
-            android:theme="@style/AppTheme"
+            android:label="activity_unit"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustNothing"
-            android:label="activity_unit">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".activities.tables.NuclideActivity"
+            android:label="activity_nuclide"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

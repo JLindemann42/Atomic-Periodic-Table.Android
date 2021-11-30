@@ -5,13 +5,19 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.Button
+import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.marginTop
 import com.jlindemann.science.R
+import com.jlindemann.science.R2.id.bottom
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.model.*
 import com.jlindemann.science.preferences.ThemePreference
 import kotlinx.android.synthetic.main.activity_ph.*
+import kotlinx.android.synthetic.main.activity_submit.*
+import kotlinx.android.synthetic.main.bar_ph_chips.*
 import kotlin.collections.ArrayList
 
 
@@ -33,6 +39,9 @@ class phActivity : BaseActivity()  {
 
         indicatorListener()
         view_ph.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        //Title Controller
+
+
         back_btn_ph.setOnClickListener {
             this.onBackPressed()
         }
@@ -115,9 +124,9 @@ class phActivity : BaseActivity()  {
         paramsTitle.height = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
         common_title_back_ph.layoutParams = paramsTitle
 
-        val paramsContent = ph_content.layoutParams as ViewGroup.MarginLayoutParams
-        paramsContent.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
-        ph_content.layoutParams = paramsContent
+        val pScroll = ph_scroll.layoutParams as ViewGroup.MarginLayoutParams
+        pScroll.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
+        ph_scroll.layoutParams = pScroll
     }
 }
 

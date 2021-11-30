@@ -45,7 +45,7 @@ class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
             textViewElement.text = item.element.capitalize()
             textViewShort.text = item.short
 
-            itemView.foreground = ContextCompat.getDrawable(con, R.drawable.c_ripple)
+            itemView.foreground = ContextCompat.getDrawable(con, R.drawable.toast_card_outline_ripple)
             itemView.isClickable = true
             itemView.isFocusable = true
 
@@ -84,6 +84,5 @@ class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
 
     fun filterList(filteredList: ArrayList<Element>) {
         elementList = filteredList
-        notifyDataSetChanged()
-    }
+        notifyDataSetChanged() }
 }

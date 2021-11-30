@@ -7,12 +7,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="9dp"
-        android:background="@drawable/toast"
-        android:backgroundTint="?attr/colorPrimary"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:elevation="2dp"
         android:orientation="vertical">
 
@@ -25,9 +21,9 @@
             android:layout_marginBottom="9dp"
             android:drawableStart="@drawable/fav_electronegativity"
             android:drawablePadding="9dp"
-            android:drawableTint="?attr/colorAccent"
+            android:drawableTint="?attr/colorPrimary"
             android:text="Electromagnetic Properties"
-            android:textColor="?attr/colorAccent"
+            android:textColor="?attr/colorPrimary"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -35,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:alpha="0.75"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_electrical_type_title"
@@ -46,7 +42,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Electrical Type:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -60,7 +56,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -69,7 +65,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_resistivity_title"
@@ -80,7 +76,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Resistivity:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -94,7 +90,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -103,7 +99,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_magnetic_type_title"
@@ -114,7 +110,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Magnetic Type:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -128,7 +124,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
 
         <TextView
@@ -137,7 +133,7 @@
             android:layout_marginStart="18dp"
             android:layout_marginEnd="18dp"
             android:alpha="0.25"
-            android:background="?attr/actionMenuTextColor" />
+            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/element_superconducting_point_title"
@@ -148,7 +144,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
             android:text="Superconducting Point:"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -162,7 +158,7 @@
             android:layout_marginBottom="8dp"
             android:text="element_name"
             android:textIsSelectable="true"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

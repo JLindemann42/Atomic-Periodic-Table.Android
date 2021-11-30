@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="360dp"
         android:background="@drawable/toast"
-        android:backgroundTint="?attr/colorPrimary"
+        android:backgroundTint="?attr/colorSurface"
         android:elevation="18dp"
         android:clickable="true"
         android:focusable="true"
@@ -30,6 +30,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
 
         <ImageView
             android:id="@+id/e_title"
@@ -45,9 +51,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:backgroundTint="?attr/colorPrimary"
+            android:backgroundTint="@color/transparent"
             android:elevation="0dp"
             android:src="@drawable/ic_close"
+            app:tint="?attr/colorPrimary"
             app:borderWidth="0dp"
             app:elevation="0dp"
             app:fabSize="normal" />
@@ -71,9 +78,9 @@
                     android:layout_marginTop="9dp"
                     android:layout_marginEnd="18dp"
                     android:layout_marginBottom="18dp"
-                    android:alpha="0.66"
+                    android:alpha="0.7"
                     android:text="e_text"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="14sp" />
             </LinearLayout>
         </ScrollView>

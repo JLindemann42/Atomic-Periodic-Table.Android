@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="360dp"
         android:background="@drawable/toast"
-        android:backgroundTint="?attr/colorPrimary"
+        android:backgroundTint="?attr/colorSurface"
         android:elevation="18dp"
         android:clickable="true"
         android:focusable="true"
@@ -30,6 +30,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
+
         <TextView
             android:id="@+id/l_title"
             android:layout_width="match_parent"
@@ -39,7 +45,7 @@
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="9dp"
             android:text="info_title"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="18sp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -47,10 +53,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:backgroundTint="?attr/colorPrimary"
+            android:backgroundTint="@color/transparent"
             android:elevation="0dp"
             android:src="@drawable/ic_close"
             app:borderWidth="0dp"
+            android:tint="?attr/colorPrimary"
             app:elevation="0dp"
             app:fabSize="normal" />
 
@@ -75,7 +82,7 @@
                     android:layout_marginBottom="18dp"
                     android:alpha="0.85"
                     android:text="info_text"
-                    android:textColor="?attr/actionMenuTextColor"
+                    android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="14sp" />
             </LinearLayout>
         </ScrollView>

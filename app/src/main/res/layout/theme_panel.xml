@@ -17,44 +17,57 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.25">
-
-        </FrameLayout>
+            android:layout_gravity="top"
+            android:layout_weight="0.25"/>
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center"
             android:layout_weight="0.5"
-            android:backgroundTint="?attr/colorPrimary"
             android:orientation="vertical"
             android:paddingStart="24dp"
             android:paddingEnd="24dp">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorPrimary"
+                android:backgroundTint="?attr/colorSurface"
                 android:clickable="true"
                 android:elevation="8dp"
                 android:focusable="true"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView4"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="10dp"
-                    android:alpha="1.0"
-                    android:text="Select Theme"
-                    android:textAlignment="viewStart"
-                    android:textColor="?attr/actionMenuTextColor"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:layout_height="wrap_content">
+
+                    <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/half_up_toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:alpha="0.11"/>
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:alpha="1.0"
+                        android:text="Select Theme"
+                        android:textAlignment="viewStart"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
 
                 <ScrollView
                     android:layout_width="match_parent"
@@ -64,6 +77,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?attr/colorPrimary"
+                            android:alpha="0.11"/>
 
                         <TextView
                             android:id="@+id/system_default_btn"
@@ -80,8 +103,20 @@
                             android:paddingEnd="8dp"
                             android:paddingBottom="8dp"
                             android:text="System Default"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textSize="16sp" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?attr/colorPrimary"
+                            android:alpha="0.11"/>
 
                         <TextView
                             android:id="@+id/light_btn"
@@ -98,8 +133,20 @@
                             android:paddingEnd="8dp"
                             android:paddingBottom="8dp"
                             android:text="Light"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textSize="16sp" />
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?attr/colorPrimary"
+                            android:alpha="0.11"/>
 
                         <TextView
                             android:id="@+id/dark_btn"
@@ -116,11 +163,24 @@
                             android:paddingEnd="8dp"
                             android:paddingBottom="8dp"
                             android:text="Dark"
-                            android:textColor="?attr/actionMenuTextColor"
+                            android:textColor="?attr/colorOnSecondaryContainer"
                             android:textSize="16sp" />
+
+                        </FrameLayout>
 
                     </LinearLayout>
                 </ScrollView>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/half_down_toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:alpha="0.11"/>
 
                 <TextView
                     android:id="@+id/cancel_btn"
@@ -134,9 +194,11 @@
                     android:gravity="center_vertical"
                     android:padding="8dp"
                     android:text="Cancel"
-                    android:textColor="?attr/colorAccent"
+                    android:textColor="?attr/colorPrimary"
                     android:textFontWeight="600"
                     android:textSize="14sp" />
+
+                </FrameLayout>
 
             </LinearLayout>
 

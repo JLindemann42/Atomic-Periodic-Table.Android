@@ -15,7 +15,7 @@
         android:layout_marginEnd="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/cobalt_btn"
             android:layout_width="80dp"
             android:layout_height="78dp"
@@ -72,7 +72,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/rhodium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -129,7 +129,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/iridium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -186,7 +186,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/meitnerium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -242,7 +242,7 @@
         android:layout_marginEnd="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/samarium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -299,7 +299,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/plutonium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"

@@ -36,7 +36,7 @@ class IsotopeAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
             textViewShort.text = item.short
             textViewNumb.text = item.number.toString()
 
-            itemView.foreground = ContextCompat.getDrawable(context, R.drawable.c_ripple)
+            itemView.foreground = ContextCompat.getDrawable(context, R.drawable.toast_card_ripple)
             itemView.isClickable = true
             itemView.isFocusable = true
 

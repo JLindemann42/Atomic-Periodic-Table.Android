@@ -15,13 +15,12 @@
         android:layout_marginEnd="2dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/scandium_btn"
             android:layout_width="80dp"
             android:layout_height="78dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-
             android:elevation="6dp" />
 
         <TextView
@@ -72,7 +71,7 @@
         android:layout_marginEnd="6dp"
         android:elevation="0dp">
 
-        <Button
+        <TextView
             android:id="@+id/yttrium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
@@ -123,20 +122,20 @@
         android:layout_width="92dp"
         android:layout_height="92dp"
         android:layout_margin="2dp"
+        android:elevation="0dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
-        android:elevation="0dp">
+        android:layout_marginEnd="6dp">
 
-        <Button
+        <TextView
             android:id="@+id/lanthanoids_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
+            android:elevation="0dp"
             android:background="@drawable/element_nodetail"
-            android:backgroundTint="?attr/colorPrimary"
-            android:elevation="1dp" />
+            android:backgroundTint="?attr/colorSecondaryContainer" />
 
 
         <TextView
@@ -146,7 +145,7 @@
             android:elevation="24dp"
             android:gravity="center"
             android:text="57-71"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="20sp" />
 
         <TextView
@@ -158,7 +157,7 @@
             android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Lanthanoids"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="10sp" />
     </FrameLayout>
 
@@ -170,17 +169,16 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
-        android:elevation="0dp">
+        android:layout_marginEnd="6dp">
 
-        <Button
+        <TextView
             android:id="@+id/actinoids_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
+            android:elevation="0dp"
             android:background="@drawable/element_nodetail"
-            android:backgroundTint="?attr/colorPrimary"
-            android:elevation="1dp" />
+            android:backgroundTint="?attr/colorSecondaryContainer" />
 
         <TextView
             android:id="@+id/actinoids_element"
@@ -189,7 +187,7 @@
             android:elevation="24dp"
             android:gravity="center"
             android:text="89-103"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="20sp" />
 
         <TextView
@@ -201,7 +199,7 @@
             android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Actinoids"
-            android:textColor="?attr/actionMenuTextColor"
+            android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="10sp" />
     </FrameLayout>
 
