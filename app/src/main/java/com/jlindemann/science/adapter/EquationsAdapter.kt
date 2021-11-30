@@ -56,7 +56,7 @@ class EquationsAdapter(var list: ArrayList<Equation>, var clickListener: Equatio
                     Configuration.UI_MODE_NIGHT_YES -> { equImg.colorFilter = ColorMatrixColorFilter(NEGATIVE) }
                 }
             }
-            itemView.foreground = ContextCompat.getDrawable(context, R.drawable.c_ripple)
+            itemView.foreground = ContextCompat.getDrawable(context, R.drawable.toast_card_ripple)
             itemView.isClickable = true
             itemView.isFocusable = true
             itemView.setOnClickListener {

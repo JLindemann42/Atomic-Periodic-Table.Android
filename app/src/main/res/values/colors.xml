@@ -10,6 +10,9 @@
     <color name="colorLightRippleItem">#A81B94E4</color>
     <color name="colorLightChipSurface">#EBEBEB</color>
 
+    <color name="element_box_light">#D9E2FF</color>
+    <color name="element_box_dark">#404659</color>
+
     <color name="colorDarkPrimary">#313235</color>
     <color name="colorDarkPrimaryDark">#202124</color>
     <color name="colorDarkAccent">#85AEEF</color>

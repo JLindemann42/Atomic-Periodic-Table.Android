@@ -40,7 +40,7 @@ class DictionaryAdapter(var dictionaryList: ArrayList<Dictionary>, var clickList
             text.text = item.text
             val url = item.wiki
 
-            wikiBtn.foreground = ContextCompat.getDrawable(con, R.drawable.c_ripple)
+            wikiBtn.foreground = ContextCompat.getDrawable(con, R.drawable.toast_card_ripple)
             wikiBtn.isClickable = true
             wikiBtn.isFocusable = true
 

@@ -41,7 +41,7 @@ class ElectrodeAdapter(var list: ArrayList<Series>, var clickListener: Electrode
             textViewVoltage.text = textVolt
             textViewCharge.text = item.charge
 
-            itemView.foreground = ContextCompat.getDrawable(context, R.drawable.c_ripple)
+            itemView.foreground = ContextCompat.getDrawable(context, R.drawable.toast_card_ripple)
             itemView.isClickable = true
             itemView.isFocusable = true
 

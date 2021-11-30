@@ -62,7 +62,7 @@ class IonAdapter(var list: ArrayList<Ion>, var clickListener: IonActivity, val c
             textViewShort.text = item.short
             textViewCharge.text = "View all" + " " + item.count.toString()
 
-            cardView.foreground = ContextCompat.getDrawable(context, R.drawable.c_ripple)
+            cardView.foreground = ContextCompat.getDrawable(context, R.drawable.toast_card_ripple)
             cardView.isClickable = true
             cardView.isFocusable = true
             cardView.setOnClickListener {

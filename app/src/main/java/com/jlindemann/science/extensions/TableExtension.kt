@@ -92,11 +92,19 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
                         actinoids_btn.background.setTint(resources.getColor(R.color.element_box_light))
                     }
                     Configuration.UI_MODE_NIGHT_YES -> {
-                        btn.background.setTint(resources.getColor(R.color.colorDarkPrimary)) }
+                        btn.background.setTint(resources.getColor(R.color.element_box_dark))
+                        lanthanoids_btn.background.setTint(resources.getColor(R.color.element_box_dark))
+                        actinoids_btn.background.setTint(resources.getColor(R.color.element_box_dark)) }
                 }
             }
-            if (themePrefValue == 0) { btn.background.setTint(resources.getColor(R.color.colorLightPrimary)) }
-            if (themePrefValue == 1) { btn.background.setTint(resources.getColor(R.color.colorDarkPrimary)) }
+            if (themePrefValue == 0) {
+                    btn.background.setTint(resources.getColor(R.color.element_box_light))
+                    lanthanoids_btn.background.setTint(resources.getColor(R.color.element_box_light))
+                    actinoids_btn.background.setTint(resources.getColor(R.color.element_box_light)) }
+            if (themePrefValue == 1) {
+                    btn.background.setTint(resources.getColor(R.color.element_box_dark))
+                    lanthanoids_btn.background.setTint(resources.getColor(R.color.element_box_dark))
+                    actinoids_btn.background.setTint(resources.getColor(R.color.element_box_dark)) }
         }
     }
 

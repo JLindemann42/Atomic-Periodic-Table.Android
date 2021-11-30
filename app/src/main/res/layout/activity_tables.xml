@@ -100,7 +100,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/c_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -148,7 +148,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/toast"
                     android:backgroundTint="?attr/colorPrimary"
-                    android:foreground="@drawable/c_ripple"
+                    android:foreground="@drawable/toast_card_ripple"
                     android:clickable="true"
                     android:focusable="true"/>
             </LinearLayout>
@@ -167,7 +167,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/c_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -215,7 +215,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/toast"
                     android:backgroundTint="?attr/colorPrimary"
-                    android:foreground="@drawable/c_ripple"
+                    android:foreground="@drawable/toast_card_ripple"
                     android:clickable="true"
                     android:focusable="true"/>
             </LinearLayout>
@@ -234,7 +234,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/c_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -282,7 +282,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/toast"
                     android:backgroundTint="?attr/colorPrimary"
-                    android:foreground="@drawable/c_ripple"
+                    android:foreground="@drawable/toast_card_ripple"
                     android:clickable="true"
                     android:focusable="true"/>
             </LinearLayout>
@@ -301,7 +301,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/c_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -349,7 +349,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/toast"
                     android:backgroundTint="?attr/colorPrimary"
-                    android:foreground="@drawable/c_ripple"
+                    android:foreground="@drawable/toast_card_ripple"
                     android:clickable="true"
                     android:focusable="true"/>
             </LinearLayout>
@@ -368,7 +368,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/c_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -386,6 +386,25 @@
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="24sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginStart="@dimen/margin"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="start"
+                    android:text="Beta"
+                    android:alpha="0.8"
+                    android:textColor="?attr/colorOnTertiary"
+                    android:textSize="13sp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorTertiary"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -416,7 +435,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/toast"
                     android:backgroundTint="?attr/colorPrimary"
-                    android:foreground="@drawable/c_ripple"
+                    android:foreground="@drawable/toast_card_ripple"
                     android:clickable="true"
                     android:focusable="true"/>
             </LinearLayout>
@@ -435,7 +454,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/c_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -483,7 +502,7 @@
                     android:textSize="14sp"
                     android:background="@drawable/toast"
                     android:backgroundTint="?attr/colorPrimary"
-                    android:foreground="@drawable/c_ripple"
+                    android:foreground="@drawable/toast_card_ripple"
                     android:clickable="true"
                     android:focusable="true"/>
             </LinearLayout>
