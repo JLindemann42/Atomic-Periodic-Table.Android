@@ -80,5 +80,7 @@ object EquationModel {
         equation.add(Equation("Activity #2", "Nuclear Physics", R.drawable.e_activity2, "A: Activity at time 0 \nA(0): Activity at time 0 \nlambda: Decay Constant \nt: Time"))
         equation.add(Equation("Absorbed Dose", "Nuclear Physics", R.drawable.e_absorbeddose, "D: Absorbed Dose \nE: Energy \nm: Mass"))
         equation.add(Equation("Equivalent Dose", "Nuclear Physics", R.drawable.e_equivalentdose, "H: Equivalent Dose \nD: Absorbed Dose \nQ: Quality Factor"))
+        equation.add(Equation("Energy in Capacitor", "Electricity", R.drawable., ""))
+
     }
 }
