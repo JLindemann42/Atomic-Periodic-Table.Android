@@ -4,10 +4,11 @@
     android:id="@+id/item_nuclide_frame"
     android:layout_width="32dp"
     android:layout_height="32dp"
-    android:background="@drawable/toast"
+    android:background="@drawable/toast_nuclide"
+    android:backgroundTint="?attr/colorSurfaceVariant"
     android:foreground="@drawable/c_ripple"
     android:clickable="true"
-    android:elevation="2dp"
+    android:elevation="0dp"
     android:focusable="true">
 
         <TextView
