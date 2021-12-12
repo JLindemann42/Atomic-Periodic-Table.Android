@@ -99,8 +99,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             initName(elements)
         }, 250)
 
-
-
         gestureDetector = GestureDetector(this, GestureListener())
         mScaleDetector = ScaleGestureDetector(this, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
             override fun onScale(detector: ScaleGestureDetector): Boolean {
@@ -110,8 +108,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                 mScale += scale
                 if (mScale < 1f)
                     mScale = 1f
-                if (mScale > 1f)
-                    mScale = 1f
+                if (mScale > 12.5f)
+                    mScale = 12.5f
                 val scaleAnimation = ScaleAnimation(
                     1f / pScale,
                     1f / mScale,
