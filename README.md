@@ -3,9 +3,9 @@
 ![](./design/hero.png)
 
 ## Introduction
-A periodic table for all your science needs for both schoolwork and more!
+A periodic table for all your science needs for both schoolwork and fun!
 
-Follo on socialmedia for updates [TWITTER](https://twitter.com/jlindemanndev)
+Follow on socialmedia for updates [TWITTER](https://twitter.com/jlindemanndev)
 
 ## Download
 
