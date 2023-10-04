@@ -12,7 +12,6 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.jlindemann.science.R
-import com.jlindemann.science.R2.id.view
 import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils

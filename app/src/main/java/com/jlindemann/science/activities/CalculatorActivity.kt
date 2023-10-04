@@ -2,13 +2,14 @@ package com.jlindemann.science.activities
 
 import android.os.Bundle
 import android.view.KeyEvent
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_calculator.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.InputStream
@@ -29,7 +30,7 @@ class CalculatorActivity : AppCompatActivity() {
         }
         setContentView(R.layout.activity_calculator) //Don't move down (Needs to be before we call our functions)
 
-        back_btn.setOnClickListener {
+        findViewById<FloatingActionButton>(R.id.back_btn).setOnClickListener {
             this.onBackPressed()
         }
 
@@ -38,7 +39,7 @@ class CalculatorActivity : AppCompatActivity() {
     }
 
     private fun initUi() {
-        edit_element_1.setOnKeyListener { _, keyCode, event ->
+        findViewById<EditText>(R.id.edit_element_1).setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 onClickSearch()
                 return@setOnKeyListener true
@@ -50,7 +51,7 @@ class CalculatorActivity : AppCompatActivity() {
     fun onClickSearch() {
 
         val mArray = resources.getStringArray(R.array.calcArray)
-        val text = edit_element_1.text.toString()
+        val text = findViewById<EditText>(R.id.edit_element_1).text.toString()
 
         for (i in 0 until 2) {
             var jsonstring : String? = null
@@ -66,7 +67,7 @@ class CalculatorActivity : AppCompatActivity() {
                     val jsonObject: JSONObject = jsonArray.getJSONObject(0)
                     val elementAtomicWeight1 = jsonObject.optString("element_atomicmass", "---")
 
-                    val final = elementAtomicWeight1.toInt()*(edit_number_1.text.toString().toInt())
+                    val final = elementAtomicWeight1.toInt()*(findViewById<EditText>(R.id.edit_number_1).text.toString().toInt())
 
                     Toast.makeText(this, final, Toast.LENGTH_SHORT).show()
                 }

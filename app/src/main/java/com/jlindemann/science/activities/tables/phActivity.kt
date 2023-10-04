@@ -11,7 +11,6 @@ import android.widget.RelativeLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginTop
 import com.jlindemann.science.R
-import com.jlindemann.science.R2.id.bottom
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.model.*
 import com.jlindemann.science.preferences.ThemePreference

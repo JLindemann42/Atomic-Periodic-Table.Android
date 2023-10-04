@@ -20,7 +20,6 @@ import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
-import com.jlindemann.science.R2
 import com.jlindemann.science.activities.tables.DictionaryActivity
 import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.animations.Anim
@@ -162,7 +161,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         })
     }
 
-    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         super.dispatchTouchEvent(event)
         mScaleDetector.onTouchEvent(event)
         gestureDetector.onTouchEvent(event)

@@ -92,7 +92,7 @@ class NuclideActivity : BaseActivity() {
         nuc_back_btn.setOnClickListener { this.onBackPressed() }
     }
 
-    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         super.dispatchTouchEvent(event)
         mScaleDetector.onTouchEvent(event)
         gestureDetector.onTouchEvent(event)
