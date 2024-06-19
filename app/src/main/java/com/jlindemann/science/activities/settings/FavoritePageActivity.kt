@@ -161,13 +161,23 @@ class FavoritePageActivity : BaseActivity() {
             vaporization_heat_check.isChecked = false
         }
 
-        //Vaporization heat
+        //Radioactive heat
         val radioactivePreference = RadioactivePreference(this)
         var radioactiveHeatValue = radioactivePreference.getValue()
         if (radioactiveHeatValue == 1) {
             radioactive_check.isChecked = true
         }
         if (radioactiveHeatValue == 0) {
+            radioactive_check.isChecked = false
+        }
+
+        //Radioactive heat
+        val resistivityPreference = ResistivityPreference(this)
+        var resistivityValue = resistivityPreference.getValue()
+        if (resistivityValue == 1) {
+            radioactive_check.isChecked = true
+        }
+        if (resistivityValue == 0) {
             radioactive_check.isChecked = false
         }
         onCheckboxClicked()
@@ -400,7 +410,19 @@ class FavoritePageActivity : BaseActivity() {
             else {
                 radioactivePreference.setValue(0)
             }
+        }
 
+        //Radioactive
+        val resistivityPreference = ResistivityPreference(this)
+        var resitivityValue = resistivityPreference.getValue()
+        var resitivityCheckBox:CheckBox = resitivity_check
+        resitivityCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                resistivityPreference.setValue(1)
+            }
+            else {
+                resistivityPreference.setValue(0)
+            }
         }
 
     }

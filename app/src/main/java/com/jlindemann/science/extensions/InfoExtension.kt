@@ -327,6 +327,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             specific_heat_f.text = specificHeatCapacity
             vaporization_heat_f.text = vaporizationHeat
             radioactive_f.text = isRadioactive
+            resistivity_f.text = resistivity
             a_empirical_f.text = atomicRadiusE
             a_calculated_f.text = atomicRadius
             covalent_f.text = covalentRadius
