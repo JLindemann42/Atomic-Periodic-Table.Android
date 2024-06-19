@@ -160,6 +160,16 @@ class FavoritePageActivity : BaseActivity() {
         if (vaporizationHeatValue == 0) {
             vaporization_heat_check.isChecked = false
         }
+
+        //Vaporization heat
+        val radioactivePreference = RadioactivePreference(this)
+        var radioactiveHeatValue = radioactivePreference.getValue()
+        if (radioactiveHeatValue == 1) {
+            radioactive_check.isChecked = true
+        }
+        if (radioactiveHeatValue == 0) {
+            radioactive_check.isChecked = false
+        }
         onCheckboxClicked()
         viewf.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
@@ -375,6 +385,20 @@ class FavoritePageActivity : BaseActivity() {
             }
             else {
                 vaporizationHeatPreference.setValue(0)
+            }
+
+        }
+
+        //Radioactive
+        val radioactivePreference = RadioactivePreference(this)
+        var radioactiveValue = radioactivePreference.getValue()
+        var radioactiveCheckBox:CheckBox = radioactive_check
+        radioactiveCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                radioactivePreference.setValue(1)
+            }
+            else {
+                radioactivePreference.setValue(0)
             }
 
         }

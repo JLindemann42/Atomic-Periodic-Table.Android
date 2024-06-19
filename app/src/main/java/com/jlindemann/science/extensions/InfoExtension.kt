@@ -326,6 +326,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             fusion_heat_f.text = fusionHeat
             specific_heat_f.text = specificHeatCapacity
             vaporization_heat_f.text = vaporizationHeat
+            radioactive_f.text = isRadioactive
             a_empirical_f.text = atomicRadiusE
             a_calculated_f.text = atomicRadius
             covalent_f.text = covalentRadius
@@ -513,6 +514,16 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         }
         if (vaporizationHeatValue == 0) {
             vaporization_heat_lay.visibility = View.GONE
+        }
+
+        //Radioactive
+        val radioactivePreference = RadioactivePreference(this)
+        var radioactiveValue = radioactivePreference.getValue()
+        if (radioactiveValue == 1) {
+            phase_lay.visibility = View.VISIBLE
+        }
+        if (radioactiveValue == 0) {
+            phase_lay.visibility = View.GONE
         }
     }
 }

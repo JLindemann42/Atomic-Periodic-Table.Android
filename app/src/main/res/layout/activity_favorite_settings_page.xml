@@ -591,6 +591,46 @@
                     android:text="Show Vaporization Heat"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:buttonTint="?attr/colorPrimary" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/general_header4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:paddingStart="@dimen/margin"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:text="@string/favorite_settings_nuclear"
+                android:textColor="?attr/colorAccent"
+                android:textStyle="normal|normal" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple">
+
+                <CheckBox
+                    android:id="@+id/radioactive_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:buttonTint="?attr/colorPrimary"
+                    android:checked="false"
+                    android:drawableEnd="@drawable/ic_nucleari"
+                    android:drawablePadding="9dp"
+                    android:layoutDirection="rtl"
+                    android:text="Show if Radioactive element"
+                    android:textColor="?attr/colorOnSecondaryContainer" />
             </FrameLayout>
 
             <androidx.legacy.widget.Space

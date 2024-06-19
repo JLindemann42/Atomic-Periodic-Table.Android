@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version">v2.1.0-Build.62</string>
+    <string name="app_version">v2.1.1-Build.64</string>
 
     <string name="open_table_button">Open table</string>
 
@@ -14,7 +14,9 @@
     <string name="favorite_settings_general">General</string>
     <string name="favorite_settings_temperatures">Temperatures</string>
     <string name="favorite_settings_atomic_properties">Atomic properties</string>
-    <string name="favorite_settings_thermodynamics">Thermodynamics</string>
+    <string name="favorite_settings_thermodynamics">Thermodynamic</string>
+    <string name="favorite_settings_nuclear">Nuclear</string>
+
 
     <!-- Activity Unit Settings -->
     <string name="unit_settings_title">Table Units</string>
