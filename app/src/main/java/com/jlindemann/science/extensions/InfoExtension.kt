@@ -163,6 +163,11 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             val isRadioactive = jsonObject.optString("radioactive", "---")
             val neutronCrossSection = jsonObject.optString("neutron_cross_sectional", "---")
 
+            //More Properties
+            val soundOfSpeedGas = jsonObject.optString("speed_of_sound_gas", "---")
+            val soundOfSpeedLiquid = jsonObject.optString("speed_of_sound_liquid", "---")
+            val soundOfSpeedSolid = jsonObject.optString("speed_of_sound_solid", "---")
+
             if (rMultiplier == "---") {
                 element_resistivity.text = "---"
             }
