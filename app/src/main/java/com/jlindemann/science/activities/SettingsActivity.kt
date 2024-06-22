@@ -7,19 +7,20 @@ import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.FrameLayout
+import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.ScrollView
 import android.widget.TextView
+import androidx.appcompat.widget.SwitchCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.*
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.offlinePreference
 import com.jlindemann.science.settings.ExperimentalActivity
 import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_element_info.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_settings.element_title
-import kotlinx.android.synthetic.main.activity_settings.view
-import kotlinx.android.synthetic.main.theme_panel.*
 import java.io.File
 import java.text.DecimalFormat
 import kotlin.math.log10
@@ -43,19 +44,19 @@ class SettingsActivity : BaseActivity() {
         setContentView(R.layout.activity_settings)
 
         if (themePrefValue == 100) {
-            system_default_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_checked, 0, 0, 0)
-            light_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
-            dark_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            findViewById<TextView>(R.id.system_default_btn).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_checked, 0, 0, 0)
+            findViewById<TextView>(R.id.light_btn).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            findViewById<TextView>(R.id.dark_btn).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
         }
         if (themePrefValue == 0) {
-            system_default_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
-            light_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_checked, 0, 0, 0)
-            dark_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            findViewById<TextView>(R.id.system_default_btn).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            findViewById<TextView>(R.id.light_btn).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_checked, 0, 0, 0)
+            findViewById<TextView>(R.id.dark_btn).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
         }
         if (themePrefValue == 1) {
-            system_default_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
-            light_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
-            dark_btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_checked, 0, 0, 0)
+            findViewById<TextView>(R.id.system_default_btn).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            findViewById<TextView>(R.id.light_btn).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_unchecked, 0, 0, 0)
+            findViewById<TextView>(R.id.dark_btn).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_checked, 0, 0, 0)
         }
 
         openPages()
@@ -64,92 +65,89 @@ class SettingsActivity : BaseActivity() {
         cacheSettings()
         initOfflineSwitches()
 
-        offline_settings.setOnClickListener {
-            offline_internet_switch.toggle()
+        findViewById<RelativeLayout>(R.id.offline_settings).setOnClickListener {
+            findViewById<SwitchCompat>(R.id.offline_internet_switch).toggle()
         }
 
-        view.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         //Title Controller
-        common_title_settings_color.visibility = View.INVISIBLE
-        element_title.visibility = View.INVISIBLE
-        common_title_back_set.elevation = (resources.getDimension(R.dimen.zero_elevation))
-        scroll_settings.getViewTreeObserver()
+        findViewById<FrameLayout>(R.id.common_title_settings_color).visibility = View.INVISIBLE
+        findViewById<TextView>(R.id.element_title).visibility = View.INVISIBLE
+        findViewById<FrameLayout>(R.id.common_title_back_set).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        findViewById<ScrollView>(R.id.scroll_settings).getViewTreeObserver()
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
                 var y = 300f
                 override fun onScrollChanged() {
-                    if (scroll_settings.getScrollY() > 150) {
-                        common_title_settings_color.visibility = View.VISIBLE
-                        element_title.visibility = View.VISIBLE
-                        element_title_downstate.visibility = View.INVISIBLE
-                        common_title_back_set.elevation = (resources.getDimension(R.dimen.one_elevation))
+                    if (findViewById<ScrollView>(R.id.scroll_settings).getScrollY() > 150) {
+                        findViewById<FrameLayout>(R.id.common_title_settings_color).visibility = View.VISIBLE
+                        findViewById<TextView>(R.id.element_title).visibility = View.VISIBLE
+                        findViewById<TextView>(R.id.element_title_downstate).visibility = View.INVISIBLE
+                        findViewById<FrameLayout>(R.id.common_title_back_set).elevation = (resources.getDimension(R.dimen.one_elevation))
                     } else {
-                        common_title_settings_color.visibility = View.INVISIBLE
-                        element_title.visibility = View.INVISIBLE
-                        element_title_downstate.visibility = View.VISIBLE
-                        common_title_back_set.elevation = (resources.getDimension(R.dimen.zero_elevation))
+                        findViewById<FrameLayout>(R.id.common_title_settings_color).visibility = View.INVISIBLE
+                        findViewById<TextView>(R.id.element_title).visibility = View.INVISIBLE
+                        findViewById<TextView>(R.id.element_title_downstate).visibility = View.VISIBLE
+                        findViewById<FrameLayout>(R.id.common_title_back_set).elevation = (resources.getDimension(R.dimen.zero_elevation))
                     }
-                    y = scroll_settings.getScrollY().toFloat()
+                    y = findViewById<ScrollView>(R.id.scroll_settings).getScrollY().toFloat()
                 }
             })
 
-        about_settings.setOnClickListener {
+        findViewById<RelativeLayout>(R.id.about_settings).setOnClickListener {
             val intent = Intent(this, AboutActivity::class.java)
             startActivity(intent)
         }
-        back_btn_set.setOnClickListener {
+        findViewById<ImageButton>(R.id.back_btn_set).setOnClickListener {
             this.onBackPressed()
         }
-        submit_settings.setOnClickListener {
+        findViewById<RelativeLayout>(R.id.submit_settings).setOnClickListener {
             val intent = Intent(this, SubmitActivity::class.java)
             startActivity(intent)
         }
-        licenses_settings.setOnClickListener {
+        findViewById<RelativeLayout>(R.id.licenses_settings).setOnClickListener {
             val intent = Intent(this, LicensesActivity::class.java)
             startActivity(intent)
         }
-        unit_settings.setOnClickListener {
+        findViewById<RelativeLayout>(R.id.unit_settings).setOnClickListener {
             val intent = Intent(this, UnitActivity::class.java)
             startActivity(intent)
         }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = common_title_back_set.layoutParams as ViewGroup.LayoutParams
+        val params = findViewById<FrameLayout>(R.id.common_title_back_set).layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back_set.layoutParams = params
+        findViewById<FrameLayout>(R.id.common_title_back_set).layoutParams = params
 
-        val titleParam = title_box_settings.layoutParams as ViewGroup.MarginLayoutParams
+        val titleParam = findViewById<FrameLayout>(R.id.title_box_settings).layoutParams as ViewGroup.MarginLayoutParams
         titleParam.rightMargin = right
         titleParam.leftMargin = left
-        title_box_settings.layoutParams = titleParam
+        findViewById<FrameLayout>(R.id.title_box_settings).layoutParams = titleParam
 
-        val params2 = element_title_downstate.layoutParams as ViewGroup.MarginLayoutParams
+        val params2 = findViewById<TextView>(R.id.element_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
-        element_title_downstate.layoutParams = params2
+        findViewById<TextView>(R.id.element_title_downstate).layoutParams = params2
 
-        personalization_box.setPadding(left, 0, right, 0)
-        advanced_box.setPadding(left, 0, right, 0)
-
+        findViewById<LinearLayout>(R.id.personalization_box).setPadding(left, 0, right, 0)
+        findViewById<LinearLayout>(R.id.advanced_box).setPadding(left, 0, right, 0)
     }
 
     override fun onBackPressed() {
-        if (theme_panel.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(theme_panel, 300) //Start Close Animation
+        if (findViewById<FrameLayout>(R.id.theme_panel).visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.theme_panel), 300) //Start Close Animation
             return
         }
-        else {
-            super.onBackPressed()
-        }
+        else { super.onBackPressed() }
     }
 
     private fun initOfflineSwitches() {
         val offlinePreferences = offlinePreference(this)
         val offlinePrefValue = offlinePreferences.getValue()
-        offline_internet_switch.isChecked = offlinePrefValue == 1
+        findViewById<SwitchCompat>(R.id.offline_internet_switch).isChecked = offlinePrefValue == 1
 
-        offline_internet_switch.setOnCheckedChangeListener { compoundButton, b ->
-            if (offline_internet_switch.isChecked) {
+        findViewById<SwitchCompat>(R.id.offline_internet_switch).setOnCheckedChangeListener { compoundButton, b ->
+            if (findViewById<SwitchCompat>(R.id.offline_internet_switch).isChecked) {
                 val offlinePreference = offlinePreference(this)
                 offlinePreference.setValue(1)
             } else {
@@ -160,22 +158,22 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun openPages() {
-        favorite_settings.setOnClickListener {
+        findViewById<RelativeLayout>(R.id.favorite_settings).setOnClickListener {
             val intent = Intent(this, FavoritePageActivity::class.java)
             startActivity(intent)
         }
-        order_settings.setOnClickListener {
+        findViewById<RelativeLayout>(R.id.order_settings).setOnClickListener {
             val intent = Intent(this, OrderActivity::class.java)
             startActivity(intent)
         }
-        experimental_settings.setOnClickListener {
+        findViewById<RelativeLayout>(R.id.experimental_settings).setOnClickListener {
             val intent = Intent(this, ExperimentalActivity::class.java)
             startActivity(intent)
         }
     }
 
     private fun cacheSettings() {
-        cache_lay.setOnClickListener {
+        findViewById<LinearLayout>(R.id.cache_lay).setOnClickListener {
             this.cacheDir.deleteRecursively()
             initializeCache()
         }
@@ -210,7 +208,7 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun themeSettings() {
-        system_default_btn.setOnClickListener {
+        findViewById<TextView>(R.id.system_default_btn).setOnClickListener {
             val themePreference = ThemePreference(this)
             themePreference.setValue(100)
             val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
@@ -222,7 +220,7 @@ class SettingsActivity : BaseActivity() {
                     setTheme(R.style.AppThemeDark)
                 } // Night mode is active, we're using dark theme
             }
-            Utils.fadeOutAnim(theme_panel, 300)
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.theme_panel), 300)
             val delayChange = Handler()
             delayChange.postDelayed({
                 finish()
@@ -233,11 +231,11 @@ class SettingsActivity : BaseActivity() {
                 overridePendingTransition(0, 0)
             }, 302)
         }
-        light_btn.setOnClickListener {
+        findViewById<TextView>(R.id.light_btn).setOnClickListener {
             val themePreference = ThemePreference(this)
             themePreference.setValue(0)
             setTheme(R.style.AppTheme)
-            Utils.fadeOutAnim(theme_panel, 300)
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.theme_panel), 300)
 
             val delayChange = Handler()
             delayChange.postDelayed({
@@ -249,11 +247,11 @@ class SettingsActivity : BaseActivity() {
                 overridePendingTransition(0, 0)
             }, 302)
         }
-        dark_btn.setOnClickListener {
+        findViewById<TextView>(R.id.dark_btn).setOnClickListener {
             val themePreference = ThemePreference(this)
             themePreference.setValue(1)
             setTheme(R.style.AppThemeDark)
-            Utils.fadeOutAnim(theme_panel, 300)
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.theme_panel), 300)
 
             val delayChange = Handler()
             delayChange.postDelayed({
@@ -265,14 +263,14 @@ class SettingsActivity : BaseActivity() {
                 overridePendingTransition(0, 0)
             }, 302)
         }
-        themes_settings.setOnClickListener {
-            Utils.fadeInAnim(theme_panel, 300)
+        findViewById<RelativeLayout>(R.id.themes_settings).setOnClickListener {
+            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.theme_panel), 300)
         }
-        theme_background.setOnClickListener {
-            Utils.fadeOutAnim(theme_panel, 300)
+        findViewById<TextView>(R.id.theme_background).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.theme_panel), 300)
         }
-        cancel_btn.setOnClickListener {
-            Utils.fadeOutAnim(theme_panel, 300)
+        findViewById<TextView>(R.id.cancel_btn).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.theme_panel), 300)
         }
     }
 }

@@ -9,8 +9,19 @@ import android.os.Handler
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.ScrollView
+import android.widget.Space
+import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.browser.customtabs.CustomTabsIntent
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import com.github.mmin18.widget.RealtimeBlurView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.FavoritePageActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
@@ -21,27 +32,11 @@ import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_element_info.*
-import kotlinx.android.synthetic.main.activity_element_info.back_btn
-import kotlinx.android.synthetic.main.activity_element_info.element_title
-import kotlinx.android.synthetic.main.d_atomic.*
-import kotlinx.android.synthetic.main.d_electromagnetic.*
-import kotlinx.android.synthetic.main.d_nuclear.*
-import kotlinx.android.synthetic.main.d_overview.*
-import kotlinx.android.synthetic.main.d_properties.*
-import kotlinx.android.synthetic.main.d_temperatures.*
-import kotlinx.android.synthetic.main.d_thermodynamic.*
-import kotlinx.android.synthetic.main.detail_emission.*
-import kotlinx.android.synthetic.main.favorite_bar.*
-import kotlinx.android.synthetic.main.shell_view.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
 import java.net.ConnectException
-import kotlinx.android.synthetic.main.loading_view.*
-import kotlinx.android.synthetic.main.oxidiation_states.*
-import kotlinx.android.synthetic.main.shell_view.card_model_view
 import kotlin.math.pow
 
 class ElementInfoActivity : InfoExtension() {
@@ -62,54 +57,54 @@ class ElementInfoActivity : InfoExtension() {
         val ElementSendAndLoadPreference = ElementSendAndLoad(this)
         var ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
         setContentView(R.layout.activity_element_info)
-        Utils.fadeInAnim(scr_view, 300)
+        Utils.fadeInAnim(findViewById<ScrollView>(R.id.scr_view), 300)
         readJson()
-        shell.visibility = View.GONE
-        detail_emission.visibility = View.GONE
+        findViewById<CardView>(R.id.shell).visibility = View.GONE
+        findViewById<RealtimeBlurView>(R.id.detail_emission).visibility = View.GONE
         detailViews()
         offlineCheck()
         nextPrev()
         favoriteBarSetup()
-        elementAnim(overview_inc, properties_inc)
-        view.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        elementAnim(findViewById<FrameLayout>(R.id.overview_inc), findViewById<FrameLayout>(R.id.properties_inc))
+        findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        back_btn.setOnClickListener { super.onBackPressed() }
-        edit_fav_btn.setOnClickListener {
+        findViewById<ImageButton>(R.id.back_btn).setOnClickListener { super.onBackPressed() }
+        findViewById<FloatingActionButton>(R.id.edit_fav_btn).setOnClickListener {
             val intent = Intent(this, FavoritePageActivity::class.java)
             startActivity(intent)
         }
-        i_btn.setOnClickListener {
+        findViewById<AppCompatButton>(R.id.i_btn).setOnClickListener {
             val intent = Intent(this, SubmitActivity::class.java)
             startActivity(intent)
         }
     }
 
     override fun onBackPressed() {
-        if (shell_background.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(shell, 300)
-            Utils.fadeOutAnim(shell_background, 300)
+        if (findViewById<RealtimeBlurView>(R.id.shell_background).visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(findViewById<CardView>(R.id.shell), 300)
+            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.shell_background), 300)
             return
         }
-        if (detail_emission.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(detail_emission, 300)
-            Utils.fadeOutAnim(detail_emission_background, 300)
+        if (findViewById<CardView>(R.id.detail_emission).visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(findViewById<CardView>(R.id.detail_emission), 300)
+            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.detail_emission_background), 300)
             return
         }
         else { super.onBackPressed() }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-            val params = frame.layoutParams as ViewGroup.MarginLayoutParams
+            val params = findViewById<FrameLayout>(R.id.frame).layoutParams as ViewGroup.MarginLayoutParams
             params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            frame.layoutParams = params
+            findViewById<FrameLayout>(R.id.frame).layoutParams = params
 
-            val paramsO = offline_space.layoutParams as ViewGroup.MarginLayoutParams
+            val paramsO = findViewById<Space>(R.id.offline_space).layoutParams as ViewGroup.MarginLayoutParams
             paramsO.topMargin += top
-            offline_space.layoutParams = paramsO
+            findViewById<Space>(R.id.offline_space).layoutParams = paramsO
 
-            val params2 = common_title_back.layoutParams as ViewGroup.LayoutParams
+            val params2 = findViewById<FrameLayout>(R.id.common_title_back).layoutParams as ViewGroup.LayoutParams
             params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            common_title_back.layoutParams = params2
+            findViewById<FrameLayout>(R.id.common_title_back).layoutParams = params2
     }
 
     private fun offlineCheck() {
@@ -117,17 +112,17 @@ class ElementInfoActivity : InfoExtension() {
         val offlinePrefValue = offlinePreferences.getValue()
 
         if (offlinePrefValue == 1) {
-            frame.visibility = View.GONE
-            offline_space.visibility = View.VISIBLE
-            sp_img.visibility = View.GONE
-            sp_offline.visibility = View.VISIBLE
-            sp_offline.text = "Go online for emission lines"
+            findViewById<FrameLayout>(R.id.frame).visibility = View.GONE
+            findViewById<Space>(R.id.offline_space).visibility = View.VISIBLE
+            findViewById<ImageView>(R.id.sp_img).visibility = View.GONE
+            findViewById<TextView>(R.id.sp_offline).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.sp_offline).text = "Go online for emission lines"
         }
         else {
-            frame.visibility = View.VISIBLE
-            offline_space.visibility = View.GONE
-            sp_img.visibility = View.VISIBLE
-            sp_offline.visibility = View.GONE
+            findViewById<FrameLayout>(R.id.frame).visibility = View.VISIBLE
+            findViewById<Space>(R.id.offline_space).visibility = View.GONE
+            findViewById<ImageView>(R.id.sp_img).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.sp_offline).visibility = View.GONE
         }
     }
 
@@ -137,29 +132,29 @@ class ElementInfoActivity : InfoExtension() {
     }
 
     private fun detailViews() {
-        electron_view.setOnClickListener {
-            Utils.fadeInAnim(shell, 300)
-            Utils.fadeInAnim(shell_background, 300)
+        findViewById<CardView>(R.id.electron_view).setOnClickListener {
+            Utils.fadeInAnim(findViewById<CardView>(R.id.shell), 300)
+            Utils.fadeInAnim(findViewById<RealtimeBlurView>(R.id.shell_background), 300)
         }
-        close_shell_btn.setOnClickListener {
-            Utils.fadeOutAnim(shell, 300)
-            Utils.fadeOutAnim(shell_background, 300)
+        findViewById<FloatingActionButton>(R.id.close_shell_btn).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<CardView>(R.id.shell), 300)
+            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.shell_background), 300)
         }
-        shell_background.setOnClickListener {
-            Utils.fadeOutAnim(shell, 300)
-            Utils.fadeOutAnim(shell_background, 300)
+        findViewById<RealtimeBlurView>(R.id.shell_background).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<CardView>(R.id.shell), 300)
+            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.shell_background), 300)
         }
-        sp_img.setOnClickListener {
-            Utils.fadeInAnim(detail_emission, 300)
-            Utils.fadeInAnim(detail_emission_background, 300)
+        findViewById<ImageView>(R.id.sp_img).setOnClickListener {
+            Utils.fadeInAnim(findViewById<CardView>(R.id.detail_emission), 300)
+            Utils.fadeInAnim(findViewById<RealtimeBlurView>(R.id.detail_emission_background), 300)
         }
-        close_emission_btn.setOnClickListener {
-            Utils.fadeOutAnim(detail_emission, 300)
-            Utils.fadeOutAnim(detail_emission_background, 300)
+        findViewById<FloatingActionButton>(R.id.close_emission_btn).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<CardView>(R.id.detail_emission), 300)
+            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.detail_emission_background), 300)
         }
-        detail_emission_background.setOnClickListener {
-            Utils.fadeOutAnim(detail_emission, 300)
-            Utils.fadeOutAnim(detail_emission_background, 300)
+        findViewById<RealtimeBlurView>(R.id.detail_emission_background).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<CardView>(R.id.detail_emission), 300)
+            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.detail_emission_background), 300)
         }
     }
 
@@ -176,7 +171,7 @@ class ElementInfoActivity : InfoExtension() {
     }
 
     private fun nextPrev() {
-        next_btn.setOnClickListener {
+        findViewById<FloatingActionButton>(R.id.next_btn).setOnClickListener {
             var jsonString : String? = null
             try {
                 val ElementSendAndLoadPreference = ElementSendAndLoad(this)
@@ -198,7 +193,7 @@ class ElementInfoActivity : InfoExtension() {
             }
             catch (e: IOException) {}
         }
-        previous_btn.setOnClickListener {
+        findViewById<FloatingActionButton>(R.id.previous_btn).setOnClickListener {
             var jsonString : String? = null
             try {
                 val ElementSendAndLoadPreference = ElementSendAndLoad(this)

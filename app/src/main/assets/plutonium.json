@@ -54,6 +54,15 @@
     "oxidation_state_neg": "",
     "oxidation_state_pos": "2 3 4 5 6 7",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "2260 (m/s) [20°C]",
+
+    "young_modulus": "96 (GPa)",
+    "poisson_ratio": "0.21",
+    "bulk_modulus": "---",
+    "shear_modulus": "43 (GPa)",
+
     "iso_1": "Pu-235",
     "iso_mass_1": "235.045286",
     "iso_half_1": "25.3 (min)",

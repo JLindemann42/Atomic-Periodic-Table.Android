@@ -57,6 +57,11 @@
     "oxidation_state_neg": "",
     "oxidation_state_pos": "2 3",
 
+    "young_modulus": "18.2 (GPa)",
+    "poisson_ratio": "0.152",
+    "bulk_modulus": "8.3 (GPa)",
+    "shear_modulus": "7.9 (GPa)",
+
     "iso_1": "Eu-150",
     "iso_mass_1": "149.919702",
     "iso_half_1": "36.9 (years)",

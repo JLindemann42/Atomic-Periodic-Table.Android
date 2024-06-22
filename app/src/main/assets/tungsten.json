@@ -54,6 +54,15 @@
     "oxidation_state_neg": "4 2 1 0",
     "oxidation_state_pos": "1 2 3 4 5 6",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "4620 (m/s) [room temperature, annealed]",
+
+    "young_modulus": "411 (GPa)",
+    "poisson_ratio": "0.28",
+    "bulk_modulus": "310 (GPa)",
+    "shear_modulus": "161 (GPa)",
+
     "iso_1": "W-179",
     "iso_mass_1": "178.947070",
     "iso_half_1": "37.05 (min)",

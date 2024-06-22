@@ -2,8 +2,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'com.jakewharton.butterknife'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -21,7 +21,7 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 23
         targetSdkVersion 34
-        versionCode 65
+        versionCode 66
         versionName "2.2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -82,4 +82,7 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.3.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
+    def billing_version = "7.0.0"
+    implementation "com.android.billingclient:billing-ktx:$billing_version"
 }

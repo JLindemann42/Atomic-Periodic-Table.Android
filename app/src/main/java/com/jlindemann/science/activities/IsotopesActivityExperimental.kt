@@ -27,15 +27,6 @@ import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import kotlinx.android.synthetic.main.activity_favorite_settings_page.*
-import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
-import kotlinx.android.synthetic.main.activity_isotopes_experimental.title_box
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_nuclide.*
-import kotlinx.android.synthetic.main.filter_view.*
-import kotlinx.android.synthetic.main.filter_view_iso.*
-import kotlinx.android.synthetic.main.isotope_panel.*
-import kotlinx.android.synthetic.main.search_layout.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException

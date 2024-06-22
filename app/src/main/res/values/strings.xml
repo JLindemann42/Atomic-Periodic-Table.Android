@@ -11,6 +11,9 @@
     <string name="element_more_title">More Properties</string>
     <string name="element_speed_sound">Speed of sound:</string>
     <string name="element_elastic_modulus">Elastic modulus:</string>
+    <string name="element_young_modulus" translatable="false">Young\'s modulus:</string>
+    <string name="element_shear_modulus" translatable="false">Shear modulus:</string>
+    <string name="element_bulk_modulus" translatable="false">Bulk modulus:</string>
     <string name="element_poisson_ratio">Poisson\'s ratio:</string>
 
 

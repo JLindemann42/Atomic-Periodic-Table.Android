@@ -61,6 +61,15 @@
     "oxidation_state_neg": "3 2 1",
     "oxidation_state_pos": "1 2 3 4 5",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "1790 (m/s) [20°C]",
+
+    "young_modulus": "32 (GPa)",
+    "poisson_ratio": "0.33",
+    "bulk_modulus": "31 (GPa)",
+    "shear_modulus": "12 (GPa)",
+
     "iso_1": "Bi-206",
     "iso_mass_1": "205.978499",
     "iso_half_1": "6.243 (days)",

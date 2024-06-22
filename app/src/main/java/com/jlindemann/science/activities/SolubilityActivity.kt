@@ -15,17 +15,6 @@ import com.jlindemann.science.R
 import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_element_info.*
-import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_solubility.*
-import kotlinx.android.synthetic.main.activity_solubility.back_btn
-import kotlinx.android.synthetic.main.panel_info.*
-import kotlinx.android.synthetic.main.solubility_group_1.*
-import kotlinx.android.synthetic.main.solubility_group_2.*
-import kotlinx.android.synthetic.main.solubility_group_3.*
-import kotlinx.android.synthetic.main.solubility_group_4.*
-import kotlinx.android.synthetic.main.solubility_group_5.*
-import kotlinx.android.synthetic.main.solubility_group_6.*
 
 class SolubilityActivity : BaseActivity() {
 

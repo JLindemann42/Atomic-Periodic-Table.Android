@@ -56,6 +56,10 @@
     "oxidation_state_neg": "0",
     "oxidation_state_pos": "1 2 4 6 8",
 
+    "speed_of_sound_gas": "178 (m/s) [20°C]",
+    "speed_of_sound_liquid": "1090 (m/s)",
+    "speed_of_sound_solid": "---",
+
     "iso_1": "Xe-131",
     "iso_mass_1": "130.9050824",
     "iso_half_1": "Stable",

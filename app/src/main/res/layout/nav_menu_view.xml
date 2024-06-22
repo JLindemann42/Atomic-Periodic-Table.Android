@@ -10,7 +10,7 @@
     <com.sothree.slidinguppanel.SlidingUpPanelLayout
         android:id="@+id/sliding_layout"
         android:layout_width="match_parent"
-        android:layout_height="312dp"
+        android:layout_height="366dp"
         android:elevation="101dp"
         android:gravity="bottom"
         sothree:umanoFadeColor="@android:color/transparent"
@@ -23,7 +23,6 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textSize="16sp" />
-
 
         <LinearLayout
             android:id="@+id/navLin"
@@ -67,13 +66,48 @@
                     android:alpha="0.85"
                     android:background="?attr/colorOnSecondaryContainer"
                     android:elevation="1dp" />
-
             </FrameLayout>
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="54dp">
 
+                <TextView
+                    android:id="@+id/pro_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:background="?attr/colorSurface"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_star"
+                    android:drawablePadding="18dp"
+                    android:drawableTint="?attr/colorPrimary"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/d_ripple"
+                    android:gravity="center_vertical"
+                    android:padding="18dp"
+                    android:text="Go Pro - more features"
+                    style="@style/TextAppearance.AppCompat.Button"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorPrimary"
+                    android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:elevation="0dp"
+                    android:background="?attr/colorPrimary"
+                    android:alpha="0.11"/>
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp">
                 <TextView
                     android:id="@+id/blog_btn"
                     android:layout_width="match_parent"
@@ -103,7 +137,6 @@
                     android:elevation="0dp"
                     android:background="?attr/colorPrimary"
                     android:alpha="0.11"/>
-
             </FrameLayout>
 
             <FrameLayout

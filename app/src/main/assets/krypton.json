@@ -83,6 +83,10 @@
     "oxidation_state_neg": "0",
     "oxidation_state_pos": "1 2",
 
+    "speed_of_sound_gas": "221 (m/s) [20°C]",
+    "speed_of_sound_liquid": "1120 (m/s)",
+    "speed_of_sound_solid": "---",
+
     "iso_1": "Kr-67",
     "iso_mass_1": "---",
     "iso_half_1": "---",

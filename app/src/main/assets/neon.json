@@ -63,6 +63,10 @@
     "oxidation_state_neg": "",
     "oxidation_state_pos": "",
 
+    "speed_of_sound_gas": "206 (m/s) [0°C]",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "---",
+
     "iso_1": "Ne-15",
     "iso_mass_1": "15.04317",
     "iso_half_1": "7.7×10^−22 (s)",

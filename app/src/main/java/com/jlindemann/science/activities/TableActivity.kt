@@ -9,10 +9,6 @@ import android.view.ViewTreeObserver
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.tables.*
 import com.jlindemann.science.preferences.ThemePreference
-import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_solubility.back_btn
-import kotlinx.android.synthetic.main.activity_submit.view_sub
-import kotlinx.android.synthetic.main.activity_tables.*
 
 class TableActivity : BaseActivity() {
 

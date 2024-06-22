@@ -50,14 +50,40 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/speed_sound_text"
+            android:id="@+id/speed_sound_solid_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
-            android:text="speed_sound_text"
+            android:text="speed_sound_solid_text"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/speed_sound_gas_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="speed_sound_gas_text"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/speed_sound_liquid_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="speed_sound_liquid_text"
             android:textIsSelectable="true"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
@@ -119,29 +145,82 @@
             android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
-            android:id="@+id/elastic_modulus_title"
+            android:id="@+id/young_modulus_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
-            android:text="@string/element_elastic_modulus"
+            android:text="@string/element_young_modulus"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/elastic_modulus_text"
+            android:id="@+id/young_modulus_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
-            android:text="elastic_modulus_text"
+            android:text="young_modulus_text"
             android:textIsSelectable="true"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/bulk_modulus_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="@string/element_bulk_modulus"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/bulk_modulus_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="bulk_modulus_text"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/shear_modulus_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="@string/element_shear_modulus"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/shear_modulus_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="shear_modulus_text"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+
     </LinearLayout>
 </LinearLayout>
