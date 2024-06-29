@@ -9,6 +9,10 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,14 +26,6 @@ import com.jlindemann.science.model.Ion
 import com.jlindemann.science.model.IonModel
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_dictionary.*
-import kotlinx.android.synthetic.main.activity_dictionary.title_box
-import kotlinx.android.synthetic.main.activity_electrode.*
-import kotlinx.android.synthetic.main.activity_equations.*
-import kotlinx.android.synthetic.main.activity_ion.*
-import kotlinx.android.synthetic.main.electrode_list_item.*
-import kotlinx.android.synthetic.main.ion_details.*
-import kotlinx.android.synthetic.main.row_ions_list.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -57,15 +53,15 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
 
         recyclerView()
         clickSearch()
-        view_ion.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        detail_background_ion.setOnClickListener { Utils.fadeOutAnim(ion_detail, 300) }
-        back_btn_ion.setOnClickListener { this.onBackPressed() }
+        findViewById<FrameLayout>(R.id.view_ion).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<TextView>(R.id.detail_background_ion).setOnClickListener { Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.ion_detail), 300) }
+        findViewById<ImageButton>(R.id.back_btn_ion).setOnClickListener { this.onBackPressed() }
     }
 
     override fun ionClickListener(item: Ion, position: Int) {
         if (item.count > 1) {
-            Utils.fadeInAnim(ion_detail, 300)
-            ion_detail_title.text = ((item.name).capitalize() + " " + "ionization")
+            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.ion_detail), 300)
+            findViewById<TextView>(R.id.ion_detail_title).text = ((item.name).capitalize() + " " + "ionization")
             var jsonString : String? = null
             val ext = ".json"
             val element = item.name
@@ -100,14 +96,15 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        ion_view.setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
-        val params2 = common_title_back_ion.layoutParams as ViewGroup.LayoutParams
-        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back_ion.layoutParams = params2
+        findViewById<RecyclerView>(R.id.ion_view).setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
 
-        val searchEmptyImgPrm = empty_search_box_ion.layoutParams as ViewGroup.MarginLayoutParams
+        val params2 = findViewById<FrameLayout>(R.id.common_title_back_ion).layoutParams as ViewGroup.LayoutParams
+        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        findViewById<FrameLayout>(R.id.common_title_back_ion).layoutParams = params2
+
+        val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_ion).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
-        empty_search_box_ion.layoutParams = searchEmptyImgPrm
+        findViewById<LinearLayout>(R.id.empty_search_box_ion).layoutParams = searchEmptyImgPrm
     }
 
     private fun recyclerView() {
@@ -119,7 +116,7 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
         recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
 
-        edit_ion.addTextChangedListener(object : TextWatcher {
+        findViewById<EditText>(R.id.edit_ion).addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){}
             override fun afterTextChanged(s: Editable) { filter(s.toString(), ionList, recyclerView) }
@@ -132,10 +129,10 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
         val handler = android.os.Handler()
         handler.postDelayed({
             if (recyclerView.adapter!!.itemCount == 0) {
-                Anim.fadeIn(empty_search_box_ion, 300)
+                Anim.fadeIn(findViewById<LinearLayout>(R.id.empty_search_box_ion), 300)
             }
             else {
-                empty_search_box_ion.visibility = View.GONE
+                findViewById<LinearLayout>(R.id.empty_search_box_ion).visibility = View.GONE
             }
         }, 10)
         mAdapter.filterList(filteredList)
@@ -144,18 +141,18 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
     }
 
     private fun clickSearch() {
-        search_btn_ion.setOnClickListener {
-            Utils.fadeInAnim(search_bar_ion, 150)
-            Utils.fadeOutAnim(title_box, 1)
-            edit_ion.requestFocus()
+        findViewById<ImageButton>(R.id.search_btn_ion).setOnClickListener {
+            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_ion), 150)
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box), 1)
+            findViewById<EditText>(R.id.edit_ion).requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(edit_ion, InputMethodManager.SHOW_IMPLICIT)
+            imm.showSoftInput(findViewById<EditText>(R.id.edit_ion), InputMethodManager.SHOW_IMPLICIT)
         }
-        close_ele_search_ion.setOnClickListener {
-            Utils.fadeOutAnim(search_bar_ion, 1)
+        findViewById<ImageButton>(R.id.close_ele_search_ion).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_ion), 1)
             val delayClose = Handler()
             delayClose.postDelayed({
-                Utils.fadeInAnim(title_box, 150)
+                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 150)
             }, 151)
 
             val view = this.currentFocus
@@ -167,8 +164,8 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
     }
 
     override fun onBackPressed() {
-        if (ion_detail.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(ion_detail, 300)
+        if (findViewById<FrameLayout>(R.id.ion_detail).visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.ion_detail), 300)
             return
         } else { super.onBackPressed() }
     }

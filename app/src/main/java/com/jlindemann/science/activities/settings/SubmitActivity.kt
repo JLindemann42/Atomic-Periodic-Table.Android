@@ -7,19 +7,17 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ImageButton
+import android.widget.ScrollView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_favorite_settings_page.*
-import kotlinx.android.synthetic.main.activity_ph.*
-import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_solubility.back_btn
-import kotlinx.android.synthetic.main.activity_submit.*
-import kotlinx.android.synthetic.main.activity_submit.submit_title
-import kotlinx.android.synthetic.main.activity_submit.view_sub
-import kotlinx.android.synthetic.main.drop_issue.*
-
 
 class SubmitActivity : BaseActivity() {
 
@@ -37,53 +35,52 @@ class SubmitActivity : BaseActivity() {
         if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_submit)
-
-        view_sub.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<FrameLayout>(R.id.view_sub).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         dropSelector()
 
         //Title Controller
-        common_title_back_sub_color.visibility = View.INVISIBLE
-        submit_title.visibility = View.INVISIBLE
-        common_title_back_sub.elevation = (resources.getDimension(R.dimen.zero_elevation))
-        submit_scroll.getViewTreeObserver()
+        findViewById<FrameLayout>(R.id.common_title_back_sub_color).visibility = View.INVISIBLE
+        findViewById<TextView>(R.id.submit_title).visibility = View.INVISIBLE
+        findViewById<FrameLayout>(R.id.common_title_back_sub).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        findViewById<ScrollView>(R.id.submit_scroll).getViewTreeObserver()
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
                 var y = 200f
                 override fun onScrollChanged() {
-                    if (submit_scroll.getScrollY() > 150f) {
-                        common_title_back_sub_color.visibility = View.VISIBLE
-                        submit_title.visibility = View.VISIBLE
-                        submit_title_downstate.visibility = View.INVISIBLE
-                        common_title_back_sub.elevation = (resources.getDimension(R.dimen.one_elevation))
+                    if (findViewById<ScrollView>(R.id.submit_scroll).getScrollY() > 150f) {
+                        findViewById<FrameLayout>(R.id.common_title_back_sub_color).visibility = View.VISIBLE
+                        findViewById<TextView>(R.id.submit_title).visibility = View.VISIBLE
+                        findViewById<TextView>(R.id.submit_title_downstate).visibility = View.INVISIBLE
+                        findViewById<FrameLayout>(R.id.common_title_back_sub).elevation = (resources.getDimension(R.dimen.one_elevation))
                     } else {
-                        common_title_back_sub_color.visibility = View.INVISIBLE
-                        submit_title.visibility = View.INVISIBLE
-                        submit_title_downstate.visibility = View.VISIBLE
-                        common_title_back_sub.elevation = (resources.getDimension(R.dimen.zero_elevation))
+                        findViewById<FrameLayout>(R.id.common_title_back_sub_color).visibility = View.INVISIBLE
+                        findViewById<TextView>(R.id.submit_title).visibility = View.INVISIBLE
+                        findViewById<TextView>(R.id.submit_title_downstate).visibility = View.VISIBLE
+                        findViewById<FrameLayout>(R.id.common_title_back_sub).elevation = (resources.getDimension(R.dimen.zero_elevation))
                     }
-                    y = submit_scroll.getScrollY().toFloat()
+                    y = findViewById<ScrollView>(R.id.submit_scroll).getScrollY().toFloat()
                 }
             })
 
-        back_btn.setOnClickListener {
+        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
             this.onBackPressed()
         }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-            val params = common_title_back_sub.layoutParams as ViewGroup.LayoutParams
+            val params = findViewById<FrameLayout>(R.id.common_title_back_sub).layoutParams as ViewGroup.LayoutParams
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            common_title_back_sub.layoutParams = params
+        findViewById<FrameLayout>(R.id.common_title_back_sub).layoutParams = params
 
-            val params2 = submit_title_downstate.layoutParams as ViewGroup.MarginLayoutParams
+            val params2 = findViewById<TextView>(R.id.submit_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
             params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
-        submit_title_downstate.layoutParams = params2
+            findViewById<TextView>(R.id.submit_title_downstate).layoutParams = params2
 
     }
 
     override fun onBackPressed() {
-        if (drop_issue.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(background, 150)
-            Utils.fadeOutAnim(drop_issue, 150)
+        if (findViewById<ConstraintLayout>(R.id.drop_issue).visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.background), 150)
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.drop_issue), 150)
             return
         }
         super.onBackPressed()
@@ -92,42 +89,42 @@ class SubmitActivity : BaseActivity() {
     private fun dropSelector() {
         var type = "#data_issue"
         buildForm(type)
-        drop_btn.setOnClickListener {
-            Utils.fadeInAnim(drop_issue, 150)
-            Utils.fadeInAnim(background, 150)
+        findViewById<TextView>(R.id.drop_btn).setOnClickListener {
+            Utils.fadeInAnim(findViewById<ConstraintLayout>(R.id.drop_issue), 150)
+            Utils.fadeInAnim(findViewById<TextView>(R.id.background), 150)
         }
-        background.setOnClickListener {
-            Utils.fadeOutAnim(drop_issue, 150)
-            Utils.fadeOutAnim(background, 150)
+        findViewById<TextView>(R.id.background).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.drop_issue), 150)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.background), 150)
         }
 
-        data_issue.setOnClickListener {
+        findViewById<TextView>(R.id.data_issue).setOnClickListener {
             type = "#data_issue"
-            Utils.fadeOutAnim(drop_issue, 150)
-            Utils.fadeOutAnim(background, 150)
-            drop_btn.text = getString(R.string.data_issue)
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.drop_issue), 150)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.background), 150)
+            findViewById<TextView>(R.id.drop_btn).text = getString(R.string.data_issue)
             buildForm(type)
         }
-        bug.setOnClickListener {
+        findViewById<TextView>(R.id.bug).setOnClickListener {
             type = "#bug"
-            Utils.fadeOutAnim(drop_issue, 150)
-            Utils.fadeOutAnim(background, 150)
-            drop_btn.text = getString(R.string.bug)
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.drop_issue), 150)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.background), 150)
+            findViewById<TextView>(R.id.drop_btn).text = getString(R.string.bug)
             buildForm(type)
         }
-        question.setOnClickListener {
+        findViewById<TextView>(R.id.question).setOnClickListener {
             type = "#question"
-            Utils.fadeOutAnim(drop_issue, 150)
-            Utils.fadeOutAnim(background, 150)
-            drop_btn.text = getString(R.string.question)
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.drop_issue), 150)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.background), 150)
+            findViewById<TextView>(R.id.drop_btn).text = getString(R.string.question)
             buildForm(type)
         }
     }
 
     private fun buildForm(type: String) {
-        i_btn.setOnClickListener {
-            val title = i_title.text.toString()
-            val content = i_content.text.toString()
+        findViewById<TextView>(R.id.i_btn).setOnClickListener {
+            val title = findViewById<EditText>(R.id.i_title).text.toString()
+            val content = findViewById<EditText>(R.id.i_content).text.toString()
             val request = Intent(Intent.ACTION_VIEW)
             request.data = Uri.parse(Uri.parse("mailto:jlindemann.dev@gmail.com?subject=$type $title&body=$content").toString())
             startActivity(request)

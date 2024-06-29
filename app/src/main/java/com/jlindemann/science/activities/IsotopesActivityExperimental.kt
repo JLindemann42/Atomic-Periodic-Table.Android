@@ -13,10 +13,16 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.adapter.IsotopeAdapter
@@ -54,57 +60,57 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         setContentView(R.layout.activity_isotopes_experimental) //Don't move down (Needs to be before we call our functions)
 
         val recyclerView = findViewById<RecyclerView>(R.id.r_view)
-        sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val elements = ArrayList<Element>()
         ElementModel.getList(elements)
         val adapter = IsotopeAdapter(elements, this, this)
         recyclerView.adapter = adapter
 
-        edit_iso.addTextChangedListener(object : TextWatcher {
+        findViewById<EditText>(R.id.edit_iso).addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) { filter(s.toString(), elements, recyclerView) }
         })
 
-        sliding_layout_i.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
+        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View?, slideOffset: Float) { }
             override fun onPanelStateChanged(panel: View?, previousState: SlidingUpPanelLayout.PanelState, newState: SlidingUpPanelLayout.PanelState) {
-                if (sliding_layout_i.panelState === SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                    Utils.fadeOutAnim(background_i2, 300)
-                    Utils.fadeOutAnim(slid_panel, 300)
+                if (findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState === SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                    Utils.fadeOutAnim(findViewById<TextView>(R.id.background_i2), 300)
+                    Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.slid_panel), 300)
                 }
             }
         })
 
-        background_i2.setOnClickListener{
-            if (panel_info.visibility == View.VISIBLE) {
-                Utils.fadeOutAnim(panel_info, 300)
-                Utils.fadeOutAnim(background_i2, 300)
+        findViewById<TextView>(R.id.background_i2).setOnClickListener{
+            if (findViewById<ConstraintLayout>(R.id.panel_info).visibility == View.VISIBLE) {
+                Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.panel_info), 300)
+                Utils.fadeOutAnim(findViewById<TextView>(R.id.background_i2), 300)
             }
             else {
-                Utils.fadeOutAnim(sliding_layout_i, 300)
-                Utils.fadeOutAnim(background_i2, 300)
+                Utils.fadeOutAnim(findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i), 300)
+                Utils.fadeOutAnim(findViewById<TextView>(R.id.background_i2), 300)
             }
         }
 
-        view1.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<FrameLayout>(R.id.view1).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         clickSearch()
         searchFilter(elements, recyclerView)
         sentIsotope()
-        back_btn.setOnClickListener { this.onBackPressed() }
+        findViewById<ImageButton>(R.id.back_btn).setOnClickListener { this.onBackPressed() }
     }
 
     private fun searchFilter(list: ArrayList<Element>, recyclerView: RecyclerView) {
-        filter_btn2.setOnClickListener {
-            Utils.fadeInAnim(iso_filter_box, 150)
-            Utils.fadeInAnim(filter_background, 150)
+        findViewById<FloatingActionButton>(R.id.filter_btn2).setOnClickListener {
+            Utils.fadeInAnim(findViewById<ConstraintLayout>(R.id.iso_filter_box), 150)
+            Utils.fadeInAnim(findViewById<TextView>(R.id.filter_background), 150)
         }
-        filter_background.setOnClickListener {
-            Utils.fadeOutAnim(iso_filter_box, 150)
-            Utils.fadeOutAnim(filter_background, 150)
+        findViewById<TextView>(R.id.filter_background).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.iso_filter_box), 150)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.filter_background), 150)
         }
-        iso_alphabet_btn.setOnClickListener {
+        findViewById<TextView>(R.id.iso_alphabet_btn).setOnClickListener {
             val isoPreference = IsoPreferences(this)
             isoPreference.setValue(0)
 
@@ -112,8 +118,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             for (item in list) {
                 filtList.add(item)
             }
-            Utils.fadeOutAnim(iso_filter_box, 150)
-            Utils.fadeOutAnim(filter_background, 150)
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.iso_filter_box), 150)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.filter_background), 150)
             filtList.sortWith(Comparator { lhs, rhs ->
                 if (lhs.element < rhs.element) -1 else if (lhs.element < rhs.element) 1 else 0
             })
@@ -121,7 +127,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             mAdapter.notifyDataSetChanged()
             recyclerView.adapter = IsotopeAdapter(filtList, this, this)
         }
-        iso_element_numb_btn.setOnClickListener {
+        findViewById<TextView>(R.id.iso_element_numb_btn).setOnClickListener {
             val isoPreference = IsoPreferences(this)
             isoPreference.setValue(1)
 
@@ -129,8 +135,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             for (item in list) {
                 filtList.add(item)
             }
-            Utils.fadeOutAnim(iso_filter_box, 150)
-            Utils.fadeOutAnim(filter_background, 150)
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.iso_filter_box), 150)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.filter_background), 150)
             mAdapter.filterList(filtList)
             mAdapter.notifyDataSetChanged()
             recyclerView.adapter = IsotopeAdapter(filtList, this, this)
@@ -138,17 +144,17 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     }
 
     private fun clickSearch() {
-        search_btn.setOnClickListener {
-            Utils.fadeInAnim(search_bar_iso, 300)
-            Utils.fadeOutAnim(title_box, 300)
+        findViewById<ImageButton>(R.id.search_btn).setOnClickListener {
+            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_iso), 300)
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box), 300)
 
-            edit_iso.requestFocus()
+            findViewById<EditText>(R.id.edit_iso).requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(edit_iso, InputMethodManager.SHOW_IMPLICIT)
+            imm.showSoftInput(findViewById<EditText>(R.id.edit_iso), InputMethodManager.SHOW_IMPLICIT)
         }
-        close_iso_search.setOnClickListener {
-            Utils.fadeOutAnim(search_bar_iso, 300)
-            Utils.fadeInAnim(title_box, 300)
+        findViewById<ImageButton>(R.id.close_iso_search).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_iso), 300)
+            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 300)
 
             val view = this.currentFocus
             if (view != null) {
@@ -176,10 +182,10 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         val handler = android.os.Handler()
         handler.postDelayed({
             if (recyclerView.adapter!!.itemCount == 0) {
-                Anim.fadeIn(empty_search_box_iso, 300)
+                Anim.fadeIn(findViewById<LinearLayout>(R.id.empty_search_box_iso), 300)
             }
             else {
-                empty_search_box_iso.visibility = View.GONE
+                findViewById<LinearLayout>(R.id.empty_search_box_iso).visibility = View.GONE
             }
         }, 10)
         mAdapter.filterList(filteredList)
@@ -192,30 +198,30 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         elementSendAndLoad.setValue(item.element)
         drawCard(elementList)
 
-        Utils.fadeInAnimBack(background_i2, 300)
-        Utils.fadeInAnim(slid_panel, 300)
-        sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+        Utils.fadeInAnimBack(findViewById<TextView>(R.id.background_i2), 300)
+        Utils.fadeInAnim(findViewById<FrameLayout>(R.id.slid_panel), 300)
+        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState = SlidingUpPanelLayout.PanelState.EXPANDED
     }
 
     private fun sentIsotope() {
         val isoSent = sendIso(this)
         if (isoSent.getValue() == "true") {
             drawCard(elementList)
-            Utils.fadeInAnimBack(background_i2, 300)
-            Utils.fadeInAnim(slid_panel, 300)
-            sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+            Utils.fadeInAnimBack(findViewById<TextView>(R.id.background_i2), 300)
+            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.slid_panel), 300)
+            findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState = SlidingUpPanelLayout.PanelState.EXPANDED
             isoSent.setValue("false")
         }
     }
 
     override fun onBackPressed() {
-        if (background_i2.visibility == View.VISIBLE) {
-            sliding_layout_i.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+        if (findViewById<TextView>(R.id.background_i2).visibility == View.VISIBLE) {
+            findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
             return
         }
-        if (filter_background.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(filter_background, 150)
-            Utils.fadeOutAnim(iso_filter_box, 150)
+        if (findViewById<TextView>(R.id.filter_background).visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.filter_background), 150)
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.iso_filter_box), 150)
             return
         }
         else {
@@ -238,9 +244,9 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
                     val jsonArray = JSONArray(jsonString)
                     val jsonObject: JSONObject = jsonArray.getJSONObject(0)
 
-                    frame_iso.removeAllViews()
+                    findViewById<LinearLayout>(R.id.frame_iso).removeAllViews()
 
-                    val aLayout = frame_iso
+                    val aLayout = findViewById<LinearLayout>(R.id.frame_iso)
                     val inflater = layoutInflater
                     val fLayout: View = inflater.inflate(R.layout.row_iso_panel_title_item, aLayout, false)
 
@@ -251,7 +257,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
                     aLayout.addView(fLayout)
 
                     for (i in 1..item.isotopes) {
-                        val mainLayout = frame_iso
+                        val mainLayout = findViewById<LinearLayout>(R.id.frame_iso)
                         val inflater = layoutInflater
                         val myLayout: View = inflater.inflate(R.layout.row_iso_panel_item, mainLayout, false)
                         val name = "iso_"
@@ -293,18 +299,18 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        r_view.setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
-        val params2 = common_title_back_iso.layoutParams as ViewGroup.LayoutParams
+        findViewById<RecyclerView>(R.id.r_view).setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
+        val params2 = findViewById<FrameLayout>(R.id.common_title_back_iso).layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back_iso.layoutParams = params2
+        findViewById<FrameLayout>(R.id.common_title_back_iso).layoutParams = params2
 
-        val params3 = sliding_layout_i.layoutParams as ViewGroup.MarginLayoutParams
+        val params3 = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).layoutParams as ViewGroup.MarginLayoutParams
         params3.topMargin = top + resources.getDimensionPixelSize(R.dimen.panel_margin)
-        sliding_layout_i.layoutParams = params3
+        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).layoutParams = params3
 
-        val searchEmptyImgPrm = empty_search_box_iso.layoutParams as ViewGroup.MarginLayoutParams
+        val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_iso).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
-        empty_search_box_iso.layoutParams = searchEmptyImgPrm
+        findViewById<LinearLayout>(R.id.empty_search_box_iso).layoutParams = searchEmptyImgPrm
     }
 }
 

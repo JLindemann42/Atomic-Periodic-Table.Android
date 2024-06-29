@@ -6,12 +6,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.ScrollView
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.preferences.ThemePreference
-import kotlinx.android.synthetic.main.activity_info.*
-import kotlinx.android.synthetic.main.activity_solubility.back_btn
-
 
 class AboutActivity : BaseActivity() {
 
@@ -30,37 +32,36 @@ class AboutActivity : BaseActivity() {
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_info)
 
-        view_info.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-
+        findViewById<FrameLayout>(R.id.view_info).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         setupLinks()
 
-        back_btn.setOnClickListener {
+        findViewById<FloatingActionButton>(R.id.back_btn).setOnClickListener {
             this.onBackPressed()
         }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-            val params = common_title_back_info.layoutParams as ViewGroup.LayoutParams
+            val params = findViewById<FrameLayout>(R.id.common_title_back_info).layoutParams as ViewGroup.LayoutParams
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            common_title_back_info.layoutParams = params
+            findViewById<FrameLayout>(R.id.common_title_back_info).layoutParams = params
 
-            val params2 = imageView3.layoutParams as ViewGroup.MarginLayoutParams
+            val params2 = findViewById<ImageView>(R.id.imageView3).layoutParams as ViewGroup.MarginLayoutParams
             params2.topMargin += top
-            imageView3.layoutParams = params2
+            findViewById<ImageView>(R.id.imageView3).layoutParams = params2
 
-            val titleParam = title_box_info.layoutParams as ViewGroup.MarginLayoutParams
+            val titleParam = findViewById<FrameLayout>(R.id.title_box_info).layoutParams as ViewGroup.MarginLayoutParams
             titleParam.rightMargin = right
             titleParam.leftMargin = left
-            title_box_info.layoutParams = titleParam
+            findViewById<FrameLayout>(R.id.title_box_info).layoutParams = titleParam
 
     }
 
     private fun setupLinks() {
-        pro.setOnClickListener {
+        findViewById<FrameLayout>(R.id.pro).setOnClickListener {
             val marketUri: Uri = Uri.parse("market://details?id=com.jlindemannpro.papersplash")
             startActivity(Intent(Intent.ACTION_VIEW, marketUri))
         }
-        sta.setOnClickListener {
+        findViewById<FrameLayout>(R.id.sta).setOnClickListener {
             val marketUri: Uri = Uri.parse("market://details?id=com.jlindemann.papersplash")
             startActivity(Intent(Intent.ACTION_VIEW, marketUri))
         }

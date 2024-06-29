@@ -91,9 +91,9 @@
             app:oneFingerScrollEnabled="true"
             app:twoFingersScrollEnabled="true"
             app:threeFingersScrollEnabled="true"
-            app:minZoom="0.66"
+            app:minZoom="2"
             app:minZoomType="zoom"
-            app:maxZoom="12.5"
+            app:maxZoom="8"
             app:maxZoomType="zoom"
             app:animationDuration="200"
             app:hasClickableChildren="true">

@@ -16,10 +16,12 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Space
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginStart
@@ -244,6 +246,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             findViewById<TextView>(R.id.speed_sound_solid_text).text = "Solid: " + soundOfSpeedSolid
             findViewById<TextView>(R.id.speed_sound_gas_text).text = "Gas: " + soundOfSpeedGas
             findViewById<TextView>(R.id.speed_sound_liquid_text).text = "Liquid: " + soundOfSpeedLiquid
+            findViewById<TextView>(R.id.poisson_text).text = poissonRatio
             findViewById<TextView>(R.id.bulk_modulus_text).text = "K: " + bulkModulus
             findViewById<TextView>(R.id.young_modulus_text).text = "E: " + youngModulus
             findViewById<TextView>(R.id.shear_modulus_text).text = "G: " + shearModulus
@@ -326,11 +329,11 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
 
             if (url == "empty") {
                 Utils.fadeInAnim(findViewById<TextView>(R.id.no_img), 150)
-                findViewById<TextView>(R.id.pro_bar).visibility = View.GONE
+                findViewById<ProgressBar>(R.id.pro_bar).visibility = View.GONE
             }
             else {
                 Utils.fadeInAnim(findViewById<ProgressBar>(R.id.pro_bar), 150)
-                findViewById<ProgressBar>(R.id.no_img).visibility = View.GONE
+                findViewById<AppCompatTextView>(R.id.no_img).visibility = View.GONE
             }
 
             findViewById<TextView>(R.id.fusion_heat_f).text = fusionHeat
@@ -420,85 +423,85 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         //Favorite Molar
         val molarPreference = FavoriteBarPreferences(this)
         var molarPrefValue = molarPreference.getValue()
-        if (molarPrefValue == 1) { findViewById<TextView>(R.id.molar_mass_lay).visibility = View.VISIBLE }
-        if (molarPrefValue == 0) { findViewById<TextView>(R.id.molar_mass_lay).visibility = View.GONE }
+        if (molarPrefValue == 1) { findViewById<LinearLayout>(R.id.molar_mass_lay).visibility = View.VISIBLE }
+        if (molarPrefValue == 0) { findViewById<LinearLayout>(R.id.molar_mass_lay).visibility = View.GONE }
 
         //Favorite Phase
         val phasePreferences = FavoritePhase(this)
         var phasePrefValue = phasePreferences.getValue()
-        if (phasePrefValue == 1) { findViewById<TextView>(R.id.phase_lay).visibility = View.VISIBLE }
-        if (phasePrefValue == 0) { findViewById<TextView>(R.id.phase_lay).visibility = View.GONE }
+        if (phasePrefValue == 1) { findViewById<LinearLayout>(R.id.phase_lay).visibility = View.VISIBLE }
+        if (phasePrefValue == 0) { findViewById<LinearLayout>(R.id.phase_lay).visibility = View.GONE }
 
         //Electronegativity Phase
         val electronegativityPreferences = ElectronegativityPreference(this)
         var electronegativityPrefValue = electronegativityPreferences.getValue()
-        if (electronegativityPrefValue == 1) { findViewById<TextView>(R.id.electronegativity_lay).visibility = View.VISIBLE }
-        if (electronegativityPrefValue == 0) { findViewById<TextView>(R.id.electronegativity_lay).visibility = View.GONE }
+        if (electronegativityPrefValue == 1) { findViewById<LinearLayout>(R.id.electronegativity_lay).visibility = View.VISIBLE }
+        if (electronegativityPrefValue == 0) { findViewById<LinearLayout>(R.id.electronegativity_lay).visibility = View.GONE }
 
         //Density
         val densityPreference = DensityPreference(this)
         var densityPrefValue = densityPreference.getValue()
-        if (densityPrefValue == 1) { findViewById<TextView>(R.id.density_lay).visibility = View.VISIBLE }
-        if (densityPrefValue == 0) { findViewById<TextView>(R.id.density_lay).visibility = View.GONE }
+        if (densityPrefValue == 1) { findViewById<LinearLayout>(R.id.density_lay).visibility = View.VISIBLE }
+        if (densityPrefValue == 0) { findViewById<LinearLayout>(R.id.density_lay).visibility = View.GONE }
 
         //Boiling
         val boilingPreference = BoilingPreference(this)
         var boilingPrefValue = boilingPreference.getValue()
-        if (boilingPrefValue == 1) { findViewById<TextView>(R.id.boiling_lay).visibility = View.VISIBLE }
-        if (boilingPrefValue == 0) { findViewById<TextView>(R.id.boiling_lay).visibility = View.GONE }
+        if (boilingPrefValue == 1) { findViewById<LinearLayout>(R.id.boiling_lay).visibility = View.VISIBLE }
+        if (boilingPrefValue == 0) { findViewById<LinearLayout>(R.id.boiling_lay).visibility = View.GONE }
 
         //Melting
         val meltingPreference = MeltingPreference(this)
         val meltingPrefValue = meltingPreference.getValue()
-        if (meltingPrefValue == 1) { findViewById<TextView>(R.id.melting_lay).visibility = View.VISIBLE }
-        if (meltingPrefValue == 0) { findViewById<TextView>(R.id.melting_lay).visibility = View.GONE }
+        if (meltingPrefValue == 1) { findViewById<LinearLayout>(R.id.melting_lay).visibility = View.VISIBLE }
+        if (meltingPrefValue == 0) { findViewById<LinearLayout>(R.id.melting_lay).visibility = View.GONE }
 
         //Empirical
         val empiricalPreference = AtomicRadiusEmpPreference(this)
         val empiricalPrefValue = empiricalPreference.getValue()
-        if (empiricalPrefValue == 1) { findViewById<TextView>(R.id.a_empirical_lay).visibility = View.VISIBLE }
-        if (empiricalPrefValue == 0) { findViewById<TextView>(R.id.a_empirical_lay).visibility = View.GONE }
+        if (empiricalPrefValue == 1) { findViewById<LinearLayout>(R.id.a_empirical_lay).visibility = View.VISIBLE }
+        if (empiricalPrefValue == 0) { findViewById<LinearLayout>(R.id.a_empirical_lay).visibility = View.GONE }
 
         //Calculated
         val calculatedPreference = AtomicRadiusCalPreference(this)
         val calculatedPrefValue = calculatedPreference.getValue()
-        if (calculatedPrefValue == 1) { findViewById<TextView>(R.id.a_calculated_lay).visibility = View.VISIBLE }
-        if (calculatedPrefValue == 0) { findViewById<TextView>(R.id.a_calculated_lay).visibility = View.GONE }
+        if (calculatedPrefValue == 1) { findViewById<LinearLayout>(R.id.a_calculated_lay).visibility = View.VISIBLE }
+        if (calculatedPrefValue == 0) { findViewById<LinearLayout>(R.id.a_calculated_lay).visibility = View.GONE }
 
         //Covalent
         val covalentPreference = AtomicCovalentPreference(this)
         val covalentPrefValue = covalentPreference.getValue()
-        if (covalentPrefValue == 1) { findViewById<TextView>(R.id.covalent_lay).visibility = View.VISIBLE }
-        if (covalentPrefValue == 0) { findViewById<TextView>(R.id.covalent_lay).visibility = View.GONE }
+        if (covalentPrefValue == 1) { findViewById<LinearLayout>(R.id.covalent_lay).visibility = View.VISIBLE }
+        if (covalentPrefValue == 0) { findViewById<LinearLayout>(R.id.covalent_lay).visibility = View.GONE }
 
         //Van Der Waals
         val vanPreference = AtomicVanPreference(this)
         val vanPrefValue = vanPreference.getValue()
-        if (vanPrefValue == 1) { findViewById<TextView>(R.id.van_lay).visibility = View.VISIBLE }
-        if (vanPrefValue == 0) { findViewById<TextView>(R.id.van_lay).visibility = View.GONE }
+        if (vanPrefValue == 1) { findViewById<LinearLayout>(R.id.van_lay).visibility = View.VISIBLE }
+        if (vanPrefValue == 0) { findViewById<LinearLayout>(R.id.van_lay).visibility = View.GONE }
 
         //Fusion Heat
         val fusionHeatPreference = FusionHeatPreference(this)
         var fusionHeatValue = fusionHeatPreference.getValue()
-        if (fusionHeatValue == 1) { findViewById<TextView>(R.id.fusion_heat_lay).visibility = View.VISIBLE }
-        if (fusionHeatValue == 0) { findViewById<TextView>(R.id.fusion_heat_lay).visibility = View.GONE }
+        if (fusionHeatValue == 1) { findViewById<LinearLayout>(R.id.fusion_heat_lay).visibility = View.VISIBLE }
+        if (fusionHeatValue == 0) { findViewById<LinearLayout>(R.id.fusion_heat_lay).visibility = View.GONE }
 
         //Specific Heat
         val specificHeatPreference = SpecificHeatPreference(this)
         var specificHeatValue = specificHeatPreference.getValue()
-        if (specificHeatValue == 1) { findViewById<TextView>(R.id.specific_heat_lay).visibility = View.VISIBLE }
-        if (specificHeatValue == 0) { findViewById<TextView>(R.id.specific_heat_lay).visibility = View.GONE }
+        if (specificHeatValue == 1) { findViewById<LinearLayout>(R.id.specific_heat_lay).visibility = View.VISIBLE }
+        if (specificHeatValue == 0) { findViewById<LinearLayout>(R.id.specific_heat_lay).visibility = View.GONE }
 
         //Vaporization Heat
         val vaporizationHeatPreference = VaporizationHeatPreference(this)
         var vaporizationHeatValue = vaporizationHeatPreference.getValue()
-        if (vaporizationHeatValue == 1) { findViewById<TextView>(R.id.vaporization_heat_lay).visibility = View.VISIBLE }
-        if (vaporizationHeatValue == 0) { findViewById<TextView>(R.id.vaporization_heat_lay).visibility = View.GONE }
+        if (vaporizationHeatValue == 1) { findViewById<LinearLayout>(R.id.vaporization_heat_lay).visibility = View.VISIBLE }
+        if (vaporizationHeatValue == 0) { findViewById<LinearLayout>(R.id.vaporization_heat_lay).visibility = View.GONE }
 
         //Radioactive
         val radioactivePreference = RadioactivePreference(this)
         var radioactiveValue = radioactivePreference.getValue()
-        if (radioactiveValue == 1) { findViewById<TextView>(R.id.phase_lay).visibility = View.VISIBLE }
-        if (radioactiveValue == 0) { findViewById<TextView>(R.id.phase_lay).visibility = View.GONE }
+        if (radioactiveValue == 1) { findViewById<LinearLayout>(R.id.phase_lay).visibility = View.VISIBLE }
+        if (radioactiveValue == 0) { findViewById<LinearLayout>(R.id.phase_lay).visibility = View.GONE }
     }
 }

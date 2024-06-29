@@ -2,13 +2,24 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v2.1.1-Build.64</string>
+    <string name="app_version" translatable="false">v2.2.0-Build.78</string>
 
     <string name="open_table_button">Open table</string>
 
+    <!-- PRO Activity -->
+    <string name="pro_title" translatable="false">PRO Version</string>
+    <string name="get_pro_title" translatable="false">Get PRO Version</string>
+    <string name="pro_descr" translatable="false">\'Atomic - Periodic Table\' is a free and open-source application made by me on my spare-time in Sweden. Buy purchasing the PRO-version you help support the development of additional features as well as unlocking some more.</string>
+    <string name="member_title" translatable="false">PRO Member Page</string>
+    <string name="member_desch" translatable="false">Thanks for supporting the development of \'Atomic - Periodic Table\'. On this page information about your PRO perks will be available as more PRO features gets added.</string>
+    <string name="member_already" translatable="false">You\'re a PRO member!</string>
+
+    <string name="member_btn" translatable="false">Your PRO Perks</string>
+
+
     <!-- Activity Element Info-->
     <string name="element_description_title">Description</string>
-    <string name="element_more_title">More Properties</string>
+    <string name="element_more_title">Additional Properties</string>
     <string name="element_speed_sound">Speed of sound:</string>
     <string name="element_elastic_modulus">Elastic modulus:</string>
     <string name="element_young_modulus" translatable="false">Young\'s modulus:</string>
@@ -72,9 +83,14 @@
     <string name="table_solubility_text" translatable="false">A table with information of different substances solubility</string>
     <string name="table_ionization" translatable="false">Ionization Energies</string>
     <string name="table_ionization_text" translatable="false">A table with different elements ionization energies</string>
+    <string name="table_poisson" translatable="false">Poisson Ratio Table</string>
+    <string name="table_poisson_text" translatable="false">A table with poissons ratio for different rocks, soils, minerals and other materials</string>
     <string name="table_nuclide" translatable="false">Table of Nuclides</string>
     <string name="table_nuclide_text" translatable="false">A two-dimensional table of nuclide, with color differentiating decay type</string>
 
+    <string name="chip_rocks" translatable="false">Rocks</string>
+    <string name="chip_soils" translatable="false">Soils</string>
+    <string name="chip_minerals" translatable="false">Minerals</string>
 
     <!-- Activity Unit-->
     <string name="activity_unit_title" translatable="false">Table Units</string>

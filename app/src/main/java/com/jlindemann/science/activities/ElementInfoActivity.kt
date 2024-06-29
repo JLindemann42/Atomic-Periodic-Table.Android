@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.Space
 import android.widget.TextView
@@ -24,7 +25,9 @@ import com.github.mmin18.widget.RealtimeBlurView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.FavoritePageActivity
+import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
+import com.jlindemann.science.activities.tables.NuclideActivity
 import com.jlindemann.science.extensions.InfoExtension
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
@@ -58,9 +61,10 @@ class ElementInfoActivity : InfoExtension() {
         var ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
         setContentView(R.layout.activity_element_info)
         Utils.fadeInAnim(findViewById<ScrollView>(R.id.scr_view), 300)
+
         readJson()
         findViewById<CardView>(R.id.shell).visibility = View.GONE
-        findViewById<RealtimeBlurView>(R.id.detail_emission).visibility = View.GONE
+        findViewById<CardView>(R.id.detail_emission).visibility = View.GONE
         detailViews()
         offlineCheck()
         nextPrev()
@@ -77,6 +81,25 @@ class ElementInfoActivity : InfoExtension() {
             val intent = Intent(this, SubmitActivity::class.java)
             startActivity(intent)
         }
+        findViewById<TextView>(R.id.get_pro_btn).setOnClickListener {
+            val intent = Intent(this, ProActivity::class.java)
+            startActivity(intent)
+        }
+        //Check if PRO version and if make changes:
+        val proPref = ProVersion(this)
+        var proPrefValue = proPref.getValue()
+        if (proPrefValue==100) {
+            proChanges()
+        }
+        else {
+            findViewById<LinearLayout>(R.id.more_properties).visibility = View.INVISIBLE
+        }
+
+    }
+
+    private fun proChanges() {
+        findViewById<FrameLayout>(R.id.pro_box).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.more_properties).visibility = View.VISIBLE
     }
 
     override fun onBackPressed() {

@@ -10,8 +10,16 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.EquationsAdapter
@@ -20,9 +28,6 @@ import com.jlindemann.science.model.Equation
 import com.jlindemann.science.model.EquationModel
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_equations.*
-import kotlinx.android.synthetic.main.activity_isotopes_experimental.*
-import kotlinx.android.synthetic.main.equations_info.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -48,29 +53,29 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
 
         recyclerView()
         clickSearch()
-        e_back_btn.setOnClickListener { hideInfoPanel() }
-        l_background_e.setOnClickListener { hideInfoPanel() }
+        findViewById<FloatingActionButton>(R.id.e_back_btn).setOnClickListener { hideInfoPanel() }
+        findViewById<TextView>(R.id.l_background_e).setOnClickListener { hideInfoPanel() }
 
-        view_equ.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        back_btn_equ.setOnClickListener {
+        findViewById<FrameLayout>(R.id.view_equ).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ImageButton>(R.id.back_btn_equ).setOnClickListener {
             this.onBackPressed()
         }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        equ_recycler.setPadding(
+        findViewById<RecyclerView>(R.id.equ_recycler).setPadding(
             0,
             resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top,
             0,
             resources.getDimensionPixelSize(R.dimen.title_bar))
 
-        val params2 = common_title_back_equ.layoutParams as ViewGroup.LayoutParams
+        val params2 = findViewById<FrameLayout>(R.id.common_title_back_equ).layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back_equ.layoutParams = params2
+        findViewById<FrameLayout>(R.id.common_title_back_equ).layoutParams = params2
 
-        val searchEmptyImgPrm = empty_search_box_equ.layoutParams as ViewGroup.MarginLayoutParams
+        val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_equ).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
-        empty_search_box_equ.layoutParams = searchEmptyImgPrm
+        findViewById<LinearLayout>(R.id.empty_search_box_equ).layoutParams = searchEmptyImgPrm
     }
 
     private fun recyclerView() {
@@ -88,7 +93,7 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
 
         adapter.notifyDataSetChanged()
 
-        edit_equ.addTextChangedListener(object : TextWatcher {
+        findViewById<EditText>(R.id.edit_equ).addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
                 s: CharSequence,
                 start: Int,
@@ -109,7 +114,7 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
     }
 
     override fun onBackPressed() {
-        if (e_inc.visibility == View.VISIBLE) {
+        if (findViewById<ConstraintLayout>(R.id.e_inc).visibility == View.VISIBLE) {
             hideInfoPanel()
             return
         } else { super.onBackPressed() }
@@ -125,10 +130,10 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
         val handler = android.os.Handler()
         handler.postDelayed({
             if (recyclerView.adapter!!.itemCount == 0) {
-                Anim.fadeIn(empty_search_box_equ, 300)
+                Anim.fadeIn(findViewById<LinearLayout>(R.id.empty_search_box_equ), 300)
             }
             else {
-                empty_search_box_equ.visibility = View.GONE
+                findViewById<LinearLayout>(R.id.empty_search_box_equ).visibility = View.GONE
             }
         }, 10)
         mAdapter.filterList(filteredList)
@@ -137,20 +142,20 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
     }
 
     private fun clickSearch() {
-        search_btn_equ.setOnClickListener {
-            Utils.fadeInAnim(search_bar_equ, 150)
-            Utils.fadeOutAnim(title_box_equ, 1)
+        findViewById<ImageButton>(R.id.search_btn_equ).setOnClickListener {
+            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_equ), 150)
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box_equ), 1)
 
-            edit_equ.requestFocus()
+            findViewById<EditText>(R.id.edit_equ).requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(edit_equ, InputMethodManager.SHOW_IMPLICIT)
+            imm.showSoftInput(findViewById<EditText>(R.id.edit_equ), InputMethodManager.SHOW_IMPLICIT)
         }
-        close_equ_search.setOnClickListener {
-            Utils.fadeOutAnim(search_bar_equ, 1)
+        findViewById<ImageButton>(R.id.close_equ_search).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_equ), 1)
 
             val delayClose = Handler()
             delayClose.postDelayed({
-                Utils.fadeInAnim(title_box_equ, 150)
+                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box_equ), 150)
             }, 151)
 
             val view = this.currentFocus
@@ -166,24 +171,24 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
     }
 
     private fun showInfoPanel(title: Int, text: String) {
-        Anim.fadeIn(e_inc, 150)
+        Anim.fadeIn(findViewById<ConstraintLayout>(R.id.e_inc), 150)
 
-        e_title.setImageResource(title)
+        findViewById<ImageView>(R.id.e_title).setImageResource(title)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
         if (themePrefValue == 1) {
-            e_title.colorFilter = ColorMatrixColorFilter(NEGATIVE)
+            findViewById<ImageView>(R.id.e_title).colorFilter = ColorMatrixColorFilter(NEGATIVE)
         }
         if (themePrefValue == 100) {
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                Configuration.UI_MODE_NIGHT_YES -> { e_title.colorFilter = ColorMatrixColorFilter(NEGATIVE) }
+                Configuration.UI_MODE_NIGHT_YES -> { findViewById<ImageView>(R.id.e_title).colorFilter = ColorMatrixColorFilter(NEGATIVE) }
             }
         }
-        e_text.text = text
+        findViewById<TextView>(R.id.e_text).text = text
     }
 
     private fun hideInfoPanel() {
-        Anim.fadeOutAnim(e_inc, 150)
+        Anim.fadeOutAnim(findViewById<ConstraintLayout>(R.id.e_inc), 150)
     }
 
     private val NEGATIVE = floatArrayOf(
