@@ -8,15 +8,24 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.Space
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginStart
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.ElementInfoActivity
 import com.jlindemann.science.activities.IsotopesActivityExperimental
@@ -26,29 +35,12 @@ import com.jlindemann.science.utils.Pasteur
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_element_info.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.d_atomic.*
-import kotlinx.android.synthetic.main.d_electromagnetic.*
-import kotlinx.android.synthetic.main.d_nuclear.*
-import kotlinx.android.synthetic.main.d_overview.*
-import kotlinx.android.synthetic.main.d_properties.*
-import kotlinx.android.synthetic.main.d_temperatures.*
-import kotlinx.android.synthetic.main.d_thermodynamic.*
-import kotlinx.android.synthetic.main.detail_emission.*
-import kotlinx.android.synthetic.main.equations_info.*
-import kotlinx.android.synthetic.main.favorite_bar.*
-import kotlinx.android.synthetic.main.loading_view.*
-import kotlinx.android.synthetic.main.oxidiation_states.*
-import kotlinx.android.synthetic.main.search_layout.*
-import kotlinx.android.synthetic.main.shell_view.*
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
 import java.net.ConnectException
 import kotlin.math.pow
-
 
 abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsListener {
     companion object {
@@ -57,8 +49,10 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
 
     private var systemUiConfigured = false
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onStart() {
@@ -72,7 +66,6 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
     }
 
     open fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) = Unit
-
     override fun onApplyWindowInsets(v: View, insets: WindowInsets): WindowInsets {
         Pasteur.info(TAG, "height: ${insets.systemWindowInsetBottom}")
         onApplySystemInsets(insets.systemWindowInsetTop, insets.systemWindowInsetBottom, insets.systemWindowInsetLeft, insets.systemWindowInsetRight)
@@ -80,23 +73,23 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
     }
     fun readJson() {
         var jsonstring : String? = null
-        ox_view.refreshDrawableState()
+        findViewById<FrameLayout>(R.id.ox_view).refreshDrawableState()
 
         try {
             //Setup json reader
             val ElementSendAndLoadPreference = ElementSendAndLoad(this)
             val ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
             if (ElementSendAndLoadValue == "hydrogen") {
-                previous_btn.visibility = View.GONE
+                findViewById<FloatingActionButton>(R.id.previous_btn).visibility = View.GONE
             }
             else {
-                previous_btn.visibility = View.VISIBLE
+                findViewById<FloatingActionButton>(R.id.previous_btn).visibility = View.VISIBLE
             }
             if (ElementSendAndLoadValue == "oganesson") {
-                next_btn.visibility = View.GONE
+                findViewById<FloatingActionButton>(R.id.next_btn).visibility = View.GONE
             }
             else {
-                next_btn.visibility = View.VISIBLE
+                findViewById<FloatingActionButton>(R.id.next_btn).visibility = View.VISIBLE
             }
             val name = ElementSendAndLoadValue
             val ext = ".json"
@@ -163,62 +156,71 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             val isRadioactive = jsonObject.optString("radioactive", "---")
             val neutronCrossSection = jsonObject.optString("neutron_cross_sectional", "---")
 
+            //More Properties
+            val soundOfSpeedGas = jsonObject.optString("speed_of_sound_gas", "---")
+            val soundOfSpeedLiquid = jsonObject.optString("speed_of_sound_liquid", "---")
+            val soundOfSpeedSolid = jsonObject.optString("speed_of_sound_solid", "---")
+            val youngModulus = jsonObject.optString("young_modulus", "---")
+            val shearModulus = jsonObject.optString("shear_modulus", "---")
+            val bulkModulus = jsonObject.optString("bulk_modulus", "---")
+            val poissonRatio = jsonObject.optString("poisson_ratio", "---")
+
             if (rMultiplier == "---") {
-                element_resistivity.text = "---"
+                findViewById<TextView>(R.id.element_resistivity).text = "---"
             }
             else {
                 val input = resistivity.toFloat() * rMultiplier.toFloat()
                 val output = input.pow(-1).toString()
-                element_resistivity.text = output.replace("E", "*10^") + " (S/m)"
+                findViewById<TextView>(R.id.element_resistivity).text = output.replace("E", "*10^") + " (S/m)"
             }
 
-            description_name.setOnClickListener {
-                description_name.maxLines = 100
-                description_name.requestLayout()
-                dsc_btn.text = "collapse"
+            findViewById<TextView>(R.id.description_name).setOnClickListener {
+                findViewById<TextView>(R.id.description_name).maxLines = 100
+                findViewById<TextView>(R.id.description_name).requestLayout()
+                findViewById<TextView>(R.id.dsc_btn).text = "collapse"
             }
-            dsc_btn.setOnClickListener {
-                if (dsc_btn.text == "..more") {
-                    description_name.maxLines = 100
-                    description_name.requestLayout()
-                    dsc_btn.text = "collapse"
+            findViewById<TextView>(R.id.dsc_btn).setOnClickListener {
+                if (findViewById<TextView>(R.id.dsc_btn).text == "..more") {
+                    findViewById<TextView>(R.id.description_name).maxLines = 100
+                    findViewById<TextView>(R.id.description_name).requestLayout()
+                    findViewById<TextView>(R.id.dsc_btn).text = "collapse"
                 }
                 else {
-                    description_name.maxLines = 4
-                    description_name.requestLayout()
-                    dsc_btn.text = "..more"
+                    findViewById<TextView>(R.id.description_name).maxLines = 4
+                    findViewById<TextView>(R.id.description_name).requestLayout()
+                    findViewById<TextView>(R.id.dsc_btn).text = "..more"
                 }
             }
 
             //set elements
-            element_title.text = element
-            description_name.text = description
-            element_name.text = element
-            electrons_el.text = elementElectrons
-            element_year.text = elementYear
-            element_shells_electrons.text = elementShellElectrons
-            element_discovered_by.text = elementDiscoveredBy
-            element_electrons.text = elementElectrons
-            element_protons.text = elementProtons
-            element_neutrons_common.text = elementNeutronsCommon
-            element_group.text = elementGroup
-            element_boiling_kelvin.text = elementBoilingKelvin
-            element_boiling_celsius.text = elementBoilingCelsius
-            element_boiling_fahrenheit.text = elementBoilingFahrenheit
-            element_electronegativty.text = elementElectronegativity
-            element_melting_kelvin.text = elementMeltingKelvin
-            element_melting_celsius.text = elementMeltingCelsius
-            element_melting_fahrenheit.text = elementMeltingFahrenheit
-            element_atomic_number.text = elementAtomicNumber
-            element_atomic_weight.text = elementAtomicWeight
-            element_density.text = elementDensity
-            element_block.text = elementBlock
-            element_appearance.text = elementAppearance
+            findViewById<TextView>(R.id.element_title).text = element
+            findViewById<TextView>(R.id.description_name).text = description
+            findViewById<TextView>(R.id.element_name).text = element
+            findViewById<TextView>(R.id.electrons_el).text = elementElectrons
+            findViewById<TextView>(R.id.element_year).text = elementYear
+            findViewById<TextView>(R.id.element_shells_electrons).text = elementShellElectrons
+            findViewById<TextView>(R.id.element_discovered_by).text = elementDiscoveredBy
+            findViewById<TextView>(R.id.element_electrons).text = elementElectrons
+            findViewById<TextView>(R.id.element_protons).text = elementProtons
+            findViewById<TextView>(R.id.element_neutrons_common).text = elementNeutronsCommon
+            findViewById<TextView>(R.id.element_group).text = elementGroup
+            findViewById<TextView>(R.id.element_boiling_kelvin).text = elementBoilingKelvin
+            findViewById<TextView>(R.id.element_boiling_celsius).text = elementBoilingCelsius
+            findViewById<TextView>(R.id.element_boiling_fahrenheit).text = elementBoilingFahrenheit
+            findViewById<TextView>(R.id.element_electronegativty).text = elementElectronegativity
+            findViewById<TextView>(R.id.element_melting_kelvin).text = elementMeltingKelvin
+            findViewById<TextView>(R.id.element_melting_celsius).text = elementMeltingCelsius
+            findViewById<TextView>(R.id.element_melting_fahrenheit).text = elementMeltingFahrenheit
+            findViewById<TextView>(R.id.element_atomic_number).text = elementAtomicNumber
+            findViewById<TextView>(R.id.element_atomic_weight).text = elementAtomicWeight
+            findViewById<TextView>(R.id.element_density).text = elementDensity
+            findViewById<TextView>(R.id.element_block).text = elementBlock
+            findViewById<TextView>(R.id.element_appearance).text = elementAppearance
 
             //Nuclear Properties
-            radioactive_text.text = isRadioactive
-            neutron_cross_sectional_text.text = neutronCrossSection
-            isotopes_frame.setOnClickListener {
+            findViewById<TextView>(R.id.radioactive_text).text = isRadioactive
+            findViewById<TextView>(R.id.neutron_cross_sectional_text).text = neutronCrossSection
+            findViewById<FrameLayout>(R.id.isotopes_frame).setOnClickListener {
                 val isoPreference = ElementSendAndLoad(this)
                 isoPreference.setValue(element.toLowerCase()) //Send element number
                 val isoSend = sendIso(this)
@@ -227,109 +229,122 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
                 startActivity(intent) //Send intent
             }
 
-            phase_text.text = phaseText
-            fusion_heat_text.text = fusionHeat
-            specific_heat_text.text = specificHeatCapacity
-            vaporization_heat_text.text = vaporizationHeat
+            findViewById<TextView>(R.id.phase_text).text = phaseText
+            findViewById<TextView>(R.id.fusion_heat_text).text = fusionHeat
+            findViewById<TextView>(R.id.specific_heat_text).text = specificHeatCapacity
+            findViewById<TextView>(R.id.vaporization_heat_text).text = vaporizationHeat
 
-            electron_config_text.text = electronConfig
-            ion_charge_text.text = ionCharge
-            ionization_energies_text.text = ionizationEnergies
-            atomic_radius_text.text = atomicRadius
-            atomic_radius_e_text.text = atomicRadiusE
-            covalent_radius_text.text = covalentRadius
-            van_der_waals_radius_text.text = vanDerWaalsRadius
+            findViewById<TextView>(R.id.electron_config_text).text = electronConfig
+            findViewById<TextView>(R.id.ion_charge_text).text = ionCharge
+            findViewById<TextView>(R.id.ionization_energies_text).text = ionizationEnergies
+            findViewById<TextView>(R.id.atomic_radius_text).text = atomicRadius
+            findViewById<TextView>(R.id.atomic_radius_e_text).text = atomicRadiusE
+            findViewById<TextView>(R.id.covalent_radius_text).text = covalentRadius
+            findViewById<TextView>(R.id.van_der_waals_radius_text).text = vanDerWaalsRadius
+
+            //more items
+            findViewById<TextView>(R.id.speed_sound_solid_text).text = "Solid: " + soundOfSpeedSolid
+            findViewById<TextView>(R.id.speed_sound_gas_text).text = "Gas: " + soundOfSpeedGas
+            findViewById<TextView>(R.id.speed_sound_liquid_text).text = "Liquid: " + soundOfSpeedLiquid
+            findViewById<TextView>(R.id.poisson_text).text = poissonRatio
+            findViewById<TextView>(R.id.bulk_modulus_text).text = "K: " + bulkModulus
+            findViewById<TextView>(R.id.young_modulus_text).text = "E: " + youngModulus
+            findViewById<TextView>(R.id.shear_modulus_text).text = "G: " + shearModulus
+
+            if (soundOfSpeedSolid == "---") { findViewById<TextView>(R.id.speed_sound_solid_text).visibility = View.GONE } //Check if Solid speed and show if
+            else { findViewById<TextView>(R.id.speed_sound_solid_text).visibility = View.VISIBLE}
+
+            if (soundOfSpeedGas == "---") { findViewById<TextView>(R.id.speed_sound_gas_text).visibility = View.GONE } //Check if gas speed and show if
+            else { findViewById<TextView>(R.id.speed_sound_gas_text).visibility = View.VISIBLE}
+
+            if (soundOfSpeedLiquid == "---") { findViewById<TextView>(R.id.speed_sound_liquid_text).visibility = View.GONE } //Check if liquid speed and show if
+            else { findViewById<TextView>(R.id.speed_sound_liquid_text).visibility = View.VISIBLE}
 
             //Shell View items
-            config_data.text = elementShellElectrons
-            e_config_data.text = electronConfig
+            findViewById<TextView>(R.id.config_data).text = elementShellElectrons
+            findViewById<TextView>(R.id.e_config_data).text = electronConfig
 
             //Electromagnetic Properties Items
-            element_electrical_type.text = electricalType
-            element_magnetic_type.text = magneticType
-            element_superconducting_point.text = superconductingPoint + " (K)"
+            findViewById<TextView>(R.id.element_electrical_type).text = electricalType
+            findViewById<TextView>(R.id.element_magnetic_type).text = magneticType
+            findViewById<TextView>(R.id.element_superconducting_point).text = superconductingPoint + " (K)"
 
-            if (phaseText.toString() == "Solid") {
-                phase_icon.setImageDrawable(getDrawable(R.drawable.solid))
-            }
-            if (phaseText.toString() == "Gas") {
-                phase_icon.setImageDrawable(getDrawable(R.drawable.gas))
-            }
-            if (phaseText.toString() == "Liquid") {
-                phase_icon.setImageDrawable(getDrawable(R.drawable.liquid))
-            }
+            if (phaseText.toString() == "Solid") { findViewById<ImageView>(R.id.phase_icon).setImageDrawable(getDrawable(R.drawable.solid)) }
+            if (phaseText.toString() == "Gas") { findViewById<ImageView>(R.id.phase_icon).setImageDrawable(getDrawable(R.drawable.gas)) }
+            if (phaseText.toString() == "Liquid") { findViewById<ImageView>(R.id.phase_icon).setImageDrawable(getDrawable(R.drawable.liquid)) }
 
-            if (oxidationNeg1.contains(0.toString())) { ox0.text = "0"
-                ox0.background.setTint(getColor(R.color.non_metals)) }
-            if (oxidationNeg1.contains(1.toString())) { m1ox.text = "-1"
-                m1ox.background.setTint(getColor(R.color.noble_gas)) }
-            if (oxidationNeg1.contains(2.toString())) { m2ox.text = "-2"
-                m2ox.background.setTint(getColor(R.color.noble_gas)) }
-            if (oxidationNeg1.contains(3.toString())) { m3ox.text = "-3"
-                m3ox.background.setTint(getColor(R.color.noble_gas)) }
-            if (oxidationNeg1.contains(4.toString())) { m4ox.text = "-4"
-                m4ox.background.setTint(getColor(R.color.noble_gas)) }
-            if (oxidationNeg1.contains(5.toString())) { m5ox.text = "-5"
-                m5ox.background.setTint(getColor(R.color.noble_gas)) }
+            if (oxidationNeg1.contains(0.toString())) { findViewById<TextView>(R.id.ox0).text = "0"
+                findViewById<TextView>(R.id.ox0).background.setTint(getColor(R.color.non_metals)) }
+            if (oxidationNeg1.contains(1.toString())) { findViewById<TextView>(R.id.m1ox).text = "-1"
+                findViewById<TextView>(R.id.m1ox).background.setTint(getColor(R.color.noble_gas)) }
+            if (oxidationNeg1.contains(2.toString())) { findViewById<TextView>(R.id.m2ox).text = "-2"
+                findViewById<TextView>(R.id.m2ox).background.setTint(getColor(R.color.noble_gas)) }
+            if (oxidationNeg1.contains(3.toString())) { findViewById<TextView>(R.id.m3ox).text = "-3"
+                findViewById<TextView>(R.id.m3ox).background.setTint(getColor(R.color.noble_gas)) }
+            if (oxidationNeg1.contains(4.toString())) { findViewById<TextView>(R.id.m4ox).text = "-4"
+                findViewById<TextView>(R.id.m4ox).background.setTint(getColor(R.color.noble_gas)) }
+            if (oxidationNeg1.contains(5.toString())) { findViewById<TextView>(R.id.m5ox).text = "-5"
+                findViewById<TextView>(R.id.m5ox).background.setTint(getColor(R.color.noble_gas)) }
 
-
-            if (oxidationPos1.contains(1.toString())) { p1ox.text = "+1"
-                p1ox.background.setTint(getColor(R.color.alkali_metals)) }
-            if (oxidationPos1.contains(2.toString())) { p2ox.text = "+2"
-                p2ox.background.setTint(getColor(R.color.alkali_metals)) }
-            if (oxidationPos1.contains(3.toString())) { p3ox.text = "+3"
-                p3ox.background.setTint(getColor(R.color.alkali_metals)) }
-            if (oxidationPos1.contains(4.toString())) { p4ox.text = "+4"
-                p4ox.background.setTint(getColor(R.color.alkali_metals)) }
-            if (oxidationPos1.contains(5.toString())) { p5ox.text = "+5"
-                p5ox.background.setTint(getColor(R.color.alkali_metals)) }
-            if (oxidationPos1.contains(6.toString())) { p6ox.text = "+6"
-                p6ox.background.setTint(getColor(R.color.alkali_metals)) }
-            if (oxidationPos1.contains(7.toString())) { p7ox.text = "+7"
-                p7ox.background.setTint(getColor(R.color.alkali_metals)) }
-            if (oxidationPos1.contains(8.toString())) { p8ox.text = "+8"
-                p8ox.background.setTint(getColor(R.color.alkali_metals)) }
-            if (oxidationPos1.contains(9.toString())) { p9ox.text = "+9"
-                p9ox.background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(1.toString())) { findViewById<TextView>(R.id.p1ox).text = "+1"
+                findViewById<TextView>(R.id.p1ox).background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(2.toString())) { findViewById<TextView>(R.id.p2ox).text = "+2"
+                findViewById<TextView>(R.id.p2ox).background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(3.toString())) { findViewById<TextView>(R.id.p3ox).text = "+3"
+                findViewById<TextView>(R.id.p3ox).background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(4.toString())) { findViewById<TextView>(R.id.p4ox).text = "+4"
+                findViewById<TextView>(R.id.p4ox).background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(5.toString())) { findViewById<TextView>(R.id.p5ox).text = "+5"
+                findViewById<TextView>(R.id.p5ox).background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(6.toString())) { findViewById<TextView>(R.id.p6ox).text = "+6"
+                findViewById<TextView>(R.id.p6ox).background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(7.toString())) { findViewById<TextView>(R.id.p7ox).text = "+7"
+                findViewById<TextView>(R.id.p7ox).background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(8.toString())) { findViewById<TextView>(R.id.p8ox).text = "+8"
+                findViewById<TextView>(R.id.p8ox).background.setTint(getColor(R.color.alkali_metals)) }
+            if (oxidationPos1.contains(9.toString())) { findViewById<TextView>(R.id.p9ox).text = "+9"
+                findViewById<TextView>(R.id.p9ox).background.setTint(getColor(R.color.alkali_metals)) }
 
             //set element data for favorite bar
-            molar_mass_f.text = elementAtomicWeight
-            phase_f.text = phaseText
-            electronegativity_f.text = elementElectronegativity
-            density_f.text = elementDensity
+            findViewById<TextView>(R.id.molar_mass_f).text = elementAtomicWeight
+            findViewById<TextView>(R.id.phase_f).text = phaseText
+            findViewById<TextView>(R.id.electronegativity_f).text = elementElectronegativity
+            findViewById<TextView>(R.id.density_f).text = elementDensity
 
             val degreePreference = DegreePreference(this)
             val degreePrefValue = degreePreference.getValue()
 
             if (degreePrefValue == 0) {
-                boiling_f.text = elementBoilingKelvin
-                melting_f.text = elementMeltingKelvin
+                findViewById<TextView>(R.id.boiling_f).text = elementBoilingKelvin
+                findViewById<TextView>(R.id.melting_f).text = elementMeltingKelvin
             }
             if (degreePrefValue == 1) {
-                boiling_f.text = elementBoilingCelsius
-                melting_f.text = elementMeltingCelsius
+                findViewById<TextView>(R.id.boiling_f).text = elementBoilingCelsius
+                findViewById<TextView>(R.id.melting_f).text = elementMeltingCelsius
             }
             if (degreePrefValue == 2) {
-                boiling_f.text = elementBoilingFahrenheit
-                melting_f.text = elementMeltingFahrenheit
+                findViewById<TextView>(R.id.boiling_f).text = elementBoilingFahrenheit
+                findViewById<TextView>(R.id.melting_f).text = elementMeltingFahrenheit
             }
 
             if (url == "empty") {
-                Utils.fadeInAnim(no_img, 150)
-                pro_bar.visibility = View.GONE
+                Utils.fadeInAnim(findViewById<TextView>(R.id.no_img), 150)
+                findViewById<ProgressBar>(R.id.pro_bar).visibility = View.GONE
             }
             else {
-                Utils.fadeInAnim(pro_bar, 150)
-                no_img.visibility = View.GONE
+                Utils.fadeInAnim(findViewById<ProgressBar>(R.id.pro_bar), 150)
+                findViewById<AppCompatTextView>(R.id.no_img).visibility = View.GONE
             }
 
-            fusion_heat_f.text = fusionHeat
-            specific_heat_f.text = specificHeatCapacity
-            vaporization_heat_f.text = vaporizationHeat
-            a_empirical_f.text = atomicRadiusE
-            a_calculated_f.text = atomicRadius
-            covalent_f.text = covalentRadius
-            van_f.text = vanDerWaalsRadius
+            findViewById<TextView>(R.id.fusion_heat_f).text = fusionHeat
+            findViewById<TextView>(R.id.specific_heat_f).text = specificHeatCapacity
+            findViewById<TextView>(R.id.vaporization_heat_f).text = vaporizationHeat
+            findViewById<TextView>(R.id.radioactive_f).text = isRadioactive
+            findViewById<TextView>(R.id.resistivity_f).text = resistivity
+            findViewById<TextView>(R.id.a_empirical_f).text = atomicRadiusE
+            findViewById<TextView>(R.id.a_calculated_f).text = atomicRadius
+            findViewById<TextView>(R.id.covalent_f).text = covalentRadius
+            findViewById<TextView>(R.id.van_f).text = vanDerWaalsRadius
 
             val offlinePreferences = offlinePreference(this)
             val offlinePrefValue = offlinePreferences.getValue()
@@ -341,7 +356,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             wikiListener(wikipedia)
         }
         catch (e: IOException) {
-            element_title.text = "Not able to load json"
+            findViewById<TextView>(R.id.element_title).text = "Not able to load json"
             val stringText = "Couldn't load element:"
             val ElementSendAndLoadPreference = ElementSendAndLoad(this)
             val ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
@@ -352,10 +367,10 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
     }
 
     private fun loadImage(url: String?) {
-        try { Picasso.get().load(url.toString()).into(element_image) }
+        try { Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.element_image)) }
         catch(e: ConnectException) {
-            offline_div.visibility = View.VISIBLE
-            frame.visibility = View.GONE
+            findViewById<Space>(R.id.offline_div).visibility = View.VISIBLE
+            findViewById<FrameLayout>(R.id.frame).visibility = View.GONE
         }
     }
 
@@ -364,24 +379,24 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         val ext = ".gif"
         val fURL = hUrl + url + ext
         try {
-            Picasso.get().load(fURL).into(sp_img)
-            Picasso.get().load(fURL).into(sp_img_detail)
+            Picasso.get().load(fURL).into(findViewById<ImageView>(R.id.sp_img))
+            Picasso.get().load(fURL).into(findViewById<ImageView>(R.id.sp_img_detail))
         }
 
         catch(e: ConnectException) {
-            sp_img.visibility = View.GONE
-            sp_offline.text = "No Data"
-            sp_offline.visibility = View.VISIBLE
+            findViewById<ImageView>(R.id.sp_img).visibility = View.GONE
+            findViewById<TextView>(R.id.sp_offline).text = "No Data"
+            findViewById<TextView>(R.id.sp_offline).visibility = View.VISIBLE
         }
     }
 
     private fun loadModelView(url: String?) {
-        Picasso.get().load(url.toString()).into(model_view)
-        Picasso.get().load(url.toString()).into(card_model_view)
+        Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.model_view))
+        Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.card_model_view))
     }
 
     fun wikiListener(url: String?) {
-        wikipedia_btn.setOnClickListener {
+        findViewById<ImageButton>(R.id.wikipedia_btn).setOnClickListener {
             val PACKAGE_NAME = "com.android.chrome"
             val customTabBuilder = CustomTabsIntent.Builder()
 
@@ -408,111 +423,85 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         //Favorite Molar
         val molarPreference = FavoriteBarPreferences(this)
         var molarPrefValue = molarPreference.getValue()
-        if (molarPrefValue == 1) {
-            molar_mass_lay.visibility = View.VISIBLE
-        }
-        if (molarPrefValue == 0) {
-            molar_mass_lay.visibility = View.GONE
-        }
+        if (molarPrefValue == 1) { findViewById<LinearLayout>(R.id.molar_mass_lay).visibility = View.VISIBLE }
+        if (molarPrefValue == 0) { findViewById<LinearLayout>(R.id.molar_mass_lay).visibility = View.GONE }
 
         //Favorite Phase
         val phasePreferences = FavoritePhase(this)
         var phasePrefValue = phasePreferences.getValue()
-        if (phasePrefValue == 1) {
-            phase_lay.visibility = View.VISIBLE
-        }
-        if (phasePrefValue == 0) {
-            phase_lay.visibility = View.GONE
-        }
+        if (phasePrefValue == 1) { findViewById<LinearLayout>(R.id.phase_lay).visibility = View.VISIBLE }
+        if (phasePrefValue == 0) { findViewById<LinearLayout>(R.id.phase_lay).visibility = View.GONE }
 
         //Electronegativity Phase
         val electronegativityPreferences = ElectronegativityPreference(this)
         var electronegativityPrefValue = electronegativityPreferences.getValue()
-        if (electronegativityPrefValue == 1) {
-            electronegativity_lay.visibility = View.VISIBLE
-        }
-        if (electronegativityPrefValue == 0) {
-            electronegativity_lay.visibility = View.GONE
-        }
+        if (electronegativityPrefValue == 1) { findViewById<LinearLayout>(R.id.electronegativity_lay).visibility = View.VISIBLE }
+        if (electronegativityPrefValue == 0) { findViewById<LinearLayout>(R.id.electronegativity_lay).visibility = View.GONE }
 
         //Density
         val densityPreference = DensityPreference(this)
         var densityPrefValue = densityPreference.getValue()
-        if (densityPrefValue == 1) {
-            density_lay.visibility = View.VISIBLE
-        }
-        if (densityPrefValue == 0) {
-            density_lay.visibility = View.GONE
-        }
+        if (densityPrefValue == 1) { findViewById<LinearLayout>(R.id.density_lay).visibility = View.VISIBLE }
+        if (densityPrefValue == 0) { findViewById<LinearLayout>(R.id.density_lay).visibility = View.GONE }
 
         //Boiling
         val boilingPreference = BoilingPreference(this)
         var boilingPrefValue = boilingPreference.getValue()
-        if (boilingPrefValue == 1) {
-            boiling_lay.visibility = View.VISIBLE
-        }
-        if (boilingPrefValue == 0) {
-            boiling_lay.visibility = View.GONE
-        }
+        if (boilingPrefValue == 1) { findViewById<LinearLayout>(R.id.boiling_lay).visibility = View.VISIBLE }
+        if (boilingPrefValue == 0) { findViewById<LinearLayout>(R.id.boiling_lay).visibility = View.GONE }
 
         //Melting
         val meltingPreference = MeltingPreference(this)
         val meltingPrefValue = meltingPreference.getValue()
-        if (meltingPrefValue == 1) { melting_lay.visibility = View.VISIBLE }
-        if (meltingPrefValue == 0) { melting_lay.visibility = View.GONE }
+        if (meltingPrefValue == 1) { findViewById<LinearLayout>(R.id.melting_lay).visibility = View.VISIBLE }
+        if (meltingPrefValue == 0) { findViewById<LinearLayout>(R.id.melting_lay).visibility = View.GONE }
 
         //Empirical
         val empiricalPreference = AtomicRadiusEmpPreference(this)
         val empiricalPrefValue = empiricalPreference.getValue()
-        if (empiricalPrefValue == 1) { a_empirical_lay.visibility = View.VISIBLE }
-        if (empiricalPrefValue == 0) { a_empirical_lay.visibility = View.GONE }
+        if (empiricalPrefValue == 1) { findViewById<LinearLayout>(R.id.a_empirical_lay).visibility = View.VISIBLE }
+        if (empiricalPrefValue == 0) { findViewById<LinearLayout>(R.id.a_empirical_lay).visibility = View.GONE }
 
         //Calculated
         val calculatedPreference = AtomicRadiusCalPreference(this)
         val calculatedPrefValue = calculatedPreference.getValue()
-        if (calculatedPrefValue == 1) { a_calculated_lay.visibility = View.VISIBLE }
-        if (calculatedPrefValue == 0) { a_calculated_lay.visibility = View.GONE }
+        if (calculatedPrefValue == 1) { findViewById<LinearLayout>(R.id.a_calculated_lay).visibility = View.VISIBLE }
+        if (calculatedPrefValue == 0) { findViewById<LinearLayout>(R.id.a_calculated_lay).visibility = View.GONE }
 
         //Covalent
         val covalentPreference = AtomicCovalentPreference(this)
         val covalentPrefValue = covalentPreference.getValue()
-        if (covalentPrefValue == 1) { covalent_lay.visibility = View.VISIBLE }
-        if (covalentPrefValue == 0) { covalent_lay.visibility = View.GONE }
+        if (covalentPrefValue == 1) { findViewById<LinearLayout>(R.id.covalent_lay).visibility = View.VISIBLE }
+        if (covalentPrefValue == 0) { findViewById<LinearLayout>(R.id.covalent_lay).visibility = View.GONE }
 
         //Van Der Waals
         val vanPreference = AtomicVanPreference(this)
         val vanPrefValue = vanPreference.getValue()
-        if (vanPrefValue == 1) { van_lay.visibility = View.VISIBLE }
-        if (vanPrefValue == 0) { van_lay.visibility = View.GONE }
+        if (vanPrefValue == 1) { findViewById<LinearLayout>(R.id.van_lay).visibility = View.VISIBLE }
+        if (vanPrefValue == 0) { findViewById<LinearLayout>(R.id.van_lay).visibility = View.GONE }
 
         //Fusion Heat
         val fusionHeatPreference = FusionHeatPreference(this)
         var fusionHeatValue = fusionHeatPreference.getValue()
-        if (fusionHeatValue == 1) {
-            fusion_heat_lay.visibility = View.VISIBLE
-        }
-        if (fusionHeatValue == 0) {
-            fusion_heat_lay.visibility = View.GONE
-        }
+        if (fusionHeatValue == 1) { findViewById<LinearLayout>(R.id.fusion_heat_lay).visibility = View.VISIBLE }
+        if (fusionHeatValue == 0) { findViewById<LinearLayout>(R.id.fusion_heat_lay).visibility = View.GONE }
 
         //Specific Heat
         val specificHeatPreference = SpecificHeatPreference(this)
         var specificHeatValue = specificHeatPreference.getValue()
-        if (specificHeatValue == 1) {
-            specific_heat_lay.visibility = View.VISIBLE
-        }
-        if (specificHeatValue == 0) {
-            specific_heat_lay.visibility = View.GONE
-        }
+        if (specificHeatValue == 1) { findViewById<LinearLayout>(R.id.specific_heat_lay).visibility = View.VISIBLE }
+        if (specificHeatValue == 0) { findViewById<LinearLayout>(R.id.specific_heat_lay).visibility = View.GONE }
 
         //Vaporization Heat
         val vaporizationHeatPreference = VaporizationHeatPreference(this)
         var vaporizationHeatValue = vaporizationHeatPreference.getValue()
-        if (vaporizationHeatValue == 1) {
-            vaporization_heat_lay.visibility = View.VISIBLE
-        }
-        if (vaporizationHeatValue == 0) {
-            vaporization_heat_lay.visibility = View.GONE
-        }
+        if (vaporizationHeatValue == 1) { findViewById<LinearLayout>(R.id.vaporization_heat_lay).visibility = View.VISIBLE }
+        if (vaporizationHeatValue == 0) { findViewById<LinearLayout>(R.id.vaporization_heat_lay).visibility = View.GONE }
+
+        //Radioactive
+        val radioactivePreference = RadioactivePreference(this)
+        var radioactiveValue = radioactivePreference.getValue()
+        if (radioactiveValue == 1) { findViewById<LinearLayout>(R.id.phase_lay).visibility = View.VISIBLE }
+        if (radioactiveValue == 0) { findViewById<LinearLayout>(R.id.phase_lay).visibility = View.GONE }
     }
 }

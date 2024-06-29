@@ -270,9 +270,7 @@
                             android:text="@string/chip_reactions"
                             android:textAllCaps="false"
                             android:textColor="?attr/colorOnSecondaryContainer" />
-
                     </LinearLayout>
-
                 </HorizontalScrollView>
 
             </LinearLayout>

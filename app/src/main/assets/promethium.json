@@ -57,6 +57,11 @@
     "oxidation_state_neg": "2 3",
     "oxidation_state_pos": "",
 
+    "young_modulus": "46 (GPa) [α-form]",
+    "poisson_ratio": "0.28 [α-form]",
+    "bulk_modulus": "33 (GPa) [α-form]",
+    "shear_modulus": "18 (GPa) [α-form]",
+
     "iso_1": "Pm-154",
     "iso_mass_1": "153.92646",
     "iso_half_1": "1.73 (min)",

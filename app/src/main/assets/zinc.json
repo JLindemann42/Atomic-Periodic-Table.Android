@@ -74,6 +74,15 @@
     "oxidation_state_neg": "2",
     "oxidation_state_pos": "1 2",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "3850 (m/s) [20°C]",
+
+    "young_modulus": "108 (GPa)",
+    "poisson_ratio": "0.25",
+    "bulk_modulus": "70 (GPa)",
+    "shear_modulus": "43 (GPa)",
+
     "iso_1": "Zn-54",
     "iso_mass_1": "53.99295",
     "iso_half_1": "---",

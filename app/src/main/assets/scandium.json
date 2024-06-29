@@ -74,6 +74,11 @@
     "oxidation_state_neg": "0",
     "oxidation_state_pos": "1 2 3",
 
+    "young_modulus": "74.4 (GPa)",
+    "poisson_ratio": "0.279",
+    "bulk_modulus": "56.6 (GPa)",
+    "shear_modulus": "29.1 (GPa)",
+
     "iso_1": "Sc-35",
     "iso_mass_1": "---",
     "iso_half_1": "---",

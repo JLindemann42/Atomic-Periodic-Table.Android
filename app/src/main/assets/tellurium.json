@@ -60,6 +60,15 @@
     "oxidation_state_neg": "2 1",
     "oxidation_state_pos": "1 2 3 4 5 6",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "2610 (m/s) [20°C]",
+
+    "young_modulus": "43 (GPa)",
+    "poisson_ratio": "---",
+    "bulk_modulus": "65 (GPa)",
+    "shear_modulus": "16 (GPa)",
+
     "iso_1": "Te-123",
     "iso_mass_1": "122.9042700",
     "iso_half_1": "Observationally ",

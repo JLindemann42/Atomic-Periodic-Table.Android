@@ -56,6 +56,15 @@
     "oxidation_state_neg": "",
     "oxidation_state_pos": "1",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "6000 (m/s) [20°C]",
+
+    "young_modulus": "4.9 (GPa)",
+    "poisson_ratio": "---",
+    "bulk_modulus": "11 (GPa)",
+    "shear_modulus": "4.2 (GPa)",
+
     "iso_1": "Li-3",
     "iso_mass_1": "3.030775",
     "iso_half_1": "?",

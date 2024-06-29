@@ -57,6 +57,10 @@
     "oxidation_state_neg": "5 4 3 2 1",
     "oxidation_state_pos": "1 2 3",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "2740 (m/s) [20°C]",
+
     "iso_1": "Ga-56",
     "iso_mass_1": "55.99491",
     "iso_half_1": "---",

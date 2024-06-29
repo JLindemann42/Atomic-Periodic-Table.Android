@@ -80,6 +80,15 @@
     "oxidation_state_neg": "3 1 0",
     "oxidation_state_pos": "1 2 3 4 5",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "4720 (m/s) [20°C]",
+
+    "young_modulus": "209 (GPa)",
+    "poisson_ratio": "0.31",
+    "bulk_modulus": "180 (GPa)",
+    "shear_modulus": "75 (GPa)",
+
     "iso_1": "Co-47",
     "iso_mass_1": "47.01149",
     "iso_half_1": "---",

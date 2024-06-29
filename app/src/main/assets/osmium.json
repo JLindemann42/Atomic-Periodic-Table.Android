@@ -54,6 +54,10 @@
     "oxidation_state_neg": "4 2 1 0",
     "oxidation_state_pos": "1 2 3 4 5 6 7 8",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "4940 (m/s) [20°C]",
+
     "iso_1": "Os-185",
     "iso_mass_1": "184.9540423",
     "iso_half_1": "93.6 (days)",

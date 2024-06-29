@@ -58,6 +58,15 @@
     "oxidation_state_pos": "1 2 3",
     "element_vaporization_heat": "400 (kJ/mol)",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "2475 (m/s) [20°C]",
+
+    "young_modulus": "36.6 (GPa) [α-form]",
+    "poisson_ratio": "0.280 [α-form]",
+    "bulk_modulus": "27.9 (GPa) [α-form]",
+    "shear_modulus": "14.3 (GPa) [α-form]",
+
     "iso_1": "La-137",
     "iso_mass_1": "136.906494",
     "iso_half_1": "6×10^4 (Years)",

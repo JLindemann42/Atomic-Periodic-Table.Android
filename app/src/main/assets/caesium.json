@@ -55,6 +55,11 @@
     "oxidation_state_neg": "1",
     "oxidation_state_pos": "1",
 
+    "young_modulus": "1.7 (GPa)",
+    "poisson_ratio": "---",
+    "bulk_modulus": "1.6 (GPa)",
+    "shear_modulus": "---",
+
     "iso_1": "Cs-132",
     "iso_mass_1": "131.9064343",
     "iso_half_1": "6.480 (days)",

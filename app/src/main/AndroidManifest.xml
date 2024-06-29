@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jlindemann.science">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:allowBackup="true"
@@ -13,9 +13,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <receiver android:name=".ShortCommandWidget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
+
 
             <meta-data
                 android:name="android.appwidget.provider"
@@ -25,6 +23,7 @@
         <activity
             android:name=".activities.MainActivity"
             android:label="MAINACTIVITY"
+            android:exported="true"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
@@ -35,6 +34,7 @@
         </activity>
         <activity
             android:name=".activities.SplashActivity"
+            android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,6 +45,7 @@
         <activity
             android:name=".activities.ElementInfoActivity"
             android:label="ELEMENTINFOACTIVITY"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -54,6 +55,7 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:label="SETTINGS"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -63,6 +65,7 @@
         <activity
             android:name=".activities.settings.FavoritePageActivity"
             android:label="FAVORITEPAGE"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -72,6 +75,7 @@
         <activity
             android:name=".activities.settings.OrderActivity"
             android:label="ORDERPAGE"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -81,6 +85,7 @@
         <activity
             android:name=".activities.tables.IonActivity"
             android:label="IONPAGE"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -90,6 +95,7 @@
         <activity
             android:name=".settings.ExperimentalActivity"
             android:label="EXPERIMENTAL_PAGE"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -99,6 +105,7 @@
         <activity
             android:name=".activities.SolubilityActivity"
             android:label="SOLUBILITYPAGE"
+            android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
@@ -107,6 +114,7 @@
         <activity
             android:name=".activities.CalculatorActivity"
             android:label="CALCULATORPAGE"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -116,6 +124,7 @@
         <activity
             android:name=".activities.tables.DictionaryActivity"
             android:label="DICTIONARYPAGE"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -125,6 +134,7 @@
         <activity
             android:name=".activities.IsotopesActivityExperimental"
             android:label="ISOTPOESPAGEEXP"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -134,6 +144,7 @@
         <activity
             android:name=".activities.settings.AboutActivity"
             android:label="ABOUTPAGE"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -143,6 +154,7 @@
         <activity
             android:name=".activities.TableActivity"
             android:label="TABLEPAGE"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -152,6 +164,7 @@
         <activity
             android:name=".activities.tables.ElectrodeActivity"
             android:label="ELECTRODEPAGE"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -161,6 +174,18 @@
         <activity
             android:name=".activities.settings.SubmitActivity"
             android:label="SUBMITPAGE"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.settings.ProActivity"
+            android:label="SUBMITPAGE"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing">
@@ -171,6 +196,7 @@
         <activity
             android:name=".activities.settings.LicensesActivity"
             android:label="LICENSESPAGE"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing">
@@ -181,6 +207,7 @@
         <activity
             android:name=".activities.tables.EquationsActivity"
             android:label="EQUATIONSACTIVITY"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing">
@@ -191,6 +218,18 @@
         <activity
             android:name=".activities.tables.phActivity"
             android:label="PHACTIVITY"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.tables.PoissonActivity"
+            android:label="POISSONACTIVITY"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing">
@@ -201,6 +240,7 @@
         <activity
             android:name=".activities.settings.UnitActivity"
             android:label="activity_unit"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing">
@@ -211,6 +251,7 @@
         <activity
             android:name=".activities.tables.NuclideActivity"
             android:label="activity_nuclide"
+            android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing">

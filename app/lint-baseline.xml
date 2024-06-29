@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.5.0" type="baseline" client="gradle" dependencies="false" name="AGP (8.5.0)" variant="fatal" version="8.5.0">
+
+    <issue
+        id="UnspecifiedImmutableFlag"
+        message="Missing `PendingIntent` mutability flag"
+        errorLine1="                PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), 0))"
+        errorLine2="                                                                                                 ~">
+        <location
+            file="src/main/java/com/jlindemann/science/ShortCommandWidget.kt"
+            line="30"
+            column="98"/>
+    </issue>
+
+</issues>

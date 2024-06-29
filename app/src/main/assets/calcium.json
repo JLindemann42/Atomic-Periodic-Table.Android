@@ -73,6 +73,15 @@
     "oxidation_state_neg": "",
     "oxidation_state_pos": "1 2",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "3810 (m/s) [20°C]",
+
+    "young_modulus": "20 (GPa)",
+    "poisson_ratio": "0.31",
+    "bulk_modulus": "17 (GPa)",
+    "shear_modulus": "7.4 (GPa)",
+
     "iso_1": "Ca-33",
     "iso_mass_1": "---",
     "iso_half_1": "---",

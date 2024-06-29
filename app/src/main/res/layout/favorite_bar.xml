@@ -307,6 +307,34 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/resistivity_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="Resistivity:"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/resistivity_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="resistivity_f"
+                    android:textColor="?attr/colorOnSecondaryContainer" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/fusion_heat_lay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -389,6 +417,34 @@
                 android:textColor="?attr/colorOnSecondaryContainer" />
 
         </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/radioactive_lay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingStart="9dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:gravity="center_vertical"
+                    android:text="Radioactive:"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/radioactive_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:alpha="0.85"
+                    android:gravity="center_vertical"
+                    android:paddingStart="9dp"
+                    android:paddingEnd="9dp"
+                    android:text="vaporization_heat_f"
+                    android:textColor="?attr/colorOnSecondaryContainer" />
+
+            </LinearLayout>
 
         </LinearLayout>
     </HorizontalScrollView>

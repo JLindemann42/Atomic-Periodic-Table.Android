@@ -15,18 +15,21 @@ import android.view.ViewTreeObserver.OnScrollChangedListener
 import android.view.animation.ScaleAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
-import com.jlindemann.science.R2
+import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tables.DictionaryActivity
 import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.extensions.TableExtension
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
+import com.jlindemann.science.preferences.ElectronegativityPreference
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.SearchPreferences
 import com.jlindemann.science.preferences.ThemePreference
@@ -34,11 +37,6 @@ import com.jlindemann.science.utils.TabUtil
 import com.jlindemann.science.utils.Utils
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.filter_view.*
-import kotlinx.android.synthetic.main.hover_menu.*
-import kotlinx.android.synthetic.main.nav_menu_view.*
-import kotlinx.android.synthetic.main.search_layout.*
 import org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView
 import java.util.*
 import java.util.logging.Handler
@@ -73,7 +71,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         ElementModel.getList(elements)
         val adapter = ElementAdapter(elements, this, this)
         recyclerView.adapter = adapter
-        edit_element.addTextChangedListener(object : TextWatcher {
+        findViewById<EditText>(R.id.edit_element).addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) { filter(s.toString(), elements, recyclerView) }
@@ -84,15 +82,22 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         setupNavListeners()
         onClickNav()
         searchListener()
-        sliding_layout.panelState = PanelState.COLLAPSED
+        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).panelState = PanelState.COLLAPSED
         searchFilter(elements, recyclerView)
         mediaListeners()
         hoverListeners(elements)
         initName(elements)
-        more_btn.setOnClickListener { openHover() }
-        hover_background.setOnClickListener { closeHover() }
-        random_btn.setOnClickListener { getRandomItem() }
-        view_main.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<FloatingActionButton>(R.id.more_btn).setOnClickListener { openHover() }
+        findViewById<TextView>(R.id.hover_background).setOnClickListener { closeHover() }
+        findViewById<Button>(R.id.random_btn).setOnClickListener { getRandomItem() }
+        findViewById<ConstraintLayout>(R.id.view_main).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+
+        //Check if PRO version and if make changes:
+        val proPref = ElectronegativityPreference(this)
+        var proPrefValue = proPref.getValue()
+        if (proPrefValue==100) {
+            proChanges()
+        }
 
         val handler = android.os.Handler()
         handler.postDelayed({
@@ -119,50 +124,50 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                     detector.focusY
                 )
                 if (mScale > 1f) {
-                    topBar.visibility = View.GONE
-                    leftBar.visibility = View.GONE
-                    corner.visibility = View.GONE
+                    findViewById<HorizontalScrollView>(R.id.topBar).visibility = View.GONE
+                    findViewById<ScrollView>(R.id.leftBar).visibility = View.GONE
+                    findViewById<TextView>(R.id.corner).visibility = View.GONE
                 }
                 if (mScale == 1f) {
-                    topBar.visibility = View.VISIBLE
-                    leftBar.visibility = View.VISIBLE
-                    corner.visibility = View.VISIBLE
+                    findViewById<HorizontalScrollView>(R.id.topBar).visibility = View.VISIBLE
+                    findViewById<ScrollView>(R.id.leftBar).visibility = View.VISIBLE
+                    findViewById<TextView>(R.id.corner).visibility = View.VISIBLE
                 }
                 scaleAnimation.duration = 0
                 scaleAnimation.fillAfter = true
-                val layout = scrollLin as LinearLayout
+                val layout = findViewById<LinearLayout>(R.id.scrollLin) as LinearLayout
                 layout.startAnimation(scaleAnimation)
                 return true
             }
         })
 
-        scrollView.getViewTreeObserver()
+        findViewById<TwoWayNestedScrollView>(R.id.scrollView).getViewTreeObserver()
             .addOnScrollChangedListener(object : OnScrollChangedListener {
                 var y = 0f
                 override fun onScrollChanged() {
-                    if (scrollView.getScrollY() > y) {
-                        Utils.fadeOutAnim(nav_bar_main, 150)
-                        Utils.fadeOutAnim(more_btn, 150)
+                    if (findViewById<TwoWayNestedScrollView>(R.id.scrollView).getScrollY() > y) {
+                        Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.nav_bar_main), 150)
+                        Utils.fadeOutAnim(findViewById<FloatingActionButton>(R.id.more_btn), 150)
                     } else {
-                        Utils.fadeInAnim(nav_bar_main, 150)
-                        Utils.fadeInAnim(more_btn, 150)
+                        Utils.fadeInAnim(findViewById<FrameLayout>(R.id.nav_bar_main), 150)
+                        Utils.fadeInAnim(findViewById<FloatingActionButton>(R.id.more_btn), 150)
                     }
-                    y = scrollView.getScrollY().toFloat()
+                    y = findViewById<TwoWayNestedScrollView>(R.id.scrollView).getScrollY().toFloat()
                 }
             })
 
-        sliding_layout.addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
+        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View?, slideOffset: Float) {}
             override fun onPanelStateChanged(panel: View?, previousState: PanelState, newState: PanelState) {
-                if (sliding_layout.panelState === PanelState.COLLAPSED) {
-                    nav_menu_include.visibility = View.GONE
-                    Utils.fadeOutAnim(nav_background, 100)
+                if (findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).panelState === PanelState.COLLAPSED) {
+                    findViewById<FrameLayout>(R.id.nav_menu_include).visibility = View.GONE
+                    Utils.fadeOutAnim(findViewById<TextView>(R.id.nav_background), 100)
                 }
             }
         })
     }
 
-    override fun dispatchTouchEvent(event: MotionEvent?): Boolean {
+    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
         super.dispatchTouchEvent(event)
         mScaleDetector.onTouchEvent(event)
         gestureDetector.onTouchEvent(event)
@@ -175,9 +180,9 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     }
 
     private fun scrollAdapter() {
-        scrollView.setOnScrollChangeListener { v: TwoWayNestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-            leftBar.scrollTo(0, scrollY)
-            topBar.scrollTo(scrollX, 0)
+        findViewById<TwoWayNestedScrollView>(R.id.scrollView).setOnScrollChangeListener { v: TwoWayNestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
+            findViewById<ScrollView>(R.id.leftBar).scrollTo(0, scrollY)
+            findViewById<HorizontalScrollView>(R.id.topBar).scrollTo(scrollX, 0)
         }
     }
 
@@ -194,13 +199,13 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     }
 
     private fun openHover() {
-        Utils.fadeInAnimBack(hover_background, 200)
-        Utils.fadeInAnim(hover_menu_include, 300)
+        Utils.fadeInAnimBack(findViewById<TextView>(R.id.hover_background), 200)
+        Utils.fadeInAnim(findViewById<ConstraintLayout>(R.id.hover_menu_include), 300)
     }
 
     private fun closeHover() {
-        Utils.fadeOutAnim(hover_background, 200)
-        Utils.fadeOutAnim(hover_menu_include, 300)
+        Utils.fadeOutAnim(findViewById<TextView>(R.id.hover_background), 200)
+        Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.hover_menu_include), 300)
     }
 
     private fun filter(text: String, list: ArrayList<Element>, recyclerView: RecyclerView) {
@@ -223,10 +228,10 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val handler = android.os.Handler()
         handler.postDelayed({
             if (recyclerView.adapter!!.itemCount == 0) {
-                Anim.fadeIn(empty_search_box, 300)
+                Anim.fadeIn(findViewById<LinearLayout>(R.id.empty_search_box), 300)
             }
             else {
-                empty_search_box.visibility = View.GONE
+                findViewById<LinearLayout>(R.id.empty_search_box).visibility = View.GONE
             }
         }, 10)
         recyclerView.adapter = ElementAdapter(filteredList, this, this)
@@ -241,59 +246,57 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     }
 
     override fun onBackPressed() {
-        if (nav_background.visibility == View.VISIBLE) {
-            sliding_layout.setPanelState(PanelState.COLLAPSED)
-            Utils.fadeOutAnim(nav_background, 150)
+        if (findViewById<TextView>(R.id.nav_background).visibility == View.VISIBLE) {
+            findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).setPanelState(PanelState.COLLAPSED)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.nav_background), 150)
             return
         }
-        if (hover_background.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(hover_background, 150)
-            Utils.fadeOutAnim(hover_menu_include, 150)
+        if (findViewById<TextView>(R.id.hover_background).visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.hover_background), 150)
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.hover_menu_include), 150)
             return
         }
-        if (search_menu_include.visibility == View.VISIBLE) {
-            Utils.fadeInAnim(nav_bar_main, 150)
-            Utils.fadeOutAnim(nav_background, 150)
-            Utils.fadeOutAnim(search_menu_include, 150)
-            Utils.fadeInAnim(more_btn, 300)
+        if (findViewById<FrameLayout>(R.id.search_menu_include).visibility == View.VISIBLE) {
+            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.nav_bar_main), 150)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.nav_background), 150)
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_menu_include), 150)
+            Utils.fadeInAnim(findViewById<FloatingActionButton>(R.id.more_btn), 300)
             return
         }
-        if (search_menu_include.visibility == View.VISIBLE && background.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(background, 150)
-            Utils.fadeOutAnim(filter_box, 150)
-            Utils.fadeInAnim(more_btn, 300)
+        if (findViewById<FrameLayout>(R.id.search_menu_include).visibility == View.VISIBLE && findViewById<TextView>(R.id.background).visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.background), 150)
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.filter_box), 150)
+            Utils.fadeInAnim(findViewById<FloatingActionButton>(R.id.more_btn), 300)
             return
-        } else {
-            super.onBackPressed()
-        }
+        } else { super.onBackPressed() }
     }
 
     private fun searchListener() {
-        search_box.setOnClickListener {
-            Utils.fadeInAnim(search_menu_include, 300)
-            nav_bar_main.visibility = View.GONE
-            Utils.fadeOutAnim(more_btn, 300)
+        findViewById<FrameLayout>(R.id.search_box).setOnClickListener {
+            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_menu_include), 300)
+            findViewById<FrameLayout>(R.id.nav_bar_main).visibility = View.GONE
+            Utils.fadeOutAnim(findViewById<FloatingActionButton>(R.id.more_btn), 300)
 
-            edit_element.requestFocus()
+            findViewById<EditText>(R.id.edit_element).requestFocus()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 window.insetsController?.show(WindowInsets.Type.ime())
             }
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
                 val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.showSoftInput(edit_element, InputMethodManager.SHOW_IMPLICIT)
+                imm.showSoftInput(findViewById<EditText>(R.id.edit_element), InputMethodManager.SHOW_IMPLICIT)
             }
-            Utils.fadeOutAnim(filter_box, 150)
-            Utils.fadeOutAnim(background, 150)
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.filter_box), 150)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.background), 150)
         }
-        close_element_search.setOnClickListener {
-            Utils.fadeOutAnim(search_menu_include, 300)
-            Utils.fadeInAnim(more_btn, 300)
-            nav_bar_main.visibility = View.VISIBLE
+        findViewById<FloatingActionButton>(R.id.close_element_search).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_menu_include), 300)
+            Utils.fadeInAnim(findViewById<FloatingActionButton>(R.id.more_btn), 300)
+            findViewById<FrameLayout>(R.id.nav_bar_main).visibility = View.VISIBLE
 
             val view = this.currentFocus
             if (view != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                    view_main.doOnLayout { window.insetsController?.hide(WindowInsets.Type.ime()) }
+                    findViewById<ConstraintLayout>(R.id.view_main).doOnLayout { window.insetsController?.hide(WindowInsets.Type.ime()) }
                 } else {
                     val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(view.windowToken, 0)
@@ -303,22 +306,22 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     }
 
     private fun mediaListeners() {
-        twitter_button.setOnClickListener {
+        findViewById<FloatingActionButton>(R.id.twitter_button).setOnClickListener {
             val uri = Uri.parse(getString(R.string.twitter))
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
-        facebook_button.setOnClickListener {
+        findViewById<FloatingActionButton>(R.id.facebook_button).setOnClickListener {
             val uri = Uri.parse(getString(R.string.facebook))
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
-        instagram_button.setOnClickListener {
+        findViewById<FloatingActionButton>(R.id.instagram_button).setOnClickListener {
             val uri = Uri.parse(getString(R.string.instagram))
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
-        homepage_button.setOnClickListener {
+        findViewById<FloatingActionButton>(R.id.homepage_button).setOnClickListener {
             val uri = Uri.parse(getString(R.string.homepage))
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
@@ -326,31 +329,35 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     }
 
     private fun onClickNav() {
-        menu_btn.setOnClickListener {
-            nav_menu_include.visibility = View.VISIBLE
-            nav_background.visibility = View.VISIBLE
-            Utils.fadeInAnimBack(nav_background, 200)
-            sliding_layout.panelState = PanelState.EXPANDED
+        findViewById<FloatingActionButton>(R.id.menu_btn).setOnClickListener {
+            findViewById<FrameLayout>(R.id.nav_menu_include).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.nav_background).visibility = View.VISIBLE
+            Utils.fadeInAnimBack(findViewById<TextView>(R.id.nav_background), 200)
+            findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).panelState = PanelState.EXPANDED
         }
-        nav_background.setOnClickListener {
-            search_menu_include.visibility = View.GONE
-            sliding_layout.setPanelState(PanelState.COLLAPSED)
-            nav_bar_main.visibility = View.VISIBLE
-            Utils.fadeOutAnim(nav_background, 100)
+        findViewById<TextView>(R.id.nav_background).setOnClickListener {
+            findViewById<FrameLayout>(R.id.search_menu_include).visibility = View.GONE
+            findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).setPanelState(PanelState.COLLAPSED)
+            findViewById<FrameLayout>(R.id.nav_bar_main).visibility = View.VISIBLE
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.nav_background), 100)
         }
-        solubility_btn.setOnClickListener {
+        findViewById<TextView>(R.id.pro_btn).setOnClickListener {
+            val intent = Intent(this, ProActivity::class.java)
+            startActivity(intent)
+        }
+        findViewById<TextView>(R.id.solubility_btn).setOnClickListener {
             val intent = Intent(this, TableActivity::class.java)
             startActivity(intent)
         }
-        isotopes_btn.setOnClickListener {
+        findViewById<TextView>(R.id.isotopes_btn).setOnClickListener {
             val intent = Intent(this, IsotopesActivityExperimental::class.java)
             startActivity(intent)
         }
-        dictionary_btn.setOnClickListener {
+        findViewById<TextView>(R.id.dictionary_btn).setOnClickListener {
             val intent = Intent(this, DictionaryActivity::class.java)
             startActivity(intent)
         }
-        blog_btn.setOnClickListener{
+        findViewById<TextView>(R.id.blog_btn).setOnClickListener{
             val packageManager = packageManager
             val blogURL = "https://www.jlindemann.se/homepage/blog"
             TabUtil.openCustomTab(blogURL, packageManager, this)
@@ -358,21 +365,21 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     }
 
     private fun hoverListeners(elements: ArrayList<Element>) {
-        h_name_btn.setOnClickListener { initName(elements) }
-        h_group_btn.setOnClickListener { initGroups(elements) }
-        h_electronegativity_btn.setOnClickListener { initElectro(elements) }
-        atomic_weight_btn.setOnClickListener { initWeight(elements) }
-        boiling_btn.setOnClickListener { initBoiling(elements) }
-        melting_point.setOnClickListener { initMelting(elements) }
-        h_phase_btn.setOnClickListener { initPhase(elements) }
-        h_year_btn.setOnClickListener { initYear(elements) }
-        h_fusion_btn.setOnClickListener { initHeat(elements) }
-        h_specific_btn.setOnClickListener { initSpecific(elements) }
-        h_vaporizaton_btn.setOnClickListener { initVape(elements) }
+        findViewById<TextView>(R.id.h_name_btn).setOnClickListener { initName(elements) }
+        findViewById<TextView>(R.id.h_group_btn).setOnClickListener { initGroups(elements) }
+        findViewById<TextView>(R.id.h_electronegativity_btn).setOnClickListener { initElectro(elements) }
+        findViewById<TextView>(R.id.atomic_weight_btn).setOnClickListener { initWeight(elements) }
+        findViewById<TextView>(R.id.boiling_btn).setOnClickListener { initBoiling(elements) }
+        findViewById<TextView>(R.id.melting_point).setOnClickListener { initMelting(elements) }
+        findViewById<TextView>(R.id.h_phase_btn).setOnClickListener { initPhase(elements) }
+        findViewById<TextView>(R.id.h_year_btn).setOnClickListener { initYear(elements) }
+        findViewById<TextView>(R.id.h_fusion_btn).setOnClickListener { initHeat(elements) }
+        findViewById<TextView>(R.id.h_specific_btn).setOnClickListener { initSpecific(elements) }
+        findViewById<TextView>(R.id.h_vaporizaton_btn).setOnClickListener { initVape(elements) }
     }
 
     private fun setupNavListeners() {
-        settings_btn.setOnClickListener {
+        findViewById<FloatingActionButton>(R.id.settings_btn).setOnClickListener {
             val intent = Intent(this, SettingsActivity::class.java)
             startActivity(intent)
         }
@@ -399,19 +406,19 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             }
         }
     }
-    private fun searchFilter(list: ArrayList<Element>, recyclerView: RecyclerView) {
-        filter_box.visibility = View.GONE
-        background.visibility = View.GONE
 
-        filter_btn.setOnClickListener {
-            Utils.fadeInAnim(filter_box, 150)
-            Utils.fadeInAnim(background, 150)
+    private fun searchFilter(list: ArrayList<Element>, recyclerView: RecyclerView) {
+        findViewById<ConstraintLayout>(R.id.filter_box).visibility = View.GONE
+        findViewById<TextView>(R.id.background).visibility = View.GONE
+        findViewById<FloatingActionButton>(R.id.filter_btn).setOnClickListener {
+            Utils.fadeInAnim(findViewById<ConstraintLayout>(R.id.filter_box), 150)
+            Utils.fadeInAnim(findViewById<TextView>(R.id.background), 150)
         }
-        background.setOnClickListener {
-            Utils.fadeOutAnim(filter_box, 150)
-            Utils.fadeOutAnim(background, 150)
+        findViewById<TextView>(R.id.background).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.filter_box), 150)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.background), 150)
         }
-        elmt_numb_btn2.setOnClickListener {
+        findViewById<TextView>(R.id.elmt_numb_btn2).setOnClickListener {
             val searchPreference = SearchPreferences(this)
             searchPreference.setValue(0)
 
@@ -419,13 +426,13 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             for (item in list) {
                 filtList.add(item)
             }
-            Utils.fadeOutAnim(filter_box, 150)
-            Utils.fadeOutAnim(background, 150)
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.filter_box), 150)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.background), 150)
             mAdapter.filterList(filtList)
             mAdapter.notifyDataSetChanged()
             recyclerView.adapter = ElementAdapter(filtList, this, this)
         }
-        electro_btn.setOnClickListener {
+        findViewById<TextView>(R.id.electro_btn).setOnClickListener {
             val searchPreference = SearchPreferences(this)
             searchPreference.setValue(1)
 
@@ -433,13 +440,13 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             for (item in list) {
                 filtList.add(item)
             }
-            Utils.fadeOutAnim(filter_box, 150)
-            Utils.fadeOutAnim(background, 150)
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.filter_box), 150)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.background), 150)
             mAdapter.filterList(filtList)
             mAdapter.notifyDataSetChanged()
             recyclerView.adapter = ElementAdapter(filtList, this, this)
         }
-        alphabet_btn.setOnClickListener {
+        findViewById<TextView>(R.id.alphabet_btn).setOnClickListener {
             val searchPreference = SearchPreferences(this)
             searchPreference.setValue(2)
 
@@ -447,8 +454,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             for (item in list) {
                 filtList.add(item)
             }
-            Utils.fadeOutAnim(filter_box, 150)
-            Utils.fadeOutAnim(background, 150)
+            Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.filter_box), 150)
+            Utils.fadeOutAnim(findViewById<TextView>(R.id.background), 150)
             filtList.sortWith(Comparator { lhs, rhs ->
                 if (lhs.element < rhs.element) -1 else if (lhs.element < rhs.element) 1 else 0
             })
@@ -458,75 +465,75 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         }
     }
 
+    private fun proChanges() {
+        findViewById<TextView>(R.id.pro_btn).text = getString(R.string.member_btn)
+    }
+
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        navLin.setPadding(left, 0, right, 0)
+        findViewById<LinearLayout>(R.id.navLin).setPadding(left, 0, right, 0)
 
-        val params = common_title_back_main.layoutParams as ViewGroup.LayoutParams
+        val params = findViewById<FrameLayout>(R.id.common_title_back_main).layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar_main)
-        common_title_back_main.layoutParams = params
+        findViewById<FrameLayout>(R.id.common_title_back_main).layoutParams = params
 
-        val params2 = nav_bar_main.layoutParams as ViewGroup.LayoutParams
+        val params2 = findViewById<FrameLayout>(R.id.nav_bar_main).layoutParams as ViewGroup.LayoutParams
         params2.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
-        nav_bar_main.layoutParams = params2
+        findViewById<FrameLayout>(R.id.nav_bar_main).layoutParams = params2
 
-        val params3 = more_btn.layoutParams as ViewGroup.MarginLayoutParams
+        val params3 = findViewById<FloatingActionButton>(R.id.more_btn).layoutParams as ViewGroup.MarginLayoutParams
         params3.bottomMargin = bottom + (resources.getDimensionPixelSize(R.dimen.nav_bar))/2 + (resources.getDimensionPixelSize(R.dimen.title_bar_elevation))
-        more_btn.layoutParams = params3
+        findViewById<FloatingActionButton>(R.id.more_btn).layoutParams = params3
 
-        val params4 = common_title_back_search.layoutParams as ViewGroup.LayoutParams
+        val params4 = findViewById<FrameLayout>(R.id.common_title_back_search).layoutParams as ViewGroup.LayoutParams
         params4.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back_search.layoutParams = params4
+        findViewById<FrameLayout>(R.id.common_title_back_search).layoutParams = params4
 
-        element_recyclerview.setPadding(
-            0,
-            resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top,
-            0,
-            resources.getDimensionPixelSize(R.dimen.title_bar))
+        findViewById<RecyclerView>(R.id.element_recyclerview).setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
 
-        val navSide = nav_content.layoutParams as ViewGroup.MarginLayoutParams
+        val navSide = findViewById<FrameLayout>(R.id.nav_content).layoutParams as ViewGroup.MarginLayoutParams
         navSide.rightMargin = right
         navSide.leftMargin = left
-        nav_content.layoutParams = navSide
+        findViewById<FrameLayout>(R.id.nav_content).layoutParams = navSide
 
-        val barSide = search_box.layoutParams as ViewGroup.MarginLayoutParams
+        val barSide = findViewById<FrameLayout>(R.id.search_box).layoutParams as ViewGroup.MarginLayoutParams
         barSide.rightMargin = right + resources.getDimensionPixelSize(R.dimen.search_margin_side)
         barSide.leftMargin = left + resources.getDimensionPixelSize(R.dimen.search_margin_side)
-        search_box.layoutParams = barSide
+        findViewById<FrameLayout>(R.id.search_box).layoutParams = barSide
 
-        val leftScrollBar = leftBar.layoutParams as ViewGroup.MarginLayoutParams
+        val leftScrollBar = findViewById<ScrollView>(R.id.leftBar).layoutParams as ViewGroup.MarginLayoutParams
         leftScrollBar.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_main) + resources.getDimensionPixelSize(R.dimen.left_bar)
-        leftBar.layoutParams = leftScrollBar
+        findViewById<ScrollView>(R.id.leftBar).layoutParams = leftScrollBar
 
-        val topScrollBar = topBar.layoutParams as ViewGroup.MarginLayoutParams
+        val topScrollBar = findViewById<HorizontalScrollView>(R.id.topBar).layoutParams as ViewGroup.MarginLayoutParams
         topScrollBar.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_main)
-        topBar.layoutParams = topScrollBar
+        findViewById<HorizontalScrollView>(R.id.topBar).layoutParams = topScrollBar
 
-        val numb = leftBar.layoutParams as ViewGroup.LayoutParams
+        val numb = findViewById<ScrollView>(R.id.leftBar).layoutParams as ViewGroup.LayoutParams
         numb.width = left + resources.getDimensionPixelSize(R.dimen.left_bar)
-        leftBar.layoutParams = numb
+        findViewById<ScrollView>(R.id.leftBar).layoutParams = numb
 
-        val cornerP = corner.layoutParams as ViewGroup.LayoutParams
+        val cornerP = findViewById<TextView>(R.id.corner).layoutParams as ViewGroup.LayoutParams
         cornerP.width = left + resources.getDimensionPixelSize(R.dimen.left_bar)
-        corner.layoutParams = cornerP
+        findViewById<TextView>(R.id.corner).layoutParams = cornerP
 
-        val cornerM = corner.layoutParams as ViewGroup.MarginLayoutParams
+        val cornerM = findViewById<TextView>(R.id.corner).layoutParams as ViewGroup.MarginLayoutParams
         cornerM.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_main)
-        corner.layoutParams = cornerM
+        findViewById<TextView>(R.id.corner).layoutParams = cornerM
 
-        val params5 = hover_menu_include.layoutParams as ViewGroup.MarginLayoutParams
+        val params5 = findViewById<ConstraintLayout>(R.id.hover_menu_include).layoutParams as ViewGroup.MarginLayoutParams
         params5.bottomMargin = bottom
-        hover_menu_include.layoutParams = params5
+        findViewById<ConstraintLayout>(R.id.hover_menu_include).layoutParams = params5
 
-        val params6 = scrollView.layoutParams as ViewGroup.MarginLayoutParams
+        val params6 = findViewById<TwoWayNestedScrollView>(R.id.scrollView).layoutParams as ViewGroup.MarginLayoutParams
         params6.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_main)
-        scrollView.layoutParams = params6
+        findViewById<TwoWayNestedScrollView>(R.id.scrollView).layoutParams = params6
 
-        val params7 = sliding_layout.layoutParams as ViewGroup.LayoutParams
+        val params7 = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).layoutParams as ViewGroup.LayoutParams
         params7.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_view)
-        sliding_layout.layoutParams = params7
+        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).layoutParams = params7
 
-        val searchEmptyImgPrm = empty_search_box.layoutParams as ViewGroup.MarginLayoutParams
+        val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
-        empty_search_box.layoutParams = searchEmptyImgPrm
+        findViewById<LinearLayout>(R.id.empty_search_box).layoutParams = searchEmptyImgPrm
     }
 }

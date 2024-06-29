@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Atomic</string>
+    <string name="personalization_settings">Anpassning</string>
+    <string name="open_table_button">Öppna Tabell</string>
+    <string name="element_description_title">Beskrivning</string>
+    <string name="element_more_title">Fler egenskaper</string>
+    <string name="element_speed_sound">Ljudhastighet</string>
+    <string name="element_elastic_modulus">Elasticitetsmodul</string>
+    <string name="element_poisson_ratio">Poisson\'s konstant</string>
+    <string name="favorite_settings_title">Favoriter</string>
+    <string name="favorite_settings_general">Allmänt</string>
+    <string name="favorite_settings_temperatures">Temperaturer</string>
+    <string name="favorite_settings_atomic_properties">Atomiska egenskaper</string>
+    <string name="favorite_settings_thermodynamics">Termodynamik</string>
+    <string name="favorite_settings_electromagnetic">Elektromagnetiska egenskaper</string>
+    <string name="favorite_settings_nuclear">Nukleär</string>
+    <string name="unit_settings_title">Tabell enheter</string>
+    <string name="unit_temperature">Temperaturer</string>
+    <string name="isotopes_title">Isotoper</string>
+    <string name="ph_title">ph_indikatorer</string>
+    <string name="other_settings">Avancerat</string>
+    <string name="experimental_title">Experimentella inställningar</string>
+    <string name="experimental_text">Fler experimentella inställningar</string>
+    <string name="clear_cache_title">Rensa Cache</string>
+    <string name="clear_cache_text">Cache storlek</string>
+    <string name="submit_activity_title">Rapportera fel</string>
+    <string name="submit_data_i">Datafel</string>
+    <string name="submit_bug">Bug</string>
+    <string name="submit_question">Fråga</string>
+    <string name="submit_issue">Fel</string>
+    <string name="description">Beskrivning</string>
+    <string name="submit_send">Rapportera fel</string>
+    <string name="submit_title">Rapportera fel</string>
+    <string name="submit_text">Rapportera buggar och datafel</string>
+    <string name="licenses_title">Licenser</string>
+    <string name="licenses_text">Licenser använda av Atomic</string>
+    <string name="info_title">Information</string>
+    <string name="info_text">App version och detaljer</string>
+    <string name="license_title">Licenser</string>
+    <string name="activity_table_title">Tabeller</string>
+    <string name="table_ph">pH-indikatorer</string>
+</resources>

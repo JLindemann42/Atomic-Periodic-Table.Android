@@ -54,6 +54,15 @@
     "element_specific_heat_capacity": "0.155 J/(g·K)",
     "element_vaporization_heat": "129 (kJ/mol)",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "1590 (m/s) [20°C]",
+
+    "young_modulus": "23.9 (GPa) [β-form]",
+    "poisson_ratio": "0.207 [β-form]",
+    "bulk_modulus": "30.5 (GPa) [β-form]",
+    "shear_modulus": "9.9 (GPa) [β-form]",
+
     "iso_1": "Yb-169",
     "iso_mass_1": "168.935190",
     "iso_half_1": "32.026 (days)",

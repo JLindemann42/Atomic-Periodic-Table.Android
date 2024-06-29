@@ -56,6 +56,15 @@
     "oxidation_state_neg": "3 2 1 0",
     "oxidation_state_pos": "1 2 3 5",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "2030 (m/s) [room temperature, hard-drawn]",
+
+    "young_modulus": "78 (GPa)",
+    "poisson_ratio": "0.44",
+    "bulk_modulus": "180 (GPa)",
+    "shear_modulus": "27 (GPa)",
+
     "iso_1": "Au-196",
     "iso_mass_1": "195.966570",
     "iso_half_1": "6.1669 (days)",

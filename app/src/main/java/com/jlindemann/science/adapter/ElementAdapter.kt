@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.preferences.SearchPreferences
-import kotlinx.android.synthetic.main.group_1.*
 
 class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnElementClickListener2, val con: Context) : RecyclerView.Adapter<ElementAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

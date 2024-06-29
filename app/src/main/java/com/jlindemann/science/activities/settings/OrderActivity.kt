@@ -5,21 +5,20 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ImageButton
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.OrderAdapter
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
-import kotlinx.android.synthetic.main.activity_equations.*
-import kotlinx.android.synthetic.main.activity_order_settings_page.*
-import kotlinx.android.synthetic.main.equations_info.*
 import java.util.*
 
-
 class OrderActivity : BaseActivity()  {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,14 +35,13 @@ class OrderActivity : BaseActivity()  {
         setContentView(R.layout.activity_order_settings_page) //REMEMBER: Never move any function calls above this
         val dataSet = listOf("Item 1", "Item 2", "Item 3", "Item 4", "Item 5")
         val mAdapter = OrderAdapter(dataSet)
-        val mList = ord_recycler
+        val mList = findViewById<DragDropSwipeRecyclerView>(R.id.ord_recycler)
         mList.layoutManager = LinearLayoutManager(this)
         mList.adapter = mAdapter
         mList.dragListener = onItemDragListener
 
-
-        view_ord.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        back_btn_ord.setOnClickListener {
+        findViewById<ConstraintLayout>(R.id.view_ord).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ImageButton>(R.id.back_btn_ord).setOnClickListener {
             this.onBackPressed()
         }
     }
@@ -59,15 +57,15 @@ class OrderActivity : BaseActivity()  {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        ord_recycler.setPadding(
+        findViewById<DragDropSwipeRecyclerView>(R.id.ord_recycler).setPadding(
             0,
             resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top,
             0,
             resources.getDimensionPixelSize(R.dimen.title_bar))
 
-        val params2 = common_title_back_ord.layoutParams as ViewGroup.LayoutParams
+        val params2 = findViewById<FrameLayout>(R.id.common_title_back_ord).layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back_ord.layoutParams = params2
+        findViewById<FrameLayout>(R.id.common_title_back_ord).layoutParams = params2
     }
 
 

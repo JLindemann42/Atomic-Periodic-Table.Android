@@ -58,6 +58,10 @@
     "oxidation_state_neg": "4 3 2 10",
     "oxidation_state_pos": "1 2 3 4",
 
+    "speed_of_sound_gas": "---",
+    "speed_of_sound_liquid": "---",
+    "speed_of_sound_solid": "5400 (m/s) [20°C]",
+
     "iso_1": "Ge-58",
     "iso_mass_1": "57.99101",
     "iso_half_1": "---",

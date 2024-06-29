@@ -9,8 +9,13 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ImageButton
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.ElectrodeAdapter
@@ -19,10 +24,6 @@ import com.jlindemann.science.model.Series
 import com.jlindemann.science.model.SeriesModel
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
-import kotlinx.android.synthetic.main.activity_dictionary.search_btn
-import kotlinx.android.synthetic.main.activity_dictionary.title_box
-import kotlinx.android.synthetic.main.activity_electrode.*
-import kotlinx.android.synthetic.main.activity_equations.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -49,22 +50,22 @@ class ElectrodeActivity : BaseActivity() {
         recyclerView()
         clickSearch()
 
-        view_ele.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        back_btn.setOnClickListener {
+        findViewById<FrameLayout>(R.id.view_ele).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
             this.onBackPressed()
         }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        e_view.setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
+        findViewById<RecyclerView>(R.id.e_view).setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
 
-        val params2 = common_title_back_elo.layoutParams as ViewGroup.LayoutParams
+        val params2 = findViewById<FrameLayout>(R.id.common_title_back_elo).layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        common_title_back_elo.layoutParams = params2
+        findViewById<FrameLayout>(R.id.common_title_back_elo).layoutParams = params2
 
-        val searchEmptyImgPrm = empty_search_box_ele.layoutParams as ViewGroup.MarginLayoutParams
+        val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_ele).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
-        empty_search_box_ele.layoutParams = searchEmptyImgPrm
+        findViewById<LinearLayout>(R.id.empty_search_box_ele).layoutParams = searchEmptyImgPrm
     }
 
     private fun recyclerView() {
@@ -78,7 +79,7 @@ class ElectrodeActivity : BaseActivity() {
 
         adapter.notifyDataSetChanged()
 
-        edit_ele.addTextChangedListener(object : TextWatcher {
+        findViewById<EditText>(R.id.edit_ele).addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(
                 s: CharSequence,
                 start: Int,
@@ -108,10 +109,10 @@ class ElectrodeActivity : BaseActivity() {
         val handler = android.os.Handler()
         handler.postDelayed({
             if (recyclerView.adapter!!.itemCount == 0) {
-                Anim.fadeIn(empty_search_box_ele, 300)
+                Anim.fadeIn(findViewById<LinearLayout>(R.id.empty_search_box_ele), 300)
             }
             else {
-                empty_search_box_ele.visibility = View.GONE
+                findViewById<LinearLayout>(R.id.empty_search_box_ele).visibility = View.GONE
             }
         }, 10)
         mAdapter.filterList(filteredList)
@@ -120,20 +121,20 @@ class ElectrodeActivity : BaseActivity() {
     }
 
     private fun clickSearch() {
-        search_btn.setOnClickListener {
-            Utils.fadeInAnim(search_bar_ele, 150)
-            Utils.fadeOutAnim(title_box, 1)
+        findViewById<ImageButton>(R.id.search_btn).setOnClickListener {
+            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_ele), 150)
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box), 1)
 
-            edit_ele.requestFocus()
+            findViewById<EditText>(R.id.edit_ele).requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(edit_ele, InputMethodManager.SHOW_IMPLICIT)
+            imm.showSoftInput(findViewById<EditText>(R.id.edit_ele), InputMethodManager.SHOW_IMPLICIT)
         }
-        close_ele_search.setOnClickListener {
-            Utils.fadeOutAnim(search_bar_ele, 1)
+        findViewById<ImageButton>(R.id.close_ele_search).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_ele), 1)
 
             val delayClose = Handler()
             delayClose.postDelayed({
-                Utils.fadeInAnim(title_box, 150)
+                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 150)
             }, 151)
 
             val view = this.currentFocus

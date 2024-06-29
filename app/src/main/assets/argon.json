@@ -71,6 +71,10 @@
     "oxidation_state_neg": "0",
     "oxidation_state_pos": "",
 
+    "speed_of_sound_gas": "323 (m/s) [27°C]",
+    "speed_of_sound_liquid": "813 (m/s) [-185.9°C]",
+    "speed_of_sound_solid": "---",
+
     "iso_1": "Ar-29",
     "iso_mass_1": "---",
     "iso_half_1": "~4×10^−20 (s)",

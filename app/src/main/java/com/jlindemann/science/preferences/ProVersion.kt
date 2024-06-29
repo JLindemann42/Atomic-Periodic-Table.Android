@@ -10,7 +10,7 @@ class ProVersion(context : Context) {
     val preference = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
     fun getValue() : Int{
-        return preference.getInt (PREFERENCE_VALUE, 1) //2 == No PRO User, 1 == PRO USER
+        return preference.getInt (PREFERENCE_VALUE, 1) //1 == NO PRO USER, 100 == PRO USER
     }
 
     fun setValue(count:Int) {

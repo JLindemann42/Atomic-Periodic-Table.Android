@@ -1,0 +1,435 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <FrameLayout
+        android:id="@+id/view_pro"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?attr/backgroundColor">
+
+        <TextView
+            android:id="@+id/background_pro"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true" />
+
+            <ScrollView
+                android:id="@+id/pro_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/pro_title_downstate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="28dp"
+                        android:text="@string/pro_title"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="32sp"
+                        android:textStyle="normal" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                <LinearLayout
+                    android:id="@+id/pro_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorSurfaceVariant"
+                    android:elevation="2dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/pro_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/margin"
+                            android:clickable="true"
+                            android:drawableStart="@drawable/ic_star"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="?attr/colorOnSurfaceVariant"
+                            android:elevation="1dp"
+                            android:focusable="true"
+                            android:foreground="@drawable/c_ripple"
+                            android:gravity="center_vertical"
+                            android:text="@string/pro_title"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurfaceVariant" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:padding="@dimen/margin"
+                            android:text="@string/pro_descr"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/i_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/margin"
+                        android:layout_marginTop="@dimen/margin"
+                        android:layout_marginEnd="@dimen/margin"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorSurface"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:gravity="top"
+                        android:paddingStart="18dp"
+                        android:paddingTop="18dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="18dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:text="PRO Features:"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:text="- Additional Data:"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:text="- Sound of Speed"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:text="- Poisson Ratio"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:text="- Elastic Modulus (Young's, Bulk and Shear)"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:text="- And more"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:text="- Additional Tables:"/>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:layout_marginStart="@dimen/margin"
+                                android:text="- Poisson Ratio for rock-materials"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:text="- Future data additions"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:text="- Early access to work-in-progress features"/>
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="72dp">
+
+                        <TextView
+                            android:id="@+id/pro_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="30dp"
+                            android:textStyle="bold"
+                            android:textSize="16sp"
+                            android:textColor="?attr/colorPrimary"
+                            android:text="1.99 USD"/>
+
+                        <TextView
+                            android:id="@+id/buy_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="@dimen/margin"
+                            android:layout_marginTop="@dimen/margin"
+                            android:layout_marginEnd="@dimen/margin"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:background="@drawable/toast"
+                            android:backgroundTint="?attr/colorPrimary"
+                            android:clickable="true"
+                            android:elevation="2dp"
+                            android:focusable="true"
+                            android:layout_gravity="end"
+                            android:gravity="center_vertical"
+                            android:paddingEnd="24dp"
+                            android:paddingStart="24dp"
+                            android:foreground="@drawable/c_ripple"
+                            android:textStyle="normal"
+                            android:text="@string/get_pro_title"
+                            android:textSize="16sp"
+                            android:textColor="?attr/colorOnPrimary" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/member_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="@dimen/margin_space"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:background="@drawable/toast"
+                            android:visibility="gone"
+                            android:backgroundTint="?attr/colorSurfaceVariant"
+                            android:elevation="2dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/member_title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:clickable="true"
+                                    android:drawableStart="@drawable/ic_star"
+                                    android:drawablePadding="8dp"
+                                    android:drawableTint="?attr/colorPrimary"
+                                    android:elevation="1dp"
+                                    android:focusable="true"
+                                    android:foreground="@drawable/c_ripple"
+                                    android:gravity="center_vertical"
+                                    android:text="@string/member_title"
+                                    android:textStyle="bold"
+                                    android:textColor="?attr/colorPrimary" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:padding="@dimen/margin"
+                                    android:text="@string/member_desch"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/member_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginStart="@dimen/margin"
+                                android:layout_marginTop="@dimen/margin"
+                                android:layout_marginEnd="@dimen/margin"
+                                android:background="@drawable/toast"
+                                android:backgroundTint="?attr/colorSurface"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:gravity="top"
+                                android:paddingStart="18dp"
+                                android:paddingTop="18dp"
+                                android:paddingEnd="18dp"
+                                android:paddingBottom="18dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:text="PRO Features:"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:text="- Additional Data:"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:text="- Sound of Speed"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:text="- Poisson Ratio"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:text="- Elastic Modulus (Young's, Bulk and Shear)"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:text="- And more"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:text="- Additional Tables:"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:text="- Poisson Ratio for rock-materials"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:text="- Future data additions"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:text="- Early access to work-in-progress features"/>
+
+                            </LinearLayout>
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="72dp">
+
+                                <TextView
+                                    android:id="@+id/already_member"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="40dp"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:layout_marginTop="@dimen/margin"
+                                    android:layout_marginEnd="@dimen/margin"
+                                    android:layout_marginBottom="@dimen/margin"
+                                    android:background="@drawable/toast"
+                                    android:backgroundTint="?attr/colorSurfaceVariant"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:layout_gravity="end"
+                                    android:gravity="center_vertical"
+                                    android:paddingEnd="24dp"
+                                    android:paddingStart="24dp"
+                                    android:textStyle="normal"
+                                    android:text="@string/member_already"
+                                    android:textSize="16sp"
+                                    android:textColor="?attr/colorPrimary" />
+                            </FrameLayout>
+                        </LinearLayout>
+
+                    </FrameLayout>
+                </LinearLayout>
+            </ScrollView>
+    <FrameLayout
+            android:id="@+id/common_title_back_pro"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:elevation="1dp"
+            android:background="?attr/colorSurface"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/common_title_back_pro_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/title_box_pro"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                    <ImageButton
+                        android:id="@+id/back_btn_pro"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_vertical"
+                        android:rotation="180"
+                        app:tint="?attr/colorOnSecondaryContainer"
+                        android:src="@drawable/ic_arrow_back_whit" />
+
+                    <TextView
+                        android:id="@+id/pro_title"
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:alpha="0.9"
+                        android:layout_height="56dp"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/pro_title"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
+</FrameLayout>

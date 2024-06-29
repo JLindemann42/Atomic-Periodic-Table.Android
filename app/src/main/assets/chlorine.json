@@ -70,6 +70,11 @@
     "oxidation_state_neg": "1",
     "oxidation_state_pos": "1 2 3 4 5 6 7",
 
+    "young_modulus": "---",
+    "poisson_ratio": "---",
+    "bulk_modulus": "1.1 (GPa) [liquid]",
+    "shear_modulus": "---",
+
     "iso_1": "Cl-28",
     "iso_mass_1": "28.02954",
     "iso_half_1": "---",
