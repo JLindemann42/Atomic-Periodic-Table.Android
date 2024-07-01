@@ -264,6 +264,24 @@
                         android:text="Vaporization Heat"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
+                    <TextView
+                        android:id="@+id/h_electrical_type_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/fav_electronegativity"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/colorOnSecondaryContainer"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="9dp"
+                        android:paddingBottom="9dp"
+                        android:text="Electrical Type"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
+
                 </LinearLayout>
             </ScrollView>
         </FrameLayout>

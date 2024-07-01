@@ -444,4 +444,35 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
         }, 10)
     }
 
+    //New functions for updating tables. Trying to minimize code
+    fun initTableChange(list: ArrayList<Element>, jsonName: String) {
+        initName(list)
+        closeHover()
+        val delay = Handler()
+        delay.postDelayed({
+            for (item in list) {
+                val name = item.element
+                val extText = "_text"
+                val eView = "$name$extText"
+                val resID = resources.getIdentifier(eView, "id", packageName)
+
+                val iText = findViewById<TextView>(resID)
+
+                var jsonstring : String? = null
+                try {
+                    val ext = ".json"
+                    val ElementJson: String? = "$name$ext"
+                    val inputStream: InputStream = assets.open(ElementJson.toString())
+                    jsonstring = inputStream.bufferedReader().use { it.readText() }
+
+                    val jsonArray = JSONArray(jsonstring)
+                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    val outputText = jsonObject.optString(jsonName, "---")
+                    iText.text = outputText
+                }
+                catch(e: IOException) { }
+            }
+        }, 10)
+    }
+
 }

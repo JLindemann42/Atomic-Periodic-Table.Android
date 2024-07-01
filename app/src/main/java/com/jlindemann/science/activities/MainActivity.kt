@@ -29,8 +29,11 @@ import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.extensions.TableExtension
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
+import com.jlindemann.science.model.HoverFilterMenu
+import com.jlindemann.science.model.HoverFilterMenuList
 import com.jlindemann.science.preferences.ElectronegativityPreference
 import com.jlindemann.science.preferences.ElementSendAndLoad
+import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.SearchPreferences
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.TabUtil
@@ -93,7 +96,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         findViewById<ConstraintLayout>(R.id.view_main).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         //Check if PRO version and if make changes:
-        val proPref = ElectronegativityPreference(this)
+        val proPref = ProVersion(this)
         var proPrefValue = proPref.getValue()
         if (proPrefValue==100) {
             proChanges()
@@ -376,6 +379,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         findViewById<TextView>(R.id.h_fusion_btn).setOnClickListener { initHeat(elements) }
         findViewById<TextView>(R.id.h_specific_btn).setOnClickListener { initSpecific(elements) }
         findViewById<TextView>(R.id.h_vaporizaton_btn).setOnClickListener { initVape(elements) }
+        findViewById<TextView>(R.id.h_electrical_type_btn).setOnClickListener { initTableChange(elements, "electrical_type") }
     }
 
     private fun setupNavListeners() {
