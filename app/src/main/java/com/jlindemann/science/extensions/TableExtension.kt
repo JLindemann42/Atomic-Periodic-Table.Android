@@ -455,7 +455,6 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
                 val extText = "_text"
                 val eView = "$name$extText"
                 val resID = resources.getIdentifier(eView, "id", packageName)
-
                 val iText = findViewById<TextView>(resID)
 
                 var jsonstring : String? = null

@@ -282,6 +282,82 @@
                         android:text="Electrical Type"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
+                    <TextView
+                        android:id="@+id/h_poisson_ratio_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_more"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/colorSecondary"
+                        android:drawableEnd="@drawable/ic_star"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="9dp"
+                        android:text="Poisson's Ratio"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
+
+                    <TextView
+                        android:id="@+id/h_young_modulus_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_more"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/colorSecondary"
+                        android:drawableEnd="@drawable/ic_star"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="9dp"
+                        android:text="Young's Modulus"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
+
+                    <TextView
+                        android:id="@+id/h_bulk_modulus_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_more"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/colorSecondary"
+                        android:drawableEnd="@drawable/ic_star"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="9dp"
+                        android:text="Bulk Modulus"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
+
+                    <TextView
+                        android:id="@+id/h_shear_modulus_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_more"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/colorSecondary"
+                        android:drawableEnd="@drawable/ic_star"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="9dp"
+                        android:text="Shear Modulus"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
+
                 </LinearLayout>
             </ScrollView>
         </FrameLayout>

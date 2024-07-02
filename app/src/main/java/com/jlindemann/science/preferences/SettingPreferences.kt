@@ -20,7 +20,6 @@ class offlinePreference(context : Context) {
     }
 }
 
-
 class isoPref(context : Context) {
     val PREFERENCE_NAME = "iso_pref"
     val PREFERENCE_VALUE = "iso_value"
