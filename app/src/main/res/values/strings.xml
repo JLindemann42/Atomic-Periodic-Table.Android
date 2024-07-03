@@ -2,20 +2,19 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v2.2.0-Build.78</string>
+    <string name="app_version" translatable="false">v2.2.2-Build.81</string>
 
     <string name="open_table_button">Open table</string>
 
     <!-- PRO Activity -->
-    <string name="pro_title" translatable="false">PRO Version</string>
-    <string name="get_pro_title" translatable="false">Get PRO Version</string>
+    <string name="pro_title">PRO Version</string>
+    <string name="get_pro_title">Get PRO Version</string>
     <string name="pro_descr" translatable="false">\'Atomic - Periodic Table\' is a free and open-source application made by me on my spare-time in Sweden. Buy purchasing the PRO-version you help support the development of additional features as well as unlocking some more.</string>
-    <string name="member_title" translatable="false">PRO Member Page</string>
+    <string name="member_title">PRO Member Page</string>
     <string name="member_desch" translatable="false">Thanks for supporting the development of \'Atomic - Periodic Table\'. On this page information about your PRO perks will be available as more PRO features gets added.</string>
-    <string name="member_already" translatable="false">You\'re a PRO member!</string>
+    <string name="member_already">You\'re a PRO member!</string>
 
-    <string name="member_btn" translatable="false">Your PRO Perks</string>
-
+    <string name="member_btn">Your PRO Perks</string>
 
     <!-- Activity Element Info-->
     <string name="element_description_title">Description</string>
@@ -27,7 +26,6 @@
     <string name="element_bulk_modulus" translatable="false">Bulk modulus:</string>
     <string name="element_poisson_ratio">Poisson\'s ratio:</string>
 
-
     <!-- Activity Favorite Settings -->
     <string name="favorite_settings_title">Favorite Bar</string>
     <string name="favorite_settings_general">General</string>
@@ -36,7 +34,6 @@
     <string name="favorite_settings_thermodynamics">Thermodynamic</string>
     <string name="favorite_settings_electromagnetic">Electromagnetic Properties</string>
     <string name="favorite_settings_nuclear">Nuclear</string>
-
 
     <!-- Activity Unit Settings -->
     <string name="unit_settings_title">Table Units</string>
@@ -75,42 +72,41 @@
     <string name="activity_table_title">Tables</string>
     <string name="table_ph">pH-Indicators</string>
     <string name="table_ph_text" translatable="false">A pH-indicator table for colors on different acid/ base levels</string>
-    <string name="table_electrochemical" translatable="false">Electrochemical Series</string>
+    <string name="table_electrochemical">Electrochemical Series</string>
     <string name="table_electrochemical_text" translatable="false">A table with an electrochemical series, sorted by (-) to (+) voltage</string>
-    <string name="table_equations" translatable="false">Formulas</string>
+    <string name="table_equations">Formulas</string>
     <string name="table_equations_text" translatable="false">A table containing formulas for math, physics and chemistry</string>
-    <string name="table_solubility" translatable="false">Solubility Table</string>
+    <string name="table_solubility">Solubility Table</string>
     <string name="table_solubility_text" translatable="false">A table with information of different substances solubility</string>
-    <string name="table_ionization" translatable="false">Ionization Energies</string>
+    <string name="table_ionization">Ionization Energies</string>
     <string name="table_ionization_text" translatable="false">A table with different elements ionization energies</string>
-    <string name="table_poisson" translatable="false">Poisson Ratio Table</string>
+    <string name="table_poisson">Poisson Ratio Table</string>
     <string name="table_poisson_text" translatable="false">A table with poissons ratio for different rocks, soils, minerals and other materials</string>
     <string name="table_nuclide" translatable="false">Table of Nuclides</string>
     <string name="table_nuclide_text" translatable="false">A two-dimensional table of nuclide, with color differentiating decay type</string>
 
-    <string name="chip_rocks" translatable="false">Rocks</string>
-    <string name="chip_soils" translatable="false">Soils</string>
-    <string name="chip_minerals" translatable="false">Minerals</string>
+    <string name="chip_rocks">Rocks</string>
+    <string name="chip_soils">Soils</string>
+    <string name="chip_minerals">Minerals</string>
 
     <!-- Activity Unit-->
-    <string name="activity_unit_title" translatable="false">Table Units</string>
+    <string name="activity_unit_title">Table Units</string>
 
     <!-- Activity Equations -->
-    <string name="activity_equations_title" translatable="false">Formulas</string>
+    <string name="activity_equations_title">Formulas</string>
 
     <!-- Activity pH -->
-    <string name="activity_ph_title" translatable="false">pH Indicators</string>
-    <string name="activity_ph_acid" translatable="false">Acid</string>
-    <string name="activity_ph_neutral" translatable="false">Neutral</string>
-    <string name="activity_ph_alkaline" translatable="false">Alkaline</string>
+    <string name="activity_ph_title">pH Indicators</string>
+    <string name="activity_ph_acid">Acid</string>
+    <string name="activity_ph_neutral">Neutral</string>
+    <string name="activity_ph_alkaline">Alkaline</string>
     <string name="activity_ph_methyl_orange" translatable="false">Methyl-orange</string>
     <string name="activity_ph_bromothymol_blue" translatable="false">Bromothymol Blue</string>
     <string name="activity_ph_congo_red" translatable="false">Congo Red</string>
     <string name="activity_ph_phenolphthalein" translatable="false">Phenolphthalein</string>
 
     <!-- Activity Ion -->
-    <string name="activity_io_title" translatable="false">Ionization Energies</string>
-
+    <string name="activity_io_title">Ionization Energies</string>
 
     <!-- Social-Media Links-->
     <string name="twitter" translatable="false">https://www.twitter.com/jlindemanndev</string>
@@ -118,7 +114,7 @@
     <string name="facebook" translatable="false">https://www.facebook.com/jlindemanndev</string>
     <string name="homepage" translatable="false">https://www.jlindemann.se/homepage</string>
 
-    <string name="solubility_info_t" translatable="false">Solubility Help</string>
+    <string name="solubility_info_t">Solubility Help</string>
     <string name="solubility_info_c" translatable="false">"S: Soluble\nSs: Slightly Soluble\nI: Insoluble"</string>
 
     <string name="electrochemical_series" translatable="false">Electrochemical Series</string>
@@ -126,16 +122,15 @@
 
     <string name="short_voltage" translatable="false"> (Volt)</string>
 
-    <string name="data_issue" translatable="false">Data Issue</string>
-    <string name="bug" translatable="false">Bug</string>
-    <string name="question" translatable="false">Question</string>
+    <string name="data_issue">Data Issue</string>
+    <string name="bug">Bug</string>
+    <string name="question">Question</string>
 
     <!-- Dictionary -->
-    <string name="chip_chemistry" translatable="false">Chemistry</string>
-    <string name="chip_physics" translatable="false">Physics</string>
-    <string name="chip_math" translatable="false">Mathematics</string>
-    <string name="chip_reactions" translatable="false">Reactions</string>
-
+    <string name="chip_chemistry">Chemistry</string>
+    <string name="chip_physics">Physics</string>
+    <string name="chip_math">Mathematics</string>
+    <string name="chip_reactions">Reactions</string>
 
     <string name="wikipedia_license" translatable="false">Wikipedia Commons</string>
     <string name="wikipedia_license_text" translatable="false">CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL SERVICES.
@@ -146,6 +141,6 @@
     <string name="sothree_license_text" translatable="false">Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
     \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>
     <string name="appwidget_text" translatable="false">EXAMPLE</string>
-    <string name="add_widget" translatable="false">Add widget</string>
+    <string name="add_widget">Add widget</string>
 
 </resources>

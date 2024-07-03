@@ -18,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.*
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.preferences.offlinePreference
 import com.jlindemann.science.settings.ExperimentalActivity
 import com.jlindemann.science.utils.Utils
@@ -64,9 +65,13 @@ class SettingsActivity : BaseActivity() {
         initializeCache()
         cacheSettings()
         initOfflineSwitches()
+        initNavSwitches()
 
         findViewById<RelativeLayout>(R.id.offline_settings).setOnClickListener {
             findViewById<SwitchCompat>(R.id.offline_internet_switch).toggle()
+        }
+        findViewById<RelativeLayout>(R.id.nav_bar_settings).setOnClickListener {
+            findViewById<SwitchCompat>(R.id.nav_bar_switch).toggle()
         }
 
         findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -147,13 +152,19 @@ class SettingsActivity : BaseActivity() {
         findViewById<SwitchCompat>(R.id.offline_internet_switch).isChecked = offlinePrefValue == 1
 
         findViewById<SwitchCompat>(R.id.offline_internet_switch).setOnCheckedChangeListener { compoundButton, b ->
-            if (findViewById<SwitchCompat>(R.id.offline_internet_switch).isChecked) {
-                val offlinePreference = offlinePreference(this)
-                offlinePreference.setValue(1)
-            } else {
-                val offlinePreference = offlinePreference(this)
-                offlinePreference.setValue(0)
-            }
+            if (findViewById<SwitchCompat>(R.id.offline_internet_switch).isChecked) { offlinePreferences.setValue(1) }
+            else { offlinePreferences.setValue(0) }
+        }
+    }
+
+    private fun initNavSwitches() {
+        val navPreferences = hideNavPreference(this)
+        val navPrefValue = navPreferences.getValue()
+        findViewById<SwitchCompat>(R.id.nav_bar_switch).isChecked = navPrefValue == 1
+
+        findViewById<SwitchCompat>(R.id.nav_bar_switch).setOnCheckedChangeListener { compoundButton, b ->
+            if (findViewById<SwitchCompat>(R.id.nav_bar_switch).isChecked) { navPreferences.setValue(1) }
+            else { navPreferences.setValue(0) }
         }
     }
 

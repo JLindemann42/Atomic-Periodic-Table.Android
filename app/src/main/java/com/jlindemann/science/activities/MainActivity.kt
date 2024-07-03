@@ -29,10 +29,14 @@ import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.extensions.TableExtension
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
+import com.jlindemann.science.model.HoverFilterMenu
+import com.jlindemann.science.model.HoverFilterMenuList
 import com.jlindemann.science.preferences.ElectronegativityPreference
 import com.jlindemann.science.preferences.ElementSendAndLoad
+import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.SearchPreferences
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.utils.TabUtil
 import com.jlindemann.science.utils.Utils
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -85,7 +89,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).panelState = PanelState.COLLAPSED
         searchFilter(elements, recyclerView)
         mediaListeners()
-        hoverListeners(elements)
         initName(elements)
         findViewById<FloatingActionButton>(R.id.more_btn).setOnClickListener { openHover() }
         findViewById<TextView>(R.id.hover_background).setOnClickListener { closeHover() }
@@ -93,11 +96,13 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         findViewById<ConstraintLayout>(R.id.view_main).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         //Check if PRO version and if make changes:
-        val proPref = ElectronegativityPreference(this)
+        val proPref = ProVersion(this)
         var proPrefValue = proPref.getValue()
         if (proPrefValue==100) {
             proChanges()
         }
+        hoverListeners(elements, proPrefValue)
+
 
         val handler = android.os.Handler()
         handler.postDelayed({
@@ -113,8 +118,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                 mScale += scale
                 if (mScale < 1f)
                     mScale = 1f
-                if (mScale > 12.5f)
-                    mScale = 12.5f
+                if (mScale > 1f) //temp disabled, 12.5 default
+                    mScale = 1f
                 val scaleAnimation = ScaleAnimation(
                     1f / pScale,
                     1f / mScale,
@@ -140,19 +145,28 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                 return true
             }
         })
+        val hideNavPref = hideNavPreference(this)
 
         findViewById<TwoWayNestedScrollView>(R.id.scrollView).getViewTreeObserver()
             .addOnScrollChangedListener(object : OnScrollChangedListener {
                 var y = 0f
                 override fun onScrollChanged() {
-                    if (findViewById<TwoWayNestedScrollView>(R.id.scrollView).getScrollY() > y) {
-                        Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.nav_bar_main), 150)
-                        Utils.fadeOutAnim(findViewById<FloatingActionButton>(R.id.more_btn), 150)
-                    } else {
-                        Utils.fadeInAnim(findViewById<FrameLayout>(R.id.nav_bar_main), 150)
-                        Utils.fadeInAnim(findViewById<FloatingActionButton>(R.id.more_btn), 150)
+                    val hideNavPrefValue = hideNavPref.getValue()
+
+                    if (hideNavPrefValue == 1) {
+                        if (findViewById<TwoWayNestedScrollView>(R.id.scrollView).getScrollY() > y) {
+                            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.nav_bar_main), 150)
+                            Utils.fadeOutAnim(
+                                findViewById<FloatingActionButton>(R.id.more_btn),
+                                150
+                            )
+                        } else {
+                            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.nav_bar_main), 150)
+                            Utils.fadeInAnim(findViewById<FloatingActionButton>(R.id.more_btn), 150)
+                        }
+                        y = findViewById<TwoWayNestedScrollView>(R.id.scrollView).getScrollY()
+                            .toFloat()
                     }
-                    y = findViewById<TwoWayNestedScrollView>(R.id.scrollView).getScrollY().toFloat()
                 }
             })
 
@@ -364,7 +378,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         }
     }
 
-    private fun hoverListeners(elements: ArrayList<Element>) {
+    private fun hoverListeners(elements: ArrayList<Element>, proValue: Int) {
         findViewById<TextView>(R.id.h_name_btn).setOnClickListener { initName(elements) }
         findViewById<TextView>(R.id.h_group_btn).setOnClickListener { initGroups(elements) }
         findViewById<TextView>(R.id.h_electronegativity_btn).setOnClickListener { initElectro(elements) }
@@ -376,6 +390,33 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         findViewById<TextView>(R.id.h_fusion_btn).setOnClickListener { initHeat(elements) }
         findViewById<TextView>(R.id.h_specific_btn).setOnClickListener { initSpecific(elements) }
         findViewById<TextView>(R.id.h_vaporizaton_btn).setOnClickListener { initVape(elements) }
+        findViewById<TextView>(R.id.h_electrical_type_btn).setOnClickListener { initTableChange(elements, "electrical_type") }
+
+        //Check if user has PRO version on not and give additional features if.
+        findViewById<TextView>(R.id.h_poisson_ratio_btn).setOnClickListener {
+            if (proValue == 1) {
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent) }
+            if (proValue == 100) { initTableChange(elements, "poisson_ratio") }
+        }
+        findViewById<TextView>(R.id.h_young_modulus_btn).setOnClickListener {
+            if (proValue == 1) {
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent) }
+            if (proValue == 100) { initTableChange(elements, "young_modulus") }
+        }
+        findViewById<TextView>(R.id.h_bulk_modulus_btn).setOnClickListener {
+            if (proValue == 1) {
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent) }
+            if (proValue == 100) { initTableChange(elements, "bulk_modulus") }
+        }
+        findViewById<TextView>(R.id.h_shear_modulus_btn).setOnClickListener {
+            if (proValue == 1) {
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent) }
+            if (proValue == 100) { initTableChange(elements, "shear_modulus") }
+        }
     }
 
     private fun setupNavListeners() {
