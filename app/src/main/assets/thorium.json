@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AApxttohpRY2SSCghZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Thorium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/1/13/Thorium_sample_0.1g.jpg",
     "description": "Thorium is a weakly radioactive metallic chemical element with the symbol Th and atomic number 90. Thorium is silvery and tarnishes black when it is exposed to air, forming thorium dioxide; it is moderately hard, malleable, and has a high melting point. Thorium is an electropositive actinide whose chemistry is dominated by the +4 oxidation state; it is quite reactive and can ignite in air when finely divided.",
@@ -60,6 +61,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "2490 (m/s) [20°C]",
+
+    "mohs_hardness": "3.0",
+    "vickers_hardness": "294-687 (MPa)",
+    "brinell_hardness": "390-1500 (MPa)",
 
     "young_modulus": "79 (GPa)",
     "poisson_ratio": "0.27",

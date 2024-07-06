@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AA5dwuMLRN8zo7h3SZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Palladium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Palladium_%2846_Pd%29.jpg",
     "description": "Palladium is a chemical element with the symbol Pd and atomic number 46. It is a rare and lustrous silvery-white metal discovered in 1803 by the English chemist William Hyde Wollaston. He named it after the asteroid Pallas, which was itself named after the epithet of the Greek goddess Athena, acquired by her when she slew Pallas. Palladium, platinum, rhodium, ruthenium, iridium and osmium form a group of elements referred to as the platinum group metals (PGMs). They have similar chemical properties, but palladium has the lowest melting point and is the least dense of them.",
@@ -59,6 +60,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "3070 (m/s) [20°C]",
+
+    "mohs_hardness": "4.75",
+    "vickers_hardness": "400-600 (MPa)",
+    "brinell_hardness": "320-610 (MPa)",
 
     "young_modulus": "121 (GPa)",
     "poisson_ratio": "0.39",

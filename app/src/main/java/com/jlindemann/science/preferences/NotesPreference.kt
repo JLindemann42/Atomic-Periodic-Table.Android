@@ -2,15 +2,15 @@ package com.jlindemann.science.preferences
 
 import android.content.Context
 
-class DictionaryPreferences(context : Context) {
+class NotesPreference(context : Context) {
 
-    val PREFERENCE_NAME = "Dictionary_Preference"
-    val PREFERENCE_VALUE = "Dictionary_Value"
+    val PREFERENCE_NAME = "Notes_Preference"
+    val PREFERENCE_VALUE = "Notes_Value"
 
     val preference = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
     fun getValue() : String {
-        return preference.getString (PREFERENCE_VALUE, "chemistry")!!
+        return preference.getString (PREFERENCE_VALUE, "value")!!
     }
 
     fun setValue(string: String) {

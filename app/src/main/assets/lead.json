@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AA4aUtLoJQRYGB24fZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Lead",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Lead_electrolytic_and_1cm3_cube.jpg/800px-Lead_electrolytic_and_1cm3_cube.jpg",
     "description": "Lead (/ˈlɛd/) is a chemical element with the symbol Pb (from the Latin plumbum) and atomic number 82. It is a heavy metal that is denser than most common materials. Lead is soft and malleable, and also has a relatively low melting point. When freshly cut, lead is silvery with a hint of blue; it tarnishes to a dull gray color when exposed to air. Lead has the highest atomic number of any stable element and three of its isotopes are endpoints of major nuclear decay chains of heavier elements.",
@@ -61,6 +62,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "1190 (m/s) [room temperature, annealed]",
+
+    "mohs_hardness": "1.5",
+    "vickers_hardness": "---",
+    "brinell_hardness": "38-50 (MPa)",
 
     "young_modulus": "16 (GPa)",
     "poisson_ratio": "0.44",

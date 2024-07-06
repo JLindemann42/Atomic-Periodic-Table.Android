@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AA28a4iJUA6QdGtoJZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Carbon",
     "link": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Graphite-and-diamond-with-scale.jpg",
     "description": "Carbon (from Latin: carbo \"coal\") is a chemical element with the symbol C and atomic number 6. It is nonmetallic and tetravalent—making four electrons available to form covalent chemical bonds. It belongs to group 14 of the periodic table. Carbon makes up only about 0.025 percent of Earth’s crust. Three isotopes occur naturally, C-12 and C-13 being stable, while C-14 is a radionuclide, decaying with a half-life of about 5,730 years. Carbon is one of the few elements known since antiquity.",
@@ -64,6 +65,10 @@
     "poisson_ratio": "---",
     "bulk_modulus": "33 (GPa)",
     "shear_modulus": "---",
+
+    "mohs_hardness": "0.5 (graphite), 10.0 (diamond)",
+    "vickers_hardness": "---",
+    "brinell_hardness": "---",
 
     "iso_1": "C-8",
     "iso_mass_1": "8.037643",

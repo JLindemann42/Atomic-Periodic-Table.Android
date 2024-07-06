@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/pro_box"
+        android:id="@+id/pro_hardness_box"
         android:elevation="10dp"
         android:background="?attr/backgroundColor"
         android:layout_width="match_parent"
@@ -32,20 +32,20 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/pro_text"
+                    android:id="@+id/pro_hardness_text"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/margin"
                     android:clickable="true"
-                    android:drawableStart="@drawable/ic_more"
+                    android:drawableStart="@drawable/ic_hardness"
                     android:drawablePadding="12dp"
                     android:drawableTint="?attr/colorPrimary"
                     android:elevation="1dp"
                     android:focusable="true"
                     android:foreground="@drawable/c_ripple"
                     android:gravity="center_vertical"
-                    android:text="@string/element_more_title"
+                    android:text="Hardness Properties"
                     android:textStyle="bold"
                     android:textSize="18sp"
                     android:textColor="?attr/colorPrimary" />
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:padding="@dimen/margin"
-                    android:text="Additional properties requires PRO-version. Get PRO to unlock more data and tables:"/>
+                    android:text="Hardness properties requires PRO-version. Get PRO to unlock more data and tables:"/>
 
             </LinearLayout>
 
@@ -64,7 +64,7 @@
                 android:layout_height="100dp">
 
                 <TextView
-                    android:id="@+id/get_pro_btn"
+                    android:id="@+id/get_pro_hardness_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginStart="@dimen/margin"
@@ -87,12 +87,10 @@
                     android:textColor="?attr/colorOnPrimary" />
             </FrameLayout>
         </LinearLayout>
-
-
     </FrameLayout>
 
     <LinearLayout
-        android:id="@+id/more_properties"
+        android:id="@+id/hardness_properties"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"
@@ -107,10 +105,10 @@
             android:layout_marginTop="9dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="9dp"
-            android:drawableStart="@drawable/ic_more"
+            android:drawableStart="@drawable/ic_hardness"
             android:drawablePadding="9dp"
             android:drawableTint="?attr/colorPrimary"
-            android:text="@string/element_more_title"
+            android:text="Hardness Properties"
             android:textColor="?attr/colorPrimary"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -122,135 +120,27 @@
             android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
-            android:id="@+id/speed_sound_title"
+            android:id="@+id/mohs_hardness_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
-            android:text="@string/element_speed_sound"
+            android:text="Mohs hardness:"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/speed_sound_solid_text"
+            android:id="@+id/mohs_hardness_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
-            android:text="speed_sound_solid_text"
-            android:textIsSelectable="true"
-            android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/speed_sound_gas_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="8dp"
-            android:text="speed_sound_gas_text"
-            android:textIsSelectable="true"
-            android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/speed_sound_liquid_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="8dp"
-            android:text="speed_sound_liquid_text"
-            android:textIsSelectable="true"
-            android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="18dp"
-            android:layout_marginEnd="18dp"
-            android:alpha="0.25"
-            android:background="?attr/colorOnSecondaryContainer" />
-
-        <FrameLayout
-            android:id="@+id/poisson_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true"
-            android:focusable="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="64dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/poisson_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="18dp"
-                    android:layout_marginBottom="2dp"
-                    android:text="@string/element_poisson_ratio"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/poisson_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginEnd="18dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="poisson_text"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </FrameLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="18dp"
-            android:layout_marginEnd="18dp"
-            android:alpha="0.25"
-            android:background="?attr/colorOnSecondaryContainer" />
-
-        <TextView
-            android:id="@+id/young_modulus_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="2dp"
-            android:text="@string/element_young_modulus"
-            android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/young_modulus_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="8dp"
-            android:text="young_modulus_text"
+            android:text="element_mohs_hardness_text"
             android:textIsSelectable="true"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
@@ -264,27 +154,27 @@
             android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
-            android:id="@+id/bulk_modulus_title"
+            android:id="@+id/vickers_hardness_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
-            android:text="@string/element_bulk_modulus"
+            android:text="Vickers hardness:"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/bulk_modulus_text"
+            android:id="@+id/vickers_hardness_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
-            android:text="bulk_modulus_text"
+            android:text="vickers_hardness_text"
             android:textIsSelectable="true"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
@@ -298,30 +188,29 @@
             android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
-            android:id="@+id/shear_modulus_title"
+            android:id="@+id/brinell_hardness_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="2dp"
-            android:text="@string/element_shear_modulus"
+            android:text="Brinell hardness:"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/shear_modulus_text"
+            android:id="@+id/brinell_hardness_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="8dp"
-            android:text="shear_modulus_text"
+            android:text="brinell_hardness_text"
             android:textIsSelectable="true"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
-
     </LinearLayout>
 </FrameLayout>

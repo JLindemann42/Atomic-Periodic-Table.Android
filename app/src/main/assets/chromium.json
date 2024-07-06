@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AAWtuBh3FmSYC6TNyZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Chromium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Chromium_crystals_and_1cm3_cube.jpg/1024px-Chromium_crystals_and_1cm3_cube.jpg",
     "description": "Chromium is a chemical element with the symbol Cr and atomic number 24. It is the first element in group 6. It is a steely-grey, lustrous, hard and brittle transition metal.[4] Chromium is the main additive in stainless steel, to which it adds anti-corrosive properties. Chromium is also highly valued as a metal that is able to be highly polished while resisting tarnishing. Polished chromium reflects almost 70% of the visible spectrum, with almost 90% of infrared light being reflected. The name of the element is derived from the Greek word χρῶμα, chrōma, meaning color, because many chromium compounds are intensely colored.",
@@ -80,6 +81,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "5940 (m/s) [20°C]",
+
+    "mohs_hardness": "8.5",
+    "vickers_hardness": "1060 (MPa)",
+    "brinell_hardness": "687-6500 (MPa)",
 
     "young_modulus": "279 (GPa)",
     "poisson_ratio": "0.21",

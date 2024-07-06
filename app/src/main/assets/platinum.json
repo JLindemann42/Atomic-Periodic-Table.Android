@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AAzWPpmFtpCCGq87bZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Platinum",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Platinum_crystals.jpg/800px-Platinum_crystals.jpg",
     "description": "Platinum is a chemical element with the symbol Pt and atomic number 78. It is a dense, malleable, ductile, highly unreactive, precious, silverish-white transition metal. Its name is derived from the Spanish term platino, meaning \"little silver\".",
@@ -59,6 +60,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "2800 (m/s) [room temperature]",
+
+    "mohs_hardness": "4.6-5.0",
+    "vickers_hardness": "400-549 (MPa)",
+    "brinell_hardness": "310-500 (MPa)",
 
     "young_modulus": "168 (GPa)",
     "poisson_ratio": "0.38",

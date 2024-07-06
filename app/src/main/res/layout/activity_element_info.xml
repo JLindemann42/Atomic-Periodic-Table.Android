@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="?attr/colorSurface"
     android:layout_width="match_parent"
+
     android:id="@+id/view"
     android:fitsSystemWindows="true"
     android:layout_height="match_parent">
@@ -86,7 +88,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/backgroundColor"
+            android:background="?attr/colorSurface"
             android:orientation="vertical">
 
             <Space
@@ -194,6 +196,11 @@
 
             <include
                 layout="@layout/d_nuclear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/d_hardness"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

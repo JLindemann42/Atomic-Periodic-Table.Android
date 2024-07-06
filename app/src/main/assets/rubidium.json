@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AAameG2dPiGwJaKfrZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Rubidium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Rb5.JPG/1920px-Rb5.JPG",
     "description": "Rubidium is the chemical element with the symbol Rb and atomic number 37. Rubidium is a very soft, silvery-white metal in the alkali metal group. Rubidium metal shares similarities to potassium metal and caesium metal in physical appearance, softness and conductivity. Rubidium cannot be stored under atmospheric oxygen, as a highly exothermic reaction will ensue, sometimes even resulting in the metal catching fire.",
@@ -66,6 +67,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "1300 (m/s) [20°C]",
+
+    "mohs_hardness": "0.3",
+    "vickers_hardness": "---",
+    "brinell_hardness": "0.216 (MPa)",
 
     "young_modulus": "2.4 (GPa)",
     "poisson_ratio": "---",

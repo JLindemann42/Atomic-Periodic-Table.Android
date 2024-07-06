@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AA2eTRf69yV7xEPhmZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Osmium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Osmium_crystals.jpg/1024px-Osmium_crystals.jpg",
     "description": "Osmium (from Greek ὀσμή osme, \"smell\") is a chemical element with the symbol Os and atomic number 76. It is a hard, brittle, bluish-white transition metal in the platinum group that is found as a trace element in alloys, mostly in platinum ores. Osmium is the densest naturally occurring element, with an experimentally measured (using x-ray crystallography) density of 22.59 g/cm3. Manufacturers use its alloys with platinum, iridium, and other platinum-group metals to make fountain pen nib tipping, electrical contacts, and in other applications that require extreme durability and hardness. The element's abundance in the Earth's crust is among the rarest.",
@@ -53,6 +54,10 @@
 
     "oxidation_state_neg": "4 2 1 0",
     "oxidation_state_pos": "1 2 3 4 5 6 7 8",
+
+    "mohs_hardness": "7.0",
+    "vickers_hardness": "---",
+    "brinell_hardness": "3920-4000 (MPa)",
 
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",

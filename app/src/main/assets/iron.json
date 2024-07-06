@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AArLYPEnPgbP9SBGUZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Iron",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Iron_electrolytic_and_1cm3_cube.jpg/1280px-Iron_electrolytic_and_1cm3_cube.jpg ",
     "description": "Iron (/ˈaɪərn/) is a chemical element with symbol Fe (from Latin: ferrum) and atomic number 26. It is a metal that belongs to the first transition series and group 8 of the periodic table. It is by mass the most common element on Earth, forming much of Earth's outer and inner core. It is the fourth most common element in the Earth's crust.",
@@ -82,6 +83,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "5120 (m/s) [room temperature]",
+
+    "mohs_hardness": "4.5",
+    "vickers_hardness": "608 (MPa)",
+    "brinell_hardness": "200-1180 (MPa)",
 
     "young_modulus": "211 (GPa)",
     "poisson_ratio": "0.29",

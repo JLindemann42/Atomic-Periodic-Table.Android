@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AAr8pTcq2xBjtZ2WfZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Promethium",
     "link": "http://www.twnree.com/wp-content/uploads/2012/02/61-Promethium.jpg",
     "description": "Promethium is a chemical element with the symbol Pm and atomic number 61. All of its isotopes are radioactive; it is extremely rare, with only about 500–600 grams naturally occurring in Earth's crust at any given time. Promethium is one of only two radioactive elements that are followed in the periodic table by elements with stable forms, the other being technetium. Chemically, promethium is a lanthanide. Promethium shows only one stable oxidation state of +3.",
@@ -56,6 +57,10 @@
 
     "oxidation_state_neg": "2 3",
     "oxidation_state_pos": "",
+
+    "mohs_hardness": "---",
+    "vickers_hardness": "617.8 (MPa)",
+    "brinell_hardness": "---",
 
     "young_modulus": "46 (GPa) [α-form]",
     "poisson_ratio": "0.28 [α-form]",

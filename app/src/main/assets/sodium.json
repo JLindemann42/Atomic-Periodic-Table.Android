@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AAmGUz3QxyBqkYjDYZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Sodium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Na_%28Sodium%29.jpg/1920px-Na_%28Sodium%29.jpg",
     "description": "Sodium is a chemical element with the symbol Na (from Latin \"natrium\") and atomic number 11. It is a soft, silvery-white, highly reactive metal. Sodium is an alkali metal, being in group 1 of the periodic table. Its only stable isotope is Na-23. The free metal does not occur in nature, and must be prepared from compounds. Sodium is the sixth most abundant element in the Earth's crust and exists in numerous minerals such as feldspars, sodalite, and rock salt (NaCl). Many salts of sodium are highly water-soluble: sodium ions have been leached by the action of water from the Earth's minerals over eons, and thus sodium and chlorine are the most common dissolved elements by weight in the oceans.",
@@ -72,6 +73,10 @@
     "poisson_ratio": "---",
     "bulk_modulus": "6.3 (GPa)",
     "shear_modulus": "3.3 (GPa)",
+
+    "mohs_hardness": "0.5",
+    "vickers_hardness": "---",
+    "brinell_hardness": "0.69 (MPa)",
 
     "iso_1": "Na-18",
     "iso_mass_1": "18.02688",

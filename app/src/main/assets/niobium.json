@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AACE6uFQKBUoYPZ8eZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Niobium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Niobium_crystals_and_1cm3_cube.jpg/1024px-Niobium_crystals_and_1cm3_cube.jpg",
     "description": "Niobium, also known as columbium, is a chemical element with the symbol Nb (formerly Cb) and atomic number 41. Niobium is a light grey, crystalline, and ductile transition metal. Niobium oxidizes in the earth's atmosphere very slowly, hence its application in jewelry as a hypoallergenic alternative to nickel. Niobium is often found in the minerals pyrochlore and columbite, hence the former name \"columbium\". Its name comes from Greek mythology, specifically Niobe, who was the daughter of Tantalus, the namesake of tantalum. The name reflects the great similarity between the two elements in their physical and chemical properties, making them difficult to distinguish.",
@@ -63,6 +64,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "3480 (m/s) [20°C]",
+
+    "mohs_hardness": "6.0",
+    "vickers_hardness": "870-1320 (MPa)",
+    "brinell_hardness": "735-2450 (MPa)",
 
     "young_modulus": "105 (GPa)",
     "poisson_ratio": "0.40",

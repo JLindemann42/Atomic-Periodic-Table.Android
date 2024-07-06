@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AAEw6PCVvw233bmbVZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Samarium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/8/88/Samarium-2.jpg",
     "description": "Samarium is a chemical element with the symbol Sm and atomic number 62. It is a moderately hard silvery metal that slowly oxidizes in air. Being a typical member of the lanthanide series, samarium usually assumes the oxidation state +3. Compounds of samarium(II) are also known, most notably the monoxide SmO, monochalcogenides SmS, SmSe and SmTe, as well as samarium(II) iodide. The last compound is a common reducing agent in chemical synthesis. Samarium has no significant biological role but is only slightly toxic",
@@ -60,6 +61,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "2130 (m/s) [20°C]",
+
+    "mohs_hardness": "---",
+    "vickers_hardness": "412-441 (MPa)",
+    "brinell_hardness": "441-600 (MPa)",
 
     "young_modulus": "49.7 (GPa) [α-form]",
     "poisson_ratio": "0.274 [α-form]",

@@ -118,6 +118,34 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="?attr/colorOnSurfaceVariant"
+                            android:text="- Hardness Data:"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:text="- Mohs Hardness"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:text="- Vickers Hardness"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:text="- Brinell Hardness"/>
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnSurfaceVariant"
                             android:text="- Additional Data:"/>
 
                             <TextView
@@ -286,6 +314,33 @@
                                     android:textStyle="bold"
                                     android:textColor="?attr/colorOnSurfaceVariant"
                                     android:text="PRO Features:"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:text="- Hardness Data:"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:text="- Mohs Hardness"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:text="- Vickers Hardness"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:text="- Brinell Hardness"/>
 
                                 <TextView
                                     android:layout_width="match_parent"

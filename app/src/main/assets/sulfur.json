@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AARQu8hiKgm47sUSvZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Sulfur",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Sulfur-sample.jpg/1920px-Sulfur-sample.jpg",
     "description": "Sulfur (in British English, sulphur) is a chemical element with the symbol S and atomic number 16. It is abundant, multivalent and nonmetallic. Under normal conditions, sulfur atoms form cyclic octatomic molecules with a chemical formula S8. Elemental sulfur is a bright yellow, crystalline solid at room temperature.",
@@ -73,6 +74,10 @@
     "poisson_ratio": "---",
     "bulk_modulus": "7.7 (GPa)",
     "shear_modulus": "---",
+
+    "mohs_hardness": "2.0",
+    "vickers_hardness": "---",
+    "brinell_hardness": "---",
 
     "iso_1": "S-27",
     "iso_mass_1": "27.01828",

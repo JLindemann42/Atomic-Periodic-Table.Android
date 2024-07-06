@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AA4ZGoQoit6yL9Ui7ZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Hydrogen",
     "description": "Hydrogen is the chemical element with the symbol H and atomic number 1. With a standard atomic weight of 1.008, hydrogen is the lightest element in the periodic table. Hydrogen is the most abundant chemical substance in the universe, constituting roughly 75% of all baryonic mass. Non-remnant stars are mainly composed of hydrogen in the plasma state. The most common isotope of hydrogen, termed protium (name rarely used, symbol 1H), has one proton and no neutrons.",
 
@@ -21,6 +22,8 @@
     "resistivity_mult": "---",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "0.022",
+
+    "note_text": "test",
 
     "element_atomic_number": "1",
     "element_atomicmass": "1.00784 (u)",
@@ -56,6 +59,10 @@
     "speed_of_sound_gas": "1310 (m/s) [27°C]",
     "speed_of_sound_liquid": "1101 (m/s) [-252.9°C]",
     "speed_of_sound_solid": "---",
+
+    "mohs_hardness": "",
+    "vickers_hardness": "",
+    "brinell_hardness": "",
 
 
     "iso_1": "H-1",

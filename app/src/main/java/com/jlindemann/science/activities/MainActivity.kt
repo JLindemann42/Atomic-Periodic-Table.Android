@@ -382,14 +382,14 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         findViewById<TextView>(R.id.h_name_btn).setOnClickListener { initName(elements) }
         findViewById<TextView>(R.id.h_group_btn).setOnClickListener { initGroups(elements) }
         findViewById<TextView>(R.id.h_electronegativity_btn).setOnClickListener { initElectro(elements) }
-        findViewById<TextView>(R.id.atomic_weight_btn).setOnClickListener { initWeight(elements) }
+        findViewById<TextView>(R.id.atomic_weight_btn).setOnClickListener { initTableChange(elements, "element_atomicmass") }
         findViewById<TextView>(R.id.boiling_btn).setOnClickListener { initBoiling(elements) }
         findViewById<TextView>(R.id.melting_point).setOnClickListener { initMelting(elements) }
-        findViewById<TextView>(R.id.h_phase_btn).setOnClickListener { initPhase(elements) }
-        findViewById<TextView>(R.id.h_year_btn).setOnClickListener { initYear(elements) }
-        findViewById<TextView>(R.id.h_fusion_btn).setOnClickListener { initHeat(elements) }
-        findViewById<TextView>(R.id.h_specific_btn).setOnClickListener { initSpecific(elements) }
-        findViewById<TextView>(R.id.h_vaporizaton_btn).setOnClickListener { initVape(elements) }
+        findViewById<TextView>(R.id.h_phase_btn).setOnClickListener { initTableChange(elements, "element_phase") }
+        findViewById<TextView>(R.id.h_year_btn).setOnClickListener { initTableChange(elements, "element_year") }
+        findViewById<TextView>(R.id.h_fusion_btn).setOnClickListener { initTableChange(elements, "element_fusion_heat") }
+        findViewById<TextView>(R.id.h_specific_btn).setOnClickListener { initTableChange(elements, "element_specific_heat_capacity") }
+        findViewById<TextView>(R.id.h_vaporizaton_btn).setOnClickListener { initTableChange(elements, "element_vaporization_heat") }
         findViewById<TextView>(R.id.h_electrical_type_btn).setOnClickListener { initTableChange(elements, "electrical_type") }
 
         //Check if user has PRO version on not and give additional features if.

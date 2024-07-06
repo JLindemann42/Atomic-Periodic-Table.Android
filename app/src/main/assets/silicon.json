@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AA8nFu7fYxC4w62evZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Silicon",
     "link": "https://upload.wikimedia.org/wikipedia/commons/e/e9/SiliconCroda.jpg",
     "description": "Silicon is a chemical element with the symbol Si and atomic number 14. It is a hard, brittle crystalline solid with a blue-grey metallic lustre, and is a tetravalent metalloid and semiconductor. It is a member of group 14 in the periodic table: carbon is above it; and germanium, tin, and lead are below it. It is relatively unreactive. Because of its high chemical affinity for oxygen, it was not until 1823 that Jöns Jakob Berzelius was first able to prepare it and characterize it in pure form. Its oxides form a family of anions known as silicates. Its melting and boiling points of 1414 °C and 3265 °C respectively are the second-highest among all the metalloids and nonmetals, being only surpassed by boron. Silicon is the eighth most common element in the universe by mass, but very rarely occurs as the pure element in the Earth's crust. It is most widely distributed in space in cosmic dusts, planetoids, and planets as various forms of silicon dioxide (silica) or silicates. More than 90% of the Earth's crust is composed of silicate minerals, making silicon the second most abundant element in the Earth's crust (about 28% by mass), after oxygen.",
@@ -75,6 +76,10 @@
     "poisson_ratio": "---",
     "bulk_modulus": "100 (GPa)",
     "shear_modulus": "--- (GPa)",
+
+    "mohs_hardness": "6.5",
+    "vickers_hardness": "---",
+    "brinell_hardness": "---",
 
     "iso_1": "Si-22",
     "iso_mass_1": "22.03579",

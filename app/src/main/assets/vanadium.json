@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AAJ7kbsxKxj9pY2oRZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Vanadium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/Vanadium_etched.jpg/800px-Vanadium_etched.jpg",
     "description": "Vanadium is a chemical element with the symbol V and atomic number 23. It is a hard, silvery-grey, malleable transition metal. The elemental metal is rarely found in nature, but once isolated artificially, the formation of an oxide layer (passivation) somewhat stabilizes the free metal against further oxidation.",
@@ -79,6 +80,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "4560 (m/s) [20°C]",
+
+    "mohs_hardness": "7.0",
+    "vickers_hardness": "628-640 (MPa)",
+    "brinell_hardness": "600-628 (MPa)",
 
     "young_modulus": "128 (GPa)",
     "poisson_ratio": "0.37",
