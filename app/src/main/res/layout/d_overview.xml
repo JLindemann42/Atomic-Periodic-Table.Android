@@ -8,9 +8,47 @@
         android:id="@+id/overview_box"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_space_card"
-        android:layout_marginBottom="@dimen/margin_space_card"
         android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/notes_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="?attr/colorPrimary"
+                android:background="@drawable/half_down_toast"
+                android:alpha="0.11"/>
+
+            <EditText
+                android:id="@+id/notes_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorSurface"
+                android:text="Take notes for element"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="top"
+                android:minLines="1"
+                android:hint="Take notes for element"
+                android:imeOptions="actionSearch"
+                android:inputType="textMultiLine"
+                android:paddingStart="18dp"
+                android:paddingTop="18dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="18dp"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurface"
+                android:textSize="14sp" />
+        </FrameLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -402,82 +440,7 @@
                         android:textIsSelectable="true"
                         android:textSize="24sp" />
                 </LinearLayout>
-
             </LinearLayout>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="18dp"
-            android:layout_marginBottom="9dp"
-            android:drawableStart="@drawable/overview_icon"
-            android:drawablePadding="9dp"
-            android:text="Notes"
-            android:textColor="?attr/colorAccent"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:alpha="0.75"
-            android:background="?attr/colorOnSecondaryContainer" />
-
-        <LinearLayout
-            android:id="@+id/notes_frame"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:backgroundTint="?attr/colorSurfaceVariant"
-            android:background="@drawable/toast"
-            android:paddingBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp">
-
-            <TextView
-                android:id="@+id/notes_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="4dp"
-                android:text="Notes:"
-                android:textColor="?attr/colorOnSecondaryContainer"
-                android:textSize="14sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/notes_edit_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="@dimen/margin"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorSurface"
-                android:text="Take notes for element"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="top"
-                android:minLines="3"
-                android:hint="Take notes for element"
-                android:imeOptions="actionSearch"
-                android:inputType="textMultiLine"
-                android:paddingStart="18dp"
-                android:paddingTop="18dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="18dp"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurface"
-                android:textSize="14sp" />
-
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>
