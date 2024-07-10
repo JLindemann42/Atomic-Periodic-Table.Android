@@ -246,7 +246,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
 
             //Add <element.tag> if not already created
             if (str.contains("<$elementCode>") == false) {
-                val newString = str + "<$elementCode>Take notes for element:</$elementCode>"
+                val newString = str + "<$elementCode>Take notes for the element:</$elementCode>"
                 notesPref.setValue(newString)
                 handleNotes(elementCode, eText)
             }
