@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AAXwyuTAMqJEzkgcCZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Nickel",
     "link": "https://upload.wikimedia.org/wikipedia/commons/5/57/Nickel_chunk.jpg",
     "description": "Nickel is a chemical element with the symbol Ni and atomic number 28. It is a silvery-white lustrous metal with a slight golden tinge. Nickel belongs to the transition metals and is hard and ductile. Pure nickel, powdered to maximize the reactive surface area, shows a significant chemical activity, but larger pieces are slow to react with air under standard conditions because an oxide layer forms on the surface and prevents further corrosion (passivation). Even so, pure native nickel is found in Earth's crust only in tiny amounts, usually in ultramafic rocks, and in the interiors of larger nickel–iron meteorites that were not exposed to oxygen when outside Earth's atmosphere.",
@@ -84,6 +85,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "4900 (m/s) [20°C]",
+
+    "mohs_hardness": "4.0",
+    "vickers_hardness": "638 (MPa)",
+    "brinell_hardness": "667-1600 (MPa)",
 
     "young_modulus": "200 (GPa)",
     "poisson_ratio": "0.31",

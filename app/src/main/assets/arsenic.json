@@ -1,5 +1,6 @@
 [
   {
+    "element_code": "AAufZVwYGt79SNCZxZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Arsenic",
     "link": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Arsen_1a.jpg",
     "description": "Arsenic is a chemical element with the symbol As and atomic number 33. Arsenic occurs in many minerals, usually in combination with sulfur and metals, but also as a pure elemental crystal. Arsenic is a metalloid. It has various allotropes, but only the gray form, which has a metallic appearance, is important to industry.",
@@ -63,6 +64,10 @@
     "poisson_ratio": "---",
     "bulk_modulus": "22 (GPa)",
     "shear_modulus": "---",
+
+    "mohs_hardness": "3.5",
+    "vickers_hardness": "---",
+    "brinell_hardness": "1440 (MPa)",
 
     "iso_1": "As-60",
     "iso_mass_1": "59.99313",

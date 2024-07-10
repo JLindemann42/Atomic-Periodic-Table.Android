@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AAg79HFaHAKPfZSqDZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Titanium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Titan-crystal_bar.JPG/1024px-Titan-crystal_bar.JPG",
     "description": "Titanium is a chemical element with the symbol Ti and atomic number 22. It is a lustrous transition metal with a silver color, low density, and high strength. Titanium is resistant to corrosion in sea water, aqua regia, and chlorine.",
@@ -78,6 +79,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "5090 (m/s) [20°C]",
+
+    "mohs_hardness": "6.0",
+    "vickers_hardness": "830-3420 (MPa)",
+    "brinell_hardness": "716-2770 (MPa)",
 
     "young_modulus": "116 (GPa)",
     "poisson_ratio": "0.32",

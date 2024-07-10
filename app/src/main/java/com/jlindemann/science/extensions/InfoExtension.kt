@@ -2,17 +2,13 @@ package com.jlindemann.science.extensions
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.Configuration
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
+import android.text.Editable
 import android.text.TextUtils
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowInsets
-import android.widget.Button
+import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -24,13 +20,29 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
-import androidx.core.view.marginStart
+import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.ElementInfoActivity
 import com.jlindemann.science.activities.IsotopesActivityExperimental
-import com.jlindemann.science.model.Element
-import com.jlindemann.science.preferences.*
+import com.jlindemann.science.preferences.AtomicCovalentPreference
+import com.jlindemann.science.preferences.AtomicRadiusCalPreference
+import com.jlindemann.science.preferences.AtomicRadiusEmpPreference
+import com.jlindemann.science.preferences.AtomicVanPreference
+import com.jlindemann.science.preferences.BoilingPreference
+import com.jlindemann.science.preferences.DegreePreference
+import com.jlindemann.science.preferences.DensityPreference
+import com.jlindemann.science.preferences.ElectronegativityPreference
+import com.jlindemann.science.preferences.ElementSendAndLoad
+import com.jlindemann.science.preferences.FavoriteBarPreferences
+import com.jlindemann.science.preferences.FavoritePhase
+import com.jlindemann.science.preferences.FusionHeatPreference
+import com.jlindemann.science.preferences.MeltingPreference
+import com.jlindemann.science.preferences.NotesPreference
+import com.jlindemann.science.preferences.RadioactivePreference
+import com.jlindemann.science.preferences.SpecificHeatPreference
+import com.jlindemann.science.preferences.VaporizationHeatPreference
+import com.jlindemann.science.preferences.offlinePreference
+import com.jlindemann.science.preferences.sendIso
 import com.jlindemann.science.utils.Pasteur
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
@@ -41,6 +53,7 @@ import java.io.IOException
 import java.io.InputStream
 import java.net.ConnectException
 import kotlin.math.pow
+
 
 abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsListener {
     companion object {
@@ -103,6 +116,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             val jsonObject: JSONObject = jsonArray.getJSONObject(0)
 
             //optStrings from jsonObject or fallback
+            val elementCode = jsonObject.optString("element_code", "---")
             val element= jsonObject.optString("element", "---")
             val description = jsonObject.optString("description", "---")
             val url = jsonObject.optString("link", "---")
@@ -134,6 +148,8 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             val vaporizationHeat = jsonObject.optString("element_vaporization_heat", "---")
             val phaseText = jsonObject.optString("element_phase", "---")
 
+            //note texts
+
             //atomic view
             val electronConfig = jsonObject.optString("element_electron_config", "---")
             val ionCharge = jsonObject.optString("element_ion_charge", "---")
@@ -155,6 +171,11 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             //Nuclear Properties
             val isRadioactive = jsonObject.optString("radioactive", "---")
             val neutronCrossSection = jsonObject.optString("neutron_cross_sectional", "---")
+
+            //hardness properties:
+            val mohsHardness = jsonObject.optString("mohs_hardness", "---")
+            val vickersHardness = jsonObject.optString("vickers_hardness", "---")
+            val brinellHardness = jsonObject.optString("brinell_hardness", "---")
 
             //More Properties
             val soundOfSpeedGas = jsonObject.optString("speed_of_sound_gas", "---")
@@ -217,6 +238,22 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             findViewById<TextView>(R.id.element_block).text = elementBlock
             findViewById<TextView>(R.id.element_appearance).text = elementAppearance
 
+            //note text
+            val eText = findViewById<EditText>(R.id.notes_edit_text)
+            val notesPref = NotesPreference(this)
+            val notesPrefValue = notesPref.getValue()
+            val str = notesPrefValue
+
+            //Add <element.tag> if not already created
+            if (str.contains("<$elementCode>") == false) {
+                val newString = str + "<$elementCode>Take notes for the element:</$elementCode>"
+                notesPref.setValue(newString)
+                handleNotes(elementCode, eText)
+            }
+            else {
+                handleNotes(elementCode, eText)
+            }
+
             //Nuclear Properties
             findViewById<TextView>(R.id.radioactive_text).text = isRadioactive
             findViewById<TextView>(R.id.neutron_cross_sectional_text).text = neutronCrossSection
@@ -250,6 +287,11 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             findViewById<TextView>(R.id.bulk_modulus_text).text = "K: " + bulkModulus
             findViewById<TextView>(R.id.young_modulus_text).text = "E: " + youngModulus
             findViewById<TextView>(R.id.shear_modulus_text).text = "G: " + shearModulus
+
+            //hardness properties
+            findViewById<TextView>(R.id.mohs_hardness_text).text = mohsHardness
+            findViewById<TextView>(R.id.vickers_hardness_text).text = vickersHardness
+            findViewById<TextView>(R.id.brinell_hardness_text).text = brinellHardness
 
             if (soundOfSpeedSolid == "---") { findViewById<TextView>(R.id.speed_sound_solid_text).visibility = View.GONE } //Check if Solid speed and show if
             else { findViewById<TextView>(R.id.speed_sound_solid_text).visibility = View.VISIBLE}
@@ -366,6 +408,30 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         }
     }
 
+    private fun handleNotes(elementCode: String, eText: EditText) {
+        val notesPref = NotesPreference(this)
+        val notesPrefValue = notesPref.getValue()
+        val str = notesPrefValue
+
+        val firstDelim = "<$elementCode>"
+        val p1 = str.indexOf(firstDelim)
+        val lastDelim = "</$elementCode>"
+        val p2 = str.indexOf(lastDelim, p1)
+
+        eText.text = str.substring(p1 + firstDelim.length, p2).toEditable()
+        eText.doAfterTextChanged {
+            if (notesPrefValue.contains(elementCode.toString())) {
+                val replacement = eText.text
+                if (p1 >= 0 && p2 > p1) {
+                    val res = (str.substring(0, p1 + firstDelim.length)
+                            + replacement
+                            + str.substring(p2))
+                    notesPref.setValue(res)
+                }
+            }
+        }
+    }
+
     private fun loadImage(url: String?) {
         try { Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.element_image)) }
         catch(e: ConnectException) {
@@ -389,6 +455,9 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             findViewById<TextView>(R.id.sp_offline).visibility = View.VISIBLE
         }
     }
+
+    fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
+
 
     private fun loadModelView(url: String?) {
         Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.model_view))

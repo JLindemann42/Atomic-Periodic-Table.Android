@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AATGC4aGnW59u9pLkZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Iridium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Iridium-2.jpg",
     "description": "Iridium is a chemical element with the symbol Ir and atomic number 77. A very hard, brittle, silvery-white transition metal of the platinum group, iridium is considered to be the second-densest metal (after osmium) with a density of 22.56 g/cm3 as defined by experimental X-ray crystallography. However, at room temperature and standard atmospheric pressure, iridium has been calculated to have a density of 22.65 g/cm3, 0.04 g/cm3 higher than osmium measured the same way. Still, the experimental X-ray crystallography value is considered to be the most accurate, as such iridium is considered to be the second densest element. It is the most corrosion-resistant metal, even at temperatures as high as 2000°C. Although only certain molten salts and halogens are corrosive to solid iridium, finely divided iridium dust is much more reactive and can be flammable.",
@@ -57,6 +58,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "4825 (m/s) [20°C]",
+
+    "mohs_hardness": "6.5",
+    "vickers_hardness": "1760-2200 (MPa)",
+    "brinell_hardness": "1670 (MPa)",
 
     "young_modulus": "528 (GPa)",
     "poisson_ratio": "0.26",

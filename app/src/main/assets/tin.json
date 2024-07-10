@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AAhCREPWtZzX9etQdZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Tin",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Sn-Alpha-Beta.jpg/1024px-Sn-Alpha-Beta.jpg",
     "description": "Tin is a chemical element with the symbol Sn (from Latin: stannum) and atomic number 50. Tin is a silvery metal that characteristically has a faint yellow hue. Tin, like indium, is soft enough to be cut without much force. When a bar of tin is bent, the so-called “tin cry” can be heard as a result of sliding tin crystals reforming; this trait is shared by indium, cadmium, and frozen mercury.",
@@ -61,6 +62,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "2730 (m/s) [room temperature, rolled]",
+
+    "mohs_hardness": "1.5",
+    "vickers_hardness": "---",
+    "brinell_hardness": "51-75 (MPa)",
 
     "young_modulus": "50 (GPa)",
     "poisson_ratio": "0.36",

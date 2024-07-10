@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AAwFvQNkgJiux3GRHZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Europium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Europium.jpg/800px-Europium.jpg",
     "description": "Europium is a chemical element with the symbol Eu and atomic number 63. Europium is the most reactive lanthanide by far, having to be stored under an inert fluid to protect it from atmospheric oxygen or moisture. Europium is also the softest lanthanide, as it can be dented with a fingernail and easily cut with a knife. When oxidation is removed a shiny-white metal is visible. Europium was isolated in 1901 and is named after the continent of Europe. Being a typical member of the lanthanide series, europium usually assumes the oxidation state +3, but the oxidation state +2 is also common. All europium compounds with oxidation state +2 are slightly reducing. Europium has no significant biological role and is relatively non-toxic compared to other heavy metals. Most applications of europium exploit the phosphorescence of europium compounds. Europium is one of the rarest of the rare earth elements on Earth.",
@@ -56,6 +57,10 @@
 
     "oxidation_state_neg": "",
     "oxidation_state_pos": "2 3",
+
+    "mohs_hardness": "---",
+    "vickers_hardness": "167-200 (MPa)",
+    "brinell_hardness": "---",
 
     "young_modulus": "18.2 (GPa)",
     "poisson_ratio": "0.152",

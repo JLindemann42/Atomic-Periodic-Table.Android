@@ -85,6 +85,10 @@ class ElementInfoActivity : InfoExtension() {
             val intent = Intent(this, ProActivity::class.java)
             startActivity(intent)
         }
+        findViewById<TextView>(R.id.get_pro_hardness_btn).setOnClickListener {
+            val intent = Intent(this, ProActivity::class.java)
+            startActivity(intent)
+        }
         //Check if PRO version and if make changes:
         val proPref = ProVersion(this)
         var proPrefValue = proPref.getValue()
@@ -93,13 +97,20 @@ class ElementInfoActivity : InfoExtension() {
         }
         else {
             findViewById<LinearLayout>(R.id.more_properties).visibility = View.INVISIBLE
+            findViewById<LinearLayout>(R.id.hardness_properties).visibility = View.INVISIBLE
+
         }
 
     }
 
     private fun proChanges() {
+        //more properties
         findViewById<FrameLayout>(R.id.pro_box).visibility = View.GONE
         findViewById<LinearLayout>(R.id.more_properties).visibility = View.VISIBLE
+
+        //hardness properties
+        findViewById<FrameLayout>(R.id.pro_hardness_box).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.hardness_properties).visibility = View.VISIBLE
     }
 
     override fun onBackPressed() {

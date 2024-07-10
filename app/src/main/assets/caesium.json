@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AANvodbURvuFEv2jtZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Caesium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Cesium.jpg/1920px-Cesium.jpg",
     "description": "Caesium (IUPAC spelling) (also spelled cesium in American English) is a chemical element with the symbol Cs and atomic number 55. It is a soft, silvery-golden alkali metal with a melting point of 28.5 °C (83.3 °F), which makes it one of only five elemental metals that are liquid at or near room temperature. Caesium has physical and chemical properties similar to those of rubidium and potassium. The most reactive of all metals, it is pyrophoric and reacts with water even at −116 °C (−177 °F). It is the least electronegative element, with a value of 0.79 on the Pauling scale. It has only one stable isotope, caesium-133. Caesium is mined mostly from pollucite, while the radioisotopes, especially caesium-137, a fission product, are extracted from waste produced by nuclear reactors.",
@@ -51,6 +52,10 @@
     "element_fusion_heat": "2.09 (kJ/mol)",
     "element_specific_heat_capacity": "0.242 J/(g·K)",
     "element_vaporization_heat": "63.9 (kJ/mol)",
+
+    "mohs_hardness": "0.2",
+    "vickers_hardness": "---",
+    "brinell_hardness": "0.147 (MPa)",
 
     "oxidation_state_neg": "1",
     "oxidation_state_pos": "1",

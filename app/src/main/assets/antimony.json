@@ -1,5 +1,6 @@
 [
   {
+    "element_code": "AAUVJaTFQoH8twbSAZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Antimony",
     "link": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Antimony-4.jpg",
     "description": "Antimony is a chemical element with the symbol Sb (from Latin: stibium) and atomic number 51. A lustrous gray metalloid, it is found in nature mainly as the sulfide mineral stibnite (Sb2S3). Antimony compounds have been known since ancient times and were powdered for use as medicine and cosmetics, often known by the Arabic name kohl. Metallic antimony was also known, but it was erroneously identified as lead upon its discovery. The earliest known description of the metal in the West was written in 1540 by Vannoccio Biringuccio.",
@@ -62,6 +63,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "3420 (m/s) [20°C]",
+
+    "mohs_hardness": "3.0",
+    "vickers_hardness": "---",
+    "brinell_hardness": "294-384 (MPa)",
 
     "young_modulus": "55 (GPa)",
     "poisson_ratio": "---",

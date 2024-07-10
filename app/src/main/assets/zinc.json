@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AAjjfi6TZ3ceTYymbZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Zinc",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Zinc_fragment_sublimed_and_1cm3_cube.jpg/1920px-Zinc_fragment_sublimed_and_1cm3_cube.jpg",
     "description": "Zinc is a chemical element with the symbol Zn and atomic number 30. Zinc is a slightly brittle metal at room temperature and has a blue-silvery appearance when oxidation is removed. It is the first element in group 12 of the periodic table. In some respects, zinc is chemically similar to magnesium: both elements exhibit only one normal oxidation state (+2), and the Zn2+ and Mg2+ ions are of similar size. Zinc is the 24th most abundant element in Earth's crust and has five stable isotopes. The most common zinc ore is sphalerite (zinc blende), a zinc sulfide mineral. The largest workable lodes are in Australia, Asia, and the United States. Zinc is refined by froth flotation of the ore, roasting, and final extraction using electricity (electrowinning).",
@@ -73,6 +74,10 @@
 
     "oxidation_state_neg": "2",
     "oxidation_state_pos": "1 2",
+
+    "mohs_hardness": "2.5",
+    "vickers_hardness": "---",
+    "brinell_hardness": "327-412 (MPa)",
 
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",

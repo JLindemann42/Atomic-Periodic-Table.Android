@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AAFTnYks3NBjqHcMqZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Gold",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Gold_nugget_%28Australia%29_4_%2816848647509%29.jpg/1024px-Gold_nugget_%28Australia%29_4_%2816848647509%29.jpg",
     "description": "Gold is a chemical element with the symbol Au (from Latin: aurum) and atomic number 79, making it one of the higher atomic number elements that occur naturally. In a pure form, it is a bright, slightly reddish yellow, dense, soft, malleable, and ductile metal. Chemically, gold is a transition metal and a group 11 element. It is one of the least reactive chemical elements and is solid under standard conditions. Gold often occurs in free elemental (native) form, as nuggets or grains, in rocks, in veins, and in alluvial deposits. It occurs in a solid solution series with the native element silver (as electrum) and also naturally alloyed with copper and palladium. Less commonly, it occurs in minerals as gold compounds, often with tellurium (gold tellurides).",
@@ -59,6 +60,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "2030 (m/s) [room temperature, hard-drawn]",
+
+    "mohs_hardness": "2.5",
+    "vickers_hardness": "188-216 (MPa)",
+    "brinell_hardness": "188-245 (MPa)",
 
     "young_modulus": "78 (GPa)",
     "poisson_ratio": "0.44",

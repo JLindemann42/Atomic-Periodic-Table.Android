@@ -8,9 +8,47 @@
         android:id="@+id/overview_box"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin_space_card"
-        android:layout_marginBottom="@dimen/margin_space_card"
         android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/notes_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="?attr/colorPrimary"
+                android:background="@drawable/half_down_toast"
+                android:alpha="0.11"/>
+
+            <EditText
+                android:id="@+id/notes_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorSurface"
+                android:text="Take notes for element"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="top"
+                android:minLines="1"
+                android:hint="Take notes for element"
+                android:imeOptions="actionSearch"
+                android:inputType="textMultiLine"
+                android:paddingStart="18dp"
+                android:paddingTop="18dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="18dp"
+                android:textColor="?attr/colorOnSurface"
+                android:textColorHint="?attr/colorOnSurface"
+                android:textSize="14sp" />
+        </FrameLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -82,15 +120,6 @@
             android:text="..more"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="18dp"
-            android:alpha="0.25"
-            android:background="?attr/colorOnSecondaryContainer" />
 
         <TextView
             android:id="@+id/english_name"
@@ -295,14 +324,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:backgroundTint="?attr/colorSurfaceVariant"
-            android:background="@drawable/toast"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_height="wrap_content">
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorSurfaceVariant"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -315,103 +344,103 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="76dp"
-            android:orientation="horizontal"
-            android:weightSum="3">
-
             <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_marginTop="9dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="76dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
 
-                <TextView
-                    android:id="@+id/electrons_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="9dp"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Electrons"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/element_electrons"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="18dp"
+                    <TextView
+                        android:id="@+id/electrons_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Electrons"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
+
+                    <TextView
+                        android:id="@+id/element_electrons"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="18dp"
+                        android:gravity="center"
+                        android:text="Electrons"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textIsSelectable="true"
+                        android:textSize="24sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="9dp"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:text="Electrons"
-                    android:textIsSelectable="true"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="24sp" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/element_protons_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Protons"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
+
+                    <TextView
+                        android:id="@+id/element_protons"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="18dp"
+                        android:gravity="center"
+                        android:text="Protons"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textIsSelectable="true"
+                        android:textSize="24sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="9dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/element_title2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Neutrons"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
+
+                    <TextView
+                        android:id="@+id/element_neutrons_common"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="18dp"
+                        android:gravity="center"
+                        android:text="Neutrons"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textIsSelectable="true"
+                        android:textSize="24sp" />
+                </LinearLayout>
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_marginTop="9dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/element_protons_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Protons"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-                <TextView
-                    android:id="@+id/element_protons"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="18dp"
-                    android:gravity="center"
-                    android:text="Protons"
-                    android:textIsSelectable="true"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="24sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:layout_marginTop="9dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/element_title2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="Neutrons"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-
-                <TextView
-                    android:id="@+id/element_neutrons_common"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="18dp"
-                    android:gravity="center"
-                    android:text="Neutrons"
-                    android:textIsSelectable="true"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="24sp" />
-            </LinearLayout>
-
-        </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>

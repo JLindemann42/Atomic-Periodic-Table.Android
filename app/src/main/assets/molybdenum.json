@@ -1,5 +1,6 @@
 [
   {
+"element_code": "AA5hkjGCXLnS2Bth5ZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Molybdenum",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Molybdenum_crystaline_fragment_and_1cm3_cube.jpg/1920px-Molybdenum_crystaline_fragment_and_1cm3_cube.jpg",
     "description": "Molybdenum is a chemical element with the symbol Mo and atomic number 42. The name is from Neo-Latin molybdaenum, from Ancient Greek Μόλυβδος molybdos, meaning lead, since its ores were confused with lead ores. Molybdenum minerals have been known throughout history, but the element was discovered (in the sense of differentiating it as a new entity from the mineral salts of other metals) in 1778 by Carl Wilhelm Scheele. The metal was first isolated in 1781 by Peter Jacob Hjelm.",
@@ -86,6 +87,10 @@
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "5400 (m/s) [room temperature]",
+
+    "mohs_hardness": "5.5",
+    "vickers_hardness": "1400-2740 (MPa)",
+    "brinell_hardness": "1370-2500 (MPa)",
 
     "young_modulus": "329 (GPa)",
     "poisson_ratio": "0.31",
