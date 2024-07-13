@@ -9,31 +9,41 @@
     android:elevation="100dp"
     android:focusable="true"
     android:orientation="vertical"
-    app:cardBackgroundColor="?attr/colorPrimary"
+    app:cardBackgroundColor="?attr/colorSurfaceVariant"
     app:cardCornerRadius="18dp"
     app:cardElevation="100dp">
-
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.github.mmin18.widget.RealtimeBlurView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:realtimeBlurRadius="1dp"
-            android:alpha="0.95"
-            app:realtimeOverlayColor="@color/colorDarkPrimary" />
+            android:background="?attr/colorSurfaceVariant"/>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <TextView
+            android:id="@+id/detail_poisson_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:layout_gravity="start|top"
+            android:text="detail_poisson_title"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="?attr/colorAccent" />
+
+        <ImageButton
             android:id="@+id/close_detail_poisson_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|top"
-            android:layout_margin="18dp"
+            android:layout_gravity="end|top"
+            android:layout_marginEnd="9dp"
+            android:layout_marginTop="9dp"
             android:rotation="180"
             android:src="@drawable/ic_close"
-            app:backgroundTint="?attr/colorPrimary"
+            app:tint="?attr/colorAccent"
+            app:backgroundTint="?attr/colorSurfaceVariant"
             app:fabSize="mini" />
 
         <LinearLayout
@@ -47,16 +57,17 @@
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:secondaryProgressTint="?attr/colorSurface"
-                android:progressBackgroundTint="?attr/colorPrimary"
-                android:progressTint="?attr/colorPrimary"
+                android:layout_marginBottom="9dp"
+                android:secondaryProgressTint="?attr/colorPrimary"
+                android:progressBackgroundTint="?attr/colorSurfaceVariant"
+                android:progressTint="?attr/colorSurfaceVariant"
                 android:max="100"
                 android:progress="25"
                 android:secondaryProgress="75" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:orientation="horizontal">
 
@@ -74,7 +85,7 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="4dp"
                         android:alpha="0.66"
-                        android:background="@color/colorLightPrimary" />
+                        android:background="?attr/colorOnSurface" />
 
                     <TextView
                         android:id="@+id/nm4"
@@ -83,7 +94,7 @@
                         android:layout_gravity="center_horizontal"
                         android:text="0.05"
                         android:textAlignment="center"
-                        android:textColor="@color/colorLightPrimary" />
+                        android:textColor="?attr/colorOnSurface" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -100,7 +111,7 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="4dp"
                         android:alpha="0.66"
-                        android:background="@color/colorLightPrimary" />
+                        android:background="?attr/colorOnSurface" />
 
                     <TextView
                         android:id="@+id/nm5"
@@ -109,7 +120,7 @@
                         android:layout_gravity="center_horizontal"
                         android:text="0.15"
                         android:textAlignment="center"
-                        android:textColor="@color/colorLightPrimary" />
+                        android:textColor="?attr/colorOnSurface" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -126,7 +137,7 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="4dp"
                         android:alpha="0.66"
-                        android:background="@color/colorLightPrimary" />
+                        android:background="?attr/colorOnSurface" />
 
                     <TextView
                         android:id="@+id/nm6"
@@ -135,7 +146,7 @@
                         android:layout_gravity="center_horizontal"
                         android:text="0.25"
                         android:textAlignment="center"
-                        android:textColor="@color/colorLightPrimary" />
+                        android:textColor="?attr/colorOnSurface" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -152,7 +163,7 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="4dp"
                         android:alpha="0.66"
-                        android:background="@color/colorLightPrimary" />
+                        android:background="?attr/colorOnSurface" />
 
                     <TextView
                         android:id="@+id/nm7"
@@ -161,7 +172,7 @@
                         android:layout_gravity="center_horizontal"
                         android:text="0.35"
                         android:textAlignment="center"
-                        android:textColor="@color/colorLightPrimary" />
+                        android:textColor="?attr/colorOnSurface" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -178,7 +189,7 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="4dp"
                         android:alpha="0.66"
-                        android:background="@color/colorLightPrimary" />
+                        android:background="?attr/colorOnSurface" />
 
                     <TextView
                         android:id="@+id/nm8"
@@ -187,8 +198,16 @@
                         android:layout_gravity="center_horizontal"
                         android:text="0.45"
                         android:textAlignment="center"
-                        android:textColor="@color/colorLightPrimary" />
+                        android:textColor="?attr/colorOnSurface" />
                 </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
 
             </LinearLayout>
         </LinearLayout>

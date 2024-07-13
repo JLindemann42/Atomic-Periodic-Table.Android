@@ -9,12 +9,13 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.tables.PoissonActivity
+import com.jlindemann.science.model.Equation
 import com.jlindemann.science.model.Poisson
 import com.jlindemann.science.model.Series
 
 class PoissonAdapter(var list: ArrayList<Poisson>, var clickListener: PoissonActivity, val context: Context) : RecyclerView.Adapter<PoissonAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.initialize(list[position], context)
+        holder.initialize(list[position], clickListener, context)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,7 +35,7 @@ class PoissonAdapter(var list: ArrayList<Poisson>, var clickListener: PoissonAct
         private val textViewBetween = itemView.findViewById(R.id.tv_poi_between) as TextView
         private val textViewType = itemView.findViewById(R.id.tv_poi_type) as TextView
 
-        fun initialize(item: Poisson, context: Context) {
+        fun initialize(item: Poisson, action: OnPoissonClickListener, context: Context) {
             textViewName.text = item.name
             textViewName.text = item.name.capitalize()
             textViewShort.text = item.name.substring(0,2)
@@ -57,13 +58,19 @@ class PoissonAdapter(var list: ArrayList<Poisson>, var clickListener: PoissonAct
             itemView.foreground = ContextCompat.getDrawable(context, R.drawable.toast_card_ripple)
             itemView.isClickable = true
             itemView.isFocusable = true
-
+            itemView.setOnClickListener {
+                action.poissonClickListener(item, adapterPosition)
+            }
         }
     }
 
     fun filterList(filteredList: ArrayList<Poisson>) {
         list = filteredList
         notifyDataSetChanged()
+    }
+
+    interface OnPoissonClickListener {
+        fun poissonClickListener(item: Poisson, position: Int)
     }
 
 }

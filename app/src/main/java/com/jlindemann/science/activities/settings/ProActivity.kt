@@ -227,7 +227,7 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
                     { billingResult ->
                         when (val responseCode = billingResult.responseCode) {
                             BillingClient.BillingResponseCode.OK -> {
-                                showMemberInfo()
+                                showMemberInfo() //purschase accepted
                             }
                             else -> {
                                 ToastUtil.showToast(this@ProActivity, "Error")
