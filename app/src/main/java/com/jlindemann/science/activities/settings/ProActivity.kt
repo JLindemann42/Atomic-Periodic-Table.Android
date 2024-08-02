@@ -45,6 +45,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import java.io.IOException
 import java.util.concurrent.Executors
 
 
@@ -97,7 +98,12 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
             this.onBackPressed()
         }
         findViewById<TextView>(R.id.buy_btn).setOnClickListener {
-            launchBillingFlow(productDetailList[0])
+            try {
+                launchBillingFlow(productDetailList[0])
+            }
+            catch (e: IOException) {
+                ToastUtil.showToast(this, "Try again")
+            }
         }
         val purchasesUpdateListener =
             PurchasesUpdatedListener { billingResult, purchases ->
@@ -244,25 +250,30 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
     }
 
     private fun launchBillingFlow(productDetails: ProductDetails) {
-        val productDetailsParamsList =
-            listOf(
-                BillingFlowParams.ProductDetailsParams.newBuilder()
-                    .setProductDetails(productDetails)
-                    .build()
-            )
-        val billingFlowParams = BillingFlowParams.newBuilder()
-            .setProductDetailsParamsList(productDetailsParamsList)
-            .build()
-        if (billingClient?.isReady == false) {
-            ToastUtil.showToast(this, "Billing client not ready, try again!")
-        }
-        val billingResult = billingClient?.launchBillingFlow(this, billingFlowParams)
-
-        when (val responseCode = billingResult?.responseCode) {
-            BillingClient.BillingResponseCode.OK -> {
-                val proPref = ProVersion(this@ProActivity)
-                var proPrefValue = proPref.getValue()
+        try {
+            val productDetailsParamsList =
+                listOf(
+                    BillingFlowParams.ProductDetailsParams.newBuilder()
+                        .setProductDetails(productDetails)
+                        .build()
+                )
+            val billingFlowParams = BillingFlowParams.newBuilder()
+                .setProductDetailsParamsList(productDetailsParamsList)
+                .build()
+            if (billingClient?.isReady == false) {
+                ToastUtil.showToast(this, "Billing client not ready, try again!")
             }
+            val billingResult = billingClient?.launchBillingFlow(this, billingFlowParams)
+
+            when (val responseCode = billingResult?.responseCode) {
+                BillingClient.BillingResponseCode.OK -> {
+                    val proPref = ProVersion(this@ProActivity)
+                    var proPrefValue = proPref.getValue()
+                }
+        }
+        }
+        catch (e: IOException) {
+            ToastUtil.showToast(this, "Try again")
         }
     }
 
