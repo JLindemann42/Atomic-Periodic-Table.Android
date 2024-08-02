@@ -2,6 +2,7 @@ package com.jlindemann.science.activities.tables
 
 import android.content.Context
 import android.content.res.Configuration
+import android.graphics.ColorMatrixColorFilter
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -13,29 +14,36 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.ElectrodeAdapter
+import com.jlindemann.science.adapter.EquationsAdapter
 import com.jlindemann.science.adapter.PoissonAdapter
 import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Dictionary
 import com.jlindemann.science.model.DictionaryModel
+import com.jlindemann.science.model.Equation
 import com.jlindemann.science.model.Poisson
 import com.jlindemann.science.model.PoissonModel
 import com.jlindemann.science.preferences.DictionaryPreferences
 import com.jlindemann.science.preferences.PoissonPreferences
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class PoissonActivity : BaseActivity() {
+class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
     private var poissonList = ArrayList<Poisson>()
     var mAdapter = PoissonAdapter(poissonList, this, this)
 
@@ -62,6 +70,8 @@ class PoissonActivity : BaseActivity() {
         clickSearch()
         chipListeners(itempoi, recyclerView)
         findViewById<Button>(R.id.clear_btn).visibility = View.GONE
+        findViewById<FrameLayout>(R.id.poi_det_inc_background).setOnClickListener { hideInfoPanel() }
+        findViewById<ImageButton>(R.id.close_detail_poisson_btn).setOnClickListener { hideInfoPanel() }
 
         findViewById<FrameLayout>(R.id.view_poi).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         findViewById<ImageButton>(R.id.back_btn_poi).setOnClickListener {
@@ -100,6 +110,28 @@ class PoissonActivity : BaseActivity() {
         })
     }
 
+    //Overrides the clickListener from PoissonAdapter to show InfoPanel when clicking on elments
+    override fun poissonClickListener(item: Poisson, position: Int) {
+        showInfoPanel(item.name, item.start, item.end, item.type)
+    }
+
+    //Show the info panel with detailed information about poisson interavls for materials
+    private fun showInfoPanel(title: String, start: Double, end: Double, type: String) {
+        Anim.fadeIn(findViewById<ConstraintLayout>(R.id.poi_det_inc), 150)
+        findViewById<FrameLayout>(R.id.poi_det_inc_background).visibility = View.VISIBLE
+
+        findViewById<ProgressBar>(R.id.pb_poisson_detail).progress = (start*100*2).toInt() //*2 as 100% is 0.5
+        findViewById<ProgressBar>(R.id.pb_poisson_detail).secondaryProgress = (end*100*2).toInt() //*2 as 100% is 0.5
+        findViewById<TextView>(R.id.detail_poisson_title).text = title
+    }
+
+    //function for hiding info panel
+    private fun hideInfoPanel() {
+        Anim.fadeOutAnim(findViewById<ConstraintLayout>(R.id.poi_det_inc), 150)
+        findViewById<FrameLayout>(R.id.poi_det_inc_background).visibility = View.GONE
+    }
+
+    //Filters the listView by different sorts of material by using the PoissonPreference to filter by the stringValue.
     private fun filter(text: String, list: ArrayList<Poisson>, recyclerView: RecyclerView) {
         val filteredList: ArrayList<Poisson> = ArrayList()
         for (item in list) {
@@ -197,6 +229,14 @@ class PoissonActivity : BaseActivity() {
             findViewById<EditText>(R.id.edit_poi).setText("")
             findViewById<Button>(R.id.clear_btn).visibility = View.GONE
         }
+    }
+
+    //handle back action
+    override fun onBackPressed() {
+        if (findViewById<CardView>(R.id.poi_det_inc).visibility == View.VISIBLE) {
+            hideInfoPanel()
+            return
+        } else { super.onBackPressed() }
     }
 }
 

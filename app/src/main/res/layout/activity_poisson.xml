@@ -278,6 +278,23 @@
         layout="@layout/detail_poisson"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="130dp"
+        android:elevation="112dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/poi_det_inc_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.6"
+        android:visibility="gone"
+        android:background="@color/colorLightText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
