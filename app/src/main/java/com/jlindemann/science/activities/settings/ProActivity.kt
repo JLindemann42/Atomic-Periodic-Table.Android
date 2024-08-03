@@ -260,8 +260,8 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
     }
 
     private fun checkSale() {
-        val saleStartDate = SimpleDateFormat("yyyy/MM/dd").parse("2024/08/02") //Back to school sale
-        val saleEndDate = SimpleDateFormat("yyyy/MM/dd").parse("2024/09/15") //Back to school sale
+        val saleStartDate = SimpleDateFormat("yyyy/MM/dd").parse(getString(R.string.next_sale_start)) //Back to school sale
+        val saleEndDate = SimpleDateFormat("yyyy/MM/dd").parse(getString(R.string.next_sale_end)) //Back to school sale
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val date = calendar.time
         val proText = findViewById<TextView>(R.id.pro_price)

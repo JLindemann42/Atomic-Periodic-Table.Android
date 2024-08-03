@@ -23,7 +23,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingBottom="60dp">
 
                     <TextView
                         android:id="@+id/pro_title_downstate"
@@ -43,229 +44,229 @@
                         android:layout_height="match_parent">
 
 
-                <LinearLayout
-                    android:id="@+id/pro_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="@dimen/margin_space"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorSurfaceVariant"
-                    android:elevation="2dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/pro_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="@dimen/margin"
-                            android:clickable="true"
-                            android:drawableStart="@drawable/ic_star"
-                            android:drawablePadding="8dp"
-                            android:drawableTint="?attr/colorOnSurfaceVariant"
-                            android:elevation="1dp"
-                            android:focusable="true"
-                            android:foreground="@drawable/c_ripple"
-                            android:gravity="center_vertical"
-                            android:text="@string/pro_title"
-                            android:textStyle="bold"
-                            android:textColor="?attr/colorOnSurfaceVariant" />
-
-                        <TextView
+                        <LinearLayout
+                            android:id="@+id/pro_box"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:padding="@dimen/margin"
-                            android:text="@string/pro_descr"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:textSize="14sp"
-                            android:textStyle="italic"
-                            android:paddingStart="@dimen/margin"
-                            android:paddingEnd="@dimen/margin"
-                            android:text="* Price will be converted to local currency and may differ"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/i_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_marginStart="@dimen/margin"
-                        android:layout_marginTop="@dimen/margin"
-                        android:layout_marginEnd="@dimen/margin"
-                        android:background="@drawable/toast"
-                        android:backgroundTint="?attr/colorSurface"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:gravity="top"
-                        android:paddingStart="18dp"
-                        android:paddingTop="18dp"
-                        android:paddingEnd="18dp"
-                        android:paddingBottom="18dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:text="PRO Features:"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:text="- Hardness Data:"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:text="- Mohs Hardness"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:text="- Vickers Hardness"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:text="- Brinell Hardness"/>
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:text="- Additional Data:"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin"
-                                android:textColor="?attr/colorOnSurfaceVariant"
-                                android:text="- Sound of Speed"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin"
-                                android:textColor="?attr/colorOnSurfaceVariant"
-                                android:text="- Poisson Ratio"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin"
-                                android:textColor="?attr/colorOnSurfaceVariant"
-                                android:text="- Elastic Modulus (Young's, Bulk and Shear)"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="@dimen/margin"
-                                android:textColor="?attr/colorOnSurfaceVariant"
-                                android:text="- And more"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:text="- Additional Tables:"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="?attr/colorOnSurfaceVariant"
-                                android:layout_marginStart="@dimen/margin"
-                                android:text="- Poisson Ratio for rock-materials"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:text="- Future data additions"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:text="- Early access to work-in-progress features"/>
-
-                    </LinearLayout>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/pro_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="30dp"
-                            android:textStyle="bold"
-                            android:textSize="18sp"
-                            android:textColor="?attr/colorPrimary"
-                            android:text="1.99 USD"/>
-
-                        <TextView
-                            android:id="@+id/pro_price_discount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:visibility="gone"
-                            android:layout_marginStart="30dp"
-                            android:layout_marginBottom="8dp"
-                            android:layout_marginTop="24dp"
-                            android:textStyle="bold"
-                            android:textSize="14sp"
-                            android:textColor="?attr/colorPrimary"
-                            android:text="1.99 USD"/>
-
-                        <TextView
-                            android:id="@+id/buy_btn"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="@dimen/margin"
-                            android:layout_marginTop="@dimen/margin"
-                            android:layout_marginEnd="@dimen/margin"
-                            android:layout_marginBottom="@dimen/margin"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="@dimen/margin_space"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
                             android:background="@drawable/toast"
-                            android:backgroundTint="?attr/colorPrimary"
-                            android:clickable="true"
+                            android:backgroundTint="?attr/colorSurfaceVariant"
                             android:elevation="2dp"
-                            android:focusable="true"
-                            android:layout_gravity="end"
-                            android:gravity="center_vertical"
-                            android:paddingEnd="24dp"
-                            android:paddingStart="24dp"
-                            android:foreground="@drawable/c_ripple"
-                            android:textStyle="normal"
-                            android:text="@string/get_pro_title"
-                            android:textSize="16sp"
-                            android:textColor="?attr/colorOnPrimary" />
-                    </FrameLayout>
-                </LinearLayout>
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/margin"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/pro_text"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:clickable="true"
+                                    android:drawableStart="@drawable/ic_star"
+                                    android:drawablePadding="8dp"
+                                    android:drawableTint="?attr/colorOnSurfaceVariant"
+                                    android:elevation="1dp"
+                                    android:focusable="true"
+                                    android:foreground="@drawable/c_ripple"
+                                    android:gravity="center_vertical"
+                                    android:text="@string/pro_title"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="@dimen/margin"
+                                    android:text="@string/pro_descr"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="@dimen/margin"
+                                    android:paddingEnd="@dimen/margin"
+                                    android:text="* Price will be converted to local currency and may differ"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:textSize="14sp"
+                                    android:textStyle="italic" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/i_content"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin"
+                                android:layout_marginTop="@dimen/margin"
+                                android:layout_marginEnd="@dimen/margin"
+                                android:background="@drawable/toast"
+                                android:backgroundTint="?attr/colorSurface"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:gravity="top"
+                                android:orientation="vertical"
+                                android:paddingStart="18dp"
+                                android:paddingTop="18dp"
+                                android:paddingEnd="18dp"
+                                android:paddingBottom="18dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="PRO Features:"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="- Hardness Data:"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:text="- Mohs Hardness"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:text="- Vickers Hardness"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:text="- Brinell Hardness"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="- Additional Data:"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:text="- Sound of Speed"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:text="- Poisson Ratio"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:text="- Elastic Modulus (Young's, Bulk and Shear)"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:text="- And more"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="- Additional Tables:"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:text="- Poisson Ratio for rock-materials"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="- Future data additions"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="- Early access to work-in-progress features"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                            </LinearLayout>
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <TextView
+                                    android:id="@+id/pro_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="30dp"
+                                    android:text="1.99 USD"
+                                    android:textColor="?attr/colorPrimary"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/pro_price_discount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="30dp"
+                                    android:layout_marginTop="28dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:text="1.99 USD"
+                                    android:textColor="?attr/colorPrimary"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:visibility="gone" />
+
+                                <TextView
+                                    android:id="@+id/buy_btn"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="40dp"
+                                    android:layout_gravity="end"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:layout_marginTop="@dimen/margin"
+                                    android:layout_marginEnd="@dimen/margin"
+                                    android:layout_marginBottom="@dimen/margin"
+                                    android:background="@drawable/toast"
+                                    android:backgroundTint="?attr/colorPrimary"
+                                    android:clickable="true"
+                                    android:elevation="2dp"
+                                    android:focusable="true"
+                                    android:foreground="@drawable/c_ripple"
+                                    android:gravity="center_vertical"
+                                    android:paddingStart="24dp"
+                                    android:paddingEnd="24dp"
+                                    android:text="@string/get_pro_title"
+                                    android:textColor="?attr/colorOnPrimary"
+                                    android:textSize="16sp"
+                                    android:textStyle="normal" />
+                            </FrameLayout>
+                        </LinearLayout>
 
                         <LinearLayout
                             android:id="@+id/member_box"
@@ -276,10 +277,10 @@
                             android:layout_marginEnd="16dp"
                             android:layout_marginBottom="16dp"
                             android:background="@drawable/toast"
-                            android:visibility="gone"
                             android:backgroundTint="?attr/colorSurfaceVariant"
                             android:elevation="2dp"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -302,15 +303,15 @@
                                     android:foreground="@drawable/c_ripple"
                                     android:gravity="center_vertical"
                                     android:text="@string/member_title"
-                                    android:textStyle="bold"
-                                    android:textColor="?attr/colorPrimary" />
+                                    android:textColor="?attr/colorPrimary"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
                                     android:padding="@dimen/margin"
-                                    android:text="@string/member_desch"/>
+                                    android:text="@string/member_desch"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                             </LinearLayout>
 
@@ -318,7 +319,6 @@
                                 android:id="@+id/member_content"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="vertical"
                                 android:layout_marginStart="@dimen/margin"
                                 android:layout_marginTop="@dimen/margin"
                                 android:layout_marginEnd="@dimen/margin"
@@ -327,6 +327,7 @@
                                 android:focusable="true"
                                 android:focusableInTouchMode="true"
                                 android:gravity="top"
+                                android:orientation="vertical"
                                 android:paddingStart="18dp"
                                 android:paddingTop="18dp"
                                 android:paddingEnd="18dp"
@@ -335,95 +336,95 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textStyle="bold"
+                                    android:text="PRO Features:"
                                     android:textColor="?attr/colorOnSurfaceVariant"
-                                    android:text="PRO Features:"/>
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
-                                    android:text="- Hardness Data:"/>
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="@dimen/margin"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
-                                    android:text="- Mohs Hardness"/>
+                                    android:text="- Hardness Data:"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/margin"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
-                                    android:text="- Vickers Hardness"/>
+                                    android:text="- Mohs Hardness"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/margin"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
-                                    android:text="- Brinell Hardness"/>
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
-                                    android:text="- Additional Data:"/>
+                                    android:text="- Vickers Hardness"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/margin"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
-                                    android:text="- Sound of Speed"/>
+                                    android:text="- Brinell Hardness"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="- Additional Data:"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/margin"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
-                                    android:text="- Poisson Ratio"/>
+                                    android:text="- Sound of Speed"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/margin"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
-                                    android:text="- Elastic Modulus (Young's, Bulk and Shear)"/>
+                                    android:text="- Poisson Ratio"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="@dimen/margin"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
-                                    android:text="- And more"/>
+                                    android:text="- Elastic Modulus (Young's, Bulk and Shear)"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
-                                    android:text="- Additional Tables:"/>
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
                                     android:layout_marginStart="@dimen/margin"
-                                    android:text="- Poisson Ratio for rock-materials"/>
+                                    android:text="- And more"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
-                                    android:text="- Future data additions"/>
+                                    android:text="- Additional Tables:"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:textColor="?attr/colorOnSurfaceVariant"
-                                    android:text="- Early access to work-in-progress features"/>
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:text="- Poisson Ratio for rock-materials"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="- Future data additions"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="- Early access to work-in-progress features"
+                                    android:textColor="?attr/colorOnSurfaceVariant" />
 
                             </LinearLayout>
 
@@ -435,6 +436,7 @@
                                     android:id="@+id/already_member"
                                     android:layout_width="wrap_content"
                                     android:layout_height="40dp"
+                                    android:layout_gravity="end"
                                     android:layout_marginStart="@dimen/margin"
                                     android:layout_marginTop="@dimen/margin"
                                     android:layout_marginEnd="@dimen/margin"
@@ -443,14 +445,13 @@
                                     android:backgroundTint="?attr/colorSurfaceVariant"
                                     android:clickable="true"
                                     android:focusable="true"
-                                    android:layout_gravity="end"
                                     android:gravity="center_vertical"
-                                    android:paddingEnd="24dp"
                                     android:paddingStart="24dp"
-                                    android:textStyle="normal"
+                                    android:paddingEnd="24dp"
                                     android:text="@string/member_already"
+                                    android:textColor="?attr/colorPrimary"
                                     android:textSize="16sp"
-                                    android:textColor="?attr/colorPrimary" />
+                                    android:textStyle="normal" />
                             </FrameLayout>
                         </LinearLayout>
 

@@ -3,6 +3,8 @@
 
     <string name="personalization_settings">Personalization</string>
     <string name="app_version" translatable="false">v2.4.0-Build.86</string>
+    <string name="next_sale_start" translatable="false">2024/08/02</string>
+    <string name="next_sale_end" translatable="false">2024/09/15</string>
 
     <string name="open_table_button">Open table</string>
 
