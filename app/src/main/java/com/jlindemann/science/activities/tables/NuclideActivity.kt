@@ -70,7 +70,6 @@ class NuclideActivity : BaseActivity() {
                 scaleAnimation.willChangeTransformationMatrix()
                 val layout = findViewById<LinearLayout>(R.id.scrollNuc) as LinearLayout
                 layout.startAnimation(scaleAnimation)
-
                 return true
             }
         })
@@ -107,10 +106,7 @@ class NuclideActivity : BaseActivity() {
             val dLayout = findViewById<FrameLayout>(R.id.nuc_view)
             val inflate = layoutInflater
             val mLayout: View = inflate.inflate(R.layout.item_nuclide, dLayout, false)
-            val param = RelativeLayout.LayoutParams(
-                resources.getDimensionPixelSize(R.dimen.item_nuclide),
-                resources.getDimensionPixelSize(R.dimen.item_nuclide)
-            )
+            val param = RelativeLayout.LayoutParams(resources.getDimensionPixelSize(R.dimen.item_nuclide), resources.getDimensionPixelSize(R.dimen.item_nuclide))
             param.leftMargin = resources.getDimensionPixelSize(R.dimen.item_nuclide) * 0
             param.topMargin = resources.getDimensionPixelSize(R.dimen.item_nuclide) * 1
             val s = mLayout.findViewById(R.id.nuclide_element) as TextView
@@ -146,9 +142,8 @@ class NuclideActivity : BaseActivity() {
                         val half = jsonObject.optString(halfJson, "-")
 
                         val decayTypeResult = jsonObject.optString(decayTypeString, "default")
-                        val mainLayout = findViewById<FrameLayout>(R.id.nuc_view)
                         val inflater = layoutInflater
-                        val myLayout: View = inflater.inflate(R.layout.item_nuclide, mainLayout, false)
+                        val myLayout: View = inflater.inflate(R.layout.item_nuclide, dLayout, false)
                         val params = RelativeLayout.LayoutParams(resources.getDimensionPixelSize(R.dimen.item_nuclide), resources.getDimensionPixelSize(R.dimen.item_nuclide))
 
                         if (n.isDigitsOnly() && z.isDigitsOnly()) {
@@ -217,7 +212,7 @@ class NuclideActivity : BaseActivity() {
                                 short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
                                 top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
                             }
-                            mainLayout.addView(myLayout, params)
+                            dLayout.addView(myLayout, params)
                         }
                     }
                 } catch (e: IOException) {
