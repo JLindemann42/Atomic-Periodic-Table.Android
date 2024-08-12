@@ -78,7 +78,6 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-
             android:elevation="1dp" />
 
         <TextView

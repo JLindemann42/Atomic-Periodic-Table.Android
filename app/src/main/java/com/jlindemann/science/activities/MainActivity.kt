@@ -42,6 +42,7 @@ import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.utils.TabUtil
 import com.jlindemann.science.utils.Utils
+import com.otaliastudios.zoom.ZoomSurfaceView
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 import org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView

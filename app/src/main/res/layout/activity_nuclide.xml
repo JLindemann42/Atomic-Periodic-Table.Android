@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/view_constraint"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,7 +20,7 @@
             android:id="@+id/ldn_place"
             layout="@layout/loading_view"
             android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|center_vertical" />
 
         <FrameLayout
@@ -78,9 +79,11 @@
         </FrameLayout>
 
         <com.otaliastudios.zoom.ZoomLayout
+            android:id="@+id/nuclideZoomView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical|horizontal"
+            android:visibility="visible"
             app:transformation="centerInside"
             app:transformationGravity="auto"
             app:alignment="none_horizontal"

@@ -6,6 +6,8 @@
     android:layout_height="32dp"
     android:background="@drawable/toast_nuclide"
     android:backgroundTint="?attr/colorSurfaceVariant"
+    android:clickable="true"
+    android:focusable="true"
     android:foreground="@drawable/c_ripple"
     android:elevation="0dp">
 
