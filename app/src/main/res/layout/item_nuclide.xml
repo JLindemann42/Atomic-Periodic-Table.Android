@@ -7,9 +7,7 @@
     android:background="@drawable/toast_nuclide"
     android:backgroundTint="?attr/colorSurfaceVariant"
     android:foreground="@drawable/c_ripple"
-    android:clickable="true"
-    android:elevation="0dp"
-    android:focusable="true">
+    android:elevation="0dp">
 
         <TextView
             android:id="@+id/nuclide_element"

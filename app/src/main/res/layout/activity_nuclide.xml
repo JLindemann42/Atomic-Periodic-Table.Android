@@ -132,7 +132,6 @@
             android:layout_gravity="end"
             android:layout_marginTop="240dp"
             android:layout_marginEnd="-100dp"
-            android:clickable="true"
             android:elevation="4dp"
             android:indeterminate="false"
             android:max="24"

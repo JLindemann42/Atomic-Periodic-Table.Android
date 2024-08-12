@@ -50,7 +50,7 @@ class NuclideActivity : BaseActivity() {
         val handler = Handler()
         handler.postDelayed({
                 addViews(elementLists)
-        }, 100)
+        }, 1)
 
         gestureDetector = GestureDetector(this, NuclideActivity.GestureListener())
         mScaleDetector = ScaleGestureDetector(this, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
@@ -202,7 +202,7 @@ class NuclideActivity : BaseActivity() {
                                 short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
                                 top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
                             }
-                            if (decayTypeResult == "a") {
+                            if (decayTypeResult == "a" || decayTypeResult == "α" || decayTypeResult == "alpha") {
                                 frame.background.setTint(Color.argb(255, 255, 235, 59))
                                 short.setTextColor(resources.getColor(R.color.colorDarkPrimary))
                                 top.setTextColor(resources.getColor(R.color.colorDarkPrimary))
