@@ -24,7 +24,10 @@ import java.io.InputStream
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.marginBottom
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.otaliastudios.zoom.ZoomLayout
 import com.otaliastudios.zoom.ZoomSurfaceView
 import kotlinx.coroutines.Dispatchers
@@ -37,6 +40,7 @@ class NuclideActivity : BaseActivity() {
     var mScale = 1f
     lateinit var mScaleDetector: ScaleGestureDetector
     lateinit var gestureDetector: GestureDetector
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +55,9 @@ class NuclideActivity : BaseActivity() {
         runOnUiThread {
             findViewById<FrameLayout>(R.id.ldn_place).visibility = View.VISIBLE
             findViewById<ZoomLayout>(R.id.nuclideZoomView).visibility = View.GONE
+            findViewById<FloatingActionButton>(R.id.nuc_info_fab).setOnClickListener {
+                showInfoPanel()
+            }
         }
 
         // Load JSON in the background and update UI
@@ -250,12 +257,33 @@ class NuclideActivity : BaseActivity() {
         override fun onDoubleTap(e: MotionEvent): Boolean = true
     }
 
+    private fun showInfoPanel() {
+        Anim.fadeIn(findViewById<ConstraintLayout>(R.id.nuc_info_panel), 300)
+
+        //setting up clickListeners that closes infoPanel
+        findViewById<TextView>(R.id.nuc_panel_background).setOnClickListener {
+            closeInfoPanel()
+        }
+        findViewById<FloatingActionButton>(R.id.nuc_info_close_btn).setOnClickListener {
+            closeInfoPanel()
+        }
+    }
+
+    private fun closeInfoPanel() {
+        Anim.fadeOutAnim(findViewById<ConstraintLayout>(R.id.nuc_info_panel), 300)
+    }
+
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         findViewById<FrameLayout>(R.id.scrollViewNuc).setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
 
         val params2 = findViewById<FrameLayout>(R.id.common_title_back_nuc).layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<FrameLayout>(R.id.common_title_back_nuc).layoutParams = params2
+
+        val params3 = findViewById<FloatingActionButton>(R.id.nuc_info_fab).layoutParams as ViewGroup.MarginLayoutParams
+        params3.setMargins(0, 0, resources.getDimensionPixelSize(R.dimen.margin), bottom + resources.getDimensionPixelSize(R.dimen.margin))
+        findViewById<FloatingActionButton>(R.id.nuc_info_fab).layoutParams = params3
+
     }
 }
 

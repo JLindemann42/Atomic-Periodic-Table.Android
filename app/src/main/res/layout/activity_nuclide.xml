@@ -152,9 +152,19 @@
         android:src="@drawable/ic_info"
         android:tint="?attr/colorSurface"
         android:backgroundTint="?attr/colorAccent"
+        android:clickable="true"
+        android:focusable="true"
         android:elevation="4dp"
         app:layout_constraintBottom_toBottomOf="@id/view_constraint"
         app:layout_constraintEnd_toEndOf="@id/view_constraint"
         android:layout_margin="16dp"/>
+
+    <include
+        android:id="@+id/nuc_info_panel"
+        layout="@layout/nuc_info"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
