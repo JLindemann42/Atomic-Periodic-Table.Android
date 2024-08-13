@@ -77,7 +77,7 @@ object ElementModel {
         elements.add(Element("tantalum", "Ta", 73, 1.5, 40))
         elements.add(Element("tungsten", "W", 74, 2.36, 40))
         elements.add(Element("rhenium", "Re", 75, 1.9, 40))
-        elements.add(Element("osmium", "Os", 76, 2.2, 33))
+        elements.add(Element("osmium", "Os", 76, 2.2, 37))
         elements.add(Element("iridium", "Ir", 77, 2.20, 40))
         elements.add(Element("platinum", "Pa", 78, 2.28, 40))
         elements.add(Element("gold", "Au", 79, 2.54, 40))

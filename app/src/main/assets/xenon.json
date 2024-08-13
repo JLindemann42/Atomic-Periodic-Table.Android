@@ -229,7 +229,7 @@
 
         "iso_26": "133-Xe",
         "iso_mass_26": "132.944",
-        "decay_type_26": "B+",
+        "decay_type_26": "B-",
         "iso_half_26": "5.247 days",
         "iso_Z_26": "54",
         "iso_N_26": "79",
@@ -245,7 +245,7 @@
 
         "iso_28": "135-Xe",
         "iso_mass_28": "134.906",
-        "decay_type_28": "B+",
+        "decay_type_28": "B-",
         "iso_half_28": "9.14 hours",
         "iso_Z_28": "54",
         "iso_N_28": "81",
@@ -261,7 +261,7 @@
 
         "iso_30": "137-Xe",
         "iso_mass_30": "136.911",
-        "decay_type_30": "B+",
+        "decay_type_30": "B-",
         "iso_half_30": "3.818 minutes",
         "iso_Z_30": "54",
         "iso_N_30": "83",
@@ -269,7 +269,7 @@
 
         "iso_31": "138-Xe",
         "iso_mass_31": "137.913",
-        "decay_type_31": "B+",
+        "decay_type_31": "B-",
         "iso_half_31": "14.08 minutes",
         "iso_Z_31": "54",
         "iso_N_31": "84",
@@ -277,7 +277,7 @@
 
         "iso_32": "139-Xe",
         "iso_mass_32": "138.918",
-        "decay_type_32": "B+",
+        "decay_type_32": "B-",
         "iso_half_32": "39.68 seconds",
         "iso_Z_32": "54",
         "iso_N_32": "85",
@@ -285,7 +285,7 @@
 
         "iso_33": "140-Xe",
         "iso_mass_33": "139.921",
-        "decay_type_33": "B+",
+        "decay_type_33": "B-",
         "iso_half_33": "13.6 seconds",
         "iso_Z_33": "54",
         "iso_N_33": "86",
@@ -293,7 +293,7 @@
 
         "iso_34": "141-Xe",
         "iso_mass_34": "140.926",
-        "decay_type_34": "B+",
+        "decay_type_34": "B-",
         "iso_half_34": "1.7 seconds",
         "iso_Z_34": "54",
         "iso_N_34": "87",
@@ -301,7 +301,7 @@
 
         "iso_35": "142-Xe",
         "iso_mass_35": "141.929",
-        "decay_type_35": "B+",
+        "decay_type_35": "B-",
         "iso_half_35": "1.0 seconds",
         "iso_Z_35": "54",
         "iso_N_35": "88",
@@ -309,7 +309,7 @@
 
         "iso_36": "143-Xe",
         "iso_mass_36": "142.934",
-        "decay_type_36": "B+",
+        "decay_type_36": "B-",
         "iso_half_36": "0.6 seconds",
         "iso_Z_36": "54",
         "iso_N_36": "89",
@@ -317,7 +317,7 @@
 
         "iso_37": "144-Xe",
         "iso_mass_37": "143.937",
-        "decay_type_37": "B+",
+        "decay_type_37": "B-",
         "iso_half_37": "0.3 seconds",
         "iso_Z_37": "54",
         "iso_N_37": "90",
@@ -325,7 +325,7 @@
 
         "iso_38": "145-Xe",
         "iso_mass_38": "144.942",
-        "decay_type_38": "B+",
+        "decay_type_38": "B-",
         "iso_half_38": "0.2 seconds",
         "iso_Z_38": "54",
         "iso_N_38": "91",
@@ -333,7 +333,7 @@
 
         "iso_39": "146-Xe",
         "iso_mass_39": "145.945",
-        "decay_type_39": "B+",
+        "decay_type_39": "B-",
         "iso_half_39": "0.1 seconds",
         "iso_Z_39": "54",
         "iso_N_39": "92",

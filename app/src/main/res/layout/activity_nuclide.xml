@@ -143,5 +143,18 @@
             android:rotation="270"
             android:visibility="gone" />
     </FrameLayout>
+    
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/nuc_info_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Info of different decay types"
+        android:src="@drawable/ic_info"
+        android:tint="?attr/colorSurface"
+        android:backgroundTint="?attr/colorAccent"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/view_constraint"
+        app:layout_constraintEnd_toEndOf="@id/view_constraint"
+        android:layout_margin="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

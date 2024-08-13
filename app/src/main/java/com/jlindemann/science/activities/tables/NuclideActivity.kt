@@ -1,5 +1,6 @@
 package com.jlindemann.science.activities.tables
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
@@ -120,6 +121,7 @@ class NuclideActivity : BaseActivity() {
         return mScaleDetector.onTouchEvent(event)
     }
 
+    @SuppressLint("SetTextI18n") //suppresses as it's only showing number and therefore no attr needed
     private suspend fun loadAndDisplayElements() {
         withContext(Dispatchers.IO) {
             ElementModel.getList(elementLists)
@@ -222,8 +224,9 @@ class NuclideActivity : BaseActivity() {
             "e- capture" to Pair(Color.argb(255, 176, 0, 78), R.color.colorDarkPrimary),
             "e-capture" to Pair(Color.argb(255, 176, 0, 78), R.color.colorDarkPrimary),
             "EC" to Pair(Color.argb(255, 176, 0, 78), R.color.colorDarkPrimary),
-            "ε" to Pair(Color.argb(255, 176, 0, 78), R.color.colorDarkPrimary)
-        )
+            "ε" to Pair(Color.argb(255, 176, 0, 78), R.color.colorDarkPrimary),
+            "SF" to Pair(Color.argb(255, 87, 201, 98), R.color.colorDarkPrimary),
+            )
 
         val (bgColor, textColorRes) = decayColors[decayTypeResult] ?: decayColors["stable"]!!
 
@@ -238,7 +241,7 @@ class NuclideActivity : BaseActivity() {
             "e- capture", "e-capture", "EC", "ε" -> "ε-capture"
             else -> decayTypeResult
         }
-        dLayout.addView(myLayout, params)
+        dLayout.addView(myLayout, params) //inflates view after data has been parsed from json
     }
 
 
