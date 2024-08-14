@@ -418,7 +418,7 @@
                     android:text="@string/open_table_button"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnPrimary"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
         </FrameLayout>
 
@@ -455,18 +455,6 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginTop="@dimen/margin_space"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:layout_marginBottom="@dimen/margin_space"
-                    android:text="@string/table_poisson_text"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="16sp"
-                    android:textStyle="normal" />
-
-                <TextView
                     android:id="@+id/pro_poi_text"
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
@@ -487,6 +475,19 @@
                     android:textSize="13sp" />
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/table_poisson_text"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+
+                <TextView
                     android:id="@+id/poi_button"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
@@ -505,7 +506,7 @@
                     android:text="@string/open_table_button"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnPrimary"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
             </LinearLayout>
         </FrameLayout>
 
@@ -542,6 +543,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/pro_nuc_text"
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
                     android:layout_gravity="start"
@@ -555,7 +557,7 @@
                     android:gravity="center"
                     android:paddingStart="14dp"
                     android:paddingEnd="14dp"
-                    android:text="Beta"
+                    android:text="Requires PRO-Version"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnTertiary"
                     android:textSize="13sp" />

@@ -45,7 +45,7 @@
             android:layout_marginTop="18dp"
             android:layout_marginEnd="18dp"
             android:layout_marginBottom="9dp"
-            android:text="nuc_info_title"
+            android:text="Nuclide Table Info"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="18sp" />
 
@@ -82,7 +82,7 @@
                     android:layout_marginEnd="18dp"
                     android:layout_marginBottom="18dp"
                     android:alpha="0.85"
-                    android:text="info_text"
+                    android:text="- α: alpha decay \n -β: beta decay \n - ε-capture: Electron Capture \n - SF: Spontaneous fission"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="14sp" />
             </LinearLayout>

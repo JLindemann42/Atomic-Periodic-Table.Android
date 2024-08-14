@@ -19,6 +19,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import com.android.billingclient.api.AcknowledgePurchaseParams
@@ -109,7 +110,12 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
         }
         findViewById<TextView>(R.id.buy_btn).setOnClickListener {
             try {
-                launchBillingFlow(productDetailList[0])
+                if (productDetailList.isEmpty()) {
+                    ToastUtil.showToast(this, "No products found")
+                }
+                else {
+                    launchBillingFlow(productDetailList[0])
+                }
             }
             catch (e: IOException) {
                 ToastUtil.showToast(this, "Try again")

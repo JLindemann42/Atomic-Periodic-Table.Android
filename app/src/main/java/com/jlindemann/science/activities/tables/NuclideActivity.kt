@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
 import android.view.*
 import android.view.animation.ScaleAnimation
@@ -16,20 +15,13 @@ import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ThemePreference
-import kotlinx.coroutines.runBlocking
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
-import java.io.InputStream
-import android.view.*
-import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.marginBottom
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.otaliastudios.zoom.ZoomLayout
-import com.otaliastudios.zoom.ZoomSurfaceView
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -40,7 +32,6 @@ class NuclideActivity : BaseActivity() {
     var mScale = 1f
     lateinit var mScaleDetector: ScaleGestureDetector
     lateinit var gestureDetector: GestureDetector
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +59,8 @@ class NuclideActivity : BaseActivity() {
         setupGestureDetectors()
         setupSeekBar()
         setupBackButton()
-        findViewById<FrameLayout>(R.id.view_nuc).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<FrameLayout>(R.id.view_nuc).systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
     }
 
     private fun setAppropriateTheme(themePrefValue: Int) {
@@ -84,12 +76,14 @@ class NuclideActivity : BaseActivity() {
 
     private fun setupGestureDetectors() {
         gestureDetector = GestureDetector(this, GestureListener())
-        mScaleDetector = ScaleGestureDetector(this, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-            override fun onScale(detector: ScaleGestureDetector): Boolean {
-                handleScaleGesture(detector)
-                return true
-            }
-        })
+        mScaleDetector = ScaleGestureDetector(
+            this,
+            object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
+                override fun onScale(detector: ScaleGestureDetector): Boolean {
+                    handleScaleGesture(detector)
+                    return true
+                }
+            })
     }
 
     private fun handleScaleGesture(detector: ScaleGestureDetector) {
@@ -97,16 +91,29 @@ class NuclideActivity : BaseActivity() {
         val pScale = mScale
         mScale += scale
         mScale = mScale.coerceIn(1f, 1f)
-        val scaleAnimation = ScaleAnimation(1f / pScale, 1f / mScale, 1f / pScale, 1f / mScale, detector.focusX, detector.focusY)
+        val scaleAnimation = ScaleAnimation(
+            1f / pScale,
+            1f / mScale,
+            1f / pScale,
+            1f / mScale,
+            detector.focusX,
+            detector.focusY
+        )
         scaleAnimation.duration = 0
         scaleAnimation.fillAfter = true
         findViewById<LinearLayout>(R.id.scrollNuc).startAnimation(scaleAnimation)
     }
 
     private fun setupSeekBar() {
-        findViewById<SeekBar>(R.id.seekBarNuc).setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        findViewById<SeekBar>(R.id.seekBarNuc).setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, currentValue: Int, p2: Boolean) {
-                val scaleAnimation = ScaleAnimation(1f / currentValue, 1f / currentValue, 1f / currentValue, 1f / currentValue)
+                val scaleAnimation = ScaleAnimation(
+                    1f / currentValue,
+                    1f / currentValue,
+                    1f / currentValue,
+                    1f / currentValue
+                )
                 scaleAnimation.duration = 0
                 scaleAnimation.fillAfter = true
                 findViewById<LinearLayout>(R.id.scrollNuc).startAnimation(scaleAnimation)
@@ -233,7 +240,7 @@ class NuclideActivity : BaseActivity() {
             "EC" to Pair(Color.argb(255, 176, 0, 78), R.color.colorDarkPrimary),
             "ε" to Pair(Color.argb(255, 176, 0, 78), R.color.colorDarkPrimary),
             "SF" to Pair(Color.argb(255, 87, 201, 98), R.color.colorDarkPrimary),
-            )
+        )
 
         val (bgColor, textColorRes) = decayColors[decayTypeResult] ?: decayColors["stable"]!!
 
@@ -245,6 +252,9 @@ class NuclideActivity : BaseActivity() {
         decay.text = when (decayTypeResult) {
             "observationally stable" -> "stable"
             "α", "alpha" -> "α"
+            "B-" -> "β-"
+            "B+" -> "β+"
+            "2B-" -> "2β-"
             "e- capture", "e-capture", "EC", "ε" -> "ε-capture"
             else -> decayTypeResult
         }
@@ -272,6 +282,17 @@ class NuclideActivity : BaseActivity() {
     private fun closeInfoPanel() {
         Anim.fadeOutAnim(findViewById<ConstraintLayout>(R.id.nuc_info_panel), 300)
     }
+
+    //Override backPress when infoPanel is open and does this on the UiThread
+    override fun onBackPressed() {
+        runOnUiThread {
+            if (findViewById<ConstraintLayout>(R.id.nuc_info_panel).visibility == View.VISIBLE) {
+                closeInfoPanel()
+                return@runOnUiThread
+            } else { super.onBackPressed() }
+        }
+    }
+
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         findViewById<FrameLayout>(R.id.scrollViewNuc).setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
