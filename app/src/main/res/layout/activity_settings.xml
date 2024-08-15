@@ -858,6 +858,74 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/git_settings"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="?attr/backgroundColor"
+                    android:clickable="true"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/d_ripple">
+
+                    <LinearLayout
+                        android:id="@+id/git_lay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/backgroundColor"
+                        android:theme="@style/ThemeOverlay.AppCompat.Light">
+
+                        <ImageView
+                            android:id="@+id/git_settings_icon"
+                            android:layout_width="56dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0"
+                            android:background="?attr/backgroundColor"
+                            android:backgroundTint="?attr/backgroundColor"
+                            android:padding="10dp"
+                            app:tint="?attr/colorOnBackground"
+                            app:srcCompat="@drawable/ic_github" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/git_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="4dp"
+                                android:text="@string/git_title"
+                                android:textColor="?attr/colorOnBackground"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/gitcontent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:alpha="0.5"
+                                android:paddingEnd="18dp"
+                                android:text="@string/git_text"
+                                android:textColor="?attr/colorOnBackground"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:backgroundTint="?attr/backgroundColor"
+                        android:visibility="invisible" />
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/experimental_settings"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"

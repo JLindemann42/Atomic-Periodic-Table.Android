@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v2.5.0-Build.89</string>
+    <string name="app_version" translatable="false">v2.5.1-Build.90</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -66,6 +66,10 @@
     <string name="licenses_text">Licenses of works used by Atomic</string>
     <string name="info_title">Information</string>
     <string name="info_text">App version and details</string>
+    <string name="git_title" translatable="false">Github</string>
+    <string name="git_text" translatable="false">Atomics open-source GitHub repo</string>
+
+
 
     <!-- Activity Licenses-->
     <string name="license_title">Licenses</string>
