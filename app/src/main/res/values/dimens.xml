@@ -26,7 +26,6 @@
     <dimen name="nav_bar">68dp</dimen>
     <dimen name="nav_view">366dp</dimen>
     <dimen name="left_bar">32dp</dimen>
-
     <dimen name="art_margin">40dp</dimen>
 
     <dimen name="first_item">98dp</dimen>
