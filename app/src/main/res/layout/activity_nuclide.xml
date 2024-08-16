@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/view_constraint"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,7 +20,7 @@
             android:id="@+id/ldn_place"
             layout="@layout/loading_view"
             android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_horizontal|center_vertical" />
 
         <FrameLayout
@@ -78,8 +79,14 @@
         </FrameLayout>
 
         <com.otaliastudios.zoom.ZoomLayout
+            android:id="@+id/nuclideZoomView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scrollbars="vertical|horizontal"
+            android:visibility="visible"
+            app:transformation="centerInside"
+            app:transformationGravity="auto"
+            app:alignment="none_horizontal"
             app:overScrollHorizontal="true"
             app:overScrollVertical="true"
             app:overPinchable="true"
@@ -91,9 +98,9 @@
             app:oneFingerScrollEnabled="true"
             app:twoFingersScrollEnabled="true"
             app:threeFingersScrollEnabled="true"
-            app:minZoom="2"
+            app:minZoom="0.75"
             app:minZoomType="zoom"
-            app:maxZoom="8"
+            app:maxZoom="17.5"
             app:maxZoomType="zoom"
             app:animationDuration="200"
             app:hasClickableChildren="true">
@@ -128,9 +135,7 @@
             android:layout_gravity="end"
             android:layout_marginTop="240dp"
             android:layout_marginEnd="-100dp"
-            android:clickable="true"
             android:elevation="4dp"
-            android:focusable="true"
             android:indeterminate="false"
             android:max="24"
             android:min="1"
@@ -138,5 +143,28 @@
             android:rotation="270"
             android:visibility="gone" />
     </FrameLayout>
+    
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/nuc_info_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="Info of different decay types"
+        android:src="@drawable/ic_info"
+        android:tint="?attr/colorSurface"
+        android:backgroundTint="?attr/colorAccent"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="4dp"
+        app:layout_constraintBottom_toBottomOf="@id/view_constraint"
+        app:layout_constraintEnd_toEndOf="@id/view_constraint"
+        android:layout_margin="16dp"/>
+
+    <include
+        android:id="@+id/nuc_info_panel"
+        layout="@layout/nuc_info"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

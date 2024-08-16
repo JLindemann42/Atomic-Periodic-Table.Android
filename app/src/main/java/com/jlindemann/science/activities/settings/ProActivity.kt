@@ -3,7 +3,10 @@ package com.jlindemann.science.activities.settings
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.Paint
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -16,6 +19,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import com.android.billingclient.api.AcknowledgePurchaseParams
@@ -46,7 +50,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.TimeZone
+import java.util.Timer
 import java.util.concurrent.Executors
+import kotlin.concurrent.schedule
 
 
 class ProActivity : BaseActivity(), BillingClientStateListener {
@@ -71,6 +80,8 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_pro)
         findViewById<FrameLayout>(R.id.view_pro).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+
+        checkSale()
 
         //Title Controller
         findViewById<FrameLayout>(R.id.common_title_back_pro_color).visibility = View.INVISIBLE
@@ -99,7 +110,12 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
         }
         findViewById<TextView>(R.id.buy_btn).setOnClickListener {
             try {
-                launchBillingFlow(productDetailList[0])
+                if (productDetailList.isEmpty()) {
+                    ToastUtil.showToast(this, "No products found")
+                }
+                else {
+                    launchBillingFlow(productDetailList[0])
+                }
             }
             catch (e: IOException) {
                 ToastUtil.showToast(this, "Try again")
@@ -246,6 +262,32 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
             else {
                 showMemberInfo()
             }
+        }
+    }
+
+    private fun checkSale() {
+        val saleStartDate = SimpleDateFormat("yyyy/MM/dd").parse(getString(R.string.next_sale_start)) //Back to school sale
+        val saleEndDate = SimpleDateFormat("yyyy/MM/dd").parse(getString(R.string.next_sale_end)) //Back to school sale
+        val calendar = Calendar.getInstance(TimeZone.getDefault())
+        val date = calendar.time
+        val proText = findViewById<TextView>(R.id.pro_price)
+        val proDiscText = findViewById<TextView>(R.id.pro_price_discount)
+
+        if (date > saleStartDate) {
+            //Set new attributes for DonateBtn
+            proText.text = "1.79 USD"
+            proText.setTextColor(getColorStateList(R.color.orange))
+            proDiscText.visibility = View.VISIBLE
+            proDiscText.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+        }
+
+        if (date > saleEndDate) {
+            Timer().schedule(2) {
+                proText.text = "1.99 USD"
+                proDiscText.visibility = View.GONE
+            }
+        }
+        else {
         }
     }
 

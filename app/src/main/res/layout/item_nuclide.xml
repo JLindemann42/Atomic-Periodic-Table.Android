@@ -6,10 +6,11 @@
     android:layout_height="32dp"
     android:background="@drawable/toast_nuclide"
     android:backgroundTint="?attr/colorSurfaceVariant"
-    android:foreground="@drawable/c_ripple"
     android:clickable="true"
-    android:elevation="0dp"
-    android:focusable="true">
+    android:focusable="true"
+    android:layout_margin="2dp"
+    android:foreground="@drawable/toast_nuclide_ripple"
+    android:elevation="0dp">
 
         <TextView
             android:id="@+id/nuclide_element"
@@ -25,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:textColor="?attr/actionMenuTextColor"
-            android:layout_margin="9dp"
+            android:layout_margin="7dp"
             android:textSize="5sp" />
 
         <TextView

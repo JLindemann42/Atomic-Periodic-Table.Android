@@ -2,7 +2,10 @@ package com.jlindemann.science.activities
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.content.res.Configuration
+import android.graphics.Color
+import android.graphics.Paint
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -39,12 +42,15 @@ import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.utils.TabUtil
 import com.jlindemann.science.utils.Utils
+import com.otaliastudios.zoom.ZoomSurfaceView
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 import org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.logging.Handler
 import kotlin.collections.ArrayList
+import kotlin.concurrent.schedule
 
 
 class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
@@ -89,6 +95,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).panelState = PanelState.COLLAPSED
         searchFilter(elements, recyclerView)
         mediaListeners()
+        checkSale()
         initName(elements)
         findViewById<FloatingActionButton>(R.id.more_btn).setOnClickListener { openHover() }
         findViewById<TextView>(R.id.hover_background).setOnClickListener { closeHover() }
@@ -179,6 +186,28 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                 }
             }
         })
+    }
+
+    private fun checkSale() {
+        val saleStartDate = SimpleDateFormat("yyyy/MM/dd").parse(getString(R.string.next_sale_start)) //Back to school sale
+        val saleEndDate = SimpleDateFormat("yyyy/MM/dd").parse(getString(R.string.next_sale_end)) //Back to school sale
+        val calendar = Calendar.getInstance(TimeZone.getDefault())
+        val date = calendar.time
+        val proText = findViewById<TextView>(R.id.pro_btn)
+
+        if (date > saleStartDate) {
+            //Set new attributes for DonateBtn
+            proText.text = "GO PRO - SCHOOL START SALE"
+            proText.setTextColor(getColorStateList(R.color.orange))
+            proText.setCompoundDrawableTintList(getColorStateList(R.color.orange))
+        }
+        if (date > saleEndDate) {
+            Timer().schedule(2) {
+                proText.text = "Go Pro - more features"
+            }
+        }
+        else {
+        }
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
@@ -576,5 +605,9 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
         findViewById<LinearLayout>(R.id.empty_search_box).layoutParams = searchEmptyImgPrm
+
+        val params8 = findViewById<LinearLayout>(R.id.one).layoutParams as ViewGroup.MarginLayoutParams
+        params8.marginStart = left + resources.getDimensionPixelSize(R.dimen.left_bar)
+        findViewById<LinearLayout>(R.id.one).layoutParams = params8
     }
 }

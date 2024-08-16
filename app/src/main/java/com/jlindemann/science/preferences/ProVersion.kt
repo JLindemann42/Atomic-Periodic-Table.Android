@@ -9,6 +9,7 @@ class ProVersion(context : Context) {
 
     val preference = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
 
+    // DO NOT CHANGE VALUE FROM 1 BEFORE PUSHING RELEASE
     fun getValue() : Int{
         return preference.getInt (PREFERENCE_VALUE, 1) //1 == NO PRO USER, 100 == PRO USER
     }

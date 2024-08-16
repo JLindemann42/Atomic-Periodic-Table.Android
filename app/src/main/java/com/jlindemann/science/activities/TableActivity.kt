@@ -69,9 +69,12 @@ class TableActivity : BaseActivity() {
         if (proPrefValue == 1) {
             findViewById<TextView>(R.id.pro_poi_text).text = "PRO-Version"
             findViewById<TextView>(R.id.pro_poi_text).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.pro_nuc_text).text = "PRO-Version"
+            findViewById<TextView>(R.id.pro_nuc_text).visibility = View.VISIBLE
         }
         if (proPrefValue == 100) {
             findViewById<TextView>(R.id.pro_poi_text).visibility = View.GONE
+            findViewById<TextView>(R.id.pro_nuc_text).visibility = View.GONE
         }
     }
 
@@ -155,6 +158,31 @@ class TableActivity : BaseActivity() {
             }
             if (proPrefValue == 100) {
                 val intent = Intent(this, PoissonActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        findViewById<FrameLayout>(R.id.nuc_table).setOnClickListener {
+            val proPref = ProVersion(this)
+            val proPrefValue = proPref.getValue()
+            if (proPrefValue == 1) {
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent)
+            }
+            if (proPrefValue == 100) {
+                val intent = Intent(this, NuclideActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        findViewById<TextView>(R.id.nuc_button).setOnClickListener {
+            val proPref = ProVersion(this)
+            val proPrefValue = proPref.getValue()
+            if (proPrefValue == 1) {
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent)
+            }
+            if (proPrefValue == 100) {
+                val intent = Intent(this, NuclideActivity::class.java)
                 startActivity(intent)
             }
         }

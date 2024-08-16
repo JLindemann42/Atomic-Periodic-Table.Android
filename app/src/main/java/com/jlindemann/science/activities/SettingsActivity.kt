@@ -21,6 +21,7 @@ import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.preferences.offlinePreference
 import com.jlindemann.science.settings.ExperimentalActivity
+import com.jlindemann.science.utils.TabUtil
 import com.jlindemann.science.utils.Utils
 import java.io.File
 import java.text.DecimalFormat
@@ -117,6 +118,11 @@ class SettingsActivity : BaseActivity() {
         findViewById<RelativeLayout>(R.id.unit_settings).setOnClickListener {
             val intent = Intent(this, UnitActivity::class.java)
             startActivity(intent)
+        }
+        findViewById<RelativeLayout>(R.id.git_settings).setOnClickListener{
+            val packageManager = packageManager
+            val blogURL = "https://github.com/JLindemann42/Atomic-Periodic-Table.Android"
+            TabUtil.openCustomTab(blogURL, packageManager, this)
         }
     }
 
