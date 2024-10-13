@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/backgroundColor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/view_con"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/empty_search_box_con"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="56dp"
+            android:visibility="gone"
+            android:elevation="1dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/empty_con_search_image"
+                android:layout_width="164dp"
+                android:layout_marginTop="44dp"
+                android:layout_height="164dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/graphic_light_search" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="42dp"
+                android:layout_marginEnd="42dp"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="24sp"
+                android:text="@string/no_results"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginStart="42dp"
+                android:layout_marginEnd="42dp"
+                android:textSize="16sp"
+                android:text="@string/spelling"/>
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/common_title_back_con"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="?attr/colorSurface"
+            android:elevation="8dp"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/common_title_con_color"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.11"
+                android:background="?attr/colorPrimary" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/title_box_con"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp">
+
+                    <ImageButton
+                        android:id="@+id/back_btn_con"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_vertical"
+                        android:alpha="0.9"
+                        android:rotation="180"
+                        android:src="@drawable/ic_arrow_back_whit"
+                        app:tint="?attr/colorOnSecondaryContainer" />
+
+                    <ImageButton
+                        android:id="@+id/search_btn_con"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:alpha="0.9"
+                        android:src="@drawable/ic_search"
+                        app:tint="?attr/colorOnSecondaryContainer" />
+
+                    <TextView
+                        android:id="@+id/con_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="56dp"
+                        android:layout_marginStart="70dp"
+                        android:alpha="0.9"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/constants_tite"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/search_bar_con"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_gravity="bottom"
+                        android:alpha="0.5" />
+
+                    <ImageButton
+                        android:id="@+id/close_con_search"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_vertical"
+                        android:alpha="0.9"
+                        android:rotation="180"
+                        android:src="@drawable/ic_arrow_back_whit"
+                        app:tint="?attr/colorOnSecondaryContainer" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="56dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:elevation="0dp">
+
+                        <EditText
+                            android:id="@+id/edit_con"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:fontFamily="@font/manroperegular"
+                            android:hint="Search For Constants"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:paddingStart="0dp"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:textColorHint="?attr/colorOnSecondaryContainer"
+                            android:textSize="14sp" />
+                    </FrameLayout>
+                </FrameLayout>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_gravity="bottom">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingStart="4dp"
+                        android:paddingEnd="4dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/clear_btn_con"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="18dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="9dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/chip_filled"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="@drawable/chip_ripple"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="Clear Filter"
+                            android:textAllCaps="false"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:visibility="visible" />
+
+                        <Button
+                            android:id="@+id/math_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="18dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="9dp"
+                            android:background="@drawable/chip"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="@drawable/chip_ripple"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="@string/chip_math"
+                            android:textAllCaps="false"
+                            android:textColor="?attr/colorOnSecondaryContainer" />
+
+                        <Button
+                            android:id="@+id/physics_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="9dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="9dp"
+                            android:background="@drawable/chip"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="@drawable/chip_ripple"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="@string/chip_physics"
+                            android:textAllCaps="false"
+                            android:textColor="?attr/colorOnSecondaryContainer" />
+
+                        <Button
+                            android:id="@+id/chemistry_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="9dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginBottom="9dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/chip"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="@drawable/chip_ripple"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="@string/chip_chemistry"
+                            android:textAllCaps="false"
+                            android:textColor="?attr/colorOnSecondaryContainer" />
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+            </LinearLayout>
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/con_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="9dp"
+            android:paddingBottom="60dp"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:verticalScrollbarPosition="defaultPosition" />
+    </FrameLayout>
+
+    <include
+        android:id="@+id/con_det_inc"
+        layout="@layout/detail_poisson"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="130dp"
+        android:elevation="112dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/con_det_inc_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.6"
+        android:visibility="gone"
+        android:background="@color/colorLightText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

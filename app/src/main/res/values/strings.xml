@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v2.5.1-Build.90</string>
+    <string name="app_version" translatable="false">v2.6.0-Build.91</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -70,6 +70,8 @@
     <string name="git_text" translatable="false">Atomics open-source GitHub repo</string>
 
 
+    <!-- Constants Activity -->
+    <string name="constants_tite" translatable="false">Constants Table</string>
 
     <!-- Activity Licenses-->
     <string name="license_title">Licenses</string>
@@ -90,6 +92,7 @@
     <string name="table_poisson_text" translatable="false">A table with poissons ratio for different rocks, soils, minerals and other materials</string>
     <string name="table_nuclide" translatable="false">Table of Nuclides</string>
     <string name="table_nuclide_text" translatable="false">A two-dimensional table of nuclide, with color differentiating decay type</string>
+    <string name="table_constants_text" translatable="false">A table that contains common constants for calculations</string>
 
     <string name="chip_rocks">Rocks</string>
     <string name="chip_soils">Soils</string>
@@ -148,5 +151,8 @@
     \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>
     <string name="appwidget_text" translatable="false">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+
+    <string name="no_results" translatable="false">No Results</string>
+    <string name="spelling" translatable="false">Try searching for another word or check your spelling</string>
 
 </resources>
