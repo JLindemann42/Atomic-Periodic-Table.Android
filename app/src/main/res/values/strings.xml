@@ -91,6 +91,13 @@
     <string name="table_nuclide" translatable="false">Table of Nuclides</string>
     <string name="table_nuclide_text" translatable="false">A two-dimensional table of nuclide, with color differentiating decay type</string>
 
+    <!-- Activity Geology -->
+    <string name="activity_geology_title" translatable="false">Geology</string>
+    <string name="activity_geology_mineral" translatable="false">Minerals</string>
+    <string name="activity_geology_rock" translatable="false">Rocks</string>
+    <string name="activity_geology_soil" translatable="false">Soils</string>
+
+
     <string name="chip_rocks">Rocks</string>
     <string name="chip_soils">Soils</string>
     <string name="chip_minerals">Minerals</string>

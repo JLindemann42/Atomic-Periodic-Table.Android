@@ -238,6 +238,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.tables.GeologyActivity"
+            android:label="GEOLOGYACTIVITY"
+            android:exported="true"
+
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.settings.UnitActivity"
             android:label="activity_unit"
             android:exported="true"
