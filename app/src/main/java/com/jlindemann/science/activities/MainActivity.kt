@@ -605,5 +605,9 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
         findViewById<LinearLayout>(R.id.empty_search_box).layoutParams = searchEmptyImgPrm
+
+        val params8 = findViewById<LinearLayout>(R.id.one).layoutParams as ViewGroup.MarginLayoutParams
+        params8.marginStart = left + resources.getDimensionPixelSize(R.dimen.left_bar)
+        findViewById<LinearLayout>(R.id.one).layoutParams = params8
     }
 }
