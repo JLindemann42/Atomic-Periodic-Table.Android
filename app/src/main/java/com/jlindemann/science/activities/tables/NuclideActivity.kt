@@ -1,6 +1,7 @@
 package com.jlindemann.science.activities.tables
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
@@ -21,6 +22,9 @@ import java.io.IOException
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.jlindemann.science.activities.IsotopesActivityExperimental
+import com.jlindemann.science.preferences.ElementSendAndLoad
+import com.jlindemann.science.preferences.sendIso
 import com.otaliastudios.zoom.ZoomLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -51,7 +55,7 @@ class NuclideActivity : BaseActivity() {
             }
         }
 
-        // Load JSON in the background and update UI
+        // Load JSON in the background and update UI in lifecycleScope
         lifecycleScope.launch {
             loadAndDisplayElements()
         }
@@ -118,7 +122,6 @@ class NuclideActivity : BaseActivity() {
                 scaleAnimation.fillAfter = true
                 findViewById<LinearLayout>(R.id.scrollNuc).startAnimation(scaleAnimation)
             }
-
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
@@ -192,12 +195,12 @@ class NuclideActivity : BaseActivity() {
         }
     }
 
+    //add isotopes to the parent layout
     private fun addIsotopesToLayout(item: Element, jsonObject: JSONObject) {
         for (i in 1..item.isotopes) {
             val n = jsonObject.optString("iso_N_$i", "-")
             val z = jsonObject.optString("iso_Z_$i", "-")
             val decayTypeResult = jsonObject.optString("decay_type_$i", "default")
-
             if (n.isDigitsOnly() && z.isDigitsOnly()) {
                 addIsotopeView(item, n.toInt(), z.toInt(), decayTypeResult)
             }
@@ -210,7 +213,7 @@ class NuclideActivity : BaseActivity() {
         val params = RelativeLayout.LayoutParams(
             resources.getDimensionPixelSize(R.dimen.item_nuclide),
             resources.getDimensionPixelSize(R.dimen.item_nuclide)
-        ).apply {
+        ).apply { //margin depending on where in the coordinate system
             leftMargin = resources.getDimensionPixelSize(R.dimen.item_nuclide) * z
             topMargin = resources.getDimensionPixelSize(R.dimen.item_nuclide) * n
         }
@@ -248,6 +251,15 @@ class NuclideActivity : BaseActivity() {
         short.setTextColor(resources.getColor(textColorRes))
         top.setTextColor(resources.getColor(textColorRes))
         decay.setTextColor(resources.getColor(textColorRes))
+
+        frame.setOnClickListener {
+            val isoPreference = ElementSendAndLoad(this)
+            isoPreference.setValue(item.element.toLowerCase()) //Send element number
+            val isoSend = sendIso(this)
+            isoSend.setValue("true") //Set flag for sent
+            val intent = Intent(this, IsotopesActivityExperimental::class.java)
+            startActivity(intent) //Send intent
+        }
 
         decay.text = when (decayTypeResult) {
             "observationally stable" -> "stable"
@@ -292,7 +304,6 @@ class NuclideActivity : BaseActivity() {
             } else { super.onBackPressed() }
         }
     }
-
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         findViewById<FrameLayout>(R.id.scrollViewNuc).setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
