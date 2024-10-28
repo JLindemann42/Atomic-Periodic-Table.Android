@@ -18,7 +18,7 @@ class ConstantsAdapter(var list: ArrayList<Constants>, var clickListener: Consta
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.poisson_list_item, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.constants_list_item, parent, false)
         return ViewHolder(v)
     }
 
@@ -30,14 +30,16 @@ class ConstantsAdapter(var list: ArrayList<Constants>, var clickListener: Consta
         private val textViewName = itemView.findViewById(R.id.tv_poi_name) as TextView
         private val textViewShort = itemView.findViewById(R.id.tv_poi_short) as TextView
         private val textViewStart = itemView.findViewById(R.id.tv_poi_1) as TextView
-        private val textViewEnd = itemView.findViewById(R.id.tv_poi_2) as TextView
-        private val textViewBetween = itemView.findViewById(R.id.tv_poi_between) as TextView
-        private val textViewType = itemView.findViewById(R.id.tv_poi_type) as TextView
+        private val textViewUnit = itemView.findViewById(R.id.tv_poi_unit) as TextView
+        private val textViewValue = itemView.findViewById(R.id.tv_poi_type) as TextView
 
         fun initialize(item: Constants, action: OnConstantsClickListener, context: Context) {
             textViewName.text = item.name
             textViewName.text = item.name.capitalize()
             textViewShort.text = item.name.substring(0,2)
+            textViewValue.text = item.value.toString().take(7)
+            textViewUnit.text = item.unit
+            textViewStart.text = item.info
 
             itemView.foreground = ContextCompat.getDrawable(context, R.drawable.toast_card_ripple)
             itemView.isClickable = true

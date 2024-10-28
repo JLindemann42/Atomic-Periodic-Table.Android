@@ -113,8 +113,8 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         })
     }
 
-    //Overrides the clickListener from PoissonAdapter to show InfoPanel when clicking on elments
-    override fun geologyClickListener(item: Poisson, position: Int) {
+    //Overrides the clickListener from GeologyAdapter to show InfoPanel when clicking on elements
+    override fun geologyClickListener(item: Geology, position: Int) {
         showInfoPanel(item.name, item.start, item.end, item.type)
     }
 

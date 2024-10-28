@@ -21,6 +21,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.android.billingclient.api.AcknowledgePurchaseParams
 import com.android.billingclient.api.BillingClient
@@ -78,37 +79,28 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
         }
         if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
-        setContentView(R.layout.activity_pro)
+        setContentView(R.layout.activity_pro_v2)
         findViewById<FrameLayout>(R.id.view_pro).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         checkSale()
 
-        //Title Controller
-        findViewById<FrameLayout>(R.id.common_title_back_pro_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.pro_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_pro).elevation = (resources.getDimension(R.dimen.zero_elevation))
-        findViewById<ScrollView>(R.id.pro_scroll).getViewTreeObserver()
-            .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
-                var y = 200f
-                override fun onScrollChanged() {
-                    if (findViewById<ScrollView>(R.id.pro_scroll).getScrollY() > 150f) {
-                        findViewById<FrameLayout>(R.id.common_title_back_pro_color).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.pro_title).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.pro_title_downstate).visibility = View.INVISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_pro).elevation = (resources.getDimension(R.dimen.one_elevation))
-                    } else {
-                        findViewById<FrameLayout>(R.id.common_title_back_pro_color).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.pro_title).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.pro_title_downstate).visibility = View.VISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_pro).elevation = (resources.getDimension(R.dimen.zero_elevation))
-                    }
-                    y = findViewById<ScrollView>(R.id.pro_scroll).getScrollY().toFloat()
-                }
-            })
         findViewById<ImageButton>(R.id.back_btn_pro).setOnClickListener {
             this.onBackPressed()
         }
         findViewById<TextView>(R.id.buy_btn).setOnClickListener {
+            try {
+                if (productDetailList.isEmpty()) {
+                    ToastUtil.showToast(this, "No products found")
+                }
+                else {
+                    launchBillingFlow(productDetailList[0])
+                }
+            }
+            catch (e: IOException) {
+                ToastUtil.showToast(this, "Try again")
+            }
+        }
+        findViewById<TextView>(R.id.product_text).setOnClickListener {
             try {
                 if (productDetailList.isEmpty()) {
                     ToastUtil.showToast(this, "No products found")
@@ -323,8 +315,17 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
         val proPref = ProVersion(this@ProActivity)
         var proPrefValue = proPref.getValue()
         proPref.setValue(100)
-        findViewById<LinearLayout>(R.id.pro_box).visibility = View.GONE
-        findViewById<LinearLayout>(R.id.member_box).visibility = View.VISIBLE
+        findViewById<TextView>(R.id.pro_title_view).text = "You are getting more out of Atomic"
+        val drawable = ContextCompat.getDrawable(this, R.drawable.ic_lock_open)
+        findViewById<TextView>(R.id.pro_data_lock).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+        findViewById<TextView>(R.id.pro_data_lock).text = "Unlocked"
+        findViewById<TextView>(R.id.pro_table_lock).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+        findViewById<TextView>(R.id.pro_table_lock).text = "Unlocked"
+        findViewById<TextView>(R.id.pro_visualisation_lock).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+        findViewById<TextView>(R.id.pro_visualisation_lock).text = "Unlocked"
+        findViewById<FrameLayout>(R.id.pro_purschase_box).visibility = View.GONE
+        findViewById<TextView>(R.id.product_title).visibility = View.GONE
+        findViewById<TextView>(R.id.product_text).visibility = View.GONE
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -332,9 +333,11 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             findViewById<FrameLayout>(R.id.common_title_back_pro).layoutParams = params
 
-            val params2 = findViewById<TextView>(R.id.pro_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
-            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
-            findViewById<TextView>(R.id.pro_title_downstate).layoutParams = params2
+            findViewById<LinearLayout>(R.id.pro_linear).setPadding(0, top, 0, 0)
+
+            val params2 = findViewById<FrameLayout>(R.id.pro_purschase_box).layoutParams as ViewGroup.LayoutParams
+            params2.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
+            findViewById<FrameLayout>(R.id.pro_purschase_box).layoutParams = params2
 
     }
 

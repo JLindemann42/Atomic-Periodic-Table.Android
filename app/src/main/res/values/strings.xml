@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v2.6.0-Build.91</string>
+    <string name="app_version" translatable="false">v2.6.0-Build.93</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -71,7 +71,7 @@
 
 
     <!-- Constants Activity -->
-    <string name="constants_tite" translatable="false">Constants Table</string>
+    <string name="constants_tite" translatable="false">Constants Table (BETA)</string>
 
     <!-- Activity Licenses-->
     <string name="license_title">Licenses</string>
