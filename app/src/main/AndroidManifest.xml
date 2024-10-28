@@ -10,8 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_blue_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:theme="@style/AppTheme">
+
         <receiver android:name=".ShortCommandWidget">
 
 
@@ -238,6 +238,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.tables.GeologyActivity"
+            android:label="GEOLOGYACTIVITY"
+            android:exported="true"
+
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.settings.UnitActivity"
             android:label="activity_unit"
             android:exported="true"
@@ -253,6 +264,17 @@
             android:label="activity_nuclide"
             android:exported="true"
              
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.tables.ConstantsActivity"
+            android:label="activity_constants"
+            android:exported="true"
+
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
