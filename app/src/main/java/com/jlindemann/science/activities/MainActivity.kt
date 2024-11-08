@@ -163,7 +163,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                     yScroll.visibility = View.VISIBLE
                     xScroll.visibility = View.VISIBLE
                     corner.visibility = View.VISIBLE
-
                 }
 
                 yScroll.scrollTo(0, -zoomLay.panY.toInt())
@@ -172,8 +171,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             }
         }
         handler.post(runnable)
-
-        }
+    }
 
 
     private fun getRandomItem() {
