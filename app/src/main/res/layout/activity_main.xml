@@ -70,6 +70,7 @@
         </LinearLayout>
     </FrameLayout>
 
+
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
@@ -417,12 +418,33 @@
             </LinearLayout>
         </ScrollView>
 
-        <org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView
+        <com.otaliastudios.zoom.ZoomLayout
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="72dp"
-            android:fillViewport="true">
+            android:scrollbars="vertical|horizontal"
+            android:visibility="visible"
+            app:alignment="top|left"
+            app:animationDuration="200"
+            app:flingEnabled="true"
+            app:hasClickableChildren="true"
+            app:horizontalPanEnabled="true"
+            app:maxZoom="3"
+            app:maxZoomType="zoom"
+            app:minZoom="0.25"
+            app:minZoomType="zoom"
+            app:oneFingerScrollEnabled="true"
+            app:overPinchable="true"
+            app:overScrollHorizontal="true"
+            app:overScrollVertical="true"
+            app:scrollEnabled="true"
+            app:threeFingersScrollEnabled="true"
+            app:transformation="none"
+            app:transformationGravity="auto"
+            app:twoFingersScrollEnabled="true"
+            app:verticalPanEnabled="true"
+            app:zoomEnabled="true">
 
             <LinearLayout
                 android:id="@+id/scrollLin"
@@ -671,9 +693,10 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView>
+        </com.otaliastudios.zoom.ZoomLayout>
 
     </FrameLayout>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/more_btn"
