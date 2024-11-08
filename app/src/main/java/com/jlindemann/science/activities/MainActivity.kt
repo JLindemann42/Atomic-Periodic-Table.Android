@@ -1,5 +1,6 @@
 package com.jlindemann.science.activities
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -7,6 +8,8 @@ import android.graphics.Matrix
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -36,6 +39,7 @@ import com.jlindemann.science.preferences.SearchPreferences
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.utils.TabUtil
+import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.otaliastudios.zoom.ZoomLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -79,8 +83,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         setOnCLickListenerSetups(elements)
         setupNavListeners()
         onClickNav()
-        searchListener()
         scrollAdapter()
+        searchListener()
         findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).panelState = PanelState.COLLAPSED
         searchFilter(elements, recyclerView)
         mediaListeners()
@@ -98,7 +102,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             proChanges()
         }
         hoverListeners(elements, proPrefValue)
-
 
         val handler = android.os.Handler()
         handler.postDelayed({
@@ -141,6 +144,37 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         else {
         }
     }
+
+    private fun scrollAdapter() {
+        val zoomLay = findViewById<ZoomLayout>(R.id.scrollView)
+        val yScroll = findViewById<ScrollView>(R.id.leftBar)
+        val xScroll = findViewById<HorizontalScrollView>(R.id.topBar)
+        val corner = findViewById<TextView>(R.id.corner)
+
+        val handler = Handler(Looper.getMainLooper())
+        val runnable = object : Runnable {
+            override fun run() {
+                if (zoomLay.zoom < 1) {
+                    yScroll.visibility = View.INVISIBLE
+                    xScroll.visibility = View.INVISIBLE
+                    corner.visibility = View.INVISIBLE
+                }
+                else {
+                    yScroll.visibility = View.VISIBLE
+                    xScroll.visibility = View.VISIBLE
+                    corner.visibility = View.VISIBLE
+
+                }
+
+                yScroll.scrollTo(0, -zoomLay.panY.toInt())
+                xScroll.scrollTo(-zoomLay.panX.toInt(), 0)
+                handler.postDelayed(this, 1)
+            }
+        }
+        handler.post(runnable)
+
+        }
+
 
     private fun getRandomItem() {
         val elements = ArrayList<Element>()
