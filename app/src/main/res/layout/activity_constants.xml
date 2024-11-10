@@ -238,7 +238,7 @@
                             android:textColor="?attr/colorOnSecondaryContainer" />
 
                         <Button
-                            android:id="@+id/chemistry_btn"
+                            android:id="@+id/water_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="32dp"
                             android:layout_marginStart="9dp"

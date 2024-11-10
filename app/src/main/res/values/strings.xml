@@ -92,7 +92,7 @@
     <string name="table_poisson_text" translatable="false">A table with poissons ratio for different rocks, soils, minerals and other materials</string>
     <string name="table_nuclide" translatable="false">Table of Nuclides</string>
     <string name="table_nuclide_text" translatable="false">A two-dimensional table of nuclide, with color differentiating decay type</string>
-    <string name="table_constants_text" translatable="false">A table that contains common constants for calculations</string>
+    <string name="table_constants_text" translatable="false">A table that contains common constants for calculations including math, physics, standard water flows etc</string>
 
     <!-- Activity Geology -->
     <string name="activity_geology_title" translatable="false">Geology</string>
