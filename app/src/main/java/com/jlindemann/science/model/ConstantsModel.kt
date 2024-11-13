@@ -64,6 +64,12 @@ object ConstantsModel {
         constants.add(Constants("kd", "0-0.30", "d^-1","Growth constant for domestic wastewater (USA)", "water"))
         constants.add(Constants("um", "1-8", "d^-1","Growth constant for domestic wastewater (USA)", "water"))
         constants.add(Constants("Y", "0.4-0.8", "mg VSS/mg BOD5","Growth constant for domestic wastewater (USA)", "water"))
+        constants.add(Constants("Trash racks", "40-150", "mm","Nomenclature of racks and screens", "water"))
+        constants.add(Constants("Bar racks, Coarse screens, Fine screens", "6-75", "mm","Nomenclature of racks and screens", "water"))
+        constants.add(Constants("Very fine screens", "0.25-1.5", "mm","Nomenclature of racks and screens", "water"))
+        constants.add(Constants("Micro-screens", "0.001-0.3", "mm","Nomenclature of racks and screens", "water"))
+
+
 
 
     }
