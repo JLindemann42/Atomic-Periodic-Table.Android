@@ -60,6 +60,11 @@ object ConstantsModel {
         constants.add(Constants("Shopping center, Employee", "25-55", "L/(unit*d)","Wastewater flow rate (USA)", "water"))
         constants.add(Constants("Shopping center, Parking space", "5-10", "L/(unit*d)","Wastewater flow rate (USA)", "water"))
         constants.add(Constants("Theater, Seat", "10-15", "L/(unit*d)","Wastewater flow rate (USA)", "water"))
+        constants.add(Constants("Ks", "25-100", "mg/(L*BOD5)","Growth constant for domestic wastewater (USA)", "water"))
+        constants.add(Constants("kd", "0-0.30", "d^-1","Growth constant for domestic wastewater (USA)", "water"))
+        constants.add(Constants("um", "1-8", "d^-1","Growth constant for domestic wastewater (USA)", "water"))
+        constants.add(Constants("Y", "0.4-0.8", "mg VSS/mg BOD5","Growth constant for domestic wastewater (USA)", "water"))
+
 
     }
 }
