@@ -42,6 +42,7 @@
     <string name="licenses_text">Licenser använda av Atomic</string>
     <string name="info_title">Information</string>
     <string name="info_text">App version och detaljer</string>
+    <string name="weight_calculator_title">Viktkalkylator</string>
     <string name="license_title">Licenser</string>
     <string name="activity_table_title">Tabeller</string>
     <string name="table_ph">pH-indikatorer</string>
