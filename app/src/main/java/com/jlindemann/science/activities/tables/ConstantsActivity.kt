@@ -102,7 +102,6 @@ class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListe
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){}
             override fun afterTextChanged(s: Editable) {
                 filter(s.toString(), constants, recyclerView)
-
             }
         })
     }
@@ -141,9 +140,9 @@ class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListe
     //listen to button presses in filter
     private fun chipListeners(list: ArrayList<Constants>, recyclerView: RecyclerView) {
         val constantsPreference = ConstantsPreference(this)
-        findViewById<Button>(R.id.math_btn_con).setOnClickListener {
+        findViewById<Button>(R.id.mathematic_btn_con).setOnClickListener {
             updateButtonColor("math_btn_con")
-            constantsPreference.setValue("chemistry")
+            constantsPreference.setValue("mathematics")
             findViewById<EditText>(R.id.edit_con).setText("test")
             findViewById<EditText>(R.id.edit_con).setText("")
         }
@@ -164,7 +163,7 @@ class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListe
 
     //Update colors of buttons after filtering
     private fun updateButtonColor(btn: String) {
-        findViewById<Button>(R.id.math_btn_con).background = getDrawable(R.drawable.chip)
+        findViewById<Button>(R.id.mathematic_btn_con).background = getDrawable(R.drawable.chip)
         findViewById<Button>(R.id.physics_btn_con).background = getDrawable(R.drawable.chip)
         findViewById<Button>(R.id.water_btn_con).background = getDrawable(R.drawable.chip)
 

@@ -15,7 +15,7 @@
     "element_protons": "43",
     "element_neutron_common": "56",
 
-    "radioactive": "No",
+    "radioactive": "Yes",
     "neutron_cross_sectional": "20 (b)",
 
     "electrical_type": "Conductor",

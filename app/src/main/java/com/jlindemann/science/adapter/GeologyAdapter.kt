@@ -17,7 +17,7 @@ class GeologyAdapter(var list: ArrayList<Geology>, var clickListener: GeologyAct
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.poisson_list_item, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.geology_list_item, parent, false)
         return ViewHolder(v)
     }
 
@@ -38,20 +38,7 @@ class GeologyAdapter(var list: ArrayList<Geology>, var clickListener: GeologyAct
             textViewName.text = item.name.capitalize()
             textViewShort.text = item.name.substring(0,2)
             textViewType.text = item.type
-            val startValue = item.start.toString()
-            val endValue = item.end.toString()
 
-            if (startValue == endValue) {
-                textViewEnd.visibility = View.GONE
-                textViewBetween.visibility = View.GONE
-                textViewStart.text = startValue
-            }
-            else {
-                textViewEnd.visibility = View.VISIBLE
-                textViewBetween.visibility = View.VISIBLE
-                textViewStart.text = startValue
-                textViewEnd.text = endValue
-            }
 
             itemView.foreground = ContextCompat.getDrawable(context, R.drawable.toast_card_ripple)
             itemView.isClickable = true

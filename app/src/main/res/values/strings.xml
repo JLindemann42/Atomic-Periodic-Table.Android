@@ -97,6 +97,9 @@
     <string name="table_nuclide" translatable="false">Table of Nuclides</string>
     <string name="table_nuclide_text" translatable="false">A two-dimensional table of nuclide, with color differentiating decay type</string>
     <string name="table_constants_text" translatable="false">A table that contains common constants for calculations including math, physics, standard water flows etc</string>
+    <string name="table_geology" translatable="false">Geology Table</string>
+    <string name="table_geology_text" translatable="false">A table that contains information about minerals, rocks and soils</string>
+
 
     <!-- Activity Geology -->
     <string name="activity_geology_title" translatable="false">Geology</string>
