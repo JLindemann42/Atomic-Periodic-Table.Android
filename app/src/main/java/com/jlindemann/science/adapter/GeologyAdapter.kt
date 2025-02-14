@@ -17,7 +17,7 @@ class GeologyAdapter(var list: ArrayList<Geology>, var clickListener: GeologyAct
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.poisson_list_item, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.geology_list_item, parent, false)
         return ViewHolder(v)
     }
 
@@ -26,32 +26,18 @@ class GeologyAdapter(var list: ArrayList<Geology>, var clickListener: GeologyAct
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val textViewName = itemView.findViewById(R.id.tv_poi_name) as TextView
-        private val textViewShort = itemView.findViewById(R.id.tv_poi_short) as TextView
-        private val textViewStart = itemView.findViewById(R.id.tv_poi_1) as TextView
-        private val textViewEnd = itemView.findViewById(R.id.tv_poi_2) as TextView
-        private val textViewBetween = itemView.findViewById(R.id.tv_poi_between) as TextView
-        private val textViewType = itemView.findViewById(R.id.tv_poi_type) as TextView
+        private val textViewName = itemView.findViewById(R.id.tv_geo_name) as TextView
+        private val textViewShort = itemView.findViewById(R.id.tv_geo_short) as TextView
+        private val textViewGroup = itemView.findViewById(R.id.tv_geo_group) as TextView
+        private val textViewType = itemView.findViewById(R.id.tv_geo_type) as TextView
 
         fun initialize(item: Geology, action: OnGeologyClickListener, context: Context) {
             textViewName.text = item.name
             textViewName.text = item.name.capitalize()
             textViewShort.text = item.name.substring(0,2)
             textViewType.text = item.type
-            val startValue = item.start.toString()
-            val endValue = item.end.toString()
+            textViewGroup.text = item.group
 
-            if (startValue == endValue) {
-                textViewEnd.visibility = View.GONE
-                textViewBetween.visibility = View.GONE
-                textViewStart.text = startValue
-            }
-            else {
-                textViewEnd.visibility = View.VISIBLE
-                textViewBetween.visibility = View.VISIBLE
-                textViewStart.text = startValue
-                textViewEnd.text = endValue
-            }
 
             itemView.foreground = ContextCompat.getDrawable(context, R.drawable.toast_card_ripple)
             itemView.isClickable = true

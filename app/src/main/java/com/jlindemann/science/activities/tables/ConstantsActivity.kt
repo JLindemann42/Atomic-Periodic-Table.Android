@@ -16,6 +16,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,12 +24,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.ConstantsAdapter
+import com.jlindemann.science.adapter.DictionaryAdapter
 import com.jlindemann.science.adapter.PoissonAdapter
 import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Constants
 import com.jlindemann.science.model.ConstantsModel
+import com.jlindemann.science.model.Dictionary
 import com.jlindemann.science.model.Poisson
 import com.jlindemann.science.model.PoissonModel
+import com.jlindemann.science.preferences.ConstantsPreference
+import com.jlindemann.science.preferences.DictionaryPreferences
 import com.jlindemann.science.preferences.PoissonPreferences
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
@@ -60,6 +65,7 @@ class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListe
         ConstantsModel.getList(itemCon)
 
         recyclerView()
+        chipListeners(itemCon, recyclerView)
         clickSearch()
         findViewById<Button>(R.id.clear_btn_con).visibility = View.GONE
 
@@ -95,6 +101,7 @@ class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListe
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){}
             override fun afterTextChanged(s: Editable) {
+                filter(s.toString(), constants, recyclerView)
             }
         })
     }
@@ -128,6 +135,87 @@ class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListe
             }
         }
     }
+
+
+    //listen to button presses in filter
+    private fun chipListeners(list: ArrayList<Constants>, recyclerView: RecyclerView) {
+        val constantsPreference = ConstantsPreference(this)
+        findViewById<Button>(R.id.mathematic_btn_con).setOnClickListener {
+            updateButtonColor("math_btn_con")
+            constantsPreference.setValue("mathematics")
+            findViewById<EditText>(R.id.edit_con).setText("test")
+            findViewById<EditText>(R.id.edit_con).setText("")
+        }
+        findViewById<Button>(R.id.physics_btn_con).setOnClickListener {
+            updateButtonColor("physics_btn_con")
+            constantsPreference.setValue("physics")
+            findViewById<EditText>(R.id.edit_con).setText("test")
+            findViewById<EditText>(R.id.edit_con).setText("")
+        }
+        findViewById<Button>(R.id.water_btn_con).setOnClickListener {
+            updateButtonColor("water_btn_con")
+            constantsPreference.setValue("water")
+            findViewById<EditText>(R.id.edit_con).setText("test")
+            findViewById<EditText>(R.id.edit_con).setText("")
+        }
+    }
+
+
+    //Update colors of buttons after filtering
+    private fun updateButtonColor(btn: String) {
+        findViewById<Button>(R.id.mathematic_btn_con).background = getDrawable(R.drawable.chip)
+        findViewById<Button>(R.id.physics_btn_con).background = getDrawable(R.drawable.chip)
+        findViewById<Button>(R.id.water_btn_con).background = getDrawable(R.drawable.chip)
+
+        val delay = Handler()
+        delay.postDelayed({
+            val resIDB = resources.getIdentifier(btn, "id", packageName)
+            val button = findViewById<Button>(resIDB)
+            button.background = getDrawable(R.drawable.chip_active)
+        }, 200)
+
+        findViewById<Button>(R.id.clear_btn_con).visibility = View.VISIBLE
+        findViewById<Button>(R.id.clear_btn_con).setOnClickListener {
+            val resIDB = resources.getIdentifier(btn, "id", packageName)
+            val button = findViewById<Button>(resIDB)
+            val constantPreference = ConstantsPreference(this)
+            button.background = getDrawable(R.drawable.chip)
+            constantPreference.setValue("")
+            findViewById<EditText>(R.id.edit_con).setText("test")
+            findViewById<EditText>(R.id.edit_con).setText("")
+            findViewById<Button>(R.id.clear_btn_con).visibility = View.GONE
+        }
+    }
+
+
+    //Filters
+    private fun filter(text: String, list: ArrayList<Constants>, recyclerView: RecyclerView) {
+        val filteredList: ArrayList<Constants> = ArrayList()
+        for (item in list) {
+            val constantsPreference = ConstantsPreference(this)
+            val constantsPrefValue = constantsPreference.getValue()
+            if (item.name.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
+                if (item.category.toLowerCase(Locale.ROOT).contains(constantsPrefValue.toLowerCase(Locale.ROOT))) {
+                    filteredList.add(item)
+                }
+            }
+            val handler = android.os.Handler()
+            handler.postDelayed({
+                if (recyclerView.adapter!!.itemCount == 0) {
+                    Anim.fadeIn(findViewById<AppCompatImageView
+                            >(R.id.empty_con_search_image), 300)
+                }
+                else {
+                    findViewById<AppCompatImageView>(R.id.empty_con_search_image).visibility = View.GONE
+                }
+            }, 10)
+            mAdapter.notifyDataSetChanged()
+            mAdapter.filterList(filteredList)
+            recyclerView.adapter = ConstantsAdapter(filteredList, this, this)
+        }
+    }
+
+
 }
 
 

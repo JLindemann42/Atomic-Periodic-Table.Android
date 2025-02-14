@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v2.6.0-Build.93</string>
+    <string name="app_version" translatable="false">v2.6.2-Build.97</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -70,8 +70,12 @@
     <string name="git_text" translatable="false">Atomics open-source GitHub repo</string>
 
 
+    <!-- Weight Calculator Activity -->
+    <string name="weight_calculator_title">Weight Calculator</string>
+
+
     <!-- Constants Activity -->
-    <string name="constants_tite" translatable="false">Constants Table (BETA)</string>
+    <string name="constants_tite" translatable="false">Constants Table</string>
 
     <!-- Activity Licenses-->
     <string name="license_title">Licenses</string>
@@ -92,7 +96,10 @@
     <string name="table_poisson_text" translatable="false">A table with poissons ratio for different rocks, soils, minerals and other materials</string>
     <string name="table_nuclide" translatable="false">Table of Nuclides</string>
     <string name="table_nuclide_text" translatable="false">A two-dimensional table of nuclide, with color differentiating decay type</string>
-    <string name="table_constants_text" translatable="false">A table that contains common constants for calculations</string>
+    <string name="table_constants_text" translatable="false">A table that contains common constants for calculations including math, physics, standard water flows etc</string>
+    <string name="table_geology" translatable="false">Geology Table</string>
+    <string name="table_geology_text" translatable="false">A table that contains information about minerals, rocks and soils</string>
+
 
     <!-- Activity Geology -->
     <string name="activity_geology_title" translatable="false">Geology</string>
@@ -147,6 +154,7 @@
     <string name="chip_physics">Physics</string>
     <string name="chip_math">Mathematics</string>
     <string name="chip_reactions">Reactions</string>
+    <string name="chip_water" translatable="false">Water</string>
 
     <string name="wikipedia_license" translatable="false">Wikipedia Commons</string>
     <string name="wikipedia_license_text" translatable="false">CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL SERVICES.

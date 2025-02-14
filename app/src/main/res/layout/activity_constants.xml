@@ -204,7 +204,7 @@
                             android:visibility="visible" />
 
                         <Button
-                            android:id="@+id/math_btn"
+                            android:id="@+id/mathematic_btn_con"
                             android:layout_width="wrap_content"
                             android:layout_height="32dp"
                             android:layout_marginStart="18dp"
@@ -221,7 +221,7 @@
                             android:textColor="?attr/colorOnSecondaryContainer" />
 
                         <Button
-                            android:id="@+id/physics_btn"
+                            android:id="@+id/physics_btn_con"
                             android:layout_width="wrap_content"
                             android:layout_height="32dp"
                             android:layout_marginStart="9dp"
@@ -238,7 +238,7 @@
                             android:textColor="?attr/colorOnSecondaryContainer" />
 
                         <Button
-                            android:id="@+id/chemistry_btn"
+                            android:id="@+id/water_btn_con"
                             android:layout_width="wrap_content"
                             android:layout_height="32dp"
                             android:layout_marginStart="9dp"
@@ -251,7 +251,7 @@
                             android:foreground="@drawable/chip_ripple"
                             android:paddingStart="16dp"
                             android:paddingEnd="16dp"
-                            android:text="@string/chip_chemistry"
+                            android:text="@string/chip_water"
                             android:textAllCaps="false"
                             android:textColor="?attr/colorOnSecondaryContainer" />
 

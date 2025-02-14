@@ -480,6 +480,7 @@
                     android:background="?attr/backgroundColor"
                     android:clickable="true"
                     android:elevation="0dp"
+                    android:visibility="gone"
                     android:focusable="true"
                     android:foreground="@drawable/d_ripple">
 

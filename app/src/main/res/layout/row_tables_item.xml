@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/equCard"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+
+    android:background="@drawable/toast"
+    android:backgroundTint="?attr/colorSecondaryContainer"
+    android:clickable="true"
+    android:elevation="2dp"
+    android:focusable="true">
+
+    <FrameLayout
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="18dp"
+        android:background="@drawable/toast"
+        android:backgroundTint="?attr/colorAccent">
+
+        <TextView
+            android:id="@+id/number_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="12sp" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_marginStart="54dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/title_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="18dp"
+            android:textColor="?attr/actionMenuTextColor" />
+
+        <ImageView
+            android:id="@+id/handle_order"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_gravity="center_vertical|right"
+            android:scaleType="center"
+            android:src="@drawable/ic_menu" />
+    </FrameLayout>
+
+</FrameLayout>

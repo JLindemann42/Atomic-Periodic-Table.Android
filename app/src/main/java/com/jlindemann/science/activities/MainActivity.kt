@@ -1,14 +1,15 @@
 package com.jlindemann.science.activities
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.content.res.Configuration
-import android.graphics.Color
-import android.graphics.Paint
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -32,34 +33,26 @@ import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.extensions.TableExtension
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
-import com.jlindemann.science.model.HoverFilterMenu
-import com.jlindemann.science.model.HoverFilterMenuList
-import com.jlindemann.science.preferences.ElectronegativityPreference
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.SearchPreferences
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.utils.TabUtil
+import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
-import com.otaliastudios.zoom.ZoomSurfaceView
+import com.otaliastudios.zoom.ZoomLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
 import org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.logging.Handler
-import kotlin.collections.ArrayList
 import kotlin.concurrent.schedule
 
 
 class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     private var elementList = ArrayList<Element>()
     var mAdapter = ElementAdapter(elementList, this, this)
-
-    var mScale = 1f
-    lateinit var mScaleDetector: ScaleGestureDetector
-    lateinit var gestureDetector: GestureDetector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,9 +81,9 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         })
 
         setOnCLickListenerSetups(elements)
-        scrollAdapter()
         setupNavListeners()
         onClickNav()
+        scrollAdapter()
         searchListener()
         findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).panelState = PanelState.COLLAPSED
         searchFilter(elements, recyclerView)
@@ -110,72 +103,14 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         }
         hoverListeners(elements, proPrefValue)
 
-
         val handler = android.os.Handler()
         handler.postDelayed({
             initName(elements)
         }, 250)
 
-        gestureDetector = GestureDetector(this, GestureListener())
-        mScaleDetector = ScaleGestureDetector(this, object : ScaleGestureDetector.SimpleOnScaleGestureListener() {
-            override fun onScale(detector: ScaleGestureDetector): Boolean {
-                val scale = 1 - detector.scaleFactor
-                val pScale = mScale
-                mScale += scale
-                mScale += scale
-                if (mScale < 1f)
-                    mScale = 1f
-                if (mScale > 1f) //temp disabled, 12.5 default
-                    mScale = 1f
-                val scaleAnimation = ScaleAnimation(
-                    1f / pScale,
-                    1f / mScale,
-                    1f / pScale,
-                    1f / mScale,
-                    detector.focusX,
-                    detector.focusY
-                )
-                if (mScale > 1f) {
-                    findViewById<HorizontalScrollView>(R.id.topBar).visibility = View.GONE
-                    findViewById<ScrollView>(R.id.leftBar).visibility = View.GONE
-                    findViewById<TextView>(R.id.corner).visibility = View.GONE
-                }
-                if (mScale == 1f) {
-                    findViewById<HorizontalScrollView>(R.id.topBar).visibility = View.VISIBLE
-                    findViewById<ScrollView>(R.id.leftBar).visibility = View.VISIBLE
-                    findViewById<TextView>(R.id.corner).visibility = View.VISIBLE
-                }
-                scaleAnimation.duration = 0
-                scaleAnimation.fillAfter = true
-                val layout = findViewById<LinearLayout>(R.id.scrollLin) as LinearLayout
-                layout.startAnimation(scaleAnimation)
-                return true
-            }
-        })
+        val layout = findViewById<LinearLayout>(R.id.scrollLin)
+
         val hideNavPref = hideNavPreference(this)
-
-        findViewById<TwoWayNestedScrollView>(R.id.scrollView).getViewTreeObserver()
-            .addOnScrollChangedListener(object : OnScrollChangedListener {
-                var y = 0f
-                override fun onScrollChanged() {
-                    val hideNavPrefValue = hideNavPref.getValue()
-
-                    if (hideNavPrefValue == 1) {
-                        if (findViewById<TwoWayNestedScrollView>(R.id.scrollView).getScrollY() > y) {
-                            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.nav_bar_main), 150)
-                            Utils.fadeOutAnim(
-                                findViewById<FloatingActionButton>(R.id.more_btn),
-                                150
-                            )
-                        } else {
-                            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.nav_bar_main), 150)
-                            Utils.fadeInAnim(findViewById<FloatingActionButton>(R.id.more_btn), 150)
-                        }
-                        y = findViewById<TwoWayNestedScrollView>(R.id.scrollView).getScrollY()
-                            .toFloat()
-                    }
-                }
-            })
 
         findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View?, slideOffset: Float) {}
@@ -210,24 +145,34 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         }
     }
 
-    override fun dispatchTouchEvent(event: MotionEvent): Boolean {
-        super.dispatchTouchEvent(event)
-        mScaleDetector.onTouchEvent(event)
-        gestureDetector.onTouchEvent(event)
-        return gestureDetector.onTouchEvent(event)
-    }
-
-    private class GestureListener : SimpleOnGestureListener() {
-        override fun onDown(e: MotionEvent): Boolean { return true }
-        override fun onDoubleTap(e: MotionEvent): Boolean { return true }
-    }
-
     private fun scrollAdapter() {
-        findViewById<TwoWayNestedScrollView>(R.id.scrollView).setOnScrollChangeListener { v: TwoWayNestedScrollView?, scrollX: Int, scrollY: Int, oldScrollX: Int, oldScrollY: Int ->
-            findViewById<ScrollView>(R.id.leftBar).scrollTo(0, scrollY)
-            findViewById<HorizontalScrollView>(R.id.topBar).scrollTo(scrollX, 0)
+        val zoomLay = findViewById<ZoomLayout>(R.id.scrollView)
+        val yScroll = findViewById<ScrollView>(R.id.leftBar)
+        val xScroll = findViewById<HorizontalScrollView>(R.id.topBar)
+        val corner = findViewById<TextView>(R.id.corner)
+
+        val handler = Handler(Looper.getMainLooper())
+        val runnable = object : Runnable {
+            override fun run() {
+                if (zoomLay.zoom < 1) {
+                    yScroll.visibility = View.INVISIBLE
+                    xScroll.visibility = View.INVISIBLE
+                    corner.visibility = View.INVISIBLE
+                }
+                else {
+                    yScroll.visibility = View.VISIBLE
+                    xScroll.visibility = View.VISIBLE
+                    corner.visibility = View.VISIBLE
+                }
+
+                yScroll.scrollTo(0, -zoomLay.panY.toInt())
+                xScroll.scrollTo(-zoomLay.panX.toInt(), 0)
+                handler.postDelayed(this, 1)
+            }
         }
+        handler.post(runnable)
     }
+
 
     private fun getRandomItem() {
         val elements = ArrayList<Element>()
@@ -594,9 +539,9 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         params5.bottomMargin = bottom
         findViewById<ConstraintLayout>(R.id.hover_menu_include).layoutParams = params5
 
-        val params6 = findViewById<TwoWayNestedScrollView>(R.id.scrollView).layoutParams as ViewGroup.MarginLayoutParams
+        val params6 = findViewById<ZoomLayout>(R.id.scrollView).layoutParams as ViewGroup.MarginLayoutParams
         params6.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_main)
-        findViewById<TwoWayNestedScrollView>(R.id.scrollView).layoutParams = params6
+        findViewById<ZoomLayout>(R.id.scrollView).layoutParams = params6
 
         val params7 = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).layoutParams as ViewGroup.LayoutParams
         params7.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_view)

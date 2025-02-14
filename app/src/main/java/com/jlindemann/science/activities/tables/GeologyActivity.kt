@@ -27,7 +27,6 @@ import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.ElectrodeAdapter
 import com.jlindemann.science.adapter.EquationsAdapter
 import com.jlindemann.science.adapter.GeologyAdapter
-import com.jlindemann.science.adapter.PoissonAdapter
 import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Dictionary
 import com.jlindemann.science.model.DictionaryModel
@@ -35,9 +34,8 @@ import com.jlindemann.science.model.Equation
 import com.jlindemann.science.model.Geology
 import com.jlindemann.science.model.GeologyModel
 import com.jlindemann.science.model.Poisson
-import com.jlindemann.science.model.PoissonModel
 import com.jlindemann.science.preferences.DictionaryPreferences
-import com.jlindemann.science.preferences.PoissonPreferences
+import com.jlindemann.science.preferences.GeologyPreference
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
@@ -73,13 +71,15 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         clickSearch()
         chipListeners(item, recyclerView)
         findViewById<Button>(R.id.clear_btn).visibility = View.GONE
-        findViewById<FrameLayout>(R.id.geo_det_inc_background).setOnClickListener { hideInfoPanel() }
-        findViewById<ImageButton>(R.id.close_detail_poisson_btn).setOnClickListener { hideInfoPanel() }
 
         findViewById<FrameLayout>(R.id.view_geo).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         findViewById<ImageButton>(R.id.back_btn_geo).setOnClickListener {
             this.onBackPressed()
         }
+    }
+
+    override fun geologyClickListener(item: Geology, position: Int) {
+        TODO("Not yet implemented")
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -113,35 +113,16 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         })
     }
 
-    //Overrides the clickListener from GeologyAdapter to show InfoPanel when clicking on elements
-    override fun geologyClickListener(item: Geology, position: Int) {
-        showInfoPanel(item.name, item.start, item.end, item.type)
-    }
 
-    //Show the info panel with detailed information about poisson interavls for materials
-    private fun showInfoPanel(title: String, start: Double, end: Double, type: String) {
-        Anim.fadeIn(findViewById<ConstraintLayout>(R.id.geo_det_inc), 150)
-        findViewById<FrameLayout>(R.id.geo_det_inc_background).visibility = View.VISIBLE
 
-        findViewById<ProgressBar>(R.id.pb_poisson_detail).progress = (start*100*2).toInt() //*2 as 100% is 0.5
-        findViewById<ProgressBar>(R.id.pb_poisson_detail).secondaryProgress = (end*100*2).toInt() //*2 as 100% is 0.5
-        findViewById<TextView>(R.id.detail_poisson_title).text = title
-    }
-
-    //function for hiding info panel
-    private fun hideInfoPanel() {
-        Anim.fadeOutAnim(findViewById<ConstraintLayout>(R.id.geo_det_inc), 150)
-        findViewById<FrameLayout>(R.id.geo_det_inc_background).visibility = View.GONE
-    }
-
-    //Filters the listView by different sorts of material by using the PoissonPreference to filter by the stringValue.
+    //Filters the listView by different sorts of material by using the geossonPreference to filter by the stringValue.
     private fun filter(text: String, list: ArrayList<Geology>, recyclerView: RecyclerView) {
         val filteredList: ArrayList<Geology> = ArrayList()
         for (item in list) {
-            val poissonPreference = PoissonPreferences(this)
-            val poissonPrefValue = poissonPreference.getValue()
+            val geoPreference = GeologyPreference(this)
+            val geoPrefValue = geoPreference.getValue()
             if (item.name.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
-                if (item.type.toLowerCase(Locale.ROOT).contains(poissonPrefValue.toLowerCase(Locale.ROOT))) {
+                if (item.type.toLowerCase(Locale.ROOT).contains(geoPrefValue.toLowerCase(Locale.ROOT))) {
                     filteredList.add(item)
                 }
             }
@@ -149,10 +130,10 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         val handler = android.os.Handler()
         handler.postDelayed({
             if (recyclerView.adapter!!.itemCount == 0) {
-                Anim.fadeIn(findViewById<LinearLayout>(R.id.empty_search_box_poi), 300)
+                Anim.fadeIn(findViewById<LinearLayout>(R.id.empty_search_box_geo), 300)
             }
             else {
-                findViewById<LinearLayout>(R.id.empty_search_box_poi).visibility = View.GONE
+                findViewById<LinearLayout>(R.id.empty_search_box_geo).visibility = View.GONE
             }
         }, 10)
         mAdapter.filterList(filteredList)
@@ -161,20 +142,20 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
     }
 
     private fun clickSearch() {
-        findViewById<ImageButton>(R.id.search_btn_poi).setOnClickListener {
-            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_poi), 150)
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box_poi), 1)
+        findViewById<ImageButton>(R.id.search_btn_geo).setOnClickListener {
+            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_geo), 150)
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box_geo), 1)
 
-            findViewById<EditText>(R.id.edit_poi).requestFocus()
+            findViewById<EditText>(R.id.edit_geo).requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(findViewById<EditText>(R.id.edit_poi), InputMethodManager.SHOW_IMPLICIT)
+            imm.showSoftInput(findViewById<EditText>(R.id.edit_geo), InputMethodManager.SHOW_IMPLICIT)
         }
-        findViewById<ImageButton>(R.id.close_poi_search).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_poi), 1)
+        findViewById<ImageButton>(R.id.close_geo_search).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_geo), 1)
 
             val delayClose = Handler()
             delayClose.postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box_poi), 150)
+                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box_geo), 150)
             }, 151)
 
             val view = this.currentFocus
@@ -188,24 +169,24 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
     private fun chipListeners(list: ArrayList<Geology>, recyclerView: RecyclerView) {
         findViewById<Button>(R.id.rocks_btn).setOnClickListener {
             updateButtonColor("rocks_btn")
-            val poissonPreference = PoissonPreferences(this)
-            poissonPreference.setValue("rock")
-            findViewById<EditText>(R.id.edit_poi).setText("test")
-            findViewById<EditText>(R.id.edit_poi).setText("")
+            val geoPreference = GeologyPreference(this)
+            geoPreference.setValue("rock")
+            findViewById<EditText>(R.id.edit_geo).setText("test")
+            findViewById<EditText>(R.id.edit_geo).setText("")
         }
         findViewById<Button>(R.id.soils_btn).setOnClickListener {
             updateButtonColor("soils_btn")
-            val poissonPreference = PoissonPreferences(this)
-            poissonPreference.setValue("soil")
-            findViewById<EditText>(R.id.edit_poi).setText("test")
-            findViewById<EditText>(R.id.edit_poi).setText("")
+            val geoPreference = GeologyPreference(this)
+            geoPreference.setValue("soil")
+            findViewById<EditText>(R.id.edit_geo).setText("test")
+            findViewById<EditText>(R.id.edit_geo).setText("")
         }
         findViewById<Button>(R.id.minerals_btn).setOnClickListener {
             updateButtonColor("minerals_btn")
-            val poissonPreference = PoissonPreferences(this)
-            poissonPreference.setValue("mineral")
-            findViewById<EditText>(R.id.edit_poi).setText("test")
-            findViewById<EditText>(R.id.edit_poi).setText("")
+            val geoPreference = GeologyPreference(this)
+            geoPreference.setValue("mineral")
+            findViewById<EditText>(R.id.edit_geo).setText("test")
+            findViewById<EditText>(R.id.edit_geo).setText("")
         }
     }
 
@@ -225,21 +206,13 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         findViewById<Button>(R.id.clear_btn).setOnClickListener {
             val resIDB = resources.getIdentifier(btn, "id", packageName)
             val button = findViewById<Button>(resIDB)
-            val poissonPreference = PoissonPreferences(this)
+            val geoPreference = GeologyPreference(this)
             button.background = getDrawable(R.drawable.chip)
-            poissonPreference.setValue("")
-            findViewById<EditText>(R.id.edit_poi).setText("test")
-            findViewById<EditText>(R.id.edit_poi).setText("")
+            geoPreference.setValue("")
+            findViewById<EditText>(R.id.edit_geo).setText("test")
+            findViewById<EditText>(R.id.edit_geo).setText("")
             findViewById<Button>(R.id.clear_btn).visibility = View.GONE
         }
-    }
-
-    //handle back action
-    override fun onBackPressed() {
-        if (findViewById<CardView>(R.id.poi_det_inc).visibility == View.VISIBLE) {
-            hideInfoPanel()
-            return
-        } else { super.onBackPressed() }
     }
 }
 

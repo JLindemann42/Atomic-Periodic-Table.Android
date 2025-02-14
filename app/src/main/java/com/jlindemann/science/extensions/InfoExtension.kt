@@ -441,7 +441,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
     }
 
     private fun loadSp(url: String?) {
-        val hUrl = "http://www.jlindemann.se/atomic/emission_lines/"
+        val hUrl = "https://www.jlindemann.se/atomic/emission_lines/"
         val ext = ".gif"
         val fURL = hUrl + url + ext
         try {

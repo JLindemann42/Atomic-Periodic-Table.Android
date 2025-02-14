@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
+import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
@@ -34,47 +35,14 @@ class CalculatorActivity : AppCompatActivity() {
             this.onBackPressed()
         }
 
-        initUi()
+        val editText = findViewById<EditText>(R.id.weightEditText)
 
     }
 
-    private fun initUi() {
-        findViewById<EditText>(R.id.edit_element_1).setOnKeyListener { _, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                onClickSearch()
-                return@setOnKeyListener true
-            }
-            false
-        }
+    fun readJson() {
     }
 
-    fun onClickSearch() {
 
-        val mArray = resources.getStringArray(R.array.calcArray)
-        val text = findViewById<EditText>(R.id.edit_element_1).text.toString()
-
-        for (i in 0 until 2) {
-            var jsonstring : String? = null
-            if (text == mArray.get(i).toString()) {
-
-                if (text == "H") {
-                    val ext = ".json"
-                    val ElementJson: String? = "1$ext"
-
-                    val inputStream: InputStream = assets.open(ElementJson.toString())
-                    jsonstring = inputStream.bufferedReader().use { it.readText() }
-                    val jsonArray = JSONArray(jsonstring)
-                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-                    val elementAtomicWeight1 = jsonObject.optString("element_atomicmass", "---")
-
-                    val final = elementAtomicWeight1.toInt()*(findViewById<EditText>(R.id.edit_number_1).text.toString().toInt())
-
-                    Toast.makeText(this, final, Toast.LENGTH_SHORT).show()
-                }
-
-            }
-        }
-    }
 }
 
 

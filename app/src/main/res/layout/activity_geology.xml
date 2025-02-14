@@ -134,7 +134,7 @@
                         android:alpha="0.5" />
 
                     <ImageButton
-                        android:id="@+id/close_poi_search"
+                        android:id="@+id/close_geo_search"
                         style="?android:attr/borderlessButtonStyle"
                         android:layout_width="56dp"
                         android:layout_height="56dp"
@@ -273,21 +273,6 @@
             android:verticalScrollbarPosition="defaultPosition" />
     </FrameLayout>
 
-    <include
-        android:id="@+id/geo_det_inc"
-        layout="@layout/detail_poisson"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="130dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="130dp"
-        android:elevation="112dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/geo_det_inc_background"
