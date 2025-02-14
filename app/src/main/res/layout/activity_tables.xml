@@ -630,7 +630,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/pro_geo_text"
+                    android:id="@+id/pro_con_text"
                     android:layout_width="wrap_content"
                     android:layout_height="28dp"
                     android:layout_gravity="start"
@@ -662,7 +662,7 @@
                     android:textStyle="normal" />
 
                 <TextView
-                    android:id="@+id/geo_button"
+                    android:id="@+id/con_button"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_gravity="end"
@@ -695,6 +695,7 @@
             android:background="@drawable/toast_card"
             android:backgroundTint="?attr/colorSurfaceVariant"
             android:clickable="true"
+            android:visibility="gone"
             android:elevation="0dp"
             android:focusable="true"
             android:foreground="@drawable/toast_card_ripple">

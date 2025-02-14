@@ -73,11 +73,14 @@ class TableActivity : BaseActivity() {
             findViewById<TextView>(R.id.pro_nuc_text).visibility = View.VISIBLE
             findViewById<TextView>(R.id.pro_con_text).text = "PRO-Version"
             findViewById<TextView>(R.id.pro_con_text).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.pro_geo_text).text = "PRO-Version"
+            findViewById<TextView>(R.id.pro_geo_text).visibility = View.VISIBLE
         }
         if (proPrefValue == 100) {
             findViewById<TextView>(R.id.pro_poi_text).visibility = View.GONE
             findViewById<TextView>(R.id.pro_nuc_text).visibility = View.GONE
             findViewById<TextView>(R.id.pro_con_text).visibility = View.GONE
+            findViewById<TextView>(R.id.pro_geo_text).visibility = View.GONE
         }
     }
 
@@ -201,6 +204,30 @@ class TableActivity : BaseActivity() {
             }
         }
         findViewById<TextView>(R.id.con_button).setOnClickListener {
+            val proPref = ProVersion(this)
+            val proPrefValue = proPref.getValue()
+            if (proPrefValue == 1) {
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent)
+            }
+            if (proPrefValue == 100) {
+                val intent = Intent(this, ConstantsActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        findViewById<FrameLayout>(R.id.geo_table).setOnClickListener {
+            val proPref = ProVersion(this)
+            val proPrefValue = proPref.getValue()
+            if (proPrefValue == 1) {
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent)
+            }
+            if (proPrefValue == 100) {
+                val intent = Intent(this, ConstantsActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        findViewById<TextView>(R.id.geo_button).setOnClickListener {
             val proPref = ProVersion(this)
             val proPrefValue = proPref.getValue()
             if (proPrefValue == 1) {
