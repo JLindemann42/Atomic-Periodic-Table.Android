@@ -83,7 +83,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
-    def billing_version = "7.0.0"
-    implementation "com.android.billingclient:billing-ktx:$billing_version"
+
     implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.9.1'
 }

@@ -37,6 +37,12 @@
     <string name="favorite_settings_electromagnetic">Electromagnetic Properties</string>
     <string name="favorite_settings_nuclear">Nuclear</string>
 
+    <!-- Activity Sources Settings -->
+    <string name="sources_settings_title" translatable="false">Sources</string>"
+    <string name="sources_wwe_title" translatable="false">Water and Wastewater Engineering</string>"
+    <string name="sources_wwe_text" translatable="false">Mackenzie L. Davis, (2019). Water and wastewater Engineering: Design Principles and Practise, second edition. ISBN: 978-1-260-13227-4</string>"
+
+
     <!-- Activity Unit Settings -->
     <string name="unit_settings_title">Table Units</string>
     <string name="unit_temperature">Temperatures</string>
