@@ -5,7 +5,7 @@
 ## Introduction
 A periodic table for all your science needs for both schoolwork and fun!
 
-Follow on socialmedia for updates [TWITTER](https://twitter.com/jlindemanndev)
+Follow on socialmedia for updates [BlueSky](https://bsky.app/profile/jlindemanndev.bsky.social)
 
 ## Download
 
