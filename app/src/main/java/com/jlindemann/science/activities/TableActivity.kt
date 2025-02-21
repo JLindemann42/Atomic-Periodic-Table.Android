@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tables.*
+import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 
@@ -59,6 +60,7 @@ class TableActivity : BaseActivity() {
             })
 
         tableListeners()
+        mostUsedBar()
 
         findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
             this.onBackPressed()
@@ -92,6 +94,143 @@ class TableActivity : BaseActivity() {
             val params2 = findViewById<TextView>(R.id.tables_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
             params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
             findViewById<TextView>(R.id.tables_title_downstate).layoutParams = params2
+    }
+
+    private fun mostUsedBar() {
+        val mostUsedPreference = MostUsedPreference(this)
+        val mostUsedPrefValue = mostUsedPreference.getValue()
+        val proPref = ProVersion(this)
+        val proPrefValue = proPref.getValue()
+
+        val regex = Regex("(\\w{3})=(\\d.\\d)")
+        val matches = regex.findAll(mostUsedPrefValue).map { it.groups[1]!!.value to it.groups[2]!!.value.toDouble() }.toList()
+        val sortedValues = matches.sortedByDescending { it.second }
+
+        val textView1: TextView = findViewById(R.id.most_1)
+        val textView2: TextView = findViewById(R.id.most_2)
+        val textView3: TextView = findViewById(R.id.most_3)
+        val textView4: TextView = findViewById(R.id.most_4)
+        val textView5: TextView = findViewById(R.id.most_5)
+        val textView6: TextView = findViewById(R.id.most_6)
+        val textView7: TextView = findViewById(R.id.most_7)
+        val textView8: TextView = findViewById(R.id.most_8)
+        val textView9: TextView = findViewById(R.id.most_9)
+
+        val textViewList = listOf(textView1, textView2, textView3, textView4, textView5, textView6, textView7, textView8, textView9)
+
+        sortedValues.forEachIndexed { index, pair ->
+            if (index < textViewList.size) {
+                //Setup TextViews
+                if (pair.first == "geo") {textViewList[index].text = getString(R.string.geo)}
+                if (pair.first == "phi") {textViewList[index].text = getString(R.string.phi)}
+                if (pair.first == "eqe") {textViewList[index].text = getString(R.string.eqe)}
+                if (pair.first == "ion") {textViewList[index].text = getString(R.string.ion)}
+                if (pair.first == "sol") {textViewList[index].text = getString(R.string.sol)}
+                if (pair.first == "poi") {textViewList[index].text = getString(R.string.poi)}
+                if (pair.first == "nuc") {textViewList[index].text = getString(R.string.nuc)}
+                if (pair.first == "con") {textViewList[index].text = getString(R.string.con)}
+                if (pair.first == "ele") {textViewList[index].text = getString(R.string.ele)}
+
+                //Setup clickListener for non-pro
+                if (proPrefValue==1) {
+                    textViewList[index].setOnClickListener {
+                        if (pair.first == "phi") {
+                            val activity = phActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "eqe") {
+                            val activity = EquationsActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "ion") {
+                            val activity = IonActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "sol") {
+                            val activity = SolubilityActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "ele") {
+                            val activity = ElectrodeActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "poi") {
+                            val activity = ProActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "nuc") {
+                            val activity = ProActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "con") {
+                            val activity = ProActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "geo") {
+                            val activity = ProActivity::class.java
+                            val intent = Intent(this, activity)
+                        }
+                    }
+                }
+                //Setup clickListener for pro
+                if (proPrefValue==100) {
+                    textViewList[index].setOnClickListener {
+                        if (pair.first == "phi") {
+                            val activity = phActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "eqe") {
+                            val activity = EquationsActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "ion") {
+                            val activity = IonActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "sol") {
+                            val activity = SolubilityActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "ele") {
+                            val activity = ElectrodeActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "poi") {
+                            val activity = PoissonActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "nuc") {
+                            val activity = NuclideActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "con") {
+                            val activity = ConstantsActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
+                        if (pair.first == "geo") {
+                            val activity = GeologyActivity::class.java
+                            val intent = Intent(this, activity)
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private fun tableListeners() {
@@ -223,7 +362,7 @@ class TableActivity : BaseActivity() {
                 startActivity(intent)
             }
             if (proPrefValue == 100) {
-                val intent = Intent(this, ConstantsActivity::class.java)
+                val intent = Intent(this, GeologyActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -235,7 +374,7 @@ class TableActivity : BaseActivity() {
                 startActivity(intent)
             }
             if (proPrefValue == 100) {
-                val intent = Intent(this, ConstantsActivity::class.java)
+                val intent = Intent(this, GeologyActivity::class.java)
                 startActivity(intent)
             }
         }

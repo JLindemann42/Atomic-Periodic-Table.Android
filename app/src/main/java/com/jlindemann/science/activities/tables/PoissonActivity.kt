@@ -34,6 +34,7 @@ import com.jlindemann.science.model.Equation
 import com.jlindemann.science.model.Poisson
 import com.jlindemann.science.model.PoissonModel
 import com.jlindemann.science.preferences.DictionaryPreferences
+import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.PoissonPreferences
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
@@ -65,6 +66,18 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val itempoi = ArrayList<Poisson>()
         PoissonModel.getList(itempoi)
+
+        //Add value to most used:
+        val mostUsedPreference = MostUsedPreference(this)
+        val mostUsedPrefValue = mostUsedPreference.getValue()
+        val targetLabel = "poi"
+        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val match = regex.find(mostUsedPrefValue)
+        if (match != null) {
+            val value = match.groups[2]!!.value.toDouble()
+            val newValue = value + 1
+            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
+        }
 
         recyclerView()
         clickSearch()

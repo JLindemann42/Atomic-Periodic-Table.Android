@@ -176,4 +176,18 @@
     <string name="no_results" translatable="false">No Results</string>
     <string name="spelling" translatable="false">Try searching for another word or check your spelling</string>
 
+
+    <!-- New Tables Strings -->
+    <string name="phi" translatable="false">pH-Indicators</string>
+    <string name="geo" translatable="false">Geology Table</string>
+    <string name="con" translatable="false">Constants Table</string>
+    <string name="nuc" translatable="false">Table of Nuclides</string>
+    <string name="poi" translatable="false">Poisson Ratio Table</string>
+    <string name="sol" translatable="false">Solubility Table</string>
+    <string name="ion" translatable="false">Ionization Energies</string>
+    <string name="eqe" translatable="false">Formulas</string>
+    <string name="ele" translatable="false">Electrochemical Series</string>
+
+
+
 </resources>

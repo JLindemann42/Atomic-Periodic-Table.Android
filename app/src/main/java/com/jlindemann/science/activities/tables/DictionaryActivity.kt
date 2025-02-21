@@ -32,6 +32,7 @@ import com.jlindemann.science.model.*
 import com.jlindemann.science.model.Dictionary
 import com.jlindemann.science.preferences.DictionaryPreferences
 import com.jlindemann.science.preferences.IsoPreferences
+import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
@@ -67,6 +68,18 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         clickSearch()
         chipListeners(itemse, recyclerView)
         findViewById<Button>(R.id.clear_btn).visibility = View.GONE
+
+        //Add value to most used:
+        val mostUsedPreference = MostUsedPreference(this)
+        val mostUsedPrefValue = mostUsedPreference.getValue()
+        val targetLabel = "phi"
+        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val match = regex.find(mostUsedPrefValue)
+        if (match != null) {
+            val value = match.groups[2]!!.value.toDouble()
+            val newValue = value + 1
+            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
+        }
 
         val dictionaryPreference = DictionaryPreferences(this)
         findViewById<FrameLayout>(R.id.view_dic).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION

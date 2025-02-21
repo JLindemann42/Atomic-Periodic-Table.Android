@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <FrameLayout
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/view_sub"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -43,8 +43,6 @@
                         android:layout_height="54dp"
                         android:layout_gravity="center_vertical"
                         android:rotation="180"
-                        android:clickable="true"
-                        android:focusable="true"
                         android:src="@drawable/ic_arrow_back_whit" />
 
                     <TextView
@@ -87,162 +85,71 @@
             android:text="@string/activity_table_title"
             android:textColor="?attr/colorOnSurface"
             android:textSize="32sp"
-            android:textStyle="normal" />
+            android:textStyle="normal"
+            android:visibility="invisible" />
 
-        <HorizontalScrollView
+        <TextView
+            android:id="@+id/textView8"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
+            android:text="TextView"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="32sp"
+            android:textStyle="normal"
+            tools:text="Most Used:" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/most_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginTop="@dimen/margin_space_card"
-                    android:layout_marginEnd="@dimen/margin_space_card"
-                    android:layout_marginBottom="@dimen/margin_space_card"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorSurfaceVariant"
-                    android:text="most_1"
-                    android:padding="@dimen/margin_space_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
+            <FrameLayout
+                android:id="@+id/star_1"
+                android:layout_weight="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="@dimen/margin_space_card"
+                android:layout_marginEnd="@dimen/margin_space_card"
+                android:layout_marginBottom="@dimen/margin_space_card"
+                android:background="@drawable/toast_card"
+                android:backgroundTint="?attr/colorSurfaceVariant"
+                android:clickable="true"
+                android:elevation="0dp"
+                android:focusable="true"
+                android:foreground="@drawable/toast_card_ripple"/>
 
-                <TextView
-                    android:id="@+id/most_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_space_card"
-                    android:layout_marginTop="@dimen/margin_space_card"
-                    android:layout_marginEnd="@dimen/margin_space_card"
-                    android:layout_marginBottom="@dimen/margin_space_card"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorSurfaceVariant"
-                    android:text="most_2"
-                    android:padding="@dimen/margin_space_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
+            <FrameLayout
+                android:id="@+id/star_2"
+                android:layout_weight="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginStart="@dimen/margin_space_card"
+                android:layout_marginTop="@dimen/margin_space_card"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginBottom="@dimen/margin_space_card"
+                android:background="@drawable/toast_card"
+                android:backgroundTint="?attr/colorSurfaceVariant"
+                android:clickable="true"
+                android:elevation="0dp"
+                android:focusable="true"
+                android:foreground="@drawable/toast_card_ripple"/>
 
-                <TextView
-                    android:id="@+id/most_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_space_card"
-                    android:layout_marginTop="@dimen/margin_space_card"
-                    android:layout_marginEnd="@dimen/margin_space_card"
-                    android:layout_marginBottom="@dimen/margin_space_card"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorSurfaceVariant"
-                    android:text="most_3"
-                    android:padding="@dimen/margin_space_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
 
-                <TextView
-                    android:id="@+id/most_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_space_card"
-                    android:layout_marginTop="@dimen/margin_space_card"
-                    android:layout_marginEnd="@dimen/margin_space_card"
-                    android:layout_marginBottom="@dimen/margin_space_card"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorSurfaceVariant"
-                    android:text="most_4"
-                    android:padding="@dimen/margin_space_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/most_5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_space_card"
-                    android:layout_marginTop="@dimen/margin_space_card"
-                    android:layout_marginEnd="@dimen/margin_space_card"
-                    android:layout_marginBottom="@dimen/margin_space_card"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorSurfaceVariant"
-                    android:text="most_5"
-                    android:padding="@dimen/margin_space_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
-
-                <TextView
-                    android:id="@+id/most_6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_space_card"
-                    android:layout_marginTop="@dimen/margin_space_card"
-                    android:layout_marginEnd="@dimen/margin_space_card"
-                    android:layout_marginBottom="@dimen/margin_space_card"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorSurfaceVariant"
-                    android:text="most_6"
-                    android:padding="@dimen/margin_space_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
-
-                <TextView
-                    android:id="@+id/most_7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_space_card"
-                    android:layout_marginTop="@dimen/margin_space_card"
-                    android:layout_marginEnd="@dimen/margin_space_card"
-                    android:layout_marginBottom="@dimen/margin_space_card"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorSurfaceVariant"
-                    android:text="most_7"
-                    android:padding="@dimen/margin_space_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
-
-                <TextView
-                    android:id="@+id/most_8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_space_card"
-                    android:layout_marginTop="@dimen/margin_space_card"
-                    android:layout_marginEnd="@dimen/margin_space_card"
-                    android:layout_marginBottom="@dimen/margin_space_card"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorSurfaceVariant"
-                    android:text="most_8"
-                    android:padding="@dimen/margin_space_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
-
-                <TextView
-                    android:id="@+id/most_9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_space_card"
-                    android:layout_marginTop="@dimen/margin_space_card"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:layout_marginBottom="@dimen/margin_space_card"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorSurfaceVariant"
-                    android:text="most_9"
-                    android:padding="@dimen/margin_space_card"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
-
-            </LinearLayout>
-        </HorizontalScrollView>
+        <TextView
+            android:id="@+id/star_space"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@drawable/toast_card"
+            android:layout_marginStart="@dimen/margin"
+            android:backgroundTint="?attr/colorSurfaceVariant"
+            android:layout_marginEnd="@dimen/margin"
+            android:alpha="0.8"/>
 
         <FrameLayout
             android:id="@+id/ph_table"
@@ -852,6 +759,7 @@
             android:background="@drawable/toast_card"
             android:backgroundTint="?attr/colorSurfaceVariant"
             android:clickable="true"
+            android:visibility="gone"
             android:elevation="0dp"
             android:focusable="true"
             android:foreground="@drawable/toast_card_ripple">

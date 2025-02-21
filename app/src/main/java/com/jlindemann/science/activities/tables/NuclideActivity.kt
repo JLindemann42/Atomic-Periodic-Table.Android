@@ -24,6 +24,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.activities.IsotopesActivityExperimental
 import com.jlindemann.science.preferences.ElementSendAndLoad
+import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.sendIso
 import com.otaliastudios.zoom.ZoomLayout
 import kotlinx.coroutines.Dispatchers
@@ -58,6 +59,18 @@ class NuclideActivity : BaseActivity() {
         // Load JSON in the background and update UI in lifecycleScope
         lifecycleScope.launch {
             loadAndDisplayElements()
+        }
+
+        //Add value to most used:
+        val mostUsedPreference = MostUsedPreference(this)
+        val mostUsedPrefValue = mostUsedPreference.getValue()
+        val targetLabel = "nuc"
+        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val match = regex.find(mostUsedPrefValue)
+        if (match != null) {
+            val value = match.groups[2]!!.value.toDouble()
+            val newValue = value + 1
+            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
         }
 
         setupGestureDetectors()

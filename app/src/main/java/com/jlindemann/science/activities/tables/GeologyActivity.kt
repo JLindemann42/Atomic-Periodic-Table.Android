@@ -36,6 +36,7 @@ import com.jlindemann.science.model.GeologyModel
 import com.jlindemann.science.model.Poisson
 import com.jlindemann.science.preferences.DictionaryPreferences
 import com.jlindemann.science.preferences.GeologyPreference
+import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
@@ -103,6 +104,18 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         recyclerView.adapter = adapter
 
         adapter.notifyDataSetChanged()
+
+        //Add value to most used:
+        val mostUsedPreference = MostUsedPreference(this)
+        val mostUsedPrefValue = mostUsedPreference.getValue()
+        val targetLabel = "geo"
+        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val match = regex.find(mostUsedPrefValue)
+        if (match != null) {
+            val value = match.groups[2]!!.value.toDouble()
+            val newValue = value + 1
+            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
+        }
 
         findViewById<EditText>(R.id.edit_geo).addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}

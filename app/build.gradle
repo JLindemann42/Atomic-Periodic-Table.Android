@@ -21,8 +21,8 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 23
         targetSdkVersion 35
-        versionCode 97
-        versionName "2.6.2"
+        versionCode 98
+        versionName "2.7.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -83,6 +83,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
-
+    def billing_version = "7.0.0"
+    implementation "com.android.billingclient:billing-ktx:$billing_version"
     implementation 'com.google.firebase:firebase-crashlytics-buildtools:2.9.1'
 }
