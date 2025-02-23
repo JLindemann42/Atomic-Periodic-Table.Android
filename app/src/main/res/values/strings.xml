@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v2.6.2-Build.97</string>
+    <string name="app_version" translatable="false">v2.7.0-Build.102</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -187,6 +187,11 @@
     <string name="ion" translatable="false">Ionization Energies</string>
     <string name="eqe" translatable="false">Formulas</string>
     <string name="ele" translatable="false">Electrochemical Series</string>
+    <string name="iso" translatable="false">Isotopes</string>
+
+    <string name="most_used" translatable="false">Most Used:</string>
+
+    <string name="calculator_title" translatable="false">Calculator</string>
 
 
 

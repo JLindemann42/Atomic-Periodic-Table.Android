@@ -115,8 +115,10 @@ class TableActivity : BaseActivity() {
         val textView7: TextView = findViewById(R.id.most_7)
         val textView8: TextView = findViewById(R.id.most_8)
         val textView9: TextView = findViewById(R.id.most_9)
+        val textView10: TextView = findViewById(R.id.most_10)
 
-        val textViewList = listOf(textView1, textView2, textView3, textView4, textView5, textView6, textView7, textView8, textView9)
+
+        val textViewList = listOf(textView1, textView2, textView3, textView4, textView5, textView6, textView7, textView8, textView9, textView10)
 
         sortedValues.forEachIndexed { index, pair ->
             if (index < textViewList.size) {
@@ -130,10 +132,17 @@ class TableActivity : BaseActivity() {
                 if (pair.first == "nuc") {textViewList[index].text = getString(R.string.nuc)}
                 if (pair.first == "con") {textViewList[index].text = getString(R.string.con)}
                 if (pair.first == "ele") {textViewList[index].text = getString(R.string.ele)}
+                if (pair.first == "iso") {textViewList[index].text = getString(R.string.iso)}
+
 
                 //Setup clickListener for non-pro
                 if (proPrefValue==1) {
                     textViewList[index].setOnClickListener {
+                        if (pair.first == "iso") {
+                            val activity = IsotopesActivityExperimental::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
                         if (pair.first == "phi") {
                             val activity = phActivity::class.java
                             val intent = Intent(this, activity)
@@ -177,12 +186,19 @@ class TableActivity : BaseActivity() {
                         if (pair.first == "geo") {
                             val activity = ProActivity::class.java
                             val intent = Intent(this, activity)
+                            startActivity(intent)
+
                         }
                     }
                 }
                 //Setup clickListener for pro
                 if (proPrefValue==100) {
                     textViewList[index].setOnClickListener {
+                        if (pair.first == "iso") {
+                            val activity = IsotopesActivityExperimental::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
+                        }
                         if (pair.first == "phi") {
                             val activity = phActivity::class.java
                             val intent = Intent(this, activity)
@@ -236,6 +252,14 @@ class TableActivity : BaseActivity() {
     private fun tableListeners() {
         findViewById<FrameLayout>(R.id.sol_table).setOnClickListener {
             val intent = Intent(this, SolubilityActivity::class.java)
+            startActivity(intent)
+        }
+        findViewById<FrameLayout>(R.id.iso_table).setOnClickListener {
+            val intent = Intent(this, IsotopesActivityExperimental::class.java)
+            startActivity(intent)
+        }
+        findViewById<TextView>(R.id.iso_button).setOnClickListener {
+            val intent = Intent(this, IsotopesActivityExperimental::class.java)
             startActivity(intent)
         }
         findViewById<TextView>(R.id.sol_button).setOnClickListener {

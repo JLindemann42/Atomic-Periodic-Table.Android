@@ -55,7 +55,7 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
         //Add value to most used:
         val mostUsedPreference = MostUsedPreference(this)
         val mostUsedPrefValue = mostUsedPreference.getValue()
-        val targetLabel = "for"
+        val targetLabel = "eqe"
         val regex = Regex("($targetLabel)=(\\d\\.\\d)")
         val match = regex.find(mostUsedPrefValue)
         if (match != null) {
