@@ -245,7 +245,9 @@ class CalculatorActivity : BaseActivity() {
         }
 
         // Display the result in the TextView
-        findViewById<TextView>(R.id.out_text).text = result.toString()
+        val resultText = result.toString()
+        val unitText =" (g/mol)"
+        findViewById<TextView>(R.id.out_text).text = "$resultText$unitText"
 
         // Update the RecyclerView with included elements
         includedElementsAdapter.updateElements(includedElements)

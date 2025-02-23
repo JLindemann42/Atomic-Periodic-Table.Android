@@ -57,7 +57,7 @@
                             <EditText
                                 android:id="@+id/edit_text_cal"
                                 android:layout_width="match_parent"
-                                android:layout_height="80dp"
+                                android:layout_height="72dp"
                                 android:layout_marginStart="@dimen/margin"
                                 android:layout_marginEnd="@dimen/margin"
                                 android:background="@drawable/toast"
@@ -72,28 +72,37 @@
                                 android:paddingEnd="18dp"
                                 android:textColor="?attr/colorOnSurface"
                                 android:textColorHint="?attr/colorOnSurface"
-                                android:textSize="24sp" />
+                                android:textSize="22sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin"
+                                android:layout_marginEnd="@dimen/margin"
+                                android:layout_marginTop="8dp"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:gravity="top"
+                                android:text="Atomic Weight:"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textStyle="bold"
+                                android:textSize="16sp" />
 
                             <TextView
                                 android:id="@+id/out_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="54dp"
+                                android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/margin"
-                                android:layout_marginTop="@dimen/margin"
                                 android:layout_marginEnd="@dimen/margin"
-                                android:background="@drawable/toast"
-                                android:backgroundTint="?attr/colorSurface"
+                                android:layout_marginTop="4dp"
+                                android:drawableStart="@drawable/ic_weight_outline"
+                                android:drawablePadding="6dp"
                                 android:focusable="true"
                                 android:focusableInTouchMode="true"
                                 android:gravity="top"
-                                android:paddingStart="18dp"
-                                android:paddingTop="18dp"
-                                android:paddingEnd="18dp"
-                                android:paddingBottom="18dp"
                                 android:text="Output"
                                 android:textColor="?attr/colorOnSurface"
-                                android:textColorHint="?attr/colorOnSurface"
-                                android:textSize="14sp" />
+                                android:textSize="16sp" />
 
 
                             <androidx.recyclerview.widget.RecyclerView
