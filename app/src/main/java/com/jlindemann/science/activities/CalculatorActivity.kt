@@ -206,7 +206,8 @@ class CalculatorActivity : BaseActivity() {
         ElementModel.getList(elementList)
 
         val elementWeights = mutableMapOf<String, Double>()
-        val includedElements = mutableListOf<Quadruple<String, Double, Double, Double>>()
+        val elementNames = mutableMapOf<String, String>()
+        val includedElements = mutableListOf<Quadruple<String, Double, Double, Double, String>>()
 
         for (element in elementList) {
             try {
@@ -217,8 +218,10 @@ class CalculatorActivity : BaseActivity() {
                 val jsonObject = jsonArray.getJSONObject(0)
                 val weightVal = jsonObject.optString("element_atomicmass", "---").removeSuffix(" (u)")
                 val shortEl = jsonObject.optString("short", "---")
+                val fullName = jsonObject.optString("element", "---")
 
                 elementWeights[shortEl] = weightVal.toDoubleOrNull() ?: 0.0
+                elementNames[shortEl] = fullName
 
             } catch (e: IOException) {
                 ToastUtil.showToast(this, "Error")
@@ -232,8 +235,9 @@ class CalculatorActivity : BaseActivity() {
                 val element = matchResult.groupValues[1]
                 val elementMultiplier = matchResult.groupValues[2].toDoubleOrNull() ?: 1.0
                 val atomicWeight = elementWeights[element] ?: 0.0
+                val fullName = elementNames[element] ?: "Unknown"
                 weight += (elementMultiplier * atomicWeight)
-                includedElements.add(Quadruple(element, elementMultiplier * multiplier, atomicWeight, 0.0))
+                includedElements.add(Quadruple(element, elementMultiplier * multiplier, atomicWeight, 0.0, fullName))
             }
             return weight * multiplier
         }
@@ -264,9 +268,9 @@ class CalculatorActivity : BaseActivity() {
             }
         }
 
-        includedElements.forEachIndexed { index, (element, quantity, atomicWeight, _) ->
+        includedElements.forEachIndexed { index, (element, quantity, atomicWeight, _, fullName) ->
             val percentage = (quantity * atomicWeight) / result * 100
-            includedElements[index] = Quadruple(element, quantity, atomicWeight, percentage)
+            includedElements[index] = Quadruple(element, quantity, atomicWeight, percentage, fullName)
         }
 
         val resultText = result.toString()
