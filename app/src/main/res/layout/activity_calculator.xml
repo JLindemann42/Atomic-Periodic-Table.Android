@@ -9,14 +9,15 @@
         android:background="?attr/backgroundColor">
 
     <ScrollView
-                android:id="@+id/calculator_scroll"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        android:id="@+id/calculator_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingBottom="120dp">
 
                     <TextView
                         android:id="@+id/calculator_title_downstate"
@@ -54,25 +55,42 @@
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
 
-                            <EditText
-                                android:id="@+id/edit_text_cal"
+                            <FrameLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="72dp"
-                                android:layout_marginStart="@dimen/margin"
-                                android:layout_marginEnd="@dimen/margin"
-                                android:background="@drawable/toast"
-                                android:backgroundTint="?attr/colorSurface"
-                                android:focusable="true"
-                                android:focusableInTouchMode="true"
-                                android:hint="Formula:"
-                                android:imeOptions="actionSearch"
-                                android:inputType="text"
-                                android:maxLines="1"
-                                android:paddingStart="18dp"
-                                android:paddingEnd="18dp"
-                                android:textColor="?attr/colorOnSurface"
-                                android:textColorHint="?attr/colorOnSurface"
-                                android:textSize="22sp" />
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <EditText
+                                    android:id="@+id/edit_text_cal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="72dp"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:layout_marginEnd="@dimen/margin"
+                                    android:background="@drawable/toast"
+                                    android:backgroundTint="?attr/colorSurface"
+                                    android:focusable="true"
+                                    android:focusableInTouchMode="true"
+                                    android:hint="Formula:"
+                                    android:imeOptions="actionSearch"
+                                    android:inputType="text"
+                                    android:maxLines="1"
+                                    android:paddingStart="18dp"
+                                    android:paddingEnd="68dp"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textColorHint="?attr/colorOnSurface"
+                                    android:textSize="22sp" />
+
+                                <ImageButton
+                                    android:id="@+id/fav_star_btn"
+                                    android:layout_width="72dp"
+                                    android:layout_height="72dp"
+                                    android:layout_gravity="end"
+                                    android:layout_marginEnd="@dimen/margin"
+                                    android:backgroundTint="@color/transparent"
+                                    app:tint="?attr/colorOnSurface"
+                                    android:src="@drawable/ic_star"/>
+
+                            </FrameLayout>
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -100,7 +118,7 @@
                                 android:focusable="true"
                                 android:focusableInTouchMode="true"
                                 android:gravity="top"
-                                android:text="Output"
+                                android:text="0.0 (g/mol)"
                                 android:textColor="?attr/colorOnSurface"
                                 android:textSize="16sp" />
 
@@ -110,14 +128,11 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/margin"
-                                android:layout_marginTop="@dimen/margin_space"
+                                android:layout_marginTop="9dp"
                                 android:layout_marginEnd="@dimen/margin"
                                 android:layout_marginBottom="@dimen/margin" />
 
                         </LinearLayout>
-
-
-
 
                     <LinearLayout
                     android:id="@+id/fav_box"
@@ -140,6 +155,14 @@
                         android:layout_margin="@dimen/margin"
                         android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold"/>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/fav_rec_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="320dp"
+                            android:layout_marginStart="@dimen/margin"
+                            android:layout_marginEnd="@dimen/margin"
+                            android:layout_marginBottom="@dimen/margin" />
 
                 </LinearLayout>
 

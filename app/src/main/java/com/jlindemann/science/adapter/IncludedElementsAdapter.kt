@@ -19,7 +19,6 @@ class IncludedElementsAdapter : RecyclerView.Adapter<IncludedElementsAdapter.Ele
     override fun onBindViewHolder(holder: ElementViewHolder, position: Int) {
         val (element, quantity, atomicWeight, percentage) = elements[position]
         holder.elementName.text = element
-        holder.elementQuantity.text = quantity.toString()
         holder.atomicWeight.text = atomicWeight.toString()
         holder.elementPercentage.text = String.format("%.2f", percentage) + "%"
     }
@@ -33,9 +32,8 @@ class IncludedElementsAdapter : RecyclerView.Adapter<IncludedElementsAdapter.Ele
     }
 
     class ElementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val elementName: TextView = itemView.findViewById(R.id.element_name)
-        val elementQuantity: TextView = itemView.findViewById(R.id.element_quantity)
-        val atomicWeight: TextView = itemView.findViewById(R.id.atomic_weight)
-        val elementPercentage: TextView = itemView.findViewById(R.id.element_percentage)
+        val elementName: TextView = itemView.findViewById(R.id.ic_element)
+        val atomicWeight: TextView = itemView.findViewById(R.id.element_molar_weight)
+        val elementPercentage: TextView = itemView.findViewById(R.id.percent_element)
     }
 }

@@ -1,39 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="8dp">
+    android:background="@drawable/toast_outline"
+    android:foreground="@drawable/toast_card_outline_ripple"
+    android:layout_marginBottom="@dimen/margin"
+    android:clickable="true"
+    android:elevation="0dp"
+    android:focusable="true">
+
+    <FrameLayout
+        android:id="@+id/elemntCard"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="18dp"
+        android:background="@drawable/toast"
+        android:backgroundTint="?attr/colorPrimary">
+
+        <TextView
+            android:id="@+id/ic_element"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:text="Ge"
+            android:textSize="20sp"
+            android:textColor="?attr/colorOnPrimary" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="76dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/element_name_cal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="element_name_cal"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <TextView
+            android:id="@+id/element_molar_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="18dp"
+            android:textSize="16sp"
+            android:text="molar_weight_text"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/element_name"
-        android:layout_width="0dp"
+        android:id="@+id/percent_element"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Element Name"
-        android:textSize="16sp" />
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginEnd="18dp"
+        android:alpha="0.8"
+        android:text="0.0%"
+        android:elegantTextHeight="true"
+        android:textSize="20sp"
+        android:textColor="?attr/colorTertiary" />
 
-    <TextView
-        android:id="@+id/element_quantity"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Quantity"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/atomic_weight"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Atomic Weight"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/element_percentage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Percentage"
-        android:textSize="16sp" />
-</LinearLayout>
+</FrameLayout>
