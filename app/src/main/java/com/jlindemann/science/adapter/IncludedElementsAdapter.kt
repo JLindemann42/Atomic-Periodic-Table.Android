@@ -19,7 +19,7 @@ class IncludedElementsAdapter : RecyclerView.Adapter<IncludedElementsAdapter.Ele
     override fun onBindViewHolder(holder: ElementViewHolder, position: Int) {
         val (element, quantity, atomicWeight, percentage) = elements[position]
         holder.elementName.text = element
-        holder.atomicWeight.text = atomicWeight.toString()
+        holder.atomicWeight.text = (quantity * atomicWeight).toString()
         holder.elementPercentage.text = String.format("%.2f", percentage) + "%"
     }
 
