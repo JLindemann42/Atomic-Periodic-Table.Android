@@ -113,6 +113,7 @@
                                 android:layout_marginStart="@dimen/margin"
                                 android:layout_marginEnd="@dimen/margin"
                                 android:layout_marginTop="4dp"
+                                android:layout_marginBottom="8dp"
                                 android:drawableStart="@drawable/ic_weight_outline"
                                 android:drawablePadding="6dp"
                                 android:focusable="true"
@@ -122,6 +123,16 @@
                                 android:textColor="?attr/colorOnSurface"
                                 android:textSize="16sp" />
 
+                            <TextView
+                                android:id="@+id/hint_calc_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textAlignment="center"
+                                android:visibility="gone"
+                                android:text="Elements included will be shown here"
+                                android:layout_margin="@dimen/margin"
+                                android:textColor="?attr/colorOnSurface"/>
 
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/inc_weight_list"
@@ -156,10 +167,42 @@
                         android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold"/>
 
+                        <TextView
+                            android:id="@+id/no_pro_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textAlignment="center"
+                            android:visibility="visible"
+                            android:text="In order to access and save to the favorites you need to get the PRO-Version"
+                            android:layout_margin="@dimen/margin"
+                            android:textColor="?attr/colorOnSurface"/>
+
+                        <TextView
+                            android:id="@+id/pro_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="@dimen/margin_space"
+                            android:layout_marginEnd="@dimen/margin"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:background="@drawable/toast"
+                            android:backgroundTint="?attr/colorPrimary"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="@drawable/toast_card_ripple"
+                            android:gravity="center"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:text="@string/get_pro_title"
+                            android:textAlignment="center"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="16sp" />
+
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/fav_rec_list"
                             android:layout_width="match_parent"
-                            android:layout_height="320dp"
+                            android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin"
                             android:layout_marginEnd="@dimen/margin"
                             android:layout_marginBottom="@dimen/margin" />

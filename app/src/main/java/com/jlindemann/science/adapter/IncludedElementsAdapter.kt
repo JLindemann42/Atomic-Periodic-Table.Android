@@ -28,8 +28,25 @@ class IncludedElementsAdapter : RecyclerView.Adapter<IncludedElementsAdapter.Ele
 
     fun updateElements(newElements: List<Quadruple<String, Double, Double, Double, String>>) {
         elements.clear()
-        elements.addAll(newElements)
+        elements.addAll(mergeElements(newElements))
         notifyDataSetChanged()
+    }
+
+    private fun mergeElements(elements: List<Quadruple<String, Double, Double, Double, String>>): List<Quadruple<String, Double, Double, Double, String>> {
+        val mergedElements = mutableMapOf<String, Quadruple<String, Double, Double, Double, String>>()
+
+        for ((element, quantity, atomicWeight, percentage, fullName) in elements) {
+            val existing = mergedElements[element]
+            if (existing == null) {
+                mergedElements[element] = Quadruple(element, quantity, atomicWeight, percentage, fullName)
+            } else {
+                val newQuantity = existing.second + quantity
+                val newPercentage = existing.fourth + percentage
+                mergedElements[element] = Quadruple(element, newQuantity, atomicWeight, newPercentage, fullName)
+            }
+        }
+
+        return mergedElements.values.toList()
     }
 
     class ElementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

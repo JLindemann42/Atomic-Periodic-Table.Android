@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
+import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
 import org.json.JSONArray
@@ -90,6 +91,25 @@ class CalculatorActivity : BaseActivity() {
         })
 
         findViewById<ImageButton>(R.id.back_btn_cal).setOnClickListener { this.onBackPressed() }
+
+        //Show hint text at start:
+        findViewById<TextView>(R.id.hint_calc_text).visibility = View.VISIBLE
+
+        // Check if favorite list should be shown or not (PRO)
+        val proPref = ProVersion(this)
+        val proPrefValue = proPref.getValue()
+        if (proPrefValue == 1) {
+            findViewById<RecyclerView>(R.id.fav_rec_list).visibility = View.INVISIBLE
+            findViewById<TextView>(R.id.no_pro_text).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.pro_button).visibility = View.VISIBLE
+            findViewById<ImageButton>(R.id.fav_star_btn).visibility = View.GONE
+        }
+        if (proPrefValue == 100) {
+            findViewById<RecyclerView>(R.id.fav_rec_list).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.no_pro_text).visibility = View.GONE
+            findViewById<TextView>(R.id.pro_button).visibility = View.GONE
+            findViewById<ImageButton>(R.id.fav_star_btn).visibility = View.VISIBLE
+        }
 
         // Initialize RecyclerView for included elements
         includedElementsAdapter = IncludedElementsAdapter()
@@ -162,29 +182,6 @@ class CalculatorActivity : BaseActivity() {
             addTextChangedListener(textWatcher)
         }
         isFormatting = false
-    }
-
-    private fun formatCompoundText(text: String): SpannableString {
-        val spannableString = SpannableString(text)
-        val elementRegex = Regex("([A-Z][a-z]*)(\\d*)")
-        val groupRegex = Regex("(\\)|\\])(\\d+)")
-
-        elementRegex.findAll(text).forEach { matchResult ->
-            val start = matchResult.range.first
-            val end = matchResult.range.last + 1
-            val element = matchResult.groupValues[1]
-            val number = matchResult.groupValues[2]
-
-            if (number.isNotEmpty()) {
-                spannableString.setSpan(SubscriptSpan(), start + element.length, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-            }
-        }
-
-        groupRegex.findAll(text).forEach { matchResult ->
-            spannableString.setSpan(SubscriptSpan(), matchResult.range.first + 1, matchResult.range.last + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-        }
-
-        return spannableString
     }
 
     private val textWatcher = object : TextWatcher {
@@ -275,7 +272,16 @@ class CalculatorActivity : BaseActivity() {
 
         val resultText = result.toString()
         val unitText = " (g/mol)"
-        findViewById<TextView>(R.id.out_text).text = "$resultText$unitText"
+        val outText = findViewById<TextView>(R.id.out_text)
+        outText.text = "$resultText$unitText"
+        if (resultText == "0.0") {
+            findViewById<TextView>(R.id.hint_calc_text).visibility = View.VISIBLE
+            findViewById<RecyclerView>(R.id.inc_weight_list).visibility = View.GONE
+        }
+        else {
+            findViewById<TextView>(R.id.hint_calc_text).visibility = View.GONE
+            findViewById<RecyclerView>(R.id.inc_weight_list).visibility = View.VISIBLE
+        }
 
         includedElementsAdapter.updateElements(includedElements)
     }
