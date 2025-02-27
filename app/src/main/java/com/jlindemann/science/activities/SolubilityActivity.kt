@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.animations.Anim
+import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
 
@@ -40,6 +41,18 @@ class SolubilityActivity : BaseActivity() {
         findViewById<FrameLayout>(R.id.view_sub).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         infoPanel()
+
+        //Add value to most used:
+        val mostUsedPreference = MostUsedPreference(this)
+        val mostUsedPrefValue = mostUsedPreference.getValue()
+        val targetLabel = "sol"
+        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val match = regex.find(mostUsedPrefValue)
+        if (match != null) {
+            val value = match.groups[2]!!.value.toDouble()
+            val newValue = value + 1
+            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
+        }
 
         findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
             this.onBackPressed()

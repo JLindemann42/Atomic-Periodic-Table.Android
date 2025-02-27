@@ -24,6 +24,7 @@ import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Equation
 import com.jlindemann.science.model.Ion
 import com.jlindemann.science.model.IonModel
+import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
 import org.json.JSONArray
@@ -50,6 +51,18 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
         if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_ion) //REMEMBER: Never move any function calls above this
+
+        //Add value to most used:
+        val mostUsedPreference = MostUsedPreference(this)
+        val mostUsedPrefValue = mostUsedPreference.getValue()
+        val targetLabel = "ion"
+        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val match = regex.find(mostUsedPrefValue)
+        if (match != null) {
+            val value = match.groups[2]!!.value.toDouble()
+            val newValue = value + 1
+            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
+        }
 
         recyclerView()
         clickSearch()

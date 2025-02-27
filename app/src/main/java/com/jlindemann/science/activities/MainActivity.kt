@@ -337,8 +337,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             val intent = Intent(this, TableActivity::class.java)
             startActivity(intent)
         }
-        findViewById<TextView>(R.id.isotopes_btn).setOnClickListener {
-            val intent = Intent(this, IsotopesActivityExperimental::class.java)
+        findViewById<TextView>(R.id.calculator_btn).setOnClickListener {
+            val intent = Intent(this, CalculatorActivity::class.java)
             startActivity(intent)
         }
         findViewById<TextView>(R.id.dictionary_btn).setOnClickListener {

@@ -205,6 +205,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.settings.SourcesActivity"
+            android:label="SOURCESPAGE"
+            android:exported="true"
+
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.tables.EquationsActivity"
             android:label="EQUATIONSACTIVITY"
             android:exported="true"

@@ -1,146 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <include
-        android:id="@+id/theme_panel"
-        layout="@layout/theme_panel"
+    <FrameLayout
+        android:id="@+id/view_cal"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:elevation="100dp"
-        android:visibility="gone" />
-
-    <LinearLayout
-        android:id="@+id/commom_title_back"
-        android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:background="?attr/colorPrimary"
-        android:elevation="8dp"
-        android:fitsSystemWindows="true"
-        android:gravity="center|center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/status_place"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="vertical"/>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/back_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="12dp"
-                    android:backgroundTint="?attr/colorPrimary"
-                    app:borderWidth="0dp"
-                    android:elevation="0dp"
-                    android:src="@drawable/ic_arrow_back_whit"
-                    android:rotation="180"
-                    app:elevation="0dp"
-                    app:fabSize="normal" />
-
-                <TextView
-                    android:id="@+id/element_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="Calculator"
-                    android:textAlignment="center"
-                    android:textColor="?attr/actionMenuTextColor"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
+        android:orientation="vertical"
+        android:background="?attr/backgroundColor">
 
     <ScrollView
+        android:id="@+id/calculator_scroll"
         android:layout_width="match_parent"
-        android:layout_height="128dp"
-        android:layout_marginTop="110dp"
-        android:elevation="8dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="120dp">
+
+                    <TextView
+                        android:id="@+id/calculator_title_downstate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:elevation="0dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:paddingBottom="28dp"
+                        android:text="@string/calculator_title"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="32sp"
+                        android:textStyle="normal" />
+
+
+                        <LinearLayout
+                            android:id="@+id/cal_box"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="@dimen/margin_space"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:background="@drawable/toast"
+                            android:backgroundTint="?attr/colorSurfaceVariant"
+                            android:elevation="2dp"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/margin"
+                                android:text="Calculator:"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <EditText
+                                    android:id="@+id/edit_text_cal"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="72dp"
+                                    android:layout_marginStart="@dimen/margin"
+                                    android:layout_marginEnd="@dimen/margin"
+                                    android:background="@drawable/toast"
+                                    android:backgroundTint="?attr/colorSurface"
+                                    android:focusable="true"
+                                    android:focusableInTouchMode="true"
+                                    android:hint="Formula:"
+                                    android:imeOptions="actionSearch"
+                                    android:inputType="text"
+                                    android:maxLines="1"
+                                    android:paddingStart="18dp"
+                                    android:paddingEnd="68dp"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textColorHint="?attr/colorOnSurface"
+                                    android:textSize="22sp" />
+
+                                <ImageButton
+                                    android:id="@+id/fav_star_btn"
+                                    android:layout_width="72dp"
+                                    android:layout_height="72dp"
+                                    android:layout_gravity="end"
+                                    android:layout_marginEnd="@dimen/margin"
+                                    android:backgroundTint="@color/transparent"
+                                    app:tint="?attr/colorOnSurface"
+                                    android:src="@drawable/ic_star"/>
+
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin"
+                                android:layout_marginEnd="@dimen/margin"
+                                android:layout_marginTop="8dp"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:gravity="top"
+                                android:text="Molar Mass:"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textStyle="bold"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/out_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin"
+                                android:layout_marginEnd="@dimen/margin"
+                                android:layout_marginTop="4dp"
+                                android:layout_marginBottom="8dp"
+                                android:drawableStart="@drawable/ic_weight_outline"
+                                android:drawablePadding="6dp"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"
+                                android:gravity="top"
+                                android:text="0.0 (g/mol)"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/hint_calc_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textAlignment="center"
+                                android:visibility="gone"
+                                android:text="Elements included will be shown here"
+                                android:layout_margin="@dimen/margin"
+                                android:textColor="?attr/colorOnSurface"/>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/inc_weight_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/margin"
+                                android:layout_marginTop="9dp"
+                                android:layout_marginEnd="@dimen/margin"
+                                android:layout_marginBottom="@dimen/margin" />
+
+                        </LinearLayout>
+
+                    <LinearLayout
+                    android:id="@+id/fav_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorSurfaceVariant"
+                    android:elevation="2dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="Favorites:"
+                        android:layout_margin="@dimen/margin"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textStyle="bold"/>
+
+                        <TextView
+                            android:id="@+id/no_pro_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textAlignment="center"
+                            android:visibility="visible"
+                            android:text="In order to access and save to the favorites you need to get the PRO-Version"
+                            android:layout_margin="@dimen/margin"
+                            android:textColor="?attr/colorOnSurface"/>
+
+                        <TextView
+                            android:id="@+id/pro_button_cal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_gravity="end"
+                            android:layout_marginTop="@dimen/margin_space"
+                            android:layout_marginEnd="@dimen/margin"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:background="@drawable/toast"
+                            android:backgroundTint="?attr/colorPrimary"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="@drawable/toast_card_ripple"
+                            android:gravity="center"
+                            android:paddingStart="24dp"
+                            android:paddingEnd="24dp"
+                            android:text="@string/get_pro_title"
+                            android:textAlignment="center"
+                            android:textColor="?attr/colorOnPrimary"
+                            android:textSize="16sp" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/fav_rec_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/margin"
+                            android:layout_marginEnd="@dimen/margin"
+                            android:layout_marginBottom="@dimen/margin" />
+
+                </LinearLayout>
+
+                </LinearLayout>
+            </ScrollView>
+    <FrameLayout
+            android:id="@+id/common_title_back_cal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="18dp"
-            android:orientation="horizontal"
-            android:padding="18dp">
+            android:layout_height="56dp"
+            android:elevation="1dp"
+            android:background="?attr/colorSurface"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal">
 
-            <FrameLayout
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="9dp"
-                android:layout_marginEnd="9dp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorPrimaryDark"
-                android:elevation="2dp">
+        <FrameLayout
+            android:id="@+id/common_title_back_cal_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
 
-                <EditText
-                    android:id="@+id/edit_element_1"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/title_box"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:fontFamily="@font/manroperegular"
-                    android:hint="Element"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:paddingStart="0dp"
-                    android:textColor="?attr/actionMenuTextColor"
-                    android:textColorHint="?attr/actionMenuTextColor"
-                    android:textSize="12sp" />
-            </FrameLayout>
+                    android:layout_height="56dp">
 
-            <FrameLayout
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_gravity="bottom"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorPrimaryDark"
-                android:elevation="2dp">
+                    <ImageButton
+                        android:id="@+id/back_btn_cal"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="center_vertical"
+                        android:rotation="180"
+                        app:tint="?attr/colorOnSecondaryContainer"
+                        android:src="@drawable/ic_arrow_back_whit" />
 
-                <EditText
-                    android:id="@+id/edit_number_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:autoText="true"
-                    android:background="@android:color/transparent"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:fontFamily="@font/manroperegular"
-                    android:gravity="center"
-                    android:imeOptions="actionSearch"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:paddingStart="0dp"
-                    android:text="1"
-                    android:textColor="?attr/actionMenuTextColor"
-                    android:textColorHint="?attr/actionMenuTextColor"
-                    android:textSize="12sp" />
-            </FrameLayout>
-        </LinearLayout>
-    </ScrollView>
-
+                    <TextView
+                        android:id="@+id/calculator_title"
+                        android:layout_width="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:alpha="0.9"
+                        android:layout_height="56dp"
+                        android:gravity="center"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="0dp"
+                        android:text="@string/calculator_title"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </FrameLayout>
+            </LinearLayout>
+        </FrameLayout>
 </FrameLayout>

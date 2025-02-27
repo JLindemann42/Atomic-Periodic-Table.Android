@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/toast_outline"
+    android:foreground="@drawable/toast_card_outline_ripple"
+    android:layout_marginBottom="@dimen/margin"
+    android:clickable="true"
+    android:elevation="0dp"
+    android:focusable="true">
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/compound_text"
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="molar_weight_text"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <TextView
+            android:id="@+id/molar_weight_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="18dp"
+            android:textSize="14sp"
+            android:text="molar_weight_text"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+    </LinearLayout>
+
+<TextView
+    android:id="@+id/options_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical|end"
+    android:layout_marginEnd="18dp"
+    android:alpha="0.8"
+    android:elegantTextHeight="true"
+    android:drawableEnd="@drawable/ic_arrow"
+    android:drawableTint="?attr/colorTertiary"
+    android:drawablePadding="4dp"
+    android:textColor="?attr/colorTertiary" />
+
+</FrameLayout>

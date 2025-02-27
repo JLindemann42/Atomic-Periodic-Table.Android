@@ -94,6 +94,18 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             }
         }
 
+        //Add value to most used:
+        val mostUsedPreference = MostUsedPreference(this)
+        val mostUsedPrefValue = mostUsedPreference.getValue()
+        val targetLabel = "iso"
+        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val match = regex.find(mostUsedPrefValue)
+        if (match != null) {
+            val value = match.groups[2]!!.value.toDouble()
+            val newValue = value + 1
+            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
+        }
+
         findViewById<FrameLayout>(R.id.view1).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         clickSearch()
         searchFilter(elements, recyclerView)

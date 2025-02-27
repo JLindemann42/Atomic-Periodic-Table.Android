@@ -6,7 +6,7 @@
         android:gravity="center">
         <shape android:shape="rectangle">
             <solid android:color="?attr/rippleColor"/>
-            <corners android:radius="8dp"/>
+            <corners android:radius="18dp"/>
         </shape>
     </item>
 </ripple>

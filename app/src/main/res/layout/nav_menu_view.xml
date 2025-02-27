@@ -217,13 +217,13 @@
                 android:layout_height="54dp">
 
                 <TextView
-                    android:id="@+id/isotopes_btn"
+                    android:id="@+id/calculator_btn"
                     android:layout_width="match_parent"
                     android:layout_height="54dp"
                     android:background="?attr/colorSurface"
                     android:backgroundTint="?attr/colorSurface"
                     android:clickable="true"
-                    android:drawableStart="@drawable/ic_isotopes"
+                    android:drawableStart="@drawable/ic_calculator"
                     android:drawablePadding="18dp"
                     android:drawableTint="?attr/colorOnSecondaryContainer"
                     android:elevation="0dp"
@@ -231,7 +231,7 @@
                     android:foreground="@drawable/d_ripple"
                     android:gravity="center_vertical"
                     android:padding="18dp"
-                    android:text="Isotopes"
+                    android:text="@string/calculator_title"
                     android:textAllCaps="false"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textColorHighlight="?attr/colorOnSecondaryContainer"
