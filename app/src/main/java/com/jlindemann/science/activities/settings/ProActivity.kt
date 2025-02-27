@@ -320,6 +320,7 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
         findViewById<TextView>(R.id.pro_data_lock).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
         findViewById<TextView>(R.id.pro_table_lock).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
         findViewById<TextView>(R.id.pro_visualisation_lock).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
+        findViewById<TextView>(R.id.pro_calculator_lock).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
         findViewById<FrameLayout>(R.id.pro_purschase_box).visibility = View.GONE
         findViewById<TextView>(R.id.product_title).visibility = View.GONE
         findViewById<TextView>(R.id.product_text).visibility = View.GONE

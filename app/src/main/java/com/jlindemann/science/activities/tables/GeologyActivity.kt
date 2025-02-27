@@ -74,13 +74,27 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         findViewById<Button>(R.id.clear_btn).visibility = View.GONE
 
         findViewById<FrameLayout>(R.id.view_geo).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<TextView>(R.id.detail_background_geo).setOnClickListener { Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.geo_details), 300) }
         findViewById<ImageButton>(R.id.back_btn_geo).setOnClickListener {
             this.onBackPressed()
         }
     }
 
     override fun geologyClickListener(item: Geology, position: Int) {
-        TODO("Not yet implemented")
+        // Set textViews:
+        findViewById<TextView>(R.id.geo_detail_title).text = item.name
+        findViewById<TextView>(R.id.geo_type).text = "Type: " + item.type
+        findViewById<TextView>(R.id.geo_group).text = "Group: " + item.group
+        findViewById<TextView>(R.id.geo_color).text = "Color: " + item.color
+        findViewById<TextView>(R.id.geo_strike).text = "Streak: " + item.streak
+        findViewById<TextView>(R.id.geo_cristal).text = "Cristal Structure: " + item.cristal
+        findViewById<TextView>(R.id.geo_hardness).text = "Hardness: " + item.hardness
+        findViewById<TextView>(R.id.geo_density).text = "Density: " + item.density
+        findViewById<TextView>(R.id.geo_magnetism).text = "Magnetism: " +item.magnetism
+        findViewById<TextView>(R.id.geo_hydrochloride).text = item.hydrochloride
+
+        //Fade in geo_details
+        Utils.fadeInAnim(findViewById<FrameLayout>(R.id.geo_details), 300)
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {

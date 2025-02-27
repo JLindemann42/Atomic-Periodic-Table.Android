@@ -3,6 +3,7 @@ package com.jlindemann.science.activities
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
@@ -20,6 +21,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.settings.ProActivity
+import com.jlindemann.science.activities.tables.PoissonActivity
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ProVersion
@@ -101,14 +104,19 @@ class CalculatorActivity : BaseActivity() {
         if (proPrefValue == 1) {
             findViewById<RecyclerView>(R.id.fav_rec_list).visibility = View.INVISIBLE
             findViewById<TextView>(R.id.no_pro_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_button).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.pro_button_cal).visibility = View.VISIBLE
             findViewById<ImageButton>(R.id.fav_star_btn).visibility = View.GONE
         }
         if (proPrefValue == 100) {
             findViewById<RecyclerView>(R.id.fav_rec_list).visibility = View.VISIBLE
             findViewById<TextView>(R.id.no_pro_text).visibility = View.GONE
-            findViewById<TextView>(R.id.pro_button).visibility = View.GONE
+            findViewById<TextView>(R.id.pro_button_cal).visibility = View.GONE
             findViewById<ImageButton>(R.id.fav_star_btn).visibility = View.VISIBLE
+        }
+
+        findViewById<TextView>(R.id.pro_button_cal).setOnClickListener {
+            val intent = Intent(this, ProActivity::class.java)
+            startActivity(intent)
         }
 
         // Initialize RecyclerView for included elements

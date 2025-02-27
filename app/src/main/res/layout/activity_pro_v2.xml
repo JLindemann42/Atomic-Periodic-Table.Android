@@ -93,7 +93,7 @@
                         android:layout_width="280dp"
                         app:cardCornerRadius="18dp"
                         android:layout_margin="@dimen/margin"
-                        android:layout_height="300dp">
+                        android:layout_height="380dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -104,14 +104,14 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="0.5"
+                                android:layout_weight="0.55"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/additional_data_img" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="0.5"
+                                android:layout_weight="0.45"
                                 android:orientation="vertical"
                                 android:padding="12dp">
 
@@ -142,7 +142,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:alpha="0.7"
-                                    android:text="Additional data such as hardness properties (mohs-, vickers-, and brinell hardness) as well as sound speed, Poisson Constant, Young's-, Bulk- and Shear modulus etc."
+                                    android:text="Additional data such as hardness properties (mohs-, vickers-, and brinell hardness) as well as sound speed, Poisson Constant, Young's-, Bulk- and Shear modulus etc. Also information about identification of minerals."
                                     android:textColor="?attr/colorOnSecondaryContainer"
                                     android:textSize="13sp"
                                     android:textStyle="bold" />
@@ -155,8 +155,7 @@
                         android:layout_width="280dp"
                         app:cardCornerRadius="18dp"
                         android:layout_margin="@dimen/margin"
-
-                        android:layout_height="300dp">
+                        android:layout_height="380dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -167,7 +166,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="0.5"
+                                android:layout_weight="0.55"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/additional_tables_img" />
 
@@ -176,7 +175,7 @@
                                 android:layout_height="match_parent"
                                 android:orientation="vertical"
                                 android:padding="12dp"
-                                android:layout_weight="0.5">
+                                android:layout_weight="0.45">
 
                                 <TextView
                                     android:id="@+id/pro_table_lock"
@@ -203,7 +202,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Additional tables including a nuclide table, poisson's ratio table, constants table, etc, with more coming in the future"
+                                    android:text="Additional tables including a nuclide table, poisson's ratio table, constants table, geology table etc, with more coming in the future"
                                     android:textSize="13sp"
                                     android:layout_marginTop="4dp"
                                     android:textColor="?attr/colorOnSecondaryContainer"
@@ -215,9 +214,70 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="280dp"
+                        android:layout_height="380dp"
+                        android:layout_margin="@dimen/margin"
+                        app:cardCornerRadius="18dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?attr/colorSurfaceVariant"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.55"
+                                android:scaleType="centerCrop"
+                                android:src="@drawable/additional_calcul_img" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="0.45"
+                                android:orientation="vertical"
+                                android:padding="12dp">
+
+                                <TextView
+                                    android:id="@+id/pro_calculator_lock"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawableStart="@drawable/ic_lock"
+                                    android:drawablePadding="4dp"
+                                    android:drawableTint="?attr/colorAccent"
+                                    android:text="Upgrade to PRO"
+                                    android:textAllCaps="true"
+                                    android:textColor="?attr/colorAccent"
+                                    android:textSize="17sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Better Calculator"
+                                    android:textColor="?attr/colorOnSecondaryContainer"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:alpha="0.7"
+                                    android:text="An enhanced calculator with the possibility to save molar weights of different compounds in the favorite page."
+                                    android:textColor="?attr/colorOnSecondaryContainer"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="280dp"
                         app:cardCornerRadius="18dp"
                         android:layout_margin="@dimen/margin"
-                        android:layout_height="300dp">
+                        android:layout_height="380dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -228,7 +288,7 @@
                             <ImageView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_weight="0.5"
+                                android:layout_weight="0.55"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/additional_visualisations_img" />
 
@@ -237,7 +297,7 @@
                                 android:layout_height="match_parent"
                                 android:orientation="vertical"
                                 android:padding="12dp"
-                                android:layout_weight="0.5">
+                                android:layout_weight="0.45">
 
                                 <TextView
                                     android:layout_width="match_parent"

@@ -101,7 +101,7 @@
                                 android:focusable="true"
                                 android:focusableInTouchMode="true"
                                 android:gravity="top"
-                                android:text="Atomic Weight:"
+                                android:text="Molar Mass:"
                                 android:textColor="?attr/colorOnSurface"
                                 android:textStyle="bold"
                                 android:textSize="16sp" />
@@ -179,7 +179,7 @@
                             android:textColor="?attr/colorOnSurface"/>
 
                         <TextView
-                            android:id="@+id/pro_button"
+                            android:id="@+id/pro_button_cal"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:layout_gravity="end"
