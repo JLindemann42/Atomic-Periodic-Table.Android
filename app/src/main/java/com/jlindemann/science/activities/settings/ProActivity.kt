@@ -82,8 +82,6 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
         setContentView(R.layout.activity_pro_v2)
         findViewById<FrameLayout>(R.id.view_pro).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        checkSale()
-
         findViewById<ImageButton>(R.id.back_btn_pro).setOnClickListener {
             this.onBackPressed()
         }
@@ -136,7 +134,7 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
                         }
                     }
                 }
-        }
+            }
         initBillingClient(purchasesUpdateListener)
     }
 
@@ -190,8 +188,19 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
             BillingClient.BillingResponseCode.OK -> {
                 if (productDetailsResult.productDetailsList?.isNotEmpty() == true) {
                     productDetailList.addAll(productDetailsResult.productDetailsList!!)
+                    updateProTextPrice() // Update the price text here
                 }
             }
+        }
+    }
+
+    private fun updateProTextPrice() {
+        val proText = findViewById<TextView>(R.id.pro_price)
+        if (productDetailList.isNotEmpty()) {
+            val price = productDetailList[0].oneTimePurchaseOfferDetails?.formattedPrice
+            proText.text = price ?: "Price not available"
+        } else {
+            proText.text = "Price not available"
         }
     }
 
@@ -257,32 +266,6 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
         }
     }
 
-    private fun checkSale() {
-        val saleStartDate = SimpleDateFormat("yyyy/MM/dd").parse(getString(R.string.next_sale_start)) //Back to school sale
-        val saleEndDate = SimpleDateFormat("yyyy/MM/dd").parse(getString(R.string.next_sale_end)) //Back to school sale
-        val calendar = Calendar.getInstance(TimeZone.getDefault())
-        val date = calendar.time
-        val proText = findViewById<TextView>(R.id.pro_price)
-        val proDiscText = findViewById<TextView>(R.id.pro_price_discount)
-
-        if (date > saleStartDate) {
-            //Set new attributes for DonateBtn
-            proText.text = "1.79 USD"
-            proText.setTextColor(getColorStateList(R.color.orange))
-            proDiscText.visibility = View.VISIBLE
-            proDiscText.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-        }
-
-        if (date > saleEndDate) {
-            Timer().schedule(2) {
-                proText.text = "1.99 USD"
-                proDiscText.visibility = View.GONE
-            }
-        }
-        else {
-        }
-    }
-
     private fun launchBillingFlow(productDetails: ProductDetails) {
         try {
             val productDetailsParamsList =
@@ -304,7 +287,7 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
                     val proPref = ProVersion(this@ProActivity)
                     var proPrefValue = proPref.getValue()
                 }
-        }
+            }
         }
         catch (e: IOException) {
             ToastUtil.showToast(this, "Try again")
@@ -327,20 +310,16 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-            val params = findViewById<FrameLayout>(R.id.common_title_back_pro).layoutParams as ViewGroup.LayoutParams
-            params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            findViewById<FrameLayout>(R.id.common_title_back_pro).layoutParams = params
+        val params = findViewById<FrameLayout>(R.id.common_title_back_pro).layoutParams as ViewGroup.LayoutParams
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        findViewById<FrameLayout>(R.id.common_title_back_pro).layoutParams = params
 
-            findViewById<LinearLayout>(R.id.pro_linear).setPadding(0, top, 0, 0)
+        findViewById<LinearLayout>(R.id.pro_linear).setPadding(0, top, 0, 0)
 
-            val params2 = findViewById<FrameLayout>(R.id.pro_purschase_box).layoutParams as ViewGroup.LayoutParams
-            params2.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
-            findViewById<FrameLayout>(R.id.pro_purschase_box).layoutParams = params2
+        val params2 = findViewById<FrameLayout>(R.id.pro_purschase_box).layoutParams as ViewGroup.LayoutParams
+        params2.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
+        findViewById<FrameLayout>(R.id.pro_purschase_box).layoutParams = params2
 
     }
 
 }
-
-
-
-

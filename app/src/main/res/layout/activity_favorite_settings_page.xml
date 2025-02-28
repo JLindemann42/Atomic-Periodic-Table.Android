@@ -9,63 +9,6 @@
     android:background="?attr/backgroundColor"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/common_title_back_fav"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:elevation="1dp"
-        android:background="?attr/colorSurface"
-        android:gravity="center|center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <FrameLayout
-            android:id="@+id/common_title_back_fav_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.11"/>
-
-        <LinearLayout
-            android:gravity="bottom"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:id="@+id/title_box"
-                android:layout_width="match_parent"
-                android:layout_height="56dp">
-
-                <ImageButton
-                    android:id="@+id/back_btn_fav"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical"
-                    android:rotation="180"
-                    android:elevation="2dp"
-                    app:tint="?attr/colorOnSecondaryContainer"
-                    android:src="@drawable/ic_arrow_back_whit" />
-
-                <TextView
-                    android:id="@+id/favorite_set_title"
-                    android:layout_width="wrap_content"
-                    android:layout_marginStart="70dp"
-                    android:alpha="0.9"
-                    android:layout_height="56dp"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/favorite_settings_title"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="20sp"
-                    android:textStyle="normal" />
-            </FrameLayout>
-        </LinearLayout>
-    </FrameLayout>
-
     <ScrollView
         android:id="@+id/fav_set_scroll"
         android:layout_width="match_parent"
@@ -688,4 +631,61 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/common_title_back_fav"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:elevation="1dp"
+        android:background="?attr/colorSurface"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/common_title_back_fav_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
+
+        <LinearLayout
+            android:gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/title_box"
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
+
+                <ImageButton
+                    android:id="@+id/back_btn_fav"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical"
+                    android:rotation="180"
+                    android:elevation="2dp"
+                    app:tint="?attr/colorOnSecondaryContainer"
+                    android:src="@drawable/ic_arrow_back_whit" />
+
+                <TextView
+                    android:id="@+id/favorite_set_title"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:alpha="0.9"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/favorite_settings_title"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="20sp"
+                    android:textStyle="normal" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

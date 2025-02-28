@@ -190,7 +190,7 @@
                             android:backgroundTint="?attr/colorPrimary"
                             android:clickable="true"
                             android:focusable="true"
-                            android:foreground="@drawable/toast_card_ripple"
+                            android:foreground="@drawable/toast_ripple"
                             android:gravity="center"
                             android:paddingStart="24dp"
                             android:paddingEnd="24dp"

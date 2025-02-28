@@ -9,74 +9,6 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/common_title_back_set"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:alpha="1"
-        android:background="?attr/colorSurface"
-        android:elevation="0dp"
-        android:gravity="center|center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <FrameLayout
-            android:id="@+id/common_title_settings_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.11"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:elevation="0dp"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:id="@+id/title_box_settings"
-                android:layout_width="match_parent"
-                android:layout_height="56dp">
-
-                <ImageButton
-                    android:id="@+id/back_btn_set"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:rotation="180"
-                    android:layout_gravity="center_vertical"
-                    app:tint="?attr/colorOnSecondaryContainer"
-                    android:src="@drawable/ic_arrow_back_whit" />
-
-                <ImageButton
-                    android:id="@+id/info_btn_set"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:visibility="gone"
-                    app:tint="?attr/colorOnSecondaryContainer"
-                    android:layout_gravity="center_vertical|end"
-                    android:src="@drawable/ic_info" />
-
-                <TextView
-                    android:id="@+id/element_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="56dp"
-                    android:layout_marginStart="70dp"
-                    android:alpha="0.9"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="Settings"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
-        </LinearLayout>
-    </FrameLayout>
-
     <ScrollView
         android:id="@+id/scroll_settings"
         android:layout_width="match_parent"
@@ -994,6 +926,74 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/common_title_back_set"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:alpha="1"
+        android:background="?attr/colorSurface"
+        android:elevation="0dp"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/common_title_settings_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:elevation="0dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/title_box_settings"
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
+
+                <ImageButton
+                    android:id="@+id/back_btn_set"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:rotation="180"
+                    android:layout_gravity="center_vertical"
+                    app:tint="?attr/colorOnSecondaryContainer"
+                    android:src="@drawable/ic_arrow_back_whit" />
+
+                <ImageButton
+                    android:id="@+id/info_btn_set"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:visibility="gone"
+                    app:tint="?attr/colorOnSecondaryContainer"
+                    android:layout_gravity="center_vertical|end"
+                    android:src="@drawable/ic_info" />
+
+                <TextView
+                    android:id="@+id/element_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="70dp"
+                    android:alpha="0.9"
+                    android:gravity="center"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Settings"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
 
     <include
         android:id="@+id/theme_panel"
