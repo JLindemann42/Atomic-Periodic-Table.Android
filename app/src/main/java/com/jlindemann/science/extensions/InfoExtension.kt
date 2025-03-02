@@ -266,6 +266,16 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
                 startActivity(intent) //Send intent
             }
 
+            //Setup isotope button in top bar
+            findViewById<ImageButton>(R.id.isotope_btn).setOnClickListener {
+                val isoPreference = ElementSendAndLoad(this)
+                isoPreference.setValue(element.toLowerCase()) //Send element number
+                val isoSend = sendIso(this)
+                isoSend.setValue("true") //Set flag for sent
+                val intent = Intent(this, IsotopesActivityExperimental::class.java)
+                startActivity(intent) //Send intent
+            }
+
             findViewById<TextView>(R.id.phase_text).text = phaseText
             findViewById<TextView>(R.id.fusion_heat_text).text = fusionHeat
             findViewById<TextView>(R.id.specific_heat_text).text = specificHeatCapacity
