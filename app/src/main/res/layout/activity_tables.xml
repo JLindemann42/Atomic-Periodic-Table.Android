@@ -269,7 +269,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/toast_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -336,7 +336,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/toast_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -403,7 +403,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/toast_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -470,7 +470,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/toast_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -537,7 +537,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/toast_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -604,7 +604,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/toast_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -671,7 +671,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/toast_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -759,7 +759,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/toast_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -846,7 +846,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/toast_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -933,7 +933,7 @@
             android:clickable="true"
             android:elevation="0dp"
             android:focusable="true"
-            android:foreground="@drawable/toast_ripple">
+            android:foreground="@drawable/toast_card_ripple">
 
             <LinearLayout
                 android:layout_width="match_parent"
