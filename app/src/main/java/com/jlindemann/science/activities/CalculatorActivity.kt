@@ -60,7 +60,9 @@ class CalculatorActivity : BaseActivity() {
         setContentView(R.layout.activity_calculator)
         findViewById<FrameLayout>(R.id.view_cal).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        findViewById<ImageButton>(R.id.back_btn_cal).setOnClickListener { this.onBackPressed() }
+        findViewById<ImageButton>(R.id.back_btn_cal).setOnClickListener {
+            this.onBackPressed()
+        }
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("CalculatorPrefs", Context.MODE_PRIVATE)

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.android.vending.BILLING" />
@@ -9,12 +10,11 @@
         android:icon="@mipmap/ic_launcher_blue"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_blue_round"
-        android:supportsRtl="true"
+        android:supportsRtl="false"
+        tools:replace="android:supportsRtl"
         android:theme="@style/AppTheme">
 
         <receiver android:name=".ShortCommandWidget">
-
-
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/short_command_widget_info" />

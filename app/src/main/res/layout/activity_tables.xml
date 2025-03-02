@@ -8,63 +8,6 @@
         android:orientation="vertical"
         android:background="?attr/backgroundColor">
 
-    <FrameLayout
-            android:id="@+id/common_title_back_tab"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/title_bar"
-            android:alpha="1"
-            android:elevation="1dp"
-            android:background="?attr/colorSurface"
-            android:gravity="center|center_vertical"
-            android:orientation="horizontal">
-
-        <FrameLayout
-            android:id="@+id/common_title_table_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.11"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:id="@+id/title_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/title_bar">
-
-                    <ImageButton
-                        android:id="@+id/back_btn"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="54dp"
-                        android:layout_height="54dp"
-                        android:layout_gravity="center_vertical"
-                        android:rotation="180"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:src="@drawable/ic_arrow_back_whit" />
-
-                    <TextView
-                        android:id="@+id/tables_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/title_bar"
-                        android:layout_marginStart="70dp"
-                        android:gravity="center"
-                        android:paddingStart="0dp"
-                        android:alpha="0.9"
-                        android:paddingEnd="0dp"
-                        android:text="@string/activity_table_title"
-                        android:textAlignment="center"
-                        android:textColor="?attr/colorOnSecondaryContainer"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-            </LinearLayout>
-        </FrameLayout>
-
     <ScrollView
         android:id="@+id/table_scroll"
         android:layout_width="match_parent"
@@ -119,7 +62,7 @@
                     android:clickable="true"
                     android:focusable="true"
 
-                    android:foreground="@drawable/toast_card_ripple"/>
+                    android:foreground="@drawable/toast_ripple"/>
 
                 <TextView
                     android:id="@+id/most_2"
@@ -140,7 +83,7 @@
                     android:padding="@dimen/margin_space_card"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
+                    android:foreground="@drawable/toast_ripple"/>
 
                 <TextView
                     android:id="@+id/most_3"
@@ -161,7 +104,7 @@
                     android:padding="@dimen/margin_space_card"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
+                    android:foreground="@drawable/toast_ripple"/>
 
                 <TextView
                     android:id="@+id/most_4"
@@ -182,7 +125,7 @@
                     android:padding="@dimen/margin_space_card"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
+                    android:foreground="@drawable/toast_ripple"/>
 
                 <TextView
                     android:id="@+id/most_5"
@@ -203,7 +146,7 @@
                     android:padding="@dimen/margin_space_card"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
+                    android:foreground="@drawable/toast_ripple"/>
 
                 <TextView
                     android:id="@+id/most_6"
@@ -224,7 +167,7 @@
                     android:padding="@dimen/margin_space_card"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
+                    android:foreground="@drawable/toast_ripple"/>
 
                 <TextView
                     android:id="@+id/most_7"
@@ -245,7 +188,7 @@
                     android:padding="@dimen/margin_space_card"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
+                    android:foreground="@drawable/toast_ripple"/>
 
                 <TextView
                     android:id="@+id/most_8"
@@ -266,7 +209,7 @@
                     android:padding="@dimen/margin_space_card"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
+                    android:foreground="@drawable/toast_ripple"/>
 
                 <TextView
                     android:id="@+id/most_9"
@@ -287,7 +230,7 @@
                     android:padding="@dimen/margin_space_card"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
+                    android:foreground="@drawable/toast_ripple"/>
 
                 <TextView
                     android:id="@+id/most_10"
@@ -308,7 +251,7 @@
                     android:padding="@dimen/margin_space_card"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"/>
+                    android:foreground="@drawable/toast_ripple"/>
 
             </LinearLayout>
         </HorizontalScrollView>
@@ -374,7 +317,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/toast"
                     android:backgroundTint="?attr/colorPrimary"
-                    android:foreground="@drawable/toast_card_ripple"
+                    android:foreground="@drawable/toast_ripple"
                     android:clickable="true"
                     android:focusable="true"/>
             </LinearLayout>
@@ -441,7 +384,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/toast"
                     android:backgroundTint="?attr/colorPrimary"
-                    android:foreground="@drawable/toast_card_ripple"
+                    android:foreground="@drawable/toast_ripple"
                     android:clickable="true"
                     android:focusable="true"/>
             </LinearLayout>
@@ -508,7 +451,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/toast"
                     android:backgroundTint="?attr/colorPrimary"
-                    android:foreground="@drawable/toast_card_ripple"
+                    android:foreground="@drawable/toast_ripple"
                     android:clickable="true"
                     android:focusable="true"/>
             </LinearLayout>
@@ -575,7 +518,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/toast"
                     android:backgroundTint="?attr/colorPrimary"
-                    android:foreground="@drawable/toast_card_ripple"
+                    android:foreground="@drawable/toast_ripple"
                     android:clickable="true"
                     android:focusable="true"/>
             </LinearLayout>
@@ -642,7 +585,7 @@
                     android:textSize="16sp"
                     android:background="@drawable/toast"
                     android:backgroundTint="?attr/colorPrimary"
-                    android:foreground="@drawable/toast_card_ripple"
+                    android:foreground="@drawable/toast_ripple"
                     android:clickable="true"
                     android:focusable="true"/>
             </LinearLayout>
@@ -704,7 +647,7 @@
                     android:backgroundTint="?attr/colorPrimary"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"
+                    android:foreground="@drawable/toast_ripple"
                     android:gravity="center"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp"
@@ -792,7 +735,7 @@
                     android:backgroundTint="?attr/colorPrimary"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"
+                    android:foreground="@drawable/toast_ripple"
                     android:gravity="center"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp"
@@ -879,7 +822,7 @@
                     android:backgroundTint="?attr/colorPrimary"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"
+                    android:foreground="@drawable/toast_ripple"
                     android:gravity="center"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp"
@@ -966,7 +909,7 @@
                     android:backgroundTint="?attr/colorPrimary"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"
+                    android:foreground="@drawable/toast_ripple"
                     android:gravity="center"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp"
@@ -1053,7 +996,7 @@
                     android:backgroundTint="?attr/colorPrimary"
                     android:clickable="true"
                     android:focusable="true"
-                    android:foreground="@drawable/toast_card_ripple"
+                    android:foreground="@drawable/toast_ripple"
                     android:gravity="center"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp"
@@ -1066,5 +1009,61 @@
 
     </LinearLayout>
     </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/common_title_back_tab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar"
+        android:elevation="1dp"
+        android:background="?attr/colorSurface"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/common_title_table_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/title_box"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_bar">
+
+                <ImageButton
+                    android:id="@+id/back_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:layout_gravity="center_vertical"
+                    android:rotation="180"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_arrow_back_whit" />
+
+                <TextView
+                    android:id="@+id/tables_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/title_bar"
+                    android:layout_marginStart="70dp"
+                    android:gravity="center"
+                    android:paddingStart="0dp"
+                    android:alpha="0.9"
+                    android:paddingEnd="0dp"
+                    android:text="@string/activity_table_title"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
 
 </FrameLayout>
