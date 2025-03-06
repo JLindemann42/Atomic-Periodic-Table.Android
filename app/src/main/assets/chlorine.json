@@ -76,6 +76,10 @@
     "bulk_modulus": "1.1 (GPa) [liquid]",
     "shear_modulus": "---",
 
+      "earth_crust": "170",
+      "earth_soils": "100",
+      "urban_soils": "285",
+
     "iso_1": "Cl-28",
     "iso_mass_1": "28.02954",
     "iso_half_1": "---",

@@ -74,6 +74,9 @@
     "bulk_modulus": "8.3 (GPa)",
     "shear_modulus": "3.7 (GPa)",
 
+      "earth_crust": "0.05",
+      "earth_soils": "0.01",
+
     "iso_1": "Se-63",
     "iso_mass_1": "---",
     "iso_half_1": "---",

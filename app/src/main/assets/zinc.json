@@ -88,6 +88,10 @@
     "bulk_modulus": "70 (GPa)",
     "shear_modulus": "43 (GPa)",
 
+      "earth_crust": "83.0",
+      "earth_soils": "50.0",
+      "urban_soils": "158.0",
+
     "iso_1": "Zn-54",
     "iso_mass_1": "53.99295",
     "iso_half_1": "---",

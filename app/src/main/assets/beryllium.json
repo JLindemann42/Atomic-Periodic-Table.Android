@@ -71,6 +71,10 @@
     "vickers_hardness": "1670 (MPa)",
     "brinell_hardness": "590-1320 (MPa)",
 
+      "earth_crust": "3.8",
+      "earth_soils": "6.0",
+      "urban_soils": "3.3",
+
     "iso_1": "Be-6",
     "iso_mass_1": "6.019726",
     "iso_half_1": "5.0×10^−21 (s)",

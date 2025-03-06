@@ -69,6 +69,10 @@
     "vickers_hardness": "---",
     "brinell_hardness": "---",
 
+    "earth_crust": "650.00",
+    "earth_soils": "500.00",
+    "urban_soils": "853.12",
+
     "iso_1": "Ba-114",
     "iso_mass_1": "113.95072",
     "decay_type_1": "B+",

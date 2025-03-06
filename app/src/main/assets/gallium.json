@@ -66,6 +66,10 @@
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "2740 (m/s) [20°C]",
 
+      "earth_crust": "19.0",
+      "earth_soils": "30.0",
+      "urban_soils": "16.2",
+
     "iso_1": "Ga-56",
     "iso_mass_1": "55.99491",
     "iso_half_1": "---",

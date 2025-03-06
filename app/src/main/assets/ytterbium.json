@@ -59,6 +59,9 @@
     "vickers_hardness": "206-250 (MPa)",
     "brinell_hardness": "343-441 (MPa)",
 
+    "earth_crust": "0.3",
+    "urban_soils": "2.4",
+
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "1590 (m/s) [20°C]",

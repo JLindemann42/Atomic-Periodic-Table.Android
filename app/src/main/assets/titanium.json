@@ -89,6 +89,10 @@
     "bulk_modulus": "110 (GPa)",
     "shear_modulus": "44 (GPa)",
 
+      "earth_crust": "4500",
+      "earth_soils": "4600",
+      "urban_soils": "4758",
+
     "iso_1": "Ti-37",
     "iso_mass_1": "---",
     "iso_half_1": "---",

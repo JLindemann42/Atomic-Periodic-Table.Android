@@ -69,6 +69,10 @@
     "vickers_hardness": "---",
     "brinell_hardness": "---",
 
+      "earth_crust": "340",
+      "earth_soils": "300",
+      "urban_soils": "458",
+
     "iso_1": "Sr-73",
     "iso_mass_1": "72.96597",
     "iso_half_1": "25 (ms)",

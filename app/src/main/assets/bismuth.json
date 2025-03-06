@@ -70,6 +70,9 @@
     "vickers_hardness": "---",
     "brinell_hardness": "70-94.2",
 
+    "earth_crust": "0.009",
+    "urban_soils": "1.12",
+
     "young_modulus": "32 (GPa)",
     "poisson_ratio": "0.33",
     "bulk_modulus": "31 (GPa)",

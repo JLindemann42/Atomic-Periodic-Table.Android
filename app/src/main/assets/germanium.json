@@ -67,6 +67,10 @@
     "vickers_hardness": "---",
     "brinell_hardness": "---",
 
+      "earth_crust": "1.4",
+      "earth_soils": "5.0",
+      "urban_soils": "1.8",
+
     "iso_1": "Ge-58",
     "iso_mass_1": "57.99101",
     "iso_half_1": "---",

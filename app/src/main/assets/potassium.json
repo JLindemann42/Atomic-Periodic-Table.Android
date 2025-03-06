@@ -81,6 +81,10 @@
     "vickers_hardness": "---",
     "brinell_hardness": "0.363",
 
+      "earth_crust": "25,000",
+      "earth_soils": "13,600",
+      "urban_soils": "13,400",
+
     "young_modulus": "---",
     "poisson_ratio": "---",
     "bulk_modulus": "3.1 (GPa)",

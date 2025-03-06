@@ -68,6 +68,9 @@
     "bulk_modulus": "200 (GPa)",
     "shear_modulus": "69 (GPa)",
 
+    "earth_crust": "2.5",
+    "urban_soils": "1.5",
+
       "iso_1": "Ta-155",
       "iso_mass_1": "154.97459",
       "decay_type_1": "p",

@@ -64,6 +64,7 @@
     "vickers_hardness": "",
     "brinell_hardness": "",
 
+      "urban_soils": "15,000",
 
     "iso_1": "H-1",
     "iso_mass_1": "1.00782503224",

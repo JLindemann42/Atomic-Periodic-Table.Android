@@ -70,6 +70,10 @@
     "vickers_hardness": "---",
     "brinell_hardness": "5 (MPa)",
 
+      "earth_crust": "32.0",
+      "earth_soils": "30.0",
+      "urban_soils": "49.5",
+
     "iso_1": "Li-3",
     "iso_mass_1": "3.030775",
     "iso_half_1": "?",

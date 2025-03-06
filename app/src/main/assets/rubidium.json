@@ -77,6 +77,10 @@
     "bulk_modulus": "2.5 (GPa)",
     "shear_modulus": "---",
 
+      "earth_crust": "150",
+      "earth_soils": "100",
+      "urban_soils": "58",
+
     "iso_1": "Rb-71",
     "iso_mass_1": "70.96532",
     "iso_half_1": "---",
