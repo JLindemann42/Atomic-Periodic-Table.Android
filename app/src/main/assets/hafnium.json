@@ -71,6 +71,11 @@
     "bulk_modulus": "110 (GPa)",
     "shear_modulus": "30 (GPa)",
 
+    "sea_water": "<0.008",
+    "crustal_rocks": "4",
+    "sun": "0.21",
+    "solar_system": "0.15",
+
       "iso_1": "Hf-153",
       "iso_mass_1": "152.97069",
       "decay_type_1": "B+",

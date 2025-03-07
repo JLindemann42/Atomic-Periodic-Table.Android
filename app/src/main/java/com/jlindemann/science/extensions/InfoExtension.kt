@@ -38,6 +38,7 @@ import com.jlindemann.science.preferences.FavoritePhase
 import com.jlindemann.science.preferences.FusionHeatPreference
 import com.jlindemann.science.preferences.MeltingPreference
 import com.jlindemann.science.preferences.NotesPreference
+import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.RadioactivePreference
 import com.jlindemann.science.preferences.SpecificHeatPreference
 import com.jlindemann.science.preferences.VaporizationHeatPreference
@@ -186,6 +187,11 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             val bulkModulus = jsonObject.optString("bulk_modulus", "---")
             val poissonRatio = jsonObject.optString("poisson_ratio", "---")
 
+            //Abundance
+            val abundanceEarthCrust = jsonObject.optString("earth_crust", "N/A") + " mg/kg (ppm)"
+            val abundanceEarthSoil = jsonObject.optString("earth_soils", "N/A") + " mg/kg (ppm)"
+            val abundanceUrbanSoil = jsonObject.optString("urban_soils", "N/A") + " mg/kg (ppm)"
+
             if (rMultiplier == "---") {
                 findViewById<TextView>(R.id.element_resistivity).text = "---"
             }
@@ -290,18 +296,22 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             findViewById<TextView>(R.id.van_der_waals_radius_text).text = vanDerWaalsRadius
 
             //more items
-            findViewById<TextView>(R.id.speed_sound_solid_text).text = "Solid: " + soundOfSpeedSolid
-            findViewById<TextView>(R.id.speed_sound_gas_text).text = "Gas: " + soundOfSpeedGas
-            findViewById<TextView>(R.id.speed_sound_liquid_text).text = "Liquid: " + soundOfSpeedLiquid
-            findViewById<TextView>(R.id.poisson_text).text = poissonRatio
-            findViewById<TextView>(R.id.bulk_modulus_text).text = "K: " + bulkModulus
-            findViewById<TextView>(R.id.young_modulus_text).text = "E: " + youngModulus
-            findViewById<TextView>(R.id.shear_modulus_text).text = "G: " + shearModulus
+            val proPref = ProVersion(this)
+            val proPrefValue = proPref.getValue()
+            if (proPrefValue==100) {
+                findViewById<TextView>(R.id.speed_sound_solid_text).text = "Solid: " + soundOfSpeedSolid
+                findViewById<TextView>(R.id.speed_sound_gas_text).text = "Gas: " + soundOfSpeedGas
+                findViewById<TextView>(R.id.speed_sound_liquid_text).text = "Liquid: " + soundOfSpeedLiquid
+                findViewById<TextView>(R.id.poisson_text).text = poissonRatio
+                findViewById<TextView>(R.id.bulk_modulus_text).text = "K: " + bulkModulus
+                findViewById<TextView>(R.id.young_modulus_text).text = "E: " + youngModulus
+                findViewById<TextView>(R.id.shear_modulus_text).text = "G: " + shearModulus
 
-            //hardness properties
-            findViewById<TextView>(R.id.mohs_hardness_text).text = mohsHardness
-            findViewById<TextView>(R.id.vickers_hardness_text).text = vickersHardness
-            findViewById<TextView>(R.id.brinell_hardness_text).text = brinellHardness
+                //hardness properties
+                findViewById<TextView>(R.id.mohs_hardness_text).text = mohsHardness
+                findViewById<TextView>(R.id.vickers_hardness_text).text = vickersHardness
+                findViewById<TextView>(R.id.brinell_hardness_text).text = brinellHardness
+            }
 
             if (soundOfSpeedSolid == "---") { findViewById<TextView>(R.id.speed_sound_solid_text).visibility = View.GONE } //Check if Solid speed and show if
             else { findViewById<TextView>(R.id.speed_sound_solid_text).visibility = View.VISIBLE}
@@ -397,6 +407,11 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             findViewById<TextView>(R.id.a_calculated_f).text = atomicRadius
             findViewById<TextView>(R.id.covalent_f).text = covalentRadius
             findViewById<TextView>(R.id.van_f).text = vanDerWaalsRadius
+
+            //Set Abundance in TextViews
+            findViewById<TextView>(R.id.abundance_earth_crust_text).text = abundanceEarthCrust
+            findViewById<TextView>(R.id.abundance_earth_soil_text).text = abundanceEarthSoil
+            findViewById<TextView>(R.id.abundance_urban_soil_text).text = abundanceUrbanSoil
 
             val offlinePreferences = offlinePreference(this)
             val offlinePrefValue = offlinePreferences.getValue()

@@ -74,6 +74,8 @@
     "bulk_modulus": "65 (GPa)",
     "shear_modulus": "16 (GPa)",
 
+    "solar_system": "4.9",
+
       "iso_1": "104-Te",
       "iso_mass_1": "103.907",
       "decay_type_1": "B+",

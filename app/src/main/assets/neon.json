@@ -68,6 +68,11 @@
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "---",
 
+      "sea_water": "0.12",
+      "crustal_rocks": null,
+      "sun": "3 × 10^6",
+      "solar_system": "3 × 10^6",
+
     "iso_1": "Ne-15",
     "iso_mass_1": "15.04317",
     "iso_half_1": "7.7×10^−22 (s)",

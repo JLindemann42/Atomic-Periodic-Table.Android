@@ -67,6 +67,10 @@
 
     "earth_crust": "3.7",
     "earth_soils": "5.0",
+    "sea_water": "0.30",
+    "crustal_rocks": "1.6",
+    "sun": null,
+    "solar_system": "0.37",
 
       "iso_1": "Cs-112",
       "iso_mass_1": "111.95030",

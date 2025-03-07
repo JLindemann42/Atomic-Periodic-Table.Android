@@ -71,6 +71,11 @@
     "bulk_modulus": "54 (GPa)",
     "shear_modulus": "31 (GPa)",
 
+    "sea_water": "0.0015",
+    "crustal_rocks": "5.8",
+    "sun": "0.05",
+    "solar_system": "0.045",
+
       "iso_1": "Thorium-207",
       "iso_mass_1": "207",
       "decay_type_1": "α",

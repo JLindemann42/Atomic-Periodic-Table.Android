@@ -63,6 +63,11 @@
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "4940 (m/s) [20°C]",
 
+      "sea_water": null,
+      "crustal_rocks": "0.0002",
+      "sun": "0.8",
+      "solar_system": "0.67",
+
     "iso_1": "Osmium-163",
     "iso_mass_1": "162.964",
     "decay_type_1": "B+",

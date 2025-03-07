@@ -84,6 +84,10 @@
       "earth_crust": "25,000",
       "earth_soils": "13,600",
       "urban_soils": "13,400",
+      "sea_water": "3.9 × 10^5",
+      "crustal_rocks": "1.7 × 10^4",
+      "sun": "3.7 × 10^3",
+      "solar_system": "3.8 × 10^3",
 
     "young_modulus": "---",
     "poisson_ratio": "---",

@@ -27,6 +27,11 @@
     <string name="element_shear_modulus" translatable="false">Shear modulus:</string>
     <string name="element_bulk_modulus" translatable="false">Bulk modulus:</string>
     <string name="element_poisson_ratio">Poisson\'s ratio:</string>
+    <string name="abundance_title" translatable="false">Abundance</string>
+    <string name="abundance_earth_crust" translatable="false">In Earth\'s crust</string>
+    <string name="abundance_earth_soils" translatable="false">In Earth\'s soil</string>
+    <string name="abundance_urban_soil" translatable="false">In Urban soil</string>
+
 
     <!-- Activity Favorite Settings -->
     <string name="favorite_settings_title">Favorite Bar</string>

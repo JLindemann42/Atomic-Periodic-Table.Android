@@ -70,6 +70,9 @@
     "bulk_modulus": "230 (GPa)",
     "shear_modulus": "61 (GPa)",
 
+    "sun": "1.8",
+    "solar_system": "1.34",
+
       "iso_1": "Pt-166",
       "iso_mass_1": "165.99492",
       "decay_type_1": "α",

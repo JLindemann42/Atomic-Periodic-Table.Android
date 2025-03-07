@@ -87,6 +87,10 @@
       "earth_crust": "10.0",
       "earth_soils": "7.0",
       "urban_soils": "9.4",
+      "sea_water": "< 0.004",
+      "crustal_rocks": "22",
+      "sun": "35",
+      "solar_system": "34",
 
     "iso_1": "Sc-35",
     "iso_mass_1": "---",

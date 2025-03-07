@@ -70,6 +70,9 @@
     "bulk_modulus": "380 (GPa)",
     "shear_modulus": "150 (GPa)",
 
+      "sun": "0.4",
+      "solar_system": "0.34",
+
     "iso_1": "Rh-89",
     "iso_mass_1": "88.94884",
     "iso_half_1": "10 (ms)",

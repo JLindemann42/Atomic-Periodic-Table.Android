@@ -71,6 +71,10 @@
     "brinell_hardness": "---",
 
       "urban_soils": "45,100",
+      "sea_water": "2.8 × 10^4",
+      "crustal_rocks": null,
+      "sun": "1.0 × 10^7",
+      "solar_system": "1.0 × 10^7",
 
     "iso_1": "C-8",
     "iso_mass_1": "8.037643",
