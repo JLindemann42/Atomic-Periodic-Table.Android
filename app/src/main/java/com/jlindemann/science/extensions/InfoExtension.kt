@@ -50,6 +50,7 @@ import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONObject
+import org.w3c.dom.Text
 import java.io.IOException
 import java.io.InputStream
 import java.net.ConnectException
@@ -191,6 +192,11 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             val abundanceEarthCrust = jsonObject.optString("earth_crust", "N/A") + " mg/kg (ppm)"
             val abundanceEarthSoil = jsonObject.optString("earth_soils", "N/A") + " mg/kg (ppm)"
             val abundanceUrbanSoil = jsonObject.optString("urban_soils", "N/A") + " mg/kg (ppm)"
+            val abundanceCrustalRocks = jsonObject.optString("crustal_rocks", "N/A") + " mg/kg (ppm)"
+            val abundanceSeaWater = jsonObject.optString("sea_water", "N/A") + " μg/l (ppm)"
+            val abundanceSun = jsonObject.optString("sun", "N/A") + " (atoms per 10^6 atoms of silicon)"
+            val abundanceSolarSystem = jsonObject.optString("solar_system", "N/A") + " (atoms per 10^6 atoms of silicon)"
+
 
             if (rMultiplier == "---") {
                 findViewById<TextView>(R.id.element_resistivity).text = "---"
@@ -198,7 +204,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             else {
                 val input = resistivity.toFloat() * rMultiplier.toFloat()
                 val output = input.pow(-1).toString()
-                findViewById<TextView>(R.id.element_resistivity).text = output.replace("E", "*10^") + " (S/m)"
+                findViewById<TextView>(R.id.element_resistivity).text = formatSuperscript(output.replace("E", "*10^")) + " (S/m)"
             }
 
             findViewById<TextView>(R.id.description_name).setOnClickListener {
@@ -240,7 +246,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             findViewById<TextView>(R.id.element_melting_fahrenheit).text = elementMeltingFahrenheit
             findViewById<TextView>(R.id.element_atomic_number).text = elementAtomicNumber
             findViewById<TextView>(R.id.element_atomic_weight).text = elementAtomicWeight
-            findViewById<TextView>(R.id.element_density).text = elementDensity
+            findViewById<TextView>(R.id.element_density).text = formatSuperscript(elementDensity)
             findViewById<TextView>(R.id.element_block).text = elementBlock
             findViewById<TextView>(R.id.element_appearance).text = elementAppearance
 
@@ -287,8 +293,8 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             findViewById<TextView>(R.id.specific_heat_text).text = specificHeatCapacity
             findViewById<TextView>(R.id.vaporization_heat_text).text = vaporizationHeat
 
-            findViewById<TextView>(R.id.electron_config_text).text = electronConfig
-            findViewById<TextView>(R.id.ion_charge_text).text = ionCharge
+            findViewById<TextView>(R.id.electron_config_text).text = formatSuperscript(electronConfig)
+            findViewById<TextView>(R.id.ion_charge_text).text = formatSuperscript(ionCharge)
             findViewById<TextView>(R.id.ionization_energies_text).text = ionizationEnergies
             findViewById<TextView>(R.id.atomic_radius_text).text = atomicRadius
             findViewById<TextView>(R.id.atomic_radius_e_text).text = atomicRadiusE
@@ -324,7 +330,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
 
             //Shell View items
             findViewById<TextView>(R.id.config_data).text = elementShellElectrons
-            findViewById<TextView>(R.id.e_config_data).text = electronConfig
+            findViewById<TextView>(R.id.e_config_data).text = formatSuperscript(electronConfig)
 
             //Electromagnetic Properties Items
             findViewById<TextView>(R.id.element_electrical_type).text = electricalType
@@ -371,7 +377,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             findViewById<TextView>(R.id.molar_mass_f).text = elementAtomicWeight
             findViewById<TextView>(R.id.phase_f).text = phaseText
             findViewById<TextView>(R.id.electronegativity_f).text = elementElectronegativity
-            findViewById<TextView>(R.id.density_f).text = elementDensity
+            findViewById<TextView>(R.id.density_f).text = formatSuperscript(elementDensity)
 
             val degreePreference = DegreePreference(this)
             val degreePrefValue = degreePreference.getValue()
@@ -409,9 +415,13 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             findViewById<TextView>(R.id.van_f).text = vanDerWaalsRadius
 
             //Set Abundance in TextViews
-            findViewById<TextView>(R.id.abundance_earth_crust_text).text = abundanceEarthCrust
-            findViewById<TextView>(R.id.abundance_earth_soil_text).text = abundanceEarthSoil
-            findViewById<TextView>(R.id.abundance_urban_soil_text).text = abundanceUrbanSoil
+            findViewById<TextView>(R.id.abundance_earth_crust_text).text = formatSuperscript(abundanceEarthCrust)
+            findViewById<TextView>(R.id.abundance_earth_soil_text).text = formatSuperscript(abundanceEarthSoil)
+            findViewById<TextView>(R.id.abundance_urban_soil_text).text = formatSuperscript(abundanceUrbanSoil)
+            findViewById<TextView>(R.id.abundance_crustal_rocks_text).text = formatSuperscript(abundanceCrustalRocks)
+            findViewById<TextView>(R.id.abundance_sea_water_text).text = formatSuperscript(abundanceSeaWater)
+            findViewById<TextView>(R.id.abundance_sun_text).text = formatSuperscript(abundanceSun)
+            findViewById<TextView>(R.id.abundance_solar_system_text).text = formatSuperscript(abundanceSolarSystem)
 
             val offlinePreferences = offlinePreference(this)
             val offlinePrefValue = offlinePreferences.getValue()
@@ -597,5 +607,32 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         var radioactiveValue = radioactivePreference.getValue()
         if (radioactiveValue == 1) { findViewById<LinearLayout>(R.id.phase_lay).visibility = View.VISIBLE }
         if (radioactiveValue == 0) { findViewById<LinearLayout>(R.id.phase_lay).visibility = View.GONE }
+    }
+
+    // Helper function to convert caret notation to superscript
+    // Helper function to convert caret notation to superscript
+    private fun formatSuperscript(text: String): String {
+        val superscriptMap = mapOf(
+            '0' to '\u2070',
+            '1' to '\u00B9',
+            '2' to '\u00B2',
+            '3' to '\u00B3',
+            '4' to '\u2074',
+            '5' to '\u2075',
+            '6' to '\u2076',
+            '7' to '\u2077',
+            '8' to '\u2078',
+            '9' to '\u2079',
+            '+' to '\u207A',
+            '-' to '\u207B'
+        )
+        val regex = Regex("""\^(\d?)(\+|\-)?""")
+        return regex.replace(text) {
+            val numberPart = it.groupValues[1]
+            val signPart = it.groupValues[2]
+            val superscriptNumber = numberPart.map { char -> superscriptMap[char] ?: char }.joinToString("")
+            val superscriptSign = superscriptMap[signPart.firstOrNull()] ?: ""
+            superscriptNumber + superscriptSign
+        }
     }
 }

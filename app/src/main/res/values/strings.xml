@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v3.0.0-Build.111</string>
+    <string name="app_version" translatable="false">v3.1.0-Build.112</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -28,10 +28,13 @@
     <string name="element_bulk_modulus" translatable="false">Bulk modulus:</string>
     <string name="element_poisson_ratio">Poisson\'s ratio:</string>
     <string name="abundance_title" translatable="false">Abundance</string>
-    <string name="abundance_earth_crust" translatable="false">In Earth\'s crust</string>
-    <string name="abundance_earth_soils" translatable="false">In Earth\'s soil</string>
-    <string name="abundance_urban_soil" translatable="false">In Urban soil</string>
-
+    <string name="abundance_earth_crust" translatable="false">In earth\'s crust</string>
+    <string name="abundance_earth_soils" translatable="false">In earth\'s soil</string>
+    <string name="abundance_urban_soil" translatable="false">In urban soil</string>
+    <string name="abundance_sea_water" translatable="false">In sea water</string>
+    <string name="abundance_crustal_rocks" translatable="false">In crustal rocks</string>
+    <string name="abundance_sun" translatable="false">In sun atoms</string>
+    <string name="abundance_solar_system" translatable="false">In solar system atoms</string>
 
     <!-- Activity Favorite Settings -->
     <string name="favorite_settings_title">Favorite Bar</string>

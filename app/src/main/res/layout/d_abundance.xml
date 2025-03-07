@@ -129,5 +129,141 @@
             android:textIsSelectable="true"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <TextView
+            android:id="@+id/abundance_crustal_rocks_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="@string/abundance_crustal_rocks"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/abundance_crustal_rocks_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="abundance_crustal_rocks_text"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textIsSelectable="true"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <TextView
+            android:id="@+id/abundance_sea_water_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="@string/abundance_sea_water"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/abundance_sea_water_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="abundance_sea_water_text"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textIsSelectable="true"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <TextView
+            android:id="@+id/abundance_sun_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="@string/abundance_sun"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/abundance_sun_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="abundance_sun_text"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textIsSelectable="true"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <TextView
+            android:id="@+id/abundance_solar_system_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="2dp"
+            android:text="@string/abundance_solar_system"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/abundance_solar_system_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="8dp"
+            android:text="abundance_solar_system_text"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textIsSelectable="true"
+            android:textSize="14sp" />
     </LinearLayout>
 </FrameLayout>
