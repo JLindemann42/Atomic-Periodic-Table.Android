@@ -55,10 +55,23 @@
                     android:layout_height="56dp"
                     android:layout_gravity="center_vertical|end"
                     android:padding="16dp"
+                    android:layout_marginEnd="56dp"
                     android:alpha="0.9"
                     android:scaleType="fitStart"
                     app:tint="?attr/colorOnSecondaryContainer"
                     android:src="@drawable/ic_wikipedia_logo" />
+
+                <ImageButton
+                    android:id="@+id/isotope_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:padding="16dp"
+                    android:alpha="0.9"
+                    android:scaleType="fitStart"
+                    app:tint="?attr/colorOnSecondaryContainer"
+                    android:src="@drawable/ic_isotopes" />
 
                 <TextView
                     android:id="@+id/element_title"
@@ -206,6 +219,11 @@
 
             <include
                 layout="@layout/d_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/d_abundance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

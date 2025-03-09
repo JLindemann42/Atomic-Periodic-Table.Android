@@ -97,6 +97,14 @@
     "bulk_modulus": "230 (GPa)",
     "shear_modulus": "120 (GPa)",
 
+      "earth_crust": "1.1",
+      "earth_soils": "2.0",
+      "urban_soils": "2.4",
+      "sea_water": "10",
+      "crustal_rocks": "1.2",
+      "sun": "2.3",
+      "solar_system": "2.6",
+
     "iso_1": "Mo-83",
     "iso_mass_1": "82.94874",
     "iso_half_1": "23 (ms)",

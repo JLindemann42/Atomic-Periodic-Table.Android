@@ -70,10 +70,18 @@
     "vickers_hardness": "---",
     "brinell_hardness": "70-94.2",
 
+    "earth_crust": "0.009",
+    "urban_soils": "1.12",
+
     "young_modulus": "32 (GPa)",
     "poisson_ratio": "0.33",
     "bulk_modulus": "31 (GPa)",
     "shear_modulus": "12 (GPa)",
+
+    "sea_water": "0.02",
+    "crustal_rocks": "0.004",
+    "sun": null,
+    "solar_system": "0.14",
 
       "iso_1": "Bi-184",
       "iso_mass_1": "184.00135",

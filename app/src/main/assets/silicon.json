@@ -81,6 +81,14 @@
     "vickers_hardness": "---",
     "brinell_hardness": "---",
 
+      "earth_crust": "295,000",
+      "earth_soils": "330,000",
+      "urban_soils": "289,000",
+      "sea_water": "2.9 × 10^3",
+      "crustal_rocks": "2.7 × 10^5",
+      "sun": "1.0 × 10^6",
+      "solar_system": "1.0 × 10^6",
+
     "iso_1": "Si-22",
     "iso_mass_1": "22.03579",
     "iso_half_1": "29 (ms)",

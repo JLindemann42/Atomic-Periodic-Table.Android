@@ -70,6 +70,10 @@
     "bulk_modulus": "180 (GPa)",
     "shear_modulus": "44 (GPa)",
 
+      "crustal_rocks": "0.003",
+      "sun": "1.4",
+      "solar_system": "1.4",
+
     "iso_1": "Pd-91",
     "iso_mass_1": "90.94911",
     "iso_half_1": "10 (ms)",

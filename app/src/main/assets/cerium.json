@@ -73,6 +73,11 @@
     "vickers_hardness": "210-470 (MPa)",
     "brinell_hardness": "186-412 (MPa)",
 
+    "sea_water": "0.0012",
+    "crustal_rocks": "83",
+    "sun": "1.0",
+    "solar_system": "1.1",
+
       "iso_1": "Ce-119",
       "iso_mass_1": "118.95276",
       "decay_type_1": "B+",

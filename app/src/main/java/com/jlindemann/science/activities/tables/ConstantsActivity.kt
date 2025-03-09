@@ -142,7 +142,7 @@ class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListe
     private fun chipListeners(list: ArrayList<Constants>, recyclerView: RecyclerView) {
         val constantsPreference = ConstantsPreference(this)
         findViewById<Button>(R.id.mathematic_btn_con).setOnClickListener {
-            updateButtonColor("math_btn_con")
+            updateButtonColor("mathematic_btn_con")
             constantsPreference.setValue("mathematics")
             findViewById<EditText>(R.id.edit_con).setText("test")
             findViewById<EditText>(R.id.edit_con).setText("")

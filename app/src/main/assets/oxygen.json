@@ -66,6 +66,12 @@
     "speed_of_sound_liquid": "906 (m/s) [-183.0°C]",
     "speed_of_sound_solid": "---",
 
+      "urban_soils": "490,000",
+      "sea_water": "8.8 × 10^8",
+      "crustal_rocks": "3.7 × 10^5",
+      "sun": "2.4 × 10^7",
+      "solar_system": "2.4 × 10^7",
+
     "iso_1": "O-11",
     "iso_mass_1": "---",
     "iso_half_1": "--- (s)",

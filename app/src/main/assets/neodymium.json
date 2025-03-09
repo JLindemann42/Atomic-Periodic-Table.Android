@@ -71,6 +71,11 @@
     "bulk_modulus": "31.8 (GPa) [α-form]",
     "shear_modulus": "16.3 (GPa) [α-form]",
 
+    "sea_water": "0.0028",
+    "crustal_rocks": "44",
+    "sun": "0.9",
+    "solar_system": "0.83",
+
       "iso_1": "Nd-124",
       "iso_mass_1": "123.95223",
       "decay_type_1": "B+",

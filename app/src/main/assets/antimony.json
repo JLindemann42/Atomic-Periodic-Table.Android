@@ -73,6 +73,13 @@
     "bulk_modulus": "42 (GPa)",
     "shear_modulus": "20 (GPa)",
 
+    "earth_crust": "0.5",
+    "urban_soils": "1.0",
+    "sea_water": "0.33",
+    "crustal_rocks": "0.2",
+    "sun": "0.3",
+    "solar_system": "0.31",
+
     "iso_1": "103-Sb",
     "iso_mass_1": "102.93969",
     "decay_type_1": "B+",

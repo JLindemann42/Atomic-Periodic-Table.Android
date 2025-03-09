@@ -57,6 +57,11 @@
     "oxidation_state_neg": "1",
     "oxidation_state_pos": "1 3 4 5 6 7",
 
+    "sea_water": "64",
+    "crustal_rocks": "0.5",
+    "sun": null,
+    "solar_system": "0.9",
+
       "iso_1": "108-I",
       "iso_mass_1": "107.943",
       "decay_type_1": "B+",
