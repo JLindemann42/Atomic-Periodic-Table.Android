@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v3.1.0-Build.112</string>
+    <string name="app_version" translatable="false">v3.1.0-Build.113</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -82,6 +82,9 @@
     <string name="info_text">App version and details</string>
     <string name="git_title" translatable="false">Github</string>
     <string name="git_text" translatable="false">Atomics open-source GitHub repo</string>
+    <string name="table_order_title" translatable="false">Sort table list</string>
+    <string name="table_order_text" translatable="false">Determine order of tables</string>
+
 
 
     <!-- Weight Calculator Activity -->
