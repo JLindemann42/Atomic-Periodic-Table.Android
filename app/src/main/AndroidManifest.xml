@@ -112,10 +112,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.CalculatorActivity"
+            android:name=".activities.tools.CalculatorActivity"
             android:label="CALCULATORPAGE"
             android:exported="true"
-             
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.tools.ChemicalReactionsActivity"
+            android:label="CHEMICALREACTIONSPAGE"
+            android:exported="true"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
@@ -155,7 +163,15 @@
             android:name=".activities.TableActivity"
             android:label="TABLEPAGE"
             android:exported="true"
-             
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.ToolsActivity"
+            android:label="TOOLPAGE"
+            android:exported="true"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />

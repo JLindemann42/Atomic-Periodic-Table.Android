@@ -294,8 +294,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     }
 
     private fun mediaListeners() {
-        findViewById<FloatingActionButton>(R.id.twitter_button).setOnClickListener {
-            val uri = Uri.parse(getString(R.string.twitter))
+        findViewById<FloatingActionButton>(R.id.bluesky_button).setOnClickListener {
+            val uri = Uri.parse(getString(R.string.bluesky))
             val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
@@ -316,6 +316,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         }
     }
 
+    //Navmenu listeners
     private fun onClickNav() {
         findViewById<FloatingActionButton>(R.id.menu_btn).setOnClickListener {
             findViewById<FrameLayout>(R.id.nav_menu_include).visibility = View.VISIBLE
@@ -338,7 +339,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             startActivity(intent)
         }
         findViewById<TextView>(R.id.calculator_btn).setOnClickListener {
-            val intent = Intent(this, CalculatorActivity::class.java)
+            val intent = Intent(this, ToolsActivity::class.java)
             startActivity(intent)
         }
         findViewById<TextView>(R.id.dictionary_btn).setOnClickListener {
@@ -352,6 +353,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         }
     }
 
+    //Setup clickListeners for hover menu.
     private fun hoverListeners(elements: ArrayList<Element>, proValue: Int) {
         findViewById<TextView>(R.id.h_name_btn).setOnClickListener { initName(elements) }
         findViewById<TextView>(R.id.h_group_btn).setOnClickListener { initGroups(elements) }

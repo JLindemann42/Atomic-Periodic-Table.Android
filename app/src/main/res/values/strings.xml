@@ -149,7 +149,7 @@
     <string name="activity_io_title">Ionization Energies</string>
 
     <!-- Social-Media Links-->
-    <string name="twitter" translatable="false">https://www.twitter.com/jlindemanndev</string>
+    <string name="bluesky" translatable="false">https://bsky.app/profile/jlindemanndev.bsky.social</string>
     <string name="instagram" translatable="false">https://www.instagram.com/jlindemanndev</string>
     <string name="facebook" translatable="false">https://www.facebook.com/jlindemanndev</string>
     <string name="homepage" translatable="false">https://www.jlindemann.se/homepage</string>
@@ -200,9 +200,18 @@
     <string name="ele" translatable="false">Electrochemical Series</string>
     <string name="iso" translatable="false">Isotopes</string>
 
+    <!-- New Tools String -->
+    <string name="cal" translatable="false">Calculator</string>
+    <string name="rec" translatable="false">Chemical Reactions</string>
+
     <string name="most_used" translatable="false">Most Used:</string>
 
     <string name="calculator_title" translatable="false">Calculator</string>
+    <string name="calculator_text" translatable="false">Contains a calculator to calculate molar mass for different compounds as well as saving favorites</string>
+    <string name="tools_title" translatable="false">Calculator and Tools</string>
+    <string name="balancer_title" translatable="false">Chemical Reactions</string>
+    <string name="balancer_text" translatable="false">Balance different chemical reactions and save favorites for later use</string>
+    <string name="tool_btn_open" translatable="false">Open Tool</string>
 
 
 

@@ -1,4 +1,4 @@
-package com.jlindemann.science.activities
+package com.jlindemann.science.activities.tools
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -9,29 +9,32 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.text.*
 import android.text.style.SubscriptSpan
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageButton
-import android.widget.PopupMenu
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.BaseActivity
+import com.jlindemann.science.activities.FavoriteCompound
+import com.jlindemann.science.activities.FavoriteCompoundsAdapter
+import com.jlindemann.science.activities.IncludedElementsAdapter
+import com.jlindemann.science.activities.Quadruple
 import com.jlindemann.science.activities.settings.ProActivity
-import com.jlindemann.science.activities.tables.PoissonActivity
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
+import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
 import org.json.JSONArray
 import java.io.IOException
 
-class CalculatorActivity : BaseActivity() {
+class ChemicalReactionsActivity : BaseActivity() {
 
     private lateinit var includedElementsAdapter: IncludedElementsAdapter
     private lateinit var favoriteCompoundsAdapter: FavoriteCompoundsAdapter
@@ -57,7 +60,7 @@ class CalculatorActivity : BaseActivity() {
             themePrefValue == 1 -> setTheme(R.style.AppThemeDark)
         }
 
-        setContentView(R.layout.activity_calculator)
+        setContentView(R.layout.activity_chemical_reactions)
         findViewById<FrameLayout>(R.id.view_cal).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         findViewById<ImageButton>(R.id.back_btn_cal).setOnClickListener {
@@ -88,6 +91,18 @@ class CalculatorActivity : BaseActivity() {
             }
 
         inputController()
+
+        //Add value to most used:
+        val mostUsedPreference = MostUsedToolPreference(this)
+        val mostUsedPrefValue = mostUsedPreference.getValue()
+        val targetLabel = "rec"
+        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val match = regex.find(mostUsedPrefValue)
+        if (match != null) {
+            val value = match.groups[2]!!.value.toDouble()
+            val newValue = value + 1
+            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
+        }
 
         val editText = findViewById<EditText>(R.id.edit_text_cal)
         editText.filters = arrayOf(InputFilter { source, _, _, _, _, _ ->
@@ -124,14 +139,14 @@ class CalculatorActivity : BaseActivity() {
         // Initialize RecyclerView for included elements
         includedElementsAdapter = IncludedElementsAdapter()
         findViewById<RecyclerView>(R.id.inc_weight_list).apply {
-            layoutManager = LinearLayoutManager(this@CalculatorActivity)
+            layoutManager = LinearLayoutManager(this@ChemicalReactionsActivity)
             adapter = includedElementsAdapter
         }
 
         // Initialize RecyclerView for favorite compounds
         favoriteCompoundsAdapter = FavoriteCompoundsAdapter({ compound -> removeFavorite(compound) }, { compound -> copyToClipboard(compound) })
         findViewById<RecyclerView>(R.id.fav_rec_list).apply {
-            layoutManager = LinearLayoutManager(this@CalculatorActivity)
+            layoutManager = LinearLayoutManager(this@ChemicalReactionsActivity)
             adapter = favoriteCompoundsAdapter
         }
 

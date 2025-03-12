@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-    android:id="@+id/view_cal"
+    android:id="@+id/view_rec"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -9,7 +9,7 @@
     android:background="?attr/backgroundColor">
 
     <ScrollView
-        android:id="@+id/calculator_scroll"
+        android:id="@+id/reaction_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -20,21 +20,21 @@
             android:paddingBottom="120dp">
 
             <TextView
-                android:id="@+id/calculator_title_downstate"
+                android:id="@+id/reaction_title_downstate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="0dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="28dp"
-                android:text="@string/calculator_title"
+                android:text="@string/balancer_title"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="32sp"
                 android:textStyle="normal" />
 
 
             <LinearLayout
-                android:id="@+id/cal_box"
+                android:id="@+id/rec_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin"
-                    android:text="Calculator:"
+                    android:text="Reaction Balancer:"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -61,7 +61,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/edit_text_cal"
+                        android:id="@+id/edit_text_rec"
                         android:layout_width="match_parent"
                         android:layout_height="72dp"
                         android:layout_marginStart="@dimen/margin"
@@ -70,7 +70,7 @@
                         android:backgroundTint="?attr/colorSurface"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
-                        android:hint="Formula:"
+                        android:hint="Chemical Reaction:"
                         android:imeOptions="actionSearch"
                         android:inputType="textNoSuggestions"
                         android:maxLines="1"
@@ -101,7 +101,7 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:gravity="top"
-                    android:text="Molar Mass:"
+                    android:text="Balance equation:"
                     android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold"
                     android:textSize="16sp" />
@@ -119,12 +119,12 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:gravity="top"
-                    android:text="0.0 (g/mol)"
+                    android:text="---"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/hint_calc_text"
+                    android:id="@+id/hint_rec_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
@@ -135,7 +135,7 @@
                     android:textColor="?attr/colorOnSurface"/>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/inc_weight_list"
+                    android:id="@+id/inc_comp_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin"
@@ -223,7 +223,7 @@
         </LinearLayout>
     </ScrollView>
     <FrameLayout
-        android:id="@+id/common_title_back_cal"
+        android:id="@+id/common_title_back_rec"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:elevation="1dp"
@@ -232,7 +232,7 @@
         android:orientation="horizontal">
 
         <FrameLayout
-            android:id="@+id/common_title_back_cal_color"
+            android:id="@+id/common_title_back_rec_color"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/colorPrimary"
@@ -250,7 +250,7 @@
                 android:layout_height="56dp">
 
                 <ImageButton
-                    android:id="@+id/back_btn_cal"
+                    android:id="@+id/back_btn_rec"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
@@ -260,7 +260,7 @@
                     android:src="@drawable/ic_arrow_back_whit" />
 
                 <TextView
-                    android:id="@+id/calculator_title"
+                    android:id="@+id/reaction_title"
                     android:layout_width="wrap_content"
                     android:layout_marginStart="70dp"
                     android:alpha="0.9"
@@ -268,7 +268,7 @@
                     android:gravity="center"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/calculator_title"
+                    android:text="@string/balancer_title"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="20sp"
