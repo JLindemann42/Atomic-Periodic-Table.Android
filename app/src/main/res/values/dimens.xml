@@ -28,6 +28,8 @@
     <dimen name="left_bar">32dp</dimen>
     <dimen name="art_margin">40dp</dimen>
 
+    <dimen name="default_padding">16dp</dimen>
+
     <dimen name="first_item">98dp</dimen>
 
     <dimen name="item_nuclide">36dp</dimen>

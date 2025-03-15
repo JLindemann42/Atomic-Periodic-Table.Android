@@ -199,6 +199,13 @@
     <string name="eqe" translatable="false">Formulas</string>
     <string name="ele" translatable="false">Electrochemical Series</string>
     <string name="iso" translatable="false">Isotopes</string>
+    <string name="emi" translatable="false">Emission Spectrum Table</string>
+
+    <string name="requires_pro" translatable="false">Requires PRO-Version</string>
+    <string name="try_another_search" translatable="false">Try searching for another word or check your spelling.</string>
+
+    <string name="emission_title" translatable="false">Emission Spectrum Table</string>
+    <string name="emission_text" translatable="false">Emission spectrum for elements, which is the frequencies of electromagnatic radiation emitted due to electrons making transition from a higher to lower energy state.</string>
 
     <!-- New Tools String -->
     <string name="cal" translatable="false">Calculator</string>

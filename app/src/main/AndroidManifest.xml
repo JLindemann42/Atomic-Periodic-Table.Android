@@ -243,6 +243,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.tables.EmissionActivity"
+            android:label="EMISSIONPAGE"
+            android:exported="true"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.tables.phActivity"
             android:label="PHACTIVITY"
             android:exported="true"

@@ -77,6 +77,7 @@ dependencies {
     implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:1.0.2'
     implementation 'com.otaliastudios:zoomlayout:1.8.0'
     testImplementation 'junit:junit:4.13.2'
+    implementation 'org.apache.commons:commons-math3:3.6.1'
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
