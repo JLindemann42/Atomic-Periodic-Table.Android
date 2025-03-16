@@ -69,20 +69,18 @@ class TableActivity : BaseActivity() {
         val proPref = ProVersion(this)
         val proPrefValue = proPref.getValue()
         if (proPrefValue == 1) {
-            findViewById<TextView>(R.id.pro_poi_text).text = "PRO-Version"
             findViewById<TextView>(R.id.pro_poi_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_nuc_text).text = "PRO-Version"
             findViewById<TextView>(R.id.pro_nuc_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_con_text).text = "PRO-Version"
             findViewById<TextView>(R.id.pro_con_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_geo_text).text = "PRO-Version"
             findViewById<TextView>(R.id.pro_geo_text).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.pro_emi_text).visibility = View.VISIBLE
         }
         if (proPrefValue == 100) {
             findViewById<TextView>(R.id.pro_poi_text).visibility = View.GONE
             findViewById<TextView>(R.id.pro_nuc_text).visibility = View.GONE
             findViewById<TextView>(R.id.pro_con_text).visibility = View.GONE
             findViewById<TextView>(R.id.pro_geo_text).visibility = View.GONE
+            findViewById<TextView>(R.id.pro_emi_text).visibility = View.GONE
         }
     }
 
@@ -116,9 +114,10 @@ class TableActivity : BaseActivity() {
         val textView8: TextView = findViewById(R.id.most_8)
         val textView9: TextView = findViewById(R.id.most_9)
         val textView10: TextView = findViewById(R.id.most_10)
+        val textView11: TextView = findViewById(R.id.most_11)
 
 
-        val textViewList = listOf(textView1, textView2, textView3, textView4, textView5, textView6, textView7, textView8, textView9, textView10)
+        val textViewList = listOf(textView1, textView2, textView3, textView4, textView5, textView6, textView7, textView8, textView9, textView10, textView11)
 
         sortedValues.forEachIndexed { index, pair ->
             if (index < textViewList.size) {
@@ -133,6 +132,8 @@ class TableActivity : BaseActivity() {
                 if (pair.first == "con") {textViewList[index].text = getString(R.string.con)}
                 if (pair.first == "ele") {textViewList[index].text = getString(R.string.ele)}
                 if (pair.first == "iso") {textViewList[index].text = getString(R.string.iso)}
+                if (pair.first == "emi") {textViewList[index].text = getString(R.string.emi)}
+
 
 
                 //Setup clickListener for non-pro
@@ -187,7 +188,11 @@ class TableActivity : BaseActivity() {
                             val activity = ProActivity::class.java
                             val intent = Intent(this, activity)
                             startActivity(intent)
-
+                        }
+                        if (pair.first == "emi") {
+                            val activity = ProActivity::class.java
+                            val intent = Intent(this, activity)
+                            startActivity(intent)
                         }
                     }
                 }
@@ -241,6 +246,10 @@ class TableActivity : BaseActivity() {
                         }
                         if (pair.first == "geo") {
                             val activity = GeologyActivity::class.java
+                            val intent = Intent(this, activity)
+                        }
+                        if (pair.first == "emi") {
+                            val activity = EmissionActivity::class.java
                             val intent = Intent(this, activity)
                         }
                     }
@@ -399,6 +408,30 @@ class TableActivity : BaseActivity() {
             }
             if (proPrefValue == 100) {
                 val intent = Intent(this, GeologyActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        findViewById<FrameLayout>(R.id.emi_table).setOnClickListener {
+            val proPref = ProVersion(this)
+            val proPrefValue = proPref.getValue()
+            if (proPrefValue == 1) {
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent)
+            }
+            if (proPrefValue == 100) {
+                val intent = Intent(this, EmissionActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        findViewById<TextView>(R.id.emi_button).setOnClickListener {
+            val proPref = ProVersion(this)
+            val proPrefValue = proPref.getValue()
+            if (proPrefValue == 1) {
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent)
+            }
+            if (proPrefValue == 100) {
+                val intent = Intent(this, EmissionActivity::class.java)
                 startActivity(intent)
             }
         }

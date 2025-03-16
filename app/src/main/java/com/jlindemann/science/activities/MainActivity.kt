@@ -31,8 +31,12 @@ import com.jlindemann.science.activities.tables.DictionaryActivity
 import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.extensions.TableExtension
+import com.jlindemann.science.model.Achievement
+import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
+import com.jlindemann.science.model.Statistics
+import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.SearchPreferences
@@ -77,7 +81,10 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         findViewById<EditText>(R.id.edit_element).addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable) { filter(s.toString(), elements, recyclerView) }
+            override fun afterTextChanged(s: Editable) {
+                filter(s.toString(), elements, recyclerView)
+                updateStats()
+            }
         })
 
         setOnCLickListenerSetups(elements)
@@ -90,9 +97,19 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         mediaListeners()
         checkSale()
         initName(elements)
+        val achievements = ArrayList<Achievement>()
+        //Set achievement
+        AchievementModel.getList(this, achievements)
+        val achievement8 = achievements.find { it.id == 9 }
+        achievement8?.incrementProgress(this, 1)
         findViewById<FloatingActionButton>(R.id.more_btn).setOnClickListener { openHover() }
         findViewById<TextView>(R.id.hover_background).setOnClickListener { closeHover() }
-        findViewById<Button>(R.id.random_btn).setOnClickListener { getRandomItem() }
+        findViewById<Button>(R.id.random_btn).setOnClickListener {
+            //Set achievement
+            AchievementModel.getList(this, achievements)
+            val achievement7 = achievements.find { it.id == 7 }
+            achievement7?.incrementProgress(this, 1)
+            getRandomItem() }
         findViewById<ConstraintLayout>(R.id.view_main).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         //Check if PRO version and if make changes:
@@ -108,9 +125,10 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             initName(elements)
         }, 250)
 
-        val layout = findViewById<LinearLayout>(R.id.scrollLin)
-
-        val hideNavPref = hideNavPreference(this)
+        findViewById<ImageButton>(R.id.user_btn).setOnClickListener {
+            val intent = Intent(this, UserActivity::class.java)
+            startActivity(intent)
+        }
 
         findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
             override fun onPanelSlide(panel: View?, slideOffset: Float) {}
@@ -556,5 +574,12 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val params8 = findViewById<LinearLayout>(R.id.one).layoutParams as ViewGroup.MarginLayoutParams
         params8.marginStart = left + resources.getDimensionPixelSize(R.dimen.left_bar)
         findViewById<LinearLayout>(R.id.one).layoutParams = params8
+    }
+
+    private fun updateStats() {
+        val statistics = java.util.ArrayList<Statistics>()
+        StatisticsModel.getList(this, statistics)
+        val stat3 = statistics.find { it.id == 3 } //search stat
+        stat3?.incrementProgress(this, 1)
     }
 }

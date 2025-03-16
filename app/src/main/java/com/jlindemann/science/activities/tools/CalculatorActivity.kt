@@ -27,6 +27,8 @@ import com.jlindemann.science.activities.Quadruple
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
+import com.jlindemann.science.model.Statistics
+import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
@@ -66,6 +68,8 @@ class CalculatorActivity : BaseActivity() {
         findViewById<ImageButton>(R.id.back_btn_cal).setOnClickListener {
             this.onBackPressed()
         }
+
+        updateStats()
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("CalculatorPrefs", Context.MODE_PRIVATE)
@@ -348,5 +352,12 @@ class CalculatorActivity : BaseActivity() {
         val params2 = findViewById<TextView>(R.id.calculator_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
         findViewById<TextView>(R.id.calculator_title_downstate).layoutParams = params2
+    }
+
+    private fun updateStats() {
+        val statistics = java.util.ArrayList<Statistics>()
+        StatisticsModel.getList(this, statistics)
+        val stat2 = statistics.find { it.id == 2 } //calculation stat
+        stat2?.incrementProgress(this, 1)
     }
 }

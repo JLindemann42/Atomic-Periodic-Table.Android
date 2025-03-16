@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v3.1.0-Build.113</string>
+    <string name="app_version" translatable="false">v3.2.0-Build.116</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -219,6 +219,14 @@
     <string name="balancer_title" translatable="false">Chemical Reactions</string>
     <string name="balancer_text" translatable="false">Balance different chemical reactions and save favorites for later use</string>
     <string name="tool_btn_open" translatable="false">Open Tool</string>
+
+    <!-- User Page -->
+    <string name="user_title" translatable="false">User</string>
+    <string name="user_achievements" translatable="false">Achievements</string>
+    <string name="user_achievements_Text" translatable="false">Track your progress of learning the elements of the world with achievements</string>
+    <string name="user_img" translatable="false">Change profile picture</string>
+
+
 
 
 

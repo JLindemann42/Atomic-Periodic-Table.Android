@@ -134,7 +134,7 @@
                         android:rotation="180"
                         android:alpha="0.9"
                         app:tint="?attr/colorOnSecondaryContainer"
-                        android:src="@drawable/ic_arrow_back_whit"/>
+                        android:src="@drawable/ic_close"/>
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -182,6 +182,14 @@
         layout="@layout/emission_panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/background_emi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.6"
+        android:background="?attr/colorSurface"
         android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

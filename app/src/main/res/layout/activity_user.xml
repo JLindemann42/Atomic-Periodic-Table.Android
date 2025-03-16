@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <FrameLayout
+        android:id="@+id/view_user"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?attr/backgroundColor">
+
+    <ScrollView
+        android:id="@+id/user_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="100dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/user_img"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_account"/>
+
+        <TextView
+            android:id="@+id/user_title_downstate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="0dp"
+            android:paddingStart="@dimen/default_padding"
+            android:paddingEnd="@dimen/default_padding"
+            android:paddingBottom="4dp"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/user_title"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="32sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/pro_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="PRO-User"
+            android:textColor="?attr/colorSurface"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorAccent"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"/>
+
+        <LinearLayout
+            android:id="@+id/stats_Box"
+            android:background="@drawable/toast_card"
+            android:layout_marginTop="@dimen/default_padding"
+            android:layout_marginStart="@dimen/default_padding"
+            android:layout_marginEnd="@dimen/default_padding"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usage Statistics"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="?attr/colorAccent"
+                android:drawableStart="@drawable/ic_stats"
+                android:drawablePadding="8dp"
+                android:drawableTint="?attr/colorAccent"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginStart="@dimen/default_padding"
+                android:layout_marginEnd="@dimen/default_padding"
+                android:layout_marginBottom="@dimen/margin_space_card"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:alpha="0.25"
+                android:background="?attr/colorOnSecondaryContainer" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:padding="@dimen/default_padding"
+
+                android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="0.33"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/elements_stat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:text="---"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="?attr/colorOnSurface"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="Elements opened"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="?attr/colorOnSurface"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="0.33"
+
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/calculation_stat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:text="---"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="?attr/colorOnSurface"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="Calculations"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="?attr/colorOnSurface"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_weight="0.33"
+
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/search_stat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="30sp"
+                    android:text="---"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="?attr/colorOnSurface"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="Searches"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="?attr/colorOnSurface"/>
+
+            </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/achievement_box"
+            android:background="@drawable/toast_card"
+            android:layout_margin="@dimen/default_padding"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="360dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_achievements"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="?attr/colorAccent"
+                android:drawableStart="@drawable/ic_achievements"
+                android:drawablePadding="8dp"
+                android:drawableTint="?attr/colorAccent"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginStart="@dimen/default_padding"
+                android:layout_marginEnd="@dimen/default_padding"
+                android:layout_marginBottom="@dimen/margin_space_card"/>
+
+            <TextView
+                android:id="@+id/space_achievements"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginEnd="18dp"
+                android:alpha="0.25"
+                android:background="?attr/colorOnSecondaryContainer" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_achievements"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbars="vertical"
+                android:verticalScrollbarPosition="defaultPosition"
+                android:padding="16dp"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/common_title_back_user"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar"
+        android:elevation="1dp"
+        android:background="?attr/colorSurface"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/common_title_user_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/title_box"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_bar">
+
+                <ImageButton
+                    android:id="@+id/back_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:layout_gravity="center_vertical"
+                    android:rotation="180"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_arrow_back_whit" />
+
+                <TextView
+                    android:id="@+id/user_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/title_bar"
+                    android:layout_marginStart="70dp"
+                    android:gravity="center"
+                    android:paddingStart="0dp"
+                    android:alpha="0.9"
+                    android:paddingEnd="0dp"
+                    android:text="@string/user_title"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+</FrameLayout>

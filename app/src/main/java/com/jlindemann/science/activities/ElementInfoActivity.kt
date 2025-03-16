@@ -28,9 +28,14 @@ import com.jlindemann.science.activities.settings.FavoritePageActivity
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
 import com.jlindemann.science.activities.tables.NuclideActivity
+import com.jlindemann.science.adapter.AchievementAdapter
 import com.jlindemann.science.extensions.InfoExtension
+import com.jlindemann.science.model.Achievement
+import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
+import com.jlindemann.science.model.Statistics
+import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
@@ -99,7 +104,8 @@ class ElementInfoActivity : InfoExtension() {
             findViewById<LinearLayout>(R.id.more_properties).visibility = View.GONE
             findViewById<LinearLayout>(R.id.hardness_properties).visibility = View.GONE
         }
-
+        updateAchievementProgress(1)
+        updateStats()
     }
 
     private fun proChanges() {
@@ -248,5 +254,24 @@ class ElementInfoActivity : InfoExtension() {
             }
             catch (e: IOException) {}
         }
+    }
+    private fun updateAchievementProgress(increment: Int) {
+        val achievements = ArrayList<Achievement>()
+        AchievementModel.getList(this, achievements)
+        val achievement1 = achievements.find { it.id == 1 }
+        achievement1?.incrementProgress(this, increment)
+        val achievement2 = achievements.find { it.id == 2 }
+        achievement2?.incrementProgress(this, increment)
+        val achievement3 = achievements.find { it.id == 3 }
+        achievement3?.incrementProgress(this, increment)
+        val achievement4 = achievements.find { it.id == 4 }
+        achievement4?.incrementProgress(this, increment)
+    }
+
+    private fun updateStats() {
+        val statistics = java.util.ArrayList<Statistics>()
+        StatisticsModel.getList(this, statistics)
+        val stat1 = statistics.find { it.id == 1 }
+        stat1?.incrementProgress(this, 1)
     }
 }

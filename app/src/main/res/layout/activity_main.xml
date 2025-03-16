@@ -63,10 +63,20 @@
                         android:text="Search Elements"
                         android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="16sp" />
+
+
+                    <ImageButton
+                        android:id="@+id/user_btn"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_gravity="center_vertical|end"
+                        android:alpha="0.9"
+                        android:src="@drawable/ic_account"
+                        app:tint="?attr/colorOnSecondaryContainer" />
+
                 </FrameLayout>
-
             </FrameLayout>
-
         </LinearLayout>
     </FrameLayout>
 

@@ -40,6 +40,7 @@ class EmissionAdapter(var list: ArrayList<Element>, var clickListener: EmissionA
         private val cardView = itemView.findViewById(R.id.emission_row) as FrameLayout
         private val emissionImg = itemView.findViewById(R.id.emission_img) as ImageView
         private val shortEmi = itemView.findViewById(R.id.emi_short) as TextView
+        private val textEmi = itemView.findViewById(R.id.emi_text) as TextView
         private val nameEmi = itemView.findViewById(R.id.emi_name) as TextView
 
         fun initialize(item: Element, action: OnEmissionClickListener, context: Context) {
@@ -63,15 +64,19 @@ class EmissionAdapter(var list: ArrayList<Element>, var clickListener: EmissionA
                     Picasso.get().load(fURL).into(emissionImg)
                 }
                 catch(e: ConnectException) {
-                    //findViewById<ImageView>(R.id.sp_img).visibility = View.GONE
-                    //findViewById<TextView>(R.id.sp_offline).text = "No Data"
-                    //findViewById<TextView>(R.id.sp_offline).visibility = View.VISIBLE
+                    //
                 }
             }
             catch (e: IOException) { }
 
-            shortEmi.text = item.short
-            nameEmi.text = item.element.capitalize()
+            shortEmi.text = item.number.toString()
+            nameEmi.text = item.short
+            textEmi.text = item.element.capitalize()
+
+            //Remove all elements with number > 98 which don't contain emission data
+            if (item.number > 98) {
+                cardView.visibility = View.GONE
+            }
 
             cardView.foreground = ContextCompat.getDrawable(context, R.drawable.toast_card_ripple)
             cardView.isClickable = true

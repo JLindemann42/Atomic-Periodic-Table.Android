@@ -69,6 +69,12 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         chipListeners(itemse, recyclerView)
         findViewById<Button>(R.id.clear_btn).visibility = View.GONE
 
+        //Set achievement
+        val achievements = java.util.ArrayList<Achievement>()
+        AchievementModel.getList(this, achievements)
+        val achievement6 = achievements.find { it.id == 6 }
+        achievement6?.incrementProgress(this, 1)
+
         //Add value to most used:
         val mostUsedPreference = MostUsedPreference(this)
         val mostUsedPrefValue = mostUsedPreference.getValue()

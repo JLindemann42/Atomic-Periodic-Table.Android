@@ -12,8 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_blue_round"
         android:supportsRtl="false"
         tools:replace="android:supportsRtl"
+        android:enableOnBackInvokedCallback="false"
         android:theme="@style/AppTheme">
-
         <receiver android:name=".ShortCommandWidget">
             <meta-data
                 android:name="android.appwidget.provider"
@@ -162,6 +162,15 @@
         <activity
             android:name=".activities.TableActivity"
             android:label="TABLEPAGE"
+            android:exported="true"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.UserActivity"
+            android:label="USERPAGE"
             android:exported="true"
             android:theme="@style/AppTheme">
             <intent-filter>

@@ -3,7 +3,7 @@ package com.jlindemann.science.preferences
 import android.content.Context
 
 class MostUsedPreference(context : Context) {
-    val PREFERENCE_NAME = "phPref"
+    val PREFERENCE_NAME = "phPref2"
     val PREFERENCE_VALUE = "phValue"
     val preference = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
     fun getValue() : String {

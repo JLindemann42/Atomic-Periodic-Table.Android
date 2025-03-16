@@ -15,6 +15,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
@@ -79,10 +80,22 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
             override fun onPanelSlide(panel: View?, slideOffset: Float) { }
             override fun onPanelStateChanged(panel: View?, previousState: SlidingUpPanelLayout.PanelState, newState: SlidingUpPanelLayout.PanelState) {
                 if (findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_e).panelState === SlidingUpPanelLayout.PanelState.COLLAPSED) {
+                    Utils.fadeOutAnim(findViewById<TextView>(R.id.background_emi), 300)
                     Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.emission_detail), 300)
                 }
             }
         })
+
+        findViewById<TextView>(R.id.background_emi).setOnClickListener{
+            if (findViewById<FrameLayout>(R.id.emission_detail).visibility == View.VISIBLE) {
+                Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.emission_detail), 300)
+                Utils.fadeOutAnim(findViewById<TextView>(R.id.background_emi), 300)
+            }
+            else {
+                Utils.fadeOutAnim(findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_e), 300)
+                Utils.fadeOutAnim(findViewById<TextView>(R.id.background_emi), 300)
+            }
+        }
 
         findViewById<FrameLayout>(R.id.view_emi).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         findViewById<ImageButton>(R.id.back_btn_emi).setOnClickListener { this.onBackPressed() }
@@ -103,8 +116,10 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
             val hUrl = "https://www.jlindemann.se/atomic/emission_lines/"
             val extg = ".gif"
             val fURL = hUrl + url + extg
+            findViewById<TextView>(R.id.emi_title).text = item.element.capitalize()
             try {
                 Picasso.get().load(fURL).into(findViewById<ImageView>(R.id.emi_img_detail))
+                Utils.fadeInAnimBack(findViewById<TextView>(R.id.background_emi), 300)
             }
             catch(e: ConnectException) {
                 //findViewById<ImageView>(R.id.sp_img).visibility = View.GONE
@@ -174,8 +189,15 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        if (findViewById<TextView>(R.id.background_emi).visibility == View.VISIBLE) {
+            findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_e).panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+            return
+        }
+        else {
+            super.onBackPressed()
+        }
     }
+
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         findViewById<RecyclerView>(R.id.emi_view).setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))

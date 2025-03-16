@@ -21,8 +21,8 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 24
         targetSdkVersion 35
-        versionCode 113
-        versionName "3.1.0"
+        versionCode 116
+        versionName "3.2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -57,6 +57,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation "androidx.activity:activity-ktx:1.10.1"
     implementation 'androidx.core:core-ktx:1.15.0'
     implementation 'com.github.ultimate-deej:twowaynestedscrollview:0.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'

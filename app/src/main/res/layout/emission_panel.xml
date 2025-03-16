@@ -78,11 +78,23 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/emi_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginBottom="24dp"
+                        android:gravity="center_horizontal"
+                        android:text="Element"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
+
                     <ImageView
                         android:id="@+id/emi_img_detail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
                         android:adjustViewBounds="true"
                         app:srcCompat="@drawable/ic_launcher_background" />
 
@@ -95,13 +107,13 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.25"
+                            android:layout_weight="0.125"
                             android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/textView30"
                                 android:layout_width="2dp"
-                                android:layout_height="36dp"
+                                android:layout_height="60dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="2dp"
                                 android:layout_marginBottom="4dp"
@@ -121,13 +133,30 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.25"
+                            android:layout_weight="0.125"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="2dp"
+                                android:layout_height="36dp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="4dp"
+                                android:alpha="0.66"
+                                android:background="?attr/colorOnSurface" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.125"
                             android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/textView31"
                                 android:layout_width="2dp"
-                                android:layout_height="36dp"
+                                android:layout_height="60dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="2dp"
                                 android:layout_marginBottom="4dp"
@@ -147,13 +176,30 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.25"
+                            android:layout_weight="0.125"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="2dp"
+                                android:layout_height="36dp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="4dp"
+                                android:alpha="0.66"
+                                android:background="?attr/colorOnSurface" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.125"
                             android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/textView34"
                                 android:layout_width="2dp"
-                                android:layout_height="36dp"
+                                android:layout_height="60dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="2dp"
                                 android:layout_marginBottom="4dp"
@@ -173,13 +219,29 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_weight="0.25"
+                            android:layout_weight="0.125"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="2dp"
+                                android:layout_height="36dp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="4dp"
+                                android:alpha="0.66"
+                                android:background="?attr/colorOnSurface" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.125"
                             android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/textView35"
                                 android:layout_width="2dp"
-                                android:layout_height="36dp"
+                                android:layout_height="60dp"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="2dp"
                                 android:layout_marginBottom="4dp"
@@ -195,8 +257,24 @@
                                 android:textAlignment="center"
                                 android:textColor="?attr/colorOnSurface" />
                         </LinearLayout>
-
                     </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:layout_marginStart="@dimen/default_padding"
+                        android:layout_marginTop="@dimen/default_padding"
+                        android:text="Wavelength range: 380-720 nm"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:layout_marginStart="@dimen/default_padding"
+                        android:layout_marginTop="4dp"
+                        android:text="Wavelength in: vacuum"/>
                 </LinearLayout>
             </ScrollView>
 
