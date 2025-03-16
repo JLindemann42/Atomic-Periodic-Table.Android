@@ -146,7 +146,7 @@
                         android:elevation="0dp">
 
                         <EditText
-                            android:id="@+id/edit_ion"
+                            android:id="@+id/edit_emi"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@android:color/transparent"
@@ -179,7 +179,7 @@
 
     <include
         android:id="@+id/emission_detail"
-        layout="@layout/detail_emission"
+        layout="@layout/emission_panel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
