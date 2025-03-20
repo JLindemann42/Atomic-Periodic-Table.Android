@@ -65,6 +65,12 @@
     "vickers_hardness": "---",
     "brinell_hardness": "---",
 
+    "cas_number": "7439-97-6",
+    "eg_number": "231-106-7",
+    "health": 3,
+    "flammability": 0,
+    "instability": 0,
+
     "earth_crust": "0.08",
     "earth_soils": "0.01",
     "urban_soils": "0.88",

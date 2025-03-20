@@ -87,6 +87,12 @@
       "sun": "1.0 × 10^6",
       "solar_system": "1.1 × 10^6",
 
+      "cas_number": "7439-95-4",
+      "eg_number": "231-104-6",
+      "health": 0,
+      "flammability": 1,
+      "instability": 1,
+
     "iso_1": "Mg-19",
     "iso_mass_1": "19.03417",
     "iso_half_1": "5 (ps)",

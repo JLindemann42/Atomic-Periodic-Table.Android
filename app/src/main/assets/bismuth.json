@@ -73,6 +73,10 @@
     "earth_crust": "0.009",
     "urban_soils": "1.12",
 
+    "cas_number": "7440-69-9",
+    "eg_number": "231-177-4",
+
+
     "young_modulus": "32 (GPa)",
     "poisson_ratio": "0.33",
     "bulk_modulus": "31 (GPa)",

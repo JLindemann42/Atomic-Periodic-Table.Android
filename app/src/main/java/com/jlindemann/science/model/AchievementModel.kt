@@ -23,7 +23,7 @@ object AchievementModel {
 
         val achievement5= Achievement(5, "Master of Table Manners!", "Open different tables a 1000 times", 0, 1000)
         achievement5.loadProgress(context)
-        achievements.add(achievement4)
+        achievements.add(achievement5)
 
         val achievement6= Achievement(6, "Starting to get a hang of stuff!", "Enter the dictionary 50 times", 0, 50)
         achievement6.loadProgress(context)
@@ -33,8 +33,8 @@ object AchievementModel {
         achievement7.loadProgress(context)
         achievements.add(achievement7)
 
-        val achievement9= Achievement(9, "Test Achievement!", "Open a random element from the random button", 0, 1)
-        achievement9.loadProgress(context)
-        achievements.add(achievement9)
+        val achievement8= Achievement(8, "Your own search engine", "Search 1000 times in the app", 0, 1000)
+        achievement8.loadProgress(context)
+        achievements.add(achievement8)
     }
 }

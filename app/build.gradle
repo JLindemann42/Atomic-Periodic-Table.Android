@@ -21,7 +21,7 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 24
         targetSdkVersion 35
-        versionCode 116
+        versionCode 120
         versionName "3.2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -86,4 +86,6 @@ dependencies {
     def billing_version = "7.1.1"
     implementation "com.android.billingclient:billing-ktx:$billing_version"
     implementation 'com.google.firebase:firebase-crashlytics-buildtools:3.0.3'
+    implementation 'com.google.android.play:review-ktx:2.0.2'
+
 }

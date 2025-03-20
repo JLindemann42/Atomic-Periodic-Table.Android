@@ -71,6 +71,12 @@
     "bulk_modulus": "---",
     "shear_modulus": "33 (GPa)",
 
+      "cas_number": "7440-67-7",
+      "eg_number": "231-176-9",
+      "health": 1,
+      "flammability": 1,
+      "instability": 0,
+
       "earth_crust": "170.0",
       "earth_soils": "300.0",
       "urban_soils": "255.6",

@@ -67,6 +67,9 @@
     "bulk_modulus": "33 (GPa) [α-form]",
     "shear_modulus": "18 (GPa) [α-form]",
 
+    "cas_number": "7440-12-2",
+    "eg_number": "231-122-4",
+
       "iso_1": "Pm-126",
       "iso_mass_1": "125.95752",
       "decay_type_1": "B+",

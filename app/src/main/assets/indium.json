@@ -55,6 +55,9 @@
     "element_specific_heat_capacity": "0.233 J/(g·K)",
     "element_vaporization_heat": "231.8 (kJ/mol)",
 
+    "cas_number": "7440-74-6",
+    "eg_number": "231-180-0",
+
     "mohs_hardness": "1.2",
     "vickers_hardness": "---",
     "brinell_hardness": "8.83-10 (MPa)",

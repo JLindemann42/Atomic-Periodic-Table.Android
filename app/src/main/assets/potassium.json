@@ -89,6 +89,13 @@
       "sun": "3.7 × 10^3",
       "solar_system": "3.8 × 10^3",
 
+      "cas_number": "7440-09-7",
+      "eg_number": "231-119-8",
+      "health": 3,
+      "flammability": 3,
+      "instability": 2,
+      "special": "W",
+
     "young_modulus": "---",
     "poisson_ratio": "---",
     "bulk_modulus": "3.1 (GPa)",

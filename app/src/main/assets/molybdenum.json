@@ -105,6 +105,12 @@
       "sun": "2.3",
       "solar_system": "2.6",
 
+      "cas_number": "7439-98-7",
+      "eg_number": "231-107-2",
+      "health": 1,
+      "flammability": 3,
+      "instability": 0,
+
     "iso_1": "Mo-83",
     "iso_mass_1": "82.94874",
     "iso_half_1": "23 (ms)",

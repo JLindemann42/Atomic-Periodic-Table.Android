@@ -103,6 +103,12 @@
       "sun": "5.0 × 10^4",
       "solar_system": "5.0 × 10^4",
 
+      "cas_number": "7440-02-0",
+      "eg_number": "231-111-4",
+      "health": 2,
+      "flammability": 4,
+      "instability": 1,
+
     "iso_1": "Ni-48",
     "iso_mass_1": "48.01975",
     "iso_half_1": "10 (ms)",

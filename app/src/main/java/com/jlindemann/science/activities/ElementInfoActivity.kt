@@ -104,8 +104,6 @@ class ElementInfoActivity : InfoExtension() {
             findViewById<LinearLayout>(R.id.more_properties).visibility = View.GONE
             findViewById<LinearLayout>(R.id.hardness_properties).visibility = View.GONE
         }
-        updateAchievementProgress(1)
-        updateStats()
     }
 
     private fun proChanges() {
@@ -116,6 +114,10 @@ class ElementInfoActivity : InfoExtension() {
         //hardness properties
         findViewById<FrameLayout>(R.id.pro_hardness_box).visibility = View.GONE
         findViewById<LinearLayout>(R.id.hardness_properties).visibility = View.VISIBLE
+
+        //hazard properties
+        findViewById<FrameLayout>(R.id.pro_hazard_box).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.hazard_properties).visibility = View.VISIBLE
     }
 
     override fun onBackPressed() {
@@ -254,24 +256,5 @@ class ElementInfoActivity : InfoExtension() {
             }
             catch (e: IOException) {}
         }
-    }
-    private fun updateAchievementProgress(increment: Int) {
-        val achievements = ArrayList<Achievement>()
-        AchievementModel.getList(this, achievements)
-        val achievement1 = achievements.find { it.id == 1 }
-        achievement1?.incrementProgress(this, increment)
-        val achievement2 = achievements.find { it.id == 2 }
-        achievement2?.incrementProgress(this, increment)
-        val achievement3 = achievements.find { it.id == 3 }
-        achievement3?.incrementProgress(this, increment)
-        val achievement4 = achievements.find { it.id == 4 }
-        achievement4?.incrementProgress(this, increment)
-    }
-
-    private fun updateStats() {
-        val statistics = java.util.ArrayList<Statistics>()
-        StatisticsModel.getList(this, statistics)
-        val stat1 = statistics.find { it.id == 1 }
-        stat1?.incrementProgress(this, 1)
     }
 }

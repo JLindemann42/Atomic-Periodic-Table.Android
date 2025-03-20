@@ -97,6 +97,12 @@
       "sun": "2.7 ×10^3",
       "solar_system": "2.4 × 10^3",
 
+      "cas_number": "7440-32-6",
+      "eg_number": "231-142-3",
+      "health": 1,
+      "flammability": 1,
+      "instability": 2,
+
     "iso_1": "Ti-37",
     "iso_mass_1": "---",
     "iso_half_1": "---",

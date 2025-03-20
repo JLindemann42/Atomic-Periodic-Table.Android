@@ -73,6 +73,12 @@
       "sun": "3.1 × 10^6",
       "solar_system": "3.1 × 10^6",
 
+      "cas_number": "7727-37-9",
+      "eg_number": "231-783-9",
+      "health": 3,
+      "flammability": 0,
+      "instability": 0,
+
     "iso_1": "N-10",
     "iso_mass_1": "10.04165",
     "iso_half_1": "200×10^−24 (s)",

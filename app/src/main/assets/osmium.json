@@ -68,6 +68,12 @@
       "sun": "0.8",
       "solar_system": "0.67",
 
+      "cas_number": "7440-04-2",
+      "eg_number": "231-114-0",
+      "health": 0,
+      "flammability": 4,
+      "instability": 1,
+
     "iso_1": "Osmium-163",
     "iso_mass_1": "162.964",
     "decay_type_1": "B+",

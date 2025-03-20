@@ -28,6 +28,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tables.DictionaryActivity
+import com.jlindemann.science.activities.tools.CalculatorActivity
 import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.extensions.TableExtension
@@ -84,6 +85,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             override fun afterTextChanged(s: Editable) {
                 filter(s.toString(), elements, recyclerView)
                 updateStats()
+                updateStatAchievement()
             }
         })
 
@@ -98,10 +100,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         checkSale()
         initName(elements)
         val achievements = ArrayList<Achievement>()
-        //Set achievement
-        AchievementModel.getList(this, achievements)
-        val achievement8 = achievements.find { it.id == 9 }
-        achievement8?.incrementProgress(this, 1)
         findViewById<FloatingActionButton>(R.id.more_btn).setOnClickListener { openHover() }
         findViewById<TextView>(R.id.hover_background).setOnClickListener { closeHover() }
         findViewById<Button>(R.id.random_btn).setOnClickListener {
@@ -357,7 +355,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             startActivity(intent)
         }
         findViewById<TextView>(R.id.calculator_btn).setOnClickListener {
-            val intent = Intent(this, ToolsActivity::class.java)
+            val intent = Intent(this, CalculatorActivity::class.java)
             startActivity(intent)
         }
         findViewById<TextView>(R.id.dictionary_btn).setOnClickListener {
@@ -581,5 +579,11 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         StatisticsModel.getList(this, statistics)
         val stat3 = statistics.find { it.id == 3 } //search stat
         stat3?.incrementProgress(this, 1)
+    }
+    private fun updateStatAchievement() {
+        val achievements = java.util.ArrayList<Achievement>()
+        AchievementModel.getList(this, achievements)
+        val achievement8 = achievements.find { it.id == 8 } //search stat
+        achievement8?.incrementProgress(this, 1)
     }
 }

@@ -64,6 +64,13 @@
     "bulk_modulus": "---",
     "shear_modulus": "43 (GPa)",
 
+    "cas_number": "7440-07-5",
+    "eg_number": "231-117-7",
+    "health": 4,
+    "flammability": 1,
+    "instability": 1,
+    "special": "Radioactive",
+
       "iso_1": "Plutonium-228",
       "iso_mass_1": "228",
       "decay_type_1": "α",

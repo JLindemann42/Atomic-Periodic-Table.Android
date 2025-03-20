@@ -75,6 +75,9 @@
     "bulk_modulus": "30.5 (GPa) [β-form]",
     "shear_modulus": "9.9 (GPa) [β-form]",
 
+    "cas_number": "7440-64-4",
+    "eg_number": "231-173-2",
+
       "iso_1": "Yb-148",
       "iso_mass_1": "148.96422",
       "decay_type_1": "B+",

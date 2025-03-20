@@ -134,8 +134,6 @@ class TableActivity : BaseActivity() {
                 if (pair.first == "iso") {textViewList[index].text = getString(R.string.iso)}
                 if (pair.first == "emi") {textViewList[index].text = getString(R.string.emi)}
 
-
-
                 //Setup clickListener for non-pro
                 if (proPrefValue==1) {
                     textViewList[index].setOnClickListener {
@@ -247,10 +245,12 @@ class TableActivity : BaseActivity() {
                         if (pair.first == "geo") {
                             val activity = GeologyActivity::class.java
                             val intent = Intent(this, activity)
+                            startActivity(intent)
                         }
                         if (pair.first == "emi") {
                             val activity = EmissionActivity::class.java
                             val intent = Intent(this, activity)
+                            startActivity(intent)
                         }
                     }
                 }

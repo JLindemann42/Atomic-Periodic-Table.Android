@@ -77,6 +77,13 @@
     "sun": "3.8",
     "solar_system": "4.5",
 
+    "cas_number": "7440-39-3",
+    "eg_number": "231-149-1",
+    "health": 2,
+    "flammability": 1,
+    "instability": 2,
+    "special": "W",
+
     "iso_1": "Ba-114",
     "iso_mass_1": "113.95072",
     "decay_type_1": "B+",

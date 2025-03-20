@@ -75,6 +75,12 @@
       "sun": "72",
       "solar_system": "1.2 × 10^2",
 
+      "cas_number": "7440-56-4",
+      "eg_number": "231-164-3",
+      "health": 1,
+      "flammability": 0,
+      "instability": 0,
+
     "iso_1": "Ge-58",
     "iso_mass_1": "57.99101",
     "iso_half_1": "---",

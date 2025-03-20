@@ -19,6 +19,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.play.core.review.ReviewException
+import com.google.android.play.core.review.ReviewManagerFactory
+import com.google.android.play.core.review.model.ReviewErrorCode
 import com.jlindemann.science.R
 import com.jlindemann.science.adapter.AchievementAdapter
 import com.jlindemann.science.model.Achievement
@@ -58,14 +61,16 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         setupTitleController()
         setupBackButton()
         setupStats()
+        rateSetup()
+        shareSetup()
 
         val proPref = ProVersion(this).getValue()
         // Update depending on PRO or Not:
         if (proPref == 1) {
-            // Pro-specific setup
+            findViewById<TextView>(R.id.pro_badge).text = "NON-PRO"
         }
         if (proPref == 100) {
-            // Pro-specific setup
+            findViewById<TextView>(R.id.pro_badge).text = "PRO-USER"
         }
 
         val sharedPref = getSharedPreferences("UserActivityPrefs", Context.MODE_PRIVATE)
@@ -158,8 +163,39 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         findViewById<TextView>(R.id.elements_stat).text = statistics[0].progress.toString()
         findViewById<TextView>(R.id.calculation_stat).text = statistics[1].progress.toString()
         findViewById<TextView>(R.id.search_stat).text = statistics[2].progress.toString()
+    }
 
+    private fun rateSetup() {
+        val manager = ReviewManagerFactory.create(this)
+        val request = manager.requestReviewFlow()
+        request.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // We got the ReviewInfo object
+                val reviewInfo = task.result
+                findViewById<TextView>(R.id.rate_btn).setOnClickListener {
+                    val flow = manager.launchReviewFlow(this, reviewInfo)
+                    flow.addOnCompleteListener { _ ->
+                        // The flow has finished. The API does not indicate whether the user
+                        // reviewed or not, or even whether the review dialog was shown. Thus, no
+                        // matter the result, we continue our app flow.
+                    }
+                }
+            } else {
+                // There was some problem, log or handle the error code.
+                @ReviewErrorCode val reviewErrorCode = (task.getException() as ReviewException).errorCode
+            }
+        }
+    }
 
+    private fun shareSetup() {
+        findViewById<TextView>(R.id.share_btn).setOnClickListener {
+            val share = Intent.createChooser(Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, "'Atomic' - The open-source Periodic Table! Get it now via the following link: https://play.google.com/store/apps/details?id=com.jlindemann.science")
+                type = "text/plain"
+            }, null)
+            startActivity(share)
+        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {

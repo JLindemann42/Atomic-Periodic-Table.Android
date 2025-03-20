@@ -85,6 +85,12 @@
       "sun": "11",
       "solar_system": "7.0",
 
+      "cas_number": "7440-17-7",
+      "eg_number": "231-126-7",
+      "health": 3,
+      "flammability": 3,
+      "special": "W",
+
     "iso_1": "Rb-71",
     "iso_mass_1": "70.96532",
     "iso_half_1": "---",

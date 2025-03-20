@@ -72,6 +72,10 @@
     "sun": null,
     "solar_system": "0.37",
 
+    "cas_number": "7440-46-2",
+    "eg_number": "231-156-X",
+    "special": "W",
+
       "iso_1": "Cs-112",
       "iso_mass_1": "111.95030",
       "decay_type_1": "p",
