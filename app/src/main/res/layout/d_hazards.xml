@@ -263,12 +263,12 @@
             </LinearLayout>
 
             <FrameLayout
-                android:layout_width="180dp"
+                android:layout_width="140dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_height="180dp">
+                android:layout_height="140dp">
 
 
             <FrameLayout
@@ -280,8 +280,8 @@
 
                 <FrameLayout
                     android:id="@+id/fire_hazard_box"
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginStart="0dp"
                     android:layout_marginTop="0dp"
                     android:background="@drawable/toast_card"
@@ -296,15 +296,15 @@
                         android:text="N/A"
                         android:textAlignment="center"
                         android:textColor="?attr/colorOnPrimary"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
 
                 </FrameLayout>
 
                 <FrameLayout
                     android:id="@+id/reactivity_hazard_box"
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:layout_marginStart="56dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="42dp"
                     android:layout_marginTop="0dp"
                     android:background="@drawable/toast_card"
                     android:backgroundTint="?attr/colorTertiary">
@@ -318,16 +318,16 @@
                         android:text="N/A"
                         android:textAlignment="center"
                         android:textColor="?attr/colorOnPrimary"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
 
                 </FrameLayout>
 
                 <FrameLayout
                     android:id="@+id/health_hazard_box"
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_marginStart="0dp"
-                    android:layout_marginTop="56dp"
+                    android:layout_marginTop="42dp"
                     android:background="@drawable/toast_card"
                     android:backgroundTint="?attr/colorPrimary">
 
@@ -340,15 +340,15 @@
                         android:text="N/A"
                         android:textAlignment="center"
                         android:textColor="?attr/colorOnPrimary"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
 
                 </FrameLayout>
 
                 <FrameLayout
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:layout_marginStart="56dp"
-                    android:layout_marginTop="56dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="42dp"
+                    android:layout_marginTop="42dp"
                     android:background="@drawable/toast_card"
                     android:backgroundTint="?attr/colorSurfaceVariant">
 
@@ -361,7 +361,7 @@
                         android:text="N/A"
                         android:textAlignment="center"
                         android:textColor="?attr/colorOnSurface"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
 
                 </FrameLayout>
             </FrameLayout>

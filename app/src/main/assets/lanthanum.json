@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "8.98 (b)",
 
     "electrical_type": "Conductor",
-    "resistivity": "6.1",
+    "resistivity": "615 nΩmc",
     "resistivity_mult": "0.0000001",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "4.88",

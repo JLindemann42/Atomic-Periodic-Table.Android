@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "767 (b)",
 
     "electrical_type": "Insulator",
-    "resistivity": "10000",
+    "resistivity": "1.5×104 Ωm",
     "resistivity_mult": "1",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "---",

@@ -29,7 +29,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
 
     override fun onResume() {
         super.onResume()
-        checkAchievements()
+        //checkAchievements()
     }
 
     override fun onStart() {
