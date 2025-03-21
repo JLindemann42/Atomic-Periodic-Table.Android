@@ -205,7 +205,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             val abundanceSolarSystem = jsonObject.optString("solar_system", "N/A") + " (atoms per 10^6 atoms of silicon)"
 
             //Hazard data
-            val fireHazard = jsonObject.optString("flammability", "---")
+            var fireHazard = jsonObject.optString("flammability", "---")
             val healthHazard = jsonObject.optString("health", "---")
             val reactivityHazard = jsonObject.optString("instability", "---")
             val specificHazard = jsonObject.optString("special", "---")
@@ -439,54 +439,60 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             findViewById<TextView>(R.id.abundance_sun_text).text = formatSuperscript(abundanceSun)
             findViewById<TextView>(R.id.abundance_solar_system_text).text = formatSuperscript(abundanceSolarSystem)
 
+
+
             //Hazards
             if (proPrefValue==100) {
-            if (fireHazard.toInt() == 0) { findViewById<TextView>(R.id.fire_hazard_text).text = "Will not burn" }
-            if (fireHazard.toInt() == 1) { findViewById<TextView>(R.id.fire_hazard_text).text = "Above 93.3°C" }
-            if (fireHazard.toInt() == 2) { findViewById<TextView>(R.id.fire_hazard_text).text = "Below 93.3°C" }
-            if (fireHazard.toInt() == 3) { findViewById<TextView>(R.id.fire_hazard_text).text = "Below 37.8°C" }
-            if (fireHazard.toInt() == 4) { findViewById<TextView>(R.id.fire_hazard_text).text = "Below 22.8°C" }
-            if (fireHazard == "---") { findViewById<TextView>(R.id.fire_hazard_text).text = "---" }
+                findViewById<TextView>(R.id.fire_hazard_txt).text = fireHazard
+                findViewById<TextView>(R.id.reactivity_hazard_txt).text = reactivityHazard
+                findViewById<TextView>(R.id.health_hazard_txt).text = healthHazard
+                findViewById<TextView>(R.id.fire_hazard_text).text = "---"
+                findViewById<TextView>(R.id.health_hazard_text).text = "---"
+                findViewById<TextView>(R.id.reactivity_hazard_text).text = "---"
+
+                if (fireHazard == "0") { findViewById<TextView>(R.id.fire_hazard_text).text = "Will not burn" }
+                if (fireHazard == "1") { findViewById<TextView>(R.id.fire_hazard_text).text = "Above 93.3°C" }
+                if (fireHazard == "2") { findViewById<TextView>(R.id.fire_hazard_text).text = "Below 93.3°C" }
+                if (fireHazard == "3") { findViewById<TextView>(R.id.fire_hazard_text).text = "Below 37.8°C" }
+                if (fireHazard == "4") { findViewById<TextView>(R.id.fire_hazard_text).text = "Below 22.8°C" }
 
 
-            if (healthHazard.toInt() == 0) { findViewById<TextView>(R.id.health_hazard_text).text = "No health hazard" }
-            if (healthHazard.toInt() == 1) { findViewById<TextView>(R.id.health_hazard_text).text = "Exposure could lead to minor health hazard" }
-            if (healthHazard.toInt() == 2) { findViewById<TextView>(R.id.health_hazard_text).text = "Intense or continued exposure could lead to minor health hazard" }
-            if (healthHazard.toInt() == 3) { findViewById<TextView>(R.id.health_hazard_text).text = "Short exposure could exposure could lead to moderate health hazard" }
-            if (healthHazard.toInt() == 4) { findViewById<TextView>(R.id.health_hazard_text).text = "Very short exposure could lead to major health hazard" }
-            if (healthHazard == "---") { findViewById<TextView>(R.id.health_hazard_text).text = "---" }
+                if (healthHazard == "0") { findViewById<TextView>(R.id.health_hazard_text).text = "No health hazard" }
+                if (healthHazard == "1") { findViewById<TextView>(R.id.health_hazard_text).text = "Minor health hazard" }
+                if (healthHazard == "2") { findViewById<TextView>(R.id.health_hazard_text).text = "Health Hazard" }
+                if (healthHazard == "3") { findViewById<TextView>(R.id.health_hazard_text).text = "Moderate health hazard" }
+                if (healthHazard == "4") { findViewById<TextView>(R.id.health_hazard_text).text = "Major health hazard" }
 
 
-            if (reactivityHazard.toInt() == 0) { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Stable" }
-            if (reactivityHazard.toInt() == 1) { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Normally stable" }
-            if (reactivityHazard.toInt() == 2) { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Undergoes violent chemical change at elevated temperatures and pressures" }
-            if (reactivityHazard.toInt() == 3) { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Capable of detonation or explosive decomposition" }
-            if (reactivityHazard.toInt() == 4) { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Readily capable of detonation or explosive decomposition" }
-            if (reactivityHazard == "---") { findViewById<TextView>(R.id.reactivity_hazard_text).text = "---" }
+                if (reactivityHazard == "0") { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Stable" }
+                if (reactivityHazard == "1") { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Normally stable" }
+                if (reactivityHazard == "2") { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Undergoes violent chemical change at elevated temperatures and pressures" }
+                if (reactivityHazard == "3") { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Capable of detonation or explosive decomposition" }
+                if (reactivityHazard == "4") { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Readily capable of detonation or explosive decomposition" }
 
 
-            if (specificHazard == "Simple asphyxiant") {
-                findViewById<TextView>(R.id.specific_hazard_text).text = "Simple asphyxiant"
-                findViewById<TextView>(R.id.specific_hazard_txt).text = "SA"
+                if (specificHazard == "Simple asphyxiant") {
+                    findViewById<TextView>(R.id.specific_hazard_text).text = "Simple asphyxiant"
+                    findViewById<TextView>(R.id.specific_hazard_txt).text = "SA"
+                }
+                if (specificHazard == "W") {
+                    findViewById<TextView>(R.id.specific_hazard_text).text = "Reacts with water"
+                    findViewById<TextView>(R.id.specific_hazard_txt).text = "W"
+                }
+                if (specificHazard == "OX") {
+                    findViewById<TextView>(R.id.specific_hazard_text).text = "Oxidizer"
+                    findViewById<TextView>(R.id.specific_hazard_txt).text = "OX"
+                }
+                if (specificHazard == "") {
+                    findViewById<TextView>(R.id.specific_hazard_text).text = "---"
+                    findViewById<TextView>(R.id.specific_hazard_txt).text = "-"
+                }
+                if (specificHazard == "---") {
+                    findViewById<TextView>(R.id.specific_hazard_text).text = "---"
+                    findViewById<TextView>(R.id.specific_hazard_txt).text = "-"
+                }
+
             }
-            if (specificHazard == "W") {
-                findViewById<TextView>(R.id.specific_hazard_text).text = "Reacts with water"
-                findViewById<TextView>(R.id.specific_hazard_txt).text = "W"
-            }
-            if (specificHazard == "OX") {
-                findViewById<TextView>(R.id.specific_hazard_text).text = "Oxidizer"
-                findViewById<TextView>(R.id.specific_hazard_txt).text = "OX"
-            }
-            if (specificHazard == "") {
-                findViewById<TextView>(R.id.specific_hazard_text).text = "---"
-                findViewById<TextView>(R.id.specific_hazard_txt).text = "-"
-            }
-            if (specificHazard == "---") {
-                findViewById<TextView>(R.id.specific_hazard_text).text = "---"
-                findViewById<TextView>(R.id.specific_hazard_txt).text = "-"
-            }
-
-}
             //Others
             findViewById<TextView>(R.id.cas_text).text = casNumber
             findViewById<TextView>(R.id.eg_text).text = egNumber
