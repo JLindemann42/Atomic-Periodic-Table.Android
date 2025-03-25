@@ -25,6 +25,7 @@
             android:layout_height="120dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
+            android:tint="?attr/colorPrimary"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_account"/>
 

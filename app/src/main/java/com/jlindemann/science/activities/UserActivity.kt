@@ -74,7 +74,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         }
 
         val sharedPref = getSharedPreferences("UserActivityPrefs", Context.MODE_PRIVATE)
-        val userTitle = sharedPref.getString("user_title", "Default Title")
+        val userTitle = sharedPref.getString("user_title", "User Page")
         findViewById<TextView>(R.id.user_title_downstate).text = userTitle
 
         findViewById<TextView>(R.id.user_title_downstate).setOnClickListener {
