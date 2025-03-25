@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v3.1.0-Build.112</string>
+    <string name="app_version" translatable="false">v3.2.0h-Build.124</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -82,6 +82,9 @@
     <string name="info_text">App version and details</string>
     <string name="git_title" translatable="false">Github</string>
     <string name="git_text" translatable="false">Atomics open-source GitHub repo</string>
+    <string name="table_order_title" translatable="false">Sort table list</string>
+    <string name="table_order_text" translatable="false">Determine order of tables</string>
+
 
 
     <!-- Weight Calculator Activity -->
@@ -146,7 +149,7 @@
     <string name="activity_io_title">Ionization Energies</string>
 
     <!-- Social-Media Links-->
-    <string name="twitter" translatable="false">https://www.twitter.com/jlindemanndev</string>
+    <string name="bluesky" translatable="false">https://bsky.app/profile/jlindemanndev.bsky.social</string>
     <string name="instagram" translatable="false">https://www.instagram.com/jlindemanndev</string>
     <string name="facebook" translatable="false">https://www.facebook.com/jlindemanndev</string>
     <string name="homepage" translatable="false">https://www.jlindemann.se/homepage</string>
@@ -196,10 +199,45 @@
     <string name="eqe" translatable="false">Formulas</string>
     <string name="ele" translatable="false">Electrochemical Series</string>
     <string name="iso" translatable="false">Isotopes</string>
+    <string name="emi" translatable="false">Emission Spectrum Table</string>
+
+    <string name="requires_pro" translatable="false">Requires PRO-Version</string>
+    <string name="try_another_search" translatable="false">Try searching for another word or check your spelling.</string>
+
+    <string name="emission_title" translatable="false">Emission Spectrum Table</string>
+    <string name="emission_text" translatable="false">Emission spectrum for elements, which is the frequencies of electromagnatic radiation emitted due to electrons making transition from a higher to lower energy state.</string>
+
+    <!-- New Tools String -->
+    <string name="cal" translatable="false">Calculator</string>
+    <string name="rec" translatable="false">Chemical Reactions</string>
 
     <string name="most_used" translatable="false">Most Used:</string>
 
     <string name="calculator_title" translatable="false">Calculator</string>
+    <string name="calculator_text" translatable="false">Contains a calculator to calculate molar mass for different compounds as well as saving favorites</string>
+    <string name="tools_title" translatable="false">Calculator</string>
+    <string name="balancer_title" translatable="false">Chemical Reactions</string>
+    <string name="balancer_text" translatable="false">Balance different chemical reactions and save favorites for later use</string>
+    <string name="tool_btn_open" translatable="false">Open Tool</string>
+
+    <!-- User Page -->
+    <string name="user_title" translatable="false">User Page</string>
+    <string name="user_achievements" translatable="false">Achievements</string>
+    <string name="user_achievements_Text" translatable="false">Track your progress of learning the elements of the world with achievements</string>
+    <string name="user_img" translatable="false">Change profile picture</string>
+
+    <!-- Hazard Properties -->
+    <string name="hazard_title" translatable="false">Hazard of Materials</string>
+    <string name="hazard_title_requires_pro" translatable="false">Hazard of Materials requires PRO-version. Get PRO to unlock more data and tables:</string>
+    <string name="fire_hazard" translatable="false">Fire hazard:</string>
+    <string name="health_hazard" translatable="false">Health hazard:</string>
+    <string name="reactivity_hazard" translatable="false">Reactivity:</string>
+    <string name="specific_hazard" translatable="false">Specific hazard:</string>
+
+
+    <string name="cas_number" translatable="false">CAS Number:</string>
+    <string name="eg_number" translatable="false">EG Number:</string>
+    <string name="other_title" translatable="false">Others</string>
 
 
 

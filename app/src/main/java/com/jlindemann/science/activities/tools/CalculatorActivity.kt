@@ -1,4 +1,4 @@
-package com.jlindemann.science.activities
+package com.jlindemann.science.activities.tools
 
 import android.content.ClipData
 import android.content.ClipboardManager
@@ -9,22 +9,27 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.text.*
 import android.text.style.SubscriptSpan
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageButton
-import android.widget.PopupMenu
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.BaseActivity
+import com.jlindemann.science.activities.FavoriteCompound
+import com.jlindemann.science.activities.FavoriteCompoundsAdapter
+import com.jlindemann.science.activities.IncludedElementsAdapter
+import com.jlindemann.science.activities.Quadruple
 import com.jlindemann.science.activities.settings.ProActivity
-import com.jlindemann.science.activities.tables.PoissonActivity
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
+import com.jlindemann.science.model.Statistics
+import com.jlindemann.science.model.StatisticsModel
+import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
@@ -64,6 +69,8 @@ class CalculatorActivity : BaseActivity() {
             this.onBackPressed()
         }
 
+        updateStats()
+
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("CalculatorPrefs", Context.MODE_PRIVATE)
 
@@ -88,6 +95,18 @@ class CalculatorActivity : BaseActivity() {
             }
 
         inputController()
+
+        //Add value to most used:
+        val mostUsedPreference = MostUsedToolPreference(this)
+        val mostUsedPrefValue = mostUsedPreference.getValue()
+        val targetLabel = "cal"
+        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val match = regex.find(mostUsedPrefValue)
+        if (match != null) {
+            val value = match.groups[2]!!.value.toDouble()
+            val newValue = value + 1
+            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
+        }
 
         val editText = findViewById<EditText>(R.id.edit_text_cal)
         editText.filters = arrayOf(InputFilter { source, _, _, _, _, _ ->
@@ -333,5 +352,12 @@ class CalculatorActivity : BaseActivity() {
         val params2 = findViewById<TextView>(R.id.calculator_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
         findViewById<TextView>(R.id.calculator_title_downstate).layoutParams = params2
+    }
+
+    private fun updateStats() {
+        val statistics = java.util.ArrayList<Statistics>()
+        StatisticsModel.getList(this, statistics)
+        val stat2 = statistics.find { it.id == 2 } //calculation stat
+        stat2?.incrementProgress(this, 1)
     }
 }

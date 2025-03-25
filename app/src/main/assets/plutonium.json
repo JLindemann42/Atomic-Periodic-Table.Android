@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "1017.3 (b)",
 
     "electrical_type": "Conductor",
-    "resistivity": "1.5",
+    "resistivity": "1.460 μΩm",
     "resistivity_mult": "0.000001",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "---",
@@ -63,6 +63,13 @@
     "poisson_ratio": "0.21",
     "bulk_modulus": "---",
     "shear_modulus": "43 (GPa)",
+
+    "cas_number": "7440-07-5",
+    "eg_number": "231-117-7",
+    "health": 4,
+    "flammability": 1,
+    "instability": 1,
+    "special": "Radioactive",
 
       "iso_1": "Plutonium-228",
       "iso_mass_1": "228",

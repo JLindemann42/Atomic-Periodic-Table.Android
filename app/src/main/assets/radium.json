@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "12.8 (b)",
 
     "electrical_type": "Conductor",
-    "resistivity": "1",
+    "resistivity": "1 μΩm",
     "resistivity_mult": "0.000001",
     "magnetic_type": "---",
     "superconducting_point": "---",
@@ -55,6 +55,10 @@
 
     "oxidation_state_neg": "",
     "oxidation_state_pos": "2",
+
+    "cas_number": "7440-14-4",
+    "eg_number": "231-123-0",
+
 
       "iso_1": "Radium-201",
       "iso_mass_1": "201",

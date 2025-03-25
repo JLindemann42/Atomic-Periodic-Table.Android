@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "0.232 (b)",
 
     "electrical_type": "Conductor",
-    "resistivity": "2.6",
+    "resistivity": "26.50 nΩm",
     "resistivity_mult": "0.00000001",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "1.175",
@@ -79,6 +79,12 @@
     "mohs_hardness": "2.75",
     "vickers_hardness": "160-350 (MPa)",
     "brinell_hardness": "160-550 (MPa)",
+
+    "cas_number": "7429-90-5",
+    "eg_number": "231-072-3",
+    "health": 0,
+    "flammability": 1,
+    "instability": 1,
 
     "earth_crust": "80500",
     "earth_soils": "71300",

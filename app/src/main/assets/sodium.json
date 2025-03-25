@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "0.53 (b)",
 
     "electrical_type": "Conductor",
-    "resistivity": "4.7",
+    "resistivity": "47.7 nΩm",
     "resistivity_mult": "0.00000001",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "0.022",
@@ -85,6 +85,13 @@
       "crustal_rocks": "2.3 × 10^4",
       "sun": "6.0 × 10^4",
       "solar_system": "5.7 × 10^4",
+
+      "cas_number": "7440-23-5",
+      "eg_number": "231-132-9",
+      "health": 3,
+      "flammability": 3,
+      "instability": 2,
+      "special": "W",
 
     "iso_1": "Na-18",
     "iso_mass_1": "18.02688",

@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "194 (b)",
 
     "electrical_type": "Conductor",
-    "resistivity": "8",
+    "resistivity": "83.7 nΩm",
     "resistivity_mult": "0.00000001",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "3.41",
@@ -54,6 +54,9 @@
     "element_fusion_heat": "3.281 (kJ/mol)",
     "element_specific_heat_capacity": "0.233 J/(g·K)",
     "element_vaporization_heat": "231.8 (kJ/mol)",
+
+    "cas_number": "7440-74-6",
+    "eg_number": "231-180-0",
 
     "mohs_hardness": "1.2",
     "vickers_hardness": "---",

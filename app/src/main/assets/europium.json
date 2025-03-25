@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "4600 (b)",
 
     "electrical_type": "Conductor",
-    "resistivity": "9",
+    "resistivity": "0.900 μΩm",
     "resistivity_mult": "0.0000001",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "1.8",
@@ -66,6 +66,9 @@
     "poisson_ratio": "0.152",
     "bulk_modulus": "8.3 (GPa)",
     "shear_modulus": "7.9 (GPa)",
+
+    "cas_number": "7440-53-1",
+    "eg_number": "231-161-7",
 
     "sea_water": "0.00013",
     "crustal_rocks": "2.2",

@@ -74,6 +74,12 @@
     "bulk_modulus": "65 (GPa)",
     "shear_modulus": "16 (GPa)",
 
+    "cas_number": "13494-80-9",
+    "eg_number": "237-010-5",
+    "health": 2,
+    "flammability": 0,
+    "instability": 0,
+
     "solar_system": "4.9",
 
       "iso_1": "104-Te",

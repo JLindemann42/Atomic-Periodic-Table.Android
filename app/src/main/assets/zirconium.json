@@ -18,7 +18,7 @@
     "neutron_cross_sectional": "0.184 (b)",
 
     "electrical_type": "Conductor",
-    "resistivity": "4.2",
+    "resistivity": "421 nΩm",
     "resistivity_mult": "0.0000001",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "0.61",
@@ -70,6 +70,12 @@
     "poisson_ratio": "0.34",
     "bulk_modulus": "---",
     "shear_modulus": "33 (GPa)",
+
+      "cas_number": "7440-67-7",
+      "eg_number": "231-176-9",
+      "health": 1,
+      "flammability": 1,
+      "instability": 0,
 
       "earth_crust": "170.0",
       "earth_soils": "300.0",

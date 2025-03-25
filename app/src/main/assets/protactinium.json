@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "200.6 (b)",
 
     "electrical_type": "Conductor",
-    "resistivity": "1.8",
+    "resistivity": "177 nΩm",
     "resistivity_mult": "0.0000001",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "1.4",
@@ -54,6 +54,13 @@
 
     "oxidation_state_neg": "",
     "oxidation_state_pos": "3 4 5",
+
+    "cas_number": "7440-13-3",
+    "eg_number": "231-123-0",
+    "health": 3,
+    "flammability": 1,
+    "instability": 1,
+    "special": "Radioactive",
 
       "iso_1": "Protactinium-211",
       "iso_mass_1": "211",

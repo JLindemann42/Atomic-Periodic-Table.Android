@@ -54,6 +54,11 @@
 
     "oxidation_state_neg": "",
     "oxidation_state_pos": "2 3 4 5",
+
+    "cas_number": "7440-40-6",
+    "eg_number": "231-150-1",
+
+    
       "iso_1": "Berkelium-233",
       "iso_mass_1": "233",
       "decay_type_1": "α",

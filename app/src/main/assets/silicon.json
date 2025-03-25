@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "0.171 (b)",
 
     "electrical_type": "Semiconductor",
-    "resistivity": "1",
+    "resistivity": "10^4 nΩm",
     "resistivity_mult": "0.001",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "---",
@@ -88,6 +88,12 @@
       "crustal_rocks": "2.7 × 10^5",
       "sun": "1.0 × 10^6",
       "solar_system": "1.0 × 10^6",
+
+      "cas_number": "7440-21-3",
+      "eg_number": "231-130-5",
+      "health": 1,
+      "flammability": 0,
+      "instability": 0,
 
     "iso_1": "Si-22",
     "iso_mass_1": "22.03579",

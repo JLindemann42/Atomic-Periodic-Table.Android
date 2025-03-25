@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "0.53 (b)",
 
     "electrical_type": "Insulator",
-    "resistivity": "1",
+    "resistivity": "2×10^15 Ωm",
     "resistivity_mult": "1000000000000000",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "---",
@@ -86,6 +86,9 @@
       "crustal_rocks": "3.0 × 10^2",
       "sun": "4.5 × 10^5",
       "solar_system": "5.2 × 10^5",
+
+      "cas_number": "7704-34-9",
+      "eg_number": "231-722-6",
 
     "iso_1": "S-27",
     "iso_mass_1": "27.01828",

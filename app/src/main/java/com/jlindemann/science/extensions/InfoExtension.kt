@@ -24,6 +24,10 @@ import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.IsotopesActivityExperimental
+import com.jlindemann.science.model.Achievement
+import com.jlindemann.science.model.AchievementModel
+import com.jlindemann.science.model.Statistics
+import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.AtomicCovalentPreference
 import com.jlindemann.science.preferences.AtomicRadiusCalPreference
 import com.jlindemann.science.preferences.AtomicRadiusEmpPreference
@@ -89,6 +93,9 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
     fun readJson() {
         var jsonstring : String? = null
         findViewById<FrameLayout>(R.id.ox_view).refreshDrawableState()
+
+        updateAchievementProgress(1)
+        updateStats()
 
         try {
             //Setup json reader
@@ -193,19 +200,21 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             val abundanceEarthSoil = jsonObject.optString("earth_soils", "N/A") + " mg/kg (ppm)"
             val abundanceUrbanSoil = jsonObject.optString("urban_soils", "N/A") + " mg/kg (ppm)"
             val abundanceCrustalRocks = jsonObject.optString("crustal_rocks", "N/A") + " mg/kg (ppm)"
-            val abundanceSeaWater = jsonObject.optString("sea_water", "N/A") + " μg/l (ppm)"
+            val abundanceSeaWater = jsonObject.optString("sea_water", "N/A") + " μg/l"
             val abundanceSun = jsonObject.optString("sun", "N/A") + " (atoms per 10^6 atoms of silicon)"
             val abundanceSolarSystem = jsonObject.optString("solar_system", "N/A") + " (atoms per 10^6 atoms of silicon)"
 
+            //Hazard data
+            var fireHazard = jsonObject.optString("flammability", "---")
+            val healthHazard = jsonObject.optString("health", "---")
+            val reactivityHazard = jsonObject.optString("instability", "---")
+            val specificHazard = jsonObject.optString("special", "---")
 
-            if (rMultiplier == "---") {
-                findViewById<TextView>(R.id.element_resistivity).text = "---"
-            }
-            else {
-                val input = resistivity.toFloat() * rMultiplier.toFloat()
-                val output = input.pow(-1).toString()
-                findViewById<TextView>(R.id.element_resistivity).text = formatSuperscript(output.replace("E", "*10^")) + " (S/m)"
-            }
+            //other data
+            val casNumber = jsonObject.optString("cas_number", "---")
+            val egNumber = jsonObject.optString("eg_number", "---")
+
+            findViewById<TextView>(R.id.element_resistivity).text = resistivity
 
             findViewById<TextView>(R.id.description_name).setOnClickListener {
                 findViewById<TextView>(R.id.description_name).maxLines = 100
@@ -423,6 +432,65 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             findViewById<TextView>(R.id.abundance_sun_text).text = formatSuperscript(abundanceSun)
             findViewById<TextView>(R.id.abundance_solar_system_text).text = formatSuperscript(abundanceSolarSystem)
 
+
+
+            //Hazards
+            if (proPrefValue==100) {
+                findViewById<TextView>(R.id.fire_hazard_txt).text = fireHazard
+                findViewById<TextView>(R.id.reactivity_hazard_txt).text = reactivityHazard
+                findViewById<TextView>(R.id.health_hazard_txt).text = healthHazard
+                findViewById<TextView>(R.id.fire_hazard_text).text = "---"
+                findViewById<TextView>(R.id.health_hazard_text).text = "---"
+                findViewById<TextView>(R.id.reactivity_hazard_text).text = "---"
+
+                if (fireHazard == "0") { findViewById<TextView>(R.id.fire_hazard_text).text = "Will not burn" }
+                if (fireHazard == "1") { findViewById<TextView>(R.id.fire_hazard_text).text = "Above 93.3°C" }
+                if (fireHazard == "2") { findViewById<TextView>(R.id.fire_hazard_text).text = "Below 93.3°C" }
+                if (fireHazard == "3") { findViewById<TextView>(R.id.fire_hazard_text).text = "Below 37.8°C" }
+                if (fireHazard == "4") { findViewById<TextView>(R.id.fire_hazard_text).text = "Below 22.8°C" }
+
+
+                if (healthHazard == "0") { findViewById<TextView>(R.id.health_hazard_text).text = "No health hazard" }
+                if (healthHazard == "1") { findViewById<TextView>(R.id.health_hazard_text).text = "Minor health hazard" }
+                if (healthHazard == "2") { findViewById<TextView>(R.id.health_hazard_text).text = "Health Hazard" }
+                if (healthHazard == "3") { findViewById<TextView>(R.id.health_hazard_text).text = "Moderate health hazard" }
+                if (healthHazard == "4") { findViewById<TextView>(R.id.health_hazard_text).text = "Major health hazard" }
+
+
+                if (reactivityHazard == "0") { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Stable" }
+                if (reactivityHazard == "1") { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Normally stable" }
+                if (reactivityHazard == "2") { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Undergoes violent chemical change at elevated temperatures and pressures" }
+                if (reactivityHazard == "3") { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Capable of detonation or explosive decomposition" }
+                if (reactivityHazard == "4") { findViewById<TextView>(R.id.reactivity_hazard_text).text = "Readily capable of detonation or explosive decomposition" }
+
+
+                if (specificHazard == "Simple asphyxiant") {
+                    findViewById<TextView>(R.id.specific_hazard_text).text = "Simple asphyxiant"
+                    findViewById<TextView>(R.id.specific_hazard_txt).text = "SA"
+                }
+                if (specificHazard == "W") {
+                    findViewById<TextView>(R.id.specific_hazard_text).text = "Reacts with water"
+                    findViewById<TextView>(R.id.specific_hazard_txt).text = "W"
+                }
+                if (specificHazard == "OX") {
+                    findViewById<TextView>(R.id.specific_hazard_text).text = "Oxidizer"
+                    findViewById<TextView>(R.id.specific_hazard_txt).text = "OX"
+                }
+                if (specificHazard == "") {
+                    findViewById<TextView>(R.id.specific_hazard_text).text = "---"
+                    findViewById<TextView>(R.id.specific_hazard_txt).text = "-"
+                }
+                if (specificHazard == "---") {
+                    findViewById<TextView>(R.id.specific_hazard_text).text = "---"
+                    findViewById<TextView>(R.id.specific_hazard_txt).text = "-"
+                }
+
+            }
+            //Others
+            findViewById<TextView>(R.id.cas_text).text = casNumber
+            findViewById<TextView>(R.id.eg_text).text = egNumber
+
+
             val offlinePreferences = offlinePreference(this)
             val offlinePrefValue = offlinePreferences.getValue()
             if (offlinePrefValue == 0) {
@@ -634,5 +702,24 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             val superscriptSign = superscriptMap[signPart.firstOrNull()] ?: ""
             superscriptNumber + superscriptSign
         }
+    }
+    private fun updateAchievementProgress(increment: Int) {
+        val achievements = ArrayList<Achievement>()
+        AchievementModel.getList(this, achievements)
+        val achievement1 = achievements.find { it.id == 1 }
+        achievement1?.incrementProgress(this, increment)
+        val achievement2 = achievements.find { it.id == 2 }
+        achievement2?.incrementProgress(this, increment)
+        val achievement3 = achievements.find { it.id == 3 }
+        achievement3?.incrementProgress(this, increment)
+        val achievement4 = achievements.find { it.id == 4 }
+        achievement4?.incrementProgress(this, increment)
+    }
+
+    private fun updateStats() {
+        val statistics = java.util.ArrayList<Statistics>()
+        StatisticsModel.getList(this, statistics)
+        val stat1 = statistics.find { it.id == 1 }
+        stat1?.incrementProgress(this, 1)
     }
 }

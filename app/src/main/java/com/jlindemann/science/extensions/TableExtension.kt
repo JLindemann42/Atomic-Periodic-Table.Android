@@ -190,14 +190,6 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
                         val themePreference = ThemePreference(this)
                         val themePrefValue = themePreference.getValue()
 
-                        if (themePrefValue == 100) {
-                            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                                Configuration.UI_MODE_NIGHT_NO -> { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
-                                Configuration.UI_MODE_NIGHT_YES -> { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
-                            }
-                        }
-                        if (themePrefValue == 0) { btn.background.setTint(Color.argb(255, 254, 254, 254)) }
-                        if (themePrefValue == 1) { btn.background.setTint(Color.argb(255, 18, 18, 18)) }
                     } else {
                         if (item.electro > 1) {
                             val btn = findViewById<TextView>(resIDB)

@@ -28,9 +28,14 @@ import com.jlindemann.science.activities.settings.FavoritePageActivity
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
 import com.jlindemann.science.activities.tables.NuclideActivity
+import com.jlindemann.science.adapter.AchievementAdapter
 import com.jlindemann.science.extensions.InfoExtension
+import com.jlindemann.science.model.Achievement
+import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
+import com.jlindemann.science.model.Statistics
+import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
@@ -99,7 +104,6 @@ class ElementInfoActivity : InfoExtension() {
             findViewById<LinearLayout>(R.id.more_properties).visibility = View.GONE
             findViewById<LinearLayout>(R.id.hardness_properties).visibility = View.GONE
         }
-
     }
 
     private fun proChanges() {
@@ -110,6 +114,10 @@ class ElementInfoActivity : InfoExtension() {
         //hardness properties
         findViewById<FrameLayout>(R.id.pro_hardness_box).visibility = View.GONE
         findViewById<LinearLayout>(R.id.hardness_properties).visibility = View.VISIBLE
+
+        //hazard properties
+        findViewById<FrameLayout>(R.id.pro_hazard_box).visibility = View.GONE
+        findViewById<LinearLayout>(R.id.hazard_properties).visibility = View.VISIBLE
     }
 
     override fun onBackPressed() {

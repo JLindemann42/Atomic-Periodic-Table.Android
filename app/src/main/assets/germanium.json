@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "2.2 (b)",
 
     "electrical_type": "Semiconductor",
-    "resistivity": "5",
+    "resistivity": "530000 nΩm",
     "resistivity_mult": "0.0001",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "---",
@@ -74,6 +74,12 @@
       "crustal_rocks": "1.3",
       "sun": "72",
       "solar_system": "1.2 × 10^2",
+
+      "cas_number": "7440-56-4",
+      "eg_number": "231-164-3",
+      "health": 1,
+      "flammability": 0,
+      "instability": 0,
 
     "iso_1": "Ge-58",
     "iso_mass_1": "57.99101",

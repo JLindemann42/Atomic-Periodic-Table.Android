@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "0.03 (b)",
 
     "electrical_type": "Conductor",
-    "resistivity": "4.3",
+    "resistivity": "0.40 μΩm",
     "resistivity_mult": "0.0000001",
     "magnetic_type": "---",
     "superconducting_point": "---",
@@ -54,6 +54,10 @@
 
     "oxidation_state_neg": "2",
     "oxidation_state_pos": "2 4 5 6",
+
+    "cas_number": "7440-08-6",
+    "eg_number": "231-118-2",
+
 
       "iso_1": "Po-186",
       "iso_mass_1": "186.00440",

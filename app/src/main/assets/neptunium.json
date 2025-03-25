@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "180 (b)",
 
     "electrical_type": "Conductor",
-    "resistivity": "1.2",
+    "resistivity": "1.220 μΩm",
     "resistivity_mult": "0.000001",
     "magnetic_type": "---",
     "superconducting_point": "---",
@@ -54,6 +54,13 @@
 
     "oxidation_state_neg": "",
     "oxidation_state_pos": "2 3 4 5 6 7",
+
+    "cas_number": "7439-99-8",
+    "eg_number": "231-108-8",
+    "health": 3,
+    "flammability": 1,
+    "instability": 1,
+    "special": "Radioactive",
 
       "iso_1": "Neptunium-219",
       "iso_mass_1": "219",

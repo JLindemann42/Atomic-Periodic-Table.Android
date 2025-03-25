@@ -4,12 +4,17 @@ import android.graphics.Color
 import android.graphics.Insets
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.jlindemann.science.R
+import com.jlindemann.science.model.Achievement
+import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.utils.Pasteur
-
 
 abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListener {
     companion object {
@@ -20,6 +25,11 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //checkAchievements()
     }
 
     override fun onStart() {
@@ -38,5 +48,17 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
         Pasteur.info(TAG, "height: ${insets.systemWindowInsetBottom}")
         onApplySystemInsets(insets.systemWindowInsetTop, insets.systemWindowInsetBottom, insets.systemWindowInsetLeft, insets.systemWindowInsetRight)
         return insets.consumeSystemWindowInsets()
+    }
+
+    private fun checkAchievements() {
+        val achievements = ArrayList<Achievement>()
+        AchievementModel.getList(this, achievements)
+
+        for (achievement in achievements) {
+            if (achievement.isMaxProgressReached() && !achievement.isToastShown(this)) {
+                Toast.makeText(this, "Achievement reached: ${achievement.title}", Toast.LENGTH_SHORT).show()
+                achievement.markToastShown(this)
+            }
+        }
     }
 }

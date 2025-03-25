@@ -65,6 +65,17 @@ class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListe
         val itemCon = ArrayList<Constants>()
         ConstantsModel.getList(itemCon)
 
+        //Add value to most used:
+        val mostUsedPreference = MostUsedPreference(this)
+        val mostUsedPrefValue = mostUsedPreference.getValue()
+        val targetLabel = "con"
+        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val match = regex.find(mostUsedPrefValue)
+        if (match != null) {
+            val value = match.groups[2]!!.value.toDouble()
+            val newValue = value + 1
+            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
+        }
         recyclerView()
         chipListeners(itemCon, recyclerView)
         clickSearch()
@@ -174,18 +185,6 @@ class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListe
             val button = findViewById<Button>(resIDB)
             button.background = getDrawable(R.drawable.chip_active)
         }, 200)
-
-        //Add value to most used:
-        val mostUsedPreference = MostUsedPreference(this)
-        val mostUsedPrefValue = mostUsedPreference.getValue()
-        val targetLabel = "con"
-        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
-        val match = regex.find(mostUsedPrefValue)
-        if (match != null) {
-            val value = match.groups[2]!!.value.toDouble()
-            val newValue = value + 1
-            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
-        }
 
         findViewById<Button>(R.id.clear_btn_con).visibility = View.VISIBLE
         findViewById<Button>(R.id.clear_btn_con).setOnClickListener {

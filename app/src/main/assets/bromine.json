@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "6.8 (b)",
 
     "electrical_type": "Insulator",
-    "resistivity": "1",
+    "resistivity": "7.8×10^10 Ωm",
     "resistivity_mult": "10000000000",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "---",
@@ -66,6 +66,13 @@
       "crustal_rocks": "4.0",
       "sun": null,
       "solar_system": "12",
+
+      "cas_number": "7726-95-6",
+      "eg_number": "231-778-1",
+      "health": 3,
+      "flammability": 0,
+      "instability": 0,
+      "special": "OX",
 
     "iso_1": "Br-65",
     "iso_mass_1": "---",

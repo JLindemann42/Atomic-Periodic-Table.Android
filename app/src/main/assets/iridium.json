@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "425 (b)",
 
     "electrical_type": "Conductor",
-    "resistivity": "4.7",
+    "resistivity": "47.1 nΩm",
     "resistivity_mult": "0.00000001",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "0.11",
@@ -72,6 +72,9 @@
     "crustal_rocks": "0.0002",
     "sun": "0.6",
     "solar_system": "0.66",
+
+    "cas_number": "7439-88-5",
+    "eg_number": "231-095-9",
 
       "iso_1": "Ir-164",
       "iso_mass_1": "163.99220",

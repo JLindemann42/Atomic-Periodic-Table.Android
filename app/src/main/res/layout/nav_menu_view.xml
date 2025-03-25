@@ -231,7 +231,7 @@
                     android:foreground="@drawable/d_ripple"
                     android:gravity="center_vertical"
                     android:padding="18dp"
-                    android:text="@string/calculator_title"
+                    android:text="@string/tools_title"
                     android:textAllCaps="false"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textColorHighlight="?attr/colorOnSecondaryContainer"
@@ -309,14 +309,14 @@
                     android:orientation="horizontal">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/twitter_button"
+                        android:id="@+id/bluesky_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:clickable="true"
                         android:elevation="0dp"
                         android:focusable="true"
-                        android:src="@drawable/ic_twitter_outline"
+                        android:src="@drawable/ic_bluesky"
                         android:tint="?attr/colorOnSecondaryContainer"
                         app:borderWidth="0dp"
                         app:elevation="0dp"
