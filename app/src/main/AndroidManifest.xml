@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_blue_round"
         android:supportsRtl="false"
         tools:replace="android:supportsRtl"
-        android:enableOnBackInvokedCallback="false"
+        android:enableOnBackInvokedCallback="true"
         android:theme="@style/AppTheme">
         <receiver android:name=".ShortCommandWidget">
             <meta-data
@@ -28,7 +28,6 @@
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

@@ -210,6 +210,10 @@
     <!-- New Tools String -->
     <string name="cal" translatable="false">Calculator</string>
     <string name="rec" translatable="false">Chemical Reactions</string>
+    <string name="uni" translatable="false">Unit Converter</string>
+    <string name="unit_title" translatable="false">Unit Converter</string>
+    <string name="unit_description" translatable="false">A simple unit converter for multiple purposes</string>
+
 
     <string name="most_used" translatable="false">Most Used:</string>
 

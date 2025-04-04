@@ -275,6 +275,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         } else { super.onBackPressed() }
     }
 
+
     private fun searchListener() {
         findViewById<FrameLayout>(R.id.search_box).setOnClickListener {
             Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_menu_include), 300)
