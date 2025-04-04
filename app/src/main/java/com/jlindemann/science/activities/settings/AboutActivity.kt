@@ -57,14 +57,7 @@ class AboutActivity : BaseActivity() {
     }
 
     private fun setupLinks() {
-        findViewById<FrameLayout>(R.id.pro).setOnClickListener {
-            val marketUri: Uri = Uri.parse("market://details?id=com.jlindemannpro.papersplash")
-            startActivity(Intent(Intent.ACTION_VIEW, marketUri))
-        }
-        findViewById<FrameLayout>(R.id.sta).setOnClickListener {
-            val marketUri: Uri = Uri.parse("market://details?id=com.jlindemann.papersplash")
-            startActivity(Intent(Intent.ACTION_VIEW, marketUri))
-        }
+    //empty
     }
 }
 

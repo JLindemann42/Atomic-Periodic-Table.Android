@@ -19,7 +19,7 @@
     "neutron_cross_sectional": "0.0035 (b)",
 
     "electrical_type": "Conductor",
-    "resistivity": "1",
+    "resistivity": "13750 nΩm [Graphite] \n 8 nΩm [Diamond]",
     "resistivity_mult": "0.00001",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "---",

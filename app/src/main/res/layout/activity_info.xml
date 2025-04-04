@@ -37,6 +37,7 @@
                     android:layout_marginTop="0dp"
                     android:text="J.LINDEMANN"
                     android:textAlignment="center"
+                    android:gravity="center"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="24sp"
                     android:textStyle="bold"
@@ -48,6 +49,7 @@
                     android:layout_height="32dp"
                     android:layout_marginTop="0dp"
                     android:text="Atomic - Periodic Table"
+                    android:gravity="center"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnPrimaryContainer"
                     android:textSize="20sp"
@@ -60,85 +62,12 @@
                     android:layout_marginTop="0dp"
                     android:text="@string/app_version"
                     android:textAlignment="center"
+                    android:gravity="center"
                     android:textColor="?attr/colorTertiary"
                     android:textSize="12sp"
                     app:layout_constraintTop_toTopOf="@id/common_title_back_info" />
 
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:layout_marginTop="42dp"
-                    android:text="More apps made by us"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="20sp"
-                    app:layout_constraintTop_toTopOf="@id/common_title_back_info" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:id="@+id/pro"
-                        android:layout_width="118dp"
-                        android:layout_height="118dp"
-                        android:layout_margin="18dp"
-                        android:alpha="1"
-                        android:background="@drawable/toast"
-                        android:backgroundTint="?attr/colorSurfaceVariant">
-
-                        <ImageView
-                            android:id="@+id/imageView"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="32dp"
-                            android:elevation="2dp"
-                            app:srcCompat="@drawable/papersplash_icon_round" />
-
-                        <TextView
-                            android:id="@+id/textView14"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_margin="9dp"
-                            android:text="PaperSplash PRO"
-                            android:textAlignment="center"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:textSize="11sp" />
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:id="@+id/sta"
-                        android:layout_width="118dp"
-                        android:layout_height="118dp"
-                        android:layout_margin="18dp"
-                        android:alpha="1"
-                        android:background="@drawable/toast"
-                        android:backgroundTint="?attr/colorSurfaceVariant">
-
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="32dp"
-                            android:elevation="2dp"
-                            app:srcCompat="@drawable/paplo" />
-
-                        <TextView
-                            android:id="@+id/textView15"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_margin="9dp"
-                            android:text="PaperSplash"
-                            android:textAlignment="center"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:textSize="11sp" />
-                    </FrameLayout>
-                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>

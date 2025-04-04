@@ -214,14 +214,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             val casNumber = jsonObject.optString("cas_number", "---")
             val egNumber = jsonObject.optString("eg_number", "---")
 
-            if (rMultiplier == "---") {
-                findViewById<TextView>(R.id.element_resistivity).text = "---"
-            }
-            else {
-                val input = resistivity.toFloat() * rMultiplier.toFloat()
-                val output = input.pow(-1).toString()
-                findViewById<TextView>(R.id.element_resistivity).text = formatSuperscript(output.replace("E", "*10^")) + " (S/m)"
-            }
+            findViewById<TextView>(R.id.element_resistivity).text = resistivity
 
             findViewById<TextView>(R.id.description_name).setOnClickListener {
                 findViewById<TextView>(R.id.description_name).maxLines = 100
