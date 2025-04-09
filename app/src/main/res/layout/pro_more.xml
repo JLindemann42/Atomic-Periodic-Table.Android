@@ -1,0 +1,627 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <!-- Cards of unlocks in PRO Version -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:text="More information:"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:textColor="?attr/colorOnSecondaryContainer"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:text="In the following table features included in the PRO Version are detailed:"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginEnd="@dimen/margin"
+        android:textColor="?attr/colorOnSecondaryContainer"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        android:alpha="0.7"
+        android:layout_marginTop="4dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Element Overview:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorTertiary"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Isotopes:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorTertiary"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Dictionary:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorTertiary"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Favorite Bar:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorTertiary"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Nuclide Table:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Save Calculations:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Additional Data Visualisations:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Hardness Properties:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Young-, Bulk-, Shear modulus:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Poisson's Constant, Sound of Speed:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Hazard of Materials:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Constants Table:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Geology Table:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Poisson's Ratio Table:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Emission Spectrum Table:"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="40dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.25"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+
+    </LinearLayout>
+
+</LinearLayout>
