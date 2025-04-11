@@ -9,6 +9,21 @@
     android:background="?attr/backgroundColor"
     tools:context=".activities.MainActivity">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/pro_fab"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="?attr/colorTertiary"
+        android:src="@drawable/ic_star"
+        android:tint="?attr/colorOnTertiary"
+        app:layout_constraintBottom_toBottomOf="@id/view_main"
+        app:layout_constraintEnd_toEndOf="@id/view_main"/>
+
+
     <FrameLayout
         android:id="@+id/common_title_back_main"
         android:layout_width="match_parent"

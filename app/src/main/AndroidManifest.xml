@@ -28,7 +28,6 @@
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

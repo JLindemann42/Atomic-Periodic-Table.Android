@@ -65,7 +65,7 @@
                 android:layout_height="100dp">
 
                 <TextView
-                    android:id="@+id/get_pro_hardness_btn"
+                    android:id="@+id/get_pro_hazard_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_marginStart="@dimen/margin"

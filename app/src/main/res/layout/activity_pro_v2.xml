@@ -83,7 +83,7 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="40dp">
+                android:paddingBottom="10dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -336,8 +336,10 @@
                     </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
-
             </HorizontalScrollView>
+
+            <include
+                layout="@layout/pro_more" />
 
             <TextView
                 android:id="@+id/product_title"
@@ -356,8 +358,10 @@
                 android:layout_height="wrap_content"
                 android:text="Check product on account"
                 android:textColor="?attr/colorAccent"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="180dp"/>
+                android:layout_marginBottom="200dp"
+                android:layout_gravity="center_horizontal" />
+
+
 
         </LinearLayout>
     </ScrollView>
@@ -381,7 +385,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="30dp"
-                    android:text="pro_price"
+                    android:text="retrieving price..."
                     android:textColor="?attr/colorPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />

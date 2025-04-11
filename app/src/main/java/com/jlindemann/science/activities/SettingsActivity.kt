@@ -2,6 +2,7 @@ package com.jlindemann.science.activities
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -13,6 +14,8 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.window.OnBackInvokedDispatcher
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.jlindemann.science.R
@@ -124,6 +127,32 @@ class SettingsActivity : BaseActivity() {
             val blogURL = "https://github.com/JLindemann42/Atomic-Periodic-Table.Android"
             TabUtil.openCustomTab(blogURL, packageManager, this)
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val backCallback = object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (handleBackPress()) {
+                        // We consumed the back press (closed the panel), do nothing
+                    } else {
+                        remove() // Remove callback so system handles back normally
+                        onBackPressedDispatcher.onBackPressed()
+                    }
+                }
+            }
+            onBackPressedDispatcher.addCallback(this, backCallback)
+
+            // Predictive Back Gesture for Android 14+ (UPSIDEDOWN_CAKE)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+                onBackInvokedDispatcher.registerOnBackInvokedCallback(
+                    OnBackInvokedDispatcher.PRIORITY_DEFAULT
+                ) {
+                    if (!handleBackPress()) {
+                        // Do not consume, allow predictive back to show previous activity preview
+                        finish()
+                    }
+                }
+            }
+        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -144,13 +173,25 @@ class SettingsActivity : BaseActivity() {
         findViewById<LinearLayout>(R.id.advanced_box).setPadding(left, 0, right, 0)
     }
 
-    override fun onBackPressed() {
-        if (findViewById<FrameLayout>(R.id.theme_panel).visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.theme_panel), 300) //Start Close Animation
-            return
+    // Handle back logic
+    private fun handleBackPress(): Boolean {
+        val themePanel = findViewById<FrameLayout>(R.id.theme_panel)
+
+        return if (themePanel.visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(themePanel, 300) // Close panel
+            true // Consume back press
+        } else {
+            false // Allow system to handle it (shows preview animation)
         }
-        else { super.onBackPressed() }
     }
+
+    // Override for Android < 13
+    override fun onBackPressed() {
+        if (!handleBackPress()) {
+            super.onBackPressed()
+        }
+    }
+
 
     private fun initOfflineSwitches() {
         val offlinePreferences = offlinePreference(this)

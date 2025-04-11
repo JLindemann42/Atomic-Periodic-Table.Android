@@ -94,6 +94,10 @@ class ElementInfoActivity : InfoExtension() {
             val intent = Intent(this, ProActivity::class.java)
             startActivity(intent)
         }
+        findViewById<TextView>(R.id.get_pro_hazard_btn).setOnClickListener {
+            val intent = Intent(this, ProActivity::class.java)
+            startActivity(intent)
+        }
         //Check if PRO version and if make changes:
         val proPref = ProVersion(this)
         var proPrefValue = proPref.getValue()
