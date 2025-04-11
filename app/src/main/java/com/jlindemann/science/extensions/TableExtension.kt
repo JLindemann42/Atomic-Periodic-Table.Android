@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
@@ -222,8 +223,8 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
                 var jsonstring : String? = null
                 try {
                     val ext = ".json"
-                    val ElementJson: String? = "$name$ext"
-                    val inputStream: InputStream = assets.open(ElementJson.toString())
+                    val elementJson: String? = "$name$ext"
+                    val inputStream: InputStream = assets.open(elementJson.toString())
                     jsonstring = inputStream.bufferedReader().use { it.readText() }
 
                     val jsonArray = JSONArray(jsonstring)
@@ -238,7 +239,9 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
                     iText.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
                     iText.requestLayout()
                 }
-                catch(e: IOException) { }
+                catch(e: IOException) {
+                    ToastUtil.showToast(this, "IOException")
+                }
 
                 val btn = findViewById<TextView>(resIDB)
                 if ((item.number == 3) or (item.number == 11) or (item.number == 19) or (item.number == 37) or (item.number == 55) or (item.number == 87)) {
@@ -268,9 +271,9 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
 
     //New functions for updating tables. Trying to minimize code
     fun initTableChange(list: ArrayList<Element>, jsonName: String) {
-        initName(list)
+        initName(list) //Retrieving all elements to use in for-loop
         closeHover()
-        val delay = Handler()
+        val delay = Handler(Looper.getMainLooper()) //Using new Looper.getMainLooper() as Handler() is deprecated in java
         delay.postDelayed({
             for (item in list) {
                 val name = item.element
@@ -282,16 +285,18 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
                 var jsonstring : String? = null
                 try {
                     val ext = ".json"
-                    val ElementJson: String? = "$name$ext"
-                    val inputStream: InputStream = assets.open(ElementJson.toString())
+                    val elementJson: String? = "$name$ext" //Building asset path
+                    val inputStream: InputStream = assets.open(elementJson.toString())
                     jsonstring = inputStream.bufferedReader().use { it.readText() }
 
                     val jsonArray = JSONArray(jsonstring)
                     val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-                    val outputText = jsonObject.optString(jsonName, "---")
+                    val outputText = jsonObject.optString(jsonName, "---") //Retrieving value from element asset
                     iText.text = outputText
                 }
-                catch(e: IOException) { }
+                catch(e: IOException) {
+                    ToastUtil.showToast(this, "IOException")
+                }
             }
         }, 10)
     }

@@ -7,6 +7,7 @@ import android.text.TextUtils
 import android.widget.Button
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import java.io.IOException
 
 object TabUtil {
     fun openCustomTab(url: String, pkgManager: PackageManager, context: Context) {
@@ -28,6 +29,11 @@ object TabUtil {
             if (TextUtils.equals(packageName, PACKAGE_NAME))
                 CustomTab.intent.setPackage(PACKAGE_NAME)
         }
-        CustomTab.intent.data?.let { it1 -> CustomTab.launchUrl(context, it1) }
+        try {
+            CustomTab.intent.data?.let { it1 -> CustomTab.launchUrl(context, it1) }
+        }
+        catch(e: IOException) {
+            ToastUtil.showToast(context, "Error Code: 11001")
+        }
     }
 }

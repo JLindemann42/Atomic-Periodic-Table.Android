@@ -358,6 +358,114 @@
                         android:text="Shear Modulus"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
+                    <TextView
+                        android:id="@+id/h_poisson_constant_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_more"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/colorSecondary"
+                        android:drawableEnd="@drawable/ic_star"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="9dp"
+                        android:text="Poisson's Ratio"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
+
+                    <TextView
+                        android:id="@+id/h_superconducting_point_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/fav_electronegativity"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/colorSecondary"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="9dp"
+                        android:text="Superconducting Point"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
+
+                    <TextView
+                        android:id="@+id/h_magnetic_type_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/fav_electronegativity"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/colorSecondary"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="9dp"
+                        android:text="Magnetic Type"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
+
+                    <TextView
+                        android:id="@+id/h_electrical_resistivity_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/fav_electronegativity"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/colorSecondary"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="9dp"
+                        android:text="Electrical Resistivity"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
+
+                    <TextView
+                        android:id="@+id/h_cas_number_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_more"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/colorSecondary"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="9dp"
+                        android:text="CAS Number"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
+
+                    <TextView
+                        android:id="@+id/h_eg_number_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="54dp"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_more"
+                        android:drawablePadding="18dp"
+                        android:drawableTint="?attr/colorSecondary"
+                        android:focusable="true"
+                        android:foreground="@drawable/d_ripple"
+                        android:gravity="center_vertical"
+                        android:paddingStart="18dp"
+                        android:paddingTop="9dp"
+                        android:paddingEnd="18dp"
+                        android:paddingBottom="9dp"
+                        android:text="EG Number"
+                        android:textColor="?attr/colorOnSecondaryContainer" />
                 </LinearLayout>
             </ScrollView>
         </FrameLayout>

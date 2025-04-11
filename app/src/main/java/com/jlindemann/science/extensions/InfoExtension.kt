@@ -587,7 +587,12 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
                 if (TextUtils.equals(packageName, PACKAGE_NAME))
                     CustomTab.intent.setPackage(PACKAGE_NAME)
             }
-            CustomTab.intent.data?.let { it1 -> CustomTab.launchUrl(this, it1) }
+            try {
+                CustomTab.intent.data?.let { it1 -> CustomTab.launchUrl(this, it1) }
+            }
+            catch(e: IOException) {
+                ToastUtil.showToast(this, "Error Code: 11001")
+            }
         }
     }
 

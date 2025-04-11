@@ -388,6 +388,12 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         findViewById<TextView>(R.id.h_specific_btn).setOnClickListener { initTableChange(elements, "element_specific_heat_capacity") }
         findViewById<TextView>(R.id.h_vaporizaton_btn).setOnClickListener { initTableChange(elements, "element_vaporization_heat") }
         findViewById<TextView>(R.id.h_electrical_type_btn).setOnClickListener { initTableChange(elements, "electrical_type") }
+        findViewById<TextView>(R.id.h_superconducting_point_btn).setOnClickListener { initTableChange(elements, "superconducting_point") }
+        findViewById<TextView>(R.id.h_magnetic_type_btn).setOnClickListener { initTableChange(elements, "magnetic_type") }
+        findViewById<TextView>(R.id.h_electrical_resistivity_btn).setOnClickListener { initTableChange(elements, "resistivity") }
+        findViewById<TextView>(R.id.h_cas_number_btn).setOnClickListener { initTableChange(elements, "cas_number") }
+        findViewById<TextView>(R.id.h_eg_number_btn).setOnClickListener { initTableChange(elements, "eg_number") }
+
 
         //Check if user has PRO version on not and give additional features if.
         findViewById<TextView>(R.id.h_poisson_ratio_btn).setOnClickListener {
@@ -414,7 +420,14 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                 startActivity(intent) }
             if (proValue == 100) { initTableChange(elements, "shear_modulus") }
         }
+        findViewById<TextView>(R.id.h_poisson_constant_btn).setOnClickListener {
+            if (proValue == 1) {
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent) }
+            if (proValue == 100) { initTableChange(elements, "poisson_ratio") }
+        }
     }
+
 
     private fun setupNavListeners() {
         findViewById<FloatingActionButton>(R.id.settings_btn).setOnClickListener {
