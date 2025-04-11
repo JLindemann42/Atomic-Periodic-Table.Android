@@ -351,6 +351,10 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             val intent = Intent(this, ProActivity::class.java)
             startActivity(intent)
         }
+        findViewById<FloatingActionButton>(R.id.pro_fab).setOnClickListener {
+            val intent = Intent(this, ProActivity::class.java)
+            startActivity(intent)
+        }
         findViewById<TextView>(R.id.solubility_btn).setOnClickListener {
             val intent = Intent(this, TableActivity::class.java)
             startActivity(intent)
@@ -501,6 +505,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     private fun proChanges() {
         findViewById<TextView>(R.id.pro_btn).text = getString(R.string.member_btn)
+        findViewById<FloatingActionButton>(R.id.pro_fab).visibility = View.GONE
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -513,6 +518,10 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val params2 = findViewById<FrameLayout>(R.id.nav_bar_main).layoutParams as ViewGroup.LayoutParams
         params2.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
         findViewById<FrameLayout>(R.id.nav_bar_main).layoutParams = params2
+
+        val paramsFAB = findViewById<FloatingActionButton>(R.id.pro_fab).layoutParams as ViewGroup.MarginLayoutParams
+        paramsFAB.bottomMargin = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar) + resources.getDimensionPixelSize(R.dimen.margin)
+        findViewById<FloatingActionButton>(R.id.pro_fab).layoutParams = paramsFAB
 
         val params3 = findViewById<FloatingActionButton>(R.id.more_btn).layoutParams as ViewGroup.MarginLayoutParams
         params3.bottomMargin = bottom + (resources.getDimensionPixelSize(R.dimen.nav_bar))/2 + (resources.getDimensionPixelSize(R.dimen.title_bar_elevation))
