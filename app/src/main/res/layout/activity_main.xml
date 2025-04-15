@@ -2,26 +2,26 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/view_main"
-    android:orientation="vertical"
     android:background="?attr/backgroundColor"
+    android:orientation="vertical"
     tools:context=".activities.MainActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/pro_fab"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="72dp"
         android:backgroundTint="?attr/colorTertiary"
+        android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/ic_star"
         android:tint="?attr/colorOnTertiary"
         app:layout_constraintBottom_toBottomOf="@id/view_main"
-        app:layout_constraintEnd_toEndOf="@id/view_main"/>
+        app:layout_constraintEnd_toEndOf="@id/view_main" />
 
 
     <FrameLayout
@@ -51,19 +51,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_gravity="center_vertical"
-                    android:clickable="true"
-                    android:elevation="0dp"
                     android:background="@drawable/toast"
                     android:backgroundTint="?attr/colorSurface"
+                    android:clickable="true"
+                    android:elevation="0dp"
                     android:focusable="true"
                     android:foreground="@drawable/c_ripple">
 
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:alpha="0.11"
                         android:background="@drawable/toast"
-                        android:backgroundTint="?attr/colorPrimary"
-                        android:alpha="0.11"/>
+                        android:backgroundTint="?attr/colorPrimary" />
 
                     <TextView
                         android:id="@+id/textView5"
@@ -449,9 +449,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="72dp"
-            android:scrollbars="vertical|horizontal"
-            android:focusable="true"
             android:clickable="false"
+            android:focusable="true"
+            android:scrollbars="vertical|horizontal"
             android:visibility="visible"
             app:alignment="top|left"
             app:animationDuration="200"
@@ -736,9 +736,9 @@
         android:clickable="true"
         android:elevation="10dp"
         android:focusable="true"
-        app:borderWidth="0dp"
         android:src="@drawable/ic_filter"
         android:tint="?attr/colorOnPrimary"
+        app:borderWidth="0dp"
         app:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="@id/nav_bar_main"
         app:layout_constraintEnd_toEndOf="parent"
@@ -748,9 +748,9 @@
         android:id="@+id/nav_bar_main"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:alpha="1"
         android:background="?attr/colorSurface"
         android:clickable="true"
-        android:alpha="1"
         android:elevation="8dp"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -760,8 +760,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:alpha="0.08"
-            android:elevation="9dp"
-            android:background="?attr/colorPrimary"/>
+            android:background="?attr/colorPrimary"
+            android:elevation="9dp" />
 
         <FrameLayout
             android:id="@+id/nav_content"

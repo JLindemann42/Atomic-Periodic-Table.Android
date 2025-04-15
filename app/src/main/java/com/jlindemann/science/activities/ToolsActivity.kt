@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.tools.CalculatorActivity
 import com.jlindemann.science.activities.tools.ChemicalReactionsActivity
+import com.jlindemann.science.activities.tools.FlashCardActivity
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ThemePreference
 
@@ -131,6 +132,16 @@ class ToolsActivity : BaseActivity() {
         }
         findViewById<TextView>(R.id.chemical_reaction_btn).setOnClickListener {
             val intent = Intent(this, ChemicalReactionsActivity::class.java)
+            startActivity(intent)
+        }
+
+        //Flashcard game
+        findViewById<FrameLayout>(R.id.tool_flashcards).setOnClickListener {
+            val intent = Intent(this, FlashCardActivity::class.java)
+            startActivity(intent)
+        }
+        findViewById<TextView>(R.id.tool_flashcards_btn).setOnClickListener {
+            val intent = Intent(this, FlashCardActivity::class.java)
             startActivity(intent)
         }
     }

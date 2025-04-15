@@ -2,6 +2,7 @@
 <resources>
     <!-- General Dimensions -->
     <dimen name="margin">16dp</dimen>
+    <dimen name="margin_tablet">160dp</dimen>
     <dimen name="margin_space">4dp</dimen>
     <dimen name="margin_space_card">8dp</dimen>
     <dimen name="default_card_elevation">2dp</dimen>

@@ -243,6 +243,9 @@
     <string name="eg_number" translatable="false">EG Number:</string>
     <string name="other_title" translatable="false">Others</string>
 
-
+    <string name="flashcard_title" translatable="false">Flashcards</string>
+    <string name="flashcard_text" translatable="false">A tool to learn information by different flashcards.</string>
+    <string name="flashcard_number" translatable="false">Enter number of flashcards</string>
+    <string name="flashcard_start" translatable="false">Start</string>
 
 </resources>
