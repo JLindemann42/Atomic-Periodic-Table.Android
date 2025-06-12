@@ -101,7 +101,7 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:gravity="top"
-                    android:text="Molar Mass:"
+                    android:text="@string/calc_molar_mass"
                     android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold"
                     android:textSize="16sp" />
@@ -130,7 +130,7 @@
                     android:textSize="14sp"
                     android:textAlignment="center"
                     android:visibility="gone"
-                    android:text="Elements included will be shown here"
+                    android:text="@string/calc_elements_shown"
                     android:layout_margin="@dimen/margin"
                     android:textColor="?attr/colorOnSurface"/>
 
@@ -162,7 +162,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-                    android:text="Favorites:"
+                    android:text="@string/calc_favorites"
                     android:layout_margin="@dimen/margin"
                     android:textColor="?attr/colorOnSurface"
                     android:textStyle="bold"/>
@@ -174,7 +174,7 @@
                     android:textSize="14sp"
                     android:textAlignment="center"
                     android:visibility="visible"
-                    android:text="In order to access and save to the favorites you need to get the PRO-Version"
+                    android:text="@string/calc_no_pro_text"
                     android:layout_margin="@dimen/margin"
                     android:textColor="?attr/colorOnSurface"/>
 
@@ -185,7 +185,7 @@
                     android:textSize="14sp"
                     android:textAlignment="center"
                     android:visibility="gone"
-                    android:text="Currently no favorites"
+                    android:text="@string/calc_no_favorites"
                     android:layout_margin="@dimen/margin"
                     android:textColor="?attr/colorOnSurface"/>
 

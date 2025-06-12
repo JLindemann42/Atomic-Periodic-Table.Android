@@ -223,6 +223,12 @@
     <string name="balancer_title" translatable="false">Chemical Reactions</string>
     <string name="balancer_text" translatable="false">Balance different chemical reactions and save favorites for later use</string>
     <string name="tool_btn_open" translatable="false">Open Tool</string>
+    <string name="calc_molar_mass" translatable="false">Molar Mass:</string>
+    <string name="calc_elements_shown" translatable="false">Elements included will be shown here</string>
+    <string name="calc_favorites" translatable="false">Favorites:</string>
+    <string name="calc_no_favorites" translatable="false">Currently no favorites</string>
+    <string name="calc_no_pro_text" translatable="false">In order to access and save to the favorites you need to get the PRO-Version</string>
+
 
     <!-- User Page -->
     <string name="user_title" translatable="false">User Page</string>
@@ -243,9 +249,15 @@
     <string name="eg_number" translatable="false">EG Number:</string>
     <string name="other_title" translatable="false">Others</string>
 
-    <string name="flashcard_title" translatable="false">Flashcards</string>
-    <string name="flashcard_text" translatable="false">A tool to learn information by different flashcards.</string>
-    <string name="flashcard_number" translatable="false">Enter number of flashcards</string>
-    <string name="flashcard_start" translatable="false">Start</string>
+    <string name="clear_filter" translatable="false">Clear Filter</string>
+    <string name="constants_search" translatable="false">Search for constant</string>"
+
+    <string name="dictionary" translatable="false">Dictionary</string>
+    <string name="dictionary_search" translatable="false">Search For Dictionary Item</string>
+
+    <string name="element_info_title" translatable="false">Element Information</string>
+
+    <string name="submit_data_issue" translatable="false">Submit Data Issue</string>
+
 
 </resources>

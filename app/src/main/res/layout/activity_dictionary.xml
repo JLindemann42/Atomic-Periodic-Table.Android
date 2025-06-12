@@ -42,7 +42,7 @@
                 android:layout_marginEnd="42dp"
                 android:textColor="?attr/colorOnBackground"
                 android:textSize="24sp"
-                android:text="No results"/>
+                android:text="@string/no_results"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:layout_marginStart="42dp"
                 android:layout_marginEnd="42dp"
                 android:textSize="16sp"
-                android:text="Try searching for another word or check your spelling."/>
+                android:text="@string/try_another_search"/>
         </LinearLayout>
 
         <FrameLayout
@@ -113,7 +113,7 @@
                         android:gravity="center"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
-                        android:text="Dictionary"
+                        android:text="@string/dictionary"
                         android:textAlignment="center"
                         android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="20sp"
@@ -161,7 +161,7 @@
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:fontFamily="@font/manroperegular"
-                            android:hint="Search For Dictionary Item"
+                            android:hint="@string/dictionary_search"
                             android:imeOptions="actionSearch"
                             android:inputType="text"
                             android:maxLines="1"
@@ -196,7 +196,7 @@
                             android:foreground="@drawable/chip_ripple"
                             android:paddingStart="16dp"
                             android:paddingEnd="16dp"
-                            android:text="Clear Filter"
+                            android:text="@string/clear_filter"
                             android:visibility="visible"
                             android:textAllCaps="false"
                             android:textColor="?attr/colorOnSecondaryContainer" />

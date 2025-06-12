@@ -82,7 +82,7 @@
                     android:paddingStart="0dp"
                     android:alpha="0.9"
                     android:paddingEnd="0dp"
-                    android:text="Periodic Table"
+                    android:text="@string/element_info_title"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="20sp"
@@ -251,7 +251,7 @@
                 android:elevation="2dp"
                 android:focusable="true"
                 android:foreground="@drawable/c_ripple"
-                android:text="Submit Data Issue"
+                android:text="@string/submit_data_issue"
                 android:textColor="?attr/colorOnPrimary" />
 
             <Space
