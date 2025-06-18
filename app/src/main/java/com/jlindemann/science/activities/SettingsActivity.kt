@@ -129,6 +129,11 @@ class SettingsActivity : BaseActivity() {
             val blogURL = "https://github.com/JLindemann42/Atomic-Periodic-Table.Android"
             TabUtil.openCustomTab(blogURL, packageManager, this)
         }
+        findViewById<RelativeLayout>(R.id.win_settings).setOnClickListener{
+            val packageManager = packageManager
+            val winURL = "https://apps.microsoft.com/detail/9NBT1TCW2CNT"
+            TabUtil.openCustomTab(winURL, packageManager, this)
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val backCallback = object : OnBackPressedCallback(true) {

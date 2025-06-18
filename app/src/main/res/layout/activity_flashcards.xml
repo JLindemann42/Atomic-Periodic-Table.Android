@@ -27,7 +27,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="28dp"
-                android:text="@string/flashcard_title"
+                android:text="Title"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="32sp"
                 android:textStyle="normal" />
@@ -100,7 +100,7 @@
                         android:backgroundTint="?attr/colorSurface"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
-                        android:hint="@string/flashcard_number"
+                        android:hint="Number"
                         android:imeOptions="actionSearch"
                         android:inputType="text"
                         android:maxLines="1"
@@ -133,7 +133,7 @@
                     android:paddingStart="24dp"
                     android:foreground="@drawable/c_ripple"
                     android:textStyle="normal"
-                    android:text="@string/flashcard_start"
+                    android:text="Start"
                     android:textSize="16sp"
                     android:textColor="?attr/colorOnPrimary" />
 

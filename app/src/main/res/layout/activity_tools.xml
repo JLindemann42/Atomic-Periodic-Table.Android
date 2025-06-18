@@ -359,7 +359,7 @@
                     android:layout_marginTop="@dimen/margin"
                     android:layout_marginEnd="@dimen/margin"
                     android:layout_marginBottom="@dimen/margin_space"
-                    android:text="@string/flashcard_title"
+                    android:text="Flashcards"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="24sp"
                     android:textStyle="bold" />
@@ -371,7 +371,7 @@
                     android:layout_marginTop="@dimen/margin_space"
                     android:layout_marginEnd="@dimen/margin"
                     android:layout_marginBottom="@dimen/margin_space"
-                    android:text="@string/flashcard_text"
+                    android:text="Flashcards"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="16sp"
                     android:textStyle="normal" />

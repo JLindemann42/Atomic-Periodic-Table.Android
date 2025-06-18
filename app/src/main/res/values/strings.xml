@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v3.2.0h-Build.124</string>
+    <string name="app_version" translatable="false">v3.2.1-Build.126</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -84,6 +84,9 @@
     <string name="git_text" translatable="false">Atomics open-source GitHub repo</string>
     <string name="table_order_title" translatable="false">Sort table list</string>
     <string name="table_order_text" translatable="false">Determine order of tables</string>
+    <string name="win_title" translatable="false">Get Desktop App</string>
+    <string name="win_text" translatable="false">Download the app for Windows</string>
+
 
 
 
