@@ -37,29 +37,29 @@ class ToolsActivity : BaseActivity() {
         findViewById<FrameLayout>(R.id.view_tools).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         //Title Controller
-        findViewById<FrameLayout>(R.id.common_title_table_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.tables_title).visibility = View.INVISIBLE
+        findViewById<FrameLayout>(R.id.common_title_tool_color).visibility = View.INVISIBLE
+        findViewById<TextView>(R.id.tools_title).visibility = View.INVISIBLE
         findViewById<FrameLayout>(R.id.common_title_back_tab).elevation = (resources.getDimension(R.dimen.zero_elevation))
         findViewById<ScrollView>(R.id.tools_scroll).getViewTreeObserver()
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
                 var y = 300f
                 override fun onScrollChanged() {
-                    if (findViewById<ScrollView>(R.id.table_scroll).getScrollY() > 150) {
-                        findViewById<FrameLayout>(R.id.common_title_table_color).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.tables_title).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.tables_title_downstate).visibility = View.INVISIBLE
+                    if (findViewById<ScrollView>(R.id.tools_scroll).getScrollY() > 150) {
+                        findViewById<FrameLayout>(R.id.common_title_tool_color).visibility = View.VISIBLE
+                        findViewById<TextView>(R.id.tools_title).visibility = View.VISIBLE
+                        findViewById<TextView>(R.id.tools_title_downstate).visibility = View.INVISIBLE
                         findViewById<FrameLayout>(R.id.common_title_back_tab).elevation = (resources.getDimension(R.dimen.one_elevation))
                     } else {
-                        findViewById<FrameLayout>(R.id.common_title_table_color).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.tables_title).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.tables_title_downstate).visibility = View.VISIBLE
+                        findViewById<FrameLayout>(R.id.common_title_tool_color).visibility = View.INVISIBLE
+                        findViewById<TextView>(R.id.tools_title).visibility = View.INVISIBLE
+                        findViewById<TextView>(R.id.tools_title_downstate).visibility = View.VISIBLE
                         findViewById<FrameLayout>(R.id.common_title_back_tab).elevation = (resources.getDimension(R.dimen.zero_elevation))
                     }
-                    y = findViewById<ScrollView>(R.id.table_scroll).getScrollY().toFloat()
+                    y = findViewById<ScrollView>(R.id.tools_scroll).getScrollY().toFloat()
                 }
             })
 
-        tableListeners()
+        toolListeners()
         mostUsedBar()
 
         findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
@@ -114,7 +114,7 @@ class ToolsActivity : BaseActivity() {
         }
     }
 
-    private fun tableListeners() {
+    private fun toolListeners() {
         //Calculator
         findViewById<FrameLayout>(R.id.tool_calculator).setOnClickListener {
             val intent = Intent(this, CalculatorActivity::class.java)
@@ -122,16 +122,6 @@ class ToolsActivity : BaseActivity() {
         }
         findViewById<TextView>(R.id.calculator_btn).setOnClickListener {
             val intent = Intent(this, CalculatorActivity::class.java)
-            startActivity(intent)
-        }
-
-        //Chemical Reactions
-        findViewById<FrameLayout>(R.id.tool_chemical_reaction).setOnClickListener {
-            val intent = Intent(this, ChemicalReactionsActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.chemical_reaction_btn).setOnClickListener {
-            val intent = Intent(this, ChemicalReactionsActivity::class.java)
             startActivity(intent)
         }
 

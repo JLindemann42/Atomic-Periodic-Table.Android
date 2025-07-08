@@ -121,6 +121,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.tools.FlashCardActivity"
+            android:label="FLASHCARDPAGE"
+            android:exported="true"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.tools.ChemicalReactionsActivity"
             android:label="CHEMICALREACTIONSPAGE"
             android:exported="true"
