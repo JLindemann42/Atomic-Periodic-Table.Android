@@ -360,7 +360,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             startActivity(intent)
         }
         findViewById<TextView>(R.id.calculator_btn).setOnClickListener {
-            val intent = Intent(this, CalculatorActivity::class.java)
+            val intent = Intent(this, ToolsActivity::class.java)
             startActivity(intent)
         }
         findViewById<TextView>(R.id.dictionary_btn).setOnClickListener {

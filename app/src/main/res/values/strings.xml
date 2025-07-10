@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v3.2.0h-Build.124</string>
+    <string name="app_version" translatable="false">v3.2.1-Build.126</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -84,6 +84,9 @@
     <string name="git_text" translatable="false">Atomics open-source GitHub repo</string>
     <string name="table_order_title" translatable="false">Sort table list</string>
     <string name="table_order_text" translatable="false">Determine order of tables</string>
+    <string name="win_title" translatable="false">Get Desktop App</string>
+    <string name="win_text" translatable="false">Download the app for Windows</string>
+
 
 
 
@@ -223,6 +226,12 @@
     <string name="balancer_title" translatable="false">Chemical Reactions</string>
     <string name="balancer_text" translatable="false">Balance different chemical reactions and save favorites for later use</string>
     <string name="tool_btn_open" translatable="false">Open Tool</string>
+    <string name="calc_molar_mass" translatable="false">Molar Mass:</string>
+    <string name="calc_elements_shown" translatable="false">Elements included will be shown here</string>
+    <string name="calc_favorites" translatable="false">Favorites:</string>
+    <string name="calc_no_favorites" translatable="false">Currently no favorites</string>
+    <string name="calc_no_pro_text" translatable="false">In order to access and save to the favorites you need to get the PRO-Version</string>
+
 
     <!-- User Page -->
     <string name="user_title" translatable="false">User Page</string>
@@ -243,9 +252,15 @@
     <string name="eg_number" translatable="false">EG Number:</string>
     <string name="other_title" translatable="false">Others</string>
 
-    <string name="flashcard_title" translatable="false">Flashcards</string>
-    <string name="flashcard_text" translatable="false">A tool to learn information by different flashcards.</string>
-    <string name="flashcard_number" translatable="false">Enter number of flashcards</string>
-    <string name="flashcard_start" translatable="false">Start</string>
+    <string name="clear_filter" translatable="false">Clear Filter</string>
+    <string name="constants_search" translatable="false">Search for constant</string>"
+
+    <string name="dictionary" translatable="false">Dictionary</string>
+    <string name="dictionary_search" translatable="false">Search For Dictionary Item</string>
+
+    <string name="element_info_title" translatable="false">Element Information</string>
+
+    <string name="submit_data_issue" translatable="false">Submit Data Issue</string>
+
 
 </resources>
