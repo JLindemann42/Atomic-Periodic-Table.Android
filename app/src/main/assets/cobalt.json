@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AAPRuxeuZUdESLxBqZZ",
+    "element_code": "AAPRuxeuZUdESLxBqZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Cobalt",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Kobalt_electrolytic_and_1cm3_cube.jpg/1024px-Kobalt_electrolytic_and_1cm3_cube.jpg ",
     "description": "Cobalt is a chemical element with the symbol Co and atomic number 27. Like nickel, cobalt is found in the Earth's crust only in chemically combined form, save for small deposits found in alloys of natural meteoric iron. The free element, produced by reductive smelting, is a hard, lustrous, silver-gray metal.",
-
     "element": "Cobalt",
     "short": "Co",
     "element_year": "1735",
@@ -14,16 +13,13 @@
     "element_electrons": "27",
     "element_protons": "27",
     "element_neutron_common": "32",
-
     "radioactive": "No",
     "neutron_cross_sectional": "37.2 (b)",
-
     "electrical_type": "Conductor",
     "resistivity": "62.4 nΩm",
     "resistivity_mult": "0.00000001",
     "magnetic_type": "Ferromagnetic",
     "superconducting_point": "---",
-
     "element_atomic_number": "27",
     "element_atomicmass": "58.9332 (u)",
     "element_density": "8.86 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "d - block",
     "element_shells_electrons": "K2 L8 M15 N2 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Electron_shell_027_Cobalt_-_no_label.svg/800px-Electron_shell_027_Cobalt_-_no_label.svg.png",
-
     "element_boiling_kelvin": "3200 (K)",
     "element_boiling_celsius": "2927 (°C)",
     "element_boiling_fahrenheit": "5301 (°F)",
     "element_melting_kelvin": "1768 (K)",
     "element_melting_celsius": "1495 (°C)",
     "element_melting_fahrenheit": "2723 (°F)",
-
     "element_electron_config": "3d^7 4s^2",
     "element_ion_charge": "Co^2+, Co^3+",
     "element_ionization_energy1": "7.8810 (eV)",
@@ -72,39 +66,31 @@
     "element_atomic_radius": "152 (pm)",
     "element_covalent_radius": "126 (pm)",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "16.06 (kJ/mol)",
     "element_specific_heat_capacity": "0.421 J/(g·K)",
     "element_vaporization_heat": "377 (kJ/mol)",
-
     "oxidation_state_neg": "3 1 0",
     "oxidation_state_pos": "1 2 3 4 5",
-
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "4720 (m/s) [20°C]",
-
     "mohs_hardness": "5.5",
     "vickers_hardness": "1043 (MPa)",
     "brinell_hardness": "470-3000 (MPa)",
-
     "young_modulus": "209 (GPa)",
     "poisson_ratio": "0.31",
     "bulk_modulus": "180 (GPa)",
     "shear_modulus": "75 (GPa)",
-
-      "earth_crust": "18.0",
-      "earth_soils": "8.0",
-      "urban_soils": "14.1",
-      "sea_water": "0.39",
-      "crustal_rocks": "28",
-      "sun": "2.3 × 10^3",
-      "solar_system": "2.3 × 10^3",
-
-      "cas_number": "7440-48-4",
-      "eg_number": "231-158-0",
-
+    "earth_crust": "18.0",
+    "earth_soils": "8.0",
+    "urban_soils": "14.1",
+    "sea_water": "0.39",
+    "crustal_rocks": "28",
+    "sun": "2.3 × 10^3",
+    "solar_system": "2.3 × 10^3",
+    "cas_number": "7440-48-4",
+    "eg_number": "231-158-0",
     "iso_1": "Co-47",
     "iso_mass_1": "47.01149",
     "iso_half_1": "---",
@@ -112,7 +98,6 @@
     "iso_Z_1": "27",
     "iso_N_1": "20",
     "iso_A_1": "47",
-
     "iso_2": "Co-48",
     "iso_mass_2": "48.00176",
     "iso_half_2": "---",
@@ -120,7 +105,6 @@
     "iso_Z_2": "27",
     "iso_N_2": "21",
     "iso_A_2": "48",
-
     "iso_3": "Co-49",
     "iso_mass_3": "48.98972",
     "iso_half_3": "35 (ns)",
@@ -128,7 +112,6 @@
     "iso_Z_3": "27",
     "iso_N_3": "22",
     "iso_A_3": "49",
-    
     "iso_4": "Co-50",
     "iso_mass_4": "49.98154",
     "iso_half_4": "44 (ms)",
@@ -136,7 +119,6 @@
     "iso_Z_4": "27",
     "iso_N_4": "23",
     "iso_A_4": "50",
-
     "iso_5": "Co-51",
     "iso_mass_5": "50.97072",
     "iso_half_5": "60 (ms)",
@@ -144,7 +126,6 @@
     "iso_Z_5": "27",
     "iso_N_5": "24",
     "iso_A_5": "51",
-
     "iso_6": "Co-52",
     "iso_mass_6": "51.96359",
     "iso_half_6": "115 (ms)",
@@ -152,7 +133,6 @@
     "iso_Z_6": "27",
     "iso_N_6": "25",
     "iso_A_6": "52",
-
     "iso_7": "Co-53",
     "iso_mass_7": "52.954219",
     "iso_half_7": "242 (ms)",
@@ -160,7 +140,6 @@
     "iso_Z_7": "27",
     "iso_N_7": "26",
     "iso_A_7": "53",
-
     "iso_8": "Co-54",
     "iso_mass_8": "53.9484596",
     "iso_half_8": "193.28 (ms)",
@@ -168,7 +147,6 @@
     "iso_Z_8": "27",
     "iso_N_8": "27",
     "iso_A_8": "54",
-
     "iso_9": "Co-55",
     "iso_mass_9": "54.9419990",
     "iso_half_9": "17.53 (hours)",
@@ -176,7 +154,6 @@
     "iso_Z_9": "27",
     "iso_N_9": "28",
     "iso_A_9": "55",
-    
     "iso_10": "Co-56",
     "iso_mass_10": "55.9398393",
     "iso_half_10": "77.233 (days)",
@@ -184,7 +161,6 @@
     "iso_Z_10": "27",
     "iso_N_10": "29",
     "iso_A_10": "56",
-
     "iso_11": "Co-57",
     "iso_mass_11": "56.9362914",
     "iso_half_11": "271.74 (days)",
@@ -192,7 +168,6 @@
     "iso_Z_11": "27",
     "iso_N_11": "30",
     "iso_A_11": "57",
-
     "iso_12": "Co-58",
     "iso_mass_12": "57.9357528",
     "iso_half_12": "70.86 (days)",
@@ -200,7 +175,6 @@
     "iso_Z_12": "27",
     "iso_N_12": "31",
     "iso_A_12": "58",
-
     "iso_13": "Co-59",
     "iso_mass_13": "58.9331950",
     "iso_half_13": "Stable",
@@ -208,7 +182,6 @@
     "iso_Z_13": "27",
     "iso_N_13": "32",
     "iso_A_13": "59",
-
     "iso_14": "Co-60",
     "iso_mass_14": "59.9338171",
     "iso_half_14": "5.2713 (years)",
@@ -216,7 +189,6 @@
     "iso_Z_14": "27",
     "iso_N_14": "33",
     "iso_A_14": "60",
-
     "iso_15": "Co-61",
     "iso_mass_15": "60.9324758",
     "iso_half_15": "1.650 (hours)",
@@ -224,7 +196,6 @@
     "iso_Z_15": "27",
     "iso_N_15": "34",
     "iso_A_15": "61",
-
     "iso_16": "Co-62",
     "iso_mass_16": "61.934051",
     "iso_half_16": "1.50 (min)",
@@ -232,7 +203,6 @@
     "iso_Z_16": "27",
     "iso_N_16": "35",
     "iso_A_16": "62",
-
     "iso_17": "Co-63",
     "iso_mass_17": "62.933612",
     "iso_half_17": "26.9 (s)",
@@ -240,7 +210,6 @@
     "iso_Z_17": "27",
     "iso_N_17": "36",
     "iso_A_17": "63",
-
     "iso_18": "Co-64",
     "iso_mass_18": "63.935810",
     "iso_half_18": "0.30 (s)",
@@ -248,7 +217,6 @@
     "iso_Z_18": "27",
     "iso_N_18": "37",
     "iso_A_18": "64",
-
     "iso_19": "Co-65",
     "iso_mass_19": "64.936478",
     "iso_half_19": "1.20 (s)",
@@ -256,7 +224,6 @@
     "iso_Z_19": "27",
     "iso_N_19": "38",
     "iso_A_19": "65",
-
     "iso_20": "Co-66",
     "iso_mass_20": "65.93976",
     "iso_half_20": "0.18 (s)",
@@ -264,7 +231,6 @@
     "iso_Z_20": "27",
     "iso_N_20": "39",
     "iso_A_20": "66",
-
     "iso_21": "Co-67",
     "iso_mass_21": "66.94089",
     "iso_half_21": "0.425 (s)",
@@ -272,7 +238,6 @@
     "iso_Z_21": "27",
     "iso_N_21": "40",
     "iso_A_21": "67",
-
     "iso_22": "Co-68",
     "iso_mass_22": "67.94487",
     "iso_half_22": "0.199 (s)",
@@ -280,7 +245,6 @@
     "iso_Z_22": "27",
     "iso_N_22": "41",
     "iso_A_22": "68",
-
     "iso_23": "Co-69",
     "iso_mass_23": "68.94632",
     "iso_half_23": "227 (ms)",
@@ -288,7 +252,6 @@
     "iso_Z_23": "27",
     "iso_N_23": "42",
     "iso_A_23": "69",
-    
     "iso_24": "Co-70",
     "iso_mass_24": "69.9510",
     "iso_half_24": "119 (ms)",
@@ -296,7 +259,6 @@
     "iso_Z_24": "27",
     "iso_N_24": "43",
     "iso_A_24": "70",
-
     "iso_25": "Co-71",
     "iso_mass_25": "70.9529",
     "iso_half_25": "97 (ms)",
@@ -304,7 +266,6 @@
     "iso_Z_25": "27",
     "iso_N_25": "44",
     "iso_A_25": "71",
-
     "iso_26": "Co-72",
     "iso_mass_26": "71.95781",
     "iso_half_26": "62 (ms)",
@@ -312,7 +273,6 @@
     "iso_Z_26": "27",
     "iso_N_26": "45",
     "iso_A_26": "72",
-
     "iso_27": "Co-73",
     "iso_mass_27": "72.96024",
     "iso_half_27": "41 (ms)",
@@ -320,7 +280,6 @@
     "iso_Z_27": "27",
     "iso_N_27": "46",
     "iso_A_27": "73",
-
     "iso_28": "Co-74",
     "iso_mass_28": "73.96538",
     "iso_half_28": "50 (ms)",
@@ -328,7 +287,6 @@
     "iso_Z_28": "27",
     "iso_N_28": "47",
     "iso_A_28": "74",
-
     "iso_29": "Co-75",
     "iso_mass_29": "74.96833",
     "iso_half_29": "40 (ms)",
@@ -336,7 +294,6 @@
     "iso_Z_29": "27",
     "iso_N_29": "48",
     "iso_A_29": "75",
-
     "iso_30": "Co-76",
     "iso_mass_30": "---",
     "iso_half_30": "---",
@@ -344,7 +301,6 @@
     "iso_Z_30": "27",
     "iso_N_30": "49",
     "iso_A_30": "76",
-
     "iso_31": "Co-77",
     "iso_mass_31": "---",
     "iso_half_31": "---",
@@ -352,13 +308,21 @@
     "iso_Z_31": "27",
     "iso_N_31": "50",
     "iso_A_31": "77",
-
     "iso_32": "Co-78",
     "iso_mass_32": "---",
     "iso_half_32": "---",
     "decay_type_32": "B-",
     "iso_Z_32": "27",
     "iso_N_32": "51",
-    "iso_A_32": "78"
+    "iso_A_32": "78",
+    "crystal_structure": "Hexagonal close-packed (hcp)",
+    "lattice_constants": {
+      "a": "2.507 Å",
+      "c": "4.069 Å"
+    },
+    "debye_temperature": {
+      "low_temperature_limit": "445 K",
+      "room_temperature": "385 K"
+    }
   }
 ]

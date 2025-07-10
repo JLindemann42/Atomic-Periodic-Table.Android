@@ -261,7 +261,11 @@
                     android:textSize="14sp" />
                 
             </LinearLayout>
-
+            <com.jlindemann.science.extensions.CrystalStructureView
+                android:id="@+id/crystal_view"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center"/>
         </LinearLayout>
 
     </LinearLayout>

@@ -4,7 +4,6 @@
     "wikilink": "https://en.wikipedia.org/wiki/Argon",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Argon_discharge_tube.jpg/1920px-Argon_discharge_tube.jpg",
     "description": "Argon is a chemical element with the symbol Ar and atomic number 18. It is in group 18 of the periodic table and is a noble gas. Argon is the third-most abundant gas in the Earth's atmosphere, at 0.934% (9340 ppmv). It is more than twice as abundant as water vapor (which averages about 4000 ppmv, but varies greatly), 23 times as abundant as carbon dioxide (400 ppmv), and more than 500 times as abundant as neon (18 ppmv). Argon is the most abundant noble gas in Earth's crust, comprising 0.00015% of the crust.",
-
     "element": "Argon",
     "short": "Ar",
     "element_year": "1894",
@@ -14,16 +13,13 @@
     "element_electrons": "18",
     "element_protons": "18",
     "element_neutron_common": "22",
-
     "radioactive": "No",
     "neutron_cross_sectional": "0.675 (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "---",
-
     "element_atomic_number": "18",
     "element_atomicmass": "39.95 (u)",
     "element_density": "0.001784 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L8 M8 N0 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Electron_shell_018_Argon_-_no_label.svg/1280px-Electron_shell_018_Argon_-_no_label.svg.png",
-
     "element_boiling_kelvin": "87.302 (K)",
     "element_boiling_celsius": "−185.848 (°C)",
     "element_boiling_fahrenheit": "−302.526 (°F)",
     "element_melting_kelvin": "83.81 (K)",
     "element_melting_celsius": "−189.34 (°C)",
     "element_melting_fahrenheit": "−308.81 (°F)",
-
     "element_electron_config": "3s^2 3p^6",
     "element_ion_charge": "---",
     "element_ionization_energy1": "15.75962 (eV)",
@@ -63,24 +57,19 @@
     "element_atomic_radius": "71 (pm)",
     "element_covalent_radius": "97 (pm)",
     "element_van_der_waals": "188 (pm)",
-
     "element_phase": "Gas",
     "element_fusion_heat": "1.18 (kJ/mol)",
     "element_specific_heat_capacity": "0.520 J/(g·K)",
     "element_vaporization_heat": "6.43 (kJ/mol)",
-
     "oxidation_state_neg": "0",
     "oxidation_state_pos": "",
-
     "speed_of_sound_gas": "323 (m/s) [27°C]",
     "speed_of_sound_liquid": "813 (m/s) [-185.9°C]",
     "speed_of_sound_solid": "---",
-
     "sea_water": "4.5 × 10^2",
     "crustal_rocks": null,
     "sun": "1.0 × 10^5",
     "solar_system": "1.0 × 10^5",
-
     "iso_1": "Ar-29",
     "iso_mass_1": "---",
     "iso_half_1": "~4×10^−20 (s)",
@@ -88,7 +77,6 @@
     "iso_Z_1": "18",
     "iso_N_1": "11",
     "iso_A_1": "29",
-
     "iso_2": "Ar-30",
     "iso_mass_2": "30.02247",
     "iso_half_2": "10 (ps)",
@@ -96,7 +84,6 @@
     "iso_Z_2": "18",
     "iso_N_2": "12",
     "iso_A_2": "30",
-
     "iso_3": "Ar-31",
     "iso_mass_3": "31.01216",
     "iso_half_3": "15.1 (ms)",
@@ -104,7 +91,6 @@
     "iso_Z_3": "18",
     "iso_N_3": "13",
     "iso_A_3": "31",
-
     "iso_4": "Ar-32",
     "iso_mass_4": "31.9976378",
     "iso_half_4": "98 (ms)",
@@ -112,7 +98,6 @@
     "iso_Z_4": "18",
     "iso_N_4": "14",
     "iso_A_4": "32",
-    
     "iso_5": "Ar-33",
     "iso_mass_5": "32.9899255",
     "iso_half_5": "173.0 (ms)",
@@ -120,7 +105,6 @@
     "iso_Z_5": "18",
     "iso_N_5": "15",
     "iso_A_5": "33",
-
     "iso_6": "Ar-34",
     "iso_mass_6": "33.98027009",
     "iso_half_6": "843.8 (ms)",
@@ -128,7 +112,6 @@
     "iso_Z_6": "18",
     "iso_N_6": "16",
     "iso_A_6": "34",
-
     "iso_7": "Ar-35",
     "iso_mass_7": "34.9752577",
     "iso_half_7": "1.7756 (s)",
@@ -136,7 +119,6 @@
     "iso_Z_7": "18",
     "iso_N_7": "17",
     "iso_A_7": "35",
-
     "iso_8": "Ar-36",
     "iso_mass_8": "35.967545105",
     "iso_half_8": "Observationally Stable",
@@ -144,7 +126,6 @@
     "iso_Z_8": "18",
     "iso_N_8": "18",
     "iso_A_8": "36",
-
     "iso_9": "Ar-37",
     "iso_mass_9": "36.96677631",
     "iso_half_9": "35.011 (Days)",
@@ -152,7 +133,6 @@
     "iso_Z_9": "18",
     "iso_N_9": "19",
     "iso_A_9": "37",
-
     "iso_10": "Ar-38",
     "iso_mass_10": "37.96273210",
     "iso_half_10": "Stable",
@@ -160,7 +140,6 @@
     "iso_Z_10": "18",
     "iso_N_10": "20",
     "iso_A_10": "38",
-
     "iso_11": "Ar-39",
     "iso_mass_11": "38.964313",
     "iso_half_11": "269 (Years)",
@@ -168,7 +147,6 @@
     "iso_Z_11": "18",
     "iso_N_11": "21",
     "iso_A_11": "39",
-
     "iso_12": "Ar-40",
     "iso_mass_12": "39.9623831238",
     "iso_half_12": "Stable",
@@ -176,7 +154,6 @@
     "iso_Z_12": "18",
     "iso_N_12": "22",
     "iso_A_12": "40",
-
     "iso_13": "Ar-41",
     "iso_mass_13": "40.9645006",
     "iso_half_13": "109.61 (min)",
@@ -184,7 +161,6 @@
     "iso_Z_13": "18",
     "iso_N_13": "23",
     "iso_A_13": "41",
-
     "iso_14": "Ar-42",
     "iso_mass_14": "41.963046",
     "iso_half_14": "32.9 (years)",
@@ -192,7 +168,6 @@
     "iso_Z_14": "18",
     "iso_N_14": "24",
     "iso_A_14": "42",
-
     "iso_15": "Ar-43",
     "iso_mass_15": "42.965636",
     "iso_half_15": "5.37 (min)",
@@ -200,7 +175,6 @@
     "iso_Z_15": "18",
     "iso_N_15": "25",
     "iso_A_15": "43",
-
     "iso_16": "Ar-44",
     "iso_mass_16": "43.9649238",
     "iso_half_16": "11.87 (min)",
@@ -208,7 +182,6 @@
     "iso_Z_16": "18",
     "iso_N_16": "26",
     "iso_A_16": "44",
-
     "iso_17": "Ar-45",
     "iso_mass_17": "44.9680397",
     "iso_half_17": "21.48 (s)",
@@ -216,7 +189,6 @@
     "iso_Z_17": "18",
     "iso_N_17": "27",
     "iso_A_17": "45",
-
     "iso_18": "Ar-46",
     "iso_mass_18": "45.9680374",
     "iso_half_18": "8.4 (s)",
@@ -224,7 +196,6 @@
     "iso_Z_18": "18",
     "iso_N_18": "28",
     "iso_A_18": "46",
-
     "iso_19": "Ar-47",
     "iso_mass_19": "46.9727681",
     "iso_half_19": "1.23 (s)",
@@ -232,7 +203,6 @@
     "iso_Z_19": "18",
     "iso_N_19": "29",
     "iso_A_19": "47",
-
     "iso_20": "Ar-48",
     "iso_mass_20": "47.97608",
     "iso_half_20": "415 (ms)",
@@ -240,7 +210,6 @@
     "iso_Z_20": "18",
     "iso_N_20": "30",
     "iso_A_20": "48",
-
     "iso_21": "Ar-49",
     "iso_mass_21": "48.98155",
     "iso_half_21": "236 (ms)",
@@ -248,7 +217,6 @@
     "iso_Z_21": "18",
     "iso_N_21": "31",
     "iso_A_21": "49",
-
     "iso_22": "Ar-50",
     "iso_mass_22": "49.98569",
     "iso_half_22": "106 (ms)",
@@ -256,7 +224,6 @@
     "iso_Z_22": "18",
     "iso_N_22": "32",
     "iso_A_22": "50",
-
     "iso_23": "Ar-51",
     "iso_mass_23": "50.99280",
     "iso_half_23": "60 (ms)",
@@ -264,7 +231,6 @@
     "iso_Z_23": "18",
     "iso_N_23": "33",
     "iso_A_23": "51",
-
     "iso_24": "Ar-52",
     "iso_mass_24": "51.99863",
     "iso_half_24": "10 (ms)",
@@ -272,7 +238,6 @@
     "iso_Z_24": "18",
     "iso_N_24": "34",
     "iso_A_24": "52",
-
     "iso_25": "Ar-53",
     "iso_mass_25": "53.00729",
     "iso_half_25": "3 (ms)",
@@ -280,13 +245,20 @@
     "iso_Z_25": "18",
     "iso_N_25": "35",
     "iso_A_25": "53",
-
     "iso_26": "Ar-54",
     "iso_mass_26": "---",
     "iso_half_26": "---",
     "decay_type_26": "B-",
     "iso_Z_26": "18",
     "iso_N_26": "36",
-    "iso_A_26": "54"
+    "iso_A_26": "54",
+    "crystal_structure": "Face-centered cubic (fcc)",
+    "lattice_constants": {
+      "a": "5.256 Å"
+    },
+    "debye_temperature": {
+      "low_temperature_limit": "85 K",
+      "room_temperature": "80 K"
+    }
   }
 ]

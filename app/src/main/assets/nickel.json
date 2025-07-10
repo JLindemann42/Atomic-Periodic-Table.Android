@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AAXwyuTAMqJEzkgcCZZ",
+    "element_code": "AAXwyuTAMqJEzkgcCZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Nickel",
     "link": "https://upload.wikimedia.org/wikipedia/commons/5/57/Nickel_chunk.jpg",
     "description": "Nickel is a chemical element with the symbol Ni and atomic number 28. It is a silvery-white lustrous metal with a slight golden tinge. Nickel belongs to the transition metals and is hard and ductile. Pure nickel, powdered to maximize the reactive surface area, shows a significant chemical activity, but larger pieces are slow to react with air under standard conditions because an oxide layer forms on the surface and prevents further corrosion (passivation). Even so, pure native nickel is found in Earth's crust only in tiny amounts, usually in ultramafic rocks, and in the interiors of larger nickel–iron meteorites that were not exposed to oxygen when outside Earth's atmosphere.",
-
     "element": "Nickel",
     "short": "Ni",
     "element_year": "1751",
@@ -14,16 +13,13 @@
     "element_electrons": "28",
     "element_protons": "28",
     "element_neutron_common": "30",
-
     "radioactive": "No",
     "neutron_cross_sectional": "4.49 (b)",
-
     "electrical_type": "Conductor",
     "resistivity": "69.3 nΩm",
     "resistivity_mult": "0.00000001",
     "magnetic_type": "Ferromagnetic",
     "superconducting_point": "---",
-
     "element_atomic_number": "28",
     "element_atomicmass": "58.6934 (u)",
     "element_density": "8.90 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "d - block",
     "element_shells_electrons": "K2 L8 M16 N2 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Electron_shell_028_Nickel_-_no_label.svg/800px-Electron_shell_028_Nickel_-_no_label.svg.png",
-
     "element_boiling_kelvin": "3003 (K)",
     "element_boiling_celsius": "2730 (°C)",
     "element_boiling_fahrenheit": "4946 (°F)",
     "element_melting_kelvin": "1728 (K)",
     "element_melting_celsius": "1455 (°C)",
     "element_melting_fahrenheit": "2651 (°F)",
-
     "element_electron_config": "3d^8 4s^2",
     "element_ion_charge": "Ni^2+, Ni^3+",
     "element_ionization_energy1": "7.6398 (eV)",
@@ -73,42 +67,34 @@
     "element_atomic_radius": "149 (pm)",
     "element_covalent_radius": "121 (pm)",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "17.04 (kJ/mol)",
     "element_specific_heat_capacity": "0.444 J/(g·K)",
     "element_vaporization_heat": "379 (kJ/mol)",
-
     "oxidation_state_neg": "2 1 0",
     "oxidation_state_pos": "1 2 3 4 5",
-
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "4900 (m/s) [20°C]",
-
     "mohs_hardness": "4.0",
     "vickers_hardness": "638 (MPa)",
     "brinell_hardness": "667-1600 (MPa)",
-
     "young_modulus": "200 (GPa)",
     "poisson_ratio": "0.31",
     "bulk_modulus": "180 (GPa)",
     "shear_modulus": "76 (GPa)",
-
-      "earth_crust": "58.0",
-      "earth_soils": "40.0",
-      "urban_soils": "33.0",
-      "sea_water": "6.6",
-      "crustal_rocks": "72",
-      "sun": "5.0 × 10^4",
-      "solar_system": "5.0 × 10^4",
-
-      "cas_number": "7440-02-0",
-      "eg_number": "231-111-4",
-      "health": 2,
-      "flammability": 4,
-      "instability": 1,
-
+    "earth_crust": "58.0",
+    "earth_soils": "40.0",
+    "urban_soils": "33.0",
+    "sea_water": "6.6",
+    "crustal_rocks": "72",
+    "sun": "5.0 × 10^4",
+    "solar_system": "5.0 × 10^4",
+    "cas_number": "7440-02-0",
+    "eg_number": "231-111-4",
+    "health": 2,
+    "flammability": 4,
+    "instability": 1,
     "iso_1": "Ni-48",
     "iso_mass_1": "48.01975",
     "iso_half_1": "10 (ms)",
@@ -116,7 +102,6 @@
     "iso_Z_1": "28",
     "iso_N_1": "20",
     "iso_A_1": "48",
-
     "iso_2": "Ni-49",
     "iso_mass_2": "49.00966",
     "iso_half_2": "13 (ms)",
@@ -124,7 +109,6 @@
     "iso_Z_2": "28",
     "iso_N_2": "21",
     "iso_A_2": "49",
-
     "iso_3": "Ni-50",
     "iso_mass_3": "49.99593",
     "iso_half_3": "9.1 (ms)",
@@ -132,7 +116,6 @@
     "iso_Z_3": "28",
     "iso_N_3": "22",
     "iso_A_3": "50",
-
     "iso_4": "Ni-51",
     "iso_mass_4": "50.98772",
     "iso_half_4": "30 (ms)",
@@ -140,7 +123,6 @@
     "iso_Z_4": "28",
     "iso_N_4": "23",
     "iso_A_4": "51",
-
     "iso_5": "Ni-52",
     "iso_mass_5": "51.97568",
     "iso_half_5": "38 (ms)",
@@ -148,7 +130,6 @@
     "iso_Z_5": "28",
     "iso_N_5": "24",
     "iso_A_5": "52",
-
     "iso_6": "Ni-53",
     "iso_mass_6": "52.96847",
     "iso_half_6": "45 (ms)",
@@ -156,7 +137,6 @@
     "iso_Z_6": "28",
     "iso_N_6": "25",
     "iso_A_6": "53",
-
     "iso_7": "Ni-54",
     "iso_mass_7": "53.95791",
     "iso_half_7": "104 (ms)",
@@ -164,7 +144,6 @@
     "iso_Z_7": "28",
     "iso_N_7": "26",
     "iso_A_7": "54",
-
     "iso_8": "Ni-55",
     "iso_mass_8": "54.951330",
     "iso_half_8": "204.7 (ms)",
@@ -172,7 +151,6 @@
     "iso_Z_8": "28",
     "iso_N_8": "27",
     "iso_A_8": "55",
-
     "iso_9": "Ni-56",
     "iso_mass_9": "55.942132",
     "iso_half_9": "6.075 (days)",
@@ -180,7 +158,6 @@
     "iso_Z_9": "28",
     "iso_N_9": "28",
     "iso_A_9": "56",
-
     "iso_10": "Ni-57",
     "iso_mass_10": "56.9397935",
     "iso_half_10": "35.60 (hours)",
@@ -188,7 +165,6 @@
     "iso_Z_10": "28",
     "iso_N_10": "29",
     "iso_A_10": "57",
-
     "iso_11": "Ni-58",
     "iso_mass_11": "57.9353429",
     "iso_half_11": "Observationally Stable",
@@ -196,7 +172,6 @@
     "iso_Z_11": "28",
     "iso_N_11": "30",
     "iso_A_11": "58",
-
     "iso_12": "Ni-59",
     "iso_mass_12": "58.9343467",
     "iso_half_12": "7.6×10^4 (years)",
@@ -204,7 +179,6 @@
     "iso_Z_12": "28",
     "iso_N_12": "31",
     "iso_A_12": "59",
-
     "iso_13": "Ni-60",
     "iso_mass_13": "59.9307864",
     "iso_half_13": "Stable",
@@ -212,7 +186,6 @@
     "iso_Z_13": "28",
     "iso_N_13": "32",
     "iso_A_13": "60",
-
     "iso_14": "Ni-61",
     "iso_mass_14": "60.9310560",
     "iso_half_14": "Stable",
@@ -220,7 +193,6 @@
     "iso_Z_14": "28",
     "iso_N_14": "33",
     "iso_A_14": "61",
-
     "iso_15": "Ni-62",
     "iso_mass_15": "61.9283451",
     "iso_half_15": "Stable",
@@ -228,7 +200,6 @@
     "iso_Z_15": "28",
     "iso_N_15": "34",
     "iso_A_15": "62",
-
     "iso_16": "Ni-63",
     "iso_mass_16": "62.9296694",
     "iso_half_16": "100.1 (years)",
@@ -236,7 +207,6 @@
     "iso_Z_16": "28",
     "iso_N_16": "35",
     "iso_A_16": "63",
-
     "iso_17": "Ni-64",
     "iso_mass_17": "63.9279660",
     "iso_half_17": "Stable",
@@ -244,7 +214,6 @@
     "iso_Z_17": "28",
     "iso_N_17": "36",
     "iso_A_17": "64",
-
     "iso_18": "Ni-65",
     "iso_mass_18": "64.9300843",
     "iso_half_18": "2.5172 (hours)",
@@ -252,7 +221,6 @@
     "iso_Z_18": "28",
     "iso_N_18": "37",
     "iso_A_18": "65",
-
     "iso_19": "Ni-66",
     "iso_mass_19": "65.9291393",
     "iso_half_19": "54.6 (hours)",
@@ -260,7 +228,6 @@
     "iso_Z_19": "28",
     "iso_N_19": "38",
     "iso_A_19": "66",
-
     "iso_20": "Ni-67",
     "iso_mass_20": "66.931569",
     "iso_half_20": "21 (s)",
@@ -268,7 +235,6 @@
     "iso_Z_20": "28",
     "iso_N_20": "39",
     "iso_A_20": "67",
-
     "iso_21": "Ni-68",
     "iso_mass_21": "67.931869",
     "iso_half_21": "29 (s)",
@@ -276,7 +242,6 @@
     "iso_Z_21": "28",
     "iso_N_21": "40",
     "iso_A_21": "68",
-
     "iso_22": "Ni-69",
     "iso_mass_22": "68.935610",
     "iso_half_22": "11.5 (s)",
@@ -284,7 +249,6 @@
     "iso_Z_22": "28",
     "iso_N_22": "41",
     "iso_A_22": "69",
-
     "iso_23": "Ni-70",
     "iso_mass_23": "69.93650",
     "iso_half_23": "6.0 (s)",
@@ -292,7 +256,6 @@
     "iso_Z_23": "28",
     "iso_N_23": "42",
     "iso_A_23": "70",
-
     "iso_24": "Ni-71",
     "iso_mass_24": "70.94074",
     "iso_half_24": "2.56 (s)",
@@ -300,7 +263,6 @@
     "iso_Z_24": "28",
     "iso_N_24": "43",
     "iso_A_24": "71",
-
     "iso_25": "Ni-72",
     "iso_mass_25": "71.94209",
     "iso_half_25": "1.57 (s)",
@@ -308,7 +270,6 @@
     "iso_Z_25": "28",
     "iso_N_25": "44",
     "iso_A_25": "72",
-
     "iso_26": "Ni-73",
     "iso_mass_26": "72.94647",
     "iso_half_26": "0.84 (s)",
@@ -316,7 +277,6 @@
     "iso_Z_26": "28",
     "iso_N_26": "45",
     "iso_A_26": "73",
-
     "iso_27": "Ni-74",
     "iso_mass_27": "73.94807",
     "iso_half_27": "0.68 (s)",
@@ -324,7 +284,6 @@
     "iso_Z_27": "28",
     "iso_N_27": "46",
     "iso_A_27": "74",
-
     "iso_28": "Ni-75",
     "iso_mass_28": "74.95287",
     "iso_half_28": "0.6 (s)",
@@ -332,7 +291,6 @@
     "iso_Z_28": "28",
     "iso_N_28": "47",
     "iso_A_28": "75",
-
     "iso_29": "Ni-76",
     "iso_mass_29": "75.95533",
     "iso_half_29": "470 (ms)",
@@ -340,7 +298,6 @@
     "iso_Z_29": "28",
     "iso_N_29": "48",
     "iso_A_29": "76",
-
     "iso_30": "Ni-77",
     "iso_mass_30": "76.96055",
     "iso_half_30": "300 (ms)",
@@ -348,7 +305,6 @@
     "iso_Z_30": "28",
     "iso_N_30": "49",
     "iso_A_30": "77",
-
     "iso_31": "Ni-78",
     "iso_mass_31": "77.96318",
     "iso_half_31": "120 (ms)",
@@ -356,7 +312,6 @@
     "iso_Z_31": "28",
     "iso_N_31": "50",
     "iso_A_31": "78",
-
     "iso_32": "Ni-79",
     "iso_mass_32": "78.970400",
     "iso_half_32": "43.0 (ms)",
@@ -364,7 +319,6 @@
     "iso_Z_32": "28",
     "iso_N_32": "51",
     "iso_A_32": "79",
-
     "iso_33": "Ni-80",
     "iso_mass_33": "78.970400",
     "iso_half_33": "24 (ms)",
@@ -372,13 +326,20 @@
     "iso_Z_33": "28",
     "iso_N_33": "52",
     "iso_A_33": "80",
-
     "iso_34": "Ni-81",
     "iso_mass_34": "---",
     "iso_half_34": "---",
     "decay_type_34": "B-",
     "iso_Z_34": "28",
     "iso_N_34": "53",
-    "iso_A_34": "81"
+    "iso_A_34": "81",
+    "crystal_structure": "Face-centered cubic (fcc)",
+    "lattice_constants": {
+      "a": "3.524 Å"
+    },
+    "debye_temperature": {
+      "low_temperature_limit": "450 K",
+      "room_temperature": "375 K"
+    }
   }
 ]

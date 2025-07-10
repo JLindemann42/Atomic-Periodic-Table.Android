@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AApc4YAhpQABJGKpZZZ",
+    "element_code": "AApc4YAhpQABJGKpZZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Lithium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/2/21/Limetal.JPG",
     "description": "Lithium (from Greek: λίθος, romanized: lithos, lit. 'stone') is a chemical element with the symbol Li and atomic number 3. It is a soft, silvery-white alkali metal. Under standard conditions, it is the lightest metal and the lightest solid element. Like all alkali metals, lithium is highly reactive and flammable, and must be stored in mineral oil. When cut, it exhibits a metallic luster, but moist air corrodes it quickly to a dull silvery gray, then black tarnish. It never occurs freely in nature, but only in (usually ionic) compounds, such as pegmatitic minerals, which were once the main source of lithium. Due to its solubility as an ion, it is present in ocean water and is commonly obtained from brines. Lithium metal is isolated electrolytically from a mixture of lithium chloride and potassium chloride.",
-
     "element": "Lithium",
     "short": "Li",
     "element_year": "1817",
@@ -14,16 +13,13 @@
     "element_electrons": "3",
     "element_protons": "3",
     "element_neutron_common": "4",
-
     "radioactive": "No",
     "neutron_cross_sectional": "70.5 (b)",
-
     "electrical_type": "Conductor",
     "resistivity": "92.8 nΩm",
     "resistivity_mult": "0.00000001",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "---",
-
     "element_atomic_number": "3",
     "element_atomicmass": "6.94 (u)",
     "element_density": "0.534 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "s - block",
     "element_shells_electrons": "K2 L1 M0 N0 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Electron_shell_003_Lithium_-_no_label.svg/1280px-Electron_shell_003_Lithium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "1603 (K)",
     "element_boiling_celsius": "1330 (°C)",
     "element_boiling_fahrenheit": "2426 (°F)",
     "element_melting_kelvin": "453.65 (K)",
     "element_melting_celsius": "180.50 (°C)",
     "element_melting_fahrenheit": "356.90 (°F)",
-
     "element_electron_config": "2s^1",
     "element_ion_charge": "Li^+",
     "element_ionization_energy1": "5.39172 (eV)",
@@ -48,43 +42,35 @@
     "element_atomic_radius": "167 (pm)",
     "element_covalent_radius": "134 (pm)",
     "element_van_der_waals": "182 (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "3.0 (kJ/mol)",
     "element_specific_heat_capacity": "3.582 J/(g·K)",
     "element_vaporization_heat": "147 (kJ/mol)",
-
     "oxidation_state_neg": "",
     "oxidation_state_pos": "1",
-
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "6000 (m/s) [20°C]",
-
     "young_modulus": "4.9 (GPa)",
     "poisson_ratio": "---",
     "bulk_modulus": "11 (GPa)",
     "shear_modulus": "4.2 (GPa)",
-
     "mohs_hardness": "0.6",
     "vickers_hardness": "---",
     "brinell_hardness": "5 (MPa)",
-
-      "earth_crust": "32.0",
-      "earth_soils": "30.0",
-      "urban_soils": "49.5",
-      "sea_water": "1.7 × 10^2",
-      "crustal_rocks": "20",
-      "sun": "0.4",
-      "solar_system": "57",
-
-      "cas_number": "7439-93-2",
-      "eg_number": "231-102-5",
-      "health": 3,
-      "flammability": 2,
-      "instability": 2,
-      "special": "W",
-
+    "earth_crust": "32.0",
+    "earth_soils": "30.0",
+    "urban_soils": "49.5",
+    "sea_water": "1.7 × 10^2",
+    "crustal_rocks": "20",
+    "sun": "0.4",
+    "solar_system": "57",
+    "cas_number": "7439-93-2",
+    "eg_number": "231-102-5",
+    "health": 3,
+    "flammability": 2,
+    "instability": 2,
+    "special": "W",
     "iso_1": "Li-3",
     "iso_mass_1": "3.030775",
     "iso_half_1": "?",
@@ -92,7 +78,6 @@
     "iso_Z_1": "3",
     "iso_N_1": "0",
     "iso_A_1": "3",
-
     "iso_2": "Li-4",
     "iso_mass_2": "4.02719",
     "iso_half_2": "91×10^-24 (s)",
@@ -100,7 +85,6 @@
     "iso_Z_2": "3",
     "iso_N_2": "1",
     "iso_A_2": "4",
-
     "iso_3": "Li-5",
     "iso_mass_3": "5.01254",
     "iso_half_3": "370×10^-24 (s)",
@@ -108,7 +92,6 @@
     "iso_Z_3": "3",
     "iso_N_3": "2",
     "iso_A_3": "5",
-
     "iso_4": "Li-6",
     "iso_mass_4": "6.0151228874",
     "iso_half_4": "Stable",
@@ -116,7 +99,6 @@
     "iso_Z_4": "3",
     "iso_N_4": "3",
     "iso_A_4": "6",
-
     "iso_5": "Li-7",
     "iso_mass_5": "7.016003437",
     "iso_half_5": "Stable",
@@ -124,7 +106,6 @@
     "iso_Z_5": "3",
     "iso_N_5": "4",
     "iso_A_5": "7",
-
     "iso_6": "Li-8",
     "iso_mass_6": "8.02248625",
     "iso_half_6": "0.83940 (s)",
@@ -132,7 +113,6 @@
     "iso_Z_6": "3",
     "iso_N_6": "5",
     "iso_A_6": "8",
-
     "iso_7": "Li-9",
     "iso_mass_7": "9.02679019",
     "iso_half_7": "0.178.3 (s)",
@@ -140,7 +120,6 @@
     "iso_Z_7": "3",
     "iso_N_7": "6",
     "iso_A_7": "9",
-
     "iso_8": "Li-10",
     "iso_mass_8": "10.035483",
     "iso_half_8": "2.0×10^−21 (s)",
@@ -148,7 +127,6 @@
     "iso_Z_8": "3",
     "iso_N_8": "7",
     "iso_A_8": "10",
-
     "iso_9": "Li-11",
     "iso_mass_9": "11.0437236",
     "iso_half_9": "0.00875 (s)",
@@ -156,7 +134,6 @@
     "iso_Z_9": "3",
     "iso_N_9": "8",
     "iso_A_9": "11",
-
     "iso_10": "Li-12",
     "iso_mass_10": "12.05261",
     "iso_half_10": "<10 (ns)",
@@ -164,13 +141,20 @@
     "iso_Z_10": "3",
     "iso_N_10": "9",
     "iso_A_10": "12",
-
     "iso_11": "Li-13",
     "iso_mass_11": "13.06117",
     "iso_half_11": "3.3×10^−21",
     "decay_type_11": "2n",
     "iso_Z_11": "3",
     "iso_N_11": "10",
-    "iso_A_11": "13"
+    "iso_A_11": "13",
+    "crystal_structure": "Body-centered cubic (bcc)",
+    "lattice_constants": {
+      "a": "3.49 Å"
+    },
+    "debye_temperature": {
+      "low_temperature_limit": "344 K",
+      "room_temperature": "300 K"
+    }
   }
 ]

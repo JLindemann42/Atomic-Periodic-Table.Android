@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AADRk5mxKFYeR4MxiZZ",
+    "element_code": "AADRk5mxKFYeR4MxiZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Dubnium",
     "link": "empty",
     "description": "Dubnium is a synthetic chemical element with the symbol Db and atomic number 105. Dubnium is highly radioactive: the most stable known isotope, dubnium-268, has a half-life of about 28 hours. This greatly limits the extent of research on dubnium.",
-
     "element": "Dubnium",
     "short": "Db",
     "element_year": "1970",
@@ -14,16 +13,13 @@
     "element_electrons": "105",
     "element_protons": "105",
     "element_neutron_common": "163",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "--- (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "---",
     "superconducting_point": "---",
-
     "element_atomic_number": "105",
     "element_atomicmass": "268 (u)",
     "element_density": "29.3 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "d - block",
     "element_shells_electrons": "K2 L8 M18 N32 O32 P11 Q2 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Electron_shell_105_Dubnium_-_no_label.svg/800px-Electron_shell_105_Dubnium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "--- (K)",
     "element_boiling_celsius": "--- (°C)",
     "element_boiling_fahrenheit": "--- (°F)",
     "element_melting_kelvin": "--- (K)",
     "element_melting_celsius": "--- (°C)",
     "element_melting_fahrenheit": "--- (°F)",
-
     "element_electron_config": "5f^14, 6d^3. 7s^2",
     "element_ion_charge": "---",
     "element_ionization_energy1": "---",
@@ -46,20 +40,23 @@
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
-
     "oxidation_state_neg": "",
     "oxidation_state_pos": "5",
-
     "iso_1": "Db-268",
     "iso_mass_1": "268.12567",
     "iso_half_1": "30.8 (hours)",
     "iso_Z_1": "105",
     "iso_N_1": "163",
-    "iso_A_1": "268"
+    "iso_A_1": "268",
+    "crystal_structure": null,
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": null,
+      "room_temperature": null
+    }
   }
 ]

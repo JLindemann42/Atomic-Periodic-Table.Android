@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AACRrMcHBLJDDaAmaZZ",
+    "element_code": "AACRrMcHBLJDDaAmaZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Oganesson",
     "link": "empty",
     "description": "Oganesson is a synthetic chemical element with the symbol Og and atomic number 118. It was first synthesized in 2002 at the Joint Institute for Nuclear Research (JINR) in Dubna, near Moscow, Russia, by a joint team of Russian and American scientists. In December 2015, it was recognized as one of four new elements by the Joint Working Party of the international scientific bodies IUPAC and IUPAP. It was formally named on 28 November 2016. The name is in line with the tradition of honoring a scientist, in this case the nuclear physicist Yuri Oganessian, who has played a leading role in the discovery of the heaviest elements in the periodic table. It is one of only two elements named after a person who was alive at the time of naming, the other being seaborgium, and the only element whose namesake is alive today.",
-
     "element": "Oganesson",
     "short": "Og",
     "element_year": "---",
@@ -14,16 +13,13 @@
     "element_electrons": "---",
     "element_protons": "---",
     "element_neutron_common": "---",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "--- (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "---",
     "superconducting_point": "---",
-
     "element_atomic_number": "118",
     "element_atomicmass": "294 (u)",
     "element_density": "--- (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L8 M18 N32 O32 P18 Q8 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Electron_shell_118_Oganesson_-_no_label.svg/800px-Electron_shell_118_Oganesson_-_no_label.svg.png",
-
     "element_boiling_kelvin": "--- (K)",
     "element_boiling_celsius": "--- (°C)",
     "element_boiling_fahrenheit": "--- (°F)",
     "element_melting_kelvin": "--- (K)",
     "element_melting_celsius": "--- (°C)",
     "element_melting_fahrenheit": "--- (°F)",
-
     "element_electron_config": "5f^14, 6d^10, 7s^2, 7p^6",
     "element_ion_charge": "---",
     "element_ionization_energy1": "---",
@@ -46,17 +40,21 @@
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
-
     "iso_1": "--",
     "iso_mass_1": "--",
     "iso_half_1": "--",
     "iso_Z_1": "--",
     "iso_N_1": "--",
-    "iso_A_1": "--"
+    "iso_A_1": "--",
+    "crystal_structure": null,
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": null,
+      "room_temperature": null
+    }
   }
 ]

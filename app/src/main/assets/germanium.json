@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AAcCPnLrLoncEmkirZZ",
+    "element_code": "AAcCPnLrLoncEmkirZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Germanium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/0/08/Polycrystalline-germanium.jpg",
     "description": "Germanium is a chemical element with the symbol Ge and atomic number 32. It is a lustrous, hard-brittle, grayish-white metalloid in the carbon group, chemically similar to its group neighbours silicon and tin. Pure germanium is a semiconductor with an appearance similar to elemental silicon. Like silicon, germanium naturally reacts and forms complexes with oxygen in nature.",
-
     "element": "Germanium",
     "short": "Ge",
     "element_year": "1886",
@@ -14,16 +13,13 @@
     "element_electrons": "32",
     "element_protons": "32",
     "element_neutron_common": "40",
-
     "radioactive": "No",
     "neutron_cross_sectional": "2.2 (b)",
-
     "electrical_type": "Semiconductor",
     "resistivity": "530000 nΩm",
     "resistivity_mult": "0.0001",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "---",
-
     "element_atomic_number": "32",
     "element_atomicmass": "72.630 (u)",
     "element_density": "5.3234 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L8 18 N4 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Electron_shell_032_Germanium_-_no_label.svg/1280px-Electron_shell_032_Germanium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "3106 (K)",
     "element_boiling_celsius": "2833 (°C)",
     "element_boiling_fahrenheit": "5131 (°F)",
     "element_melting_kelvin": "1211.40  (K)",
     "element_melting_celsius": "938.25 (°C)",
     "element_melting_fahrenheit": "1720.85 (°F)",
-
     "element_electron_config": "3d^10 4s^2 4p^2",
     "element_ion_charge": "Ge^4+,",
     "element_ionization_energy1": "7.8994 (eV)",
@@ -50,37 +44,30 @@
     "element_atomic_radius": "125 (pm)",
     "element_covalent_radius": "122 (pm)",
     "element_van_der_waals": "211 (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "36.94 (kJ/mol)",
     "element_specific_heat_capacity": "0.320 J/(g·K)",
     "element_vaporization_heat": "334 (kJ/mol)",
-
     "oxidation_state_neg": "4 3 2 10",
     "oxidation_state_pos": "1 2 3 4",
-
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "5400 (m/s) [20°C]",
-
     "mohs_hardness": "6.0",
     "vickers_hardness": "---",
     "brinell_hardness": "---",
-
-      "earth_crust": "1.4",
-      "earth_soils": "5.0",
-      "urban_soils": "1.8",
-      "sea_water": "0.06",
-      "crustal_rocks": "1.3",
-      "sun": "72",
-      "solar_system": "1.2 × 10^2",
-
-      "cas_number": "7440-56-4",
-      "eg_number": "231-164-3",
-      "health": 1,
-      "flammability": 0,
-      "instability": 0,
-
+    "earth_crust": "1.4",
+    "earth_soils": "5.0",
+    "urban_soils": "1.8",
+    "sea_water": "0.06",
+    "crustal_rocks": "1.3",
+    "sun": "72",
+    "solar_system": "1.2 × 10^2",
+    "cas_number": "7440-56-4",
+    "eg_number": "231-164-3",
+    "health": 1,
+    "flammability": 0,
+    "instability": 0,
     "iso_1": "Ge-58",
     "iso_mass_1": "57.99101",
     "iso_half_1": "---",
@@ -88,7 +75,6 @@
     "iso_Z_1": "32",
     "iso_N_1": "26",
     "iso_A_1": "58",
-
     "iso_2": "Ge-59",
     "iso_mass_2": "58.98175",
     "iso_half_2": "---",
@@ -96,7 +82,6 @@
     "iso_Z_2": "32",
     "iso_N_2": "27",
     "iso_A_2": "59",
-
     "iso_3": "Ge-60",
     "iso_mass_3": "59.97019",
     "iso_half_3": "30 (ms)",
@@ -104,7 +89,6 @@
     "iso_Z_3": "32",
     "iso_N_3": "28",
     "iso_A_3": "60",
-
     "iso_4": "Ge-61",
     "iso_mass_4": "60.96379",
     "iso_half_4": "39 (ms)",
@@ -112,7 +96,6 @@
     "iso_Z_4": "32",
     "iso_N_4": "29",
     "iso_A_4": "61",
-
     "iso_5": "Ge-62",
     "iso_mass_5": "61.95465",
     "iso_half_5": "129 (ms)",
@@ -120,7 +103,6 @@
     "iso_Z_5": "32",
     "iso_N_5": "30",
     "iso_A_5": "62",
-
     "iso_6": "Ge-63",
     "iso_mass_6": "62.94964",
     "iso_half_6": "142 (ms)",
@@ -128,7 +110,6 @@
     "iso_Z_6": "32",
     "iso_N_6": "31",
     "iso_A_6": "63",
-
     "iso_7": "Ge-64",
     "iso_mass_7": "63.94165",
     "iso_half_7": "63.7 (s)",
@@ -136,7 +117,6 @@
     "iso_Z_7": "32",
     "iso_N_7": "32",
     "iso_A_7": "64",
-
     "iso_8": "Ge-65",
     "iso_mass_8": "64.93944",
     "iso_half_8": "30.9 (s)",
@@ -144,7 +124,6 @@
     "iso_Z_8": "32",
     "iso_N_8": "33",
     "iso_A_8": "65",
-
     "iso_9": "Ge-66",
     "iso_mass_9": "65.93384",
     "iso_half_9": "2.26 (hours)",
@@ -152,7 +131,6 @@
     "iso_Z_9": "32",
     "iso_N_9": "34",
     "iso_A_9": "66",
-
     "iso_10": "Ge-67",
     "iso_mass_10": "66.932734",
     "iso_half_10": "18.9 (min)",
@@ -160,7 +138,6 @@
     "iso_Z_10": "32",
     "iso_N_10": "35",
     "iso_A_10": "67",
-
     "iso_11": "Ge-68",
     "iso_mass_11": "67.928094",
     "iso_half_11": "270.95 (days)",
@@ -168,7 +145,6 @@
     "iso_Z_11": "32",
     "iso_N_11": "36",
     "iso_A_11": "68",
-
     "iso_12": "Ge-69",
     "iso_mass_12": "68.9279645",
     "iso_half_12": "39.05 (hours)",
@@ -176,7 +152,6 @@
     "iso_Z_12": "32",
     "iso_N_12": "37",
     "iso_A_12": "69",
-
     "iso_13": "Ge-70",
     "iso_mass_13": "69.9242474",
     "iso_half_13": "Stable",
@@ -184,7 +159,6 @@
     "iso_Z_13": "32",
     "iso_N_13": "38",
     "iso_A_13": "70",
-
     "iso_14": "Ge-71",
     "iso_mass_14": "70.9249510",
     "iso_half_14": "11.43 (days)",
@@ -192,7 +166,6 @@
     "iso_Z_14": "32",
     "iso_N_14": "39",
     "iso_A_14": "71",
-
     "iso_15": "Ge-72",
     "iso_mass_15": "71.9220758",
     "iso_half_15": "Stable",
@@ -200,7 +173,6 @@
     "iso_Z_15": "32",
     "iso_N_15": "40",
     "iso_A_15": "72",
-
     "iso_16": "Ge-73",
     "iso_mass_16": "72.9234589",
     "iso_half_16": "Stable",
@@ -208,7 +180,6 @@
     "iso_Z_16": "32",
     "iso_N_16": "41",
     "iso_A_16": "73",
-
     "iso_17": "Ge-74",
     "iso_mass_17": "73.9211778",
     "iso_half_17": "Stable",
@@ -216,7 +187,6 @@
     "iso_Z_17": "32",
     "iso_N_17": "42",
     "iso_A_17": "74",
-
     "iso_18": "Ge-75",
     "iso_mass_18": "74.9228589",
     "iso_half_18": "82.78 (min)",
@@ -224,7 +194,6 @@
     "iso_Z_18": "32",
     "iso_N_18": "43",
     "iso_A_18": "75",
-
     "iso_19": "Ge-76",
     "iso_mass_19": "75.9214026",
     "iso_half_19": "1.926×10^21 (years)",
@@ -232,7 +201,6 @@
     "iso_Z_19": "32",
     "iso_N_19": "44",
     "iso_A_19": "76",
-
     "iso_20": "Ge-77",
     "iso_mass_20": "76.9235486",
     "iso_half_20": "11.30 (hours)",
@@ -240,7 +208,6 @@
     "iso_Z_20": "32",
     "iso_N_20": "45",
     "iso_A_20": "77",
-
     "iso_21": "Ge-78",
     "iso_mass_21": "77.922853",
     "iso_half_21": "88 (min)",
@@ -248,7 +215,6 @@
     "iso_Z_21": "32",
     "iso_N_21": "46",
     "iso_A_21": "78",
-
     "iso_22": "Ge-79",
     "iso_mass_22": "78.9254",
     "iso_half_22": "18.98 (s)",
@@ -256,7 +222,6 @@
     "iso_Z_22": "32",
     "iso_N_22": "47",
     "iso_A_22": "79",
-
     "iso_23": "Ge-80",
     "iso_mass_23": "79.92537",
     "iso_half_23": "29.5 (s)",
@@ -264,7 +229,6 @@
     "iso_Z_23": "32",
     "iso_N_23": "48",
     "iso_A_23": "80",
-
     "iso_24": "Ge-81",
     "iso_mass_24": "80.92882",
     "iso_half_24": "7.6 (s)",
@@ -272,7 +236,6 @@
     "iso_Z_24": "32",
     "iso_N_24": "49",
     "iso_A_24": "81",
-
     "iso_25": "Ge-82",
     "iso_mass_25": "81.92955",
     "iso_half_25": "4.55 (s)",
@@ -280,7 +243,6 @@
     "iso_Z_25": "32",
     "iso_N_25": "50",
     "iso_A_25": "82",
-
     "iso_26": "Ge-83",
     "iso_mass_26": "82.93462",
     "iso_half_26": "1.85 (s)",
@@ -288,7 +250,6 @@
     "iso_Z_26": "32",
     "iso_N_26": "51",
     "iso_A_26": "83",
-
     "iso_27": "Ge-84",
     "iso_mass_27": "83.93747",
     "iso_half_27": "0.947 (s)",
@@ -296,7 +257,6 @@
     "iso_Z_27": "32",
     "iso_N_27": "52",
     "iso_A_27": "84",
-
     "iso_28": "Ge-85",
     "iso_mass_28": "84.94303",
     "iso_half_28": "535 (ms)",
@@ -304,7 +264,6 @@
     "iso_Z_28": "32",
     "iso_N_28": "53",
     "iso_A_28": "85",
-
     "iso_29": "Ge-86",
     "iso_mass_29": "85.94649",
     "iso_half_29": "150 (ns)",
@@ -312,7 +271,6 @@
     "iso_Z_29": "32",
     "iso_N_29": "54",
     "iso_A_29": "86",
-
     "iso_30": "Ge-87",
     "iso_mass_30": "86.95251",
     "iso_half_30": "0.14 (s)",
@@ -320,7 +278,6 @@
     "iso_Z_30": "32",
     "iso_N_30": "55",
     "iso_A_30": "87",
-
     "iso_31": "Ge-88",
     "iso_mass_31": "87.95691",
     "iso_half_31": "300 (ns)",
@@ -328,7 +285,6 @@
     "iso_Z_31": "32",
     "iso_N_31": "56",
     "iso_A_31": "88",
-
     "iso_32": "Ge-89",
     "iso_mass_32": "88.96383",
     "iso_half_32": "150 (ns)",
@@ -336,14 +292,20 @@
     "iso_Z_32": "32",
     "iso_N_32": "57",
     "iso_A_32": "89",
-
     "iso_33": "Ge-90",
     "iso_mass_33": "---",
     "iso_half_33": "---",
     "decay_type_33": "B-",
     "iso_Z_33": "32",
     "iso_N_33": "58",
-    "iso_A_33": "90"
-    
+    "iso_A_33": "90",
+    "crystal_structure": "Diamond cubic",
+    "lattice_constants": {
+      "a": "5.658 Å"
+    },
+    "debye_temperature": {
+      "low_temperature_limit": "374 K",
+      "room_temperature": "360 K"
+    }
   }
 ]

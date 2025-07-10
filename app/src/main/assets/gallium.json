@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AABqC7oaryQjJNeW2ZZ",
+    "element_code": "AABqC7oaryQjJNeW2ZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Gallium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/9/92/Gallium_crystals.jpg",
     "description": "Gallium is a chemical element with the symbol Ga and atomic number 31. Elemental gallium is a soft, silvery metal at standard temperature and pressure; however in its liquid state it becomes silvery white. If too much force is applied, the gallium may fracture conchoidally. It is in group 13 of the periodic table, and thus has similarities to the other metals of the group, aluminium, indium, and thallium. Gallium does not occur as a free element in nature, but as gallium(III) compounds in trace amounts in zinc ores and in bauxite. Elemental gallium is a liquid at temperatures greater than 29.76 °C (85.57 °F), and will melt in a person's hands at normal human body temperature of 37 °C (99 °F).",
-
     "element": "Gallium",
     "short": "Ga",
     "element_year": "1875",
@@ -14,16 +13,13 @@
     "element_electrons": "31",
     "element_protons": "31",
     "element_neutron_common": "38",
-
     "radioactive": "No",
     "neutron_cross_sectional": "2.9 (b)",
-
     "electrical_type": "Conductor",
     "resistivity": "136 nΩm",
     "resistivity_mult": "0.0000001",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "1.083",
-
     "element_atomic_number": "31",
     "element_atomicmass": "69.723 (u)",
     "element_density": "5.91 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L8 18 N3 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Electron_shell_031_Gallium_-_no_label.svg/1280px-Electron_shell_031_Gallium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "2673 (K)",
     "element_boiling_celsius": "2400 (°C)",
     "element_boiling_fahrenheit": "4352 (°F)",
     "element_melting_kelvin": "302.9146 (K)",
     "element_melting_celsius": "29.7646 (°C)",
     "element_melting_fahrenheit": "85.5763 (°F)",
-
     "element_electron_config": "3d^10 4s^2 4p^1",
     "element_ion_charge": "Ga^3+,",
     "element_ionization_energy1": "5.99930 (eV)",
@@ -49,37 +43,30 @@
     "element_atomic_radius": "136 (pm)",
     "element_covalent_radius": "126 (pm)",
     "element_van_der_waals": "187 (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "5.576 (kJ/mol)",
     "element_specific_heat_capacity": "0.371 J/(g·K)",
     "element_vaporization_heat": "254 (kJ/mol)",
-
     "oxidation_state_neg": "5 4 3 2 1",
     "oxidation_state_pos": "1 2 3",
-
     "mohs_hardness": "1.5",
     "vickers_hardness": "---",
     "brinell_hardness": "56.8-68.7 (MPa)",
-
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "2740 (m/s) [20°C]",
-
-      "earth_crust": "19.0",
-      "earth_soils": "30.0",
-      "urban_soils": "16.2",
-      "sea_water": "0.03",
-      "crustal_rocks": "17",
-      "sun": "21",
-      "solar_system": "38",
-
-      "cas_number": "7440-55-3",
-      "eg_number": "231-163-8",
-      "health": 1,
-      "flammability": 0,
-      "instability": 0,
-
+    "earth_crust": "19.0",
+    "earth_soils": "30.0",
+    "urban_soils": "16.2",
+    "sea_water": "0.03",
+    "crustal_rocks": "17",
+    "sun": "21",
+    "solar_system": "38",
+    "cas_number": "7440-55-3",
+    "eg_number": "231-163-8",
+    "health": 1,
+    "flammability": 0,
+    "instability": 0,
     "iso_1": "Ga-56",
     "iso_mass_1": "55.99491",
     "iso_half_1": "---",
@@ -87,7 +74,6 @@
     "iso_Z_1": "31",
     "iso_N_1": "25",
     "iso_A_1": "56",
-
     "iso_2": "Ga-57",
     "iso_mass_2": "56.98293",
     "iso_half_2": "---",
@@ -95,7 +81,6 @@
     "iso_Z_2": "31",
     "iso_N_2": "26",
     "iso_A_2": "57",
-
     "iso_3": "Ga-58",
     "iso_mass_3": "57.97425",
     "iso_half_3": "---",
@@ -103,7 +88,6 @@
     "iso_Z_3": "31",
     "iso_N_3": "27",
     "iso_A_3": "58",
-
     "iso_4": "Ga-59",
     "iso_mass_4": "58.96337",
     "iso_half_4": "---",
@@ -111,7 +95,6 @@
     "iso_Z_4": "31",
     "iso_N_4": "28",
     "iso_A_4": "59",
-
     "iso_5": "Ga-60",
     "iso_mass_5": "59.95706",
     "iso_half_5": "70 (ms)",
@@ -119,7 +102,6 @@
     "iso_Z_5": "31",
     "iso_N_5": "29",
     "iso_A_5": "60",
-
     "iso_6": "Ga-61",
     "iso_mass_6": "60.94945",
     "iso_half_6": "168 (ms)",
@@ -127,7 +109,6 @@
     "iso_Z_6": "31",
     "iso_N_6": "30",
     "iso_A_6": "61",
-
     "iso_7": "Ga-62",
     "iso_mass_7": "61.944175",
     "iso_half_7": "116.18 (ms)",
@@ -135,7 +116,6 @@
     "iso_Z_7": "31",
     "iso_N_7": "31",
     "iso_A_7": "62",
-
     "iso_8": "Ga-63",
     "iso_mass_8": "62.9392942",
     "iso_half_8": "32.4 (s)",
@@ -143,7 +123,6 @@
     "iso_Z_8": "31",
     "iso_N_8": "32",
     "iso_A_8": "63",
-
     "iso_9": "Ga-64",
     "iso_mass_9": "63.9368387",
     "iso_half_9": "2.627 (min)",
@@ -151,7 +130,6 @@
     "iso_Z_9": "31",
     "iso_N_9": "33",
     "iso_A_9": "64",
-
     "iso_10": "Ga-65",
     "iso_mass_10": "64.9327348",
     "iso_half_10": "15.2 (min)",
@@ -159,7 +137,6 @@
     "iso_Z_10": "31",
     "iso_N_10": "34",
     "iso_A_10": "65",
-
     "iso_11": "Ga-66",
     "iso_mass_11": "65.931589",
     "iso_half_11": "9.49 (hours)",
@@ -167,7 +144,6 @@
     "iso_Z_11": "31",
     "iso_N_11": "35",
     "iso_A_11": "66",
-
     "iso_12": "Ga-67",
     "iso_mass_12": "66.9282017",
     "iso_half_12": "3.2612 (days)",
@@ -175,7 +151,6 @@
     "iso_Z_12": "31",
     "iso_N_12": "36",
     "iso_A_12": "67",
-    
     "iso_13": "Ga-68",
     "iso_mass_13": "67.9279801",
     "iso_half_13": "67.71 (min)",
@@ -183,7 +158,6 @@
     "iso_Z_13": "31",
     "iso_N_13": "37",
     "iso_A_13": "68",
-
     "iso_14": "Ga-69",
     "iso_mass_14": "68.9255736",
     "iso_half_14": " Stable",
@@ -191,7 +165,6 @@
     "iso_Z_14": "31",
     "iso_N_14": "38",
     "iso_A_14": "69",
-
     "iso_15": "Ga-70",
     "iso_mass_15": "69.9260220",
     "iso_half_15": "21.14 (min)",
@@ -199,7 +172,6 @@
     "iso_Z_15": "31",
     "iso_N_15": "39",
     "iso_A_15": "70",
-
     "iso_16": "Ga-71",
     "iso_mass_16": "70.9247013",
     "iso_half_16": "Stable",
@@ -207,7 +179,6 @@
     "iso_Z_16": "31",
     "iso_N_16": "40",
     "iso_A_16": "71",
-
     "iso_17": "Ga-72",
     "iso_mass_17": "71.9263663",
     "iso_half_17": "14.095 (hours)",
@@ -215,7 +186,6 @@
     "iso_Z_17": "31",
     "iso_N_17": "41",
     "iso_A_17": "72",
-
     "iso_18": "Ga-73",
     "iso_mass_18": "72.9251747",
     "iso_half_18": "4.86 (hours)",
@@ -223,7 +193,6 @@
     "iso_Z_18": "31",
     "iso_N_18": "42",
     "iso_A_18": "73",
-
     "iso_19": "Ga-74",
     "iso_mass_19": "73.926946",
     "iso_half_19": "8.12 (min)",
@@ -231,7 +200,6 @@
     "iso_Z_19": "31",
     "iso_N_19": "43",
     "iso_A_19": "74",
-
     "iso_20": "Ga-75",
     "iso_mass_20": "74.9265002",
     "iso_half_20": "126 (s)",
@@ -239,7 +207,6 @@
     "iso_Z_20": "31",
     "iso_N_20": "44",
     "iso_A_20": "75",
-
     "iso_21": "Ga-76",
     "iso_mass_21": "75.9288276",
     "iso_half_21": "32.6 (s)",
@@ -247,7 +214,6 @@
     "iso_Z_21": "31",
     "iso_N_21": "45",
     "iso_A_21": "76",
-
     "iso_22": "Ga-77",
     "iso_mass_22": "76.9291543",
     "iso_half_22": "13.2 (s)",
@@ -255,7 +221,6 @@
     "iso_Z_22": "31",
     "iso_N_22": "46",
     "iso_A_22": "77",
-
     "iso_23": "Ga-78",
     "iso_mass_23": "77.9316082",
     "iso_half_23": "5.09 (s)",
@@ -263,7 +228,6 @@
     "iso_Z_23": "31",
     "iso_N_23": "47",
     "iso_A_23": "78",
-
     "iso_24": "Ga-79",
     "iso_mass_24": "78.93289",
     "iso_half_24": "2.847 (s)",
@@ -271,7 +235,6 @@
     "iso_Z_24": "31",
     "iso_N_24": "48",
     "iso_A_24": "79",
-
     "iso_25": "Ga-80",
     "iso_mass_25": "79.93652",
     "iso_half_25": "1.697 (s)",
@@ -279,7 +242,6 @@
     "iso_Z_25": "31",
     "iso_N_25": "49",
     "iso_A_25": "80",
-
     "iso_26": "Ga-81",
     "iso_mass_26": "80.93775",
     "iso_half_26": "1.217 (s)",
@@ -287,7 +249,6 @@
     "iso_Z_26": "31",
     "iso_N_26": "50",
     "iso_A_26": "81",
-    
     "iso_27": "Ga-82",
     "iso_mass_27": "81.94299",
     "iso_half_27": "0.599 (s)",
@@ -295,7 +256,6 @@
     "iso_Z_27": "31",
     "iso_N_27": "51",
     "iso_A_27": "82",
-
     "iso_28": "Ga-83",
     "iso_mass_28": "82.94698",
     "iso_half_28": "308 (ms)",
@@ -303,7 +263,6 @@
     "iso_Z_28": "31",
     "iso_N_28": "52",
     "iso_A_28": "83",
-
     "iso_29": "Ga-84",
     "iso_mass_29": "83.95265",
     "iso_half_29": "0.085 (s)",
@@ -311,7 +270,6 @@
     "iso_Z_29": "31",
     "iso_N_29": "53",
     "iso_A_29": "84",
-
     "iso_30": "Ga-85",
     "iso_mass_30": "84.95700",
     "iso_half_30": "50 (ms)",
@@ -319,7 +277,6 @@
     "iso_Z_30": "31",
     "iso_N_30": "54",
     "iso_A_30": "85",
-
     "iso_31": "Ga-86",
     "iso_mass_31": "85.96312",
     "iso_half_31": "30 (ms)",
@@ -327,7 +284,6 @@
     "iso_Z_31": "31",
     "iso_N_31": "55",
     "iso_A_31": "86",
-
     "iso_32": "Ga-87",
     "iso_mass_32": "---",
     "iso_half_32": "---",
@@ -335,14 +291,18 @@
     "iso_Z_32": "31",
     "iso_N_32": "56",
     "iso_A_32": "87",
-
     "iso_33": "Ga-88",
     "iso_mass_33": "---",
     "iso_half_33": "---",
     "decay_type_33": "B-",
     "iso_Z_33": "31",
     "iso_N_33": "57",
-    "iso_A_33": "88"
-    
+    "iso_A_33": "88",
+    "crystal_structure": "Orthorhombic",
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": "320 K",
+      "room_temperature": "270 K"
+    }
   }
 ]

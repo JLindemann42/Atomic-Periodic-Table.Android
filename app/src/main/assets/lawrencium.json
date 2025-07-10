@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AA4jBKYwKVjrzaJnkZZ",
+    "element_code": "AA4jBKYwKVjrzaJnkZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Lawrencium",
     "link": "empty",
     "description": "Lawrencium is a synthetic chemical element with the symbol Lr (formerly Lw) and atomic number 103. It is named in honor of Ernest Lawrence, inventor of the cyclotron, a device that was used to discover many artificial radioactive elements. A radioactive metal, lawrencium is the eleventh transuranic element and is also the final member of the actinide series. Like all elements with atomic number over 100, lawrencium can only be produced in particle accelerators by bombarding lighter elements with charged particles. Thirteen isotopes of lawrencium are currently known; the most stable is Lr-266 with a half-life of 11 hours, but the shorter-lived Lr-260 (half-life 2.7 minutes) is most commonly used in chemistry because it can be produced on a larger scale.",
-
     "element": "Lawrencium",
     "short": "Lr",
     "element_year": "1961-1971",
@@ -14,16 +13,13 @@
     "element_electrons": "103",
     "element_protons": "103",
     "element_neutron_common": "163",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "--- (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "---",
     "superconducting_point": "---",
-
     "element_atomic_number": "103",
     "element_atomicmass": "266 (u)",
     "element_density": "9.84 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "f - block",
     "element_shells_electrons": "K2 L8 M18 N32 O32 P8 Q3 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Electron_shell_103_Lawrencium_-_no_label.svg/800px-Electron_shell_103_Lawrencium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "--- (K)",
     "element_boiling_celsius": "--- (°C)",
     "element_boiling_fahrenheit": "--- (°F)",
     "element_melting_kelvin": "1900 (K)",
     "element_melting_celsius": "1627 (°C)",
     "element_melting_fahrenheit": "2961 (°F)",
-
     "element_electron_config": "5f^14, 7s^2, 7p^1",
     "element_ion_charge": "Lr^3+",
     "element_ionization_energy1": "4.9 (eV)",
@@ -46,27 +40,29 @@
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
-
     "oxidation_state_neg": "",
     "oxidation_state_pos": "3",
-
     "iso_1": "Lr-261",
     "iso_mass_1": "261.10688",
     "iso_half_1": "44 (min)",
     "iso_Z_1": "103",
     "iso_N_1": "158",
     "iso_A_1": "261",
-
     "iso_2": "Lr-262",
     "iso_mass_2": "262.10961",
     "iso_half_2": "216 (min)",
     "iso_Z_2": "103",
     "iso_N_2": "159",
-    "iso_A_2": "262"
+    "iso_A_2": "262",
+    "crystal_structure": null,
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": null,
+      "room_temperature": null
+    }
   }
 ]

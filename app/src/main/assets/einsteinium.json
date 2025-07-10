@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AApVu8spXxx9x4YtpZZ",
+    "element_code": "AApVu8spXxx9x4YtpZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Einsteinium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/5/55/Einsteinium.jpg",
     "description": "Einsteinium is a synthetic element with the symbol Es and atomic number 99. As a member of the actinide series, it is the seventh transuranic element.\n\nEinsteinium was discovered as a component of the debris of the first hydrogen bomb explosion in 1952, and named after Albert Einstein. Its most common isotope einsteinium-253 (half-life 20.47 days) is produced artificially from decay of californium-253 in a few dedicated high-power nuclear reactors with a total yield on the order of one milligram per year. The reactor synthesis is followed by a complex process of separating einsteinium-253 from other actinides and products of their decay. Other isotopes are synthesized in various laboratories, but in much smaller amounts, by bombarding heavy actinide elements with light ions. Owing to the small amounts of produced einsteinium and the short half-life of its most easily produced isotope, there are currently almost no practical applications for it outside basic scientific research. In particular, einsteinium was used to synthesize, for the first time, 17 atoms of the new element mendelevium in 1955.",
-
     "element": "Einsteinium",
     "short": "Es",
     "element_year": "1952",
@@ -14,16 +13,13 @@
     "element_electrons": "99",
     "element_protons": "99",
     "element_neutron_common": "153",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "160 (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "---",
     "superconducting_point": "---",
-
     "element_atomic_number": "99",
     "element_atomicmass": "253 (u)",
     "element_density": "8.84 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "f - block",
     "element_shells_electrons": "K2 L8 M18 N32 O29 P8 Q2 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Electron_shell_099_Einsteinium_-_no_label.svg/800px-Electron_shell_099_Einsteinium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "1269 (K)",
     "element_boiling_celsius": "996 (°C)",
     "element_boiling_fahrenheit": "1825 (°F)",
     "element_melting_kelvin": "1133 (K)",
     "element_melting_celsius": "860 (°C)",
     "element_melting_fahrenheit": "1580 (°F)",
-
     "element_electron_config": "5f^11, 7s^2",
     "element_ion_charge": "Es^3+",
     "element_ionization_energy1": "6.42 (eV)",
@@ -46,34 +40,35 @@
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
-
     "oxidation_state_neg": "",
     "oxidation_state_pos": "2 3 4",
-
     "iso_1": "Es-251",
     "iso_mass_1": "251.079992",
     "iso_half_1": "33 (hours)",
     "iso_Z_1": "99",
     "iso_N_1": "152",
     "iso_A_1": "251",
-
     "iso_2": "Es-252",
     "iso_mass_2": "252.08298",
     "iso_half_2": "471.7 (days)",
     "iso_Z_2": "99",
     "iso_N_2": "153",
     "iso_A_2": "252",
-
     "iso_3": "Es-253",
     "iso_mass_3": "253.0848247",
     "iso_half_3": "20.47 (days)",
     "iso_Z_3": "99",
     "iso_N_3": "154",
-    "iso_A_3": "253"
+    "iso_A_3": "253",
+    "crystal_structure": "Face-centered cubic (fcc)",
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": "110 K",
+      "room_temperature": "100 K"
+    }
   }
 ]

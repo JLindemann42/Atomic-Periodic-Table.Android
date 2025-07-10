@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AA2eTRf69yV7xEPhmZZ",
+    "element_code": "AA2eTRf69yV7xEPhmZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Osmium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Osmium_crystals.jpg/1024px-Osmium_crystals.jpg",
     "description": "Osmium (from Greek ὀσμή osme, \"smell\") is a chemical element with the symbol Os and atomic number 76. It is a hard, brittle, bluish-white transition metal in the platinum group that is found as a trace element in alloys, mostly in platinum ores. Osmium is the densest naturally occurring element, with an experimentally measured (using x-ray crystallography) density of 22.59 g/cm3. Manufacturers use its alloys with platinum, iridium, and other platinum-group metals to make fountain pen nib tipping, electrical contacts, and in other applications that require extreme durability and hardness. The element's abundance in the Earth's crust is among the rarest.",
-
     "element": "Osmium",
     "short": "Os",
     "element_year": "1803",
@@ -14,16 +13,13 @@
     "element_electrons": "76",
     "element_protons": "76",
     "element_neutron_common": "116",
-
     "radioactive": "No",
     "neutron_cross_sectional": "15 (b)",
-
     "electrical_type": "Conductor",
     "resistivity": "81.2 nΩm",
     "resistivity_mult": "0.00000001",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "0.66",
-
     "element_atomic_number": "76",
     "element_atomicmass": "190.23 (u)",
     "element_density": "22.59 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "d - block",
     "element_shells_electrons": "K2 L8 M8 N32 O14 P2 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Electron_shell_076_Osmium_-_no_label.svg/800px-Electron_shell_076_Osmium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "5285 (K)",
     "element_boiling_celsius": "5012 (°C)",
     "element_boiling_fahrenheit": "9054 (°F)",
     "element_melting_kelvin": "3306 (K)",
     "element_melting_celsius": "3033 (°C)",
     "element_melting_fahrenheit": "5491 (°F)",
-
     "element_electron_config": "4f^14, 5d^6, 6s^2",
     "element_ion_charge": "Os^4+",
     "element_ionization_energy1": "8.4382 (eV)",
@@ -46,34 +40,27 @@
     "element_atomic_radius": "185 (pm)",
     "element_covalent_radius": "128 (pm)",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "57.85 (kJ/mol)",
     "element_specific_heat_capacity": "0.130 J/(g·K)",
     "element_vaporization_heat": "678 (kJ/mol)",
-
     "oxidation_state_neg": "4 2 1 0",
     "oxidation_state_pos": "1 2 3 4 5 6 7 8",
-
     "mohs_hardness": "7.0",
     "vickers_hardness": "---",
     "brinell_hardness": "3920-4000 (MPa)",
-
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "4940 (m/s) [20°C]",
-
-      "sea_water": null,
-      "crustal_rocks": "0.0002",
-      "sun": "0.8",
-      "solar_system": "0.67",
-
-      "cas_number": "7440-04-2",
-      "eg_number": "231-114-0",
-      "health": 0,
-      "flammability": 4,
-      "instability": 1,
-
+    "sea_water": null,
+    "crustal_rocks": "0.0002",
+    "sun": "0.8",
+    "solar_system": "0.67",
+    "cas_number": "7440-04-2",
+    "eg_number": "231-114-0",
+    "health": 0,
+    "flammability": 4,
+    "instability": 1,
     "iso_1": "Osmium-163",
     "iso_mass_1": "162.964",
     "decay_type_1": "B+",
@@ -81,7 +68,6 @@
     "iso_Z_1": "76",
     "iso_N_1": "87",
     "iso_A_1": "163",
-
     "iso_2": "Osmium-164",
     "iso_mass_2": "163.963",
     "decay_type_2": "B+",
@@ -89,7 +75,6 @@
     "iso_Z_2": "76",
     "iso_N_2": "88",
     "iso_A_2": "164",
-
     "iso_3": "Osmium-165",
     "iso_mass_3": "164.961",
     "decay_type_3": "B+",
@@ -97,7 +82,6 @@
     "iso_Z_3": "76",
     "iso_N_3": "89",
     "iso_A_3": "165",
-
     "iso_4": "Osmium-166",
     "iso_mass_4": "165.960",
     "decay_type_4": "B+",
@@ -105,7 +89,6 @@
     "iso_Z_4": "76",
     "iso_N_4": "90",
     "iso_A_4": "166",
-
     "iso_5": "Osmium-167",
     "iso_mass_5": "166.958",
     "decay_type_5": "B+",
@@ -113,7 +96,6 @@
     "iso_Z_5": "76",
     "iso_N_5": "91",
     "iso_A_5": "167",
-
     "iso_6": "Osmium-168",
     "iso_mass_6": "167.957",
     "decay_type_6": "B+",
@@ -121,7 +103,6 @@
     "iso_Z_6": "76",
     "iso_N_6": "92",
     "iso_A_6": "168",
-
     "iso_7": "Osmium-169",
     "iso_mass_7": "168.955",
     "decay_type_7": "B+",
@@ -129,7 +110,6 @@
     "iso_Z_7": "76",
     "iso_N_7": "93",
     "iso_A_7": "169",
-
     "iso_8": "Osmium-170",
     "iso_mass_8": "169.954",
     "decay_type_8": "B+",
@@ -137,7 +117,6 @@
     "iso_Z_8": "76",
     "iso_N_8": "94",
     "iso_A_8": "170",
-
     "iso_9": "Osmium-171",
     "iso_mass_9": "170.953",
     "decay_type_9": "B+",
@@ -145,7 +124,6 @@
     "iso_Z_9": "76",
     "iso_N_9": "95",
     "iso_A_9": "171",
-
     "iso_10": "Osmium-172",
     "iso_mass_10": "171.952",
     "decay_type_10": "B+",
@@ -153,7 +131,6 @@
     "iso_Z_10": "76",
     "iso_N_10": "96",
     "iso_A_10": "172",
-
     "iso_11": "Osmium-173",
     "iso_mass_11": "172.950",
     "decay_type_11": "B+",
@@ -161,7 +138,6 @@
     "iso_Z_11": "76",
     "iso_N_11": "97",
     "iso_A_11": "173",
-
     "iso_12": "Osmium-174",
     "iso_mass_12": "173.949",
     "decay_type_12": "B+",
@@ -169,7 +145,6 @@
     "iso_Z_12": "76",
     "iso_N_12": "98",
     "iso_A_12": "174",
-
     "iso_13": "Osmium-175",
     "iso_mass_13": "174.947",
     "decay_type_13": "B+",
@@ -177,7 +152,6 @@
     "iso_Z_13": "76",
     "iso_N_13": "99",
     "iso_A_13": "175",
-
     "iso_14": "Osmium-176",
     "iso_mass_14": "175.946",
     "decay_type_14": "B+",
@@ -185,7 +159,6 @@
     "iso_Z_14": "76",
     "iso_N_14": "100",
     "iso_A_14": "176",
-
     "iso_15": "Osmium-177",
     "iso_mass_15": "176.944",
     "decay_type_15": "B+",
@@ -193,7 +166,6 @@
     "iso_Z_15": "76",
     "iso_N_15": "101",
     "iso_A_15": "177",
-
     "iso_16": "Osmium-178",
     "iso_mass_16": "177.943",
     "decay_type_16": "B+",
@@ -201,7 +173,6 @@
     "iso_Z_16": "76",
     "iso_N_16": "102",
     "iso_A_16": "178",
-
     "iso_17": "Osmium-179",
     "iso_mass_17": "178.942",
     "decay_type_17": "B+",
@@ -209,7 +180,6 @@
     "iso_Z_17": "76",
     "iso_N_17": "103",
     "iso_A_17": "179",
-
     "iso_18": "Osmium-180",
     "iso_mass_18": "179.941",
     "decay_type_18": "B+",
@@ -217,7 +187,6 @@
     "iso_Z_18": "76",
     "iso_N_18": "104",
     "iso_A_18": "180",
-
     "iso_19": "Osmium-181",
     "iso_mass_19": "180.939",
     "decay_type_19": "B+",
@@ -225,7 +194,6 @@
     "iso_Z_19": "76",
     "iso_N_19": "105",
     "iso_A_19": "181",
-
     "iso_20": "Osmium-182",
     "iso_mass_20": "181.938",
     "decay_type_20": "B+",
@@ -233,7 +201,6 @@
     "iso_Z_20": "76",
     "iso_N_20": "106",
     "iso_A_20": "182",
-
     "iso_21": "Osmium-183",
     "iso_mass_21": "182.936",
     "decay_type_21": "B+",
@@ -241,7 +208,6 @@
     "iso_Z_21": "76",
     "iso_N_21": "107",
     "iso_A_21": "183",
-
     "iso_22": "Osmium-184",
     "iso_mass_22": "183.935",
     "decay_type_22": "B+",
@@ -249,7 +215,6 @@
     "iso_Z_22": "76",
     "iso_N_22": "108",
     "iso_A_22": "184",
-
     "iso_23": "Osmium-185",
     "iso_mass_23": "184.933",
     "decay_type_23": "B+",
@@ -257,7 +222,6 @@
     "iso_Z_23": "76",
     "iso_N_23": "109",
     "iso_A_23": "185",
-
     "iso_24": "Osmium-186",
     "iso_mass_24": "185.932",
     "decay_type_24": "B+",
@@ -265,7 +229,6 @@
     "iso_Z_24": "76",
     "iso_N_24": "110",
     "iso_A_24": "186",
-
     "iso_25": "Osmium-187",
     "iso_mass_25": "186.955",
     "decay_type_25": "B+",
@@ -273,7 +236,6 @@
     "iso_Z_25": "76",
     "iso_N_25": "111",
     "iso_A_25": "187",
-
     "iso_26": "Osmium-188",
     "iso_mass_26": "187.955",
     "decay_type_26": "stable",
@@ -281,7 +243,6 @@
     "iso_Z_26": "76",
     "iso_N_26": "112",
     "iso_A_26": "188",
-
     "iso_27": "Osmium-189",
     "iso_mass_27": "188.958",
     "decay_type_27": "stable",
@@ -289,7 +250,6 @@
     "iso_Z_27": "76",
     "iso_N_27": "113",
     "iso_A_27": "189",
-
     "iso_28": "Osmium-190",
     "iso_mass_28": "189.958",
     "decay_type_28": "stable",
@@ -297,7 +257,6 @@
     "iso_Z_28": "76",
     "iso_N_28": "114",
     "iso_A_28": "190",
-
     "iso_29": "Osmium-191",
     "iso_mass_29": "190.960",
     "decay_type_29": "B-",
@@ -305,7 +264,6 @@
     "iso_Z_29": "76",
     "iso_N_29": "115",
     "iso_A_29": "191",
-
     "iso_30": "Osmium-192",
     "iso_mass_30": "191.961",
     "decay_type_30": "stable",
@@ -313,7 +271,6 @@
     "iso_Z_30": "76",
     "iso_N_30": "116",
     "iso_A_30": "192",
-
     "iso_31": "Osmium-193",
     "iso_mass_31": "192.964",
     "decay_type_31": "B-",
@@ -321,7 +278,6 @@
     "iso_Z_31": "76",
     "iso_N_31": "117",
     "iso_A_31": "193",
-
     "iso_32": "Osmium-194",
     "iso_mass_32": "193.965",
     "decay_type_32": "B-",
@@ -329,7 +285,6 @@
     "iso_Z_32": "76",
     "iso_N_32": "118",
     "iso_A_32": "194",
-
     "iso_33": "Osmium-195",
     "iso_mass_33": "194.966",
     "decay_type_33": "B-",
@@ -337,15 +292,6 @@
     "iso_Z_33": "76",
     "iso_N_33": "119",
     "iso_A_33": "195",
-
-    "iso_34": "Osmium-196",
-    "iso_mass_34": "195.968",
-    "decay_type_34": "B-",
-    "iso_half_34": "34.0 m",
-    "iso_Z_34": "76",
-    "iso_N_34": "120",
-    "iso_A_34": "196",
-
     "iso_34": "Osmium-197",
     "iso_mass_34": "196.969",
     "decay_type_34": "B-",
@@ -353,7 +299,6 @@
     "iso_Z_34": "76",
     "iso_N_34": "121",
     "iso_A_34": "197",
-
     "iso_35": "Osmium-198",
     "iso_mass_35": "197.971",
     "decay_type_35": "B-",
@@ -361,7 +306,6 @@
     "iso_Z_35": "76",
     "iso_N_35": "122",
     "iso_A_35": "198",
-
     "iso_36": "Osmium-199",
     "iso_mass_36": "198.972",
     "decay_type_36": "B-",
@@ -369,14 +313,21 @@
     "iso_Z_36": "76",
     "iso_N_36": "123",
     "iso_A_36": "199",
-
     "iso_37": "Osmium-200",
     "iso_mass_37": "199.974",
     "decay_type_37": "B-",
     "iso_half_37": "0.5 s",
     "iso_Z_37": "76",
     "iso_N_37": "124",
-    "iso_A_37": "200"
-
+    "iso_A_37": "200",
+    "crystal_structure": "Hexagonal close-packed (hcp)",
+    "lattice_constants": {
+      "a": "2.734 Å",
+      "c": "4.319 Å"
+    },
+    "debye_temperature": {
+      "low_temperature_limit": "550 K",
+      "room_temperature": "500 K"
+    }
   }
 ]

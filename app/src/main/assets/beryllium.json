@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AASYq7LuV5KCyFBQvZZ",
+    "element_code": "AASYq7LuV5KCyFBQvZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Beryllium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Be-140g.jpg",
     "description": "Beryllium is a chemical element with the symbol Be and atomic number 4. It is a relatively rare element in the universe, usually occurring as a product of the spallation of larger atomic nuclei that have collided with cosmic rays. Within the cores of stars, beryllium is depleted as it is fused into heavier elements. It is a divalent element which occurs naturally only in combination with other elements in minerals. Notable gemstones which contain beryllium include beryl (aquamarine, emerald) and chrysoberyl. As a free element it is a steel-gray, strong, lightweight and brittle alkaline earth metal.",
-
     "element": "Beryllium",
     "short": "Be",
     "element_year": "1798",
@@ -14,16 +13,13 @@
     "element_electrons": "4",
     "element_protons": "4",
     "element_neutron_common": "5",
-
     "radioactive": "No",
     "neutron_cross_sectional": "0.0092 (b)",
-
     "electrical_type": "Conductor",
     "resistivity": "35.6 nΩm",
     "resistivity_mult": "0.00000001",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "0.026",
-
     "element_atomic_number": "4",
     "element_atomicmass": "9.01218 (u)",
     "element_density": "1.85 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "s - block",
     "element_shells_electrons": "K2 L2 M0 N0 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/Electron_shell_004_Beryllium_-_no_label.svg/1280px-Electron_shell_004_Beryllium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "2742 (K)",
     "element_boiling_celsius": "2469 (°C)",
     "element_boiling_fahrenheit": "4476 (°F)",
     "element_melting_kelvin": "1560 (K)",
     "element_melting_celsius": "1287 (°C)",
     "element_melting_fahrenheit": "2349 (°F)",
-
     "element_electron_config": "2s^2",
     "element_ion_charge": "Be^2+",
     "element_ionization_energy1": "9.3227 (eV)",
@@ -49,43 +43,34 @@
     "element_atomic_radius": "112 (pm)",
     "element_covalent_radius": "90 (pm)",
     "element_van_der_waals": "153 (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "7.95 (kJ/mol)",
     "element_specific_heat_capacity": "1.825 J/(g·K)",
     "element_vaporization_heat": "297 (kJ/mol)",
-
     "oxidation_state_neg": "0",
     "oxidation_state_pos": "1, 2",
-
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "12870 (m/s) [room temperature]",
-
     "young_modulus": "287 (GPa)",
     "poisson_ratio": "0.032",
     "bulk_modulus": "130 (GPa)",
     "shear_modulus": "132 (GPa)",
-
     "mohs_hardness": "5.5",
     "vickers_hardness": "1670 (MPa)",
     "brinell_hardness": "590-1320 (MPa)",
-
-      "earth_crust": "3.8",
-      "earth_soils": "6.0",
-      "urban_soils": "3.3",
-
-      "sea_water": "0.0006",
-      "crustal_rocks": "2.0",
-      "sun": "0.4",
-      "solar_system": "0.7",
-
-      "cas_number": "7440-41-7",
-      "eg_number": "231-150-7",
-      "health": 3,
-      "flammability": 1,
-      "instability": 0,
-
+    "earth_crust": "3.8",
+    "earth_soils": "6.0",
+    "urban_soils": "3.3",
+    "sea_water": "0.0006",
+    "crustal_rocks": "2.0",
+    "sun": "0.4",
+    "solar_system": "0.7",
+    "cas_number": "7440-41-7",
+    "eg_number": "231-150-7",
+    "health": 3,
+    "flammability": 1,
+    "instability": 0,
     "iso_1": "Be-6",
     "iso_mass_1": "6.019726",
     "iso_half_1": "5.0×10^−21 (s)",
@@ -93,7 +78,6 @@
     "iso_Z_1": "4",
     "iso_N_1": "2",
     "iso_A_1": "6",
-
     "iso_2": "Be-7",
     "iso_mass_2": "7.01692872",
     "iso_half_2": "53.22 Years",
@@ -101,7 +85,6 @@
     "iso_Z_2": "4",
     "iso_N_2": "3",
     "iso_A_2": "7",
-
     "iso_3": "Be-8",
     "iso_mass_3": "8.00530510",
     "iso_half_3": "8.19×10^−17 (s)",
@@ -109,7 +92,6 @@
     "iso_Z_3": "4",
     "iso_N_3": "4",
     "iso_A_3": "8",
-
     "iso_4": "Be-9",
     "iso_mass_4": "9.01218307",
     "iso_half_4": "Stable",
@@ -117,7 +99,6 @@
     "iso_Z_4": "4",
     "iso_N_4": "5",
     "iso_A_4": "9",
-
     "iso_5": "Be-10",
     "iso_mass_5": "10.01353470",
     "iso_half_5": "1.51(4)×10^6 (Years)",
@@ -125,7 +106,6 @@
     "iso_Z_5": "4",
     "iso_N_5": "6",
     "iso_A_5": "10",
-
     "iso_6": "Be-11",
     "iso_mass_6": "11.02166108",
     "iso_half_6": "13.76 (s)",
@@ -133,7 +113,6 @@
     "iso_Z_6": "4",
     "iso_N_6": "7",
     "iso_A_6": "11",
-    
     "iso_7": "Be-12",
     "iso_mass_7": "12.0269221",
     "iso_half_7": "21.50 (ms)",
@@ -141,7 +120,6 @@
     "iso_Z_7": "4",
     "iso_N_7": "8",
     "iso_A_7": "12",
-
     "iso_8": "Be-13",
     "iso_mass_8": "13.036135",
     "iso_half_8": "1.0×10^−21 (s)",
@@ -149,7 +127,6 @@
     "iso_Z_8": "4",
     "iso_N_8": "9",
     "iso_A_8": "13",
-
     "iso_9": "Be-14",
     "iso_mass_9": "14.04289",
     "iso_half_9": "4.35 (ms)",
@@ -157,7 +134,6 @@
     "iso_Z_9": "4",
     "iso_N_9": "10",
     "iso_A_9": "14",
-
     "iso_10": "Be-15",
     "iso_mass_10": "15.05349",
     "iso_half_10": "7.9×10^−22 (s)",
@@ -165,13 +141,18 @@
     "iso_Z_10": "4",
     "iso_N_10": "11",
     "iso_A_10": "15",
-
     "iso_11": "Be-16",
     "iso_mass_11": "16.06167",
     "iso_half_11": "6.5×10^−22 (s)",
     "decay_type_11": "2n",
     "iso_Z_11": "4",
     "iso_N_11": "12",
-    "iso_A_11": "16"
+    "iso_A_11": "16",
+    "crystal_structure": "Hexagonal close-packed (hcp)",
+    "lattice_constants": {
+      "a": "2.286 Å",
+      "c": "3.583 Å"
+    },
+    "debye_temperature": "1440 K"
   }
 ]

@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AATuyDzm8GSteCT4mZZ",
+    "element_code": "AATuyDzm8GSteCT4mZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Bohrium",
     "link": "empty",
     "description": "Bohrium is a synthetic chemical element with the symbol Bh and atomic number 107. It is named after Danish physicist Niels Bohr. As a synthetic element, it can be created in a laboratory but is not found in nature. All known isotopes of bohrium are extremely radioactive; the most stable known isotope is Bh-270 with a half-life of approximately 61 seconds, though the unconfirmed Bh-278 may have a longer half-life of about 690 seconds.",
-
     "element": "Bohrium",
     "short": "Bh",
     "element_year": "---",
@@ -14,16 +13,13 @@
     "element_electrons": "---",
     "element_protons": "---",
     "element_neutron_common": "---",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "--- (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "---",
     "superconducting_point": "---",
-
     "element_atomic_number": "107",
     "element_atomicmass": "267 (u)",
     "element_density": "--- (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "d - block",
     "element_shells_electrons": "K2 L8 M18 N32 O32 P13 Q2 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Electron_shell_107_Bohrium_-_no_label.svg/800px-Electron_shell_107_Bohrium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "--- (K)",
     "element_boiling_celsius": "--- (°C)",
     "element_boiling_fahrenheit": "--- (°F)",
     "element_melting_kelvin": "--- (K)",
     "element_melting_celsius": "--- (°C)",
     "element_melting_fahrenheit": "--- (°F)",
-
     "element_electron_config": "5f^14, 6d^5. 7s^2",
     "element_ion_charge": "---",
     "element_ionization_energy1": "---",
@@ -46,20 +40,25 @@
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
-
     "oxidation_state_neg": "",
     "oxidation_state_pos": "7",
-
     "iso_1": "--",
     "iso_mass_1": "--",
     "iso_half_1": "--",
     "iso_Z_1": "--",
     "iso_N_1": "--",
-    "iso_A_1": "--"
+    "iso_A_1": "--",
+    "crystal_structure": null,
+    "lattice_constants": {
+      "a": null
+    },
+    "debye_temperature": {
+      "low_temperature_limit": null,
+      "room_temperature": null
+    }
   }
 ]

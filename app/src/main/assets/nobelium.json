@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AA5pdeoFjXV52rBZRZZ",
+    "element_code": "AA5pdeoFjXV52rBZRZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Nobelium",
     "link": "empty",
     "description": "Nobelium is a synthetic chemical element with the symbol No and atomic number 102. It is named in honor of Alfred Nobel, the inventor of dynamite and benefactor of science. A radioactive metal, it is the tenth transuranic element and is the penultimate member of the actinide series. Like all elements with atomic number over 100, nobelium can only be produced in particle accelerators by bombarding lighter elements with charged particles. A total of twelve nobelium isotopes are known to exist; the most stable is No-259 with a half-life of 58 minutes, but the shorter-lived No-255 (half-life 3.1 minutes) is most commonly used in chemistry because it can be produced on a larger scale.",
-
     "element": "Nobelium",
     "short": "No",
     "element_year": "1966",
@@ -14,16 +13,13 @@
     "element_electrons": "102",
     "element_protons": "102",
     "element_neutron_common": "157",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "767 (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "---",
     "superconducting_point": "---",
-
     "element_atomic_number": "102",
     "element_atomicmass": "259 (u)",
     "element_density": "9.9  (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "f - block",
     "element_shells_electrons": "K2 L8 M18 N32 O32 P8 Q2 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/Electron_shell_102_Nobelium_-_no_label.svg/800px-Electron_shell_102_Nobelium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "--- (K)",
     "element_boiling_celsius": "--- (°C)",
     "element_boiling_fahrenheit": "--- (°F)",
     "element_melting_kelvin": "1100 (K)",
     "element_melting_celsius": "827 (°C)",
     "element_melting_fahrenheit": "1521 (°F)",
-
     "element_electron_config": "5f^14, 7s^2",
     "element_ion_charge": "No^2+, No^3+",
     "element_ionization_energy1": "6.65 (eV)",
@@ -46,27 +40,29 @@
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
-
     "oxidation_state_neg": "",
     "oxidation_state_pos": "2 3",
-
     "iso_1": "No-258",
     "iso_mass_1": "258.09821",
     "iso_half_1": "1.2 (ms)",
     "iso_Z_1": "102",
     "iso_N_1": "156",
     "iso_A_1": "258",
-
     "iso_2": "No-259",
     "iso_mass_2": "259.10103",
     "iso_half_2": "58 (min)",
     "iso_Z_2": "102",
     "iso_N_2": "157",
-    "iso_A_2": "259"
+    "iso_A_2": "259",
+    "crystal_structure": "Face-centered cubic (fcc)",
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": "110 K",
+      "room_temperature": "100 K"
+    }
   }
 ]

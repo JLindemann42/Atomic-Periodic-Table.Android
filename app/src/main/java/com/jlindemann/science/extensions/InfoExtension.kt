@@ -140,7 +140,6 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         val elementModelUrl = jsonObject.optString("element_model", "---")
         val elementAppearance = jsonObject.optString("element_appearance", "---")
         val elementBlock = jsonObject.optString("element_block", "---")
-        val elementCrystalStructure = jsonObject.optString("element_crystal_structure", "---")
         val fusionHeat = jsonObject.optString("element_fusion_heat", "---")
         val specificHeatCapacity = jsonObject.optString("element_specific_heat_capacity", "---")
         val vaporizationHeat = jsonObject.optString("element_vaporization_heat", "---")
@@ -366,9 +365,48 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         findViewById<TextView>(R.id.abundance_sun_text).text = formatSuperscript(abundanceSun)
         findViewById<TextView>(R.id.abundance_solar_system_text).text = formatSuperscript(abundanceSolarSystem)
 
-        // Crystal structure
-        findViewById<TextView>(R.id.crystal_structure_text).text = elementCrystalStructure
+        // Grid Parameters:
+        val crystalStructure = jsonObject.optString("crystal_structure", "null")
+        val crystalView = findViewById<CrystalStructureView>(R.id.crystal_view)
+        findViewById<TextView>(R.id.crystal_structure_text).text = crystalStructure
+        if (crystalStructure == "null") {
+            crystalView.visibility = View.GONE
+        }
+        crystalView.crystalSystem = crystalStructure // set type of crystal for 3D View
 
+        // Lattice constants parsing and formatting
+        val latticeConstants = jsonObject.optJSONObject("lattice_constants")
+        val latticeString = buildString {
+            latticeConstants?.let {
+                val a = it.optString("a", "")
+                val b = it.optString("b", "")
+                val c = it.optString("c", "")
+                if (a.isNotEmpty()) append("a: $a ")
+                if (b.isNotEmpty()) append("b: $b ")
+                if (c.isNotEmpty()) append("c: $c ")
+            }
+        }.trim()
+        findViewById<TextView>(R.id.grid_parameters_text).text = if (latticeString.isNotEmpty()) latticeString else "---"
+
+        // Debye temperature handling
+        val debye = jsonObject.opt("debye_temperature")
+        val debyeLowTextView = findViewById<TextView>(R.id.debye_low_text)
+        val debyeRoomTextView = findViewById<TextView>(R.id.debye_room_text)
+        when (debye) {
+            is JSONObject -> {
+                debyeLowTextView.text = debye.optString("low_temperature_limit", "---")
+                debyeRoomTextView.text = debye.optString("room_temperature", "---")
+                if (debyeRoomTextView.text.isBlank()) debyeRoomTextView.visibility = View.GONE else debyeRoomTextView.visibility = View.VISIBLE
+            }
+            is String -> {
+                debyeLowTextView.text = debye
+                debyeRoomTextView.text = "---"
+            }
+            else -> {
+                debyeLowTextView.text = "---"
+                debyeRoomTextView.text = "---"
+            }
+        }
         // Hazards
         setHazards(fireHazard, healthHazard, reactivityHazard, specificHazard, proPrefValue)
 

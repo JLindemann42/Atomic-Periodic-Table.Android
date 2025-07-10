@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AAGzEMKkzhQhLmeAgZZ",
+    "element_code": "AAGzEMKkzhQhLmeAgZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Selenium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/4/47/SeBlackRed.jpg",
     "description": "Selenium is a chemical element with the symbol Se and atomic number 34. It is a nonmetal (more rarely considered a metalloid) with properties that are intermediate between the elements above and below in the periodic table, sulfur and tellurium, and also has similarities to arsenic. It rarely occurs in its elemental state or as pure ore compounds in the Earth's crust. Selenium—from Ancient Greek σελήνη (selḗnē) \"Moon\" – was discovered in 1817 by Jöns Jacob Berzelius, who noted the similarity of the new element to the previously discovered tellurium (named for the Earth).",
-
     "element": "Selenium",
     "short": "Se",
     "element_year": "1817",
@@ -14,16 +13,13 @@
     "element_electrons": "34",
     "element_protons": "34",
     "element_neutron_common": "46",
-
     "radioactive": "No",
     "neutron_cross_sectional": "11.7 (b)",
-
     "electrical_type": "---",
     "resistivity": "12 nΩm",
     "resistivity_mult": "---",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "---",
-
     "element_atomic_number": "34",
     "element_atomicmass": "78.971 (u)",
     "element_density": "Gray: 4.81 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L8 18 N6 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Electron_shell_034_Selenium_%28polyatomic_nonmetal%29_-_no_label.svg/1280px-Electron_shell_034_Selenium_%28polyatomic_nonmetal%29_-_no_label.svg.png",
-
     "element_boiling_kelvin": "958 (K)",
     "element_boiling_celsius": "685 (°C)",
     "element_boiling_fahrenheit": "1265 (°F)",
     "element_melting_kelvin": "494 (K)",
     "element_melting_celsius": "221 (°C)",
     "element_melting_fahrenheit": "430 (°F)",
-
     "element_electron_config": "3d^10 4s^2 4p^4",
     "element_ion_charge": "Se^2-",
     "element_ionization_energy1": "9.75238 (eV)",
@@ -52,41 +46,33 @@
     "element_atomic_radius": "103 (pm)",
     "element_covalent_radius": "116 (pm)",
     "element_van_der_waals": "190 (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "Gray: 6.69 (kJ/mol)",
     "element_specific_heat_capacity": "0.321 J/(g·K)",
     "element_vaporization_heat": "26 (kJ/mol)",
-
     "oxidation_state_neg": "2 1",
     "oxidation_state_pos": "1 2 3 4 5 6",
-
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "3350 (m/s) [20°C]",
-
     "mohs_hardness": "2.0",
     "vickers_hardness": "---",
     "brinell_hardness": "736 (MPa)",
-
     "young_modulus": "10 (GPa)",
     "poisson_ratio": "0.33",
     "bulk_modulus": "8.3 (GPa)",
     "shear_modulus": "3.7 (GPa)",
-
-      "earth_crust": "0.05",
-      "earth_soils": "0.01",
-      "sea_water": "0.090",
-      "crustal_rocks": "0.05",
-      "sun": null,
-      "solar_system": "63",
-
-      "cas_number": "7782-49-2",
-      "eg_number": "231-957-4",
-      "health": 2,
-      "flammability": 0,
-      "instability": 0,
-
+    "earth_crust": "0.05",
+    "earth_soils": "0.01",
+    "sea_water": "0.090",
+    "crustal_rocks": "0.05",
+    "sun": null,
+    "solar_system": "63",
+    "cas_number": "7782-49-2",
+    "eg_number": "231-957-4",
+    "health": 2,
+    "flammability": 0,
+    "instability": 0,
     "iso_1": "Se-63",
     "iso_mass_1": "---",
     "iso_half_1": "---",
@@ -94,7 +80,6 @@
     "iso_Z_1": "34",
     "iso_N_1": "29",
     "iso_A_1": "63",
-
     "iso_2": "Se-64",
     "iso_mass_2": "---",
     "iso_half_2": "---",
@@ -102,7 +87,6 @@
     "iso_Z_2": "34",
     "iso_N_2": "30",
     "iso_A_2": "64",
-
     "iso_3": "Se-65",
     "iso_mass_3": "64.96466",
     "iso_half_3": "50 (ms)",
@@ -110,7 +94,6 @@
     "iso_Z_3": "34",
     "iso_N_3": "31",
     "iso_A_3": "65",
-
     "iso_4": "Se-66",
     "iso_mass_4": "65.95521",
     "iso_half_4": "33 (ms)",
@@ -118,7 +101,6 @@
     "iso_Z_4": "34",
     "iso_N_4": "32",
     "iso_A_4": "66",
-
     "iso_5": "Se-67",
     "iso_mass_5": "66.95009",
     "iso_half_5": "133 (ms)",
@@ -126,7 +108,6 @@
     "iso_Z_5": "34",
     "iso_N_5": "33",
     "iso_A_5": "67",
-
     "iso_6": "Se-68",
     "iso_mass_6": "67.94180",
     "iso_half_6": "35.5 (s)",
@@ -134,7 +115,6 @@
     "iso_Z_6": "34",
     "iso_N_6": "34",
     "iso_A_6": "68",
-    
     "iso_7": "Se-69",
     "iso_mass_7": "68.93956",
     "iso_half_7": "27.4 (s)",
@@ -142,7 +122,6 @@
     "iso_Z_7": "34",
     "iso_N_7": "35",
     "iso_A_7": "69",
-
     "iso_8": "Se-70",
     "iso_mass_8": "69.93339",
     "iso_half_8": "41.1 (min)",
@@ -150,7 +129,6 @@
     "iso_Z_8": "34",
     "iso_N_8": "36",
     "iso_A_8": "70",
-
     "iso_9": "Se-71",
     "iso_mass_9": "70.93224",
     "iso_half_9": "4.74 (min)",
@@ -158,7 +136,6 @@
     "iso_Z_9": "34",
     "iso_N_9": "37",
     "iso_A_9": "71",
-
     "iso_10": "Se-72",
     "iso_mass_10": "71.927112",
     "iso_half_10": "8.40 (min)",
@@ -166,7 +143,6 @@
     "iso_Z_10": "34",
     "iso_N_10": "38",
     "iso_A_10": "72",
-
     "iso_11": "Se-73",
     "iso_mass_11": "72.926765",
     "iso_half_11": "7.15 (hours)",
@@ -174,7 +150,6 @@
     "iso_Z_11": "34",
     "iso_N_11": "39",
     "iso_A_11": "73",
-
     "iso_12": "Se-74",
     "iso_mass_12": "73.9224764",
     "iso_half_12": "Observationally Stable",
@@ -182,7 +157,6 @@
     "iso_Z_12": "34",
     "iso_N_12": "40",
     "iso_A_12": "74",
-
     "iso_13": "Se-75",
     "iso_mass_13": "74.9225234",
     "iso_half_13": "119.779 (days)",
@@ -190,7 +164,6 @@
     "iso_Z_13": "34",
     "iso_N_13": "41",
     "iso_A_13": "75",
-
     "iso_14": "Se-76",
     "iso_mass_14": "75.9192136",
     "iso_half_14": "Stable",
@@ -198,7 +171,6 @@
     "iso_Z_14": "34",
     "iso_N_14": "42",
     "iso_A_14": "76",
-
     "iso_15": "Se-77",
     "iso_mass_15": "76.9199140",
     "iso_half_15": "Stable",
@@ -206,7 +178,6 @@
     "iso_Z_15": "34",
     "iso_N_15": "43",
     "iso_A_15": "77",
-
     "iso_16": "Se-78",
     "iso_mass_16": "77.9173091",
     "iso_half_16": "Stable",
@@ -214,7 +185,6 @@
     "iso_Z_16": "34",
     "iso_N_16": "44",
     "iso_A_16": "78",
-
     "iso_17": "Se-79",
     "iso_mass_17": "78.9184991",
     "iso_half_17": "3.27×10^5 (years)",
@@ -222,7 +192,6 @@
     "iso_Z_17": "34",
     "iso_N_17": "45",
     "iso_A_17": "79",
-
     "iso_18": "Se-80",
     "iso_mass_18": "79.9165213",
     "iso_half_18": "Observationally Stable",
@@ -230,7 +199,6 @@
     "iso_Z_18": "34",
     "iso_N_18": "46",
     "iso_A_18": "80",
-
     "iso_19": "Se-81",
     "iso_mass_19": "80.9179925",
     "iso_half_19": "18.45 (min)",
@@ -238,7 +206,6 @@
     "iso_Z_19": "34",
     "iso_N_19": "47",
     "iso_A_19": "81",
-
     "iso_20": "Se-82",
     "iso_mass_20": "81.9166994",
     "iso_half_20": "0.97×10^20 (years)",
@@ -246,7 +213,6 @@
     "iso_Z_20": "34",
     "iso_N_20": "48",
     "iso_A_20": "82",
-
     "iso_21": "Se-83",
     "iso_mass_21": "82.919118",
     "iso_half_21": "22.3 (min)",
@@ -254,7 +220,6 @@
     "iso_Z_21": "34",
     "iso_N_21": "49",
     "iso_A_21": "83",
-
     "iso_22": "Se-84",
     "iso_mass_22": "83.918462",
     "iso_half_22": "3.1 (min)",
@@ -262,7 +227,6 @@
     "iso_Z_22": "34",
     "iso_N_22": "50",
     "iso_A_22": "84",
-
     "iso_23": "Se-85",
     "iso_mass_23": "84.92225",
     "iso_half_23": "31.7 (s)",
@@ -270,7 +234,6 @@
     "iso_Z_23": "34",
     "iso_N_23": "51",
     "iso_A_23": "85",
-
     "iso_24": "Se-86",
     "iso_mass_24": "85.924272",
     "iso_half_24": "15.3 (s)",
@@ -278,7 +241,6 @@
     "iso_Z_24": "34",
     "iso_N_24": "52",
     "iso_A_24": "86",
-
     "iso_25": "Se-87",
     "iso_mass_25": "86.92852",
     "iso_half_25": "5.50 (s)",
@@ -286,7 +248,6 @@
     "iso_Z_25": "34",
     "iso_N_25": "53",
     "iso_A_25": "87",
-
     "iso_26": "Se-88",
     "iso_mass_26": "87.93142",
     "iso_half_26": "1.53 (s)",
@@ -294,7 +255,6 @@
     "iso_Z_26": "34",
     "iso_N_26": "54",
     "iso_A_26": "88",
-
     "iso_27": "Se-89",
     "iso_mass_27": "88.93645",
     "iso_half_27": "0.41 (s)",
@@ -302,7 +262,6 @@
     "iso_Z_27": "34",
     "iso_N_27": "55",
     "iso_A_27": "89",
-
     "iso_28": "Se-90",
     "iso_mass_28": "89.93996",
     "iso_half_28": "300 (ms)",
@@ -310,7 +269,6 @@
     "iso_Z_28": "34",
     "iso_N_28": "56",
     "iso_A_28": "90",
-
     "iso_29": "Se-91",
     "iso_mass_29": "90.94596",
     "iso_half_29": "270 (ms)",
@@ -318,7 +276,6 @@
     "iso_Z_29": "34",
     "iso_N_29": "57",
     "iso_A_29": "91",
-
     "iso_30": "Se-92",
     "iso_mass_30": "91.94992",
     "iso_half_30": "100 (ms)",
@@ -326,7 +283,6 @@
     "iso_Z_30": "34",
     "iso_N_30": "58",
     "iso_A_30": "92",
-
     "iso_31": "Se-93",
     "iso_mass_31": "92.95629",
     "iso_half_31": "50 (ms)",
@@ -334,7 +290,6 @@
     "iso_Z_31": "34",
     "iso_N_31": "59",
     "iso_A_31": "93",
-
     "iso_32": "Se-94",
     "iso_mass_32": "93.96049",
     "iso_half_32": "20 (ms)",
@@ -342,13 +297,18 @@
     "iso_Z_32": "34",
     "iso_N_32": "60",
     "iso_A_32": "94",
-
     "iso_33": "Se-95",
     "iso_mass_33": "---",
     "iso_half_33": "---",
     "decay_type_33": "B-",
     "iso_Z_33": "34",
     "iso_N_33": "61",
-    "iso_A_33": "95"
+    "iso_A_33": "95",
+    "crystal_structure": "Hexagonal",
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": "190 K",
+      "room_temperature": "170 K"
+    }
   }
 ]

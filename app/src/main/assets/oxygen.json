@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AAKsuH7pv8sjWfwHmZZ",
+    "element_code": "AAKsuH7pv8sjWfwHmZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Oxygen",
     "link": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Liquid_oxygen_in_a_beaker_4.jpg",
     "description": "Oxygen is the chemical element with the symbol O and atomic number 8. It is a member of the chalcogen group in the periodic table, a highly reactive nonmetal, and an oxidizing agent that readily forms oxides with most elements as well as with other compounds. After hydrogen and helium, oxygen is the third-most abundant element in the universe by mass. At standard temperature and pressure, two atoms of the element bind to form dioxygen, a colorless and odorless diatomic gas with the formula O2. Diatomic oxygen gas constitutes 20.95% of the Earth's atmosphere. Oxygen makes up almost half of the Earth's crust in the form of oxides",
-
     "element": "Oxygen",
     "short": "O",
     "element_year": "1771",
@@ -14,16 +13,13 @@
     "element_electrons": "8",
     "element_protons": "8",
     "element_neutron_common": "8",
-
     "radioactive": "No",
     "neutron_cross_sectional": "0.00019 (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "---",
-
     "element_atomic_number": "8",
     "element_atomicmass": "15.999 (u)",
     "element_density": "0.001429 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L6 M0 N0 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Electron_shell_008_Oxygen_%28diatomic_nonmetal%29_-_no_label.svg/1280px-Electron_shell_008_Oxygen_%28diatomic_nonmetal%29_-_no_label.svg.png",
-
     "element_boiling_kelvin": "90.188 (K)",
     "element_boiling_celsius": "−182.962 (°C)",
     "element_boiling_fahrenheit": "−297.332 (°F)",
     "element_melting_kelvin": "54.36 (K)",
     "element_melting_celsius": "−218.79 (°C)",
     "element_melting_fahrenheit": "−361.82 (°F)",
-
     "element_electron_config": "2s^2 2p^4",
     "element_ion_charge": "O^2-",
     "element_ionization_energy1": "13.61806 (eV)",
@@ -53,25 +47,20 @@
     "element_atomic_radius": "48 (pm)",
     "element_covalent_radius": "73 (pm)",
     "element_van_der_waals": "152 (pm)",
-
     "element_phase": "Gas",
     "element_fusion_heat": "0.44 (O2) (kJ/mol)",
     "element_specific_heat_capacity": "0.918 (O2) J/(g·K)",
     "element_vaporization_heat": "6.82 (O2) (kJ/mol)",
-
     "oxidation_state_neg": "2 1 0",
     "oxidation_state_pos": "1 2",
-
     "speed_of_sound_gas": "330 (m/s) [27°C]",
     "speed_of_sound_liquid": "906 (m/s) [-183.0°C]",
     "speed_of_sound_solid": "---",
-
-      "urban_soils": "490,000",
-      "sea_water": "8.8 × 10^8",
-      "crustal_rocks": "3.7 × 10^5",
-      "sun": "2.4 × 10^7",
-      "solar_system": "2.4 × 10^7",
-
+    "urban_soils": "490,000",
+    "sea_water": "8.8 × 10^8",
+    "crustal_rocks": "3.7 × 10^5",
+    "sun": "2.4 × 10^7",
+    "solar_system": "2.4 × 10^7",
     "iso_1": "O-11",
     "iso_mass_1": "---",
     "iso_half_1": "--- (s)",
@@ -79,7 +68,6 @@
     "iso_Z_1": "8",
     "iso_N_1": "3",
     "iso_A_1": "11",
-
     "iso_2": "O-12",
     "iso_mass_2": "12.034262",
     "iso_half_2": " 6.3×10^−21 (s)",
@@ -87,7 +75,6 @@
     "iso_Z_2": "8",
     "iso_N_2": "4",
     "iso_A_2": "12",
-
     "iso_3": "O-13",
     "iso_mass_3": "13.024815",
     "iso_half_3": " 8.58 (ms)",
@@ -95,7 +82,6 @@
     "iso_Z_3": "8",
     "iso_N_3": "5",
     "iso_A_3": "13",
-
     "iso_4": "O-14",
     "iso_mass_4": "14.008596706",
     "iso_half_4": "70.620 (s)",
@@ -103,7 +89,6 @@
     "iso_Z_4": "8",
     "iso_N_4": "6",
     "iso_A_4": "14",
-
     "iso_5": "O-15",
     "iso_mass_5": "15.0030656",
     "iso_half_5": "122.24 (s)",
@@ -111,7 +96,6 @@
     "iso_Z_5": "8",
     "iso_N_5": "7",
     "iso_A_5": "15",
-
     "iso_6": "O-16",
     "iso_mass_6": "15.99491461960",
     "iso_half_6": "Stable",
@@ -119,7 +103,6 @@
     "iso_Z_6": "8",
     "iso_N_6": "8",
     "iso_A_6": "16",
-
     "iso_7": "O-17",
     "iso_mass_7": "16.9991317566",
     "iso_half_7": "Stable",
@@ -127,7 +110,6 @@
     "iso_Z_7": "8",
     "iso_N_7": "9",
     "iso_A_7": "17",
-
     "iso_8": "O-18",
     "iso_mass_8": "17.9991596128",
     "iso_half_8": "Stable",
@@ -135,7 +117,6 @@
     "iso_Z_8": "8",
     "iso_N_8": "10",
     "iso_A_8": "18",
-
     "iso_9": "O-19",
     "iso_mass_9": "19.0035780",
     "iso_half_9": "26.470 (s)",
@@ -143,7 +124,6 @@
     "iso_Z_9": "8",
     "iso_N_9": "11",
     "iso_A_9": "19",
-
     "iso_10": "O-20",
     "iso_mass_10": "20.0040754",
     "iso_half_10": "13.51 (s)",
@@ -151,7 +131,6 @@
     "iso_Z_10": "8",
     "iso_N_10": "12",
     "iso_A_10": "20",
-
     "iso_11": "O-21",
     "iso_mass_11": "21.008655",
     "iso_half_11": "3.42 (s)",
@@ -159,7 +138,6 @@
     "iso_Z_11": "8",
     "iso_N_11": "13",
     "iso_A_11": "21",
-
     "iso_12": "O-22",
     "iso_mass_12": "22.00997",
     "iso_half_12": "2.25 (s)",
@@ -167,7 +145,6 @@
     "iso_Z_12": "8",
     "iso_N_12": "14",
     "iso_A_12": "22",
-    
     "iso_13": "O-23",
     "iso_mass_13": "23.01570",
     "iso_half_13": "97 (ms)",
@@ -175,7 +152,6 @@
     "iso_Z_13": "8",
     "iso_N_13": "15",
     "iso_A_13": "23",
-
     "iso_14": "O-24",
     "iso_mass_14": "24.01986",
     "iso_half_14": "77.4 (ms)",
@@ -183,7 +159,6 @@
     "iso_Z_14": "8",
     "iso_N_14": "16",
     "iso_A_14": "24",
-
     "iso_15": "O-25",
     "iso_mass_15": "25.02934",
     "iso_half_15": "5.18×10^−21 (s)",
@@ -191,14 +166,22 @@
     "iso_Z_15": "8",
     "iso_N_15": "17",
     "iso_A_15": "25",
-
     "iso_16": "O-26",
     "iso_mass_16": "26.03721",
     "iso_half_16": "4.2 (ps)",
     "decay_type_16": "2n",
     "iso_Z_16": "8",
     "iso_N_16": "18",
-    "iso_A_16": "26"
-    
+    "iso_A_16": "26",
+    "crystal_structure": "Cubic",
+    "lattice_constants": {
+      "a": "5.403 Å",
+      "b": "3.429 Å",
+      "c": "5.086 Å"
+    },
+    "debye_temperature": {
+      "low_temperature_limit": "155 K",
+      "room_temperature": "140 K"
+    }
   }
 ]
