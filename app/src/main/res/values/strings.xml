@@ -247,6 +247,13 @@
     <string name="reactivity_hazard" translatable="false">Reactivity:</string>
     <string name="specific_hazard" translatable="false">Specific hazard:</string>
 
+    <!-- Grid Properties -->
+    <string name="grid_title" translatable="false">Grid Properties</string>
+    <string name="crystal_structure" translatable="false">Crystal Structure:</string>
+    <string name="grid_parameters" translatable="false">Grid Parameters: (lattice constants)</string>
+    <string name="debye_temperature_low_temperature_limit" translatable="false">Debye Temperature: (low temperature limit)</string>
+    <string name="debye_temperature_room_temperature" translatable="false">Debye Temperature: (room temperature)</string>
+
 
     <string name="cas_number" translatable="false">CAS Number:</string>
     <string name="eg_number" translatable="false">EG Number:</string>

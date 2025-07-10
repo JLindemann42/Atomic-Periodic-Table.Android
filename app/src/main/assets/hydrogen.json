@@ -48,12 +48,6 @@
     "element_covalent_radius": "38 (pm)",
     "element_van_der_waals": "120 (pm)",
 
-      "health": 3,
-      "flammability": 4,
-      "instability": 0,
-      "cas_number": "1333-74-0",
-      "eg_number": "215-605-7",
-
     "element_phase": "Gas",
     "element_fusion_heat": "0.12 (H2) (kJ/mol)",
     "element_specific_heat_capacity": "14.304 J/(g·K)",
