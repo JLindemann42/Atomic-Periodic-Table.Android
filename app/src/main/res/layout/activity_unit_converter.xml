@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
-    android:id="@+id/view_uni"
+    android:id="@+id/view_unit"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="?attr/backgroundColor">
 
     <ScrollView
@@ -19,22 +18,23 @@
             android:orientation="vertical"
             android:paddingBottom="120dp">
 
+            <!-- Title -->
             <TextView
-                android:id="@+id/unit_converter_title_downstate"
+                android:id="@+id/unit_title_downstate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="0dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="28dp"
-                android:text="@string/unit_title"
+                android:text="@string/unit_converter_title"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="32sp"
                 android:textStyle="normal" />
 
-
+            <!-- Converter Card -->
             <LinearLayout
-                android:id="@+id/uni_box"
+                android:id="@+id/unit_converter_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -44,102 +44,192 @@
                 android:background="@drawable/toast"
                 android:backgroundTint="?attr/colorSurfaceVariant"
                 android:elevation="2dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="@dimen/margin">
 
                 <TextView
+                    android:id="@+id/category_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_category"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:layout_marginBottom="8dp"/>
+
+                <Spinner
+                    android:id="@+id/category_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin"
-                    android:text="@string/unit_title"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:foreground="@drawable/spinner_arrow"
+                    android:background="@drawable/spinner_background"
+                    android:popupBackground="@drawable/spinner_dropdown_background"
+                    android:layout_marginBottom="16dp"/>
 
+                <!-- Conversion Row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingTop="0dp"
+                    android:paddingBottom="8dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="0.48"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                     <EditText
-                        android:id="@+id/unit_1_edit_text"
-                        android:layout_width="0dp"
-                        android:layout_height="72dp"
-                        android:layout_marginStart="@dimen/margin"
-                        android:layout_weight="0.45"
+                        android:id="@+id/input_value"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/unit_enter_value"
+                        android:inputType="numberDecimal"
                         android:background="@drawable/toast"
                         android:backgroundTint="?attr/colorSurface"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:hint="Formula:"
-                        android:imeOptions="actionSearch"
-                        android:inputType="textNoSuggestions"
-                        android:maxLines="1"
-                        android:paddingStart="18dp"
-                        android:paddingEnd="68dp"
+                        android:padding="12dp"
                         android:textColor="?attr/colorOnSurface"
                         android:textColorHint="?attr/colorOnSurface"
-                        android:textSize="22sp" />
+                        android:textSize="24sp" />
+
+                    <Spinner
+                        android:id="@+id/from_unit_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:foreground="@drawable/spinner_arrow"
+                        android:background="@drawable/spinner_background"
+                        android:popupBackground="@drawable/spinner_dropdown_background"
+                        android:layout_marginTop="4dp"/>
+                    </LinearLayout>
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:gravity="center"
+                        android:layout_weight="0.04"
                         android:text="="
-                        android:layout_marginStart="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_weight="0.1"
                         android:textAlignment="center"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textStyle="bold"
-                        android:textSize="36sp" />
+                        android:gravity="center"
+                        android:textSize="40sp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginBottom="26dp"
+                        android:layout_marginEnd="8dp"/>
 
-                    <EditText
-                        android:id="@+id/unit_2_edit_text"
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="72dp"
-                        android:layout_weight="0.45"
-                        android:layout_marginEnd="@dimen/margin"
-                        android:background="@drawable/toast"
-                        android:backgroundTint="?attr/colorSurface"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:hint="Formula:"
-                        android:imeOptions="actionSearch"
-                        android:inputType="textNoSuggestions"
-                        android:maxLines="1"
-                        android:paddingStart="18dp"
-                        android:paddingEnd="68dp"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textColorHint="?attr/colorOnSurface"
-                        android:textSize="22sp" />
+                        android:layout_weight="0.48"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
+                        <EditText
+                            android:id="@+id/output_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint=""
+                            android:inputType="numberDecimal"
+                            android:background="@drawable/toast"
+                            android:backgroundTint="?attr/colorSurface"
+                            android:padding="12dp"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textColorHint="?attr/colorOnSurface"
+                            android:textSize="24sp" />
 
+                    <Spinner
+                        android:id="@+id/to_unit_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:foreground="@drawable/spinner_arrow"
+                        android:background="@drawable/spinner_background"
+                        android:popupBackground="@drawable/spinner_dropdown_background"
+                        android:layout_marginTop="4dp"/>
+                    </LinearLayout>
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/formula_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_formula"
+                    android:textStyle="bold"
+                    android:paddingTop="12dp"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorOnSurface"/>
+                <TextView
+                    android:id="@+id/formula_value"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
+                    android:text="Formula will be displayed here"
+                    android:paddingTop="4dp"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorOnSurface"/>
+
+                <Button
+                    android:id="@+id/add_favorite_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_add_favorite"
+                    android:layout_gravity="end"
+                    android:padding="12dp"
                     android:layout_marginTop="8dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:gravity="top"
-                    android:text="---"
-                    android:textColor="?attr/colorOnSurface"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:foreground="@drawable/toast_ripple"/>
+
+            </LinearLayout>
+
+            <!-- Favorites Card -->
+            <LinearLayout
+                android:id="@+id/fav_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/margin_space"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorSurfaceVariant"
+                android:elevation="2dp"
+                android:orientation="vertical"
+                android:padding="@dimen/margin">
+
+                <TextView
+                    android:id="@+id/favorites_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unit_favorites"
                     android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="18sp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:layout_marginBottom="8dp"/>
 
+                <TextView
+                    android:id="@+id/no_fav_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:visibility="gone"
+                    android:text="No favorites yet"
+                    android:layout_margin="@dimen/margin"
+                    android:textColor="?attr/colorOnSurface"/>
 
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/favorites_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin"/>
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
+    <!-- Title Bar -->
     <FrameLayout
-        android:id="@+id/common_title_back_uni"
+        android:id="@+id/common_title_back_unit"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:elevation="1dp"
@@ -148,7 +238,7 @@
         android:orientation="horizontal">
 
         <FrameLayout
-            android:id="@+id/common_title_back_uni_color"
+            android:id="@+id/common_title_back_unit_color"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/colorPrimary"
@@ -161,12 +251,12 @@
             android:orientation="vertical">
 
             <FrameLayout
-                android:id="@+id/title_box"
+                android:id="@+id/title_box_unit"
                 android:layout_width="match_parent"
                 android:layout_height="56dp">
 
                 <ImageButton
-                    android:id="@+id/back_btn_uni"
+                    android:id="@+id/back_btn"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
@@ -176,7 +266,7 @@
                     android:src="@drawable/ic_arrow_back_whit" />
 
                 <TextView
-                    android:id="@+id/unit_calculator_title"
+                    android:id="@+id/unit_title"
                     android:layout_width="wrap_content"
                     android:layout_marginStart="70dp"
                     android:alpha="0.9"
@@ -184,7 +274,7 @@
                     android:gravity="center"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/unit_title"
+                    android:text="@string/unit_converter_title"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="20sp"

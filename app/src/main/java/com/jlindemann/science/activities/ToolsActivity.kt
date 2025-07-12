@@ -14,6 +14,7 @@ import com.jlindemann.science.R
 import com.jlindemann.science.activities.tools.CalculatorActivity
 import com.jlindemann.science.activities.tools.ChemicalReactionsActivity
 import com.jlindemann.science.activities.tools.FlashCardActivity
+import com.jlindemann.science.activities.tools.UnitConversionActivity
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ThemePreference
 
@@ -96,13 +97,13 @@ class ToolsActivity : BaseActivity() {
                 // Setup TextViews
                 when (pair.first) {
                     "cal" -> textViewList[index].text = getString(R.string.cal)
-                    "rec" -> textViewList[index].text = getString(R.string.rec)
+                    "uni" -> textViewList[index].text = getString(R.string.uni)
                 }
 
                 textViewList[index].setOnClickListener {
                     val activity = when (pair.first) {
                         "cal" -> CalculatorActivity::class.java
-                        "rec" -> ChemicalReactionsActivity::class.java
+                        "uni" -> UnitConversionActivity::class.java
                         else -> null
                     }
                     activity?.let {
@@ -125,15 +126,16 @@ class ToolsActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        //Flashcard game
-        findViewById<FrameLayout>(R.id.tool_flashcards).setOnClickListener {
-            val intent = Intent(this, FlashCardActivity::class.java)
+        //Unit converter
+        findViewById<FrameLayout>(R.id.tool_unit_converter).setOnClickListener {
+            val intent = Intent(this, UnitConversionActivity::class.java)
             startActivity(intent)
         }
-        findViewById<TextView>(R.id.tool_flashcards_btn).setOnClickListener {
-            val intent = Intent(this, FlashCardActivity::class.java)
+        findViewById<TextView>(R.id.unit_converter_btn).setOnClickListener {
+            val intent = Intent(this, UnitConversionActivity::class.java)
             startActivity(intent)
         }
+
     }
 
 }

@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v3.2.1-Build.126</string>
+    <string name="app_version" translatable="false">v4.0.0m-Build.128</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -222,7 +222,7 @@
 
     <string name="calculator_title" translatable="false">Calculator</string>
     <string name="calculator_text" translatable="false">Contains a calculator to calculate molar mass for different compounds as well as saving favorites</string>
-    <string name="tools_title" translatable="false">Calculator</string>
+    <string name="tools_title" translatable="false">Tools (e.g calculator)</string>
     <string name="balancer_title" translatable="false">Chemical Reactions</string>
     <string name="balancer_text" translatable="false">Balance different chemical reactions and save favorites for later use</string>
     <string name="tool_btn_open" translatable="false">Open Tool</string>
@@ -268,6 +268,15 @@
     <string name="element_info_title" translatable="false">Element Information</string>
 
     <string name="submit_data_issue" translatable="false">Submit Data Issue</string>
+
+    <!-- Unit Converter -->
+    <string name="unit_converter_title" translatable="false">Unit Converter</string>
+    <string name="unit_enter_value" translatable="false">Value</string>
+    <string name="unit_output_value" translatable="false">Output</string>
+    <string name="unit_category" translatable="false">Category:</string>
+    <string name="unit_formula" translatable="false">Formula:</string>
+    <string name="unit_add_favorite" translatable="false">Add to Favorites:</string>
+    <string name="unit_favorites" translatable="false">Favorites:</string>
 
 
 </resources>

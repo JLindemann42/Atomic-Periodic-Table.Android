@@ -223,7 +223,7 @@
                     android:background="?attr/colorSurface"
                     android:backgroundTint="?attr/colorSurface"
                     android:clickable="true"
-                    android:drawableStart="@drawable/ic_calculator"
+                    android:drawableStart="@drawable/ic_tools"
                     android:drawablePadding="18dp"
                     android:drawableTint="?attr/colorOnSecondaryContainer"
                     android:elevation="0dp"

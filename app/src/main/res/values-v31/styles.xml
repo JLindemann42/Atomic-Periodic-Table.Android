@@ -28,7 +28,9 @@
         <item name="colorOnBackground">@android:color/system_neutral1_900</item>
 
         <item name="colorPrimaryDark">@android:color/system_neutral1_50</item>
+        <item name="colorSurfaceContainer">@android:color/system_neutral1_100</item>
         <item name="colorContainer">@android:color/system_accent1_50</item>
+
         <item name="colorAccent">@android:color/system_accent1_600</item>
         <item name="chipSurfaceColor">@android:color/system_neutral2_50</item>
 
@@ -71,6 +73,7 @@
 
         <item name="colorPrimaryDark">@android:color/system_neutral1_800</item>
         <item name="colorContainer">@android:color/system_accent1_700</item>
+        <item name="colorSurfaceContainer">@android:color/system_neutral1_800</item>
         <item name="colorAccent">@android:color/system_accent1_200</item>
         <item name="chipSurfaceColor">@android:color/system_neutral2_800</item>
 
