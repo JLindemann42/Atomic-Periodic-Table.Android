@@ -5,146 +5,246 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="?attr/backgroundColor">
+    android:orientation="vertical">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/flashcard_scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="120dp">
+            android:padding="16dp">
 
-            <TextView
+
+        <TextView
                 android:id="@+id/flashcard_title_downstate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="0dp"
-                android:paddingStart="16dp"
+                android:paddingStart="0dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="28dp"
-                android:text="Title"
+                android:text="@string/flashcards_title"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="32sp"
                 android:textStyle="normal" />
 
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <include
-                    android:id="@+id/drop_flashcard"
-                    layout="@layout/drop_flashcards"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="34dp"
-                    android:layout_marginTop="54dp"
-                    android:visibility="gone" />
-
+            <!-- Difficulty Selection as ToggleButtons -->
             <LinearLayout
-                android:id="@+id/fla_box"
-                android:layout_width="match_parent"
+                android:id="@+id/linear_difficulty"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/margin_space"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:elevation="2dp"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_marginBottom="24dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin"
-                    android:text="Flashcards:"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/drop_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="@dimen/margin"
-                        android:clickable="true"
-                        android:drawableStart="@drawable/ic_arrow"
-                        android:drawablePadding="8dp"
-                        android:drawableTint="?attr/colorOnSurfaceVariant"
-                        android:elevation="1dp"
-                        android:focusable="true"
-                        android:foreground="@drawable/c_ripple"
-                        android:gravity="center_vertical"
-                        android:text="Type"
-                        android:textColor="?attr/colorOnSurfaceVariant" />
-
-                    <EditText
-                        android:id="@+id/i_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="54dp"
-                        android:layout_marginStart="@dimen/margin"
-                        android:layout_marginEnd="@dimen/margin"
-                        android:background="@drawable/toast"
-                        android:backgroundTint="?attr/colorSurface"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:hint="Number"
-                        android:imeOptions="actionSearch"
-                        android:inputType="text"
-                        android:maxLines="1"
-                        android:paddingStart="18dp"
-                        android:paddingEnd="18dp"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textColorHint="?attr/colorOnSurface"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/flashcard_start_btn"
+                <ToggleButton
+                    android:id="@+id/toggle_easy"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginTop="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:layout_marginBottom="@dimen/margin"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:clickable="true"
-                    android:elevation="2dp"
-                    android:focusable="true"
-                    android:layout_gravity="end"
-                    android:gravity="center_vertical"
-                    android:drawableEnd="@drawable/ic_achievements"
-                    android:drawableTint="?attr/colorOnPrimary"
-                    android:paddingEnd="16dp"
-                    android:drawablePadding="8dp"
-                    android:paddingStart="24dp"
-                    android:foreground="@drawable/c_ripple"
-                    android:textStyle="normal"
-                    android:text="Start"
+                    android:textOn="Easy"
+                    android:textOff="Easy"
+                    android:text="Easy"
                     android:textSize="16sp"
-                    android:textColor="?attr/colorOnPrimary" />
+                    android:background="@drawable/chip_toggle_selector"
+                    android:checked="true"
+                    android:paddingHorizontal="24dp"
+                    android:textColor="?attr/colorOnSurface"/>
 
+                <Space
+                    android:layout_width="12dp"
+                    android:layout_height="1dp" />
+
+                <ToggleButton
+                    android:id="@+id/toggle_medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:textOn="Medium"
+                    android:textOff="Medium"
+                    android:text="Medium"
+                    android:textSize="16sp"
+                    android:background="@drawable/chip_toggle_selector"
+                    android:paddingHorizontal="24dp"
+                    android:textColor="?attr/colorOnSurface"/>
+
+                <Space
+                    android:layout_width="12dp"
+                    android:layout_height="1dp" />
+
+                <ToggleButton
+                    android:id="@+id/toggle_hard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:textOn="Hard"
+                    android:textOff="Hard"
+                    android:text="Hard"
+                    android:textSize="16sp"
+                    android:background="@drawable/chip_toggle_selector"
+                    android:paddingHorizontal="24dp"
+                    android:textColor="?attr/colorOnSurface"/>
 
             </LinearLayout>
 
-            </FrameLayout>
+            <!-- Add this TextView below the title bar, above the difficulty selection -->
+            <TextView
+                android:id="@+id/tv_lives_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="?attr/colorError"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="8dp"/>
+            <!-- Category Selection Buttons using MaterialCardView for a nicer look -->
+            <TextView
+                android:id="@+id/tv_category_select_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@string/learning_games"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                android:textColor="?attr/colorOnSurface"
+
+                android:layout_marginBottom="24dp"/>
+
+            <LinearLayout
+                android:id="@+id/btn_element_symbols"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/card_button_bg"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="12dp"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Element Symbols"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@null"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_element_classifications"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/card_button_bg"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="12dp"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Element Classifications"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@null"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_atomic_mass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/card_button_bg"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="12dp"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Atomic Mass"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@null"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_chemical_reactions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/card_button_bg"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="12dp"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Chemical Reactions"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@null"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_mixed_questions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/card_button_bg"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Mixed Questions"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp"/>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@null"/>
+            </LinearLayout>
 
 
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
     <FrameLayout
         android:id="@+id/common_title_back_fla"
         android:layout_width="match_parent"
@@ -191,11 +291,30 @@
                     android:gravity="center"
                     android:paddingStart="0dp"
                     android:paddingEnd="0dp"
-                    android:text="@string/calculator_title"
+                    android:text="@string/flashcards_title"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/tv_lives_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:layout_gravity="center_vertical|end"
+                        android:textSize="20sp"
+                        android:drawableStart="@drawable/ic_heart"
+                        android:drawableTint="?attr/colorError"
+                        android:paddingEnd="24dp"
+                        android:drawablePadding="9dp"
+                        android:textAlignment="center"
+                        android:gravity="center_vertical"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textAppearance="?attr/textAppearanceSubtitle1"
+                        android:textStyle="bold"
+                        android:layout_marginStart="4dp"/>
             </FrameLayout>
         </LinearLayout>
     </FrameLayout>

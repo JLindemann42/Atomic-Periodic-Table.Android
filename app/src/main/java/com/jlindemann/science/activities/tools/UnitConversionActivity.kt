@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.jlindemann.science.R
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.view.ViewPropertyAnimator
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ThemePreference
@@ -162,11 +165,56 @@ class UnitConversionActivity : BaseActivity() {
         outputValue.isCursorVisible = false
         outputValue.keyListener = null
 
+        formulaValue.text = getString(R.string.unit_display_formula)
+
         setupSpinners()
         setupListeners()
         setupRecyclerView()
         loadFavorites()
         updateFavoriteButtonState()
+
+        findViewById<ScrollView>(R.id.unit_scroll).viewTreeObserver
+            .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
+                private var isTitleVisible = false // Keep track of the current state
+
+                override fun onScrollChanged() {
+                    val scrollY = findViewById<ScrollView>(R.id.unit_scroll).scrollY
+                    val threshold = 150f // Your threshold
+
+                    // Get references to your views
+                    val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_back_unit_color)
+                    val titleText = findViewById<TextView>(R.id.unit_title)
+                    val titleDownstateText = findViewById<TextView>(R.id.unit_title_downstate)
+                    val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_unit)
+
+                    if (scrollY > threshold) {
+                        if (!isTitleVisible) {
+                            // Animate titleText and titleColorBackground to visible
+                            titleColorBackground.animateVisibility(true, visibleAlpha = 0.11f) // Pass the target alpha
+                            titleText.animateVisibility(true) // Keeps default full alpha
+
+                            // Animate titleDownstateText to invisible
+                            titleDownstateText.animateVisibility(false)
+
+                            titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
+                            isTitleVisible = true
+                        }
+                    } else {
+                        if (isTitleVisible) {
+                            // Animate titleText and titleColorBackground to invisible
+                            titleColorBackground.animateVisibility(false) // Fades to 0 alpha
+                            titleText.animateVisibility(false)
+
+                            // Animate titleDownstateText to visible
+                            titleDownstateText.animateVisibility(true)
+
+                            titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
+                            isTitleVisible = false
+                        }
+                    }
+                }
+            })
+
     }
 
     private fun setupSpinners() {
@@ -248,7 +296,7 @@ class UnitConversionActivity : BaseActivity() {
         val fromUnit = fromUnitSpinner.selectedItem as? String ?: return
         val toUnit = toUnitSpinner.selectedItem as? String ?: return
         val value = inputValue.text.toString().toDoubleOrNull() ?: run {
-            outputValue.setText("")
+            outputValue.setText("...")
             formulaValue.text = ""
             return
         }
@@ -359,6 +407,8 @@ class UnitConversionActivity : BaseActivity() {
         addFavoriteButton.isEnabled = !isCurrentConversionFavorite()
     }
 
+
+
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         val params = findViewById<FrameLayout>(R.id.common_title_back_unit).layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
@@ -367,6 +417,31 @@ class UnitConversionActivity : BaseActivity() {
         val params2 = findViewById<TextView>(R.id.unit_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
         findViewById<TextView>(R.id.unit_title_downstate).layoutParams = params2
+    }
+
+    // Helper extension function for animating visibility
+    fun View.animateVisibility(
+        setVisible: Boolean,
+        duration: Long = 200,
+        visibleAlpha: Float = 1.0f // New parameter for target alpha when visible
+    ) {
+        if (setVisible) {
+            alpha = 0f
+            visibility = View.VISIBLE
+            animate()
+                .alpha(visibleAlpha) // Use the visibleAlpha parameter here
+                .setDuration(duration)
+                .setListener(null)
+        } else {
+            animate()
+                .alpha(0f)
+                .setDuration(duration)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        visibility = View.INVISIBLE
+                    }
+                })
+        }
     }
 }
 

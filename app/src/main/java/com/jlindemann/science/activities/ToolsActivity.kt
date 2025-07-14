@@ -136,6 +136,16 @@ class ToolsActivity : BaseActivity() {
             startActivity(intent)
         }
 
+        //Unit converter
+        findViewById<FrameLayout>(R.id.flashcards).setOnClickListener {
+            val intent = Intent(this, FlashCardActivity::class.java)
+            startActivity(intent)
+        }
+        findViewById<TextView>(R.id.flashcards_btn).setOnClickListener {
+            val intent = Intent(this, FlashCardActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
 }

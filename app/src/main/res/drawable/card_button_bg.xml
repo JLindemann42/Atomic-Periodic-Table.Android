@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="?attr/colorSurfaceVariant"/>
+    <corners android:radius="8dp"/>
+    <padding android:left="8dp" android:top="8dp" android:right="8dp" android:bottom="8dp"/>
+    <size android:height="56dp"/>
+    <elevation android:shadowColor="#22000000" android:shadowRadius="2"/>
+</shape>

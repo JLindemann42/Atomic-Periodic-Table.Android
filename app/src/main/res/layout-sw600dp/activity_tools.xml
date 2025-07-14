@@ -225,6 +225,73 @@
             </LinearLayout>
         </FrameLayout>
 
+        <FrameLayout
+            android:id="@+id/flashcards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin_space_card"
+            android:layout_marginEnd="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin_space_card"
+            android:background="@drawable/toast_card"
+            android:backgroundTint="?attr/colorSurfaceVariant"
+            android:clickable="true"
+            android:elevation="0dp"
+            android:focusable="true"
+            android:foreground="@drawable/toast_card_ripple">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/flashcards_title"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:text="@string/flashcards_info"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="16sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/flashcards_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:layout_gravity="end"
+                    android:text="@string/tool_btn_open"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="16sp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:foreground="@drawable/toast_ripple"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </LinearLayout>
+        </FrameLayout>
+
     </LinearLayout>
     </ScrollView>
 

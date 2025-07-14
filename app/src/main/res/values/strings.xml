@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v4.0.0m-Build.128</string>
+    <string name="app_version" translatable="false">v4.0.0m-Build.130</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -277,6 +277,18 @@
     <string name="unit_formula" translatable="false">Formula:</string>
     <string name="unit_add_favorite" translatable="false">Add to Favorites:</string>
     <string name="unit_favorites" translatable="false">Favorites:</string>
+    <string name="unit_display_formula" translatable="false">Formula will be displayed here</string>
+
+    <!-- Flashcard mini-games -->
+    <string name="flashcards_title" translatable="false">Flashcards</string>
+    <string name="flashcards_info" translatable="false">Learn the Periodic Table with the built in "learning-games"</string>
+    <string name="flashcards_lives_info" translatable="false">Every wrong answer will lead to loss of a live</string>
+    <string name="learning_games" translatable="false">Learning-Games:</string>
+    <string name="flashcards_element_symbols" translatable="false">Element Symbols</string>
+    <string name="flashcards_element_classifications" translatable="false">Element Classifications</string>
+    <string name="flashcards_atomic_mass" translatable="false">Atomic Mass</string>
+    <string name="flashcards_chemical_reactions" translatable="false">Chemical Reactions</string>
+    <string name="flashcards_mixed_questions" translatable="false">Mixed Questions</string>
 
 
 </resources>
