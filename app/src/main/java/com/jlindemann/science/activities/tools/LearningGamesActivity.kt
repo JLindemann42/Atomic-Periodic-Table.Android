@@ -137,10 +137,12 @@ class LearningGamesActivity : BaseActivity() {
         q.alternatives.forEachIndexed { i, alt ->
             findViewById<TextView>(answerIds[i]).text = alt
         }
-        // Reset grid rotation for next question
+        // Reset grid for next question with fade in
         val grid = findViewById<GridLayout>(R.id.grid_answers)
         grid.rotationY = 0f
         grid.visibility = View.VISIBLE
+        grid.alpha = 0f
+        grid.animate().alpha(1f).setDuration(300).start()
     }
 
     /**
@@ -159,17 +161,28 @@ class LearningGamesActivity : BaseActivity() {
             listOf(Color.parseColor("#D32F2F"), Color.parseColor("#C62828"), Color.parseColor("#FFCDD2"))
 
         val effectOverlay = findViewById<FrameLayout>(R.id.effect_overlay)
-        effectOverlay.visibility = View.VISIBLE
-        animatedEffectView.startAnimation(effectColors) {
-            effectOverlay.visibility = View.GONE
-        }
-
-        // Show result card between flips
-        showResultCard(correct, selectedAnswer)
-
         val grid = findViewById<GridLayout>(R.id.grid_answers)
-        grid.animate().rotationY(90f).setDuration(300).withEndAction {
+
+        // Fade out grid quickly
+        grid.animate().alpha(0f).setDuration(200).withEndAction {
             grid.visibility = View.INVISIBLE
+
+            // Fade in overlay AND circles at the same time
+            fadeInEffectOverlay(effectOverlay, 300)
+            animatedEffectView.post {
+                animatedEffectView.startAnimation(effectColors) {
+                    // Fade out overlay and fade in grid at the same time
+                    fadeOutEffectOverlay(effectOverlay, 300) {
+                        grid.alpha = 0f
+                        grid.visibility = View.VISIBLE
+                        grid.animate().alpha(1f).setDuration(300).start()
+                    }
+                }
+            }
+
+            // Show result card between flips
+            showResultCard(correct, selectedAnswer)
+
             Handler(Looper.getMainLooper()).postDelayed({
                 hideResultCard()
                 nextQuestionWithFlip(grid, correct, selectedAnswer)
@@ -194,7 +207,6 @@ class LearningGamesActivity : BaseActivity() {
             }
             if (!lost) {
                 finish()
-            } else {
             }
         }
     }
@@ -211,7 +223,8 @@ class LearningGamesActivity : BaseActivity() {
             setupQuestionUI()
             grid.rotationY = -90f
             grid.visibility = View.VISIBLE
-            grid.animate().rotationY(0f).setDuration(300).start()
+            grid.alpha = 0f
+            grid.animate().rotationY(0f).alpha(1f).setDuration(300).start()
         }
     }
 
@@ -344,5 +357,27 @@ class LearningGamesActivity : BaseActivity() {
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) +
                 resources.getDimensionPixelSize(R.dimen.header_down_margin)
         findViewById<TextView>(R.id.tv_question).layoutParams = params2
+    }
+
+    // Helpers for overlay fade
+    private fun fadeInEffectOverlay(effectOverlay: View, duration: Long = 300, onEnd: (() -> Unit)? = null) {
+        effectOverlay.alpha = 0f
+        effectOverlay.visibility = View.VISIBLE
+        effectOverlay.animate()
+            .alpha(1f)
+            .setDuration(duration)
+            .withEndAction { onEnd?.invoke() }
+            .start()
+    }
+
+    private fun fadeOutEffectOverlay(effectOverlay: View, duration: Long = 300, onEnd: (() -> Unit)? = null) {
+        effectOverlay.animate()
+            .alpha(0f)
+            .setDuration(duration)
+            .withEndAction {
+                effectOverlay.visibility = View.GONE
+                onEnd?.invoke()
+            }
+            .start()
     }
 }

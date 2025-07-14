@@ -58,13 +58,17 @@ import java.util.Timer
 import java.util.concurrent.Executors
 import kotlin.concurrent.schedule
 
-
 class ProActivity : BaseActivity(), BillingClientStateListener {
 
-    val NON_CONSUMALBE_COUNTER_ID = "pro_version"
+    /**
+     * Map product IDs to their descriptions/configurations for future extensibility.
+     * You can add more products here as needed.
+     */
+    private val productIds = listOf("pro_version")
+    private val NON_CONSUMABLE_PRODUCT_ID = "pro_version"
 
     private var billingClient: BillingClient? = null
-    private var productDetailList = mutableListOf<ProductDetails>()
+    private var productDetailMap = mutableMapOf<String, ProductDetails>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,27 +91,25 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
         }
         findViewById<TextView>(R.id.buy_btn).setOnClickListener {
             try {
-                if (productDetailList.isEmpty()) {
+                val productDetails = productDetailMap[NON_CONSUMABLE_PRODUCT_ID]
+                if (productDetails == null) {
                     ToastUtil.showToast(this, "No products found")
+                } else {
+                    launchBillingFlow(productDetails) // Always start flow for "pro_version"
                 }
-                else {
-                    launchBillingFlow(productDetailList[0])
-                }
-            }
-            catch (e: IOException) {
+            } catch (e: IOException) {
                 ToastUtil.showToast(this, "Try again")
             }
         }
         findViewById<TextView>(R.id.product_text).setOnClickListener {
             try {
-                if (productDetailList.isEmpty()) {
+                val productDetails = productDetailMap[NON_CONSUMABLE_PRODUCT_ID]
+                if (productDetails == null) {
                     ToastUtil.showToast(this, "No products found")
+                } else {
+                    launchBillingFlow(productDetails)
                 }
-                else {
-                    launchBillingFlow(productDetailList[0])
-                }
-            }
-            catch (e: IOException) {
+            } catch (e: IOException) {
                 ToastUtil.showToast(this, "Try again")
             }
         }
@@ -122,7 +124,7 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
                                     try {
                                         val jsonObject = JSONObject(jsonString)
                                         val productId = jsonObject.getString("productId")
-                                        if (productId == NON_CONSUMALBE_COUNTER_ID) {
+                                        if (productId == NON_CONSUMABLE_PRODUCT_ID) {
                                             acknowledgePurchase(purchase)
                                         }
                                     } catch (e: Exception) {
@@ -164,21 +166,20 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
 
     private fun queryProducts() {
         lifecycleScope.launch {
-            queryProducts(BillingClient.ProductType.INAPP, NON_CONSUMALBE_COUNTER_ID)
+            queryProducts(BillingClient.ProductType.INAPP, productIds)
         }
     }
 
-    private suspend fun queryProducts(productType: String, product: String) {
+    private suspend fun queryProducts(productType: String, products: List<String>) {
+        val productListForQuery = products.map { productId ->
+            QueryProductDetailsParams.Product.newBuilder()
+                .setProductId(productId)
+                .setProductType(productType)
+                .build()
+        }
         val queryProductDetailsParams =
             QueryProductDetailsParams.newBuilder()
-                .setProductList(
-                    listOf(
-                        QueryProductDetailsParams.Product.newBuilder()
-                            .setProductId(product)
-                            .setProductType(productType)
-                            .build()
-                    )
-                )
+                .setProductList(productListForQuery)
                 .build()
         val productDetailsResult = withContext(Dispatchers.IO) {
             billingClient?.queryProductDetails(queryProductDetailsParams)
@@ -186,18 +187,19 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
 
         when (val responseCode = productDetailsResult?.billingResult?.responseCode) {
             BillingClient.BillingResponseCode.OK -> {
-                if (productDetailsResult.productDetailsList?.isNotEmpty() == true) {
-                    productDetailList.addAll(productDetailsResult.productDetailsList!!)
-                    updateProTextPrice() // Update the price text here
+                productDetailsResult.productDetailsList?.forEach { productDetails ->
+                    productDetailMap[productDetails.productId] = productDetails
                 }
+                updateProTextPrice()
             }
         }
     }
 
     private fun updateProTextPrice() {
         val proText = findViewById<TextView>(R.id.pro_price)
-        if (productDetailList.isNotEmpty()) {
-            val price = productDetailList[0].oneTimePurchaseOfferDetails?.formattedPrice
+        val productDetails = productDetailMap[NON_CONSUMABLE_PRODUCT_ID]
+        if (productDetails != null) {
+            val price = productDetails.oneTimePurchaseOfferDetails?.formattedPrice
             proText.text = price ?: "Price not available"
         } else {
             proText.text = "Price not available"
@@ -217,17 +219,17 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
             .setProductType(type)
             .build()
 
-        billingClient?.queryPurchasesAsync(queryPurchaseParams) { billingResult, productDetailList ->
+        billingClient?.queryPurchasesAsync(queryPurchaseParams) { billingResult, purchasesList ->
             when (val responseCode = billingResult.responseCode) {
                 BillingClient.BillingResponseCode.OK -> {
-                    if (productDetailList.isNotEmpty()) {
-                        for (purchase in productDetailList) {
+                    if (purchasesList.isNotEmpty()) {
+                        for (purchase in purchasesList) {
                             lifecycleScope.launch {
                                 val jsonString = purchase.originalJson
                                 try {
                                     val jsonObject = JSONObject(jsonString)
                                     val productId = jsonObject.getString("productId")
-                                    if (productId == NON_CONSUMALBE_COUNTER_ID)
+                                    if (productId == NON_CONSUMABLE_PRODUCT_ID)
                                         acknowledgePurchase(purchase)
                                 } catch (e: java.lang.Exception){
                                     ToastUtil.showToast(this@ProActivity, e.message.toString())
