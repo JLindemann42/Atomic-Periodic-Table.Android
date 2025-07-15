@@ -1,21 +1,17 @@
 package com.jlindemann.science.activities.tools
 
+import GameResultItem
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.GridLayout
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.util.LivesManager
@@ -31,6 +27,14 @@ class LearningGamesActivity : BaseActivity() {
     private lateinit var animatedEffectView: AnimatedEffectView
     private var timerAnimator: ValueAnimator? = null
     private var isAnswering = true
+    private var hasLeftGame = false
+    private var leaveDialogShowing = false
+
+    private val handler = Handler(Looper.getMainLooper())
+    private var pendingNextQuestionRunnable: Runnable? = null
+
+    // Results tracking
+    private val gameResults = mutableListOf<GameResultItem>()
 
     data class Question(
         val question: String,
@@ -69,7 +73,7 @@ class LearningGamesActivity : BaseActivity() {
         setupQuestionUI()
         updateLivesCount()
         setupAnswerListeners()
-        findViewById<ImageButton>(R.id.back_btn_learn).setOnClickListener { this.onBackPressed() }
+        setupBackButton()
 
         // Setup background effect view
         val effectOverlay = findViewById<FrameLayout>(R.id.effect_overlay)
@@ -92,7 +96,7 @@ class LearningGamesActivity : BaseActivity() {
         )
         answerCards.forEachIndexed { index, card ->
             card.setOnClickListener {
-                if (isAnswering) {
+                if (isAnswering && !hasLeftGame) {
                     isAnswering = false
                     timerAnimator?.cancel()
                     val selectedAnswer = questions[currentQuestionIndex].alternatives[index]
@@ -102,11 +106,53 @@ class LearningGamesActivity : BaseActivity() {
         }
     }
 
-    /**
-     * Sets up timer, question, answers, progress bar, and resets input.
-     */
+    private fun setupBackButton() {
+        findViewById<ImageButton>(R.id.back_btn_learn).setOnClickListener {
+            showExitConfirmationDialog()
+        }
+    }
+
+    override fun onBackPressed() {
+        showExitConfirmationDialog()
+    }
+
+    private fun showExitConfirmationDialog() {
+        if (leaveDialogShowing || hasLeftGame) return
+        leaveDialogShowing = true
+        android.app.AlertDialog.Builder(this)
+            .setTitle("Leave Game?")
+            .setMessage("Are you sure you want to leave the game? You will lose 5 lives.")
+            .setPositiveButton("Leave") { _, _ ->
+                leaveDialogShowing = false
+                leaveGameAndLoseLives()
+            }
+            .setNegativeButton("Stay") { dialog, _ ->
+                leaveDialogShowing = false
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun leaveGameAndLoseLives() {
+        if (!hasLeftGame) {
+            hasLeftGame = true
+            LivesManager.loseLives(this, 5)
+            updateLivesCount()
+            cleanupPending()
+            finishWithResults()
+        }
+    }
+
+    private fun cleanupPending() {
+        timerAnimator?.cancel()
+        pendingNextQuestionRunnable?.let { handler.removeCallbacks(it) }
+    }
+
     private fun setupQuestionUI() {
+        if (hasLeftGame) return
         isAnswering = true
+        setAnswerEnabled(true)
         val timeLimit = when (difficulty) {
             "easy" -> 30_000L
             "medium" -> 20_000L
@@ -114,7 +160,17 @@ class LearningGamesActivity : BaseActivity() {
             else -> 30_000L
         }
         val progressBar = findViewById<ProgressBar>(R.id.time_progress)
+        val questionText = findViewById<TextView>(R.id.tv_question)
+        val grid = findViewById<GridLayout>(R.id.grid_answers)
+
+        progressBar.visibility = View.VISIBLE
+        progressBar.alpha = 1f
         progressBar.progress = 100
+        questionText.visibility = View.VISIBLE
+        questionText.alpha = 1f
+        grid.visibility = View.VISIBLE
+        grid.alpha = 0f
+
         timerAnimator?.cancel()
         timerAnimator = ValueAnimator.ofInt(100, 0).apply {
             duration = timeLimit
@@ -123,7 +179,7 @@ class LearningGamesActivity : BaseActivity() {
             }
             addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
-                    if (isAnswering) {
+                    if (isAnswering && !hasLeftGame) {
                         isAnswering = false
                         checkAnswer("__TIMEOUT__")
                     }
@@ -132,27 +188,42 @@ class LearningGamesActivity : BaseActivity() {
             start()
         }
         val q = questions[currentQuestionIndex]
-        findViewById<TextView>(R.id.tv_question).text = q.question
+        questionText.text = q.question
         val answerIds = listOf(R.id.answer_text_1, R.id.answer_text_2, R.id.answer_text_3, R.id.answer_text_4)
         q.alternatives.forEachIndexed { i, alt ->
             findViewById<TextView>(answerIds[i]).text = alt
         }
-        // Reset grid for next question with fade in
-        val grid = findViewById<GridLayout>(R.id.grid_answers)
-        grid.rotationY = 0f
-        grid.visibility = View.VISIBLE
-        grid.alpha = 0f
         grid.animate().alpha(1f).setDuration(300).start()
+        progressBar.animate().alpha(1f).setDuration(300).start()
+        questionText.animate().alpha(1f).setDuration(300).start()
     }
 
-    /**
-     * Handles answer tapped or timeout.
-     * Animates effect, disables further input, shows flip animation, and moves to next after 2s.
-     */
+    private fun setAnswerEnabled(enabled: Boolean) {
+        listOf(
+            findViewById<LinearLayout>(R.id.answer_1),
+            findViewById<LinearLayout>(R.id.answer_2),
+            findViewById<LinearLayout>(R.id.answer_3),
+            findViewById<LinearLayout>(R.id.answer_4)
+        ).forEach { it.isEnabled = enabled }
+    }
+
     private fun checkAnswer(selectedAnswer: String) {
+        if (hasLeftGame) return
         isAnswering = false
+        setAnswerEnabled(false)
         timerAnimator?.cancel()
         val correct = selectedAnswer == questions[currentQuestionIndex].correctAnswer
+
+        // Add result for the current question
+        gameResults.add(
+            GameResultItem(
+                question = questions[currentQuestionIndex].question,
+                pickedAnswer = if (selectedAnswer == "__TIMEOUT__") "Timeout" else selectedAnswer,
+                correctAnswer = questions[currentQuestionIndex].correctAnswer,
+                wasCorrect = correct
+            )
+        )
+
         val effectColors = if (selectedAnswer == "__TIMEOUT__")
             listOf(Color.parseColor("#D32F2F"), Color.parseColor("#C62828"), Color.parseColor("#FFCDD2"))
         else if (correct)
@@ -162,75 +233,78 @@ class LearningGamesActivity : BaseActivity() {
 
         val effectOverlay = findViewById<FrameLayout>(R.id.effect_overlay)
         val grid = findViewById<GridLayout>(R.id.grid_answers)
+        val progressBar = findViewById<ProgressBar>(R.id.time_progress)
+        val questionText = findViewById<TextView>(R.id.tv_question)
 
-        // Fade out grid quickly
-        grid.animate().alpha(0f).setDuration(200).withEndAction {
-            grid.visibility = View.INVISIBLE
+        fadeOutView(grid, 200) {
+            fadeOutView(progressBar, 200)
+            fadeOutView(questionText, 200)
 
-            // Fade in overlay AND circles at the same time
             fadeInEffectOverlay(effectOverlay, 300)
             animatedEffectView.post {
                 animatedEffectView.startAnimation(effectColors) {
-                    // Fade out overlay and fade in grid at the same time
-                    fadeOutEffectOverlay(effectOverlay, 300) {
-                        grid.alpha = 0f
-                        grid.visibility = View.VISIBLE
-                        grid.animate().alpha(1f).setDuration(300).start()
-                    }
+                    fadeOutEffectOverlay(effectOverlay, 300)
                 }
             }
 
-            // Show result card between flips
             showResultCard(correct, selectedAnswer)
 
-            Handler(Looper.getMainLooper()).postDelayed({
-                hideResultCard()
-                nextQuestionWithFlip(grid, correct, selectedAnswer)
-            }, 2000)
-        }.start()
+            pendingNextQuestionRunnable?.let { handler.removeCallbacks(it) }
+            pendingNextQuestionRunnable = Runnable {
+                if (!hasLeftGame) {
+                    hideResultCard()
+                    nextQuestionWithFlip(grid, correct, selectedAnswer)
+                }
+            }
+            handler.postDelayed(pendingNextQuestionRunnable!!, 2000)
+        }
 
         if (selectedAnswer == "__TIMEOUT__") {
             val lost = LivesManager.loseLife(this)
             updateLivesCount()
             if (lost && LivesManager.getLives(this) == 0) {
-                finish()
+                finishWithResults()
             }
             if (!lost) {
-                finish()
+                finishWithResults()
             }
         } else if (correct) {
+            // Nothing special for correct (lives not lost)
         } else {
             val lost = LivesManager.loseLife(this)
             updateLivesCount()
             if (lost && LivesManager.getLives(this) == 0) {
-                finish()
+                finishWithResults()
             }
             if (!lost) {
-                finish()
+                finishWithResults()
             }
         }
     }
 
-    /**
-     * Shows next question with flip-in animation, or finishes the quiz.
-     */
     private fun nextQuestionWithFlip(grid: GridLayout, wasCorrect: Boolean, selectedAnswer: String) {
+        if (hasLeftGame) return
         currentQuestionIndex++
         if (currentQuestionIndex >= questions.size) {
-            Toast.makeText(this, "Quiz complete!", Toast.LENGTH_LONG).show()
-            finish()
+            finishWithResults()
         } else {
             setupQuestionUI()
             grid.rotationY = -90f
             grid.visibility = View.VISIBLE
-            grid.alpha = 0f
-            grid.animate().rotationY(0f).alpha(1f).setDuration(300).start()
+            grid.animate().rotationY(0f).setDuration(300).start()
         }
     }
 
-    /**
-     * Show result card overlay between questions.
-     */
+    private fun finishWithResults() {
+        cleanupPending()
+        val intent = Intent(this, FlashCardActivity::class.java)
+        intent.putParcelableArrayListExtra("game_results", ArrayList(gameResults))
+        intent.putExtra("game_finished", true)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        startActivity(intent)
+        finish()
+    }
+
     private fun showResultCard(correct: Boolean, selectedAnswer: String) {
         val resultCard = findViewById<FrameLayout>(R.id.result_card_overlay)
         val resultText = findViewById<TextView>(R.id.result_text)
@@ -344,8 +418,10 @@ class LearningGamesActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        LivesManager.refillLivesIfNeeded(this)
-        updateLivesCount()
+        if (!hasLeftGame) {
+            LivesManager.refillLivesIfNeeded(this)
+            updateLivesCount()
+        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -379,5 +455,31 @@ class LearningGamesActivity : BaseActivity() {
                 onEnd?.invoke()
             }
             .start()
+    }
+
+    // Helpers for fading arbitrary views
+    private fun fadeOutView(view: View, duration: Long = 300, onEnd: (() -> Unit)? = null) {
+        view.animate()
+            .alpha(0f)
+            .setDuration(duration)
+            .withEndAction {
+                view.visibility = View.INVISIBLE
+                onEnd?.invoke()
+            }.start()
+    }
+
+    private fun fadeInView(view: View, duration: Long = 300, onEnd: (() -> Unit)? = null) {
+        view.alpha = 0f
+        view.visibility = View.VISIBLE
+        view.animate()
+            .alpha(1f)
+            .setDuration(duration)
+            .withEndAction { onEnd?.invoke() }
+            .start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        cleanupPending()
     }
 }

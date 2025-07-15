@@ -1,5 +1,7 @@
 package com.jlindemann.science.activities.tools
 
+import GameResultItem
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -18,6 +20,7 @@ class FlashCardActivity : BaseActivity() {
     private lateinit var toggles: List<ToggleButton>
     private lateinit var infoText: TextView
     private lateinit var learningGameButtons: List<View>
+    private var resultDialog: ResultDialogFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,13 +66,31 @@ class FlashCardActivity : BaseActivity() {
         })
 
         findViewById<ImageButton>(R.id.back_btn_fla).setOnClickListener {
-            this.onBackPressed()
+            onBackPressed()
         }
 
         infoText = findViewById(R.id.tv_lives_info)
         setupDifficultyToggles()
         setupLearningGameButtons()
         setCategoryListeners()
+
+        // --- Game result popup logic ---
+        if (intent.getBooleanExtra("game_finished", false)) {
+            val results = intent.getParcelableArrayListExtra<GameResultItem>("game_results")
+            if (results != null && results.isNotEmpty()) {
+                showGameResultsPopup(results)
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        if (intent.getBooleanExtra("game_finished", false)) {
+            val results = intent.getParcelableArrayListExtra<GameResultItem>("game_results")
+            if (results != null && results.isNotEmpty()) {
+                showGameResultsPopup(results)
+            }
+        }
     }
 
     /**
@@ -176,5 +197,24 @@ class FlashCardActivity : BaseActivity() {
             btn.isEnabled = isEnabled
             btn.alpha = if (isEnabled) 1f else 0.5f
         }
+    }
+
+    // ---- Exit confirmation ----
+    override fun onBackPressed() {
+        resultDialog?.let {
+            if (it.isVisible) {
+                it.dismiss()
+                return
+            }
+        }
+        // Just finish activity, no lives lost!
+        finish()
+    }
+
+    // ---- Game Results Popup ----
+    private fun showGameResultsPopup(results: List<GameResultItem>) {
+        if (resultDialog?.isVisible == true) return
+        resultDialog = ResultDialogFragment.newInstance(results)
+        resultDialog?.show(supportFragmentManager, "GameResultsPopup")
     }
 }

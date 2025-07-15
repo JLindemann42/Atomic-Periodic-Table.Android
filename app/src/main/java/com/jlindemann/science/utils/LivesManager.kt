@@ -7,7 +7,7 @@ object LivesManager {
     private const val PREFS_NAME = "lives_prefs"
     private const val LIVES_KEY = "lives_count"
     private const val LAST_REFILL_KEY = "last_refill_time"
-    private const val MAX_LIVES = 20
+    private const val MAX_LIVES = 2000
     private const val REFILL_INTERVAL_MS = 4 * 60 * 60 * 1000L // 4 hours
 
     private fun getPrefs(context: Context): SharedPreferences =
@@ -17,8 +17,9 @@ object LivesManager {
         return getPrefs(context).getInt(LIVES_KEY, MAX_LIVES)
     }
 
+    // Ensure lives never go below 0 or above MAX_LIVES
     fun setLives(context: Context, lives: Int) {
-        getPrefs(context).edit().putInt(LIVES_KEY, lives.coerceAtMost(MAX_LIVES)).apply()
+        getPrefs(context).edit().putInt(LIVES_KEY, lives.coerceIn(0, MAX_LIVES)).apply()
     }
 
     fun loseLife(context: Context): Boolean {
@@ -30,6 +31,19 @@ object LivesManager {
         } else {
             false
         }
+    }
+
+    /**
+     * Lose multiple lives atomically and never go below 0.
+     * Returns true if any lives were lost, false if already 0.
+     */
+    fun loseLives(context: Context, count: Int): Boolean {
+        val prefs = getPrefs(context)
+        val lives = prefs.getInt(LIVES_KEY, MAX_LIVES)
+        if (lives <= 0) return false
+        val newLives = (lives - count).coerceAtLeast(0)
+        prefs.edit().putInt(LIVES_KEY, newLives).apply()
+        return true
     }
 
     /**

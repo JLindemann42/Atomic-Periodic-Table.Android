@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:elevation="1dp"
-        android:background="?attr/colorSurface"
         android:gravity="center|center_vertical"
         android:orientation="horizontal">
         <FrameLayout
@@ -21,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/colorPrimary"
-            android:alpha="0.11"/>
+            android:alpha="0.0"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -34,11 +33,14 @@
                 <ImageButton
                     android:id="@+id/back_btn_learn"
                     style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_margin="12dp"
                     android:layout_gravity="center_vertical"
                     android:rotation="180"
-                    android:src="@drawable/ic_arrow_back_whit" />
+                    android:src="@drawable/ic_arrow_back_whit"
+                    android:background="@drawable/bg_round_accent"
+                    android:tint="?attr/colorOnSecondaryContainer" />
                 <TextView
                     android:id="@+id/learn_title"
                     android:layout_width="wrap_content"
@@ -75,6 +77,10 @@
     </FrameLayout>
 
     <!-- Effect overlay should be under quiz_content for visual stacking -->
+    <com.jlindemann.science.views.ScienceBackgroundView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <FrameLayout
         android:id="@+id/effect_overlay"
         android:layout_width="match_parent"

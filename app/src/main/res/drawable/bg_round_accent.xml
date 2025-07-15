@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="?attr/colorSecondaryContainer" /> <!-- Use your accent color here -->
+    <size android:width="56dp" android:height="56dp" />
+</shape>
