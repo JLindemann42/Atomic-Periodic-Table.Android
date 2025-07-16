@@ -7,20 +7,18 @@ import kotlin.math.pow
 object XpManager {
     private const val XP_KEY = "user_xp"
     private const val PREFS = "xp_prefs"
-    private const val XP_START = 100
-    private const val XP_END = 10_000
+    private const val XP_START = 100     // XP required for level 1
     private const val LEVELS = 100
 
-    // Geometric progression: scales smoothly from 100 XP to 10,000 XP over 100 levels.
+    // Each level requires double the XP of the previous
     private fun xpToReachLevel(n: Int): Int {
-        if (n <= 0) return 0
-        val factor = (n - 1).toDouble() / (LEVELS - 1).toDouble()
-        val xp = XP_START * (XP_END.toDouble() / XP_START.toDouble()).pow(factor)
+        if (n <= 1) return 0
+        val xp = XP_START * 2.0.pow(n - 1)
         return xp.roundToInt()
     }
 
     fun getLevel(xp: Int): Int {
-        var level = 0
+        var level = 1
         while (level < LEVELS && xpToReachLevel(level + 1) <= xp) {
             level++
         }

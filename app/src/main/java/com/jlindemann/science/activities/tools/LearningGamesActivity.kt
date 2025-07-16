@@ -18,6 +18,7 @@ import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.util.XpManager
 import com.jlindemann.science.views.AnimatedEffectView
 import org.json.JSONArray
+import kotlin.math.roundToInt
 
 class LearningGamesActivity : BaseActivity() {
 
@@ -65,10 +66,10 @@ class LearningGamesActivity : BaseActivity() {
         val category = intent.getStringExtra("category") ?: "element_symbols"
 
         totalQuestions = when (difficulty) {
-            "easy" -> 10
-            "medium" -> 20
-            "hard" -> 30
-            else -> 10
+            "easy" -> 8
+            "medium" -> 16
+            "hard" -> 24
+            else -> 8
         }
 
         questions = generateQuestions(category, totalQuestions)
@@ -143,7 +144,7 @@ class LearningGamesActivity : BaseActivity() {
             LivesManager.loseLives(this, 5)
             updateLivesCount()
             cleanupPending()
-            finishWithResults()
+            finishWithResults(forceNotFinished = true)
         }
     }
 
@@ -157,14 +158,18 @@ class LearningGamesActivity : BaseActivity() {
         isAnswering = true
         setAnswerEnabled(true)
         val timeLimit = when (difficulty) {
-            "easy" -> 30_000L
-            "medium" -> 20_000L
-            "hard" -> 10_000L
-            else -> 30_000L
+            "easy" -> 20_000L
+            "medium" -> 12_000L
+            "hard" -> 7_500L
+            else -> 20_000L
         }
         val progressBar = findViewById<ProgressBar>(R.id.time_progress)
         val questionText = findViewById<TextView>(R.id.tv_question)
+        val questionNumber = findViewById<TextView>(R.id.tv_question_number) // <-- Add this line
         val grid = findViewById<GridLayout>(R.id.grid_answers)
+
+        // Update question number display
+        questionNumber.text = "${currentQuestionIndex + 1}/${questions.size}"
 
         progressBar.visibility = View.VISIBLE
         progressBar.alpha = 1f
@@ -210,6 +215,22 @@ class LearningGamesActivity : BaseActivity() {
         ).forEach { it.isEnabled = enabled }
     }
 
+    private fun getXpMultiplier(): Double {
+        return when (difficulty) {
+            "medium" -> 1.3
+            "hard" -> 1.5
+            else -> 1.0
+        }
+    }
+
+    private fun getLivesLost(): Int {
+        return when (difficulty) {
+            "hard" -> 2
+            else -> 1 // easy and medium
+        }
+    }
+
+    // In checkAnswer(selectedAnswer: String), keep lives deduction logic the same:
     private fun checkAnswer(selectedAnswer: String) {
         if (hasLeftGame) return
         isAnswering = false
@@ -217,7 +238,6 @@ class LearningGamesActivity : BaseActivity() {
         timerAnimator?.cancel()
         val correct = selectedAnswer == questions[currentQuestionIndex].correctAnswer
 
-        // Add result for the current question
         gameResults.add(
             GameResultItem(
                 question = questions[currentQuestionIndex].question,
@@ -253,8 +273,10 @@ class LearningGamesActivity : BaseActivity() {
             if (selectedAnswer == "__TIMEOUT__") {
                 showResultCard(false, selectedAnswer, 0)
             } else if (correct) {
-                XpManager.addXp(this, 5)
-                showResultCard(true, selectedAnswer, 5)
+                val baseXp = 5
+                val xpGained = (baseXp * getXpMultiplier()).roundToInt()
+                XpManager.addXp(this, xpGained)
+                showResultCard(true, selectedAnswer, xpGained)
             } else {
                 showResultCard(false, selectedAnswer, 0)
             }
@@ -269,19 +291,10 @@ class LearningGamesActivity : BaseActivity() {
             handler.postDelayed(pendingNextQuestionRunnable!!, 2000)
         }
 
-        if (selectedAnswer == "__TIMEOUT__") {
-            val lost = LivesManager.loseLife(this)
-            updateLivesCount()
-            if (lost && LivesManager.getLives(this) == 0) {
-                finishWithResults()
-            }
-            if (!lost) {
-                finishWithResults()
-            }
-        } else if (correct) {
-            // No life lost, XP handled above
-        } else {
-            val lost = LivesManager.loseLife(this)
+        // For timeouts and wrong answers, lose lives according to difficulty
+        val livesLost = getLivesLost()
+        if (selectedAnswer == "__TIMEOUT__" || !correct) {
+            val lost = LivesManager.loseLives(this, livesLost)
             updateLivesCount()
             if (lost && LivesManager.getLives(this) == 0) {
                 finishWithResults()
@@ -290,6 +303,7 @@ class LearningGamesActivity : BaseActivity() {
                 finishWithResults()
             }
         }
+        // No lives lost for correct answers
     }
 
     private fun nextQuestionWithFlip(grid: GridLayout, wasCorrect: Boolean, selectedAnswer: String) {
@@ -306,20 +320,48 @@ class LearningGamesActivity : BaseActivity() {
         }
     }
 
-    private fun finishWithResults() {
-        cleanupPending()
-        if (quizCompleted) {
-            // XP for quiz completion
-            XpManager.addXp(this, 25)
-            // Bonus for all correct
-            val allCorrect = gameResults.all { it.wasCorrect }
-            if (allCorrect) {
-                XpManager.addXp(this, 20)
-            }
+    private fun getDifficultyLabel(): String {
+        return when (difficulty) {
+            "medium" -> "Medium"
+            "hard" -> "Hard"
+            else -> "Easy"
         }
+    }
+
+    private fun getTotalXpWithDifficulty(xpElements: Int, xpGameWin: Int, xpPerfect: Int): Int {
+        val multiplier = getXpMultiplier()
+        val rawTotal = xpElements + xpGameWin + xpPerfect
+        return (rawTotal * multiplier).roundToInt()
+    }
+
+    private fun finishWithResults(forceNotFinished: Boolean = false) {
+        cleanupPending()
+        val allAnswersCompleted = gameResults.size == totalQuestions && gameResults.all { it.pickedAnswer != null }
+        val finishedGame = quizCompleted && allAnswersCompleted && !forceNotFinished
+        val correctAnswers = gameResults.count { it.wasCorrect }
+        val xpElements = (correctAnswers * 5)
+        val xpGameWin = if (finishedGame) 25 else 0
+        val xpPerfect = if (finishedGame && correctAnswers == totalQuestions) 20 else 0
+        val totalXp = getTotalXpWithDifficulty(xpElements, xpGameWin, xpPerfect)
+
+        if (finishedGame) {
+            XpManager.addXp(this, (xpGameWin * getXpMultiplier()).roundToInt())
+            if (gameResults.all { it.wasCorrect }) {
+                XpManager.addXp(this, (xpPerfect * getXpMultiplier()).roundToInt())
+            }
+            val prefs = getSharedPreferences("game_stats", MODE_PRIVATE)
+            val current = prefs.getInt("completed_quizzes", 0)
+            prefs.edit().putInt("completed_quizzes", current + 1).apply()
+        }
+
         val intent = Intent(this, FlashCardActivity::class.java)
         intent.putParcelableArrayListExtra("game_results", ArrayList(gameResults))
-        intent.putExtra("game_finished", true)
+        intent.putExtra("game_finished", finishedGame)
+        intent.putExtra("total_questions", totalQuestions)
+        intent.putExtra("difficulty", difficulty)
+        intent.putExtra("difficulty_label", getDifficultyLabel())
+        intent.putExtra("xp_multiplier", getXpMultiplier())
+        intent.putExtra("total_xp", totalXp)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
         finish()
@@ -330,15 +372,19 @@ class LearningGamesActivity : BaseActivity() {
         val resultText = findViewById<TextView>(R.id.result_text)
         val resultSubtext = findViewById<TextView>(R.id.result_subtext)
         resultCard.visibility = View.VISIBLE
+
+        // Get lives lost based on difficulty
+        val livesLost = getLivesLost()
+
         if (selectedAnswer == "__TIMEOUT__") {
             resultText.text = "Time's Up"
-            resultSubtext.text = "Lost 1 life"
+            resultSubtext.text = if (livesLost == 1) "Lost 1 life" else "Lost $livesLost lives"
         } else if (correct) {
             resultText.text = "Correct"
             resultSubtext.text = if (xpGained > 0) "+${xpGained}xp" else ""
         } else {
             resultText.text = "Wrong"
-            resultSubtext.text = "Lost 1 life"
+            resultSubtext.text = if (livesLost == 1) "Lost 1 life" else "Lost $livesLost lives"
         }
     }
 
@@ -449,10 +495,10 @@ class LearningGamesActivity : BaseActivity() {
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<FrameLayout>(R.id.common_title_back_learn).layoutParams = params
 
-        val params2 = findViewById<TextView>(R.id.tv_question).layoutParams as ViewGroup.MarginLayoutParams
+        val params2 = findViewById<TextView>(R.id.tv_question_number).layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) +
                 resources.getDimensionPixelSize(R.dimen.header_down_margin)
-        findViewById<TextView>(R.id.tv_question).layoutParams = params2
+        findViewById<TextView>(R.id.tv_question_number).layoutParams = params2
     }
 
     // Helpers for overlay fade

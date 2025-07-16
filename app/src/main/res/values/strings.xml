@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v4.0.0m-Build.133</string>
+    <string name="app_version" translatable="false">v4.0.0m-Build.134</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -293,7 +293,7 @@
     <string name="flashcards_total_xp" translatable="false">Total XP</string>
     <string name="flashcards_total_games" translatable="false">Quiz Completed</string>
     <string name="flashcards_level" translatable="false">Level</string>
-
+    <string name="flashcards_difficulty" translatable="false">Select Difficulty:</string>
 
 
 </resources>

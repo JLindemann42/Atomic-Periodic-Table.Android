@@ -15,6 +15,8 @@ import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.util.XpManager
 import java.util.concurrent.TimeUnit
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 
 class FlashCardActivity : BaseActivity() {
 
@@ -22,6 +24,7 @@ class FlashCardActivity : BaseActivity() {
     private lateinit var infoText: TextView
     private lateinit var learningGameButtons: List<View>
     private var resultDialog: ResultDialogFragment? = null
+    private var lastLevel: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,20 +51,38 @@ class FlashCardActivity : BaseActivity() {
             (resources.getDimension(R.dimen.zero_elevation))
 
         val scrollView = findViewById<NestedScrollView>(R.id.flashcard_scroll)
+        var isTitleVisible = false
+
         scrollView?.viewTreeObserver?.addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
             override fun onScrollChanged() {
-                if (scrollView.scrollY > 150f) {
-                    findViewById<FrameLayout>(R.id.common_title_back_fla_color).visibility = View.VISIBLE
-                    findViewById<TextView>(R.id.flashcard_title).visibility = View.VISIBLE
-                    findViewById<TextView>(R.id.flashcard_title_downstate).visibility = View.INVISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_fla).elevation =
-                        (resources.getDimension(R.dimen.one_elevation))
+                val scrollY = scrollView.scrollY
+                val threshold = 150f
+
+                val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_back_fla_color)
+                val titleText = findViewById<TextView>(R.id.flashcard_title)
+                val titleDownstateText = findViewById<TextView>(R.id.flashcard_title_downstate)
+                val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_fla)
+
+                if (scrollY > threshold) {
+                    if (!isTitleVisible) {
+                        // Animate titleText and titleColorBackground to visible
+                        titleColorBackground.animateVisibility(true, visibleAlpha = 0.11f)
+                        titleText.animateVisibility(true)
+                        // Animate titleDownstateText to invisible
+                        titleDownstateText.animateVisibility(false)
+                        titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
+                        isTitleVisible = true
+                    }
                 } else {
-                    findViewById<FrameLayout>(R.id.common_title_back_fla_color).visibility = View.INVISIBLE
-                    findViewById<TextView>(R.id.flashcard_title).visibility = View.INVISIBLE
-                    findViewById<TextView>(R.id.flashcard_title_downstate).visibility = View.VISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_fla).elevation =
-                        (resources.getDimension(R.dimen.zero_elevation))
+                    if (isTitleVisible) {
+                        // Animate titleText and titleColorBackground to invisible
+                        titleColorBackground.animateVisibility(false)
+                        titleText.animateVisibility(false)
+                        // Animate titleDownstateText to visible
+                        titleDownstateText.animateVisibility(true)
+                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
+                        isTitleVisible = false
+                    }
                 }
             }
         })
@@ -74,15 +95,53 @@ class FlashCardActivity : BaseActivity() {
         setupDifficultyToggles()
         setupLearningGameButtons()
         setCategoryListeners()
+
+        // Save level for level up popup tracking
+        lastLevel = XpManager.getLevel(XpManager.getXp(this))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateLivesCount()
+        updateLivesInfo()
+        updateLearningGamesEnabled()
+        updateXpAndLevelStats()
+        val gameFinished = intent.getBooleanExtra("game_finished", false)
+        val results = intent.getParcelableArrayListExtra<GameResultItem>("game_results")
+        val totalQuestions = intent.getIntExtra("total_questions", results?.size ?: 0)
+        val difficulty = intent.getStringExtra("difficulty") ?: "easy"
+        if (results != null && results.isNotEmpty()) {
+            showGameResultsPopup(results, gameFinished, totalQuestions, difficulty)
+            intent.removeExtra("game_finished")
+            intent.removeExtra("game_results")
+            intent.removeExtra("total_questions")
+            intent.removeExtra("difficulty")
+        }
+        showLevelUpPopupIfNeeded()
+    }
+
+    private fun showLevelUpPopupIfNeeded() {
+        val xp = XpManager.getXp(this)
+        val currentLevel = XpManager.getLevel(xp)
+        if (lastLevel != -1 && currentLevel > lastLevel) {
+            AlertDialog.Builder(this)
+                .setTitle("Level Up!")
+                .setMessage("Congratulations, you've reached level $currentLevel!")
+                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                .setCancelable(true)
+                .show()
+        }
+        lastLevel = currentLevel
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        if (intent.getBooleanExtra("game_finished", false)) {
-            val results = intent.getParcelableArrayListExtra<GameResultItem>("game_results")
-            if (results != null && results.isNotEmpty()) {
-                showGameResultsPopup(results)
-            }
+        val gameFinished = intent.getBooleanExtra("game_finished", false)
+        val results = intent.getParcelableArrayListExtra<GameResultItem>("game_results")
+        val totalQuestions = intent.getIntExtra("total_questions", results?.size ?: 0)
+        val difficulty = intent.getStringExtra("difficulty") ?: "easy"
+        if (results != null && results.isNotEmpty()) {
+            showGameResultsPopup(results, gameFinished, totalQuestions, difficulty)
         }
     }
 
@@ -102,7 +161,6 @@ class FlashCardActivity : BaseActivity() {
                 }
             }
         }
-        // Optionally: Set default checked (Easy)
         toggles[0].isChecked = true
     }
 
@@ -116,9 +174,6 @@ class FlashCardActivity : BaseActivity() {
         )
     }
 
-    /**
-     * Get currently selected difficulty
-     */
     private fun getSelectedDifficulty(): String {
         return when {
             toggles[0].isChecked -> "easy"
@@ -128,9 +183,6 @@ class FlashCardActivity : BaseActivity() {
         }
     }
 
-    /**
-     * Setup listeners for category buttons to launch LearningGamesActivity
-     */
     private fun setCategoryListeners() {
         val categories = mapOf(
             R.id.btn_element_symbols to "element_symbols",
@@ -149,22 +201,6 @@ class FlashCardActivity : BaseActivity() {
                     intent.putExtra("category", category)
                     startActivity(intent)
                 }
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        updateLivesCount()
-        updateLivesInfo()
-        updateLearningGamesEnabled()
-        updateXpAndLevelStats()
-        // Show results popup if returning from finished game
-        if (intent.getBooleanExtra("game_finished", false)) {
-            val results = intent.getParcelableArrayListExtra<GameResultItem>("game_results")
-            if (results != null && results.isNotEmpty()) {
-                showGameResultsPopup(results)
-                intent.removeExtra("game_finished")
             }
         }
     }
@@ -211,7 +247,9 @@ class FlashCardActivity : BaseActivity() {
         val maxXp = XpManager.getXpForLevel(level + 1)
         val xpInLevel = xp - minXp
         val xpRequired = maxXp - minXp
+        val completed = getCompletedQuizzes()
 
+        findViewById<TextView>(R.id.completed_quizzes_stat).text = completed.toString()
         findViewById<TextView>(R.id.total_xp_stat).text = xp.toString()
         findViewById<TextView>(R.id.level_stat).text = level.toString()
         findViewById<ProgressBar>(R.id.xp_progress).apply {
@@ -221,7 +259,6 @@ class FlashCardActivity : BaseActivity() {
         findViewById<TextView>(R.id.progress_text).text = "$xpInLevel/$xpRequired"
     }
 
-    // ---- Exit confirmation ----
     override fun onBackPressed() {
         super.onBackPressed()
         resultDialog?.let {
@@ -230,15 +267,54 @@ class FlashCardActivity : BaseActivity() {
                 return
             }
         }
-        // Just finish activity, no lives lost!
         finish()
     }
 
-    // ---- Game Results Popup ----
-    private fun showGameResultsPopup(results: List<GameResultItem>) {
+    private fun showGameResultsPopup(
+        results: List<GameResultItem>,
+        gameFinished: Boolean,
+        totalQuestions: Int,
+        difficulty: String = "easy"
+    ) {
         if (resultDialog?.isVisible == true) return
-        resultDialog = ResultDialogFragment.newInstance(results)
+        resultDialog = ResultDialogFragment.newInstance(results, gameFinished, totalQuestions, difficulty)
         resultDialog?.show(supportFragmentManager, "GameResultsPopup")
         updateXpAndLevelStats()
+    }
+
+    private fun getCompletedQuizzes(): Int {
+        val prefs = getSharedPreferences("game_stats", MODE_PRIVATE)
+        return prefs.getInt("completed_quizzes", 0)
+    }
+
+    private fun incrementCompletedQuizzes() {
+        val prefs = getSharedPreferences("game_stats", MODE_PRIVATE)
+        val current = prefs.getInt("completed_quizzes", 0)
+        prefs.edit().putInt("completed_quizzes", current + 1).apply()
+    }
+
+    // Helper extension function for animating visibility
+    fun View.animateVisibility(
+        setVisible: Boolean,
+        duration: Long = 200,
+        visibleAlpha: Float = 1.0f
+    ) {
+        if (setVisible) {
+            alpha = 0f
+            visibility = View.VISIBLE
+            animate()
+                .alpha(visibleAlpha)
+                .setDuration(duration)
+                .setListener(null)
+        } else {
+            animate()
+                .alpha(0f)
+                .setDuration(duration)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        visibility = View.INVISIBLE
+                    }
+                })
+        }
     }
 }

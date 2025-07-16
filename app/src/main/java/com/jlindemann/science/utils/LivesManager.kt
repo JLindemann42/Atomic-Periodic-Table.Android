@@ -8,7 +8,8 @@ object LivesManager {
     private const val LIVES_KEY = "lives_count"
     private const val LAST_REFILL_KEY = "last_refill_time"
     private const val MAX_LIVES = 2000
-    private const val REFILL_INTERVAL_MS = 4 * 60 * 60 * 1000L // 4 hours
+    private const val REFILL_AMOUNT = 5
+    private const val REFILL_INTERVAL_MS = 20 * 60 * 1000L // 20 minutes
 
     private fun getPrefs(context: Context): SharedPreferences =
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -47,39 +48,54 @@ object LivesManager {
     }
 
     /**
-     * Only refills lives if all lives are 0 AND 4 hours have passed since last refill.
-     * Returns true if refill happened.
+     * Refills 5 lives every 20 minutes if not at max.
+     * Returns true if refill happened (lives increased).
      */
     fun refillLivesIfNeeded(context: Context): Boolean {
         val prefs = getPrefs(context)
-        val lives = prefs.getInt(LIVES_KEY, MAX_LIVES)
-        val lastRefill = prefs.getLong(LAST_REFILL_KEY, 0L)
+        var lives = prefs.getInt(LIVES_KEY, MAX_LIVES)
+        var lastRefill = prefs.getLong(LAST_REFILL_KEY, 0L)
         val now = System.currentTimeMillis()
-        if (lives == 0 && (now - lastRefill) >= REFILL_INTERVAL_MS) {
-            prefs.edit()
-                .putInt(LIVES_KEY, MAX_LIVES)
-                .putLong(LAST_REFILL_KEY, now)
-                .apply()
-            return true
-        }
+
         // Initialize lastRefill if first run
         if (lastRefill == 0L) {
             prefs.edit().putLong(LAST_REFILL_KEY, now).apply()
+            return false
+        }
+
+        // If already at max, just update lastRefill time, no refill
+        if (lives >= MAX_LIVES) {
+            prefs.edit().putLong(LAST_REFILL_KEY, now).apply()
+            return false
+        }
+
+        // Calculate how many refills have passed
+        val intervalsPassed = ((now - lastRefill) / REFILL_INTERVAL_MS).toInt()
+        if (intervalsPassed > 0) {
+            val refillLives = intervalsPassed * REFILL_AMOUNT
+            val newLives = (lives + refillLives).coerceAtMost(MAX_LIVES)
+            // Update lives and lastRefill time
+            prefs.edit()
+                .putInt(LIVES_KEY, newLives)
+                .putLong(LAST_REFILL_KEY, lastRefill + intervalsPassed * REFILL_INTERVAL_MS)
+                .apply()
+            return newLives > lives
         }
         return false
     }
 
     /**
-     * Returns ms until lives refill (only meaningful if lives == 0).
-     * If lives > 0, returns 0.
+     * Returns ms until next lives refill.
+     * If at max, returns 0.
      */
     fun getMillisToRefill(context: Context): Long {
         val prefs = getPrefs(context)
         val lives = prefs.getInt(LIVES_KEY, MAX_LIVES)
-        if (lives > 0) return 0
+        if (lives >= MAX_LIVES) return 0
         val lastRefill = prefs.getLong(LAST_REFILL_KEY, 0L)
         val now = System.currentTimeMillis()
-        val timeLeft = REFILL_INTERVAL_MS - (now - lastRefill)
+        val timeSinceLast = now - lastRefill
+        val timeLeft = REFILL_INTERVAL_MS - (timeSinceLast % REFILL_INTERVAL_MS)
         return if (timeLeft > 0) timeLeft else 0
     }
 }

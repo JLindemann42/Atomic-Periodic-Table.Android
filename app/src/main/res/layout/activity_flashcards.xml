@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
@@ -27,7 +28,7 @@
                 android:elevation="0dp"
                 android:paddingStart="0dp"
                 android:paddingEnd="16dp"
-                android:paddingBottom="28dp"
+                android:paddingBottom="12dp"
                 android:text="@string/flashcards_title"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="32sp"
@@ -152,7 +153,7 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:id="@+id/games_stat"
+                            android:id="@+id/completed_quizzes_stat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="30sp"
@@ -174,14 +175,44 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Difficulty Selection as ToggleButtons -->
+        <LinearLayout
+            android:id="@+id/games_box"
+            android:background="@drawable/toast_card"
+            android:layout_marginBottom="160dp"
+            android:padding="16dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/learning_games"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="?attr/colorAccent"
+                android:drawableStart="@drawable/ic_flashcards"
+                android:drawablePadding="8dp"
+                android:drawableTint="?attr/colorAccent"
+                android:layout_marginBottom="@dimen/margin_space_card"/>
+
+            <TextView
+                android:id="@+id/tv_category_select_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:text="@string/flashcards_difficulty"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"/>
             <LinearLayout
                 android:id="@+id/linear_difficulty"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:orientation="horizontal"
                 android:layout_gravity="center"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="6dp">
 
                 <ToggleButton
                     android:id="@+id/toggle_easy"
@@ -242,24 +273,13 @@
                 android:visibility="gone"
                 android:layout_marginBottom="12dp"
                 android:layout_marginTop="8dp"/>
-            <!-- Category Selection Buttons using MaterialCardView for a nicer look -->
-            <TextView
-                android:id="@+id/tv_category_select_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="@string/learning_games"
-                android:textAppearance="?attr/textAppearanceHeadline5"
-                android:textColor="?attr/colorOnSurface"
-
-                android:layout_marginBottom="24dp"/>
 
             <LinearLayout
                 android:id="@+id/btn_element_symbols"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/card_button_bg"
+                android:background="@drawable/toast_outline"
                 android:gravity="center_vertical"
                 android:clickable="true"
                 android:focusable="true"
@@ -277,6 +297,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_arrow"
+                    android:rotation="270"
                     android:contentDescription="@null"/>
             </LinearLayout>
 
@@ -285,7 +306,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/card_button_bg"
+                android:background="@drawable/toast_outline"
                 android:gravity="center_vertical"
                 android:clickable="true"
                 android:focusable="true"
@@ -302,6 +323,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:rotation="270"
                     android:src="@drawable/ic_arrow"
                     android:contentDescription="@null"/>
             </LinearLayout>
@@ -311,7 +333,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/card_button_bg"
+                android:background="@drawable/toast_outline"
                 android:gravity="center_vertical"
                 android:clickable="true"
                 android:focusable="true"
@@ -328,6 +350,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
+                    android:rotation="270"
                     android:src="@drawable/ic_arrow"
                     android:contentDescription="@null"/>
             </LinearLayout>
@@ -337,7 +360,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/card_button_bg"
+                android:background="@drawable/toast_outline"
                 android:gravity="center_vertical"
                 android:clickable="true"
                 android:focusable="true"
@@ -355,6 +378,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_arrow"
+                    android:rotation="270"
                     android:contentDescription="@null"/>
             </LinearLayout>
 
@@ -363,7 +387,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:background="@drawable/card_button_bg"
+                android:background="@drawable/toast_outline"
                 android:gravity="center_vertical"
                 android:clickable="true"
                 android:focusable="true"
@@ -380,9 +404,10 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_arrow"
+                    android:rotation="270"
                     android:contentDescription="@null"/>
             </LinearLayout>
-
+        </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
