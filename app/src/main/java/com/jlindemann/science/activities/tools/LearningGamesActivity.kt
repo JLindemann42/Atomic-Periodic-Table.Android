@@ -15,6 +15,7 @@ import android.widget.*
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.util.LivesManager
+import com.jlindemann.science.util.XpManager
 import com.jlindemann.science.views.AnimatedEffectView
 import org.json.JSONArray
 
@@ -29,6 +30,7 @@ class LearningGamesActivity : BaseActivity() {
     private var isAnswering = true
     private var hasLeftGame = false
     private var leaveDialogShowing = false
+    private var quizCompleted = false
 
     private val handler = Handler(Looper.getMainLooper())
     private var pendingNextQuestionRunnable: Runnable? = null
@@ -137,6 +139,7 @@ class LearningGamesActivity : BaseActivity() {
     private fun leaveGameAndLoseLives() {
         if (!hasLeftGame) {
             hasLeftGame = true
+            quizCompleted = false
             LivesManager.loseLives(this, 5)
             updateLivesCount()
             cleanupPending()
@@ -247,7 +250,14 @@ class LearningGamesActivity : BaseActivity() {
                 }
             }
 
-            showResultCard(correct, selectedAnswer)
+            if (selectedAnswer == "__TIMEOUT__") {
+                showResultCard(false, selectedAnswer, 0)
+            } else if (correct) {
+                XpManager.addXp(this, 5)
+                showResultCard(true, selectedAnswer, 5)
+            } else {
+                showResultCard(false, selectedAnswer, 0)
+            }
 
             pendingNextQuestionRunnable?.let { handler.removeCallbacks(it) }
             pendingNextQuestionRunnable = Runnable {
@@ -269,7 +279,7 @@ class LearningGamesActivity : BaseActivity() {
                 finishWithResults()
             }
         } else if (correct) {
-            // Nothing special for correct (lives not lost)
+            // No life lost, XP handled above
         } else {
             val lost = LivesManager.loseLife(this)
             updateLivesCount()
@@ -286,6 +296,7 @@ class LearningGamesActivity : BaseActivity() {
         if (hasLeftGame) return
         currentQuestionIndex++
         if (currentQuestionIndex >= questions.size) {
+            quizCompleted = true
             finishWithResults()
         } else {
             setupQuestionUI()
@@ -297,6 +308,15 @@ class LearningGamesActivity : BaseActivity() {
 
     private fun finishWithResults() {
         cleanupPending()
+        if (quizCompleted) {
+            // XP for quiz completion
+            XpManager.addXp(this, 25)
+            // Bonus for all correct
+            val allCorrect = gameResults.all { it.wasCorrect }
+            if (allCorrect) {
+                XpManager.addXp(this, 20)
+            }
+        }
         val intent = Intent(this, FlashCardActivity::class.java)
         intent.putParcelableArrayListExtra("game_results", ArrayList(gameResults))
         intent.putExtra("game_finished", true)
@@ -305,7 +325,7 @@ class LearningGamesActivity : BaseActivity() {
         finish()
     }
 
-    private fun showResultCard(correct: Boolean, selectedAnswer: String) {
+    private fun showResultCard(correct: Boolean, selectedAnswer: String, xpGained: Int = 0) {
         val resultCard = findViewById<FrameLayout>(R.id.result_card_overlay)
         val resultText = findViewById<TextView>(R.id.result_text)
         val resultSubtext = findViewById<TextView>(R.id.result_subtext)
@@ -315,7 +335,7 @@ class LearningGamesActivity : BaseActivity() {
             resultSubtext.text = "Lost 1 life"
         } else if (correct) {
             resultText.text = "Correct"
-            resultSubtext.text = ""
+            resultSubtext.text = if (xpGained > 0) "+${xpGained}xp" else ""
         } else {
             resultText.text = "Wrong"
             resultSubtext.text = "Lost 1 life"

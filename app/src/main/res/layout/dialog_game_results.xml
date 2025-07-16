@@ -49,6 +49,33 @@
             android:text="Score: 0/0"
             />
 
+        <!-- XP Breakdown Section -->
+        <LinearLayout
+            android:id="@+id/xp_breakdown_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                android:id="@+id/tv_total_xp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total XP: 0"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="2dp"/>
+
+            <LinearLayout
+                android:id="@+id/xp_breakdown_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="400dp"

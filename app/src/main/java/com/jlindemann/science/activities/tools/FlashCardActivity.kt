@@ -13,6 +13,7 @@ import androidx.core.widget.NestedScrollView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.util.LivesManager
+import com.jlindemann.science.util.XpManager
 import java.util.concurrent.TimeUnit
 
 class FlashCardActivity : BaseActivity() {
@@ -73,14 +74,6 @@ class FlashCardActivity : BaseActivity() {
         setupDifficultyToggles()
         setupLearningGameButtons()
         setCategoryListeners()
-
-        // --- Game result popup logic ---
-        if (intent.getBooleanExtra("game_finished", false)) {
-            val results = intent.getParcelableArrayListExtra<GameResultItem>("game_results")
-            if (results != null && results.isNotEmpty()) {
-                showGameResultsPopup(results)
-            }
-        }
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -165,6 +158,15 @@ class FlashCardActivity : BaseActivity() {
         updateLivesCount()
         updateLivesInfo()
         updateLearningGamesEnabled()
+        updateXpAndLevelStats()
+        // Show results popup if returning from finished game
+        if (intent.getBooleanExtra("game_finished", false)) {
+            val results = intent.getParcelableArrayListExtra<GameResultItem>("game_results")
+            if (results != null && results.isNotEmpty()) {
+                showGameResultsPopup(results)
+                intent.removeExtra("game_finished")
+            }
+        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -199,8 +201,29 @@ class FlashCardActivity : BaseActivity() {
         }
     }
 
+    /**
+     * Update XP, Level, and ProgressBar to match scalable level system
+     */
+    private fun updateXpAndLevelStats() {
+        val xp = XpManager.getXp(this)
+        val level = XpManager.getLevel(xp)
+        val minXp = XpManager.getXpForLevel(level)
+        val maxXp = XpManager.getXpForLevel(level + 1)
+        val xpInLevel = xp - minXp
+        val xpRequired = maxXp - minXp
+
+        findViewById<TextView>(R.id.total_xp_stat).text = xp.toString()
+        findViewById<TextView>(R.id.level_stat).text = level.toString()
+        findViewById<ProgressBar>(R.id.xp_progress).apply {
+            max = xpRequired
+            progress = xpInLevel
+        }
+        findViewById<TextView>(R.id.progress_text).text = "$xpInLevel/$xpRequired"
+    }
+
     // ---- Exit confirmation ----
     override fun onBackPressed() {
+        super.onBackPressed()
         resultDialog?.let {
             if (it.isVisible) {
                 it.dismiss()
@@ -216,5 +239,6 @@ class FlashCardActivity : BaseActivity() {
         if (resultDialog?.isVisible == true) return
         resultDialog = ResultDialogFragment.newInstance(results)
         resultDialog?.show(supportFragmentManager, "GameResultsPopup")
+        updateXpAndLevelStats()
     }
 }

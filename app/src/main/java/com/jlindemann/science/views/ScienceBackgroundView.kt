@@ -15,35 +15,34 @@ class ScienceBackgroundView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : View(context, attrs) {
 
-    // Store randomized positions, rotations, and sizes
     private data class IconInstance(
         val x: Float,
         val y: Float,
-        val rotation: Float, // degrees
+        val rotation: Float, // degrees rotation
         val type: IconType,
         val size: Float      // base size multiplier
     )
     private enum class IconType { PI, ATOM }
 
     private val icons = mutableListOf<IconInstance>()
-    private val iconCount = 18 // Increased number of icons
+    private val iconCount = 8 // Controller of amount of icon to be displayed
 
-    // These are the base sizes, in pixels, for the icons
-    private val basePiSize = 54f      // Used for textSize
-    private val baseAtomRadius = 36f  // Used for drawing atom
+    //Base sizes for icons, later adapted to be different sizes random
+    private val basePiSize = 90f      // Used for textSize
+    private val baseAtomRadius = 72f  // Used for drawing atom
 
     private val piPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.parseColor("#2299FF")
-        alpha = 40
+        alpha = 25
         style = Paint.Style.FILL
         textSize = basePiSize // This will be scaled
         typeface = Typeface.create(Typeface.SERIF, Typeface.BOLD)
     }
     private val atomPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.parseColor("#55C27E")
-        alpha = 40
+        alpha = 25
         style = Paint.Style.STROKE
-        strokeWidth = 4f // This will be scaled
+        strokeWidth = 5f // This will be scaled
     }
 
     private var lastWidth = 0
@@ -60,9 +59,9 @@ class ScienceBackgroundView @JvmOverloads constructor(
     // Generate icon positions/rotations/sizes anywhere on the view, avoiding overlap
     private fun generateIcons(w: Int, h: Int) {
         icons.clear()
-        val maxAttempts = 150
-        val minSize = 0.5f
-        val maxSize = 1.6f
+        val maxAttempts = 180 //Attempts used to avoid placing icons on top of each-other
+        val minSize = 0.68f
+        val maxSize = 1.8f
 
         val placedIcons = mutableListOf<IconInstance>()
 
@@ -122,7 +121,7 @@ class ScienceBackgroundView @JvmOverloads constructor(
             }
             canvas.restore()
         }
-        // Optionally, draw other background elements (like grid, formulas, etc.) here
+        // In future, if I decide to add extra backgrounds elements, do it here
     }
 
     private fun drawPiSymbol(canvas: Canvas) {
@@ -145,10 +144,9 @@ class ScienceBackgroundView @JvmOverloads constructor(
         // Draw nucleus dot
         val nucleusPaint = Paint(atomPaint).apply {
             style = Paint.Style.FILL
-            alpha = 60
+            alpha = 35 //alpha bit higher than base stroke to make dot have more "weight"
         }
         canvas.drawCircle(0f, 0f, r/4, nucleusPaint)
-        // Optionally draw small electrons
         for (i in 0..2) {
             val theta = Math.toRadians((i * 120).toDouble())
             val ex = (r * 1.7 * cos(theta)).toFloat()

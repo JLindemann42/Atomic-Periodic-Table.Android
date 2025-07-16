@@ -1,80 +1,135 @@
 package com.jlindemann.science.activities.tools
 
 import GameResultItem
-import android.app.Dialog
 import android.os.Bundle
-import android.view.*
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.*
 import androidx.fragment.app.DialogFragment
 import com.jlindemann.science.R
 
 class ResultDialogFragment : DialogFragment() {
 
     private var results: List<GameResultItem> = emptyList()
+    private var totalQuestions: Int = 0
 
     companion object {
         fun newInstance(results: List<GameResultItem>): ResultDialogFragment {
-            val f = ResultDialogFragment()
+            val fragment = ResultDialogFragment()
             val args = Bundle()
-            args.putParcelableArrayList("results", ArrayList(results))
-            f.arguments = args
-            return f
+            args.putParcelableArrayList("game_results", ArrayList(results))
+            args.putInt("total_questions", results.size)
+            fragment.arguments = args
+            return fragment
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        results = arguments?.getParcelableArrayList("results") ?: emptyList()
-        setStyle(STYLE_NO_FRAME, R.style.AppTheme_Dialog)
+        results = arguments?.getParcelableArrayList<GameResultItem>("game_results") ?: emptyList()
+        totalQuestions = arguments?.getInt("total_questions") ?: results.size
+        setStyle(STYLE_NO_TITLE, R.style.AppTheme_Dialog)
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.setCancelable(true)
-        dialog.setCanceledOnTouchOutside(true)
-        return dialog
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.dialog_game_results, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT
-        )
-        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        val root = inflater.inflate(R.layout.dialog_game_results, container, false)
+        // Set title
+        view.findViewById<TextView>(R.id.tv_popup_title).text = "Game Results"
 
-        root.setOnClickListener { dismiss() }
+        // Score summary
+        val correctAnswers = results.count { it.wasCorrect }
+        view.findViewById<TextView>(R.id.tv_score_summary).text = "Score: $correctAnswers/$totalQuestions"
 
-        val closeBtn = root.findViewById<ImageButton>(R.id.btn_close_popup)
-        closeBtn.setOnClickListener { dismiss() }
+        // XP breakdown
+        showXpBreakdown(view, results, totalQuestions)
 
-        // New: set score summary
-        val scoreText = root.findViewById<TextView>(R.id.tv_score_summary)
-        val numCorrect = results.count { it.wasCorrect }
-        scoreText.text = "Score: $numCorrect/${results.size} correct"
-
-        val resultsLayout = root.findViewById<LinearLayout>(R.id.results_list)
-        results.forEachIndexed { idx, item ->
-            val entry = inflater.inflate(R.layout.item_result_entry, resultsLayout, false)
-            entry.findViewById<TextView>(R.id.tv_question_number).text = "Q${idx + 1}"
-            entry.findViewById<TextView>(R.id.tv_question_text).text = item.question
-            entry.findViewById<TextView>(R.id.tv_your_answer).text =
-                "Your answer: ${item.pickedAnswer}"
-            entry.findViewById<TextView>(R.id.tv_correct_answer).text =
-                "Correct answer: ${item.correctAnswer}"
-            entry.findViewById<TextView>(R.id.tv_correct_label).apply {
-                text = if (item.wasCorrect) "✔" else "✘"
-                setTextColor(resources.getColor(if (item.wasCorrect) R.color.green else R.color.red, null))
+        // List individual question results
+        val resultsList = view.findViewById<LinearLayout>(R.id.results_list)
+        resultsList.removeAllViews()
+        results.forEachIndexed { idx, result ->
+            val row = LinearLayout(context).apply {
+                orientation = LinearLayout.HORIZONTAL
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                layoutParams = params
+                setPadding(0, 8, 0, 8)
             }
-            resultsLayout.addView(entry)
+            val questionText = TextView(context).apply {
+                text = "${idx + 1}. ${result.question}"
+                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 2f)
+            }
+            val yourAnswer = TextView(context).apply {
+                text = "Your: ${result.pickedAnswer}"
+                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+            }
+            val correct = TextView(context).apply {
+                text = if (result.wasCorrect) "✔" else "✘"
+                setTextColor(if (result.wasCorrect) 0xFF388E3C.toInt() else 0xFFD32F2F.toInt())
+                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 0.5f)
+                gravity = android.view.Gravity.END
+            }
+            row.addView(questionText)
+            row.addView(yourAnswer)
+            row.addView(correct)
+            resultsList.addView(row)
         }
 
-        return root
+        // Close button
+        view.findViewById<ImageButton>(R.id.btn_close_popup).setOnClickListener {
+            dismiss()
+        }
+    }
+
+    private fun showXpBreakdown(view: View, results: List<GameResultItem>, totalQuestions: Int) {
+        val correctAnswers = results.count { it.wasCorrect }
+        val finishedGame = results.size == totalQuestions
+        val allCorrect = correctAnswers == totalQuestions
+
+        // XP breakdown (these values should match where you actually grant XP)
+        val xpElements = correctAnswers * 5
+        val xpGameWin = if (finishedGame) 25 else 0
+        val xpPerfect = if (allCorrect && finishedGame) 20 else 0
+        val totalXp = xpElements + xpGameWin + xpPerfect
+
+        // Set total XP
+        view.findViewById<TextView>(R.id.tv_total_xp).text = "Total XP: $totalXp"
+
+        // Setup breakdown
+        val breakdownList = view.findViewById<LinearLayout>(R.id.xp_breakdown_list)
+        breakdownList.removeAllViews()
+
+        val elementsRow = TextView(context).apply {
+            text = "Questions Correct: +${xpElements}xp"
+            textSize = 15f
+        }
+        breakdownList.addView(elementsRow)
+
+        if (xpGameWin > 0) {
+            val winRow = TextView(context).apply {
+                text = "Finished Game: +${xpGameWin}xp"
+                textSize = 15f
+            }
+            breakdownList.addView(winRow)
+        }
+
+        if (xpPerfect > 0) {
+            val perfectRow = TextView(context).apply {
+                text = "Perfect (All Correct): +${xpPerfect}xp"
+                textSize = 15f
+            }
+            breakdownList.addView(perfectRow)
+        }
     }
 }

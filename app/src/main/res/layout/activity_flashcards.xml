@@ -33,6 +33,147 @@
                 android:textSize="32sp"
                 android:textStyle="normal" />
 
+            <LinearLayout
+                android:id="@+id/stats_Box"
+                android:background="@drawable/toast_card"
+                android:layout_marginTop="@dimen/default_padding"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/flashcards_statistics"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="?attr/colorAccent"
+                    android:drawableStart="@drawable/ic_stats"
+                    android:drawablePadding="8dp"
+                    android:drawableTint="?attr/colorAccent"
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:layout_marginStart="@dimen/default_padding"
+                    android:layout_marginEnd="@dimen/default_padding"
+                    android:layout_marginBottom="@dimen/margin_space_card"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ProgressBar
+                        android:id="@+id/xp_progress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="4dp"
+                        android:layout_weight="1"
+                        android:max="100"
+                        android:progress="50"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/progress_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="50/500"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:alpha="0.95"
+                        android:textColor="?attr/colorOnSurface"
+                        android:layout_marginEnd="18dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/default_padding"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="0.33"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/level_stat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="30sp"
+                            android:text="---"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="?attr/colorOnSurface"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="@string/flashcards_level"
+                            android:textAlignment="center"
+                            android:gravity="center_horizontal"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="?attr/colorOnSurface"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="0.33"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/total_xp_stat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="30sp"
+                            android:text="---"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="?attr/colorOnSurface"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="@string/flashcards_total_xp"
+                            android:textAlignment="center"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="?attr/colorOnSurface"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_weight="0.33"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/games_stat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="30sp"
+                            android:text="---"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="?attr/colorOnSurface"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:text="@string/flashcards_total_games"
+                            android:textAlignment="center"
+                            android:layout_gravity="center_horizontal"
+                            android:textColor="?attr/colorOnSurface"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
             <!-- Difficulty Selection as ToggleButtons -->
             <LinearLayout
                 android:id="@+id/linear_difficulty"
