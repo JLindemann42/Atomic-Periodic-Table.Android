@@ -294,8 +294,8 @@ class FlashCardActivity : BaseActivity() {
 
         // Density: Only available from level 10
         val btnDensity = findViewById<View>(R.id.btn_density)
-        val tvDensity = btnAtomicMass.findViewById<TextView>(R.id.tv_density_requirement)
-        if (level < 7) {
+        val tvDensity = btnDensity.findViewById<TextView>(R.id.tv_density_requirement)
+        if (level < 10) {
             btnDensity.isEnabled = false
             btnDensity.alpha = 0.5f
             tvDensity.visibility = View.VISIBLE
