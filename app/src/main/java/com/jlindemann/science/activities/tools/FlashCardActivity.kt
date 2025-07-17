@@ -167,6 +167,7 @@ class FlashCardActivity : BaseActivity() {
     private fun setupLearningGameButtons() {
         learningGameButtons = listOf(
             findViewById(R.id.btn_element_symbols),
+            findViewById(R.id.btn_element_names),
             findViewById(R.id.btn_element_classifications),
             findViewById(R.id.btn_atomic_mass),
             findViewById(R.id.btn_chemical_reactions),
@@ -186,6 +187,7 @@ class FlashCardActivity : BaseActivity() {
     private fun setCategoryListeners() {
         val categories = mapOf(
             R.id.btn_element_symbols to "element_symbols",
+            R.id.btn_element_names to "element_names",
             R.id.btn_element_classifications to "element_classifications",
             R.id.btn_atomic_mass to "atomic_mass",
             R.id.btn_chemical_reactions to "chemical_reactions",
@@ -230,10 +232,45 @@ class FlashCardActivity : BaseActivity() {
     }
 
     private fun updateLearningGamesEnabled() {
-        val isEnabled = LivesManager.getLives(this) > 0
+        val lives = LivesManager.getLives(this)
+        val isEnabled = lives > 0
+        val xp = XpManager.getXp(this)
+        val level = XpManager.getLevel(xp)
+
+        // Enable/disable all learning game buttons based on lives
         learningGameButtons.forEach { btn ->
             btn.isEnabled = isEnabled
             btn.alpha = if (isEnabled) 1f else 0.5f
+        }
+
+        // Element Groups: Only available from level 2
+        val btnElementGroups = findViewById<View>(R.id.btn_element_classifications)
+        val tvClassificationsReq = btnElementGroups.findViewById<TextView>(R.id.tv_classifications_requirement)
+        if (level < 2) {
+            btnElementGroups.isEnabled = false
+            btnElementGroups.alpha = 0.5f
+            tvClassificationsReq.visibility = View.VISIBLE
+        } else if (isEnabled) {
+            btnElementGroups.isEnabled = true
+            btnElementGroups.alpha = 1f
+            tvClassificationsReq.visibility = View.GONE
+        } else {
+            tvClassificationsReq.visibility = View.GONE
+        }
+
+        // Atomic Mass: Only available from level 5
+        val btnAtomicMass = findViewById<View>(R.id.btn_atomic_mass)
+        val tvAtomicMassReq = btnAtomicMass.findViewById<TextView>(R.id.tv_atomicmass_requirement)
+        if (level < 5) {
+            btnAtomicMass.isEnabled = false
+            btnAtomicMass.alpha = 0.5f
+            tvAtomicMassReq.visibility = View.VISIBLE
+        } else if (isEnabled) {
+            btnAtomicMass.isEnabled = true
+            btnAtomicMass.alpha = 1f
+            tvAtomicMassReq.visibility = View.GONE
+        } else {
+            tvAtomicMassReq.visibility = View.GONE
         }
     }
 

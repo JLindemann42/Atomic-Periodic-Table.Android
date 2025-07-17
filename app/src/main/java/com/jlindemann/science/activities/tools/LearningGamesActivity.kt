@@ -32,6 +32,7 @@ class LearningGamesActivity : BaseActivity() {
     private var hasLeftGame = false
     private var leaveDialogShowing = false
     private var quizCompleted = false
+    private lateinit var category: String
 
     private val handler = Handler(Looper.getMainLooper())
     private var pendingNextQuestionRunnable: Runnable? = null
@@ -63,7 +64,7 @@ class LearningGamesActivity : BaseActivity() {
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         difficulty = intent.getStringExtra("difficulty") ?: "easy"
-        val category = intent.getStringExtra("category") ?: "element_symbols"
+        category = intent.getStringExtra("category") ?: "element_symbols"
 
         totalQuestions = when (difficulty) {
             "easy" -> 8
@@ -165,7 +166,7 @@ class LearningGamesActivity : BaseActivity() {
         }
         val progressBar = findViewById<ProgressBar>(R.id.time_progress)
         val questionText = findViewById<TextView>(R.id.tv_question)
-        val questionNumber = findViewById<TextView>(R.id.tv_question_number) // <-- Add this line
+        val questionNumber = findViewById<TextView>(R.id.tv_question_number)
         val grid = findViewById<GridLayout>(R.id.grid_answers)
 
         // Update question number display
@@ -273,7 +274,11 @@ class LearningGamesActivity : BaseActivity() {
             if (selectedAnswer == "__TIMEOUT__") {
                 showResultCard(false, selectedAnswer, 0)
             } else if (correct) {
-                val baseXp = 5
+                val baseXp = when (category) {
+                    "element_classifications" -> 10
+                    "atomic_mass" -> 20
+                    else -> 5
+                }
                 val xpGained = (baseXp * getXpMultiplier()).roundToInt()
                 XpManager.addXp(this, xpGained)
                 showResultCard(true, selectedAnswer, xpGained)
@@ -339,7 +344,12 @@ class LearningGamesActivity : BaseActivity() {
         val allAnswersCompleted = gameResults.size == totalQuestions && gameResults.all { it.pickedAnswer != null }
         val finishedGame = quizCompleted && allAnswersCompleted && !forceNotFinished
         val correctAnswers = gameResults.count { it.wasCorrect }
-        val xpElements = (correctAnswers * 5)
+        val baseXp = when (category) {
+            "element_classifications" -> 10
+            "atomic_mass" -> 20
+            else -> 5
+        }
+        val xpElements = (correctAnswers * baseXp)
         val xpGameWin = if (finishedGame) 25 else 0
         val xpPerfect = if (finishedGame && correctAnswers == totalQuestions) 20 else 0
         val totalXp = getTotalXpWithDifficulty(xpElements, xpGameWin, xpPerfect)
@@ -410,8 +420,14 @@ class LearningGamesActivity : BaseActivity() {
                     val wrongs = elements.filter { it.short != correct }.shuffled().take(3).map { it.short }
                     Triple(question, correct, (wrongs + correct).shuffled())
                 }
+                "element_names" -> {
+                    val question = "What is the name for ${element.short}?"
+                    val correct = element.element
+                    val wrongs = elements.filter { it.element != correct }.shuffled().take(3).map { it.short }
+                    Triple(question, correct, (wrongs + correct).shuffled())
+                }
                 "element_classifications" -> {
-                    val question = "What is the classification of ${element.element}?"
+                    val question = "What is the element group of ${element.element}?"
                     val correct = element.element_group
                     val wrongs = elements.filter { it.element_group != correct }.map { it.element_group }
                         .distinct().shuffled().take(3)
