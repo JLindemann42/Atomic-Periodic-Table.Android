@@ -13,7 +13,7 @@ object XpManager {
     // Each level requires double the XP of the previous
     private fun xpToReachLevel(n: Int): Int {
         if (n <= 1) return 0
-        val xp = XP_START * 2.0.pow(n - 1)
+        val xp = XP_START * 1.6.pow(n - 1)
         return xp.roundToInt()
     }
 

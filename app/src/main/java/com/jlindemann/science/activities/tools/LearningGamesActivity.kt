@@ -275,8 +275,10 @@ class LearningGamesActivity : BaseActivity() {
                 showResultCard(false, selectedAnswer, 0)
             } else if (correct) {
                 val baseXp = when (category) {
-                    "element_classifications" -> 10
-                    "atomic_mass" -> 20
+                    "element_classifications" -> 13
+                    "appearance" -> 20
+                    "atomic_mass" -> 25
+                    "density" -> 40
                     else -> 5
                 }
                 val xpGained = (baseXp * getXpMultiplier()).roundToInt()
@@ -345,8 +347,10 @@ class LearningGamesActivity : BaseActivity() {
         val finishedGame = quizCompleted && allAnswersCompleted && !forceNotFinished
         val correctAnswers = gameResults.count { it.wasCorrect }
         val baseXp = when (category) {
-            "element_classifications" -> 10
-            "atomic_mass" -> 20
+            "element_classifications" -> 13
+            "appearance" -> 20
+            "atomic_mass" -> 25
+            "density" -> 40
             else -> 5
         }
         val xpElements = (correctAnswers * baseXp)
@@ -423,29 +427,64 @@ class LearningGamesActivity : BaseActivity() {
                 "element_names" -> {
                     val question = "What is the name for ${element.short}?"
                     val correct = element.element
-                    val wrongs = elements.filter { it.element != correct }.shuffled().take(3).map { it.short }
+                    val wrongs = elements.filter { it.element != correct }.shuffled().take(3).map { it.element }
                     Triple(question, correct, (wrongs + correct).shuffled())
                 }
                 "element_classifications" -> {
                     val question = "What is the element group of ${element.element}?"
                     val correct = element.element_group
-                    val wrongs = elements.filter { it.element_group != correct }.map { it.element_group }
-                        .distinct().shuffled().take(3)
-                    Triple(question, correct, (wrongs + correct).shuffled())
+                    // Ensure no duplicate groups in alternatives
+                    val wrongGroups = elements.filter { it.element_group != correct }
+                        .map { it.element_group }
+                        .distinct()
+                        .shuffled()
+                        .take(3)
+                    val allGroups = (wrongGroups + correct).distinct().shuffled()
+                    Triple(question, correct, allGroups)
+                }
+                "appearance" -> {
+                    val question = "What is the atomic mass of ${element.element}?"
+                    val correct = element.appearance
+                    val wrongMasses = elements.filter { it.appearance != correct }
+                        .map { it.appearance }
+                        .distinct()
+                        .shuffled()
+                        .take(3)
+                    val allMasses = (wrongMasses + correct).distinct().shuffled()
+                    Triple(question, correct, allMasses)
                 }
                 "atomic_mass" -> {
                     val question = "What is the atomic mass of ${element.element}?"
                     val correct = element.element_atomicmass
-                    val wrongs = elements.filter { it.element_atomicmass != correct }.map { it.element_atomicmass }
-                        .distinct().shuffled().take(3)
-                    Triple(question, correct, (wrongs + correct).shuffled())
+                    val wrongMasses = elements.filter { it.element_atomicmass != correct }
+                        .map { it.element_atomicmass }
+                        .distinct()
+                        .shuffled()
+                        .take(3)
+                    val allMasses = (wrongMasses + correct).distinct().shuffled()
+                    Triple(question, correct, allMasses)
+                }
+                "density" -> {
+                    val question = "What is the atomic mass of ${element.element}?"
+                    val correct = element.density
+                    val wrongMasses = elements.filter { it.density != correct }
+                        .map { it.density }
+                        .distinct()
+                        .shuffled()
+                        .take(3)
+                    val allMasses = (wrongMasses + correct).distinct().shuffled()
+                    Triple(question, correct, allMasses)
                 }
                 "chemical_reactions" -> {
                     val question = "What is the most common ion charge for ${element.element}?"
                     val correct = element.element_ion_charge
-                    val wrongs = elements.filter { it.element_ion_charge != correct }.map { it.element_ion_charge }
-                        .distinct().shuffled().take(3)
-                    Triple(question, correct, (wrongs + correct).shuffled())
+                    val wrongCharges = elements.filter { it.element_ion_charge != correct }
+                        .map { it.element_ion_charge }
+                        .distinct()
+                        .shuffled()
+                        .take(3)
+                    val allCharges = (wrongCharges + correct).distinct().shuffled()
+                    Triple(question, correct, allCharges)
                 }
                 "mixed_questions" -> {
                     val cat = listOf("element_symbols", "element_classifications", "atomic_mass", "chemical_reactions").random()
@@ -469,6 +508,8 @@ class LearningGamesActivity : BaseActivity() {
         val short: String,
         val element_group: String,
         val element_atomicmass: String,
+        val appearance: String,
+        val density: String,
         val element_ion_charge: String
     )
 
@@ -481,6 +522,8 @@ class LearningGamesActivity : BaseActivity() {
                 ElementData(
                     element = obj.optString("element"),
                     short = obj.optString("short"),
+                    appearance = obj.optString("element_appearance"),
+                    density = obj.optString("element_density"),
                     element_group = obj.optString("element_group"),
                     element_atomicmass = obj.optString("element_atomicmass"),
                     element_ion_charge = obj.optString("element_ion_charge")

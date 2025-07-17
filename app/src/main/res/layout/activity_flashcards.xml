@@ -379,6 +379,44 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/btn_appearance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/toast_outline"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="12dp"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/flashcards_game_element_appearance"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp"/>
+                <TextView
+                    android:id="@+id/tv_appearance_requirement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Level 5"
+                    android:textColor="?attr/colorError"
+                    android:textSize="14sp"
+                    android:visibility="visible"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_gravity="center_vertical"/>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:rotation="270"
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@null"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/btn_atomic_mass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -401,7 +439,45 @@
                     android:id="@+id/tv_atomicmass_requirement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Level 5"
+                    android:text="Level 7"
+                    android:textColor="?attr/colorError"
+                    android:textSize="14sp"
+                    android:visibility="visible"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_gravity="center_vertical"/>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:rotation="270"
+                    android:src="@drawable/ic_arrow"
+                    android:contentDescription="@null"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btn_density"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/toast_outline"
+                android:gravity="center_vertical"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginBottom="12dp"
+                android:padding="16dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/flashcards_game_element_density"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp"/>
+                <TextView
+                    android:id="@+id/tv_density_requirement"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Level 10"
                     android:textColor="?attr/colorError"
                     android:textSize="14sp"
                     android:visibility="visible"
