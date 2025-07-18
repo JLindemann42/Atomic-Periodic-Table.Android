@@ -294,9 +294,12 @@
     <string name="flashcards_total_games" translatable="false">Quiz Completed</string>
     <string name="flashcards_level" translatable="false">Level</string>
     <string name="flashcards_difficulty" translatable="false">Select Difficulty:</string>
+    <string name="flashcards_difficulty_title" translatable="false">Difficulty</string>
     <string name="flashcards_free_games" translatable="false">Free Games:</string>
     <string name="flashcards_pro_plus_games" translatable="false">PRO+ Games:</string>
-
+    <string name="flashcards_pro_level_0_5" translatable="false">Level 0-4:</string>
+    <string name="flashcards_pro_level_5_10" translatable="false">Level 5-9:</string>
+    <string name="flashcards_pro_level_10_15" translatable="false">Level 10-14:</string>
     <string name="flashcards_game_element_symbols" translatable="false">Element Symbols</string>
     <string name="flashcards_game_element_names" translatable="false">Element Names</string>
     <string name="flashcards_game_element_groups" translatable="false">Element Groups</string>
