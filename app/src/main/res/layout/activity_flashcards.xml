@@ -35,10 +35,100 @@
                 android:textStyle="normal" />
 
             <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_weight="0.33"
+                    android:padding="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:gravity="center"
+                    android:background="@drawable/toast_card"
+                    android:layout_height="108dp">
+
+                    <TextView
+                        android:id="@+id/level_stat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="30sp"
+                        android:text="---"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:text="@string/flashcards_level"
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_weight="0.33"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/toast_card"
+                    android:layout_height="108dp">
+
+                    <TextView
+                        android:id="@+id/completed_quizzes_stat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="30sp"
+                        android:text="---"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:text="@string/flashcards_total_games"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_weight="0.33"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/toast_card"
+                    android:layout_height="108dp">
+
+                    <ImageButton
+                        android:id="@+id/shuffle_btn"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:rotation="180"
+                        app:tint="?attr/colorOnSecondaryContainer"
+                        android:src="@drawable/ic_random"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/stats_Box"
                 android:background="@drawable/toast_card"
-                android:layout_marginTop="@dimen/default_padding"
-                android:layout_marginBottom="@dimen/default_padding"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -68,7 +158,7 @@
                         android:id="@+id/xp_progress"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="0dp"
-                        android:layout_height="4dp"
+                        android:layout_height="8dp"
                         android:layout_weight="1"
                         android:max="100"
                         android:progress="50"
@@ -86,99 +176,106 @@
                         android:textColor="?attr/colorOnSurface"
                         android:layout_marginEnd="18dp"/>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/total_xp_stat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="Total XP: ---"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="4dp"
+                    android:textColor="?attr/colorOnSurface"/>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/pro_box"
+                android:layout_width="match_parent"
+                android:layout_marginTop="8dp"
+                android:visibility="visible"
+                android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:padding="@dimen/default_padding"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/toast_card"
+
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_weight="0.33"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/level_stat"
+                            android:id="@+id/pro_hazard_text"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="30sp"
-                            android:text="---"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="?attr/colorOnSurface"/>
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/margin"
+                            android:clickable="true"
+                            android:drawableStart="@drawable/ic_star"
+                            android:drawablePadding="12dp"
+                            android:drawableTint="?attr/colorPrimary"
+                            android:elevation="1dp"
+                            android:focusable="true"
+                            android:foreground="@drawable/c_ripple"
+                            android:gravity="center_vertical"
+                            android:text="Unlock all Flashcards and Features"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textColor="?attr/colorPrimary" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:text="@string/flashcards_level"
-                            android:textAlignment="center"
-                            android:gravity="center_horizontal"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="?attr/colorOnSurface"/>
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:paddingStart="@dimen/margin"
+                            android:paddingEnd="@dimen/margin"
+                            android:paddingBottom="8dp"
+                            android:paddingTop="8dp"
+                            android:text="Get electronegativity, radioactivity, crystal structure and many more flashcards!"/>
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:orientation="vertical"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_weight="0.33"
-                        android:layout_height="wrap_content">
+                        android:layout_height="70dp">
 
                         <TextView
-                            android:id="@+id/total_xp_stat"
+                            android:id="@+id/get_pro_hazard_btn"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="30sp"
-                            android:text="---"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="?attr/colorOnSurface"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:text="@string/flashcards_total_xp"
-                            android:textAlignment="center"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="?attr/colorOnSurface"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_weight="0.33"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/completed_quizzes_stat"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="30sp"
-                            android:text="---"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="?attr/colorOnSurface"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="14sp"
-                            android:text="@string/flashcards_total_games"
-                            android:textAlignment="center"
-                            android:layout_gravity="center_horizontal"
-                            android:textColor="?attr/colorOnSurface"/>
-
-                    </LinearLayout>
-
+                            android:layout_height="48dp"
+                            android:layout_marginStart="@dimen/margin"
+                            android:layout_marginEnd="@dimen/margin"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/toast"
+                            android:backgroundTint="?attr/colorPrimary"
+                            android:clickable="true"
+                            android:elevation="2dp"
+                            android:focusable="true"
+                            android:layout_gravity="center"
+                            android:gravity="center_vertical"
+                            android:paddingEnd="24dp"
+                            android:paddingStart="24dp"
+                            android:foreground="@drawable/c_ripple"
+                            android:textStyle="bold"
+                            android:text="Upgrade to PRO+"
+                            android:textSize="18sp"
+                            android:textColor="?attr/colorOnPrimary" />
+                    </FrameLayout>
                 </LinearLayout>
-            </LinearLayout>
+            </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/difficulty_box"
                 android:background="@drawable/toast_card"
                 android:padding="16dp"
+                android:visibility="gone"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -278,7 +375,6 @@
             <LinearLayout
                 android:id="@+id/box_0_4"
                 android:background="@drawable/toast_card"
-                android:layout_marginTop="@dimen/default_padding"
                 android:layout_marginBottom="@dimen/default_padding"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -598,6 +694,113 @@
                     <TextView style="@style/CategoryButtonText" android:text="Superconducting Point"/>
                     <TextView
                         android:id="@+id/pro_badge_superconducting_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Level 20-24 Box -->
+            <LinearLayout
+                android:id="@+id/box_20_24"
+                android:background="@drawable/toast_card"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/title_box_20_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Level 20–24"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="?attr/colorAccent"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="8dp"
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:layout_marginBottom="@dimen/margin_space_card"/>
+
+                <LinearLayout
+                    android:id="@+id/btn_neutron_cross_sectional"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Neutron Cross Sectional"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_specific_heat_capacity"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Specific Heat Capacity"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_mohs_hardness"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Mohs Hardness"/>
+                    <TextView
+                        android:id="@+id/pro_badge_mohs_hardness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_vickers_hardness"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Vickers Hardness"/>
+                    <TextView
+                        android:id="@+id/pro_badge_vickers_hardness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_brinell_hardness"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Brinell Hardness"/>
+                    <TextView
+                        android:id="@+id/pro_badge_brinell_hardness"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="PRO+"

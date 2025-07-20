@@ -95,6 +95,9 @@ class FlashCardActivity : BaseActivity() {
         infoText = findViewById(R.id.tv_lives_info)
         setupDifficultyToggles()
         setCategoryListeners()
+        findViewById<ImageButton>(R.id.shuffle_btn).setOnClickListener {
+            launchRandomUnlockedGame()
+        }
     }
 
     override fun onResume() {
@@ -183,6 +186,8 @@ class FlashCardActivity : BaseActivity() {
             R.id.btn_density to "density",
             R.id.btn_magnetic_type to "magnetic_type",
             R.id.btn_phase_stp to "phase_stp",
+            R.id.btn_neutron_cross_sectional to "neutron_cross_sectional",
+            R.id.btn_specific_heat_capacity to "specific_heat_capacity",
             // Pro user categories:
             R.id.btn_discovered_by to "discovered_by",
             R.id.btn_discovery_year to "discovery_year",
@@ -191,7 +196,10 @@ class FlashCardActivity : BaseActivity() {
             R.id.btn_electronegativity to "electronegativity",
             R.id.btn_block to "block",
             R.id.btn_crystal_structure to "crystal_structure",
-            R.id.btn_superconducting_point to "superconducting_point"
+            R.id.btn_superconducting_point to "superconducting_point",
+            R.id.btn_mohs_hardness to "mohs_hardness",
+            R.id.btn_vickers_hardness to "vickers_hardness",
+            R.id.btn_brinell_hardness to "brinell_hardness"
         )
         categories.forEach { (btnId, category) ->
             val btn = findViewById<View>(btnId)
@@ -236,7 +244,10 @@ class FlashCardActivity : BaseActivity() {
             Pair(R.id.btn_electronegativity, R.id.pro_badge_electronegativity),
             Pair(R.id.btn_block, R.id.pro_badge_block),
             Pair(R.id.btn_crystal_structure, R.id.pro_badge_crystal_structure),
-            Pair(R.id.btn_superconducting_point, R.id.pro_badge_superconducting_point)
+            Pair(R.id.btn_superconducting_point, R.id.pro_badge_superconducting_point),
+            Pair(R.id.btn_mohs_hardness, R.id.pro_badge_mohs_hardness),
+            Pair(R.id.btn_vickers_hardness, R.id.pro_badge_vickers_hardness),
+            Pair(R.id.btn_brinell_hardness, R.id.pro_badge_brinell_hardness)
         )
 
         for ((btnId, badgeId) in proCategoryButtons) {
@@ -248,18 +259,21 @@ class FlashCardActivity : BaseActivity() {
             R.id.box_0_4 to listOf(R.id.btn_discovered_by, R.id.btn_discovery_year),
             R.id.box_5_9 to listOf(R.id.btn_electrical_type, R.id.btn_radioactive),
             R.id.box_10_14 to listOf(R.id.btn_electronegativity, R.id.btn_block),
-            R.id.box_15_19 to listOf(R.id.btn_crystal_structure, R.id.btn_superconducting_point)
+            R.id.box_15_19 to listOf(R.id.btn_crystal_structure, R.id.btn_superconducting_point),
+            R.id.box_20_24 to listOf(R.id.btn_mohs_hardness, R.id.btn_vickers_hardness, R.id.btn_brinell_hardness)
         )
         val boxesWithLevels = listOf(
             Triple(R.id.box_0_4, R.id.title_box_0_4, 0..4),
             Triple(R.id.box_5_9, R.id.title_box_5_9, 5..9),
             Triple(R.id.box_10_14, R.id.title_box_10_14, 10..14),
-            Triple(R.id.box_15_19, R.id.title_box_15_19, 15..19)
+            Triple(R.id.box_15_19, R.id.title_box_15_19, 15..19),
+            Triple(R.id.box_20_24, R.id.title_box_20_24, 20..24)
         )
         val proCategoryIds = setOf(
             R.id.btn_discovered_by, R.id.btn_discovery_year, R.id.btn_electrical_type,
             R.id.btn_radioactive, R.id.btn_electronegativity, R.id.btn_block,
-            R.id.btn_crystal_structure, R.id.btn_superconducting_point
+            R.id.btn_crystal_structure, R.id.btn_superconducting_point,
+            R.id.btn_mohs_hardness, R.id.btn_vickers_hardness, R.id.btn_brinell_hardness
         )
 
         for ((boxId, titleId, levelRange) in boxesWithLevels) {
@@ -317,7 +331,7 @@ class FlashCardActivity : BaseActivity() {
         val completed = getCompletedQuizzes()
 
         findViewById<TextView>(R.id.completed_quizzes_stat).text = completed.toString()
-        findViewById<TextView>(R.id.total_xp_stat).text = xp.toString()
+        findViewById<TextView>(R.id.total_xp_stat).text = "Total XP: $xp"
         findViewById<TextView>(R.id.level_stat).text = level.toString()
         findViewById<ProgressBar>(R.id.xp_progress).apply {
             max = xpRequired
@@ -383,6 +397,75 @@ class FlashCardActivity : BaseActivity() {
                     }
                 })
         }
+    }
+
+    private fun getAllUnlockedCategoryButtons(): List<Pair<View, String>> {
+        val proCategoryIds = setOf(
+            R.id.btn_discovered_by, R.id.btn_discovery_year, R.id.btn_electrical_type,
+            R.id.btn_radioactive, R.id.btn_electronegativity, R.id.btn_block,
+            R.id.btn_crystal_structure, R.id.btn_superconducting_point,
+            R.id.btn_mohs_hardness, R.id.btn_vickers_hardness, R.id.btn_brinell_hardness
+        )
+        val categories = mapOf(
+            R.id.btn_element_symbols to "element_symbols",
+            R.id.btn_element_names to "element_names",
+            R.id.btn_element_classifications to "element_classifications",
+            R.id.btn_appearance to "appearance",
+            R.id.btn_atomic_number to "atomic_number",
+            R.id.btn_atomic_mass to "atomic_mass",
+            R.id.btn_density to "density",
+            R.id.btn_magnetic_type to "magnetic_type",
+            R.id.btn_phase_stp to "phase_stp",
+            R.id.btn_neutron_cross_sectional to "neutron_cross_sectional",
+            R.id.btn_specific_heat_capacity to "specific_heat_capacity",
+            // Pro user categories:
+            R.id.btn_discovered_by to "discovered_by",
+            R.id.btn_discovery_year to "discovery_year",
+            R.id.btn_electrical_type to "electrical_type",
+            R.id.btn_radioactive to "radioactive",
+            R.id.btn_electronegativity to "electronegativity",
+            R.id.btn_block to "block",
+            R.id.btn_crystal_structure to "crystal_structure",
+            R.id.btn_superconducting_point to "superconducting_point",
+            R.id.btn_mohs_hardness to "mohs_hardness",
+            R.id.btn_vickers_hardness to "vickers_hardness",
+            R.id.btn_brinell_hardness to "brinell_hardness"
+        )
+        val isPro = checkProStatus()
+        val unlocked = mutableListOf<Pair<View, String>>()
+        for ((btnId, category) in categories) {
+            val btn = findViewById<View>(btnId)
+            val isProCategory = proCategoryIds.contains(btnId)
+            if (btn != null && btn.isEnabled && (!isProCategory || isPro)) {
+                unlocked.add(btn to category)
+            }
+        }
+        return unlocked
+    }
+
+    private fun launchRandomUnlockedGame() {
+        val unlocked = getAllUnlockedCategoryButtons()
+        if (unlocked.isEmpty()) {
+            Toast.makeText(this, "No unlocked games available!", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val (btn, category) = unlocked.random()
+        // Use currently selected difficulty
+        val difficulty = getSelectedDifficulty()
+        val isProCategory = setOf(
+            R.id.btn_discovered_by, R.id.btn_discovery_year, R.id.btn_electrical_type,
+            R.id.btn_radioactive, R.id.btn_electronegativity, R.id.btn_block,
+            R.id.btn_crystal_structure, R.id.btn_superconducting_point,
+            R.id.btn_mohs_hardness, R.id.btn_vickers_hardness, R.id.btn_brinell_hardness
+        ).contains(btn.id)
+        if (isProCategory && !checkProStatus()) {
+            startActivity(Intent(this, ProActivity::class.java))
+            return
+        }
+        val intent = Intent(this, LearningGamesActivity::class.java)
+        intent.putExtra("difficulty", difficulty)
+        intent.putExtra("category", category)
+        startActivity(intent)
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {

@@ -256,6 +256,11 @@ class LearningGamesActivity : BaseActivity() {
         "phase_stp" -> 10
         "crystal_structure" -> 40
         "superconducting_point" -> 50
+        "neutron_cross_sectional" -> 50
+        "specific heat capacity" -> 50
+        "mohs_hardness" -> 60
+        "vickers_hardness" -> 60
+        "brinell_hardness" -> 60
         else -> 5
     }
 
@@ -558,6 +563,36 @@ class LearningGamesActivity : BaseActivity() {
                     val wrongs = wrongAnswersFor({ it.superconducting_point }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
+                "neutron_cross_sectional" -> {
+                    val question = "What is the neutron cross sectional of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.neutron_cross_sectional)
+                    val wrongs = wrongAnswersFor({ it.neutron_cross_sectional }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "specific_heat_capacity" -> {
+                    val question = "What is the specific heat capacity of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.specific_heat_capacity)
+                    val wrongs = wrongAnswersFor({ it.specific_heat_capacity }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "mohs_hardness" -> {
+                    val question = "What is the mohs hardness of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.mohs_hardness)
+                    val wrongs = wrongAnswersFor({ it.mohs_hardness }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "vickers_hardness" -> {
+                    val question = "What is the vickers hardness of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.vickers_hardness)
+                    val wrongs = wrongAnswersFor({ it.vickers_hardness }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "brinell_hardness" -> {
+                    val question = "What is the brinell hardness of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.brinell_hardness)
+                    val wrongs = wrongAnswersFor({ it.brinell_hardness }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
                 "mixed_questions" -> {
                     val categories = listOf(
                         "element_symbols", "element_names", "element_classifications", "discovered_by", "discovery_year",
@@ -603,7 +638,12 @@ class LearningGamesActivity : BaseActivity() {
         val magnetic_type: String,
         val element_phase: String,
         val crystal_structure: String,
-        val superconducting_point: String
+        val superconducting_point: String,
+        val neutron_cross_sectional: String,
+        val specific_heat_capacity: String,
+        val mohs_hardness: String,
+        val vickers_hardness: String,
+        val brinell_hardness: String
     )
 
     private fun loadElementsFromAsset(filename: String): List<ElementData> {
@@ -630,7 +670,12 @@ class LearningGamesActivity : BaseActivity() {
                     magnetic_type = obj.optString("magnetic_type"),
                     element_phase = obj.optString("element_phase"),
                     crystal_structure = obj.optString("crystal_structure"),
-                    superconducting_point = obj.optString("superconducting_point")
+                    superconducting_point = obj.optString("superconducting_point"),
+                    neutron_cross_sectional = obj.optString("neutron_cross_sectional"),
+                    specific_heat_capacity = obj.optString("element_specific_heat_capacity"),
+                    mohs_hardness = obj.optString("mohs_hardness"),
+                    vickers_hardness = obj.optString("vickers_hardness"),
+                    brinell_hardness = obj.optString("brinell_hardness")
                 )
             }
         } catch (e: Exception) {
