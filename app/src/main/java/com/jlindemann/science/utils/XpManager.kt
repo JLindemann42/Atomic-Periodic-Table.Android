@@ -7,14 +7,42 @@ import kotlin.math.pow
 object XpManager {
     private const val XP_KEY = "user_xp"
     private const val PREFS = "xp_prefs"
-    private const val XP_START = 100     // XP required for level 1
     private const val LEVELS = 100
 
-    // Each level requires double the XP of the previous
+    // Custom XP table for first 21 levels for fine control, then scale up exponentially
+    private val xpTable = intArrayOf(
+        0,       // Level 1
+        90,      // Level 2
+        180,     // Level 3
+        270,     // Level 4
+        360,     // Level 5
+        495,     // Level 6
+        630,     // Level 7
+        765,     // Level 8
+        900,     // Level 9
+        1050,    // Level 10
+        1275,    // Level 11
+        1500,    // Level 12
+        1725,    // Level 13
+        1950,    // Level 14
+        2175,    // Level 15
+        2550,    // Level 16
+        2925,    // Level 17
+        3300,    // Level 18
+        3675,    // Level 19
+        4050,    // Level 20
+        4575     // Level 21
+    )
+
+    // After level 21, scale exponentially and then linearly for very high levels
     private fun xpToReachLevel(n: Int): Int {
         if (n <= 1) return 0
-        val xp = XP_START * 1.6.pow(n - 1)
-        return xp.roundToInt()
+        if (n - 1 < xpTable.size) return xpTable[n - 1]
+        // Exponential scaling after level 21, then slow to linear at high levels
+        // This formula can be adjusted for balance
+        val base = xpTable.last()
+        val extraLevels = n - xpTable.size
+        return (base + (800 * (1.10.pow(extraLevels) - 1) / 0.10)).roundToInt()
     }
 
     fun getLevel(xp: Int): Int {

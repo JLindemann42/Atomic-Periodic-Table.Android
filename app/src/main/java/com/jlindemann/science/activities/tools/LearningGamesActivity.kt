@@ -43,7 +43,8 @@ class LearningGamesActivity : BaseActivity() {
     data class Question(
         val question: String,
         val correctAnswer: String,
-        val alternatives: List<String>
+        val alternatives: List<String>,
+        val baseXp: Int
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,7 +101,7 @@ class LearningGamesActivity : BaseActivity() {
         )
         answerCards.forEachIndexed { index, card ->
             card.setOnClickListener {
-                if (isAnswering && !hasLeftGame) {
+                if (isAnswering && !hasLeftGame && index < questions[currentQuestionIndex].alternatives.size) {
                     isAnswering = false
                     timerAnimator?.cancel()
                     val selectedAnswer = questions[currentQuestionIndex].alternatives[index]
@@ -117,6 +118,7 @@ class LearningGamesActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         showExitConfirmationDialog()
     }
 
@@ -202,6 +204,16 @@ class LearningGamesActivity : BaseActivity() {
         q.alternatives.forEachIndexed { i, alt ->
             findViewById<TextView>(answerIds[i]).text = alt
         }
+
+        // Handle radioactive case: only two options, hide 3 and 4
+        if (category == "radioactive") {
+            findViewById<LinearLayout>(R.id.answer_3).visibility = View.GONE
+            findViewById<LinearLayout>(R.id.answer_4).visibility = View.GONE
+        } else {
+            findViewById<LinearLayout>(R.id.answer_3).visibility = View.VISIBLE
+            findViewById<LinearLayout>(R.id.answer_4).visibility = View.VISIBLE
+        }
+
         grid.animate().alpha(1f).setDuration(300).start()
         progressBar.animate().alpha(1f).setDuration(300).start()
         questionText.animate().alpha(1f).setDuration(300).start()
@@ -213,7 +225,9 @@ class LearningGamesActivity : BaseActivity() {
             findViewById<LinearLayout>(R.id.answer_2),
             findViewById<LinearLayout>(R.id.answer_3),
             findViewById<LinearLayout>(R.id.answer_4)
-        ).forEach { it.isEnabled = enabled }
+        ).forEach {
+            it.isEnabled = enabled
+        }
     }
 
     private fun getXpMultiplier(): Double {
@@ -224,6 +238,27 @@ class LearningGamesActivity : BaseActivity() {
         }
     }
 
+    private fun getBaseXp(category: String): Int = when (category) {
+        "element_symbols" -> 8
+        "element_names" -> 8
+        "element_classifications" -> 13
+        "discovered_by" -> 16
+        "discovery_year" -> 16
+        "appearance" -> 12
+        "atomic_number" -> 8
+        "electrical_type" -> 16
+        "radioactive" -> 16
+        "atomic_mass" -> 25
+        "density" -> 40
+        "electronegativity" -> 30
+        "block" -> 15
+        "magnetic_type" -> 18
+        "phase_stp" -> 10
+        "crystal_structure" -> 40
+        "superconducting_point" -> 50
+        else -> 5
+    }
+
     private fun getLivesLost(): Int {
         return when (difficulty) {
             "hard" -> 2
@@ -231,20 +266,21 @@ class LearningGamesActivity : BaseActivity() {
         }
     }
 
-    // In checkAnswer(selectedAnswer: String), keep lives deduction logic the same:
     private fun checkAnswer(selectedAnswer: String) {
         if (hasLeftGame) return
         isAnswering = false
         setAnswerEnabled(false)
         timerAnimator?.cancel()
-        val correct = selectedAnswer == questions[currentQuestionIndex].correctAnswer
+        val q = questions[currentQuestionIndex]
+        val correct = normalizeLabel(selectedAnswer) == normalizeLabel(q.correctAnswer)
 
         gameResults.add(
             GameResultItem(
-                question = questions[currentQuestionIndex].question,
+                question = q.question,
                 pickedAnswer = if (selectedAnswer == "__TIMEOUT__") "Timeout" else selectedAnswer,
-                correctAnswer = questions[currentQuestionIndex].correctAnswer,
-                wasCorrect = correct
+                correctAnswer = q.correctAnswer,
+                wasCorrect = correct,
+                baseXp = q.baseXp
             )
         )
 
@@ -271,17 +307,10 @@ class LearningGamesActivity : BaseActivity() {
                 }
             }
 
+            val xpGained = if (selectedAnswer == "__TIMEOUT__" || !correct) 0 else (q.baseXp * getXpMultiplier()).roundToInt()
             if (selectedAnswer == "__TIMEOUT__") {
                 showResultCard(false, selectedAnswer, 0)
             } else if (correct) {
-                val baseXp = when (category) {
-                    "element_classifications" -> 13
-                    "appearance" -> 20
-                    "atomic_mass" -> 25
-                    "density" -> 40
-                    else -> 5
-                }
-                val xpGained = (baseXp * getXpMultiplier()).roundToInt()
                 XpManager.addXp(this, xpGained)
                 showResultCard(true, selectedAnswer, xpGained)
             } else {
@@ -298,7 +327,6 @@ class LearningGamesActivity : BaseActivity() {
             handler.postDelayed(pendingNextQuestionRunnable!!, 2000)
         }
 
-        // For timeouts and wrong answers, lose lives according to difficulty
         val livesLost = getLivesLost()
         if (selectedAnswer == "__TIMEOUT__" || !correct) {
             val lost = LivesManager.loseLives(this, livesLost)
@@ -310,7 +338,6 @@ class LearningGamesActivity : BaseActivity() {
                 finishWithResults()
             }
         }
-        // No lives lost for correct answers
     }
 
     private fun nextQuestionWithFlip(grid: GridLayout, wasCorrect: Boolean, selectedAnswer: String) {
@@ -335,33 +362,20 @@ class LearningGamesActivity : BaseActivity() {
         }
     }
 
-    private fun getTotalXpWithDifficulty(xpElements: Int, xpGameWin: Int, xpPerfect: Int): Int {
-        val multiplier = getXpMultiplier()
-        val rawTotal = xpElements + xpGameWin + xpPerfect
-        return (rawTotal * multiplier).roundToInt()
-    }
-
     private fun finishWithResults(forceNotFinished: Boolean = false) {
         cleanupPending()
         val allAnswersCompleted = gameResults.size == totalQuestions && gameResults.all { it.pickedAnswer != null }
         val finishedGame = quizCompleted && allAnswersCompleted && !forceNotFinished
-        val correctAnswers = gameResults.count { it.wasCorrect }
-        val baseXp = when (category) {
-            "element_classifications" -> 13
-            "appearance" -> 20
-            "atomic_mass" -> 25
-            "density" -> 40
-            else -> 5
-        }
-        val xpElements = (correctAnswers * baseXp)
-        val xpGameWin = if (finishedGame) 25 else 0
-        val xpPerfect = if (finishedGame && correctAnswers == totalQuestions) 20 else 0
-        val totalXp = getTotalXpWithDifficulty(xpElements, xpGameWin, xpPerfect)
+        val xpMultiplier = getXpMultiplier()
+        val xpElements = gameResults.filter { it.wasCorrect }.sumOf { (it.baseXp * xpMultiplier).roundToInt() }
+        val xpGameWin = if (finishedGame) (25 * xpMultiplier).roundToInt() else 0
+        val xpPerfect = if (finishedGame && gameResults.all { it.wasCorrect }) (20 * xpMultiplier).roundToInt() else 0
+        val totalXp = xpElements + xpGameWin + xpPerfect
 
         if (finishedGame) {
-            XpManager.addXp(this, (xpGameWin * getXpMultiplier()).roundToInt())
+            XpManager.addXp(this, xpGameWin)
             if (gameResults.all { it.wasCorrect }) {
-                XpManager.addXp(this, (xpPerfect * getXpMultiplier()).roundToInt())
+                XpManager.addXp(this, xpPerfect)
             }
             val prefs = getSharedPreferences("game_stats", MODE_PRIVATE)
             val current = prefs.getInt("completed_quizzes", 0)
@@ -374,8 +388,9 @@ class LearningGamesActivity : BaseActivity() {
         intent.putExtra("total_questions", totalQuestions)
         intent.putExtra("difficulty", difficulty)
         intent.putExtra("difficulty_label", getDifficultyLabel())
-        intent.putExtra("xp_multiplier", getXpMultiplier())
+        intent.putExtra("xp_multiplier", xpMultiplier)
         intent.putExtra("total_xp", totalXp)
+        intent.putExtra("category", category)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
         finish()
@@ -387,7 +402,6 @@ class LearningGamesActivity : BaseActivity() {
         val resultSubtext = findViewById<TextView>(R.id.result_subtext)
         resultCard.visibility = View.VISIBLE
 
-        // Get lives lost based on difficulty
         val livesLost = getLivesLost()
 
         if (selectedAnswer == "__TIMEOUT__") {
@@ -406,99 +420,167 @@ class LearningGamesActivity : BaseActivity() {
         findViewById<FrameLayout>(R.id.result_card_overlay).visibility = View.GONE
     }
 
+    // Normalization function to canonicalize labels and answers
+    private fun normalizeLabel(label: String): String {
+        return label.trim()
+            .replace("-", " ")
+            .replace(Regex("\\bmetals\\b", RegexOption.IGNORE_CASE), "Metal")
+            .replace(Regex("\\bmetal\\b", RegexOption.IGNORE_CASE), "Metal")
+            .replace(Regex("^\\s*---\\s*$"), "")
+            .replace(Regex("\\s+"), " ")
+            .trim()
+            .split(" ")
+            .joinToString(" ") { it.replaceFirstChar { c -> c.uppercase() } }
+    }
+
     private fun generateQuestions(category: String, count: Int): List<Question> {
         val elementFiles = assets.list("")?.filter { it.endsWith(".json") } ?: emptyList()
         val elements = elementFiles.flatMap { loadElementsFromAsset(it) }
+            .filter { it.element.isNotBlank() }
 
         val questions = mutableListOf<Question>()
         val usedElements = mutableSetOf<String>()
+
+        fun wrongAnswersFor(fieldSelector: (ElementData) -> String, correct: String): List<String> =
+            elements.filter { normalizeLabel(fieldSelector(it)) != normalizeLabel(correct) && normalizeLabel(fieldSelector(it)) != "" }
+                .map { normalizeLabel(fieldSelector(it)) }
+                .filter { it.isNotBlank() && it != "---" }
+                .distinct()
+                .shuffled()
+                .take(3)
 
         repeat(count) {
             val element = elements.filter { it.element !in usedElements }.randomOrNull() ?: elements.random()
             usedElements.add(element.element)
 
+            val baseXp = getBaseXp(category)
             val (questionText, correct, alternatives) = when (category) {
                 "element_symbols" -> {
-                    val question = "What is the symbol for ${element.element}?"
-                    val correct = element.short
-                    val wrongs = elements.filter { it.short != correct }.shuffled().take(3).map { it.short }
-                    Triple(question, correct, (wrongs + correct).shuffled())
+                    val question = "What is the symbol for ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.short)
+                    val wrongs = wrongAnswersFor({ it.short }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "element_names" -> {
-                    val question = "What is the name for ${element.short}?"
-                    val correct = element.element
-                    val wrongs = elements.filter { it.element != correct }.shuffled().take(3).map { it.element }
-                    Triple(question, correct, (wrongs + correct).shuffled())
+                    val question = "What is the name for ${normalizeLabel(element.short)}?"
+                    val correct = normalizeLabel(element.element)
+                    val wrongs = wrongAnswersFor({ it.element }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "element_classifications" -> {
-                    val question = "What is the element group of ${element.element}?"
-                    val correct = element.element_group
-                    // Ensure no duplicate groups in alternatives
-                    val wrongGroups = elements.filter { it.element_group != correct }
-                        .map { it.element_group }
-                        .distinct()
-                        .shuffled()
-                        .take(3)
-                    val allGroups = (wrongGroups + correct).distinct().shuffled()
-                    Triple(question, correct, allGroups)
+                    val question = "What is the element group of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.element_group)
+                    val wrongs = wrongAnswersFor({ it.element_group }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "discovered_by" -> {
+                    val question = "Who discovered ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.element_discovered_name)
+                    val wrongs = wrongAnswersFor({ it.element_discovered_name }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "discovery_year" -> {
+                    val question = "In what year was ${normalizeLabel(element.element)} discovered?"
+                    val correct = normalizeLabel(element.element_year)
+                    val wrongs = wrongAnswersFor({ it.element_year }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "appearance" -> {
-                    val question = "What is the atomic mass of ${element.element}?"
-                    val correct = element.appearance
-                    val wrongMasses = elements.filter { it.appearance != correct }
-                        .map { it.appearance }
-                        .distinct()
-                        .shuffled()
-                        .take(3)
-                    val allMasses = (wrongMasses + correct).distinct().shuffled()
-                    Triple(question, correct, allMasses)
+                    val question = "What is the appearance of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.appearance)
+                    val wrongs = wrongAnswersFor({ it.appearance }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "atomic_number" -> {
+                    val question = "What is the atomic number of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.atomic_number)
+                    val wrongs = wrongAnswersFor({ it.atomic_number }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "electrical_type" -> {
+                    val question = "What is the electrical type of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.electrical_type)
+                    val wrongs = wrongAnswersFor({ it.electrical_type }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "radioactive" -> {
+                    val question = "Is ${normalizeLabel(element.element)} radioactive?"
+                    val isRadioactive = element.radioactive.trim().lowercase() == "yes"
+                    val correct = if (isRadioactive) "Yes" else "No"
+                    val options = listOf("Yes", "No")
+                    Triple(question, correct, options)
                 }
                 "atomic_mass" -> {
-                    val question = "What is the atomic mass of ${element.element}?"
-                    val correct = element.element_atomicmass
-                    val wrongMasses = elements.filter { it.element_atomicmass != correct }
-                        .map { it.element_atomicmass }
-                        .distinct()
-                        .shuffled()
-                        .take(3)
-                    val allMasses = (wrongMasses + correct).distinct().shuffled()
-                    Triple(question, correct, allMasses)
+                    val question = "What is the atomic mass of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.element_atomicmass)
+                    val wrongs = wrongAnswersFor({ it.element_atomicmass }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "density" -> {
-                    val question = "What is the atomic mass of ${element.element}?"
-                    val correct = element.density
-                    val wrongMasses = elements.filter { it.density != correct }
-                        .map { it.density }
-                        .distinct()
-                        .shuffled()
-                        .take(3)
-                    val allMasses = (wrongMasses + correct).distinct().shuffled()
-                    Triple(question, correct, allMasses)
+                    val question = "What is the density of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.density)
+                    val wrongs = wrongAnswersFor({ it.density }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
-                "chemical_reactions" -> {
-                    val question = "What is the most common ion charge for ${element.element}?"
-                    val correct = element.element_ion_charge
-                    val wrongCharges = elements.filter { it.element_ion_charge != correct }
-                        .map { it.element_ion_charge }
-                        .distinct()
-                        .shuffled()
-                        .take(3)
-                    val allCharges = (wrongCharges + correct).distinct().shuffled()
-                    Triple(question, correct, allCharges)
+                "electronegativity" -> {
+                    val question = "What is the electronegativity of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.element_electronegativty)
+                    val wrongs = wrongAnswersFor({ it.element_electronegativty }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "block" -> {
+                    val question = "What block does ${normalizeLabel(element.element)} belong to?"
+                    val correct = normalizeLabel(element.element_block)
+                    val wrongs = wrongAnswersFor({ it.element_block }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "magnetic_type" -> {
+                    val question = "What is the magnetic type of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.magnetic_type)
+                    val wrongs = wrongAnswersFor({ it.magnetic_type }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "phase_stp" -> {
+                    val question = "What is the phase of ${normalizeLabel(element.element)} at STP?"
+                    val correct = normalizeLabel(element.element_phase)
+                    val wrongs = wrongAnswersFor({ it.element_phase }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "crystal_structure" -> {
+                    val question = "What is the crystal structure of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.crystal_structure)
+                    val wrongs = wrongAnswersFor({ it.crystal_structure }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "superconducting_point" -> {
+                    val question = "What is the superconducting point of ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.superconducting_point)
+                    val wrongs = wrongAnswersFor({ it.superconducting_point }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "mixed_questions" -> {
-                    val cat = listOf("element_symbols", "element_classifications", "atomic_mass", "chemical_reactions").random()
+                    val categories = listOf(
+                        "element_symbols", "element_names", "element_classifications", "discovered_by", "discovery_year",
+                        "appearance", "atomic_number", "electrical_type", "radioactive",
+                        "atomic_mass", "density", "electronegativity", "block",
+                        "magnetic_type", "phase_stp", "crystal_structure", "superconducting_point"
+                    )
+                    val cat = categories.random()
                     val mixedQ = generateQuestions(cat, 1)[0]
                     Triple(mixedQ.question, mixedQ.correctAnswer, mixedQ.alternatives)
                 }
                 else -> {
-                    val question = "What is the symbol for ${element.element}?"
-                    val correct = element.short
-                    val wrongs = elements.filter { it.short != correct }.shuffled().take(3).map { it.short }
-                    Triple(question, correct, (wrongs + correct).shuffled())
+                    val question = "What is the symbol for ${normalizeLabel(element.element)}?"
+                    val correct = normalizeLabel(element.short)
+                    val wrongs = wrongAnswersFor({ it.short }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
             }
-            questions.add(Question(questionText, correct, alternatives))
+            val filteredAlternatives = alternatives
+                .map(::normalizeLabel)
+                .filter { it.isNotBlank() && it != "---" }
+                .distinct()
+            questions.add(Question(questionText, correct, filteredAlternatives, baseXp))
         }
         return questions
     }
@@ -510,7 +592,18 @@ class LearningGamesActivity : BaseActivity() {
         val element_atomicmass: String,
         val appearance: String,
         val density: String,
-        val element_ion_charge: String
+        val element_ion_charge: String,
+        val atomic_number: String,
+        val element_discovered_name: String,
+        val element_year: String,
+        val electrical_type: String,
+        val radioactive: String,
+        val element_electronegativty: String,
+        val element_block: String,
+        val magnetic_type: String,
+        val element_phase: String,
+        val crystal_structure: String,
+        val superconducting_point: String
     )
 
     private fun loadElementsFromAsset(filename: String): List<ElementData> {
@@ -526,7 +619,18 @@ class LearningGamesActivity : BaseActivity() {
                     density = obj.optString("element_density"),
                     element_group = obj.optString("element_group"),
                     element_atomicmass = obj.optString("element_atomicmass"),
-                    element_ion_charge = obj.optString("element_ion_charge")
+                    element_ion_charge = obj.optString("element_ion_charge"),
+                    atomic_number = obj.optString("element_atomic_number"),
+                    element_discovered_name = obj.optString("element_discovered_name"),
+                    element_year = obj.optString("element_year"),
+                    electrical_type = obj.optString("electrical_type"),
+                    radioactive = obj.optString("radioactive"),
+                    element_electronegativty = obj.optString("element_electronegativty"),
+                    element_block = obj.optString("element_block"),
+                    magnetic_type = obj.optString("magnetic_type"),
+                    element_phase = obj.optString("element_phase"),
+                    crystal_structure = obj.optString("crystal_structure"),
+                    superconducting_point = obj.optString("superconducting_point")
                 )
             }
         } catch (e: Exception) {

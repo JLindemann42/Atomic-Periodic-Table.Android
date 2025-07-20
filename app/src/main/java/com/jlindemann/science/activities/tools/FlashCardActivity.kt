@@ -17,12 +17,13 @@ import com.jlindemann.science.util.XpManager
 import java.util.concurrent.TimeUnit
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import com.jlindemann.science.activities.settings.ProActivity
+import com.jlindemann.science.preferences.ProVersion
 
 class FlashCardActivity : BaseActivity() {
 
     private lateinit var toggles: List<ToggleButton>
     private lateinit var infoText: TextView
-    private lateinit var learningGameButtons: List<View>
     private var resultDialog: ResultDialogFragment? = null
     private var lastLevel: Int = -1
 
@@ -93,18 +94,14 @@ class FlashCardActivity : BaseActivity() {
 
         infoText = findViewById(R.id.tv_lives_info)
         setupDifficultyToggles()
-        setupLearningGameButtons()
         setCategoryListeners()
-
-        // Save level for level up popup tracking
-        lastLevel = XpManager.getLevel(XpManager.getXp(this))
     }
 
     override fun onResume() {
         super.onResume()
         updateLivesCount()
         updateLivesInfo()
-        updateLearningGamesEnabled()
+        updateCategoryBoxes()
         updateXpAndLevelStats()
         val gameFinished = intent.getBooleanExtra("game_finished", false)
         val results = intent.getParcelableArrayListExtra<GameResultItem>("game_results")
@@ -145,9 +142,6 @@ class FlashCardActivity : BaseActivity() {
         }
     }
 
-    /**
-     * Setup toggle buttons for single selection difficulty
-     */
     private fun setupDifficultyToggles() {
         toggles = listOf(
             findViewById(R.id.toggle_easy),
@@ -164,19 +158,6 @@ class FlashCardActivity : BaseActivity() {
         toggles[0].isChecked = true
     }
 
-    private fun setupLearningGameButtons() {
-        learningGameButtons = listOf(
-            findViewById(R.id.btn_element_symbols),
-            findViewById(R.id.btn_element_names),
-            findViewById(R.id.btn_element_classifications),
-            findViewById(R.id.btn_appearance),
-            findViewById(R.id.btn_atomic_mass),
-            findViewById(R.id.btn_density),
-            findViewById(R.id.btn_chemical_reactions),
-            findViewById(R.id.btn_mixed_questions)
-        )
-    }
-
     private fun getSelectedDifficulty(): String {
         return when {
             toggles[0].isChecked -> "easy"
@@ -187,39 +168,127 @@ class FlashCardActivity : BaseActivity() {
     }
 
     private fun setCategoryListeners() {
+        val proCategoryIds = setOf(
+            R.id.btn_discovered_by, R.id.btn_discovery_year, R.id.btn_electrical_type,
+            R.id.btn_radioactive, R.id.btn_electronegativity, R.id.btn_block,
+            R.id.btn_crystal_structure, R.id.btn_superconducting_point
+        )
         val categories = mapOf(
             R.id.btn_element_symbols to "element_symbols",
             R.id.btn_element_names to "element_names",
             R.id.btn_element_classifications to "element_classifications",
             R.id.btn_appearance to "appearance",
+            R.id.btn_atomic_number to "atomic_number",
             R.id.btn_atomic_mass to "atomic_mass",
             R.id.btn_density to "density",
-            R.id.btn_chemical_reactions to "chemical_reactions",
-            R.id.btn_mixed_questions to "mixed_questions"
+            R.id.btn_magnetic_type to "magnetic_type",
+            R.id.btn_phase_stp to "phase_stp",
+            // Pro user categories:
+            R.id.btn_discovered_by to "discovered_by",
+            R.id.btn_discovery_year to "discovery_year",
+            R.id.btn_electrical_type to "electrical_type",
+            R.id.btn_radioactive to "radioactive",
+            R.id.btn_electronegativity to "electronegativity",
+            R.id.btn_block to "block",
+            R.id.btn_crystal_structure to "crystal_structure",
+            R.id.btn_superconducting_point to "superconducting_point"
         )
         categories.forEach { (btnId, category) ->
-            findViewById<View>(btnId).setOnClickListener {
-                if (LivesManager.getLives(this) == 0) {
-                    // Do nothing, disabled
-                } else {
+            val btn = findViewById<View>(btnId)
+            btn.setOnClickListener {
+                val isPro = checkProStatus()
+                val isProCategory = proCategoryIds.contains(btnId)
+                val canPlayGame = btn.isEnabled && (!isProCategory || isPro)
+
+                if (isProCategory && !isPro) {
+                    // Pro required, always send to ProActivity even if greyed out
+                    startActivity(Intent(this, ProActivity::class.java))
+                } else if (canPlayGame) {
+                    // Start the game if enabled and (not pro category or is pro)
                     val intent = Intent(this, LearningGamesActivity::class.java)
                     intent.putExtra("difficulty", getSelectedDifficulty())
                     intent.putExtra("category", category)
                     startActivity(intent)
                 }
+                // else: do nothing if not enabled and not pro category (greyed out due to lives/level)
             }
         }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_fla).layoutParams as ViewGroup.LayoutParams
-        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_fla).layoutParams = params
+    // Helper to set lock icon on section header
+    private fun TextView.setLockDrawable(unlocked: Boolean) {
+        val drawable = if (unlocked) R.drawable.ic_lock_open else R.drawable.ic_lock
+        setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0)
+    }
 
-        val params2 = findViewById<TextView>(R.id.flashcard_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) +
-                resources.getDimensionPixelSize(R.dimen.header_down_margin)
-        findViewById<TextView>(R.id.flashcard_title_downstate).layoutParams = params2
+    private fun updateCategoryBoxes() {
+        val xp = XpManager.getXp(this)
+        val userLevel = XpManager.getLevel(xp)
+        val isProUser = checkProStatus()
+        val lives = LivesManager.getLives(this)
+        val isEnabled = lives > 0
+
+        val proCategoryButtons = listOf(
+            Pair(R.id.btn_discovered_by, R.id.pro_badge_discovered_by),
+            Pair(R.id.btn_discovery_year, R.id.pro_badge_discovery_year),
+            Pair(R.id.btn_electrical_type, R.id.pro_badge_electrical_type),
+            Pair(R.id.btn_radioactive, R.id.pro_badge_radioactive),
+            Pair(R.id.btn_electronegativity, R.id.pro_badge_electronegativity),
+            Pair(R.id.btn_block, R.id.pro_badge_block),
+            Pair(R.id.btn_crystal_structure, R.id.pro_badge_crystal_structure),
+            Pair(R.id.btn_superconducting_point, R.id.pro_badge_superconducting_point)
+        )
+
+        for ((btnId, badgeId) in proCategoryButtons) {
+            val badge = findViewById<TextView>(badgeId)
+            badge?.visibility = View.VISIBLE
+        }
+
+        val proButtonsByBox = mapOf(
+            R.id.box_0_4 to listOf(R.id.btn_discovered_by, R.id.btn_discovery_year),
+            R.id.box_5_9 to listOf(R.id.btn_electrical_type, R.id.btn_radioactive),
+            R.id.box_10_14 to listOf(R.id.btn_electronegativity, R.id.btn_block),
+            R.id.box_15_19 to listOf(R.id.btn_crystal_structure, R.id.btn_superconducting_point)
+        )
+        val boxesWithLevels = listOf(
+            Triple(R.id.box_0_4, R.id.title_box_0_4, 0..4),
+            Triple(R.id.box_5_9, R.id.title_box_5_9, 5..9),
+            Triple(R.id.box_10_14, R.id.title_box_10_14, 10..14),
+            Triple(R.id.box_15_19, R.id.title_box_15_19, 15..19)
+        )
+        val proCategoryIds = setOf(
+            R.id.btn_discovered_by, R.id.btn_discovery_year, R.id.btn_electrical_type,
+            R.id.btn_radioactive, R.id.btn_electronegativity, R.id.btn_block,
+            R.id.btn_crystal_structure, R.id.btn_superconducting_point
+        )
+
+        for ((boxId, titleId, levelRange) in boxesWithLevels) {
+            val box = findViewById<View>(boxId)
+            val title = findViewById<TextView>(titleId)
+            val unlocked = userLevel >= levelRange.last
+
+            // If the userLevel is within the range, it's the "current" box, so also unlocked
+            val current = userLevel in levelRange
+            val boxIsUnlocked = unlocked || current
+
+            box.alpha = if (boxIsUnlocked) 1f else 0.5f
+            title.setLockDrawable(boxIsUnlocked)
+
+            // Set enabled/alpha for each button in this box
+            for (i in 0 until (box as ViewGroup).childCount) {
+                val child = box.getChildAt(i)
+                if (child.id == titleId) continue // skip the header
+                val isProBtn = proCategoryIds.contains(child.id)
+                child.isEnabled = boxIsUnlocked && isEnabled && (!isProBtn || isProUser)
+                child.alpha = if (child.isEnabled) 1f else 0.5f
+            }
+        }
+    }
+
+    private fun checkProStatus(): Boolean {
+        val proPref = ProVersion(this)
+        val proPrefValue = proPref.getValue()
+        return proPrefValue == 100
     }
 
     private fun updateLivesInfo() {
@@ -233,80 +302,6 @@ class FlashCardActivity : BaseActivity() {
         } else {
             infoText.visibility = View.GONE
         }
-    }
-
-    private fun updateLearningGamesEnabled() {
-        val lives = LivesManager.getLives(this)
-        val isEnabled = lives > 0
-        val xp = XpManager.getXp(this)
-        val level = XpManager.getLevel(xp)
-
-        // Enable/disable all learning game buttons based on lives
-        learningGameButtons.forEach { btn ->
-            btn.isEnabled = isEnabled
-            btn.alpha = if (isEnabled) 1f else 0.5f
-        }
-
-        // Element Groups: Only available from level 2
-        val btnElementGroups = findViewById<View>(R.id.btn_element_classifications)
-        val tvClassificationsReq = btnElementGroups.findViewById<TextView>(R.id.tv_classifications_requirement)
-        if (level < 2) {
-            btnElementGroups.isEnabled = false
-            btnElementGroups.alpha = 0.5f
-            tvClassificationsReq.visibility = View.VISIBLE
-        } else if (isEnabled) {
-            btnElementGroups.isEnabled = true
-            btnElementGroups.alpha = 1f
-            tvClassificationsReq.visibility = View.GONE
-        } else {
-            tvClassificationsReq.visibility = View.GONE
-        }
-
-        // Appearance: Only available from level 5
-        val btnAppearance = findViewById<View>(R.id.btn_appearance)
-        val tvAppearance = btnAppearance.findViewById<TextView>(R.id.tv_appearance_requirement)
-        if (level < 5) {
-            btnAppearance.isEnabled = false
-            btnAppearance.alpha = 0.5f
-            tvAppearance.visibility = View.VISIBLE
-        } else if (isEnabled) {
-            btnAppearance.isEnabled = true
-            btnAppearance.alpha = 1f
-            tvAppearance.visibility = View.GONE
-        } else {
-            tvAppearance.visibility = View.GONE
-        }
-
-        // Atomic Mass: Only available from level 7
-        val btnAtomicMass = findViewById<View>(R.id.btn_atomic_mass)
-        val tvAtomicMassReq = btnAtomicMass.findViewById<TextView>(R.id.tv_atomicmass_requirement)
-        if (level < 7) {
-            btnAtomicMass.isEnabled = false
-            btnAtomicMass.alpha = 0.5f
-            tvAtomicMassReq.visibility = View.VISIBLE
-        } else if (isEnabled) {
-            btnAtomicMass.isEnabled = true
-            btnAtomicMass.alpha = 1f
-            tvAtomicMassReq.visibility = View.GONE
-        } else {
-            tvAtomicMassReq.visibility = View.GONE
-        }
-
-        // Density: Only available from level 10
-        val btnDensity = findViewById<View>(R.id.btn_density)
-        val tvDensity = btnDensity.findViewById<TextView>(R.id.tv_density_requirement)
-        if (level < 10) {
-            btnDensity.isEnabled = false
-            btnDensity.alpha = 0.5f
-            tvDensity.visibility = View.VISIBLE
-        } else if (isEnabled) {
-            btnDensity.isEnabled = true
-            btnDensity.alpha = 1f
-            tvDensity.visibility = View.GONE
-        } else {
-            tvDensity.visibility = View.GONE
-        }
-
     }
 
     /**
@@ -388,5 +383,16 @@ class FlashCardActivity : BaseActivity() {
                     }
                 })
         }
+    }
+
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
+        val params = findViewById<FrameLayout>(R.id.common_title_back_fla).layoutParams as ViewGroup.LayoutParams
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        findViewById<FrameLayout>(R.id.common_title_back_fla).layoutParams = params
+
+        val params2 = findViewById<TextView>(R.id.flashcard_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) +
+                resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        findViewById<TextView>(R.id.flashcard_title_downstate).layoutParams = params2
     }
 }

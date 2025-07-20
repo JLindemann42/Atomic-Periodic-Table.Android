@@ -7,9 +7,9 @@ object LivesManager {
     private const val PREFS_NAME = "lives_prefs"
     private const val LIVES_KEY = "lives_count"
     private const val LAST_REFILL_KEY = "last_refill_time"
-    private const val MAX_LIVES = 2000
+    private const val MAX_LIVES = 100
     private const val REFILL_AMOUNT = 5
-    private const val REFILL_INTERVAL_MS = 20 * 60 * 1000L // 20 minutes
+    private const val REFILL_INTERVAL_MS = 10 * 60 * 1000L // 10 minutes
 
     private fun getPrefs(context: Context): SharedPreferences =
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
