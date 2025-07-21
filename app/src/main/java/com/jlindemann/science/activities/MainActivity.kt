@@ -215,7 +215,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     private fun filter(text: String, list: ArrayList<Element>, recyclerView: RecyclerView) {
         val filteredList: ArrayList<Element> = ArrayList()
         for (item in list) {
-            if (item.element.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
+            if (item.element.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))) {
                 filteredList.add(item)
                 Log.v("SSDD2", filteredList.toString())
             }

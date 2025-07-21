@@ -119,7 +119,7 @@
                         android:layout_height="match_parent"
                         android:rotation="180"
                         app:tint="?attr/colorOnSecondaryContainer"
-                        android:src="@drawable/ic_random"/>
+                        android:src="@drawable/ic_random_large"/>
 
                 </LinearLayout>
 
@@ -129,6 +129,7 @@
                 android:id="@+id/stats_Box"
                 android:background="@drawable/toast_card"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -192,14 +193,13 @@
             <FrameLayout
                 android:id="@+id/pro_box"
                 android:layout_width="match_parent"
-                android:layout_marginTop="8dp"
                 android:visibility="visible"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/toast_card"
 
                     android:orientation="vertical">
@@ -211,7 +211,6 @@
                         android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/pro_hazard_text"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
@@ -237,7 +236,7 @@
                             android:paddingEnd="@dimen/margin"
                             android:paddingBottom="8dp"
                             android:paddingTop="8dp"
-                            android:text="Get electronegativity, radioactivity, crystal structure and many more flashcards!"/>
+                            android:text="Get unlimeted lives and additional flashcard games such as electronegativity, radioactivity, crystal structure and more!"/>
 
                     </LinearLayout>
 
@@ -246,7 +245,7 @@
                         android:layout_height="70dp">
 
                         <TextView
-                            android:id="@+id/get_pro_hazard_btn"
+                            android:id="@+id/get_pro_plus_btn"
                             android:layout_width="wrap_content"
                             android:layout_height="48dp"
                             android:layout_marginStart="@dimen/margin"
@@ -378,6 +377,7 @@
                 android:layout_marginBottom="@dimen/default_padding"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -391,6 +391,7 @@
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
                     android:drawableStart="@drawable/ic_lock"
+                    android:drawableTint="?attr/colorAccent"
                     android:drawablePadding="8dp"
                     android:layout_marginTop="@dimen/default_padding"
                     android:layout_marginBottom="@dimen/margin_space_card"/>
@@ -480,6 +481,7 @@
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
+                    android:drawableTint="?attr/colorAccent"
                     android:drawableStart="@drawable/ic_lock"
                     android:drawablePadding="8dp"
                     android:layout_marginTop="@dimen/default_padding"
@@ -564,6 +566,7 @@
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
+                    android:drawableTint="?attr/colorAccent"
                     android:drawableStart="@drawable/ic_lock"
                     android:drawablePadding="8dp"
                     android:layout_marginTop="@dimen/default_padding"
@@ -646,6 +649,7 @@
                     android:layout_height="wrap_content"
                     android:text="Level 15–19"
                     android:textStyle="bold"
+                    android:drawableTint="?attr/colorAccent"
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
                     android:drawableStart="@drawable/ic_lock"
@@ -733,6 +737,7 @@
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
                     android:drawableStart="@drawable/ic_lock"
+                    android:drawableTint="?attr/colorAccent"
                     android:drawablePadding="8dp"
                     android:layout_marginTop="@dimen/default_padding"
                     android:layout_marginBottom="@dimen/margin_space_card"/>
@@ -887,6 +892,7 @@
                         style="?android:attr/borderlessButtonStyle"
                         android:layout_width="42dp"
                         android:layout_height="42dp"
+                        android:visibility="gone"
                         android:layout_gravity="center_vertical"
                         android:rotation="180"
                         app:tint="?attr/colorOnSecondaryContainer"

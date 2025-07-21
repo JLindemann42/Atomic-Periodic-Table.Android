@@ -85,6 +85,27 @@
                 android:focusable="true"
                 android:foreground="@drawable/toast_ripple"/>
 
+            <TextView
+                android:id="@+id/mostT_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_space_card"
+                android:layout_marginEnd="@dimen/margin_space_card"
+                android:layout_marginBottom="@dimen/margin_space_card"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="8dp"
+                android:paddingTop="8dp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="16sp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorSurfaceVariant"
+                android:text="most_3"
+                android:padding="@dimen/margin_space_card"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="@drawable/toast_ripple"/>
+
         </LinearLayout>
 
         </HorizontalScrollView>

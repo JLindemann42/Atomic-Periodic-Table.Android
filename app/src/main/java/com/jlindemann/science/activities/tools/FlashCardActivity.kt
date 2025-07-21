@@ -17,7 +17,16 @@ import com.jlindemann.science.util.XpManager
 import java.util.concurrent.TimeUnit
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.view.LayoutInflater
+import android.view.Gravity
+import android.graphics.Rect
+import android.os.Handler
+import android.os.Looper
+import android.view.WindowManager
+import android.widget.PopupWindow
 import com.jlindemann.science.activities.settings.ProActivity
+import com.jlindemann.science.preferences.MostUsedToolPreference
+import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ProVersion
 
 class FlashCardActivity : BaseActivity() {
@@ -92,11 +101,41 @@ class FlashCardActivity : BaseActivity() {
             onBackPressed()
         }
 
+        //Add value to most used:
+        val mostUsedPreference = MostUsedToolPreference(this)
+        val mostUsedPrefValue = mostUsedPreference.getValue()
+        val targetLabel = "fla"
+        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val match = regex.find(mostUsedPrefValue)
+        if (match != null) {
+            val value = match.groups[2]!!.value.toDouble()
+            val newValue = value + 1
+            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
+        }
+
         infoText = findViewById(R.id.tv_lives_info)
         setupDifficultyToggles()
         setCategoryListeners()
         findViewById<ImageButton>(R.id.shuffle_btn).setOnClickListener {
             launchRandomUnlockedGame()
+        }
+        //PRO Changes
+        val proPlusPref = ProPlusVersion(this)
+        var proPlusPrefValue = proPlusPref.getValue()
+        if (proPlusPrefValue==100) {
+            findViewById<FrameLayout>(R.id.pro_box).visibility = View.GONE
+        }
+        else {
+            findViewById<TextView>(R.id.get_pro_plus_btn).setOnClickListener {
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+        // Lives popup: add click listener to lives count in toolbar
+        val livesCountView = findViewById<TextView>(R.id.tv_lives_count)
+        livesCountView.setOnClickListener {
+            showLivesInfoPopup(livesCountView)
         }
     }
 
@@ -204,7 +243,7 @@ class FlashCardActivity : BaseActivity() {
         categories.forEach { (btnId, category) ->
             val btn = findViewById<View>(btnId)
             btn.setOnClickListener {
-                val isPro = checkProStatus()
+                val isPro = checkProPlusStatus()
                 val isProCategory = proCategoryIds.contains(btnId)
                 val canPlayGame = btn.isEnabled && (!isProCategory || isPro)
 
@@ -232,7 +271,7 @@ class FlashCardActivity : BaseActivity() {
     private fun updateCategoryBoxes() {
         val xp = XpManager.getXp(this)
         val userLevel = XpManager.getLevel(xp)
-        val isProUser = checkProStatus()
+        val isProUser = checkProPlusStatus()
         val lives = LivesManager.getLives(this)
         val isEnabled = lives > 0
 
@@ -252,7 +291,7 @@ class FlashCardActivity : BaseActivity() {
 
         for ((btnId, badgeId) in proCategoryButtons) {
             val badge = findViewById<TextView>(badgeId)
-            badge?.visibility = View.VISIBLE
+            badge?.visibility = if (isProUser) View.GONE else View.VISIBLE
         }
 
         val proButtonsByBox = mapOf(
@@ -299,10 +338,10 @@ class FlashCardActivity : BaseActivity() {
         }
     }
 
-    private fun checkProStatus(): Boolean {
-        val proPref = ProVersion(this)
-        val proPrefValue = proPref.getValue()
-        return proPrefValue == 100
+    private fun checkProPlusStatus(): Boolean {
+        val proPlusPref = ProPlusVersion(this)
+        val proPlusPrefValue = proPlusPref.getValue()
+        return proPlusPrefValue == 100
     }
 
     private fun updateLivesInfo() {
@@ -318,9 +357,6 @@ class FlashCardActivity : BaseActivity() {
         }
     }
 
-    /**
-     * Update XP, Level, and ProgressBar to match scalable level system
-     */
     private fun updateXpAndLevelStats() {
         val xp = XpManager.getXp(this)
         val level = XpManager.getLevel(xp)
@@ -431,7 +467,7 @@ class FlashCardActivity : BaseActivity() {
             R.id.btn_vickers_hardness to "vickers_hardness",
             R.id.btn_brinell_hardness to "brinell_hardness"
         )
-        val isPro = checkProStatus()
+        val isPro = checkProPlusStatus()
         val unlocked = mutableListOf<Pair<View, String>>()
         for ((btnId, category) in categories) {
             val btn = findViewById<View>(btnId)
@@ -458,7 +494,7 @@ class FlashCardActivity : BaseActivity() {
             R.id.btn_crystal_structure, R.id.btn_superconducting_point,
             R.id.btn_mohs_hardness, R.id.btn_vickers_hardness, R.id.btn_brinell_hardness
         ).contains(btn.id)
-        if (isProCategory && !checkProStatus()) {
+        if (isProCategory && !checkProPlusStatus()) {
             startActivity(Intent(this, ProActivity::class.java))
             return
         }
@@ -477,5 +513,40 @@ class FlashCardActivity : BaseActivity() {
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) +
                 resources.getDimensionPixelSize(R.dimen.header_down_margin)
         findViewById<TextView>(R.id.flashcard_title_downstate).layoutParams = params2
+    }
+
+    private fun showLivesInfoPopup(anchor: View) {
+        val inflater = LayoutInflater.from(this)
+        val popupView = inflater.inflate(R.layout.popup_lives_info, null)
+
+        val lives = LivesManager.getLives(this)
+        val millis = LivesManager.getMillisToRefill(this)
+        val maxLives = LivesManager.getMaxLives(this)
+        val refillAmount = LivesManager.getRefillAmount(this)
+        val minutes = TimeUnit.MILLISECONDS.toMinutes(millis) % 60
+        val seconds = TimeUnit.MILLISECONDS.toSeconds(millis) % 60
+
+        val livesText = popupView.findViewById<TextView>(R.id.lives_info_text)
+        if (lives >= maxLives) {
+            livesText.text = "You have full lives!"
+        } else {
+            livesText.text = "Next life in $minutes minutes and $seconds seconds.\nYou will gain $refillAmount life${if (refillAmount > 1) "s" else ""}."
+        }
+
+        val popupWindow = PopupWindow(
+            popupView,
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            true
+        )
+        popupWindow.elevation = 8f
+
+        val location = IntArray(2)
+        anchor.getLocationOnScreen(location)
+        popupWindow.showAtLocation(anchor, Gravity.NO_GRAVITY, location[0], location[1] + anchor.height)
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            if (popupWindow.isShowing) popupWindow.dismiss()
+        }, 3000)
     }
 }

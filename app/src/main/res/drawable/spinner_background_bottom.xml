@@ -4,5 +4,5 @@
         android:width="1dp"
         android:color="?attr/actionMenuTextColor" /> <!-- Change color as needed -->
     <corners android:radius="24dp"/>
-    <padding android:left="6dp" android:top="6dp" android:right="32dp" android:bottom="6dp"/>
+    <padding android:left="6dp" android:top="6dp" android:right="24dp" android:bottom="6dp"/>
 </shape>

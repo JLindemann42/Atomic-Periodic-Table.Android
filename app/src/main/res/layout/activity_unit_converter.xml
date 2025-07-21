@@ -115,6 +115,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="0.04"
                         android:text="="
+                        android:textColor="?attr/colorOnSurface"
                         android:textAlignment="center"
                         android:gravity="center"
                         android:textSize="40sp"
@@ -215,6 +216,36 @@
                     android:textSize="18sp"
                     android:textColor="?attr/colorOnSurface"
                     android:layout_marginBottom="8dp"/>
+                <TextView
+                    android:id="@+id/no_pro_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:visibility="visible"
+                    android:text="@string/calc_no_pro_text"
+                    android:layout_margin="@dimen/margin"
+                    android:textColor="?attr/colorOnSurface"/>
+
+                <TextView
+                    android:id="@+id/pro_button_cal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="@drawable/toast_ripple"
+                    android:gravity="center"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:text="@string/get_pro_title"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/no_fav_text"
@@ -223,9 +254,11 @@
                     android:textSize="14sp"
                     android:textAlignment="center"
                     android:visibility="gone"
-                    android:text="No favorites yet"
+                    android:text="@string/calc_no_favorites"
                     android:layout_margin="@dimen/margin"
                     android:textColor="?attr/colorOnSurface"/>
+
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/favorites_list"

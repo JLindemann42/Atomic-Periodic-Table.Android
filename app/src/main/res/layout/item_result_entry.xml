@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:textSize="16sp"
         android:layout_marginBottom="2dp"/>
 
@@ -17,6 +18,7 @@
         android:id="@+id/tv_question_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_marginBottom="2dp"/>
@@ -25,6 +27,7 @@
         android:id="@+id/tv_correct_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:textSize="18sp"
         android:layout_marginBottom="2dp"/>
 
@@ -32,6 +35,7 @@
         android:id="@+id/tv_your_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:textSize="14sp"
         android:layout_marginBottom="2dp"/>
 
@@ -39,6 +43,8 @@
         android:id="@+id/tv_correct_answer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:alpha="0.9"
         android:textSize="14sp"
         android:layout_marginBottom="6dp"/>
 </LinearLayout>

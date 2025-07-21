@@ -150,8 +150,8 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
         for (item in list) {
             val poissonPreference = PoissonPreferences(this)
             val poissonPrefValue = poissonPreference.getValue()
-            if (item.name.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
-                if (item.type.toLowerCase(Locale.ROOT).contains(poissonPrefValue.toLowerCase(Locale.ROOT))) {
+            if (item.name.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))) {
+                if (item.type.lowercase(Locale.ROOT).contains(poissonPrefValue.lowercase(Locale.ROOT))) {
                     filteredList.add(item)
                 }
             }

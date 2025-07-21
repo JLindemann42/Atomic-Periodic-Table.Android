@@ -89,8 +89,9 @@ class ToolsActivity : BaseActivity() {
 
         val textView1: TextView = findViewById(R.id.mostT_1)
         val textView2: TextView = findViewById(R.id.mostT_2)
+        val textView3: TextView = findViewById(R.id.mostT_3)
 
-        val textViewList = listOf(textView1, textView2)
+        val textViewList = listOf(textView1, textView2, textView3)
 
         sortedValues.forEachIndexed { index, pair ->
             if (index < textViewList.size) {
@@ -98,12 +99,14 @@ class ToolsActivity : BaseActivity() {
                 when (pair.first) {
                     "cal" -> textViewList[index].text = getString(R.string.cal)
                     "uni" -> textViewList[index].text = getString(R.string.uni)
+                    "fla" -> textViewList[index].text = getString(R.string.fla)
                 }
 
                 textViewList[index].setOnClickListener {
                     val activity = when (pair.first) {
                         "cal" -> CalculatorActivity::class.java
                         "uni" -> UnitConversionActivity::class.java
+                        "fla" -> FlashCardActivity::class.java
                         else -> null
                     }
                     activity?.let {

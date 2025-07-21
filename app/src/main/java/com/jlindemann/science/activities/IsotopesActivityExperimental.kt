@@ -181,7 +181,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         val isoPrefValue = isoPreference.getValue()
         val filteredList: ArrayList<Element> = ArrayList()
         for (item in list) {
-            if (item.element.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
+            if (item.element.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))) {
                 filteredList.add(item)
                 Log.v("SSDD2", filteredList.toString())
             }

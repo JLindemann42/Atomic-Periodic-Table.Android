@@ -15,9 +15,13 @@ import com.google.gson.reflect.TypeToken
 import com.jlindemann.science.R
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.Intent
 import android.view.ViewPropertyAnimator
+import androidx.appcompat.widget.AppCompatButton
 import com.jlindemann.science.activities.BaseActivity
+import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.preferences.MostUsedToolPreference
+import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 
 class UnitConversionActivity : BaseActivity() {
@@ -135,6 +139,27 @@ class UnitConversionActivity : BaseActivity() {
             this.onBackPressed()
         }
 
+        // Check if favorite list should be shown or not (PRO)
+        val proPref = ProVersion(this)
+        val proPrefValue = proPref.getValue()
+        if (proPrefValue == 1) {
+            findViewById<RecyclerView>(R.id.favorites_list).visibility = View.INVISIBLE
+            findViewById<TextView>(R.id.no_pro_text).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.pro_button_cal).visibility = View.VISIBLE
+            findViewById<AppCompatButton>(R.id.add_favorite_button).visibility = View.GONE
+        }
+        if (proPrefValue == 100) {
+            findViewById<RecyclerView>(R.id.favorites_list).visibility = View.VISIBLE
+            findViewById<TextView>(R.id.no_pro_text).visibility = View.GONE
+            findViewById<TextView>(R.id.pro_button_cal).visibility = View.GONE
+            findViewById<AppCompatButton>(R.id.add_favorite_button).visibility = View.VISIBLE
+        }
+
+        findViewById<TextView>(R.id.pro_button_cal).setOnClickListener {
+            val intent = Intent(this, ProActivity::class.java)
+            startActivity(intent)
+        }
+
         //Add value to most used:
         val mostUsedPreference = MostUsedToolPreference(this)
         val mostUsedPrefValue = mostUsedPreference.getValue()
@@ -219,16 +244,16 @@ class UnitConversionActivity : BaseActivity() {
 
     private fun setupSpinners() {
         val categories = unitCategories.keys.toList()
-        val categoryAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val categoryAdapter = ArrayAdapter(this, R.layout.spinner_item_text, categories)
+        categoryAdapter.setDropDownViewResource(R.layout.spinner_item_text)
         categorySpinner.adapter = categoryAdapter
 
         categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedCategory = categories[position]
                 val units = unitCategories[selectedCategory]?.map { it.name } ?: listOf()
-                val unitAdapter = ArrayAdapter(this@UnitConversionActivity, android.R.layout.simple_spinner_item, units)
-                unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                val unitAdapter = ArrayAdapter(this@UnitConversionActivity, R.layout.spinner_item_text, units)
+                unitAdapter.setDropDownViewResource(R.layout.spinner_item_text)
                 fromUnitSpinner.adapter = unitAdapter
                 toUnitSpinner.adapter = unitAdapter
 

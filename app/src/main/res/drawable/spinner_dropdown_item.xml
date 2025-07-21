@@ -7,6 +7,5 @@
     android:paddingEnd="48dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
-
     android:textColor="?attr/colorOnSurface"
     android:textSize="16sp"/>

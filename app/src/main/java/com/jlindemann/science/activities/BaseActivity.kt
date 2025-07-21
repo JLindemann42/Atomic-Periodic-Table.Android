@@ -64,11 +64,14 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
     }
     open fun updateLivesCount() {
         val lives = LivesManager.getLives(this)
+        val maxLives = LivesManager.getMaxLives(this)
+        val livesDisplay = if (maxLives == Int.MAX_VALUE) "∞" else lives.toString()
+
         // Try both possible IDs (XML may differ between screens)
         val livesCountView = findViewById<TextView?>(R.id.tv_lives_count)
-        livesCountView?.text = lives.toString()
+        livesCountView?.text = livesDisplay
 
         val livesLabelView = findViewById<TextView?>(R.id.tv_lives)
-        livesLabelView?.text = "Lives: $lives"
+        livesLabelView?.text = "Lives: $livesDisplay"
     }
 }

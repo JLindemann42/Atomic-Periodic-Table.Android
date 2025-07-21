@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v4.0.0m-Build.139</string>
+    <string name="app_version" translatable="false">v4.0.0m-Build.143</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -11,7 +11,7 @@
     <!-- PRO Activity -->
     <string name="pro_title">PRO Version</string>
     <string name="get_pro_title">Get PRO Version</string>
-    <string name="pro_descr" translatable="false">\'Atomic - Periodic Table\' is a free and open-source application made by me on my spare-time in Sweden. Buy purchasing the PRO-version you help support the development of additional features as well as unlocking some more.</string>
+    <string name="pro_descr" translatable="false">\'Atomic - Periodic Table\' is a free and open-source application made by me on my spare-time in Sweden. Buy purchasing the PRO-version you help support the development while also receiving additional data and features!</string>
     <string name="member_title">PRO Member Page</string>
     <string name="member_desch" translatable="false">Thanks for supporting the development of \'Atomic - Periodic Table\'. On this page information about your PRO perks will be available as more PRO features gets added.</string>
     <string name="member_already">You\'re a PRO member!</string>
@@ -214,6 +214,7 @@
     <string name="cal" translatable="false">Calculator</string>
     <string name="rec" translatable="false">Chemical Reactions</string>
     <string name="uni" translatable="false">Unit Converter</string>
+    <string name="fla" translatable="false">Flashcards</string>
     <string name="unit_title" translatable="false">Unit Converter</string>
     <string name="unit_description" translatable="false">A simple unit converter for multiple purposes</string>
 
@@ -291,7 +292,7 @@
     <string name="flashcards_mixed_questions" translatable="false">Mixed Questions</string>
     <string name="flashcards_statistics" translatable="false">Statistics</string>
     <string name="flashcards_total_xp" translatable="false">Total XP</string>
-    <string name="flashcards_total_games" translatable="false">Quiz Completed</string>
+    <string name="flashcards_total_games" translatable="false">Games</string>
     <string name="flashcards_level" translatable="false">Level</string>
     <string name="flashcards_difficulty" translatable="false">Select Difficulty:</string>
     <string name="flashcards_difficulty_title" translatable="false">Difficulty</string>

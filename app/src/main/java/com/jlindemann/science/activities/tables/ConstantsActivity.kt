@@ -206,8 +206,10 @@ class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListe
         for (item in list) {
             val constantsPreference = ConstantsPreference(this)
             val constantsPrefValue = constantsPreference.getValue()
-            if (item.name.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
-                if (item.category.toLowerCase(Locale.ROOT).contains(constantsPrefValue.toLowerCase(Locale.ROOT))) {
+            if (item.name.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))) {
+                if (item.category.lowercase(Locale.ROOT).contains(constantsPrefValue.lowercase(
+                        Locale.ROOT
+                    ))) {
                     filteredList.add(item)
                 }
             }

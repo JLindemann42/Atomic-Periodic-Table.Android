@@ -150,7 +150,7 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
 
     private fun filter(text: String, list: ArrayList<Element>, recyclerView: RecyclerView) {
         val filteredList: ArrayList<Element> = ArrayList()
-        for (item in list) { if (item.element.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) { filteredList.add(item) } }
+        for (item in list) { if (item.element.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))) { filteredList.add(item) } }
         val handler = android.os.Handler()
         handler.postDelayed({
             if (recyclerView.adapter!!.itemCount == 0) {

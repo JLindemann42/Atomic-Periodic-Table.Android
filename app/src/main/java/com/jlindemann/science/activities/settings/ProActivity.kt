@@ -1,166 +1,120 @@
 package com.jlindemann.science.activities.settings
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.content.res.ColorStateList
 import android.content.res.Configuration
-import android.graphics.Color
-import android.graphics.Paint
-import android.net.Uri
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import android.widget.AdapterView.OnItemClickListener
-import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.android.billingclient.api.AcknowledgePurchaseParams
-import com.android.billingclient.api.BillingClient
-import com.android.billingclient.api.BillingClientStateListener
-import com.android.billingclient.api.BillingFlowParams
-import com.android.billingclient.api.BillingResult
-import com.android.billingclient.api.ProductDetails
-import com.android.billingclient.api.Purchase
-import com.android.billingclient.api.PurchasesUpdatedListener
-import com.android.billingclient.api.QueryProductDetailsParams
-import com.android.billingclient.api.QueryPurchasesParams
-import com.android.billingclient.api.acknowledgePurchase
-import com.android.billingclient.api.queryProductDetails
-import com.android.billingclient.api.queryPurchasesAsync
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.android.billingclient.api.*
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
-import com.jlindemann.science.preferences.ThemePreference
-import com.jlindemann.science.utils.Utils
-import com.google.firebase.crashlytics.buildtools.reloc.com.google.common.collect.ImmutableList
-import com.jlindemann.science.databinding.ActivityProBinding
-import com.jlindemann.science.preferences.ElectronegativityPreference
+import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.utils.ToastUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.TimeZone
-import java.util.Timer
-import java.util.concurrent.Executors
-import kotlin.concurrent.schedule
 
 class ProActivity : BaseActivity(), BillingClientStateListener {
 
-    /**
-     * Map product IDs to their descriptions/configurations for future extensibility.
-     * You can add more products here as needed.
-     */
-    private val productIds = listOf("pro_version")
-    private val NON_CONSUMABLE_PRODUCT_ID = "pro_version"
+    private val PRO_VERSION_ID = "pro_version"
+    private val PRO_PLUS_VERSION_ID = "pro_version_plus"
+    private val PRO_PLUS_UPGRADE_ID = "pro_version_plus_upgrade"
+    private val productIds = listOf(PRO_VERSION_ID, PRO_PLUS_VERSION_ID, PRO_PLUS_UPGRADE_ID)
 
     private var billingClient: BillingClient? = null
     private var productDetailMap = mutableMapOf<String, ProductDetails>()
 
+    private var ownsProVersion = false
+    private var ownsProPlusVersion = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val themePreference = ThemePreference(this)
+        val themePreference = com.jlindemann.science.preferences.ThemePreference(this)
         val themePrefValue = themePreference.getValue()
 
         if (themePrefValue == 100) {
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                Configuration.UI_MODE_NIGHT_NO -> { setTheme(R.style.AppTheme) }
-                Configuration.UI_MODE_NIGHT_YES -> { setTheme(R.style.AppThemeDark) }
+                Configuration.UI_MODE_NIGHT_NO -> setTheme(R.style.AppTheme)
+                Configuration.UI_MODE_NIGHT_YES -> setTheme(R.style.AppThemeDark)
             }
         }
-        if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
-        if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
+        if (themePrefValue == 0) setTheme(R.style.AppTheme)
+        if (themePrefValue == 1) setTheme(R.style.AppThemeDark)
         setContentView(R.layout.activity_pro_v2)
-        findViewById<FrameLayout>(R.id.view_pro).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+
+        findViewById<TextView>(R.id.pro_buy_btn).setOnClickListener {
+            if (!ownsProVersion && !ownsProPlusVersion) {
+                productDetailMap[PRO_VERSION_ID]?.let { launchBillingFlow(it) }
+            }
+        }
+        findViewById<TextView>(R.id.pro_plus_buy_btn).setOnClickListener {
+            if (!ownsProPlusVersion) {
+                if (ownsProVersion) {
+                    productDetailMap[PRO_PLUS_UPGRADE_ID]?.let { launchBillingFlow(it) }
+                } else {
+                    productDetailMap[PRO_PLUS_VERSION_ID]?.let { launchBillingFlow(it) }
+                }
+            }
+        }
 
         findViewById<ImageButton>(R.id.back_btn_pro).setOnClickListener {
             this.onBackPressed()
         }
-        findViewById<TextView>(R.id.buy_btn).setOnClickListener {
-            try {
-                val productDetails = productDetailMap[NON_CONSUMABLE_PRODUCT_ID]
-                if (productDetails == null) {
-                    ToastUtil.showToast(this, "No products found")
-                } else {
-                    launchBillingFlow(productDetails) // Always start flow for "pro_version"
-                }
-            } catch (e: IOException) {
-                ToastUtil.showToast(this, "Try again")
-            }
+
+        // NEW: Handle click on "product_text"
+        findViewById<TextView>(R.id.product_text)?.setOnClickListener {
+            checkAndSetPreferences()
+            showUserProductsToast()
         }
-        findViewById<TextView>(R.id.product_text).setOnClickListener {
-            try {
-                val productDetails = productDetailMap[NON_CONSUMABLE_PRODUCT_ID]
-                if (productDetails == null) {
-                    ToastUtil.showToast(this, "No products found")
-                } else {
-                    launchBillingFlow(productDetails)
-                }
-            } catch (e: IOException) {
-                ToastUtil.showToast(this, "Try again")
-            }
-        }
-        val purchasesUpdateListener =
-            PurchasesUpdatedListener { billingResult, purchases ->
-                when (billingResult.responseCode) {
-                    BillingClient.BillingResponseCode.OK -> {
-                        if (purchases?.isNotEmpty() == true) {
-                            for (purchase in purchases) {
-                                lifecycleScope.launch {
-                                    val jsonString = purchase.originalJson
-                                    try {
-                                        val jsonObject = JSONObject(jsonString)
-                                        val productId = jsonObject.getString("productId")
-                                        if (productId == NON_CONSUMABLE_PRODUCT_ID) {
-                                            acknowledgePurchase(purchase)
-                                        }
-                                    } catch (e: Exception) {
-                                        println()
-                                        ToastUtil.showToast(this@ProActivity, "Error parsing JSON")
-                                    }
-                                }
+
+        val purchasesUpdateListener = PurchasesUpdatedListener { billingResult, purchases ->
+            when (billingResult.responseCode) {
+                BillingClient.BillingResponseCode.OK -> {
+                    if (purchases?.isNotEmpty() == true) {
+                        for (purchase in purchases) {
+                            lifecycleScope.launch {
+                                handlePurchase(purchase)
+                                updateProOptionsUI()
+                                updatePurchaseCardsUI()
                             }
                         }
                     }
                 }
             }
+        }
         initBillingClient(purchasesUpdateListener)
     }
 
-    private fun initBillingClient(purschasesUpdateListener: PurchasesUpdatedListener) {
+    private fun initBillingClient(purchasesUpdateListener: PurchasesUpdatedListener) {
+        val pendingPurchasesParams = PendingPurchasesParams.newBuilder()
+            .enableOneTimeProducts()
+            .build()
+
         billingClient = BillingClient.newBuilder(this)
-            .setListener(purschasesUpdateListener)
-            .enablePendingPurchases()
+            .setListener(purchasesUpdateListener)
+            .enablePendingPurchases(pendingPurchasesParams)
             .build()
         billingClient?.startConnection(this)
+
     }
 
     override fun onBillingServiceDisconnected() {
-        if (billingClient?.isReady == true) {
-            billingClient?.startConnection(this)
-        }
+        billingClient?.startConnection(this)
     }
 
     override fun onBillingSetupFinished(billingResult: BillingResult) {
-        val responseCode = billingResult.responseCode
-        if (responseCode == BillingClient.BillingResponseCode.OK) {
+        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
             queryProducts()
             queryPurchases()
         } else {
-            ToastUtil.showToast(this, responseCode.toString())
+            ToastUtil.showToast(this, billingResult.responseCode.toString())
         }
     }
 
@@ -185,24 +139,14 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
             billingClient?.queryProductDetails(queryProductDetailsParams)
         }
 
-        when (val responseCode = productDetailsResult?.billingResult?.responseCode) {
-            BillingClient.BillingResponseCode.OK -> {
-                productDetailsResult.productDetailsList?.forEach { productDetails ->
-                    productDetailMap[productDetails.productId] = productDetails
-                }
-                updateProTextPrice()
+        if (productDetailsResult?.billingResult?.responseCode == BillingClient.BillingResponseCode.OK) {
+            productDetailsResult.productDetailsList?.forEach { productDetails ->
+                productDetailMap[productDetails.productId] = productDetails
             }
-        }
-    }
-
-    private fun updateProTextPrice() {
-        val proText = findViewById<TextView>(R.id.pro_price)
-        val productDetails = productDetailMap[NON_CONSUMABLE_PRODUCT_ID]
-        if (productDetails != null) {
-            val price = productDetails.oneTimePurchaseOfferDetails?.formattedPrice
-            proText.text = price ?: "Price not available"
-        } else {
-            proText.text = "Price not available"
+            withContext(Dispatchers.Main) {
+                updateProOptionsUI()
+                updatePurchaseCardsUI()
+            }
         }
     }
 
@@ -211,117 +155,212 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
     }
 
     private fun queryPurchases(type: String) {
-        if (billingClient?.isReady == false) {
-            ToastUtil.showToast(this, "Billing client not ready")
-            return
-        }
         val queryPurchaseParams = QueryPurchasesParams.newBuilder()
             .setProductType(type)
             .build()
 
         billingClient?.queryPurchasesAsync(queryPurchaseParams) { billingResult, purchasesList ->
-            when (val responseCode = billingResult.responseCode) {
-                BillingClient.BillingResponseCode.OK -> {
-                    if (purchasesList.isNotEmpty()) {
-                        for (purchase in purchasesList) {
-                            lifecycleScope.launch {
-                                val jsonString = purchase.originalJson
-                                try {
-                                    val jsonObject = JSONObject(jsonString)
-                                    val productId = jsonObject.getString("productId")
-                                    if (productId == NON_CONSUMABLE_PRODUCT_ID)
-                                        acknowledgePurchase(purchase)
-                                } catch (e: java.lang.Exception){
-                                    ToastUtil.showToast(this@ProActivity, e.message.toString())
-                                }
-                            }
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                ownsProVersion = false
+                ownsProPlusVersion = false
+                if (purchasesList.isNotEmpty()) {
+                    for (purchase in purchasesList) {
+                        lifecycleScope.launch {
+                            val jsonObject = JSONObject(purchase.originalJson)
+                            val productId = jsonObject.getString("productId")
+                            if (productId == PRO_VERSION_ID) ownsProVersion = true
+                            if (productId == PRO_PLUS_VERSION_ID || productId == PRO_PLUS_UPGRADE_ID) ownsProPlusVersion = true
                         }
                     }
                 }
+                updateProOptionsUI()
+                updatePurchaseCardsUI()
             }
         }
     }
 
-    private suspend fun acknowledgePurchase(purchase: Purchase) {
-        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
-            if (!purchase.isAcknowledged) {
-                val acknowledgePurchaseParams = AcknowledgePurchaseParams.newBuilder()
-                    .setPurchaseToken(purchase.purchaseToken)
-                withContext(Dispatchers.IO) {
-                    billingClient?.acknowledgePurchase(acknowledgePurchaseParams.build())
-                    { billingResult ->
-                        when (val responseCode = billingResult.responseCode) {
-                            BillingClient.BillingResponseCode.OK -> {
-                                showMemberInfo() //purschase accepted
-                            }
-                            else -> {
-                                ToastUtil.showToast(this@ProActivity, "Error")
-                            }
-                        }
+    // Function to set preferences based on account products
+    private fun checkAndSetPreferences() {
+        val proPref = ProVersion(this)
+        val proPlusPref = ProPlusVersion(this)
+        when {
+            ownsProVersion && !ownsProPlusVersion -> {
+                proPref.setValue(100)
+                proPlusPref.setValue(1)
+            }
+            ownsProPlusVersion -> {
+                proPref.setValue(100)
+                proPlusPref.setValue(100)
+            }
+            else -> {
+                proPref.setValue(1)
+                proPlusPref.setValue(1)
+            }
+        }
+        ToastUtil.showToast(this, "Preferences updated according to your products.")
+    }
 
+    private fun showUserProductsToast() {
+        val productsOwned = when {
+            ownsProPlusVersion -> "PRO Plus"
+            ownsProVersion -> "PRO"
+            else -> "None"
+        }
+        Toast.makeText(
+            this,
+            "Products on account: $productsOwned",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
+    private suspend fun handlePurchase(purchase: Purchase) {
+        val jsonObject = JSONObject(purchase.originalJson)
+        val productId = jsonObject.getString("productId")
+        val proPref = ProVersion(this)
+        val proPlusPref = ProPlusVersion(this)
+
+        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED && !purchase.isAcknowledged) {
+            val params = AcknowledgePurchaseParams.newBuilder().setPurchaseToken(purchase.purchaseToken).build()
+            withContext(Dispatchers.IO) {
+                billingClient?.acknowledgePurchase(params) { result ->
+                    if (result.responseCode == BillingClient.BillingResponseCode.OK) {
+                        ToastUtil.showToast(this@ProActivity, "Purchase successful!")
+                        if (productId == PRO_VERSION_ID) {
+                            ownsProVersion = true
+                            proPref.setValue(100)
+                            proPlusPref.setValue(1)
+                        }
+                        if (productId == PRO_PLUS_VERSION_ID || productId == PRO_PLUS_UPGRADE_ID) {
+                            ownsProPlusVersion = true
+                            proPref.setValue(100)
+                            proPlusPref.setValue(100)
+                        }
+                        updateProOptionsUI()
+                        updatePurchaseCardsUI()
                     }
                 }
             }
-            else {
-                showMemberInfo()
+        } else {
+            if (productId == PRO_VERSION_ID) {
+                ownsProVersion = true
+                proPref.setValue(100)
+                proPlusPref.setValue(1)
             }
+            if (productId == PRO_PLUS_VERSION_ID || productId == PRO_PLUS_UPGRADE_ID) {
+                ownsProPlusVersion = true
+                proPref.setValue(100)
+                proPlusPref.setValue(100)
+            }
+            updateProOptionsUI()
+            updatePurchaseCardsUI()
+        }
+    }
+
+    private fun getFormattedPrice(productDetails: ProductDetails?): String {
+        val formattedPrice = productDetails?.oneTimePurchaseOfferDetails?.formattedPrice
+        return formattedPrice ?: "Price not available"
+    }
+
+    // Update preferences and buy buttons when displaying UI
+    private fun updateProOptionsUI() {
+        val proBuyBtn = findViewById<TextView>(R.id.pro_buy_btn)
+        val proPlusBuyBtn = findViewById<TextView>(R.id.pro_plus_buy_btn)
+        val proPriceView = findViewById<TextView>(R.id.pro_price)
+        val proPlusPriceView = findViewById<TextView>(R.id.pro_plus_price)
+        val proPref = ProVersion(this)
+        val proPlusPref = ProPlusVersion(this)
+
+        if (ownsProVersion && !ownsProPlusVersion) {
+            proBuyBtn.isEnabled = false
+            proBuyBtn.text = "Current Version"
+            proPriceView.text = "---"
+            // Update preference to 100 for ProVersion
+            proPref.setValue(100)
+            proPlusPref.setValue(1)
+        } else if (ownsProPlusVersion) {
+            proBuyBtn.isEnabled = false
+            proBuyBtn.text = "Owns PRO+"
+            proPriceView.text = "---"
+            // Update preference to 100 for both
+            proPref.setValue(100)
+            proPlusPref.setValue(100)
+        } else {
+            proBuyBtn.isEnabled = true
+            proBuyBtn.text = "Get PRO"
+            val productDetails = productDetailMap[PRO_VERSION_ID]
+            proPriceView.text = getFormattedPrice(productDetails)
+            // Reset preferences if neither owned
+            proPref.setValue(1)
+            proPlusPref.setValue(1)
+        }
+
+        if (ownsProPlusVersion) {
+            proPlusBuyBtn.isEnabled = false
+            proPlusBuyBtn.text = "Current Version"
+            proPlusPriceView.text = "---"
+        } else if (ownsProVersion && !ownsProPlusVersion) {
+            proPlusBuyBtn.isEnabled = true
+            proPlusBuyBtn.text = "Upgrade to PRO+"
+            val upgradeDetails = productDetailMap[PRO_PLUS_UPGRADE_ID]
+            proPlusPriceView.text = getFormattedPrice(upgradeDetails)
+        } else {
+            proPlusBuyBtn.isEnabled = true
+            proPlusBuyBtn.text = "Get PRO+"
+            val productDetails = productDetailMap[PRO_PLUS_VERSION_ID]
+            proPlusPriceView.text = getFormattedPrice(productDetails)
+        }
+    }
+
+    // Update cards or other purchase UI
+    private fun updatePurchaseCardsUI() {
+        // Example: update card backgrounds or visibility based on ownership
+        val proCard = findViewById<FrameLayout>(R.id.pro_bg)
+        val proPlusCard = findViewById<FrameLayout>(R.id.pro_plus_bg)
+
+        if (ownsProPlusVersion) {
+            proCard?.alpha = 0.5f
+            proPlusCard?.alpha = 0.5f
+        } else if (ownsProVersion) {
+            proCard?.alpha = 0.5f
+            proPlusCard?.alpha = 1.0f
+        } else {
+            proCard?.alpha = 1.0f
+            proPlusCard?.alpha = 1.0f
         }
     }
 
     private fun launchBillingFlow(productDetails: ProductDetails) {
-        try {
-            val productDetailsParamsList =
+        val billingFlowParams = BillingFlowParams.newBuilder()
+            .setProductDetailsParamsList(
                 listOf(
                     BillingFlowParams.ProductDetailsParams.newBuilder()
                         .setProductDetails(productDetails)
                         .build()
                 )
-            val billingFlowParams = BillingFlowParams.newBuilder()
-                .setProductDetailsParamsList(productDetailsParamsList)
-                .build()
-            if (billingClient?.isReady == false) {
-                ToastUtil.showToast(this, "Billing client not ready, try again!")
-            }
-            val billingResult = billingClient?.launchBillingFlow(this, billingFlowParams)
-
-            when (val responseCode = billingResult?.responseCode) {
-                BillingClient.BillingResponseCode.OK -> {
-                    val proPref = ProVersion(this@ProActivity)
-                    var proPrefValue = proPref.getValue()
-                }
-            }
+            )
+            .build()
+        if (billingClient?.isReady == false) {
+            ToastUtil.showToast(this, "Billing client not ready, try again!")
+            return
         }
-        catch (e: IOException) {
-            ToastUtil.showToast(this, "Try again")
-        }
-    }
-
-    private fun showMemberInfo() {
-        val proPref = ProVersion(this@ProActivity)
-        var proPrefValue = proPref.getValue()
-        proPref.setValue(100)
-        findViewById<TextView>(R.id.pro_title_view).text = "You are getting more out of Atomic"
-        val drawable = ContextCompat.getDrawable(this, R.drawable.ic_lock_open)
-        findViewById<TextView>(R.id.pro_data_lock).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
-        findViewById<TextView>(R.id.pro_table_lock).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
-        findViewById<TextView>(R.id.pro_visualisation_lock).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
-        findViewById<TextView>(R.id.pro_calculator_lock).setCompoundDrawablesWithIntrinsicBounds(drawable, null, null, null)
-        findViewById<FrameLayout>(R.id.pro_purschase_box).visibility = View.GONE
-        findViewById<TextView>(R.id.product_title).visibility = View.GONE
-        findViewById<TextView>(R.id.product_text).visibility = View.GONE
+        billingClient?.launchBillingFlow(this, billingFlowParams)
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_pro).layoutParams as ViewGroup.LayoutParams
-        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_pro).layoutParams = params
+        val titleBarHeight = resources.getDimensionPixelSize(R.dimen.title_bar)
+        val navBarHeight = resources.getDimensionPixelSize(R.dimen.nav_bar)
+        val titleFrame = findViewById<FrameLayout>(R.id.common_title_back_pro)
+        val purchaseBox = findViewById<FrameLayout>(R.id.pro_purschase_box)
+        val proLinear = findViewById<LinearLayout>(R.id.pro_linear)
 
-        findViewById<LinearLayout>(R.id.pro_linear).setPadding(0, top, 0, 0)
+        val titleParams = titleFrame.layoutParams as ViewGroup.LayoutParams
+        titleParams.height = top + titleBarHeight
+        titleFrame.layoutParams = titleParams
 
-        val params2 = findViewById<FrameLayout>(R.id.pro_purschase_box).layoutParams as ViewGroup.LayoutParams
-        params2.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_bar)
-        findViewById<FrameLayout>(R.id.pro_purschase_box).layoutParams = params2
+        proLinear.setPadding(0, top, 0, 0)
 
+        val purchaseParams = purchaseBox.layoutParams as ViewGroup.LayoutParams
+        purchaseParams.height = bottom + navBarHeight
+        purchaseBox.layoutParams = purchaseParams
     }
-
 }

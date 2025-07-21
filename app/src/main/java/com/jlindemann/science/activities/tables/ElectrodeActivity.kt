@@ -115,7 +115,7 @@ class ElectrodeActivity : BaseActivity() {
     private fun filter(text: String, list: ArrayList<Series>, recyclerView: RecyclerView) {
         val filteredList: ArrayList<Series> = ArrayList()
         for (item in list) {
-            if (item.name.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
+            if (item.name.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))) {
                 filteredList.add(item)
             }
         }

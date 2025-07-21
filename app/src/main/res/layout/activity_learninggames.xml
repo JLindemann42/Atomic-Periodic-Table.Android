@@ -102,6 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/toast_card"
+            android:backgroundTint="?attr/colorSurfaceVariant"
             android:orientation="vertical"
             android:padding="32dp"
             android:layout_margin="24dp"
@@ -115,6 +116,7 @@
                 android:layout_height="wrap_content"
                 android:text="Correct"
                 android:textSize="26sp"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:paddingBottom="12dp"/>
@@ -123,11 +125,16 @@
                 android:id="@+id/result_subtext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="?attr/colorAccent"
                 android:text=""
                 android:textSize="18sp"
                 android:gravity="center"/>
         </LinearLayout>
     </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/quiz_content"
@@ -193,6 +200,7 @@
                 android:layout_rowWeight="1"
                 android:orientation="vertical"
                 android:background="@drawable/card_button_bg"
+                android:backgroundTint="?attr/colorSurfaceVariant"
                 android:gravity="center"
                 android:clickable="true"
                 android:focusable="true"
@@ -203,6 +211,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Option 1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="18sp"
                     android:gravity="center"
                     android:padding="8dp"/>
@@ -217,6 +226,7 @@
                 android:layout_rowWeight="1"
                 android:orientation="vertical"
                 android:background="@drawable/card_button_bg"
+                android:backgroundTint="?attr/colorSurfaceVariant"
                 android:gravity="center"
                 android:clickable="true"
                 android:focusable="true"
@@ -227,6 +237,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Option 2"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="18sp"
                     android:gravity="center"
                     android:padding="8dp"/>
@@ -241,6 +252,7 @@
                 android:layout_rowWeight="1"
                 android:orientation="vertical"
                 android:background="@drawable/card_button_bg"
+                android:backgroundTint="?attr/colorSurfaceVariant"
                 android:gravity="center"
                 android:clickable="true"
                 android:focusable="true"
@@ -251,6 +263,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Option 3"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="18sp"
                     android:gravity="center"
                     android:padding="8dp"/>
@@ -265,6 +278,7 @@
                 android:layout_rowWeight="1"
                 android:orientation="vertical"
                 android:background="@drawable/card_button_bg"
+                android:backgroundTint="?attr/colorSurfaceVariant"
                 android:gravity="center"
                 android:clickable="true"
                 android:focusable="true"
@@ -275,6 +289,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Option 4"
+                    android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="18sp"
                     android:gravity="center"
                     android:padding="8dp"/>
@@ -294,4 +309,5 @@
             android:layout_marginTop="24dp"
             android:layout_gravity="center"/>
     </LinearLayout>
+    </ScrollView>
 </FrameLayout>

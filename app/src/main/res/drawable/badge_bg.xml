@@ -1,0 +1,6 @@
+<!-- For "Most popular" badge -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#7AD7CF"/>
+    <corners android:radius="8dp"/>
+</shape>

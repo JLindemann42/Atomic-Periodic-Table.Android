@@ -4,7 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/toast_card"
-    android:layout_margin="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="16dp"
+
     android:layout_height="match_parent">
 
     <!-- Cards of unlocks in PRO Version -->
@@ -24,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="textStart"
-        android:text="In the following table features included in the PRO Version are detailed:"
+        android:text="In the following table features included in the FREE, PRO, and PRO+ Versions are detailed:"
         android:layout_marginStart="@dimen/margin"
         android:layout_marginEnd="@dimen/margin"
         android:textColor="?attr/colorOnSecondaryContainer"
@@ -39,68 +43,97 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <FrameLayout
+        <!-- Table Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:alpha="1.0"
-                android:text="Properties and Features:"/>
+                android:text="Features:"/>
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="48dp"
+                android:layout_weight="1"
                 android:background="@drawable/toast"
                 android:backgroundTint="?attr/colorOnSecondaryContainer"
                 android:textColor="?attr/colorSecondaryContainer"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
                 android:alpha="0.7"
-                android:textSize="12sp"
-                android:layout_gravity="end"
+                android:textSize="11sp"
+                android:gravity="center"
                 android:text="FREE" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:layout_weight="1"
                 android:background="@drawable/toast"
                 android:backgroundTint="?attr/colorAccent"
                 android:textColor="?attr/colorOnPrimary"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
-                android:layout_gravity="end"
+                android:gravity="center"
+                android:textSize="11sp"
                 android:text="PRO" />
-        </FrameLayout>
 
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorError"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:textColor="?attr/colorOnPrimary"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:gravity="center"
+                android:textSize="11sp"
+                android:text="PRO+" />
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
@@ -108,38 +141,54 @@
                 android:alpha="0.7"
                 android:text="Element Overview:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorTertiary"/>
 
+            <!-- PRO -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
@@ -147,38 +196,54 @@
                 android:alpha="0.7"
                 android:text="Isotopes:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
-                android:src="@drawable/ic_check"
-                app:tint="?attr/colorTertiary"/>
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
@@ -186,38 +251,54 @@
                 android:alpha="0.7"
                 android:text="Dictionary:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
-                android:src="@drawable/ic_check"
-                app:tint="?attr/colorTertiary"/>
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
@@ -225,38 +306,54 @@
                 android:alpha="0.7"
                 android:text="Favorite Bar:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
-                android:src="@drawable/ic_check"
-                app:tint="?attr/colorTertiary"/>
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
@@ -264,38 +361,54 @@
                 android:alpha="0.7"
                 android:text="Nuclide Table:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
                 app:tint="?attr/colorError"/>
 
+            <!-- PRO -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
@@ -303,77 +416,164 @@
                 android:alpha="0.7"
                 android:text="Save Calculations:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
                 app:tint="?attr/colorError"/>
 
+            <!-- PRO -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Additional Data Visualisations:"/>
+                android:text="Save Units:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
                 app:tint="?attr/colorError"/>
 
+            <!-- PRO -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Data Visualisations:"/>
+
+            <!-- FREE -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.26"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
@@ -381,38 +581,54 @@
                 android:alpha="0.7"
                 android:text="Hardness Properties:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
                 app:tint="?attr/colorError"/>
 
+            <!-- PRO -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
@@ -420,77 +636,109 @@
                 android:alpha="0.7"
                 android:text="Young-, Bulk-, Shear modulus:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
                 app:tint="?attr/colorError"/>
 
+            <!-- PRO -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Poisson's Constant, Sound of Speed:"/>
+                android:text="Poisson's Constants, Sound of Speed:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
                 app:tint="?attr/colorError"/>
 
+            <!-- PRO -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
@@ -498,38 +746,54 @@
                 android:alpha="0.7"
                 android:text="Hazard of Materials:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
                 app:tint="?attr/colorError"/>
 
+            <!-- PRO -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
@@ -537,38 +801,54 @@
                 android:alpha="0.7"
                 android:text="Constants Table:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
                 app:tint="?attr/colorError"/>
 
+            <!-- PRO -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
@@ -576,38 +856,54 @@
                 android:alpha="0.7"
                 android:text="Geology Table:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
                 app:tint="?attr/colorError"/>
 
+            <!-- PRO -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
@@ -615,38 +911,54 @@
                 android:alpha="0.7"
                 android:text="Poisson's Ratio Table:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
                 app:tint="?attr/colorError"/>
 
+            <!-- PRO -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
 
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0.25"
+            android:alpha="0.26"
             android:background="?attr/colorOnSecondaryContainer" />
 
-        <FrameLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_width="match_parent">
+            android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
+                android:layout_weight="6"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
@@ -654,21 +966,258 @@
                 android:alpha="0.7"
                 android:text="Emission Spectrum Table:"/>
 
+            <!-- FREE -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="40dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
                 app:tint="?attr/colorError"/>
 
+            <!-- PRO -->
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="0dp"
                 android:layout_height="24dp"
-                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorAccent"/>
-        </FrameLayout>
+
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.26"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="6"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="50 lives in Flashcards:"/>
+
+            <!-- FREE -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.26"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="6"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Unlimited lives in Flashcards:"/>
+
+            <!-- FREE -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.26"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="6"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Additional Flashcards games:"/>
+
+            <!-- FREE -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+        <!-- Divider -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.26"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="6"
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="Early Access to new Features:"/>
+
+            <!-- FREE -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+        <!-- Divider -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.26"
+            android:background="?attr/colorOnSecondaryContainer" />
 
 
     </LinearLayout>

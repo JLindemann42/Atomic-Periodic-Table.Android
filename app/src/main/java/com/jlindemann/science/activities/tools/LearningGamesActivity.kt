@@ -118,7 +118,6 @@ class LearningGamesActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         showExitConfirmationDialog()
     }
 
@@ -685,9 +684,19 @@ class LearningGamesActivity : BaseActivity() {
     }
 
     override fun updateLivesCount() {
-        val lives = LivesManager.getLives(this)
-        findViewById<TextView>(R.id.tv_lives_count).text = lives.toString()
-        findViewById<TextView>(R.id.tv_lives).text = "Lives: $lives"
+        // MODIFIED: Show "∞" (infinity) if ProPlusVersion == 100
+        val proPlusPref = com.jlindemann.science.preferences.ProPlusVersion(this)
+        val isInfinite = proPlusPref.getValue() == 100
+        val livesTextView = findViewById<TextView>(R.id.tv_lives_count)
+        val livesLabelView = findViewById<TextView>(R.id.tv_lives)
+        if (isInfinite) {
+            livesTextView.text = "∞"
+            livesLabelView.text = "Lives: ∞"
+        } else {
+            val lives = LivesManager.getLives(this)
+            livesTextView.text = lives.toString()
+            livesLabelView.text = "Lives: $lives"
+        }
     }
 
     override fun onResume() {

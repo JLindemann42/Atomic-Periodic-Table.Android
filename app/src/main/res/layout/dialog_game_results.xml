@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/toast_card"
+        android:backgroundTint="?attr/colorSurfaceVariant"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginTop="100dp"
@@ -27,6 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Game Results"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:layout_gravity="center_horizontal"/>
@@ -36,6 +38,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="end"
+                android:tint="?attr/colorOnSurfaceVariant"
                 android:src="@drawable/ic_close"
                 android:background="@android:color/transparent"
                 android:contentDescription="Close" />
@@ -48,6 +51,8 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:alpha="0.9"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="8dp"
@@ -60,6 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+
             android:layout_marginBottom="8dp"
             android:layout_marginTop="4dp">
 
@@ -68,6 +74,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total XP: 0"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:alpha="0.9"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_gravity="center_horizontal"

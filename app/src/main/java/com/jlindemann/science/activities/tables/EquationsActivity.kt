@@ -136,7 +136,7 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
     private fun filter(text: String, list: ArrayList<Equation>, recyclerView: RecyclerView) {
         val filteredList: ArrayList<Equation> = ArrayList()
         for (item in list) {
-            if (item.equationTitle.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
+            if (item.equationTitle.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))) {
                 filteredList.add(item)
             }
         }
