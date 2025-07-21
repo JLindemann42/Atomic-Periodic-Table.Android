@@ -4,7 +4,6 @@
     "wikilink": "https://en.wikipedia.org/wiki/Actinium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Radium226.jpg",
     "description": "Actinium is a chemical element with the symbol Ac and atomic number 89. It was first isolated by French chemist André-Louis Debierne in 1899. Friedrich Oskar Giesel later independently isolated it in 1902 and, unaware that it was already known, gave it the name emanium. Actinium gave the name to the actinide series, a group of 15 similar elements between actinium and lawrencium in the periodic table. It is also sometimes considered the first of the 7th-period transition metals, although lawrencium is less commonly given that position. Together with polonium, radium, and radon, actinium was one of the first non-primordial radioactive elements to be isolated.",
-
     "element": "Actinium",
     "short": "Ac",
     "element_year": "1902",
@@ -14,16 +13,13 @@
     "element_electrons": "89",
     "element_protons": "89",
     "element_neutron_common": "138",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "515 (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "0.6",
-
     "element_atomic_number": "89",
     "element_atomicmass": "227 (u)",
     "element_density": "10 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "d - block",
     "element_shells_electrons": "K2 L8 M18 N32 O18 P9 Q2 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Electron_shell_089_Actinium_-_no_label.svg/800px-Electron_shell_089_Actinium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "3500 (K)",
     "element_boiling_celsius": "3200 (°C)",
     "element_boiling_fahrenheit": "5800 (°F)",
     "element_melting_kelvin": "1500 (K)",
     "element_melting_celsius": "1227 (°C)",
     "element_melting_fahrenheit": "2240 (°F)",
-
     "element_electron_config": "6d^1, 7s^2",
     "element_ion_charge": "Ac^4+",
     "element_ionization_energy1": "5.17 (eV)",
@@ -47,19 +41,14 @@
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "14 (kJ/mol)",
     "element_specific_heat_capacity": "0.120 J/(g·K)",
     "element_vaporization_heat": "400 (kJ/mol)",
-
     "oxidation_state_neg": "",
     "oxidation_state_pos": "3",
-
     "cas_number": "7440-34-8",
     "eg_number": "231-144-4",
-
-
     "iso_1": "Actinium-203",
     "iso_mass_1": "203",
     "decay_type_1": "α",
@@ -67,7 +56,6 @@
     "iso_Z_1": "89",
     "iso_N_1": "114",
     "iso_A_1": "203",
-
     "iso_2": "Actinium-204",
     "iso_mass_2": "204",
     "decay_type_2": "α",
@@ -75,7 +63,6 @@
     "iso_Z_2": "89",
     "iso_N_2": "115",
     "iso_A_2": "204",
-
     "iso_3": "Actinium-205",
     "iso_mass_3": "205",
     "decay_type_3": "α",
@@ -83,7 +70,6 @@
     "iso_Z_3": "89",
     "iso_N_3": "116",
     "iso_A_3": "205",
-
     "iso_4": "Actinium-206",
     "iso_mass_4": "206",
     "decay_type_4": "α",
@@ -91,7 +77,6 @@
     "iso_Z_4": "89",
     "iso_N_4": "117",
     "iso_A_4": "206",
-
     "iso_5": "Actinium-207",
     "iso_mass_5": "207",
     "decay_type_5": "α",
@@ -99,7 +84,6 @@
     "iso_Z_5": "89",
     "iso_N_5": "118",
     "iso_A_5": "207",
-
     "iso_6": "Actinium-208",
     "iso_mass_6": "208",
     "decay_type_6": "α",
@@ -107,7 +91,6 @@
     "iso_Z_6": "89",
     "iso_N_6": "119",
     "iso_A_6": "208",
-
     "iso_7": "Actinium-209",
     "iso_mass_7": "209",
     "decay_type_7": "α",
@@ -115,7 +98,6 @@
     "iso_Z_7": "89",
     "iso_N_7": "120",
     "iso_A_7": "209",
-
     "iso_8": "Actinium-210",
     "iso_mass_8": "210",
     "decay_type_8": "α",
@@ -123,7 +105,6 @@
     "iso_Z_8": "89",
     "iso_N_8": "121",
     "iso_A_8": "210",
-
     "iso_9": "Actinium-211",
     "iso_mass_9": "211",
     "decay_type_9": "α",
@@ -131,7 +112,6 @@
     "iso_Z_9": "89",
     "iso_N_9": "122",
     "iso_A_9": "211",
-
     "iso_10": "Actinium-212",
     "iso_mass_10": "212",
     "decay_type_10": "α",
@@ -139,7 +119,6 @@
     "iso_Z_10": "89",
     "iso_N_10": "123",
     "iso_A_10": "212",
-
     "iso_11": "Actinium-213",
     "iso_mass_11": "213",
     "decay_type_11": "α",
@@ -147,7 +126,6 @@
     "iso_Z_11": "89",
     "iso_N_11": "124",
     "iso_A_11": "213",
-
     "iso_12": "Actinium-214",
     "iso_mass_12": "214",
     "decay_type_12": "α",
@@ -155,7 +133,6 @@
     "iso_Z_12": "89",
     "iso_N_12": "125",
     "iso_A_12": "214",
-
     "iso_13": "Actinium-215",
     "iso_mass_13": "215",
     "decay_type_13": "α",
@@ -163,7 +140,6 @@
     "iso_Z_13": "89",
     "iso_N_13": "126",
     "iso_A_13": "215",
-
     "iso_14": "Actinium-216",
     "iso_mass_14": "216",
     "decay_type_14": "α",
@@ -171,7 +147,6 @@
     "iso_Z_14": "89",
     "iso_N_14": "127",
     "iso_A_14": "216",
-
     "iso_15": "Actinium-217",
     "iso_mass_15": "217",
     "decay_type_15": "α",
@@ -179,7 +154,6 @@
     "iso_Z_15": "89",
     "iso_N_15": "128",
     "iso_A_15": "217",
-
     "iso_16": "Actinium-218",
     "iso_mass_16": "218",
     "decay_type_16": "α",
@@ -187,7 +161,6 @@
     "iso_Z_16": "89",
     "iso_N_16": "129",
     "iso_A_16": "218",
-
     "iso_17": "Actinium-219",
     "iso_mass_17": "219",
     "decay_type_17": "α",
@@ -195,7 +168,6 @@
     "iso_Z_17": "89",
     "iso_N_17": "130",
     "iso_A_17": "219",
-
     "iso_18": "Actinium-220",
     "iso_mass_18": "220",
     "decay_type_18": "α",
@@ -203,7 +175,6 @@
     "iso_Z_18": "89",
     "iso_N_18": "131",
     "iso_A_18": "220",
-
     "iso_19": "Actinium-221",
     "iso_mass_19": "221",
     "decay_type_19": "α",
@@ -211,7 +182,6 @@
     "iso_Z_19": "89",
     "iso_N_19": "132",
     "iso_A_19": "221",
-
     "iso_20": "Actinium-222",
     "iso_mass_20": "222",
     "decay_type_20": "α",
@@ -219,7 +189,6 @@
     "iso_Z_20": "89",
     "iso_N_20": "133",
     "iso_A_20": "222",
-
     "iso_21": "Actinium-223",
     "iso_mass_21": "223",
     "decay_type_21": "α",
@@ -227,7 +196,6 @@
     "iso_Z_21": "89",
     "iso_N_21": "134",
     "iso_A_21": "223",
-
     "iso_22": "Actinium-224",
     "iso_mass_22": "224",
     "decay_type_22": "α",
@@ -235,7 +203,6 @@
     "iso_Z_22": "89",
     "iso_N_22": "135",
     "iso_A_22": "224",
-
     "iso_23": "Actinium-225",
     "iso_mass_23": "225",
     "decay_type_23": "α",
@@ -243,7 +210,6 @@
     "iso_Z_23": "89",
     "iso_N_23": "136",
     "iso_A_23": "225",
-
     "iso_24": "Actinium-226",
     "iso_mass_24": "226",
     "decay_type_24": "B-",
@@ -251,7 +217,6 @@
     "iso_Z_24": "89",
     "iso_N_24": "137",
     "iso_A_24": "226",
-
     "iso_25": "Actinium-227",
     "iso_mass_25": "227",
     "decay_type_25": "B-",
@@ -259,7 +224,6 @@
     "iso_Z_25": "89",
     "iso_N_25": "138",
     "iso_A_25": "227",
-
     "iso_26": "Actinium-228",
     "iso_mass_26": "228",
     "decay_type_26": "B-",
@@ -267,7 +231,6 @@
     "iso_Z_26": "89",
     "iso_N_26": "139",
     "iso_A_26": "228",
-
     "iso_27": "Actinium-229",
     "iso_mass_27": "229",
     "decay_type_27": "B-",
@@ -275,7 +238,6 @@
     "iso_Z_27": "89",
     "iso_N_27": "140",
     "iso_A_27": "229",
-
     "iso_28": "Actinium-230",
     "iso_mass_28": "230",
     "decay_type_28": "B-",
@@ -283,7 +245,6 @@
     "iso_Z_28": "89",
     "iso_N_28": "141",
     "iso_A_28": "230",
-
     "iso_29": "Actinium-231",
     "iso_mass_29": "231",
     "decay_type_29": "B-",
@@ -291,7 +252,6 @@
     "iso_Z_29": "89",
     "iso_N_29": "142",
     "iso_A_29": "231",
-
     "iso_30": "Actinium-232",
     "iso_mass_30": "232",
     "decay_type_30": "B-",
@@ -299,7 +259,6 @@
     "iso_Z_30": "89",
     "iso_N_30": "143",
     "iso_A_30": "232",
-
     "iso_31": "Actinium-233",
     "iso_mass_31": "233",
     "decay_type_31": "B-",
@@ -307,7 +266,6 @@
     "iso_Z_31": "89",
     "iso_N_31": "144",
     "iso_A_31": "233",
-
     "iso_32": "Actinium-234",
     "iso_mass_32": "234",
     "decay_type_32": "B-",
@@ -315,7 +273,6 @@
     "iso_Z_32": "89",
     "iso_N_32": "145",
     "iso_A_32": "234",
-
     "iso_33": "Actinium-235",
     "iso_mass_33": "235",
     "decay_type_33": "B-",
@@ -323,7 +280,6 @@
     "iso_Z_33": "89",
     "iso_N_33": "146",
     "iso_A_33": "235",
-
     "iso_34": "Actinium-236",
     "iso_mass_34": "236",
     "decay_type_34": "B-",
@@ -331,7 +287,6 @@
     "iso_Z_34": "89",
     "iso_N_34": "147",
     "iso_A_34": "236",
-
     "iso_35": "Actinium-237",
     "iso_mass_35": "237",
     "decay_type_35": "B-",
@@ -339,7 +294,6 @@
     "iso_Z_35": "89",
     "iso_N_35": "148",
     "iso_A_35": "237",
-
     "iso_36": "Actinium-238",
     "iso_mass_36": "238",
     "decay_type_36": "B-",
@@ -347,13 +301,20 @@
     "iso_Z_36": "89",
     "iso_N_36": "149",
     "iso_A_36": "238",
-
     "iso_37": "Actinium-239",
     "iso_mass_37": "239",
     "decay_type_37": "B-",
     "iso_half_37": "10.2 minutes",
     "iso_Z_37": "89",
     "iso_N_37": "150",
-    "iso_A_37": "239"
+    "iso_A_37": "239",
+    "crystal_structure": "Face-centered cubic (fcc)",
+    "lattice_constants": {
+      "a": "5.31 Å"
+    },
+    "debye_temperature": {
+      "low_temperature_limit": "165 K",
+      "room_temperature": "145 K"
+    }
   }
 ]

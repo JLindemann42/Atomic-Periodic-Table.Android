@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/toast"
+    android:backgroundTint="?attr/colorSurface"
+    android:elevation="8dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/half_up_toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:alpha="0.11"/>
+
+            <TextView
+                android:id="@+id/year_discovered"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:clickable="true"
+                android:drawablePadding="9dp"
+                android:drawableTint="?attr/colorOnPrimaryContainer"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple"
+                android:gravity="center_vertical"
+                android:padding="9dp"
+                android:paddingEnd="36dp"
+                android:text="Year Discovered"
+                android:textColor="?attr/colorOnPrimaryContainer" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
+        <TextView
+            android:id="@+id/atomic_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:drawablePadding="9dp"
+            android:drawableTint="?attr/colorOnPrimaryContainer"
+            android:focusable="true"
+            android:foreground="@drawable/d_ripple"
+            android:gravity="center_vertical"
+            android:padding="9dp"
+            android:paddingEnd="36dp"
+            android:text="Atomic Number"
+            android:textColor="?attr/colorOnPrimaryContainer" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/half_down_toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:alpha="0.11"/>
+
+        <TextView
+            android:id="@+id/atomic_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:clickable="true"
+            android:drawablePadding="9dp"
+            android:drawableTint="?attr/colorOnPrimaryContainer"
+            android:focusable="true"
+            android:foreground="@drawable/d_ripple"
+            android:gravity="center_vertical"
+            android:padding="9dp"
+            android:paddingEnd="36dp"
+            android:text="Atomic Weight"
+            android:textColor="?attr/colorOnPrimaryContainer" />
+
+        </FrameLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

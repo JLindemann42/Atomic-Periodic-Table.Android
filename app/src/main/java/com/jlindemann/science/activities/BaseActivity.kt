@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jlindemann.science.R
 import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
+import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.utils.Pasteur
 
 abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListener {
@@ -60,5 +61,17 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
                 achievement.markToastShown(this)
             }
         }
+    }
+    open fun updateLivesCount() {
+        val lives = LivesManager.getLives(this)
+        val maxLives = LivesManager.getMaxLives(this)
+        val livesDisplay = if (maxLives == Int.MAX_VALUE) "∞" else lives.toString()
+
+        // Try both possible IDs (XML may differ between screens)
+        val livesCountView = findViewById<TextView?>(R.id.tv_lives_count)
+        livesCountView?.text = livesDisplay
+
+        val livesLabelView = findViewById<TextView?>(R.id.tv_lives)
+        livesLabelView?.text = "Lives: $livesDisplay"
     }
 }

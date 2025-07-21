@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AASoCBrA26pm7vptSZZ",
+    "element_code": "AASoCBrA26pm7vptSZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Hassium",
     "link": "empty",
     "description": "Hassium is a chemical element with the symbol Hs and the atomic number 108. Hassium is highly radioactive; the most stable known isotope, Hs-269, has a half-life of approximately 16 seconds. One of its isotopes, Hs-270, has magic numbers of both protons and neutrons for deformed nuclei, which gives it greater stability against spontaneous fission. Hassium has only been produced in a laboratory, in very small quantities. Natural occurrences of the element have been hypothesised, but none has ever been found.",
-
     "element": "Hassium",
     "short": "Hs",
     "element_year": "---",
@@ -14,16 +13,13 @@
     "element_electrons": "---",
     "element_protons": "---",
     "element_neutron_common": "---",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "767 (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "---",
     "superconducting_point": "---",
-
     "element_atomic_number": "108",
     "element_atomicmass": "269 (u)",
     "element_density": "--- (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "d - block",
     "element_shells_electrons": "K2 L8 M18 N32 O32 P14 Q2 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Electron_shell_108_Hassium_-_no_label.svg/800px-Electron_shell_108_Hassium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "--- (K)",
     "element_boiling_celsius": "--- (°C)",
     "element_boiling_fahrenheit": "--- (°F)",
     "element_melting_kelvin": "--- (K)",
     "element_melting_celsius": "--- (°C)",
     "element_melting_fahrenheit": "--- (°F)",
-
     "element_electron_config": "5f^14, 6d^6. 7s^2",
     "element_ion_charge": "---",
     "element_ionization_energy1": "---",
@@ -46,22 +40,23 @@
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
-
     "oxidation_state_neg": "",
     "oxidation_state_pos": "8",
-
-      "cas_number": "54037-57-3",
-
     "iso_1": "--",
     "iso_mass_1": "--",
     "iso_half_1": "--",
     "iso_Z_1": "--",
     "iso_N_1": "--",
-    "iso_A_1": "--"
+    "iso_A_1": "--",
+    "crystal_structure": null,
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": null,
+      "room_temperature": null
+    }
   }
 ]

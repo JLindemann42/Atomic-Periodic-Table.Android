@@ -188,8 +188,10 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         for (item in list) {
             val dictionaryPreference = DictionaryPreferences(this)
             val dictionaryPrefValue1 = dictionaryPreference.getValue()
-            if (item.heading.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
-                    if (item.category.toLowerCase(Locale.ROOT).contains(dictionaryPrefValue1.toLowerCase(Locale.ROOT))) {
+            if (item.heading.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))) {
+                    if (item.category.lowercase(Locale.ROOT).contains(dictionaryPrefValue1.lowercase(
+                            Locale.ROOT
+                        ))) {
                         filteredList.add(item)
                 }
             }

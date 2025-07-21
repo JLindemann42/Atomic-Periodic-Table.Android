@@ -178,11 +178,31 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
                         // The flow has finished. The API does not indicate whether the user
                         // reviewed or not, or even whether the review dialog was shown. Thus, no
                         // matter the result, we continue our app flow.
+                        Log.d("UserActivity", "In-app review flow finished.")
                     }
                 }
             } else {
-                // There was some problem, log or handle the error code.
-                @ReviewErrorCode val reviewErrorCode = (task.getException() as ReviewException).errorCode
+                // There was some problem, log or handle the error.
+                val exception = task.exception
+                if (exception != null) {
+                    if (exception is ReviewException) {
+                        // It's a ReviewException, you can safely access errorCode
+                        @ReviewErrorCode val reviewErrorCode = exception.errorCode
+                        Log.e("UserActivity", "Failed to request review flow. ReviewException ErrorCode: $reviewErrorCode", exception)
+                        // TODO: Handle specific ReviewErrorCodes if needed
+                        // For example:
+                        // when (reviewErrorCode) {
+                        //     ReviewErrorCode.INVALID_REQUEST -> Log.e("UserActivity", "Invalid request for review flow.")
+                        //     // Add other cases as needed
+                        // }
+                    } else {
+                        // It's some other type of exception
+                        Log.e("UserActivity", "Failed to request review flow with an unexpected error.", exception)
+                    }
+                } else {
+                    // Task failed but no exception was provided (should be rare)
+                    Log.e("UserActivity", "Failed to request review flow, but no exception was provided in the task.")
+                }
             }
         }
     }

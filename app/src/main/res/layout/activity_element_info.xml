@@ -82,7 +82,7 @@
                     android:paddingStart="0dp"
                     android:alpha="0.9"
                     android:paddingEnd="0dp"
-                    android:text="Periodic Table"
+                    android:text="@string/element_info_title"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="20sp"
@@ -228,6 +228,11 @@
                 android:layout_height="wrap_content" />
 
             <include
+                layout="@layout/d_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
                 layout="@layout/d_hazards"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -251,7 +256,7 @@
                 android:elevation="2dp"
                 android:focusable="true"
                 android:foreground="@drawable/c_ripple"
-                android:text="Submit Data Issue"
+                android:text="@string/submit_data_issue"
                 android:textColor="?attr/colorOnPrimary" />
 
             <Space

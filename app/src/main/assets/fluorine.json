@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AAygeqS98dB2SMxjqZZ",
+    "element_code": "AAygeqS98dB2SMxjqZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Fluorine",
     "link": "https://www.thoughtco.com/thmb/rt0-YEcTOFfKmttM805rtJvfdsw=/600x600/filters:fill(auto,1)/fluorinesimulant-56a12c323df78cf772681c61.jpg",
     "description": "Fluorine is a chemical element with the symbol F and atomic number 9. It is the lightest halogen and exists as a highly toxic pale yellow diatomic gas at standard conditions. As the most electronegative element, it is extremely reactive, as it reacts with all other elements, except for argon, neon, and helium.",
-
     "element": "Fluorine",
     "short": "F",
     "element_year": "1810",
@@ -14,16 +13,13 @@
     "element_electrons": "9",
     "element_protons": "9",
     "element_neutron_common": "10",
-
     "radioactive": "No",
     "neutron_cross_sectional": "0.0096 (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "---",
     "superconducting_point": "---",
-
     "element_atomic_number": "9",
     "element_atomicmass": "18.9984 (u)",
     "element_density": "0.001696 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L7 M0 N0 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Electron_shell_009_Fluorine_%28diatomic_nonmetal%29_-_no_label.svg/1280px-Electron_shell_009_Fluorine_%28diatomic_nonmetal%29_-_no_label.svg.png",
-
     "element_boiling_kelvin": "85.03 (K)",
     "element_boiling_celsius": "−188.11 (°C)",
     "element_boiling_fahrenheit": "−306.60 (°F)",
     "element_melting_kelvin": "53.48 (K)",
     "element_melting_celsius": "−219.67 (°C)",
     "element_melting_fahrenheit": "−363.41 (°F)",
-
     "element_electron_config": "2s^2 2p^5",
     "element_ion_charge": "F^-",
     "element_ionization_energy1": "17.42282 (eV)",
@@ -54,26 +48,21 @@
     "element_atomic_radius": "42 (pm)",
     "element_covalent_radius": "71 (pm)",
     "element_van_der_waals": "147 (pm)",
-
     "element_phase": "Gas",
     "element_fusion_heat": "0.51 (F2) (kJ/mol)",
     "element_specific_heat_capacity": "0.824 (F2) J/(g·K)",
     "element_vaporization_heat": "6.62 (F2) (kJ/mol)",
-
     "oxidation_state_neg": "1",
     "oxidation_state_pos": "",
-
-      "sea_water": "1.3 × 10^3",
-      "crustal_rocks": "4.6 × 10^2",
-      "sun": "10^3",
-      "solar_system": "8.5 × 10^2",
-
-      "cas_number": "7782-41-4",
-      "eg_number": "231-954-8",
-      "health": 4,
-      "flammability": 0,
-      "instability": 4,
-
+    "sea_water": "1.3 × 10^3",
+    "crustal_rocks": "4.6 × 10^2",
+    "sun": "10^3",
+    "solar_system": "8.5 × 10^2",
+    "cas_number": "7782-41-4",
+    "eg_number": "231-954-8",
+    "health": 4,
+    "flammability": 0,
+    "instability": 4,
     "iso_1": "F-14",
     "iso_mass_1": "14.03432",
     "iso_half_1": "500×10^−24 (s)",
@@ -81,7 +70,6 @@
     "iso_Z_1": "9",
     "iso_N_1": "5",
     "iso_A_1": "14",
-
     "iso_2": "F-15",
     "iso_mass_2": "15.017785",
     "iso_half_2": "1.1×10^−21 (s)",
@@ -89,7 +77,6 @@
     "iso_Z_2": "9",
     "iso_N_2": "6",
     "iso_A_2": "15",
-
     "iso_3": "F-16",
     "iso_mass_3": "16.011466",
     "iso_half_3": "11×10^−21 (s)",
@@ -97,7 +84,6 @@
     "iso_Z_3": "9",
     "iso_N_3": "7",
     "iso_A_3": "16",
-
     "iso_4": "F-17",
     "iso_mass_4": "17.00209524",
     "iso_half_4": "64.370 (s)",
@@ -105,7 +91,6 @@
     "iso_Z_4": "9",
     "iso_N_4": "8",
     "iso_A_4": "17",
-
     "iso_5": "F-18",
     "iso_mass_5": "18.0009373",
     "iso_half_5": "109.739 (min)",
@@ -113,7 +98,6 @@
     "iso_Z_5": "9",
     "iso_N_5": "9",
     "iso_A_5": "18",
-
     "iso_6": "F-19",
     "iso_mass_6": "18.9984031629",
     "iso_half_6": "Stable",
@@ -121,7 +105,6 @@
     "iso_Z_6": "9",
     "iso_N_6": "10",
     "iso_A_6": "19",
-
     "iso_7": "F-20",
     "iso_mass_7": "19.99998125",
     "iso_half_7": "11.163 (s)",
@@ -129,7 +112,6 @@
     "iso_Z_7": "9",
     "iso_N_7": "11",
     "iso_A_7": "20",
-
     "iso_8": "F-21",
     "iso_mass_8": "20.9999489",
     "iso_half_8": "4.158 (s)",
@@ -137,7 +119,6 @@
     "iso_Z_8": "9",
     "iso_N_8": "12",
     "iso_A_8": "21",
-
     "iso_9": "F-22",
     "iso_mass_9": "22.002999",
     "iso_half_9": "4.23 (s)",
@@ -145,7 +126,6 @@
     "iso_Z_9": "9",
     "iso_N_9": "13",
     "iso_A_9": "22",
-
     "iso_10": "F-23",
     "iso_mass_10": "23.00353",
     "iso_half_10": "2.23 (s)",
@@ -153,7 +133,6 @@
     "iso_Z_10": "9",
     "iso_N_10": "14",
     "iso_A_10": "23",
-
     "iso_11": "F-24",
     "iso_mass_11": "24.00810",
     "iso_half_11": "384 (ms)",
@@ -161,7 +140,6 @@
     "iso_Z_11": "9",
     "iso_N_11": "15",
     "iso_A_11": "24",
-
     "iso_12": "F-25",
     "iso_mass_12": "25.01217",
     "iso_half_12": "80 (ms)",
@@ -169,7 +147,6 @@
     "iso_Z_12": "9",
     "iso_N_12": "16",
     "iso_A_12": "25",
-
     "iso_13": "F-26",
     "iso_mass_13": "26.02002",
     "iso_half_13": "8.2 (ms)",
@@ -177,7 +154,6 @@
     "iso_Z_13": "9",
     "iso_N_13": "17",
     "iso_A_13": "26",
-
     "iso_14": "F-27",
     "iso_mass_14": "27.02732",
     "iso_half_14": "4.9 (ms)",
@@ -185,7 +161,6 @@
     "iso_Z_14": "9",
     "iso_N_14": "18",
     "iso_A_14": "27",
-
     "iso_15": "F-28",
     "iso_mass_15": "28.03622",
     "iso_half_15": "46×10^−21 (s)",
@@ -193,7 +168,6 @@
     "iso_Z_15": "9",
     "iso_N_15": "19",
     "iso_A_15": "28",
-
     "iso_16": "F-29",
     "iso_mass_16": "29.04310",
     "iso_half_16": "2.5 (ms)",
@@ -201,7 +175,6 @@
     "iso_Z_16": "9",
     "iso_N_16": "20",
     "iso_A_16": "29",
-
     "iso_17": "F-30",
     "iso_mass_17": "30.052561",
     "iso_half_17": "--- (ms)",
@@ -209,13 +182,18 @@
     "iso_Z_17": "9",
     "iso_N_17": "21",
     "iso_A_17": "30",
-
     "iso_18": "F-31",
     "iso_mass_18": "31.06027",
     "iso_half_18": "--- (ms)",
     "decay_type_18": "B-",
     "iso_Z_18": "9",
     "iso_N_18": "22",
-    "iso_A_18": "31"
+    "iso_A_18": "31",
+    "crystal_structure": "Cubic",
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": "56 K",
+      "room_temperature": "50 K"
+    }
   }
 ]

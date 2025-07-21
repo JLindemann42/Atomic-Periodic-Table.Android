@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AAWtuBh3FmSYC6TNyZZ",
+    "element_code": "AAWtuBh3FmSYC6TNyZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Chromium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Chromium_crystals_and_1cm3_cube.jpg/1024px-Chromium_crystals_and_1cm3_cube.jpg",
     "description": "Chromium is a chemical element with the symbol Cr and atomic number 24. It is the first element in group 6. It is a steely-grey, lustrous, hard and brittle transition metal.[4] Chromium is the main additive in stainless steel, to which it adds anti-corrosive properties. Chromium is also highly valued as a metal that is able to be highly polished while resisting tarnishing. Polished chromium reflects almost 70% of the visible spectrum, with almost 90% of infrared light being reflected. The name of the element is derived from the Greek word χρῶμα, chrōma, meaning color, because many chromium compounds are intensely colored.",
-
     "element": "Chromium",
     "short": "Cr",
     "element_year": "1797",
@@ -14,16 +13,13 @@
     "element_electrons": "24",
     "element_protons": "24",
     "element_neutron_common": "28",
-
     "radioactive": "No",
     "neutron_cross_sectional": "3.1 (b)",
-
     "electrical_type": "Conductor",
     "resistivity": "125 nΩm",
     "resistivity_mult": "0.0000001",
     "magnetic_type": "Antiferromagnetic",
     "superconducting_point": "---",
-
     "element_atomic_number": "24",
     "element_atomicmass": "51.9961 (u)",
     "element_density": "7.15 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "d - block",
     "element_shells_electrons": "K2 L8 M13 N1 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Electron_shell_024_Chromium_-_no_label.svg/800px-Electron_shell_024_Chromium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "2944 (K)",
     "element_boiling_celsius": "2671 (°C)",
     "element_boiling_fahrenheit": "4840 (°F)",
     "element_melting_kelvin": "2180 (K)",
     "element_melting_celsius": "1907 (°C)",
     "element_melting_fahrenheit": "3465 (°F)",
-
     "element_electron_config": "3d^5 4s^1",
     "element_ion_charge": "Cr^3+, Cr^2+",
     "element_ionization_energy1": "6.7665 (eV)",
@@ -69,42 +63,34 @@
     "element_atomic_radius": "166 (pm)",
     "element_covalent_radius": "127 (pm)",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "21.0 (kJ/mol)",
     "element_specific_heat_capacity": "0.449 J/(g·K)",
     "element_vaporization_heat": "339.5 (kJ/mol)",
-
     "oxidation_state_neg": "4 2 1 0",
     "oxidation_state_pos": "1 2 3 4 5 6",
-
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "5940 (m/s) [20°C]",
-
     "mohs_hardness": "8.5",
     "vickers_hardness": "1060 (MPa)",
     "brinell_hardness": "687-6500 (MPa)",
-
     "young_modulus": "279 (GPa)",
     "poisson_ratio": "0.21",
     "bulk_modulus": "160 (GPa)",
     "shear_modulus": "115 (GPa)",
-
-      "earth_crust": "83.0",
-      "earth_soils": "200.0",
-      "urban_soils": "80.0",
-      "sea_water": "0.2",
-      "crustal_rocks": "96",
-      "sun": "1.3 × 10^4",
-      "solar_system": "1.3 × 10^4",
-
-      "cas_number": "7440-47-3",
-      "eg_number": "231-157-5",
-      "health": 2,
-      "flammability": 1,
-      "instability": 1,
-
+    "earth_crust": "83.0",
+    "earth_soils": "200.0",
+    "urban_soils": "80.0",
+    "sea_water": "0.2",
+    "crustal_rocks": "96",
+    "sun": "1.3 × 10^4",
+    "solar_system": "1.3 × 10^4",
+    "cas_number": "7440-47-3",
+    "eg_number": "231-157-5",
+    "health": 2,
+    "flammability": 1,
+    "instability": 1,
     "iso_1": "Cr-41",
     "iso_mass_1": "---",
     "iso_half_1": "---",
@@ -112,7 +98,6 @@
     "iso_Z_1": "24",
     "iso_N_1": "17",
     "iso_A_1": "41",
-
     "iso_2": "Cr-42",
     "iso_mass_2": "42.00643",
     "iso_half_2": "14 (ms)",
@@ -120,7 +105,6 @@
     "iso_Z_2": "24",
     "iso_N_2": "18",
     "iso_A_2": "42",
-
     "iso_3": "Cr-43",
     "iso_mass_3": "42.99771",
     "iso_half_3": "21.6 (ms)",
@@ -128,7 +112,6 @@
     "iso_Z_3": "24",
     "iso_N_3": "19",
     "iso_A_3": "43",
-
     "iso_4": "Cr-44",
     "iso_mass_4": "43.98555",
     "iso_half_4": "54 (ms)",
@@ -136,7 +119,6 @@
     "iso_Z_4": "24",
     "iso_N_4": "20",
     "iso_A_4": "44",
-
     "iso_5": "Cr-45",
     "iso_mass_5": "44.97964",
     "iso_half_5": "50 (ms)",
@@ -144,7 +126,6 @@
     "iso_Z_5": "24",
     "iso_N_5": "21",
     "iso_A_5": "45",
-
     "iso_6": "Cr-46",
     "iso_mass_6": "45.968359",
     "iso_half_6": "0.26 (s)",
@@ -152,7 +133,6 @@
     "iso_Z_6": "24",
     "iso_N_6": "22",
     "iso_A_6": "46",
-
     "iso_7": "Cr-47",
     "iso_mass_7": "46.962900",
     "iso_half_7": "500 (ms)",
@@ -160,7 +140,6 @@
     "iso_Z_7": "24",
     "iso_N_7": "23",
     "iso_A_7": "47",
-
     "iso_8": "Cr-48",
     "iso_mass_8": "47.954032",
     "iso_half_8": "21.56 (hours)",
@@ -168,7 +147,6 @@
     "iso_Z_8": "24",
     "iso_N_8": "24",
     "iso_A_8": "48",
-    
     "iso_9": "Cr-49",
     "iso_mass_9": "48.9513357",
     "iso_half_9": "42.3 (min)",
@@ -176,7 +154,6 @@
     "iso_Z_9": "24",
     "iso_N_9": "25",
     "iso_A_9": "49",
-
     "iso_10": "Cr-50",
     "iso_mass_10": "49.9460442",
     "iso_half_10": "Observationally Stable",
@@ -184,7 +161,6 @@
     "iso_Z_10": "24",
     "iso_N_10": "26",
     "iso_A_10": "50",
-
     "iso_11": "Cr-51",
     "iso_mass_11": "50.9447674",
     "iso_half_11": "27.7025 (days)",
@@ -192,7 +168,6 @@
     "iso_Z_11": "24",
     "iso_N_11": "27",
     "iso_A_11": "51",
-
     "iso_12": "Cr-52",
     "iso_mass_12": "51.9405075",
     "iso_half_12": "Stable",
@@ -200,7 +175,6 @@
     "iso_Z_12": "24",
     "iso_N_12": "28",
     "iso_A_12": "52",
-
     "iso_13": "Cr-53",
     "iso_mass_13": "52.9406494",
     "iso_half_13": "Stable",
@@ -208,7 +182,6 @@
     "iso_Z_13": "24",
     "iso_N_13": "29",
     "iso_A_13": "53",
-
     "iso_14": "Cr-54",
     "iso_mass_14": "53.9388804",
     "iso_half_14": "Stable",
@@ -216,7 +189,6 @@
     "iso_Z_14": "24",
     "iso_N_14": "30",
     "iso_A_14": "54",
-
     "iso_15": "Cr-55",
     "iso_mass_15": "54.9408397",
     "iso_half_15": "3.497 (min)",
@@ -224,7 +196,6 @@
     "iso_Z_15": "24",
     "iso_N_15": "31",
     "iso_A_15": "55",
-
     "iso_16": "Cr-56",
     "iso_mass_16": "55.9406531",
     "iso_half_16": "5.94 (min)",
@@ -232,7 +203,6 @@
     "iso_Z_16": "24",
     "iso_N_16": "32",
     "iso_A_16": "56",
-
     "iso_17": "Cr-57",
     "iso_mass_17": "56.943613",
     "iso_half_17": "21.1 (s)",
@@ -240,7 +210,6 @@
     "iso_Z_17": "24",
     "iso_N_17": "33",
     "iso_A_17": "57",
-
     "iso_18": "Cr-58",
     "iso_mass_18": "57.94435",
     "iso_half_18": "7.0 (s)",
@@ -248,7 +217,6 @@
     "iso_Z_18": "24",
     "iso_N_18": "34",
     "iso_A_18": "58",
-
     "iso_19": "Cr-59",
     "iso_mass_19": "58.94859",
     "iso_half_19": "460 (ms)",
@@ -256,7 +224,6 @@
     "iso_Z_19": "24",
     "iso_N_19": "35",
     "iso_A_19": "59",
-
     "iso_20": "Cr-60",
     "iso_mass_20": "59.95008",
     "iso_half_20": "560 (ms)",
@@ -264,7 +231,6 @@
     "iso_Z_20": "24",
     "iso_N_20": "36",
     "iso_A_20": "60",
-
     "iso_21": "Cr-61",
     "iso_mass_21": "60.95472",
     "iso_half_21": "261 (ms)",
@@ -272,7 +238,6 @@
     "iso_Z_21": "24",
     "iso_N_21": "37",
     "iso_A_21": "61",
-
     "iso_22": "Cr-62",
     "iso_mass_22": "61.95661",
     "iso_half_22": "199 (ms)",
@@ -280,7 +245,6 @@
     "iso_Z_22": "24",
     "iso_N_22": "38",
     "iso_A_22": "62",
-
     "iso_23": "Cr-63",
     "iso_mass_23": "62.96186",
     "iso_half_23": "129 (ms)",
@@ -288,7 +252,6 @@
     "iso_Z_23": "24",
     "iso_N_23": "39",
     "iso_A_23": "63",
-
     "iso_24": "Cr-64",
     "iso_mass_24": "63.96441",
     "iso_half_24": "43 (ms)",
@@ -296,7 +259,6 @@
     "iso_Z_24": "24",
     "iso_N_24": "40",
     "iso_A_24": "64",
-
     "iso_25": "Cr-65",
     "iso_mass_25": "64.97016",
     "iso_half_25": "27 (ms)",
@@ -304,7 +266,6 @@
     "iso_Z_25": "24",
     "iso_N_25": "41",
     "iso_A_25": "65",
-
     "iso_26": "Cr-66",
     "iso_mass_26": "65.97338",
     "iso_half_26": "10 (ms)",
@@ -312,7 +273,6 @@
     "iso_Z_26": "24",
     "iso_N_26": "42",
     "iso_A_26": "66",
-
     "iso_27": "Cr-67",
     "iso_mass_27": "66.97955",
     "iso_half_27": "10 (ms)",
@@ -320,7 +280,6 @@
     "iso_Z_27": "24",
     "iso_N_27": "43",
     "iso_A_27": "67",
-
     "iso_28": "Cr-68",
     "iso_mass_28": "---",
     "iso_half_28": "---",
@@ -328,7 +287,6 @@
     "iso_Z_28": "24",
     "iso_N_28": "44",
     "iso_A_28": "68",
-
     "iso_29": "Cr-69",
     "iso_mass_29": "---",
     "iso_half_29": "---",
@@ -336,14 +294,20 @@
     "iso_Z_29": "24",
     "iso_N_29": "45",
     "iso_A_29": "69",
-
     "iso_30": "Cr-70",
     "iso_mass_30": "---",
     "iso_half_30": "---",
     "decay_type_30": "B-",
     "iso_Z_30": "24",
     "iso_N_30": "46",
-    "iso_A_30": "70"
-
+    "iso_A_30": "70",
+    "crystal_structure": "Body-centered cubic (bcc)",
+    "lattice_constants": {
+      "a": "2.884 Å"
+    },
+    "debye_temperature": {
+      "low_temperature_limit": "630 K",
+      "room_temperature": "600 K"
+    }
   }
 ]

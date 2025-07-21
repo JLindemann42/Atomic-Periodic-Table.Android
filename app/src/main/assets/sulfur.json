@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AARQu8hiKgm47sUSvZZ",
+    "element_code": "AARQu8hiKgm47sUSvZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Sulfur",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Sulfur-sample.jpg/1920px-Sulfur-sample.jpg",
     "description": "Sulfur (in British English, sulphur) is a chemical element with the symbol S and atomic number 16. It is abundant, multivalent and nonmetallic. Under normal conditions, sulfur atoms form cyclic octatomic molecules with a chemical formula S8. Elemental sulfur is a bright yellow, crystalline solid at room temperature.",
-
     "element": "Sulfur",
     "short": "S",
     "element_year": "<600 BCE",
@@ -14,16 +13,13 @@
     "element_electrons": "16",
     "element_protons": "16",
     "element_neutron_common": "16",
-
     "radioactive": "No",
     "neutron_cross_sectional": "0.53 (b)",
-
     "electrical_type": "Insulator",
     "resistivity": "2×10^15 Ωm",
     "resistivity_mult": "1000000000000000",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "---",
-
     "element_atomic_number": "16",
     "element_atomicmass": "32.06 (u)",
     "element_density": "2.07 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L8 M6 N0 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Electron_shell_016_Sulfur_%28polyatomic_nonmetal%29_-_no_label.svg/1280px-Electron_shell_016_Sulfur_%28polyatomic_nonmetal%29_-_no_label.svg.png",
-
     "element_boiling_kelvin": "717.8 (K)",
     "element_boiling_celsius": "444.6 (°C)",
     "element_boiling_fahrenheit": "832.3 (°F)",
     "element_melting_kelvin": "388.36 (K)",
     "element_melting_celsius": "115.21 (°C)",
     "element_melting_fahrenheit": "239.38 (°F)",
-
     "element_electron_config": "3s^2 3p^4",
     "element_ion_charge": "S^2-",
     "element_ionization_energy1": "10.36001 (eV)",
@@ -61,35 +55,28 @@
     "element_atomic_radius": "98 (pm)",
     "element_covalent_radius": "106 (pm)",
     "element_van_der_waals": "180 (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "1.72 (kJ/mol)",
     "element_specific_heat_capacity": "0.710 J/(g·K)",
     "element_vaporization_heat": "9.8 (kJ/mol)",
-
     "oxidation_state_neg": "2 1 0",
     "oxidation_state_pos": "1 2 3 4 5 6",
-
     "young_modulus": "---",
     "poisson_ratio": "---",
     "bulk_modulus": "7.7 (GPa)",
     "shear_modulus": "---",
-
     "mohs_hardness": "2.0",
     "vickers_hardness": "---",
     "brinell_hardness": "---",
-
-      "earth_crust": "470",
-      "earth_soils": "850",
-      "urban_soils": "1200",
-      "sea_water": "9.0 × 10^5",
-      "crustal_rocks": "3.0 × 10^2",
-      "sun": "4.5 × 10^5",
-      "solar_system": "5.2 × 10^5",
-
-      "cas_number": "7704-34-9",
-      "eg_number": "231-722-6",
-
+    "earth_crust": "470",
+    "earth_soils": "850",
+    "urban_soils": "1200",
+    "sea_water": "9.0 × 10^5",
+    "crustal_rocks": "3.0 × 10^2",
+    "sun": "4.5 × 10^5",
+    "solar_system": "5.2 × 10^5",
+    "cas_number": "7704-34-9",
+    "eg_number": "231-722-6",
     "iso_1": "S-27",
     "iso_mass_1": "27.01828",
     "iso_half_1": "15.5 (ms)",
@@ -97,7 +84,6 @@
     "iso_Z_1": "16",
     "iso_N_1": "11",
     "iso_A_1": "27",
-
     "iso_2": "S-28",
     "iso_mass_2": "28.00437",
     "iso_half_2": "125 (ms)",
@@ -105,7 +91,6 @@
     "iso_Z_2": "16",
     "iso_N_2": "12",
     "iso_A_2": "28",
-    
     "iso_3": "S-29",
     "iso_mass_3": "28.99661",
     "iso_half_3": "188 (ms)",
@@ -113,7 +98,6 @@
     "iso_Z_3": "16",
     "iso_N_3": "13",
     "iso_A_3": "29",
-
     "iso_4": "S-30",
     "iso_mass_4": "29.98490677",
     "iso_half_4": "1.1759 (s)",
@@ -121,7 +105,6 @@
     "iso_Z_4": "16",
     "iso_N_4": "14",
     "iso_A_4": "30",
-
     "iso_5": "S-31",
     "iso_mass_5": "30.97955701",
     "iso_half_5": "2.5534 (s)",
@@ -129,7 +112,6 @@
     "iso_Z_5": "16",
     "iso_N_5": "15",
     "iso_A_5": "31",
-
     "iso_6": "S-32",
     "iso_mass_6": "31.9720711744",
     "iso_half_6": "Stable",
@@ -137,7 +119,6 @@
     "iso_Z_6": "16",
     "iso_N_6": "16",
     "iso_A_6": "32",
-
     "iso_7": "S-33",
     "iso_mass_7": "32.9714589099",
     "iso_half_7": "Stable",
@@ -145,7 +126,6 @@
     "iso_Z_7": "16",
     "iso_N_7": "17",
     "iso_A_7": "33",
-
     "iso_8": "S-34",
     "iso_mass_8": "33.96786701",
     "iso_half_8": "Stable",
@@ -153,7 +133,6 @@
     "iso_Z_8": "16",
     "iso_N_8": "18",
     "iso_A_8": "34",
-
     "iso_9": "S-35",
     "iso_mass_9": "34.96903232",
     "iso_half_9": "87.37 (Days)",
@@ -161,7 +140,6 @@
     "iso_Z_9": "16",
     "iso_N_9": "19",
     "iso_A_9": "35",
-
     "iso_10": "S-36",
     "iso_mass_10": "35.96708070",
     "iso_half_10": "Stable",
@@ -169,7 +147,6 @@
     "iso_Z_10": "16",
     "iso_N_10": "20",
     "iso_A_10": "36",
-
     "iso_11": "S-37",
     "iso_mass_11": "36.97112551",
     "iso_half_11": "5.05 (min)",
@@ -177,7 +154,6 @@
     "iso_Z_11": "16",
     "iso_N_11": "21",
     "iso_A_11": "37",
-
     "iso_12": "S-38",
     "iso_mass_12": "37.971163",
     "iso_half_12": "170.3 (min)",
@@ -185,7 +161,6 @@
     "iso_Z_12": "16",
     "iso_N_12": "22",
     "iso_A_12": "38",
-
     "iso_13": "S-39",
     "iso_mass_13": "38.97513",
     "iso_half_13": "11.5 (s)",
@@ -193,7 +168,6 @@
     "iso_Z_13": "16",
     "iso_N_13": "23",
     "iso_A_13": "39",
-
     "iso_14": "S-40",
     "iso_mass_14": "39.975483",
     "iso_half_14": "8.8 (s)",
@@ -201,7 +175,6 @@
     "iso_Z_14": "16",
     "iso_N_14": "24",
     "iso_A_14": "40",
-
     "iso_15": "S-41",
     "iso_mass_15": "40.979593",
     "iso_half_15": "1.99 (s)",
@@ -209,7 +182,6 @@
     "iso_Z_15": "16",
     "iso_N_15": "25",
     "iso_A_15": "41",
-
     "iso_16": "S-42",
     "iso_mass_16": "41.981065",
     "iso_half_16": "1.016 (s)",
@@ -217,7 +189,6 @@
     "iso_Z_16": "16",
     "iso_N_16": "26",
     "iso_A_16": "42",
-
     "iso_17": "S-43",
     "iso_mass_17": "42.986908",
     "iso_half_17": "265 (ms)",
@@ -225,7 +196,6 @@
     "iso_Z_17": "16",
     "iso_N_17": "27",
     "iso_A_17": "43",
-
     "iso_18": "S-44",
     "iso_mass_18": "43.990119",
     "iso_half_18": "100 (ms)",
@@ -233,7 +203,6 @@
     "iso_Z_18": "16",
     "iso_N_18": "28",
     "iso_A_18": "44",
-
     "iso_19": "S-45",
     "iso_mass_19": "44.99572",
     "iso_half_19": "68 (ms)",
@@ -241,7 +210,6 @@
     "iso_Z_19": "16",
     "iso_N_19": "29",
     "iso_A_19": "45",
-
     "iso_20": "S-46",
     "iso_mass_20": "46.00037",
     "iso_half_20": "50 (ms)",
@@ -249,7 +217,6 @@
     "iso_Z_20": "16",
     "iso_N_20": "30",
     "iso_A_20": "46",
-
     "iso_21": "S-47",
     "iso_mass_21": "47.00791",
     "iso_half_21": "20 (ms)",
@@ -257,7 +224,6 @@
     "iso_Z_21": "16",
     "iso_N_21": "31",
     "iso_A_21": "47",
-
     "iso_22": "S-48",
     "iso_mass_22": "48.01370",
     "iso_half_22": "10 (ms)",
@@ -265,13 +231,18 @@
     "iso_Z_22": "16",
     "iso_N_22": "32",
     "iso_A_22": "48",
-
     "iso_23": "S-49",
     "iso_mass_23": "49.02264",
     "iso_half_23": "---",
     "decay_type_23": "B-",
     "iso_Z_23": "16",
     "iso_N_23": "33",
-    "iso_A_23": "49"
+    "iso_A_23": "49",
+    "crystal_structure": "Orthorhombic",
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": "205 K",
+      "room_temperature": "190 K"
+    }
   }
 ]

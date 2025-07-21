@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AA5hkjGCXLnS2Bth5ZZ",
+    "element_code": "AA5hkjGCXLnS2Bth5ZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Molybdenum",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Molybdenum_crystaline_fragment_and_1cm3_cube.jpg/1920px-Molybdenum_crystaline_fragment_and_1cm3_cube.jpg",
     "description": "Molybdenum is a chemical element with the symbol Mo and atomic number 42. The name is from Neo-Latin molybdaenum, from Ancient Greek Μόλυβδος molybdos, meaning lead, since its ores were confused with lead ores. Molybdenum minerals have been known throughout history, but the element was discovered (in the sense of differentiating it as a new entity from the mineral salts of other metals) in 1778 by Carl Wilhelm Scheele. The metal was first isolated in 1781 by Peter Jacob Hjelm.",
-
     "element": "Molybdenum",
     "short": "Mo",
     "element_year": "1778",
@@ -14,16 +13,13 @@
     "element_electrons": "42",
     "element_protons": "42",
     "element_neutron_common": "56",
-
     "radioactive": "No",
     "neutron_cross_sectional": "2.6 (b)",
-
     "electrical_type": "Conductor",
     "resistivity": "53.4 nΩm",
     "resistivity_mult": "0.00000001",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "0.915",
-
     "element_atomic_number": "42",
     "element_atomicmass": "95.95 (u)",
     "element_density": "10.2 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "d - block",
     "element_shells_electrons": "K2 L8 18 N13 O1 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Electron_shell_042_Molybdenum_-_no_label.svg/1024px-Electron_shell_042_Molybdenum_-_no_label.svg.png",
-
     "element_boiling_kelvin": "4912 (K)",
     "element_boiling_celsius": "4639 (°C)",
     "element_boiling_fahrenheit": "8382 (°F)",
     "element_melting_kelvin": "2896 (K)",
     "element_melting_celsius": "2623 (°C)",
     "element_melting_fahrenheit": "4753 (°F)",
-
     "element_electron_config": "4d^5 5s^1",
     "element_ion_charge": "Mo^6+",
     "element_ionization_energy1": "7.09243 (eV)",
@@ -75,42 +69,34 @@
     "element_atomic_radius": "190 (pm)",
     "element_covalent_radius": "145 (pm)",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "37.48 (kJ/mol)",
     "element_specific_heat_capacity": "0.251 J/(g·K)",
     "element_vaporization_heat": "617 (kJ/mol)",
-
     "oxidation_state_neg": "4 2 1 0",
     "oxidation_state_pos": "1 2 3 4 5 6",
-
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "5400 (m/s) [room temperature]",
-
     "mohs_hardness": "5.5",
     "vickers_hardness": "1400-2740 (MPa)",
     "brinell_hardness": "1370-2500 (MPa)",
-
     "young_modulus": "329 (GPa)",
     "poisson_ratio": "0.31",
     "bulk_modulus": "230 (GPa)",
     "shear_modulus": "120 (GPa)",
-
-      "earth_crust": "1.1",
-      "earth_soils": "2.0",
-      "urban_soils": "2.4",
-      "sea_water": "10",
-      "crustal_rocks": "1.2",
-      "sun": "2.3",
-      "solar_system": "2.6",
-
-      "cas_number": "7439-98-7",
-      "eg_number": "231-107-2",
-      "health": 1,
-      "flammability": 3,
-      "instability": 0,
-
+    "earth_crust": "1.1",
+    "earth_soils": "2.0",
+    "urban_soils": "2.4",
+    "sea_water": "10",
+    "crustal_rocks": "1.2",
+    "sun": "2.3",
+    "solar_system": "2.6",
+    "cas_number": "7439-98-7",
+    "eg_number": "231-107-2",
+    "health": 1,
+    "flammability": 3,
+    "instability": 0,
     "iso_1": "Mo-83",
     "iso_mass_1": "82.94874",
     "iso_half_1": "23 (ms)",
@@ -118,7 +104,6 @@
     "iso_Z_1": "42",
     "iso_N_1": "41",
     "iso_A_1": "83",
-
     "iso_2": "Mo-84",
     "iso_mass_2": "83.94009",
     "iso_half_2": "3.8 (ms)",
@@ -126,7 +111,6 @@
     "iso_Z_2": "42",
     "iso_N_2": "42",
     "iso_A_2": "84",
-
     "iso_3": "Mo-85",
     "iso_mass_3": "84.93655",
     "iso_half_3": "3.2 (s)",
@@ -134,7 +118,6 @@
     "iso_Z_3": "42",
     "iso_N_3": "43",
     "iso_A_3": "85",
-
     "iso_4": "Mo-86",
     "iso_mass_4": "85.93070",
     "iso_half_4": "19.6 (s)",
@@ -142,7 +125,6 @@
     "iso_Z_4": "42",
     "iso_N_4": "44",
     "iso_A_4": "86",
-
     "iso_5": "Mo-87",
     "iso_mass_5": "86.92733",
     "iso_half_5": "14.05 (s)",
@@ -150,7 +132,6 @@
     "iso_Z_5": "42",
     "iso_N_5": "45",
     "iso_A_5": "87",
-
     "iso_6": "Mo-88",
     "iso_mass_6": "87.921953",
     "iso_half_6": "8.0 (min)",
@@ -158,7 +139,6 @@
     "iso_Z_6": "42",
     "iso_N_6": "46",
     "iso_A_6": "88",
-
     "iso_7": "Mo-89",
     "iso_mass_7": "88.919480",
     "iso_half_7": "2.11 (min)",
@@ -166,7 +146,6 @@
     "iso_Z_7": "42",
     "iso_N_7": "47",
     "iso_A_7": "89",
-    
     "iso_8": "Mo-90",
     "iso_mass_8": "89.913937",
     "iso_half_8": "5.56 (hours)",
@@ -174,7 +153,6 @@
     "iso_Z_8": "42",
     "iso_N_8": "48",
     "iso_A_8": "90",
-
     "iso_9": "Mo-91",
     "iso_mass_9": "90.911750",
     "iso_half_9": "15.49 (min)",
@@ -182,7 +160,6 @@
     "iso_Z_9": "42",
     "iso_N_9": "49",
     "iso_A_9": "91",
-
     "iso_10": "Mo-92",
     "iso_mass_10": "91.906811",
     "iso_half_10": "Observationally Stable",
@@ -190,7 +167,6 @@
     "iso_Z_10": "42",
     "iso_N_10": "50",
     "iso_A_10": "92",
-    
     "iso_11": "Mo-93",
     "iso_mass_11": "92.906813",
     "iso_half_11": "3500 (years)",
@@ -198,7 +174,6 @@
     "iso_Z_11": "42",
     "iso_N_11": "51",
     "iso_A_11": "93",
-
     "iso_12": "Mo-94",
     "iso_mass_12": "93.9050883",
     "iso_half_12": "Stable",
@@ -206,7 +181,6 @@
     "iso_Z_12": "42",
     "iso_N_12": "52",
     "iso_A_12": "94",
-
     "iso_13": "Mo-95",
     "iso_mass_13": "94.9058421",
     "iso_half_13": "Stable",
@@ -214,7 +188,6 @@
     "iso_Z_13": "42",
     "iso_N_13": "53",
     "iso_A_13": "95",
-
     "iso_14": "Mo-96",
     "iso_mass_14": "95.9046795",
     "iso_half_14": "Stable",
@@ -222,7 +195,6 @@
     "iso_Z_14": "42",
     "iso_N_14": "54",
     "iso_A_14": "96",
-
     "iso_15": "Mo-97",
     "iso_mass_15": "96.9060215",
     "iso_half_15": "Stable",
@@ -230,7 +202,6 @@
     "iso_Z_15": "42",
     "iso_N_15": "55",
     "iso_A_15": "97",
-
     "iso_16": "Mo-98",
     "iso_mass_16": "97.90540482",
     "iso_half_16": "Observationally Stable",
@@ -238,7 +209,6 @@
     "iso_Z_16": "42",
     "iso_N_16": "56",
     "iso_A_16": "98",
-
     "iso_17": "Mo-99",
     "iso_mass_17": "98.9077119",
     "iso_half_17": "2.7489 (days)",
@@ -246,7 +216,6 @@
     "iso_Z_17": "42",
     "iso_N_17": "57",
     "iso_A_17": "99",
-
     "iso_18": "Mo-100",
     "iso_mass_18": "99.907477",
     "iso_half_18": "8.5×10^18 (years)",
@@ -254,7 +223,6 @@
     "iso_Z_18": "42",
     "iso_N_18": "58",
     "iso_A_18": "100",
-
     "iso_19": "Mo-101",
     "iso_mass_19": "100.910347",
     "iso_half_19": "14.61 (min)",
@@ -262,7 +230,6 @@
     "iso_Z_19": "42",
     "iso_N_19": "59",
     "iso_A_19": "101",
-
     "iso_20": "Mo-102",
     "iso_mass_20": "101.910297",
     "iso_half_20": "11.3 (min)",
@@ -270,7 +237,6 @@
     "iso_Z_20": "42",
     "iso_N_20": "60",
     "iso_A_20": "102",
-
     "iso_21": "Mo-103",
     "iso_mass_21": "102.91321",
     "iso_half_21": "67.5 (s)",
@@ -278,7 +244,6 @@
     "iso_Z_21": "42",
     "iso_N_21": "61",
     "iso_A_21": "103",
-
     "iso_22": "Mo-104",
     "iso_mass_22": "103.91376",
     "iso_half_22": "60 (s)",
@@ -286,7 +251,6 @@
     "iso_Z_22": "42",
     "iso_N_22": "62",
     "iso_A_22": "104",
-
     "iso_23": "Mo-105",
     "iso_mass_23": "104.91697",
     "iso_half_23": "35.6 (s)",
@@ -294,7 +258,6 @@
     "iso_Z_23": "42",
     "iso_N_23": "63",
     "iso_A_23": "105",
-
     "iso_24": "Mo-106",
     "iso_mass_24": "105.918137",
     "iso_half_24": "8.73 (s)",
@@ -302,7 +265,6 @@
     "iso_Z_24": "42",
     "iso_N_24": "64",
     "iso_A_24": "106",
-
     "iso_25": "Mo-107",
     "iso_mass_25": "106.92169",
     "iso_half_25": "3.5 (s)",
@@ -310,7 +272,6 @@
     "iso_Z_25": "42",
     "iso_N_25": "65",
     "iso_A_25": "107",
-
     "iso_26": "Mo-108",
     "iso_mass_26": "107.92345",
     "iso_half_26": "1.09 (s)",
@@ -318,7 +279,6 @@
     "iso_Z_26": "42",
     "iso_N_26": "66",
     "iso_A_26": "108",
-
     "iso_27": "Mo-109",
     "iso_mass_27": "108.92781",
     "iso_half_27": "0.53 (s)",
@@ -326,7 +286,6 @@
     "iso_Z_27": "42",
     "iso_N_27": "67",
     "iso_A_27": "109",
-
     "iso_28": "Mo-110",
     "iso_mass_28": "109.92973",
     "iso_half_28": "0.27 (s)",
@@ -334,7 +293,6 @@
     "iso_Z_28": "42",
     "iso_N_28": "68",
     "iso_A_28": "110",
-
     "iso_29": "Mo-111",
     "iso_mass_29": "110.93441",
     "iso_half_29": "200 (ms)",
@@ -342,7 +300,6 @@
     "iso_Z_29": "42",
     "iso_N_29": "69",
     "iso_A_29": "111",
-
     "iso_30": "Mo-112",
     "iso_mass_30": "111.93684",
     "iso_half_30": "150 (ms)",
@@ -350,7 +307,6 @@
     "iso_Z_30": "42",
     "iso_N_30": "70",
     "iso_A_30": "112",
-
     "iso_31": "Mo-113",
     "iso_mass_31": "112.94188",
     "iso_half_31": "100 (ms)",
@@ -358,7 +314,6 @@
     "iso_Z_31": "42",
     "iso_N_31": "71",
     "iso_A_31": "113",
-
     "iso_32": "Mo-114",
     "iso_mass_32": "113.94492",
     "iso_half_32": "80 (ms)",
@@ -366,7 +321,6 @@
     "iso_Z_32": "42",
     "iso_N_32": "72",
     "iso_A_32": "114",
-
     "iso_33": "Mo-115",
     "iso_mass_33": "114.95029",
     "iso_half_33": "60 (ms)",
@@ -374,7 +328,6 @@
     "iso_Z_33": "42",
     "iso_N_33": "73",
     "iso_A_33": "115",
-
     "iso_34": "Mo-116",
     "iso_mass_34": "---",
     "iso_half_34": "---",
@@ -382,7 +335,6 @@
     "iso_Z_34": "42",
     "iso_N_34": "74",
     "iso_A_34": "116",
-
     "iso_35": "Mo-117",
     "iso_mass_35": "---",
     "iso_half_35": "---",
@@ -390,14 +342,20 @@
     "iso_Z_35": "42",
     "iso_N_35": "75",
     "iso_A_35": "117",
-
     "iso_36": "Mo-118",
     "iso_mass_36": "---",
     "iso_half_36": "---",
     "decay_type_36": "B-",
     "iso_Z_36": "42",
     "iso_N_36": "76",
-    "iso_A_36": "118"
-    
+    "iso_A_36": "118",
+    "crystal_structure": "Body-centered cubic (bcc)",
+    "lattice_constants": {
+      "a": "3.147 Å"
+    },
+    "debye_temperature": {
+      "low_temperature_limit": "450 K",
+      "room_temperature": "400 K"
+    }
   }
 ]

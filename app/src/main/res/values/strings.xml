@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v3.2.0h-Build.124</string>
+    <string name="app_version" translatable="false">v4.0.0m-Build.143</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -11,7 +11,7 @@
     <!-- PRO Activity -->
     <string name="pro_title">PRO Version</string>
     <string name="get_pro_title">Get PRO Version</string>
-    <string name="pro_descr" translatable="false">\'Atomic - Periodic Table\' is a free and open-source application made by me on my spare-time in Sweden. Buy purchasing the PRO-version you help support the development of additional features as well as unlocking some more.</string>
+    <string name="pro_descr" translatable="false">\'Atomic - Periodic Table\' is a free and open-source application made by me on my spare-time in Sweden. Buy purchasing the PRO-version you help support the development while also receiving additional data and features!</string>
     <string name="member_title">PRO Member Page</string>
     <string name="member_desch" translatable="false">Thanks for supporting the development of \'Atomic - Periodic Table\'. On this page information about your PRO perks will be available as more PRO features gets added.</string>
     <string name="member_already">You\'re a PRO member!</string>
@@ -84,6 +84,9 @@
     <string name="git_text" translatable="false">Atomics open-source GitHub repo</string>
     <string name="table_order_title" translatable="false">Sort table list</string>
     <string name="table_order_text" translatable="false">Determine order of tables</string>
+    <string name="win_title" translatable="false">Get Desktop App</string>
+    <string name="win_text" translatable="false">Download the app for Windows</string>
+
 
 
 
@@ -211,6 +214,7 @@
     <string name="cal" translatable="false">Calculator</string>
     <string name="rec" translatable="false">Chemical Reactions</string>
     <string name="uni" translatable="false">Unit Converter</string>
+    <string name="fla" translatable="false">Flashcards</string>
     <string name="unit_title" translatable="false">Unit Converter</string>
     <string name="unit_description" translatable="false">A simple unit converter for multiple purposes</string>
 
@@ -219,10 +223,16 @@
 
     <string name="calculator_title" translatable="false">Calculator</string>
     <string name="calculator_text" translatable="false">Contains a calculator to calculate molar mass for different compounds as well as saving favorites</string>
-    <string name="tools_title" translatable="false">Calculator</string>
+    <string name="tools_title" translatable="false">Tools (e.g calculator)</string>
     <string name="balancer_title" translatable="false">Chemical Reactions</string>
     <string name="balancer_text" translatable="false">Balance different chemical reactions and save favorites for later use</string>
     <string name="tool_btn_open" translatable="false">Open Tool</string>
+    <string name="calc_molar_mass" translatable="false">Molar Mass:</string>
+    <string name="calc_elements_shown" translatable="false">Elements included will be shown here</string>
+    <string name="calc_favorites" translatable="false">Favorites:</string>
+    <string name="calc_no_favorites" translatable="false">Currently no favorites</string>
+    <string name="calc_no_pro_text" translatable="false">In order to access and save to the favorites you need to get the PRO-Version</string>
+
 
     <!-- User Page -->
     <string name="user_title" translatable="false">User Page</string>
@@ -238,11 +248,65 @@
     <string name="reactivity_hazard" translatable="false">Reactivity:</string>
     <string name="specific_hazard" translatable="false">Specific hazard:</string>
 
+    <!-- Grid Properties -->
+    <string name="grid_title" translatable="false">Grid Properties</string>
+    <string name="crystal_structure" translatable="false">Crystal Structure:</string>
+    <string name="grid_parameters" translatable="false">Grid Parameters: (lattice constants)</string>
+    <string name="debye_temperature_low_temperature_limit" translatable="false">Debye Temperature: (low temperature limit)</string>
+    <string name="debye_temperature_room_temperature" translatable="false">Debye Temperature: (room temperature)</string>
+
 
     <string name="cas_number" translatable="false">CAS Number:</string>
     <string name="eg_number" translatable="false">EG Number:</string>
     <string name="other_title" translatable="false">Others</string>
 
+    <string name="clear_filter" translatable="false">Clear Filter</string>
+    <string name="constants_search" translatable="false">Search for constant</string>"
+
+    <string name="dictionary" translatable="false">Dictionary</string>
+    <string name="dictionary_search" translatable="false">Search For Dictionary Item</string>
+
+    <string name="element_info_title" translatable="false">Element Information</string>
+
+    <string name="submit_data_issue" translatable="false">Submit Data Issue</string>
+
+    <!-- Unit Converter -->
+    <string name="unit_converter_title" translatable="false">Unit Converter</string>
+    <string name="unit_enter_value" translatable="false">Value</string>
+    <string name="unit_output_value" translatable="false">Output</string>
+    <string name="unit_category" translatable="false">Category:</string>
+    <string name="unit_formula" translatable="false">Formula:</string>
+    <string name="unit_add_favorite" translatable="false">Add to Favorites:</string>
+    <string name="unit_favorites" translatable="false">Favorites:</string>
+    <string name="unit_display_formula" translatable="false">Formula will be displayed here</string>
+
+    <!-- Flashcard mini-games -->
+    <string name="flashcards_title" translatable="false">Flashcards</string>
+    <string name="flashcards_info" translatable="false">Learn the Periodic Table with the built in "learning-games"</string>
+    <string name="flashcards_lives_info" translatable="false">Every wrong answer will lead to loss of a live</string>
+    <string name="learning_games" translatable="false">Learning-Games:</string>
+    <string name="flashcards_element_symbols" translatable="false">Element Symbols</string>
+    <string name="flashcards_element_classifications" translatable="false">Element Classifications</string>
+    <string name="flashcards_atomic_mass" translatable="false">Atomic Mass</string>
+    <string name="flashcards_chemical_reactions" translatable="false">Chemical Reactions</string>
+    <string name="flashcards_mixed_questions" translatable="false">Mixed Questions</string>
+    <string name="flashcards_statistics" translatable="false">Statistics</string>
+    <string name="flashcards_total_xp" translatable="false">Total XP</string>
+    <string name="flashcards_total_games" translatable="false">Games</string>
+    <string name="flashcards_level" translatable="false">Level</string>
+    <string name="flashcards_difficulty" translatable="false">Select Difficulty:</string>
+    <string name="flashcards_difficulty_title" translatable="false">Difficulty</string>
+    <string name="flashcards_free_games" translatable="false">Free Games:</string>
+    <string name="flashcards_pro_plus_games" translatable="false">PRO+ Games:</string>
+    <string name="flashcards_pro_level_0_5" translatable="false">Level 0-4:</string>
+    <string name="flashcards_pro_level_5_10" translatable="false">Level 5-9:</string>
+    <string name="flashcards_pro_level_10_15" translatable="false">Level 10-14:</string>
+    <string name="flashcards_game_element_symbols" translatable="false">Element Symbols</string>
+    <string name="flashcards_game_element_names" translatable="false">Element Names</string>
+    <string name="flashcards_game_element_groups" translatable="false">Element Groups</string>
+    <string name="flashcards_game_element_appearance" translatable="false">Appearance</string>
+    <string name="flashcards_game_element_atomic_mass" translatable="false">Atomic Mass</string>
+    <string name="flashcards_game_element_density" translatable="false">Density</string>
 
 
 </resources>

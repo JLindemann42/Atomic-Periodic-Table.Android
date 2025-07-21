@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AAhQ9tPNqfQZxSNXEZZ",
+    "element_code": "AAhQ9tPNqfQZxSNXEZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Technetium",
     "link": "http://www.galleries.com/minerals/silicate/gadolini/gadolini.jpg",
     "description": "Technetium is a chemical element with the symbol Tc and atomic number 43. It is the lightest element whose isotopes are all radioactive, none of which is stable other than the fully-ionized state of Tc-97. Nearly all available technetium is produced as a synthetic element, and only about 18,000 tons are estimated to exist at any given time in the Earth's crust. Naturally-occurring technetium is a spontaneous fission product in uranium ore and thorium ore, the most common source, or the product of neutron capture in molybdenum ores. The silvery gray, crystalline transition metal lies between manganese and rhenium in group 7 of the periodic table, and its chemical properties are intermediate between those of both adjacent elements. The most common naturally-occurring isotope is Tc-99.",
-
     "element": "Technetium",
     "short": "Tc",
     "element_year": "1937",
@@ -14,16 +13,13 @@
     "element_electrons": "43",
     "element_protons": "43",
     "element_neutron_common": "56",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "20 (b)",
-
     "electrical_type": "Conductor",
     "resistivity": "226 nΩm",
     "resistivity_mult": "0.0000001",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "7.8",
-
     "element_atomic_number": "43",
     "element_atomicmass": "98.906 (u)",
     "element_density": "11 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "d - block",
     "element_shells_electrons": "K2 L8 18 N13 O2 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Electron_shell_043_Technetium_-_no_label.svg/1024px-Electron_shell_043_Technetium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "4538 (K)",
     "element_boiling_celsius": "4265 (°C)",
     "element_boiling_fahrenheit": "7709 (°F)",
     "element_melting_kelvin": "2430 (K)",
     "element_melting_celsius": "2157 (°C)",
     "element_melting_fahrenheit": "3915 (°F)",
-
     "element_electron_config": "4d^5 5s^2",
     "element_ion_charge": "Tc^7+",
     "element_ionization_energy1": "7.28 (eV)",
@@ -48,18 +42,14 @@
     "element_atomic_radius": "183 (pm)",
     "element_covalent_radius": "156 (pm)",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "33.29 (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "550 (kJ/mol)",
-
     "oxidation_state_neg": "3 1 0",
     "oxidation_state_pos": "1 2 3 4 5 6 7",
-
-      "cas_number": "7440-26-8",
-      "eg_number": "231-136-0",
-
+    "cas_number": "7440-26-8",
+    "eg_number": "231-136-0",
     "iso_1": "Tc-85",
     "iso_mass_1": "84.94883",
     "iso_half_1": "110 (ns)",
@@ -67,7 +57,6 @@
     "iso_Z_1": "43",
     "iso_N_1": "42",
     "iso_A_1": "85",
-
     "iso_2": "Tc-86",
     "iso_mass_2": "85.94288",
     "iso_half_2": "55 (ms)",
@@ -75,7 +64,6 @@
     "iso_Z_2": "43",
     "iso_N_2": "43",
     "iso_A_2": "86",
-
     "iso_3": "Tc-87",
     "iso_mass_3": "86.93653",
     "iso_half_3": "2.18 (s)",
@@ -83,7 +71,6 @@
     "iso_Z_3": "43",
     "iso_N_3": "44",
     "iso_A_3": "87",
-
     "iso_4": "Tc-88",
     "iso_mass_4": "87.93268",
     "iso_half_4": "5.8 (s)",
@@ -91,7 +78,6 @@
     "iso_Z_4": "43",
     "iso_N_4": "45",
     "iso_A_4": "88",
-
     "iso_5": "Tc-89",
     "iso_mass_5": "88.92717",
     "iso_half_5": "12.8 (s)",
@@ -99,7 +85,6 @@
     "iso_Z_5": "43",
     "iso_N_5": "46",
     "iso_A_5": "89",
-
     "iso_6": "Tc-90",
     "iso_mass_6": "89.92356",
     "iso_half_6": "8.7 (s)",
@@ -107,7 +92,6 @@
     "iso_Z_6": "43",
     "iso_N_6": "47",
     "iso_A_6": "90",
-
     "iso_7": "Tc-91",
     "iso_mass_7": "90.91843",
     "iso_half_7": "3.14 (s)",
@@ -115,7 +99,6 @@
     "iso_Z_7": "43",
     "iso_N_7": "48",
     "iso_A_7": "91",
-
     "iso_8": "Tc-92",
     "iso_mass_8": "91.915260",
     "iso_half_8": "4.25 (min)",
@@ -123,7 +106,6 @@
     "iso_Z_8": "43",
     "iso_N_8": "49",
     "iso_A_8": "92",
-
     "iso_9": "Tc-93",
     "iso_mass_9": "92.910249",
     "iso_half_9": "2.75 (hours)",
@@ -131,7 +113,6 @@
     "iso_Z_9": "43",
     "iso_N_9": "50",
     "iso_A_9": "93",
-
     "iso_10": "Tc-94",
     "iso_mass_10": "93.909657",
     "iso_half_10": "293 (min)",
@@ -139,7 +120,6 @@
     "iso_Z_10": "43",
     "iso_N_10": "51",
     "iso_A_10": "94",
-
     "iso_11": "Tc-95",
     "iso_mass_11": "94.907657",
     "iso_half_11": "20.0 (hours)",
@@ -147,7 +127,6 @@
     "iso_Z_11": "43",
     "iso_N_11": "52",
     "iso_A_11": "95",
-
     "iso_12": "Tc-96",
     "iso_mass_12": "95.907871",
     "iso_half_12": "4.28 (days)",
@@ -155,7 +134,6 @@
     "iso_Z_12": "43",
     "iso_N_12": "53",
     "iso_A_12": "96",
-
     "iso_13": "Tc-97",
     "iso_mass_13": "96.906365",
     "iso_half_13": "2.6×10^6 (years)",
@@ -163,7 +141,6 @@
     "iso_Z_13": "43",
     "iso_N_13": "54",
     "iso_A_13": "97",
-
     "iso_14": "Tc-98",
     "iso_mass_14": "97.907216",
     "iso_half_14": "4.2×10^6 (years)",
@@ -171,7 +148,6 @@
     "iso_Z_14": "43",
     "iso_N_14": "55",
     "iso_A_14": "98",
-
     "iso_15": "Tc-99",
     "iso_mass_15": "98.9062547",
     "iso_half_15": "2.111×10^5",
@@ -179,7 +155,6 @@
     "iso_Z_15": "43",
     "iso_N_15": "56",
     "iso_A_15": "99",
-
     "iso_16": "Tc-100",
     "iso_mass_16": "99.9076578",
     "iso_half_16": "15.8 (s)",
@@ -187,7 +162,6 @@
     "iso_Z_16": "43",
     "iso_N_16": "57",
     "iso_A_16": "100",
-
     "iso_17": "Tc-101",
     "iso_mass_17": "100.907315",
     "iso_half_17": "14.22 (min)",
@@ -195,7 +169,6 @@
     "iso_Z_17": "43",
     "iso_N_17": "58",
     "iso_A_17": "101",
-
     "iso_18": "Tc-102",
     "iso_mass_18": "101.909215",
     "iso_half_18": "5.28 (s)",
@@ -203,7 +176,6 @@
     "iso_Z_18": "43",
     "iso_N_18": "59",
     "iso_A_18": "102",
-
     "iso_19": "Tc-103",
     "iso_mass_19": "102.909181",
     "iso_half_19": "54.2 (s)",
@@ -211,7 +183,6 @@
     "iso_Z_19": "43",
     "iso_N_19": "60",
     "iso_A_19": "103",
-
     "iso_20": "Tc-104",
     "iso_mass_20": "103.91145",
     "iso_half_20": "18.3 (min)",
@@ -219,7 +190,6 @@
     "iso_Z_20": "43",
     "iso_N_20": "61",
     "iso_A_20": "104",
-
     "iso_21": "Tc-105",
     "iso_mass_21": "104.91166",
     "iso_half_21": "7.6 (min)",
@@ -227,7 +197,6 @@
     "iso_Z_21": "43",
     "iso_N_21": "62",
     "iso_A_21": "105",
-
     "iso_22": "Tc-106",
     "iso_mass_22": "105.914358",
     "iso_half_22": "35.6 (s)",
@@ -235,7 +204,6 @@
     "iso_Z_22": "43",
     "iso_N_22": "63",
     "iso_A_22": "106",
-
     "iso_23": "Tc-107",
     "iso_mass_23": "106.91508",
     "iso_half_23": "21.2 (s)",
@@ -243,7 +211,6 @@
     "iso_Z_23": "43",
     "iso_N_23": "64",
     "iso_A_23": "107",
-
     "iso_24": "Tc-108",
     "iso_mass_24": "107.91846",
     "iso_half_24": "5.17 (s)",
@@ -251,7 +218,6 @@
     "iso_Z_24": "43",
     "iso_N_24": "65",
     "iso_A_24": "108",
-
     "iso_25": "Tc-109",
     "iso_mass_25": "108.91998",
     "iso_half_25": "860 (ms)",
@@ -259,7 +225,6 @@
     "iso_Z_25": "43",
     "iso_N_25": "66",
     "iso_A_25": "109",
-
     "iso_26": "Tc-110",
     "iso_mass_26": "109.92382",
     "iso_half_26": "0.92 (s)",
@@ -267,7 +232,6 @@
     "iso_Z_26": "43",
     "iso_N_26": "67",
     "iso_A_26": "110",
-
     "iso_27": "Tc-111",
     "iso_mass_27": "110.92569",
     "iso_half_27": "290 (ms)",
@@ -275,7 +239,6 @@
     "iso_Z_27": "43",
     "iso_N_27": "68",
     "iso_A_27": "111",
-
     "iso_28": "Tc-112",
     "iso_mass_28": "111.92915",
     "iso_half_28": "290 (ms)",
@@ -283,7 +246,6 @@
     "iso_Z_28": "43",
     "iso_N_28": "69",
     "iso_A_28": "112",
-
     "iso_29": "Tc-113",
     "iso_mass_29": "112.93159",
     "iso_half_29": "170 (ms)",
@@ -291,7 +253,6 @@
     "iso_Z_29": "43",
     "iso_N_29": "70",
     "iso_A_29": "113",
-
     "iso_30": "Tc-114",
     "iso_mass_30": "113.93588",
     "iso_half_30": "150 (ms)",
@@ -299,7 +260,6 @@
     "iso_Z_30": "43",
     "iso_N_30": "71",
     "iso_A_30": "114",
-
     "iso_31": "Tc-115",
     "iso_mass_31": "114.93869",
     "iso_half_31": "100 (ms)",
@@ -307,7 +267,6 @@
     "iso_Z_31": "43",
     "iso_N_31": "72",
     "iso_A_31": "115",
-
     "iso_32": "Tc-116",
     "iso_mass_32": "115.94337",
     "iso_half_32": "90 (ms)",
@@ -315,7 +274,6 @@
     "iso_Z_32": "43",
     "iso_N_32": "73",
     "iso_A_32": "116",
-
     "iso_33": "Tc-117",
     "iso_mass_33": "116.94648",
     "iso_half_33": "40 (ms)",
@@ -323,7 +281,6 @@
     "iso_Z_33": "43",
     "iso_N_33": "74",
     "iso_A_33": "117",
-
     "iso_34": "Tc-118",
     "iso_mass_34": "117.95148",
     "iso_half_34": "30 (ms)",
@@ -331,13 +288,21 @@
     "iso_Z_34": "43",
     "iso_N_34": "75",
     "iso_A_34": "118",
-
     "iso_35": "Tc-119",
     "iso_mass_35": "---",
     "iso_half_35": "---",
     "decay_type_35": "B-",
     "iso_Z_35": "43",
     "iso_N_35": "65",
-    "iso_A_35": "119"
+    "iso_A_35": "119",
+    "crystal_structure": "Hexagonal close-packed (hcp)",
+    "lattice_constants": {
+      "a": "2.74 Å",
+      "c": "4.39 Å"
+    },
+    "debye_temperature": {
+      "low_temperature_limit": "420 K",
+      "room_temperature": "400 K"
+    }
   }
 ]

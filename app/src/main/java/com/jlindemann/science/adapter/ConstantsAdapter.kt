@@ -37,7 +37,7 @@ class ConstantsAdapter(var list: ArrayList<Constants>, var clickListener: Consta
             textViewName.text = item.name
             textViewName.text = item.name.capitalize()
             textViewShort.text = item.name.substring(0,2)
-            textViewValue.text = item.value.toString().take(7)
+            textViewValue.text = item.value.toString()
             textViewUnit.text = item.unit
             textViewStart.text = item.info
 

@@ -4,7 +4,6 @@
     "wikilink": "https://en.wikipedia.org/wiki/Astatine",
     "link": "https://",
     "description": "Astatine is a chemical element with the symbol At and atomic number 85. It is the rarest naturally occurring element in the Earth's crust, occurring only as the decay product of various heavier elements. All of astatine's isotopes are short-lived; the most stable is astatine-210, with a half-life of 8.1 hours. A sample of the pure element has never been assembled, because any macroscopic specimen would be immediately vaporized by the heat of its own radioactivity.",
-
     "element": "Astatine",
     "short": "At",
     "element_year": "Dale R. Corson",
@@ -14,16 +13,13 @@
     "element_electrons": "85",
     "element_protons": "85",
     "element_neutron_common": "125",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "--- (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "---",
     "superconducting_point": "---",
-
     "element_atomic_number": "85",
     "element_atomicmass": "210 (u)",
     "element_density": "--- (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L8 M18 N32 O18 P7 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Electron_shell_085_Astatine_%28metalloid%29_-_no_label.svg/800px-Electron_shell_085_Astatine_%28metalloid%29_-_no_label.svg.png",
-
     "element_boiling_kelvin": "503.15 (K)",
     "element_boiling_celsius": "230.0 (°C)",
     "element_boiling_fahrenheit": "446.0 (°F)",
     "element_melting_kelvin": "609.95 (K)",
     "element_melting_celsius": "336.8 (°C)",
     "element_melting_fahrenheit": "638.24 (°F)",
-
     "element_electron_config": "4f^14, 5d^10, 6s^2, 6p^5",
     "element_ion_charge": "At^-",
     "element_ionization_energy1": "--- (eV)",
@@ -46,19 +40,12 @@
     "element_atomic_radius": "127 (pm)",
     "element_covalent_radius": "--- (pm)",
     "element_van_der_waals": "202 (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
-
     "oxidation_state_neg": "1",
     "oxidation_state_pos": "1 3 5 7",
-
-    "cas_number": "7440-68-8",
-    "eg_number": "231-178-X",
-
-
     "iso_1": "Astatine-191",
     "iso_mass_1": "191",
     "decay_type_1": "B+",
@@ -66,7 +53,6 @@
     "iso_Z_1": "85",
     "iso_N_1": "106",
     "iso_A_1": "191",
-
     "iso_2": "Astatine-192",
     "iso_mass_2": "192",
     "decay_type_2": "B+",
@@ -74,7 +60,6 @@
     "iso_Z_2": "85",
     "iso_N_2": "107",
     "iso_A_2": "192",
-
     "iso_3": "Astatine-193",
     "iso_mass_3": "193",
     "decay_type_3": "B+",
@@ -82,7 +67,6 @@
     "iso_Z_3": "85",
     "iso_N_3": "108",
     "iso_A_3": "193",
-
     "iso_4": "Astatine-194",
     "iso_mass_4": "194",
     "decay_type_4": "B+",
@@ -90,7 +74,6 @@
     "iso_Z_4": "85",
     "iso_N_4": "109",
     "iso_A_4": "194",
-
     "iso_5": "Astatine-195",
     "iso_mass_5": "195",
     "decay_type_5": "B+",
@@ -98,7 +81,6 @@
     "iso_Z_5": "85",
     "iso_N_5": "110",
     "iso_A_5": "195",
-
     "iso_6": "Astatine-196",
     "iso_mass_6": "196",
     "decay_type_6": "B+",
@@ -106,7 +88,6 @@
     "iso_Z_6": "85",
     "iso_N_6": "111",
     "iso_A_6": "196",
-
     "iso_7": "Astatine-197",
     "iso_mass_7": "197",
     "decay_type_7": "B+",
@@ -114,7 +95,6 @@
     "iso_Z_7": "85",
     "iso_N_7": "112",
     "iso_A_7": "197",
-
     "iso_8": "Astatine-198",
     "iso_mass_8": "198",
     "decay_type_8": "B+",
@@ -122,7 +102,6 @@
     "iso_Z_8": "85",
     "iso_N_8": "113",
     "iso_A_8": "198",
-
     "iso_9": "Astatine-199",
     "iso_mass_9": "199",
     "decay_type_9": "B+",
@@ -130,7 +109,6 @@
     "iso_Z_9": "85",
     "iso_N_9": "114",
     "iso_A_9": "199",
-
     "iso_10": "Astatine-200",
     "iso_mass_10": "200",
     "decay_type_10": "B+",
@@ -138,7 +116,6 @@
     "iso_Z_10": "85",
     "iso_N_10": "115",
     "iso_A_10": "200",
-
     "iso_11": "Astatine-201",
     "iso_mass_11": "201",
     "decay_type_11": "B+",
@@ -146,7 +123,6 @@
     "iso_Z_11": "85",
     "iso_N_11": "116",
     "iso_A_11": "201",
-
     "iso_12": "Astatine-202",
     "iso_mass_12": "202",
     "decay_type_12": "B+",
@@ -154,7 +130,6 @@
     "iso_Z_12": "85",
     "iso_N_12": "117",
     "iso_A_12": "202",
-
     "iso_13": "Astatine-203",
     "iso_mass_13": "203",
     "decay_type_13": "B+",
@@ -162,7 +137,6 @@
     "iso_Z_13": "85",
     "iso_N_13": "118",
     "iso_A_13": "203",
-
     "iso_14": "Astatine-204",
     "iso_mass_14": "204",
     "decay_type_14": "B+",
@@ -170,7 +144,6 @@
     "iso_Z_14": "85",
     "iso_N_14": "119",
     "iso_A_14": "204",
-
     "iso_15": "Astatine-205",
     "iso_mass_15": "205",
     "decay_type_15": "B+",
@@ -178,7 +151,6 @@
     "iso_Z_15": "85",
     "iso_N_15": "120",
     "iso_A_15": "205",
-
     "iso_16": "Astatine-206",
     "iso_mass_16": "206",
     "decay_type_16": "B+",
@@ -186,7 +158,6 @@
     "iso_Z_16": "85",
     "iso_N_16": "121",
     "iso_A_16": "206",
-
     "iso_17": "Astatine-207",
     "iso_mass_17": "207",
     "decay_type_17": "B+",
@@ -194,7 +165,6 @@
     "iso_Z_17": "85",
     "iso_N_17": "122",
     "iso_A_17": "207",
-
     "iso_18": "Astatine-208",
     "iso_mass_18": "208",
     "decay_type_18": "B+",
@@ -202,7 +172,6 @@
     "iso_Z_18": "85",
     "iso_N_18": "123",
     "iso_A_18": "208",
-
     "iso_19": "Astatine-209",
     "iso_mass_19": "209",
     "decay_type_19": "B+",
@@ -210,7 +179,6 @@
     "iso_Z_19": "85",
     "iso_N_19": "124",
     "iso_A_19": "209",
-
     "iso_20": "Astatine-210",
     "iso_mass_20": "210",
     "decay_type_20": "B+",
@@ -218,7 +186,6 @@
     "iso_Z_20": "85",
     "iso_N_20": "125",
     "iso_A_20": "210",
-
     "iso_21": "Astatine-211",
     "iso_mass_21": "211",
     "decay_type_21": "ε",
@@ -226,7 +193,6 @@
     "iso_Z_21": "85",
     "iso_N_21": "126",
     "iso_A_21": "211",
-
     "iso_22": "Astatine-212",
     "iso_mass_22": "212",
     "decay_type_22": "B+",
@@ -234,7 +200,6 @@
     "iso_Z_22": "85",
     "iso_N_22": "127",
     "iso_A_22": "212",
-
     "iso_23": "Astatine-213",
     "iso_mass_23": "213",
     "decay_type_23": "α",
@@ -242,7 +207,6 @@
     "iso_Z_23": "85",
     "iso_N_23": "128",
     "iso_A_23": "213",
-
     "iso_24": "Astatine-214",
     "iso_mass_24": "214",
     "decay_type_24": "α",
@@ -250,7 +214,6 @@
     "iso_Z_24": "85",
     "iso_N_24": "129",
     "iso_A_24": "214",
-
     "iso_25": "Astatine-215",
     "iso_mass_25": "215",
     "decay_type_25": "α",
@@ -258,7 +221,6 @@
     "iso_Z_25": "85",
     "iso_N_25": "130",
     "iso_A_25": "215",
-
     "iso_26": "Astatine-216",
     "iso_mass_26": "216",
     "decay_type_26": "α",
@@ -266,7 +228,6 @@
     "iso_Z_26": "85",
     "iso_N_26": "131",
     "iso_A_26": "216",
-
     "iso_27": "Astatine-217",
     "iso_mass_27": "217",
     "decay_type_27": "α",
@@ -274,7 +235,6 @@
     "iso_Z_27": "85",
     "iso_N_27": "132",
     "iso_A_27": "217",
-
     "iso_28": "Astatine-218",
     "iso_mass_28": "218",
     "decay_type_28": "α",
@@ -282,7 +242,6 @@
     "iso_Z_28": "85",
     "iso_N_28": "133",
     "iso_A_28": "218",
-
     "iso_29": "Astatine-219",
     "iso_mass_29": "219",
     "decay_type_29": "α",
@@ -290,7 +249,6 @@
     "iso_Z_29": "85",
     "iso_N_29": "134",
     "iso_A_29": "219",
-
     "iso_30": "Astatine-220",
     "iso_mass_30": "220",
     "decay_type_30": "α",
@@ -298,7 +256,6 @@
     "iso_Z_30": "85",
     "iso_N_30": "135",
     "iso_A_30": "220",
-
     "iso_31": "Astatine-221",
     "iso_mass_31": "221",
     "decay_type_31": "α",
@@ -306,7 +263,6 @@
     "iso_Z_31": "85",
     "iso_N_31": "136",
     "iso_A_31": "221",
-
     "iso_32": "Astatine-222",
     "iso_mass_32": "222",
     "decay_type_32": "α",
@@ -314,7 +270,6 @@
     "iso_Z_32": "85",
     "iso_N_32": "137",
     "iso_A_32": "222",
-
     "iso_33": "Astatine-223",
     "iso_mass_33": "223",
     "decay_type_33": "α",
@@ -322,7 +277,6 @@
     "iso_Z_33": "85",
     "iso_N_33": "138",
     "iso_A_33": "223",
-
     "iso_34": "Astatine-224",
     "iso_mass_34": "224",
     "decay_type_34": "α",
@@ -330,7 +284,6 @@
     "iso_Z_34": "85",
     "iso_N_34": "139",
     "iso_A_34": "224",
-
     "iso_35": "Astatine-225",
     "iso_mass_35": "225",
     "decay_type_35": "α",
@@ -338,7 +291,6 @@
     "iso_Z_35": "85",
     "iso_N_35": "140",
     "iso_A_35": "225",
-
     "iso_36": "Astatine-226",
     "iso_mass_36": "226",
     "decay_type_36": "α",
@@ -346,7 +298,6 @@
     "iso_Z_36": "85",
     "iso_N_36": "141",
     "iso_A_36": "226",
-
     "iso_37": "Astatine-227",
     "iso_mass_37": "227",
     "decay_type_37": "α",
@@ -354,7 +305,6 @@
     "iso_Z_37": "85",
     "iso_N_37": "142",
     "iso_A_37": "227",
-
     "iso_38": "Astatine-228",
     "iso_mass_38": "228",
     "decay_type_38": "α",
@@ -362,13 +312,18 @@
     "iso_Z_38": "85",
     "iso_N_38": "143",
     "iso_A_38": "228",
-
     "iso_39": "Astatine-229",
     "iso_mass_39": "229",
     "decay_type_39": "α",
     "iso_half_39": "0.5 minutes",
     "iso_Z_39": "85",
     "iso_N_39": "144",
-    "iso_A_39": "229"
+    "iso_A_39": "229",
+    "crystal_structure": null,
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": null,
+      "room_temperature": null
+    }
   }
 ]

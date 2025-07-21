@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.androidx.com/tools"
+    android:layout_marginStart="@dimen/margin_tablet"
+    android:layout_marginEnd="@dimen/margin_tablet"
+    android:elevation="100dp"
+    android:orientation="vertical">
+
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        android:id="@+id/sliding_layout_i"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="101dp"
+        android:gravity="bottom"
+        sothree:umanoFadeColor="@android:color/transparent"
+        sothree:umanoInitialState="collapsed"
+        sothree:umanoPanelHeight="0dp"
+        sothree:umanoScrollableView="@id/scroll_iso"
+        sothree:umanoShadowHeight="0dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="16sp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/half_toast"
+            android:backgroundTint="?attr/colorSurface"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:textSize="16sp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/half_toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:alpha="0.11"/>
+
+            <FrameLayout
+                android:id="@+id/drag_frame"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:focusable="true">
+
+                <TextView
+                    android:id="@+id/drag_icon"
+                    android:layout_width="48dp"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="16dp"
+                    android:alpha="0.85"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorOnSecondaryContainer"
+                    android:elevation="4dp"
+                    android:gravity="center_horizontal" />
+            </FrameLayout>
+
+            <ScrollView
+                android:id="@+id/scroll_iso"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbars="vertical"
+                android:verticalScrollbarPosition="defaultPosition"
+                android:layout_width="match_parent"
+                android:layout_marginTop="36dp"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/frame_iso"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content" />
+            </ScrollView>
+
+
+        </FrameLayout>
+
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+
+</FrameLayout>

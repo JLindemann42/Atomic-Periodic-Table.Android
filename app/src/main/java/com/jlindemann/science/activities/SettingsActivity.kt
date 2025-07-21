@@ -25,8 +25,10 @@ import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.preferences.offlinePreference
 import com.jlindemann.science.settings.ExperimentalActivity
 import com.jlindemann.science.utils.TabUtil
+import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import java.io.File
+import java.io.IOException
 import java.text.DecimalFormat
 import kotlin.math.log10
 import kotlin.math.pow
@@ -126,6 +128,11 @@ class SettingsActivity : BaseActivity() {
             val packageManager = packageManager
             val blogURL = "https://github.com/JLindemann42/Atomic-Periodic-Table.Android"
             TabUtil.openCustomTab(blogURL, packageManager, this)
+        }
+        findViewById<RelativeLayout>(R.id.win_settings).setOnClickListener{
+            val packageManager = packageManager
+            val winURL = "https://apps.microsoft.com/detail/9NBT1TCW2CNT"
+            TabUtil.openCustomTab(winURL, packageManager, this)
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -238,16 +245,21 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun initializeCache() {
-        var size: Long = 0
-        size += getDirSize(this.cacheDir)
-        size += getDirSize(this.externalCacheDir)
-        (findViewById<View>(R.id.clear_cache_content) as TextView).text = readableFileSize(size)
+        try {
+            var size: Long = 0
+            size += getDirSize(this.cacheDir)
+            size += getDirSize(this.externalCacheDir)
+            (findViewById<View>(R.id.clear_cache_content) as TextView).text = readableFileSize(size)
+        }
+        catch(e: IOException) {
+            ToastUtil.showToast(this, "Error Code: 11002")
+        }
     }
 
     private fun getDirSize(dir: File?): Long {
         var size: Long = 0
         if (dir != null) {
-            for (file in dir.listFiles()) {
+            for (file in dir.listFiles()!!) {
                 if (file != null && file.isDirectory) {
                     size += getDirSize(file)
                 } else if (file != null && file.isFile) {

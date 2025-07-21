@@ -117,6 +117,7 @@
                     android:textSize="14sp"
                     android:text="Elements opened"
                     android:textAlignment="center"
+                    android:gravity="center_horizontal"
                     android:layout_gravity="center_horizontal"
                     android:textColor="?attr/colorOnSurface"/>
 

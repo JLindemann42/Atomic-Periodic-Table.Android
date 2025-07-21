@@ -1,12 +1,11 @@
 [
   {
-"element_code": "AAs4R6DppmKvSKVbBZZ",
+    "element_code": "AAs4R6DppmKvSKVbBZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Boron",
     "link": "https://upload.wikimedia.org/wikipedia/commons/1/19/Boron_R105.jpg",
     "description": "Boron is a chemical element with the symbol B and atomic number 5. Produced entirely by cosmic ray spallation and supernovae and not by stellar nucleosynthesis, it is a low-abundance element in the Solar System and in the Earth's crust. It constitutes about 0.001 percent by weight of Earth’s crust. Boron is concentrated on Earth by the water-solubility of its more common naturally occurring compounds, the borate minerals. These are mined industrially as evaporites, such as borax and kernite. The largest known boron deposits are in Turkey, the largest producer of boron minerals.",
-
     "element": "Boron",
-    "short": "Be",
+    "short": "B",
     "element_year": "1808",
     "element_discovered_name": "Joseph Louis Gay-Lussac",
     "element_group": "Metalloids",
@@ -14,16 +13,13 @@
     "element_electrons": "5",
     "element_protons": "5",
     "element_neutron_common": "6",
-
     "radioactive": "No",
     "neutron_cross_sectional": "767 (b)",
-
     "electrical_type": "Insulator",
     "resistivity": "1.5×104 Ωm",
     "resistivity_mult": "1",
     "magnetic_type": "Diamagnetic",
     "superconducting_point": "---",
-
     "element_atomic_number": "5",
     "element_atomicmass": "10.81 (u)",
     "element_density": "2.08 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L3 M0 N0 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Electron_shell_005_Boron_-_no_label.svg/1280px-Electron_shell_005_Boron_-_no_label.svg.png",
-
     "element_boiling_kelvin": "4200 (K)",
     "element_boiling_celsius": "3927 (°C)",
     "element_boiling_fahrenheit": "7101 (°F)",
     "element_melting_kelvin": "2349 (K)",
     "element_melting_celsius": "2076 (°C)",
     "element_melting_fahrenheit": "3769 (°F)",
-
     "element_electron_config": "2s^2 2p^1",
     "element_ion_charge": "---",
     "element_ionization_energy1": "8.29803 (eV)",
@@ -50,42 +44,34 @@
     "element_atomic_radius": "87 (pm)",
     "element_covalent_radius": "82 (pm)",
     "element_van_der_waals": "192 (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "50.2 (kJ/mol)",
     "element_specific_heat_capacity": "1.825 J/(g·K)",
     "element_vaporization_heat": "480 (kJ/mol)",
-
     "oxidation_state_neg": "5 1 0",
     "oxidation_state_pos": "1 2 3",
-
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "16200 (m/s) [20°C]",
-
     "young_modulus": "---",
     "poisson_ratio": "---",
     "bulk_modulus": "185 (GPa) [β-form]",
     "shear_modulus": "---",
-
     "mohs_hardness": "9.3-9.5",
     "vickers_hardness": "4900-5800 (MPa)",
     "brinell_hardness": "---",
-
-      "earth_crust": "12.0",
-      "earth_soils": "10.0",
-      "urban_soils": "45.0",
-      "sea_water": "4.4 × 10^3",
-      "crustal_rocks": "7.0",
-      "sun": "11",
-      "solar_system": "21",
-
-      "cas_number": "7440-42-8",
-      "eg_number": "231-151-2",
-      "health": 2,
-      "flammability": 3,
-      "instability": 0,
-
+    "earth_crust": "12.0",
+    "earth_soils": "10.0",
+    "urban_soils": "45.0",
+    "sea_water": "4.4 × 10^3",
+    "crustal_rocks": "7.0",
+    "sun": "11",
+    "solar_system": "21",
+    "cas_number": "7440-42-8",
+    "eg_number": "231-151-2",
+    "health": 2,
+    "flammability": 3,
+    "instability": 0,
     "iso_1": "Be-7",
     "iso_mass_1": "7.029712",
     "iso_half_1": "570*10^−24 (s)",
@@ -93,7 +79,6 @@
     "iso_Z_1": "5",
     "iso_N_1": "2",
     "iso_A_1": "7",
-
     "iso_2": "Be-8",
     "iso_mass_2": "8.0246073",
     "iso_half_2": "0.770 (s)",
@@ -101,7 +86,6 @@
     "iso_Z_2": "5",
     "iso_N_2": "3",
     "iso_A_2": "8",
-
     "iso_3": "B-9",
     "iso_mass_3": "9.0133296",
     "iso_half_3": "800×10−21 (s)",
@@ -109,7 +93,6 @@
     "iso_Z_3": "5",
     "iso_N_3": "4",
     "iso_A_3": "9",
-
     "iso_4": "B-10",
     "iso_mass_4": "10.012936862",
     "iso_half_4": "Stable",
@@ -117,7 +100,6 @@
     "iso_Z_4": "5",
     "iso_N_4": "5",
     "iso_A_4": "10",
-
     "iso_5": "Be-11",
     "iso_mass_5": "11.009305167",
     "iso_half_5": "Stable",
@@ -125,7 +107,6 @@
     "iso_Z_5": "5",
     "iso_N_5": "6",
     "iso_A_5": "11",
-
     "iso_6": "Be-12",
     "iso_mass_6": "12.0143526",
     "iso_half_6": "20,20 ms",
@@ -133,7 +114,6 @@
     "iso_Z_6": "5",
     "iso_N_6": "7",
     "iso_A_6": "12",
-    
     "iso_7": "Be-13",
     "iso_mass_7": "13.0177800",
     "iso_half_7": "17.33 ms",
@@ -141,7 +121,6 @@
     "iso_Z_7": "5",
     "iso_N_7": "8",
     "iso_A_7": "13",
-
     "iso_8": "Be-14",
     "iso_mass_8": "14.025404",
     "iso_half_8": "12.5 ms",
@@ -149,7 +128,6 @@
     "iso_Z_8": "5",
     "iso_N_8": "9",
     "iso_A_8": "14",
-
     "iso_9": "Be-15",
     "iso_mass_9": "15.031088",
     "iso_half_9": "9.93 ms",
@@ -157,7 +135,6 @@
     "iso_Z_9": "5",
     "iso_N_9": "10",
     "iso_A_9": "15",
-
     "iso_10": "Be-16",
     "iso_mass_10": "16.039842",
     "iso_half_10": ">4.6*10^-21 (s)",
@@ -165,7 +142,6 @@
     "iso_Z_10": "5",
     "iso_N_10": "11",
     "iso_A_10": "16",
-
     "iso_11": "Be-17",
     "iso_mass_11": "17.04693",
     "iso_half_11": "5.08 (ms)",
@@ -173,7 +149,6 @@
     "iso_Z_11": "5",
     "iso_N_11": "12",
     "iso_A_11": "17",
-
     "iso_12": "Be-18",
     "iso_mass_12": "18.05560",
     "iso_half_12": "26 (ns)",
@@ -181,7 +156,6 @@
     "iso_Z_12": "5",
     "iso_N_12": "13",
     "iso_A_12": "18",
-
     "iso_13": "Be-19",
     "iso_mass_13": "19.06417",
     "iso_half_13": "2.92 (ms)",
@@ -189,7 +163,6 @@
     "iso_Z_13": "5",
     "iso_N_13": "14",
     "iso_A_13": "19",
-
     "iso_14": "Be-20",
     "iso_mass_14": "20.07348",
     "iso_half_14": "???",
@@ -197,13 +170,21 @@
     "iso_Z_14": "5",
     "iso_N_14": "15",
     "iso_A_14": "20",
-
     "iso_15": "Be-21",
     "iso_mass_15": "21.08302",
     "iso_half_15": "260 (ns)",
     "decay_type_15": "2n",
     "iso_Z_15": "5",
     "iso_N_15": "16",
-    "iso_A_15": "21"
+    "iso_A_15": "21",
+    "crystal_structure": "Rhombohedral",
+    "lattice_constants": {
+      "a": "5.062 Å",
+      "c": "12.064 Å"
+    },
+    "debye_temperature": {
+      "low_temperature_limit": "1250 K",
+      "room_temperature": "1160 K"
+    }
   }
 ]

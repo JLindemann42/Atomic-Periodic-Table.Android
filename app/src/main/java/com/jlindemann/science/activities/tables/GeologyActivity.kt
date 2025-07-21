@@ -148,8 +148,8 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         for (item in list) {
             val geoPreference = GeologyPreference(this)
             val geoPrefValue = geoPreference.getValue()
-            if (item.name.toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT))) {
-                if (item.type.toLowerCase(Locale.ROOT).contains(geoPrefValue.toLowerCase(Locale.ROOT))) {
+            if (item.name.lowercase(Locale.ROOT).contains(text.lowercase(Locale.ROOT))) {
+                if (item.type.lowercase(Locale.ROOT).contains(geoPrefValue.lowercase(Locale.ROOT))) {
                     filteredList.add(item)
                 }
             }

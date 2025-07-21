@@ -13,6 +13,8 @@ import android.widget.TextView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.tools.CalculatorActivity
 import com.jlindemann.science.activities.tools.ChemicalReactionsActivity
+import com.jlindemann.science.activities.tools.FlashCardActivity
+import com.jlindemann.science.activities.tools.UnitConversionActivity
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ThemePreference
 
@@ -36,29 +38,29 @@ class ToolsActivity : BaseActivity() {
         findViewById<FrameLayout>(R.id.view_tools).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         //Title Controller
-        findViewById<FrameLayout>(R.id.common_title_table_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.tables_title).visibility = View.INVISIBLE
+        findViewById<FrameLayout>(R.id.common_title_tool_color).visibility = View.INVISIBLE
+        findViewById<TextView>(R.id.tools_title).visibility = View.INVISIBLE
         findViewById<FrameLayout>(R.id.common_title_back_tab).elevation = (resources.getDimension(R.dimen.zero_elevation))
         findViewById<ScrollView>(R.id.tools_scroll).getViewTreeObserver()
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
                 var y = 300f
                 override fun onScrollChanged() {
-                    if (findViewById<ScrollView>(R.id.table_scroll).getScrollY() > 150) {
-                        findViewById<FrameLayout>(R.id.common_title_table_color).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.tables_title).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.tables_title_downstate).visibility = View.INVISIBLE
+                    if (findViewById<ScrollView>(R.id.tools_scroll).getScrollY() > 150) {
+                        findViewById<FrameLayout>(R.id.common_title_tool_color).visibility = View.VISIBLE
+                        findViewById<TextView>(R.id.tools_title).visibility = View.VISIBLE
+                        findViewById<TextView>(R.id.tools_title_downstate).visibility = View.INVISIBLE
                         findViewById<FrameLayout>(R.id.common_title_back_tab).elevation = (resources.getDimension(R.dimen.one_elevation))
                     } else {
-                        findViewById<FrameLayout>(R.id.common_title_table_color).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.tables_title).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.tables_title_downstate).visibility = View.VISIBLE
+                        findViewById<FrameLayout>(R.id.common_title_tool_color).visibility = View.INVISIBLE
+                        findViewById<TextView>(R.id.tools_title).visibility = View.INVISIBLE
+                        findViewById<TextView>(R.id.tools_title_downstate).visibility = View.VISIBLE
                         findViewById<FrameLayout>(R.id.common_title_back_tab).elevation = (resources.getDimension(R.dimen.zero_elevation))
                     }
-                    y = findViewById<ScrollView>(R.id.table_scroll).getScrollY().toFloat()
+                    y = findViewById<ScrollView>(R.id.tools_scroll).getScrollY().toFloat()
                 }
             })
 
-        tableListeners()
+        toolListeners()
         mostUsedBar()
 
         findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
@@ -87,21 +89,24 @@ class ToolsActivity : BaseActivity() {
 
         val textView1: TextView = findViewById(R.id.mostT_1)
         val textView2: TextView = findViewById(R.id.mostT_2)
+        val textView3: TextView = findViewById(R.id.mostT_3)
 
-        val textViewList = listOf(textView1, textView2)
+        val textViewList = listOf(textView1, textView2, textView3)
 
         sortedValues.forEachIndexed { index, pair ->
             if (index < textViewList.size) {
                 // Setup TextViews
                 when (pair.first) {
                     "cal" -> textViewList[index].text = getString(R.string.cal)
-                    "rec" -> textViewList[index].text = getString(R.string.rec)
+                    "uni" -> textViewList[index].text = getString(R.string.uni)
+                    "fla" -> textViewList[index].text = getString(R.string.fla)
                 }
 
                 textViewList[index].setOnClickListener {
                     val activity = when (pair.first) {
                         "cal" -> CalculatorActivity::class.java
-                        "rec" -> ChemicalReactionsActivity::class.java
+                        "uni" -> UnitConversionActivity::class.java
+                        "fla" -> FlashCardActivity::class.java
                         else -> null
                     }
                     activity?.let {
@@ -113,7 +118,7 @@ class ToolsActivity : BaseActivity() {
         }
     }
 
-    private fun tableListeners() {
+    private fun toolListeners() {
         //Calculator
         findViewById<FrameLayout>(R.id.tool_calculator).setOnClickListener {
             val intent = Intent(this, CalculatorActivity::class.java)
@@ -124,15 +129,26 @@ class ToolsActivity : BaseActivity() {
             startActivity(intent)
         }
 
-        //Chemical Reactions
-        findViewById<FrameLayout>(R.id.tool_chemical_reaction).setOnClickListener {
-            val intent = Intent(this, ChemicalReactionsActivity::class.java)
+        //Unit converter
+        findViewById<FrameLayout>(R.id.tool_unit_converter).setOnClickListener {
+            val intent = Intent(this, UnitConversionActivity::class.java)
             startActivity(intent)
         }
-        findViewById<TextView>(R.id.chemical_reaction_btn).setOnClickListener {
-            val intent = Intent(this, ChemicalReactionsActivity::class.java)
+        findViewById<TextView>(R.id.unit_converter_btn).setOnClickListener {
+            val intent = Intent(this, UnitConversionActivity::class.java)
             startActivity(intent)
         }
+
+        //Unit converter
+        findViewById<FrameLayout>(R.id.flashcards).setOnClickListener {
+            val intent = Intent(this, FlashCardActivity::class.java)
+            startActivity(intent)
+        }
+        findViewById<TextView>(R.id.flashcards_btn).setOnClickListener {
+            val intent = Intent(this, FlashCardActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
 }

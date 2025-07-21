@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AAGMxsQfceFPiWkUCZZ",
+    "element_code": "AAGMxsQfceFPiWkUCZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Livermorium",
     "link": "empty",
     "description": "Livermorium is a synthetic chemical element with the symbol Lv and has an atomic number of 116. It is an extremely radioactive element that has only been created in the laboratory and has not been observed in nature. The element is named after the Lawrence Livermore National Laboratory in the United States, which collaborated with the Joint Institute for Nuclear Research (JINR) in Dubna, Russia to discover livermorium during experiments made between 2000 and 2006. The name of the laboratory refers to the city of Livermore, California where it is located, which in turn was named after the rancher and landowner Robert Livermore. The name was adopted by IUPAC on May 30, 2012. Four isotopes of livermorium are known, with mass numbers between 290 and 293 inclusive; the longest-lived among them is livermorium-293 with a half-life of about 60 milliseconds. A fifth possible isotope with mass number 294 has been reported but not yet confirmed.",
-
     "element": "Livermorium",
     "short": "Lv",
     "element_year": "---",
@@ -14,16 +13,13 @@
     "element_electrons": "---",
     "element_protons": "---",
     "element_neutron_common": "---",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "--- (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "---",
     "superconducting_point": "---",
-
     "element_atomic_number": "116",
     "element_atomicmass": "293 (u)",
     "element_density": "--- (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L8 M18 N32 O32 P18 Q6 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Electron_shell_116_Livermorium_-_no_label.svg/800px-Electron_shell_116_Livermorium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "--- (K)",
     "element_boiling_celsius": "--- (°C)",
     "element_boiling_fahrenheit": "--- (°F)",
     "element_melting_kelvin": "--- (K)",
     "element_melting_celsius": "--- (°C)",
     "element_melting_fahrenheit": "--- (°F)",
-
     "element_electron_config": "5f^14, 6d^10, 7s^2, 7p^4",
     "element_ion_charge": "---",
     "element_ionization_energy1": "---",
@@ -46,19 +40,21 @@
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
-
-      "cas_number": "54085-16-4",
-
     "iso_1": "--",
     "iso_mass_1": "--",
     "iso_half_1": "--",
     "iso_Z_1": "--",
     "iso_N_1": "--",
-    "iso_A_1": "--"
+    "iso_A_1": "--",
+    "crystal_structure": null,
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": null,
+      "room_temperature": null
+    }
   }
 ]

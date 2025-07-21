@@ -1,0 +1,30 @@
+<!-- Rounded border with gradient stroke for PRO Version -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background Layer -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#99ebcf"
+                android:endColor="#3c85f4"
+                android:angle="-45"/>
+            <corners android:radius="16dp"/>
+        </shape>
+    </item>
+    <!-- Gradient Stroke Layer -->
+    <item>
+        <inset
+            android:inset="1dp">
+            <shape android:shape="rectangle">
+                <corners android:radius="14dp"/>
+                <stroke
+                    android:width="3dp"
+                    android:color="@android:color/transparent"/>
+                <gradient
+                    android:type="linear"
+                    android:angle="45"
+                    android:startColor="?attr/colorSurfaceVariant"
+                    android:endColor="?attr/colorSurfaceVariant"/>
+            </shape>
+        </inset>
+    </item>
+</layer-list>

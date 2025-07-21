@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AAZViSDXeRKsWAvtHZZ",
+    "element_code": "AAZViSDXeRKsWAvtHZZ",
     "wikilink": "https://en.wikipedia.org/wiki/tennessine",
     "link": "empty",
     "description": "Tennessine is a synthetic chemical element with the symbol Ts and atomic number 117. It is the second-heaviest known element and the penultimate element of the 7th period of the periodic table.\nThe discovery of tennessine was officially announced in Dubna, Russia, by a Russian–American collaboration in April 2010, which makes it the most recently discovered element as of 2020. One of its daughter isotopes was created directly in 2011, partially confirming the results of the experiment. The experiment itself was repeated successfully by the same collaboration in 2012 and by a joint German–American team in May 2014. In December 2015, the Joint Working Party of the International Union of Pure and Applied Chemistry (IUPAC) and the International Union of Pure and Applied Physics, which evaluates claims of discovery of new elements, recognized the element and assigned the priority to the Russian–American team. In June 2016, the IUPAC published a declaration stating that the discoverers had suggested the name tennessine after Tennessee, United States. In November 2016, they officially adopted the name \"tennessine\".\n\n",
-
     "element": "tennessine",
     "short": "Ts",
     "element_year": "---",
@@ -14,16 +13,13 @@
     "element_electrons": "---",
     "element_protons": "---",
     "element_neutron_common": "---",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "--- (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "---",
     "superconducting_point": "---",
-
     "element_atomic_number": "117",
     "element_atomicmass": "294 (u)",
     "element_density": "--- (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L8 M18 N32 O32 P18 Q7 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Electron_shell_117_Tennessine_-_no_label.svg/800px-Electron_shell_117_Tennessine_-_no_label.svg.png",
-
     "element_boiling_kelvin": "--- (K)",
     "element_boiling_celsius": "--- (°C)",
     "element_boiling_fahrenheit": "--- (°F)",
     "element_melting_kelvin": "--- (K)",
     "element_melting_celsius": "--- (°C)",
     "element_melting_fahrenheit": "--- (°F)",
-
     "element_electron_config": "5f^14, 6d^10, 7s^2, 7p^5",
     "element_ion_charge": "---",
     "element_ionization_energy1": "---",
@@ -46,19 +40,21 @@
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
-
-      "cas_number": "87658-56-8",
-
     "iso_1": "--",
     "iso_mass_1": "--",
     "iso_half_1": "--",
     "iso_Z_1": "--",
     "iso_N_1": "--",
-    "iso_A_1": "--"
+    "iso_A_1": "--",
+    "crystal_structure": null,
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": null,
+      "room_temperature": null
+    }
   }
 ]

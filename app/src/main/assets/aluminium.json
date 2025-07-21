@@ -4,7 +4,6 @@
     "wikilink": "https://en.wikipedia.org/wiki/Aluminium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Aluminium-4.jpg",
     "description": "Aluminium (aluminum in American and Canadian English) is a chemical element with the symbol Al and atomic number 13. It is a silvery-white, soft, non-magnetic and ductile metal in the boron group. By mass, aluminium makes up about 8% of the Earth's crust, where it is the third most abundant element (after oxygen and silicon) and also the most abundant metal. Occurrence of aluminium decreases in the Earth's mantle below, however. The chief ore of aluminium is bauxite. Aluminium metal is highly reactive, such that native specimens are rare and limited to extreme reducing environments. Instead, it is found combined in over 270 different minerals",
-
     "element": "Aluminium",
     "short": "Al",
     "element_year": "1825",
@@ -14,16 +13,13 @@
     "element_electrons": "13",
     "element_protons": "13",
     "element_neutron_common": "14",
-
     "radioactive": "No",
     "neutron_cross_sectional": "0.232 (b)",
-
     "electrical_type": "Conductor",
     "resistivity": "26.50 nΩm",
     "resistivity_mult": "0.00000001",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "1.175",
-
     "element_atomic_number": "13",
     "element_atomicmass": "26.9815 (u)",
     "element_density": "2.70 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L8 M3 N0 O0 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Electron_shell_013_Aluminium_-_no_label.svg/1280px-Electron_shell_013_Aluminium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "2743 (K)",
     "element_boiling_celsius": "2470 (°C)",
     "element_boiling_fahrenheit": "4478 (°F)",
     "element_melting_kelvin": "933.47 (K)",
     "element_melting_celsius": "660.32 (°C)",
     "element_melting_fahrenheit": "1220.58 (°F)",
-
     "element_electron_config": "3s^2 3p^1",
     "element_ion_charge": "Al^3+",
     "element_ionization_energy1": "5.98577 (eV)",
@@ -58,34 +52,27 @@
     "element_atomic_radius": "118 (pm)",
     "element_covalent_radius": "184 (pm)",
     "element_van_der_waals": "118 (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "10.789 (kJ/mol)",
     "element_specific_heat_capacity": "0.897 J/(g·K)",
     "element_vaporization_heat": "294 (kJ/mol)",
-
     "oxidation_state_neg": "1 2",
     "oxidation_state_pos": "1 2 3",
-
     "speed_of_sound_gas": "---",
     "speed_of_sound_liquid": "---",
     "speed_of_sound_solid": "5000 (m/s) [room temperature]",
-
     "young_modulus": "70 (GPa)",
     "poisson_ratio": "0.35",
     "bulk_modulus": "76 (GPa)",
     "shear_modulus": "26 (GPa)",
-
     "mohs_hardness": "2.75",
     "vickers_hardness": "160-350 (MPa)",
     "brinell_hardness": "160-550 (MPa)",
-
     "cas_number": "7429-90-5",
     "eg_number": "231-072-3",
     "health": 0,
     "flammability": 1,
     "instability": 1,
-
     "earth_crust": "80500",
     "earth_soils": "71300",
     "urban_soils": "38200",
@@ -93,7 +80,6 @@
     "crustal_rocks": "8.0 × 10^4",
     "sun": "8.3 × 10^4",
     "solar_system": "8.5 × 10^4",
-
     "iso_1": "Al-22",
     "iso_mass_1": "22.01954",
     "iso_half_1": "91.1 (ms)",
@@ -101,7 +87,6 @@
     "iso_Z_1": "13",
     "iso_N_1": "9",
     "iso_A_1": "22",
-
     "iso_2": "Al-23",
     "iso_mass_2": "23.0072444",
     "iso_half_2": "470 (ms)",
@@ -109,7 +94,6 @@
     "iso_Z_2": "13",
     "iso_N_2": "10",
     "iso_A_2": "23",
-
     "iso_3": "Al-24",
     "iso_mass_3": "23.99994754",
     "iso_half_3": "2.053 (s)",
@@ -117,7 +101,6 @@
     "iso_Z_3": "13",
     "iso_N_3": "11",
     "iso_A_3": "24",
-
     "iso_4": "Al-25",
     "iso_mass_4": "24.99042831",
     "iso_half_4": "7.183 (s)",
@@ -125,7 +108,6 @@
     "iso_Z_4": "13",
     "iso_N_4": "12",
     "iso_A_4": "25",
-
     "iso_5": "Al-26",
     "iso_mass_5": "25.98689186",
     "iso_half_5": "7.17(24)×10^5 (Years)",
@@ -133,7 +115,6 @@
     "iso_Z_5": "13",
     "iso_N_5": "13",
     "iso_A_5": "26",
-
     "iso_6": "Al-27",
     "iso_mass_6": "26.98153841",
     "iso_half_6": "Stable",
@@ -141,7 +122,6 @@
     "iso_Z_6": "13",
     "iso_N_6": "14",
     "iso_A_6": "27",
-
     "iso_7": "Al-28",
     "iso_mass_7": "27.98191009",
     "iso_half_7": "2.245 (min)",
@@ -149,7 +129,6 @@
     "iso_Z_7": "13",
     "iso_N_7": "15",
     "iso_A_7": "28",
-
     "iso_8": "Al-29",
     "iso_mass_8": "28.9804532",
     "iso_half_8": "6.56 (min)",
@@ -157,7 +136,6 @@
     "iso_Z_8": "13",
     "iso_N_8": "16",
     "iso_A_8": "29",
-
     "iso_9": "Al-30",
     "iso_mass_9": "29.982968",
     "iso_half_9": "3.62 (s)",
@@ -165,7 +143,6 @@
     "iso_Z_9": "13",
     "iso_N_9": "17",
     "iso_A_9": "30",
-
     "iso_10": "Al-31",
     "iso_mass_10": "30.9839498",
     "iso_half_10": "644 (ms)",
@@ -173,7 +150,6 @@
     "iso_Z_10": "13",
     "iso_N_10": "18",
     "iso_A_10": "31",
-
     "iso_11": "Al-32",
     "iso_mass_11": "31.988084",
     "iso_half_11": "33.0 (ms)",
@@ -181,7 +157,6 @@
     "iso_Z_11": "13",
     "iso_N_11": "19",
     "iso_A_11": "32",
-
     "iso_12": "Al-33",
     "iso_mass_12": "32.990878",
     "iso_half_12": "41.7 (ms)",
@@ -189,7 +164,6 @@
     "iso_Z_12": "13",
     "iso_N_12": "20",
     "iso_A_12": "33",
-
     "iso_13": "Al-34",
     "iso_mass_13": "33.996779",
     "iso_half_13": "56.3 (ms)",
@@ -197,7 +171,6 @@
     "iso_Z_13": "13",
     "iso_N_13": "21",
     "iso_A_13": "34",
-
     "iso_14": "Al-35",
     "iso_mass_14": "34.999760",
     "iso_half_14": "37.2 (ms)",
@@ -205,7 +178,6 @@
     "iso_Z_14": "13",
     "iso_N_14": "22",
     "iso_A_14": "35",
-
     "iso_15": "Al-36",
     "iso_mass_15": "36.00639",
     "iso_half_15": "90 (ms)",
@@ -213,7 +185,6 @@
     "iso_Z_15": "13",
     "iso_N_15": "23",
     "iso_A_15": "36",
-
     "iso_16": "Al-37",
     "iso_mass_16": "37.01053",
     "iso_half_16": "11.5 (ms)",
@@ -221,7 +192,6 @@
     "iso_Z_16": "13",
     "iso_N_16": "24",
     "iso_A_16": "37",
-
     "iso_17": "Al-38",
     "iso_mass_17": "38.0174",
     "iso_half_17": "9.0 (ms)",
@@ -229,7 +199,6 @@
     "iso_Z_17": "13",
     "iso_N_17": "25",
     "iso_A_17": "38",
-
     "iso_18": "Al-39",
     "iso_mass_18": "39.02217",
     "iso_half_18": "7.6 (ms)",
@@ -237,7 +206,6 @@
     "iso_Z_18": "13",
     "iso_N_18": "26",
     "iso_A_18": "39",
-
     "iso_19": "Al-40",
     "iso_mass_19": "40.02962",
     "iso_half_19": "10 (ms)",
@@ -245,7 +213,6 @@
     "iso_Z_19": "13",
     "iso_N_19": "27",
     "iso_A_19": "40",
-
     "iso_20": "Al-41",
     "iso_mass_20": "41.03588",
     "iso_half_20": "2 (ms)",
@@ -253,7 +220,6 @@
     "iso_Z_20": "13",
     "iso_N_20": "28",
     "iso_A_20": "41",
-
     "iso_21": "Al-42",
     "iso_mass_21": "42.04305",
     "iso_half_21": "1 (ms)",
@@ -261,13 +227,20 @@
     "iso_Z_21": "13",
     "iso_N_21": "29",
     "iso_A_21": "42",
-    
     "iso_22": "Al-43",
     "iso_mass_22": "43.05048",
     "iso_half_22": "1 (ms)",
     "decay_type_22": "B-",
     "iso_Z_22": "13",
     "iso_N_22": "30",
-    "iso_A_22": "43"
+    "iso_A_22": "43",
+    "crystal_structure": "Face-centered cubic (fcc)",
+    "lattice_constants": {
+      "a": "4.04958 Å"
+    },
+    "debye_temperature": {
+      "low_temperature_limit": "428 K",
+      "room_temperature": "390 K"
+    }
   }
 ]

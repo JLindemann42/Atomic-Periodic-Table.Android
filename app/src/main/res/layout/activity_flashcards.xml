@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/view_flash"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/flashcard_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+
+            <TextView
+                android:id="@+id/flashcard_title_downstate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                android:paddingStart="0dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="12dp"
+                android:text="@string/flashcards_title"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="32sp"
+                android:textStyle="normal" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_weight="0.33"
+                    android:padding="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:gravity="center"
+                    android:background="@drawable/toast_card"
+                    android:layout_height="108dp">
+
+                    <TextView
+                        android:id="@+id/level_stat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="30sp"
+                        android:text="---"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:text="@string/flashcards_level"
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_weight="0.33"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/toast_card"
+                    android:layout_height="108dp">
+
+                    <TextView
+                        android:id="@+id/completed_quizzes_stat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="30sp"
+                        android:text="---"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:text="@string/flashcards_total_games"
+                        android:textAlignment="center"
+                        android:layout_gravity="center_horizontal"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_weight="0.33"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/toast_card"
+                    android:layout_height="108dp">
+
+                    <ImageButton
+                        android:id="@+id/shuffle_btn"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:rotation="180"
+                        app:tint="?attr/colorOnSecondaryContainer"
+                        android:src="@drawable/ic_random_large"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/stats_Box"
+                android:background="@drawable/toast_card"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/flashcards_statistics"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="?attr/colorAccent"
+                    android:drawableStart="@drawable/ic_stats"
+                    android:drawablePadding="8dp"
+                    android:drawableTint="?attr/colorAccent"
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:layout_marginStart="@dimen/default_padding"
+                    android:layout_marginEnd="@dimen/default_padding"
+                    android:layout_marginBottom="@dimen/margin_space_card"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <ProgressBar
+                        android:id="@+id/xp_progress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="8dp"
+                        android:layout_weight="1"
+                        android:max="100"
+                        android:progress="50"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:id="@+id/progress_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="50/500"
+                        android:textSize="14sp"
+                        android:gravity="end"
+                        android:alpha="0.95"
+                        android:textColor="?attr/colorOnSurface"
+                        android:layout_marginEnd="18dp"/>
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/total_xp_stat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="Total XP: ---"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="4dp"
+                    android:textColor="?attr/colorOnSurface"/>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/pro_box"
+                android:layout_width="match_parent"
+                android:visibility="visible"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/toast_card"
+
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/margin"
+                            android:clickable="true"
+                            android:drawableStart="@drawable/ic_star"
+                            android:drawablePadding="12dp"
+                            android:drawableTint="?attr/colorPrimary"
+                            android:elevation="1dp"
+                            android:focusable="true"
+                            android:foreground="@drawable/c_ripple"
+                            android:gravity="center_vertical"
+                            android:text="Unlock all Flashcards and Features"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textColor="?attr/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:paddingStart="@dimen/margin"
+                            android:paddingEnd="@dimen/margin"
+                            android:paddingBottom="8dp"
+                            android:paddingTop="8dp"
+                            android:text="Get unlimeted lives and additional flashcard games such as electronegativity, radioactivity, crystal structure and more!"/>
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp">
+
+                        <TextView
+                            android:id="@+id/get_pro_plus_btn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="48dp"
+                            android:layout_marginStart="@dimen/margin"
+                            android:layout_marginEnd="@dimen/margin"
+                            android:layout_marginBottom="@dimen/margin"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/toast"
+                            android:backgroundTint="?attr/colorPrimary"
+                            android:clickable="true"
+                            android:elevation="2dp"
+                            android:focusable="true"
+                            android:layout_gravity="center"
+                            android:gravity="center_vertical"
+                            android:paddingEnd="24dp"
+                            android:paddingStart="24dp"
+                            android:foreground="@drawable/c_ripple"
+                            android:textStyle="bold"
+                            android:text="Upgrade to PRO+"
+                            android:textSize="18sp"
+                            android:textColor="?attr/colorOnPrimary" />
+                    </FrameLayout>
+                </LinearLayout>
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/difficulty_box"
+                android:background="@drawable/toast_card"
+                android:padding="16dp"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/flashcards_difficulty_title"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="?attr/colorAccent"
+                    android:drawableStart="@drawable/ic_flashcards"
+                    android:drawablePadding="8dp"
+                    android:drawableTint="?attr/colorAccent"
+                    android:layout_marginBottom="@dimen/margin_space_card"/>
+
+                <TextView
+                    android:id="@+id/tv_category_select_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="@string/flashcards_difficulty"
+                    android:textAppearance="?attr/textAppearanceHeadline5"
+                    android:textColor="?attr/colorOnSurface"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="8dp"/>
+
+                <LinearLayout
+                    android:id="@+id/linear_difficulty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="6dp">
+
+                    <ToggleButton
+                        android:id="@+id/toggle_easy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:textOn="Easy"
+                        android:textOff="Easy"
+                        android:text="Easy"
+                        android:textSize="16sp"
+                        android:background="@drawable/chip_toggle_selector"
+                        android:checked="true"
+                        android:paddingHorizontal="24dp"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="1dp" />
+
+                    <ToggleButton
+                        android:id="@+id/toggle_medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:textOn="Medium"
+                        android:textOff="Medium"
+                        android:text="Medium"
+                        android:textSize="16sp"
+                        android:background="@drawable/chip_toggle_selector"
+                        android:paddingHorizontal="24dp"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                    <Space
+                        android:layout_width="12dp"
+                        android:layout_height="1dp" />
+
+                    <ToggleButton
+                        android:id="@+id/toggle_hard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:textOn="Hard"
+                        android:textOff="Hard"
+                        android:text="Hard"
+                        android:textSize="16sp"
+                        android:background="@drawable/chip_toggle_selector"
+                        android:paddingHorizontal="24dp"
+                        android:textColor="?attr/colorOnSurface"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Add this TextView below the title bar, above the difficulty selection -->
+            <TextView
+                android:id="@+id/tv_lives_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="?attr/colorError"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:visibility="gone"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="8dp"/>
+            <!-- Level 0-4 Box -->
+            <LinearLayout
+                android:id="@+id/box_0_4"
+                android:background="@drawable/toast_card"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/title_box_0_4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Level 0–4"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="?attr/colorAccent"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawableTint="?attr/colorAccent"
+                    android:drawablePadding="8dp"
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:layout_marginBottom="@dimen/margin_space_card"/>
+
+                <LinearLayout
+                    android:id="@+id/btn_element_symbols"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Element Symbols"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_element_names"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Element Names"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_element_classifications"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Element Groups"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_discovered_by"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Discovered By"/>
+                    <TextView
+                        android:id="@+id/pro_badge_discovered_by"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_discovery_year"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Discovery Year"/>
+                    <TextView
+                        android:id="@+id/pro_badge_discovery_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Level 5-9 Box -->
+            <LinearLayout
+                android:id="@+id/box_5_9"
+                android:background="@drawable/toast_card"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/title_box_5_9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Level 5–9"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="?attr/colorAccent"
+                    android:drawableTint="?attr/colorAccent"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="8dp"
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:layout_marginBottom="@dimen/margin_space_card"/>
+
+                <LinearLayout
+                    android:id="@+id/btn_appearance"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Appearance"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_atomic_number"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Atomic Number"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_electrical_type"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Electrical Type"/>
+                    <TextView
+                        android:id="@+id/pro_badge_electrical_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_radioactive"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Radioactive"/>
+                    <TextView
+                        android:id="@+id/pro_badge_radioactive"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Level 10-14 Box -->
+            <LinearLayout
+                android:id="@+id/box_10_14"
+                android:background="@drawable/toast_card"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/title_box_10_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Level 10–14"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="?attr/colorAccent"
+                    android:drawableTint="?attr/colorAccent"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="8dp"
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:layout_marginBottom="@dimen/margin_space_card"/>
+
+                <LinearLayout
+                    android:id="@+id/btn_atomic_mass"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Atomic Mass"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_density"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Density"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_electronegativity"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Electronegativity"/>
+                    <TextView
+                        android:id="@+id/pro_badge_electronegativity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_block"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Block"/>
+                    <TextView
+                        android:id="@+id/pro_badge_block"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Level 15-19 Box -->
+            <LinearLayout
+                android:id="@+id/box_15_19"
+                android:background="@drawable/toast_card"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/title_box_15_19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Level 15–19"
+                    android:textStyle="bold"
+                    android:drawableTint="?attr/colorAccent"
+                    android:textSize="20sp"
+                    android:textColor="?attr/colorAccent"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawablePadding="8dp"
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:layout_marginBottom="@dimen/margin_space_card"/>
+
+                <LinearLayout
+                    android:id="@+id/btn_magnetic_type"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Magnetic Type"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_phase_stp"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Phase (STP)"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_crystal_structure"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Crystal Structure"/>
+                    <TextView
+                        android:id="@+id/pro_badge_crystal_structure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_superconducting_point"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Superconducting Point"/>
+                    <TextView
+                        android:id="@+id/pro_badge_superconducting_point"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Level 20-24 Box -->
+            <LinearLayout
+                android:id="@+id/box_20_24"
+                android:background="@drawable/toast_card"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/title_box_20_24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Level 20–24"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="?attr/colorAccent"
+                    android:drawableStart="@drawable/ic_lock"
+                    android:drawableTint="?attr/colorAccent"
+                    android:drawablePadding="8dp"
+                    android:layout_marginTop="@dimen/default_padding"
+                    android:layout_marginBottom="@dimen/margin_space_card"/>
+
+                <LinearLayout
+                    android:id="@+id/btn_neutron_cross_sectional"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Neutron Cross Sectional"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_specific_heat_capacity"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Specific Heat Capacity"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_mohs_hardness"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Mohs Hardness"/>
+                    <TextView
+                        android:id="@+id/pro_badge_mohs_hardness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_vickers_hardness"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Vickers Hardness"/>
+                    <TextView
+                        android:id="@+id/pro_badge_vickers_hardness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/btn_brinell_hardness"
+                    style="@style/CategoryButtonRow">
+                    <TextView style="@style/CategoryButtonText" android:text="Brinell Hardness"/>
+                    <TextView
+                        android:id="@+id/pro_badge_brinell_hardness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRO+"
+                        android:textStyle="bold"
+                        android:textColor="?attr/colorOnPrimary"
+                        android:background="@drawable/pro_plus_badge_bg"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_gravity="center_vertical"
+                        android:visibility="gone"/>
+                    <ImageView style="@style/CategoryButtonIcon"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+    <FrameLayout
+        android:id="@+id/common_title_back_fla"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:elevation="1dp"
+        android:background="?attr/colorSurface"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/common_title_back_fla_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/title_box"
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
+
+                <ImageButton
+                    android:id="@+id/back_btn_fla"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical"
+                    android:rotation="180"
+                    app:tint="?attr/colorOnSecondaryContainer"
+                    android:src="@drawable/ic_arrow_back_whit" />
+
+                <TextView
+                    android:id="@+id/flashcard_title"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:alpha="0.9"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/flashcards_title"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/tools_layout"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical|end"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:id="@+id/history_btn"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:visibility="gone"
+                        android:layout_gravity="center_vertical"
+                        android:rotation="180"
+                        app:tint="?attr/colorOnSecondaryContainer"
+                        android:src="@drawable/ic_history" />
+
+                    <TextView
+                        android:id="@+id/tv_lives_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5"
+                        android:textSize="20sp"
+                        android:drawableStart="@drawable/ic_heart"
+                        android:drawableTint="?attr/colorError"
+                        android:paddingEnd="24dp"
+                        android:drawablePadding="9dp"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textAppearance="?attr/textAppearanceSubtitle1"
+                        android:textStyle="bold"
+                        android:layout_marginStart="4dp"/>
+                </LinearLayout>
+
+
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

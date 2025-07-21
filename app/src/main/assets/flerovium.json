@@ -1,10 +1,9 @@
 [
   {
-"element_code": "AAGvMTMUBNEGesi7wZZ",
+    "element_code": "AAGvMTMUBNEGesi7wZZ",
     "wikilink": "https://en.wikipedia.org/wiki/Flerovium",
     "link": "empty",
     "description": "Flerovium is a superheavy artificial chemical element with the symbol Fl and atomic number 114. It is an extremely radioactive synthetic element. The element is named after the Flerov Laboratory of Nuclear Reactions of the Joint Institute for Nuclear Research in Dubna, Russia, where the element was discovered in 1998. The name of the laboratory, in turn, honours the Russian physicist Georgy Flyorov (Флёров in Cyrillic, hence the transliteration of \"yo\" to \"e\"). The name was adopted by IUPAC on 30 May 2012.",
-
     "element": "Flerovium",
     "short": "Fl",
     "element_year": "---",
@@ -14,16 +13,13 @@
     "element_electrons": "---",
     "element_protons": "---",
     "element_neutron_common": "---",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "--- (b)",
-
     "electrical_type": "---",
     "resistivity": "---",
     "resistivity_mult": "---",
     "magnetic_type": "---",
     "superconducting_point": "---",
-
     "element_atomic_number": "114",
     "element_atomicmass": "289 (u)",
     "element_density": "--- (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "p - block",
     "element_shells_electrons": "K2 L8 M18 N32 O32 P18 Q4 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Electron_shell_114_Flerovium_-_no_label.svg/800px-Electron_shell_114_Flerovium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "--- (K)",
     "element_boiling_celsius": "--- (°C)",
     "element_boiling_fahrenheit": "--- (°F)",
     "element_melting_kelvin": "--- (K)",
     "element_melting_celsius": "--- (°C)",
     "element_melting_fahrenheit": "--- (°F)",
-
     "element_electron_config": "5f^14, 6d^10, 7s^2, 7p^2",
     "element_ion_charge": "---",
     "element_ionization_energy1": "---",
@@ -46,19 +40,19 @@
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "--- (kJ/mol)",
     "element_specific_heat_capacity": "--- J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
-
-      "cas_number": "54084-71-8",
-
+    "cas_number": "54084-71-8",
     "iso_1": "--",
     "iso_mass_1": "--",
     "iso_half_1": "--",
     "iso_Z_1": "--",
     "iso_N_1": "--",
-    "iso_A_1": "--"
+    "iso_A_1": "--",
+    "crystal_structure": null,
+    "lattice_constants": null,
+    "debye_temperature": null
   }
 ]

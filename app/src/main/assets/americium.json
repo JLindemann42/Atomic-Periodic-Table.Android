@@ -4,7 +4,6 @@
     "wikilink": "https://en.wikipedia.org/wiki/Americium",
     "link": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Americium_microscope.jpg/800px-Americium_microscope.jpg",
     "description": "Americium is a synthetic radioactive chemical element with the symbol Am and atomic number 95. It is a transuranic member of the actinide series, in the periodic table located under the lanthanide element europium, and thus by analogy was named after the Americas.",
-
     "element": "Americium",
     "short": "Am",
     "element_year": "1944",
@@ -14,16 +13,13 @@
     "element_electrons": "95",
     "element_protons": "95",
     "element_neutron_common": "148",
-
     "radioactive": "Yes",
     "neutron_cross_sectional": "75.3 (b)",
-
     "electrical_type": "---",
     "resistivity": "689 nΩm",
     "resistivity_mult": "---",
     "magnetic_type": "Paramagnetic",
     "superconducting_point": "0.6",
-
     "element_atomic_number": "95",
     "element_atomicmass": "243 (u)",
     "element_density": "12 (g/cm^3)",
@@ -31,14 +27,12 @@
     "element_block": "f - block",
     "element_shells_electrons": "K2 L8 M18 N32 O25 P8 Q2 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Electron_shell_095_Americium_-_no_label.svg/800px-Electron_shell_095_Americium_-_no_label.svg.png",
-
     "element_boiling_kelvin": "2880 (K)",
     "element_boiling_celsius": "2607 (°C)",
     "element_boiling_fahrenheit": "4725 (°F)",
     "element_melting_kelvin": "1449 (K)",
     "element_melting_celsius": "1176 (°C)",
     "element_melting_fahrenheit": "2149 (°F)",
-
     "element_electron_config": "5f^7, 7s^2",
     "element_ion_charge": "Am^3+, Am^4+",
     "element_ionization_energy1": "5.9738 (eV)",
@@ -46,19 +40,14 @@
     "element_atomic_radius": "--- (pm)",
     "element_covalent_radius": "---",
     "element_van_der_waals": "--- (pm)",
-
     "element_phase": "Solid",
     "element_fusion_heat": "14.39 (kJ/mol)",
     "element_specific_heat_capacity": "0.11 J/(g·K)",
     "element_vaporization_heat": "--- (kJ/mol)",
-
     "oxidation_state_neg": "",
     "oxidation_state_pos": "2 3 4 5 6 7",
-
     "cas_number": "7440-35-9",
     "eg_number": "231-145-0",
-
-
     "iso_1": "Americium-223",
     "iso_mass_1": "223",
     "decay_type_1": "α",
@@ -66,7 +55,6 @@
     "iso_Z_1": "95",
     "iso_N_1": "128",
     "iso_A_1": "223",
-
     "iso_2": "Americium-229",
     "iso_mass_2": "229",
     "decay_type_2": "α",
@@ -74,7 +62,6 @@
     "iso_Z_2": "95",
     "iso_N_2": "134",
     "iso_A_2": "229",
-
     "iso_3": "Americium-230",
     "iso_mass_3": "230",
     "decay_type_3": "B+",
@@ -82,7 +69,6 @@
     "iso_Z_3": "95",
     "iso_N_3": "135",
     "iso_A_3": "230",
-
     "iso_4": "Americium-232",
     "iso_mass_4": "232",
     "decay_type_4": "B+",
@@ -90,7 +76,6 @@
     "iso_Z_4": "95",
     "iso_N_4": "137",
     "iso_A_4": "232",
-
     "iso_5": "Americium-233",
     "iso_mass_5": "233",
     "decay_type_5": "B+",
@@ -98,7 +83,6 @@
     "iso_Z_5": "95",
     "iso_N_5": "138",
     "iso_A_5": "233",
-
     "iso_6": "Americium-234",
     "iso_mass_6": "234",
     "decay_type_6": "B+",
@@ -106,7 +90,6 @@
     "iso_Z_6": "95",
     "iso_N_6": "139",
     "iso_A_6": "234",
-
     "iso_7": "Americium-235",
     "iso_mass_7": "235",
     "decay_type_7": "B+",
@@ -114,7 +97,6 @@
     "iso_Z_7": "95",
     "iso_N_7": "140",
     "iso_A_7": "235",
-
     "iso_8": "Americium-236",
     "iso_mass_8": "236",
     "decay_type_8": "B+",
@@ -122,7 +104,6 @@
     "iso_Z_8": "95",
     "iso_N_8": "141",
     "iso_A_8": "236",
-
     "iso_9": "Americium-237",
     "iso_mass_9": "237",
     "decay_type_9": "B+",
@@ -130,7 +111,6 @@
     "iso_Z_9": "95",
     "iso_N_9": "142",
     "iso_A_9": "237",
-
     "iso_10": "Americium-238",
     "iso_mass_10": "238",
     "decay_type_10": "B+",
@@ -138,7 +118,6 @@
     "iso_Z_10": "95",
     "iso_N_10": "143",
     "iso_A_10": "238",
-
     "iso_11": "Americium-239",
     "iso_mass_11": "239",
     "decay_type_11": "EC",
@@ -146,7 +125,6 @@
     "iso_Z_11": "95",
     "iso_N_11": "144",
     "iso_A_11": "239",
-
     "iso_12": "Americium-240",
     "iso_mass_12": "240",
     "decay_type_12": "B+",
@@ -154,7 +132,6 @@
     "iso_Z_12": "95",
     "iso_N_12": "145",
     "iso_A_12": "240",
-
     "iso_13": "Americium-241",
     "iso_mass_13": "241",
     "decay_type_13": "α",
@@ -162,7 +139,6 @@
     "iso_Z_13": "95",
     "iso_N_13": "146",
     "iso_A_13": "241",
-
     "iso_14": "Americium-242",
     "iso_mass_14": "242",
     "decay_type_14": "B-",
@@ -170,7 +146,6 @@
     "iso_Z_14": "95",
     "iso_N_14": "147",
     "iso_A_14": "242",
-
     "iso_15": "Americium-243",
     "iso_mass_15": "243",
     "decay_type_15": "α",
@@ -178,7 +153,6 @@
     "iso_Z_15": "95",
     "iso_N_15": "148",
     "iso_A_15": "243",
-
     "iso_16": "Americium-244",
     "iso_mass_16": "244",
     "decay_type_16": "B-",
@@ -186,13 +160,18 @@
     "iso_Z_16": "95",
     "iso_N_16": "149",
     "iso_A_16": "244",
-
     "iso_17": "Americium-245",
     "iso_mass_17": "245",
     "decay_type_17": "B-",
     "iso_half_17": "2.05 hours",
     "iso_Z_17": "95",
     "iso_N_17": "150",
-    "iso_A_17": "245"
+    "iso_A_17": "245",
+    "crystal_structure": "Double hexagonal close-packed (dhcp)",
+    "lattice_constants": null,
+    "debye_temperature": {
+      "low_temperature_limit": "110 K",
+      "room_temperature": "100 K"
+    }
   }
 ]
