@@ -29,6 +29,7 @@ import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.model.ConstantsModel
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
+import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 
@@ -65,12 +66,17 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         shareSetup()
 
         val proPref = ProVersion(this).getValue()
+        val proPlusPref = ProPlusVersion(this).getValue()
         // Update depending on PRO or Not:
         if (proPref == 1) {
             findViewById<TextView>(R.id.pro_badge).text = "NON-PRO"
         }
         if (proPref == 100) {
             findViewById<TextView>(R.id.pro_badge).text = "PRO-USER"
+        }
+        if (proPlusPref == 100) {
+            findViewById<TextView>(R.id.pro_badge).text = "PRO+-USER"
+
         }
 
         val sharedPref = getSharedPreferences("UserActivityPrefs", Context.MODE_PRIVATE)

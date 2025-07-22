@@ -208,10 +208,17 @@ class LearningGamesActivity : BaseActivity() {
         if (category == "radioactive") {
             findViewById<LinearLayout>(R.id.answer_3).visibility = View.GONE
             findViewById<LinearLayout>(R.id.answer_4).visibility = View.GONE
-        } else {
+        } else if (category == "electrical_type") {
+            findViewById<LinearLayout>(R.id.answer_4).visibility = View.GONE
+        }
+        else if (category == "phase_stp") {
+            findViewById<LinearLayout>(R.id.answer_4).visibility = View.GONE
+        }
+        else {
             findViewById<LinearLayout>(R.id.answer_3).visibility = View.VISIBLE
             findViewById<LinearLayout>(R.id.answer_4).visibility = View.VISIBLE
         }
+
 
         grid.animate().alpha(1f).setDuration(300).start()
         progressBar.animate().alpha(1f).setDuration(300).start()
@@ -446,7 +453,11 @@ class LearningGamesActivity : BaseActivity() {
         val usedElements = mutableSetOf<String>()
 
         fun wrongAnswersFor(fieldSelector: (ElementData) -> String, correct: String): List<String> =
-            elements.filter { normalizeLabel(fieldSelector(it)) != normalizeLabel(correct) && normalizeLabel(fieldSelector(it)) != "" }
+            elements
+                .filter {
+                    val v = normalizeLabel(fieldSelector(it))
+                    v != normalizeLabel(correct) && v.isNotBlank() && v != "---"
+                }
                 .map { normalizeLabel(fieldSelector(it)) }
                 .filter { it.isNotBlank() && it != "---" }
                 .distinct()
@@ -610,10 +621,18 @@ class LearningGamesActivity : BaseActivity() {
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
             }
+            // Skip question if correct answer is blank or placeholder
+            if (correct.isBlank() || correct == "---") {
+                return@repeat
+            }
             val filteredAlternatives = alternatives
                 .map(::normalizeLabel)
                 .filter { it.isNotBlank() && it != "---" }
                 .distinct()
+            // Skip if there are not enough alternatives (at least 2)
+            if (filteredAlternatives.size < 2) {
+                return@repeat
+            }
             questions.add(Question(questionText, correct, filteredAlternatives, baseXp))
         }
         return questions

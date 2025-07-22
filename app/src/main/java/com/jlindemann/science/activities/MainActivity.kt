@@ -521,6 +521,23 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         findViewById<FloatingActionButton>(R.id.pro_fab).visibility = View.GONE
     }
 
+    //For updating when user purschases PRO Version in ProActivity
+    private fun setProFabVisibilityGoneIfProValue100() {
+        val proPref = ProVersion(this)
+        val value = proPref.getValue()
+        val proFab = findViewById<View>(R.id.pro_fab)
+        if (value == 100) {
+            proFab?.visibility = View.GONE
+        } else {
+            proFab?.visibility = View.VISIBLE
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        setProFabVisibilityGoneIfProValue100()
+    }
+
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         findViewById<LinearLayout>(R.id.navLin).setPadding(left, 0, right, 0)
 
