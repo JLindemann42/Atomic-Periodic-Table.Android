@@ -377,6 +377,7 @@
                 android:layout_marginBottom="@dimen/default_padding"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:paddingBottom="12dp"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -469,6 +470,7 @@
                 android:layout_marginBottom="@dimen/default_padding"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:paddingBottom="12dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -554,6 +556,7 @@
                 android:layout_marginBottom="@dimen/default_padding"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:paddingBottom="12dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -638,6 +641,7 @@
                 android:background="@drawable/toast_card"
                 android:layout_marginBottom="@dimen/default_padding"
                 android:paddingStart="16dp"
+                android:paddingBottom="12dp"
                 android:paddingEnd="16dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -724,6 +728,7 @@
                 android:layout_marginBottom="@dimen/default_padding"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:paddingBottom="12dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

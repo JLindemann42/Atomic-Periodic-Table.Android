@@ -139,12 +139,24 @@ class FlashCardActivity : BaseActivity() {
         }
     }
 
+    //For updating when user purschases PRO Version in ProActivity
+    private fun setProFabVisibilityGoneIfProValue100() {
+        val proPlusPref = ProPlusVersion(this)
+        val value = proPlusPref.getValue()
+        if (value == 100) {
+            findViewById<FrameLayout>(R.id.pro_box).visibility = View.GONE
+        } else {
+            findViewById<FrameLayout>(R.id.pro_box).visibility = View.VISIBLE
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         updateLivesCount()
         updateLivesInfo()
         updateCategoryBoxes()
         updateXpAndLevelStats()
+        setProFabVisibilityGoneIfProValue100()
         val gameFinished = intent.getBooleanExtra("game_finished", false)
         val results = intent.getParcelableArrayListExtra<GameResultItem>("game_results")
         val totalQuestions = intent.getIntExtra("total_questions", results?.size ?: 0)

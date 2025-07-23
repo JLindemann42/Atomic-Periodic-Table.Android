@@ -375,7 +375,7 @@ class LearningGamesActivity : BaseActivity() {
 
     private fun finishWithResults(forceNotFinished: Boolean = false) {
         cleanupPending()
-        val allAnswersCompleted = gameResults.size == totalQuestions && gameResults.all { it.pickedAnswer != null }
+        val allAnswersCompleted = gameResults.size == questions.size && gameResults.all { it.pickedAnswer != null }
         val finishedGame = quizCompleted && allAnswersCompleted && !forceNotFinished
         val xpMultiplier = getXpMultiplier()
         val xpElements = gameResults.filter { it.wasCorrect }.sumOf { (it.baseXp * xpMultiplier).roundToInt() }
