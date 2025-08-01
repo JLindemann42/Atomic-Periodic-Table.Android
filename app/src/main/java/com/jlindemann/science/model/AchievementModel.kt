@@ -36,5 +36,22 @@ object AchievementModel {
         val achievement8= Achievement(8, "Your own search engine", "Search 1000 times in the app", 0, 1000)
         achievement8.loadProgress(context)
         achievements.add(achievement8)
+
+        //Flashcards Achievements
+        val flashAchievement1 = Achievement(101001, "Perfect Game", "Get all questions correct in a game", 0, 1)
+        flashAchievement1.loadProgress(context)
+        achievements.add(flashAchievement1)
+
+        val flashAchievement2 = Achievement(101002, "Quiz Enthusiast", "Play 10 games", 0, 10)
+        flashAchievement2.loadProgress(context)
+        achievements.add(flashAchievement2)
+
+        val flashAchievement3 = Achievement(101003, "Quiz Master", "Play 100 games", 0, 100)
+        flashAchievement3.loadProgress(context)
+        achievements.add(flashAchievement3)
+
+        val flashAchievement4 = Achievement(101004, "Getting the hang of it", "Play 500 games", 0, 500)
+        flashAchievement4.loadProgress(context)
+        achievements.add(flashAchievement4)
     }
 }
