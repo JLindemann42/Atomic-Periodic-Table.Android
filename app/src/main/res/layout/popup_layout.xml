@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#80000000"> <!-- Semi-transparent background -->
+    android:background="#80000000">
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
@@ -22,73 +21,103 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="attr/colorSurface"
-            android:padding="16dp">
+            android:background="?attr/colorSurface"
+            android:paddingTop="32dp"
+            android:paddingBottom="24dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
 
+            <!-- Badge background + icon layered using FrameLayout -->
+            <FrameLayout
+                android:id="@+id/popup_badge_container"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <ImageView
+                    android:id="@+id/popup_badge_bg"
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_sunny_bg" />
+
+                <ImageView
+                    android:id="@+id/popup_badge"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_gravity="center"
+                    android:tint="?attr/colorPrimary"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_star" />
+            </FrameLayout>
+
+            <!-- Title, bold and centered -->
             <TextView
                 android:id="@+id/popup_title"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:textAlignment="center"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="8dp"
-                android:textSize="24sp"
+                android:textSize="22sp"
                 android:textColor="?attr/colorPrimary"
                 android:textStyle="bold"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                app:layout_constraintEnd_toStartOf="@+id/popup_close_button"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/popup_badge_container"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Popup Title" />
-
-            <ImageButton
-                android:id="@+id/popup_close_button"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_close" />
+                android:text="Upgrade to PRO+" />
 
-            <ImageView
-                android:id="@+id/popup_image"
-                android:layout_width="0dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="16dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/popup_title"
-                tools:srcCompat="@drawable/background" /> <!-- Placeholder image -->
-
+            <!-- Description, centered, secondary text color -->
             <TextView
                 android:id="@+id/popup_content_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="0dp"
+                android:textAlignment="center"
                 android:textSize="14sp"
                 android:textColor="?attr/colorOnSecondaryContainer"
-                android:textAppearance="?attr/textAppearanceBody1"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/popup_title"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/popup_image"
-                tools:text="This is the main content of the popup. It can be a longer text explaining something to the user." />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Upgrade 'Atomic - Periodic Table' to unlock additional data, tables and flashcards to learn more about the periodic table." />
 
+            <!-- Main action button: filled, primary color -->
             <Button
                 android:id="@+id/popup_action_button"
-                style="?attr/materialButtonOutlinedStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="button"
-                android:background="@drawable/toast"
-                android:paddingEnd="24dp"
-                android:paddingStart="24dp"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:text="Upgrade to PRO+"
+                android:background="@drawable/toast_button_outline"
                 android:backgroundTint="?attr/colorPrimary"
                 android:textColor="?attr/colorOnPrimary"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/popup_content_text" />
+                android:elevation="2dp"
+                app:cornerRadius="24dp"
+                app:layout_constraintTop_toBottomOf="@id/popup_content_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Secondary action: outlined, below main button -->
+            <Button
+                android:id="@+id/popup_secondary_button"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:text="Not today"
+                android:background="@drawable/toast_button_outline"
+                android:textColor="?attr/colorPrimary"
+                android:elevation="0dp"
+                app:strokeColor="?attr/colorPrimary"
+                app:strokeWidth="2dp"
+                app:cornerRadius="24dp"
+                app:layout_constraintTop_toBottomOf="@id/popup_action_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
