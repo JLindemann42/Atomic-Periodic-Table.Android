@@ -52,7 +52,7 @@
                 android:layout_marginStart="42dp"
                 android:layout_marginEnd="42dp"
                 android:textSize="16sp"
-                android:text="Try searching for another word or check your spelling."/>
+                android:text="@string/equations_search_other"/>
         </LinearLayout>
 
         <FrameLayout
@@ -152,7 +152,7 @@
                             android:background="@android:color/transparent"
                             android:focusable="true"
                             android:focusableInTouchMode="true"
-                            android:hint="Search For Formulas"
+                            android:hint="activity_formulas_search"
                             android:imeOptions="actionSearch"
                             android:inputType="text"
                             android:maxLines="1"

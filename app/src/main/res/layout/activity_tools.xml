@@ -259,6 +259,24 @@
             android:focusable="true"
             android:foreground="@drawable/toast_card_ripple">
 
+            <!-- "New" Badge -->
+            <TextView
+                android:id="@+id/new_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="end|top"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/toast_card"
+                android:backgroundTint="?attr/colorError"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:gravity="center"
+                android:text="NEW"
+                android:textAllCaps="true"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="11sp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v4.0.0m-Build.149</string>
+    <string name="app_version" translatable="false">v4.0.1m-Build.150</string>
     <string name="next_sale_start" translatable="false">2024/08/05</string>
     <string name="next_sale_end" translatable="false">2024/09/15</string>
 
@@ -90,8 +90,10 @@
 
 
 
-    <!-- Weight Calculator Activity -->
+    <!-- Calculator Activity -->
     <string name="weight_calculator_title">Weight Calculator</string>
+    <string name="calculator_card_title" translatable="false">Calculator:</string>
+    <string name="calculator_formula" translatable="false">Formula:</string>
 
 
     <!-- Constants Activity -->
@@ -137,6 +139,8 @@
 
     <!-- Activity Equations -->
     <string name="activity_equations_title">Formulas</string>
+    <string name="activity_formulas_search" translatable="false">Search For Formulas:</string>
+    <string name="equations_search_other" translatable="false">Try searching for another word or check your spelling.</string>
 
     <!-- Activity pH -->
     <string name="activity_ph_title">pH Indicators</string>

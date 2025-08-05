@@ -903,6 +903,16 @@
                         app:tint="?attr/colorOnSecondaryContainer"
                         android:src="@drawable/ic_history" />
 
+                    <ImageButton
+                        android:id="@+id/achievements_btn"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:visibility="visible"
+                        android:layout_gravity="center_vertical"
+                        app:tint="?attr/colorOnSecondaryContainer"
+                        android:src="@drawable/ic_achievements" />
+
                     <TextView
                         android:id="@+id/tv_lives_count"
                         android:layout_width="wrap_content"

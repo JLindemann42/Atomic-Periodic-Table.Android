@@ -24,7 +24,10 @@ import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager
 import android.widget.PopupWindow
+import androidx.appcompat.widget.AppCompatButton
+import com.jlindemann.science.activities.UserActivity
 import com.jlindemann.science.activities.settings.ProActivity
+import com.jlindemann.science.activities.settings.SubmitActivity
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ProVersion
@@ -99,6 +102,11 @@ class FlashCardActivity : BaseActivity() {
 
         findViewById<ImageButton>(R.id.back_btn_fla).setOnClickListener {
             onBackPressed()
+        }
+
+        findViewById<ImageButton>(R.id.achievements_btn).setOnClickListener {
+            val intent = Intent(this, UserActivity::class.java)
+            startActivity(intent)
         }
 
         //Add value to most used:
