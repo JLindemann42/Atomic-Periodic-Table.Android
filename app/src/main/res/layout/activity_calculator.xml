@@ -50,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/margin"
-                    android:text="Calculator:"
+                    android:text="@string/calculator_card_title"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -70,7 +70,7 @@
                         android:backgroundTint="?attr/colorSurface"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
-                        android:hint="Formula:"
+                        android:hint="@string/calculator_formula"
                         android:imeOptions="actionSearch"
                         android:inputType="textNoSuggestions"
                         android:maxLines="1"

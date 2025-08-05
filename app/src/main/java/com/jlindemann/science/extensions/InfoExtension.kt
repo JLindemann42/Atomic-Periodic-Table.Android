@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
+import android.text.TextWatcher
 import android.view.View
 import android.view.WindowInsets
 import android.widget.EditText
@@ -40,6 +41,9 @@ import java.io.IOException
 import java.io.InputStream
 import java.net.ConnectException
 
+/**
+ * Base Activity for element info pages. Handles element data loading, note-taking, achievements, and most UI logic.
+ */
 abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsListener {
     companion object {
         private const val TAG = "BaseActivity"
@@ -47,6 +51,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
 
     private var systemUiConfigured = false
     private val mainScope = MainScope()
+    private var notesTextWatcher: TextWatcher? = null // Track watcher for note editing
 
     override fun onDestroy() {
         super.onDestroy()
@@ -67,7 +72,13 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         }
     }
 
+    /**
+     * Hook for subclasses to handle system window insets.
+     */
     open fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) = Unit
+    /**
+     * Handles the application of window insets for immersive UI.
+     */
     override fun onApplyWindowInsets(v: View, insets: WindowInsets): WindowInsets {
         Pasteur.info(TAG, "height: ${insets.systemWindowInsetBottom}")
         onApplySystemInsets(
@@ -79,6 +90,9 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         return insets.consumeSystemWindowInsets()
     }
 
+    /**
+     * Reads element JSON data, updates UI, and handles navigation button visibility.
+     */
     fun readJson() {
         findViewById<FrameLayout>(R.id.ox_view).refreshDrawableState()
         updateAchievementProgress(1)
@@ -113,6 +127,9 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         }
     }
 
+    /**
+     * Updates the UI with element data from the given JSON object.
+     */
     private fun updateElementUI(jsonObject: JSONObject) {
         val elementCode = jsonObject.optString("element_code", "---")
         val element = jsonObject.optString("element", "---")
@@ -424,6 +441,9 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         wikiListener(wikipedia)
     }
 
+    /**
+     * Updates oxidation state UI elements.
+     */
     private fun setOxidationStates(oxidationNeg1: String, oxidationPos1: String) {
         val negIds = listOf(R.id.ox0, R.id.m1ox, R.id.m2ox, R.id.m3ox, R.id.m4ox, R.id.m5ox)
         val posIds = listOf(
@@ -451,6 +471,9 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         }
     }
 
+    /**
+     * Updates hazard labels and descriptions.
+     */
     private fun setHazards(
         fireHazard: String,
         healthHazard: String,
@@ -510,29 +533,53 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         }
     }
 
+
+    /**
+     * Handles loading and updating notes for the current element.
+     *
+     * Ensures only one TextWatcher is attached and always operates on the latest notes string.
+     */
     private fun handleNotes(elementCode: String, eText: EditText) {
         val notesPref = NotesPreference(this)
-        val notesPrefValue = notesPref.getValue()
-        val str = notesPrefValue
-
         val firstDelim = "<$elementCode>"
-        val p1 = str.indexOf(firstDelim)
         val lastDelim = "</$elementCode>"
-        val p2 = str.indexOf(lastDelim, p1)
 
-        eText.text = str.substring(p1 + firstDelim.length, p2).toEditable()
-        eText.doAfterTextChanged {
-            if (notesPrefValue.contains(elementCode)) {
-                val replacement = eText.text
-                if (p1 >= 0 && p2 > p1) {
-                    val res =
-                        (str.substring(0, p1 + firstDelim.length) + replacement + str.substring(p2))
-                    notesPref.setValue(res)
+        // Remove old watcher before updating text and attaching new one
+        notesTextWatcher?.let { eText.removeTextChangedListener(it) }
+
+        val notesPrefValue = notesPref.getValue()
+        val p1 = notesPrefValue.indexOf(firstDelim)
+        val p2 = notesPrefValue.indexOf(lastDelim, p1)
+        val note = if (p1 != -1 && p2 != -1) {
+            notesPrefValue.substring(p1 + firstDelim.length, p2)
+        } else {
+            "Take notes for the element:"
+        }
+
+        eText.setText(note)
+
+        notesTextWatcher = object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                // Use latest value each time
+                val currentNotes = notesPref.getValue()
+                val start = currentNotes.indexOf(firstDelim)
+                val end = currentNotes.indexOf(lastDelim, start)
+                if (start != -1 && end != -1) {
+                    val newNotes = currentNotes.substring(0, start + firstDelim.length) +
+                            (s ?: "") +
+                            currentNotes.substring(end)
+                    notesPref.setValue(newNotes)
                 }
             }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         }
+        eText.addTextChangedListener(notesTextWatcher)
     }
 
+    /**
+     * Loads the element image from the given URL into the appropriate ImageView.
+     */
     private fun loadImage(url: String?) {
         try {
             Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.element_image))
@@ -542,6 +589,9 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         }
     }
 
+    /**
+     * Loads the spectral emission lines image for the element.
+     */
     private fun loadSp(url: String?) {
         val hUrl = "https://www.jlindemann.se/atomic/emission_lines/"
         val ext = ".gif"
@@ -556,13 +606,21 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         }
     }
 
+    /**
+     * Extension function to convert a String to an Editable.
+     */
     fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
-
+    /**
+     * Loads the atom model image into the UI.
+     */
     private fun loadModelView(url: String?) {
         Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.model_view))
         Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.card_model_view))
     }
 
+    /**
+     * Sets up Wikipedia button to open a custom tab with the provided URL.
+     */
     fun wikiListener(url: String?) {
         findViewById<ImageButton>(R.id.wikipedia_btn).setOnClickListener {
             val PACKAGE_NAME = "com.android.chrome"
@@ -593,6 +651,9 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         }
     }
 
+    /**
+     * Sets up favorite bar visibility based on user preferences.
+     */
     fun favoriteBarSetup() {
         val molarPreference = FavoriteBarPreferences(this)
         val molarPrefValue = molarPreference.getValue()
@@ -665,6 +726,9 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
             if (radioactiveValue == 1) View.VISIBLE else View.GONE
     }
 
+    /**
+     * Formats a string with superscript Unicode characters for display.
+     */
     private fun formatSuperscript(text: String): String {
         val superscriptMap = mapOf(
             '0' to '\u2070',
@@ -691,6 +755,9 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         }
     }
 
+    /**
+     * Increments achievement progress for the user.
+     */
     private fun updateAchievementProgress(increment: Int) {
         val achievements = ArrayList<Achievement>()
         AchievementModel.getList(this, achievements)
@@ -700,6 +767,9 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
         }
     }
 
+    /**
+     * Increments stats for elements viewed.
+     */
     private fun updateStats() {
         val statistics = java.util.ArrayList<Statistics>()
         StatisticsModel.getList(this, statistics)

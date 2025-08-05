@@ -20,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import java.util.logging.Handler
 
 class ProActivity : BaseActivity(), BillingClientStateListener {
 
@@ -84,6 +85,8 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
                                 updateProOptionsUI()
                                 updatePurchaseCardsUI()
                             }
+                            updateProOptionsUI()
+                            updatePurchaseCardsUI()
                         }
                     }
                 }
@@ -224,37 +227,49 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
             withContext(Dispatchers.IO) {
                 billingClient?.acknowledgePurchase(params) { result ->
                     if (result.responseCode == BillingClient.BillingResponseCode.OK) {
-                        ToastUtil.showToast(this@ProActivity, "Purchase successful!")
-                        if (productId == PRO_VERSION_ID) {
-                            ownsProVersion = true
-                            proPref.setValue(100)
-                            proPlusPref.setValue(1)
+                        lifecycleScope.launch(Dispatchers.Main) {
+                            Toast.makeText(this@ProActivity, "Purchase complete!", Toast.LENGTH_SHORT).show()
+                            if (productId == PRO_VERSION_ID) {
+                                ownsProVersion = true
+                                proPref.setValue(100)
+                                proPlusPref.setValue(1)
+                                android.os.Handler().postDelayed({
+                                    updateProOptionsUI()
+                                    updatePurchaseCardsUI() }, 5000)
+                            }
+                            if (productId == PRO_PLUS_VERSION_ID || productId == PRO_PLUS_UPGRADE_ID) {
+                                ownsProPlusVersion = true
+                                proPref.setValue(100)
+                                proPlusPref.setValue(100)
+                                android.os.Handler().postDelayed({
+                                    updateProOptionsUI()
+                                    updatePurchaseCardsUI() }, 5000)
+                            }
+                            updateProOptionsUI()
+                            updatePurchaseCardsUI()
                         }
-                        if (productId == PRO_PLUS_VERSION_ID || productId == PRO_PLUS_UPGRADE_ID) {
-                            ownsProPlusVersion = true
-                            proPref.setValue(100)
-                            proPlusPref.setValue(100)
-                        }
-                        updateProOptionsUI()
-                        updatePurchaseCardsUI()
                     }
                 }
             }
         } else {
-            if (productId == PRO_VERSION_ID) {
-                ownsProVersion = true
-                proPref.setValue(100)
-                proPlusPref.setValue(1)
+            lifecycleScope.launch(Dispatchers.Main) {
+                Toast.makeText(this@ProActivity, "Purchase complete!", Toast.LENGTH_SHORT).show()
+                if (productId == PRO_VERSION_ID) {
+                    ownsProVersion = true
+                    proPref.setValue(100)
+                    proPlusPref.setValue(1)
+                }
+                if (productId == PRO_PLUS_VERSION_ID || productId == PRO_PLUS_UPGRADE_ID) {
+                    ownsProPlusVersion = true
+                    proPref.setValue(100)
+                    proPlusPref.setValue(100)
+                }
+                updateProOptionsUI()
+                updatePurchaseCardsUI()
             }
-            if (productId == PRO_PLUS_VERSION_ID || productId == PRO_PLUS_UPGRADE_ID) {
-                ownsProPlusVersion = true
-                proPref.setValue(100)
-                proPlusPref.setValue(100)
-            }
-            updateProOptionsUI()
-            updatePurchaseCardsUI()
         }
     }
+
 
     private fun getFormattedPrice(productDetails: ProductDetails?): String {
         val formattedPrice = productDetails?.oneTimePurchaseOfferDetails?.formattedPrice

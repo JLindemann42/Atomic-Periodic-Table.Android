@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.*
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
+import com.jlindemann.science.model.Achievement
+import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.util.XpManager
 import com.jlindemann.science.views.AnimatedEffectView
@@ -208,10 +210,17 @@ class LearningGamesActivity : BaseActivity() {
         if (category == "radioactive") {
             findViewById<LinearLayout>(R.id.answer_3).visibility = View.GONE
             findViewById<LinearLayout>(R.id.answer_4).visibility = View.GONE
-        } else {
+        } else if (category == "electrical_type") {
+            findViewById<LinearLayout>(R.id.answer_4).visibility = View.GONE
+        }
+        else if (category == "phase_stp") {
+            findViewById<LinearLayout>(R.id.answer_4).visibility = View.GONE
+        }
+        else {
             findViewById<LinearLayout>(R.id.answer_3).visibility = View.VISIBLE
             findViewById<LinearLayout>(R.id.answer_4).visibility = View.VISIBLE
         }
+
 
         grid.animate().alpha(1f).setDuration(300).start()
         progressBar.animate().alpha(1f).setDuration(300).start()
@@ -368,13 +377,15 @@ class LearningGamesActivity : BaseActivity() {
 
     private fun finishWithResults(forceNotFinished: Boolean = false) {
         cleanupPending()
-        val allAnswersCompleted = gameResults.size == totalQuestions && gameResults.all { it.pickedAnswer != null }
+        val allAnswersCompleted = gameResults.size == questions.size && gameResults.all { it.pickedAnswer != null }
         val finishedGame = quizCompleted && allAnswersCompleted && !forceNotFinished
         val xpMultiplier = getXpMultiplier()
         val xpElements = gameResults.filter { it.wasCorrect }.sumOf { (it.baseXp * xpMultiplier).roundToInt() }
         val xpGameWin = if (finishedGame) (25 * xpMultiplier).roundToInt() else 0
         val xpPerfect = if (finishedGame && gameResults.all { it.wasCorrect }) (20 * xpMultiplier).roundToInt() else 0
         val totalXp = xpElements + xpGameWin + xpPerfect
+
+        updateFlashcardAchievements(finishedGame, finishedGame && gameResults.all { it.wasCorrect })
 
         if (finishedGame) {
             XpManager.addXp(this, xpGameWin)
@@ -446,7 +457,11 @@ class LearningGamesActivity : BaseActivity() {
         val usedElements = mutableSetOf<String>()
 
         fun wrongAnswersFor(fieldSelector: (ElementData) -> String, correct: String): List<String> =
-            elements.filter { normalizeLabel(fieldSelector(it)) != normalizeLabel(correct) && normalizeLabel(fieldSelector(it)) != "" }
+            elements
+                .filter {
+                    val v = normalizeLabel(fieldSelector(it))
+                    v != normalizeLabel(correct) && v.isNotBlank() && v != "---"
+                }
                 .map { normalizeLabel(fieldSelector(it)) }
                 .filter { it.isNotBlank() && it != "---" }
                 .distinct()
@@ -610,10 +625,18 @@ class LearningGamesActivity : BaseActivity() {
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
             }
+            // Skip question if correct answer is blank or placeholder
+            if (correct.isBlank() || correct == "---") {
+                return@repeat
+            }
             val filteredAlternatives = alternatives
                 .map(::normalizeLabel)
                 .filter { it.isNotBlank() && it != "---" }
                 .distinct()
+            // Skip if there are not enough alternatives (at least 2)
+            if (filteredAlternatives.size < 2) {
+                return@repeat
+            }
             questions.add(Question(questionText, correct, filteredAlternatives, baseXp))
         }
         return questions
@@ -706,6 +729,31 @@ class LearningGamesActivity : BaseActivity() {
             updateLivesCount()
         }
     }
+
+    private fun updateFlashcardAchievements(finishedGame: Boolean, allCorrect: Boolean) {
+        // Load flashcard achievements only (IDs: 101001, 101002, 101003, 101004)
+        val achievementIds = listOf(101001, 101002, 101003, 101004)
+        val achievements = ArrayList<Achievement>()
+        AchievementModel.getList(this, achievements)
+        val achMap = achievements.associateBy { it.id }
+
+        // "Perfect Game": Get all questions correct in a game (ID: 101001)
+        if (allCorrect) {
+            achMap[101001]?.let {
+                it.incrementProgress(this, 1)
+            }
+        }
+
+        // "Quiz Enthusiast": Play 10 games (ID: 101002)
+        // "Quiz Master": Play 100 games (ID: 101003)
+        // "Getting the hang of it": Play 500 games (ID: 101004)
+        if (finishedGame) {
+            listOf(101002, 101003, 101004).forEach { id ->
+                achMap[id]?.let { it.incrementProgress(this, 1) }
+            }
+        }
+    }
+
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         val params = findViewById<FrameLayout>(R.id.common_title_back_learn).layoutParams as ViewGroup.LayoutParams
