@@ -43,7 +43,7 @@
                 android:layout_marginEnd="42dp"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="24sp"
-                android:text="No results"/>
+                android:text="@string/ion_no_results"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                 android:layout_marginStart="42dp"
                 android:layout_marginEnd="42dp"
                 android:textSize="16sp"
-                android:text="Try searching for another word or check your spelling."/>
+                android:text="@string/ion_try_another_search"/>
         </LinearLayout>
 
         <FrameLayout

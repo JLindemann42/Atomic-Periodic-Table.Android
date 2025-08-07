@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
+import com.jlindemann.science.activities.tools.TitleBarAnimator
 import com.jlindemann.science.preferences.*
 
 class FavoritePageActivity : BaseActivity() {
@@ -186,26 +187,40 @@ class FavoritePageActivity : BaseActivity() {
         onCheckboxClicked()
         findViewById<ConstraintLayout>(R.id.viewf).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        //Title Controller
+        // Title Controller with animated visibility
         findViewById<FrameLayout>(R.id.common_title_back_fav_color).visibility = View.INVISIBLE
         findViewById<TextView>(R.id.favorite_set_title).visibility = View.INVISIBLE
         findViewById<FrameLayout>(R.id.common_title_back_fav).elevation = (resources.getDimension(R.dimen.zero_elevation))
-        findViewById<ScrollView>(R.id.fav_set_scroll).getViewTreeObserver()
+        findViewById<ScrollView>(R.id.fav_set_scroll).viewTreeObserver
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
-                var y = 300f
+                private var isTitleVisible = false // Track animation state
+
                 override fun onScrollChanged() {
-                    if (findViewById<ScrollView>(R.id.fav_set_scroll).getScrollY() > 150) {
-                        findViewById<FrameLayout>(R.id.common_title_back_fav_color).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.favorite_set_title).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.favorite_set_title_downstate).visibility = View.INVISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_fav).elevation = (resources.getDimension(R.dimen.one_elevation))
+                    val scrollY = findViewById<ScrollView>(R.id.fav_set_scroll).scrollY
+                    val threshold = 150
+
+                    val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_back_fav_color)
+                    val titleText = findViewById<TextView>(R.id.favorite_set_title)
+                    val titleDownstateText = findViewById<TextView>(R.id.favorite_set_title_downstate)
+                    val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_fav)
+
+                    if (scrollY > threshold) {
+                        if (!isTitleVisible) {
+                            TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
+                            TitleBarAnimator.animateVisibility(titleText, true)
+                            TitleBarAnimator.animateVisibility(titleDownstateText, false)
+                            titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
+                            isTitleVisible = true
+                        }
                     } else {
-                        findViewById<FrameLayout>(R.id.common_title_back_fav_color).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.favorite_set_title).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.favorite_set_title_downstate).visibility = View.VISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_fav).elevation = (resources.getDimension(R.dimen.zero_elevation))
+                        if (isTitleVisible) {
+                            TitleBarAnimator.animateVisibility(titleColorBackground, false)
+                            TitleBarAnimator.animateVisibility(titleText, false)
+                            TitleBarAnimator.animateVisibility(titleDownstateText, true)
+                            titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
+                            isTitleVisible = false
+                        }
                     }
-                    y = findViewById<ScrollView>(R.id.fav_set_scroll).getScrollY().toFloat()
                 }
             })
         findViewById<ImageButton>(R.id.back_btn_fav).setOnClickListener {

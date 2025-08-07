@@ -848,4 +848,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="parent" />
 
+    <include
+        android:id="@+id/pro_popup_include"
+        layout="@layout/popup_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="3000dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

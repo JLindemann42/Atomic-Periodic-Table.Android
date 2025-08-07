@@ -20,7 +20,6 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-
             <TextView
                 android:id="@+id/flashcard_title_downstate"
                 android:layout_width="match_parent"
@@ -37,7 +36,6 @@
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -55,7 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="30sp"
-                        android:text="---"
+                        android:text="@string/level_stat_placeholder"
                         android:layout_gravity="center_horizontal"
                         android:textColor="?attr/colorOnSurface"/>
 
@@ -68,7 +66,6 @@
                         android:gravity="center_horizontal"
                         android:layout_gravity="center_horizontal"
                         android:textColor="?attr/colorOnSurface"/>
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -87,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="30sp"
-                        android:text="---"
+                        android:text="@string/completed_quizzes_stat_placeholder"
                         android:layout_gravity="center_horizontal"
                         android:textColor="?attr/colorOnSurface"/>
 
@@ -120,9 +117,7 @@
                         android:rotation="180"
                         app:tint="?attr/colorOnSecondaryContainer"
                         android:src="@drawable/ic_random_large"/>
-
                 </LinearLayout>
-
             </LinearLayout>
 
             <LinearLayout
@@ -170,7 +165,7 @@
                         android:id="@+id/progress_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="50/500"
+                        android:text="@string/progress_text_placeholder"
                         android:textSize="14sp"
                         android:gravity="end"
                         android:alpha="0.95"
@@ -182,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="Total XP: ---"
+                    android:text="@string/total_xp_placeholder"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="16dp"
                     android:layout_marginEnd="16dp"
@@ -201,7 +196,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:background="@drawable/toast_card"
-
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -223,7 +217,7 @@
                             android:focusable="true"
                             android:foreground="@drawable/c_ripple"
                             android:gravity="center_vertical"
-                            android:text="Unlock all Flashcards and Features"
+                            android:text="@string/unlock_all_flashcards"
                             android:textStyle="bold"
                             android:textSize="18sp"
                             android:textColor="?attr/colorPrimary" />
@@ -236,7 +230,7 @@
                             android:paddingEnd="@dimen/margin"
                             android:paddingBottom="8dp"
                             android:paddingTop="8dp"
-                            android:text="Get unlimeted lives and additional flashcard games such as electronegativity, radioactivity, crystal structure and more!"/>
+                            android:text="@string/upgrade_pro_plus_description"/>
 
                     </LinearLayout>
 
@@ -263,7 +257,7 @@
                             android:paddingStart="24dp"
                             android:foreground="@drawable/c_ripple"
                             android:textStyle="bold"
-                            android:text="Upgrade to PRO+"
+                            android:text="@string/upgrade_to_pro_plus"
                             android:textSize="18sp"
                             android:textColor="?attr/colorOnPrimary" />
                     </FrameLayout>
@@ -314,9 +308,9 @@
                         android:id="@+id/toggle_easy"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:textOn="Easy"
-                        android:textOff="Easy"
-                        android:text="Easy"
+                        android:textOn="@string/easy"
+                        android:textOff="@string/easy"
+                        android:text="@string/easy"
                         android:textSize="16sp"
                         android:background="@drawable/chip_toggle_selector"
                         android:checked="true"
@@ -331,9 +325,9 @@
                         android:id="@+id/toggle_medium"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:textOn="Medium"
-                        android:textOff="Medium"
-                        android:text="Medium"
+                        android:textOn="@string/medium"
+                        android:textOff="@string/medium"
+                        android:text="@string/medium"
                         android:textSize="16sp"
                         android:background="@drawable/chip_toggle_selector"
                         android:paddingHorizontal="24dp"
@@ -347,18 +341,16 @@
                         android:id="@+id/toggle_hard"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:textOn="Hard"
-                        android:textOff="Hard"
-                        android:text="Hard"
+                        android:textOn="@string/hard"
+                        android:textOff="@string/hard"
+                        android:text="@string/hard"
                         android:textSize="16sp"
                         android:background="@drawable/chip_toggle_selector"
                         android:paddingHorizontal="24dp"
                         android:textColor="?attr/colorOnSurface"/>
-
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- Add this TextView below the title bar, above the difficulty selection -->
             <TextView
                 android:id="@+id/tv_lives_info"
                 android:layout_width="match_parent"
@@ -387,7 +379,7 @@
                     android:id="@+id/title_box_0_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Level 0–4"
+                    android:text="@string/level_0_4"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
@@ -400,30 +392,30 @@
                 <LinearLayout
                     android:id="@+id/btn_element_symbols"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Element Symbols"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/element_symbols"/>
                     <ImageView style="@style/CategoryButtonIcon"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/btn_element_names"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Element Names"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/element_names"/>
                     <ImageView style="@style/CategoryButtonIcon"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/btn_element_classifications"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Element Groups"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/element_groups"/>
                     <ImageView style="@style/CategoryButtonIcon"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/btn_discovered_by"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Discovered By"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/discovered_by"/>
                     <TextView
                         android:id="@+id/pro_badge_discovered_by"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PRO+"
+                        android:text="@string/pro_plus_badge"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnPrimary"
                         android:background="@drawable/pro_plus_badge_bg"
@@ -441,12 +433,12 @@
                 <LinearLayout
                     android:id="@+id/btn_discovery_year"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Discovery Year"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/discovery_year"/>
                     <TextView
                         android:id="@+id/pro_badge_discovery_year"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PRO+"
+                        android:text="@string/pro_plus_badge"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnPrimary"
                         android:background="@drawable/pro_plus_badge_bg"
@@ -479,7 +471,7 @@
                     android:id="@+id/title_box_5_9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Level 5–9"
+                    android:text="@string/level_5_9"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
@@ -492,24 +484,24 @@
                 <LinearLayout
                     android:id="@+id/btn_appearance"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Appearance"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/appearance"/>
                     <ImageView style="@style/CategoryButtonIcon"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/btn_atomic_number"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Atomic Number"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/atomic_number"/>
                     <ImageView style="@style/CategoryButtonIcon"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/btn_electrical_type"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Electrical Type"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/electrical_type"/>
                     <TextView
                         android:id="@+id/pro_badge_electrical_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PRO+"
+                        android:text="@string/pro_plus_badge"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnPrimary"
                         android:background="@drawable/pro_plus_badge_bg"
@@ -527,12 +519,12 @@
                 <LinearLayout
                     android:id="@+id/btn_radioactive"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Radioactive"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/radioactive"/>
                     <TextView
                         android:id="@+id/pro_badge_radioactive"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PRO+"
+                        android:text="@string/pro_plus_badge"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnPrimary"
                         android:background="@drawable/pro_plus_badge_bg"
@@ -565,7 +557,7 @@
                     android:id="@+id/title_box_10_14"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Level 10–14"
+                    android:text="@string/level_10_14"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
@@ -578,24 +570,24 @@
                 <LinearLayout
                     android:id="@+id/btn_atomic_mass"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Atomic Mass"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/atomic_mass"/>
                     <ImageView style="@style/CategoryButtonIcon"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/btn_density"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Density"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/density"/>
                     <ImageView style="@style/CategoryButtonIcon"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/btn_electronegativity"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Electronegativity"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/electronegativity"/>
                     <TextView
                         android:id="@+id/pro_badge_electronegativity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PRO+"
+                        android:text="@string/pro_plus_badge"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnPrimary"
                         android:background="@drawable/pro_plus_badge_bg"
@@ -613,12 +605,12 @@
                 <LinearLayout
                     android:id="@+id/btn_block"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Block"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/block"/>
                     <TextView
                         android:id="@+id/pro_badge_block"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PRO+"
+                        android:text="@string/pro_plus_badge"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnPrimary"
                         android:background="@drawable/pro_plus_badge_bg"
@@ -651,7 +643,7 @@
                     android:id="@+id/title_box_15_19"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Level 15–19"
+                    android:text="@string/level_15_19"
                     android:textStyle="bold"
                     android:drawableTint="?attr/colorAccent"
                     android:textSize="20sp"
@@ -664,24 +656,24 @@
                 <LinearLayout
                     android:id="@+id/btn_magnetic_type"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Magnetic Type"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/magnetic_type"/>
                     <ImageView style="@style/CategoryButtonIcon"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/btn_phase_stp"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Phase (STP)"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/phase_stp"/>
                     <ImageView style="@style/CategoryButtonIcon"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/btn_crystal_structure"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Crystal Structure"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/crystal_structure"/>
                     <TextView
                         android:id="@+id/pro_badge_crystal_structure"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PRO+"
+                        android:text="@string/pro_plus_badge"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnPrimary"
                         android:background="@drawable/pro_plus_badge_bg"
@@ -699,12 +691,12 @@
                 <LinearLayout
                     android:id="@+id/btn_superconducting_point"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Superconducting Point"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/superconducting_point"/>
                     <TextView
                         android:id="@+id/pro_badge_superconducting_point"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PRO+"
+                        android:text="@string/pro_plus_badge"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnPrimary"
                         android:background="@drawable/pro_plus_badge_bg"
@@ -737,7 +729,7 @@
                     android:id="@+id/title_box_20_24"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Level 20–24"
+                    android:text="@string/level_20_24"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
@@ -750,24 +742,24 @@
                 <LinearLayout
                     android:id="@+id/btn_neutron_cross_sectional"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Neutron Cross Sectional"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/neutron_cross_sectional"/>
                     <ImageView style="@style/CategoryButtonIcon"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/btn_specific_heat_capacity"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Specific Heat Capacity"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/specific_heat_capacity"/>
                     <ImageView style="@style/CategoryButtonIcon"/>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/btn_mohs_hardness"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Mohs Hardness"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/mohs_hardness"/>
                     <TextView
                         android:id="@+id/pro_badge_mohs_hardness"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PRO+"
+                        android:text="@string/pro_plus_badge"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnPrimary"
                         android:background="@drawable/pro_plus_badge_bg"
@@ -785,12 +777,12 @@
                 <LinearLayout
                     android:id="@+id/btn_vickers_hardness"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Vickers Hardness"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/vickers_hardness"/>
                     <TextView
                         android:id="@+id/pro_badge_vickers_hardness"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PRO+"
+                        android:text="@string/pro_plus_badge"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnPrimary"
                         android:background="@drawable/pro_plus_badge_bg"
@@ -808,12 +800,12 @@
                 <LinearLayout
                     android:id="@+id/btn_brinell_hardness"
                     style="@style/CategoryButtonRow">
-                    <TextView style="@style/CategoryButtonText" android:text="Brinell Hardness"/>
+                    <TextView style="@style/CategoryButtonText" android:text="@string/brinell_hardness"/>
                     <TextView
                         android:id="@+id/pro_badge_brinell_hardness"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PRO+"
+                        android:text="@string/pro_plus_badge"
                         android:textStyle="bold"
                         android:textColor="?attr/colorOnPrimary"
                         android:background="@drawable/pro_plus_badge_bg"
@@ -888,7 +880,6 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:layout_gravity="center_vertical|end"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
@@ -917,7 +908,7 @@
                         android:id="@+id/tv_lives_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5"
+                        android:text="@string/lives_count_placeholder"
                         android:textSize="20sp"
                         android:drawableStart="@drawable/ic_heart"
                         android:drawableTint="?attr/colorError"

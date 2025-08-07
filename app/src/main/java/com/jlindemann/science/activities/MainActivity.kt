@@ -20,6 +20,7 @@ import android.view.animation.ScaleAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -100,6 +101,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         checkSale()
         initName(elements)
         val achievements = ArrayList<Achievement>()
+        maybeShowProPopup()
         findViewById<FloatingActionButton>(R.id.more_btn).setOnClickListener { openHover() }
         findViewById<TextView>(R.id.hover_background).setOnClickListener { closeHover() }
         findViewById<Button>(R.id.random_btn).setOnClickListener {
@@ -138,6 +140,46 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             }
         })
     }
+
+    private fun maybeShowProPopup() {
+        val proPref = ProVersion(this)
+        val proPrefValue = proPref.getValue()
+        if (proPrefValue == 100) return // Already PRO, do not show popup
+
+        val prefs = getSharedPreferences("popup_prefs", Context.MODE_PRIVATE)
+        val starts = prefs.getInt("app_starts", 0) + 1
+        prefs.edit().putInt("app_starts", starts).apply()
+
+        // Never show in first 10 launches
+        if (starts <= 10) return
+
+        // Suppression logic: don't show if suppressed
+        val now = System.currentTimeMillis()
+        val suppressedUntil = prefs.getLong("popup_suppressed_until", 0L)
+        if (now < suppressedUntil) return
+
+        // 10% chance to show
+        if ((0..9).random() != 0) return
+
+        val popupView = findViewById<ConstraintLayout>(R.id.pro_popup_include) ?: return
+        Anim.fadeIn(popupView, 300)
+
+        findViewById<Button>(R.id.popup_action_button)?.setOnClickListener {
+            val intent = Intent(this, ProActivity::class.java)
+            startActivity(intent)
+        }
+
+        val suppressPopup: () -> Unit = {
+            Anim.fadeOutAnim(popupView, 300)
+            // Suppress for 20 days (in millis)
+            val suppressUntil = now + 30 * 24 * 60 * 60 * 1000L
+            prefs.edit().putLong("popup_suppressed_until", suppressUntil).apply()
+        }
+
+        findViewById<Button>(R.id.popup_secondary_button)?.setOnClickListener { suppressPopup() }
+        findViewById<ConstraintLayout>(R.id.background_popup_pro)?.setOnClickListener { suppressPopup() }
+    }
+
 
     private fun checkSale() {
         val saleStartDate = SimpleDateFormat("yyyy/MM/dd").parse(getString(R.string.next_sale_start)) //Back to school sale
@@ -250,6 +292,17 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     }
 
     override fun onBackPressed() {
+        val popupView = findViewById<ConstraintLayout>(R.id.pro_popup_include)
+        if (popupView?.visibility == View.VISIBLE) {
+            // Animate out
+            Anim.fadeOutAnim(popupView, 300)
+            // Suppress popup for 30 days
+            val prefs = getSharedPreferences("popup_prefs", Context.MODE_PRIVATE)
+            val now = System.currentTimeMillis()
+            val suppressUntil = now + 30 * 24 * 60 * 60 * 1000L
+            prefs.edit().putLong("popup_suppressed_until", suppressUntil).apply()
+            return
+        }
         if (findViewById<TextView>(R.id.nav_background).visibility == View.VISIBLE) {
             findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).setPanelState(PanelState.COLLAPSED)
             Utils.fadeOutAnim(findViewById<TextView>(R.id.nav_background), 150)

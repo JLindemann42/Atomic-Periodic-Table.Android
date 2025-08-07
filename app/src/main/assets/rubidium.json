@@ -25,7 +25,7 @@
     "element_density": "1.53 (g/cm^3)",
     "element_electronegativty": "0.82",
     "element_block": "s - block",
-    "element_shells_electrons": "K2 L8 18 N8 O1 P0 Q0 R0",
+    "element_shells_electrons": "K2 L8 M18 N8 O1 P0 Q0 R0",
     "element_model": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Electron_shell_037_Rubidium_-_no_label.svg/1280px-Electron_shell_037_Rubidium_-_no_label.svg.png",
     "element_boiling_kelvin": "961 (K)",
     "element_boiling_celsius": "688 (°C)",

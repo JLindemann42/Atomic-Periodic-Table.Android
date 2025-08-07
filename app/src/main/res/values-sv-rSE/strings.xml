@@ -1,73 +1,411 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Atomic</string>
+
     <string name="personalization_settings">Anpassning</string>
-    <string name="open_table_button">Öppna Tabell</string>
-    <string name="pro_title">PRO Version</string>
-    <string name="get_pro_title">Skaffa PRO Versionen</string>
-    <string name="member_title">PRO Medlemssida</string>
-    <string name="member_already">Du är en PRO medlem</string>
-    <string name="member_btn">Dina PRO förmåner</string>
+    <string name="app_version" >v4.0.1m-Build.150</string>
+    <string name="next_sale_start" >2024/08/05</string>
+    <string name="next_sale_end" >2024/09/15</string>
+
+    <string name="open_table_button">Öppna tabell</string>
+
+    <!-- PRO Activity -->
+    <string name="pro_title">PRO-version</string>
+    <string name="get_pro_title">Skaffa PRO-version</string>
+    <string name="pro_descr" >\'Atomic - Periodic Table\' är en gratis och öppen källkodsapplikation som jag gjort på min fritid i Sverige. Genom att köpa PRO-versionen hjälper du till att stödja utvecklingen och får tillgång till extra data och funktioner!</string>
+    <string name="member_title">PRO-medlemssida</string>
+    <string name="member_desch" >Tack för att du stödjer utvecklingen av \'Atomic - Periodic Table\'. På denna sida kommer information om dina PRO-förmåner att vara tillgänglig när fler PRO-funktioner läggs till.</string>
+    <string name="member_already">Du är PRO-medlem!</string>
+    <string name="member_btn">Dina PRO-förmåner</string>
+    <string name="pro_get_more_out" >Få ut mer av Atomic</string>
+    <string name="pro_features_title" >Funktioner i PRO-versionen:</string>
+    <string name="pro_features_descr" >Utforska några av de många funktionerna i PRO-versionen och vad de inkluderar.</string>
+    <string name="pro_upgrade_to_pro" >Uppgradera till PRO</string>
+    <string name="pro_additional_data" >Ytterligare data</string>
+    <string name="pro_additional_data_descr" >Ytterligare data som hårdhetsegenskaper (mohs-, vickers- och brinellhårdhet) samt ljudhastighet, Poissonkonstant, Youngs-, bulk- och skjuvmodul m.m. Även information om identifiering av mineraler.</string>
+    <string name="pro_additional_tables" >Ytterligare tabeller</string>
+    <string name="pro_additional_tables_descr" >Ytterligare tabeller inklusive en nuklidtabell, poisson\'s förhållandetabell, konstanttabell, geologitabell m.m., med fler som kommer i framtiden</string>
+    <string name="pro_better_calculator" >Bättre kalkylator</string>
+    <string name="pro_better_calculator_descr" >En förbättrad kalkylator med möjlighet att spara molvikter för olika föreningar på favoritsidan.</string>
+    <string name="pro_additional_visualisations" >Fler visualiseringar</string>
+    <string name="pro_additional_visualisations_descr" >Få tillgång till fler visualiseringar i huvudtabellen såsom Poisson\'s förhållande, bulkmodul m.m.</string>
+    <string name="pro_already_purchased_title" >Har du redan köpt Atomic - Periodic Table PRO?</string>
+    <string name="pro_already_purchased_check" >Kontrollera produkt på konto</string>
+    <string name="pro_price_loading" >hämtar pris...</string>
+    <string name="pro_price_discount" >pro_price_discount</string>
+
+    <!-- Activity Element Info-->
     <string name="element_description_title">Beskrivning</string>
-    <string name="element_more_title">Fler egenskaper</string>
-    <string name="element_speed_sound">Ljudhastighet</string>
-    <string name="element_elastic_modulus">Elasticitetsmodul</string>
-    <string name="element_poisson_ratio">Poisson\'s konstant</string>
-    <string name="favorite_settings_title">Favoriter</string>
+    <string name="element_more_title">Ytterligare egenskaper</string>
+    <string name="element_speed_sound">Ljudhastighet:</string>
+    <string name="element_elastic_modulus">Elasticitetsmodul:</string>
+    <string name="element_young_modulus" >Young\'s modulus:</string>
+    <string name="element_shear_modulus" >Skjuvmodul:</string>
+    <string name="element_bulk_modulus" >Bulkmodul:</string>
+    <string name="element_poisson_ratio">Poisson\'s förhållande:</string>
+    <string name="abundance_title" >Förekomst</string>
+    <string name="abundance_earth_crust" >I jordskorpan</string>
+    <string name="abundance_earth_soils" >I jordens jord</string>
+    <string name="abundance_urban_soil" >I stadens jord</string>
+    <string name="abundance_sea_water" >I havsvatten</string>
+    <string name="abundance_crustal_rocks" >I berg i jordskorpan</string>
+    <string name="abundance_sun" >I solens atomer</string>
+    <string name="abundance_solar_system" >I solsystemets atomer</string>
+
+    <!-- Activity Favorite Settings -->
+    <string name="favorite_settings_title">Favoritfält</string>
     <string name="favorite_settings_general">Allmänt</string>
     <string name="favorite_settings_temperatures">Temperaturer</string>
-    <string name="favorite_settings_atomic_properties">Atomiska egenskaper</string>
+    <string name="favorite_settings_atomic_properties">Atomära egenskaper</string>
     <string name="favorite_settings_thermodynamics">Termodynamik</string>
     <string name="favorite_settings_electromagnetic">Elektromagnetiska egenskaper</string>
-    <string name="favorite_settings_nuclear">Nukleär</string>
-    <string name="unit_settings_title">Tabell enheter</string>
+    <string name="favorite_settings_nuclear">Kärnämnen</string>
+    <string name="show_molar_mass" >Visa molmassa</string>
+    <string name="show_stp_phase" >Visa STP-fas</string>
+    <string name="show_electronegativity" >Visa elektronegativitet</string>
+    <string name="show_density" >Visa densitet</string>
+    <string name="kelvin" >Kelvin</string>
+    <string name="celsius" >Celsius</string>
+    <string name="fahrenheit" >Fahrenheit</string>
+    <string name="show_boiling_point" >Visa kokpunkt</string>
+    <string name="show_melting_point" >Visa smältpunkt</string>
+    <string name="show_atomic_radius_empirical" >Visa atomradie (empirisk)</string>
+    <string name="show_atomic_radius_calculated" >Visa atomradie (beräknad)</string>
+    <string name="show_covalent_radius" >Visa kovalent radie</string>
+    <string name="show_van_der_waals_radius" >Visa Van Der Waals-radie</string>
+    <string name="show_resistivity" >Visa resistivitet</string>
+    <string name="show_fusion_heat" >Visa smältvärme</string>
+    <string name="show_specific_heat_capacity" >Visa specifik värmekapacitet</string>
+    <string name="show_vaporization_heat" >Visa förångningsvärme</string>
+    <string name="show_if_radioactive" >Visa om grundämnet är radioaktivt</string>
+
+    <!-- Activity Sources Settings -->
+    <string name="sources_settings_title" >Källor</string>
+    <string name="sources_wwe_title" >Vatten- och avloppsingenjörskonst</string>
+    <string name="sources_wwe_text" >Mackenzie L. Davis, (2019). Water and wastewater Engineering: Design Principles and Practise, andra upplagan. ISBN: 978-1-260-13227-4</string>
+
+    <!-- Activity Unit Settings -->
+    <string name="unit_settings_title">Tabellenheter</string>
     <string name="unit_temperature">Temperaturer</string>
+
+    <!-- Activity Isotopes -->
     <string name="isotopes_title">Isotoper</string>
-    <string name="ph_title">ph_indikatorer</string>
+    <string name="iso_no_results" >Inga resultat</string>
+    <string name="iso_try_another_search" >Försök söka på ett annat ord eller kontrollera stavningen.</string>
+    <string name="iso_search_hint" >Sök efter isotoper</string>
+
+    <!-- Activity pH -->
+    <string name="ph_title">pH-indikatorer</string>
+
+    <!-- Poisson Activity -->
+    <string name="poi_no_results" >Inga resultat</string>
+    <string name="poi_try_another_search" >Försök söka på ett annat ord eller kontrollera stavningen.</string>
+    <string name="poi_search_hint" >Sök efter ordboksobjekt</string>
+    <string name="poi_clear_filter" >Rensa filter</string>
+    <string name="poissons_ratio_title" >Poissons förhållande</string>
+
+    <!-- Activity Settings-->
     <string name="other_settings">Avancerat</string>
     <string name="experimental_title">Experimentella inställningar</string>
-    <string name="experimental_text">Fler experimentella inställningar</string>
-    <string name="clear_cache_title">Rensa Cache</string>
-    <string name="clear_cache_text">Cache storlek</string>
-    <string name="submit_activity_title">Rapportera fel</string>
+    <string name="experimental_text">Ytterligare experimentella inställningar</string>
+    <string name="clear_cache_title">Rensa cache</string>
+    <string name="clear_cache_text">cache_storlek</string>
+    <string name="submit_activity_title">Skicka felrapport</string>
     <string name="submit_data_i">Datafel</string>
-    <string name="submit_bug">Bug</string>
+    <string name="submit_bug">Fel</string>
     <string name="submit_question">Fråga</string>
-    <string name="submit_issue">Fel</string>
+    <string name="submit_issue">Felrapport</string>
     <string name="description">Beskrivning</string>
-    <string name="submit_send">Rapportera fel</string>
-    <string name="submit_title">Rapportera fel</string>
+    <string name="submit_send">Skicka felrapport</string>
+    <string name="submit_title">Rapportera problem</string>
     <string name="submit_text">Rapportera buggar och datafel</string>
     <string name="licenses_title">Licenser</string>
-    <string name="licenses_text">Licenser använda av Atomic</string>
+    <string name="licenses_text">Licenser för verk som används av Atomic</string>
     <string name="info_title">Information</string>
-    <string name="info_text">App version och detaljer</string>
+    <string name="info_text">Appversion och detaljer</string>
+    <string name="git_title" >Github</string>
+    <string name="git_text" >Atomics öppen källkods GitHub-repo</string>
+    <string name="table_order_title" >Sortera tabellista</string>
+    <string name="table_order_text" >Bestäm ordning för tabeller</string>
+    <string name="win_title" >Skaffa Desktop-app</string>
+    <string name="win_text" >Ladda ner appen för Windows</string>
+    <string name="about_author_name" >J.LINDEMANN</string>
+    <string name="about_app_name" >Atomic - Periodiska systemet</string>
+    <string name="about_title" >Om</string>
+    <string name="settings_title" >Inställningar</string>
+    <string name="settings_themes_title" >Teman</string>
+    <string name="settings_themes_content" >Välj tema</string>
+    <string name="settings_favorite_title" >Favoritfält</string>
+    <string name="settings_favorite_content" >Anpassa favoritfältet</string>
+    <string name="settings_order_title" >Detaljkortsordning</string>
+    <string name="settings_order_content" >Anpassa ordning på detaljkorten</string>
+    <string name="settings_unit_title" >Tabellenheter</string>
+    <string name="settings_unit_content" >Anpassa enheterna i huvudtabellen</string>
+    <string name="settings_offline_title" >Offline-läge</string>
+    <string name="settings_offline_content" >Inaktiverar inläsning av bilder</string>
+    <string name="settings_nav_bar_title" >Dölj bottenmeny automatiskt</string>
+    <string name="settings_nav_bar_content" >Inaktiverar standardbeteendet</string>
+
+    <!-- Calculator Activity -->
     <string name="weight_calculator_title">Viktkalkylator</string>
+    <string name="calculator_card_title" >Kalkylator:</string>
+    <string name="calculator_formula" >Formel:</string>
+
+    <!-- Constants Activity -->
+    <string name="constants_tite" >Konstanttabell</string>
+
+    <!-- Activity Licenses-->
     <string name="license_title">Licenser</string>
+
+    <!-- Activity Table-->
     <string name="activity_table_title">Tabeller</string>
     <string name="table_ph">pH-indikatorer</string>
-    <string name="table_electrochemical">Elektrokemiska spänningsserien</string>
+    <string name="table_ph_text" >En pH-indikatortabell för färger på olika syrabasnivåer</string>
+    <string name="table_electrochemical">Elektrokemisk serie</string>
+    <string name="table_electrochemical_text" >En tabell med en elektrokemisk serie, sorterad från (-) till (+) spänning</string>
     <string name="table_equations">Formler</string>
+    <string name="table_equations_text" >En tabell som innehåller formler för matematik, fysik och kemi</string>
     <string name="table_solubility">Löslighetstabell</string>
-    <string name="table_ionization">Joniseringsenergi</string>
-    <string name="table_poisson">Tabell med Poisson\'s Tal</string>
-    <string name="chip_rocks">Berg</string>
-    <string name="chip_soils">Jord</string>
-    <string name="chip_minerals">Mineral</string>
-    <string name="activity_unit_title">Tabell enheter</string>
+    <string name="table_solubility_text" >En tabell med information om olika ämnens löslighet</string>
+    <string name="table_ionization">Joniseringsenergier</string>
+    <string name="table_ionization_text" >En tabell med olika grundämnens joniseringsenergier</string>
+    <string name="table_poisson">Poisson-förhållandetabell</string>
+    <string name="table_poisson_text" >En tabell med Poissons förhållande för olika bergarter, jordar, mineraler och andra material</string>
+    <string name="table_nuclide" >Nuklidtabell</string>
+    <string name="table_nuclide_text" >En tvådimensionell nuklidtabell, med färg som visar sönderfallstyp</string>
+    <string name="table_constants_text" >En tabell som innehåller vanliga konstanter för beräkningar inklusive matematik, fysik, standardvattenflöden m.m.</string>
+    <string name="table_geology" >Geologitabell</string>
+    <string name="table_geology_text" >En tabell med information om mineraler, bergarter och jordar</string>
+    <string name="nuclide_table_title" >Nuklidtabell</string>
+    <string name="decay_info_fab" >Info om olika sönderfallstyper</string>
+
+    <!-- Activity Geology -->
+    <string name="activity_geology_title" >Geologi</string>
+    <string name="activity_geology_mineral" >Mineraler</string>
+    <string name="activity_geology_rock" >Bergarter</string>
+    <string name="activity_geology_soil" >Jordar</string>
+    <string name="geo_no_results" >Inga resultat</string>
+    <string name="geo_try_another_search" >Försök söka på ett annat ord eller kontrollera stavningen.</string>
+    <string name="geo_search_hint" >Sök efter geologiobjekt</string>
+    <string name="geo_clear_filter" >Rensa filter</string>
+    <string name="chip_rocks">Bergarter</string>
+    <string name="chip_soils">Jordar</string>
+    <string name="chip_minerals">Mineraler</string>
+
+    <!-- Activity Unit-->
+    <string name="activity_unit_title">Tabellenheter</string>
+
+    <!-- Activity Equations -->
     <string name="activity_equations_title">Formler</string>
+    <string name="activity_formulas_search" >Sök efter formler:</string>
+    <string name="equations_search_other" >Försök söka på ett annat ord eller kontrollera stavningen.</string>
+
+    <!-- Activity pH -->
     <string name="activity_ph_title">pH-indikatorer</string>
     <string name="activity_ph_acid">Syra</string>
     <string name="activity_ph_neutral">Neutral</string>
-    <string name="activity_ph_alkaline">Alkalin</string>
+    <string name="activity_ph_alkaline">Alkalisk</string>
+    <string name="activity_ph_methyl_orange" >Metylorange</string>
+    <string name="activity_ph_bromothymol_blue" >Bromtymolblått</string>
+    <string name="activity_ph_congo_red" >Kongorött</string>
+    <string name="activity_ph_phenolphthalein" >Fenolftalein</string>
+
+    <!-- Activity Ion -->
     <string name="activity_io_title">Joniseringsenergier</string>
+    <string name="ion_no_results" >Inga resultat</string>
+    <string name="ion_try_another_search" >Försök söka på ett annat ord eller kontrollera stavningen.</string>
+
+    <!-- Social-Media Links-->
+    <string name="bluesky" >https://bsky.app/profile/jlindemanndev.bsky.social</string>
+    <string name="instagram" >https://www.instagram.com/jlindemanndev</string>
+    <string name="facebook" >https://www.facebook.com/jlindemanndev</string>
+    <string name="homepage" >https://www.jlindemann.se/homepage</string>
+
     <string name="solubility_info_t">Löslighetshjälp</string>
+    <string name="solubility_info_c" >"S: Löslig\nSs: Svagt löslig\nI: Olöslig"</string>
+
+    <string name="electrochemical_series" >Elektrokemisk serie</string>
+    <string name="electrochemical_series_search" >Sök efter grundämne</string>
+
+    <string name="short_voltage" > (Volt)</string>
+
     <string name="data_issue">Datafel</string>
-    <string name="bug">Bug</string>
-    <string name="question">Frågor</string>
+    <string name="bug">Fel</string>
+    <string name="question">Fråga</string>
+
+    <!-- Dictionary -->
     <string name="chip_chemistry">Kemi</string>
     <string name="chip_physics">Fysik</string>
     <string name="chip_math">Matematik</string>
     <string name="chip_reactions">Reaktioner</string>
+    <string name="chip_water" >Vatten</string>
+
+    <string name="wikipedia_license" >Wikipedia Commons</string>
+    <string name="wikipedia_license_text" >CREATIVE COMMONS CORPORATION ÄR INTE EN ADVOKATBYRÅ OCH TILLHANDAHÅLLER INTE JURIDISKA TJÄNSTER.
+        DISTRIBUTION AV DENNA LICENS SKAPAR INTE EN ADVOKAT-KLIENTRELATION. CREATIVE COMMONS TILLHANDAHÅLLER DENNA INFORMATION "I BEFINTLIGT SKICK". CREATIVE COMMONS GER INGA GARANTIER FÖR DEN INFORMATION SOM TILLHANDAHÅLLS OCH FRÅNSÄGER SIG ANSVAR FÖR SKADOR SOM UPPSTÅR VID ANVÄNDNINGEN.\n\nVERKET (SOM DEFINIERAS NEDAN) TILLHANDAHÅLLS UNDER VILLKOREN I DENNA CREATIVE COMMONS PUBLIC LICENSE ("CCPL" ELLER "LICENS").
+        VERKET SKYDDAS AV UPPHOVSRÄTT OCH/ELLER ANNAN TILLÄMPLIG LAG. ALL ANNAN ANVÄNDNING AV VERKET ÄN SOM TILLÅTS ENLIGT DENNA LICENS ELLER UPPHOVSRÄTTSLAGEN ÄR FÖRBJUDEN.
+        GENOM ATT UTNYTTJA NÅGON AV RÄTTIGHETERNA TILL VERKET SOM GES HÄR ACCEPTERAR DU OCH SAMTYCKER TILL ATT VARA BUNDEN AV VILLKOREN I DENNA LICENS. I DEN UTSTRÄCKNING DENNA LICENS KAN ANSES VARA ETT KONTRAKT, GER LICENSGIVAREN DIG RÄTTIGHETERNA HÄR I UTVECKLING AV DITT ACCEPTERANDE AV SÅDANA VILLKOR.</string>
+    <string name="sothree_license" >Android Sliding Up Panel</string>
+    <string name="sothree_license_text" >Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
+    \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>
+    <string name="appwidget_text" >EXEMPEL</string>
     <string name="add_widget">Lägg till widget</string>
+
+    <string name="no_results" >Inga resultat</string>
+    <string name="spelling" >Försök söka på ett annat ord eller kontrollera stavningen</string>
+
+    <!-- New Tables Strings -->
+    <string name="phi" >pH-indikatorer</string>
+    <string name="geo" >Geologitabell</string>
+    <string name="con" >Konstanttabell</string>
+    <string name="nuc" >Nuklidtabell</string>
+    <string name="poi" >Poisson-förhållandetabell</string>
+    <string name="sol" >Löslighetstabell</string>
+    <string name="ion" >Joniseringsenergier</string>
+    <string name="eqe" >Formler</string>
+    <string name="ele" >Elektrokemisk serie</string>
+    <string name="iso" >Isotoper</string>
+    <string name="emi" >Emissionsspektrumtabell</string>
+
+    <string name="requires_pro" >Kräver PRO-version</string>
+    <string name="try_another_search" >Försök söka på ett annat ord eller kontrollera stavningen.</string>
+
+    <string name="emission_title" >Emissionsspektrumtabell</string>
+    <string name="emission_text" >Emissionsspektrum för grundämnen, vilket är frekvenser av elektromagnetisk strålning som emitteras när elektroner går från högre till lägre energinivå.</string>
+
+    <!-- New Tools String -->
+    <string name="cal" >Kalkylator</string>
+    <string name="rec" >Kemiska reaktioner</string>
+    <string name="uni" >Enhetsomvandlare</string>
+    <string name="fla" >Flashcards</string>
+    <string name="unit_title" >Enhetsomvandlare</string>
+    <string name="unit_description" >En enkel enhetsomvandlare för flera ändamål</string>
+
+    <string name="most_used" >Mest använda:</string>
+
+    <string name="calculator_title" >Kalkylator</string>
+    <string name="calculator_text" >Innehåller en kalkylator för att beräkna molmassa för olika föreningar samt spara favoriter</string>
+    <string name="tools_title" >Verktyg (t.ex. kalkylator)</string>
+    <string name="balancer_title" >Kemiska reaktioner</string>
+    <string name="balancer_text" >Balansera olika kemiska reaktioner och spara favoriter för senare användning</string>
+    <string name="tool_btn_open" >Öppna verktyg</string>
+    <string name="calc_molar_mass" >Molmassa:</string>
+    <string name="calc_elements_shown" >Inkluderade element visas här</string>
+    <string name="calc_favorites" >Favoriter:</string>
+    <string name="calc_no_favorites" >Inga favoriter för närvarande</string>
+    <string name="calc_no_pro_text" >För att få tillgång till och spara favoriter behöver du PRO-versionen</string>
+
+    <!-- User Page -->
+    <string name="user_title" >Användarsida</string>
+    <string name="user_achievements" >Prestationer</string>
+    <string name="user_achievements_Text" >Följ dina framsteg i att lära dig världens grundämnen med prestationer</string>
+    <string name="user_img" >Byt profilbild</string>
+
+    <!-- Hazard Properties -->
+    <string name="hazard_title" >Materialfara</string>
+    <string name="hazard_title_requires_pro" >Materialfara kräver PRO-version. Skaffa PRO för att låsa upp mer data och tabeller:</string>
+    <string name="fire_hazard" >Brandfara:</string>
+    <string name="health_hazard" >Hälsorisk:</string>
+    <string name="reactivity_hazard" >Reaktivitet:</string>
+    <string name="specific_hazard" >Specifik fara:</string>
+
+    <!-- Grid Properties -->
+    <string name="grid_title" >Gitteregenskaper</string>
+    <string name="crystal_structure" >Kristallstruktur:</string>
+    <string name="grid_parameters" >Gitterparametrar: (gitterkonstanter)</string>
+    <string name="debye_temperature_low_temperature_limit" >Debyetemperatur: (låga temperaturer)</string>
+    <string name="debye_temperature_room_temperature" >Debyetemperatur: (rumstemperatur)</string>
+
+    <string name="cas_number" >CAS-nummer:</string>
+    <string name="eg_number" >EG-nummer:</string>
+    <string name="other_title" >Övrigt</string>
+
+    <string name="clear_filter" >Rensa filter</string>
+    <string name="constants_search" >Sök efter konstant</string>
+
+    <string name="dictionary" >Ordbok</string>
+    <string name="dictionary_search" >Sök efter ordboksobjekt</string>
+
+    <string name="element_info_title" >Elementinformation</string>
+
+    <string name="submit_data_issue" >Skicka datafel</string>
+
+    <!-- Unit Converter -->
+    <string name="unit_converter_title" >Enhetsomvandlare</string>
+    <string name="unit_enter_value" >Värde</string>
+    <string name="unit_output_value" >Utdata</string>
+    <string name="unit_category" >Kategori:</string>
+    <string name="unit_formula" >Formel:</string>
+    <string name="unit_add_favorite" >Lägg till i favoriter:</string>
+    <string name="unit_favorites" >Favoriter:</string>
+    <string name="unit_display_formula" >Formeln visas här</string>
+
+    <!-- Flashcard mini-games -->
+    <string name="flashcards_title" >Flashcards</string>
+    <string name="flashcards_info" >Lär dig periodiska systemet med inbyggda "lärspel"</string>
+    <string name="flashcards_lives_info" >Varje felaktigt svar leder till förlust av ett liv</string>
+    <string name="learning_games" >Lärspel:</string>
+    <string name="flashcards_element_symbols" >Elementsymboler</string>
+    <string name="flashcards_element_classifications" >Elementklassificeringar</string>
+    <string name="flashcards_atomic_mass" >Atommassa</string>
+    <string name="flashcards_chemical_reactions" >Kemiska reaktioner</string>
+    <string name="flashcards_mixed_questions" >Blandade frågor</string>
+    <string name="flashcards_statistics" >Statistik</string>
+    <string name="flashcards_total_xp" >Totalt XP</string>
+    <string name="flashcards_total_games" >Spel</string>
+    <string name="flashcards_level" >Nivå</string>
+    <string name="flashcards_difficulty" >Välj svårighetsgrad:</string>
+    <string name="flashcards_difficulty_title" >Svårighetsgrad</string>
+    <string name="flashcards_free_games" >Gratis spel:</string>
+    <string name="flashcards_pro_plus_games" >PRO+ spel:</string>
+    <string name="flashcards_pro_level_0_5" >Nivå 0-4:</string>
+    <string name="flashcards_pro_level_5_10" >Nivå 5-9:</string>
+    <string name="flashcards_pro_level_10_15" >Nivå 10-14:</string>
+    <string name="flashcards_game_element_symbols" >Elementsymboler</string>
+    <string name="flashcards_game_element_names" >Elementnamn</string>
+    <string name="flashcards_game_element_groups" >Elementgrupper</string>
+    <string name="flashcards_game_element_appearance" >Utseende</string>
+    <string name="flashcards_game_element_atomic_mass" >Atommassa</string>
+    <string name="flashcards_game_element_density" >Densitet</string>
+    <string name="progress_text_placeholder" >50/500</string>
+    <string name="total_xp_placeholder" >Totalt XP: ---</string>
+    <string name="unlock_all_flashcards" >Lås upp alla Flashcards och funktioner</string>
+    <string name="upgrade_to_pro_plus" >Uppgradera till PRO+</string>
+    <string name="upgrade_pro_plus_description" >Skaffa obegränsat antal liv och ytterligare flashcardspel som elektronegativitet, radioaktivitet, kristallstruktur och mer!</string>
+    <string name="easy" >Lätt</string>
+    <string name="medium" >Medel</string>
+    <string name="hard" >Svår</string>
+    <string name="level_0_4" >Nivå 0–4</string>
+    <string name="element_symbols" >Elementsymboler</string>
+    <string name="element_names" >Elementnamn</string>
+    <string name="element_groups" >Elementgrupper</string>
+    <string name="discovered_by" >Upptäckt av</string>
+    <string name="discovery_year" >Upptäcktsår</string>
+    <string name="level_5_9" >Nivå 5–9</string>
+    <string name="appearance" >Utseende</string>
+    <string name="atomic_number" >Atomnummer</string>
+    <string name="electrical_type" >Elektrisk typ</string>
+    <string name="radioactive" >Radioaktiv</string>
+    <string name="level_10_14" >Nivå 10–14</string>
+    <string name="atomic_mass" >Atommassa</string>
+    <string name="density" >Densitet</string>
+    <string name="electronegativity" >Elektronegativitet</string>
+    <string name="block" >Block</string>
+    <string name="level_15_19" >Nivå 15–19</string>
+    <string name="magnetic_type" >Magnetisk typ</string>
+    <string name="phase_stp" >Fas (STP)</string>
+    <string name="superconducting_point" >Supraledande punkt</string>
+    <string name="level_20_24" >Nivå 20–24</string>
+    <string name="neutron_cross_sectional" >Neutron-tvärsnitt</string>
+    <string name="specific_heat_capacity" >Specifik värmekapacitet</string>
+    <string name="mohs_hardness" >Mohs hårdhet</string>
+    <string name="vickers_hardness" >Vickers hårdhet</string>
+    <string name="brinell_hardness" >Brinellhårdhet</string>
+    <string name="pro_plus_badge" >PRO+</string>
+    <string name="lives_count_placeholder" >5</string>
+    <string name="level_stat_placeholder" >---</string>
+    <string name="completed_quizzes_stat_placeholder" >---</string>
+    <string name="popup_title">Uppgradera till PRO+</string>
+    <string name="popup_content_text">Uppgradera \'Atomic - Periodiska systemet\' för att låsa upp ytterligare data, tabeller och flashcards för att lära dig mer om det periodiska systemet.</string>
+    <string name="popup_action_button">Uppgradera till PRO+</string>
+    <string name="popup_secondary_button">Inte idag</string>
 </resources>
