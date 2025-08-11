@@ -9,7 +9,7 @@ Follow on socialmedia for updates [BlueSky](https://bsky.app/profile/jlindemannd
 
 ## Download
 
-Visit the [website](https://www.jlindemann.se/homepage/atomic) for download
+Visit the [website](https://www.jlindemann.se/homepage/atomic-periodic-table) for download
 
 Play Store: [Link](https://play.google.com/store/apps/details?id=com.jlindemann.science)
 
