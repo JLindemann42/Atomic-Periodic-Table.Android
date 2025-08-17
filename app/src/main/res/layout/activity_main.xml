@@ -75,7 +75,7 @@
                         android:drawableStart="@drawable/ic_search"
                         android:drawablePadding="16dp"
                         android:gravity="center_vertical"
-                        android:text="Search Elements"
+                        android:text="@string/search"
                         android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="16sp" />
 

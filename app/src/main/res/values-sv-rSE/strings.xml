@@ -2,11 +2,32 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Anpassning</string>
-    <string name="app_version" >v4.0.1m-Build.150</string>
-    <string name="next_sale_start" >2024/08/05</string>
-    <string name="next_sale_end" >2024/09/15</string>
 
     <string name="open_table_button">Öppna tabell</string>
+
+    <string name="search">Sök element</string>
+    <string name="search_elements">Sök efter element</string>
+    <string name="alphabetical">Alfabetisk</string>
+    <string name="element_number">Elementnummer</string>
+    <string name="blog">Blogg</string>
+    <string name="Tables">Tabeller</string>
+    <string name="Dictionary">Ordbok</string>
+    <string name="New">Nytt</string>
+
+    <string name="display_mode">Visningsläge</string>
+    <string name="element_name_default">Elementnamn (Standard)</string>
+    <string name="atomic_weight">Atommassa</string>
+    <string name="boiling_point">Kokpunkt</string>
+    <string name="melting_point">Smältpunkt</string>
+    <string name="year_discovered">Upptäcktsår</string>
+    <string name="fusion_heat">Smältvärme</string>
+    <string name="vaporization_heat">Ångbildningsvärme</string>
+    <string name="poissons_ratio">Poissons tal</string>
+    <string name="youngs_modulus">Youngs modul</string>
+    <string name="bulk_modulus">Bulkmodul</string>
+    <string name="shear_modulus">Skjuvmodul</string>
+    <string name="electrical_resistivity">Elektrisk resistivitet</string>
+    <string name="random_element">Slumpmässigt element</string>
 
     <!-- PRO Activity -->
     <string name="pro_title">PRO-version</string>
@@ -131,6 +152,23 @@
     <string name="about_author_name" >J.LINDEMANN</string>
     <string name="about_app_name" >Atomic - Periodiska systemet</string>
     <string name="about_title" >Om</string>
+    <string name="settings">Inställningar</string>
+    <string name="themes">Teman</string>
+    <string name="select_theme">Välj tema</string>
+    <string name="favorite_bar">Favoritfält</string>
+    <string name="personalise_favorite_bar">Anpassa favoritfältet</string>
+    <string name="detail_card_order">Detaljkortsordning</string>
+    <string name="customize_detail_card_order">Anpassa ordningen på detaljkorten</string>
+    <string name="table_units">Tabellenheter</string>
+    <string name="customize_units_table">Anpassa enheterna i huvudtabellen</string>
+    <string name="offline_mode">Offline-läge</string>
+    <string name="offline_mode_desc">Inaktiverar laddning av bilder</string>
+    <string name="auto_hide_bottombar">Dölj bottombar automatiskt</string>
+    <string name="auto_hide_bottombar_desc">Inaktiverar standardbeteendet</string>
+    <string name="system_default">Systemstandard</string>
+    <string name="light">Ljust</string>
+    <string name="dark">Mörkt</string>
+    <string name="cancel">Avbryt</string>
     <string name="settings_title" >Inställningar</string>
     <string name="settings_themes_title" >Teman</string>
     <string name="settings_themes_content" >Välj tema</string>
@@ -144,6 +182,8 @@
     <string name="settings_offline_content" >Inaktiverar inläsning av bilder</string>
     <string name="settings_nav_bar_title" >Dölj bottenmeny automatiskt</string>
     <string name="settings_nav_bar_content" >Inaktiverar standardbeteendet</string>
+    <string name="language_title">Språk</string>
+    <string name="language_content">Välj språk</string>
 
     <!-- Calculator Activity -->
     <string name="weight_calculator_title">Viktkalkylator</string>

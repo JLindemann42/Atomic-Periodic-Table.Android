@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.activities.IsotopesActivityExperimental
 import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
@@ -44,7 +45,7 @@ import java.net.ConnectException
 /**
  * Base Activity for element info pages. Handles element data loading, note-taking, achievements, and most UI logic.
  */
-abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsListener {
+abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener {
     companion object {
         private const val TAG = "BaseActivity"
     }
@@ -75,7 +76,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
     /**
      * Hook for subclasses to handle system window insets.
      */
-    open fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) = Unit
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) = Unit
     /**
      * Handles the application of window insets for immersive UI.
      */

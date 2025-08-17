@@ -2,11 +2,37 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" >v4.0.2m-Build.151</string>
-    <string name="next_sale_start" >2024/08/05</string>
-    <string name="next_sale_end" >2024/09/15</string>
+    <string name="app_version" translatable="false" >v4.0.2m-Build.151</string>
+    <string name="next_sale_start" translatable="false" >2024/08/05</string>
+    <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
     <string name="open_table_button">Open table</string>
+
+    <string name="search">Search Elements</string>
+    <string name="search_elements">Search For Elements</string>
+    <string name="element_number">Element Number</string>
+    <string name="blog">Blog</string>
+    <string name="Tables">Tables</string>
+    <string name="alphabetical">Alphabetical</string>
+    <string name="Dictionary">Dictionary</string>
+    <string name="New">New</string>
+
+    <!-- Hover Menu -->
+    <string name="display_mode">Display Mode</string>
+    <string name="element_name_default">Element Name (Default)</string>
+    <string name="atomic_weight">Atomic Weight</string>
+    <string name="boiling_point">Boiling Point</string>
+    <string name="melting_point">Melting Point</string>
+    <string name="year_discovered">Year Discovered</string>
+    <string name="fusion_heat">Fusion Heat</string>
+    <string name="vaporization_heat">Vaporization Heat</string>
+    <string name="poissons_ratio">Poisson\'s Ratio</string>
+    <string name="youngs_modulus">Young\'s Modulus</string>
+    <string name="bulk_modulus">Bulk Modulus</string>
+    <string name="shear_modulus">Shear Modulus</string>
+    <string name="electrical_resistivity">Electrical Resistivity</string>
+    <string name="random_element">Random Element</string>
+
 
     <!-- PRO Activity -->
     <string name="pro_title">PRO Version</string>
@@ -144,6 +170,25 @@
     <string name="settings_offline_content" >Disables loading of images</string>
     <string name="settings_nav_bar_title" >Auto-hide Bottombar</string>
     <string name="settings_nav_bar_content" >Disables the standard behaviour</string>
+    <string name="language_title">Languages</string>
+    <string name="language_content">Select Language</string>
+    <string name="system_default">System Default</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="cancel">Cancel</string>
+    <string name="settings">Settings</string>
+    <string name="themes">Themes</string>
+    <string name="select_theme">Select Theme</string>
+    <string name="favorite_bar">Favorite Bar</string>
+    <string name="personalise_favorite_bar">Personalise the favorite bar</string>
+    <string name="detail_card_order">Detail Card Order</string>
+    <string name="customize_detail_card_order">Customize order of Detail Cards</string>
+    <string name="table_units">Table Units</string>
+    <string name="customize_units_table">Customize the units in the main table</string>
+    <string name="offline_mode">Offline Mode</string>
+    <string name="offline_mode_desc">Disables loading of images</string>
+    <string name="auto_hide_bottombar">Auto-hide Bottombar</string>
+    <string name="auto_hide_bottombar_desc">Disables the standard behaviour</string>
 
     <!-- Calculator Activity -->
     <string name="weight_calculator_title">Weight Calculator</string>

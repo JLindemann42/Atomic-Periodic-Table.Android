@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.marginStart
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.preferences.TemperatureUnits
 import com.jlindemann.science.preferences.ThemePreference
@@ -25,7 +26,7 @@ import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
 
-abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsListener {
+abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener {
     companion object { private const val TAG = "BaseActivity" }
 
     private var systemUiConfigured = false
@@ -42,7 +43,7 @@ abstract class TableExtension : AppCompatActivity(), View.OnApplyWindowInsetsLis
         }
     }
 
-    open fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) = Unit
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) = Unit
 
     override fun onApplyWindowInsets(v: View, insets: WindowInsets): WindowInsets {
         Pasteur.info(TAG, "height: ${insets.systemWindowInsetBottom}")

@@ -1,5 +1,6 @@
 package com.jlindemann.science.activities
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Insets
 import android.os.Build
@@ -16,6 +17,8 @@ import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.utils.Pasteur
+import com.jlindemann.science.utils.LocaleUtil
+import java.util.*
 
 abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListener {
     companion object {
@@ -23,6 +26,18 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
     }
 
     private var systemUiConfigured = false
+
+    // --- Locale wrapping for runtime language switching ---
+    override fun attachBaseContext(newBase: Context) {
+        val prefs = newBase.getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val lang = prefs.getString("app_language", null)
+        val country = prefs.getString("app_country", null)
+        val locale = if (lang.isNullOrBlank()) null
+        else if (country.isNullOrBlank()) Locale(lang)
+        else Locale(lang, country)
+        val context = LocaleUtil.wrap(newBase, locale)
+        super.attachBaseContext(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +62,12 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
 
     override fun onApplyWindowInsets(v: View, insets: WindowInsets): WindowInsets {
         Pasteur.info(TAG, "height: ${insets.systemWindowInsetBottom}")
-        onApplySystemInsets(insets.systemWindowInsetTop, insets.systemWindowInsetBottom, insets.systemWindowInsetLeft, insets.systemWindowInsetRight)
+        onApplySystemInsets(
+            insets.systemWindowInsetTop,
+            insets.systemWindowInsetBottom,
+            insets.systemWindowInsetLeft,
+            insets.systemWindowInsetRight
+        )
         return insets.consumeSystemWindowInsets()
     }
 
@@ -62,6 +82,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
             }
         }
     }
+
     open fun updateLivesCount() {
         val lives = LivesManager.getLives(this)
         val maxLives = LivesManager.getMaxLives(this)

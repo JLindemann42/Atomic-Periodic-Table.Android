@@ -29,7 +29,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:paddingBottom="28dp"
-                android:text="Settings"
+                android:text="@string/settings"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="32sp"
                 android:textStyle="normal" />
@@ -97,7 +97,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
-                                android:text="Themes"
+                                android:text="@string/themes"
                                 android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
@@ -108,7 +108,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
-                                android:text="Select Theme"
+                                android:text="@string/select_theme"
                                 android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -166,7 +166,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
-                                android:text="Favorite Bar"
+                                android:text="@string/favorite_bar"
                                 android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
@@ -177,7 +177,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
-                                android:text="Personalise the favorite bar"
+                                android:text="@string/personalise_favorite_bar"
                                 android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -236,7 +236,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
-                                android:text="Detail Card Order"
+                                android:text="@string/detail_card_order"
                                 android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
@@ -247,7 +247,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
-                                android:text="Customize order of Detail Cards"
+                                android:text="@string/customize_detail_card_order"
                                 android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -316,7 +316,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
-                                android:text="Customize order of Detail Cards"
+                                android:text="@string/table_order_text"
                                 android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -373,7 +373,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
-                                android:text="Table Units"
+                                android:text="@string/table_units"
                                 android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
@@ -384,7 +384,75 @@
                                 android:layout_marginBottom="10dp"
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
-                                android:text="Customize the units in the main table"
+                                android:text="@string/customize_units_table"
+                                android:textColor="?attr/colorOnBackground"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:backgroundTint="?attr/backgroundColor"
+                        android:visibility="invisible" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/language_setting"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="?attr/backgroundColor"
+                    android:clickable="true"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/d_ripple">
+
+                    <LinearLayout
+                        android:id="@+id/language_setting_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="?attr/backgroundColor"
+                        android:theme="@style/ThemeOverlay.AppCompat.Light">
+
+                        <ImageView
+                            android:id="@+id/language_settings_icon"
+                            android:layout_width="56dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0"
+                            android:background="?attr/backgroundColor"
+                            android:backgroundTint="?attr/backgroundColor"
+                            android:padding="10dp"
+                            app:tint="?attr/colorOnBackground"
+                            app:srcCompat="@drawable/ic_language" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/language_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="4dp"
+                                android:text="@string/language_title"
+                                android:textColor="?attr/colorOnBackground"
+                                android:textSize="16sp" />
+
+                            <TextView
+                                android:id="@+id/language_content"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="10dp"
+                                android:alpha="0.5"
+                                android:paddingEnd="18dp"
+                                android:text="@string/language_content"
                                 android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -438,7 +506,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
-                                android:text="Offline Mode"
+                                android:text="@string/offline_mode"
                                 android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
@@ -448,7 +516,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
-                                android:text="Disables loading of images"
+                                android:text="@string/offline_mode_desc"
                                 android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>
@@ -514,7 +582,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:layout_marginBottom="4dp"
-                                android:text="Auto-hide Bottombar"
+                                android:text="@string/auto_hide_bottombar"
                                 android:textColor="?attr/colorOnBackground"
                                 android:textSize="16sp" />
 
@@ -524,7 +592,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:alpha="0.5"
                                 android:paddingEnd="18dp"
-                                android:text="Disables the standard behaviour"
+                                android:text="@string/auto_hide_bottombar_desc"
                                 android:textColor="?attr/colorOnBackground"
                                 android:textSize="12sp" />
                         </LinearLayout>

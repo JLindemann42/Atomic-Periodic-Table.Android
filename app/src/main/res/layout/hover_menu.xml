@@ -50,7 +50,7 @@
                 android:layout_marginTop="18dp"
                 android:layout_marginBottom="18dp"
                 android:alpha="0.8"
-                android:text="Display Mode"
+                android:text="@string/display_mode"
                 android:textAlignment="viewStart"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="18sp"
@@ -81,7 +81,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
-                        android:text="Element Name (Default)"
+                        android:text="@string/element_name_default"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -99,7 +99,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
-                        android:text="Element Groups"
+                        android:text="@string/element_groups"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -117,7 +117,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
-                        android:text="Electronegativity"
+                        android:text="@string/electronegativity"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -135,7 +135,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
-                        android:text="Atomic Weight"
+                        android:text="@string/atomic_weight"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -153,7 +153,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
-                        android:text="Boiling Point"
+                        android:text="@string/boiling_point"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -171,7 +171,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
-                        android:text="Melting Point"
+                        android:text="@string/melting_point"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -189,7 +189,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
-                        android:text="Phase (STP)"
+                        android:text="@string/phase_stp"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -207,7 +207,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
-                        android:text="Year Discovered"
+                        android:text="@string/year_discovered"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -225,7 +225,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
-                        android:text="Fusion Heat"
+                        android:text="@string/fusion_heat"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -243,7 +243,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
-                        android:text="Specific Heat Capacity"
+                        android:text="@string/specific_heat_capacity"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -261,7 +261,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
-                        android:text="Vaporization Heat"
+                        android:text="@string/vaporization_heat"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -279,7 +279,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="9dp"
                         android:paddingBottom="9dp"
-                        android:text="Electrical Type"
+                        android:text="@string/electrical_type"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -298,7 +298,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="18dp"
                         android:paddingBottom="9dp"
-                        android:text="Poisson's Ratio"
+                        android:text="@string/poissons_ratio"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -317,7 +317,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="18dp"
                         android:paddingBottom="9dp"
-                        android:text="Young's Modulus"
+                        android:text="@string/youngs_modulus"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -336,7 +336,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="18dp"
                         android:paddingBottom="9dp"
-                        android:text="Bulk Modulus"
+                        android:text="@string/bulk_modulus"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -355,7 +355,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="18dp"
                         android:paddingBottom="9dp"
-                        android:text="Shear Modulus"
+                        android:text="@string/shear_modulus"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -374,7 +374,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="18dp"
                         android:paddingBottom="9dp"
-                        android:text="Poisson's Ratio"
+                        android:text="@string/poissons_ratio"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -392,7 +392,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="18dp"
                         android:paddingBottom="9dp"
-                        android:text="Superconducting Point"
+                        android:text="@string/superconducting_point"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -410,7 +410,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="18dp"
                         android:paddingBottom="9dp"
-                        android:text="Magnetic Type"
+                        android:text="@string/magnetic_type"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -428,7 +428,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="18dp"
                         android:paddingBottom="9dp"
-                        android:text="Electrical Resistivity"
+                        android:text="@string/electrical_resistivity"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -446,7 +446,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="18dp"
                         android:paddingBottom="9dp"
-                        android:text="CAS Number"
+                        android:text="@string/cas_number"
                         android:textColor="?attr/colorOnSecondaryContainer" />
 
                     <TextView
@@ -464,7 +464,7 @@
                         android:paddingTop="9dp"
                         android:paddingEnd="18dp"
                         android:paddingBottom="9dp"
-                        android:text="EG Number"
+                        android:text="@string/eg_number"
                         android:textColor="?attr/colorOnSecondaryContainer" />
                 </LinearLayout>
             </ScrollView>
@@ -494,7 +494,7 @@
                 android:foregroundTintMode="src_in"
                 android:hapticFeedbackEnabled="true"
                 android:onClick="onClick"
-                android:text="Random Element"
+                android:text="@string/random_element"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="?attr/colorOnPrimary"
