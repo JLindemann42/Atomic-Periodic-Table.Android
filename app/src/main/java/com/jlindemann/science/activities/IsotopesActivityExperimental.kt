@@ -7,6 +7,7 @@ import android.graphics.Insets
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -133,7 +134,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.iso_filter_box), 150)
             Utils.fadeOutAnim(findViewById<TextView>(R.id.filter_background), 150)
             filtList.sortWith(Comparator { lhs, rhs ->
-                if (lhs.element < rhs.element) -1 else if (lhs.element < rhs.element) 1 else 0
+                if (lhs.element < rhs.element) -1 else if (lhs.element > rhs.element) 1 else 0
             })
             mAdapter.filterList(filtList)
             mAdapter.notifyDataSetChanged()
@@ -188,10 +189,10 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         }
         if (isoPrefValue == 0) {
             filteredList.sortWith(Comparator { lhs, rhs ->
-                if (lhs.element < rhs.element) -1 else if (lhs.element < rhs.element) 1 else 0
+                if (lhs.element < rhs.element) -1 else if (lhs.element > rhs.element) 1 else 0
             })
         }
-        val handler = android.os.Handler()
+        val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             if (recyclerView.adapter!!.itemCount == 0) {
                 Anim.fadeIn(findViewById<LinearLayout>(R.id.empty_search_box_iso), 300)

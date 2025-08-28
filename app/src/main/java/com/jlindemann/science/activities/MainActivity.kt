@@ -120,7 +120,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         }
         hoverListeners(elements, proPrefValue)
 
-        val handler = android.os.Handler()
+        val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             initName(elements)
         }, 250)
@@ -271,7 +271,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         }
         mAdapter.filterList(filteredList)
         mAdapter.notifyDataSetChanged()
-        val handler = android.os.Handler()
+        val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             if (recyclerView.adapter!!.itemCount == 0) {
                 Anim.fadeIn(findViewById<LinearLayout>(R.id.empty_search_box), 300)
