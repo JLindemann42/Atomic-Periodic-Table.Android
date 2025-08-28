@@ -187,6 +187,7 @@
     <string name="customize_units_table">Customize the units in the main table</string>
     <string name="offline_mode">Offline Mode</string>
     <string name="offline_mode_desc">Disables loading of images</string>
+    <string name="go_online_for_emission">Go online for emission lines</string>
     <string name="auto_hide_bottombar">Auto-hide Bottombar</string>
     <string name="auto_hide_bottombar_desc">Disables the standard behaviour</string>
 

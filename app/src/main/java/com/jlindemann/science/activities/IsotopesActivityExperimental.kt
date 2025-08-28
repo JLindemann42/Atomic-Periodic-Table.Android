@@ -192,18 +192,18 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
                 if (lhs.element < rhs.element) -1 else if (lhs.element > rhs.element) 1 else 0
             })
         }
+        mAdapter.filterList(filteredList)
+        mAdapter.notifyDataSetChanged()
+        recyclerView.adapter = IsotopeAdapter(filteredList, this, this)
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
-            if (recyclerView.adapter!!.itemCount == 0) {
+            if (recyclerView.adapter?.itemCount == 0) {
                 Anim.fadeIn(findViewById<LinearLayout>(R.id.empty_search_box_iso), 300)
             }
             else {
                 findViewById<LinearLayout>(R.id.empty_search_box_iso).visibility = View.GONE
             }
         }, 10)
-        mAdapter.filterList(filteredList)
-        mAdapter.notifyDataSetChanged()
-        recyclerView.adapter = IsotopeAdapter(filteredList, this, this)
     }
 
     override fun elementClickListener(item: Element, position: Int) {
@@ -249,7 +249,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             try {
                 val elementSendLoad = ElementSendAndLoad(this)
                 val nameVal = elementSendLoad.getValue()
-                if (item.element.capitalize() == nameVal?.capitalize()) {
+                if (item.element.replaceFirstChar { it.uppercase() } == nameVal?.replaceFirstChar { it.uppercase() }) {
                     val ext = ".json"
                     val elementJson: String? = "$nameVal$ext"
                     val inputStream: InputStream = assets.open(elementJson.toString())
@@ -265,7 +265,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
 
                     val iTitle = fLayout.findViewById(R.id.iso_title) as TextView
                     val iExt = " Isotopes"
-                    iTitle.text = "${nameVal.capitalize()}$iExt"
+                    iTitle.text = "${nameVal.replaceFirstChar { it.uppercase() }}$iExt"
 
                     aLayout.addView(fLayout)
 

@@ -161,7 +161,7 @@ class ElementInfoActivity : InfoExtension() {
             findViewById<Space>(R.id.offline_space).visibility = View.VISIBLE
             findViewById<ImageView>(R.id.sp_img).visibility = View.GONE
             findViewById<TextView>(R.id.sp_offline).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.sp_offline).text = "Go online for emission lines"
+            findViewById<TextView>(R.id.sp_offline).text = getString(R.string.go_online_for_emission)
         }
         else {
             findViewById<FrameLayout>(R.id.frame).visibility = View.VISIBLE
