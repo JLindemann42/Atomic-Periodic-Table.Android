@@ -1,6 +1,7 @@
 package com.jlindemann.science.utils
 
 import android.os.Handler
+import android.os.Looper
 import android.view.View
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 
@@ -35,7 +36,7 @@ object Utils {
     fun fadeOutAnim(view: View, time: Long) {
         view.animate().setDuration(time)
         view.animate().alpha(0.0f)
-        val handler = Handler()
+        val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             view.visibility = View.GONE
         }, time+1)
@@ -48,7 +49,7 @@ object Utils {
         view.animate().setDuration(time)
         view.animate().alpha(0.0f)
         //Fade In
-        val handler = Handler()
+        val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             view.animate().setDuration(time)
             view.animate().alpha(1.0f)
