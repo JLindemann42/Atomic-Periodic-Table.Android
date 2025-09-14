@@ -22,6 +22,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
+import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
@@ -583,7 +584,9 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
      */
     private fun loadImage(url: String?) {
         try {
-            Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.element_image))
+            //Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.element_image))
+            //Refactored loadImage with Glide:
+            Glide.with(this).load(url.toString()).into(findViewById<ImageView>(R.id.element_image));
         } catch (e: ConnectException) {
             findViewById<Space>(R.id.offline_div).visibility = View.VISIBLE
             findViewById<FrameLayout>(R.id.frame).visibility = View.GONE
@@ -615,8 +618,13 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
      * Loads the atom model image into the UI.
      */
     private fun loadModelView(url: String?) {
-        Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.model_view))
-        Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.card_model_view))
+        //Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.model_view))
+        //Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.card_model_view))
+
+        //Refactored loadModelView with Glide
+        Glide.with(this).load(url.toString()).into(findViewById<ImageView>(R.id.model_view));
+        Glide.with(this).load(url.toString()).into(findViewById<ImageView>(R.id.card_model_view));
+
     }
 
     /**

@@ -221,7 +221,7 @@ class SettingsActivity : BaseActivity() {
         val languages = getSupportedLanguages()
         val systemLangOption = getSystemLanguageOption()
         val languageNames = mutableListOf<String>()
-        languageNames.add("System default: ${systemLangOption.getDisplayName()}")
+        languageNames.add("System default")
         languageNames.addAll(languages.map { it.getDisplayName() })
 
         val currentPref = getCurrentLanguagePreference()
