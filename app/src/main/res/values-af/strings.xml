@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">Atomic</string>
     <string name="personalization_settings">Personalisering</string>
-    <string name="app_version">v4.0.2m-Bou.151</string>
     <string name="open_table_button">Maak tabel oop</string>
     <string name="search">Soek Elemente</string>
     <string name="search_elements">Soek na Element</string>
