@@ -193,7 +193,10 @@ class SettingsActivity : BaseActivity() {
     private fun getSupportedLanguages(): List<LanguageOption> = listOf(
         LanguageOption("English", Locale("en").getDisplayLanguage(Locale("en")), Locale("en")),
         LanguageOption("Swedish", Locale("sv", "SE").getDisplayLanguage(Locale("sv", "SE")), Locale("sv", "SE")),
-        LanguageOption("Spanish", Locale("es", "ES").getDisplayLanguage(Locale("es", "ES")), Locale("es", "ES"))
+        LanguageOption("Spanish", Locale("es", "ES").getDisplayLanguage(Locale("es", "ES")), Locale("es", "ES")),
+        LanguageOption("Italian", Locale("it", "IT").getDisplayLanguage(Locale("it", "IT")), Locale("it", "IT")),
+        LanguageOption("Afrikaans", Locale("af").getDisplayLanguage(Locale("af")), Locale("af"))
+
     )
 
     private fun getSystemLocale(): Locale {
