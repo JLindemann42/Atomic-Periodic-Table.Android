@@ -112,7 +112,6 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
                 findViewById<FrameLayout>(R.id.common_title_back_user).elevation = resources.getDimension(R.dimen.one_elevation)
             } else {
                 findViewById<FrameLayout>(R.id.common_title_user_color).visibility = View.INVISIBLE
-                findViewById<TextView>(R.id.user_title).visibility = View.VISIBLE
                 findViewById<TextView>(R.id.user_title).visibility = View.INVISIBLE
                 findViewById<FrameLayout>(R.id.common_title_back_user).elevation = resources.getDimension(R.dimen.zero_elevation)
             }

@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.widget.RemoteViews
 import com.jlindemann.science.activities.MainActivity
 
@@ -26,8 +27,13 @@ class ShortCommandWidget : AppWidgetProvider() {
             val remoteViews = RemoteViews(context.packageName, R.layout.short_command_widget)
 
             //Open App on Widget Click
+            val flags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            } else {
+                PendingIntent.FLAG_UPDATE_CURRENT
+            }
             remoteViews.setOnClickPendingIntent(R.id.widget_search_bar,
-                PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), 0))
+                PendingIntent.getActivity(context, 0, Intent(context, MainActivity::class.java), flags))
 
             //Update Widget
             appWidgetManager.updateAppWidget(appWidgetId, remoteViews);

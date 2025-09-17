@@ -41,7 +41,7 @@ class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
             val searchPrefValue = searchPreference.getValue()
 
             textViewElement.text = item.element
-            textViewElement.text = item.element.capitalize()
+            textViewElement.text = item.element.replaceFirstChar { it.uppercase() }
             textViewShort.text = item.short
 
             itemView.foreground = ContextCompat.getDrawable(con, R.drawable.toast_card_outline_ripple)

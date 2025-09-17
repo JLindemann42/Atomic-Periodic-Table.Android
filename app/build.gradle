@@ -9,7 +9,8 @@ plugins {
 android {
     signingConfigs {
         config {
-            storeFile file('C:\\Users\\jonat\\OneDrive\\Skrivbord\\app\\science_keys.jks')
+            // Remove hardcoded Windows path - use environment variable or gradle property instead
+            // storeFile file('C:\\Users\\jonat\\OneDrive\\Skrivbord\\app\\science_keys.jks')
         }
     }
     lint {
