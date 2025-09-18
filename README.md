@@ -18,5 +18,7 @@ IzzyOnDroid: [Link](https://apt.izzysoft.de/packages/com.jlindemann.science)
 ## Credits
 
 For the rest of this year, Atomic will recieve more and more support for different languages. This has made possible by the following persons:
+
 Giancarlo Méri - [X](https://x.com/ungiancarlo)
+
 ElectroBoy10 - [GitHub](https://github.com/ElectroBoy10)
