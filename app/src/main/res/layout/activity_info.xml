@@ -35,7 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:layout_marginTop="0dp"
-                    android:text="J.LINDEMANN"
+                    android:text="@string/about_author_name"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:textColor="?attr/colorOnSurface"
@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="32dp"
                     android:layout_marginTop="0dp"
-                    android:text="Atomic - Periodic Table"
+                    android:text="@string/about_app_name"
                     android:gravity="center"
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnPrimaryContainer"
@@ -66,9 +66,6 @@
                     android:textColor="?attr/colorTertiary"
                     android:textSize="12sp"
                     app:layout_constraintTop_toTopOf="@id/common_title_back_info" />
-
-
-
             </LinearLayout>
         </ScrollView>
 
@@ -116,18 +113,13 @@
                         android:gravity="center"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
-                        android:text="About"
+                        android:text="@string/about_title"
                         android:textAlignment="center"
                         android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="20sp"
                         android:textStyle="bold" />
-
-
                 </FrameLayout>
-
             </LinearLayout>
         </FrameLayout>
-
     </FrameLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

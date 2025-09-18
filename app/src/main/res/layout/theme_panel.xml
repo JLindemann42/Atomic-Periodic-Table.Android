@@ -29,7 +29,6 @@
             android:paddingStart="24dp"
             android:paddingEnd="24dp">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,11 +45,11 @@
                     android:layout_height="wrap_content">
 
                     <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/half_up_toast"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:alpha="0.11"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/half_up_toast"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:alpha="0.11"/>
 
                     <TextView
                         android:id="@+id/textView4"
@@ -60,14 +59,13 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginBottom="10dp"
                         android:alpha="1.0"
-                        android:text="Select Theme"
+                        android:text="@string/select_theme"
                         android:textAlignment="viewStart"
                         android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="20sp"
                         android:textStyle="bold" />
 
                 </FrameLayout>
-
 
                 <ScrollView
                     android:layout_width="match_parent"
@@ -82,59 +80,29 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="?attr/colorPrimary"
-                            android:alpha="0.11"/>
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="?attr/colorPrimary"
+                                android:alpha="0.11"/>
 
-                        <TextView
-                            android:id="@+id/system_default_btn"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:clickable="true"
-                            android:drawableStart="@drawable/ic_radio_checked"
-                            android:drawablePadding="20dp"
-                            android:focusable="true"
-                            android:foreground="@drawable/d_ripple"
-                            android:gravity="center_vertical"
-                            android:paddingStart="20dp"
-                            android:paddingTop="8dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="8dp"
-                            android:text="System Default"
-                            android:textColor="?attr/colorOnSecondaryContainer"
-                            android:textSize="16sp" />
-
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="?attr/colorPrimary"
-                            android:alpha="0.11"/>
-
-                        <TextView
-                            android:id="@+id/light_btn"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:clickable="true"
-                            android:drawableStart="@drawable/ic_radio_unchecked"
-                            android:drawablePadding="20dp"
-                            android:focusable="true"
-                            android:foreground="@drawable/d_ripple"
-                            android:gravity="center_vertical"
-                            android:paddingStart="20dp"
-                            android:paddingTop="8dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="8dp"
-                            android:text="Light"
-                            android:textColor="?attr/colorOnSecondaryContainer"
-                            android:textSize="16sp" />
+                            <TextView
+                                android:id="@+id/system_default_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:clickable="true"
+                                android:drawableStart="@drawable/ic_radio_checked"
+                                android:drawablePadding="20dp"
+                                android:focusable="true"
+                                android:foreground="@drawable/d_ripple"
+                                android:gravity="center_vertical"
+                                android:paddingStart="20dp"
+                                android:paddingTop="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingBottom="8dp"
+                                android:text="@string/system_default"
+                                android:textColor="?attr/colorOnSecondaryContainer"
+                                android:textSize="16sp" />
 
                         </FrameLayout>
 
@@ -142,29 +110,59 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="?attr/colorPrimary"
+                                android:alpha="0.11"/>
+
+                            <TextView
+                                android:id="@+id/light_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:clickable="true"
+                                android:drawableStart="@drawable/ic_radio_unchecked"
+                                android:drawablePadding="20dp"
+                                android:focusable="true"
+                                android:foreground="@drawable/d_ripple"
+                                android:gravity="center_vertical"
+                                android:paddingStart="20dp"
+                                android:paddingTop="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingBottom="8dp"
+                                android:text="@string/light"
+                                android:textColor="?attr/colorOnSecondaryContainer"
+                                android:textSize="16sp" />
+
+                        </FrameLayout>
+
                         <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="?attr/colorPrimary"
-                            android:alpha="0.11"/>
+                            android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/dark_btn"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:clickable="true"
-                            android:drawableStart="@drawable/ic_radio_unchecked"
-                            android:drawablePadding="20dp"
-                            android:focusable="true"
-                            android:foreground="@drawable/d_ripple"
-                            android:gravity="center_vertical"
-                            android:paddingStart="20dp"
-                            android:paddingTop="8dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="8dp"
-                            android:text="Dark"
-                            android:textColor="?attr/colorOnSecondaryContainer"
-                            android:textSize="16sp" />
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="?attr/colorPrimary"
+                                android:alpha="0.11"/>
+
+                            <TextView
+                                android:id="@+id/dark_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:clickable="true"
+                                android:drawableStart="@drawable/ic_radio_unchecked"
+                                android:drawablePadding="20dp"
+                                android:focusable="true"
+                                android:foreground="@drawable/d_ripple"
+                                android:gravity="center_vertical"
+                                android:paddingStart="20dp"
+                                android:paddingTop="8dp"
+                                android:paddingEnd="8dp"
+                                android:paddingBottom="8dp"
+                                android:text="@string/dark"
+                                android:textColor="?attr/colorOnSecondaryContainer"
+                                android:textSize="16sp" />
 
                         </FrameLayout>
 
@@ -175,28 +173,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/half_down_toast"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:alpha="0.11"/>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/half_down_toast"
+                        android:backgroundTint="?attr/colorPrimary"
+                        android:alpha="0.11"/>
 
-                <TextView
-                    android:id="@+id/cancel_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_margin="8dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/c_ripple"
-                    android:gravity="center_vertical"
-                    android:padding="8dp"
-                    android:text="Cancel"
-                    android:textColor="?attr/colorPrimary"
-                    android:textFontWeight="600"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/cancel_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_margin="8dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="@drawable/c_ripple"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:text="@string/cancel"
+                        android:textColor="?attr/colorPrimary"
+                        android:textFontWeight="600"
+                        android:textSize="14sp" />
 
                 </FrameLayout>
 

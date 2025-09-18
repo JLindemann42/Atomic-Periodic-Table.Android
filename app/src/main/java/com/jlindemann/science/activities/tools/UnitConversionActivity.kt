@@ -27,21 +27,34 @@ import com.jlindemann.science.preferences.ThemePreference
 class UnitConversionActivity : BaseActivity() {
     private val unitCategories: Map<String, List<UnitDefinition>> = mapOf(
         "Length" to listOf(
-            UnitDefinition("Meter", 1.0), UnitDefinition("Kilometer", 1000.0), UnitDefinition("Centimeter", 0.01),
-            UnitDefinition("Millimeter", 0.001), UnitDefinition("Inch", 0.0254), UnitDefinition("Foot", 0.3048),
-            UnitDefinition("Yard", 0.9144), UnitDefinition("Mile", 1609.344)
+            UnitDefinition("Meter", 1.0),
+            UnitDefinition("Kilometer", 1000.0),
+            UnitDefinition("Centimeter", 0.01),
+            UnitDefinition("Millimeter", 0.001),
+            UnitDefinition("Inch", 0.0254),
+            UnitDefinition("Foot", 0.3048),
+            UnitDefinition("Yard", 0.9144),
+            UnitDefinition("Mile", 1609.344)
         ),
         "Mass" to listOf(
-            UnitDefinition("Kilogram", 1.0), UnitDefinition("Gram", 0.001), UnitDefinition("Milligram", 0.000001),
-            UnitDefinition("Pound", 0.45359237), UnitDefinition("Ounce", 0.0283495231)
+            UnitDefinition("Kilogram", 1.0),
+            UnitDefinition("Gram", 0.001),
+            UnitDefinition("Milligram", 0.000001),
+            UnitDefinition("Pound", 0.45359237),
+            UnitDefinition("Ounce", 0.0283495231)
         ),
         "Volume" to listOf(
-            UnitDefinition("Liter", 1.0), UnitDefinition("Milliliter", 0.001), UnitDefinition("Cubic meter", 1000.0),
-            UnitDefinition("Gallon", 3.78541), UnitDefinition("Pint", 0.473176)
+            UnitDefinition("Liter", 1.0),
+            UnitDefinition("Milliliter", 0.001),
+            UnitDefinition("Cubic meter", 1000.0),
+            UnitDefinition("Gallon", 3.78541),
+            UnitDefinition("Pint", 0.473176)
         ),
         "Area" to listOf(
-            UnitDefinition("Square meter", 1.0), UnitDefinition("Square kilometer", 1_000_000.0),
-            UnitDefinition("Square centimeter", 0.0001), UnitDefinition("Square mile", 2_589_988.11),
+            UnitDefinition("Square meter", 1.0),
+            UnitDefinition("Square kilometer", 1_000_000.0),
+            UnitDefinition("Square centimeter", 0.0001),
+            UnitDefinition("Square mile", 2_589_988.11),
             UnitDefinition("Acre", 4046.85642)
         ),
         "Velocity" to listOf(
@@ -49,19 +62,27 @@ class UnitConversionActivity : BaseActivity() {
             UnitDefinition("Mile/hour", 0.44704), UnitDefinition("Foot/second", 0.3048)
         ),
         "Energy" to listOf(
-            UnitDefinition("Joule", 1.0), UnitDefinition("Kilojoule", 1000.0), UnitDefinition("Calorie", 4.184),
-            UnitDefinition("Kilocalorie", 4184.0), UnitDefinition("Watt hour", 3600.0)
+            UnitDefinition("Joule", 1.0),
+            UnitDefinition("Kilojoule", 1000.0),
+            UnitDefinition("Calorie", 4.184),
+            UnitDefinition("Kilocalorie", 4184.0),
+            UnitDefinition("Watt hour", 3600.0)
         ),
         "Frequency" to listOf(
             UnitDefinition("Hertz", 1.0), UnitDefinition("Kilohertz", 1000.0),
             UnitDefinition("Megahertz", 1_000_000.0), UnitDefinition("Gigahertz", 1_000_000_000.0)
         ),
         "Temperature" to listOf(
-            UnitDefinition("Celsius", 0.0), UnitDefinition("Fahrenheit", 0.0), UnitDefinition("Kelvin", 0.0)
+            UnitDefinition("Celsius", 0.0),
+            UnitDefinition("Fahrenheit", 0.0),
+            UnitDefinition("Kelvin", 0.0)
         ),
         "Time" to listOf(
-            UnitDefinition("Second", 1.0), UnitDefinition("Millisecond", 0.001),
-            UnitDefinition("Minute", 60.0), UnitDefinition("Hour", 3600.0), UnitDefinition("Day", 86400.0)
+            UnitDefinition("Second", 1.0),
+            UnitDefinition("Millisecond", 0.001),
+            UnitDefinition("Minute", 60.0),
+            UnitDefinition("Hour", 3600.0),
+            UnitDefinition("Day", 86400.0)
         ),
         "Force" to listOf(
             UnitDefinition("Newton", 1.0), UnitDefinition("Kilonewton", 1000.0),
@@ -73,7 +94,9 @@ class UnitConversionActivity : BaseActivity() {
             UnitDefinition("Megawatt", 1_000_000.0), UnitDefinition("Horsepower", 745.699872)
         ),
         "Voltage" to listOf(
-            UnitDefinition("Volt", 1.0), UnitDefinition("Millivolt", 0.001), UnitDefinition("Kilovolt", 1000.0)
+            UnitDefinition("Volt", 1.0),
+            UnitDefinition("Millivolt", 0.001),
+            UnitDefinition("Kilovolt", 1000.0)
         ),
         "Resistance" to listOf(
             UnitDefinition("Ohm", 1.0), UnitDefinition("Milliohm", 0.001),
@@ -106,31 +129,47 @@ class UnitConversionActivity : BaseActivity() {
 
         if (themePrefValue == 100) {
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                Configuration.UI_MODE_NIGHT_NO -> { setTheme(R.style.AppTheme) }
-                Configuration.UI_MODE_NIGHT_YES -> { setTheme(R.style.AppThemeDark) }
+                Configuration.UI_MODE_NIGHT_NO -> {
+                    setTheme(R.style.AppTheme)
+                }
+
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    setTheme(R.style.AppThemeDark)
+                }
             }
         }
-        if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
-        if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
+        if (themePrefValue == 0) {
+            setTheme(R.style.AppTheme)
+        }
+        if (themePrefValue == 1) {
+            setTheme(R.style.AppThemeDark)
+        }
         setContentView(R.layout.activity_unit_converter)
-        findViewById<FrameLayout>(R.id.view_unit).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<FrameLayout>(R.id.view_unit).systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility = View.INVISIBLE
         findViewById<TextView>(R.id.unit_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation =
+            (resources.getDimension(R.dimen.zero_elevation))
         findViewById<ScrollView>(R.id.unit_scroll).viewTreeObserver
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
                 override fun onScrollChanged() {
                     if (findViewById<ScrollView>(R.id.unit_scroll).scrollY > 150f) {
-                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility = View.VISIBLE
+                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility =
+                            View.VISIBLE
                         findViewById<TextView>(R.id.unit_title).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.unit_title_downstate).visibility = View.INVISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation = (resources.getDimension(R.dimen.one_elevation))
+                        findViewById<TextView>(R.id.unit_title_downstate).visibility =
+                            View.INVISIBLE
+                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation =
+                            (resources.getDimension(R.dimen.one_elevation))
                     } else {
-                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility = View.INVISIBLE
+                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility =
+                            View.INVISIBLE
                         findViewById<TextView>(R.id.unit_title).visibility = View.INVISIBLE
                         findViewById<TextView>(R.id.unit_title_downstate).visibility = View.VISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation = (resources.getDimension(R.dimen.zero_elevation))
+                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation =
+                            (resources.getDimension(R.dimen.zero_elevation))
                     }
                 }
             })
@@ -169,7 +208,12 @@ class UnitConversionActivity : BaseActivity() {
         if (match != null) {
             val value = match.groups[2]!!.value.toDouble()
             val newValue = value + 1
-            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
+            mostUsedPreference.setValue(
+                mostUsedPrefValue.replace(
+                    "$targetLabel=$value",
+                    "$targetLabel=$newValue"
+                )
+            )
         }
 
         //Setting up views from activity
@@ -200,40 +244,38 @@ class UnitConversionActivity : BaseActivity() {
 
         findViewById<ScrollView>(R.id.unit_scroll).viewTreeObserver
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
-                private var isTitleVisible = false // Keep track of the current state
+                private var isTitleVisible = false
 
                 override fun onScrollChanged() {
                     val scrollY = findViewById<ScrollView>(R.id.unit_scroll).scrollY
-                    val threshold = 150f // Your threshold
+                    val threshold = 150f
 
-                    // Get references to your views
-                    val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_back_unit_color)
+                    val titleColorBackground =
+                        findViewById<FrameLayout>(R.id.common_title_back_unit_color)
                     val titleText = findViewById<TextView>(R.id.unit_title)
                     val titleDownstateText = findViewById<TextView>(R.id.unit_title_downstate)
                     val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_unit)
 
                     if (scrollY > threshold) {
                         if (!isTitleVisible) {
-                            // Animate titleText and titleColorBackground to visible
-                            titleColorBackground.animateVisibility(true, visibleAlpha = 0.11f) // Pass the target alpha
-                            titleText.animateVisibility(true) // Keeps default full alpha
-
-                            // Animate titleDownstateText to invisible
-                            titleDownstateText.animateVisibility(false)
-
-                            titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
+                            TitleBarAnimator.animateVisibility(
+                                titleColorBackground,
+                                true,
+                                visibleAlpha = 0.11f
+                            )
+                            TitleBarAnimator.animateVisibility(titleText, true)
+                            TitleBarAnimator.animateVisibility(titleDownstateText, false)
+                            titleBackground.elevation =
+                                resources.getDimension(R.dimen.one_elevation)
                             isTitleVisible = true
                         }
                     } else {
                         if (isTitleVisible) {
-                            // Animate titleText and titleColorBackground to invisible
-                            titleColorBackground.animateVisibility(false) // Fades to 0 alpha
-                            titleText.animateVisibility(false)
-
-                            // Animate titleDownstateText to visible
-                            titleDownstateText.animateVisibility(true)
-
-                            titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
+                            TitleBarAnimator.animateVisibility(titleColorBackground, false)
+                            TitleBarAnimator.animateVisibility(titleText, false)
+                            TitleBarAnimator.animateVisibility(titleDownstateText, true)
+                            titleBackground.elevation =
+                                resources.getDimension(R.dimen.zero_elevation)
                             isTitleVisible = false
                         }
                     }
@@ -249,10 +291,16 @@ class UnitConversionActivity : BaseActivity() {
         categorySpinner.adapter = categoryAdapter
 
         categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val selectedCategory = categories[position]
                 val units = unitCategories[selectedCategory]?.map { it.name } ?: listOf()
-                val unitAdapter = ArrayAdapter(this@UnitConversionActivity, R.layout.spinner_item_text, units)
+                val unitAdapter =
+                    ArrayAdapter(this@UnitConversionActivity, R.layout.spinner_item_text, units)
                 unitAdapter.setDropDownViewResource(R.layout.spinner_item_text)
                 fromUnitSpinner.adapter = unitAdapter
                 toUnitSpinner.adapter = unitAdapter
@@ -262,6 +310,7 @@ class UnitConversionActivity : BaseActivity() {
                 convertUnits()
                 updateFavoriteButtonState()
             }
+
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
     }
@@ -272,22 +321,35 @@ class UnitConversionActivity : BaseActivity() {
                 convertUnits()
                 updateFavoriteButtonState()
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
         fromUnitSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 convertUnits()
                 updateFavoriteButtonState()
             }
+
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
         toUnitSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 convertUnits()
                 updateFavoriteButtonState()
             }
+
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
@@ -297,10 +359,12 @@ class UnitConversionActivity : BaseActivity() {
     }
 
     private fun setupRecyclerView() {
-        favoritesAdapter = FavoriteRecyclerAdapter(favorites,
+        favoritesAdapter = FavoriteRecyclerAdapter(
+            favorites,
             onItemClick = { fav ->
                 inputValue.setText(fav.inputValue.toString())
-                val catIdx = (categorySpinner.adapter as ArrayAdapter<String>).getPosition(fav.category)
+                val catIdx =
+                    (categorySpinner.adapter as ArrayAdapter<String>).getPosition(fav.category)
                 categorySpinner.setSelection(catIdx)
                 val units = unitCategories[fav.category]?.map { it.name } ?: listOf()
                 val fromIdx = units.indexOf(fav.fromUnit)
@@ -336,7 +400,8 @@ class UnitConversionActivity : BaseActivity() {
             val toDef = unitCategories[category]?.find { it.name == toUnit }
             if (fromDef != null && toDef != null) {
                 result = value * fromDef.factor / toDef.factor
-                formula = "Divide ${category.lowercase()}-value with: ${fromDef.factor / toDef.factor}"
+                formula =
+                    "Divide ${category.lowercase()}-value with: ${fromDef.factor / toDef.factor}"
             }
         }
         outputValue.setText(result.toString())
@@ -433,40 +498,19 @@ class UnitConversionActivity : BaseActivity() {
     }
 
 
-
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_unit).layoutParams as ViewGroup.LayoutParams
+        val params =
+            findViewById<FrameLayout>(R.id.common_title_back_unit).layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<FrameLayout>(R.id.common_title_back_unit).layoutParams = params
 
-        val params2 = findViewById<TextView>(R.id.unit_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        val params2 =
+            findViewById<TextView>(R.id.unit_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin =
+            top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(
+                R.dimen.header_down_margin
+            )
         findViewById<TextView>(R.id.unit_title_downstate).layoutParams = params2
-    }
-
-    // Helper extension function for animating visibility
-    fun View.animateVisibility(
-        setVisible: Boolean,
-        duration: Long = 200,
-        visibleAlpha: Float = 1.0f // New parameter for target alpha when visible
-    ) {
-        if (setVisible) {
-            alpha = 0f
-            visibility = View.VISIBLE
-            animate()
-                .alpha(visibleAlpha) // Use the visibleAlpha parameter here
-                .setDuration(duration)
-                .setListener(null)
-        } else {
-            animate()
-                .alpha(0f)
-                .setDuration(duration)
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        visibility = View.INVISIBLE
-                    }
-                })
-        }
     }
 }
 

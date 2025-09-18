@@ -42,7 +42,7 @@
                 android:layout_marginEnd="42dp"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="24sp"
-                android:text="No results"/>
+                android:text="@string/geo_no_results"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -52,7 +52,7 @@
                 android:layout_marginStart="42dp"
                 android:layout_marginEnd="42dp"
                 android:textSize="16sp"
-                android:text="Try searching for another word or check your spelling."/>
+                android:text="@string/geo_try_another_search"/>
         </LinearLayout>
 
         <FrameLayout
@@ -161,7 +161,7 @@
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:fontFamily="@font/manroperegular"
-                            android:hint="Search For Geology Item"
+                            android:hint="@string/geo_search_hint"
                             android:imeOptions="actionSearch"
                             android:inputType="text"
                             android:maxLines="1"
@@ -198,7 +198,7 @@
                             android:foreground="@drawable/chip_ripple"
                             android:paddingStart="16dp"
                             android:paddingEnd="16dp"
-                            android:text="Clear Filter"
+                            android:text="@string/geo_clear_filter"
                             android:textAllCaps="false"
                             android:textColor="?attr/colorOnSecondaryContainer"
                             android:visibility="visible" />
@@ -254,10 +254,8 @@
                             android:text="@string/activity_geology_soil"
                             android:textAllCaps="false"
                             android:textColor="?attr/colorOnSecondaryContainer" />
-
                     </LinearLayout>
                 </HorizontalScrollView>
-
             </LinearLayout>
         </FrameLayout>
 
@@ -271,7 +269,6 @@
             android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical"
             android:verticalScrollbarPosition="defaultPosition" >
-
         </androidx.recyclerview.widget.RecyclerView>
     </FrameLayout>
 
@@ -281,6 +278,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -60,16 +60,14 @@ class FlashCardActivity : BaseActivity() {
         // Title Controller
         findViewById<FrameLayout>(R.id.common_title_back_fla_color).visibility = View.INVISIBLE
         findViewById<TextView>(R.id.flashcard_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_fla).elevation =
-            (resources.getDimension(R.dimen.zero_elevation))
-
+        findViewById<FrameLayout>(R.id.common_title_back_fla).elevation = (resources.getDimension(R.dimen.zero_elevation))
         val scrollView = findViewById<NestedScrollView>(R.id.flashcard_scroll)
-        var isTitleVisible = false
-
         scrollView?.viewTreeObserver?.addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
+            private var isTitleVisible = false // Track animation state
+
             override fun onScrollChanged() {
                 val scrollY = scrollView.scrollY
-                val threshold = 150f
+                val threshold = 150
 
                 val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_back_fla_color)
                 val titleText = findViewById<TextView>(R.id.flashcard_title)
@@ -78,21 +76,17 @@ class FlashCardActivity : BaseActivity() {
 
                 if (scrollY > threshold) {
                     if (!isTitleVisible) {
-                        // Animate titleText and titleColorBackground to visible
-                        titleColorBackground.animateVisibility(true, visibleAlpha = 0.11f)
-                        titleText.animateVisibility(true)
-                        // Animate titleDownstateText to invisible
-                        titleDownstateText.animateVisibility(false)
+                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
+                        TitleBarAnimator.animateVisibility(titleText, true)
+                        TitleBarAnimator.animateVisibility(titleDownstateText, false)
                         titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
                         isTitleVisible = true
                     }
                 } else {
                     if (isTitleVisible) {
-                        // Animate titleText and titleColorBackground to invisible
-                        titleColorBackground.animateVisibility(false)
-                        titleText.animateVisibility(false)
-                        // Animate titleDownstateText to visible
-                        titleDownstateText.animateVisibility(true)
+                        TitleBarAnimator.animateVisibility(titleColorBackground, false)
+                        TitleBarAnimator.animateVisibility(titleText, false)
+                        TitleBarAnimator.animateVisibility(titleDownstateText, true)
                         titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
                         isTitleVisible = false
                     }

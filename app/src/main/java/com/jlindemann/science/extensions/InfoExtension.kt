@@ -22,8 +22,10 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
+import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.activities.IsotopesActivityExperimental
 import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
@@ -44,7 +46,7 @@ import java.net.ConnectException
 /**
  * Base Activity for element info pages. Handles element data loading, note-taking, achievements, and most UI logic.
  */
-abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsListener {
+abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener {
     companion object {
         private const val TAG = "BaseActivity"
     }
@@ -75,7 +77,7 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
     /**
      * Hook for subclasses to handle system window insets.
      */
-    open fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) = Unit
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) = Unit
     /**
      * Handles the application of window insets for immersive UI.
      */
@@ -582,7 +584,9 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
      */
     private fun loadImage(url: String?) {
         try {
-            Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.element_image))
+            //Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.element_image))
+            //Refactored loadImage with Glide:
+            Glide.with(this).load(url.toString()).into(findViewById<ImageView>(R.id.element_image));
         } catch (e: ConnectException) {
             findViewById<Space>(R.id.offline_div).visibility = View.VISIBLE
             findViewById<FrameLayout>(R.id.frame).visibility = View.GONE
@@ -614,8 +618,13 @@ abstract class InfoExtension : AppCompatActivity(), View.OnApplyWindowInsetsList
      * Loads the atom model image into the UI.
      */
     private fun loadModelView(url: String?) {
-        Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.model_view))
-        Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.card_model_view))
+        //Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.model_view))
+        //Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.card_model_view))
+
+        //Refactored loadModelView with Glide
+        Glide.with(this).load(url.toString()).into(findViewById<ImageView>(R.id.model_view));
+        Glide.with(this).load(url.toString()).into(findViewById<ImageView>(R.id.card_model_view));
+
     }
 
     /**

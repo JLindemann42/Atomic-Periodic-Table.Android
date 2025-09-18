@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/view_pro"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="?attr/backgroundColor">
+<FrameLayout xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_pro"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/backgroundColor">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -33,7 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="Get more out of Atomic"
+                android:text="@string/pro_get_more_out"
                 android:textSize="20sp"
                 android:layout_marginStart="@dimen/margin"
                 android:layout_marginEnd="@dimen/margin"
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
-                android:text="Features of PRO-Version:"
+                android:text="@string/pro_features_title"
                 android:layout_marginStart="@dimen/margin"
                 android:layout_marginEnd="@dimen/margin"
                 android:textColor="?attr/colorOnSecondaryContainer"
@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
-                android:text="Explore some of the many features of the PRO-Version and what they include."
+                android:text="@string/pro_features_descr"
                 android:layout_marginStart="@dimen/margin"
                 android:layout_marginEnd="@dimen/margin"
                 android:textColor="?attr/colorOnSecondaryContainer"
@@ -126,7 +126,7 @@
                                     android:drawableStart="@drawable/ic_lock"
                                     android:drawablePadding="4dp"
                                     android:drawableTint="?attr/colorAccent"
-                                    android:text="Upgrade to PRO"
+                                    android:text="@string/pro_upgrade_to_pro"
                                     android:textAllCaps="true"
                                     android:textColor="?attr/colorAccent"
                                     android:textSize="17sp"
@@ -136,7 +136,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    android:text="Additional Data"
+                                    android:text="@string/pro_additional_data"
                                     android:textColor="?attr/colorOnSecondaryContainer"
                                     android:textSize="14sp"
                                     android:textStyle="bold" />
@@ -146,7 +146,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:alpha="0.7"
-                                    android:text="Additional data such as hardness properties (mohs-, vickers-, and brinell hardness) as well as sound speed, Poisson Constant, Young's-, Bulk- and Shear modulus etc. Also information about identification of minerals."
+                                    android:text="@string/pro_additional_data_descr"
                                     android:textColor="?attr/colorOnSecondaryContainer"
                                     android:textSize="13sp"
                                     android:textStyle="bold" />
@@ -188,7 +188,7 @@
                                     android:drawableStart="@drawable/ic_lock"
                                     android:drawablePadding="4dp"
                                     android:drawableTint="?attr/colorAccent"
-                                    android:text="Upgrade to PRO"
+                                    android:text="@string/pro_upgrade_to_pro"
                                     android:textAllCaps="true"
                                     android:textColor="?attr/colorAccent"
                                     android:textSize="17sp"
@@ -197,7 +197,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Additional Tables"
+                                    android:text="@string/pro_additional_tables"
                                     android:textSize="14sp"
                                     android:layout_marginTop="4dp"
                                     android:textColor="?attr/colorOnSecondaryContainer"
@@ -206,7 +206,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Additional tables including a nuclide table, poisson's ratio table, constants table, geology table etc, with more coming in the future"
+                                    android:text="@string/pro_additional_tables_descr"
                                     android:textSize="13sp"
                                     android:layout_marginTop="4dp"
                                     android:textColor="?attr/colorOnSecondaryContainer"
@@ -249,7 +249,7 @@
                                     android:drawableStart="@drawable/ic_lock"
                                     android:drawablePadding="4dp"
                                     android:drawableTint="?attr/colorAccent"
-                                    android:text="Upgrade to PRO"
+                                    android:text="@string/pro_upgrade_to_pro"
                                     android:textAllCaps="true"
                                     android:textColor="?attr/colorAccent"
                                     android:textSize="17sp"
@@ -259,7 +259,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
-                                    android:text="Better Calculator"
+                                    android:text="@string/pro_better_calculator"
                                     android:textColor="?attr/colorOnSecondaryContainer"
                                     android:textSize="14sp"
                                     android:textStyle="bold" />
@@ -269,7 +269,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="4dp"
                                     android:alpha="0.7"
-                                    android:text="An enhanced calculator with the possibility to save molar weights of different compounds in the favorite page."
+                                    android:text="@string/pro_better_calculator_descr"
                                     android:textColor="?attr/colorOnSecondaryContainer"
                                     android:textSize="13sp"
                                     android:textStyle="bold" />
@@ -310,7 +310,7 @@
                                     android:drawableStart="@drawable/ic_lock"
                                     android:drawablePadding="4dp"
                                     android:drawableTint="?attr/colorAccent"
-                                    android:text="Upgrade to PRO"
+                                    android:text="@string/pro_upgrade_to_pro"
                                     android:textAllCaps="true"
                                     android:textColor="?attr/colorAccent"
                                     android:textSize="17sp"
@@ -319,7 +319,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Additional Visualisations"
+                                    android:text="@string/pro_additional_visualisations"
                                     android:textSize="14sp"
                                     android:layout_marginTop="4dp"
                                     android:textColor="?attr/colorOnSecondaryContainer"
@@ -328,7 +328,7 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Access to more visualisations in the main table such as Poisson's Ratio, bulk modulus etc."
+                                    android:text="@string/pro_additional_visualisations_descr"
                                     android:textSize="13sp"
                                     android:layout_marginTop="4dp"
                                     android:textColor="?attr/colorOnSecondaryContainer"
@@ -348,7 +348,7 @@
                 android:id="@+id/product_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Already purchased 'Atomic - Periodic Table' PRO?"
+                android:text="@string/pro_already_purchased_title"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:layout_gravity="center_horizontal"
                 android:textSize="16sp"
@@ -361,7 +361,7 @@
                 android:id="@+id/product_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Check product on account"
+                android:text="@string/pro_already_purchased_check"
                 android:textColor="?attr/colorAccent"
                 android:layout_marginBottom="100dp"
                 android:layout_marginStart="16dp"
@@ -371,85 +371,83 @@
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="40dp"/>
-
-
         </LinearLayout>
     </ScrollView>
 
+    <FrameLayout
+        android:id="@+id/pro_purschase_box"
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:visibility="gone"
+        android:background="?attr/colorSurfaceVariant"
+        android:elevation="4dp"
+        android:layout_gravity="bottom">
+
         <FrameLayout
-            android:id="@+id/pro_purschase_box"
             android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:visibility="gone"
-            android:background="?attr/colorSurfaceVariant"
-            android:elevation="4dp"
-            android:layout_gravity="bottom">
+            android:layout_height="wrap_content"
+            android:layout_gravity="top">
 
-            <FrameLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/pro_price"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top">
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="30dp"
+                android:text="@string/pro_price_loading"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/pro_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="30dp"
-                    android:text="retrieving price..."
-                    android:textColor="?attr/colorPrimary"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/pro_price_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/pro_price_discount"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
 
-                <TextView
-                    android:id="@+id/pro_price_discount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="30dp"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="pro_price_discount"
-                    android:textColor="?attr/colorPrimary"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/buy_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginTop="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:layout_marginBottom="@dimen/margin"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:clickable="true"
-                    android:elevation="2dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/c_ripple"
-                    android:gravity="center_vertical"
-                    android:paddingStart="24dp"
-                    android:paddingEnd="24dp"
-                    android:text="@string/get_pro_title"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="normal" />
-            </FrameLayout>
-
-
+            <TextView
+                android:id="@+id/buy_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginBottom="@dimen/margin"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorPrimary"
+                android:clickable="true"
+                android:elevation="2dp"
+                android:focusable="true"
+                android:foreground="@drawable/c_ripple"
+                android:gravity="center_vertical"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="@string/get_pro_title"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="16sp"
+                android:textStyle="normal" />
         </FrameLayout>
 
-        <FrameLayout
-            android:id="@+id/common_title_back_pro"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:elevation="1dp"
-            android:background="?attr/colorSurface"
-            android:gravity="center|center_vertical"
-            android:orientation="horizontal">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/common_title_back_pro"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:elevation="1dp"
+        android:background="?attr/colorSurface"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal">
 
         <FrameLayout
             android:id="@+id/common_title_back_pro_color"
@@ -458,42 +456,42 @@
             android:background="?attr/colorPrimary"
             android:alpha="0.11"/>
 
-            <LinearLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/title_box_pro"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:orientation="vertical">
+                android:layout_height="56dp">
 
-                <FrameLayout
-                    android:id="@+id/title_box_pro"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp">
+                <ImageButton
+                    android:id="@+id/back_btn_pro"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical"
+                    android:rotation="180"
+                    app:tint="?attr/colorOnSecondaryContainer"
+                    android:src="@drawable/ic_arrow_back_whit" />
 
-                    <ImageButton
-                        android:id="@+id/back_btn_pro"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_gravity="center_vertical"
-                        android:rotation="180"
-                        app:tint="?attr/colorOnSecondaryContainer"
-                        android:src="@drawable/ic_arrow_back_whit" />
-
-                    <TextView
-                        android:id="@+id/pro_title"
-                        android:layout_width="wrap_content"
-                        android:layout_marginStart="70dp"
-                        android:alpha="0.9"
-                        android:layout_height="56dp"
-                        android:gravity="center"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/pro_title"
-                        android:textAlignment="center"
-                        android:textColor="?attr/colorOnSecondaryContainer"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-            </LinearLayout>
-        </FrameLayout>
+                <TextView
+                    android:id="@+id/pro_title"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="70dp"
+                    android:alpha="0.9"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/pro_title"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
 </FrameLayout>

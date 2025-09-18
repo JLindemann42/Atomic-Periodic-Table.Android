@@ -1,5 +1,6 @@
 package com.jlindemann.science.activities
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
@@ -8,32 +9,37 @@ import android.os.Handler
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
-import android.widget.FrameLayout
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.RelativeLayout
-import android.widget.ScrollView
-import android.widget.TextView
+import android.widget.*
 import android.window.OnBackInvokedDispatcher
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.settings.*
+import com.jlindemann.science.activities.settings.AboutActivity
+import com.jlindemann.science.activities.settings.FavoritePageActivity
+import com.jlindemann.science.activities.settings.LicensesActivity
+import com.jlindemann.science.activities.settings.OrderActivity
+import com.jlindemann.science.activities.settings.SubmitActivity
+import com.jlindemann.science.activities.settings.UnitActivity
+import com.jlindemann.science.activities.tools.TitleBarAnimator
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.preferences.offlinePreference
 import com.jlindemann.science.settings.ExperimentalActivity
-import com.jlindemann.science.utils.TabUtil
-import com.jlindemann.science.utils.ToastUtil
-import com.jlindemann.science.utils.Utils
+import com.jlindemann.science.utils.*
 import java.io.File
 import java.io.IOException
 import java.text.DecimalFormat
 import kotlin.math.log10
 import kotlin.math.pow
+import java.util.*
 
 class SettingsActivity : BaseActivity() {
+
+    data class LanguageOption(val englishName: String, val nativeName: String, val locale: Locale) {
+        fun getDisplayName(): String =
+            if (englishName == nativeName) englishName else "$englishName ($nativeName)"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,26 +88,40 @@ class SettingsActivity : BaseActivity() {
 
         findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        //Title Controller
+        // Title Controller with animated visibility
         findViewById<FrameLayout>(R.id.common_title_settings_color).visibility = View.INVISIBLE
         findViewById<TextView>(R.id.element_title).visibility = View.INVISIBLE
         findViewById<FrameLayout>(R.id.common_title_back_set).elevation = (resources.getDimension(R.dimen.zero_elevation))
-        findViewById<ScrollView>(R.id.scroll_settings).getViewTreeObserver()
+        findViewById<ScrollView>(R.id.scroll_settings).viewTreeObserver
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
-                var y = 300f
+                private var isTitleVisible = false // Track animation state
+
                 override fun onScrollChanged() {
-                    if (findViewById<ScrollView>(R.id.scroll_settings).getScrollY() > 150) {
-                        findViewById<FrameLayout>(R.id.common_title_settings_color).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.element_title).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.element_title_downstate).visibility = View.INVISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_set).elevation = (resources.getDimension(R.dimen.one_elevation))
+                    val scrollY = findViewById<ScrollView>(R.id.scroll_settings).scrollY
+                    val threshold = 150
+
+                    val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_settings_color)
+                    val titleText = findViewById<TextView>(R.id.element_title)
+                    val titleDownstateText = findViewById<TextView>(R.id.element_title_downstate)
+                    val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_set)
+
+                    if (scrollY > threshold) {
+                        if (!isTitleVisible) {
+                            TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
+                            TitleBarAnimator.animateVisibility(titleText, true)
+                            TitleBarAnimator.animateVisibility(titleDownstateText, false)
+                            titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
+                            isTitleVisible = true
+                        }
                     } else {
-                        findViewById<FrameLayout>(R.id.common_title_settings_color).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.element_title).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.element_title_downstate).visibility = View.VISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_set).elevation = (resources.getDimension(R.dimen.zero_elevation))
+                        if (isTitleVisible) {
+                            TitleBarAnimator.animateVisibility(titleColorBackground, false)
+                            TitleBarAnimator.animateVisibility(titleText, false)
+                            TitleBarAnimator.animateVisibility(titleDownstateText, true)
+                            titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
+                            isTitleVisible = false
+                        }
                     }
-                    y = findViewById<ScrollView>(R.id.scroll_settings).getScrollY().toFloat()
                 }
             })
 
@@ -160,6 +180,121 @@ class SettingsActivity : BaseActivity() {
                 }
             }
         }
+
+        // --- Language selection setup ---
+        findViewById<RelativeLayout>(R.id.language_setting).setOnClickListener {
+            showLanguageSelectionDialog()
+        }
+        updateLanguageContentText()
+    }
+
+    // --- Language selection logic ---
+
+    private fun getSupportedLanguages(): List<LanguageOption> = listOf(
+        LanguageOption("English", Locale("en").getDisplayLanguage(Locale("en")), Locale("en")),
+        LanguageOption("Swedish", Locale("sv", "SE").getDisplayLanguage(Locale("sv", "SE")), Locale("sv", "SE")),
+        LanguageOption("Spanish", Locale("es", "ES").getDisplayLanguage(Locale("es", "ES")), Locale("es", "ES")),
+        LanguageOption("Italian", Locale("it", "IT").getDisplayLanguage(Locale("it", "IT")), Locale("it", "IT")),
+        LanguageOption("Afrikaans", Locale("af", "ZA").getDisplayLanguage(Locale("af", "ZA")), Locale("af", "ZA"))
+    )
+
+    private fun getSystemLocale(): Locale {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            resources.configuration.locales.get(0)
+        } else {
+            resources.configuration.locale
+        }
+    }
+
+    private fun getSystemLanguageOption(): LanguageOption {
+        val systemLocale = getSystemLocale()
+        return getSupportedLanguages().find {
+            it.locale.language == systemLocale.language && it.locale.country == systemLocale.country
+        } ?: getSupportedLanguages()[0]
+    }
+
+    private fun setupLanguageListener() {
+        findViewById<RelativeLayout>(R.id.language_setting).setOnClickListener {
+            showLanguageSelectionDialog()
+        }
+    }
+
+    private fun showLanguageSelectionDialog() {
+        val languages = getSupportedLanguages()
+        val systemLangOption = getSystemLanguageOption()
+        val languageNames = mutableListOf<String>()
+        languageNames.add("System default")
+        languageNames.addAll(languages.map { it.getDisplayName() })
+
+        val currentPref = getCurrentLanguagePreference()
+        var checkedItem = 0
+        if (currentPref != null) {
+            checkedItem = languages.indexOfFirst {
+                it.locale.language == currentPref.language && it.locale.country == currentPref.country
+            }
+            if (checkedItem != -1) checkedItem += 1 else checkedItem = 0
+        }
+
+        // Use custom ArrayAdapter for the list items
+        val adapter = ArrayAdapter<String>(this, R.layout.dialog_language_item, R.id.lang_name, languageNames)
+
+        // Build AlertDialog
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(getString(R.string.language_title))
+            .setSingleChoiceItems(adapter, checkedItem) { dialogInterface, which ->
+                when (which) {
+                    0 -> setLanguagePreference(null) // System default
+                    else -> setLanguagePreference(languages[which - 1].locale)
+                }
+                updateLanguageContentText()
+                dialogInterface.dismiss()
+                Handler().postDelayed({
+                    LocaleUtil.restartForLocaleChange(this)
+                }, 150)
+            }
+            .setNegativeButton(android.R.string.cancel, null)
+            .create()
+
+        // Set rounded background for the entire dialog window
+        dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_popup_bg)
+
+        dialog.show()
+    }
+    private fun getColorFromAttr(attr: Int): Int {
+        val typedValue = android.util.TypedValue()
+        theme.resolveAttribute(attr, typedValue, true)
+        return typedValue.data
+    }
+
+    private fun updateLanguageContentText() {
+        val langOption = when (val pref = getCurrentLanguagePreference()) {
+            null -> getSystemLanguageOption()
+            else -> getSupportedLanguages().find {
+                it.locale.language == pref.language && it.locale.country == pref.country
+            } ?: getSystemLanguageOption()
+        }
+        findViewById<TextView>(R.id.language_content).text = langOption.getDisplayName()
+    }
+
+    private fun getCurrentLanguagePreference(): Locale? {
+        val prefs = getSharedPreferences("settings", MODE_PRIVATE)
+        val lang = prefs.getString("app_language", null)
+        val country = prefs.getString("app_country", null)
+        return if (lang.isNullOrBlank()) null
+        else if (country.isNullOrBlank()) Locale(lang)
+        else Locale(lang, country)
+    }
+
+    private fun setLanguagePreference(locale: Locale?) {
+        val prefs = getSharedPreferences("settings", MODE_PRIVATE)
+        if (locale == null) {
+            prefs.edit().remove("app_language").remove("app_country").apply()
+        } else {
+            prefs.edit()
+                .putString("app_language", locale.language)
+                .putString("app_country", locale.country)
+                .apply()
+        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -199,13 +334,12 @@ class SettingsActivity : BaseActivity() {
         }
     }
 
-
     private fun initOfflineSwitches() {
         val offlinePreferences = offlinePreference(this)
         val offlinePrefValue = offlinePreferences.getValue()
         findViewById<SwitchCompat>(R.id.offline_internet_switch).isChecked = offlinePrefValue == 1
 
-        findViewById<SwitchCompat>(R.id.offline_internet_switch).setOnCheckedChangeListener { compoundButton, b ->
+        findViewById<SwitchCompat>(R.id.offline_internet_switch).setOnCheckedChangeListener { _, _ ->
             if (findViewById<SwitchCompat>(R.id.offline_internet_switch).isChecked) { offlinePreferences.setValue(1) }
             else { offlinePreferences.setValue(0) }
         }
@@ -216,7 +350,7 @@ class SettingsActivity : BaseActivity() {
         val navPrefValue = navPreferences.getValue()
         findViewById<SwitchCompat>(R.id.nav_bar_switch).isChecked = navPrefValue == 1
 
-        findViewById<SwitchCompat>(R.id.nav_bar_switch).setOnCheckedChangeListener { compoundButton, b ->
+        findViewById<SwitchCompat>(R.id.nav_bar_switch).setOnCheckedChangeListener { _, _ ->
             if (findViewById<SwitchCompat>(R.id.nav_bar_switch).isChecked) { navPreferences.setValue(1) }
             else { navPreferences.setValue(0) }
         }
@@ -344,6 +478,3 @@ class SettingsActivity : BaseActivity() {
         }
     }
 }
-
-
-

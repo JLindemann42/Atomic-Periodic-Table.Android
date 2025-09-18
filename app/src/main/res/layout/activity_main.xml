@@ -75,7 +75,7 @@
                         android:drawableStart="@drawable/ic_search"
                         android:drawablePadding="16dp"
                         android:gravity="center_vertical"
-                        android:text="Search Elements"
+                        android:text="@string/search"
                         android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="16sp" />
 
@@ -845,6 +845,16 @@
         android:layout_height="match_parent"
         android:elevation="2000dp"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="parent" />
+
+    <include
+        android:id="@+id/pro_popup_include"
+        layout="@layout/popup_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="3000dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="parent" />
 

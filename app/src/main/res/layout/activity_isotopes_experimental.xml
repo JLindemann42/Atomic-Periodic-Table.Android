@@ -41,7 +41,7 @@
                 android:layout_marginEnd="42dp"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="24sp"
-                android:text="No results"/>
+                android:text="@string/iso_no_results"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:layout_marginStart="42dp"
                 android:layout_marginEnd="42dp"
                 android:textSize="16sp"
-                android:text="Try searching for another word or check your spelling."/>
+                android:text="@string/iso_try_another_search"/>
 
         </LinearLayout>
 
@@ -189,7 +189,7 @@
                             android:background="@android:color/transparent"
                             android:focusable="true"
                             android:focusableInTouchMode="true"
-                            android:hint="Search For Isotopes"
+                            android:hint="@string/iso_search_hint"
                             android:imeOptions="actionSearch"
                             android:inputType="text"
                             android:maxLines="1"
@@ -242,5 +242,4 @@
         android:layout_height="match_parent"
         android:elevation="24dp"
         android:visibility="gone" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

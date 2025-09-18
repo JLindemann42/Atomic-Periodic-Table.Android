@@ -2,39 +2,80 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v4.0.1m-Build.150</string>
-    <string name="next_sale_start" translatable="false">2024/08/05</string>
-    <string name="next_sale_end" translatable="false">2024/09/15</string>
+    <string name="app_version" translatable="false">v4.1.1m-Build.157</string>
+    <string name="next_sale_start" translatable="false" >2024/08/05</string>
+    <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
     <string name="open_table_button">Open table</string>
+
+    <string name="search">Search Elements</string>
+    <string name="search_elements">Search For Elements</string>
+    <string name="element_number">Element Number</string>
+    <string name="blog">Blog</string>
+    <string name="Tables">Tables</string>
+    <string name="alphabetical">Alphabetical</string>
+    <string name="Dictionary">Dictionary</string>
+    <string name="New">New</string>
+
+    <!-- Hover Menu -->
+    <string name="display_mode">Display Mode</string>
+    <string name="element_name_default">Element Name (Default)</string>
+    <string name="atomic_weight">Atomic Weight</string>
+    <string name="boiling_point">Boiling Point</string>
+    <string name="melting_point">Melting Point</string>
+    <string name="year_discovered">Year Discovered</string>
+    <string name="fusion_heat">Fusion Heat</string>
+    <string name="vaporization_heat">Vaporization Heat</string>
+    <string name="poissons_ratio">Poisson\'s Ratio</string>
+    <string name="youngs_modulus">Young\'s Modulus</string>
+    <string name="bulk_modulus">Bulk Modulus</string>
+    <string name="shear_modulus">Shear Modulus</string>
+    <string name="electrical_resistivity">Electrical Resistivity</string>
+    <string name="random_element">Random Element</string>
+
 
     <!-- PRO Activity -->
     <string name="pro_title">PRO Version</string>
     <string name="get_pro_title">Get PRO Version</string>
-    <string name="pro_descr" translatable="false">\'Atomic - Periodic Table\' is a free and open-source application made by me on my spare-time in Sweden. Buy purchasing the PRO-version you help support the development while also receiving additional data and features!</string>
+    <string name="pro_descr" >\'Atomic - Periodic Table\' is a free and open-source application made by me on my spare-time in Sweden. By purchasing the PRO-version you help support the development while also receiving additional data and features!</string>
     <string name="member_title">PRO Member Page</string>
-    <string name="member_desch" translatable="false">Thanks for supporting the development of \'Atomic - Periodic Table\'. On this page information about your PRO perks will be available as more PRO features gets added.</string>
+    <string name="member_desch" >Thanks for supporting the development of \'Atomic - Periodic Table\'. On this page information about your PRO perks will be available as more PRO features get added.</string>
     <string name="member_already">You\'re a PRO member!</string>
-
     <string name="member_btn">Your PRO Perks</string>
+    <string name="pro_get_more_out" >Get more out of Atomic</string>
+    <string name="pro_features_title" >Features of PRO-Version:</string>
+    <string name="pro_features_descr" >Explore some of the many features of the PRO-Version and what they include.</string>
+    <string name="pro_upgrade_to_pro" >Upgrade to PRO</string>
+    <string name="pro_additional_data" >Additional Data</string>
+    <string name="pro_additional_data_descr" >Additional data such as hardness properties (mohs-, vickers-, and brinell hardness) as well as sound speed, Poisson Constant, Young\'s-, Bulk- and Shear modulus etc. Also information about identification of minerals.</string>
+    <string name="pro_additional_tables" >Additional Tables</string>
+    <string name="pro_additional_tables_descr" >Additional tables including a nuclide table, poisson\'s ratio table, constants table, geology table etc, with more coming in the future</string>
+    <string name="pro_better_calculator" >Better Calculator</string>
+    <string name="pro_better_calculator_descr" >An enhanced calculator with the possibility to save molar weights of different compounds in the favorite page.</string>
+    <string name="pro_additional_visualisations" >Additional Visualisations</string>
+    <string name="pro_additional_visualisations_descr" >Access to more visualisations in the main table such as Poisson\'s Ratio, bulk modulus etc.</string>
+    <string name="pro_already_purchased_title" >Already purchased Atomic - Periodic Table PRO?</string>
+    <string name="pro_already_purchased_check" >Check product on account</string>
+    <string name="pro_price_loading" >retrieving price...</string>
+    <string name="pro_price_discount" >pro_price_discount</string>
 
     <!-- Activity Element Info-->
     <string name="element_description_title">Description</string>
     <string name="element_more_title">Additional Properties</string>
     <string name="element_speed_sound">Speed of sound:</string>
     <string name="element_elastic_modulus">Elastic modulus:</string>
-    <string name="element_young_modulus" translatable="false">Young\'s modulus:</string>
-    <string name="element_shear_modulus" translatable="false">Shear modulus:</string>
-    <string name="element_bulk_modulus" translatable="false">Bulk modulus:</string>
+    <string name="element_young_modulus" >Young\'s modulus:</string>
+    <string name="element_shear_modulus" >Shear modulus:</string>
+    <string name="element_bulk_modulus" >Bulk modulus:</string>
     <string name="element_poisson_ratio">Poisson\'s ratio:</string>
-    <string name="abundance_title" translatable="false">Abundance</string>
-    <string name="abundance_earth_crust" translatable="false">In earth\'s crust</string>
-    <string name="abundance_earth_soils" translatable="false">In earth\'s soil</string>
-    <string name="abundance_urban_soil" translatable="false">In urban soil</string>
-    <string name="abundance_sea_water" translatable="false">In sea water</string>
-    <string name="abundance_crustal_rocks" translatable="false">In crustal rocks</string>
-    <string name="abundance_sun" translatable="false">In sun atoms</string>
-    <string name="abundance_solar_system" translatable="false">In solar system atoms</string>
+    <string name="abundance_title" >Abundance</string>
+    <string name="abundance_earth_crust" >In earth\'s crust</string>
+    <string name="abundance_earth_soils" >In earth\'s soil</string>
+    <string name="abundance_urban_soil" >In urban soil</string>
+    <string name="abundance_sea_water" >In sea water</string>
+    <string name="abundance_crustal_rocks" >In crustal rocks</string>
+    <string name="abundance_sun" >In sun atoms</string>
+    <string name="abundance_solar_system" >In solar system atoms</string>
 
     <!-- Activity Favorite Settings -->
     <string name="favorite_settings_title">Favorite Bar</string>
@@ -44,12 +85,29 @@
     <string name="favorite_settings_thermodynamics">Thermodynamic</string>
     <string name="favorite_settings_electromagnetic">Electromagnetic Properties</string>
     <string name="favorite_settings_nuclear">Nuclear</string>
+    <string name="show_molar_mass" >Show Molar Mass</string>
+    <string name="show_stp_phase" >Show STP Phase</string>
+    <string name="show_electronegativity" >Show Electronegativity</string>
+    <string name="show_density" >Show Density</string>
+    <string name="kelvin" >Kelvin</string>
+    <string name="celsius" >Celsius</string>
+    <string name="fahrenheit" >Fahrenheit</string>
+    <string name="show_boiling_point" >Show Boiling Point</string>
+    <string name="show_melting_point" >Show Melting Point</string>
+    <string name="show_atomic_radius_empirical" >Show Atomic Radius (Empirical)</string>
+    <string name="show_atomic_radius_calculated" >Show Atomic Radius (Calculated)</string>
+    <string name="show_covalent_radius" >Show Covalent Radius</string>
+    <string name="show_van_der_waals_radius" >Show Van Der Waals Radius</string>
+    <string name="show_resistivity" >Show Resistivity</string>
+    <string name="show_fusion_heat" >Show Fusion Heat</string>
+    <string name="show_specific_heat_capacity" >Show Specific Heat Capacity</string>
+    <string name="show_vaporization_heat" >Show Vaporization Heat</string>
+    <string name="show_if_radioactive" >Show if Radioactive element</string>
 
     <!-- Activity Sources Settings -->
-    <string name="sources_settings_title" translatable="false">Sources</string>"
-    <string name="sources_wwe_title" translatable="false">Water and Wastewater Engineering</string>"
-    <string name="sources_wwe_text" translatable="false">Mackenzie L. Davis, (2019). Water and wastewater Engineering: Design Principles and Practise, second edition. ISBN: 978-1-260-13227-4</string>"
-
+    <string name="sources_settings_title" >Sources</string>
+    <string name="sources_wwe_title" >Water and Wastewater Engineering</string>
+    <string name="sources_wwe_text" >Mackenzie L. Davis, (2019). Water and wastewater Engineering: Design Principles and Practise, second edition. ISBN: 978-1-260-13227-4</string>
 
     <!-- Activity Unit Settings -->
     <string name="unit_settings_title">Table Units</string>
@@ -57,9 +115,19 @@
 
     <!-- Activity Isotopes -->
     <string name="isotopes_title">Isotopes</string>
+    <string name="iso_no_results" >No results</string>
+    <string name="iso_try_another_search" >Try searching for another word or check your spelling.</string>
+    <string name="iso_search_hint" >Search For Isotopes</string>
 
     <!-- Activity pH -->
     <string name="ph_title">pH-Indicators</string>
+
+    <!-- Poisson Activity -->
+    <string name="poi_no_results" >No results</string>
+    <string name="poi_try_another_search" >Try searching for another word or check your spelling.</string>
+    <string name="poi_search_hint" >Search For Dictionary Item</string>
+    <string name="poi_clear_filter" >Clear Filter</string>
+    <string name="poissons_ratio_title" >Poisson\'s Ratio</string>
 
     <!-- Activity Settings-->
     <string name="other_settings">Advanced</string>
@@ -80,24 +148,55 @@
     <string name="licenses_text">Licenses of works used by Atomic</string>
     <string name="info_title">Information</string>
     <string name="info_text">App version and details</string>
-    <string name="git_title" translatable="false">Github</string>
-    <string name="git_text" translatable="false">Atomics open-source GitHub repo</string>
-    <string name="table_order_title" translatable="false">Sort table list</string>
-    <string name="table_order_text" translatable="false">Determine order of tables</string>
-    <string name="win_title" translatable="false">Get Desktop App</string>
-    <string name="win_text" translatable="false">Download the app for Windows</string>
-
-
-
+    <string name="git_title" >Github</string>
+    <string name="git_text" >Atomics open-source GitHub repo</string>
+    <string name="table_order_title" >Sort table list</string>
+    <string name="table_order_text" >Determine order of tables</string>
+    <string name="win_title" >Get Desktop App</string>
+    <string name="win_text" >Download the app for Windows</string>
+    <string name="about_author_name" >J.LINDEMANN</string>
+    <string name="about_app_name" >Atomic - Periodic Table</string>
+    <string name="about_title" >About</string>
+    <string name="settings_title" >Settings</string>
+    <string name="settings_themes_title" >Themes</string>
+    <string name="settings_themes_content" >Select Theme</string>
+    <string name="settings_favorite_title" >Favorite Bar</string>
+    <string name="settings_favorite_content" >Personalise the favorite bar</string>
+    <string name="settings_order_title" >Detail Card Order</string>
+    <string name="settings_order_content" >Customize order of Detail Cards</string>
+    <string name="settings_unit_title" >Table Units</string>
+    <string name="settings_unit_content" >Customize the units in the main table</string>
+    <string name="settings_offline_title" >Offline Mode</string>
+    <string name="settings_offline_content" >Disables loading of images</string>
+    <string name="settings_nav_bar_title" >Auto-hide Bottombar</string>
+    <string name="settings_nav_bar_content" >Disables the standard behaviour</string>
+    <string name="language_title">Languages</string>
+    <string name="language_content">Select Language</string>
+    <string name="system_default">System Default</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="cancel">Cancel</string>
+    <string name="settings">Settings</string>
+    <string name="themes">Themes</string>
+    <string name="select_theme">Select Theme</string>
+    <string name="favorite_bar">Favorite Bar</string>
+    <string name="personalise_favorite_bar">Personalise the favorite bar</string>
+    <string name="detail_card_order">Detail Card Order</string>
+    <string name="customize_detail_card_order">Customize order of Detail Cards</string>
+    <string name="table_units">Table Units</string>
+    <string name="customize_units_table">Customize the units in the main table</string>
+    <string name="offline_mode">Offline Mode</string>
+    <string name="offline_mode_desc">Disables loading of images</string>
+    <string name="auto_hide_bottombar">Auto-hide Bottombar</string>
+    <string name="auto_hide_bottombar_desc">Disables the standard behaviour</string>
 
     <!-- Calculator Activity -->
     <string name="weight_calculator_title">Weight Calculator</string>
-    <string name="calculator_card_title" translatable="false">Calculator:</string>
-    <string name="calculator_formula" translatable="false">Formula:</string>
-
+    <string name="calculator_card_title" >Calculator:</string>
+    <string name="calculator_formula" >Formula:</string>
 
     <!-- Constants Activity -->
-    <string name="constants_tite" translatable="false">Constants Table</string>
+    <string name="constants_tite" >Constants Table</string>
 
     <!-- Activity Licenses-->
     <string name="license_title">Licenses</string>
@@ -105,31 +204,34 @@
     <!-- Activity Table-->
     <string name="activity_table_title">Tables</string>
     <string name="table_ph">pH-Indicators</string>
-    <string name="table_ph_text" translatable="false">A pH-indicator table for colors on different acid/ base levels</string>
+    <string name="table_ph_text" >A pH-indicator table for colors on different acid/ base levels</string>
     <string name="table_electrochemical">Electrochemical Series</string>
-    <string name="table_electrochemical_text" translatable="false">A table with an electrochemical series, sorted by (-) to (+) voltage</string>
+    <string name="table_electrochemical_text" >A table with an electrochemical series, sorted by (-) to (+) voltage</string>
     <string name="table_equations">Formulas</string>
-    <string name="table_equations_text" translatable="false">A table containing formulas for math, physics and chemistry</string>
+    <string name="table_equations_text" >A table containing formulas for math, physics and chemistry</string>
     <string name="table_solubility">Solubility Table</string>
-    <string name="table_solubility_text" translatable="false">A table with information of different substances solubility</string>
+    <string name="table_solubility_text" >A table with information of different substances solubility</string>
     <string name="table_ionization">Ionization Energies</string>
-    <string name="table_ionization_text" translatable="false">A table with different elements ionization energies</string>
+    <string name="table_ionization_text" >A table with different elements ionization energies</string>
     <string name="table_poisson">Poisson Ratio Table</string>
-    <string name="table_poisson_text" translatable="false">A table with poissons ratio for different rocks, soils, minerals and other materials</string>
-    <string name="table_nuclide" translatable="false">Table of Nuclides</string>
-    <string name="table_nuclide_text" translatable="false">A two-dimensional table of nuclide, with color differentiating decay type</string>
-    <string name="table_constants_text" translatable="false">A table that contains common constants for calculations including math, physics, standard water flows etc</string>
-    <string name="table_geology" translatable="false">Geology Table</string>
-    <string name="table_geology_text" translatable="false">A table that contains information about minerals, rocks and soils</string>
-
+    <string name="table_poisson_text" >A table with poissons ratio for different rocks, soils, minerals and other materials</string>
+    <string name="table_nuclide" >Table of Nuclides</string>
+    <string name="table_nuclide_text" >A two-dimensional table of nuclide, with color differentiating decay type</string>
+    <string name="table_constants_text" >A table that contains common constants for calculations including math, physics, standard water flows etc</string>
+    <string name="table_geology" >Geology Table</string>
+    <string name="table_geology_text" >A table that contains information about minerals, rocks and soils</string>
+    <string name="nuclide_table_title" >Nuclide Table</string>
+    <string name="decay_info_fab" >Info of different decay types</string>
 
     <!-- Activity Geology -->
-    <string name="activity_geology_title" translatable="false">Geology</string>
-    <string name="activity_geology_mineral" translatable="false">Minerals</string>
-    <string name="activity_geology_rock" translatable="false">Rocks</string>
-    <string name="activity_geology_soil" translatable="false">Soils</string>
-
-
+    <string name="activity_geology_title" >Geology</string>
+    <string name="activity_geology_mineral" >Minerals</string>
+    <string name="activity_geology_rock" >Rocks</string>
+    <string name="activity_geology_soil" >Soils</string>
+    <string name="geo_no_results" >No results</string>
+    <string name="geo_try_another_search" >Try searching for another word or check your spelling.</string>
+    <string name="geo_search_hint" >Search For Geology Item</string>
+    <string name="geo_clear_filter" >Clear Filter</string>
     <string name="chip_rocks">Rocks</string>
     <string name="chip_soils">Soils</string>
     <string name="chip_minerals">Minerals</string>
@@ -139,35 +241,37 @@
 
     <!-- Activity Equations -->
     <string name="activity_equations_title">Formulas</string>
-    <string name="activity_formulas_search" translatable="false">Search For Formulas:</string>
-    <string name="equations_search_other" translatable="false">Try searching for another word or check your spelling.</string>
+    <string name="activity_formulas_search" >Search For Formulas:</string>
+    <string name="equations_search_other" >Try searching for another word or check your spelling.</string>
 
     <!-- Activity pH -->
     <string name="activity_ph_title">pH Indicators</string>
     <string name="activity_ph_acid">Acid</string>
     <string name="activity_ph_neutral">Neutral</string>
     <string name="activity_ph_alkaline">Alkaline</string>
-    <string name="activity_ph_methyl_orange" translatable="false">Methyl-orange</string>
-    <string name="activity_ph_bromothymol_blue" translatable="false">Bromothymol Blue</string>
-    <string name="activity_ph_congo_red" translatable="false">Congo Red</string>
-    <string name="activity_ph_phenolphthalein" translatable="false">Phenolphthalein</string>
+    <string name="activity_ph_methyl_orange" >Methyl-orange</string>
+    <string name="activity_ph_bromothymol_blue" >Bromothymol Blue</string>
+    <string name="activity_ph_congo_red" >Congo Red</string>
+    <string name="activity_ph_phenolphthalein" >Phenolphthalein</string>
 
     <!-- Activity Ion -->
     <string name="activity_io_title">Ionization Energies</string>
+    <string name="ion_no_results" >No results</string>
+    <string name="ion_try_another_search" >Try searching for another word or check your spelling.</string>
 
     <!-- Social-Media Links-->
-    <string name="bluesky" translatable="false">https://bsky.app/profile/jlindemanndev.bsky.social</string>
-    <string name="instagram" translatable="false">https://www.instagram.com/jlindemanndev</string>
-    <string name="facebook" translatable="false">https://www.facebook.com/jlindemanndev</string>
-    <string name="homepage" translatable="false">https://www.jlindemann.se/homepage</string>
+    <string name="bluesky" >https://bsky.app/profile/jlindemanndev.bsky.social</string>
+    <string name="instagram" >https://www.instagram.com/jlindemanndev</string>
+    <string name="facebook" >https://www.facebook.com/jlindemanndev</string>
+    <string name="homepage" >https://www.jlindemann.se/homepage</string>
 
     <string name="solubility_info_t">Solubility Help</string>
-    <string name="solubility_info_c" translatable="false">"S: Soluble\nSs: Slightly Soluble\nI: Insoluble"</string>
+    <string name="solubility_info_c" >"S: Soluble\nSs: Slightly Soluble\nI: Insoluble"</string>
 
-    <string name="electrochemical_series" translatable="false">Electrochemical Series</string>
-    <string name="electrochemical_series_search" translatable="false">Search for Element</string>
+    <string name="electrochemical_series" >Electrochemical Series</string>
+    <string name="electrochemical_series_search" >Search for Element</string>
 
-    <string name="short_voltage" translatable="false"> (Volt)</string>
+    <string name="short_voltage" > (Volt)</string>
 
     <string name="data_issue">Data Issue</string>
     <string name="bug">Bug</string>
@@ -178,139 +282,179 @@
     <string name="chip_physics">Physics</string>
     <string name="chip_math">Mathematics</string>
     <string name="chip_reactions">Reactions</string>
-    <string name="chip_water" translatable="false">Water</string>
+    <string name="chip_water" >Water</string>
 
-    <string name="wikipedia_license" translatable="false">Wikipedia Commons</string>
-    <string name="wikipedia_license_text" translatable="false">CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL SERVICES.
+    <string name="wikipedia_license" >Wikipedia Commons</string>
+    <string name="wikipedia_license_text" >CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL SERVICES.
         DISTRIBUTION OF THIS LICENSE DOES NOT CREATE AN ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS INFORMATION ON AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES REGARDING THE INFORMATION PROVIDED, AND DISCLAIMS LIABILITY FOR DAMAGES RESULTING FROM ITS USE.\n\nTHE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE").
         THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
         BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE. TO THE EXTENT THIS LICENSE MAY BE CONSIDERED TO BE A CONTRACT, THE LICENSOR GRANTS YOU THE RIGHTS CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND CONDITIONS.</string>
-    <string name="sothree_license" translatable="false">Android Sliding Up Panel</string>
-    <string name="sothree_license_text" translatable="false">Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
+    <string name="sothree_license" >Android Sliding Up Panel</string>
+    <string name="sothree_license_text" >Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
     \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>
-    <string name="appwidget_text" translatable="false">EXAMPLE</string>
+    <string name="appwidget_text" >EXAMPLE</string>
     <string name="add_widget">Add widget</string>
 
-    <string name="no_results" translatable="false">No Results</string>
-    <string name="spelling" translatable="false">Try searching for another word or check your spelling</string>
-
+    <string name="no_results" >No Results</string>
+    <string name="spelling" >Try searching for another word or check your spelling</string>
 
     <!-- New Tables Strings -->
-    <string name="phi" translatable="false">pH-Indicators</string>
-    <string name="geo" translatable="false">Geology Table</string>
-    <string name="con" translatable="false">Constants Table</string>
-    <string name="nuc" translatable="false">Table of Nuclides</string>
-    <string name="poi" translatable="false">Poisson Ratio Table</string>
-    <string name="sol" translatable="false">Solubility Table</string>
-    <string name="ion" translatable="false">Ionization Energies</string>
-    <string name="eqe" translatable="false">Formulas</string>
-    <string name="ele" translatable="false">Electrochemical Series</string>
-    <string name="iso" translatable="false">Isotopes</string>
-    <string name="emi" translatable="false">Emission Spectrum Table</string>
+    <string name="phi" >pH-Indicators</string>
+    <string name="geo" >Geology Table</string>
+    <string name="con" >Constants Table</string>
+    <string name="nuc" >Table of Nuclides</string>
+    <string name="poi" >Poisson Ratio Table</string>
+    <string name="sol" >Solubility Table</string>
+    <string name="ion" >Ionization Energies</string>
+    <string name="eqe" >Formulas</string>
+    <string name="ele" >Electrochemical Series</string>
+    <string name="iso" >Isotopes</string>
+    <string name="emi" >Emission Spectrum Table</string>
 
-    <string name="requires_pro" translatable="false">Requires PRO-Version</string>
-    <string name="try_another_search" translatable="false">Try searching for another word or check your spelling.</string>
+    <string name="requires_pro" >Requires PRO-Version</string>
+    <string name="try_another_search" >Try searching for another word or check your spelling.</string>
 
-    <string name="emission_title" translatable="false">Emission Spectrum Table</string>
-    <string name="emission_text" translatable="false">Emission spectrum for elements, which is the frequencies of electromagnatic radiation emitted due to electrons making transition from a higher to lower energy state.</string>
+    <string name="emission_title" >Emission Spectrum Table</string>
+    <string name="emission_text" >Emission spectrum for elements, which is the frequencies of electromagnatic radiation emitted due to electrons making transition from a higher to lower energy state.</string>
 
     <!-- New Tools String -->
-    <string name="cal" translatable="false">Calculator</string>
-    <string name="rec" translatable="false">Chemical Reactions</string>
-    <string name="uni" translatable="false">Unit Converter</string>
-    <string name="fla" translatable="false">Flashcards</string>
-    <string name="unit_title" translatable="false">Unit Converter</string>
-    <string name="unit_description" translatable="false">A simple unit converter for multiple purposes</string>
+    <string name="cal" >Calculator</string>
+    <string name="rec" >Chemical Reactions</string>
+    <string name="uni" >Unit Converter</string>
+    <string name="fla" >Flashcards</string>
+    <string name="unit_title" >Unit Converter</string>
+    <string name="unit_description" >A simple unit converter for multiple purposes</string>
 
+    <string name="most_used" >Most Used:</string>
 
-    <string name="most_used" translatable="false">Most Used:</string>
-
-    <string name="calculator_title" translatable="false">Calculator</string>
-    <string name="calculator_text" translatable="false">Contains a calculator to calculate molar mass for different compounds as well as saving favorites</string>
-    <string name="tools_title" translatable="false">Tools (e.g calculator)</string>
-    <string name="balancer_title" translatable="false">Chemical Reactions</string>
-    <string name="balancer_text" translatable="false">Balance different chemical reactions and save favorites for later use</string>
-    <string name="tool_btn_open" translatable="false">Open Tool</string>
-    <string name="calc_molar_mass" translatable="false">Molar Mass:</string>
-    <string name="calc_elements_shown" translatable="false">Elements included will be shown here</string>
-    <string name="calc_favorites" translatable="false">Favorites:</string>
-    <string name="calc_no_favorites" translatable="false">Currently no favorites</string>
-    <string name="calc_no_pro_text" translatable="false">In order to access and save to the favorites you need to get the PRO-Version</string>
-
+    <string name="calculator_title" >Calculator</string>
+    <string name="calculator_text" >Contains a calculator to calculate molar mass for different compounds as well as saving favorites</string>
+    <string name="tools_title" >Tools (e.g calculator)</string>
+    <string name="balancer_title" >Chemical Reactions</string>
+    <string name="balancer_text" >Balance different chemical reactions and save favorites for later use</string>
+    <string name="tool_btn_open" >Open Tool</string>
+    <string name="calc_molar_mass" >Molar Mass:</string>
+    <string name="calc_elements_shown" >Elements included will be shown here</string>
+    <string name="calc_favorites" >Favorites:</string>
+    <string name="calc_no_favorites" >Currently no favorites</string>
+    <string name="calc_no_pro_text" >In order to access and save to the favorites you need to get the PRO-Version</string>
 
     <!-- User Page -->
-    <string name="user_title" translatable="false">User Page</string>
-    <string name="user_achievements" translatable="false">Achievements</string>
-    <string name="user_achievements_Text" translatable="false">Track your progress of learning the elements of the world with achievements</string>
-    <string name="user_img" translatable="false">Change profile picture</string>
+    <string name="user_title" >User Page</string>
+    <string name="user_achievements" >Achievements</string>
+    <string name="user_achievements_Text" >Track your progress of learning the elements of the world with achievements</string>
+    <string name="user_img" >Change profile picture</string>
 
     <!-- Hazard Properties -->
-    <string name="hazard_title" translatable="false">Hazard of Materials</string>
-    <string name="hazard_title_requires_pro" translatable="false">Hazard of Materials requires PRO-version. Get PRO to unlock more data and tables:</string>
-    <string name="fire_hazard" translatable="false">Fire hazard:</string>
-    <string name="health_hazard" translatable="false">Health hazard:</string>
-    <string name="reactivity_hazard" translatable="false">Reactivity:</string>
-    <string name="specific_hazard" translatable="false">Specific hazard:</string>
+    <string name="hazard_title" >Hazard of Materials</string>
+    <string name="hazard_title_requires_pro" >Hazard of Materials requires PRO-version. Get PRO to unlock more data and tables:</string>
+    <string name="fire_hazard" >Fire hazard:</string>
+    <string name="health_hazard" >Health hazard:</string>
+    <string name="reactivity_hazard" >Reactivity:</string>
+    <string name="specific_hazard" >Specific hazard:</string>
 
     <!-- Grid Properties -->
-    <string name="grid_title" translatable="false">Grid Properties</string>
-    <string name="crystal_structure" translatable="false">Crystal Structure:</string>
-    <string name="grid_parameters" translatable="false">Grid Parameters: (lattice constants)</string>
-    <string name="debye_temperature_low_temperature_limit" translatable="false">Debye Temperature: (low temperature limit)</string>
-    <string name="debye_temperature_room_temperature" translatable="false">Debye Temperature: (room temperature)</string>
+    <string name="grid_title" >Grid Properties</string>
+    <string name="crystal_structure" >Crystal Structure:</string>
+    <string name="grid_parameters" >Grid Parameters: (lattice constants)</string>
+    <string name="debye_temperature_low_temperature_limit" >Debye Temperature: (low temperature limit)</string>
+    <string name="debye_temperature_room_temperature" >Debye Temperature: (room temperature)</string>
 
+    <string name="cas_number" >CAS Number:</string>
+    <string name="eg_number" >EG Number:</string>
+    <string name="other_title" >Others</string>
 
-    <string name="cas_number" translatable="false">CAS Number:</string>
-    <string name="eg_number" translatable="false">EG Number:</string>
-    <string name="other_title" translatable="false">Others</string>
+    <string name="clear_filter" >Clear Filter</string>
+    <string name="constants_search" >Search for constant</string>
 
-    <string name="clear_filter" translatable="false">Clear Filter</string>
-    <string name="constants_search" translatable="false">Search for constant</string>"
+    <string name="dictionary" >Dictionary</string>
+    <string name="dictionary_search" >Search For Dictionary Item</string>
 
-    <string name="dictionary" translatable="false">Dictionary</string>
-    <string name="dictionary_search" translatable="false">Search For Dictionary Item</string>
+    <string name="element_info_title" >Element Information</string>
 
-    <string name="element_info_title" translatable="false">Element Information</string>
-
-    <string name="submit_data_issue" translatable="false">Submit Data Issue</string>
+    <string name="submit_data_issue" >Submit Data Issue</string>
 
     <!-- Unit Converter -->
-    <string name="unit_converter_title" translatable="false">Unit Converter</string>
-    <string name="unit_enter_value" translatable="false">Value</string>
-    <string name="unit_output_value" translatable="false">Output</string>
-    <string name="unit_category" translatable="false">Category:</string>
-    <string name="unit_formula" translatable="false">Formula:</string>
-    <string name="unit_add_favorite" translatable="false">Add to Favorites:</string>
-    <string name="unit_favorites" translatable="false">Favorites:</string>
-    <string name="unit_display_formula" translatable="false">Formula will be displayed here</string>
+    <string name="unit_converter_title" >Unit Converter</string>
+    <string name="unit_enter_value" >Value</string>
+    <string name="unit_output_value" >Output</string>
+    <string name="unit_category" >Category:</string>
+    <string name="unit_formula" >Formula:</string>
+    <string name="unit_add_favorite" >Add to Favorites:</string>
+    <string name="unit_favorites" >Favorites:</string>
+    <string name="unit_display_formula" >Formula will be displayed here</string>
 
     <!-- Flashcard mini-games -->
-    <string name="flashcards_title" translatable="false">Flashcards</string>
-    <string name="flashcards_info" translatable="false">Learn the Periodic Table with the built in "learning-games"</string>
-    <string name="flashcards_lives_info" translatable="false">Every wrong answer will lead to loss of a live</string>
-    <string name="learning_games" translatable="false">Learning-Games:</string>
-    <string name="flashcards_element_symbols" translatable="false">Element Symbols</string>
-    <string name="flashcards_element_classifications" translatable="false">Element Classifications</string>
-    <string name="flashcards_atomic_mass" translatable="false">Atomic Mass</string>
-    <string name="flashcards_chemical_reactions" translatable="false">Chemical Reactions</string>
-    <string name="flashcards_mixed_questions" translatable="false">Mixed Questions</string>
-    <string name="flashcards_statistics" translatable="false">Statistics</string>
-    <string name="flashcards_total_xp" translatable="false">Total XP</string>
-    <string name="flashcards_total_games" translatable="false">Games</string>
-    <string name="flashcards_level" translatable="false">Level</string>
-    <string name="flashcards_difficulty" translatable="false">Select Difficulty:</string>
-    <string name="flashcards_difficulty_title" translatable="false">Difficulty</string>
-    <string name="flashcards_free_games" translatable="false">Free Games:</string>
-    <string name="flashcards_pro_plus_games" translatable="false">PRO+ Games:</string>
-    <string name="flashcards_pro_level_0_5" translatable="false">Level 0-4:</string>
-    <string name="flashcards_pro_level_5_10" translatable="false">Level 5-9:</string>
-    <string name="flashcards_pro_level_10_15" translatable="false">Level 10-14:</string>
-    <string name="flashcards_game_element_symbols" translatable="false">Element Symbols</string>
-    <string name="flashcards_game_element_names" translatable="false">Element Names</string>
-    <string name="flashcards_game_element_groups" translatable="false">Element Groups</string>
-    <string name="flashcards_game_element_appearance" translatable="false">Appearance</string>
-    <string name="flashcards_game_element_atomic_mass" translatable="false">Atomic Mass</string>
-    <string name="flashcards_game_element_density" translatable="false">Density</string>
+    <string name="flashcards_title" >Flashcards</string>
+    <string name="flashcards_info" >Learn the Periodic Table with the built in "learning-games"</string>
+    <string name="flashcards_lives_info" >Every wrong answer will lead to loss of a live</string>
+    <string name="learning_games" >Learning-Games:</string>
+    <string name="flashcards_element_symbols" >Element Symbols</string>
+    <string name="flashcards_element_classifications" >Element Classifications</string>
+    <string name="flashcards_atomic_mass" >Atomic Mass</string>
+    <string name="flashcards_chemical_reactions" >Chemical Reactions</string>
+    <string name="flashcards_mixed_questions" >Mixed Questions</string>
+    <string name="flashcards_statistics" >Statistics</string>
+    <string name="flashcards_total_xp" >Total XP</string>
+    <string name="flashcards_total_games" >Games</string>
+    <string name="flashcards_level" >Level</string>
+    <string name="flashcards_difficulty" >Select Difficulty:</string>
+    <string name="flashcards_difficulty_title" >Difficulty</string>
+    <string name="flashcards_free_games" >Free Games:</string>
+    <string name="flashcards_pro_plus_games" >PRO+ Games:</string>
+    <string name="flashcards_pro_level_0_5" >Level 0-4:</string>
+    <string name="flashcards_pro_level_5_10" >Level 5-9:</string>
+    <string name="flashcards_pro_level_10_15" >Level 10-14:</string>
+    <string name="flashcards_game_element_symbols" >Element Symbols</string>
+    <string name="flashcards_game_element_names" >Element Names</string>
+    <string name="flashcards_game_element_groups" >Element Groups</string>
+    <string name="flashcards_game_element_appearance" >Appearance</string>
+    <string name="flashcards_game_element_atomic_mass" >Atomic Mass</string>
+    <string name="flashcards_game_element_density" >Density</string>
+    <string name="progress_text_placeholder" >50/500</string>
+    <string name="total_xp_placeholder" >Total XP: ---</string>
+    <string name="unlock_all_flashcards" >Unlock all Flashcards and Features</string>
+    <string name="upgrade_to_pro_plus" >Upgrade to PRO+</string>
+    <string name="upgrade_pro_plus_description" >Get unlimited lives and additional flashcard games such as electronegativity, radioactivity, crystal structure and more!</string>
+    <string name="easy" >Easy</string>
+    <string name="medium" >Medium</string>
+    <string name="hard" >Hard</string>
+    <string name="level_0_4" >Level 0–4</string>
+    <string name="element_symbols" >Element Symbols</string>
+    <string name="element_names" >Element Names</string>
+    <string name="element_groups" >Element Groups</string>
+    <string name="discovered_by" >Discovered By</string>
+    <string name="discovery_year" >Discovery Year</string>
+    <string name="level_5_9" >Level 5–9</string>
+    <string name="appearance" >Appearance</string>
+    <string name="atomic_number" >Atomic Number</string>
+    <string name="electrical_type" >Electrical Type</string>
+    <string name="radioactive" >Radioactive</string>
+    <string name="level_10_14" >Level 10–14</string>
+    <string name="atomic_mass" >Atomic Mass</string>
+    <string name="density" >Density</string>
+    <string name="electronegativity" >Electronegativity</string>
+    <string name="block" >Block</string>
+    <string name="level_15_19" >Level 15–19</string>
+    <string name="magnetic_type" >Magnetic Type</string>
+    <string name="phase_stp" >Phase (STP)</string>
+    <string name="superconducting_point" >Superconducting Point</string>
+    <string name="level_20_24" >Level 20–24</string>
+    <string name="neutron_cross_sectional" >Neutron Cross Sectional</string>
+    <string name="specific_heat_capacity" >Specific Heat Capacity</string>
+    <string name="mohs_hardness" >Mohs Hardness</string>
+    <string name="vickers_hardness" >Vickers Hardness</string>
+    <string name="brinell_hardness" >Brinell Hardness</string>
+    <string name="pro_plus_badge" >PRO+</string>
+    <string name="lives_count_placeholder" >5</string>
+    <string name="level_stat_placeholder" >---</string>
+    <string name="completed_quizzes_stat_placeholder" >---</string>
+
+    <!-- Popup Pro -->
+    <string name="popup_title">Upgrade to PRO+</string>
+    <string name="popup_content_text">Upgrade \'Atomic - Periodic Table\' to unlock additional data, tables and flashcards to learn more about the periodic table.</string>
+    <string name="popup_action_button">Upgrade to PRO+</string>
+    <string name="popup_secondary_button">Not today</string>
 
 
 </resources>

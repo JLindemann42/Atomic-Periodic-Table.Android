@@ -39,7 +39,7 @@
                 android:layout_marginEnd="42dp"
                 android:textColor="?attr/actionMenuTextColor"
                 android:textSize="24sp"
-                android:text="No results"/>
+                android:text="@string/no_results"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                 android:layout_marginStart="42dp"
                 android:layout_marginEnd="42dp"
                 android:textSize="16sp"
-                android:text="Try searching for another word or check your spelling."/>
+                android:text="@string/try_another_search"/>
 
         </LinearLayout>
 
@@ -117,7 +117,7 @@
                             android:background="@android:color/transparent"
                             android:focusable="true"
                             android:focusableInTouchMode="true"
-                            android:hint="Search For Elements"
+                            android:hint="@string/search_elements"
                             android:imeOptions="actionSearch"
                             android:inputType="text"
                             android:maxLines="1"

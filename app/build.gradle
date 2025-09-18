@@ -21,8 +21,8 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 24
         targetSdkVersion 36
-        versionCode 150
-        versionName "4.0.1m"
+        versionCode 157
+        versionName "4.1.0m"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -48,7 +48,10 @@ android {
     }
     buildFeatures {
         viewBinding true
+        buildConfig = true
+
     }
+
 
     namespace 'com.jlindemann.science'
 }
@@ -68,6 +71,7 @@ dependencies {
     implementation 'com.github.ar-android:AndroidSvgLoader:1.0.2'
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.bumptech.glide:glide:5.0.5'
     implementation 'com.beust:klaxon:5.6'
     implementation 'com.github.mmin18:realtimeblurview:82df3520b4'
     implementation 'com.google.android.material:material:1.12.0'
