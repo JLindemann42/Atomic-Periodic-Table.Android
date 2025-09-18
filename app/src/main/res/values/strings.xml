@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v4.1.1m-Build.156</string>
+    <string name="app_version" translatable="false">v4.1.1m-Build.157</string>
     <string name="next_sale_start" translatable="false" >2024/08/05</string>
     <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
@@ -455,4 +455,6 @@
     <string name="popup_content_text">Upgrade \'Atomic - Periodic Table\' to unlock additional data, tables and flashcards to learn more about the periodic table.</string>
     <string name="popup_action_button">Upgrade to PRO+</string>
     <string name="popup_secondary_button">Not today</string>
+
+
 </resources>

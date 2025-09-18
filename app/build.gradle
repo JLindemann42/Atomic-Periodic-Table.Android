@@ -21,7 +21,7 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 24
         targetSdkVersion 36
-        versionCode 156
+        versionCode 157
         versionName "4.1.0m"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -48,7 +48,10 @@ android {
     }
     buildFeatures {
         viewBinding true
+        buildConfig = true
+
     }
+
 
     namespace 'com.jlindemann.science'
 }
