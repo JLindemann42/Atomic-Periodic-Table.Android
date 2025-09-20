@@ -448,4 +448,6 @@
     <string name="popup_content_text">Uppgradera \'Atomic - Periodiska systemet\' för att låsa upp ytterligare data, tabeller och flashcards för att lära dig mer om det periodiska systemet.</string>
     <string name="popup_action_button">Uppgradera till PRO+</string>
     <string name="popup_secondary_button">Inte idag</string>
+    <string name="credits_title">Attribueringar</string>
+    <string name="credits_text">Attribueringar till bidragsgivare</string>
 </resources>

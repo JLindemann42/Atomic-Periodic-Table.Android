@@ -89,7 +89,7 @@ class SettingsActivity : BaseActivity() {
         findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         // Title Controller with animated visibility
-        findViewById<FrameLayout>(R.id.common_title_settings_color).visibility = View.INVISIBLE
+        findViewById<FrameLayout>(R.id.common_title_settings_color).visibility = View.VISIBLE
         findViewById<TextView>(R.id.element_title).visibility = View.INVISIBLE
         findViewById<FrameLayout>(R.id.common_title_back_set).elevation = (resources.getDimension(R.dimen.zero_elevation))
         findViewById<ScrollView>(R.id.scroll_settings).viewTreeObserver
@@ -98,7 +98,7 @@ class SettingsActivity : BaseActivity() {
 
                 override fun onScrollChanged() {
                     val scrollY = findViewById<ScrollView>(R.id.scroll_settings).scrollY
-                    val threshold = 150
+                    val threshold = 158
 
                     val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_settings_color)
                     val titleText = findViewById<TextView>(R.id.element_title)
@@ -110,12 +110,12 @@ class SettingsActivity : BaseActivity() {
                             TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
                             TitleBarAnimator.animateVisibility(titleText, true)
                             TitleBarAnimator.animateVisibility(titleDownstateText, false)
-                            titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
+                            titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
                             isTitleVisible = true
                         }
                     } else {
                         if (isTitleVisible) {
-                            TitleBarAnimator.animateVisibility(titleColorBackground, false)
+                            TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
                             TitleBarAnimator.animateVisibility(titleText, false)
                             TitleBarAnimator.animateVisibility(titleDownstateText, true)
                             titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
@@ -195,7 +195,8 @@ class SettingsActivity : BaseActivity() {
         LanguageOption("Swedish", Locale("sv", "SE").getDisplayLanguage(Locale("sv", "SE")), Locale("sv", "SE")),
         LanguageOption("Spanish", Locale("es", "ES").getDisplayLanguage(Locale("es", "ES")), Locale("es", "ES")),
         LanguageOption("Italian", Locale("it", "IT").getDisplayLanguage(Locale("it", "IT")), Locale("it", "IT")),
-        LanguageOption("Afrikaans", Locale("af", "ZA").getDisplayLanguage(Locale("af", "ZA")), Locale("af", "ZA"))
+        // FIXED: Only set language, not country, to match values-af/
+        LanguageOption("Afrikaans", Locale("af").getDisplayLanguage(Locale("af")), Locale("af"))
     )
 
     private fun getSystemLocale(): Locale {
