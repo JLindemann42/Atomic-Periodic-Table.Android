@@ -195,8 +195,8 @@ class SettingsActivity : BaseActivity() {
         LanguageOption("Swedish", Locale("sv", "SE").getDisplayLanguage(Locale("sv", "SE")), Locale("sv", "SE")),
         LanguageOption("Spanish", Locale("es", "ES").getDisplayLanguage(Locale("es", "ES")), Locale("es", "ES")),
         LanguageOption("Italian", Locale("it", "IT").getDisplayLanguage(Locale("it", "IT")), Locale("it", "IT")),
-        // FIXED: Only set language, not country, to match values-af/
-        LanguageOption("Afrikaans", Locale("af").getDisplayLanguage(Locale("af")), Locale("af"))
+        LanguageOption("Afrikaans", Locale("af").getDisplayLanguage(Locale("af")), Locale("af")),
+        LanguageOption("Hindi", Locale("hi").getDisplayLanguage(Locale("hi")), Locale("hi"))
     )
 
     private fun getSystemLocale(): Locale {
@@ -210,7 +210,7 @@ class SettingsActivity : BaseActivity() {
     private fun getSystemLanguageOption(): LanguageOption {
         val systemLocale = getSystemLocale()
         return getSupportedLanguages().find {
-            it.locale.language == systemLocale.language && it.locale.country == systemLocale.country
+            it.locale.language == systemLocale.language && (it.locale.country.isEmpty() || it.locale.country == systemLocale.country)
         } ?: getSupportedLanguages()[0]
     }
 
@@ -224,14 +224,14 @@ class SettingsActivity : BaseActivity() {
         val languages = getSupportedLanguages()
         val systemLangOption = getSystemLanguageOption()
         val languageNames = mutableListOf<String>()
-        languageNames.add("System default")
+        languageNames.add(getString(R.string.system_default))
         languageNames.addAll(languages.map { it.getDisplayName() })
 
         val currentPref = getCurrentLanguagePreference()
         var checkedItem = 0
         if (currentPref != null) {
             checkedItem = languages.indexOfFirst {
-                it.locale.language == currentPref.language && it.locale.country == currentPref.country
+                it.locale.language == currentPref.language && (it.locale.country.isEmpty() || it.locale.country == currentPref.country)
             }
             if (checkedItem != -1) checkedItem += 1 else checkedItem = 0
         }
@@ -271,7 +271,7 @@ class SettingsActivity : BaseActivity() {
         val langOption = when (val pref = getCurrentLanguagePreference()) {
             null -> getSystemLanguageOption()
             else -> getSupportedLanguages().find {
-                it.locale.language == pref.language && it.locale.country == pref.country
+                it.locale.language == pref.language && (it.locale.country.isEmpty() || it.locale.country == pref.country)
             } ?: getSystemLanguageOption()
         }
         findViewById<TextView>(R.id.language_content).text = langOption.getDisplayName()
