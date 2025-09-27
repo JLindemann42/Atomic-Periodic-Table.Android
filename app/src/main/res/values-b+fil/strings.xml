@@ -1,0 +1,456 @@
+<resources>
+    <string name="app_name">Atomic</string>
+
+    <string name="personalization_settings">Pag-personalize</string>
+    <string name="app_version" translatable="false">v4.1.1m-Build.159</string>
+    <string name="next_sale_start" translatable="false">2024/08/05</string>
+    <string name="next_sale_end" translatable="false">2024/09/15</string>
+
+    <string name="open_table_button">Buksan ang talahanayan</string>
+
+    <string name="search">Maghanap ng Elemento</string>
+    <string name="search_elements">Maghanap ng mga Elemento</string>
+    <string name="element_number">Numero ng Elemento</string>
+    <string name="blog">Blog</string>
+    <string name="Tables">Mga Talahanayan</string>
+    <string name="alphabetical">Alpabetikal</string>
+    <string name="Dictionary">Diksiyonaryo</string>
+    <string name="New">Bago</string>
+
+    <!-- Hover Menu -->
+    <string name="display_mode">Paraan ng Pag-display</string>
+    <string name="element_name_default">Pangalan ng Elemento (Default)</string>
+    <string name="atomic_weight">Atomic na Timbang</string>
+    <string name="boiling_point">Punto ng Pag-kulo</string>
+    <string name="melting_point">Punto ng Pagkatunaw</string>
+    <string name="year_discovered">Taon ng Pagkatuklas</string>
+    <string name="fusion_heat">Init ng Pagsasanib</string>
+    <string name="vaporization_heat">Init ng Pag-singaw</string>
+    <string name="poissons_ratio">Ratio ni Poisson</string>
+    <string name="youngs_modulus">Young\'s Modulus</string>
+    <string name="bulk_modulus">Bulk Modulus</string>
+    <string name="shear_modulus">Shear Modulus</string>
+    <string name="electrical_resistivity">Resistibidad ng Kuryente</string>
+    <string name="random_element">Random na Elemento</string>
+
+    <!-- PRO Activity -->
+    <string name="pro_title">PRO Bersyon</string>
+    <string name="get_pro_title">Kunin ang PRO Bersyon</string>
+    <string name="pro_descr">\'Atomic - Periodic Table\' ay isang libreng open-source na aplikasyon na ginawa ko sa aking libreng oras sa Sweden. Sa pagbili ng PRO-bersyon, tinutulungan mo ang pag-unlad habang nakakatanggap ng karagdagang data at tampok!</string>
+    <string name="member_title">PRO Member Page</string>
+    <string name="member_desch">Salamat sa pagsuporta sa pag-unlad ng \'Atomic - Periodic Table\'. Sa pahinang ito, makikita ang impormasyon tungkol sa iyong PRO perks habang nadaragdagan pa ang mga PRO na tampok.</string>
+    <string name="member_already">Ikaw ay PRO member na!</string>
+    <string name="member_btn">Iyong PRO Perks</string>
+    <string name="pro_get_more_out">Mas maraming makuha mula sa Atomic</string>
+    <string name="pro_features_title">Mga Tampok ng PRO-Bersyon:</string>
+    <string name="pro_features_descr">Tuklasin ang ilan sa maraming tampok ng PRO-Bersyon at kung ano ang kanilang kinabibilangan.</string>
+    <string name="pro_upgrade_to_pro">Mag-upgrade sa PRO</string>
+    <string name="pro_additional_data">Karagdagang Data</string>
+    <string name="pro_additional_data_descr">Karagdagang data gaya ng katigasan (mohs-, vickers-, at brinell hardness) pati na rin ang bilis ng tunog, Poisson Constant, Young\'s-, Bulk- at Shear modulus atbp. Kasama rin ang impormasyon tungkol sa pagkakakilanlan ng mga mineral.</string>
+    <string name="pro_additional_tables">Karagdagang Talahanayan</string>
+    <string name="pro_additional_tables_descr">Karagdagang mga talahanayan kabilang ang nuclide table, Poisson\'s ratio table, constants table, geology table atbp., na may higit pa sa hinaharap</string>
+    <string name="pro_better_calculator">Mas Pinahusay na Kalkulador</string>
+    <string name="pro_better_calculator_descr">Isang mas pinahusay na kalkulador na may kakayahang mag-save ng molar weights ng iba\'t ibang compound sa pahina ng paborito.</string>
+    <string name="pro_additional_visualisations">Karagdagang Biswalisasyon</string>
+    <string name="pro_additional_visualisations_descr">Access sa mas maraming biswalisasyon sa pangunahing talahanayan gaya ng Poisson\'s Ratio, bulk modulus atbp.</string>
+    <string name="pro_already_purchased_title">Nabili na ang Atomic - Periodic Table PRO?</string>
+    <string name="pro_already_purchased_check">Suriin ang produkto sa account</string>
+    <string name="pro_price_loading">Kinukuha ang presyo...</string>
+    <string name="pro_price_discount">pro_price_discount</string>
+
+    <!-- Activity Element Info-->
+    <string name="element_description_title">Deskripsyon</string>
+    <string name="element_more_title">Karagdagang Katangian</string>
+    <string name="element_speed_sound">Bilis ng tunog:</string>
+    <string name="element_elastic_modulus">Elastic modulus:</string>
+    <string name="element_young_modulus">Young\'s modulus:</string>
+    <string name="element_shear_modulus">Shear modulus:</string>
+    <string name="element_bulk_modulus">Bulk modulus:</string>
+    <string name="element_poisson_ratio">Poisson\'s ratio:</string>
+    <string name="abundance_title">Kasaganaan</string>
+    <string name="abundance_earth_crust">Sa balat ng mundo</string>
+    <string name="abundance_earth_soils">Sa lupa ng mundo</string>
+    <string name="abundance_urban_soil">Sa urbanong lupa</string>
+    <string name="abundance_sea_water">Sa tubig dagat</string>
+    <string name="abundance_crustal_rocks">Sa mga crustal na bato</string>
+    <string name="abundance_sun">Sa atom ng araw</string>
+    <string name="abundance_solar_system">Sa mga atom ng solar system</string>
+
+    <!-- Activity Favorite Settings -->
+    <string name="favorite_settings_title">Paboritong Bar</string>
+    <string name="favorite_settings_general">Pangkalahatan</string>
+    <string name="favorite_settings_temperatures">Temperatura</string>
+    <string name="favorite_settings_atomic_properties">Katangiang Atomiko</string>
+    <string name="favorite_settings_thermodynamics">Termodinamika</string>
+    <string name="favorite_settings_electromagnetic">Katangiang Elektromagnetiko</string>
+    <string name="favorite_settings_nuclear">Nukleyar</string>
+    <string name="show_molar_mass">Ipakita ang Molar Mass</string>
+    <string name="show_stp_phase">Ipakita ang STP Phase</string>
+    <string name="show_electronegativity">Ipakita ang Elektronegati-bidad</string>
+    <string name="show_density">Ipakita ang Densidad</string>
+    <string name="kelvin">Kelvin</string>
+    <string name="celsius">Celsius</string>
+    <string name="fahrenheit">Fahrenheit</string>
+    <string name="show_boiling_point">Ipakita ang Punto ng Pag-kulo</string>
+    <string name="show_melting_point">Ipakita ang Punto ng Pagkatunaw</string>
+    <string name="show_atomic_radius_empirical">Ipakita ang Atomic Radius (Empirical)</string>
+    <string name="show_atomic_radius_calculated">Ipakita ang Atomic Radius (Kalkulado)</string>
+    <string name="show_covalent_radius">Ipakita ang Covalent Radius</string>
+    <string name="show_van_der_waals_radius">Ipakita ang Van Der Waals Radius</string>
+    <string name="show_resistivity">Ipakita ang Resistibidad</string>
+    <string name="show_fusion_heat">Ipakita ang Init ng Pagsasanib</string>
+    <string name="show_specific_heat_capacity">Ipakita ang Tiyak na Kapasidad ng Init</string>
+    <string name="show_vaporization_heat">Ipakita ang Init ng Pag-singaw</string>
+    <string name="show_if_radioactive">Ipakita kung radyaktibo ang elemento</string>
+
+    <!-- Activity Sources Settings -->
+    <string name="sources_settings_title">Pinagmulan</string>
+    <string name="sources_wwe_title">Water and Wastewater Engineering</string>
+    <string name="sources_wwe_text">Mackenzie L. Davis, (2019). Water and wastewater Engineering: Design Principles and Practise, second edition. ISBN: 978-1-260-13227-4</string>
+
+    <!-- Activity Unit Settings -->
+    <string name="unit_settings_title">Mga Yunit ng Talahanayan</string>
+    <string name="unit_temperature">Temperatura</string>
+
+    <!-- Activity Isotopes -->
+    <string name="isotopes_title">Mga Isotopo</string>
+    <string name="iso_no_results">Walang resulta</string>
+    <string name="iso_try_another_search">Subukan maghanap ng ibang salita o suriin ang iyong spelling.</string>
+    <string name="iso_search_hint">Maghanap ng mga Isotopo</string>
+
+    <!-- Activity pH -->
+    <string name="ph_title">pH-Tagapahiwatig</string>
+
+    <!-- Poisson Activity -->
+    <string name="poi_no_results">Walang resulta</string>
+    <string name="poi_try_another_search">Subukan maghanap ng ibang salita o suriin ang iyong spelling.</string>
+    <string name="poi_search_hint">Maghanap ng Diksiyonaryo Item</string>
+    <string name="poi_clear_filter">I-clear ang Filter</string>
+    <string name="poissons_ratio_title">Poisson\'s Ratio</string>
+
+    <!-- Activity Settings-->
+    <string name="other_settings">Advanced</string>
+    <string name="experimental_title">Eksperimental na Mga Setting</string>
+    <string name="experimental_text">Karagdagang mga setting ng eksperimento</string>
+    <string name="clear_cache_title">I-clear ang Cache</string>
+    <string name="clear_cache_text">cache_size</string>
+    <string name="submit_activity_title">Ipasa ang isyu</string>
+    <string name="submit_data_i">Isyu sa Data</string>
+    <string name="submit_bug">Bug</string>
+    <string name="submit_question">Tanong</string>
+    <string name="submit_issue">Isyu</string>
+    <string name="description">Deskripsyon</string>
+    <string name="submit_send">Ipasa ang isyu</string>
+    <string name="submit_title">Iulat ang Isyu</string>
+    <string name="submit_text">Iulat ang bug at error sa data</string>
+    <string name="licenses_title">Mga Lisensya</string>
+    <string name="licenses_text">Mga lisensya ng mga ginamit na gawa sa Atomic</string>
+    <string name="info_title">Impormasyon</string>
+    <string name="info_text">Bersyon ng app at detalye</string>
+    <string name="git_title">Github</string>
+    <string name="git_text">Open-source GitHub repo ng Atomic</string>
+    <string name="table_order_title">Ayusin ang listahan ng talahanayan</string>
+    <string name="table_order_text">Tukuyin ang pagkakasunod ng mga talahanayan</string>
+    <string name="win_title">Kunin ang Desktop App</string>
+    <string name="win_text">I-download ang app para sa Windows</string>
+    <string name="about_author_name">J.LINDEMANN</string>
+    <string name="about_app_name">Atomic - Periodic Table</string>
+    <string name="about_title">Tungkol sa</string>
+    <string name="settings_title">Mga Setting</string>
+    <string name="settings_themes_title">Mga Tema</string>
+    <string name="settings_themes_content">Pumili ng Tema</string>
+    <string name="settings_favorite_title">Paboritong Bar</string>
+    <string name="settings_favorite_content">I-personalize ang paboritong bar</string>
+    <string name="settings_order_title">Order ng Detail Card</string>
+    <string name="settings_order_content">I-customize ang pagkakasunod ng Detail Cards</string>
+    <string name="settings_unit_title">Mga Yunit ng Talahanayan</string>
+    <string name="settings_unit_content">I-customize ang mga yunit sa pangunahing talahanayan</string>
+    <string name="settings_offline_title">Offline na Mode</string>
+    <string name="settings_offline_content">Hindi maglo-load ng mga larawan</string>
+    <string name="settings_nav_bar_title">Auto-hide Bottombar</string>
+    <string name="settings_nav_bar_content">Pinapatigil ang karaniwang gawi</string>
+    <string name="language_title">Mga Wika</string>
+    <string name="language_content">Pumili ng Wika</string>
+    <string name="system_default">Default ng Systema</string>
+    <string name="light">Liwanag</string>
+    <string name="dark">Madilim</string>
+    <string name="cancel">Kanselahin</string>
+    <string name="settings">Mga Setting</string>
+    <string name="themes">Mga Tema</string>
+    <string name="select_theme">Pumili ng Tema</string>
+    <string name="favorite_bar">Paboritong Bar</string>
+    <string name="personalise_favorite_bar">I-personalize ang paboritong bar</string>
+    <string name="detail_card_order">Order ng Detail Card</string>
+    <string name="customize_detail_card_order">I-customize ang pagkakasunod ng Detail Cards</string>
+    <string name="table_units">Mga Yunit ng Talahanayan</string>
+    <string name="customize_units_table">I-customize ang mga yunit sa pangunahing talahanayan</string>
+    <string name="offline_mode">Offline na Mode</string>
+    <string name="offline_mode_desc">Hindi maglo-load ng mga larawan</string>
+    <string name="auto_hide_bottombar">Auto-hide Bottombar</string>
+    <string name="auto_hide_bottombar_desc">Pinapatigil ang karaniwang gawi</string>
+
+    <!-- Calculator Activity -->
+    <string name="weight_calculator_title">Kalkulador ng Timbang</string>
+    <string name="calculator_card_title">Kalkulador:</string>
+    <string name="calculator_formula">Pormula:</string>
+
+    <!-- Constants Activity -->
+    <string name="constants_tite">Talahanayan ng Mga Konstante</string>
+
+    <!-- Activity Licenses-->
+    <string name="license_title">Mga Lisensya</string>
+
+    <!-- Activity Table-->
+    <string name="activity_table_title">Mga Talahanayan</string>
+    <string name="table_ph">pH-Tagapahiwatig</string>
+    <string name="table_ph_text">Isang talahanayan ng pH-tagapahiwatig para sa mga kulay sa iba\'t ibang antas ng asido/alkalina</string>
+    <string name="table_electrochemical">Electrochemical Series</string>
+    <string name="table_electrochemical_text">Isang talahanayan na may electrochemical series, inayos mula (-) hanggang (+) boltahe</string>
+    <string name="table_equations">Mga Pormula</string>
+    <string name="table_equations_text">Isang talahanayan na naglalaman ng mga pormula para sa matematika, pisika at kimika</string>
+    <string name="table_solubility">Talahanayan ng Kalutasan</string>
+    <string name="table_solubility_text">Isang talahanayan na may impormasyon ng kalutasan ng iba\'t ibang sangkap</string>
+    <string name="table_ionization">Energies ng Ionization</string>
+    <string name="table_ionization_text">Isang talahanayan ng energies ng ionization ng iba\'t ibang elemento</string>
+    <string name="table_poisson">Poisson Ratio Table</string>
+    <string name="table_poisson_text">Isang talahanayan ng Poisson ratio para sa iba\'t ibang bato, lupa, mineral at iba pang materyales</string>
+    <string name="table_nuclide">Talahanayan ng Nuclides</string>
+    <string name="table_nuclide_text">Isang two-dimensional na talahanayan ng nuclide, na may kulay para sa uri ng pagkabulok</string>
+    <string name="table_constants_text">Isang talahanayan ng karaniwang konstante para sa kalkulasyon kabilang ang matematika, pisika, standard na daloy ng tubig atbp</string>
+    <string name="table_geology">Talahanayan ng Heolohiya</string>
+    <string name="table_geology_text">Isang talahanayan na naglalaman ng impormasyon tungkol sa mineral, bato at lupa</string>
+    <string name="nuclide_table_title">Talahanayan ng Nuclide</string>
+    <string name="decay_info_fab">Impormasyon ng iba\'t ibang uri ng pagkabulok</string>
+
+    <!-- Activity Geology -->
+    <string name="activity_geology_title">Heolohiya</string>
+    <string name="activity_geology_mineral">Mineral</string>
+    <string name="activity_geology_rock">Bato</string>
+    <string name="activity_geology_soil">Lupa</string>
+    <string name="geo_no_results">Walang resulta</string>
+    <string name="geo_try_another_search">Subukan maghanap ng ibang salita o suriin ang iyong spelling.</string>
+    <string name="geo_search_hint">Maghanap ng Heolohiya Item</string>
+    <string name="geo_clear_filter">I-clear ang Filter</string>
+    <string name="chip_rocks">Bato</string>
+    <string name="chip_soils">Lupa</string>
+    <string name="chip_minerals">Mineral</string>
+
+    <!-- Activity Unit-->
+    <string name="activity_unit_title">Mga Yunit ng Talahanayan</string>
+
+    <!-- Activity Equations -->
+    <string name="activity_equations_title">Mga Pormula</string>
+    <string name="activity_formulas_search">Maghanap ng mga Pormula:</string>
+    <string name="equations_search_other">Subukan maghanap ng ibang salita o suriin ang iyong spelling.</string>
+
+    <!-- Activity pH -->
+    <string name="activity_ph_title">pH Tagapahiwatig</string>
+    <string name="activity_ph_acid">Asido</string>
+    <string name="activity_ph_neutral">Neutral</string>
+    <string name="activity_ph_alkaline">Alkalina</string>
+    <string name="activity_ph_methyl_orange">Methyl-orange</string>
+    <string name="activity_ph_bromothymol_blue">Bromothymol Blue</string>
+    <string name="activity_ph_congo_red">Congo Red</string>
+    <string name="activity_ph_phenolphthalein">Phenolphthalein</string>
+
+    <!-- Activity Ion -->
+    <string name="activity_io_title">Energies ng Ionization</string>
+    <string name="ion_no_results">Walang resulta</string>
+    <string name="ion_try_another_search">Subukan maghanap ng ibang salita o suriin ang iyong spelling.</string>
+
+    <!-- Social-Media Links-->
+    <string name="bluesky">https://bsky.app/profile/jlindemanndev.bsky.social</string>
+    <string name="instagram">https://www.instagram.com/jlindemanndev</string>
+    <string name="facebook">https://www.facebook.com/jlindemanndev</string>
+    <string name="homepage">https://www.jlindemann.se/homepage</string>
+
+    <string name="solubility_info_t">Tulong sa Kalutasan</string>
+    <string name="solubility_info_c">"S: Malulusaw\nSs: Bahagyang Malulusaw\nI: Hindi Malulusaw"</string>
+
+    <string name="electrochemical_series">Electrochemical Series</string>
+    <string name="electrochemical_series_search">Maghanap ng Elemento</string>
+
+    <string name="short_voltage"> (Volt)</string>
+
+    <string name="data_issue">Isyu sa Data</string>
+    <string name="bug">Bug</string>
+    <string name="question">Tanong</string>
+
+    <!-- Dictionary -->
+    <string name="chip_chemistry">Kimika</string>
+    <string name="chip_physics">Pisika</string>
+    <string name="chip_math">Matematika</string>
+    <string name="chip_reactions">Reaksyon</string>
+    <string name="chip_water">Tubig</string>
+
+    <string name="wikipedia_license">Wikipedia Commons</string>
+    <string name="wikipedia_license_text">ANG CREATIVE COMMONS CORPORATION AY HINDI ISANG LAW FIRM AT HINDI NAGBIBIGAY NG LEGAL NA SERBISYO. ANG DISTRIBUSYON NG LISENSIYANG ITO AY HINDI LUMILIKHA NG ATTORNEY-CLIENT RELATIONSHIP. ANG CREATIVE COMMONS AY NAGBIBIGAY NG IMPORMASYON SA "AS-IS" NA BASE. WALANG WARRANTY ANG CREATIVE COMMONS SA IMPORMASYON AT TINATANGGI ANG ANUMANG PANANAGUTAN SA MGA PINSALA NA MAARING MANGYARI SA PAGGAMIT NITO.\n\nANG GAWA (TULAD NG NILARAWAN SA IBABA) AY IBINIBIGAY SA ILALIM NG MGA TERMINO NG CREATIVE COMMONS PUBLIC LICENSE ("CCPL" O "LISENSIYA"). ANG GAWA AY PROTEKTADO NG COPYRIGHT AT/ O IBA PANG BATAS. ANUMANG PAGGAMIT MALIBAN SA PINAPAYAGAN NG LISENSIYANG ITO O BATAS NG COPYRIGHT AY IPINAGBABAWAL. SA PAGGAMIT NG ANUMANG KARAPATAN SA GAWA DITO, TINATANGGAP AT SUMASANG-AYON KA SA MGA TERMINO NG LISENSIYA NA ITO. HANGGANG SA ANG LISENSIYA NA ITO AY MAARING ITURING NA ISANG KONTRATA, ANG LICENSOR AY NAGBIBIGAY SA IYO NG MGA KARAPATAN DITO KAPALIT NG IYONG PAGTANGGAP SA MGA TERMINO AT KONDISYON.</string>
+    <string name="sothree_license">Android Sliding Up Panel</string>
+    <string name="sothree_license_text">Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
+    \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>
+    <string name="appwidget_text">HALIMBAWA</string>
+    <string name="add_widget">Magdagdag ng widget</string>
+
+    <string name="no_results">Walang Resulta</string>
+    <string name="spelling">Subukan maghanap ng ibang salita o suriin ang iyong spelling</string>
+
+    <!-- New Tables Strings -->
+    <string name="phi">pH-Tagapahiwatig</string>
+    <string name="geo">Talahanayan ng Heolohiya</string>
+    <string name="con">Talahanayan ng Mga Konstante</string>
+    <string name="nuc">Talahanayan ng Nuclides</string>
+    <string name="poi">Poisson Ratio Table</string>
+    <string name="sol">Talahanayan ng Kalutasan</string>
+    <string name="ion">Energies ng Ionization</string>
+    <string name="eqe">Mga Pormula</string>
+    <string name="ele">Electrochemical Series</string>
+    <string name="iso">Isotopes</string>
+    <string name="emi">Talahanayan ng Emisyon ng Spektrum</string>
+
+    <string name="requires_pro">Kailangan ng PRO-Bersyon</string>
+    <string name="try_another_search">Subukan maghanap ng ibang salita o suriin ang iyong spelling.</string>
+
+    <string name="emission_title">Talahanayan ng Emisyon ng Spektrum</string>
+    <string name="emission_text">Emisyon ng spektrum para sa mga elemento, na siyang dalas ng electromagnetic radiation na inilalabas dahil sa paglipat ng elektron mula mas mataas patungo sa mas mababang energy state.</string>
+
+    <!-- New Tools String -->
+    <string name="cal">Kalkulador</string>
+    <string name="rec">Mga Reaksiyong Kemikal</string>
+    <string name="uni">Unit Converter</string>
+    <string name="fla">Flashcards</string>
+    <string name="unit_title">Unit Converter</string>
+    <string name="unit_description">Isang simpleng unit converter para sa maraming gamit</string>
+
+    <string name="most_used">Pinakagamit:</string>
+
+    <string name="calculator_title">Kalkulador</string>
+    <string name="calculator_text">Naglalaman ng kalkulador para sa pagkalkula ng molar mass ng iba\'t ibang compound pati na rin ang pag-save ng paborito</string>
+    <string name="tools_title">Mga Kasangkapan (hal. kalkulador)</string>
+    <string name="balancer_title">Mga Reaksiyong Kemikal</string>
+    <string name="balancer_text">Balansihin ang iba\'t ibang reaksiyong kemikal at i-save ang mga paborito para sa susunod na paggamit</string>
+    <string name="tool_btn_open">Buksan ang Kasangkapan</string>
+    <string name="calc_molar_mass">Molar Mass:</string>
+    <string name="calc_elements_shown">Ipinapakita rito ang mga kasamang elemento</string>
+    <string name="calc_favorites">Paborito:</string>
+    <string name="calc_no_favorites">Wala pang paborito</string>
+    <string name="calc_no_pro_text">Para ma-access at ma-save sa paborito kailangan mo ng PRO-Bersyon</string>
+
+    <!-- User Page -->
+    <string name="user_title">Pahina ng Gumagamit</string>
+    <string name="user_achievements">Mga Nakamit</string>
+    <string name="user_achievements_Text">Subaybayan ang iyong progreso sa pag-aaral ng mga elemento ng mundo gamit ang mga nakamit</string>
+    <string name="user_img">Palitan ang larawan ng profile</string>
+
+    <!-- Hazard Properties -->
+    <string name="hazard_title">Panganib ng mga Materyales</string>
+    <string name="hazard_title_requires_pro">Panganib ng mga Materyales ay nangangailangan ng PRO-bersyon. Kumuha ng PRO upang ma-unlock ang mas maraming data at talahanayan:</string>
+    <string name="fire_hazard">Panganib sa apoy:</string>
+    <string name="health_hazard">Panganib sa kalusugan:</string>
+    <string name="reactivity_hazard">Reaktibidad:</string>
+    <string name="specific_hazard">Tiyak na panganib:</string>
+
+    <!-- Grid Properties -->
+    <string name="grid_title">Mga Katangian ng Grid</string>
+    <string name="crystal_structure">Istruktura ng Kristal:</string>
+    <string name="grid_parameters">Mga Parameter ng Grid: (lattice constants)</string>
+    <string name="debye_temperature_low_temperature_limit">Debye Temperature: (mababang temperatura)</string>
+    <string name="debye_temperature_room_temperature">Debye Temperature: (room temperature)</string>
+
+    <string name="cas_number">CAS Number:</string>
+    <string name="eg_number">EG Number:</string>
+    <string name="other_title">Iba pa</string>
+
+    <string name="clear_filter">I-clear ang Filter</string>
+    <string name="constants_search">Maghanap ng konstante</string>
+
+    <string name="dictionary">Diksiyonaryo</string>
+    <string name="dictionary_search">Maghanap ng Diksiyonaryo Item</string>
+
+    <string name="element_info_title">Impormasyon ng Elemento</string>
+
+    <string name="submit_data_issue">Ipasa ang Isyu sa Data</string>
+
+    <!-- Unit Converter -->
+    <string name="unit_converter_title">Unit Converter</string>
+    <string name="unit_enter_value">Halaga</string>
+    <string name="unit_output_value">Output</string>
+    <string name="unit_category">Kategorya:</string>
+    <string name="unit_formula">Pormula:</string>
+    <string name="unit_add_favorite">Idagdag sa Paborito:</string>
+    <string name="unit_favorites">Paborito:</string>
+    <string name="unit_display_formula">Ipakikita rito ang pormula</string>
+
+    <!-- Flashcard mini-games -->
+    <string name="flashcards_title">Flashcards</string>
+    <string name="flashcards_info">Matutunan ang Periodic Table gamit ang "learning-games"</string>
+    <string name="flashcards_lives_info">Bawat maling sagot ay magreresulta sa bawas na buhay</string>
+    <string name="learning_games">Learning-Games:</string>
+    <string name="flashcards_element_symbols">Simbolo ng Elemento</string>
+    <string name="flashcards_element_classifications">Klasipikasyon ng Elemento</string>
+    <string name="flashcards_atomic_mass">Atomic Mass</string>
+    <string name="flashcards_chemical_reactions">Mga Reaksiyong Kemikal</string>
+    <string name="flashcards_mixed_questions">Halo-halong Tanong</string>
+    <string name="flashcards_statistics">Istatistika</string>
+    <string name="flashcards_total_xp">Kabuuang XP</string>
+    <string name="flashcards_total_games">Mga Laro</string>
+    <string name="flashcards_level">Antas</string>
+    <string name="flashcards_difficulty">Piliin ang Hirap:</string>
+    <string name="flashcards_difficulty_title">Hirap</string>
+    <string name="flashcards_free_games">Libreng Laro:</string>
+    <string name="flashcards_pro_plus_games">PRO+ na Laro:</string>
+    <string name="flashcards_pro_level_0_5">Antas 0-4:</string>
+    <string name="flashcards_pro_level_5_10">Antas 5-9:</string>
+    <string name="flashcards_pro_level_10_15">Antas 10-14:</string>
+    <string name="flashcards_game_element_symbols">Simbolo ng Elemento</string>
+    <string name="flashcards_game_element_names">Mga Pangalan ng Elemento</string>
+    <string name="flashcards_game_element_groups">Mga Grupo ng Elemento</string>
+    <string name="flashcards_game_element_appearance">Hitsura</string>
+    <string name="flashcards_game_element_atomic_mass">Atomic Mass</string>
+    <string name="flashcards_game_element_density">Densidad</string>
+    <string name="progress_text_placeholder">50/500</string>
+    <string name="total_xp_placeholder">Kabuuang XP: ---</string>
+    <string name="unlock_all_flashcards">I-unlock lahat ng Flashcards at Tampok</string>
+    <string name="upgrade_to_pro_plus">Mag-upgrade sa PRO+</string>
+    <string name="upgrade_pro_plus_description">Makakuha ng unlimited na buhay at karagdagang flashcard games gaya ng electronegativity, radioactivity, crystal structure at iba pa!</string>
+    <string name="easy">Madali</string>
+    <string name="medium">Katamtaman</string>
+    <string name="hard">Mahirap</string>
+    <string name="level_0_4">Antas 0–4</string>
+    <string name="element_symbols">Simbolo ng Elemento</string>
+    <string name="element_names">Mga Pangalan ng Elemento</string>
+    <string name="element_groups">Mga Grupo ng Elemento</string>
+    <string name="discovered_by">Natuklasan Ni</string>
+    <string name="discovery_year">Taon ng Pagkatuklas</string>
+    <string name="level_5_9">Antas 5–9</string>
+    <string name="appearance">Hitsura</string>
+    <string name="atomic_number">Atomic na Numero</string>
+    <string name="electrical_type">Uri ng Elektrikal</string>
+    <string name="radioactive">Radyaktibo</string>
+    <string name="level_10_14">Antas 10–14</string>
+    <string name="atomic_mass">Atomic Mass</string>
+    <string name="density">Densidad</string>
+    <string name="electronegativity">Elektronegatibidad</string>
+    <string name="block">Bloke</string>
+    <string name="level_15_19">Antas 15–19</string>
+    <string name="magnetic_type">Uri ng Magnetiko</string>
+    <string name="phase_stp">Phase (STP)</string>
+    <string name="superconducting_point">Superconducting Point</string>
+    <string name="level_20_24">Antas 20–24</string>
+    <string name="neutron_cross_sectional">Neutron Cross Sectional</string>
+    <string name="specific_heat_capacity">Tiyak na Kapasidad ng Init</string>
+    <string name="mohs_hardness">Mohs Hardness</string>
+    <string name="vickers_hardness">Vickers Hardness</string>
+    <string name="brinell_hardness">Brinell Hardness</string>
+    <string name="pro_plus_badge">PRO+</string>
+    <string name="lives_count_placeholder">5</string>
+    <string name="level_stat_placeholder">---</string>
+    <string name="completed_quizzes_stat_placeholder">---</string>
+
+    <!-- Popup Pro -->
+    <string name="popup_title">Mag-upgrade sa PRO+</string>
+    <string name="popup_content_text">I-upgrade ang \'Atomic - Periodic Table\' para ma-unlock ang karagdagang data, talahanayan, at flashcards upang matuto pa tungkol sa periodic table.</string>
+    <string name="popup_action_button">Mag-upgrade sa PRO+</string>
+    <string name="popup_secondary_button">Hindi ngayon</string>
+    <string name="credits_title">Mga Kredito</string>
+    <string name="credits_text">Mga kredito sa mga nag-ambag</string>
+</resources>

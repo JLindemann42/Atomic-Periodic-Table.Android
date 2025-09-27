@@ -2,9 +2,6 @@
     <string name="app_name">एटॉमिक</string>
 
     <string name="personalization_settings">व्यक्तिकरण</string>
-    <string name="app_version" translatable="false">v4.1.1m-Build.159</string>
-    <string name="next_sale_start" translatable="false">2024/08/05</string>
-    <string name="next_sale_end" translatable="false">2024/09/15</string>
 
     <string name="open_table_button">तालिका खोलें</string>
 

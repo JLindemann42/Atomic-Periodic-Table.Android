@@ -193,12 +193,16 @@ class SettingsActivity : BaseActivity() {
     private fun getSupportedLanguages(): List<LanguageOption> = listOf(
         LanguageOption("English", Locale("en").getDisplayLanguage(Locale("en")), Locale("en")),
         LanguageOption("Swedish", Locale("sv", "SE").getDisplayLanguage(Locale("sv", "SE")), Locale("sv", "SE")),
-        LanguageOption("Spanish", Locale("es", "ES").getDisplayLanguage(Locale("es", "ES")), Locale("es", "ES")),
+        LanguageOption("Spanish (Spain)", Locale("es", "ES").getDisplayLanguage(Locale("es", "ES")), Locale("es", "ES")),
+        LanguageOption("Spanish (Argentina)", Locale("es", "AR").getDisplayLanguage(Locale("es", "AR")), Locale("es", "AR")),
+        LanguageOption("Spanish (Mexico)", Locale("es", "MX").getDisplayLanguage(Locale("es", "MX")), Locale("es", "MX")),
         LanguageOption("Italian", Locale("it", "IT").getDisplayLanguage(Locale("it", "IT")), Locale("it", "IT")),
         LanguageOption("Afrikaans", Locale("af").getDisplayLanguage(Locale("af")), Locale("af")),
-        LanguageOption("Hindi", Locale("hi").getDisplayLanguage(Locale("hi")), Locale("hi"))
+        LanguageOption("Hindi", Locale("hi").getDisplayLanguage(Locale("hi")), Locale("hi")),
+        LanguageOption("Filipino", Locale.forLanguageTag("fil").getDisplayLanguage(Locale.forLanguageTag("fil")), Locale.forLanguageTag("fil")),
+        LanguageOption("Urdu (Pakistan)", Locale("ur", "PK").getDisplayLanguage(Locale("ur", "PK")), Locale("ur", "PK")),
+        LanguageOption("Urdu (India)", Locale("ur", "IN").getDisplayLanguage(Locale("ur", "IN")), Locale("ur", "IN"))
     )
-
     private fun getSystemLocale(): Locale {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             resources.configuration.locales.get(0)
