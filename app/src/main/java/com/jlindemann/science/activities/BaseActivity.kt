@@ -95,4 +95,6 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
         val livesLabelView = findViewById<TextView?>(R.id.tv_lives)
         livesLabelView?.text = "Lives: $livesDisplay"
     }
+
+
 }

@@ -235,7 +235,7 @@ class SettingsActivity : BaseActivity() {
         var checkedItem = 0
         if (currentPref != null) {
             checkedItem = languages.indexOfFirst {
-                it.locale.language == currentPref.language && (it.locale.country.isEmpty() || it.locale.country == currentPref.country)
+                it.locale.language == currentPref.language && it.locale.country == currentPref.country
             }
             if (checkedItem != -1) checkedItem += 1 else checkedItem = 0
         }
@@ -275,7 +275,7 @@ class SettingsActivity : BaseActivity() {
         val langOption = when (val pref = getCurrentLanguagePreference()) {
             null -> getSystemLanguageOption()
             else -> getSupportedLanguages().find {
-                it.locale.language == pref.language && (it.locale.country.isEmpty() || it.locale.country == pref.country)
+                it.locale.language == pref.language && it.locale.country == pref.country
             } ?: getSystemLanguageOption()
         }
         findViewById<TextView>(R.id.language_content).text = langOption.getDisplayName()
@@ -284,10 +284,9 @@ class SettingsActivity : BaseActivity() {
     private fun getCurrentLanguagePreference(): Locale? {
         val prefs = getSharedPreferences("settings", MODE_PRIVATE)
         val lang = prefs.getString("app_language", null)
-        val country = prefs.getString("app_country", null)
+        val country = prefs.getString("app_country", "")
         return if (lang.isNullOrBlank()) null
-        else if (country.isNullOrBlank()) Locale(lang)
-        else Locale(lang, country)
+        else Locale(lang, country ?: "")
     }
 
     private fun setLanguagePreference(locale: Locale?) {
@@ -297,7 +296,7 @@ class SettingsActivity : BaseActivity() {
         } else {
             prefs.edit()
                 .putString("app_language", locale.language)
-                .putString("app_country", locale.country)
+                .putString("app_country", locale.country ?: "")
                 .apply()
         }
     }
