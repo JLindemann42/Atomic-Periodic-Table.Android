@@ -372,4 +372,6 @@
     <string name="offline_mode_desc">Deaktiveer laai van beelde</string>
     <string name="auto_hide_bottombar">Outo-versteek onderste balk</string>
     <string name="auto_hide_bottombar_desc">Deaktiveer die standaard gedrag</string>
+    <string name="credits_title">Toeskrywings</string>
+    <string name="credits_text">Toeskrywings aan bydraers</string>
 </resources>

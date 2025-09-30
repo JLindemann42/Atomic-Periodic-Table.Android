@@ -89,7 +89,7 @@ class SettingsActivity : BaseActivity() {
         findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         // Title Controller with animated visibility
-        findViewById<FrameLayout>(R.id.common_title_settings_color).visibility = View.INVISIBLE
+        findViewById<FrameLayout>(R.id.common_title_settings_color).visibility = View.VISIBLE
         findViewById<TextView>(R.id.element_title).visibility = View.INVISIBLE
         findViewById<FrameLayout>(R.id.common_title_back_set).elevation = (resources.getDimension(R.dimen.zero_elevation))
         findViewById<ScrollView>(R.id.scroll_settings).viewTreeObserver
@@ -98,7 +98,7 @@ class SettingsActivity : BaseActivity() {
 
                 override fun onScrollChanged() {
                     val scrollY = findViewById<ScrollView>(R.id.scroll_settings).scrollY
-                    val threshold = 150
+                    val threshold = 158
 
                     val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_settings_color)
                     val titleText = findViewById<TextView>(R.id.element_title)
@@ -110,12 +110,12 @@ class SettingsActivity : BaseActivity() {
                             TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
                             TitleBarAnimator.animateVisibility(titleText, true)
                             TitleBarAnimator.animateVisibility(titleDownstateText, false)
-                            titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
+                            titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
                             isTitleVisible = true
                         }
                     } else {
                         if (isTitleVisible) {
-                            TitleBarAnimator.animateVisibility(titleColorBackground, false)
+                            TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
                             TitleBarAnimator.animateVisibility(titleText, false)
                             TitleBarAnimator.animateVisibility(titleDownstateText, true)
                             titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
@@ -193,11 +193,16 @@ class SettingsActivity : BaseActivity() {
     private fun getSupportedLanguages(): List<LanguageOption> = listOf(
         LanguageOption("English", Locale("en").getDisplayLanguage(Locale("en")), Locale("en")),
         LanguageOption("Swedish", Locale("sv", "SE").getDisplayLanguage(Locale("sv", "SE")), Locale("sv", "SE")),
-        LanguageOption("Spanish", Locale("es", "ES").getDisplayLanguage(Locale("es", "ES")), Locale("es", "ES")),
+        LanguageOption("Spanish (Spain)", Locale("es", "ES").getDisplayLanguage(Locale("es", "ES")), Locale("es", "ES")),
+        LanguageOption("Spanish (Argentina)", Locale("es", "AR").getDisplayLanguage(Locale("es", "AR")), Locale("es", "AR")),
+        LanguageOption("Spanish (Mexico)", Locale("es", "MX").getDisplayLanguage(Locale("es", "MX")), Locale("es", "MX")),
         LanguageOption("Italian", Locale("it", "IT").getDisplayLanguage(Locale("it", "IT")), Locale("it", "IT")),
-        LanguageOption("Afrikaans", Locale("af", "ZA").getDisplayLanguage(Locale("af", "ZA")), Locale("af", "ZA"))
+        LanguageOption("Afrikaans", Locale("af").getDisplayLanguage(Locale("af")), Locale("af")),
+        LanguageOption("Hindi", Locale("hi").getDisplayLanguage(Locale("hi")), Locale("hi")),
+        LanguageOption("Filipino", Locale.forLanguageTag("fil").getDisplayLanguage(Locale.forLanguageTag("fil")), Locale.forLanguageTag("fil")),
+        LanguageOption("Urdu (Pakistan)", Locale("ur", "PK").getDisplayLanguage(Locale("ur", "PK")), Locale("ur", "PK")),
+        LanguageOption("Urdu (India)", Locale("ur", "IN").getDisplayLanguage(Locale("ur", "IN")), Locale("ur", "IN"))
     )
-
     private fun getSystemLocale(): Locale {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             resources.configuration.locales.get(0)
@@ -209,7 +214,7 @@ class SettingsActivity : BaseActivity() {
     private fun getSystemLanguageOption(): LanguageOption {
         val systemLocale = getSystemLocale()
         return getSupportedLanguages().find {
-            it.locale.language == systemLocale.language && it.locale.country == systemLocale.country
+            it.locale.language == systemLocale.language && (it.locale.country.isEmpty() || it.locale.country == systemLocale.country)
         } ?: getSupportedLanguages()[0]
     }
 
@@ -223,14 +228,14 @@ class SettingsActivity : BaseActivity() {
         val languages = getSupportedLanguages()
         val systemLangOption = getSystemLanguageOption()
         val languageNames = mutableListOf<String>()
-        languageNames.add("System default")
+        languageNames.add(getString(R.string.system_default))
         languageNames.addAll(languages.map { it.getDisplayName() })
 
         val currentPref = getCurrentLanguagePreference()
         var checkedItem = 0
         if (currentPref != null) {
             checkedItem = languages.indexOfFirst {
-                it.locale.language == currentPref.language && it.locale.country == currentPref.country
+                it.locale.language == currentPref.language && (it.locale.country.isEmpty() || it.locale.country == currentPref.country)
             }
             if (checkedItem != -1) checkedItem += 1 else checkedItem = 0
         }
@@ -270,7 +275,7 @@ class SettingsActivity : BaseActivity() {
         val langOption = when (val pref = getCurrentLanguagePreference()) {
             null -> getSystemLanguageOption()
             else -> getSupportedLanguages().find {
-                it.locale.language == pref.language && it.locale.country == pref.country
+                it.locale.language == pref.language && (it.locale.country.isEmpty() || it.locale.country == pref.country)
             } ?: getSystemLanguageOption()
         }
         findViewById<TextView>(R.id.language_content).text = langOption.getDisplayName()

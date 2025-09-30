@@ -372,4 +372,6 @@
     <string name="popup_content_text">Aggiorna "Atomic - Tavola Periodica" per sbloccare dati, tabelle e flashcard aggiuntivi per imparare di più sulla tavola periodica.</string>
     <string name="popup_action_button">Passa a PRO+</string>
     <string name="popup_secondary_button">Non oggi</string>
+    <string name="credits_title">Attribuzioni</string>
+    <string name="credits_text">Attribuzioni ai collaboratori</string>
 </resources>

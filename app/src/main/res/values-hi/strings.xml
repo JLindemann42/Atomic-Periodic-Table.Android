@@ -1,0 +1,456 @@
+<resources>
+    <string name="app_name">एटॉमिक</string>
+
+    <string name="personalization_settings">व्यक्तिकरण</string>
+
+    <string name="open_table_button">तालिका खोलें</string>
+
+    <string name="search">तत्व खोजें</string>
+    <string name="search_elements">तत्व खोजें</string>
+    <string name="element_number">तत्व संख्या</string>
+    <string name="blog">ब्लॉग</string>
+    <string name="Tables">तालिकाएँ</string>
+    <string name="alphabetical">वर्णानुक्रम</string>
+    <string name="Dictionary">शब्दकोश</string>
+    <string name="New">नया</string>
+
+    <!-- Hover Menu -->
+    <string name="display_mode">प्रदर्शन मोड</string>
+    <string name="element_name_default">तत्व नाम (डिफ़ॉल्ट)</string>
+    <string name="atomic_weight">आणविक भार</string>
+    <string name="boiling_point">उबाल बिंदु</string>
+    <string name="melting_point">गलनांक</string>
+    <string name="year_discovered">खोज का वर्ष</string>
+    <string name="fusion_heat">संलयन ऊष्मा</string>
+    <string name="vaporization_heat">वाष्पीकरण ऊष्मा</string>
+    <string name="poissons_ratio">प्वासों अनुपात</string>
+    <string name="youngs_modulus">यंग्स मॉड्यूलस</string>
+    <string name="bulk_modulus">बल्क मॉड्यूलस</string>
+    <string name="shear_modulus">शीयर मॉड्यूलस</string>
+    <string name="electrical_resistivity">वैद्युत प्रतिरोधकता</string>
+    <string name="random_element">यादृच्छिक तत्व</string>
+
+    <!-- PRO Activity -->
+    <string name="pro_title">PRO संस्करण</string>
+    <string name="get_pro_title">PRO संस्करण प्राप्त करें</string>
+    <string name="pro_descr">\'एटॉमिक - पीरियोडिक टेबल\' एक मुफ़्त और ओपन-सोर्स ऐप है जिसे मैंने अपने खाली समय में स्वीडन में बनाया है। PRO संस्करण खरीदने से आप विकास में सहायता करते हैं और साथ ही अतिरिक्त डेटा और सुविधाएँ भी प्राप्त करते हैं!</string>
+    <string name="member_title">PRO सदस्य पृष्ठ</string>
+    <string name="member_desch">\'एटॉमिक - पीरियोडिक टेबल\' के विकास का समर्थन करने के लिए धन्यवाद। इस पृष्ठ पर आपकी PRO सुविधाएँ दिखाई जाएँगी जैसे-जैसे और PRO फीचर्स जुड़ते हैं।</string>
+    <string name="member_already">आप PRO सदस्य हैं!</string>
+    <string name="member_btn">आपकी PRO विशेषताएँ</string>
+    <string name="pro_get_more_out">एटॉमिक का अधिक लाभ लें</string>
+    <string name="pro_features_title">PRO संस्करण की विशेषताएँ:</string>
+    <string name="pro_features_descr">PRO संस्करण की अनेक विशेषताओं और उनमें क्या शामिल है, जानें।</string>
+    <string name="pro_upgrade_to_pro">PRO में अपग्रेड करें</string>
+    <string name="pro_additional_data">अतिरिक्त डेटा</string>
+    <string name="pro_additional_data_descr">अतिरिक्त डेटा जैसे कठोरता गुण (मोहोस-, विकर्स-, ब्रिनेल कठोरता) साथ ही ध्वनि की गति, प्वासों स्थिरांक, यंग्स-, बल्क- व शीयर मॉड्यूलस आदि। साथ ही खनिजों की पहचान संबंधी जानकारी।</string>
+    <string name="pro_additional_tables">अतिरिक्त तालिकाएँ</string>
+    <string name="pro_additional_tables_descr">अतिरिक्त तालिकाएँ जिनमें न्यूक्लाइड तालिका, प्वासों अनुपात तालिका, स्थिरांक तालिका, भूविज्ञान तालिका आदि शामिल हैं, और भविष्य में और भी जोड़ी जाएँगी।</string>
+    <string name="pro_better_calculator">बेहतर कैलकुलेटर</string>
+    <string name="pro_better_calculator_descr">एक उन्नत कैलकुलेटर जिसमें विभिन्न यौगिकों के मोलर भार को पसंदीदा पृष्ठ में सहेजने की सुविधा है।</string>
+    <string name="pro_additional_visualisations">अतिरिक्त दृश्यमानता</string>
+    <string name="pro_additional_visualisations_descr">मुख्य तालिका में और अधिक दृश्यमानता जैसे प्वासों अनुपात, बल्क मॉड्यूलस आदि की पहुँच।</string>
+    <string name="pro_already_purchased_title">पहले ही Atomic - Periodic Table PRO खरीदा है?</string>
+    <string name="pro_already_purchased_check">खाता पर उत्पाद जांचें</string>
+    <string name="pro_price_loading">मूल्य प्राप्त किया जा रहा है...</string>
+    <string name="pro_price_discount">pro_price_discount</string>
+
+    <!-- Activity Element Info-->
+    <string name="element_description_title">विवरण</string>
+    <string name="element_more_title">अतिरिक्त गुण</string>
+    <string name="element_speed_sound">ध्वनि की गति:</string>
+    <string name="element_elastic_modulus">लोच मॉड्यूलस:</string>
+    <string name="element_young_modulus">यंग्स मॉड्यूलस:</string>
+    <string name="element_shear_modulus">शीयर मॉड्यूलस:</string>
+    <string name="element_bulk_modulus">बल्क मॉड्यूलस:</string>
+    <string name="element_poisson_ratio">प्वासों अनुपात:</string>
+    <string name="abundance_title">प्रचुरता</string>
+    <string name="abundance_earth_crust">पृथ्वी की पर्पटी में</string>
+    <string name="abundance_earth_soils">पृथ्वी की मिट्टी में</string>
+    <string name="abundance_urban_soil">शहरी मिट्टी में</string>
+    <string name="abundance_sea_water">समुद्री जल में</string>
+    <string name="abundance_crustal_rocks">पर्पटी चट्टानों में</string>
+    <string name="abundance_sun">सूर्य के परमाणुओं में</string>
+    <string name="abundance_solar_system">सौरमंडल के परमाणुओं में</string>
+
+    <!-- Activity Favorite Settings -->
+    <string name="favorite_settings_title">पसंदीदा पट्टी</string>
+    <string name="favorite_settings_general">सामान्य</string>
+    <string name="favorite_settings_temperatures">तापमान</string>
+    <string name="favorite_settings_atomic_properties">आणविक गुण</string>
+    <string name="favorite_settings_thermodynamics">ऊष्मागतिक</string>
+    <string name="favorite_settings_electromagnetic">वैद्युतचुंबकीय गुण</string>
+    <string name="favorite_settings_nuclear">नाभिकीय</string>
+    <string name="show_molar_mass">मोलर भार दिखाएँ</string>
+    <string name="show_stp_phase">STP अवस्था दिखाएँ</string>
+    <string name="show_electronegativity">इलेक्ट्रोनगेटिविटी दिखाएँ</string>
+    <string name="show_density">घनत्व दिखाएँ</string>
+    <string name="kelvin">केल्विन</string>
+    <string name="celsius">सेल्सियस</string>
+    <string name="fahrenheit">फारेनहाइट</string>
+    <string name="show_boiling_point">उबाल बिंदु दिखाएँ</string>
+    <string name="show_melting_point">गलनांक दिखाएँ</string>
+    <string name="show_atomic_radius_empirical">आणविक त्रिज्या (अनुभवजन्य) दिखाएँ</string>
+    <string name="show_atomic_radius_calculated">आणविक त्रिज्या (गणना की गई) दिखाएँ</string>
+    <string name="show_covalent_radius">कोवेलेंट त्रिज्या दिखाएँ</string>
+    <string name="show_van_der_waals_radius">वान डेर वाल्स त्रिज्या दिखाएँ</string>
+    <string name="show_resistivity">प्रतिरोधकता दिखाएँ</string>
+    <string name="show_fusion_heat">संलयन ऊष्मा दिखाएँ</string>
+    <string name="show_specific_heat_capacity">विशिष्ट ऊष्मा धारिता दिखाएँ</string>
+    <string name="show_vaporization_heat">वाष्पीकरण ऊष्मा दिखाएँ</string>
+    <string name="show_if_radioactive">यदि रेडियोधर्मी तत्व है तो दिखाएँ</string>
+
+    <!-- Activity Sources Settings -->
+    <string name="sources_settings_title">स्रोत</string>
+    <string name="sources_wwe_title">जल एवं अपशिष्ट जल इंजीनियरिंग</string>
+    <string name="sources_wwe_text">मैकेंज़ी एल. डेविस, (2019)। वॉटर एंड वेस्टवॉटर इंजीनियरिंग: डिज़ाइन प्रिंसिपल्स एंड प्रैक्टिस, द्वितीय संस्करण। ISBN: 978-1-260-13227-4</string>
+
+    <!-- Activity Unit Settings -->
+    <string name="unit_settings_title">तालिका इकाइयाँ</string>
+    <string name="unit_temperature">तापमान</string>
+
+    <!-- Activity Isotopes -->
+    <string name="isotopes_title">आइसोटोप</string>
+    <string name="iso_no_results">कोई परिणाम नहीं</string>
+    <string name="iso_try_another_search">कृपया अन्य शब्द खोजें या अपनी वर्तनी जांचें।</string>
+    <string name="iso_search_hint">आइसोटोप खोजें</string>
+
+    <!-- Activity pH -->
+    <string name="ph_title">pH-सूचक</string>
+
+    <!-- Poisson Activity -->
+    <string name="poi_no_results">कोई परिणाम नहीं</string>
+    <string name="poi_try_another_search">कृपया अन्य शब्द खोजें या अपनी वर्तनी जांचें।</string>
+    <string name="poi_search_hint">शब्दकोश वस्तु खोजें</string>
+    <string name="poi_clear_filter">फ़िल्टर हटाएँ</string>
+    <string name="poissons_ratio_title">प्वासों अनुपात</string>
+
+    <!-- Activity Settings-->
+    <string name="other_settings">उन्नत</string>
+    <string name="experimental_title">प्रायोगिक सेटिंग्स</string>
+    <string name="experimental_text">अतिरिक्त प्रायोगिक सेटिंग्स</string>
+    <string name="clear_cache_title">कैश साफ करें</string>
+    <string name="clear_cache_text">cache_size</string>
+    <string name="submit_activity_title">समस्या सबमिट करें</string>
+    <string name="submit_data_i">डेटा समस्या</string>
+    <string name="submit_bug">बग</string>
+    <string name="submit_question">प्रश्न</string>
+    <string name="submit_issue">समस्या</string>
+    <string name="description">विवरण</string>
+    <string name="submit_send">समस्या सबमिट करें</string>
+    <string name="submit_title">समस्या रिपोर्ट करें</string>
+    <string name="submit_text">बग और डेटा त्रुटियाँ रिपोर्ट करें</string>
+    <string name="licenses_title">लाइसेंस</string>
+    <string name="licenses_text">एटॉमिक द्वारा प्रयुक्त कार्यों के लाइसेंस</string>
+    <string name="info_title">जानकारी</string>
+    <string name="info_text">ऐप संस्करण और विवरण</string>
+    <string name="git_title">गिटहब</string>
+    <string name="git_text">एटॉमिक का ओपन-सोर्स गिटहब रिपो</string>
+    <string name="table_order_title">तालिका सूची क्रम</string>
+    <string name="table_order_text">तालिकाओं का क्रम निर्धारित करें</string>
+    <string name="win_title">डेस्कटॉप ऐप प्राप्त करें</string>
+    <string name="win_text">विंडोज़ के लिए ऐप डाउनलोड करें</string>
+    <string name="about_author_name">जे.लिंडेमान</string>
+    <string name="about_app_name">एटॉमिक - पीरियोडिक टेबल</string>
+    <string name="about_title">परिचय</string>
+    <string name="settings_title">सेटिंग्स</string>
+    <string name="settings_themes_title">थीम्स</string>
+    <string name="settings_themes_content">थीम चुनें</string>
+    <string name="settings_favorite_title">पसंदीदा पट्टी</string>
+    <string name="settings_favorite_content">पसंदीदा पट्टी को वैयक्तिक करें</string>
+    <string name="settings_order_title">विस्तृत कार्ड क्रम</string>
+    <string name="settings_order_content">विस्तृत कार्ड्स के क्रम को अनुकूलित करें</string>
+    <string name="settings_unit_title">तालिका इकाइयाँ</string>
+    <string name="settings_unit_content">मुख्य तालिका में इकाइयाँ अनुकूलित करें</string>
+    <string name="settings_offline_title">ऑफ़लाइन मोड</string>
+    <string name="settings_offline_content">चित्रों को लोड करना अक्षम करता है</string>
+    <string name="settings_nav_bar_title">स्वचालित छुपाएं बॉटमबार</string>
+    <string name="settings_nav_bar_content">मानक व्यवहार को अक्षम करता है</string>
+    <string name="language_title">भाषाएँ</string>
+    <string name="language_content">भाषा चुनें</string>
+    <string name="system_default">सिस्टम डिफ़ॉल्ट</string>
+    <string name="light">हल्का</string>
+    <string name="dark">गहरा</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="settings">सेटिंग्स</string>
+    <string name="themes">थीम्स</string>
+    <string name="select_theme">थीम चुनें</string>
+    <string name="favorite_bar">पसंदीदा पट्टी</string>
+    <string name="personalise_favorite_bar">पसंदीदा पट्टी को वैयक्तिक करें</string>
+    <string name="detail_card_order">विस्तृत कार्ड क्रम</string>
+    <string name="customize_detail_card_order">विस्तृत कार्ड्स का क्रम अनुकूलित करें</string>
+    <string name="table_units">तालिका इकाइयाँ</string>
+    <string name="customize_units_table">मुख्य तालिका में इकाइयाँ अनुकूलित करें</string>
+    <string name="offline_mode">ऑफ़लाइन मोड</string>
+    <string name="offline_mode_desc">चित्रों को लोड करना अक्षम करता है</string>
+    <string name="auto_hide_bottombar">स्वचालित छुपाएं बॉटमबार</string>
+    <string name="auto_hide_bottombar_desc">मानक व्यवहार को अक्षम करता है</string>
+
+    <!-- Calculator Activity -->
+    <string name="weight_calculator_title">भार कैलकुलेटर</string>
+    <string name="calculator_card_title">कैलकुलेटर:</string>
+    <string name="calculator_formula">सूत्र:</string>
+
+    <!-- Constants Activity -->
+    <string name="constants_tite">स्थिरांक तालिका</string>
+
+    <!-- Activity Licenses-->
+    <string name="license_title">लाइसेंस</string>
+
+    <!-- Activity Table-->
+    <string name="activity_table_title">तालिकाएँ</string>
+    <string name="table_ph">pH-सूचक</string>
+    <string name="table_ph_text">विभिन्न अम्ल/क्षार स्तरों पर रंगों के लिए pH-सूचक तालिका</string>
+    <string name="table_electrochemical">विद्युत रासायनिक श्रेणी</string>
+    <string name="table_electrochemical_text">एक विद्युत रासायनिक श्रेणी वाली तालिका, (-) से (+) वोल्टेज के क्रम में</string>
+    <string name="table_equations">सूत्र</string>
+    <string name="table_equations_text">गणित, भौतिकी और रसायन के सूत्रों वाली तालिका</string>
+    <string name="table_solubility">द्राव्यता तालिका</string>
+    <string name="table_solubility_text">विभिन्न पदार्थों की द्राव्यता की जानकारी वाली तालिका</string>
+    <string name="table_ionization">आयनन ऊर्जा</string>
+    <string name="table_ionization_text">विभिन्न तत्वों की आयनन ऊर्जा की तालिका</string>
+    <string name="table_poisson">प्वासों अनुपात तालिका</string>
+    <string name="table_poisson_text">विभिन्न चट्टानों, मिट्टियों, खनिजों आदि के लिए प्वासों अनुपात की तालिका</string>
+    <string name="table_nuclide">न्यूक्लाइड तालिका</string>
+    <string name="table_nuclide_text">विघटन प्रकार के रंग भेद के साथ द्वि-आयामी न्यूक्लाइड तालिका</string>
+    <string name="table_constants_text">गणना में प्रयुक्त सामान्य स्थिरांक की तालिका जैसे गणित, भौतिकी, मानक जल प्रवाह आदि</string>
+    <string name="table_geology">भूविज्ञान तालिका</string>
+    <string name="table_geology_text">खनिज, चट्टानों और मिट्टियों की जानकारी वाली तालिका</string>
+    <string name="nuclide_table_title">न्यूक्लाइड तालिका</string>
+    <string name="decay_info_fab">विभिन्न विघटन प्रकारों की जानकारी</string>
+
+    <!-- Activity Geology -->
+    <string name="activity_geology_title">भूविज्ञान</string>
+    <string name="activity_geology_mineral">खनिज</string>
+    <string name="activity_geology_rock">चट्टानें</string>
+    <string name="activity_geology_soil">मिट्टियाँ</string>
+    <string name="geo_no_results">कोई परिणाम नहीं</string>
+    <string name="geo_try_another_search">कृपया अन्य शब्द खोजें या अपनी वर्तनी जांचें।</string>
+    <string name="geo_search_hint">भूविज्ञान वस्तु खोजें</string>
+    <string name="geo_clear_filter">फ़िल्टर हटाएँ</string>
+    <string name="chip_rocks">चट्टानें</string>
+    <string name="chip_soils">मिट्टियाँ</string>
+    <string name="chip_minerals">खनिज</string>
+
+    <!-- Activity Unit-->
+    <string name="activity_unit_title">तालिका इकाइयाँ</string>
+
+    <!-- Activity Equations -->
+    <string name="activity_equations_title">सूत्र</string>
+    <string name="activity_formulas_search">सूत्र खोजें:</string>
+    <string name="equations_search_other">कृपया अन्य शब्द खोजें या अपनी वर्तनी जांचें।</string>
+
+    <!-- Activity pH -->
+    <string name="activity_ph_title">pH सूचक</string>
+    <string name="activity_ph_acid">अम्ल</string>
+    <string name="activity_ph_neutral">न्यूट्रल</string>
+    <string name="activity_ph_alkaline">क्षारीय</string>
+    <string name="activity_ph_methyl_orange">मेथिल-ऑरेंज</string>
+    <string name="activity_ph_bromothymol_blue">ब्रोमोथाइमोल ब्लू</string>
+    <string name="activity_ph_congo_red">कोंगो रेड</string>
+    <string name="activity_ph_phenolphthalein">फिनोल्फ्थलीन</string>
+
+    <!-- Activity Ion -->
+    <string name="activity_io_title">आयनन ऊर्जा</string>
+    <string name="ion_no_results">कोई परिणाम नहीं</string>
+    <string name="ion_try_another_search">कृपया अन्य शब्द खोजें या अपनी वर्तनी जांचें।</string>
+
+    <!-- Social-Media Links-->
+    <string name="bluesky">https://bsky.app/profile/jlindemanndev.bsky.social</string>
+    <string name="instagram">https://www.instagram.com/jlindemanndev</string>
+    <string name="facebook">https://www.facebook.com/jlindemanndev</string>
+    <string name="homepage">https://www.jlindemann.se/homepage</string>
+
+    <string name="solubility_info_t">द्राव्यता सहायता</string>
+    <string name="solubility_info_c">"S: घुलनशील\nSs: थोड़ा घुलनशील\nI: अघुलनशील"</string>
+
+    <string name="electrochemical_series">विद्युत रासायनिक श्रेणी</string>
+    <string name="electrochemical_series_search">तत्व खोजें</string>
+
+    <string name="short_voltage"> (वोल्ट)</string>
+
+    <string name="data_issue">डेटा समस्या</string>
+    <string name="bug">बग</string>
+    <string name="question">प्रश्न</string>
+
+    <!-- Dictionary -->
+    <string name="chip_chemistry">रसायन</string>
+    <string name="chip_physics">भौतिकी</string>
+    <string name="chip_math">गणित</string>
+    <string name="chip_reactions">प्रतिक्रियाएँ</string>
+    <string name="chip_water">जल</string>
+
+    <string name="wikipedia_license">विकिपीडिया कॉमन्स</string>
+    <string name="wikipedia_license_text">क्रिएटिव कॉमन्स कॉरपोरेशन कोई कानून फर्म नहीं है और कानूनी सेवाएँ प्रदान नहीं करती है।
+        इस लाइसेंस का वितरण एक वकील-ग्राहक संबंध नहीं बनाता है। क्रिएटिव कॉमन्स यह जानकारी "जैसा है" आधार पर प्रदान करता है। क्रिएटिव कॉमन्स इस जानकारी के संबंध में कोई वारंटी नहीं देता, और इसके उपयोग से उत्पन्न हानि के लिए जिम्मेदार नहीं है।\n\nयह कार्य (जैसा नीचे परिभाषित है) इस क्रिएटिव कॉमन्स पब्लिक लाइसेंस ("CCPL" या "लाइसेंस") की शर्तों के अंतर्गत प्रदान किया गया है।
+        यह कार्य कॉपीराइट और/या अन्य लागू कानून द्वारा संरक्षित है। इस लाइसेंस या कॉपीराइट कानून के तहत अधिकृत उपयोग को छोड़कर कार्य का कोई भी उपयोग निषिद्ध है।
+        यहां प्रदान किए गए कार्य के किसी भी अधिकार का प्रयोग करके, आप इस लाइसेंस के नियमों से बंधे होने के लिए सहमत होते हैं। जहाँ तक यह लाइसेंस अनुबंध माना जा सकता है, लाइसेंसर आपको इन शर्तों और शर्तों की स्वीकृति के बदले में यहां निहित अधिकार प्रदान करता है।</string>
+    <string name="sothree_license">एंड्रॉइड स्लाइडिंग अप पैनल</string>
+    <string name="sothree_license_text">कॉपीराइट 2015 एंटोन लोपरेव\n\nApache License, Version 2.0 ("लाइसेंस") के तहत लाइसेंस प्राप्त; आप इस फ़ाइल का उपयोग लाइसेंस का पालन किए बिना नहीं कर सकते। आप लाइसेंस की एक प्रति प्राप्त कर सकते हैं:\n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\nजब तक लागू कानून द्वारा आवश्यक न हो या लिखित रूप में सहमति न हो, सॉफ़्टवेयर "जैसा है" आधार पर वितरित किया जाता है, बिना किसी प्रकार की वारंटी या शर्तों के। लाइसेंस के तहत अनुमतियाँ और सीमाएँ जानने के लिए लाइसेंस देखें।</string>
+    <string name="appwidget_text">उदाहरण</string>
+    <string name="add_widget">विजेट जोड़ें</string>
+
+    <string name="no_results">कोई परिणाम नहीं</string>
+    <string name="spelling">कृपया अन्य शब्द खोजें या अपनी वर्तनी जांचें</string>
+
+    <!-- New Tables Strings -->
+    <string name="phi">pH-सूचक</string>
+    <string name="geo">भूविज्ञान तालिका</string>
+    <string name="con">स्थिरांक तालिका</string>
+    <string name="nuc">न्यूक्लाइड तालिका</string>
+    <string name="poi">प्वासों अनुपात तालिका</string>
+    <string name="sol">द्राव्यता तालिका</string>
+    <string name="ion">आयनन ऊर्जा</string>
+    <string name="eqe">सूत्र</string>
+    <string name="ele">विद्युत रासायनिक श्रेणी</string>
+    <string name="iso">आइसोटोप</string>
+    <string name="emi">उत्सर्जन स्पेक्ट्रम तालिका</string>
+
+    <string name="requires_pro">PRO संस्करण आवश्यक</string>
+    <string name="try_another_search">कृपया अन्य शब्द खोजें या अपनी वर्तनी जांचें।</string>
+
+    <string name="emission_title">उत्सर्जन स्पेक्ट्रम तालिका</string>
+    <string name="emission_text">तत्वों के लिए उत्सर्जन स्पेक्ट्रम, जो इलेक्ट्रॉनों द्वारा उच्च से निम्न ऊर्जा अवस्था में संक्रमण के कारण उत्सर्जित विद्युतचुंबकीय विकिरण की आवृत्तियाँ हैं।</string>
+
+    <!-- New Tools String -->
+    <string name="cal">कैलकुलेटर</string>
+    <string name="rec">रासायनिक अभिक्रियाएँ</string>
+    <string name="uni">इकाई परिवर्तक</string>
+    <string name="fla">फ्लैशकार्ड्स</string>
+    <string name="unit_title">इकाई परिवर्तक</string>
+    <string name="unit_description">कई प्रयोजनों के लिए एक आसान इकाई परिवर्तक</string>
+
+    <string name="most_used">सबसे अधिक प्रयुक्त:</string>
+
+    <string name="calculator_title">कैलकुलेटर</string>
+    <string name="calculator_text">विभिन्न यौगिकों के मोलर भार की गणना और पसंदीदा में सहेजने के लिए कैलकुलेटर शामिल है</string>
+    <string name="tools_title">उपकरण (जैसे कैलकुलेटर)</string>
+    <string name="balancer_title">रासायनिक अभिक्रियाएँ</string>
+    <string name="balancer_text">विभिन्न रासायनिक अभिक्रियाओं को संतुलित करें और बाद में उपयोग के लिए पसंदीदा में सहेजें</string>
+    <string name="tool_btn_open">उपकरण खोलें</string>
+    <string name="calc_molar_mass">मोलर भार:</string>
+    <string name="calc_elements_shown">शामिल तत्व यहाँ दिखाए जाएँगे</string>
+    <string name="calc_favorites">पसंदीदा:</string>
+    <string name="calc_no_favorites">फिलहाल कोई पसंदीदा नहीं है</string>
+    <string name="calc_no_pro_text">पसंदीदा में सहेजने और एक्सेस करने के लिए आपको PRO संस्करण प्राप्त करना होगा</string>
+
+    <!-- User Page -->
+    <string name="user_title">यूज़र पेज</string>
+    <string name="user_achievements">उपलब्धियाँ</string>
+    <string name="user_achievements_Text">दुनिया के तत्वों को सीखने की प्रगति उपलब्धियों के साथ ट्रैक करें</string>
+    <string name="user_img">प्रोफ़ाइल चित्र बदलें</string>
+
+    <!-- Hazard Properties -->
+    <string name="hazard_title">सामग्री का खतरा</string>
+    <string name="hazard_title_requires_pro">सामग्री का खतरा PRO संस्करण के लिए आवश्यक है। PRO प्राप्त करें और अधिक डेटा व तालिकाएँ अनलॉक करें:</string>
+    <string name="fire_hazard">आग का खतरा:</string>
+    <string name="health_hazard">स्वास्थ्य खतरा:</string>
+    <string name="reactivity_hazard">प्रतिक्रियाशीलता:</string>
+    <string name="specific_hazard">विशिष्ट खतरा:</string>
+
+    <!-- Grid Properties -->
+    <string name="grid_title">ग्रिड गुण</string>
+    <string name="crystal_structure">क्रिस्टल संरचना:</string>
+    <string name="grid_parameters">ग्रिड पैरामीटर: (लैटिस स्थिरांक)</string>
+    <string name="debye_temperature_low_temperature_limit">डेबाई तापमान: (निम्न ताप सीमा)</string>
+    <string name="debye_temperature_room_temperature">डेबाई तापमान: (कक्ष तापमान)</string>
+
+    <string name="cas_number">CAS नंबर:</string>
+    <string name="eg_number">EG नंबर:</string>
+    <string name="other_title">अन्य</string>
+
+    <string name="clear_filter">फ़िल्टर हटाएँ</string>
+    <string name="constants_search">स्थिरांक खोजें</string>
+
+    <string name="dictionary">शब्दकोश</string>
+    <string name="dictionary_search">शब्दकोश वस्तु खोजें</string>
+
+    <string name="element_info_title">तत्व जानकारी</string>
+
+    <string name="submit_data_issue">डेटा समस्या सबमिट करें</string>
+
+    <!-- Unit Converter -->
+    <string name="unit_converter_title">इकाई परिवर्तक</string>
+    <string name="unit_enter_value">मान</string>
+    <string name="unit_output_value">आउटपुट</string>
+    <string name="unit_category">श्रेणी:</string>
+    <string name="unit_formula">सूत्र:</string>
+    <string name="unit_add_favorite">पसंदीदा में जोड़ें:</string>
+    <string name="unit_favorites">पसंदीदा:</string>
+    <string name="unit_display_formula">सूत्र यहाँ प्रदर्शित होगा</string>
+
+    <!-- Flashcard mini-games -->
+    <string name="flashcards_title">फ्लैशकार्ड्स</string>
+    <string name="flashcards_info">इन-बिल्ट "लर्निंग-गेम्स" के साथ पीरियोडिक टेबल सीखें</string>
+    <string name="flashcards_lives_info">हर गलत उत्तर से एक जीवन कम होगा</string>
+    <string name="learning_games">लर्निंग-गेम्स:</string>
+    <string name="flashcards_element_symbols">तत्व चिह्न</string>
+    <string name="flashcards_element_classifications">तत्व वर्गीकरण</string>
+    <string name="flashcards_atomic_mass">आणविक द्रव्यमान</string>
+    <string name="flashcards_chemical_reactions">रासायनिक अभिक्रियाएँ</string>
+    <string name="flashcards_mixed_questions">मिश्रित प्रश्न</string>
+    <string name="flashcards_statistics">आँकड़े</string>
+    <string name="flashcards_total_xp">कुल XP</string>
+    <string name="flashcards_total_games">खेल</string>
+    <string name="flashcards_level">स्तर</string>
+    <string name="flashcards_difficulty">कठिनाई चुनें:</string>
+    <string name="flashcards_difficulty_title">कठिनाई</string>
+    <string name="flashcards_free_games">मुफ़्त गेम्स:</string>
+    <string name="flashcards_pro_plus_games">PRO+ गेम्स:</string>
+    <string name="flashcards_pro_level_0_5">स्तर 0-4:</string>
+    <string name="flashcards_pro_level_5_10">स्तर 5-9:</string>
+    <string name="flashcards_pro_level_10_15">स्तर 10-14:</string>
+    <string name="flashcards_game_element_symbols">तत्व चिह्न</string>
+    <string name="flashcards_game_element_names">तत्व नाम</string>
+    <string name="flashcards_game_element_groups">तत्व समूह</string>
+    <string name="flashcards_game_element_appearance">दिखावट</string>
+    <string name="flashcards_game_element_atomic_mass">आणविक द्रव्यमान</string>
+    <string name="flashcards_game_element_density">घनत्व</string>
+    <string name="progress_text_placeholder">50/500</string>
+    <string name="total_xp_placeholder">कुल XP: ---</string>
+    <string name="unlock_all_flashcards">सभी फ्लैशकार्ड्स और सुविधाएँ अनलॉक करें</string>
+    <string name="upgrade_to_pro_plus">PRO+ में अपग्रेड करें</string>
+    <string name="upgrade_pro_plus_description">असीमित जीवन और अतिरिक्त फ्लैशकार्ड गेम्स पाएं जैसे इलेक्ट्रोनगेटिविटी, रेडियोधर्मिता, क्रिस्टल संरचना, आदि!</string>
+    <string name="easy">आसान</string>
+    <string name="medium">मध्यम</string>
+    <string name="hard">कठिन</string>
+    <string name="level_0_4">स्तर 0–4</string>
+    <string name="element_symbols">तत्व चिह्न</string>
+    <string name="element_names">तत्व नाम</string>
+    <string name="element_groups">तत्व समूह</string>
+    <string name="discovered_by">द्वारा खोजा गया</string>
+    <string name="discovery_year">खोज का वर्ष</string>
+    <string name="level_5_9">स्तर 5–9</string>
+    <string name="appearance">दिखावट</string>
+    <string name="atomic_number">आणविक संख्या</string>
+    <string name="electrical_type">वैद्युत प्रकार</string>
+    <string name="radioactive">रेडियोधर्मी</string>
+    <string name="level_10_14">स्तर 10–14</string>
+    <string name="atomic_mass">आणविक द्रव्यमान</string>
+    <string name="density">घनत्व</string>
+    <string name="electronegativity">इलेक्ट्रोनगेटिविटी</string>
+    <string name="block">ब्लॉक</string>
+    <string name="level_15_19">स्तर 15–19</string>
+    <string name="magnetic_type">चुंबकीय प्रकार</string>
+    <string name="phase_stp">अवस्था (STP)</string>
+    <string name="superconducting_point">सुपरकंडक्टिंग बिंदु</string>
+    <string name="level_20_24">स्तर 20–24</string>
+    <string name="neutron_cross_sectional">न्यूट्रॉन क्रॉस सेक्शन</string>
+    <string name="specific_heat_capacity">विशिष्ट ऊष्मा धारिता</string>
+    <string name="mohs_hardness">मोहोस कठोरता</string>
+    <string name="vickers_hardness">विकर्स कठोरता</string>
+    <string name="brinell_hardness">ब्रिनेल कठोरता</string>
+    <string name="pro_plus_badge">PRO+</string>
+    <string name="lives_count_placeholder">5</string>
+    <string name="level_stat_placeholder">---</string>
+    <string name="completed_quizzes_stat_placeholder">---</string>
+
+    <!-- Popup Pro -->
+    <string name="popup_title">PRO+ में अपग्रेड करें</string>
+    <string name="popup_content_text">\'एटॉमिक - पीरियोडिक टेबल\' को अपग्रेड करें ताकि अतिरिक्त डेटा, तालिकाएँ और फ्लैशकार्ड्स अनलॉक हों ताकि आप पीरियोडिक टेबल के बारे में अधिक सीख सकें।</string>
+    <string name="popup_action_button">PRO+ में अपग्रेड करें</string>
+    <string name="popup_secondary_button">आज नहीं</string>
+    <string name="credits_title">श्रेय</string>
+    <string name="credits_text">योगदानकर्ताओं को श्रेय</string>
+
+</resources>
