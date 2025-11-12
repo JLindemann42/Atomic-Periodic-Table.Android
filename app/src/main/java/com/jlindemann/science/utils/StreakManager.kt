@@ -168,19 +168,6 @@ object StreakManager {
         cancelReminder(ctx)
     }
 
-    /**
-     * Allow external code (e.g. cloud merge) to set the current streak value.
-     * This will:
-     * - update KEY_STREAK to the provided value if it's greater than current local,
-     *   or set it to the provided value (we treat this as authoritative when called).
-     * - update BEST if needed.
-     * - schedule/cancel the reminder the same way recordPlay does (reminder when streak >= 3).
-     * - IMPORTANT: Validates that the streak is still valid based on last play date.
-     *   If the last play date is more than 1 day ago, the streak is reset to 0.
-     *
-     * Note: callers should ensure they only call this when appropriate (e.g., when cloud value
-     * is known to be authoritative). This method is defensive and will not crash on errors.
-     */
     fun setCurrentStreak(ctx: Context, streakValue: Int) {
         try {
             val p = prefs(ctx)
@@ -236,10 +223,7 @@ object StreakManager {
         }
     }
 
-    /**
-     * Allow external code (e.g. cloud merge) to set both streak value and last play date.
-     * This is more appropriate for cloud sync as it preserves the last play date from cloud.
-     */
+
     fun setCurrentStreakWithDate(ctx: Context, streakValue: Int, lastPlayDate: String?) {
         try {
             val p = prefs(ctx)

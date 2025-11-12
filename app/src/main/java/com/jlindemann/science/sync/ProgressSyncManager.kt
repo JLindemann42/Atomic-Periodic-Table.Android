@@ -250,7 +250,7 @@ object ProgressSyncManager {
                 // Merge streak: use max streak, but prefer the last play date from the higher streak
                 val cloudStreakInt = cloud?.streak?.toInt() ?: 0
                 val mergedStreak: Int
-                val mergedLastPlayDate: String?
+                var mergedLastPlayDate: String?
                 
                 if (localStreak > cloudStreakInt) {
                     // Local streak is higher, use local values

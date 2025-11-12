@@ -350,7 +350,7 @@ class FlashCardActivity : BaseActivity() {
                 val padH = resources.getDimensionPixelSize(R.dimen.padding_small)
                 val padV = resources.getDimensionPixelSize(R.dimen.padding_small)
                 setPadding(padH, padV, padH, padV)
-                setTextColor(context.obtainStyledAttributes(intArrayOf(androidx.appcompat.R.attr.actionMenuTextColor)).let { ta -> val color = ta.getColor(0, currentTextColor); ta.recycle(); color })
+                setTextColor(context.obtainStyledAttributes(intArrayOf(androidx.appcompat.R.attr.colorError)).let { ta -> val color = ta.getColor(0, currentTextColor); ta.recycle(); color })
                 textSize = 14f
                 gravity = Gravity.CENTER
                 setBackgroundResource(R.drawable.sunny)
