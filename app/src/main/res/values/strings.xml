@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v4.3.1m-Build.194</string>
+    <string name="app_version" translatable="false">v4.3.1m-Build.195</string>
     <string name="next_sale_start" translatable="false" >2024/08/05</string>
     <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
@@ -53,7 +53,7 @@
     <string name="pro_better_calculator" >Better Calculator</string>
     <string name="pro_better_calculator_descr" >An enhanced calculator with the possibility to save molar weights of different compounds in the favorite page.</string>
     <string name="pro_additional_flashcards">Additional Flashcards and Sync</string>
-    <string name="pro_additional_flashcards_descr" translatable="false" >Access to additional flashcards, more lives and syncing of your progress</string>
+    <string name="pro_additional_flashcards_descr">Access to additional flashcards, more lives and syncing of your progress</string>
     <string name="pro_additional_visualisations" >Additional Visualisations</string>
     <string name="pro_additional_visualisations_descr" >Access to more visualisations in the main table such as Poisson\'s Ratio, bulk modulus etc.</string>
     <string name="pro_already_purchased_title" >Already purchased Atomic - Periodic Table PRO?</string>
@@ -189,7 +189,7 @@
     <string name="customize_units_table">Customize the units in the main table</string>
     <string name="offline_mode">Offline Mode</string>
     <string name="offline_mode_desc">Disables loading of images</string>
-    <string name="go_online_for_emission" translatable="false">Go online for emission lines</string>
+    <string name="go_online_for_emission">Go online for emission lines</string>
     <string name="auto_hide_bottombar">Auto-hide Bottombar</string>
     <string name="auto_hide_bottombar_desc">Disables the standard behaviour</string>
 
@@ -448,25 +448,25 @@
     <string name="mohs_hardness" >Mohs Hardness</string>
     <string name="vickers_hardness" >Vickers Hardness</string>
     <string name="brinell_hardness" >Brinell Hardness</string>
-    <string name="level_25_29" translatable="false" >Level 25</string>
-    <string name="level_30_34" translatable="false" >Level 30</string>
-    <string name="boiling_point_celsius" translatable="false">Boiling Point (°C):</string>
-    <string name="boiling_point_fahrenheit" translatable="false">Boiling Point (°F):</string>
-    <string name="boiling_point_kelvin" translatable="false">Boiling Point (Kelvin):</string>
-    <string name="melting_point_celsius" translatable="false">Melting Point (°C):</string>
-    <string name="melting_point_fahrenheit" translatable="false">Melting Point (°F):</string>
-    <string name="melting_point_kelvin" translatable="false">Melting Point (Kelvin):</string>
-    <string name="rewards_available" translatable="false">Rewards:</string>
-    <string name="level_range_format" translatable="false">Level %1$d</string>
-    <string name="reward_5pct_title" translatable="false">+5% XP bonus</string>
-    <string name="bonus_xp" translatable="false">+0% bonus active</string>
-    <string name="enable_sync" translatable="false">Enable Syncing</string>
-    <string name="enable_sync_desc" translatable="false">Syncing of progress for level, xp, achievements etc is available for PRO and PRO+ users</string>
-    <string name="enable_sync_pro_button" translatable="false">Upgrade</string>
-    <string name="sync_available_pro_only" translatable="false">Get PRO or PRO+ to enable cloud sync</string>
-    <string name="login_for_sync" translatable="false">Login to enable sync</string>
-    <string name="sync_status" translatable="false">Not synced</string>
-    <string name="login_for_sync_and_more" translatable="false">Login to sync data</string>
+    <string name="level_25_29">Level 25</string>
+    <string name="level_30_34">Level 30</string>
+    <string name="boiling_point_celsius">Boiling Point (°C):</string>
+    <string name="boiling_point_fahrenheit">Boiling Point (°F):</string>
+    <string name="boiling_point_kelvin">Boiling Point (Kelvin):</string>
+    <string name="melting_point_celsius">Melting Point (°C):</string>
+    <string name="melting_point_fahrenheit">Melting Point (°F):</string>
+    <string name="melting_point_kelvin">Melting Point (Kelvin):</string>
+    <string name="rewards_available">Rewards:</string>
+    <string name="level_range_format">Level %1$d</string>
+    <string name="reward_5pct_title">+5% XP bonus</string>
+    <string name="bonus_xp">+0% bonus active</string>
+    <string name="enable_sync">Enable Syncing</string>
+    <string name="enable_sync_desc">Syncing of progress for level, xp, achievements etc is available for PRO and PRO+ users</string>
+    <string name="enable_sync_pro_button">Upgrade</string>
+    <string name="sync_available_pro_only">Get PRO or PRO+ to enable cloud sync</string>
+    <string name="login_for_sync">Login to enable sync</string>
+    <string name="sync_status">Not synced</string>
+    <string name="login_for_sync_and_more">Login to sync data</string>
 
 
     <string name="pro_plus_badge" >PRO+</string>
@@ -481,39 +481,39 @@
     <string name="popup_secondary_button">Not today</string>
     <string name="credits_title">Credits</string>
     <string name="credits_text">Credits to contributors</string>
-    <string name="credits_giancarlo" translatable="false">Giancarlo Mérida</string>
-    <string name="credits_giancarlo_info" translatable="false">Translations for Spanish and Italian</string>
-    <string name="credits_electro_boy" translatable="false">ElectroBoy10</string>
-    <string name="credits_electro_boy_info" translatable="false">Translations for Afrikaan</string>
+    <string name="credits_giancarlo">Giancarlo Mérida</string>
+    <string name="credits_giancarlo_info">Translations for Spanish and Italian</string>
+    <string name="credits_electro_boy">ElectroBoy10</string>
+    <string name="credits_electro_boy_info">Translations for Afrikaan</string>
 
     <!-- Additional Pro -->
     <string name="get_pro_element_text">Get PRO-Version to unlock additional information of elements</string>
-    <string name="overview" translatable="false">Overview</string>
-    <string name="properties" translatable="false">Properties</string>
-    <string name="temperatures" translatable="false">Temperatures</string>
-    <string name="atomic_properties" translatable="false">Atomic Properties</string>
-    <string name="electromagnetic_properties" translatable="false">Electromagnetic Properties</string>
-    <string name="thermodynamic_properties" translatable="false">Thermodynamic Properties</string>
-    <string name="nuclear_properties" translatable="false">Nuclear Properties</string>
-    <string name="hardness_properties" translatable="false">Hardness Properties</string>
-    <string name="get_pro_short" translatable="false">PRO</string>
+    <string name="overview">Overview</string>
+    <string name="properties">Properties</string>
+    <string name="temperatures">Temperatures</string>
+    <string name="atomic_properties">Atomic Properties</string>
+    <string name="electromagnetic_properties">Electromagnetic Properties</string>
+    <string name="thermodynamic_properties">Thermodynamic Properties</string>
+    <string name="nuclear_properties">Nuclear Properties</string>
+    <string name="hardness_properties">Hardness Properties</string>
+    <string name="get_pro_short">PRO</string>
 
-    <string name="streak_notification_title" translatable="false">Keep your %1$d-day streak!</string>
-    <string name="streak_notification_body" translatable="false">Play today to save your %1$d-day streak.</string>
-    <string name="no_questions_title" translatable="false">Not enough data</string>
+    <string name="streak_notification_title">Keep your %1$d-day streak!</string>
+    <string name="streak_notification_body">Play today to save your %1$d-day streak.</string>
+    <string name="no_questions_title">Not enough data</string>
 
     <!-- Google login -->
     <string name="web_client_id" translatable="false">315118082769-ivqq7fhga4pjja0t95iuansjs2vjdu9j.apps.googleusercontent.com</string>
-    <string name="signing_in" translatable="false">Signing in…</string>
-    <string name="sign_in_failed" translatable="false">Sign in failed</string>
-    <string name="user_signed_in_fmt" translatable="false">Signed in as %1$s</string>
-    <string name="user_signed_out" translatable="false">Not signed in</string>
-    <string name="syncing_progress" translatable="false">Syncing progress…</string>
-    <string name="sync_complete" translatable="false">Progress synced</string>
-    <string name="sync_failed" translatable="false">Sync failed</string>
+    <string name="signing_in">Signing in…</string>
+    <string name="sign_in_failed">Sign in failed</string>
+    <string name="user_signed_in_fmt">Signed in as %1$s</string>
+    <string name="user_signed_out">Not signed in</string>
+    <string name="syncing_progress">Syncing progress…</string>
+    <string name="sync_complete">Progress synced</string>
+    <string name="sync_failed">Sync failed</string>
 
     <!-- Sign out UI -->
-    <string name="sign_out" translatable="false">Sign out</string>
-    <string name="confirm_sign_out" translatable="false">Are you sure you want to sign out?</string>
+    <string name="sign_out">Sign out</string>
+    <string name="confirm_sign_out">Are you sure you want to sign out?</string>
 
 </resources>
