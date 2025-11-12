@@ -1,7 +1,6 @@
 package com.jlindemann.science.adapter
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +14,10 @@ import com.jlindemann.science.model.Element
 import com.jlindemann.science.preferences.SearchPreferences
 
 class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnElementClickListener2, val con: Context) : RecyclerView.Adapter<ElementAdapter.ViewHolder>() {
-    private val searchPrefValue: Int = SearchPreferences(con).getValue()
-    
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        // get preference value here (context is guaranteed to be valid by the time RecyclerView binds)
+        val searchPrefValue = SearchPreferences(con).getValue()
         holder.initialize(elementList[position], clickListener, con, searchPrefValue)
     }
 
@@ -31,11 +31,11 @@ class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val cardHolder = itemView.findViewById(R.id.rCard) as FrameLayout
-        private val elementCard = itemView.findViewById(R.id.elemntCard) as FrameLayout
-        private val textViewElement = itemView.findViewById(R.id.tv_iso_type) as TextView
-        private val textViewShort = itemView.findViewById(R.id.ic_iso_type) as TextView
-        private val textViewNumb = itemView.findViewById(R.id.tv_iso_numb) as TextView
+        private val cardHolder = itemView.findViewById<FrameLayout>(R.id.rCard)
+        private val elementCard = itemView.findViewById<FrameLayout>(R.id.elemntCard)
+        private val textViewElement = itemView.findViewById<TextView>(R.id.tv_iso_type)
+        private val textViewShort = itemView.findViewById<TextView>(R.id.ic_iso_type)
+        private val textViewNumb = itemView.findViewById<TextView>(R.id.tv_iso_numb)
 
         fun initialize(item: Element, action: OnElementClickListener2, con: Context, searchPrefValue: Int) {
 
@@ -81,5 +81,6 @@ class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
 
     fun filterList(filteredList: ArrayList<Element>) {
         elementList = filteredList
-        notifyDataSetChanged() }
+        notifyDataSetChanged()
+    }
 }
