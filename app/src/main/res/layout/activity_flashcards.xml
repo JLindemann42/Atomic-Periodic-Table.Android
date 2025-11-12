@@ -527,6 +527,7 @@
                         app:tint="?attr/colorOnPrimary"
                         android:src="@drawable/ic_achievements" />
 
+
                     <TextView
                         android:id="@+id/tv_lives_count"
                         android:layout_width="wrap_content"

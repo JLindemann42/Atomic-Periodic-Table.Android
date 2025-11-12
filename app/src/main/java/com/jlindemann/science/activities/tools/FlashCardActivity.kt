@@ -19,6 +19,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.app.AlertDialog
 import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.Gravity
 import android.os.Handler
@@ -346,12 +347,13 @@ class FlashCardActivity : BaseActivity() {
             val streakView = TextView(this).apply {
                 id = resources.getIdentifier("streak_count_text", "id", packageName).takeIf { it != 0 }
                     ?: View.generateViewId()
-                val sizePx = (48 * resources.displayMetrics.density).toInt()
+                val sizePx = (46 * resources.displayMetrics.density).toInt()
                 val padH = resources.getDimensionPixelSize(R.dimen.padding_small)
                 val padV = resources.getDimensionPixelSize(R.dimen.padding_small)
                 setPadding(padH, padV, padH, padV)
-                setTextColor(context.obtainStyledAttributes(intArrayOf(androidx.appcompat.R.attr.colorError)).let { ta -> val color = ta.getColor(0, currentTextColor); ta.recycle(); color })
+                setTextColor(context.obtainStyledAttributes(intArrayOf(R.attr.colorOnPrimary)).let { ta -> val color = ta.getColor(0, currentTextColor); ta.recycle(); color })
                 textSize = 14f
+                setTypeface(null, Typeface.BOLD)
                 gravity = Gravity.CENTER
                 setBackgroundResource(R.drawable.sunny)
                 visibility = View.GONE
