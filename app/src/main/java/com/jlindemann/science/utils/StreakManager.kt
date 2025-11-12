@@ -103,9 +103,46 @@ object StreakManager {
 
     /**
      * Return the current local streak (days).
+     * This method validates the streak freshness and returns 0 if the streak has expired.
      */
     fun getCurrentStreak(ctx: Context): Int {
-        return prefs(ctx).getInt(KEY_STREAK, 0)
+        val p = prefs(ctx)
+        val streak = p.getInt(KEY_STREAK, 0)
+        
+        // If no streak, return 0
+        if (streak <= 0) return 0
+        
+        // Validate freshness
+        val lastPlayS = p.getString(KEY_LAST_PLAY, null) ?: return 0
+        
+        try {
+            val lastDate = formatter.parse(lastPlayS)
+            val lastCal = Calendar.getInstance().apply { time = lastDate!! }
+            val todayCal = Calendar.getInstance()
+            
+            val daysDiff = calculateDaysDifference(lastCal, todayCal)
+            
+            // If more than 1 day has passed, streak is broken
+            if (daysDiff > 1) {
+                // Reset the streak silently
+                p.edit()
+                    .putInt(KEY_STREAK, 0)
+                    .remove(KEY_LAST_PLAY)
+                    .apply()
+                cancelReminder(ctx)
+                return 0
+            }
+            
+            return streak
+        } catch (e: Exception) {
+            // On error, assume streak is broken
+            p.edit()
+                .putInt(KEY_STREAK, 0)
+                .remove(KEY_LAST_PLAY)
+                .apply()
+            cancelReminder(ctx)
+            return 0
+        }
     }
 
     /**
@@ -113,6 +150,13 @@ object StreakManager {
      */
     fun getBestStreak(ctx: Context): Int {
         return prefs(ctx).getInt(KEY_BEST, 0)
+    }
+
+    /**
+     * Get the last play date as ISO string (yyyy-MM-dd), or null if not set.
+     */
+    fun getLastPlayDate(ctx: Context): String? {
+        return prefs(ctx).getString(KEY_LAST_PLAY, null)
     }
 
     /**
@@ -131,6 +175,8 @@ object StreakManager {
      *   or set it to the provided value (we treat this as authoritative when called).
      * - update BEST if needed.
      * - schedule/cancel the reminder the same way recordPlay does (reminder when streak >= 3).
+     * - IMPORTANT: Validates that the streak is still valid based on last play date.
+     *   If the last play date is more than 1 day ago, the streak is reset to 0.
      *
      * Note: callers should ensure they only call this when appropriate (e.g., when cloud value
      * is known to be authoritative). This method is defensive and will not crash on errors.
@@ -141,7 +187,33 @@ object StreakManager {
             val current = p.getInt(KEY_STREAK, 0)
             val best = p.getInt(KEY_BEST, 0)
             var newBest = best
-            val newStreak = streakValue.coerceAtLeast(0)
+            var newStreak = streakValue.coerceAtLeast(0)
+
+            // Validate streak freshness: if last play was more than 1 day ago, reset to 0
+            if (newStreak > 0) {
+                val lastPlayS = p.getString(KEY_LAST_PLAY, null)
+                if (lastPlayS != null) {
+                    try {
+                        val lastDate = formatter.parse(lastPlayS)
+                        val lastCal = Calendar.getInstance().apply { time = lastDate!! }
+                        val todayCal = Calendar.getInstance()
+                        
+                        // Calculate days difference
+                        val daysDiff = calculateDaysDifference(lastCal, todayCal)
+                        
+                        // If more than 1 day has passed since last play, streak is broken
+                        if (daysDiff > 1) {
+                            newStreak = 0
+                        }
+                    } catch (e: Exception) {
+                        // If we can't parse the date, assume streak is broken to be safe
+                        newStreak = 0
+                    }
+                } else {
+                    // No last play date recorded, so we can't validate - assume broken
+                    newStreak = 0
+                }
+            }
 
             if (newStreak > newBest) {
                 newBest = newStreak
@@ -161,6 +233,92 @@ object StreakManager {
         } catch (t: Throwable) {
             // swallow errors to avoid crashing callers
             t.printStackTrace()
+        }
+    }
+
+    /**
+     * Allow external code (e.g. cloud merge) to set both streak value and last play date.
+     * This is more appropriate for cloud sync as it preserves the last play date from cloud.
+     */
+    fun setCurrentStreakWithDate(ctx: Context, streakValue: Int, lastPlayDate: String?) {
+        try {
+            val p = prefs(ctx)
+            val best = p.getInt(KEY_BEST, 0)
+            var newBest = best
+            var newStreak = streakValue.coerceAtLeast(0)
+
+            // Validate streak freshness if we have a last play date
+            if (newStreak > 0 && lastPlayDate != null) {
+                try {
+                    val lastDate = formatter.parse(lastPlayDate)
+                    val lastCal = Calendar.getInstance().apply { time = lastDate!! }
+                    val todayCal = Calendar.getInstance()
+                    
+                    val daysDiff = calculateDaysDifference(lastCal, todayCal)
+                    
+                    // If more than 1 day has passed since last play, streak is broken
+                    if (daysDiff > 1) {
+                        newStreak = 0
+                    }
+                } catch (e: Exception) {
+                    // If we can't parse the date, assume streak is broken
+                    newStreak = 0
+                }
+            } else if (newStreak > 0 && lastPlayDate == null) {
+                // No date provided, can't validate - reset to be safe
+                newStreak = 0
+            }
+
+            if (newStreak > newBest) {
+                newBest = newStreak
+            }
+
+            val editor = p.edit()
+                .putInt(KEY_STREAK, newStreak)
+                .putInt(KEY_BEST, newBest)
+            
+            if (newStreak > 0 && lastPlayDate != null) {
+                editor.putString(KEY_LAST_PLAY, lastPlayDate)
+            } else {
+                editor.remove(KEY_LAST_PLAY)
+            }
+            
+            editor.apply()
+
+            // If streak >= 3 schedule reminder; otherwise cancel
+            if (newStreak >= 3) {
+                scheduleReminder(ctx)
+            } else {
+                cancelReminder(ctx)
+            }
+        } catch (t: Throwable) {
+            // swallow errors to avoid crashing callers
+            t.printStackTrace()
+        }
+    }
+
+    /**
+     * Calculate the number of days between two Calendar instances.
+     * Returns 0 if same day, 1 if next day, etc.
+     */
+    private fun calculateDaysDifference(from: Calendar, to: Calendar): Int {
+        val fromYear = from.get(Calendar.YEAR)
+        val fromDay = from.get(Calendar.DAY_OF_YEAR)
+        val toYear = to.get(Calendar.YEAR)
+        val toDay = to.get(Calendar.DAY_OF_YEAR)
+        
+        if (fromYear == toYear) {
+            return toDay - fromDay
+        } else {
+            // Different years - calculate total days
+            var days = from.getActualMaximum(Calendar.DAY_OF_YEAR) - fromDay
+            for (year in (fromYear + 1) until toYear) {
+                val cal = Calendar.getInstance()
+                cal.set(Calendar.YEAR, year)
+                days += cal.getActualMaximum(Calendar.DAY_OF_YEAR)
+            }
+            days += toDay
+            return days
         }
     }
 

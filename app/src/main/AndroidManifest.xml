@@ -21,6 +21,13 @@
                 android:resource="@xml/short_command_widget_info" />
         </receiver>
 
+        <receiver android:name=".activities.tools.StreakReminderReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.jlindemann.science.STREAK_REMINDER" />
+            </intent-filter>
+        </receiver>
+
 
         <activity
             android:name=".activities.MainActivity"

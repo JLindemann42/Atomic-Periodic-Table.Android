@@ -24,7 +24,8 @@ object ProgressSyncManager {
         val lastUpdated: Timestamp? = null,
         val achievements: List<CloudAchievement>? = null,
         val statistics: Map<Int, Long>? = null,
-        val streak: Long? = null
+        val streak: Long? = null,
+        val streakLastPlay: String? = null  // ISO date string (yyyy-MM-dd)
     )
 
     private fun docRefForUid(uid: String) = db.collection("users").document(uid)
@@ -90,7 +91,9 @@ object ProgressSyncManager {
                             else -> null
                         }
 
-                        onLoaded(CloudProgress(xp = xp, level = level, lastUpdated = last, achievements = cloudAchievements, statistics = cloudStats, streak = cloudStreak))
+                        val cloudStreakLastPlay: String? = snap.getString("streakLastPlay")
+
+                        onLoaded(CloudProgress(xp = xp, level = level, lastUpdated = last, achievements = cloudAchievements, statistics = cloudStats, streak = cloudStreak, streakLastPlay = cloudStreakLastPlay))
                     } catch (t: Throwable) {
                         Log.w(TAG, "Failed to parse cloud progress", t)
                         onLoaded(null)
@@ -106,7 +109,7 @@ object ProgressSyncManager {
     }
 
     /**
-     * Write progress and optionally achievements/statistics/streak to cloud (merge). lastUpdated will be server timestamp.
+     * Write progress and optionally achievements/statistics/streak/streakLastPlay to cloud (merge). lastUpdated will be server timestamp.
      */
     fun saveFullProgressToCloud(
         uid: String,
@@ -115,6 +118,7 @@ object ProgressSyncManager {
         achievements: List<Achievement>? = null,
         statistics: List<Statistics>? = null,
         streak: Int? = null,
+        streakLastPlay: String? = null,
         onComplete: ((Boolean, Exception?) -> Unit)? = null
     ) {
         val data = mutableMapOf<String, Any>(
@@ -144,6 +148,10 @@ object ProgressSyncManager {
 
         streak?.let {
             data["streak"] = it
+        }
+
+        streakLastPlay?.let {
+            data["streakLastPlay"] = it
         }
 
         docRefForUid(uid).set(data, SetOptions.merge())
@@ -177,12 +185,18 @@ object ProgressSyncManager {
         StatisticsModel.getList(context, localStatistics)
         localStatistics.forEach { it.loadProgress(context) }
 
-        // read local streak
+        // read local streak and last play date
         val localStreak = try {
             StreakManager.getCurrentStreak(context)
         } catch (t: Throwable) {
             Log.w(TAG, "Failed to read local streak", t)
             0
+        }
+        val localLastPlayDate = try {
+            StreakManager.getLastPlayDate(context)
+        } catch (t: Throwable) {
+            Log.w(TAG, "Failed to read local last play date", t)
+            null
         }
 
         loadCloudProgress(uid) { cloud ->
@@ -233,11 +247,38 @@ object ProgressSyncManager {
                     Statistics(id, title, prog)
                 }
 
-                // Merge streak: use max
-                val mergedStreak: Int = maxOf(localStreak, (cloud?.streak?.toInt() ?: 0))
+                // Merge streak: use max streak, but prefer the last play date from the higher streak
+                val cloudStreakInt = cloud?.streak?.toInt() ?: 0
+                val mergedStreak: Int
+                val mergedLastPlayDate: String?
+                
+                if (localStreak > cloudStreakInt) {
+                    // Local streak is higher, use local values
+                    mergedStreak = localStreak
+                    mergedLastPlayDate = localLastPlayDate
+                } else if (cloudStreakInt > localStreak) {
+                    // Cloud streak is higher, use cloud values
+                    mergedStreak = cloudStreakInt
+                    mergedLastPlayDate = cloud?.streakLastPlay
+                } else {
+                    // Equal streaks - prefer the most recent last play date
+                    mergedStreak = localStreak
+                    if (localLastPlayDate != null && cloud?.streakLastPlay != null) {
+                        // Compare dates, use the more recent one
+                        try {
+                            val localDate = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).parse(localLastPlayDate)
+                            val cloudDate = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).parse(cloud.streakLastPlay)
+                            mergedLastPlayDate = if (localDate!!.after(cloudDate)) localLastPlayDate else cloud.streakLastPlay
+                        } catch (e: Exception) {
+                            mergedLastPlayDate = localLastPlayDate
+                        }
+                    } else {
+                        mergedLastPlayDate = localLastPlayDate ?: cloud?.streakLastPlay
+                    }
+                }
 
                 // persist merged to cloud (write full state)
-                saveFullProgressToCloud(uid, mergedXp, mergedLevel, mergedAchievements, mergedStatistics, mergedStreak) { success, _ ->
+                saveFullProgressToCloud(uid, mergedXp, mergedLevel, mergedAchievements, mergedStatistics, mergedStreak, mergedLastPlayDate) { success, _ ->
                     if (success) {
                         try {
                             // Update local XP if mergedXp is greater than local
@@ -297,12 +338,10 @@ object ProgressSyncManager {
                             }
                         }
 
-                        // Streak: increase local streak if merged is greater (do not reduce)
+                        // Streak: update local streak with merged value and date
+                        // Use setCurrentStreakWithDate to ensure proper validation and date tracking
                         try {
-                            val currentLocalStreak = StreakManager.getCurrentStreak(context)
-                            if (mergedStreak > currentLocalStreak) {
-                                StreakManager.setCurrentStreak(context, mergedStreak)
-                            }
+                            StreakManager.setCurrentStreakWithDate(context, mergedStreak, mergedLastPlayDate)
                         } catch (t: Throwable) {
                             Log.w(TAG, "Failed to update local streak", t)
                         }
