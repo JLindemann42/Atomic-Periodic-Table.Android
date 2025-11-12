@@ -444,9 +444,6 @@ class LearningGamesActivity : BaseActivity() {
             if (gameResults.all { it.wasCorrect }) {
                 XpManager.addGameXp(this, xpPerfect)
             }
-            val prefs = getSharedPreferences("game_stats", MODE_PRIVATE)
-            val current = prefs.getInt("completed_quizzes", 0)
-            prefs.edit().putInt("completed_quizzes", current + 1).apply()
         }
 
         // Record a play for streak tracking (this will schedule reminders when streak >= 3)
