@@ -27,9 +27,9 @@
     <string name="random_element">رینڈم عنصر</string>
     <string name="pro_title">پرو ورژن</string>
     <string name="get_pro_title">پرو ورژن حاصل کریں</string>
-    <string name="pro_descr">\\'ایٹامک - پیریاڈک ٹیبل\\' ایک مفت اور اوپن سورس ایپ ہے جو میں نے بھارت میں اپنے فارغ وقت میں بنائی ہے۔ پرو ورژن خریدنے سے آپ ڈیولپمنٹ میں مدد کرتے ہیں اور اضافی فیچرز بھی حاصل کرتے ہیں!</string>
+    <string name="pro_descr">\'ایٹامک - پیریاڈک ٹیبل\' ایک مفت اور اوپن سورس ایپ ہے جو میں نے بھارت میں اپنے فارغ وقت میں بنائی ہے۔ پرو ورژن خریدنے سے آپ ڈیولپمنٹ میں مدد کرتے ہیں اور اضافی فیچرز بھی حاصل کرتے ہیں!</string>
     <string name="member_title">پرو ممبر صفحہ</string>
-    <string name="member_desch">\\'ایٹامک - پیریاڈک ٹیبل\\' کی ترقی میں مدد کرنے کا شکریہ۔ اس صفحے پر آپ کو اپنی پرو خصوصیات کے بارے میں معلومات ملے گی جیسے ہی مزید فیچرز شامل کیے جائیں گے۔</string>
+    <string name="member_desch">\'ایٹامک - پیریاڈک ٹیبل\' کی ترقی میں مدد کرنے کا شکریہ۔ اس صفحے پر آپ کو اپنی پرو خصوصیات کے بارے میں معلومات ملے گی جیسے ہی مزید فیچرز شامل کیے جائیں گے۔</string>
     <string name="member_already">آپ پرو ممبر ہیں!</string>
     <string name="member_btn">آپ کی پرو خصوصیات</string>
     <string name="pro_get_more_out">ایٹامک سے مزید فائدہ اٹھائیں</string>
@@ -370,7 +370,7 @@
     <string name="level_stat_placeholder">---</string>
     <string name="completed_quizzes_stat_placeholder">---</string>
     <string name="popup_title">پرو+ پر اپ گریڈ کریں</string>
-    <string name="popup_content_text">\\'ایٹامک - پیریاڈک ٹیبل\\' کو اپ گریڈ کریں تاکہ مزید ڈیٹا، ٹیبلز اور فلیش کارڈز کھولیں</string>
+    <string name="popup_content_text">\'ایٹامک - پیریاڈک ٹیبل\' کو اپ گریڈ کریں تاکہ مزید ڈیٹا، ٹیبلز اور فلیش کارڈز کھولیں</string>
     <string name="popup_action_button">پرو+ پر اپ گریڈ کریں</string>
     <string name="popup_secondary_button">آج نہیں</string>
     <string name="credits_title">کریڈٹس</string>

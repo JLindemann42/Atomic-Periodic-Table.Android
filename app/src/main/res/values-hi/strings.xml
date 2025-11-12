@@ -27,9 +27,9 @@
     <string name="random_element">यादृच्छिक तत्व</string>
     <string name="pro_title">PRO संस्करण</string>
     <string name="get_pro_title">PRO संस्करण प्राप्त करें</string>
-    <string name="pro_descr">\\'एटॉमिक - पीरियोडिक टेबल\\' एक मुफ़्त और ओपन-सोर्स ऐप है जिसे मैंने अपने खाली समय में स्वीडन में बनाया है। PRO संस्करण खरीदने से आप विकास में सहायता करते हैं और साथ ही अतिरिक्त डेटा और सुविधाएँ भी प्राप्त करते हैं!</string>
+    <string name="pro_descr">\'एटॉमिक - पीरियोडिक टेबल\' एक मुफ़्त और ओपन-सोर्स ऐप है जिसे मैंने अपने खाली समय में स्वीडन में बनाया है। PRO संस्करण खरीदने से आप विकास में सहायता करते हैं और साथ ही अतिरिक्त डेटा और सुविधाएँ भी प्राप्त करते हैं!</string>
     <string name="member_title">PRO सदस्य पृष्ठ</string>
-    <string name="member_desch">\\'एटॉमिक - पीरियोडिक टेबल\\' के विकास का समर्थन करने के लिए धन्यवाद। इस पृष्ठ पर आपकी PRO सुविधाएँ दिखाई जाएँगी जैसे-जैसे और PRO फीचर्स जुड़ते हैं।</string>
+    <string name="member_desch">\'एटॉमिक - पीरियोडिक टेबल\' के विकास का समर्थन करने के लिए धन्यवाद। इस पृष्ठ पर आपकी PRO सुविधाएँ दिखाई जाएँगी जैसे-जैसे और PRO फीचर्स जुड़ते हैं।</string>
     <string name="member_already">आप PRO सदस्य हैं!</string>
     <string name="member_btn">आपकी PRO विशेषताएँ</string>
     <string name="pro_get_more_out">एटॉमिक का अधिक लाभ लें</string>
@@ -373,7 +373,7 @@
     <string name="level_stat_placeholder">---</string>
     <string name="completed_quizzes_stat_placeholder">---</string>
     <string name="popup_title">PRO+ में अपग्रेड करें</string>
-    <string name="popup_content_text">\\'एटॉमिक - पीरियोडिक टेबल\\' को अपग्रेड करें ताकि अतिरिक्त डेटा, तालिकाएँ और फ्लैशकार्ड्स अनलॉक हों ताकि आप पीरियोडिक टेबल के बारे में अधिक सीख सकें।</string>
+    <string name="popup_content_text">\'एटॉमिक - पीरियोडिक टेबल\' को अपग्रेड करें ताकि अतिरिक्त डेटा, तालिकाएँ और फ्लैशकार्ड्स अनलॉक हों ताकि आप पीरियोडिक टेबल के बारे में अधिक सीख सकें।</string>
     <string name="popup_action_button">PRO+ में अपग्रेड करें</string>
     <string name="popup_secondary_button">आज नहीं</string>
     <string name="credits_title">श्रेय</string>
