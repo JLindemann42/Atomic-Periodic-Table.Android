@@ -20,7 +20,6 @@ import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ThemePreference
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +29,7 @@ import com.jlindemann.science.activities.IsotopesActivityExperimental
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.sendIso
+import com.jlindemann.science.utils.ElementDataLoader
 import com.otaliastudios.zoom.ZoomLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -226,10 +226,7 @@ class NuclideActivity : BaseActivity() {
     private suspend fun loadElementData(item: Element): JSONObject? {
         return withContext(Dispatchers.IO) {
             try {
-                val inputStream = assets.open("${item.element}.json")
-                val jsonString = inputStream.bufferedReader().use { it.readText() }
-                val jsonArray = JSONArray(jsonString)
-                jsonArray.getJSONObject(0)
+                ElementDataLoader.loadElementData(this@NuclideActivity, item.element)
             } catch (e: IOException) {
                 Log.e("NuclideActivity", "Failed to load element data for ${item.element}", e)
                 null
