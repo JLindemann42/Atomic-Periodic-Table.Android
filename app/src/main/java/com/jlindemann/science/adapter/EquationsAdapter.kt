@@ -16,10 +16,8 @@ import com.jlindemann.science.model.Equation
 import com.jlindemann.science.preferences.ThemePreference
 
 class EquationsAdapter(var list: ArrayList<Equation>, var clickListener: EquationsActivity, val context: Context) : RecyclerView.Adapter<EquationsAdapter.ViewHolder>() {
-    private val themePrefValue: Int = ThemePreference(context).getValue()
-    
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.initialize(list[position], clickListener, context, themePrefValue)
+        holder.initialize(list[position], clickListener, context)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,7 +34,7 @@ class EquationsAdapter(var list: ArrayList<Equation>, var clickListener: Equatio
         private val equCategory = itemView.findViewById(R.id.ic_equ) as TextView
         private val equImg = itemView.findViewById(R.id.ic_eq_view) as ImageView
 
-        fun initialize(item: Equation, action: OnEquationClickListener, context: Context, themePrefValue: Int) {
+        fun initialize(item: Equation, action: OnEquationClickListener, context: Context) {
             equTitle.text = item.equationTitle
             if (item.category == "Mechanics") { equCategory.text = "Me" }
             if (item.category == "General") { equCategory.text = "Ge" }
@@ -48,6 +46,8 @@ class EquationsAdapter(var list: ArrayList<Equation>, var clickListener: Equatio
             if (item.category == "Atomic Physics") { equCategory.text = "AP" }
             if (item.category == "Nuclear Physics") { equCategory.text = "NP" }
             equImg.setImageResource(item.equation)
+            val themePreference = ThemePreference(context)
+            val themePrefValue = themePreference.getValue()
             if (themePrefValue == 1) {
                 equImg.colorFilter = ColorMatrixColorFilter(NEGATIVE)
             }

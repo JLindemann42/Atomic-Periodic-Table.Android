@@ -70,10 +70,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     // Tracks whether we've already adjusted the scrollView upward while bars are hidden
     private var isScrollViewRaised = false
-    
-    // Handler and runnable for scroll synchronization
-    private var scrollSyncHandler: Handler? = null
-    private var scrollSyncRunnable: Runnable? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -257,8 +253,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         // We'll convert 32dp to pixels once and reuse
         val raisePx = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32f, resources.displayMetrics).toInt()
 
-        scrollSyncHandler = Handler(Looper.getMainLooper())
-        scrollSyncRunnable = object : Runnable {
+        val handler = Handler(Looper.getMainLooper())
+        val runnable = object : Runnable {
             override fun run() {
                 if (zoomLay.zoom < 1) {
                     // bars hidden
@@ -301,10 +297,10 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
                 yScroll.scrollTo(0, -zoomLay.panY.toInt())
                 xScroll.scrollTo(-zoomLay.panX.toInt(), 0)
-                scrollSyncHandler?.postDelayed(this, 1)
+                handler.postDelayed(this, 1)
             }
         }
-        scrollSyncHandler?.post(scrollSyncRunnable!!)
+        handler.post(runnable)
     }
 
 
@@ -350,6 +346,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             })
         }
         mAdapter.filterList(filteredList)
+        mAdapter.notifyDataSetChanged()
+        recyclerView.adapter = ElementAdapter(filteredList, this, this)
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             if (recyclerView.adapter?.itemCount == 0) {
@@ -686,6 +684,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             // filter closed -> keep interception if other overlays remain (e.g. search menu)
             setBackInterceptionEnabled(anyOverlayOpen())
             mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = ElementAdapter(filtList, this, this)
         }
         findViewById<TextView>(R.id.electro_btn).setOnClickListener {
             val searchPreference = SearchPreferences(this)
@@ -700,6 +700,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             // filter closed -> keep interception if other overlays (like search menu) remain open
             setBackInterceptionEnabled(anyOverlayOpen())
             mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = ElementAdapter(filtList, this, this)
         }
         findViewById<TextView>(R.id.alphabet_btn).setOnClickListener {
             val searchPreference = SearchPreferences(this)
@@ -717,6 +719,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                 lhs.element.compareTo(rhs.element)
             })
             mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = ElementAdapter(filtList, this, this)
         }
     }
 
@@ -892,11 +896,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     override fun onDestroy() {
         super.onDestroy()
-        // Remove scroll sync runnable to prevent memory leak
-        scrollSyncRunnable?.let { scrollSyncHandler?.removeCallbacks(it) }
-        scrollSyncHandler = null
-        scrollSyncRunnable = null
-        
         // Remove callback
         backCallback?.remove()
         backCallback = null

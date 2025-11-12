@@ -20,11 +20,8 @@ import java.io.InputStream
 
 
 class IonAdapter(var list: ArrayList<Ion>, var clickListener: IonActivity, val context: Context) : RecyclerView.Adapter<IonAdapter.ViewHolder>() {
-    // Cache for ionization energies to avoid repeated JSON parsing
-    private val ionizationCache = mutableMapOf<String, String>()
-    
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.initialize(list[position], clickListener, context, ionizationCache)
+        holder.initialize(list[position], clickListener, context)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,36 +38,27 @@ class IonAdapter(var list: ArrayList<Ion>, var clickListener: IonActivity, val c
         private val textViewCharge = itemView.findViewById(R.id.tv_end) as TextView
         private val textViewVoltage = itemView.findViewById(R.id.tv_ionization) as TextView
 
-        fun initialize(item: Ion, action: OnIonClickListener, context: Context, ionizationCache: MutableMap<String, String>) {
-            val elementName = item.name
-            
-            // Check cache first
-            val cachedValue = ionizationCache[elementName]
-            if (cachedValue != null) {
-                textViewVoltage.text = cachedValue
-            } else {
-                // Parse JSON only if not in cache
-                var jsonString : String? = null
-                try {
-                    val ext = ".json"
-                    val ElementJson: String? = "$elementName$ext"
+        fun initialize(item: Ion, action: OnIonClickListener, context: Context) {
+            var jsonString : String? = null
+            try {
+                val ext = ".json"
+                val element = item.name
+                val ElementJson: String? = "$element$ext"
 
-                    val inputStream: InputStream = context.assets.open(ElementJson.toString())
-                    jsonString = inputStream.bufferedReader().use { it.readText() }
+                val inputStream: InputStream = context.assets.open(ElementJson.toString())
+                jsonString = inputStream.bufferedReader().use { it.readText() }
 
-                    val jsonArray = JSONArray(jsonString)
-                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                val jsonArray = JSONArray(jsonString)
+                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
 
-                    val ionization1 = jsonObject.optString("element_ionization_energy1", "---")
-                    
-                    // Cache the value
-                    ionizationCache[elementName] = ionization1
-                    textViewVoltage.text = ionization1
+                val ionization1 = jsonObject.optString("element_ionization_energy1", "---")
+                textViewVoltage.text = ionization1
 
-                }
-                catch (e: IOException) { }
+
             }
-            textViewName.text = elementName.replaceFirstChar { it.uppercase() }
+            catch (e: IOException) { }
+            textViewName.text = item.name
+            textViewName.text = item.name.capitalize()
             textViewShort.text = item.short
             textViewCharge.text = "View all" + " " + item.count.toString()
 

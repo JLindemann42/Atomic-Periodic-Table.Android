@@ -14,11 +14,16 @@ import com.jlindemann.science.model.Element
 import com.jlindemann.science.preferences.SearchPreferences
 
 class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnElementClickListener2, val con: Context) : RecyclerView.Adapter<ElementAdapter.ViewHolder>() {
+<<<<<<< HEAD
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // get preference value here (context is guaranteed to be valid by the time RecyclerView binds)
         val searchPrefValue = SearchPreferences(con).getValue()
         holder.initialize(elementList[position], clickListener, con, searchPrefValue)
+=======
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.initialize(elementList[position], clickListener, con)
+>>>>>>> parent of 9158d32 (Merge branch 'development' of https://github.com/JLindemann42/Atomic-Periodic-Table.Android into development)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,8 +42,12 @@ class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
         private val textViewShort = itemView.findViewById<TextView>(R.id.ic_iso_type)
         private val textViewNumb = itemView.findViewById<TextView>(R.id.tv_iso_numb)
 
-        fun initialize(item: Element, action: OnElementClickListener2, con: Context, searchPrefValue: Int) {
+        fun initialize(item: Element, action: OnElementClickListener2, con: Context) {
 
+            val searchPreference = SearchPreferences(con)
+            val searchPrefValue = searchPreference.getValue()
+
+            textViewElement.text = item.element
             textViewElement.text = item.element.replaceFirstChar { it.uppercase() }
             textViewShort.text = item.short
 

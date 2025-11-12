@@ -31,7 +31,8 @@ class IsotopeAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
         private val textViewNumb = itemView.findViewById(R.id.tv_iso_numb) as TextView
 
         fun initialize(item: Element, action: OnElementClickListener, context: Context) {
-            textViewElement.text = item.element.replaceFirstChar { it.uppercase() }
+            textViewElement.text = item.element
+            textViewElement.text = item.element.capitalize()
             textViewShort.text = item.short
             textViewNumb.text = item.number.toString()
 

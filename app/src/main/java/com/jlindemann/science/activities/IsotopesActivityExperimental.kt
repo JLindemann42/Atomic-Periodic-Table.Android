@@ -172,6 +172,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
                 if (lhs.element < rhs.element) -1 else if (lhs.element > rhs.element) 1 else 0
             })
             mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = IsotopeAdapter(filtList, this, this)
             setBackInterceptionEnabled(anyOverlayOpen())
         }
         findViewById<TextView>(R.id.iso_element_numb_btn).setOnClickListener {
@@ -185,6 +187,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.iso_filter_box), 150)
             Utils.fadeOutAnim(findViewById<TextView>(R.id.filter_background), 150)
             mAdapter.filterList(filtList)
+            mAdapter.notifyDataSetChanged()
+            recyclerView.adapter = IsotopeAdapter(filtList, this, this)
             setBackInterceptionEnabled(anyOverlayOpen())
         }
     }
@@ -232,6 +236,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             })
         }
         mAdapter.filterList(filteredList)
+        mAdapter.notifyDataSetChanged()
+        recyclerView.adapter = IsotopeAdapter(filteredList, this, this)
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             if (recyclerView.adapter?.itemCount == 0) {

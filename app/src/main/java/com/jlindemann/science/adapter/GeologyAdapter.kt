@@ -32,7 +32,8 @@ class GeologyAdapter(var list: ArrayList<Geology>, var clickListener: GeologyAct
         private val textViewType = itemView.findViewById(R.id.tv_geo_type) as TextView
 
         fun initialize(item: Geology, action: OnGeologyClickListener, context: Context) {
-            textViewName.text = item.name.replaceFirstChar { it.uppercase() }
+            textViewName.text = item.name
+            textViewName.text = item.name.capitalize()
             textViewShort.text = item.name.substring(0,2)
             textViewType.text = item.type
             textViewGroup.text = item.group

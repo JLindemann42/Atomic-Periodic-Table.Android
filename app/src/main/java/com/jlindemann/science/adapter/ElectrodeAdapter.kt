@@ -32,7 +32,8 @@ class ElectrodeAdapter(var list: ArrayList<Series>, var clickListener: Electrode
         private val textViewVoltage = itemView.findViewById(R.id.tv_voltage) as TextView
 
         fun initialize(item: Series, context: Context) {
-            textViewName.text = item.name.replaceFirstChar { it.uppercase() }
+            textViewName.text = item.name
+            textViewName.text = item.name.capitalize()
             textViewShort.text = item.short
             val voltage = item.voltage.toString()
             val shortVolt = " (Volt)"

@@ -13,7 +13,6 @@ import android.view.*
 import android.view.animation.ScaleAnimation
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
-import androidx.core.content.ContextCompat
 import androidx.core.text.isDigitsOnly
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
@@ -291,9 +290,9 @@ class NuclideActivity : BaseActivity() {
         val (bgColor, textColorRes) = decayColors[decayTypeResult] ?: decayColors["stable"]!!
 
         frame.background.setTint(bgColor)
-        short.setTextColor(ContextCompat.getColor(this, textColorRes))
-        top.setTextColor(ContextCompat.getColor(this, textColorRes))
-        decay.setTextColor(ContextCompat.getColor(this, textColorRes))
+        short.setTextColor(resources.getColor(textColorRes))
+        top.setTextColor(resources.getColor(textColorRes))
+        decay.setTextColor(resources.getColor(textColorRes))
 
         frame.setOnClickListener {
             val isoPreference = ElementSendAndLoad(this)

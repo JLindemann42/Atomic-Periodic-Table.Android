@@ -36,7 +36,8 @@ class PoissonAdapter(var list: ArrayList<Poisson>, var clickListener: PoissonAct
         private val textViewType = itemView.findViewById(R.id.tv_poi_type) as TextView
 
         fun initialize(item: Poisson, action: OnPoissonClickListener, context: Context) {
-            textViewName.text = item.name.replaceFirstChar { it.uppercase() }
+            textViewName.text = item.name
+            textViewName.text = item.name.capitalize()
             textViewShort.text = item.name.substring(0,2)
             textViewType.text = item.type
             val startValue = item.start.toString()
