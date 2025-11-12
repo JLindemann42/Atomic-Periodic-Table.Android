@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Atomic</string>
     <string name="personalization_settings">Anpassning</string>
@@ -220,7 +220,7 @@
     <string name="facebook">https://www.facebook.com/jlindemanndev</string>
     <string name="homepage">https://www.jlindemann.se/homepage</string>
     <string name="solubility_info_t">Löslighetshjälp</string>
-    <string name="solubility_info_c">&quot;S: Löslig\nSs: Svagt löslig\nI: Olöslig&quot;</string>
+    <string name="solubility_info_c">"S: Löslig\nSs: Svagt löslig\nI: Olöslig"</string>
     <string name="electrochemical_series">Elektrokemisk serie</string>
     <string name="electrochemical_series_search">Sök efter grundämne</string>
     <string name="short_voltage"> (Volt)</string>
@@ -234,12 +234,12 @@
     <string name="chip_water">Vatten</string>
     <string name="wikipedia_license">Wikipedia Commons</string>
     <string name="wikipedia_license_text">CREATIVE COMMONS CORPORATION ÄR INTE EN ADVOKATBYRÅ OCH TILLHANDAHÅLLER INTE JURIDISKA TJÄNSTER.
-        DISTRIBUTION AV DENNA LICENS SKAPAR INTE EN ADVOKAT-KLIENTRELATION. CREATIVE COMMONS TILLHANDAHÅLLER DENNA INFORMATION &quot;I BEFINTLIGT SKICK&quot;. CREATIVE COMMONS GER INGA GARANTIER FÖR DEN INFORMATION SOM TILLHANDAHÅLLS OCH FRÅNSÄGER SIG ANSVAR FÖR SKADOR SOM UPPSTÅR VID ANVÄNDNINGEN.\n\nVERKET (SOM DEFINIERAS NEDAN) TILLHANDAHÅLLS UNDER VILLKOREN I DENNA CREATIVE COMMONS PUBLIC LICENSE (&quot;CCPL&quot; ELLER &quot;LICENS&quot;).
+        DISTRIBUTION AV DENNA LICENS SKAPAR INTE EN ADVOKAT-KLIENTRELATION. CREATIVE COMMONS TILLHANDAHÅLLER DENNA INFORMATION "I BEFINTLIGT SKICK". CREATIVE COMMONS GER INGA GARANTIER FÖR DEN INFORMATION SOM TILLHANDAHÅLLS OCH FRÅNSÄGER SIG ANSVAR FÖR SKADOR SOM UPPSTÅR VID ANVÄNDNINGEN.\n\nVERKET (SOM DEFINIERAS NEDAN) TILLHANDAHÅLLS UNDER VILLKOREN I DENNA CREATIVE COMMONS PUBLIC LICENSE ("CCPL" ELLER "LICENS").
         VERKET SKYDDAS AV UPPHOVSRÄTT OCH/ELLER ANNAN TILLÄMPLIG LAG. ALL ANNAN ANVÄNDNING AV VERKET ÄN SOM TILLÅTS ENLIGT DENNA LICENS ELLER UPPHOVSRÄTTSLAGEN ÄR FÖRBJUDEN.
         GENOM ATT UTNYTTJA NÅGON AV RÄTTIGHETERNA TILL VERKET SOM GES HÄR ACCEPTERAR DU OCH SAMTYCKER TILL ATT VARA BUNDEN AV VILLKOREN I DENNA LICENS. I DEN UTSTRÄCKNING DENNA LICENS KAN ANSES VARA ETT KONTRAKT, GER LICENSGIVAREN DIG RÄTTIGHETERNA HÄR I UTVECKLING AV DITT ACCEPTERANDE AV SÅDANA VILLKOR.</string>
     <string name="sothree_license">Android Sliding Up Panel</string>
-    <string name="sothree_license_text">Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the &quot;License&quot;);you may not use this file except in compliance with the License.You may obtain a copy of the License at
-    \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>
+    <string name="sothree_license_text">Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
+    \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>
     <string name="appwidget_text">EXEMPEL</string>
     <string name="add_widget">Lägg till widget</string>
     <string name="no_results">Inga resultat</string>
@@ -310,7 +310,7 @@
     <string name="unit_favorites">Favoriter:</string>
     <string name="unit_display_formula">Formeln visas här</string>
     <string name="flashcards_title">Flashcards</string>
-    <string name="flashcards_info">Lär dig periodiska systemet med inbyggda &quot;lärspel&quot;</string>
+    <string name="flashcards_info">Lär dig periodiska systemet med inbyggda "lärspel"</string>
     <string name="flashcards_lives_info">Varje felaktigt svar leder till förlust av ett liv</string>
     <string name="learning_games">Lärspel:</string>
     <string name="flashcards_element_symbols">Elementsymboler</string>
@@ -426,4 +426,104 @@
     <string name="sync_failed">Synkronisering misslyckades</string>
     <string name="sign_out">Logga ut</string>
     <string name="confirm_sign_out">Är du säker på att du vill logga ut?</string>
+    <string name="achievement_reached_prefix">Achievement reached: </string>
+    <string name="additional_data_item">- Additional Data:</string>
+    <string name="additional_flashcards_games">Additional Flashcards games:</string>
+    <string name="additional_properties_requires_pro">Additional properties requires PRO-version. Get PRO to unlock more data and tables:</string>
+    <string name="additional_tables_item">- Additional Tables:</string>
+    <string name="all_core_features">All Core Features</string>
+    <string name="and_more_item">- And more</string>
+    <string name="appearance_colon">Appearance:</string>
+    <string name="atomic_mass_colon">Atomic Mass:</string>
+    <string name="atomic_number_label">Atomic Number:</string>
+    <string name="atomic_radius_calculated_colon">Atomic Radius (Calculated):</string>
+    <string name="atomic_radius_empirical_colon">Atomic Radius (Empirical):</string>
+    <string name="atomic_weight_relative_atomic_mass">Atomic Weight (Relative Atomic Mass):</string>
+    <string name="balance_equation">Balance equation:</string>
+    <string name="balance_equation_colon">Balance equation:</string>
+    <string name="block_colon">Block:</string>
+    <string name="boiling_point_colon">Boiling Point:</string>
+    <string name="brinell_hardness_colon">Brinell hardness:</string>
+    <string name="calculations">Calculations</string>
+    <string name="calculations_stat">Calculations</string>
+    <string name="card_order">Card Order</string>
+    <string name="color_label">Color: </string>
+    <string name="constants_table_label">Constants Table:</string>
+    <string name="correct">Correct</string>
+    <string name="correct_answer">Correct answer: %s</string>
+    <string name="cristal_structure_label">Cristal Structure: </string>
+    <string name="currently_no_favorites">Currently no favorites</string>
+    <string name="density_colon">Density:</string>
+    <string name="density_label">Density: </string>
+    <string name="electron_shell_colon">Electron Shell:</string>
+    <string name="electronegativity_colon">Electronegativity:</string>
+    <string name="elements_included_will_be_shown_here">Elements included will be shown here</string>
+    <string name="elements_opened">Elements opened</string>
+    <string name="emission_spectrum_colon">Emission Spectrum:</string>
+    <string name="enable_zoom_in_tables">Enable Zoom in tables</string>
+    <string name="experimental">Experimental</string>
+    <string name="favorites_colon">Favorites:</string>
+    <string name="fifty_lives_in_flashcards">50 lives in Flashcards:</string>
+    <string name="finished_game_xp">Finished Game: +%dxp</string>
+    <string name="formula_will_be_displayed_here">Formula will be displayed here</string>
+    <string name="fusion_heat_colon">Fusion heat:</string>
+    <string name="game_results">Game Results</string>
+    <string name="get_pro_button">Get PRO</string>
+    <string name="get_pro_plus_button">Get PRO+</string>
+    <string name="go_online_for_emission_lines">Go online for emission lines</string>
+    <string name="go_pro_more_features">Go Pro - more features</string>
+    <string name="go_pro_school_start_sale">GO PRO - SCHOOL START SALE</string>
+    <string name="group_label">Group: </string>
+    <string name="hardness_label">Hardness: </string>
+    <string name="isotopes_table_description">A table with isotopes for different elements as well as half-time, mass, proton, neutron and nucleons data.</string>
+    <string name="level_x_y">Level X-Y</string>
+    <string name="lives_label">Lives: %s</string>
+    <string name="lives_lost_detail">Lives lost: %1$d (%2$d per wrong/timeout answer)</string>
+    <string name="lives_unlimited">Lives: ∞</string>
+    <string name="mackenzie_l_davis">Mackenzie L. Davis</string>
+    <string name="magnetism_label">Magnetism: </string>
+    <string name="melting_point_colon">Melting Point:</string>
+    <string name="most_advanced">Most advanced</string>
+    <string name="new_label">NEW</string>
+    <string name="next_life_in">Next life in %1$d minutes and %2$d seconds.\nYou will gain %3$d life%4$s.</string>
+    <string name="no_image">No Image</string>
+    <string name="non_pro">NON-PRO</string>
+    <string name="option_placeholder">Option %d</string>
+    <string name="out_of_lives_hours">Out of lives! More lives in %1$d hours, %2$d minutes and %3$d seconds.</string>
+    <string name="out_of_lives_minutes">Out of lives! More lives in %1$d minutes and %2$d seconds.</string>
+    <string name="perfect_all_correct_xp">Perfect (All Correct): +%dxp</string>
+    <string name="phase_stp_colon">Phase (STP):</string>
+    <string name="pro_plus_rewards">PRO+ Rewards: %s</string>
+    <string name="pro_plus_user">PRO+ USER</string>
+    <string name="pro_plus_version">PRO+ Version</string>
+    <string name="pro_user">PRO USER</string>
+    <string name="pro_version">PRO Version</string>
+    <string name="progress_xp">%1$d/%2$d</string>
+    <string name="question_text">Question text</string>
+    <string name="questions_correct_xp">Questions Correct: +%dxp</string>
+    <string name="rate">Rate</string>
+    <string name="rate_app">Rate App</string>
+    <string name="rate_app_description">Let us know what you think of the app, by rating it on the Play Store!</string>
+    <string name="reaction_balancer">Reaction Balancer:</string>
+    <string name="score_summary">Score: %1$d/%2$d</string>
+    <string name="searches">Searches</string>
+    <string name="solubility_table">Solubility Table</string>
+    <string name="sothree_android_sliding_up_panel">Sothree Android Sliding Up Panel</string>
+    <string name="specific_heat_capacity_colon">Specific Heat Capacity:</string>
+    <string name="streak_label">Streak: </string>
+    <string name="time_up">Time\'s Up</string>
+    <string name="tools">Tools</string>
+    <string name="total_xp_stat">Total XP: %d</string>
+    <string name="type_label">Type: </string>
+    <string name="unit_conversion_format">%1$s %2$s → %3$s %4$s (%5$s)</string>
+    <string name="unlock_advanced_data_and_additional_flashcards">Unlock advanced data and additional flashcards.</string>
+    <string name="unlock_advanced_data_and_extra_atomic_content">Unlock advanced data and extra Atomic content.</string>
+    <string name="usage_statistics">Usage Statistics</string>
+    <string name="vaporization_heat_colon">Vaporization Heat:</string>
+    <string name="water_and_wastewater_engineering">Water and Wastewater Engineering</string>
+    <string name="wikipedia_commons">Wikipedia Commons</string>
+    <string name="wrong">Wrong</string>
+    <string name="xp_bonus">+%d%% bonus xp</string>
+    <string name="you_have_full_lives">You have full lives!</string>
+    <string name="your_answer">Your answer: %s</string>
 </resources>
