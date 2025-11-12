@@ -35,7 +35,7 @@
                     android:id="@+id/pro_badge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="All Core Features"
+                    android:text="@string/all_core_features"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
                     android:background="@drawable/badge_bg"
@@ -48,7 +48,7 @@
                     android:id="@+id/pro_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PRO Version"
+                    android:text="@string/pro_version"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="?attr/colorOnSecondaryContainer"/>
@@ -57,7 +57,7 @@
                     android:id="@+id/pro_subtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Unlock advanced data and extra Atomic content."
+                    android:text="@string/unlock_advanced_data_and_extra_atomic_content"
                     android:textSize="14sp"
                     android:layout_marginTop="4dp"
                     android:textColor="?attr/colorOnSecondaryContainer"/>

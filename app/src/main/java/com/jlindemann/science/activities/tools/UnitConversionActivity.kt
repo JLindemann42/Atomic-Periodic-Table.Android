@@ -651,6 +651,6 @@ class FavoriteRecyclerAdapter(
 
     override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         val fav = favorites[position]
-        holder.textView.text = "${fav.inputValue} ${fav.fromUnit} → ${fav.convertedValue} ${fav.toUnit} (${fav.category})"
+        holder.textView.text = holder.itemView.context.getString(R.string.unit_conversion_format, fav.inputValue, fav.fromUnit, fav.convertedValue, fav.toUnit, fav.category)
     }
 }
