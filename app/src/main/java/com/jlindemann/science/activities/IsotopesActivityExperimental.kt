@@ -343,7 +343,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
                     }
                         }
                     }
-                }
+
             }
             catch (e: IOException) { ToastUtil.showToast(this, "Couldn't load Data") }
         }
