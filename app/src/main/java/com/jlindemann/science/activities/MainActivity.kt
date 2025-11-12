@@ -350,8 +350,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             })
         }
         mAdapter.filterList(filteredList)
-        mAdapter.notifyDataSetChanged()
-        recyclerView.adapter = ElementAdapter(filteredList, this, this)
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             if (recyclerView.adapter?.itemCount == 0) {
@@ -688,8 +686,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             // filter closed -> keep interception if other overlays remain (e.g. search menu)
             setBackInterceptionEnabled(anyOverlayOpen())
             mAdapter.filterList(filtList)
-            mAdapter.notifyDataSetChanged()
-            recyclerView.adapter = ElementAdapter(filtList, this, this)
         }
         findViewById<TextView>(R.id.electro_btn).setOnClickListener {
             val searchPreference = SearchPreferences(this)
@@ -704,8 +700,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             // filter closed -> keep interception if other overlays (like search menu) remain open
             setBackInterceptionEnabled(anyOverlayOpen())
             mAdapter.filterList(filtList)
-            mAdapter.notifyDataSetChanged()
-            recyclerView.adapter = ElementAdapter(filtList, this, this)
         }
         findViewById<TextView>(R.id.alphabet_btn).setOnClickListener {
             val searchPreference = SearchPreferences(this)
@@ -723,8 +717,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                 lhs.element.compareTo(rhs.element)
             })
             mAdapter.filterList(filtList)
-            mAdapter.notifyDataSetChanged()
-            recyclerView.adapter = ElementAdapter(filtList, this, this)
         }
     }
 
