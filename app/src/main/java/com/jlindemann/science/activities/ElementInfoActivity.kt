@@ -39,6 +39,7 @@ import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.*
+import com.jlindemann.science.utils.ElementDataLoader
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
@@ -335,46 +336,36 @@ class ElementInfoActivity : InfoExtension() {
 
     private fun nextPrev() {
         findViewById<ImageButton>(R.id.next_btn).setOnClickListener {
-            var jsonString : String? = null
             try {
                 val ElementSendAndLoadPreference = ElementSendAndLoad(this)
                 val ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
-                val name = ElementSendAndLoadValue
-                val ext = ".json"
-                val ElementJson: String? = "$name$ext"
-                val inputStream: InputStream = assets.open(ElementJson.toString())
-                jsonString = inputStream.bufferedReader().use { it.readText() }
-                val jsonArray = JSONArray(jsonString)
-                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-                val currentNumb = jsonObject.optString("element_atomic_number", "---")
-                val elements = ArrayList<Element>()
-                ElementModel.getList(elements)
-                val item = elements[currentNumb.toInt()]
-                val elementSendAndLoad = ElementSendAndLoad(this)
-                elementSendAndLoad.setValue(item.element)
-                readJson()
+                val jsonObject = ElementDataLoader.loadElementData(this, ElementSendAndLoadValue ?: "hydrogen")
+                if (jsonObject != null) {
+                    val currentNumb = jsonObject.optString("element_atomic_number", "---")
+                    val elements = ArrayList<Element>()
+                    ElementModel.getList(elements)
+                    val item = elements[currentNumb.toInt()]
+                    val elementSendAndLoad = ElementSendAndLoad(this)
+                    elementSendAndLoad.setValue(item.element)
+                    readJson()
+                }
             }
             catch (e: IOException) {}
         }
         findViewById<ImageButton>(R.id.previous_btn).setOnClickListener {
-            var jsonString : String? = null
             try {
                 val ElementSendAndLoadPreference = ElementSendAndLoad(this)
                 val ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
-                val name = ElementSendAndLoadValue
-                val ext = ".json"
-                val ElementJson: String? = "$name$ext"
-                val inputStream: InputStream = assets.open(ElementJson.toString())
-                jsonString = inputStream.bufferedReader().use { it.readText() }
-                val jsonArray = JSONArray(jsonString)
-                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-                val currentNumb = jsonObject.optString("element_atomic_number", "---")
-                val elements = ArrayList<Element>()
-                ElementModel.getList(elements)
-                val item = elements[currentNumb.toInt()-2]
-                val elementSendAndLoad = ElementSendAndLoad(this)
-                elementSendAndLoad.setValue(item.element)
-                readJson()
+                val jsonObject = ElementDataLoader.loadElementData(this, ElementSendAndLoadValue ?: "hydrogen")
+                if (jsonObject != null) {
+                    val currentNumb = jsonObject.optString("element_atomic_number", "---")
+                    val elements = ArrayList<Element>()
+                    ElementModel.getList(elements)
+                    val item = elements[currentNumb.toInt()-2]
+                    val elementSendAndLoad = ElementSendAndLoad(this)
+                    elementSendAndLoad.setValue(item.element)
+                    readJson()
+                }
             }
             catch (e: IOException) {}
         }

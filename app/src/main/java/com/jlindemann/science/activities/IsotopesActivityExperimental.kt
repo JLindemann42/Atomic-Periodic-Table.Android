@@ -29,6 +29,7 @@ import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.*
+import com.jlindemann.science.utils.ElementDataLoader
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
@@ -285,33 +286,27 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
 
     private fun drawCard(list: ArrayList<Element>) {
         ElementModel.getList(list)
-        var jsonString : String? = null
         for (item in list) {
             try {
                 val elementSendLoad = ElementSendAndLoad(this)
                 val nameVal = elementSendLoad.getValue()
                 if (item.element.replaceFirstChar { it.uppercase() } == nameVal?.replaceFirstChar { it.uppercase() }) {
-                    val ext = ".json"
-                    val elementJson: String? = "$nameVal$ext"
-                    val inputStream: InputStream = assets.open(elementJson.toString())
-                    jsonString = inputStream.bufferedReader().use { it.readText() }
-                    val jsonArray = JSONArray(jsonString)
-                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    val jsonObject = ElementDataLoader.loadElementData(this, nameVal ?: "hydrogen")
+                    if (jsonObject != null) {
+                        findViewById<LinearLayout>(R.id.frame_iso).removeAllViews()
 
-                    findViewById<LinearLayout>(R.id.frame_iso).removeAllViews()
+                        val aLayout = findViewById<LinearLayout>(R.id.frame_iso)
+                        val inflater = layoutInflater
+                        val fLayout: View = inflater.inflate(R.layout.row_iso_panel_title_item, aLayout, false)
 
-                    val aLayout = findViewById<LinearLayout>(R.id.frame_iso)
-                    val inflater = layoutInflater
-                    val fLayout: View = inflater.inflate(R.layout.row_iso_panel_title_item, aLayout, false)
+                        val iTitle = fLayout.findViewById(R.id.iso_title) as TextView
+                        val iExt = " Isotopes"
+                        iTitle.text = "${nameVal.replaceFirstChar { it.uppercase() }}$iExt"
 
-                    val iTitle = fLayout.findViewById(R.id.iso_title) as TextView
-                    val iExt = " Isotopes"
-                    iTitle.text = "${nameVal.replaceFirstChar { it.uppercase() }}$iExt"
+                        aLayout.addView(fLayout)
 
-                    aLayout.addView(fLayout)
-
-                    for (i in 1..item.isotopes) {
-                        val mainLayout = findViewById<LinearLayout>(R.id.frame_iso)
+                        for (i in 1..item.isotopes) {
+                            val mainLayout = findViewById<LinearLayout>(R.id.frame_iso)
                         val inflater = layoutInflater
                         val myLayout: View = inflater.inflate(R.layout.row_iso_panel_item, mainLayout, false)
                         val name = "iso_"
@@ -345,6 +340,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
                         iMass.text = "$massText$isoMass"
 
                         mainLayout.addView(myLayout)
+                    }
+                        }
                     }
                 }
             }

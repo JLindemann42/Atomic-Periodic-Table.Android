@@ -27,6 +27,7 @@ import com.jlindemann.science.model.Ion
 import com.jlindemann.science.model.IonModel
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.ElementDataLoader
 import com.jlindemann.science.utils.Utils
 import org.json.JSONArray
 import org.json.JSONObject
@@ -115,35 +116,29 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
             setBackInterceptionEnabled(true)
 
             findViewById<TextView>(R.id.ion_detail_title).text = ((item.name).replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } + " " + "ionization")
-            var jsonString : String? = null
-            val ext = ".json"
-            val element = item.name
-            val ElementJson: String? = "$element$ext"
             try {
-                val inputStream: InputStream = assets.open(ElementJson.toString())
-                jsonString = inputStream.bufferedReader().use { it.readText() }
-
-                val jsonArray = JSONArray(jsonString)
-                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-                for (i in 1..item.count) {
-                    val text = "element_ionization_energy"
-                    val add = i.toString()
-                    val final = (text + add)
-                    val ionization = jsonObject.optString(final, "---")
-                    val extText = i.toString()
-                    val nameId = "ion_text_$extText"
-                    val iText = findViewById<TextView>(resources.getIdentifier(nameId, "id", packageName))
-                    val dot = "."
-                    val space = " "
-                    iText.text = "$i$dot$space$ionization"
-                    iText.visibility = View.VISIBLE
-                }
-                for (i in (item.count+1)..30) {
-                    val extText = i.toString()
-                    val nameId = "ion_text_$extText"
-                    val iText = findViewById<TextView>(resources.getIdentifier(nameId, "id", packageName))
+                val jsonObject = ElementDataLoader.loadElementData(this, item.name)
+                if (jsonObject != null) {
+                    for (i in 1..item.count) {
+                        val text = "element_ionization_energy"
+                        val add = i.toString()
+                        val final = (text + add)
+                        val ionization = jsonObject.optString(final, "---")
+                        val extText = i.toString()
+                        val nameId = "ion_text_$extText"
+                        val iText = findViewById<TextView>(resources.getIdentifier(nameId, "id", packageName))
+                        val dot = "."
+                        val space = " "
+                        iText.text = "$i$dot$space$ionization"
+                        iText.visibility = View.VISIBLE
+                    }
+                    for (i in (item.count+1)..30) {
+                        val extText = i.toString()
+                        val nameId = "ion_text_$extText"
+                        val iText = findViewById<TextView>(resources.getIdentifier(nameId, "id", packageName))
                     iText.visibility = View.GONE
                 }
+                    }
             } catch (e: IOException) {
                 // If reading fails, show a toast and ensure interception state is consistent.
                 Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.ion_detail), 300)

@@ -504,7 +504,7 @@ class LearningGamesActivity : BaseActivity() {
     }
 
     private fun generateQuestions(category: String, count: Int): List<Question> {
-        val elementFiles = assets.list("")?.filter { it.endsWith(".json") } ?: emptyList()
+        val elementFiles = listOf("elements_en.json")
         val elements = elementFiles.flatMap { loadElementsFromAsset(it) }
             .filter { it.element.isNotBlank() }
 
