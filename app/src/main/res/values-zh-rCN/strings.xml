@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Atomic</string>
-    <string name="personalization_settings">Personalization</string>
-    <string name="open_table_button">Open table</string>
-    <string name="search">Search Elements</string>
-    <string name="search_elements">Search For Elements</string>
-    <string name="element_number">Element Number</string>
+    <string name="personalization_settings">个性化</string>
+    <string name="open_table_button">打开表格</string>
+    <string name="search">搜索元素</string>
+    <string name="search_elements">搜索元素</string>
+    <string name="element_number">元素序号</string>
     <string name="blog">Blog</string>
-    <string name="Tables">Tables</string>
-    <string name="alphabetical">Alphabetical</string>
-    <string name="Dictionary">Dictionary</string>
-    <string name="New">New</string>
-    <string name="display_mode">Display Mode</string>
-    <string name="element_name_default">Element Name (Default)</string>
-    <string name="atomic_weight">Atomic Weight</string>
-    <string name="boiling_point">Boiling Point</string>
-    <string name="melting_point">Melting Point</string>
-    <string name="year_discovered">Year Discovered</string>
-    <string name="fusion_heat">Fusion Heat</string>
-    <string name="vaporization_heat">Vaporization Heat</string>
-    <string name="poissons_ratio">Poisson\'s Ratio</string>
-    <string name="youngs_modulus">Young\'s Modulus</string>
-    <string name="bulk_modulus">Bulk Modulus</string>
-    <string name="shear_modulus">Shear Modulus</string>
-    <string name="electrical_resistivity">Electrical Resistivity</string>
-    <string name="random_element">Random Element</string>
+    <string name="Tables">表格</string>
+    <string name="alphabetical">按字母顺序</string>
+    <string name="Dictionary">词典</string>
+    <string name="New">新</string>
+    <string name="display_mode">显示模式</string>
+    <string name="element_name_default">元素名称（默认）</string>
+    <string name="atomic_weight">原子量</string>
+    <string name="boiling_point">沸点</string>
+    <string name="melting_point">熔点</string>
+    <string name="year_discovered">发现年份</string>
+    <string name="fusion_heat">熔化热</string>
+    <string name="vaporization_heat">汽化热</string>
+    <string name="poissons_ratio">泊松比</string>
+    <string name="youngs_modulus">杨氏模量</string>
+    <string name="bulk_modulus">体积模量</string>
+    <string name="shear_modulus">剪切模量</string>
+    <string name="electrical_resistivity">电阻率</string>
+    <string name="random_element">随机元素</string>
     <string name="pro_title">PRO Version</string>
     <string name="get_pro_title">Get PRO Version</string>
     <string name="pro_descr">\'Atomic - Periodic Table\' is a free and open-source application made by me on my spare-time in Sweden. By purchasing the PRO-version you help support the development while also receiving additional data and features!</string>
@@ -222,7 +222,7 @@
     <string name="facebook">https://www.facebook.com/jlindemanndev</string>
     <string name="homepage">https://www.jlindemann.se/homepage</string>
     <string name="solubility_info_t">Solubility Help</string>
-    <string name="solubility_info_c">"S: Soluble\nSs: Slightly Soluble\nI: Insoluble"</string>
+    <string name="solubility_info_c">&quot;S: Soluble\nSs: Slightly Soluble\nI: Insoluble&quot;</string>
     <string name="electrochemical_series">Electrochemical Series</string>
     <string name="electrochemical_series_search">Search for Element</string>
     <string name="short_voltage"> (Volt)</string>
@@ -236,12 +236,12 @@
     <string name="chip_water">Water</string>
     <string name="wikipedia_license">Wikipedia Commons</string>
     <string name="wikipedia_license_text">CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL SERVICES.
-        DISTRIBUTION OF THIS LICENSE DOES NOT CREATE AN ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS INFORMATION ON AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES REGARDING THE INFORMATION PROVIDED, AND DISCLAIMS LIABILITY FOR DAMAGES RESULTING FROM ITS USE.\n\nTHE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE").
+        DISTRIBUTION OF THIS LICENSE DOES NOT CREATE AN ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS INFORMATION ON AN &quot;AS-IS&quot; BASIS. CREATIVE COMMONS MAKES NO WARRANTIES REGARDING THE INFORMATION PROVIDED, AND DISCLAIMS LIABILITY FOR DAMAGES RESULTING FROM ITS USE.\n\nTHE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE (&quot;CCPL&quot; OR &quot;LICENSE&quot;).
         THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
         BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE. TO THE EXTENT THIS LICENSE MAY BE CONSIDERED TO BE A CONTRACT, THE LICENSOR GRANTS YOU THE RIGHTS CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND CONDITIONS.</string>
     <string name="sothree_license">Android Sliding Up Panel</string>
-    <string name="sothree_license_text">Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
-    \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>
+    <string name="sothree_license_text">Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the &quot;License&quot;);you may not use this file except in compliance with the License.You may obtain a copy of the License at
+    \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="no_results">No Results</string>
@@ -312,7 +312,7 @@
     <string name="unit_favorites">Favorites:</string>
     <string name="unit_display_formula">Formula will be displayed here</string>
     <string name="flashcards_title">Flashcards</string>
-    <string name="flashcards_info">Learn the Periodic Table with the built in "learning-games"</string>
+    <string name="flashcards_info">Learn the Periodic Table with the built in &quot;learning-games&quot;</string>
     <string name="flashcards_lives_info">Every wrong answer will lead to loss of a live</string>
     <string name="learning_games">Learning-Games:</string>
     <string name="flashcards_element_symbols">Element Symbols</string>
