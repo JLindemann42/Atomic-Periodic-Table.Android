@@ -69,7 +69,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
             val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
 
             val text = findViewById<TextView>(resID)
-            text.text = item.element.capitalize()
+            text.text = item.element.replaceFirstChar { it.uppercase() }
             val btn = findViewById<TextView>(resIDB)
             val themePreference = ThemePreference(this)
             val themePrefValue = themePreference.getValue()
@@ -109,7 +109,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
     }
 
     fun initBoiling(list: ArrayList<Element>) {
-        val delay = Handler()
+        val delay = Handler(Looper.getMainLooper())
         initName(elementList)
         closeHover()
         delay.postDelayed({
@@ -135,7 +135,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
     }
 
     fun initMelting(list: ArrayList<Element>) {
-        val delay = Handler()
+        val delay = Handler(Looper.getMainLooper())
         initName(elementList)
         closeHover()
         delay.postDelayed({
@@ -161,7 +161,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
     }
 
     fun initElectro(list: ArrayList<Element>) {
-        val delay = Handler()
+        val delay = Handler(Looper.getMainLooper())
         initName(elementList)
         closeHover()
         delay.postDelayed({
@@ -207,7 +207,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
     }
 
     fun initGroups(list: ArrayList<Element>) {
-        val delay = Handler()
+        val delay = Handler(Looper.getMainLooper())
         initName(list)
         delay.postDelayed({
             for (item in list) {

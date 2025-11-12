@@ -57,8 +57,7 @@ class IonAdapter(var list: ArrayList<Ion>, var clickListener: IonActivity, val c
 
             }
             catch (e: IOException) { }
-            textViewName.text = item.name
-            textViewName.text = item.name.capitalize()
+            textViewName.text = item.name.replaceFirstChar { it.uppercase() }
             textViewShort.text = item.short
             textViewCharge.text = "View all" + " " + item.count.toString()
 

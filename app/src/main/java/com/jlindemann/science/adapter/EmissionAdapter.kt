@@ -71,7 +71,7 @@ class EmissionAdapter(var list: ArrayList<Element>, var clickListener: EmissionA
 
             shortEmi.text = item.number.toString()
             nameEmi.text = item.short
-            textEmi.text = item.element.capitalize()
+            textEmi.text = item.element.replaceFirstChar { it.uppercase() }
 
             //Remove all elements with number > 98 which don't contain emission data
             if (item.number > 98) {
