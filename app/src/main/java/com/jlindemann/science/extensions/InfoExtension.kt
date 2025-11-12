@@ -36,6 +36,7 @@ import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.Pasteur
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
+import com.jlindemann.science.utils.ElementDataLoader
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.*
 import org.json.JSONArray
@@ -106,11 +107,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                 val (elementKey, jsonObject) = withContext(Dispatchers.IO) {
                     val pref = ElementSendAndLoad(this@InfoExtension)
                     val value = pref.getValue()
-                    val jsonFile = "$value.json"
-                    val inputStream: InputStream = assets.open(jsonFile)
-                    val jsonString = inputStream.bufferedReader().use { it.readText() }
-                    val jsonArray = JSONArray(jsonString)
-                    val jsonObject = jsonArray.getJSONObject(0)
+                    val jsonObject = ElementDataLoader.loadElementData(this@InfoExtension, value ?: "hydrogen")
                     Pair(value, jsonObject)
                 }
 
@@ -120,7 +117,12 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                 findViewById<ImageButton>(R.id.next_btn).visibility =
                     if (elementKey == "oganesson") View.GONE else View.VISIBLE
 
-                updateElementUI(jsonObject)
+                if (jsonObject != null) {
+                    updateElementUI(jsonObject)
+                } else {
+                    findViewById<TextView>(R.id.element_title).text = "Element not found"
+                    ToastUtil.showToast(this@InfoExtension, "Couldn't load element: $elementKey")
+                }
             } catch (e: IOException) {
                 findViewById<TextView>(R.id.element_title).text = "Not able to load json"
                 val stringText = "Couldn't load element:"

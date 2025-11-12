@@ -16,6 +16,7 @@ import com.jlindemann.science.activities.tables.IonActivity
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.Equation
 import com.jlindemann.science.model.Ion
+import com.jlindemann.science.utils.ElementDataLoader
 import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONObject
@@ -44,19 +45,10 @@ class EmissionAdapter(var list: ArrayList<Element>, var clickListener: EmissionA
         private val nameEmi = itemView.findViewById(R.id.emi_name) as TextView
 
         fun initialize(item: Element, action: OnEmissionClickListener, context: Context) {
-            var jsonString : String? = null
             try {
-                val ext = ".json"
                 val element = item.element
-                val ElementJson: String? = "$element$ext"
-
-                val inputStream: InputStream = context.assets.open(ElementJson.toString())
-                jsonString = inputStream.bufferedReader().use { it.readText() }
-
-                val jsonArray = JSONArray(jsonString)
-                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-
-                val url = jsonObject.optString("short", "---")
+                val jsonObject = ElementDataLoader.loadElementData(context, element)
+                val url = jsonObject?.optString("short", "---") ?: "---"
                 val hUrl = "https://www.jlindemann.se/atomic/emission_lines/"
                 val extg = ".gif"
                 val fURL = hUrl + url + extg
