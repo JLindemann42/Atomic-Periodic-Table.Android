@@ -624,4 +624,32 @@
     <string name="achievement_reached_prefix">Achievement reached: </string>
     <string name="constants_table_label">Constants Table:</string>
 
+    <!-- Chemical Reactions -->
+    <string name="reaction_balancer">Reaction Balancer:</string>
+    <string name="balance_equation">Balance equation:</string>
+    <string name="elements_included_will_be_shown_here">Elements included will be shown here</string>
+    <string name="favorites_colon">Favorites:</string>
+    <string name="currently_no_favorites">Currently no favorites</string>
+
+    <!-- General UI -->
+    <string name="no_results">No results</string>
+    <string name="experimental">Experimental</string>
+    <string name="enable_zoom_in_tables">Enable Zoom in tables</string>
+    <string name="question_text">Question text</string>
+    <string name="option_placeholder">Option %d</string>
+    <string name="card_order">Card Order</string>
+    <string name="wikipedia_commons">Wikipedia Commons</string>
+    <string name="solubility_table">Solubility Table</string>
+    <string name="formula_will_be_displayed_here">Formula will be displayed here</string>
+
+    <!-- User Activity -->
+    <string name="usage_statistics">Usage Statistics</string>
+    <string name="elements_opened">Elements opened</string>
+    <string name="calculations_stat">Calculations</string>
+    <string name="searches">Searches</string>
+    <string name="rate_app">Rate App</string>
+    <string name="rate_app_description">Let us know what you think of the app, by rating it on the Play Store!</string>
+    <string name="rate">Rate</string>
+
 </resources>
+
