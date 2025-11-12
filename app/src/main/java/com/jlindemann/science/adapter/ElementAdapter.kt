@@ -15,8 +15,10 @@ import com.jlindemann.science.model.Element
 import com.jlindemann.science.preferences.SearchPreferences
 
 class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnElementClickListener2, val con: Context) : RecyclerView.Adapter<ElementAdapter.ViewHolder>() {
+    private val searchPrefValue: Int = SearchPreferences(con).getValue()
+    
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.initialize(elementList[position], clickListener, con)
+        holder.initialize(elementList[position], clickListener, con, searchPrefValue)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,12 +37,8 @@ class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
         private val textViewShort = itemView.findViewById(R.id.ic_iso_type) as TextView
         private val textViewNumb = itemView.findViewById(R.id.tv_iso_numb) as TextView
 
-        fun initialize(item: Element, action: OnElementClickListener2, con: Context) {
+        fun initialize(item: Element, action: OnElementClickListener2, con: Context, searchPrefValue: Int) {
 
-            val searchPreference = SearchPreferences(con)
-            val searchPrefValue = searchPreference.getValue()
-
-            textViewElement.text = item.element
             textViewElement.text = item.element.replaceFirstChar { it.uppercase() }
             textViewShort.text = item.short
 
