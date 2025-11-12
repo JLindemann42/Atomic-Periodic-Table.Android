@@ -104,14 +104,14 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
     override fun geologyClickListener(item: Geology, position: Int) {
         // Set textViews:
         findViewById<TextView>(R.id.geo_detail_title).text = item.name
-        findViewById<TextView>(R.id.geo_type).text = "Type: " + item.type
-        findViewById<TextView>(R.id.geo_group).text = "Group: " + item.group
-        findViewById<TextView>(R.id.geo_color).text = "Color: " + item.color
-        findViewById<TextView>(R.id.geo_strike).text = "Streak: " + item.streak
-        findViewById<TextView>(R.id.geo_cristal).text = "Cristal Structure: " + item.cristal
-        findViewById<TextView>(R.id.geo_hardness).text = "Hardness: " + item.hardness
-        findViewById<TextView>(R.id.geo_density).text = "Density: " + item.density
-        findViewById<TextView>(R.id.geo_magnetism).text = "Magnetism: " +item.magnetism
+        findViewById<TextView>(R.id.geo_type).text = getString(R.string.type_label) + item.type
+        findViewById<TextView>(R.id.geo_group).text = getString(R.string.group_label) + item.group
+        findViewById<TextView>(R.id.geo_color).text = getString(R.string.color_label) + item.color
+        findViewById<TextView>(R.id.geo_strike).text = getString(R.string.streak_label) + item.streak
+        findViewById<TextView>(R.id.geo_cristal).text = getString(R.string.cristal_structure_label) + item.cristal
+        findViewById<TextView>(R.id.geo_hardness).text = getString(R.string.hardness_label) + item.hardness
+        findViewById<TextView>(R.id.geo_density).text = getString(R.string.density_label) + item.density
+        findViewById<TextView>(R.id.geo_magnetism).text = getString(R.string.magnetism_label) + item.magnetism
         findViewById<TextView>(R.id.geo_hydrochloride).text = item.hydrochloride
 
         // Fade in geo_details and enable back interception while open

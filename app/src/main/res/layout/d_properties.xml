@@ -72,7 +72,7 @@
             android:id="@+id/element_atomic_number_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Atomic Number:"
+            android:text="@string/atomic_number_label"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -102,7 +102,7 @@
             android:id="@+id/element_atomic_weight_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Atomic Weight (Relative Atomic Mass):"
+            android:text="@string/atomic_weight_relative_atomic_mass"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -133,7 +133,7 @@
             android:id="@+id/element_density_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Density:"
+            android:text="@string/density_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -194,7 +194,7 @@
             android:id="@+id/element_block_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Block:"
+            android:text="@string/block_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />

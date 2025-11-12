@@ -115,7 +115,7 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
         livesCountView?.text = livesDisplay
 
         val livesLabelView = findViewById<TextView?>(R.id.tv_lives)
-        livesLabelView?.text = "Lives: $livesDisplay"
+        livesLabelView?.text = getString(R.string.lives_label, livesDisplay)
     }
 
 

@@ -93,7 +93,7 @@
                     android:id="@+id/phase_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Phase (STP):"
+                    android:text="@string/phase_stp_colon"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -125,7 +125,7 @@
             android:id="@+id/fusion_heat_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Fusion heat:"
+            android:text="@string/fusion_heat_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -155,7 +155,7 @@
             android:id="@+id/specific_heat_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Specific Heat Capacity:"
+            android:text="@string/specific_heat_capacity_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -185,7 +185,7 @@
             android:id="@+id/vaporization_heat_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Vaporization Heat:"
+            android:text="@string/vaporization_heat_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />

@@ -472,13 +472,13 @@ class LearningGamesActivity : BaseActivity() {
         val livesLost = getLivesLost()
 
         if (selectedAnswer == "__TIMEOUT__") {
-            resultText.text = "Time's Up"
+            resultText.text = getString(R.string.time_up)
             resultSubtext.text = if (livesLost == 1) "Lost 1 life" else "Lost $livesLost lives"
         } else if (correct) {
-            resultText.text = "Correct"
+            resultText.text = getString(R.string.correct)
             resultSubtext.text = if (xpGained > 0) "+${xpGained}xp" else ""
         } else {
-            resultText.text = "Wrong"
+            resultText.text = getString(R.string.wrong)
             resultSubtext.text = if (livesLost == 1) "Lost 1 life" else "Lost $livesLost lives"
         }
 
@@ -847,11 +847,11 @@ class LearningGamesActivity : BaseActivity() {
         val livesLabelView = findViewById<TextView>(R.id.tv_lives)
         if (isInfinite) {
             livesTextView.text = "∞"
-            livesLabelView.text = "Lives: ∞"
+            livesLabelView.text = getString(R.string.lives_unlimited)
         } else {
             val lives = LivesManager.getLives(this)
             livesTextView.text = lives.toString()
-            livesLabelView.text = "Lives: $lives"
+            livesLabelView.text = getString(R.string.lives_label, lives.toString())
         }
     }
 

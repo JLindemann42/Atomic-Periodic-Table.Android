@@ -231,13 +231,13 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
         if (date > saleStartDate) {
             //Set new attributes for DonateBtn
-            proText.text = "GO PRO - SCHOOL START SALE"
+            proText.text = getString(R.string.go_pro_school_start_sale)
             proText.setTextColor(getColorStateList(R.color.orange))
             proText.setCompoundDrawableTintList(getColorStateList(R.color.orange))
         }
         if (date > saleEndDate) {
             Timer().schedule(2) {
-                proText.text = "Go Pro - more features"
+                proText.text = getString(R.string.go_pro_more_features)
             }
         }
         else {
