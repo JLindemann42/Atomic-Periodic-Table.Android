@@ -34,8 +34,7 @@ class ConstantsAdapter(var list: ArrayList<Constants>, var clickListener: Consta
         private val textViewValue = itemView.findViewById(R.id.tv_poi_type) as TextView
 
         fun initialize(item: Constants, action: OnConstantsClickListener, context: Context) {
-            textViewName.text = item.name
-            textViewName.text = item.name.capitalize()
+            textViewName.text = item.name.replaceFirstChar { it.uppercase() }
             textViewShort.text = item.name.substring(0,2)
             textViewValue.text = item.value.toString()
             textViewUnit.text = item.unit

@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.core.view.marginStart
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
@@ -69,7 +70,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
             val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
 
             val text = findViewById<TextView>(resID)
-            text.text = item.element.capitalize()
+            text.text = item.element.replaceFirstChar { it.uppercase() }
             val btn = findViewById<TextView>(resIDB)
             val themePreference = ThemePreference(this)
             val themePrefValue = themePreference.getValue()
@@ -87,29 +88,29 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
 
             if (themePrefValue == 100) {
                 when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {Configuration.UI_MODE_NIGHT_NO -> {
-                        btn.background.setTint(resources.getColor(R.color.element_box_light))
-                        findViewById<TextView>(R.id.lanthanoids_btn).background.setTint(resources.getColor(R.color.element_box_light))
-                        findViewById<TextView>(R.id.actinoids_btn).background.setTint(resources.getColor(R.color.element_box_light))
+                        btn.background.setTint(ContextCompat.getColor(this, R.color.element_box_light))
+                        findViewById<TextView>(R.id.lanthanoids_btn).background.setTint(ContextCompat.getColor(this, R.color.element_box_light))
+                        findViewById<TextView>(R.id.actinoids_btn).background.setTint(ContextCompat.getColor(this, R.color.element_box_light))
                     }
                     Configuration.UI_MODE_NIGHT_YES -> {
-                        btn.background.setTint(resources.getColor(R.color.element_box_dark))
-                        findViewById<TextView>(R.id.lanthanoids_btn).background.setTint(resources.getColor(R.color.element_box_dark))
-                        findViewById<TextView>(R.id.actinoids_btn).background.setTint(resources.getColor(R.color.element_box_dark)) }
+                        btn.background.setTint(ContextCompat.getColor(this, R.color.element_box_dark))
+                        findViewById<TextView>(R.id.lanthanoids_btn).background.setTint(ContextCompat.getColor(this, R.color.element_box_dark))
+                        findViewById<TextView>(R.id.actinoids_btn).background.setTint(ContextCompat.getColor(this, R.color.element_box_dark)) }
                 }
             }
             if (themePrefValue == 0) {
-                    btn.background.setTint(resources.getColor(R.color.element_box_light))
-                    findViewById<TextView>(R.id.lanthanoids_btn).background.setTint(resources.getColor(R.color.element_box_light))
-                    findViewById<TextView>(R.id.actinoids_btn).background.setTint(resources.getColor(R.color.element_box_light)) }
+                    btn.background.setTint(ContextCompat.getColor(this, R.color.element_box_light))
+                    findViewById<TextView>(R.id.lanthanoids_btn).background.setTint(ContextCompat.getColor(this, R.color.element_box_light))
+                    findViewById<TextView>(R.id.actinoids_btn).background.setTint(ContextCompat.getColor(this, R.color.element_box_light)) }
             if (themePrefValue == 1) {
-                    btn.background.setTint(resources.getColor(R.color.element_box_dark))
-                    findViewById<TextView>(R.id.lanthanoids_btn).background.setTint(resources.getColor(R.color.element_box_dark))
-                    findViewById<TextView>(R.id.actinoids_btn).background.setTint(resources.getColor(R.color.element_box_dark)) }
+                    btn.background.setTint(ContextCompat.getColor(this, R.color.element_box_dark))
+                    findViewById<TextView>(R.id.lanthanoids_btn).background.setTint(ContextCompat.getColor(this, R.color.element_box_dark))
+                    findViewById<TextView>(R.id.actinoids_btn).background.setTint(ContextCompat.getColor(this, R.color.element_box_dark)) }
         }
     }
 
     fun initBoiling(list: ArrayList<Element>) {
-        val delay = Handler()
+        val delay = Handler(Looper.getMainLooper())
         initName(elementList)
         closeHover()
         delay.postDelayed({
@@ -135,7 +136,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
     }
 
     fun initMelting(list: ArrayList<Element>) {
-        val delay = Handler()
+        val delay = Handler(Looper.getMainLooper())
         initName(elementList)
         closeHover()
         delay.postDelayed({
@@ -161,7 +162,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
     }
 
     fun initElectro(list: ArrayList<Element>) {
-        val delay = Handler()
+        val delay = Handler(Looper.getMainLooper())
         initName(elementList)
         closeHover()
         delay.postDelayed({
@@ -207,7 +208,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
     }
 
     fun initGroups(list: ArrayList<Element>) {
-        val delay = Handler()
+        val delay = Handler(Looper.getMainLooper())
         initName(list)
         delay.postDelayed({
             for (item in list) {
