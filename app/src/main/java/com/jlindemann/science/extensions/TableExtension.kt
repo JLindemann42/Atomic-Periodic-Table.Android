@@ -22,10 +22,7 @@ import com.jlindemann.science.utils.Pasteur
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.jlindemann.science.utils.ElementDataLoader
-import org.json.JSONArray
-import org.json.JSONObject
 import java.io.IOException
-import java.io.InputStream
 
 abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener {
     companion object { private const val TAG = "BaseActivity" }

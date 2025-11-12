@@ -20,7 +20,6 @@ import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ThemePreference
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import androidx.constraintlayout.widget.ConstraintLayout

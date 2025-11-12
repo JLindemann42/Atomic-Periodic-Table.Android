@@ -18,10 +18,7 @@ import com.jlindemann.science.model.Equation
 import com.jlindemann.science.model.Ion
 import com.jlindemann.science.utils.ElementDataLoader
 import com.squareup.picasso.Picasso
-import org.json.JSONArray
-import org.json.JSONObject
 import java.io.IOException
-import java.io.InputStream
 import java.net.ConnectException
 
 

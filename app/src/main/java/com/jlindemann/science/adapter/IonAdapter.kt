@@ -14,10 +14,7 @@ import com.jlindemann.science.activities.tables.IonActivity
 import com.jlindemann.science.model.Equation
 import com.jlindemann.science.model.Ion
 import com.jlindemann.science.utils.ElementDataLoader
-import org.json.JSONArray
-import org.json.JSONObject
 import java.io.IOException
-import java.io.InputStream
 
 
 class IonAdapter(var list: ArrayList<Ion>, var clickListener: IonActivity, val context: Context) : RecyclerView.Adapter<IonAdapter.ViewHolder>() {
