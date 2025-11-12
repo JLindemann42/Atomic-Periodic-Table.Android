@@ -126,7 +126,7 @@
                         android:layout_marginStart="@dimen/margin"
                         android:layout_marginTop="@dimen/margin"
                         android:textStyle="bold"
-                        android:text="Water and Wastewater Engineering"
+                        android:text="@string/water_and_wastewater_engineering"
                         android:textColor="?attr/colorOnSurfaceVariant" />
 
                     <TextView
@@ -135,7 +135,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="@dimen/margin"
                         android:layout_marginTop="4dp"
-                        android:text="Mackenzie L. Davis"
+                        android:text="@string/mackenzie_l_davis"
                         android:textColor="?attr/colorOnSurfaceVariant" />
                 </LinearLayout>
 
@@ -163,7 +163,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/margin"
                     android:layout_marginEnd="@dimen/margin"
-                    android:text="Sothree Android Sliding Up Panel"
+                    android:text="@string/sothree_android_sliding_up_panel"
                     android:textColor="?attr/colorOnSurfaceVariant" />
 
             </FrameLayout>
