@@ -25,8 +25,11 @@ import java.net.ConnectException
 
 
 class EmissionAdapter(var list: ArrayList<Element>, var clickListener: EmissionActivity, val context: Context) : RecyclerView.Adapter<EmissionAdapter.ViewHolder>() {
+    // Cache for emission URLs to avoid repeated JSON parsing
+    private val emissionUrlCache = mutableMapOf<String, String>()
+    
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.initialize(list[position], clickListener, context)
+        holder.initialize(list[position], clickListener, context, emissionUrlCache)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,31 +46,48 @@ class EmissionAdapter(var list: ArrayList<Element>, var clickListener: EmissionA
         private val textEmi = itemView.findViewById(R.id.emi_text) as TextView
         private val nameEmi = itemView.findViewById(R.id.emi_name) as TextView
 
-        fun initialize(item: Element, action: OnEmissionClickListener, context: Context) {
-            var jsonString : String? = null
-            try {
-                val ext = ".json"
-                val element = item.element
-                val ElementJson: String? = "$element$ext"
-
-                val inputStream: InputStream = context.assets.open(ElementJson.toString())
-                jsonString = inputStream.bufferedReader().use { it.readText() }
-
-                val jsonArray = JSONArray(jsonString)
-                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-
-                val url = jsonObject.optString("short", "---")
-                val hUrl = "https://www.jlindemann.se/atomic/emission_lines/"
-                val extg = ".gif"
-                val fURL = hUrl + url + extg
+        fun initialize(item: Element, action: OnEmissionClickListener, context: Context, emissionUrlCache: MutableMap<String, String>) {
+            val element = item.element
+            
+            // Check cache first
+            val cachedUrl = emissionUrlCache[element]
+            if (cachedUrl != null) {
                 try {
-                    Picasso.get().load(fURL).into(emissionImg)
+                    Picasso.get().load(cachedUrl).into(emissionImg)
                 }
                 catch(e: ConnectException) {
                     //
                 }
+            } else {
+                // Parse JSON only if not in cache
+                var jsonString : String? = null
+                try {
+                    val ext = ".json"
+                    val ElementJson: String? = "$element$ext"
+
+                    val inputStream: InputStream = context.assets.open(ElementJson.toString())
+                    jsonString = inputStream.bufferedReader().use { it.readText() }
+
+                    val jsonArray = JSONArray(jsonString)
+                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+
+                    val url = jsonObject.optString("short", "---")
+                    val hUrl = "https://www.jlindemann.se/atomic/emission_lines/"
+                    val extg = ".gif"
+                    val fURL = hUrl + url + extg
+                    
+                    // Cache the URL
+                    emissionUrlCache[element] = fURL
+                    
+                    try {
+                        Picasso.get().load(fURL).into(emissionImg)
+                    }
+                    catch(e: ConnectException) {
+                        //
+                    }
+                }
+                catch (e: IOException) { }
             }
-            catch (e: IOException) { }
 
             shortEmi.text = item.number.toString()
             nameEmi.text = item.short
