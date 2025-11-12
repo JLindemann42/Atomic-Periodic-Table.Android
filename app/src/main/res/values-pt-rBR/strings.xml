@@ -27,9 +27,9 @@
     <string name="random_element">Elemento aleatório</string>
     <string name="pro_title">Versão PRO</string>
     <string name="get_pro_title">Obter versão PRO</string>
-    <string name="pro_descr">'Atomic - Tabela Periódica' é um aplicativo gratuito e de código aberto que criei no meu tempo livre na Suécia. Ao comprar a versão PRO, você apoia o desenvolvimento e recebe dados e recursos adicionais!</string>
+    <string name="pro_descr">\'Atomic - Tabela Periódica\' é um aplicativo gratuito e de código aberto que criei no meu tempo livre na Suécia. Ao comprar a versão PRO, você apoia o desenvolvimento e recebe dados e recursos adicionais!</string>
     <string name="member_title">Página de membro PRO</string>
-    <string name="member_desch">Obrigado por apoiar o desenvolvimento do 'Atomic - Tabela Periódica'. Nesta página, informações sobre seus benefícios PRO estarão disponíveis à medida que mais recursos PRO forem adicionados.</string>
+    <string name="member_desch">Obrigado por apoiar o desenvolvimento do \'Atomic - Tabela Periódica\'. Nesta página, informações sobre seus benefícios PRO estarão disponíveis à medida que mais recursos PRO forem adicionados.</string>
     <string name="member_already">Você é um membro PRO!</string>
     <string name="member_btn">Seus benefícios PRO</string>
     <string name="pro_get_more_out">Aproveite mais do Atomic</string>
@@ -395,7 +395,7 @@
     <string name="level_stat_placeholder">---</string>
     <string name="completed_quizzes_stat_placeholder">---</string>
     <string name="popup_title">Atualizar para PRO+</string>
-    <string name="popup_content_text">Atualize o 'Atomic - Tabela Periódica' para desbloquear dados, tabelas e flashcards adicionais para aprender mais sobre a tabela periódica.</string>
+    <string name="popup_content_text">Atualize o \'Atomic - Tabela Periódica\' para desbloquear dados, tabelas e flashcards adicionais para aprender mais sobre a tabela periódica.</string>
     <string name="popup_action_button">Atualizar para PRO+</string>
     <string name="popup_secondary_button">Hoje não</string>
     <string name="credits_title">Créditos</string>

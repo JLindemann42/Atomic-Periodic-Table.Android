@@ -53,7 +53,7 @@
     <string name="element_more_title">Ytterligare egenskaper</string>
     <string name="element_speed_sound">Ljudhastighet:</string>
     <string name="element_elastic_modulus">Elasticitetsmodul:</string>
-    <string name="element_young_modulus">Young's modul:</string>
+    <string name="element_young_modulus">Young\'s modul:</string>
     <string name="element_shear_modulus">Skjuvmodul:</string>
     <string name="element_bulk_modulus">Bulkmodul:</string>
     <string name="element_poisson_ratio">Poisson\'s förhållande:</string>

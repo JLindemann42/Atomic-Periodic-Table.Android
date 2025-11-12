@@ -27,9 +27,9 @@
     <string name="random_element">Zufälliges Element</string>
     <string name="pro_title">PRO-Version</string>
     <string name="get_pro_title">PRO-Version erhalten</string>
-    <string name="pro_descr">'Atomic - Periodensystem' ist eine kostenlose und Open-Source-Anwendung, die ich in meiner Freizeit in Schweden erstellt habe. Durch den Kauf der PRO-Version unterstützen Sie die Entwicklung und erhalten zusätzliche Daten und Funktionen!</string>
+    <string name="pro_descr">\'Atomic - Periodensystem\' ist eine kostenlose und Open-Source-Anwendung, die ich in meiner Freizeit in Schweden erstellt habe. Durch den Kauf der PRO-Version unterstützen Sie die Entwicklung und erhalten zusätzliche Daten und Funktionen!</string>
     <string name="member_title">PRO-Mitgliederseite</string>
-    <string name="member_desch">Vielen Dank, dass Sie die Entwicklung von 'Atomic - Periodensystem' unterstützen. Auf dieser Seite finden Sie Informationen zu Ihren PRO-Vorteilen, sobald weitere PRO-Funktionen hinzugefügt werden.</string>
+    <string name="member_desch">Vielen Dank, dass Sie die Entwicklung von \'Atomic - Periodensystem\' unterstützen. Auf dieser Seite finden Sie Informationen zu Ihren PRO-Vorteilen, sobald weitere PRO-Funktionen hinzugefügt werden.</string>
     <string name="member_already">Sie sind PRO-Mitglied!</string>
     <string name="member_btn">Ihre PRO-Vorteile</string>
     <string name="pro_get_more_out">Mehr aus Atomic herausholen</string>
@@ -395,7 +395,7 @@
     <string name="level_stat_placeholder">---</string>
     <string name="completed_quizzes_stat_placeholder">---</string>
     <string name="popup_title">Auf PRO+ upgraden</string>
-    <string name="popup_content_text">Upgraden Sie 'Atomic - Periodensystem', um zusätzliche Daten, Tabellen und Lernkarten freizuschalten und mehr über das Periodensystem zu erfahren.</string>
+    <string name="popup_content_text">Upgraden Sie \'Atomic - Periodensystem\', um zusätzliche Daten, Tabellen und Lernkarten freizuschalten und mehr über das Periodensystem zu erfahren.</string>
     <string name="popup_action_button">Auf PRO+ upgraden</string>
     <string name="popup_secondary_button">Heute nicht</string>
     <string name="credits_title">Danksagungen</string>
