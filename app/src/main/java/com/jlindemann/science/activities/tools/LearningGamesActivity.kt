@@ -25,7 +25,7 @@ import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.util.XpManager
 import com.jlindemann.science.utils.StreakManager
 import com.jlindemann.science.views.AnimatedEffectView
-import org.json.JSONArray
+import org.json.JSONObject
 import kotlin.math.roundToInt
 
 class LearningGamesActivity : BaseActivity() {
@@ -789,10 +789,16 @@ class LearningGamesActivity : BaseActivity() {
     private fun loadElementsFromAsset(filename: String): List<ElementData> {
         return try {
             val json = assets.open(filename).bufferedReader().use { it.readText() }
-            val arr = JSONArray(json)
-            (0 until arr.length()).map { i ->
-                val obj = arr.getJSONObject(i)
-                ElementData(
+            val jsonObject = org.json.JSONObject(json)
+            val elementsList = mutableListOf<ElementData>()
+            
+            // Iterate over all keys (element names) in the JSON object
+            val keys = jsonObject.keys()
+            while (keys.hasNext()) {
+                val elementKey = keys.next()
+                val obj = jsonObject.getJSONObject(elementKey)
+                
+                elementsList.add(ElementData(
                     element = obj.optString("element"),
                     short = obj.optString("short"),
                     appearance = obj.optString("element_appearance"),
@@ -819,13 +825,15 @@ class LearningGamesActivity : BaseActivity() {
                     boiling_kelvin = obj.optString("element_boiling_kelvin"),
                     boiling_celsius = obj.optString("element_boiling_celsius"),
                     boiling_fahrenheit = obj.optString("element_boiling_fahrenheit"),
-                    melting_kelvin = obj.optString("element_boiling_kelvin"),
-                    melting_celsius = obj.optString("element_boiling_celsius"),
-                    melting_fahrenheit = obj.optString("element_boiling_fahrenheit"),
+                    melting_kelvin = obj.optString("element_melting_kelvin"),
+                    melting_celsius = obj.optString("element_melting_celsius"),
+                    melting_fahrenheit = obj.optString("element_melting_fahrenheit"),
                     earth_crust = obj.optString("earth_crust"),
                     earth_soils = obj.optString("earth_soils")
-                )
+                ))
             }
+            
+            elementsList
         } catch (e: Exception) {
             e.printStackTrace()
             emptyList()
