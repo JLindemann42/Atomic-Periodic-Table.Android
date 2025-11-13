@@ -504,9 +504,13 @@ class LearningGamesActivity : BaseActivity() {
     }
 
     private fun generateQuestions(category: String, count: Int): List<Question> {
-        val elementFiles = listOf("elements_en.json")
-        val elements = elementFiles.flatMap { loadElementsFromAsset(it) }
-            .filter { it.element.isNotBlank() }
+        val language = java.util.Locale.getDefault().language
+        // Try to load elements in the user's language, fallback to English if not available
+        var elements = loadElementsFromAsset("elements_$language.json")
+        if (elements.isEmpty() && language != "en") {
+            elements = loadElementsFromAsset("elements_en.json")
+        }
+        elements = elements.filter { it.element.isNotBlank() }
 
         val questions = mutableListOf<Question>()
         val usedElements = mutableSetOf<String>()
