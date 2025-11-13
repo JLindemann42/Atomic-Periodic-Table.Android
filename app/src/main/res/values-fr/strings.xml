@@ -439,10 +439,10 @@
     <string name="atomic_radius_calculated_colon">Rayon atomique (calculé):</string>
     <string name="atomic_radius_empirical_colon">Rayon atomique (empirique):</string>
     <string name="atomic_weight_relative_atomic_mass">Poids atomique (masse atomique relative):</string>
-    <string name="balance_equation">Équilibrer l'équation:</string>
-    <string name="balance_equation_colon">Équilibrer l'équation:</string>
+    <string name="balance_equation">Équilibrer l\'équation:</string>
+    <string name="balance_equation_colon">Équilibrer l\'équation:</string>
     <string name="block_colon">Bloc:</string>
-    <string name="boiling_point_colon">Point d'ébullition:</string>
+    <string name="boiling_point_colon">Point d\'ébullition:</string>
     <string name="brinell_hardness_colon">Dureté Brinell:</string>
     <string name="calculations">Calculs</string>
     <string name="calculations_stat">Calculs</string>
@@ -459,7 +459,7 @@
     <string name="electronegativity_colon">Électronégativité:</string>
     <string name="elements_included_will_be_shown_here">Les éléments inclus seront affichés ici</string>
     <string name="elements_opened">Éléments ouverts</string>
-    <string name="emission_spectrum_colon">Spectre d'émission:</string>
+    <string name="emission_spectrum_colon">Spectre d\'émission:</string>
     <string name="enable_zoom_in_tables">Activer le zoom dans les tableaux</string>
     <string name="experimental">Expérimental</string>
     <string name="favorites_colon">Favoris:</string>
@@ -470,7 +470,7 @@
     <string name="game_results">Résultats du jeu</string>
     <string name="get_pro_button">Obtenir PRO</string>
     <string name="get_pro_plus_button">Obtenir PRO+</string>
-    <string name="go_online_for_emission_lines">Aller en ligne pour les lignes d'émission</string>
+    <string name="go_online_for_emission_lines">Aller en ligne pour les lignes d\'émission</string>
     <string name="go_pro_more_features">Passer Pro - plus de fonctionnalités</string>
     <string name="go_pro_school_start_sale">PASSER PRO - VENTE DE RENTRÉE SCOLAIRE</string>
     <string name="group_label">Groupe: </string>
@@ -487,7 +487,7 @@
     <string name="new_label">NOUVEAU</string>
     <string name="next_life_in">Prochaine vie dans %1$d minutes et %2$d secondes.
 Vous gagnerez %3$d vie%4$s.</string>
-    <string name="no_image">Pas d'image</string>
+    <string name="no_image">Pas d\'image</string>
     <string name="non_pro">NON-PRO</string>
     <string name="option_placeholder">Option %d</string>
     <string name="out_of_lives_hours">Plus de vies! Plus de vies dans %1$d heures, %2$d minutes et %3$d secondes.</string>
@@ -503,8 +503,8 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="question_text">Texte de la question</string>
     <string name="questions_correct_xp">Questions correctes: +%dxp</string>
     <string name="rate">Évaluer</string>
-    <string name="rate_app">Évaluer l'application</string>
-    <string name="rate_app_description">Faites-nous savoir ce que vous pensez de l'application en l'évaluant sur le Play Store!</string>
+    <string name="rate_app">Évaluer l\'application</string>
+    <string name="rate_app_description">Faites-nous savoir ce que vous pensez de l\'application en l\'évaluant sur le Play Store!</string>
     <string name="reaction_balancer">Équilibreur de réaction:</string>
     <string name="score_summary">Score: %1$d/%2$d</string>
     <string name="searches">Recherches</string>
@@ -519,7 +519,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="unit_conversion_format">%1$s %2$s → %3$s %4$s (%5$s)</string>
     <string name="unlock_advanced_data_and_additional_flashcards">Débloquez des données avancées et des cartes mémoire supplémentaires.</string>
     <string name="unlock_advanced_data_and_extra_atomic_content">Débloquez des données avancées et du contenu atomique supplémentaire.</string>
-    <string name="usage_statistics">Statistiques d'utilisation</string>
+    <string name="usage_statistics">Statistiques d\'utilisation</string>
     <string name="vaporization_heat_colon">Chaleur de vaporisation:</string>
     <string name="water_and_wastewater_engineering">Water and Wastewater Engineering</string>
     <string name="wikipedia_commons">Wikipedia Commons</string>
