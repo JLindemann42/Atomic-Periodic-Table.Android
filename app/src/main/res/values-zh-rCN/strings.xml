@@ -526,4 +526,37 @@
     <string name="xp_bonus">+%d%% bonus xp</string>
     <string name="you_have_full_lives">You have full lives!</string>
     <string name="your_answer">Your answer: %s</string>
+
+    <!-- Flashcard question formats -->
+    <string name="question_appearance">%s的外观是什么？</string>
+    <string name="question_atomic_mass">%s的原子质量是多少？</string>
+    <string name="question_atomic_number">%s的原子序数是多少？</string>
+    <string name="question_block">%s属于哪个区块？</string>
+    <string name="question_boiling_point_celsius">%s的沸点（°C）是多少？</string>
+    <string name="question_boiling_point_fahrenheit">%s的沸点（°F）是多少？</string>
+    <string name="question_boiling_point_kelvin">%s的沸点（Kelvin）是多少？</string>
+    <string name="question_brinell_hardness">%s的布氏硬度是多少？</string>
+    <string name="question_crystal_structure">%s的晶体结构是什么？</string>
+    <string name="question_density">%s的密度是多少？</string>
+    <string name="question_discovered_by">谁发现了%s？</string>
+    <string name="question_discovery_year">%s是在哪一年被发现的？</string>
+    <string name="question_earth_crust_abundance">%s在地壳中的丰度是多少？mg/kg (ppm)</string>
+    <string name="question_earth_soils_abundance">%s在土壤中的丰度是多少？mg/kg (ppm)</string>
+    <string name="question_electrical_type">%s的电学类型是什么？</string>
+    <string name="question_electronegativity">%s的电负性是多少？</string>
+    <string name="question_element_group">%s的元素族是什么？</string>
+    <string name="question_element_name">%s的名称是什么？</string>
+    <string name="question_element_symbol">%s的符号是什么？</string>
+    <string name="question_magnetic_type">%s的磁性类型是什么？</string>
+    <string name="question_melting_point_celsius">%s的熔点（°C）是多少？</string>
+    <string name="question_melting_point_fahrenheit">%s的熔点（°F）是多少？</string>
+    <string name="question_melting_point_kelvin">%s的熔点（Kelvin）是多少？</string>
+    <string name="question_mohs_hardness">%s的莫氏硬度是多少？</string>
+    <string name="question_neutron_cross_sectional">%s的中子截面是多少？</string>
+    <string name="question_phase_stp">%s在标准状况下的相态是什么？</string>
+    <string name="question_radioactive">%s是放射性的吗？</string>
+    <string name="question_specific_heat_capacity">%s的比热容是多少？</string>
+    <string name="question_superconducting_point">%s的超导点是多少？</string>
+    <string name="question_vickers_hardness">%s的维氏硬度是多少？</string>
+
 </resources>

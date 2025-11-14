@@ -527,4 +527,37 @@ Du får %3$d liv%4$s.</string>
     <string name="xp_bonus">+%d%% bonus xp</string>
     <string name="you_have_full_lives">Du har fulla liv!</string>
     <string name="your_answer">Ditt svar: %s</string>
+
+    <!-- Flashcard question formats -->
+    <string name="question_appearance">Vad är utseendet på %s?</string>
+    <string name="question_atomic_mass">Vad är atommassan av %s?</string>
+    <string name="question_atomic_number">Vad är atomnumret för %s?</string>
+    <string name="question_block">Vilket block tillhör %s?</string>
+    <string name="question_boiling_point_celsius">Vad är kokpunkten (°C) för %s?</string>
+    <string name="question_boiling_point_fahrenheit">Vad är kokpunkten (°F) för %s?</string>
+    <string name="question_boiling_point_kelvin">Vad är kokpunkten (Kelvin) för %s?</string>
+    <string name="question_brinell_hardness">Vad är Brinellhårdheten för %s?</string>
+    <string name="question_crystal_structure">Vad är kristallstrukturen för %s?</string>
+    <string name="question_density">Vad är densiteten för %s?</string>
+    <string name="question_discovered_by">Vem upptäckte %s?</string>
+    <string name="question_discovery_year">Vilket år upptäcktes %s?</string>
+    <string name="question_earth_crust_abundance">Vad är förekomsten av %s i jordskorpan? mg/kg (ppm)</string>
+    <string name="question_earth_soils_abundance">Vad är förekomsten av %s i jordens jord? mg/kg (ppm)</string>
+    <string name="question_electrical_type">Vad är den elektriska typen av %s?</string>
+    <string name="question_electronegativity">Vad är elektronegativiteten för %s?</string>
+    <string name="question_element_group">Vad är elementgruppen för %s?</string>
+    <string name="question_element_name">Vad är namnet på %s?</string>
+    <string name="question_element_symbol">Vad är symbolen för %s?</string>
+    <string name="question_magnetic_type">Vad är den magnetiska typen av %s?</string>
+    <string name="question_melting_point_celsius">Vad är smältpunkten (°C) för %s?</string>
+    <string name="question_melting_point_fahrenheit">Vad är smältpunkten (°F) för %s?</string>
+    <string name="question_melting_point_kelvin">Vad är smältpunkten (Kelvin) för %s?</string>
+    <string name="question_mohs_hardness">Vad är Mohs-hårdheten för %s?</string>
+    <string name="question_neutron_cross_sectional">Vad är neutrontvärrsnittet för %s?</string>
+    <string name="question_phase_stp">Vad är fasen för %s vid STP?</string>
+    <string name="question_radioactive">Är %s radioaktivt?</string>
+    <string name="question_specific_heat_capacity">Vad är den specifika värmekapaciteten för %s?</string>
+    <string name="question_superconducting_point">Vad är superledningspunkten för %s?</string>
+    <string name="question_vickers_hardness">Vad är Vickers-hårdheten för %s?</string>
+
 </resources>

@@ -522,4 +522,37 @@
     <string name="xp_bonus">+%d%% bonus xp</string>
     <string name="you_have_full_lives">You have full lives!</string>
     <string name="your_answer">Your answer: %s</string>
+
+    <!-- Flashcard question formats -->
+    <string name="question_appearance">%s کی ظاہری شکل کیا ہے؟</string>
+    <string name="question_atomic_mass">%s کی جوہری کمیت کیا ہے؟</string>
+    <string name="question_atomic_number">%s کا جوہری نمبر کیا ہے؟</string>
+    <string name="question_block">%s کس بلاک سے تعلق رکھتا ہے؟</string>
+    <string name="question_boiling_point_celsius">%s کا نقطہ ابال (°C) کیا ہے؟</string>
+    <string name="question_boiling_point_fahrenheit">%s کا نقطہ ابال (°F) کیا ہے؟</string>
+    <string name="question_boiling_point_kelvin">%s کا نقطہ ابال (Kelvin) کیا ہے؟</string>
+    <string name="question_brinell_hardness">%s کی برائنل سختی کیا ہے؟</string>
+    <string name="question_crystal_structure">%s کی کرسٹل ساخت کیا ہے؟</string>
+    <string name="question_density">%s کی کثافت کیا ہے؟</string>
+    <string name="question_discovered_by">%s کو کس نے دریافت کیا؟</string>
+    <string name="question_discovery_year">%s کس سال دریافت کیا گیا تھا؟</string>
+    <string name="question_earth_crust_abundance">زمین کی پرت میں %s کی کثرت کیا ہے؟ mg/kg (ppm)</string>
+    <string name="question_earth_soils_abundance">زمین کی مٹی میں %s کی کثرت کیا ہے؟ mg/kg (ppm)</string>
+    <string name="question_electrical_type">%s کی برقی قسم کیا ہے؟</string>
+    <string name="question_electronegativity">%s کی برقی منفیت کیا ہے؟</string>
+    <string name="question_element_group">%s کا عنصری گروہ کیا ہے؟</string>
+    <string name="question_element_name">%s کا نام کیا ہے؟</string>
+    <string name="question_element_symbol">%s کی علامت کیا ہے؟</string>
+    <string name="question_magnetic_type">%s کی مقناطیسی قسم کیا ہے؟</string>
+    <string name="question_melting_point_celsius">%s کا نقطہ انجماد (°C) کیا ہے؟</string>
+    <string name="question_melting_point_fahrenheit">%s کا نقطہ انجماد (°F) کیا ہے؟</string>
+    <string name="question_melting_point_kelvin">%s کا نقطہ انجماد (Kelvin) کیا ہے؟</string>
+    <string name="question_mohs_hardness">%s کی موہز سختی کیا ہے؟</string>
+    <string name="question_neutron_cross_sectional">%s کا نیوٹران کراس سیکشنل کیا ہے؟</string>
+    <string name="question_phase_stp">STP پر %s کی حالت کیا ہے؟</string>
+    <string name="question_radioactive">کیا %s تابکار ہے؟</string>
+    <string name="question_specific_heat_capacity">%s کی مخصوص حرارتی صلاحیت کیا ہے؟</string>
+    <string name="question_superconducting_point">%s کا سپر کنڈکٹنگ پوائنٹ کیا ہے؟</string>
+    <string name="question_vickers_hardness">%s کی وِکرز سختی کیا ہے؟</string>
+
 </resources>
