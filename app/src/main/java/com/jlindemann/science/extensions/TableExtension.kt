@@ -57,7 +57,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
 
     fun initName(list: ArrayList<Element>) {
         for (item in list) {
-            val name = item.element
+            val name = item.elementKey
             closeHover()
             val extText = "_text"
             val eView = "$name$extText"

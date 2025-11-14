@@ -361,7 +361,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     override fun elementClickListener2(item: Element, position: Int) {
         val elementSendAndLoad = ElementSendAndLoad(this)
-        elementSendAndLoad.setValue(item.element)
+        elementSendAndLoad.setValue(item.elementKey)
 
         val intent = Intent(this, ElementInfoActivity::class.java)
         startActivity(intent)
@@ -650,7 +650,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                 btn.setOnClickListener {
                     val intent = Intent(this, ElementInfoActivity::class.java)
                     val ElementSend = ElementSendAndLoad(this)
-                    ElementSend.setValue(item.element)
+                    ElementSend.setValue(item.elementKey)
                     startActivity(intent)
                 }
             }
