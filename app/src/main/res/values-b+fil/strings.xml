@@ -21,8 +21,8 @@
     <string name="vaporization_heat">Init ng Pag-singaw</string>
     <string name="poissons_ratio">Ratio ni Poisson</string>
     <string name="youngs_modulus">Modulus ni Young</string>
-    <string name="bulk_modulus">Bulk Modulus</string>
-    <string name="shear_modulus">Shear Modulus</string>
+    <string name="bulk_modulus">Bulk modulus</string>
+    <string name="shear_modulus">Shear modulus</string>
     <string name="electrical_resistivity">Resistibidad ng Kuryente</string>
     <string name="random_element">Random na Elemento</string>
     <string name="pro_title">PRO Bersyon</string>
@@ -144,8 +144,8 @@
     <string name="settings_unit_content">I-customize ang mga yunit sa pangunahing talahanayan</string>
     <string name="settings_offline_title">Offline na Mode</string>
     <string name="settings_offline_content">Hindi maglo-load ng mga larawan</string>
-    <string name="settings_nav_bar_title">Auto-hide Bottombar</string>
-    <string name="settings_nav_bar_content">Pinapatigil ang karaniwang gawi</string>
+    <string name="settings_nav_bar_title">I-auto hide ang bottom bar</string>
+    <string name="settings_nav_bar_content">I-disable ang standard na gawi</string>
     <string name="language_title">Mga Wika</string>
     <string name="language_content">Pumili ng Wika</string>
     <string name="system_default">Default ng Systema</string>
@@ -444,11 +444,11 @@
     <string name="calculations">Calculations</string>
     <string name="calculations_stat">Calculations</string>
     <string name="card_order">Card Order</string>
-    <string name="color_label">Color: </string>
+    <string name="color_label">Kulay: </string>
     <string name="constants_table_label">Constants Table:</string>
-    <string name="correct">Correct</string>
-    <string name="correct_answer">Correct answer: %s</string>
-    <string name="cristal_structure_label">Cristal Structure: </string>
+    <string name="correct">Tama</string>
+    <string name="correct_answer">Tamang sagot: %s</string>
+    <string name="cristal_structure_label">Estruktura ng Kristal: </string>
     <string name="currently_no_favorites">Currently no favorites</string>
     <string name="density_colon">Density:</string>
     <string name="density_label">Density: </string>
@@ -461,57 +461,58 @@
     <string name="experimental">Experimental</string>
     <string name="favorites_colon">Favorites:</string>
     <string name="fifty_lives_in_flashcards">50 lives in Flashcards:</string>
-    <string name="finished_game_xp">Finished Game: +%dxp</string>
+    <string name="finished_game_xp">Natapos ang Laro: +%dxp</string>
     <string name="formula_will_be_displayed_here">Formula will be displayed here</string>
     <string name="fusion_heat_colon">Fusion heat:</string>
-    <string name="game_results">Game Results</string>
+    <string name="game_results">Mga Resulta ng Laro</string>
     <string name="get_pro_button">Get PRO</string>
     <string name="get_pro_plus_button">Get PRO+</string>
-    <string name="go_online_for_emission_lines">Go online for emission lines</string>
-    <string name="go_pro_more_features">Go Pro - more features</string>
-    <string name="go_pro_school_start_sale">GO PRO - SCHOOL START SALE</string>
-    <string name="group_label">Group: </string>
-    <string name="hardness_label">Hardness: </string>
+    <string name="go_online_for_emission_lines">Mag-online para sa emission lines</string>
+    <string name="go_pro_more_features">Go Pro - higit pang features</string>
+    <string name="go_pro_school_start_sale">GO PRO - SIMULA NG PASUKAN SALE</string>
+    <string name="group_label">Grupo: </string>
+    <string name="hardness_label">Tigas: </string>
     <string name="isotopes_table_description">A table with isotopes for different elements as well as half-time, mass, proton, neutron and nucleons data.</string>
     <string name="level_x_y">Level X-Y</string>
-    <string name="lives_label">Lives: %s</string>
-    <string name="lives_lost_detail">Lives lost: %1$d (%2$d per wrong/timeout answer)</string>
-    <string name="lives_unlimited">Lives: ∞</string>
+    <string name="lives_label">Buhay: %s</string>
+    <string name="lives_lost_detail">Nawalang buhay: %1$d (%2$d bawat mali/timeout na sagot)</string>
+    <string name="lives_unlimited">Buhay: ∞</string>
     <string name="mackenzie_l_davis">Mackenzie L. Davis</string>
-    <string name="magnetism_label">Magnetism: </string>
+    <string name="magnetism_label">Magnetismo: </string>
     <string name="melting_point_colon">Melting Point:</string>
     <string name="most_advanced">Most advanced</string>
     <string name="new_label">NEW</string>
-    <string name="next_life_in">Next life in %1$d minutes and %2$d seconds.\nYou will gain %3$d life%4$s.</string>
+    <string name="next_life_in">Susunod na buhay sa %1$d minuto at %2$d segundo.
+Makakakuha ka ng %3$d buhay%4$s.</string>
     <string name="no_image">No Image</string>
     <string name="non_pro">NON-PRO</string>
     <string name="option_placeholder">Option %d</string>
-    <string name="out_of_lives_hours">Out of lives! More lives in %1$d hours, %2$d minutes and %3$d seconds.</string>
-    <string name="out_of_lives_minutes">Out of lives! More lives in %1$d minutes and %2$d seconds.</string>
-    <string name="perfect_all_correct_xp">Perfect (All Correct): +%dxp</string>
+    <string name="out_of_lives_hours">Wala nang buhay! Mas maraming buhay sa %1$d oras, %2$d minuto at %3$d segundo.</string>
+    <string name="out_of_lives_minutes">Wala nang buhay! Mas maraming buhay sa %1$d minuto at %2$d segundo.</string>
+    <string name="perfect_all_correct_xp">Perpekto (Lahat Tama): +%dxp</string>
     <string name="phase_stp_colon">Phase (STP):</string>
-    <string name="pro_plus_rewards">PRO+ Rewards: %s</string>
+    <string name="pro_plus_rewards">PRO+ Gantimpala: %s</string>
     <string name="pro_plus_user">PRO+ USER</string>
     <string name="pro_plus_version">PRO+ Version</string>
     <string name="pro_user">PRO USER</string>
     <string name="pro_version">PRO Version</string>
     <string name="progress_xp">%1$d/%2$d</string>
     <string name="question_text">Question text</string>
-    <string name="questions_correct_xp">Questions Correct: +%dxp</string>
+    <string name="questions_correct_xp">Tamang Tanong: +%dxp</string>
     <string name="rate">Rate</string>
     <string name="rate_app">Rate App</string>
     <string name="rate_app_description">Let us know what you think of the app, by rating it on the Play Store!</string>
     <string name="reaction_balancer">Reaction Balancer:</string>
-    <string name="score_summary">Score: %1$d/%2$d</string>
+    <string name="score_summary">Puntos: %1$d/%2$d</string>
     <string name="searches">Searches</string>
     <string name="solubility_table">Solubility Table</string>
     <string name="sothree_android_sliding_up_panel">Sothree Android Sliding Up Panel</string>
     <string name="specific_heat_capacity_colon">Specific Heat Capacity:</string>
     <string name="streak_label">Streak: </string>
-    <string name="time_up">Time\'s Up</string>
+    <string name="time_up">Tapos na ang Oras</string>
     <string name="tools">Tools</string>
-    <string name="total_xp_stat">Total XP: %d</string>
-    <string name="type_label">Type: </string>
+    <string name="total_xp_stat">Kabuuang XP: %d</string>
+    <string name="type_label">Uri: </string>
     <string name="unit_conversion_format">%1$s %2$s → %3$s %4$s (%5$s)</string>
     <string name="unlock_advanced_data_and_additional_flashcards">Unlock advanced data and additional flashcards.</string>
     <string name="unlock_advanced_data_and_extra_atomic_content">Unlock advanced data and extra Atomic content.</string>
@@ -519,12 +520,12 @@
     <string name="vaporization_heat_colon">Vaporization Heat:</string>
     <string name="water_and_wastewater_engineering">Water and Wastewater Engineering</string>
     <string name="wikipedia_commons">Wikipedia Commons</string>
-    <string name="wrong">Wrong</string>
+    <string name="wrong">Mali</string>
     <string name="xp_bonus">+%d%% bonus xp</string>
-    <string name="you_have_full_lives">You have full lives!</string>
-    <string name="your_answer">Your answer: %s</string>
+    <string name="you_have_full_lives">Puno na ang iyong buhay!</string>
+    <string name="your_answer">Iyong sagot: %s</string>
 
-    <!-- Flashcard question formats -->
+    
     <string name="question_appearance">Ano ang hitsura ng %s?</string>
     <string name="question_atomic_mass">Ano ang atomic mass ng %s?</string>
     <string name="question_atomic_number">Ano ang atomic number ng %s?</string>
@@ -559,7 +560,7 @@
     <string name="notes_placeholder">Gumawa ng mga tala para sa elemento:</string>
 
 
-    <!-- New element info strings -->
+    
     <string name="english_name_colon">English Name:</string>
     <string name="description_colon">Description:</string>
     <string name="year_discovered_colon">Year Discovered:</string>
