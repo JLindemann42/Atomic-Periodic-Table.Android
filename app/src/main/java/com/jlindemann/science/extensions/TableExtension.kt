@@ -67,7 +67,9 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
             val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
 
             val text = findViewById<TextView>(resID)
-            text.text = item.element.capitalize()
+            val jsonObject = ElementDataLoader.loadElementData(this, name)
+            val elementGroup = jsonObject?.optString("element", "---") ?: "---"
+            text.text = elementGroup
             val btn = findViewById<TextView>(resIDB)
             val themePreference = ThemePreference(this)
             val themePrefValue = themePreference.getValue()
