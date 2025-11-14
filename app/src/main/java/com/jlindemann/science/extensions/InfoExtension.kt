@@ -108,11 +108,14 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
 
         mainScope.launch {
             try {
-                val (elementKey, jsonObject) = withContext(Dispatchers.IO) {
+                val (elementKey, jsonObject, englishName) = withContext(Dispatchers.IO) {
                     val pref = ElementSendAndLoad(this@InfoExtension)
                     val value = pref.getValue()
                     val jsonObject = ElementDataLoader.loadElementData(this@InfoExtension, value ?: "hydrogen")
-                    Pair(value, jsonObject)
+                    // Load English element name
+                    val englishJsonObject = ElementDataLoader.loadElementData(this@InfoExtension, value ?: "hydrogen", "en")
+                    val englishName = englishJsonObject?.optString("element", "---") ?: "---"
+                    Triple(value, jsonObject, englishName)
                 }
 
                 // Previous/next button visibility
@@ -122,7 +125,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                     if (elementKey == "oganesson") View.GONE else View.VISIBLE
 
                 if (jsonObject != null) {
-                    updateElementUI(jsonObject)
+                    updateElementUI(jsonObject, englishName)
                 } else {
                     findViewById<TextView>(R.id.element_title).text = "Element not found"
                     ToastUtil.showToast(this@InfoExtension, "Couldn't load element: $elementKey")
@@ -139,9 +142,9 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
     /**
      * Updates the UI with element data from the given JSON object.
      */
-    private fun updateElementUI(jsonObject: JSONObject) {
+    private fun updateElementUI(jsonObject: JSONObject, englishName: String = "---") {
         val elementCode = jsonObject.optString("element_code", "---")
-        val element = jsonObject.optString("element", "---")
+        val element = englishName
         val description = jsonObject.optString("description", "---")
         val url = jsonObject.optString("link", "---")
         val short = jsonObject.optString("short", "---")
