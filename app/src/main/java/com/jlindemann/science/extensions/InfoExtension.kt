@@ -33,6 +33,7 @@ import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.*
+import com.jlindemann.science.sync.NotesSyncManager
 import com.jlindemann.science.utils.Pasteur
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
@@ -58,11 +59,14 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
     private var notesTextWatcher: TextWatcher? = null // Track watcher for note editing
     private var currentElementCode: String? = null // Track current element code
     private var notesEditText: EditText? = null // Track notes EditText
+    private var notesSyncStatusView: TextView? = null // Track sync status indicator
 
     override fun onDestroy() {
         super.onDestroy()
         // Save notes before destroying
         saveCurrentNotes()
+        // Cancel any pending syncs
+        NotesSyncManager.cancelPendingSync()
         mainScope.cancel()
     }
 
@@ -657,6 +661,15 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         currentElementCode = elementCode
         notesEditText = eText
         
+        // Get sync status view
+        notesSyncStatusView = findViewById<TextView>(R.id.notes_sync_status)
+        
+        // Initialize sync status based on user eligibility
+        updateSyncStatusUI(NotesSyncManager.SyncStatus.NOT_ELIGIBLE)
+        if (NotesSyncManager.canSyncNotes(this)) {
+            updateSyncStatusUI(NotesSyncManager.SyncStatus.SYNCED)
+        }
+        
         val notesPref = NotesPreference(this)
         val firstDelim = "<$elementCode>"
         val lastDelim = "</$elementCode>"
@@ -686,12 +699,45 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                             (s ?: "") +
                             currentNotes.substring(end)
                     notesPref.setValue(newNotes)
+                    
+                    // Request sync with debouncing
+                    NotesSyncManager.requestSync(this@InfoExtension) { status ->
+                        updateSyncStatusUI(status)
+                    }
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         }
         eText.addTextChangedListener(notesTextWatcher)
+    }
+
+    /**
+     * Update the sync status indicator UI based on current sync status.
+     */
+    private fun updateSyncStatusUI(status: NotesSyncManager.SyncStatus) {
+        notesSyncStatusView?.let { statusView ->
+            mainScope.launch(Dispatchers.Main) {
+                when (status) {
+                    NotesSyncManager.SyncStatus.NOT_ELIGIBLE -> {
+                        // Not logged in or no Pro/Pro+ version
+                        statusView.setBackgroundResource(R.drawable.ic_no_sync)
+                    }
+                    NotesSyncManager.SyncStatus.SYNCING -> {
+                        // Currently syncing
+                        statusView.setBackgroundResource(R.drawable.ic_cloud_sync)
+                    }
+                    NotesSyncManager.SyncStatus.SYNCED -> {
+                        // Successfully synced
+                        statusView.setBackgroundResource(R.drawable.ic_check)
+                    }
+                    NotesSyncManager.SyncStatus.ERROR -> {
+                        // Error during sync - show no sync icon
+                        statusView.setBackgroundResource(R.drawable.ic_no_sync)
+                    }
+                }
+            }
+        }
     }
 
     /**

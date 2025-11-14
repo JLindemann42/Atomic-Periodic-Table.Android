@@ -49,6 +49,16 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textColorHint="?attr/colorOnSurface"
                 android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/notes_sync_status"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="end|bottom"
+                android:layout_marginEnd="18dp"
+                android:layout_marginBottom="18dp"
+                android:background="@drawable/ic_no_sync"
+                android:contentDescription="@string/sync_status" />
         </FrameLayout>
 
         <!-- Container with center icon -->
