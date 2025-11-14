@@ -525,4 +525,37 @@
     <string name="xp_bonus">+%d%% bonus xp</string>
     <string name="you_have_full_lives">You have full lives!</string>
     <string name="your_answer">Your answer: %s</string>
+
+    <!-- Flashcard question formats -->
+    <string name="question_appearance">%s की बनावट क्या है?</string>
+    <string name="question_atomic_mass">%s का परमाणु द्रव्यमान क्या है?</string>
+    <string name="question_atomic_number">%s का परमाणु क्रमांक क्या है?</string>
+    <string name="question_block">%s किस खंड से संबंधित है?</string>
+    <string name="question_boiling_point_celsius">%s का क्वथनांक (°C) क्या है?</string>
+    <string name="question_boiling_point_fahrenheit">%s का क्वथनांक (°F) क्या है?</string>
+    <string name="question_boiling_point_kelvin">%s का क्वथनांक (Kelvin) क्या है?</string>
+    <string name="question_brinell_hardness">%s की ब्रिनेल कठोरता क्या है?</string>
+    <string name="question_crystal_structure">%s की क्रिस्टल संरचना क्या है?</string>
+    <string name="question_density">%s का घनत्व क्या है?</string>
+    <string name="question_discovered_by">%s की खोज किसने की?</string>
+    <string name="question_discovery_year">%s की खोज किस वर्ष हुई थी?</string>
+    <string name="question_earth_crust_abundance">पृथ्वी की पर्पटी में %s की प्रचुरता क्या है? mg/kg (ppm)</string>
+    <string name="question_earth_soils_abundance">पृथ्वी की मिट्टी में %s की प्रचुरता क्या है? mg/kg (ppm)</string>
+    <string name="question_electrical_type">%s का विद्युत प्रकार क्या है?</string>
+    <string name="question_electronegativity">%s की विद्युतऋणात्मकता क्या है?</string>
+    <string name="question_element_group">%s का तत्व समूह क्या है?</string>
+    <string name="question_element_name">%s का नाम क्या है?</string>
+    <string name="question_element_symbol">%s का प्रतीक क्या है?</string>
+    <string name="question_magnetic_type">%s का चुंबकीय प्रकार क्या है?</string>
+    <string name="question_melting_point_celsius">%s का गलनांक (°C) क्या है?</string>
+    <string name="question_melting_point_fahrenheit">%s का गलनांक (°F) क्या है?</string>
+    <string name="question_melting_point_kelvin">%s का गलनांक (Kelvin) क्या है?</string>
+    <string name="question_mohs_hardness">%s की मोह्स कठोरता क्या है?</string>
+    <string name="question_neutron_cross_sectional">%s का न्यूट्रॉन अनुप्रस्थ काट क्या है?</string>
+    <string name="question_phase_stp">STP पर %s की अवस्था क्या है?</string>
+    <string name="question_radioactive">क्या %s रेडियोधर्मी है?</string>
+    <string name="question_specific_heat_capacity">%s की विशिष्ट ऊष्मा धारिता क्या है?</string>
+    <string name="question_superconducting_point">%s का अतिचालकता बिंदु क्या है?</string>
+    <string name="question_vickers_hardness">%s की विकर्स कठोरता क्या है?</string>
+
 </resources>

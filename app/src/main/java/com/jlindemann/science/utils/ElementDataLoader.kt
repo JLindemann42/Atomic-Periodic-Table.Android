@@ -88,24 +88,29 @@ object ElementDataLoader {
     
     /**
      * Get the app language code (2-letter ISO 639-1)
-     * First checks user's language preference, then falls back to system language
+     * Uses Android's configuration locale to match the locale used for string resources
      */
-    private fun getSystemLanguage(): String {
-        // Note: Context is needed to access SharedPreferences, but this is a singleton object
-        // For now, return Locale.getDefault() which should work for most cases
-        val locale = Locale.getDefault()
-        return locale.language
+    private fun getSystemLanguage(context: Context): String {
+        // Use Android's configuration locale to match what's used for resources
+        return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            context.resources.configuration.locales[0].language
+        } else {
+            @Suppress("DEPRECATION")
+            context.resources.configuration.locale.language
+        }
     }
     
     /**
-     * Get the app language code from user preferences or system default
-     * @param context Android context for accessing SharedPreferences
+     * Get the app language code from user preferences or Android configuration
+     * @param context Android context for accessing SharedPreferences and configuration
      */
     fun getAppLanguage(context: Context): String {
         val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
         val lang = prefs.getString("app_language", null)
         return if (lang.isNullOrBlank()) {
-            Locale.getDefault().language
+            // Use Android's configuration locale instead of Locale.getDefault()
+            // This ensures we match the locale used for loading string resources
+            getSystemLanguage(context)
         } else {
             lang
         }

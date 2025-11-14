@@ -523,4 +523,37 @@
     <string name="xp_bonus">+%d%% bonus xp</string>
     <string name="you_have_full_lives">You have full lives!</string>
     <string name="your_answer">Your answer: %s</string>
+
+    <!-- Flashcard question formats -->
+    <string name="question_appearance">Ano ang hitsura ng %s?</string>
+    <string name="question_atomic_mass">Ano ang atomic mass ng %s?</string>
+    <string name="question_atomic_number">Ano ang atomic number ng %s?</string>
+    <string name="question_block">Sa anong block nabibilang ang %s?</string>
+    <string name="question_boiling_point_celsius">Ano ang boiling point (°C) ng %s?</string>
+    <string name="question_boiling_point_fahrenheit">Ano ang boiling point (°F) ng %s?</string>
+    <string name="question_boiling_point_kelvin">Ano ang boiling point (Kelvin) ng %s?</string>
+    <string name="question_brinell_hardness">Ano ang brinell hardness ng %s?</string>
+    <string name="question_crystal_structure">Ano ang crystal structure ng %s?</string>
+    <string name="question_density">Ano ang density ng %s?</string>
+    <string name="question_discovered_by">Sino ang nakatuklas ng %s?</string>
+    <string name="question_discovery_year">Anong taon natuklasan ang %s?</string>
+    <string name="question_earth_crust_abundance">Ano ang abundance ng %s sa earth crust? mg/kg (ppm)</string>
+    <string name="question_earth_soils_abundance">Ano ang abundance ng %s sa earth soils? mg/kg (ppm)</string>
+    <string name="question_electrical_type">Ano ang electrical type ng %s?</string>
+    <string name="question_electronegativity">Ano ang electronegativity ng %s?</string>
+    <string name="question_element_group">Ano ang element group ng %s?</string>
+    <string name="question_element_name">Ano ang pangalan ng %s?</string>
+    <string name="question_element_symbol">Ano ang simbolo ng %s?</string>
+    <string name="question_magnetic_type">Ano ang magnetic type ng %s?</string>
+    <string name="question_melting_point_celsius">Ano ang melting point (°C) ng %s?</string>
+    <string name="question_melting_point_fahrenheit">Ano ang melting point (°F) ng %s?</string>
+    <string name="question_melting_point_kelvin">Ano ang melting point (Kelvin) ng %s?</string>
+    <string name="question_mohs_hardness">Ano ang mohs hardness ng %s?</string>
+    <string name="question_neutron_cross_sectional">Ano ang neutron cross sectional ng %s?</string>
+    <string name="question_phase_stp">Ano ang phase ng %s sa STP?</string>
+    <string name="question_radioactive">Radioactive ba ang %s?</string>
+    <string name="question_specific_heat_capacity">Ano ang specific heat capacity ng %s?</string>
+    <string name="question_superconducting_point">Ano ang superconducting point ng %s?</string>
+    <string name="question_vickers_hardness">Ano ang vickers hardness ng %s?</string>
+
 </resources>

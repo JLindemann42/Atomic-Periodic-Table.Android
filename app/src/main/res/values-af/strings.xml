@@ -522,4 +522,37 @@
     <string name="xp_bonus">+%d%% bonus xp</string>
     <string name="you_have_full_lives">You have full lives!</string>
     <string name="your_answer">Your answer: %s</string>
+
+    <!-- Flashcard question formats -->
+    <string name="question_appearance">Wat is die voorkoms van %s?</string>
+    <string name="question_atomic_mass">Wat is die atoommassa van %s?</string>
+    <string name="question_atomic_number">Wat is die atoomgetal van %s?</string>
+    <string name="question_block">Tot watter blok behoort %s?</string>
+    <string name="question_boiling_point_celsius">Wat is die kookpunt (°C) van %s?</string>
+    <string name="question_boiling_point_fahrenheit">Wat is die kookpunt (°F) van %s?</string>
+    <string name="question_boiling_point_kelvin">Wat is die kookpunt (Kelvin) van %s?</string>
+    <string name="question_brinell_hardness">Wat is die Brinell-hardheid van %s?</string>
+    <string name="question_crystal_structure">Wat is die kristalstruktuur van %s?</string>
+    <string name="question_density">Wat is die digtheid van %s?</string>
+    <string name="question_discovered_by">Wie het %s ontdek?</string>
+    <string name="question_discovery_year">In watter jaar is %s ontdek?</string>
+    <string name="question_earth_crust_abundance">Wat is die voorkoms van %s in die aardkors? mg/kg (ppm)</string>
+    <string name="question_earth_soils_abundance">Wat is die voorkoms van %s in aardgrond? mg/kg (ppm)</string>
+    <string name="question_electrical_type">Wat is die elektriese tipe van %s?</string>
+    <string name="question_electronegativity">Wat is die elektronegatiwiteit van %s?</string>
+    <string name="question_element_group">Wat is die elementgroep van %s?</string>
+    <string name="question_element_name">Wat is die naam van %s?</string>
+    <string name="question_element_symbol">Wat is die simbool vir %s?</string>
+    <string name="question_magnetic_type">Wat is die magnetiese tipe van %s?</string>
+    <string name="question_melting_point_celsius">Wat is die smeltpunt (°C) van %s?</string>
+    <string name="question_melting_point_fahrenheit">Wat is die smeltpunt (°F) van %s?</string>
+    <string name="question_melting_point_kelvin">Wat is die smeltpunt (Kelvin) van %s?</string>
+    <string name="question_mohs_hardness">Wat is die Mohs-hardheid van %s?</string>
+    <string name="question_neutron_cross_sectional">Wat is die neutron-dwarsdeursnee van %s?</string>
+    <string name="question_phase_stp">Wat is die fase van %s by STP?</string>
+    <string name="question_radioactive">Is %s radioaktief?</string>
+    <string name="question_specific_heat_capacity">Wat is die spesifieke warmtekapasiteit van %s?</string>
+    <string name="question_superconducting_point">Wat is die supergeleidingspunt van %s?</string>
+    <string name="question_vickers_hardness">Wat is die Vickers-hardheid van %s?</string>
+
 </resources>

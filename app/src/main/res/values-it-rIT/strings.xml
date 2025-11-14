@@ -523,4 +523,37 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="xp_bonus">+%d%% bonus xp</string>
     <string name="you_have_full_lives">Hai tutte le vite!</string>
     <string name="your_answer">La tua risposta: %s</string>
+
+    <!-- Flashcard question formats -->
+    <string name="question_appearance">Qual è l\'aspetto di %s?</string>
+    <string name="question_atomic_mass">Qual è la massa atomica di %s?</string>
+    <string name="question_atomic_number">Qual è il numero atomico di %s?</string>
+    <string name="question_block">A quale blocco appartiene %s?</string>
+    <string name="question_boiling_point_celsius">Qual è il punto di ebollizione (°C) di %s?</string>
+    <string name="question_boiling_point_fahrenheit">Qual è il punto di ebollizione (°F) di %s?</string>
+    <string name="question_boiling_point_kelvin">Qual è il punto di ebollizione (Kelvin) di %s?</string>
+    <string name="question_brinell_hardness">Qual è la durezza Brinell di %s?</string>
+    <string name="question_crystal_structure">Qual è la struttura cristallina di %s?</string>
+    <string name="question_density">Qual è la densità di %s?</string>
+    <string name="question_discovered_by">Chi ha scoperto %s?</string>
+    <string name="question_discovery_year">In che anno è stato scoperto %s?</string>
+    <string name="question_earth_crust_abundance">Qual è l\'abbondanza di %s nella crosta terrestre? mg/kg (ppm)</string>
+    <string name="question_earth_soils_abundance">Qual è l\'abbondanza di %s nei suoli terrestri? mg/kg (ppm)</string>
+    <string name="question_electrical_type">Qual è il tipo elettrico di %s?</string>
+    <string name="question_electronegativity">Qual è l\'elettronegatività di %s?</string>
+    <string name="question_element_group">Qual è il gruppo di elementi di %s?</string>
+    <string name="question_element_name">Qual è il nome di %s?</string>
+    <string name="question_element_symbol">Qual è il simbolo di %s?</string>
+    <string name="question_magnetic_type">Qual è il tipo magnetico di %s?</string>
+    <string name="question_melting_point_celsius">Qual è il punto di fusione (°C) di %s?</string>
+    <string name="question_melting_point_fahrenheit">Qual è il punto di fusione (°F) di %s?</string>
+    <string name="question_melting_point_kelvin">Qual è il punto di fusione (Kelvin) di %s?</string>
+    <string name="question_mohs_hardness">Qual è la durezza Mohs di %s?</string>
+    <string name="question_neutron_cross_sectional">Qual è la sezione trasversale di neutroni di %s?</string>
+    <string name="question_phase_stp">Qual è la fase di %s a STP?</string>
+    <string name="question_radioactive">%s è radioattivo?</string>
+    <string name="question_specific_heat_capacity">Qual è la capacità termica specifica di %s?</string>
+    <string name="question_superconducting_point">Qual è il punto di superconduttività di %s?</string>
+    <string name="question_vickers_hardness">Qual è la durezza Vickers di %s?</string>
+
 </resources>
