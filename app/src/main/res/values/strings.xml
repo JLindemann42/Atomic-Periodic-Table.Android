@@ -754,5 +754,15 @@
     <string name="protons">Protons:</string>
     <string name="isotope">Isotope</string>
 
+    <string name="all_core_features">All core features</string>
+    <string name="pro_plus_badge_text">Most advanced</string>
+    <string name="pro_version">PRO Version</string>
+    <string name="pro_plus_version">PRO+ Version</string>
+    <string name="unlock_advanced_data_and_extra_atomic_content">Unlock advanced data and extra atomic content.</string>
+    <string name="pro_plus_subtitle">Unlock advanced data and additional flashcards.</string>
+    <string name="get_pro">Get PRO</string>
+    <string name="get_pro_plus">Get PRO+</string>
+    <string name="price_placeholder">---</string>
+
 </resources>
 
