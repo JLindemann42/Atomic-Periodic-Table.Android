@@ -524,8 +524,6 @@ Makakakuha ka ng %3$d buhay%4$s.</string>
     <string name="xp_bonus">+%d%% bonus xp</string>
     <string name="you_have_full_lives">Puno na ang iyong buhay!</string>
     <string name="your_answer">Iyong sagot: %s</string>
-
-    
     <string name="question_appearance">Ano ang hitsura ng %s?</string>
     <string name="question_atomic_mass">Ano ang atomic mass ng %s?</string>
     <string name="question_atomic_number">Ano ang atomic number ng %s?</string>
@@ -556,11 +554,7 @@ Makakakuha ka ng %3$d buhay%4$s.</string>
     <string name="question_specific_heat_capacity">Ano ang specific heat capacity ng %s?</string>
     <string name="question_superconducting_point">Ano ang superconducting point ng %s?</string>
     <string name="question_vickers_hardness">Ano ang vickers hardness ng %s?</string>
-
     <string name="notes_placeholder">Gumawa ng mga tala para sa elemento:</string>
-
-
-    
     <string name="english_name_colon">English Name:</string>
     <string name="description_colon">Description:</string>
     <string name="year_discovered_colon">Year Discovered:</string>
@@ -585,6 +579,41 @@ Makakakuha ka ng %3$d buhay%4$s.</string>
     <string name="view_all_isotopes">View all Isotopes</string>
     <string name="not_available">N/A</string>
     <string name="hardness_properties_requires_pro">Hardness properties requires PRO-version. Get PRO to unlock more data and tables:</string>
-
-
+    <string name="calculator_default_value">0.0 (g/mol)</string>
+    <string name="data_visualisations">Mga visualisasyon ng data:</string>
+    <string name="early_access_features">Maagang access sa mga bagong feature:</string>
+    <string name="element_overview">Pangkalahatang-ideya ng elemento:</string>
+    <string name="emission_spectrum_table">Talahanayan ng emission spectrum:</string>
+    <string name="enter_new_text">Magpasok ng bagong teksto</string>
+    <string name="features">Mga feature:</string>
+    <string name="flashcards_unlimited_lives">Walang limitasyong buhay sa Flashcards:</string>
+    <string name="free">LIBRE</string>
+    <string name="geology_table">Talahanayan ng heolohiya:</string>
+    <string name="get_pro">Kumuha ng PRO</string>
+    <string name="get_pro_plus">Kumuha ng PRO+</string>
+    <string name="hazard_materials">Mapanganib na materyales:</string>
+    <string name="isotope">Isotope</string>
+    <string name="more_information">Higit pang impormasyon:</string>
+    <string name="neutrons">Mga neutron:</string>
+    <string name="nucleons">Mga nucleon:</string>
+    <string name="nuclide_table">Talahanayan ng nuclide:</string>
+    <string name="ok">OK</string>
+    <string name="poisson_constants_sound_speed">Mga constant ng Poisson, bilis ng tunog:</string>
+    <string name="poisson_ratio_table">Talahanayan ng ratio ng Poisson:</string>
+    <string name="price_placeholder">---</string>
+    <string name="pro_additional_sync">I-sync para sa mga tala at pag-unlad</string>
+    <string name="pro_additional_sync_descr">Paganahin ang pag-sync para sa mga tala at pag-unlad upang gawing mas madali ang iyong pag-aaral sa lahat ng iyong mga device</string>
+    <string name="pro_features_table_description">Sa sumusunod na talahanayan ay detalyado ang mga feature na kasama sa mga bersyon na LIBRE, PRO, at PRO+:</string>
+    <string name="pro_plus_badge_text">Pinaka-advanced</string>
+    <string name="pro_plus_subtitle">I-unlock ang advanced na data at karagdagang flashcards.</string>
+    <string name="pro_user_badge">PRO user</string>
+    <string name="protons">Mga proton:</string>
+    <string name="save_calculations">I-save ang mga kalkulasyon:</string>
+    <string name="save_units">I-save ang mga unit:</string>
+    <string name="search_for_element">Maghanap ng elemento</string>
+    <string name="share">Ibahagi</string>
+    <string name="share_app">Ibahagi ang App</string>
+    <string name="share_app_description">Kung nakakatulong sa iyo ang app, pakiusap ibahagi ito sa iyong mga kaibigan at iba pa!</string>
+    <string name="sync_data">I-sync ang data:</string>
+    <string name="young_bulk_shear_modulus">Young, bulk, at shear modulus:</string>
 </resources>

@@ -523,8 +523,6 @@ Ganarás %3$d vida%4$s.</string>
     <string name="xp_bonus">+%d%% bonus xp</string>
     <string name="you_have_full_lives">¡Tienes todas las vidas!</string>
     <string name="your_answer">Tu respuesta: %s</string>
-
-    <!-- Flashcard question formats -->
     <string name="question_appearance">¿Cuál es la apariencia de %s?</string>
     <string name="question_atomic_mass">¿Cuál es la masa atómica de %s?</string>
     <string name="question_atomic_number">¿Cuál es el número atómico de %s?</string>
@@ -555,11 +553,7 @@ Ganarás %3$d vida%4$s.</string>
     <string name="question_specific_heat_capacity">¿Cuál es la capacidad calorífica específica de %s?</string>
     <string name="question_superconducting_point">¿Cuál es el punto de superconductividad de %s?</string>
     <string name="question_vickers_hardness">¿Cuál es la dureza Vickers de %s?</string>
-
     <string name="notes_placeholder">Tomar notas para el elemento:</string>
-
-
-    <!-- New element info strings -->
     <string name="english_name_colon">Nombre en inglés:</string>
     <string name="description_colon">Descripción:</string>
     <string name="year_discovered_colon">Año de descubrimiento:</string>
@@ -584,7 +578,41 @@ Ganarás %3$d vida%4$s.</string>
     <string name="view_all_isotopes">Ver todos los isótopos</string>
     <string name="not_available">N/A</string>
     <string name="hardness_properties_requires_pro">Las propiedades de dureza requieren la versión PRO. Obtenga PRO para desbloquear más datos y tablas:</string>
-
-
-
+    <string name="calculator_default_value">0,0 (g/mol)</string>
+    <string name="data_visualisations">Visualizaciones de datos:</string>
+    <string name="early_access_features">Acceso anticipado a nuevas funciones:</string>
+    <string name="element_overview">Descripción general del elemento:</string>
+    <string name="emission_spectrum_table">Tabla del espectro de emisión:</string>
+    <string name="enter_new_text">Introducir nuevo texto</string>
+    <string name="features">Características:</string>
+    <string name="flashcards_unlimited_lives">Vidas ilimitadas en tarjetas de estudio:</string>
+    <string name="free">GRATIS</string>
+    <string name="geology_table">Tabla de geología:</string>
+    <string name="get_pro">Obtener PRO</string>
+    <string name="get_pro_plus">Obtener PRO+</string>
+    <string name="hazard_materials">Materiales peligrosos:</string>
+    <string name="isotope">Isótopo</string>
+    <string name="more_information">Más información:</string>
+    <string name="neutrons">Neutrones:</string>
+    <string name="nucleons">Nucleones:</string>
+    <string name="nuclide_table">Tabla de nucleidos:</string>
+    <string name="ok">OK</string>
+    <string name="poisson_constants_sound_speed">Constantes de Poisson, velocidad del sonido:</string>
+    <string name="poisson_ratio_table">Tabla de relación de Poisson:</string>
+    <string name="price_placeholder">---</string>
+    <string name="pro_additional_sync">Sincronización de notas y progreso</string>
+    <string name="pro_additional_sync_descr">Habilita la sincronización de notas y progreso para facilitar tus estudios en todos tus dispositivos</string>
+    <string name="pro_features_table_description">En la siguiente tabla se detallan las características incluidas en las versiones GRATIS, PRO y PRO+:</string>
+    <string name="pro_plus_badge_text">Más avanzado</string>
+    <string name="pro_plus_subtitle">Desbloquea datos avanzados y tarjetas de estudio adicionales.</string>
+    <string name="pro_user_badge">Usuario PRO</string>
+    <string name="protons">Protones:</string>
+    <string name="save_calculations">Guardar cálculos:</string>
+    <string name="save_units">Guardar unidades:</string>
+    <string name="search_for_element">Buscar elemento</string>
+    <string name="share">Compartir</string>
+    <string name="share_app">Compartir aplicación</string>
+    <string name="share_app_description">Si encuentras útil la aplicación, ¡compártela con tus amigos y otros!</string>
+    <string name="sync_data">Sincronizar datos:</string>
+    <string name="young_bulk_shear_modulus">Módulo de Young, de compresión y de cizalladura:</string>
 </resources>

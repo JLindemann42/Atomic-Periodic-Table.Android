@@ -527,8 +527,6 @@ Você ganhará %3$d vida%4$s.</string>
     <string name="xp_bonus">+%d%% bônus de xp</string>
     <string name="you_have_full_lives">Você tem todas as vidas!</string>
     <string name="your_answer">Sua resposta: %s</string>
-
-    
     <string name="question_appearance">Qual é a aparência de %s?</string>
     <string name="question_atomic_mass">Qual é a massa atômica de %s?</string>
     <string name="question_atomic_number">Qual é o número atômico de %s?</string>
@@ -559,11 +557,7 @@ Você ganhará %3$d vida%4$s.</string>
     <string name="question_specific_heat_capacity">Qual é a capacidade térmica específica de %s?</string>
     <string name="question_superconducting_point">Qual é o ponto de supercondutividade de %s?</string>
     <string name="question_vickers_hardness">Qual é a dureza Vickers de %s?</string>
-
     <string name="notes_placeholder">Fazer anotações para o elemento:</string>
-
-
-    
     <string name="english_name_colon">Nome em inglês:</string>
     <string name="description_colon">Descrição:</string>
     <string name="year_discovered_colon">Ano de descoberta:</string>
@@ -588,7 +582,41 @@ Você ganhará %3$d vida%4$s.</string>
     <string name="view_all_isotopes">Ver todos os isótopos</string>
     <string name="not_available">N/A</string>
     <string name="hardness_properties_requires_pro">As propriedades de dureza requerem a versão PRO. Obtenha o PRO para desbloquear mais dados e tabelas:</string>
-
-
-
+    <string name="calculator_default_value">0,0 (g/mol)</string>
+    <string name="data_visualisations">Visualizações de dados:</string>
+    <string name="early_access_features">Acesso antecipado a novos recursos:</string>
+    <string name="element_overview">Visão geral do elemento:</string>
+    <string name="emission_spectrum_table">Tabela do espectro de emissão:</string>
+    <string name="enter_new_text">Digite novo texto</string>
+    <string name="features">Recursos:</string>
+    <string name="flashcards_unlimited_lives">Vidas ilimitadas em flashcards:</string>
+    <string name="free">GRÁTIS</string>
+    <string name="geology_table">Tabela de geologia:</string>
+    <string name="get_pro">Obter PRO</string>
+    <string name="get_pro_plus">Obter PRO+</string>
+    <string name="hazard_materials">Materiais perigosos:</string>
+    <string name="isotope">Isótopo</string>
+    <string name="more_information">Mais informações:</string>
+    <string name="neutrons">Nêutrons:</string>
+    <string name="nucleons">Nucleons:</string>
+    <string name="nuclide_table">Tabela de nuclídeos:</string>
+    <string name="ok">OK</string>
+    <string name="poisson_constants_sound_speed">Constantes de Poisson, velocidade do som:</string>
+    <string name="poisson_ratio_table">Tabela de razão de Poisson:</string>
+    <string name="price_placeholder">---</string>
+    <string name="pro_additional_sync">Sincronização para notas e progresso</string>
+    <string name="pro_additional_sync_descr">Habilite a sincronização para notas e progresso para facilitar seus estudos em todos os seus dispositivos</string>
+    <string name="pro_features_table_description">Na tabela a seguir, os recursos incluídos nas versões GRÁTIS, PRO e PRO+ são detalhados:</string>
+    <string name="pro_plus_badge_text">Mais avançado</string>
+    <string name="pro_plus_subtitle">Desbloqueie dados avançados e flashcards adicionais.</string>
+    <string name="pro_user_badge">Usuário PRO</string>
+    <string name="protons">Prótons:</string>
+    <string name="save_calculations">Salvar cálculos:</string>
+    <string name="save_units">Salvar unidades:</string>
+    <string name="search_for_element">Procurar elemento</string>
+    <string name="share">Compartilhar</string>
+    <string name="share_app">Compartilhar app</string>
+    <string name="share_app_description">Se você achar o app útil, compartilhe com seus amigos e outros!</string>
+    <string name="sync_data">Sincronizar dados:</string>
+    <string name="young_bulk_shear_modulus">Módulo de Young, de compressão e de cisalhamento:</string>
 </resources>

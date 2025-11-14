@@ -523,8 +523,6 @@ Jy sal %3$d lewe%4$s kry.</string>
     <string name="xp_bonus">+%d%% bonus xp</string>
     <string name="you_have_full_lives">Jy het volle lewens!</string>
     <string name="your_answer">Jou antwoord: %s</string>
-
-    
     <string name="question_appearance">Wat is die voorkoms van %s?</string>
     <string name="question_atomic_mass">Wat is die atoommassa van %s?</string>
     <string name="question_atomic_number">Wat is die atoomgetal van %s?</string>
@@ -555,11 +553,7 @@ Jy sal %3$d lewe%4$s kry.</string>
     <string name="question_specific_heat_capacity">Wat is die spesifieke warmtekapasiteit van %s?</string>
     <string name="question_superconducting_point">Wat is die supergeleidingspunt van %s?</string>
     <string name="question_vickers_hardness">Wat is die Vickers-hardheid van %s?</string>
-
     <string name="notes_placeholder">Maak notas vir die element:</string>
-
-
-    
     <string name="english_name_colon">English Name:</string>
     <string name="description_colon">Description:</string>
     <string name="year_discovered_colon">Year Discovered:</string>
@@ -584,6 +578,41 @@ Jy sal %3$d lewe%4$s kry.</string>
     <string name="view_all_isotopes">View all Isotopes</string>
     <string name="not_available">N/A</string>
     <string name="hardness_properties_requires_pro">Hardness properties requires PRO-version. Get PRO to unlock more data and tables:</string>
-
-
+    <string name="calculator_default_value">0,0 (g/mol)</string>
+    <string name="data_visualisations">Datavisualiserings:</string>
+    <string name="early_access_features">Vroeë toegang tot nuwe funksies:</string>
+    <string name="element_overview">Element oorsig:</string>
+    <string name="emission_spectrum_table">Emissiespektrum tabel:</string>
+    <string name="enter_new_text">Voer nuwe teks in</string>
+    <string name="features">Kenmerke:</string>
+    <string name="flashcards_unlimited_lives">Onbeperkte lewens in flitskaarte:</string>
+    <string name="free">GRATIS</string>
+    <string name="geology_table">Geologie tabel:</string>
+    <string name="get_pro">Kry PRO</string>
+    <string name="get_pro_plus">Kry PRO+</string>
+    <string name="hazard_materials">Gevaarlike materiale:</string>
+    <string name="isotope">Isotoop</string>
+    <string name="more_information">Meer inligting:</string>
+    <string name="neutrons">Neutrone:</string>
+    <string name="nucleons">Nukleone:</string>
+    <string name="nuclide_table">Nuklied tabel:</string>
+    <string name="ok">OK</string>
+    <string name="poisson_constants_sound_speed">Poisson se konstantes, klankspoed:</string>
+    <string name="poisson_ratio_table">Poisson verhouding tabel:</string>
+    <string name="price_placeholder">---</string>
+    <string name="pro_additional_sync">Sinchroniseer vir notas en vordering</string>
+    <string name="pro_additional_sync_descr">Aktiveer sinchronisering vir notas en vordering om jou studie op al jou toestelle makliker te maak</string>
+    <string name="pro_features_table_description">In die volgende tabel word die kenmerke wat in die GRATIS, PRO en PRO+ weergawes ingesluit is, beskryf:</string>
+    <string name="pro_plus_badge_text">Mees gevorderd</string>
+    <string name="pro_plus_subtitle">Ontsluit gevorderde data en bykomende flitskaarte.</string>
+    <string name="pro_user_badge">PRO-gebruiker</string>
+    <string name="protons">Protone:</string>
+    <string name="save_calculations">Stoor berekeninge:</string>
+    <string name="save_units">Stoor eenhede:</string>
+    <string name="search_for_element">Soek vir element</string>
+    <string name="share">Deel</string>
+    <string name="share_app">Deel toep</string>
+    <string name="share_app_description">As jy die toep nuttig vind, deel dit asseblief met jou vriende en ander!</string>
+    <string name="sync_data">Sinchroniseer data:</string>
+    <string name="young_bulk_shear_modulus">Young-, bulk-, skuifmodulus:</string>
 </resources>

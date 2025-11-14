@@ -527,8 +527,6 @@ Du får %3$d liv%4$s.</string>
     <string name="xp_bonus">+%d%% bonus xp</string>
     <string name="you_have_full_lives">Du har fulla liv!</string>
     <string name="your_answer">Ditt svar: %s</string>
-
-    
     <string name="question_appearance">Vad är utseendet på %s?</string>
     <string name="question_atomic_mass">Vad är atommassan av %s?</string>
     <string name="question_atomic_number">Vad är atomnumret för %s?</string>
@@ -559,11 +557,7 @@ Du får %3$d liv%4$s.</string>
     <string name="question_specific_heat_capacity">Vad är den specifika värmekapaciteten för %s?</string>
     <string name="question_superconducting_point">Vad är superledningspunkten för %s?</string>
     <string name="question_vickers_hardness">Vad är Vickers-hårdheten för %s?</string>
-
     <string name="notes_placeholder">Ta anteckningar för elementet:</string>
-
-
-    
     <string name="english_name_colon">Engelskt namn:</string>
     <string name="description_colon">Beskrivning:</string>
     <string name="year_discovered_colon">Upptäcktsår:</string>
@@ -588,7 +582,41 @@ Du får %3$d liv%4$s.</string>
     <string name="view_all_isotopes">Visa alla isotoper</string>
     <string name="not_available">N/A</string>
     <string name="hardness_properties_requires_pro">Hårdhetsegenskaper kräver PRO-version. Skaffa PRO för att låsa upp mer data och tabeller:</string>
-
-
-
+    <string name="calculator_default_value">0,0 (g/mol)</string>
+    <string name="data_visualisations">Datavisualiseringar:</string>
+    <string name="early_access_features">Tidig tillgång till nya funktioner:</string>
+    <string name="element_overview">Elementöversikt:</string>
+    <string name="emission_spectrum_table">Emissionsspektrumtabell:</string>
+    <string name="enter_new_text">Ange ny text</string>
+    <string name="features">Funktioner:</string>
+    <string name="flashcards_unlimited_lives">Obegränsade liv i flashcards:</string>
+    <string name="free">GRATIS</string>
+    <string name="geology_table">Geologitabell:</string>
+    <string name="get_pro">Skaffa PRO</string>
+    <string name="get_pro_plus">Skaffa PRO+</string>
+    <string name="hazard_materials">Farliga material:</string>
+    <string name="isotope">Isotop</string>
+    <string name="more_information">Mer information:</string>
+    <string name="neutrons">Neutroner:</string>
+    <string name="nucleons">Nukleoner:</string>
+    <string name="nuclide_table">Nuklidtabell:</string>
+    <string name="ok">OK</string>
+    <string name="poisson_constants_sound_speed">Poissons konstanter, ljudhastighet:</string>
+    <string name="poisson_ratio_table">Poissons kvottabell:</string>
+    <string name="price_placeholder">---</string>
+    <string name="pro_additional_sync">Synkronisering för anteckningar och framsteg</string>
+    <string name="pro_additional_sync_descr">Aktivera synkronisering för anteckningar och framsteg för att underlätta dina studier på alla dina enheter</string>
+    <string name="pro_features_table_description">I följande tabell beskrivs de funktioner som ingår i versionerna GRATIS, PRO och PRO+:</string>
+    <string name="pro_plus_badge_text">Mest avancerad</string>
+    <string name="pro_plus_subtitle">Lås upp avancerad data och ytterligare flashcards.</string>
+    <string name="pro_user_badge">PRO-användare</string>
+    <string name="protons">Protoner:</string>
+    <string name="save_calculations">Spara beräkningar:</string>
+    <string name="save_units">Spara enheter:</string>
+    <string name="search_for_element">Sök efter element</string>
+    <string name="share">Dela</string>
+    <string name="share_app">Dela app</string>
+    <string name="share_app_description">Om du tycker att appen är användbar, dela den med dina vänner och andra!</string>
+    <string name="sync_data">Synkronisera data:</string>
+    <string name="young_bulk_shear_modulus">Youngs modul, bulkmodul, skjuvmodul:</string>
 </resources>

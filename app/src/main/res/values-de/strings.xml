@@ -527,8 +527,6 @@ Sie erhalten %3$d Leben%4$s.</string>
     <string name="xp_bonus">+%d%% Bonus-XP</string>
     <string name="you_have_full_lives">Sie haben volle Leben!</string>
     <string name="your_answer">Ihre Antwort: %s</string>
-
-    
     <string name="question_appearance">Wie ist das Aussehen von %s?</string>
     <string name="question_atomic_mass">Was ist die Atommasse von %s?</string>
     <string name="question_atomic_number">Was ist die Ordnungszahl von %s?</string>
@@ -559,11 +557,7 @@ Sie erhalten %3$d Leben%4$s.</string>
     <string name="question_specific_heat_capacity">Was ist die spezifische Wärmekapazität von %s?</string>
     <string name="question_superconducting_point">Was ist der Supraleitungspunkt von %s?</string>
     <string name="question_vickers_hardness">Was ist die Vickershärte von %s?</string>
-
     <string name="notes_placeholder">Notizen für das Element machen:</string>
-
-
-    
     <string name="english_name_colon">Englischer Name:</string>
     <string name="description_colon">Beschreibung:</string>
     <string name="year_discovered_colon">Entdeckungsjahr:</string>
@@ -588,5 +582,41 @@ Sie erhalten %3$d Leben%4$s.</string>
     <string name="view_all_isotopes">Alle Isotope anzeigen</string>
     <string name="not_available">N/A</string>
     <string name="hardness_properties_requires_pro">Härte-Eigenschaften erfordern PRO-Version. Holen Sie sich PRO, um mehr Daten und Tabellen freizuschalten:</string>
-
+    <string name="calculator_default_value">0,0 (g/mol)</string>
+    <string name="data_visualisations">Datenvisualisierungen:</string>
+    <string name="early_access_features">Früher Zugriff auf neue Funktionen:</string>
+    <string name="element_overview">Elementübersicht:</string>
+    <string name="emission_spectrum_table">Emissionsspektrumtabelle:</string>
+    <string name="enter_new_text">Neuen Text eingeben</string>
+    <string name="features">Funktionen:</string>
+    <string name="flashcards_unlimited_lives">Unbegrenzte Leben in Lernkarten:</string>
+    <string name="free">KOSTENLOS</string>
+    <string name="geology_table">Geologietabelle:</string>
+    <string name="get_pro">PRO holen</string>
+    <string name="get_pro_plus">PRO+ holen</string>
+    <string name="hazard_materials">Gefahrstoffe:</string>
+    <string name="isotope">Isotop</string>
+    <string name="more_information">Weitere Informationen:</string>
+    <string name="neutrons">Neutronen:</string>
+    <string name="nucleons">Nukleonen:</string>
+    <string name="nuclide_table">Nuklidtabelle:</string>
+    <string name="ok">OK</string>
+    <string name="poisson_constants_sound_speed">Poisson-Konstanten, Schallgeschwindigkeit:</string>
+    <string name="poisson_ratio_table">Poisson-Verhältnis-Tabelle:</string>
+    <string name="price_placeholder">---</string>
+    <string name="pro_additional_sync">Synchronisierung für Notizen und Fortschritt</string>
+    <string name="pro_additional_sync_descr">Aktivieren Sie die Synchronisierung für Notizen und Fortschritt, um Ihr Studium auf allen Ihren Geräten zu erleichtern</string>
+    <string name="pro_features_table_description">In der folgenden Tabelle sind die in den KOSTENLOSEN, PRO- und PRO+-Versionen enthaltenen Funktionen detailliert aufgeführt:</string>
+    <string name="pro_plus_badge_text">Am fortschrittlichsten</string>
+    <string name="pro_plus_subtitle">Erweiterte Daten und zusätzliche Lernkarten freischalten.</string>
+    <string name="pro_user_badge">PRO-Benutzer</string>
+    <string name="protons">Protonen:</string>
+    <string name="save_calculations">Berechnungen speichern:</string>
+    <string name="save_units">Einheiten speichern:</string>
+    <string name="search_for_element">Nach Element suchen</string>
+    <string name="share">Teilen</string>
+    <string name="share_app">App teilen</string>
+    <string name="share_app_description">Wenn Sie die App nützlich finden, teilen Sie sie bitte mit Ihren Freunden und anderen!</string>
+    <string name="sync_data">Daten synchronisieren:</string>
+    <string name="young_bulk_shear_modulus">Young-, Kompressions-, Schermodul:</string>
 </resources>
