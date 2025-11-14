@@ -131,13 +131,13 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
 
     override fun emiClickListener(item: Element, position: Int) {
         try {
-            val jsonObject = ElementDataLoader.loadElementData(this, item.element)
+            val jsonObject = ElementDataLoader.loadElementData(this, item.elementKey)
             if (jsonObject != null) {
                 val url = jsonObject.optString("short", "---")
                 val hUrl = "https://www.jlindemann.se/atomic/emission_lines/"
                 val extg = ".gif"
                 val fURL = hUrl + url + extg
-                findViewById<TextView>(R.id.emi_title).text = item.element.replaceFirstChar { it.uppercase() }
+                findViewById<TextView>(R.id.emi_title).text = item.element
                 try {
                     Picasso.get().load(fURL).into(findViewById<ImageView>(R.id.emi_img_detail))
                     Utils.fadeInAnimBack(findViewById<TextView>(R.id.background_emi), 300)
@@ -158,7 +158,7 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
     private fun recyclerView() {
         val recyclerView = findViewById<RecyclerView>(R.id.emi_view)
         val emiList = ArrayList<Element>()
-        ElementModel.getList(emiList)
+        ElementModel.getList(emiList, this)
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val adapter = EmissionAdapter(emiList, this, this)
         recyclerView.adapter = adapter

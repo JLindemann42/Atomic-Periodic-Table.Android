@@ -88,7 +88,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val recyclerView = findViewById<RecyclerView>(R.id.element_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val elements = ArrayList<Element>()
-        ElementModel.getList(elements)
+        ElementModel.getList(elements, this)
         val adapter = ElementAdapter(elements, this, this)
         recyclerView.adapter = adapter
         findViewById<EditText>(R.id.edit_element).addTextChangedListener(object : TextWatcher {
@@ -306,12 +306,12 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     private fun getRandomItem() {
         val elements = ArrayList<Element>()
-        ElementModel.getList(elements)
+        ElementModel.getList(elements, this)
         val randomNumber = (0..117).random()
         val item = elements[randomNumber]
 
         val elementSendAndLoad = ElementSendAndLoad(this)
-        elementSendAndLoad.setValue(item.element)
+        elementSendAndLoad.setValue(item.elementKey)
         val intent = Intent(this, ElementInfoActivity::class.java)
         startActivity(intent)
     }

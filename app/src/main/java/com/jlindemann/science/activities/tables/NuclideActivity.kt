@@ -182,8 +182,9 @@ class NuclideActivity : BaseActivity() {
 
     @SuppressLint("SetTextI18n") //suppresses as it's only showing number and therefore no attr needed
     private suspend fun loadAndDisplayElements() {
+        val context = this@NuclideActivity
         withContext(Dispatchers.IO) {
-            ElementModel.getList(elementLists)
+            ElementModel.getList(elementLists, context)
         }
         initializeDefaultView()
 

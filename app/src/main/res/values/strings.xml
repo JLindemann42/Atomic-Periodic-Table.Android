@@ -682,5 +682,8 @@
     <string name="rate_app_description">Let us know what you think of the app, by rating it on the Play Store!</string>
     <string name="rate">Rate</string>
 
+    <!-- Element Notes -->
+    <string name="notes_placeholder">Take notes for the element:</string>
+
 </resources>
 

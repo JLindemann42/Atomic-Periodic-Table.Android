@@ -559,4 +559,6 @@
     <string name="question_superconducting_point">%s的超导点是多少？</string>
     <string name="question_vickers_hardness">%s的维氏硬度是多少？</string>
 
+    <string name="notes_placeholder">为元素做笔记：</string>
+
 </resources>

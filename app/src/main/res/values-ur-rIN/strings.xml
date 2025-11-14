@@ -555,4 +555,6 @@
     <string name="question_superconducting_point">%s کا سپر کنڈکٹنگ پوائنٹ کیا ہے؟</string>
     <string name="question_vickers_hardness">%s کی وِکرز سختی کیا ہے؟</string>
 
+    <string name="notes_placeholder">عنصر کے لیے نوٹس لیں:</string>
+
 </resources>

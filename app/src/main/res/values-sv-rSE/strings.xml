@@ -560,4 +560,6 @@ Du får %3$d liv%4$s.</string>
     <string name="question_superconducting_point">Vad är superledningspunkten för %s?</string>
     <string name="question_vickers_hardness">Vad är Vickers-hårdheten för %s?</string>
 
+    <string name="notes_placeholder">Ta anteckningar för elementet:</string>
+
 </resources>

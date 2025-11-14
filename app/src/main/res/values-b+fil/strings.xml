@@ -556,4 +556,6 @@
     <string name="question_superconducting_point">Ano ang superconducting point ng %s?</string>
     <string name="question_vickers_hardness">Ano ang vickers hardness ng %s?</string>
 
+    <string name="notes_placeholder">Gumawa ng mga tala para sa elemento:</string>
+
 </resources>

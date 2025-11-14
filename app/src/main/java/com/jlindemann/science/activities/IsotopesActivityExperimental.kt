@@ -91,7 +91,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val elements = ArrayList<Element>()
-        ElementModel.getList(elements)
+        ElementModel.getList(elements, this)
         val adapter = IsotopeAdapter(elements, this, this)
         recyclerView.adapter = adapter
 
@@ -252,7 +252,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
 
     override fun elementClickListener(item: Element, position: Int) {
         val elementSendAndLoad = ElementSendAndLoad(this)
-        elementSendAndLoad.setValue(item.element)
+        elementSendAndLoad.setValue(item.elementKey)
         drawCard(elementList)
 
         Utils.fadeInAnimBack(findViewById<TextView>(R.id.background_i2), 300)
@@ -285,12 +285,12 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     }
 
     private fun drawCard(list: ArrayList<Element>) {
-        ElementModel.getList(list)
+        ElementModel.getList(list, this)
         for (item in list) {
             try {
                 val elementSendLoad = ElementSendAndLoad(this)
                 val nameVal = elementSendLoad.getValue()
-                if (item.element.replaceFirstChar { it.uppercase() } == nameVal?.replaceFirstChar { it.uppercase() }) {
+                if (item.elementKey == nameVal?.lowercase()) {
                     val jsonObject = ElementDataLoader.loadElementData(this, nameVal ?: "hydrogen")
                     if (jsonObject != null) {
                         findViewById<LinearLayout>(R.id.frame_iso).removeAllViews()
