@@ -81,20 +81,42 @@ object NotesSyncManager {
         val notesPref = NotesPreference(context)
         val notes = notesPref.getValue()
         
-        // Use ProgressSyncManager to save only notes to cloud
-        ProgressSyncManager.saveFullProgressToCloud(
-            uid = uid,
-            xp = 0L, // We don't need to update XP/level here
-            level = 1,
-            notes = notes
-        ) { success, exception ->
-            isSyncing = false
-            if (success) {
-                Log.d(TAG, "Notes synced successfully")
-                onSyncStatusChange?.invoke(SyncStatus.SYNCED)
+        // Load current cloud progress to get existing xp/level
+        ProgressSyncManager.loadCloudProgress(uid) { cloudProgress ->
+            if (cloudProgress != null) {
+                // Use existing cloud xp/level so we don't overwrite them
+                ProgressSyncManager.saveFullProgressToCloud(
+                    uid = uid,
+                    xp = cloudProgress.xp,
+                    level = cloudProgress.level,
+                    notes = notes
+                ) { success, exception ->
+                    isSyncing = false
+                    if (success) {
+                        Log.d(TAG, "Notes synced successfully")
+                        onSyncStatusChange?.invoke(SyncStatus.SYNCED)
+                    } else {
+                        Log.e(TAG, "Failed to sync notes", exception)
+                        onSyncStatusChange?.invoke(SyncStatus.ERROR)
+                    }
+                }
             } else {
-                Log.e(TAG, "Failed to sync notes", exception)
-                onSyncStatusChange?.invoke(SyncStatus.ERROR)
+                // No cloud progress exists, create initial entry with notes only
+                ProgressSyncManager.saveFullProgressToCloud(
+                    uid = uid,
+                    xp = 0L,
+                    level = 1,
+                    notes = notes
+                ) { success, exception ->
+                    isSyncing = false
+                    if (success) {
+                        Log.d(TAG, "Notes synced successfully (initial)")
+                        onSyncStatusChange?.invoke(SyncStatus.SYNCED)
+                    } else {
+                        Log.e(TAG, "Failed to sync notes", exception)
+                        onSyncStatusChange?.invoke(SyncStatus.ERROR)
+                    }
+                }
             }
         }
     }
