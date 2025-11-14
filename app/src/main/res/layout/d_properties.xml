@@ -163,7 +163,7 @@
             android:id="@+id/element_electronegativty_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Electronegativity:"
+            android:text="@string/electronegativity_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -223,7 +223,7 @@
             android:id="@+id/sp_lines_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Emission Spectrum:"
+            android:text="@string/emission_spectrum_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -232,7 +232,7 @@
             android:id="@+id/sp_offline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Go online for emission lines"
+            android:text="@string/go_online_for_emission_lines"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="18sp"
             android:visibility="gone" />
@@ -297,7 +297,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="18dp"
                         android:layout_marginBottom="2dp"
-                        android:text="Electron Shell:"
+                        android:text="@string/electron_shell_colon"
                         android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="14sp"
                         android:textStyle="bold" />

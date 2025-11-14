@@ -34,12 +34,12 @@
                 android:layout_marginBottom="@dimen/margin"
                 android:background="@drawable/toast"
                 android:backgroundTint="?attr/colorSurface"
-                android:text="Take notes for element"
+                android:text="@string/take_notes_for_element"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:gravity="top"
                 android:minLines="1"
-                android:hint="Take notes for element"
+                android:hint="@string/take_notes_for_element"
                 android:imeOptions="actionSearch"
                 android:inputType="textMultiLine"
                 android:paddingStart="18dp"
@@ -115,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="Description:"
+                android:text="@string/description_colon"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -145,7 +145,7 @@
             android:layout_width="wrap_content"
             android:layout_height="22dp"
             android:alpha="0.66"
-            android:text="..more"
+            android:text="@string/read_more"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
         </LinearLayout>
@@ -166,7 +166,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:text="English Name:"
+            android:text="@string/english_name_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -198,7 +198,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:text="Year Discovered:"
+            android:text="@string/year_discovered_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -229,7 +229,7 @@
             android:id="@+id/discovered_by"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Discovered By:"
+            android:text="@string/discovered_by_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
