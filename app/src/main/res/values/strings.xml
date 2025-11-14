@@ -156,7 +156,7 @@
     <string name="table_order_text" >Determine order of tables</string>
     <string name="win_title" >Get Desktop App</string>
     <string name="win_text" >Download the app for Windows</string>
-    <string name="about_author_name" >J.LINDEMANN</string>
+    <string name="about_author_name" translatable="false" >J.LINDEMANN</string>
     <string name="about_app_name" >Atomic - Periodic Table</string>
     <string name="about_title" >About</string>
     <string name="settings_title" >Settings</string>
@@ -263,10 +263,10 @@
     <string name="ion_try_another_search" >Try searching for another word or check your spelling.</string>
 
     <!-- Social-Media Links-->
-    <string name="bluesky" >https://bsky.app/profile/jlindemanndev.bsky.social</string>
-    <string name="instagram" >https://www.instagram.com/jlindemanndev</string>
-    <string name="facebook" >https://www.facebook.com/jlindemanndev</string>
-    <string name="homepage" >https://www.jlindemann.se/homepage</string>
+    <string name="bluesky" translatable="false" >https://bsky.app/profile/jlindemanndev.bsky.social</string>
+    <string name="instagram" translatable="false" >https://www.instagram.com/jlindemanndev</string>
+    <string name="facebook" translatable="false" >https://www.facebook.com/jlindemanndev</string>
+    <string name="homepage" translatable="false" >https://www.jlindemann.se/homepage</string>
 
     <string name="solubility_info_t">Solubility Help</string>
     <string name="solubility_info_c" >"S: Soluble\nSs: Slightly Soluble\nI: Insoluble"</string>
@@ -640,7 +640,7 @@
     <string name="take_notes_for_element">Take notes for element</string>
     <string name="read_more">..more</string>
     <string name="view_all_isotopes">View all Isotopes</string>
-    <string name="not_available">N/A</string>
+    <string name="not_available" translatable="false">N/A</string>
     <string name="hardness_properties_requires_pro">Hardness properties requires PRO-version. Get PRO to unlock more data and tables:</string>
 
     <!-- Tools UI -->
@@ -662,7 +662,7 @@
     <string name="get_pro_plus_button">Get PRO+</string>
 
     <!-- Sources -->
-    <string name="water_and_wastewater_engineering">Water and Wastewater Engineering</string>
+    <string name="water_and_wastewater_engineering" translatable="false">Water and Wastewater Engineering</string>
     <string name="mackenzie_l_davis" translatable="false">Mackenzie L. Davis</string>
     <string name="sothree_android_sliding_up_panel">Sothree Android Sliding Up Panel</string>
 
