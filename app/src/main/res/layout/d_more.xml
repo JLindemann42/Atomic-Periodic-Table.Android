@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:padding="@dimen/margin"
-                    android:text="Additional properties requires PRO-version. Get PRO to unlock more data and tables:"/>
+                    android:text="@string/additional_properties_requires_pro"/>
 
             </LinearLayout>
 
