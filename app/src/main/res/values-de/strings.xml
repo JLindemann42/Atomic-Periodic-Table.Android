@@ -560,4 +560,6 @@ Sie erhalten %3$d Leben%4$s.</string>
     <string name="question_superconducting_point">Was ist der Supraleitungspunkt von %s?</string>
     <string name="question_vickers_hardness">Was ist die Vickershärte von %s?</string>
 
+    <string name="notes_placeholder">Notizen für das Element machen:</string>
+
 </resources>

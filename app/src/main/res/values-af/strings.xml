@@ -555,4 +555,6 @@
     <string name="question_superconducting_point">Wat is die supergeleidingspunt van %s?</string>
     <string name="question_vickers_hardness">Wat is die Vickers-hardheid van %s?</string>
 
+    <string name="notes_placeholder">Maak notas vir die element:</string>
+
 </resources>

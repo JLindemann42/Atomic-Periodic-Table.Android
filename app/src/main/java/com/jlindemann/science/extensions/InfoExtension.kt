@@ -261,7 +261,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         val notesPrefValue = notesPref.getValue()
         val str = notesPrefValue
         if (!str.contains("<$elementCode>")) {
-            val newString = str + "<$elementCode>Take notes for the element:</$elementCode>"
+            val newString = str + "<$elementCode>" + getString(R.string.notes_placeholder) + "</$elementCode>"
             notesPref.setValue(newString)
             handleNotes(elementCode, eText)
         } else {
@@ -665,7 +665,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         val note = if (p1 != -1 && p2 != -1) {
             notesPrefValue.substring(p1 + firstDelim.length, p2)
         } else {
-            "Take notes for the element:"
+            getString(R.string.notes_placeholder)
         }
 
         eText.setText(note)

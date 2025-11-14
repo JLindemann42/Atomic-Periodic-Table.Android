@@ -556,4 +556,6 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="question_superconducting_point">Qual è il punto di superconduttività di %s?</string>
     <string name="question_vickers_hardness">Qual è la durezza Vickers di %s?</string>
 
+    <string name="notes_placeholder">Prendi appunti per l'elemento:</string>
+
 </resources>

@@ -558,4 +558,6 @@
     <string name="question_superconducting_point">%s का अतिचालकता बिंदु क्या है?</string>
     <string name="question_vickers_hardness">%s की विकर्स कठोरता क्या है?</string>
 
+    <string name="notes_placeholder">तत्व के लिए नोट्स लें:</string>
+
 </resources>
