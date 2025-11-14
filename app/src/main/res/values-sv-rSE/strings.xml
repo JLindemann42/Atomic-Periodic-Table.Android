@@ -392,7 +392,7 @@
     <string name="melting_point_kelvin">Smältpunkt (Kelvin):</string>
     <string name="rewards_available">Belöningar:</string>
     <string name="level_range_format">Nivå %1$d</string>
-    <string name="reward_5pct_title">+5% XP bonus</string>
+    <string name="reward_5pct_title">+5% XP-bonus</string>
     <string name="bonus_xp">+0% bonus aktiv</string>
     <string name="enable_sync">Aktivera Synkronisering</string>
     <string name="enable_sync_desc">Synkronisering av framsteg för nivå, xp, prestationer, etc. är tillgänglig för PRO och PRO+ användare</string>
@@ -496,9 +496,9 @@ Du får %3$d liv%4$s.</string>
     <string name="phase_stp_colon">Fas (STP):</string>
     <string name="pro_plus_rewards">PRO+ Belöningar: %s</string>
     <string name="pro_plus_user">PRO+ ANVÄNDARE</string>
-    <string name="pro_plus_version">PRO+ Version</string>
+    <string name="pro_plus_version">PRO+-version</string>
     <string name="pro_user">PRO ANVÄNDARE</string>
-    <string name="pro_version">PRO Version</string>
+    <string name="pro_version">PRO-version</string>
     <string name="progress_xp">%1$d/%2$d</string>
     <string name="question_text">Frågetext</string>
     <string name="questions_correct_xp">Rätta frågor: +%dxp</string>
@@ -528,7 +528,7 @@ Du får %3$d liv%4$s.</string>
     <string name="you_have_full_lives">Du har fulla liv!</string>
     <string name="your_answer">Ditt svar: %s</string>
 
-    <!-- Flashcard question formats -->
+    
     <string name="question_appearance">Vad är utseendet på %s?</string>
     <string name="question_atomic_mass">Vad är atommassan av %s?</string>
     <string name="question_atomic_number">Vad är atomnumret för %s?</string>
@@ -563,7 +563,7 @@ Du får %3$d liv%4$s.</string>
     <string name="notes_placeholder">Ta anteckningar för elementet:</string>
 
 
-    <!-- New element info strings -->
+    
     <string name="english_name_colon">Engelskt namn:</string>
     <string name="description_colon">Beskrivning:</string>
     <string name="year_discovered_colon">Upptäcktsår:</string>

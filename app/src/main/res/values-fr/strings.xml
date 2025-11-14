@@ -225,7 +225,7 @@
     <string name="solubility_info_c">S : Soluble\nSs : Légèrement soluble\nI : Insoluble</string>
     <string name="electrochemical_series">Série électrochimique</string>
     <string name="electrochemical_series_search">Rechercher un élément</string>
-    <string name="short_voltage">Tension</string>
+    <string name="short_voltage"> (Volt)</string>
     <string name="data_issue">Problème de données</string>
     <string name="bug">Bug</string>
     <string name="question">Question</string>
@@ -264,7 +264,7 @@
     <string name="cal">Calculatrice</string>
     <string name="rec">Réactions chimiques</string>
     <string name="uni">Convertisseur d\'unités</string>
-    <string name="fla">Cartes mémoire</string>
+    <string name="fla">Flashcards</string>
     <string name="unit_title">Convertisseur d\'unités</string>
     <string name="unit_description">Un simple convertisseur d\'unités pour plusieurs usages</string>
     <string name="most_used">Les plus utilisés :</string>
@@ -307,11 +307,11 @@
     <string name="unit_enter_value">Valeur</string>
     <string name="unit_output_value">Sortie</string>
     <string name="unit_category">Catégorie :</string>
-    <string name="unit_formula">Formule :</string>
+    <string name="unit_formula">Formule:</string>
     <string name="unit_add_favorite">Ajouter aux favoris :</string>
     <string name="unit_favorites">Favoris :</string>
     <string name="unit_display_formula">La formule sera affichée ici</string>
-    <string name="flashcards_title">Cartes mémoire</string>
+    <string name="flashcards_title">Flashcards</string>
     <string name="flashcards_info">Apprenez le tableau périodique avec les "jeux d\'apprentissage" intégrés</string>
     <string name="flashcards_lives_info">Chaque mauvaise réponse entraînera la perte d\'une vie</string>
     <string name="learning_games">Jeux d\'apprentissage :</string>
@@ -528,7 +528,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="you_have_full_lives">Vous avez toutes vos vies!</string>
     <string name="your_answer">Votre réponse: %s</string>
 
-    <!-- Flashcard question formats -->
+    
     <string name="question_appearance">Quelle est l\'apparence de %s?</string>
     <string name="question_atomic_mass">Quelle est la masse atomique de %s?</string>
     <string name="question_atomic_number">Quel est le numéro atomique de %s?</string>
@@ -563,7 +563,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="notes_placeholder">Prendre des notes pour l\'élément:</string>
 
 
-    <!-- New element info strings -->
+    
     <string name="english_name_colon">Nom anglais:</string>
     <string name="description_colon">Description:</string>
     <string name="year_discovered_colon">Année de découverte:</string>
