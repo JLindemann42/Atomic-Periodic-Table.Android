@@ -343,10 +343,10 @@ class ElementInfoActivity : InfoExtension() {
                 if (jsonObject != null) {
                     val currentNumb = jsonObject.optString("element_atomic_number", "---")
                     val elements = ArrayList<Element>()
-                    ElementModel.getList(elements)
+                    ElementModel.getList(elements, this)
                     val item = elements[currentNumb.toInt()]
                     val elementSendAndLoad = ElementSendAndLoad(this)
-                    elementSendAndLoad.setValue(item.element)
+                    elementSendAndLoad.setValue(item.elementKey)
                     readJson()
                 }
             }
@@ -360,10 +360,10 @@ class ElementInfoActivity : InfoExtension() {
                 if (jsonObject != null) {
                     val currentNumb = jsonObject.optString("element_atomic_number", "---")
                     val elements = ArrayList<Element>()
-                    ElementModel.getList(elements)
+                    ElementModel.getList(elements, this)
                     val item = elements[currentNumb.toInt()-2]
                     val elementSendAndLoad = ElementSendAndLoad(this)
-                    elementSendAndLoad.setValue(item.element)
+                    elementSendAndLoad.setValue(item.elementKey)
                     readJson()
                 }
             }

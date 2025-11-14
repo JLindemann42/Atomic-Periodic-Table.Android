@@ -230,7 +230,7 @@ class CalculatorActivity : BaseActivity() {
 
         var result = 0.0
         val elementList = ArrayList<Element>()
-        ElementModel.getList(elementList)
+        ElementModel.getList(elementList, this)
 
         val elementWeights = mutableMapOf<String, Double>()
         val elementNames = mutableMapOf<String, String>()
@@ -238,7 +238,7 @@ class CalculatorActivity : BaseActivity() {
 
         for (element in elementList) {
             try {
-                val jsonObject = ElementDataLoader.loadElementData(this, element.element)
+                val jsonObject = ElementDataLoader.loadElementData(this, element.elementKey)
                 if (jsonObject != null) {
                     val weightVal = jsonObject.optString("element_atomicmass", "---").removeSuffix(" (u)")
                     val shortEl = jsonObject.optString("short", "---")

@@ -274,14 +274,14 @@ class ChemicalReactionsActivity : BaseActivity() {
         if (input.isNullOrEmpty()) return
 
         val elementList = ArrayList<Element>()
-        ElementModel.getList(elementList)
+        ElementModel.getList(elementList, this)
 
         val elementWeights = mutableMapOf<String, Double>()
         val elementNames = mutableMapOf<String, String>()
 
         for (element in elementList) {
             try {
-                val jsonObject = ElementDataLoader.loadElementData(this, element.element)
+                val jsonObject = ElementDataLoader.loadElementData(this, element.elementKey)
                 if (jsonObject != null) {
                     val weightVal = jsonObject.optString("element_atomicmass", "---").removeSuffix(" (u)")
                     val shortEl = jsonObject.optString("short", "---")
