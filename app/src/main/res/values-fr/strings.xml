@@ -225,7 +225,7 @@
     <string name="solubility_info_c">S : Soluble\nSs : Légèrement soluble\nI : Insoluble</string>
     <string name="electrochemical_series">Série électrochimique</string>
     <string name="electrochemical_series_search">Rechercher un élément</string>
-    <string name="short_voltage">Tension</string>
+    <string name="short_voltage"> (Volt)</string>
     <string name="data_issue">Problème de données</string>
     <string name="bug">Bug</string>
     <string name="question">Question</string>
@@ -307,7 +307,7 @@
     <string name="unit_enter_value">Valeur</string>
     <string name="unit_output_value">Sortie</string>
     <string name="unit_category">Catégorie :</string>
-    <string name="unit_formula">Formule :</string>
+    <string name="unit_formula">Formule:</string>
     <string name="unit_add_favorite">Ajouter aux favoris :</string>
     <string name="unit_favorites">Favoris :</string>
     <string name="unit_display_formula">La formule sera affichée ici</string>
@@ -493,7 +493,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="out_of_lives_hours">Plus de vies! Plus de vies dans %1$d heures, %2$d minutes et %3$d secondes.</string>
     <string name="out_of_lives_minutes">Plus de vies! Plus de vies dans %1$d minutes et %2$d secondes.</string>
     <string name="perfect_all_correct_xp">Parfait (Tout correct): +%dxp</string>
-    <string name="phase_stp_colon">Phase (STP):</string>
+    <string name="phase_stp_colon">Phase (STP) :</string>
     <string name="pro_plus_rewards">Récompenses PRO+: %s</string>
     <string name="pro_plus_user">UTILISATEUR PRO+</string>
     <string name="pro_plus_version">Version PRO+</string>
@@ -506,7 +506,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="rate_app">Évaluer l\'application</string>
     <string name="rate_app_description">Faites-nous savoir ce que vous pensez de l\'application en l\'évaluant sur le Play Store!</string>
     <string name="reaction_balancer">Équilibreur de réaction:</string>
-    <string name="score_summary">Score: %1$d/%2$d</string>
+    <string name="score_summary">Score : %1$d/%2$d</string>
     <string name="searches">Recherches</string>
     <string name="solubility_table">Table de solubilité</string>
     <string name="sothree_android_sliding_up_panel">Sothree Android Sliding Up Panel</string>
@@ -515,7 +515,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="time_up">Temps écoulé</string>
     <string name="tools">Outils</string>
     <string name="total_xp_stat">XP total: %d</string>
-    <string name="type_label">Type: </string>
+    <string name="type_label">Type : </string>
     <string name="unit_conversion_format">%1$s %2$s → %3$s %4$s (%5$s)</string>
     <string name="unlock_advanced_data_and_additional_flashcards">Débloquez des données avancées et des cartes mémoire supplémentaires.</string>
     <string name="unlock_advanced_data_and_extra_atomic_content">Débloquez des données avancées et du contenu atomique supplémentaire.</string>
@@ -528,7 +528,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="you_have_full_lives">Vous avez toutes vos vies!</string>
     <string name="your_answer">Votre réponse: %s</string>
 
-    <!-- Flashcard question formats -->
+    
     <string name="question_appearance">Quelle est l\'apparence de %s?</string>
     <string name="question_atomic_mass">Quelle est la masse atomique de %s?</string>
     <string name="question_atomic_number">Quel est le numéro atomique de %s?</string>
@@ -563,9 +563,9 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="notes_placeholder">Prendre des notes pour l\'élément:</string>
 
 
-    <!-- New element info strings -->
+    
     <string name="english_name_colon">Nom anglais:</string>
-    <string name="description_colon">Description:</string>
+    <string name="description_colon">Description :</string>
     <string name="year_discovered_colon">Année de découverte:</string>
     <string name="discovered_by_colon">Découvert par:</string>
     <string name="oxidation_states_colon">États d\'oxydation:</string>
@@ -579,7 +579,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="mohs_hardness_colon">Dureté Mohs:</string>
     <string name="vickers_hardness_colon">Dureté Vickers:</string>
     <string name="radioactive_colon">Radioactif:</string>
-    <string name="isotopes_colon">Isotopes:</string>
+    <string name="isotopes_colon">Isotopes :</string>
     <string name="neutron_cross_sectional_colon">Section efficace neutronique:</string>
     <string name="cas_number_colon">Numéro CAS:</string>
     <string name="eg_number_colon">Numéro EG:</string>

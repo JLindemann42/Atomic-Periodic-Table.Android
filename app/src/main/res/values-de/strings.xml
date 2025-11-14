@@ -323,14 +323,14 @@
     <string name="flashcards_statistics">Statistiken</string>
     <string name="flashcards_total_xp">Gesamt-XP</string>
     <string name="flashcards_total_games">Spiele</string>
-    <string name="flashcards_level">Level</string>
+    <string name="flashcards_level">Stufe</string>
     <string name="flashcards_difficulty">Schwierigkeit wählen:</string>
     <string name="flashcards_difficulty_title">Schwierigkeit</string>
     <string name="flashcards_free_games">Kostenlose Spiele:</string>
     <string name="flashcards_pro_plus_games">PRO+ Spiele:</string>
-    <string name="flashcards_pro_level_0_5">Level 0:</string>
-    <string name="flashcards_pro_level_5_10">Level 5:</string>
-    <string name="flashcards_pro_level_10_15">Level 10:</string>
+    <string name="flashcards_pro_level_0_5">Stufe 0:</string>
+    <string name="flashcards_pro_level_5_10">Stufe 5:</string>
+    <string name="flashcards_pro_level_10_15">Stufe 10:</string>
     <string name="flashcards_game_element_symbols">Elementsymbole</string>
     <string name="flashcards_game_element_names">Elementnamen</string>
     <string name="flashcards_game_element_groups">Elementgruppen</string>
@@ -345,34 +345,34 @@
     <string name="easy">Einfach</string>
     <string name="medium">Mittel</string>
     <string name="hard">Schwer</string>
-    <string name="level_0_4">Level 0</string>
+    <string name="level_0_4">Stufe 0</string>
     <string name="element_symbols">Elementsymbole</string>
     <string name="element_names">Elementnamen</string>
     <string name="element_groups">Elementgruppen</string>
     <string name="discovered_by">Entdeckt von</string>
     <string name="discovery_year">Entdeckungsjahr</string>
-    <string name="level_5_9">Level 5</string>
+    <string name="level_5_9">Stufe 5</string>
     <string name="appearance">Aussehen</string>
     <string name="atomic_number">Ordnungszahl</string>
     <string name="electrical_type">Elektrischer Typ</string>
     <string name="radioactive">Radioaktiv</string>
-    <string name="level_10_14">Level 10</string>
+    <string name="level_10_14">Stufe 10</string>
     <string name="atomic_mass">Atommasse</string>
     <string name="density">Dichte</string>
     <string name="electronegativity">Elektronegativität</string>
     <string name="block">Block</string>
-    <string name="level_15_19">Level 15</string>
+    <string name="level_15_19">Stufe 15</string>
     <string name="magnetic_type">Magnetischer Typ</string>
     <string name="phase_stp">Phase (STP)</string>
     <string name="superconducting_point">Supraleiter-Punkt</string>
-    <string name="level_20_24">Level 20</string>
+    <string name="level_20_24">Stufe 20</string>
     <string name="neutron_cross_sectional">Neutronen-Querschnitt</string>
     <string name="specific_heat_capacity">Spezifische Wärmekapazität</string>
     <string name="mohs_hardness">Mohs-Härte</string>
     <string name="vickers_hardness">Vickers-Härte</string>
     <string name="brinell_hardness">Brinell-Härte</string>
-    <string name="level_25_29">Level 25</string>
-    <string name="level_30_34">Level 30</string>
+    <string name="level_25_29">Stufe 25</string>
+    <string name="level_30_34">Stufe 30</string>
     <string name="boiling_point_celsius">Siedepunkt (°C):</string>
     <string name="boiling_point_fahrenheit">Siedepunkt (°F):</string>
     <string name="boiling_point_kelvin">Siedepunkt (Kelvin):</string>
@@ -380,7 +380,7 @@
     <string name="melting_point_fahrenheit">Schmelzpunkt (°F):</string>
     <string name="melting_point_kelvin">Schmelzpunkt (Kelvin):</string>
     <string name="rewards_available">Belohnungen:</string>
-    <string name="level_range_format">Level %1$d</string>
+    <string name="level_range_format">Stufe %1$d</string>
     <string name="reward_5pct_title">+5% XP-Bonus</string>
     <string name="bonus_xp">+0% Bonus aktiv</string>
     <string name="enable_sync">Synchronisation aktivieren</string>
@@ -476,7 +476,7 @@
     <string name="group_label">Gruppe: </string>
     <string name="hardness_label">Härte: </string>
     <string name="isotopes_table_description">Eine Tabelle mit Isotopen für verschiedene Elemente sowie Halbwertszeit-, Massen-, Protonen-, Neutronen- und Nukleonendaten.</string>
-    <string name="level_x_y">Level X-Y</string>
+    <string name="level_x_y">Stufe X-Y</string>
     <string name="lives_label">Leben: %s</string>
     <string name="lives_lost_detail">Verlorene Leben: %1$d (%2$d pro falscher/Zeitüberschreitungs-Antwort)</string>
     <string name="lives_unlimited">Leben: ∞</string>
@@ -496,9 +496,9 @@ Sie erhalten %3$d Leben%4$s.</string>
     <string name="phase_stp_colon">Phase (STP):</string>
     <string name="pro_plus_rewards">PRO+ Belohnungen: %s</string>
     <string name="pro_plus_user">PRO+ BENUTZER</string>
-    <string name="pro_plus_version">PRO+ Version</string>
+    <string name="pro_plus_version">PRO+-Version</string>
     <string name="pro_user">PRO BENUTZER</string>
-    <string name="pro_version">PRO Version</string>
+    <string name="pro_version">PRO-Version</string>
     <string name="progress_xp">%1$d/%2$d</string>
     <string name="question_text">Fragetext</string>
     <string name="questions_correct_xp">Richtige Fragen: +%dxp</string>
@@ -528,7 +528,7 @@ Sie erhalten %3$d Leben%4$s.</string>
     <string name="you_have_full_lives">Sie haben volle Leben!</string>
     <string name="your_answer">Ihre Antwort: %s</string>
 
-    <!-- Flashcard question formats -->
+    
     <string name="question_appearance">Wie ist das Aussehen von %s?</string>
     <string name="question_atomic_mass">Was ist die Atommasse von %s?</string>
     <string name="question_atomic_number">Was ist die Ordnungszahl von %s?</string>
@@ -563,7 +563,7 @@ Sie erhalten %3$d Leben%4$s.</string>
     <string name="notes_placeholder">Notizen für das Element machen:</string>
 
 
-    <!-- New element info strings -->
+    
     <string name="english_name_colon">Englischer Name:</string>
     <string name="description_colon">Beschreibung:</string>
     <string name="year_discovered_colon">Entdeckungsjahr:</string>
