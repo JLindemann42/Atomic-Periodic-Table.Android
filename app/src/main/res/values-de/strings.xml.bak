@@ -562,31 +562,4 @@ Sie erhalten %3$d Leben%4$s.</string>
 
     <string name="notes_placeholder">Notizen für das Element machen:</string>
 
-
-    <!-- New element info strings -->
-    <string name="english_name_colon">Englischer Name:</string>
-    <string name="description_colon">Beschreibung:</string>
-    <string name="year_discovered_colon">Entdeckungsjahr:</string>
-    <string name="discovered_by_colon">Entdeckt von:</string>
-    <string name="oxidation_states_colon">Oxidationsstufen:</string>
-    <string name="electron_configuration_colon">Elektronenkonfiguration:</string>
-    <string name="ion_charge_colon">Ionenladung:</string>
-    <string name="ionization_energies_colon">Ionisierungsenergien:</string>
-    <string name="electrical_type_colon">Elektrischer Typ:</string>
-    <string name="electrical_resistivity_colon">Elektrischer Widerstand:</string>
-    <string name="magnetic_type_colon">Magnetischer Typ:</string>
-    <string name="superconducting_point_colon">Supraleitungspunkt:</string>
-    <string name="mohs_hardness_colon">Mohshärte:</string>
-    <string name="vickers_hardness_colon">Vickershärte:</string>
-    <string name="radioactive_colon">Radioaktiv:</string>
-    <string name="isotopes_colon">Isotope:</string>
-    <string name="neutron_cross_sectional_colon">Neutronenquerschnitt:</string>
-    <string name="cas_number_colon">CAS-Nummer:</string>
-    <string name="eg_number_colon">EG-Nummer:</string>
-    <string name="take_notes_for_element">Notizen für Element machen</string>
-    <string name="read_more">..mehr</string>
-    <string name="view_all_isotopes">Alle Isotope anzeigen</string>
-    <string name="not_available">N/A</string>
-    <string name="hardness_properties_requires_pro">Härte-Eigenschaften erfordern PRO-Version. Holen Sie sich PRO, um mehr Daten und Tabellen freizuschalten:</string>
-
 </resources>

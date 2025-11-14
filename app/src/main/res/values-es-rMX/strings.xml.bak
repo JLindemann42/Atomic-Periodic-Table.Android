@@ -27,12 +27,12 @@
     <string name="random_element">Elemento aleatorio</string>
     <string name="pro_title">Versión PRO</string>
     <string name="get_pro_title">Obtener versión PRO</string>
-    <string name="pro_descr">\'Atómico - Tabla Periódica\' es una aplicación gratuita y de código abierto creada por mí en mi tiempo libre en Suecia. ¡Al comprar la versión PRO ayudas al desarrollo y también recibes datos y funciones adicionales!</string>
+    <string name="pro_descr">‘Atómico - Tabla Periódica’ es una aplicación gratuita y de código abierto creada por mí en mi tiempo libre en Suecia. ¡Al comprar la versión PRO ayudas al desarrollo y también recibes datos y funciones adicionales!</string>
     <string name="member_title">Página de miembros PRO</string>
-    <string name="member_desch">Gracias por apoyar el desarrollo de \'Atómico - Tabla Periódica\'. En esta página tendrás información sobre tus ventajas PRO a medida que se agreguen nuevas funciones PRO.</string>
+    <string name="member_desch">Gracias por apoyar el desarrollo de ‘Atómico - Tabla Periódica’. En esta página tendrás información sobre tus ventajas PRO a medida que se agreguen nuevas funciones PRO.</string>
     <string name="member_already">¡Eres miembro PRO!</string>
     <string name="member_btn">Tus ventajas PRO</string>
-    <string name="pro_get_more_out">Saca más provecho de Atómico</string>
+    <string name="pro_get_more_out">Sácale más provecho a Atómico</string>
     <string name="pro_features_title">Características de la versión PRO:</string>
     <string name="pro_features_descr">Explora algunas de las muchas características de la versión PRO y lo que incluyen.</string>
     <string name="pro_upgrade_to_pro">Actualizar a PRO</string>
@@ -107,7 +107,7 @@
     <string name="poissons_ratio_title">Relación de Poisson</string>
     <string name="other_settings">Avanzado</string>
     <string name="experimental_title">Config. experimental</string>
-    <string name="experimental_text">Config. experimentales adicionales</string>
+    <string name="experimental_text">Configuraciones experimentales adicionales</string>
     <string name="clear_cache_title">Limpiar caché</string>
     <string name="clear_cache_text">tamaño_caché</string>
     <string name="submit_activity_title">Enviar reporte</string>
@@ -557,59 +557,5 @@ Ganarás %3$d vida%4$s.</string>
     <string name="question_vickers_hardness">¿Cuál es la dureza Vickers de %s?</string>
 
     <string name="notes_placeholder">Tomar notas para el elemento:</string>
-
-
-    <!-- New element info strings -->
-    <string name="english_name_colon">Nombre en inglés:</string>
-    <string name="description_colon">Descripción:</string>
-    <string name="year_discovered_colon">Año de descubrimiento:</string>
-    <string name="discovered_by_colon">Descubierto por:</string>
-    <string name="oxidation_states_colon">Estados de oxidación:</string>
-    <string name="electron_configuration_colon">Configuración electrónica:</string>
-    <string name="ion_charge_colon">Carga iónica:</string>
-    <string name="ionization_energies_colon">Energías de ionización:</string>
-    <string name="electrical_type_colon">Tipo eléctrico:</string>
-    <string name="electrical_resistivity_colon">Resistividad eléctrica:</string>
-    <string name="magnetic_type_colon">Tipo magnético:</string>
-    <string name="superconducting_point_colon">Punto de superconductividad:</string>
-    <string name="mohs_hardness_colon">Dureza Mohs:</string>
-    <string name="vickers_hardness_colon">Dureza Vickers:</string>
-    <string name="radioactive_colon">Radioactivo:</string>
-    <string name="isotopes_colon">Isótopos:</string>
-    <string name="neutron_cross_sectional_colon">Sección eficaz neutrónica:</string>
-    <string name="cas_number_colon">Número CAS:</string>
-    <string name="eg_number_colon">Número EG:</string>
-    <string name="take_notes_for_element">Tomar notas para el elemento</string>
-    <string name="read_more">..más</string>
-    <string name="view_all_isotopes">Ver todos los isótopos</string>
-    <string name="not_available">N/A</string>
-    <string name="hardness_properties_requires_pro">Las propiedades de dureza requieren la versión PRO. Obtenga PRO para desbloquear más datos y tablas:</string>
-
-
-    <!-- New element info strings -->
-    <string name="english_name_colon">Nombre en inglés:</string>
-    <string name="description_colon">Descripción:</string>
-    <string name="year_discovered_colon">Año de descubrimiento:</string>
-    <string name="discovered_by_colon">Descubierto por:</string>
-    <string name="oxidation_states_colon">Estados de oxidación:</string>
-    <string name="electron_configuration_colon">Configuración electrónica:</string>
-    <string name="ion_charge_colon">Carga iónica:</string>
-    <string name="ionization_energies_colon">Energías de ionización:</string>
-    <string name="electrical_type_colon">Tipo eléctrico:</string>
-    <string name="electrical_resistivity_colon">Resistividad eléctrica:</string>
-    <string name="magnetic_type_colon">Tipo magnético:</string>
-    <string name="superconducting_point_colon">Punto de superconductividad:</string>
-    <string name="mohs_hardness_colon">Dureza Mohs:</string>
-    <string name="vickers_hardness_colon">Dureza Vickers:</string>
-    <string name="radioactive_colon">Radioactivo:</string>
-    <string name="isotopes_colon">Isótopos:</string>
-    <string name="neutron_cross_sectional_colon">Sección eficaz neutrónica:</string>
-    <string name="cas_number_colon">Número CAS:</string>
-    <string name="eg_number_colon">Número EG:</string>
-    <string name="take_notes_for_element">Tomar notas para el elemento</string>
-    <string name="read_more">..más</string>
-    <string name="view_all_isotopes">Ver todos los isótopos</string>
-    <string name="not_available">N/A</string>
-    <string name="hardness_properties_requires_pro">Las propiedades de dureza requieren la versión PRO. Obtenga PRO para desbloquear más datos y tablas:</string>
 
 </resources>
