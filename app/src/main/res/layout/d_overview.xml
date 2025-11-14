@@ -24,12 +24,27 @@
                 android:background="@drawable/half_down_toast"
                 android:alpha="0.11" />
 
+            <TextView
+                android:id="@+id/notes_sync_status"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@drawable/ic_no_sync"
+                android:backgroundTint="?attr/colorAccent"
+                android:foreground="@drawable/c_ripple"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_gravity="end"
+                android:elevation="1dp"
+                android:padding="4dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="2dp"/>
+
             <EditText
                 android:id="@+id/notes_edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="2dp"
                 android:layout_marginEnd="@dimen/margin"
                 android:layout_marginBottom="@dimen/margin"
                 android:background="@drawable/toast"

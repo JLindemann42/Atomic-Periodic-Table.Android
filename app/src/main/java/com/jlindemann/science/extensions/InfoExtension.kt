@@ -61,6 +61,10 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
     private var notesEditText: EditText? = null // Track notes EditText
     private var notesSyncStatusView: TextView? = null // Track sync status indicator
 
+    // Store the element key used to load data (the value returned from ElementSendAndLoad)
+    // so we can send it to the isotopes preference when user navigates to isotopes.
+    private var currentElementKeyPref: String? = null
+
     override fun onDestroy() {
         super.onDestroy()
         // Save notes before destroying
@@ -121,6 +125,9 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                     val englishName = englishJsonObject?.optString("element", "---") ?: "---"
                     Triple(value, jsonObject, englishName)
                 }
+
+                // Save the element key returned from the preference so we can send it to isotopes later
+                currentElementKeyPref = elementKey
 
                 // Previous/next button visibility
                 findViewById<ImageButton>(R.id.previous_btn).visibility =
@@ -282,7 +289,8 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.neutron_cross_sectional_text).text = neutronCrossSection
         findViewById<FrameLayout>(R.id.isotopes_frame).setOnClickListener {
             val isoPreference = ElementSendAndLoad(this)
-            isoPreference.setValue(element.lowercase())
+
+            isoPreference.setValue(currentElementKeyPref ?: element.lowercase())
             val isoSend = sendIso(this)
             isoSend.setValue("true")
             val intent = Intent(this, IsotopesActivityExperimental::class.java)
@@ -290,7 +298,8 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         }
         findViewById<ImageButton>(R.id.isotope_btn).setOnClickListener {
             val isoPreference = ElementSendAndLoad(this)
-            isoPreference.setValue(element.lowercase())
+
+            isoPreference.setValue(currentElementKeyPref ?: element.lowercase())
             val isoSend = sendIso(this)
             isoSend.setValue("true")
             val intent = Intent(this, IsotopesActivityExperimental::class.java)
@@ -635,11 +644,11 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         val notesPref = NotesPreference(this)
         val firstDelim = "<$elementCode>"
         val lastDelim = "</$elementCode>"
-        
+
         val currentNotes = notesPref.getValue()
         val start = currentNotes.indexOf(firstDelim)
         val end = currentNotes.indexOf(lastDelim, start)
-        
+
         if (start != -1 && end != -1) {
             val newNotes = currentNotes.substring(0, start + firstDelim.length) +
                     eText.text.toString() +
@@ -656,20 +665,11 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
     private fun handleNotes(elementCode: String, eText: EditText) {
         // Save previous notes before switching to new element
         saveCurrentNotes()
-        
+
         // Update tracking variables
         currentElementCode = elementCode
         notesEditText = eText
-        
-        // Get sync status view
-        notesSyncStatusView = findViewById<TextView>(R.id.notes_sync_status)
-        
-        // Initialize sync status based on user eligibility
-        updateSyncStatusUI(NotesSyncManager.SyncStatus.NOT_ELIGIBLE)
-        if (NotesSyncManager.canSyncNotes(this)) {
-            updateSyncStatusUI(NotesSyncManager.SyncStatus.SYNCED)
-        }
-        
+
         val notesPref = NotesPreference(this)
         val firstDelim = "<$elementCode>"
         val lastDelim = "</$elementCode>"
