@@ -664,7 +664,7 @@
     <!-- Sources -->
     <string name="water_and_wastewater_engineering" translatable="false">Water and Wastewater Engineering</string>
     <string name="mackenzie_l_davis" translatable="false">Mackenzie L. Davis</string>
-    <string name="sothree_android_sliding_up_panel">Sothree Android Sliding Up Panel</string>
+    <string name="sothree_android_sliding_up_panel" translatable="false">Sothree Android Sliding Up Panel</string>
 
     <!-- Table description -->
     <string name="isotopes_table_description">A table with isotopes for different elements as well as half-time, mass, proton, neutron and nucleons data.</string>
@@ -691,9 +691,9 @@
     <string name="experimental">Experimental</string>
     <string name="enable_zoom_in_tables">Enable Zoom in tables</string>
     <string name="question_text">Question text</string>
-    <string name="option_placeholder">Option %d</string>
+    <string name="option_placeholder" translatable="false">Option %d</string>
     <string name="card_order">Card Order</string>
-    <string name="wikipedia_commons">Wikipedia Commons</string>
+    <string name="wikipedia_commons" translatable="false">Wikipedia Commons</string>
     <string name="solubility_table">Solubility Table</string>
     <string name="formula_will_be_displayed_here">Formula will be displayed here</string>
 

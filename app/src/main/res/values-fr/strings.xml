@@ -264,7 +264,7 @@
     <string name="cal">Calculatrice</string>
     <string name="rec">Réactions chimiques</string>
     <string name="uni">Convertisseur d\'unités</string>
-    <string name="fla">Flashcards</string>
+    <string name="fla">Cartes mémoire</string>
     <string name="unit_title">Convertisseur d\'unités</string>
     <string name="unit_description">Un simple convertisseur d\'unités pour plusieurs usages</string>
     <string name="most_used">Les plus utilisés :</string>
@@ -311,7 +311,7 @@
     <string name="unit_add_favorite">Ajouter aux favoris :</string>
     <string name="unit_favorites">Favoris :</string>
     <string name="unit_display_formula">La formule sera affichée ici</string>
-    <string name="flashcards_title">Flashcards</string>
+    <string name="flashcards_title">Cartes mémoire</string>
     <string name="flashcards_info">Apprenez le tableau périodique avec les "jeux d\'apprentissage" intégrés</string>
     <string name="flashcards_lives_info">Chaque mauvaise réponse entraînera la perte d\'une vie</string>
     <string name="learning_games">Jeux d\'apprentissage :</string>
@@ -493,7 +493,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="out_of_lives_hours">Plus de vies! Plus de vies dans %1$d heures, %2$d minutes et %3$d secondes.</string>
     <string name="out_of_lives_minutes">Plus de vies! Plus de vies dans %1$d minutes et %2$d secondes.</string>
     <string name="perfect_all_correct_xp">Parfait (Tout correct): +%dxp</string>
-    <string name="phase_stp_colon">Phase (STP):</string>
+    <string name="phase_stp_colon">Phase (STP) :</string>
     <string name="pro_plus_rewards">Récompenses PRO+: %s</string>
     <string name="pro_plus_user">UTILISATEUR PRO+</string>
     <string name="pro_plus_version">Version PRO+</string>
@@ -506,7 +506,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="rate_app">Évaluer l\'application</string>
     <string name="rate_app_description">Faites-nous savoir ce que vous pensez de l\'application en l\'évaluant sur le Play Store!</string>
     <string name="reaction_balancer">Équilibreur de réaction:</string>
-    <string name="score_summary">Score: %1$d/%2$d</string>
+    <string name="score_summary">Score : %1$d/%2$d</string>
     <string name="searches">Recherches</string>
     <string name="solubility_table">Table de solubilité</string>
     <string name="sothree_android_sliding_up_panel">Sothree Android Sliding Up Panel</string>
@@ -515,7 +515,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="time_up">Temps écoulé</string>
     <string name="tools">Outils</string>
     <string name="total_xp_stat">XP total: %d</string>
-    <string name="type_label">Type: </string>
+    <string name="type_label">Type : </string>
     <string name="unit_conversion_format">%1$s %2$s → %3$s %4$s (%5$s)</string>
     <string name="unlock_advanced_data_and_additional_flashcards">Débloquez des données avancées et des cartes mémoire supplémentaires.</string>
     <string name="unlock_advanced_data_and_extra_atomic_content">Débloquez des données avancées et du contenu atomique supplémentaire.</string>
@@ -565,7 +565,7 @@ Vous gagnerez %3$d vie%4$s.</string>
 
     
     <string name="english_name_colon">Nom anglais:</string>
-    <string name="description_colon">Description:</string>
+    <string name="description_colon">Description :</string>
     <string name="year_discovered_colon">Année de découverte:</string>
     <string name="discovered_by_colon">Découvert par:</string>
     <string name="oxidation_states_colon">États d\'oxydation:</string>
@@ -579,7 +579,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="mohs_hardness_colon">Dureté Mohs:</string>
     <string name="vickers_hardness_colon">Dureté Vickers:</string>
     <string name="radioactive_colon">Radioactif:</string>
-    <string name="isotopes_colon">Isotopes:</string>
+    <string name="isotopes_colon">Isotopes :</string>
     <string name="neutron_cross_sectional_colon">Section efficace neutronique:</string>
     <string name="cas_number_colon">Numéro CAS:</string>
     <string name="eg_number_colon">Numéro EG:</string>
