@@ -59,7 +59,7 @@
     <string name="pro_already_purchased_title" >Already purchased Atomic - Periodic Table PRO?</string>
     <string name="pro_already_purchased_check" >Check product on account</string>
     <string name="pro_price_loading" >retrieving price...</string>
-    <string name="pro_price_discount" >pro_price_discount</string>
+    <string name="pro_price_discount" translatable="false" >pro_price_discount</string>
 
     <!-- Activity Element Info-->
     <string name="element_description_title">Description</string>
@@ -91,9 +91,9 @@
     <string name="show_stp_phase" >Show STP Phase</string>
     <string name="show_electronegativity" >Show Electronegativity</string>
     <string name="show_density" >Show Density</string>
-    <string name="kelvin" >Kelvin</string>
-    <string name="celsius" >Celsius</string>
-    <string name="fahrenheit" >Fahrenheit</string>
+    <string name="kelvin" translatable="false" >Kelvin</string>
+    <string name="celsius" translatable="false" >Celsius</string>
+    <string name="fahrenheit" translatable="false" >Fahrenheit</string>
     <string name="show_boiling_point" >Show Boiling Point</string>
     <string name="show_melting_point" >Show Melting Point</string>
     <string name="show_atomic_radius_empirical" >Show Atomic Radius (Empirical)</string>
@@ -109,7 +109,7 @@
     <!-- Activity Sources Settings -->
     <string name="sources_settings_title" >Sources</string>
     <string name="sources_wwe_title" >Water and Wastewater Engineering</string>
-    <string name="sources_wwe_text" >Mackenzie L. Davis, (2019). Water and wastewater Engineering: Design Principles and Practise, second edition. ISBN: 978-1-260-13227-4</string>
+    <string name="sources_wwe_text" translatable="false" >Mackenzie L. Davis, (2019). Water and wastewater Engineering: Design Principles and Practise, second edition. ISBN: 978-1-260-13227-4</string>
 
     <!-- Activity Unit Settings -->
     <string name="unit_settings_title">Table Units</string>
@@ -136,7 +136,7 @@
     <string name="experimental_title">Experimental Settings</string>
     <string name="experimental_text">Additional experimental settings</string>
     <string name="clear_cache_title">Clear Cache</string>
-    <string name="clear_cache_text">cache_size</string>
+    <string name="clear_cache_text" translatable="false">cache_size</string>
     <string name="submit_activity_title">Submit issue</string>
     <string name="submit_data_i">Data Issue</string>
     <string name="submit_bug">Bug</string>
@@ -150,7 +150,7 @@
     <string name="licenses_text">Licenses of works used by Atomic</string>
     <string name="info_title">Information</string>
     <string name="info_text">App version and details</string>
-    <string name="git_title" >Github</string>
+    <string name="git_title" translatable="false" >Github</string>
     <string name="git_text" >Atomics open-source GitHub repo</string>
     <string name="table_order_title" >Sort table list</string>
     <string name="table_order_text" >Determine order of tables</string>
@@ -287,13 +287,13 @@
     <string name="chip_reactions">Reactions</string>
     <string name="chip_water" >Water</string>
 
-    <string name="wikipedia_license" >Wikipedia Commons</string>
-    <string name="wikipedia_license_text" >CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL SERVICES.
+    <string name="wikipedia_license" translatable="false" >Wikipedia Commons</string>
+    <string name="wikipedia_license_text" translatable="false" >CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL SERVICES.
         DISTRIBUTION OF THIS LICENSE DOES NOT CREATE AN ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS INFORMATION ON AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES REGARDING THE INFORMATION PROVIDED, AND DISCLAIMS LIABILITY FOR DAMAGES RESULTING FROM ITS USE.\n\nTHE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE").
         THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
         BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE. TO THE EXTENT THIS LICENSE MAY BE CONSIDERED TO BE A CONTRACT, THE LICENSOR GRANTS YOU THE RIGHTS CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND CONDITIONS.</string>
-    <string name="sothree_license" >Android Sliding Up Panel</string>
-    <string name="sothree_license_text" >Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
+    <string name="sothree_license" translatable="false" >Android Sliding Up Panel</string>
+    <string name="sothree_license_text" translatable="false" >Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
     \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>
     <string name="appwidget_text" >EXAMPLE</string>
     <string name="add_widget">Add widget</string>
@@ -413,8 +413,8 @@
     <string name="flashcards_game_element_appearance" >Appearance</string>
     <string name="flashcards_game_element_atomic_mass" >Atomic Mass</string>
     <string name="flashcards_game_element_density" >Density</string>
-    <string name="progress_text_placeholder" >50/500</string>
-    <string name="total_xp_placeholder" >Total XP: ---</string>
+    <string name="progress_text_placeholder" translatable="false" >50/500</string>
+    <string name="total_xp_placeholder" translatable="false" >Total XP: ---</string>
     <string name="unlock_all_flashcards" >Unlock all Flashcards and Features</string>
     <string name="upgrade_to_pro_plus" >Upgrade to PRO+</string>
     <string name="upgrade_pro_plus_description" >Get unlimited lives and additional flashcard games such as electronegativity, radioactivity, crystal structure and more!</string>
@@ -500,10 +500,10 @@
     <string name="login_for_sync_and_more">Login to sync data</string>
 
 
-    <string name="pro_plus_badge" >PRO+</string>
-    <string name="lives_count_placeholder" >5</string>
-    <string name="level_stat_placeholder" >---</string>
-    <string name="completed_quizzes_stat_placeholder" >---</string>
+    <string name="pro_plus_badge" translatable="false" >PRO+</string>
+    <string name="lives_count_placeholder" translatable="false" >5</string>
+    <string name="level_stat_placeholder" translatable="false" >---</string>
+    <string name="completed_quizzes_stat_placeholder" translatable="false" >---</string>
 
     <!-- Popup Pro -->
     <string name="popup_title">Upgrade to PRO+</string>
@@ -512,9 +512,9 @@
     <string name="popup_secondary_button">Not today</string>
     <string name="credits_title">Credits</string>
     <string name="credits_text">Credits to contributors</string>
-    <string name="credits_giancarlo">Giancarlo Mérida</string>
+    <string name="credits_giancarlo" translatable="false">Giancarlo Mérida</string>
     <string name="credits_giancarlo_info">Translations for Spanish and Italian</string>
-    <string name="credits_electro_boy">ElectroBoy10</string>
+    <string name="credits_electro_boy" translatable="false">ElectroBoy10</string>
     <string name="credits_electro_boy_info">Translations for Afrikaan</string>
 
     <!-- Additional Pro -->
@@ -527,7 +527,7 @@
     <string name="thermodynamic_properties">Thermodynamic Properties</string>
     <string name="nuclear_properties">Nuclear Properties</string>
     <string name="hardness_properties">Hardness Properties</string>
-    <string name="get_pro_short">PRO</string>
+    <string name="get_pro_short" translatable="false">PRO</string>
 
     <string name="streak_notification_title">Keep your %1$d-day streak!</string>
     <string name="streak_notification_body">Play today to save your %1$d-day streak.</string>
@@ -586,7 +586,7 @@
     <string name="out_of_lives_minutes">Out of lives! More lives in %1$d minutes and %2$d seconds.</string>
     <string name="total_xp_stat">Total XP: %d</string>
     <string name="xp_bonus">+%d%% bonus xp</string>
-    <string name="progress_xp">%1$d/%2$d</string>
+    <string name="progress_xp" translatable="false">%1$d/%2$d</string>
     <string name="you_have_full_lives">You have full lives!</string>
     <string name="next_life_in">Next life in %1$d minutes and %2$d seconds.\nYou will gain %3$d life%4$s.</string>
 
@@ -596,7 +596,7 @@
     <string name="pro_plus_user">PRO+ USER</string>
 
     <!-- UnitConversionActivity strings -->
-    <string name="unit_conversion_format">%1$s %2$s → %3$s %4$s (%5$s)</string>
+    <string name="unit_conversion_format" translatable="false">%1$s %2$s → %3$s %4$s (%5$s)</string>
 
     <!-- Element properties panel -->
     <string name="atomic_number_label">Atomic Number:</string>
@@ -663,7 +663,7 @@
 
     <!-- Sources -->
     <string name="water_and_wastewater_engineering">Water and Wastewater Engineering</string>
-    <string name="mackenzie_l_davis">Mackenzie L. Davis</string>
+    <string name="mackenzie_l_davis" translatable="false">Mackenzie L. Davis</string>
     <string name="sothree_android_sliding_up_panel">Sothree Android Sliding Up Panel</string>
 
     <!-- Table description -->
