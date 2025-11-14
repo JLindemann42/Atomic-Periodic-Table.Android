@@ -27,7 +27,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tables.DictionaryActivity
@@ -140,6 +143,10 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
         }
+        
+        // Load and cache Google account profile image for user button
+        loadUserProfileImage()
+        
         findViewById<ImageButton>(R.id.flaschard_btn).setOnClickListener {
             val intent = Intent(this, FlashCardActivity::class.java)
             startActivity(intent)
@@ -746,6 +753,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     override fun onResume() {
         super.onResume()
         setProFabVisibilityGoneIfProValue100()
+        // Refresh profile image when returning to MainActivity (e.g., after sign in/out in UserActivity)
+        loadUserProfileImage()
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -893,6 +902,62 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                     onBackInvokedCb = null
                 }
             }
+        }
+    }
+    
+    /**
+     * Loads the Google account profile image into the user button if user is signed in.
+     * Uses caching to avoid loading on every launch by storing the photo URL in SharedPreferences
+     * and utilizing Glide's disk cache.
+     */
+    private fun loadUserProfileImage() {
+        try {
+            val firebaseAuth = FirebaseAuth.getInstance()
+            val currentUser = firebaseAuth.currentUser
+            val userBtn = findViewById<ImageButton>(R.id.user_btn)
+            
+            if (currentUser != null) {
+                val photoUrl = currentUser.photoUrl
+                
+                // Get SharedPreferences for caching
+                val prefs = getSharedPreferences("user_profile_prefs", Context.MODE_PRIVATE)
+                val cachedPhotoUrl = prefs.getString("cached_photo_url", null)
+                
+                if (photoUrl != null) {
+                    val photoUrlString = photoUrl.toString()
+                    
+                    // Only update cache if URL has changed
+                    if (photoUrlString != cachedPhotoUrl) {
+                        prefs.edit().putString("cached_photo_url", photoUrlString).apply()
+                    }
+                    
+                    // Load image using Glide with disk caching enabled
+                    Glide.with(this)
+                        .load(photoUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache both original and resized image
+                        .circleCrop() // Make it circular to match typical profile images
+                        .placeholder(R.drawable.ic_account) // Show default icon while loading
+                        .error(R.drawable.ic_account) // Show default icon if loading fails
+                        .into(userBtn)
+                } else {
+                    // No photo URL, clear cache and use default icon
+                    if (cachedPhotoUrl != null) {
+                        prefs.edit().remove("cached_photo_url").apply()
+                    }
+                    userBtn.setImageResource(R.drawable.ic_account)
+                }
+            } else {
+                // User not signed in, clear cache and use default icon
+                val prefs = getSharedPreferences("user_profile_prefs", Context.MODE_PRIVATE)
+                if (prefs.contains("cached_photo_url")) {
+                    prefs.edit().remove("cached_photo_url").apply()
+                }
+                userBtn.setImageResource(R.drawable.ic_account)
+            }
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Failed to load user profile image", e)
+            // Fallback to default icon
+            findViewById<ImageButton>(R.id.user_btn)?.setImageResource(R.drawable.ic_account)
         }
     }
 
