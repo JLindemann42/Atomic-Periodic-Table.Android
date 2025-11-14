@@ -23,6 +23,28 @@ Checks element JSON files to see if descriptions have been translated from Engli
 python3 scripts/check_element_translations.py
 ```
 
+### verify_element_jsons.py
+**NEW** - Comprehensive verification script for element JSON translations. This is the recommended script for thorough verification.
+
+Performs complete validation including:
+- JSON structural validity
+- Translation completeness with detailed statistics
+- Data integrity checks
+- Element count verification
+- Field presence validation
+
+**Usage:**
+```bash
+# Basic verification
+python3 scripts/verify_element_jsons.py
+
+# Detailed mode (shows untranslated element names)
+python3 scripts/verify_element_jsons.py --detailed
+
+# JSON output (for automation)
+python3 scripts/verify_element_jsons.py --json-output
+```
+
 ### extract_missing.py
 Extracts all untranslated strings to a CSV file that can be:
 - Imported into Google Sheets for collaborative translation
@@ -41,7 +63,7 @@ This creates `untranslated_strings.csv` in the repository root.
 1. **Check current status:**
    ```bash
    python3 scripts/check_translations.py
-   python3 scripts/check_element_translations.py
+   python3 scripts/verify_element_jsons.py
    ```
 
 2. **Extract untranslated strings:**
