@@ -523,8 +523,6 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="xp_bonus">+%d%% bonus xp</string>
     <string name="you_have_full_lives">Hai tutte le vite!</string>
     <string name="your_answer">La tua risposta: %s</string>
-
-    <!-- Flashcard question formats -->
     <string name="question_appearance">Qual è l\'aspetto di %s?</string>
     <string name="question_atomic_mass">Qual è la massa atomica di %s?</string>
     <string name="question_atomic_number">Qual è il numero atomico di %s?</string>
@@ -555,11 +553,7 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="question_specific_heat_capacity">Qual è la capacità termica specifica di %s?</string>
     <string name="question_superconducting_point">Qual è il punto di superconduttività di %s?</string>
     <string name="question_vickers_hardness">Qual è la durezza Vickers di %s?</string>
-
     <string name="notes_placeholder">Prendi appunti per l\'elemento:</string>
-
-
-    <!-- New element info strings -->
     <string name="english_name_colon">Nome inglese:</string>
     <string name="description_colon">Descrizione:</string>
     <string name="year_discovered_colon">Anno di scoperta:</string>
@@ -584,6 +578,41 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="view_all_isotopes">Visualizza tutti gli isotopi</string>
     <string name="not_available">N/A</string>
     <string name="hardness_properties_requires_pro">Le proprietà di durezza richiedono la versione PRO. Ottieni PRO per sbloccare più dati e tabelle:</string>
-
-
+    <string name="calculator_default_value">0,0 (g/mol)</string>
+    <string name="data_visualisations">Visualizzazioni dati:</string>
+    <string name="early_access_features">Accesso anticipato a nuove funzionalità:</string>
+    <string name="element_overview">Panoramica elementi:</string>
+    <string name="emission_spectrum_table">Tabella spettro di emissione:</string>
+    <string name="enter_new_text">Inserisci nuovo testo</string>
+    <string name="features">Caratteristiche:</string>
+    <string name="flashcards_unlimited_lives">Vite illimitate nelle flashcard:</string>
+    <string name="free">GRATUITO</string>
+    <string name="geology_table">Tabella geologia:</string>
+    <string name="get_pro">Ottieni PRO</string>
+    <string name="get_pro_plus">Ottieni PRO+</string>
+    <string name="hazard_materials">Materiali pericolosi:</string>
+    <string name="isotope">Isotopo</string>
+    <string name="more_information">Ulteriori informazioni:</string>
+    <string name="neutrons">Neutroni:</string>
+    <string name="nucleons">Nucleoni:</string>
+    <string name="nuclide_table">Tabella nuclidi:</string>
+    <string name="ok">OK</string>
+    <string name="poisson_constants_sound_speed">Costanti di Poisson, velocità del suono:</string>
+    <string name="poisson_ratio_table">Tabella rapporto di Poisson:</string>
+    <string name="price_placeholder">---</string>
+    <string name="pro_additional_sync">Sincronizzazione per note e progressi</string>
+    <string name="pro_additional_sync_descr">Abilita la sincronizzazione per note e progressi per facilitare i tuoi studi su tutti i tuoi dispositivi</string>
+    <string name="pro_features_table_description">Nella seguente tabella sono dettagliate le funzionalità incluse nelle versioni GRATUITA, PRO e PRO+:</string>
+    <string name="pro_plus_badge_text">Più avanzato</string>
+    <string name="pro_plus_subtitle">Sblocca dati avanzati e flashcard aggiuntive.</string>
+    <string name="pro_user_badge">Utente PRO</string>
+    <string name="protons">Protoni:</string>
+    <string name="save_calculations">Salva calcoli:</string>
+    <string name="save_units">Salva unità:</string>
+    <string name="search_for_element">Cerca elemento</string>
+    <string name="share">Condividi</string>
+    <string name="share_app">Condividi app</string>
+    <string name="share_app_description">Se trovi l\'app utile, condividila con i tuoi amici e altri!</string>
+    <string name="sync_data">Sincronizza dati:</string>
+    <string name="young_bulk_shear_modulus">Modulo di Young, di compressione e di taglio:</string>
 </resources>

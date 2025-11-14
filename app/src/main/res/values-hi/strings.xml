@@ -526,8 +526,6 @@
     <string name="xp_bonus">+%d%% बोनस xp</string>
     <string name="you_have_full_lives">आपके पास पूर्ण जीवन हैं!</string>
     <string name="your_answer">आपका उत्तर: %s</string>
-
-    
     <string name="question_appearance">%s की बनावट क्या है?</string>
     <string name="question_atomic_mass">%s का परमाणु द्रव्यमान क्या है?</string>
     <string name="question_atomic_number">%s का परमाणु क्रमांक क्या है?</string>
@@ -558,11 +556,7 @@
     <string name="question_specific_heat_capacity">%s की विशिष्ट ऊष्मा धारिता क्या है?</string>
     <string name="question_superconducting_point">%s का अतिचालकता बिंदु क्या है?</string>
     <string name="question_vickers_hardness">%s की विकर्स कठोरता क्या है?</string>
-
     <string name="notes_placeholder">तत्व के लिए नोट्स लें:</string>
-
-
-    
     <string name="english_name_colon">अंग्रेजी नाम:</string>
     <string name="description_colon">विवरण:</string>
     <string name="year_discovered_colon">खोज का वर्ष:</string>
@@ -587,7 +581,41 @@
     <string name="view_all_isotopes">View all Isotopes</string>
     <string name="not_available">N/A</string>
     <string name="hardness_properties_requires_pro">Hardness properties requires PRO-version. Get PRO to unlock more data and tables:</string>
-
-
-
+    <string name="calculator_default_value">0.0 (g/mol)</string>
+    <string name="data_visualisations">डेटा विज़ुअलाइज़ेशन:</string>
+    <string name="early_access_features">नई सुविधाओं तक शीघ्र पहुंच:</string>
+    <string name="element_overview">तत्व अवलोकन:</string>
+    <string name="emission_spectrum_table">उत्सर्जन स्पेक्ट्रम तालिका:</string>
+    <string name="enter_new_text">नया पाठ दर्ज करें</string>
+    <string name="features">विशेषताएं:</string>
+    <string name="flashcards_unlimited_lives">फ्लैशकार्ड में असीमित जीवन:</string>
+    <string name="free">मुफ़्त</string>
+    <string name="geology_table">भूविज्ञान तालिका:</string>
+    <string name="get_pro">PRO प्राप्त करें</string>
+    <string name="get_pro_plus">PRO+ प्राप्त करें</string>
+    <string name="hazard_materials">खतरनाक सामग्री:</string>
+    <string name="isotope">समस्थानिक</string>
+    <string name="more_information">अधिक जानकारी:</string>
+    <string name="neutrons">न्यूट्रॉन:</string>
+    <string name="nucleons">न्यूक्लिऑन:</string>
+    <string name="nuclide_table">न्यूक्लाइड तालिका:</string>
+    <string name="ok">ठीक है</string>
+    <string name="poisson_constants_sound_speed">पॉइज़न स्थिरांक, ध्वनि गति:</string>
+    <string name="poisson_ratio_table">पॉइज़न अनुपात तालिका:</string>
+    <string name="price_placeholder">---</string>
+    <string name="pro_additional_sync">नोट्स और प्रगति के लिए सिंक</string>
+    <string name="pro_additional_sync_descr">अपने सभी उपकरणों पर अपने अध्ययन को आसान बनाने के लिए नोट्स और प्रगति के लिए सिंक सक्षम करें</string>
+    <string name="pro_features_table_description">निम्नलिखित तालिका में मुफ़्त, PRO और PRO+ संस्करणों में शामिल सुविधाओं का विवरण दिया गया है:</string>
+    <string name="pro_plus_badge_text">सबसे उन्नत</string>
+    <string name="pro_plus_subtitle">उन्नत डेटा और अतिरिक्त फ्लैशकार्ड अनलॉक करें।</string>
+    <string name="pro_user_badge">PRO उपयोगकर्ता</string>
+    <string name="protons">प्रोटॉन:</string>
+    <string name="save_calculations">गणना सहेजें:</string>
+    <string name="save_units">इकाइयाँ सहेजें:</string>
+    <string name="search_for_element">तत्व खोजें</string>
+    <string name="share">साझा करें</string>
+    <string name="share_app">ऐप साझा करें</string>
+    <string name="share_app_description">यदि आपको ऐप उपयोगी लगता है, तो कृपया इसे अपने मित्रों और अन्य लोगों के साथ साझा करें!</string>
+    <string name="sync_data">डेटा सिंक करें:</string>
+    <string name="young_bulk_shear_modulus">यंग मॉड्यूलस, बल्क मॉड्यूलस, शियर मॉड्यूलस:</string>
 </resources>

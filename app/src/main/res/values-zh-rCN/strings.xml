@@ -529,8 +529,6 @@ I：不溶"</string>
     <string name="xp_bonus">+%d%%奖励xp</string>
     <string name="you_have_full_lives">您的生命已满！</string>
     <string name="your_answer">您的答案：%s</string>
-
-    
     <string name="question_appearance">%s的外观是什么？</string>
     <string name="question_atomic_mass">%s的原子质量是多少？</string>
     <string name="question_atomic_number">%s的原子序数是多少？</string>
@@ -561,11 +559,7 @@ I：不溶"</string>
     <string name="question_specific_heat_capacity">%s的比热容是多少？</string>
     <string name="question_superconducting_point">%s的超导点是多少？</string>
     <string name="question_vickers_hardness">%s的维氏硬度是多少？</string>
-
     <string name="notes_placeholder">为元素做笔记：</string>
-
-
-    
     <string name="english_name_colon">英文名称：</string>
     <string name="description_colon">描述：</string>
     <string name="year_discovered_colon">发现年份：</string>
@@ -590,6 +584,41 @@ I：不溶"</string>
     <string name="view_all_isotopes">查看所有同位素</string>
     <string name="not_available">N/A</string>
     <string name="hardness_properties_requires_pro">硬度属性需要PRO版本。获取PRO以解锁更多数据和表格：</string>
-
-
+    <string name="calculator_default_value">0.0 (g/mol)</string>
+    <string name="data_visualisations">数据可视化：</string>
+    <string name="early_access_features">提前访问新功能：</string>
+    <string name="element_overview">元素概览：</string>
+    <string name="emission_spectrum_table">发射光谱表：</string>
+    <string name="enter_new_text">输入新文本</string>
+    <string name="features">功能：</string>
+    <string name="flashcards_unlimited_lives">闪卡无限生命：</string>
+    <string name="free">免费</string>
+    <string name="geology_table">地质表：</string>
+    <string name="get_pro">获取 PRO</string>
+    <string name="get_pro_plus">获取 PRO+</string>
+    <string name="hazard_materials">危险材料：</string>
+    <string name="isotope">同位素</string>
+    <string name="more_information">更多信息：</string>
+    <string name="neutrons">中子：</string>
+    <string name="nucleons">核子：</string>
+    <string name="nuclide_table">核素表：</string>
+    <string name="ok">确定</string>
+    <string name="poisson_constants_sound_speed">泊松常数，声速：</string>
+    <string name="poisson_ratio_table">泊松比表：</string>
+    <string name="price_placeholder">---</string>
+    <string name="pro_additional_sync">笔记和进度同步</string>
+    <string name="pro_additional_sync_descr">启用笔记和进度同步，让您在所有设备上更轻松地学习</string>
+    <string name="pro_features_table_description">下表详细列出了免费版、PRO版和PRO+版中包含的功能：</string>
+    <string name="pro_plus_badge_text">最先进</string>
+    <string name="pro_plus_subtitle">解锁高级数据和额外的闪卡。</string>
+    <string name="pro_user_badge">PRO用户</string>
+    <string name="protons">质子：</string>
+    <string name="save_calculations">保存计算：</string>
+    <string name="save_units">保存单位：</string>
+    <string name="search_for_element">搜索元素</string>
+    <string name="share">分享</string>
+    <string name="share_app">分享应用</string>
+    <string name="share_app_description">如果您觉得这个应用有用，请与您的朋友和其他人分享！</string>
+    <string name="sync_data">同步数据：</string>
+    <string name="young_bulk_shear_modulus">杨氏模量、体积模量、剪切模量：</string>
 </resources>
