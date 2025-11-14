@@ -86,7 +86,7 @@
                     android:foreground="@drawable/d_ripple"
                     android:gravity="center"
                     android:padding="4dp"
-                    android:text="Get PRO"
+                    android:text="@string/get_pro"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="normal" />
@@ -123,7 +123,7 @@
                 android:id="@+id/pro_plus_badge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Most advanced"
+                android:text="@string/most_advanced"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
                 android:background="@drawable/badge_bg_advanced"
@@ -136,7 +136,7 @@
                 android:id="@+id/pro_plus_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PRO+ Version"
+                android:text="@string/pro_plus_version"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="?attr/colorOnSecondaryContainer"/>
@@ -145,7 +145,7 @@
                 android:id="@+id/pro_plus_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Unlock advanced data and additional flashcards."
+                android:text="@string/unlock_advanced_data_and_additional_flashcards"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp"
                 android:textColor="?attr/colorOnSecondaryContainer"/>
@@ -175,7 +175,7 @@
                 android:padding="4dp"
 
                 android:layout_marginTop="4dp"
-                android:text="Get PRO+"
+                android:text="@string/get_pro_plus_button"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 android:textStyle="normal" />
