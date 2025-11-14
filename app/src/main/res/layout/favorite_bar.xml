@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="52dp"
-    android:background="?attr/colorSurface">
+    android:background="@drawable/half_up_toast"
+    android:backgroundTint="?attr/colorSurface"
+    android:layout_height="52dp">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:background="?attr/colorPrimary"
+        android:background="@drawable/half_up_toast"
+        android:backgroundTint="?attr/colorPrimary"
         android:alpha="0.11"/>
 
 <LinearLayout

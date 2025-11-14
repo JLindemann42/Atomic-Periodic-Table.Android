@@ -111,9 +111,13 @@
                 android:layout_height="56dp" />
 
             <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <FrameLayout
                 android:id="@+id/frame"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="260dp"
                 android:layout_marginTop="56dp">
 
                 <include
@@ -121,6 +125,7 @@
                     layout="@layout/loading_view"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
+                    android:layout_marginBottom="24dp"
                     android:layout_gravity="center_horizontal|center_vertical" />
 
                 <ImageView
@@ -137,7 +142,8 @@
                     android:layout_width="42dp"
                     android:layout_height="42dp"
                     android:layout_gravity="start|center_vertical"
-                    android:layout_margin="12dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginStart="12dp"
                     android:clickable="true"
                     android:elevation="4dp"
                     android:rotation="180"
@@ -154,7 +160,8 @@
                     android:layout_width="42dp"
                     android:layout_height="42dp"
                     android:layout_gravity="end|center_vertical"
-                    android:layout_margin="12dp"
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginEnd="12dp"
                     android:clickable="true"
                     android:elevation="4dp"
                     app:tint="?attr/colorPrimary"
@@ -175,8 +182,11 @@
             <include
                 android:id="@+id/favorite_bar"
                 layout="@layout/favorite_bar"
+                android:layout_gravity="bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            </FrameLayout>
 
             <include
                 android:id="@+id/overview_inc"

@@ -108,8 +108,7 @@
                             android:layout_gravity="center_vertical|end"
                             android:alpha="0.9"
                             android:foreground="@drawable/toast_ripple"
-                            android:src="@drawable/ic_account"
-                            app:tint="?attr/colorOnSecondaryContainer" />
+                            android:src="@drawable/ic_account" />
 
                     </LinearLayout>
 
