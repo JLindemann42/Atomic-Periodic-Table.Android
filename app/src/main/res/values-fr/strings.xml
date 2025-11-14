@@ -568,10 +568,10 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="description_colon">Description:</string>
     <string name="year_discovered_colon">Année de découverte:</string>
     <string name="discovered_by_colon">Découvert par:</string>
-    <string name="oxidation_states_colon">États d'oxydation:</string>
+    <string name="oxidation_states_colon">États d\'oxydation:</string>
     <string name="electron_configuration_colon">Configuration électronique:</string>
     <string name="ion_charge_colon">Charge ionique:</string>
-    <string name="ionization_energies_colon">Énergies d'ionisation:</string>
+    <string name="ionization_energies_colon">Énergies d\'ionisation:</string>
     <string name="electrical_type_colon">Type électrique:</string>
     <string name="electrical_resistivity_colon">Résistivité électrique:</string>
     <string name="magnetic_type_colon">Type magnétique:</string>
@@ -583,37 +583,12 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="neutron_cross_sectional_colon">Section efficace neutronique:</string>
     <string name="cas_number_colon">Numéro CAS:</string>
     <string name="eg_number_colon">Numéro EG:</string>
-    <string name="take_notes_for_element">Prendre des notes pour l'élément</string>
+    <string name="take_notes_for_element">Prendre des notes pour l\'élément</string>
     <string name="read_more">..plus</string>
     <string name="view_all_isotopes">Voir tous les isotopes</string>
     <string name="not_available">N/A</string>
     <string name="hardness_properties_requires_pro">Les propriétés de dureté nécessitent la version PRO. Obtenez PRO pour débloquer plus de données et de tableaux:</string>
 
 
-    <!-- New element info strings -->
-    <string name="english_name_colon">Nom anglais:</string>
-    <string name="description_colon">Description:</string>
-    <string name="year_discovered_colon">Année de découverte:</string>
-    <string name="discovered_by_colon">Découvert par:</string>
-    <string name="oxidation_states_colon">États d'oxydation:</string>
-    <string name="electron_configuration_colon">Configuration électronique:</string>
-    <string name="ion_charge_colon">Charge ionique:</string>
-    <string name="ionization_energies_colon">Énergies d'ionisation:</string>
-    <string name="electrical_type_colon">Type électrique:</string>
-    <string name="electrical_resistivity_colon">Résistivité électrique:</string>
-    <string name="magnetic_type_colon">Type magnétique:</string>
-    <string name="superconducting_point_colon">Point de supraconductivité:</string>
-    <string name="mohs_hardness_colon">Dureté Mohs:</string>
-    <string name="vickers_hardness_colon">Dureté Vickers:</string>
-    <string name="radioactive_colon">Radioactif:</string>
-    <string name="isotopes_colon">Isotopes:</string>
-    <string name="neutron_cross_sectional_colon">Section efficace neutronique:</string>
-    <string name="cas_number_colon">Numéro CAS:</string>
-    <string name="eg_number_colon">Numéro EG:</string>
-    <string name="take_notes_for_element">Prendre des notes pour l'élément</string>
-    <string name="read_more">..plus</string>
-    <string name="view_all_isotopes">Voir tous les isotopes</string>
-    <string name="not_available">N/A</string>
-    <string name="hardness_properties_requires_pro">Les propriétés de dureté nécessitent la version PRO. Obtenez PRO pour débloquer plus de données et de tableaux:</string>
 
 </resources>

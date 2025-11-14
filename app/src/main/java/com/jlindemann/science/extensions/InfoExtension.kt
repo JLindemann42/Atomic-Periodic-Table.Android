@@ -39,8 +39,10 @@ import com.jlindemann.science.utils.Utils
 import com.jlindemann.science.utils.ElementDataLoader
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.*
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
+import java.io.InputStream
 import java.net.ConnectException
 
 /**

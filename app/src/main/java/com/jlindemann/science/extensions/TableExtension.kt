@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.TextUtils
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
@@ -75,12 +77,17 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
             val themePrefValue = themePreference.getValue()
 
             val params = text.layoutParams as ViewGroup.MarginLayoutParams
-            params.leftMargin = 0
-            params.rightMargin = 0
+            params.leftMargin = resources.getDimensionPixelSize(R.dimen.padding_small)
+            params.rightMargin = resources.getDimensionPixelSize(R.dimen.padding_small)
             params.bottomMargin = resources.getDimensionPixelSize(R.dimen.groups2b)
             text.layoutParams = params
             text.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
             btn.elevation = (resources.getDimension(R.dimen.zero_elevation))
+            text.maxLines = 2
+            text.ellipsize = TextUtils.TruncateAt.END
+            text.gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
+            text.textAlignment = View.TEXT_ALIGNMENT_CENTER
+
             findViewById<TextView>(R.id.lanthanoids_btn).elevation = (resources.getDimension(R.dimen.zero_elevation))
             findViewById<TextView>(R.id.actinoids_btn).elevation = (resources.getDimension(R.dimen.zero_elevation))
 
@@ -114,7 +121,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
         closeHover()
         delay.postDelayed({
             for (item in list) {
-                val name = item.element
+                val name = item.elementKey
                 val extText = "_text"
                 val eView = "$name$extText"
                 val iText = findViewById<TextView>(resources.getIdentifier(eView, "id", packageName))
@@ -134,7 +141,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
         closeHover()
         delay.postDelayed({
             for (item in list) {
-                val name = item.element
+                val name = item.elementKey
                 val extText = "_text"
                 val eView = "$name$extText"
                 val iText = findViewById<TextView>(resources.getIdentifier(eView, "id", packageName))
@@ -154,7 +161,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
         closeHover()
         delay.postDelayed({
             for (item in list) {
-                val name = item.element
+                val name = item.elementKey
                 val extText = "_text"
                 val eView = "$name$extText"
                 val extBtn = "_btn"
@@ -200,7 +207,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
         delay.postDelayed({
             for (item in list) {
                 closeHover()
-                val name = item.element
+                val name = item.elementKey
                 val extBtn = "_btn"
                 val extText = "_text"
                 val eViewBtn = "$name$extBtn"
@@ -258,7 +265,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
         val delay = Handler(Looper.getMainLooper()) //Using new Looper.getMainLooper() as Handler() is deprecated in java
         delay.postDelayed({
             for (item in list) {
-                val name = item.element
+                val name = item.elementKey
                 val extText = "_text"
                 val eView = "$name$extText"
                 val resID = resources.getIdentifier(eView, "id", packageName)

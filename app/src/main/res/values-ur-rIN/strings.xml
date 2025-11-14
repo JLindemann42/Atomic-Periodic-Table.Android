@@ -586,29 +586,6 @@
 
 
     <!-- New element info strings -->
-    <string name="english_name_colon">English Name:</string>
-    <string name="description_colon">Description:</string>
-    <string name="year_discovered_colon">Year Discovered:</string>
-    <string name="discovered_by_colon">Discovered By:</string>
-    <string name="oxidation_states_colon">Oxidation States:</string>
-    <string name="electron_configuration_colon">Electron Configuration:</string>
-    <string name="ion_charge_colon">Ion Charge:</string>
-    <string name="ionization_energies_colon">Ionization Energies:</string>
-    <string name="electrical_type_colon">Electrical Type:</string>
-    <string name="electrical_resistivity_colon">Electrical Resistivity:</string>
-    <string name="magnetic_type_colon">Magnetic Type:</string>
-    <string name="superconducting_point_colon">Superconducting Point:</string>
-    <string name="mohs_hardness_colon">Mohs hardness:</string>
-    <string name="vickers_hardness_colon">Vickers hardness:</string>
-    <string name="radioactive_colon">Radioactive:</string>
-    <string name="isotopes_colon">Isotopes:</string>
-    <string name="neutron_cross_sectional_colon">Neutron Cross Sectional:</string>
-    <string name="cas_number_colon">CAS Number:</string>
-    <string name="eg_number_colon">EG Number:</string>
-    <string name="take_notes_for_element">Take notes for element</string>
-    <string name="read_more">..more</string>
-    <string name="view_all_isotopes">View all Isotopes</string>
-    <string name="not_available">N/A</string>
-    <string name="hardness_properties_requires_pro">Hardness properties requires PRO-version. Get PRO to unlock more data and tables:</string>
+
 
 </resources>

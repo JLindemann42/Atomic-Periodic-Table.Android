@@ -165,7 +165,6 @@
             android:id="@+id/english_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:text="@string/english_name_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"

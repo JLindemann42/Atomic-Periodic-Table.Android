@@ -227,9 +227,9 @@ class NuclideActivity : BaseActivity() {
     private suspend fun loadElementData(item: Element): JSONObject? {
         return withContext(Dispatchers.IO) {
             try {
-                ElementDataLoader.loadElementData(this@NuclideActivity, item.element)
+                ElementDataLoader.loadElementData(this@NuclideActivity, item.elementKey)
             } catch (e: IOException) {
-                Log.e("NuclideActivity", "Failed to load element data for ${item.element}", e)
+                Log.e("NuclideActivity", "Failed to load element data for ${item.elementKey}", e)
                 null
             }
         }

@@ -589,30 +589,4 @@
     <string name="hardness_properties_requires_pro">硬度属性需要PRO版本。获取PRO以解锁更多数据和表格：</string>
 
 
-    <!-- New element info strings -->
-    <string name="english_name_colon">英文名称：</string>
-    <string name="description_colon">描述：</string>
-    <string name="year_discovered_colon">发现年份：</string>
-    <string name="discovered_by_colon">发现者：</string>
-    <string name="oxidation_states_colon">氧化态：</string>
-    <string name="electron_configuration_colon">电子构型：</string>
-    <string name="ion_charge_colon">离子电荷：</string>
-    <string name="ionization_energies_colon">电离能：</string>
-    <string name="electrical_type_colon">电气类型：</string>
-    <string name="electrical_resistivity_colon">电阻率：</string>
-    <string name="magnetic_type_colon">磁性类型：</string>
-    <string name="superconducting_point_colon">超导点：</string>
-    <string name="mohs_hardness_colon">莫氏硬度：</string>
-    <string name="vickers_hardness_colon">维氏硬度：</string>
-    <string name="radioactive_colon">放射性：</string>
-    <string name="isotopes_colon">同位素：</string>
-    <string name="neutron_cross_sectional_colon">中子截面：</string>
-    <string name="cas_number_colon">CAS编号：</string>
-    <string name="eg_number_colon">EG编号：</string>
-    <string name="take_notes_for_element">为元素做笔记</string>
-    <string name="read_more">..更多</string>
-    <string name="view_all_isotopes">查看所有同位素</string>
-    <string name="not_available">N/A</string>
-    <string name="hardness_properties_requires_pro">硬度属性需要PRO版本。获取PRO以解锁更多数据和表格：</string>
-
 </resources>

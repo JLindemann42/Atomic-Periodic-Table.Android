@@ -285,7 +285,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/margin"
                             android:clickable="true"
-                            android:drawableStart="@drawable/ic_sync"
+                            android:drawableStart="@drawable/ic_cloud_sync"
                             android:drawablePadding="12dp"
                             android:drawableTint="?attr/colorPrimary"
                             android:elevation="1dp"

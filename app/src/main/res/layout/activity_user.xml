@@ -75,7 +75,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:drawableStart="@drawable/ic_sync"
+            android:drawableStart="@drawable/ic_cloud_sync"
             android:drawableTint="?attr/colorPrimary"
             android:drawablePadding="4dp"
             android:background="@drawable/toast_outline"
