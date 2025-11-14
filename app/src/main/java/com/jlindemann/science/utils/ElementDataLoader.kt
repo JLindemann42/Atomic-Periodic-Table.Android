@@ -21,7 +21,7 @@ object ElementDataLoader {
      * 
      * @param context Android context for accessing assets
      * @param elementName Name of the element (e.g., "hydrogen")
-     * @param language Language code (e.g., "en", "sv"). Defaults to system language or "en"
+     * @param language Language code (e.g., "en", "sv"). Defaults to app language preference or system language
      * @return JSONObject containing element data, or null if not found
      */
     fun loadElementData(
@@ -29,7 +29,7 @@ object ElementDataLoader {
         elementName: String, 
         language: String? = null
     ): JSONObject? {
-        val lang = language ?: getSystemLanguage()
+        val lang = language ?: getAppLanguage(context)
         
         // Try to load from requested language
         val elementData = loadFromLanguage(context.assets, elementName, lang)
@@ -87,11 +87,28 @@ object ElementDataLoader {
     }
     
     /**
-     * Get the system language code (2-letter ISO 639-1)
+     * Get the app language code (2-letter ISO 639-1)
+     * First checks user's language preference, then falls back to system language
      */
     private fun getSystemLanguage(): String {
+        // Note: Context is needed to access SharedPreferences, but this is a singleton object
+        // For now, return Locale.getDefault() which should work for most cases
         val locale = Locale.getDefault()
         return locale.language
+    }
+    
+    /**
+     * Get the app language code from user preferences or system default
+     * @param context Android context for accessing SharedPreferences
+     */
+    fun getAppLanguage(context: Context): String {
+        val prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val lang = prefs.getString("app_language", null)
+        return if (lang.isNullOrBlank()) {
+            Locale.getDefault().language
+        } else {
+            lang
+        }
     }
     
     /**

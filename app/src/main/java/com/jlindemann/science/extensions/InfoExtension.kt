@@ -54,9 +54,13 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
     private var systemUiConfigured = false
     private val mainScope = MainScope()
     private var notesTextWatcher: TextWatcher? = null // Track watcher for note editing
+    private var currentElementCode: String? = null // Track current element code
+    private var notesEditText: EditText? = null // Track notes EditText
 
     override fun onDestroy() {
         super.onDestroy()
+        // Save notes before destroying
+        saveCurrentNotes()
         mainScope.cancel()
     }
 
@@ -613,11 +617,41 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
 
 
     /**
+     * Saves the current notes for the current element explicitly.
+     * This is called before navigating to ensure notes are persisted.
+     */
+    private fun saveCurrentNotes() {
+        val eText = notesEditText ?: return
+        val elementCode = currentElementCode ?: return
+        val notesPref = NotesPreference(this)
+        val firstDelim = "<$elementCode>"
+        val lastDelim = "</$elementCode>"
+        
+        val currentNotes = notesPref.getValue()
+        val start = currentNotes.indexOf(firstDelim)
+        val end = currentNotes.indexOf(lastDelim, start)
+        
+        if (start != -1 && end != -1) {
+            val newNotes = currentNotes.substring(0, start + firstDelim.length) +
+                    eText.text.toString() +
+                    currentNotes.substring(end)
+            notesPref.setValue(newNotes)
+        }
+    }
+
+    /**
      * Handles loading and updating notes for the current element.
      *
      * Ensures only one TextWatcher is attached and always operates on the latest notes string.
      */
     private fun handleNotes(elementCode: String, eText: EditText) {
+        // Save previous notes before switching to new element
+        saveCurrentNotes()
+        
+        // Update tracking variables
+        currentElementCode = elementCode
+        notesEditText = eText
+        
         val notesPref = NotesPreference(this)
         val firstDelim = "<$elementCode>"
         val lastDelim = "</$elementCode>"
