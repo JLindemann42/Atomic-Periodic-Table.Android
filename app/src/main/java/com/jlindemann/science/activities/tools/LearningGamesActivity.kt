@@ -504,7 +504,7 @@ class LearningGamesActivity : BaseActivity() {
     }
 
     private fun generateQuestions(category: String, count: Int): List<Question> {
-        val language = java.util.Locale.getDefault().language
+        val language = com.jlindemann.science.utils.ElementDataLoader.getAppLanguage(this)
         // Try to load elements in the user's language, fallback to English if not available
         var elements = loadElementsFromAsset("elements_$language.json")
         if (elements.isEmpty() && language != "en") {

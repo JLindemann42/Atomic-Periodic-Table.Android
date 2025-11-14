@@ -359,6 +359,8 @@ class SettingsActivity : BaseActivity() {
                 .putString("app_country", locale.country ?: "")
                 .apply()
         }
+        // Clear the language cache when preference changes
+        com.jlindemann.science.utils.ElementDataLoader.clearCache()
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
