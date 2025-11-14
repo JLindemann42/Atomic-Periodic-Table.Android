@@ -271,6 +271,9 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.element_block).text = elementBlock
         findViewById<TextView>(R.id.element_appearance).text = elementAppearance
 
+        // Initialize notes sync status view so updates reach the UI
+        notesSyncStatusView = findViewById(R.id.notes_sync_status)
+
         // Notes setup
         val eText = findViewById<EditText>(R.id.notes_edit_text)
         val notesPref = NotesPreference(this)
@@ -699,7 +702,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                             (s ?: "") +
                             currentNotes.substring(end)
                     notesPref.setValue(newNotes)
-                    
+
                     // Request sync with debouncing
                     NotesSyncManager.requestSync(this@InfoExtension) { status ->
                         updateSyncStatusUI(status)
@@ -716,25 +719,35 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
      * Update the sync status indicator UI based on current sync status.
      */
     private fun updateSyncStatusUI(status: NotesSyncManager.SyncStatus) {
-        notesSyncStatusView?.let { statusView ->
-            mainScope.launch(Dispatchers.Main) {
-                when (status) {
-                    NotesSyncManager.SyncStatus.NOT_ELIGIBLE -> {
-                        // Not logged in or no Pro/Pro+ version
-                        statusView.setBackgroundResource(R.drawable.ic_no_sync)
-                    }
-                    NotesSyncManager.SyncStatus.SYNCING -> {
-                        // Currently syncing
-                        statusView.setBackgroundResource(R.drawable.ic_cloud_sync)
-                    }
-                    NotesSyncManager.SyncStatus.SYNCED -> {
-                        // Successfully synced
-                        statusView.setBackgroundResource(R.drawable.ic_check)
-                    }
-                    NotesSyncManager.SyncStatus.ERROR -> {
-                        // Error during sync - show no sync icon
-                        statusView.setBackgroundResource(R.drawable.ic_no_sync)
-                    }
+        // Always post UI work to main thread; find view lazily if not set
+        mainScope.launch(Dispatchers.Main) {
+            val view = notesSyncStatusView ?: run {
+                // attempt to find the view from the current activity layout
+                val v = try {
+                    findViewById<TextView>(R.id.notes_sync_status)
+                } catch (e: Exception) {
+                    null
+                }
+                notesSyncStatusView = v
+                v
+            } ?: return@launch
+
+            when (status) {
+                NotesSyncManager.SyncStatus.NOT_ELIGIBLE -> {
+                    // Not logged in or no Pro/Pro+ version
+                    view.setBackgroundResource(R.drawable.ic_no_sync)
+                }
+                NotesSyncManager.SyncStatus.SYNCING -> {
+                    // Currently syncing
+                    view.setBackgroundResource(R.drawable.ic_cloud_sync)
+                }
+                NotesSyncManager.SyncStatus.SYNCED -> {
+                    // Successfully synced
+                    view.setBackgroundResource(R.drawable.ic_cloud_done)
+                }
+                NotesSyncManager.SyncStatus.ERROR -> {
+                    // Error during sync - show no sync icon
+                    view.setBackgroundResource(R.drawable.ic_no_sync)
                 }
             }
         }

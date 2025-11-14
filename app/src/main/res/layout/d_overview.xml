@@ -28,7 +28,7 @@
                 android:id="@+id/notes_sync_status"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:background="@drawable/ic_no_sync"
+                android:background="@drawable/ic_cloud_done"
                 android:backgroundTint="?attr/colorAccent"
                 android:foreground="@drawable/c_ripple"
                 android:clickable="true"
@@ -65,15 +65,6 @@
                 android:textColorHint="?attr/colorOnSurface"
                 android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/notes_sync_status"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="end|bottom"
-                android:layout_marginEnd="18dp"
-                android:layout_marginBottom="18dp"
-                android:background="@drawable/ic_no_sync"
-                android:contentDescription="@string/sync_status" />
         </FrameLayout>
 
         <!-- Container with center icon -->

@@ -45,6 +45,7 @@ import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONObject
+import org.w3c.dom.Text
 import java.io.IOException
 import java.io.InputStream
 import java.net.ConnectException
@@ -103,6 +104,10 @@ class ElementInfoActivity : InfoExtension() {
         }
         findViewById<TextView>(R.id.get_pro_hazard_btn).setOnClickListener {
             val intent = Intent(this, ProActivity::class.java)
+            startActivity(intent)
+        }
+        findViewById<TextView>(R.id.notes_sync_status).setOnClickListener {
+            val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
         }
         //Check if PRO version and if make changes:

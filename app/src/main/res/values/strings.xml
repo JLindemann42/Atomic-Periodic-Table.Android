@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v4.3.1m-Build.195</string>
+    <string name="app_version" translatable="false">v4.4.0m-Build.196</string>
     <string name="next_sale_start" translatable="false" >2024/08/05</string>
     <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
@@ -54,6 +54,8 @@
     <string name="pro_better_calculator_descr" >An enhanced calculator with the possibility to save molar weights of different compounds in the favorite page.</string>
     <string name="pro_additional_flashcards">Additional Flashcards and Sync</string>
     <string name="pro_additional_flashcards_descr">Access to additional flashcards, more lives and syncing of your progress</string>
+    <string name="pro_additional_sync">Sync for notes and progress</string>
+    <string name="pro_additional_sync_descr">Enable sync for notes and progress to make your studies easier on all of your devices</string>
     <string name="pro_additional_visualisations" >Additional Visualisations</string>
     <string name="pro_additional_visualisations_descr" >Access to more visualisations in the main table such as Poisson\'s Ratio, bulk modulus etc.</string>
     <string name="pro_already_purchased_title" >Already purchased Atomic - Periodic Table PRO?</string>
