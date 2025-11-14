@@ -1,0 +1,123 @@
+{
+  "elements_af.json": {
+    "status": "ok",
+    "language": "Afrikaans",
+    "total_elements": 118,
+    "translated": 8,
+    "untranslated": 110,
+    "translation_percentage": 6.78,
+    "structure_issues": [],
+    "integrity_issues": [],
+    "untranslated_elements": []
+  },
+  "elements_de.json": {
+    "status": "ok",
+    "language": "German",
+    "total_elements": 118,
+    "translated": 118,
+    "untranslated": 0,
+    "translation_percentage": 100.0,
+    "structure_issues": [],
+    "integrity_issues": [],
+    "untranslated_elements": []
+  },
+  "elements_es.json": {
+    "status": "ok",
+    "language": "Spanish",
+    "total_elements": 118,
+    "translated": 118,
+    "untranslated": 0,
+    "translation_percentage": 100.0,
+    "structure_issues": [],
+    "integrity_issues": [],
+    "untranslated_elements": []
+  },
+  "elements_fil.json": {
+    "status": "ok",
+    "language": "Filipino",
+    "total_elements": 118,
+    "translated": 118,
+    "untranslated": 0,
+    "translation_percentage": 100.0,
+    "structure_issues": [],
+    "integrity_issues": [],
+    "untranslated_elements": []
+  },
+  "elements_fr.json": {
+    "status": "ok",
+    "language": "French",
+    "total_elements": 118,
+    "translated": 115,
+    "untranslated": 3,
+    "translation_percentage": 97.46,
+    "structure_issues": [],
+    "integrity_issues": [],
+    "untranslated_elements": []
+  },
+  "elements_hi.json": {
+    "status": "ok",
+    "language": "Hindi",
+    "total_elements": 118,
+    "translated": 21,
+    "untranslated": 97,
+    "translation_percentage": 17.8,
+    "structure_issues": [],
+    "integrity_issues": [],
+    "untranslated_elements": []
+  },
+  "elements_it.json": {
+    "status": "ok",
+    "language": "Italian",
+    "total_elements": 118,
+    "translated": 117,
+    "untranslated": 1,
+    "translation_percentage": 99.15,
+    "structure_issues": [],
+    "integrity_issues": [],
+    "untranslated_elements": []
+  },
+  "elements_pt.json": {
+    "status": "ok",
+    "language": "Portuguese",
+    "total_elements": 118,
+    "translated": 116,
+    "untranslated": 2,
+    "translation_percentage": 98.31,
+    "structure_issues": [],
+    "integrity_issues": [],
+    "untranslated_elements": []
+  },
+  "elements_sv.json": {
+    "status": "ok",
+    "language": "Swedish",
+    "total_elements": 118,
+    "translated": 118,
+    "untranslated": 0,
+    "translation_percentage": 100.0,
+    "structure_issues": [],
+    "integrity_issues": [],
+    "untranslated_elements": []
+  },
+  "elements_ur.json": {
+    "status": "ok",
+    "language": "Urdu",
+    "total_elements": 118,
+    "translated": 118,
+    "untranslated": 0,
+    "translation_percentage": 100.0,
+    "structure_issues": [],
+    "integrity_issues": [],
+    "untranslated_elements": []
+  },
+  "elements_zh.json": {
+    "status": "ok",
+    "language": "Chinese",
+    "total_elements": 118,
+    "translated": 20,
+    "untranslated": 98,
+    "translation_percentage": 16.95,
+    "structure_issues": [],
+    "integrity_issues": [],
+    "untranslated_elements": []
+  }
+}
