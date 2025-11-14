@@ -635,22 +635,24 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     private fun setOnCLickListenerSetups(list: ArrayList<Element>) {
         for (item in list) {
-            val name = item.element
+            val name = item.elementKey
             val extBtn = "_btn"
             val eViewBtn = "$name$extBtn"
             val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
 
             val btn = findViewById<TextView>(resIDB)
-            btn.foreground = ContextCompat.getDrawable(this,
-                R.drawable.t_ripple
-            );
-            btn.isClickable = true
-            btn.isFocusable = true
-            btn.setOnClickListener {
-                val intent = Intent(this, ElementInfoActivity::class.java)
-                val ElementSend = ElementSendAndLoad(this)
-                ElementSend.setValue(item.element)
-                startActivity(intent)
+            if (btn != null) {
+                btn.foreground = ContextCompat.getDrawable(this,
+                    R.drawable.t_ripple
+                );
+                btn.isClickable = true
+                btn.isFocusable = true
+                btn.setOnClickListener {
+                    val intent = Intent(this, ElementInfoActivity::class.java)
+                    val ElementSend = ElementSendAndLoad(this)
+                    ElementSend.setValue(item.element)
+                    startActivity(intent)
+                }
             }
         }
     }
