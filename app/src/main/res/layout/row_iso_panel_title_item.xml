@@ -11,7 +11,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginBottom="24dp"
         android:gravity="center_horizontal"
-        android:text="Isotope"
+        android:text="@string/isotope"
         android:textColor="?attr/colorOnSecondaryContainer"
         android:textSize="28sp"
         android:textStyle="bold" />

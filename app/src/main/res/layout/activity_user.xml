@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="PRO-User"
+            android:text="@string/pro_user_badge"
             android:textColor="?attr/colorSurface"
             android:background="@drawable/toast"
             android:backgroundTint="?attr/colorAccent"
@@ -301,7 +301,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Share App"
+                    android:text="@string/share_app"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
@@ -329,7 +329,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:textSize="14sp"
-                    android:text="If you find the app useful, please share it with your friends and others!"
+                    android:text="@string/share_app_description"
                     android:textColor="?attr/colorOnSurface"/>
 
                 <TextView
@@ -349,7 +349,7 @@
                     android:gravity="center_vertical"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp"
-                    android:text="Share"
+                    android:text="@string/share"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />

@@ -711,5 +711,48 @@
     <!-- Element Notes -->
     <string name="notes_placeholder">Take notes for the element:</string>
 
+    <!-- Dialog and UI Elements -->
+    <string name="enter_new_text">Enter new text</string>
+    <string name="ok">OK</string>
+    <string name="share_app">Share App</string>
+    <string name="share_app_description">If you find the app useful, please share it with your friends and others!</string>
+    <string name="share">Share</string>
+
+    <!-- PRO Features -->
+    <string name="pro_user_badge">PRO-User</string>
+    <string name="more_information">More information:</string>
+    <string name="pro_features_table_description">In the following table features included in the FREE, PRO, and PRO+ Versions are detailed:</string>
+    <string name="features">Features:</string>
+    <string name="free">FREE</string>
+    <string name="element_overview">Element Overview:</string>
+    <string name="dictionary">Dictionary:</string>
+    <string name="favorite_bar">Favorite Bar:</string>
+    <string name="sync_data">Sync data:</string>
+    <string name="nuclide_table">Nuclide Table:</string>
+    <string name="save_calculations">Save Calculations:</string>
+    <string name="save_units">Save Units:</string>
+    <string name="data_visualisations">Data Visualisations:</string>
+    <string name="hardness_properties">Hardness Properties:</string>
+    <string name="young_bulk_shear_modulus">Young-, Bulk-, Shear modulus:</string>
+    <string name="poisson_constants_sound_speed">Poisson\'s Constants, Sound of Speed:</string>
+    <string name="hazard_materials">Hazard of Materials:</string>
+    <string name="geology_table">Geology Table:</string>
+    <string name="poisson_ratio_table">Poisson\'s Ratio Table:</string>
+    <string name="emission_spectrum_table">Emission Spectrum Table:</string>
+    <string name="flashcards_unlimited_lives">Unlimited lives in Flashcards:</string>
+    <string name="early_access_features">Early Access to new Features:</string>
+
+    <!-- Calculator -->
+    <string name="calculator_default_value">0.0 (g/mol)</string>
+
+    <!-- Widget -->
+    <string name="search_for_element">Search for element</string>
+
+    <!-- Isotope Panel -->
+    <string name="neutrons">Neutrons:</string>
+    <string name="nucleons">Nucleons:</string>
+    <string name="protons">Protons:</string>
+    <string name="isotope">Isotope</string>
+
 </resources>
 
