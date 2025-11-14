@@ -44,7 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingStart="2dp"
-                    android:text="Search for element"
+                    android:text="@string/search_for_element"
                     android:textSize="14sp"
                     android:gravity="center_vertical"
                     android:textColor="@android:color/system_accent2_800" />

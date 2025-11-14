@@ -70,7 +70,7 @@
                         android:elevation="2dp"
                         android:focusable="true"
                         android:foreground="@drawable/chip_ripple"
-                        android:text="Kelvin"
+                        android:text="@string/kelvin"
                         android:textAllCaps="false"
                         android:textColor="?attr/actionMenuTextColor"
                         android:textSize="14sp" />
@@ -87,7 +87,7 @@
                         android:elevation="2dp"
                         android:focusable="true"
                         android:foreground="@drawable/chip_ripple"
-                        android:text="Celsius"
+                        android:text="@string/celsius"
                         android:textAllCaps="false"
                         android:textColor="?attr/actionMenuTextColor"
                         android:textSize="14sp" />
@@ -107,7 +107,7 @@
                         android:elevation="2dp"
                         android:focusable="true"
                         android:foreground="@drawable/chip_ripple"
-                        android:text="Fahrenheit"
+                        android:text="@string/fahrenheit"
                         android:textAllCaps="false"
                         android:textColor="?attr/actionMenuTextColor"
                         android:textSize="14sp" />

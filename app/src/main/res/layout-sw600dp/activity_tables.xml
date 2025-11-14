@@ -316,7 +316,7 @@
                     android:layout_marginTop="@dimen/margin_space"
                     android:layout_marginEnd="@dimen/margin"
                     android:layout_marginBottom="@dimen/margin_space"
-                    android:text="A table with isotopes for different elements as well as half-time, mass, proton, neutron and nucleons data."
+                    android:text="@string/isotopes_table_description"
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="16sp"
                     android:textStyle="normal" />
