@@ -757,5 +757,21 @@
     <string name="get_pro_plus">Get PRO+</string>
     <string name="price_placeholder">---</string>
 
+    <!-- Introduction Activity -->
+    <string name="intro_welcome_title">Welcome to Atomic</string>
+    <string name="intro_welcome_description">Your comprehensive periodic table reference with detailed element information, interactive tools, and learning features.</string>
+    <string name="intro_flashcards_title">Learn with Flashcards</string>
+    <string name="intro_flashcards_description">Master the periodic table with interactive flashcards. Test your knowledge of element symbols, atomic masses, and chemical properties.</string>
+    <string name="intro_calculator_title">Molar Mass Calculator</string>
+    <string name="intro_calculator_description">Calculate molar masses of chemical compounds quickly and accurately. Perfect for chemistry students and professionals.</string>
+    <string name="intro_pro_title">Unlock PRO Features</string>
+    <string name="intro_pro_description">Get access to additional data, advanced tables, enhanced calculators, and exclusive features with PRO version.</string>
+    <string name="intro_next">Next</string>
+    <string name="intro_skip">Skip</string>
+    <string name="intro_finish">Get Started</string>
+    <string name="intro_image_description">Introduction image</string>
+    <string name="back">Back</string>
+    <string name="feature_check">Feature included</string>
+
 </resources>
 

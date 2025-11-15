@@ -51,6 +51,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.IntroductionActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme">
+        </activity>
+        <activity
             android:name=".activities.ElementInfoActivity"
             android:label="ELEMENTINFOACTIVITY"
             android:exported="true"
