@@ -2,7 +2,6 @@ package com.jlindemann.science.activities.settings
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageButton
@@ -10,26 +9,26 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.android.billingclient.api.*
+import com.android.billingclient.api.ProductDetails
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
+import com.jlindemann.science.billing.BillingManager
 import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.utils.ToastUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONObject
-import java.util.logging.Handler
+import java.lang.Runnable
 
-class ProActivity : BaseActivity(), BillingClientStateListener {
+class ProActivity : BaseActivity(), BillingManager.Listener {
 
-    private val PRO_VERSION_ID = "pro_version"
-    private val PRO_PLUS_VERSION_ID = "pro_version_plus"
-    private val PRO_PLUS_UPGRADE_ID = "pro_version_plus_upgrade"
-    private val productIds = listOf(PRO_VERSION_ID, PRO_PLUS_VERSION_ID, PRO_PLUS_UPGRADE_ID)
+    private val PRO_PAGE_PRODUCT_ID = BillingManager.PRO_VERSION_ID
+    private val PRO_PLUS_PRODUCT_ID = BillingManager.PRO_PLUS_VERSION_ID
+    private val PRO_PLUS_UPGRADE_PRODUCT_ID = BillingManager.PRO_PLUS_UPGRADE_ID
 
-    private var billingClient: BillingClient? = null
+    private lateinit var billingManager: BillingManager
+
     private var productDetailMap = mutableMapOf<String, ProductDetails>()
 
     private var ownsProVersion = false
@@ -50,17 +49,22 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
         if (themePrefValue == 1) setTheme(R.style.AppThemeDark)
         setContentView(R.layout.activity_pro_v2)
 
+        // Initialize BillingManager
+        billingManager = BillingManager(this, lifecycleScope, this)
+        billingManager.initialize()
+
+        // Hook up UI buttons to delegate to billingManager
         findViewById<TextView>(R.id.pro_buy_btn).setOnClickListener {
-            if (!ownsProVersion && !ownsProPlusVersion) {
-                productDetailMap[PRO_VERSION_ID]?.let { launchBillingFlow(it) }
+            if (!billingManager.isOwnsProVersion() && !billingManager.isOwnsProPlusVersion()) {
+                billingManager.getProductDetail(PRO_PAGE_PRODUCT_ID)?.let { billingManager.launchPurchase(it) }
             }
         }
         findViewById<TextView>(R.id.pro_plus_buy_btn).setOnClickListener {
-            if (!ownsProPlusVersion) {
-                if (ownsProVersion) {
-                    productDetailMap[PRO_PLUS_UPGRADE_ID]?.let { launchBillingFlow(it) }
+            if (!billingManager.isOwnsProPlusVersion()) {
+                if (billingManager.isOwnsProVersion()) {
+                    billingManager.getProductDetail(PRO_PLUS_UPGRADE_PRODUCT_ID)?.let { billingManager.launchPurchase(it) }
                 } else {
-                    productDetailMap[PRO_PLUS_VERSION_ID]?.let { launchBillingFlow(it) }
+                    billingManager.getProductDetail(PRO_PLUS_PRODUCT_ID)?.let { billingManager.launchPurchase(it) }
                 }
             }
         }
@@ -74,124 +78,96 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
             checkAndSetPreferences()
             showUserProductsToast()
         }
+    }
 
-        val purchasesUpdateListener = PurchasesUpdatedListener { billingResult, purchases ->
-            when (billingResult.responseCode) {
-                BillingClient.BillingResponseCode.OK -> {
-                    if (purchases?.isNotEmpty() == true) {
-                        for (purchase in purchases) {
-                            lifecycleScope.launch {
-                                handlePurchase(purchase)
-                                updateProOptionsUI()
-                                updatePurchaseCardsUI()
-                            }
-                            updateProOptionsUI()
-                            updatePurchaseCardsUI()
-                        }
-                    }
-                }
+    override fun onDestroy() {
+        super.onDestroy()
+        billingManager.endConnection()
+    }
+
+    // BillingManager.Listener implementations
+    override fun onProductsUpdated() {
+        // refresh local product map and UI
+        productDetailMap[PRO_PAGE_PRODUCT_ID] =
+            (billingManager.getProductDetail(PRO_PAGE_PRODUCT_ID) ?: continueOnUi {}) as ProductDetails
+        productDetailMap[PRO_PLUS_PRODUCT_ID] =
+            (billingManager.getProductDetail(PRO_PLUS_PRODUCT_ID) ?: continueOnUi {}) as ProductDetails
+        productDetailMap[PRO_PLUS_UPGRADE_PRODUCT_ID] =
+            (billingManager.getProductDetail(PRO_PLUS_UPGRADE_PRODUCT_ID) ?: continueOnUi {}) as ProductDetails
+
+        runOnUiThread {
+            updateProOptionsUI()
+            updatePurchaseCardsUI()
+        }
+    }
+
+    override fun onPurchasesUpdated() {
+        // refresh internal flags and UI
+        ownsProVersion = billingManager.isOwnsProVersion()
+        ownsProPlusVersion = billingManager.isOwnsProPlusVersion()
+        runOnUiThread {
+            updateProOptionsUI()
+            updatePurchaseCardsUI()
+        }
+    }
+
+    override fun onPurchaseCompleted(productId: String) {
+        // update preferences and UI similar to original behavior
+        val proPref = ProVersion(this)
+        val proPlusPref = ProPlusVersion(this)
+
+        when (productId) {
+            PRO_PAGE_PRODUCT_ID -> {
+                proPref.setValue(100)
+                proPlusPref.setValue(1)
+                ownsProVersion = true
+                ownsProPlusVersion = false
+            }
+            PRO_PLUS_PRODUCT_ID, PRO_PLUS_UPGRADE_PRODUCT_ID -> {
+                proPref.setValue(100)
+                proPlusPref.setValue(100)
+                ownsProPlusVersion = true
+                ownsProVersion = true
             }
         }
-        initBillingClient(purchasesUpdateListener)
-    }
 
-    private fun initBillingClient(purchasesUpdateListener: PurchasesUpdatedListener) {
-        val pendingPurchasesParams = PendingPurchasesParams.newBuilder()
-            .enableOneTimeProducts()
-            .build()
-
-        billingClient = BillingClient.newBuilder(this)
-            .setListener(purchasesUpdateListener)
-            .enablePendingPurchases(pendingPurchasesParams)
-            .build()
-        billingClient?.startConnection(this)
-
-    }
-
-    override fun onBillingServiceDisconnected() {
-        billingClient?.startConnection(this)
-    }
-
-    override fun onBillingSetupFinished(billingResult: BillingResult) {
-        if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-            queryProducts()
-            queryPurchases()
-        } else {
-            ToastUtil.showToast(this, billingResult.responseCode.toString())
-        }
-    }
-
-    private fun queryProducts() {
-        lifecycleScope.launch {
-            queryProducts(BillingClient.ProductType.INAPP, productIds)
-        }
-    }
-
-    private suspend fun queryProducts(productType: String, products: List<String>) {
-        val productListForQuery = products.map { productId ->
-            QueryProductDetailsParams.Product.newBuilder()
-                .setProductId(productId)
-                .setProductType(productType)
-                .build()
-        }
-        val queryProductDetailsParams =
-            QueryProductDetailsParams.newBuilder()
-                .setProductList(productListForQuery)
-                .build()
-        val productDetailsResult = withContext(Dispatchers.IO) {
-            billingClient?.queryProductDetails(queryProductDetailsParams)
-        }
-
-        if (productDetailsResult?.billingResult?.responseCode == BillingClient.BillingResponseCode.OK) {
-            productDetailsResult.productDetailsList?.forEach { productDetails ->
-                productDetailMap[productDetails.productId] = productDetails
-            }
-            withContext(Dispatchers.Main) {
+        runOnUiThread {
+            Toast.makeText(this@ProActivity, "Purchase complete!", Toast.LENGTH_SHORT).show()
+            // small delay to let Google Play finalize state if needed
+            android.os.Handler().postDelayed({
                 updateProOptionsUI()
                 updatePurchaseCardsUI()
-            }
+            }, 500)
         }
+    }
+
+    override fun onError(message: String) {
+        ToastUtil.showToast(this, message)
+    }
+
+    // small helper to avoid repetitive null-handling when updating product map
+    private inline fun <T> continueOnUi(block: () -> T) {}
+
+    private fun queryProducts() {
+        // BillingManager already queries products on setup; this is kept for parity if needed
     }
 
     private fun queryPurchases() {
-        queryPurchases(BillingClient.ProductType.INAPP)
-    }
-
-    private fun queryPurchases(type: String) {
-        val queryPurchaseParams = QueryPurchasesParams.newBuilder()
-            .setProductType(type)
-            .build()
-
-        billingClient?.queryPurchasesAsync(queryPurchaseParams) { billingResult, purchasesList ->
-            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
-                ownsProVersion = false
-                ownsProPlusVersion = false
-                if (purchasesList.isNotEmpty()) {
-                    for (purchase in purchasesList) {
-                        lifecycleScope.launch {
-                            val jsonObject = JSONObject(purchase.originalJson)
-                            val productId = jsonObject.getString("productId")
-                            if (productId == PRO_VERSION_ID) ownsProVersion = true
-                            if (productId == PRO_PLUS_VERSION_ID || productId == PRO_PLUS_UPGRADE_ID) ownsProPlusVersion = true
-                        }
-                    }
-                }
-                updateProOptionsUI()
-                updatePurchaseCardsUI()
-            }
-        }
+        // BillingManager already queries purchases on setup; this is kept for parity if needed
     }
 
     // Function to set preferences based on account products
     private fun checkAndSetPreferences() {
         val proPref = ProVersion(this)
         val proPlusPref = ProPlusVersion(this)
+        val ownsPro = billingManager.isOwnsProVersion()
+        val ownsProPlus = billingManager.isOwnsProPlusVersion()
         when {
-            ownsProVersion && !ownsProPlusVersion -> {
+            ownsPro && !ownsProPlus -> {
                 proPref.setValue(100)
                 proPlusPref.setValue(1)
             }
-            ownsProPlusVersion -> {
+            ownsProPlus -> {
                 proPref.setValue(100)
                 proPlusPref.setValue(100)
             }
@@ -204,9 +180,11 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
     }
 
     private fun showUserProductsToast() {
+        val ownsPro = billingManager.isOwnsProVersion()
+        val ownsProPlus = billingManager.isOwnsProPlusVersion()
         val productsOwned = when {
-            ownsProPlusVersion -> "PRO Plus"
-            ownsProVersion -> "PRO"
+            ownsProPlus -> "PRO Plus"
+            ownsPro -> "PRO"
             else -> "None"
         }
         Toast.makeText(
@@ -216,64 +194,9 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
         ).show()
     }
 
-    private suspend fun handlePurchase(purchase: Purchase) {
-        val jsonObject = JSONObject(purchase.originalJson)
-        val productId = jsonObject.getString("productId")
-        val proPref = ProVersion(this)
-        val proPlusPref = ProPlusVersion(this)
-
-        if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED && !purchase.isAcknowledged) {
-            val params = AcknowledgePurchaseParams.newBuilder().setPurchaseToken(purchase.purchaseToken).build()
-            withContext(Dispatchers.IO) {
-                billingClient?.acknowledgePurchase(params) { result ->
-                    if (result.responseCode == BillingClient.BillingResponseCode.OK) {
-                        lifecycleScope.launch(Dispatchers.Main) {
-                            Toast.makeText(this@ProActivity, "Purchase complete!", Toast.LENGTH_SHORT).show()
-                            if (productId == PRO_VERSION_ID) {
-                                ownsProVersion = true
-                                proPref.setValue(100)
-                                proPlusPref.setValue(1)
-                                android.os.Handler().postDelayed({
-                                    updateProOptionsUI()
-                                    updatePurchaseCardsUI() }, 5000)
-                            }
-                            if (productId == PRO_PLUS_VERSION_ID || productId == PRO_PLUS_UPGRADE_ID) {
-                                ownsProPlusVersion = true
-                                proPref.setValue(100)
-                                proPlusPref.setValue(100)
-                                android.os.Handler().postDelayed({
-                                    updateProOptionsUI()
-                                    updatePurchaseCardsUI() }, 5000)
-                            }
-                            updateProOptionsUI()
-                            updatePurchaseCardsUI()
-                        }
-                    }
-                }
-            }
-        } else {
-            lifecycleScope.launch(Dispatchers.Main) {
-                Toast.makeText(this@ProActivity, "Purchase complete!", Toast.LENGTH_SHORT).show()
-                if (productId == PRO_VERSION_ID) {
-                    ownsProVersion = true
-                    proPref.setValue(100)
-                    proPlusPref.setValue(1)
-                }
-                if (productId == PRO_PLUS_VERSION_ID || productId == PRO_PLUS_UPGRADE_ID) {
-                    ownsProPlusVersion = true
-                    proPref.setValue(100)
-                    proPlusPref.setValue(100)
-                }
-                updateProOptionsUI()
-                updatePurchaseCardsUI()
-            }
-        }
-    }
-
-
     private fun getFormattedPrice(productDetails: ProductDetails?): String {
         val formattedPrice = productDetails?.oneTimePurchaseOfferDetails?.formattedPrice
-        return formattedPrice ?: "Price not available"
+        return formattedPrice ?: getString(R.string.price_not_available)
     }
 
     // Update preferences and buy buttons when displaying UI
@@ -285,50 +208,50 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
         val proPref = ProVersion(this)
         val proPlusPref = ProPlusVersion(this)
 
+        // use billingManager state if available
+        ownsProVersion = billingManager.isOwnsProVersion()
+        ownsProPlusVersion = billingManager.isOwnsProPlusVersion()
+
         if (ownsProVersion && !ownsProPlusVersion) {
             proBuyBtn.isEnabled = false
-            proBuyBtn.text = "Current Version"
+            proBuyBtn.text = getString(R.string.current_version)
             proPriceView.text = "---"
-            // Update preference to 100 for ProVersion
             proPref.setValue(100)
             proPlusPref.setValue(1)
         } else if (ownsProPlusVersion) {
             proBuyBtn.isEnabled = false
-            proBuyBtn.text = "Owns PRO+"
+            proBuyBtn.text = getString(R.string.owns_pro_plus)
             proPriceView.text = "---"
-            // Update preference to 100 for both
             proPref.setValue(100)
             proPlusPref.setValue(100)
         } else {
             proBuyBtn.isEnabled = true
-            proBuyBtn.text = "Get PRO"
-            val productDetails = productDetailMap[PRO_VERSION_ID]
+            proBuyBtn.text = getString(R.string.get_pro)
+            val productDetails = billingManager.getProductDetail(PRO_PAGE_PRODUCT_ID)
             proPriceView.text = getFormattedPrice(productDetails)
-            // Reset preferences if neither owned
             proPref.setValue(1)
             proPlusPref.setValue(1)
         }
 
         if (ownsProPlusVersion) {
             proPlusBuyBtn.isEnabled = false
-            proPlusBuyBtn.text = "Current Version"
+            proPlusBuyBtn.text = getString(R.string.current_version)
             proPlusPriceView.text = "---"
         } else if (ownsProVersion && !ownsProPlusVersion) {
             proPlusBuyBtn.isEnabled = true
-            proPlusBuyBtn.text = "Upgrade to PRO+"
-            val upgradeDetails = productDetailMap[PRO_PLUS_UPGRADE_ID]
+            proPlusBuyBtn.text = getString(R.string.upgrade_to_pro_plus)
+            val upgradeDetails = billingManager.getProductDetail(PRO_PLUS_UPGRADE_PRODUCT_ID)
             proPlusPriceView.text = getFormattedPrice(upgradeDetails)
         } else {
             proPlusBuyBtn.isEnabled = true
-            proPlusBuyBtn.text = "Get PRO+"
-            val productDetails = productDetailMap[PRO_PLUS_VERSION_ID]
+            proPlusBuyBtn.text = getString(R.string.get_pro_plus)
+            val productDetails = billingManager.getProductDetail(PRO_PLUS_PRODUCT_ID)
             proPlusPriceView.text = getFormattedPrice(productDetails)
         }
     }
 
     // Update cards or other purchase UI
     private fun updatePurchaseCardsUI() {
-        // Example: update card backgrounds or visibility based on ownership
         val proCard = findViewById<FrameLayout>(R.id.pro_bg)
         val proPlusCard = findViewById<FrameLayout>(R.id.pro_plus_bg)
 
@@ -342,23 +265,6 @@ class ProActivity : BaseActivity(), BillingClientStateListener {
             proCard?.alpha = 1.0f
             proPlusCard?.alpha = 1.0f
         }
-    }
-
-    private fun launchBillingFlow(productDetails: ProductDetails) {
-        val billingFlowParams = BillingFlowParams.newBuilder()
-            .setProductDetailsParamsList(
-                listOf(
-                    BillingFlowParams.ProductDetailsParams.newBuilder()
-                        .setProductDetails(productDetails)
-                        .build()
-                )
-            )
-            .build()
-        if (billingClient?.isReady == false) {
-            ToastUtil.showToast(this, "Billing client not ready, try again!")
-            return
-        }
-        billingClient?.launchBillingFlow(this, billingFlowParams)
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {

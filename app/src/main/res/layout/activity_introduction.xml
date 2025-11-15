@@ -30,13 +30,14 @@
         <!-- Tab indicator -->
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/intro_tab_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="16dp"
-            app:tabBackground="@drawable/tab_selector"
-            app:tabGravity="center"
-            app:tabIndicatorHeight="0dp" />
+            app:tabBackground="@drawable/toast"
+            app:tabIndicator="@drawable/toast_hover"
+            app:tabIndicatorColor="?attr/colorAccent"
+            app:tabIndicatorHeight="4dp" />
 
         <!-- Navigation buttons container -->
         <LinearLayout

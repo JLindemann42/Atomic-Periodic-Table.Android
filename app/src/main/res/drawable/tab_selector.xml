@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_selected="true">
-        <shape android:shape="oval">
-            <solid android:color="?attr/colorPrimary" />
-            <size android:width="8dp" android:height="8dp" />
-        </shape>
+        <inset android:insetLeft="4dp" android:insetRight="4dp">
+            <shape android:shape="oval">
+                <solid android:color="?attr/colorAccent" />
+                <size android:width="24dp" android:height="24dp" />
+            </shape>
+        </inset>
     </item>
     <item>
-        <shape android:shape="oval">
-            <solid android:color="?attr/colorOnSecondaryContainer" />
-            <size android:width="8dp" android:height="8dp" />
-        </shape>
+        <inset android:insetLeft="4dp" android:insetRight="4dp">
+            <shape android:shape="oval">
+                <solid android:color="?attr/colorOnSecondaryContainer" />
+                <size android:width="24dp" android:height="24dp" />
+            </shape>
+        </inset>
     </item>
 </selector>

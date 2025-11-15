@@ -418,7 +418,6 @@
     <string name="progress_text_placeholder" translatable="false" >50/500</string>
     <string name="total_xp_placeholder" translatable="false" >Total XP: ---</string>
     <string name="unlock_all_flashcards" >Unlock all Flashcards and Features</string>
-    <string name="upgrade_to_pro_plus" >Upgrade to PRO+</string>
     <string name="upgrade_pro_plus_description" >Get unlimited lives and additional flashcard games such as electronegativity, radioactivity, crystal structure and more!</string>
 
     <!-- Flashcard question formats -->
@@ -756,6 +755,10 @@
     <string name="get_pro">Get PRO</string>
     <string name="get_pro_plus">Get PRO+</string>
     <string name="price_placeholder">---</string>
+    <string name="current_version">Current Version</string>
+    <string name="owns_pro_plus">Owns PRO+</string>
+    <string name="upgrade_to_pro_plus">Upgrade to PRO+</string>
+    <string name="price_not_available">Price not available</string>
 
     <!-- Introduction Activity -->
     <string name="intro_welcome_title">Welcome to Atomic</string>
@@ -772,6 +775,8 @@
     <string name="intro_image_description">Introduction image</string>
     <string name="back">Back</string>
     <string name="feature_check">Feature included</string>
+
+
 
 </resources>
 

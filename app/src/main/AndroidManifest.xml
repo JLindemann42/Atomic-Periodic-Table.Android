@@ -52,8 +52,12 @@
         </activity>
         <activity
             android:name=".activities.IntroductionActivity"
-            android:exported="false"
+            android:label="INTRODUCTIONACTIVITY"
+            android:exported="true"
             android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.ElementInfoActivity"
