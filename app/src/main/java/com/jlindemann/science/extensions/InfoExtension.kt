@@ -1,12 +1,15 @@
 package com.jlindemann.science.extensions
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.TypedValue
 import android.view.View
 import android.view.WindowInsets
 import android.widget.EditText
@@ -17,10 +20,15 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Space
 import android.widget.TextView
+import androidx.annotation.AttrRes
+import androidx.annotation.DimenRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.doAfterTextChanged
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -346,7 +354,6 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.thermal_expansion_text).text = thermalExpansion
         findViewById<TextView>(R.id.molar_heat_capacity_text).text = molarHeatCapacity
         findViewById<TextView>(R.id.molar_volume_text).text = molarVolume
-        findViewById<TextView>(R.id.electron_affinity_text).text = electronAffinity
 
         findViewById<TextView>(R.id.electron_config_text).text = formatSuperscript(electronConfig)
         findViewById<TextView>(R.id.ion_charge_text).text = formatSuperscript(ionCharge)
@@ -370,6 +377,12 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
             findViewById<TextView>(R.id.mohs_hardness_text).text = mohsHardness
             findViewById<TextView>(R.id.vickers_hardness_text).text = vickersHardness
             findViewById<TextView>(R.id.brinell_hardness_text).text = brinellHardness
+            findViewById<TextView>(R.id.element_curie_point).text = if (curiePoint != "---") "$curiePoint (K)" else "---"
+            findViewById<TextView>(R.id.element_neel_point).text = if (neelPoint != "---") "$neelPoint (K)" else "---"
+            findViewById<TextView>(R.id.electron_affinity_text).text = electronAffinity
+            findViewById<TextView>(R.id.space_group_name_text).text = spaceGroupName
+            findViewById<TextView>(R.id.space_group_number_text).text = spaceGroupNumber
+            findViewById<TextView>(R.id.refractive_index_text).text = refractiveIndex
 
             findViewById<TextView>(R.id.speed_sound_solid_text).visibility =
                 if (soundOfSpeedSolid == "---") View.GONE else View.VISIBLE
@@ -379,19 +392,9 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                 if (soundOfSpeedLiquid == "---") View.GONE else View.VISIBLE
         } else {
             // Set the "get pro" text
-            findViewById<TextView>(R.id.speed_sound_solid_text).text = getString(R.string.get_pro_element_text)
             findViewById<TextView>(R.id.speed_sound_gas_text).visibility = View.GONE
             findViewById<TextView>(R.id.speed_sound_liquid_text).visibility = View.GONE
-            findViewById<TextView>(R.id.poisson_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.bulk_modulus_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.young_modulus_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.shear_modulus_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.mohs_hardness_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.vickers_hardness_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.brinell_hardness_text).text = getString(R.string.get_pro_element_text)
-
-            // Make the "get pro" TextViews clickable and open ProActivity when clicked.
-            // Collect the IDs that show "get pro" text in the else branch.
+            val proTextRes = R.string.get_pro_element_text
             val proClickableIds = listOf(
                 R.id.speed_sound_solid_text,
                 R.id.poisson_text,
@@ -400,10 +403,18 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                 R.id.shear_modulus_text,
                 R.id.mohs_hardness_text,
                 R.id.vickers_hardness_text,
-                R.id.brinell_hardness_text
+                R.id.brinell_hardness_text,
+                R.id.electron_affinity_text,
+                R.id.element_curie_point,
+                R.id.element_neel_point,
+                R.id.space_group_name_text,
+                R.id.space_group_number_text,
+                R.id.refractive_index_text
+
             )
 
-            for (id in proClickableIds) {
+            proClickableIds.forEach { id ->
+                findViewById<TextView>(id)?.setLockedText(proTextRes)
                 findViewById<TextView>(id).apply {
                     isClickable = true
                     isFocusable = true
@@ -425,8 +436,6 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.element_electrical_type).text = electricalType
         findViewById<TextView>(R.id.element_magnetic_type).text = magneticType
         findViewById<TextView>(R.id.element_work_function).text = workFunction
-        findViewById<TextView>(R.id.element_curie_point).text = if (curiePoint != "---") "$curiePoint (K)" else "---"
-        findViewById<TextView>(R.id.element_neel_point).text = if (neelPoint != "---") "$neelPoint (K)" else "---"
         findViewById<TextView>(R.id.element_superconducting_point).text = "$superconductingPoint (K)"
 
         val phaseIconView = findViewById<ImageView>(R.id.phase_icon)
@@ -510,11 +519,6 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
             }
         }.trim()
         findViewById<TextView>(R.id.grid_parameters_text).text = if (latticeString.isNotEmpty()) latticeString else "---"
-        
-        // Space group and refractive index
-        findViewById<TextView>(R.id.space_group_name_text).text = spaceGroupName
-        findViewById<TextView>(R.id.space_group_number_text).text = spaceGroupNumber
-        findViewById<TextView>(R.id.refractive_index_text).text = refractiveIndex
 
         // Debye temperature handling
         val debye = jsonObject.opt("debye_temperature")
@@ -643,11 +647,27 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
             }
         }
         else {
-            // Set the "get pro" text
-            findViewById<TextView>(R.id.fire_hazard_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.health_hazard_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.reactivity_hazard_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.specific_hazard_text).text = getString(R.string.get_pro_element_text)
+            val proTextRes = R.string.get_pro_element_text
+            val proClickableHazardIds = listOf(
+                R.id.fire_hazard_text,
+                R.id.health_hazard_text,
+                R.id.reactivity_hazard_text,
+                R.id.specific_hazard_text,
+            )
+
+            proClickableHazardIds.forEach { id ->
+                findViewById<TextView>(id)?.setLockedText(proTextRes)
+                findViewById<TextView>(id).apply {
+                    isClickable = true
+                    isFocusable = true
+                    setOnClickListener {
+                        // Use the Activity context explicitly to create the Intent
+                        val intent = Intent(this@InfoExtension, ProActivity::class.java)
+                        this@InfoExtension.startActivity(intent)
+                    }
+                }
+            }
+
             findViewById<TextView>(R.id.fire_hazard_txt).text = getString(R.string.get_pro_short)
             findViewById<TextView>(R.id.health_hazard_txt).text = getString(R.string.get_pro_short)
             findViewById<TextView>(R.id.reactivity_hazard_txt).text = getString(R.string.get_pro_short)
@@ -984,6 +1004,37 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
             val superscriptSign = superscriptMap[signPart.firstOrNull()] ?: ""
             superscriptNumber + superscriptSign
         }
+    }
+
+    // resolve an attribute color (returns either resolved color resource or typed value data)
+    private fun resolveAttrColor(context: Context, @AttrRes attr: Int): Int {
+        val tv = TypedValue()
+        return if (context.theme.resolveAttribute(attr, tv, true)) {
+            if (tv.resourceId != 0) ContextCompat.getColor(context, tv.resourceId) else tv.data
+        } else {
+            Color.TRANSPARENT // fallback
+        }
+    }
+
+    fun TextView.setLockedText(
+        @StringRes textRes: Int,
+        @DrawableRes lockDrawableRes: Int = R.drawable.ic_lock,
+        @DimenRes paddingRes: Int = R.dimen.padding_small,
+        @AttrRes colorAttr: Int = R.attr.colorError
+    ) {
+        text = context.getString(textRes)
+
+        // get & tint drawable
+        val color = resolveAttrColor(context, colorAttr)
+        val drawable = ContextCompat.getDrawable(context, lockDrawableRes)
+            ?.mutate()
+            ?.let { DrawableCompat.wrap(it) }
+            ?.also { DrawableCompat.setTint(it, color) }
+
+        // set start compound drawable (RTL-aware)
+        setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
+
+        compoundDrawablePadding = context.resources.getDimensionPixelSize(paddingRes)
     }
 
     /**

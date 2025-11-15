@@ -167,7 +167,7 @@
                     android:layout_marginEnd="4dp"
                     android:orientation="vertical"
                     android:padding="10dp"
-                    android:background="@drawable/toast_element_list_bottom"
+                    android:background="@drawable/toast_element_list"
                     android:backgroundTint="?attr/colorPrimaryDark">
 
                 <TextView
