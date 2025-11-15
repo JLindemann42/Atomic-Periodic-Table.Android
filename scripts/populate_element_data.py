@@ -70,7 +70,14 @@ RESISTIVITY = {
     "tin": "11.5", "chromium": "12.7", "vanadium": "19.7", "palladium": "10.8",
     "thallium": "18", "niobium": "15.2", "tantalum": "13.1", "osmium": "8.12",
     "rhenium": "17.2", "lead": "20.6", "titanium": "42", "antimony": "39",
-    "bismuth": "106.8", "manganese": "144", "mercury": "96.1",
+    "bismuth": "106.8", "manganese": "144", "mercury": "96.1", "potassium": "7.0",
+    "rubidium": "12.5", "caesium": "20", "strontium": "23", "barium": "34",
+    "europium": "90", "ytterbium": "25", "scandium": "56.2", "yttrium": "59.6",
+    "zirconium": "42.1", "hafnium": "33.1", "gallium": "13.6", "indium": "8.37",
+    "technetium": "20", "lanthanum": "61.5", "cerium": "82.8", "praseodymium": "70",
+    "neodymium": "64.3", "promethium": "75", "samarium": "94", "gadolinium": "131",
+    "terbium": "115", "dysprosium": "92.6", "holmium": "81.4", "erbium": "86",
+    "thulium": "67.6", "lutetium": "58.2",
 }
 
 # Resistivity multiplier (power of 10)
@@ -371,7 +378,21 @@ THERMAL_EXPANSION = {
     "aluminium": "23.1", "copper": "16.5", "gold": "14.2", "silver": "18.9",
     "iron": "11.8", "nickel": "13.4", "zinc": "30.2", "lead": "28.9",
     "tin": "22.0", "magnesium": "24.8", "titanium": "8.6", "tungsten": "4.5",
-    "platinum": "8.8", "silicon": "2.6", "germanium": "5.9",
+    "platinum": "8.8", "silicon": "2.6", "germanium": "5.9", "lithium": "46",
+    "beryllium": "11.3", "sodium": "71", "potassium": "83", "calcium": "22.3",
+    "scandium": "10.2", "vanadium": "8.4", "chromium": "4.9", "manganese": "22",
+    "cobalt": "13.0", "gallium": "18", "rubidium": "90", "strontium": "22.5",
+    "yttrium": "10.6", "zirconium": "5.7", "niobium": "7.3", "molybdenum": "4.8",
+    "technetium": "7.2", "ruthenium": "6.4", "rhodium": "8.2", "palladium": "11.8",
+    "cadmium": "30.8", "indium": "32.1", "antimony": "11", "tellurium": "16.8",
+    "caesium": "97", "barium": "20.6", "lanthanum": "12.1", "cerium": "6.3",
+    "praseodymium": "6.7", "neodymium": "9.6", "promethium": "11", "samarium": "12.7",
+    "europium": "35", "gadolinium": "9.4", "terbium": "10.3", "dysprosium": "9.9",
+    "holmium": "11.2", "erbium": "12.2", "thulium": "13.3", "ytterbium": "26.3",
+    "lutetium": "9.9", "hafnium": "5.9", "tantalum": "6.3", "rhenium": "6.2",
+    "osmium": "5.1", "iridium": "6.4", "mercury": "60.4", "thallium": "29.9",
+    "bismuth": "13.4", "thorium": "11.0", "uranium": "13.9", "neptunium": "25",
+    "plutonium": "54",
 }
 
 # Néel point data in Kelvin (antiferromagnetic transition temperature)
@@ -383,6 +404,7 @@ NEEL_POINT = {
 REFRACTIVE_INDEX = {
     "diamond": "2.417", "silicon": "3.42", "germanium": "4.0",
     "sulfur": "1.96", "selenium": "2.92", "tellurium": "4.9",
+    "phosphorus": "1.82", "carbon": "2.417", "boron": "1.58",
 }
 
 # Speed of sound data in m/s for solids at room temperature
@@ -391,19 +413,31 @@ SPEED_OF_SOUND_SOLID = {
     "silver": "2680", "gold": "2030", "zinc": "3700", "nickel": "4970",
     "titanium": "4140", "tungsten": "4620", "lead": "1190", "tin": "2500",
     "magnesium": "4602", "chromium": "5940", "platinum": "2680", "diamond": "12000",
-    "silicon": "8433", "germanium": "5400",
+    "silicon": "8433", "germanium": "5400", "lithium": "6000", "sodium": "3200",
+    "potassium": "2000", "calcium": "3810", "scandium": "4600", "vanadium": "4560",
+    "manganese": "5150", "cobalt": "4720", "gallium": "2740", "rubidium": "1300",
+    "strontium": "3600", "yttrium": "3300", "zirconium": "3800", "niobium": "3480",
+    "molybdenum": "5400", "technetium": "5100", "ruthenium": "5970", "rhodium": "4700",
+    "palladium": "3070", "cadmium": "2310", "indium": "2160", "antimony": "3420",
+    "tellurium": "2610", "caesium": "1090", "barium": "1620", "lanthanum": "2475",
+    "cerium": "2450", "praseodymium": "2280", "neodymium": "2330", "samarium": "2130",
+    "gadolinium": "2680", "terbium": "2620", "dysprosium": "2710", "holmium": "2760",
+    "erbium": "2830", "thulium": "2880", "ytterbium": "1590", "lutetium": "3000",
+    "hafnium": "3010", "tantalum": "3400", "rhenium": "4700", "osmium": "4940",
+    "iridium": "4825", "mercury": "1450", "thallium": "818", "bismuth": "1790",
+    "thorium": "2490", "uranium": "3155",
 }
 
 # Speed of sound in gases at 0°C, 101.325 kPa (m/s)
 SPEED_OF_SOUND_GAS = {
     "hydrogen": "1270", "helium": "970", "nitrogen": "337", "oxygen": "316",
     "fluorine": "263", "neon": "435", "chlorine": "206", "argon": "319",
-    "krypton": "221", "xenon": "178", "radon": "169",
+    "krypton": "221", "xenon": "178", "radon": "169", "methane": "430",
 }
 
 # Speed of sound in liquids (m/s) - limited data available
 SPEED_OF_SOUND_LIQUID = {
-    "mercury": "1450", "bromine": "890",
+    "mercury": "1450", "bromine": "890", "water": "1481", "gallium": "2870",
 }
 
 # Young's modulus in GPa
@@ -412,7 +446,19 @@ YOUNG_MODULUS = {
     "iron": "211", "nickel": "200", "titanium": "116", "tungsten": "411",
     "chromium": "279", "zinc": "108", "magnesium": "45", "lead": "16",
     "tin": "50", "beryllium": "287", "molybdenum": "329", "platinum": "168",
-    "diamond": "1220", "silicon": "130", "germanium": "103",
+    "diamond": "1220", "silicon": "130", "germanium": "103", "lithium": "4.9",
+    "sodium": "10", "potassium": "3.53", "calcium": "20", "scandium": "74.4",
+    "vanadium": "128", "manganese": "198", "cobalt": "209", "gallium": "9.8",
+    "rubidium": "2.4", "strontium": "15.7", "yttrium": "63.5", "zirconium": "88",
+    "niobium": "105", "technetium": "290", "ruthenium": "447", "rhodium": "275",
+    "palladium": "121", "cadmium": "50", "indium": "11", "antimony": "55",
+    "tellurium": "43", "caesium": "1.7", "barium": "13", "lanthanum": "36.6",
+    "cerium": "33.6", "praseodymium": "37.3", "neodymium": "41.4", "samarium": "49.7",
+    "europium": "18.2", "gadolinium": "54.8", "terbium": "55.7", "dysprosium": "61.4",
+    "holmium": "64.8", "erbium": "69.9", "thulium": "74.0", "ytterbium": "23.9",
+    "lutetium": "68.6", "hafnium": "141", "tantalum": "186", "rhenium": "463",
+    "osmium": "559", "iridium": "528", "mercury": "38", "thallium": "8",
+    "bismuth": "32", "thorium": "79", "uranium": "208",
 }
 
 # Shear modulus in GPa
@@ -420,7 +466,18 @@ SHEAR_MODULUS = {
     "aluminium": "26", "copper": "48", "gold": "27", "silver": "30",
     "iron": "82", "nickel": "76", "titanium": "44", "tungsten": "161",
     "chromium": "115", "zinc": "43", "magnesium": "17", "lead": "5.6",
-    "beryllium": "132", "molybdenum": "126", "platinum": "61",
+    "beryllium": "132", "molybdenum": "126", "platinum": "61", "lithium": "4.2",
+    "sodium": "3.3", "potassium": "1.3", "calcium": "7.4", "scandium": "29.1",
+    "vanadium": "47", "manganese": "79.5", "cobalt": "75", "gallium": "3.7",
+    "rubidium": "1.6", "strontium": "6.3", "yttrium": "25.6", "zirconium": "33",
+    "niobium": "38", "technetium": "115", "ruthenium": "173", "rhodium": "150",
+    "palladium": "44", "cadmium": "19", "indium": "4.1", "antimony": "20",
+    "tellurium": "16", "caesium": "0.8", "barium": "4.9", "lanthanum": "14.3",
+    "cerium": "13.5", "gadolinium": "21.8", "terbium": "22.1", "dysprosium": "24.7",
+    "holmium": "26.3", "erbium": "28.3", "thulium": "30.5", "ytterbium": "9.9",
+    "lutetium": "27.2", "hafnium": "30", "tantalum": "69", "rhenium": "178",
+    "osmium": "222", "iridium": "210", "thallium": "2.8", "bismuth": "12",
+    "thorium": "31", "uranium": "111",
 }
 
 # Bulk modulus in GPa
@@ -428,7 +485,18 @@ BULK_MODULUS = {
     "aluminium": "76", "copper": "140", "gold": "180", "silver": "100",
     "iron": "170", "nickel": "180", "titanium": "110", "tungsten": "310",
     "chromium": "160", "zinc": "70", "magnesium": "45", "lead": "46",
-    "beryllium": "130", "molybdenum": "230", "platinum": "230",
+    "beryllium": "130", "molybdenum": "230", "platinum": "230", "lithium": "11",
+    "sodium": "6.3", "potassium": "3.1", "calcium": "17", "scandium": "56.6",
+    "vanadium": "160", "manganese": "120", "cobalt": "180", "gallium": "57",
+    "rubidium": "2.5", "strontium": "12", "yttrium": "41.2", "zirconium": "91.1",
+    "niobium": "170", "technetium": "240", "ruthenium": "220", "rhodium": "380",
+    "palladium": "180", "cadmium": "62", "indium": "46", "antimony": "42",
+    "tellurium": "65", "caesium": "1.6", "barium": "9.6", "lanthanum": "27.9",
+    "cerium": "21.5", "gadolinium": "37.9", "terbium": "38.7", "dysprosium": "40.5",
+    "holmium": "40.2", "erbium": "44.4", "thulium": "44.5", "ytterbium": "30.5",
+    "lutetium": "47.6", "hafnium": "110", "tantalum": "200", "rhenium": "370",
+    "osmium": "395", "iridium": "320", "mercury": "25", "thallium": "43",
+    "bismuth": "31", "thorium": "54", "uranium": "100",
 }
 
 # Poisson's ratio (dimensionless)
@@ -436,7 +504,18 @@ POISSON_RATIO = {
     "aluminium": "0.35", "copper": "0.34", "gold": "0.44", "silver": "0.37",
     "iron": "0.29", "nickel": "0.31", "titanium": "0.32", "tungsten": "0.28",
     "chromium": "0.21", "zinc": "0.25", "magnesium": "0.29", "lead": "0.44",
-    "beryllium": "0.032", "molybdenum": "0.31", "platinum": "0.38",
+    "beryllium": "0.032", "molybdenum": "0.31", "platinum": "0.38", "lithium": "0.36",
+    "sodium": "0.36", "potassium": "0.35", "calcium": "0.31", "scandium": "0.28",
+    "vanadium": "0.36", "manganese": "0.24", "cobalt": "0.31", "gallium": "0.29",
+    "rubidium": "0.35", "strontium": "0.28", "yttrium": "0.24", "zirconium": "0.34",
+    "niobium": "0.40", "technetium": "0.25", "ruthenium": "0.30", "rhodium": "0.26",
+    "palladium": "0.39", "cadmium": "0.30", "indium": "0.45", "tin": "0.36",
+    "antimony": "0.33", "tellurium": "0.33", "caesium": "0.36", "barium": "0.21",
+    "lanthanum": "0.28", "cerium": "0.24", "gadolinium": "0.26", "terbium": "0.26",
+    "dysprosium": "0.25", "holmium": "0.23", "erbium": "0.24", "thulium": "0.21",
+    "ytterbium": "0.21", "lutetium": "0.26", "hafnium": "0.37", "tantalum": "0.34",
+    "rhenium": "0.30", "osmium": "0.25", "iridium": "0.26", "mercury": "0.5",
+    "thallium": "0.45", "bismuth": "0.33", "thorium": "0.27", "uranium": "0.23",
 }
 
 # Mohs hardness
@@ -444,7 +523,11 @@ MOHS_HARDNESS = {
     "talc": "1", "gypsum": "2", "calcium": "1.75", "lead": "1.5",
     "tin": "1.5", "zinc": "2.5", "gold": "2.5", "silver": "2.5",
     "copper": "3.0", "aluminium": "2.75", "iron": "4.0", "nickel": "4.0",
-    "chromium": "8.5", "diamond": "10", "boron": "9.3",
+    "chromium": "8.5", "diamond": "10", "boron": "9.3", "sodium": "0.5",
+    "potassium": "0.4", "lithium": "0.6", "magnesium": "2.5", "platinum": "4.3",
+    "tungsten": "7.5", "titanium": "6.0", "cobalt": "5.0", "beryllium": "5.5",
+    "zirconium": "5.0", "vanadium": "7.0", "molybdenum": "5.5", "rhodium": "6.0",
+    "palladium": "4.8", "iridium": "6.5", "osmium": "7.0", "rhenium": "7.0",
 }
 
 # Vickers hardness in MPa
@@ -452,6 +535,10 @@ VICKERS_HARDNESS = {
     "chromium": "1060", "titanium": "970", "nickel": "638", "iron": "608",
     "copper": "369", "zinc": "412", "aluminium": "167", "gold": "216",
     "silver": "251", "lead": "38", "tin": "51", "magnesium": "260",
+    "beryllium": "1670", "cobalt": "1043", "platinum": "549", "tungsten": "3430",
+    "molybdenum": "1530", "vanadium": "628", "zirconium": "903", "niobium": "1320",
+    "tantalum": "873", "rhodium": "1246", "palladium": "461", "iridium": "1760",
+    "osmium": "3920", "rhenium": "2450",
 }
 
 # Brinell hardness in MPa
@@ -459,6 +546,10 @@ BRINELL_HARDNESS = {
     "chromium": "1120", "titanium": "716", "nickel": "700", "iron": "490",
     "copper": "235", "zinc": "412", "aluminium": "245", "gold": "25",
     "silver": "24.5", "lead": "38.3", "tin": "51", "magnesium": "260",
+    "beryllium": "600", "cobalt": "700", "platinum": "392", "tungsten": "2570",
+    "molybdenum": "1500", "vanadium": "628", "zirconium": "650", "niobium": "736",
+    "tantalum": "800", "rhodium": "1100", "palladium": "37.3", "iridium": "1670",
+    "osmium": "3920", "rhenium": "1320",
 }
 
 
