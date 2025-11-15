@@ -339,6 +339,7 @@
     <string name="total_xp_placeholder">Totalt XP: ---</string>
     <string name="unlock_all_flashcards">Lås upp alla Flashcards och funktioner</string>
     <string name="upgrade_to_pro_plus">Uppgradera till PRO+</string>
+    <string name="owns_pro_plus">Äger PRO+</string>
     <string name="upgrade_pro_plus_description">Skaffa obegränsat antal liv och ytterligare flashcardspel som elektronegativitet, radioaktivitet, kristallstruktur och mer!</string>
     <string name="easy">Lätt</string>
     <string name="medium">Medel</string>
@@ -524,7 +525,7 @@ Du får %3$d liv%4$s.</string>
     <string name="water_and_wastewater_engineering">Water and Wastewater Engineering</string>
     <string name="wikipedia_commons">Wikipedia Commons</string>
     <string name="wrong">Fel</string>
-    <string name="xp_bonus">+%d%% bonus xp</string>
+    <string name="xp_bonus">+%d%% bonus XP</string>
     <string name="you_have_full_lives">Du har fulla liv!</string>
     <string name="your_answer">Ditt svar: %s</string>
     <string name="question_appearance">Vad är utseendet på %s?</string>
@@ -603,7 +604,7 @@ Du får %3$d liv%4$s.</string>
     <string name="ok">OK</string>
     <string name="poisson_constants_sound_speed">Poissons konstanter, ljudhastighet:</string>
     <string name="poisson_ratio_table">Poissons kvottabell:</string>
-    <string name="price_placeholder">---</string>
+    <string name="price_placeholder">Pris</string>
     <string name="pro_additional_sync">Synkronisering för anteckningar och framsteg</string>
     <string name="pro_additional_sync_descr">Aktivera synkronisering för anteckningar och framsteg för att underlätta dina studier på alla dina enheter</string>
     <string name="pro_features_table_description">I följande tabell beskrivs de funktioner som ingår i versionerna GRATIS, PRO och PRO+:</string>
@@ -619,4 +620,17 @@ Du får %3$d liv%4$s.</string>
     <string name="share_app_description">Om du tycker att appen är användbar, dela den med dina vänner och andra!</string>
     <string name="sync_data">Synkronisera data:</string>
     <string name="young_bulk_shear_modulus">Youngs modul, bulkmodul, skjuvmodul:</string>
-</resources>
+<string name="intro_welcome_title">Välkommen till Atomic</string>
+    <string name="intro_welcome_description">Din omfattande referens för det periodiska systemet med detaljerad elementinformation, interaktiva verktyg och inlärningsfunktioner.</string>
+    <string name="intro_flashcards_title">Lär dig med Flashkort</string>
+    <string name="intro_flashcards_description">Bemästra det periodiska systemet med interaktiva flashkort. Testa din kunskap om elementsymboler, atommassa och kemiska egenskaper.</string>
+    <string name="intro_calculator_title">Molmassa-kalkylator</string>
+    <string name="intro_calculator_description">Beräkna molmassor av kemiska föreningar snabbt och noggrant. Perfekt för kemistuderande och yrkesverksamma.</string>
+    <string name="intro_pro_title">Lås upp PRO-funktioner</string>
+    <string name="intro_pro_description">Få tillgång till ytterligare data, avancerade tabeller, förbättrade kalkylatorer och exklusiva funktioner med PRO-versionen.</string>
+    <string name="intro_next">Nästa</string>
+    <string name="intro_skip">Hoppa över</string>
+    <string name="intro_finish">Kom igång</string>
+    <string name="intro_image_description">Introduktionsbild</string>
+    <string name="electron_affinity_colon">Elektronaffinitet:</string>
+    </resources>

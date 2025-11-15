@@ -341,6 +341,7 @@
     <string name="total_xp_placeholder">Gesamt-XP: ---</string>
     <string name="unlock_all_flashcards">Alle Lernkarten und Funktionen freischalten</string>
     <string name="upgrade_to_pro_plus">Auf PRO+ upgraden</string>
+    <string name="owns_pro_plus">Besitzt PRO+</string>
     <string name="upgrade_pro_plus_description">Erhalten Sie unbegrenzte Leben und zusätzliche Lernkartenspiele wie Elektronegativität, Radioaktivität, Kristallstruktur und mehr!</string>
     <string name="easy">Einfach</string>
     <string name="medium">Mittel</string>
@@ -603,7 +604,7 @@ Sie erhalten %3$d Leben%4$s.</string>
     <string name="ok">OK</string>
     <string name="poisson_constants_sound_speed">Poisson-Konstanten, Schallgeschwindigkeit:</string>
     <string name="poisson_ratio_table">Poisson-Verhältnis-Tabelle:</string>
-    <string name="price_placeholder">---</string>
+    <string name="price_placeholder">Preis</string>
     <string name="pro_additional_sync">Synchronisierung für Notizen und Fortschritt</string>
     <string name="pro_additional_sync_descr">Aktivieren Sie die Synchronisierung für Notizen und Fortschritt, um Ihr Studium auf allen Ihren Geräten zu erleichtern</string>
     <string name="pro_features_table_description">In der folgenden Tabelle sind die in den KOSTENLOSEN, PRO- und PRO+-Versionen enthaltenen Funktionen detailliert aufgeführt:</string>
@@ -619,4 +620,17 @@ Sie erhalten %3$d Leben%4$s.</string>
     <string name="share_app_description">Wenn Sie die App nützlich finden, teilen Sie sie bitte mit Ihren Freunden und anderen!</string>
     <string name="sync_data">Daten synchronisieren:</string>
     <string name="young_bulk_shear_modulus">Young-, Kompressions-, Schermodul:</string>
-</resources>
+<string name="intro_welcome_title">Willkommen bei Atomic</string>
+    <string name="intro_welcome_description">Ihre umfassende Periodensystem-Referenz mit detaillierten Elementinformationen, interaktiven Tools und Lernfunktionen.</string>
+    <string name="intro_flashcards_title">Lernen mit Lernkarten</string>
+    <string name="intro_flashcards_description">Meistern Sie das Periodensystem mit interaktiven Lernkarten. Testen Sie Ihr Wissen über Elementsymbole, Atommassen und chemische Eigenschaften.</string>
+    <string name="intro_calculator_title">Molmassen-Rechner</string>
+    <string name="intro_calculator_description">Berechnen Sie Molmassen chemischer Verbindungen schnell und genau. Perfekt für Chemiestudenten und Fachleute.</string>
+    <string name="intro_pro_title">PRO-Funktionen freischalten</string>
+    <string name="intro_pro_description">Erhalten Sie Zugriff auf zusätzliche Daten, erweiterte Tabellen, verbesserte Rechner und exklusive Funktionen mit der PRO-Version.</string>
+    <string name="intro_next">Weiter</string>
+    <string name="intro_skip">Überspringen</string>
+    <string name="intro_finish">Loslegen</string>
+    <string name="intro_image_description">Einführungsbild</string>
+    <string name="electron_affinity_colon">Elektronenaffinität:</string>
+    </resources>

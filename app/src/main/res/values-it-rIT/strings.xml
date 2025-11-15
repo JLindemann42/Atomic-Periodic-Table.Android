@@ -336,6 +336,7 @@
     <string name="total_xp_placeholder">XP totale: ---</string>
     <string name="unlock_all_flashcards">Sblocca tutte le flashcard e le funzionalità</string>
     <string name="upgrade_to_pro_plus">Passa a PRO+</string>
+    <string name="owns_pro_plus">Possiede PRO+</string>
     <string name="upgrade_pro_plus_description">Ottieni vite illimitate e giochi flashcard aggiuntivi come elettronegatività, radioattività, struttura cristallina e altro!</string>
     <string name="easy">Facile</string>
     <string name="medium">Medio</string>
@@ -520,7 +521,7 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="water_and_wastewater_engineering">Water and Wastewater Engineering</string>
     <string name="wikipedia_commons">Wikipedia Commons</string>
     <string name="wrong">Sbagliato</string>
-    <string name="xp_bonus">+%d%% bonus xp</string>
+    <string name="xp_bonus">+%d%% XP bonus</string>
     <string name="you_have_full_lives">Hai tutte le vite!</string>
     <string name="your_answer">La tua risposta: %s</string>
     <string name="question_appearance">Qual è l\'aspetto di %s?</string>
@@ -599,7 +600,7 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="ok">OK</string>
     <string name="poisson_constants_sound_speed">Costanti di Poisson, velocità del suono:</string>
     <string name="poisson_ratio_table">Tabella rapporto di Poisson:</string>
-    <string name="price_placeholder">---</string>
+    <string name="price_placeholder">Prezzo</string>
     <string name="pro_additional_sync">Sincronizzazione per note e progressi</string>
     <string name="pro_additional_sync_descr">Abilita la sincronizzazione per note e progressi per facilitare i tuoi studi su tutti i tuoi dispositivi</string>
     <string name="pro_features_table_description">Nella seguente tabella sono dettagliate le funzionalità incluse nelle versioni GRATUITA, PRO e PRO+:</string>
@@ -615,4 +616,17 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="share_app_description">Se trovi l\'app utile, condividila con i tuoi amici e altri!</string>
     <string name="sync_data">Sincronizza dati:</string>
     <string name="young_bulk_shear_modulus">Modulo di Young, di compressione e di taglio:</string>
-</resources>
+<string name="intro_welcome_title">Benvenuto in Atomic</string>
+    <string name="intro_welcome_description">Il tuo riferimento completo della tavola periodica con informazioni dettagliate sugli elementi, strumenti interattivi e funzionalità di apprendimento.</string>
+    <string name="intro_flashcards_title">Impara con le Flashcard</string>
+    <string name="intro_flashcards_description">Padroneggia la tavola periodica con flashcard interattive. Metti alla prova la tua conoscenza di simboli degli elementi, masse atomiche e proprietà chimiche.</string>
+    <string name="intro_calculator_title">Calcolatore di Massa Molare</string>
+    <string name="intro_calculator_description">Calcola le masse molari dei composti chimici in modo rapido e accurato. Perfetto per studenti e professionisti di chimica.</string>
+    <string name="intro_pro_title">Sblocca Funzionalità PRO</string>
+    <string name="intro_pro_description">Ottieni l'accesso a dati aggiuntivi, tabelle avanzate, calcolatori migliorati e funzionalità esclusive con la versione PRO.</string>
+    <string name="intro_next">Avanti</string>
+    <string name="intro_skip">Salta</string>
+    <string name="intro_finish">Inizia</string>
+    <string name="intro_image_description">Immagine di introduzione</string>
+    <string name="electron_affinity_colon">Affinità Elettronica:</string>
+    </resources>
