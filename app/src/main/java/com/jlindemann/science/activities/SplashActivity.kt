@@ -49,7 +49,17 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun proceedToMain() {
-        val intent = Intent(this, MainActivity::class.java)
+        val prefs = getSharedPreferences("app_prefs", MODE_PRIVATE)
+        val hasRequestedPermission = prefs.getBoolean("notification_permission_requested", false)
+        val hasShownIntroduction = prefs.getBoolean("introduction_shown", false)
+        
+        // Show introduction only after notification permission has been requested
+        // and if introduction hasn't been shown before
+        val intent = if (hasRequestedPermission && !hasShownIntroduction) {
+            Intent(this, IntroductionActivity::class.java)
+        } else {
+            Intent(this, MainActivity::class.java)
+        }
         startActivity(intent)
         finish()
     }
