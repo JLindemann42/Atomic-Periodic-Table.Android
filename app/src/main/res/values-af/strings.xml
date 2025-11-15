@@ -616,4 +616,16 @@ Jy sal %3$d lewe%4$s kry.</string>
     <string name="share_app_description">As jy die toep nuttig vind, deel dit asseblief met jou vriende en ander!</string>
     <string name="sync_data">Sinchroniseer data:</string>
     <string name="young_bulk_shear_modulus">Young-, bulk-, skuifmodulus:</string>
-</resources>
+<string name="intro_welcome_title">Welkom by Atomic</string>
+    <string name="intro_welcome_description">Jou omvattende periodieke tabel-verwysing met gedetailleerde elementinligting, interaktiewe gereedskap en leerfunksies.</string>
+    <string name="intro_flashcards_title">Leer met Flitskaarte</string>
+    <string name="intro_flashcards_description">Bemeester die periodieke tabel met interaktiewe flitskaarte. Toets jou kennis van elementsimbole, atoommassas en chemiese eienskappe.</string>
+    <string name="intro_calculator_title">Molêre Massa-sakrekenaar</string>
+    <string name="intro_calculator_description">Bereken molêre massas van chemiese verbindings vinnig en akkuraat. Perfek vir chemiese studente en professionele persone.</string>
+    <string name="intro_pro_title">Ontsluit PRO-funksies</string>
+    <string name="intro_pro_description">Kry toegang tot bykomende data, gevorderde tabelle, verbeterde sakrekenaars en eksklusiewe funksies met die PRO-weergawe.</string>
+    <string name="intro_next">Volgende</string>
+    <string name="intro_skip">Slaan oor</string>
+    <string name="intro_finish">Begin</string>
+    <string name="intro_image_description">Inleidingsbeeld</string>
+    </resources>

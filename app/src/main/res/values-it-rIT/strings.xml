@@ -616,4 +616,16 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="share_app_description">Se trovi l\'app utile, condividila con i tuoi amici e altri!</string>
     <string name="sync_data">Sincronizza dati:</string>
     <string name="young_bulk_shear_modulus">Modulo di Young, di compressione e di taglio:</string>
-</resources>
+<string name="intro_welcome_title">Benvenuto in Atomic</string>
+    <string name="intro_welcome_description">Il tuo riferimento completo della tavola periodica con informazioni dettagliate sugli elementi, strumenti interattivi e funzionalità di apprendimento.</string>
+    <string name="intro_flashcards_title">Impara con le Flashcard</string>
+    <string name="intro_flashcards_description">Padroneggia la tavola periodica con flashcard interattive. Metti alla prova la tua conoscenza di simboli degli elementi, masse atomiche e proprietà chimiche.</string>
+    <string name="intro_calculator_title">Calcolatore di Massa Molare</string>
+    <string name="intro_calculator_description">Calcola le masse molari dei composti chimici in modo rapido e accurato. Perfetto per studenti e professionisti di chimica.</string>
+    <string name="intro_pro_title">Sblocca Funzionalità PRO</string>
+    <string name="intro_pro_description">Ottieni l'accesso a dati aggiuntivi, tabelle avanzate, calcolatori migliorati e funzionalità esclusive con la versione PRO.</string>
+    <string name="intro_next">Avanti</string>
+    <string name="intro_skip">Salta</string>
+    <string name="intro_finish">Inizia</string>
+    <string name="intro_image_description">Immagine di introduzione</string>
+    </resources>

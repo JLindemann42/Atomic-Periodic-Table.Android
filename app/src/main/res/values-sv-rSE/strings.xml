@@ -620,4 +620,16 @@ Du får %3$d liv%4$s.</string>
     <string name="share_app_description">Om du tycker att appen är användbar, dela den med dina vänner och andra!</string>
     <string name="sync_data">Synkronisera data:</string>
     <string name="young_bulk_shear_modulus">Youngs modul, bulkmodul, skjuvmodul:</string>
-</resources>
+<string name="intro_welcome_title">Välkommen till Atomic</string>
+    <string name="intro_welcome_description">Din omfattande referens för det periodiska systemet med detaljerad elementinformation, interaktiva verktyg och inlärningsfunktioner.</string>
+    <string name="intro_flashcards_title">Lär dig med Flashkort</string>
+    <string name="intro_flashcards_description">Bemästra det periodiska systemet med interaktiva flashkort. Testa din kunskap om elementsymboler, atommassa och kemiska egenskaper.</string>
+    <string name="intro_calculator_title">Molmassa-kalkylator</string>
+    <string name="intro_calculator_description">Beräkna molmassor av kemiska föreningar snabbt och noggrant. Perfekt för kemistuderande och yrkesverksamma.</string>
+    <string name="intro_pro_title">Lås upp PRO-funktioner</string>
+    <string name="intro_pro_description">Få tillgång till ytterligare data, avancerade tabeller, förbättrade kalkylatorer och exklusiva funktioner med PRO-versionen.</string>
+    <string name="intro_next">Nästa</string>
+    <string name="intro_skip">Hoppa över</string>
+    <string name="intro_finish">Kom igång</string>
+    <string name="intro_image_description">Introduktionsbild</string>
+    </resources>

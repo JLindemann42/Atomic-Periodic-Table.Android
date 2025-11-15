@@ -617,4 +617,16 @@ Makakakuha ka ng %3$d buhay%4$s.</string>
     <string name="share_app_description">Kung nakakatulong sa iyo ang app, pakiusap ibahagi ito sa iyong mga kaibigan at iba pa!</string>
     <string name="sync_data">I-sync ang data:</string>
     <string name="young_bulk_shear_modulus">Young, bulk, at shear modulus:</string>
-</resources>
+<string name="intro_welcome_title">Maligayang pagdating sa Atomic</string>
+    <string name="intro_welcome_description">Ang iyong komprehensibong sanggunian sa periodic table na may detalyadong impormasyon ng elemento, interactive na mga tool, at mga feature sa pag-aaral.</string>
+    <string name="intro_flashcards_title">Matuto gamit ang Flashcards</string>
+    <string name="intro_flashcards_description">Matutunan ang periodic table gamit ang interactive na flashcards. Subukan ang iyong kaalaman sa mga simbolo ng elemento, atomic mass, at chemical properties.</string>
+    <string name="intro_calculator_title">Molar Mass Calculator</string>
+    <string name="intro_calculator_description">Kalkulahin ang molar mass ng mga chemical compound nang mabilis at tumpak. Perpekto para sa mga estudyante at propesyonal sa chemistry.</string>
+    <string name="intro_pro_title">I-unlock ang PRO Features</string>
+    <string name="intro_pro_description">Makakuha ng access sa karagdagang data, advanced na tables, enhanced na calculators, at eksklusibong features sa PRO version.</string>
+    <string name="intro_next">Susunod</string>
+    <string name="intro_skip">Laktawan</string>
+    <string name="intro_finish">Magsimula</string>
+    <string name="intro_image_description">Larawan ng pagpapakilala</string>
+    </resources>

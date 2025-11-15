@@ -619,4 +619,16 @@
     <string name="share_app_description">यदि आपको ऐप उपयोगी लगता है, तो कृपया इसे अपने मित्रों और अन्य लोगों के साथ साझा करें!</string>
     <string name="sync_data">डेटा सिंक करें:</string>
     <string name="young_bulk_shear_modulus">यंग मॉड्यूलस, बल्क मॉड्यूलस, शियर मॉड्यूलस:</string>
-</resources>
+<string name="intro_welcome_title">Atomic में आपका स्वागत है</string>
+    <string name="intro_welcome_description">विस्तृत तत्व जानकारी, इंटरैक्टिव टूल्स और सीखने की सुविधाओं के साथ आपका व्यापक आवर्त सारणी संदर्भ।</string>
+    <string name="intro_flashcards_title">फ्लैशकार्ड से सीखें</string>
+    <string name="intro_flashcards_description">इंटरैक्टिव फ्लैशकार्ड के साथ आवर्त सारणी में महारत हासिल करें। तत्व प्रतीकों, परमाणु द्रव्यमान और रासायनिक गुणों के अपने ज्ञान का परीक्षण करें।</string>
+    <string name="intro_calculator_title">मोलर द्रव्यमान कैलकुलेटर</string>
+    <string name="intro_calculator_description">रासायनिक यौगिकों के मोलर द्रव्यमान की तेजी से और सटीक गणना करें। रसायन विज्ञान के छात्रों और पेशेवरों के लिए एकदम सही।</string>
+    <string name="intro_pro_title">PRO सुविधाएं अनलॉक करें</string>
+    <string name="intro_pro_description">PRO संस्करण के साथ अतिरिक्त डेटा, उन्नत तालिकाओं, बेहतर कैलकुलेटर और विशेष सुविधाओं तक पहुंच प्राप्त करें।</string>
+    <string name="intro_next">अगला</string>
+    <string name="intro_skip">छोड़ें</string>
+    <string name="intro_finish">शुरू करें</string>
+    <string name="intro_image_description">परिचय चित्र</string>
+    </resources>

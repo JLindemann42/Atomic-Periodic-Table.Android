@@ -620,4 +620,16 @@ Você ganhará %3$d vida%4$s.</string>
     <string name="share_app_description">Se você achar o app útil, compartilhe com seus amigos e outros!</string>
     <string name="sync_data">Sincronizar dados:</string>
     <string name="young_bulk_shear_modulus">Módulo de Young, de compressão e de cisalhamento:</string>
-</resources>
+<string name="intro_welcome_title">Bem-vindo ao Atomic</string>
+    <string name="intro_welcome_description">Sua referência completa da tabela periódica com informações detalhadas sobre elementos, ferramentas interativas e recursos de aprendizado.</string>
+    <string name="intro_flashcards_title">Aprenda com Flashcards</string>
+    <string name="intro_flashcards_description">Domine a tabela periódica com flashcards interativos. Teste seu conhecimento sobre símbolos de elementos, massas atômicas e propriedades químicas.</string>
+    <string name="intro_calculator_title">Calculadora de Massa Molar</string>
+    <string name="intro_calculator_description">Calcule massas molares de compostos químicos de forma rápida e precisa. Perfeito para estudantes e profissionais de química.</string>
+    <string name="intro_pro_title">Desbloqueie Recursos PRO</string>
+    <string name="intro_pro_description">Obtenha acesso a dados adicionais, tabelas avançadas, calculadoras aprimoradas e recursos exclusivos com a versão PRO.</string>
+    <string name="intro_next">Próximo</string>
+    <string name="intro_skip">Pular</string>
+    <string name="intro_finish">Começar</string>
+    <string name="intro_image_description">Imagem de introdução</string>
+    </resources>

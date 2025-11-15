@@ -616,4 +616,16 @@
     <string name="share_app_description">اگر آپ کو ایپ مفید لگتی ہے تو براہ کرم اسے اپنے دوستوں اور دوسروں کے ساتھ شیئر کریں!</string>
     <string name="sync_data">ڈیٹا ہم آہنگ کریں:</string>
     <string name="young_bulk_shear_modulus">ینگ ماڈیولس، بلک ماڈیولس، شیئر ماڈیولس:</string>
-</resources>
+<string name="intro_welcome_title">Atomic میں خوش آمدید</string>
+    <string name="intro_welcome_description">تفصیلی عنصر کی معلومات، انٹرایکٹو ٹولز اور سیکھنے کی خصوصیات کے ساتھ آپ کا جامع متواتر جدول حوالہ۔</string>
+    <string name="intro_flashcards_title">فلیش کارڈز کے ساتھ سیکھیں</string>
+    <string name="intro_flashcards_description">انٹرایکٹو فلیش کارڈز کے ساتھ متواتر جدول میں مہارت حاصل کریں۔ عنصر کی علامات، جوہری وزن اور کیمیائی خصوصیات کے بارے میں اپنے علم کا امتحان لیں۔</string>
+    <string name="intro_calculator_title">مولر ماس کیلکولیٹر</string>
+    <string name="intro_calculator_description">کیمیائی مرکبات کے مولر ماس کو تیزی سے اور درست طریقے سے شمار کریں۔ کیمسٹری کے طلباء اور پیشہ ور افراد کے لیے بہترین۔</string>
+    <string name="intro_pro_title">PRO خصوصیات کھولیں</string>
+    <string name="intro_pro_description">PRO ورژن کے ساتھ اضافی ڈیٹا، جدید ٹیبلز، بہتر کیلکولیٹرز اور خصوصی خصوصیات تک رسائی حاصل کریں۔</string>
+    <string name="intro_next">اگلا</string>
+    <string name="intro_skip">چھوڑیں</string>
+    <string name="intro_finish">شروع کریں</string>
+    <string name="intro_image_description">تعارفی تصویر</string>
+    </resources>

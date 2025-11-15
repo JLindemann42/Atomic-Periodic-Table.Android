@@ -622,4 +622,16 @@ I：不溶"</string>
     <string name="share_app_description">如果您觉得这个应用有用，请与您的朋友和其他人分享！</string>
     <string name="sync_data">同步数据：</string>
     <string name="young_bulk_shear_modulus">杨氏模量、体积模量、剪切模量：</string>
-</resources>
+<string name="intro_welcome_title">欢迎使用 Atomic</string>
+    <string name="intro_welcome_description">您的综合元素周期表参考，包含详细的元素信息、交互式工具和学习功能。</string>
+    <string name="intro_flashcards_title">使用闪卡学习</string>
+    <string name="intro_flashcards_description">通过交互式闪卡掌握元素周期表。测试您对元素符号、原子质量和化学性质的了解。</string>
+    <string name="intro_calculator_title">摩尔质量计算器</string>
+    <string name="intro_calculator_description">快速准确地计算化合物的摩尔质量。非常适合化学专业的学生和专业人士。</string>
+    <string name="intro_pro_title">解锁 PRO 功能</string>
+    <string name="intro_pro_description">使用 PRO 版本访问额外数据、高级表格、增强型计算器和独家功能。</string>
+    <string name="intro_next">下一步</string>
+    <string name="intro_skip">跳过</string>
+    <string name="intro_finish">开始使用</string>
+    <string name="intro_image_description">介绍图片</string>
+    </resources>

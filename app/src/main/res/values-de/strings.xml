@@ -620,4 +620,16 @@ Sie erhalten %3$d Leben%4$s.</string>
     <string name="share_app_description">Wenn Sie die App nützlich finden, teilen Sie sie bitte mit Ihren Freunden und anderen!</string>
     <string name="sync_data">Daten synchronisieren:</string>
     <string name="young_bulk_shear_modulus">Young-, Kompressions-, Schermodul:</string>
-</resources>
+<string name="intro_welcome_title">Willkommen bei Atomic</string>
+    <string name="intro_welcome_description">Ihre umfassende Periodensystem-Referenz mit detaillierten Elementinformationen, interaktiven Tools und Lernfunktionen.</string>
+    <string name="intro_flashcards_title">Lernen mit Lernkarten</string>
+    <string name="intro_flashcards_description">Meistern Sie das Periodensystem mit interaktiven Lernkarten. Testen Sie Ihr Wissen über Elementsymbole, Atommassen und chemische Eigenschaften.</string>
+    <string name="intro_calculator_title">Molmassen-Rechner</string>
+    <string name="intro_calculator_description">Berechnen Sie Molmassen chemischer Verbindungen schnell und genau. Perfekt für Chemiestudenten und Fachleute.</string>
+    <string name="intro_pro_title">PRO-Funktionen freischalten</string>
+    <string name="intro_pro_description">Erhalten Sie Zugriff auf zusätzliche Daten, erweiterte Tabellen, verbesserte Rechner und exklusive Funktionen mit der PRO-Version.</string>
+    <string name="intro_next">Weiter</string>
+    <string name="intro_skip">Überspringen</string>
+    <string name="intro_finish">Loslegen</string>
+    <string name="intro_image_description">Einführungsbild</string>
+    </resources>
