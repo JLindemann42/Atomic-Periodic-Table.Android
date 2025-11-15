@@ -199,5 +199,155 @@
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/thermal_conductivity_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/thermal_conductivity_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/thermal_conductivity_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="thermal_conductivity_text"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/thermal_expansion_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/thermal_expansion_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/thermal_expansion_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="thermal_expansion_text"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/molar_heat_capacity_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/molar_heat_capacity_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/molar_heat_capacity_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="molar_heat_capacity_text"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/molar_volume_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/molar_volume_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/molar_volume_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="molar_volume_text"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list_bottom"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/electron_affinity_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/electron_affinity_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/electron_affinity_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="electron_affinity_text"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
