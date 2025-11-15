@@ -175,6 +175,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.tools.IdealGasCalculatorActivity"
+            android:label="IDEALGASCALCULATORPAGE"
+            android:exported="true"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".activities.tables.DictionaryActivity"
             android:label="DICTIONARYPAGE"
             android:exported="true"

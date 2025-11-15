@@ -14,6 +14,7 @@ import com.jlindemann.science.R
 import com.jlindemann.science.activities.tools.CalculatorActivity
 import com.jlindemann.science.activities.tools.ChemicalReactionsActivity
 import com.jlindemann.science.activities.tools.FlashCardActivity
+import com.jlindemann.science.activities.tools.IdealGasCalculatorActivity
 import com.jlindemann.science.activities.tools.TitleBarAnimator
 import com.jlindemann.science.activities.tools.UnitConversionActivity
 import com.jlindemann.science.preferences.MostUsedToolPreference
@@ -115,6 +116,7 @@ class ToolsActivity : BaseActivity() {
                     "cal" -> textViewList[index].text = getString(R.string.cal)
                     "uni" -> textViewList[index].text = getString(R.string.uni)
                     "fla" -> textViewList[index].text = getString(R.string.fla)
+                    "gas" -> textViewList[index].text = getString(R.string.gas)
                 }
 
                 textViewList[index].setOnClickListener {
@@ -122,6 +124,7 @@ class ToolsActivity : BaseActivity() {
                         "cal" -> CalculatorActivity::class.java
                         "uni" -> UnitConversionActivity::class.java
                         "fla" -> FlashCardActivity::class.java
+                        "gas" -> IdealGasCalculatorActivity::class.java
                         else -> null
                     }
                     activity?.let {
@@ -161,6 +164,16 @@ class ToolsActivity : BaseActivity() {
         }
         findViewById<TextView>(R.id.flashcards_btn).setOnClickListener {
             val intent = Intent(this, FlashCardActivity::class.java)
+            startActivity(intent)
+        }
+
+        //Ideal Gas Calculator
+        findViewById<FrameLayout>(R.id.tool_ideal_gas_calculator).setOnClickListener {
+            val intent = Intent(this, IdealGasCalculatorActivity::class.java)
+            startActivity(intent)
+        }
+        findViewById<TextView>(R.id.ideal_gas_calculator_btn).setOnClickListener {
+            val intent = Intent(this, IdealGasCalculatorActivity::class.java)
             startActivity(intent)
         }
 

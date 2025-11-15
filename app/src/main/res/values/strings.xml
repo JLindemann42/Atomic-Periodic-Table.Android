@@ -792,6 +792,21 @@
     <string name="abundance_meteorites">In meteorites</string>
     <string name="abundance_human_body">In human body</string>
 
+    <!-- Ideal Gas Calculator Activity -->
+    <string name="ideal_gas_calculator_title">Ideal Gas Calculator</string>
+    <string name="ideal_gas_card_title">Ideal Gas Law Calculator (PV=nRT):</string>
+    <string name="ideal_gas_calculate_field">Calculate:</string>
+    <string name="ideal_gas_pressure">Pressure (P):</string>
+    <string name="ideal_gas_pressure_hint">Enter pressure</string>
+    <string name="ideal_gas_volume">Volume (V):</string>
+    <string name="ideal_gas_volume_hint">Enter volume</string>
+    <string name="ideal_gas_moles">Moles (n):</string>
+    <string name="ideal_gas_moles_hint">Enter moles</string>
+    <string name="ideal_gas_temperature">Temperature (T):</string>
+    <string name="ideal_gas_temperature_hint">Enter temperature</string>
+    <string name="ideal_gas_result">Result:</string>
+    <string name="ideal_gas_text">Calculate ideal gas properties using the ideal gas law equation PV=nRT. Choose which variable to calculate and enter the other three values.</string>
+    <string name="gas">Ideal Gas Calculator</string>
 
 
 </resources>
