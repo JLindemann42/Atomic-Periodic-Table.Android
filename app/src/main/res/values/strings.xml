@@ -771,6 +771,7 @@
     <string name="intro_finish">Get Started</string>
     <string name="intro_image_description">Introduction image</string>
     <string name="back">Back</string>
+    <string name="feature_check">Feature included</string>
 
 </resources>
 
