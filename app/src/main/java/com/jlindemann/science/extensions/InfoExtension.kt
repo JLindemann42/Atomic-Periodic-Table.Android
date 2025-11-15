@@ -223,6 +223,22 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         val specificHazard = jsonObject.optString("special", "---")
         val casNumber = jsonObject.optString("cas_number", "---")
         val egNumber = jsonObject.optString("eg_number", "---")
+        
+        // New properties from enhancement
+        val thermalConductivity = jsonObject.optString("thermal_conductivity", "---")
+        val electronAffinity = jsonObject.optString("electron_affinity", "---")
+        val molarHeatCapacity = jsonObject.optString("molar_heat_capacity", "---")
+        val molarVolume = jsonObject.optString("molar_volume", "---")
+        val thermalExpansion = jsonObject.optString("thermal_expansion", "---")
+        val electronegativityAllen = jsonObject.optString("electronegativity_allen", "---")
+        val workFunction = jsonObject.optString("work_function", "---")
+        val spaceGroupName = jsonObject.optString("space_group_name", "---")
+        val spaceGroupNumber = jsonObject.optString("space_group_number", "---")
+        val refractiveIndex = jsonObject.optString("refractive_index", "---")
+        val curiePoint = jsonObject.optString("curie_point", "---")
+        val neelPoint = jsonObject.optString("neel_point", "---")
+        val abundanceMeteorites = jsonObject.optString("meteorites", "N/A") + " mg/kg"
+        val abundanceHumanBody = jsonObject.optString("human_body", "N/A")
 
         findViewById<TextView>(R.id.element_resistivity).text = resistivity
 
@@ -262,6 +278,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.element_boiling_celsius).text = elementBoilingCelsius
         findViewById<TextView>(R.id.element_boiling_fahrenheit).text = elementBoilingFahrenheit
         findViewById<TextView>(R.id.element_electronegativty).text = elementElectronegativity
+        findViewById<TextView>(R.id.element_electronegativty_allen).text = electronegativityAllen
         findViewById<TextView>(R.id.element_melting_kelvin).text = elementMeltingKelvin
         findViewById<TextView>(R.id.element_melting_celsius).text = elementMeltingCelsius
         findViewById<TextView>(R.id.element_melting_fahrenheit).text = elementMeltingFahrenheit
@@ -325,6 +342,11 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.fusion_heat_text).text = fusionHeat
         findViewById<TextView>(R.id.specific_heat_text).text = specificHeatCapacity
         findViewById<TextView>(R.id.vaporization_heat_text).text = vaporizationHeat
+        findViewById<TextView>(R.id.thermal_conductivity_text).text = thermalConductivity
+        findViewById<TextView>(R.id.thermal_expansion_text).text = thermalExpansion
+        findViewById<TextView>(R.id.molar_heat_capacity_text).text = molarHeatCapacity
+        findViewById<TextView>(R.id.molar_volume_text).text = molarVolume
+        findViewById<TextView>(R.id.electron_affinity_text).text = electronAffinity
 
         findViewById<TextView>(R.id.electron_config_text).text = formatSuperscript(electronConfig)
         findViewById<TextView>(R.id.ion_charge_text).text = formatSuperscript(ionCharge)
@@ -402,6 +424,9 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         // Electromagnetic Properties
         findViewById<TextView>(R.id.element_electrical_type).text = electricalType
         findViewById<TextView>(R.id.element_magnetic_type).text = magneticType
+        findViewById<TextView>(R.id.element_work_function).text = workFunction
+        findViewById<TextView>(R.id.element_curie_point).text = if (curiePoint != "---") "$curiePoint (K)" else "---"
+        findViewById<TextView>(R.id.element_neel_point).text = if (neelPoint != "---") "$neelPoint (K)" else "---"
         findViewById<TextView>(R.id.element_superconducting_point).text = "$superconductingPoint (K)"
 
         val phaseIconView = findViewById<ImageView>(R.id.phase_icon)
@@ -460,6 +485,8 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.abundance_sea_water_text).text = formatSuperscript(abundanceSeaWater)
         findViewById<TextView>(R.id.abundance_sun_text).text = formatSuperscript(abundanceSun)
         findViewById<TextView>(R.id.abundance_solar_system_text).text = formatSuperscript(abundanceSolarSystem)
+        findViewById<TextView>(R.id.abundance_meteorites_text).text = formatSuperscript(abundanceMeteorites)
+        findViewById<TextView>(R.id.abundance_human_body_text).text = formatSuperscript(abundanceHumanBody)
 
         // Grid Parameters:
         val crystalStructure = jsonObject.optString("crystal_structure", "null")
@@ -483,6 +510,11 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
             }
         }.trim()
         findViewById<TextView>(R.id.grid_parameters_text).text = if (latticeString.isNotEmpty()) latticeString else "---"
+        
+        // Space group and refractive index
+        findViewById<TextView>(R.id.space_group_name_text).text = spaceGroupName
+        findViewById<TextView>(R.id.space_group_number_text).text = spaceGroupNumber
+        findViewById<TextView>(R.id.refractive_index_text).text = refractiveIndex
 
         // Debye temperature handling
         val debye = jsonObject.opt("debye_temperature")

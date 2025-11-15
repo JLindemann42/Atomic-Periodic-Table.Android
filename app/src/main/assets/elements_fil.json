@@ -315,7 +315,21 @@
     "debye_temperature": {
       "low_temperature_limit": "165 K",
       "room_temperature": "145 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "aluminium": {
     "element_code": "AARm69iPnAYJfUjTZZZ",
@@ -559,7 +573,21 @@
     "debye_temperature": {
       "low_temperature_limit": "428 K",
       "room_temperature": "390 K"
-    }
+    },
+    "thermal_conductivity": "237 W/(m·K)",
+    "electron_affinity": "42.5 kJ/mol",
+    "molar_heat_capacity": "24.200 J/(mol·K)",
+    "molar_volume": "10.00 cm³/mol",
+    "thermal_expansion": "23.1 µm/(m·K)",
+    "electronegativity_allen": "1.613",
+    "work_function": "4.28 eV",
+    "space_group_name": "Fm-3m",
+    "space_group_number": "225",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "8400 mg/kg",
+    "human_body": "0.0009 mg/kg"
   },
   "americium": {
     "element_code": "AAWUGDQeLFqtTbTATZZ",
@@ -734,7 +762,21 @@
     "debye_temperature": {
       "low_temperature_limit": "110 K",
       "room_temperature": "100 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "antimony": {
     "element_code": "AAUVJaTFQoH8twbSAZZ",
@@ -1087,7 +1129,21 @@
     "debye_temperature": {
       "low_temperature_limit": "210 K",
       "room_temperature": "190 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "argon": {
     "element_code": "AAhUB6AovxqoGSxkaZZ",
@@ -1349,7 +1405,21 @@
     "debye_temperature": {
       "low_temperature_limit": "85 K",
       "room_temperature": "80 K"
-    }
+    },
+    "thermal_conductivity": "0.01772 W/(m·K)",
+    "electron_affinity": "0 kJ/mol",
+    "molar_heat_capacity": "20.786 J/(mol·K)",
+    "molar_volume": "22.56 cm³/mol",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "3.242",
+    "work_function": "---",
+    "space_group_name": "Fm-3m",
+    "space_group_number": "225",
+    "refractive_index": "1.000281",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "arsenic": {
     "element_code": "AAufZVwYGt79SNCZxZZ",
@@ -1660,7 +1730,21 @@
     "debye_temperature": {
       "low_temperature_limit": "278 K",
       "room_temperature": "250 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "astatine": {
     "element_code": "AARsuunotxAXKMWbjZZ",
@@ -1987,7 +2071,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "barium": {
     "element_code": "AAR7rfVRWwrRCSSNkZZ",
@@ -2326,7 +2424,21 @@
     "debye_temperature": {
       "low_temperature_limit": "110 K",
       "room_temperature": "95 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "berkelium": {
     "element_code": "AALZV3J3DfxN8rXmUZZ",
@@ -2410,7 +2522,21 @@
     "debye_temperature": {
       "low_temperature_limit": "110 K",
       "room_temperature": "100 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "beryllium": {
     "element_code": "AASYq7LuV5KCyFBQvZZ",
@@ -2566,7 +2692,21 @@
       "a": "2.286 Å",
       "c": "3.583 Å"
     },
-    "debye_temperature": "1440 K"
+    "debye_temperature": "1440 K",
+    "thermal_conductivity": "200 W/(m·K)",
+    "electron_affinity": "0 kJ/mol",
+    "molar_heat_capacity": "16.443 J/(mol·K)",
+    "molar_volume": "4.85 cm³/mol",
+    "thermal_expansion": "11.3 µm/(m·K)",
+    "electronegativity_allen": "1.576",
+    "work_function": "4.98 eV",
+    "space_group_name": "P6₃/mmc",
+    "space_group_number": "194",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "0.029 mg/kg",
+    "human_body": "0.00004 mg/kg"
   },
   "bismuth": {
     "element_code": "AAmBg7VEP8HrfnHoTZZ",
@@ -2926,7 +3066,21 @@
     "debye_temperature": {
       "low_temperature_limit": "119 K",
       "room_temperature": "110 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "bohrium": {
     "element_code": "AATuyDzm8GSteCT4mZZ",
@@ -2988,7 +3142,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "boron": {
     "element_code": "AAs4R6DppmKvSKVbBZZ",
@@ -3176,7 +3344,21 @@
     "debye_temperature": {
       "low_temperature_limit": "1250 K",
       "room_temperature": "1160 K"
-    }
+    },
+    "thermal_conductivity": "27 W/(m·K)",
+    "electron_affinity": "26.7 kJ/mol",
+    "molar_heat_capacity": "11.087 J/(mol·K)",
+    "molar_volume": "4.39 cm³/mol",
+    "thermal_expansion": "5 µm/(m·K)",
+    "electronegativity_allen": "2.051",
+    "work_function": "4.45 eV",
+    "space_group_name": "R-3m",
+    "space_group_number": "166",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "0.87 mg/kg",
+    "human_body": "0.7 mg/kg"
   },
   "bromine": {
     "element_code": "AAXazmFKGVdSh59qtZZ",
@@ -3485,7 +3667,21 @@
     "debye_temperature": {
       "low_temperature_limit": "80 K",
       "room_temperature": "75 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "cadmium": {
     "element_code": "AAK9hkQbjVkfnZYaXZZ",
@@ -3825,7 +4021,21 @@
     "debye_temperature": {
       "low_temperature_limit": "209 K",
       "room_temperature": "195 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "caesium": {
     "element_code": "AANvodbURvuFEv2jtZZ",
@@ -4171,7 +4381,21 @@
     "debye_temperature": {
       "low_temperature_limit": "38 K",
       "room_temperature": "35 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "calcium": {
     "element_code": "AAKNwwnwekZqWbBHLZZ",
@@ -4472,7 +4696,21 @@
     "debye_temperature": {
       "low_temperature_limit": "230 K",
       "room_temperature": "210 K"
-    }
+    },
+    "thermal_conductivity": "201 W/(m·K)",
+    "electron_affinity": "2.37 kJ/mol",
+    "molar_heat_capacity": "25.929 J/(mol·K)",
+    "molar_volume": "26.20 cm³/mol",
+    "thermal_expansion": "22.3 µm/(m·K)",
+    "electronegativity_allen": "1.034",
+    "work_function": "2.87 eV",
+    "space_group_name": "Fm-3m",
+    "space_group_number": "225",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "13000 mg/kg",
+    "human_body": "1.5% (by mass)"
   },
   "californium": {
     "element_code": "AAemL6grnPpqsFWg6ZZ",
@@ -4562,7 +4800,21 @@
     "debye_temperature": {
       "low_temperature_limit": "110 K",
       "room_temperature": "100 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "carbon": {
     "element_code": "AA28a4iJUA6QdGtoJZZ",
@@ -4745,7 +4997,21 @@
     "debye_temperature": {
       "low_temperature_limit": "1860 K",
       "room_temperature": "1700 K"
-    }
+    },
+    "thermal_conductivity": "140 W/(m·K) [graphite]",
+    "electron_affinity": "121.8 kJ/mol",
+    "molar_heat_capacity": "8.517 J/(mol·K)",
+    "molar_volume": "5.29 cm³/mol",
+    "thermal_expansion": "7.1 µm/(m·K)",
+    "electronegativity_allen": "2.544",
+    "work_function": "5.0 eV",
+    "space_group_name": "P6₃/mmc [graphite]",
+    "space_group_number": "194",
+    "refractive_index": "2.417 [diamond]",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "15000 mg/kg",
+    "human_body": "18% (by mass)"
   },
   "cerium": {
     "element_code": "AABKoXnZiuBC5xiJTZZ",
@@ -5098,7 +5364,21 @@
     "debye_temperature": {
       "low_temperature_limit": "116 K",
       "room_temperature": "105 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "chlorine": {
     "element_code": "AAFveN3bseA4tFy9MZZ",
@@ -5356,7 +5636,21 @@
     "debye_temperature": {
       "low_temperature_limit": "81 K",
       "room_temperature": "75 K"
-    }
+    },
+    "thermal_conductivity": "0.0089 W/(m·K)",
+    "electron_affinity": "349 kJ/mol",
+    "molar_heat_capacity": "33.949 J/(mol·K)",
+    "molar_volume": "17.39 cm³/mol",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "2.869",
+    "work_function": "---",
+    "space_group_name": "Cmca",
+    "space_group_number": "64",
+    "refractive_index": "1.000773",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "700 mg/kg",
+    "human_body": "0.15% (by mass)"
   },
   "chromium": {
     "element_code": "AAWtuBh3FmSYC6TNyZZ",
@@ -5667,7 +5961,21 @@
     "debye_temperature": {
       "low_temperature_limit": "630 K",
       "room_temperature": "600 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "cobalt": {
     "element_code": "AAPRuxeuZUdESLxBqZZ",
@@ -5993,7 +6301,21 @@
     "debye_temperature": {
       "low_temperature_limit": "445 K",
       "room_temperature": "385 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "copernicium": {
     "element_code": "AAJNC8iyDdbdrJBrBZZ",
@@ -6054,7 +6376,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "copper": {
     "element_code": "AAPw7uHWJUZxYMGoeZZ",
@@ -6391,7 +6727,21 @@
     "debye_temperature": {
       "low_temperature_limit": "343 K",
       "room_temperature": "315 K"
-    }
+    },
+    "thermal_conductivity": "401 W/(m·K)",
+    "electron_affinity": "118.4 kJ/mol",
+    "molar_heat_capacity": "24.440 J/(mol·K)",
+    "molar_volume": "7.11 cm³/mol",
+    "thermal_expansion": "16.5 µm/(m·K)",
+    "electronegativity_allen": "1.850",
+    "work_function": "4.65 eV",
+    "space_group_name": "Fm-3m",
+    "space_group_number": "225",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "80 mg/kg",
+    "human_body": "0.001 mg/kg"
   },
   "curium": {
     "element_code": "AA8T9m52bB3uAnKzNZZ",
@@ -6580,7 +6930,21 @@
     "debye_temperature": {
       "low_temperature_limit": "110 K",
       "room_temperature": "100 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "darmstadtium": {
     "element_code": "AAaWP86cLgNHovF6PZZ",
@@ -6641,7 +7005,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "dubnium": {
     "element_code": "AADRk5mxKFYeR4MxiZZ",
@@ -6701,7 +7079,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "dysprosium": {
     "element_code": "AAVir9ywTWMN8titkZZ",
@@ -7050,7 +7442,21 @@
     "debye_temperature": {
       "low_temperature_limit": "197 K",
       "room_temperature": "180 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "einsteinium": {
     "element_code": "AApVu8spXxx9x4YtpZZ",
@@ -7122,7 +7528,21 @@
     "debye_temperature": {
       "low_temperature_limit": "110 K",
       "room_temperature": "100 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "erbium": {
     "element_code": "AAvviBHBvNuSNEpJ8ZZ",
@@ -7441,7 +7861,21 @@
     "debye_temperature": {
       "low_temperature_limit": "200 K",
       "room_temperature": "180 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "europium": {
     "element_code": "AAwFvQNkgJiux3GRHZZ",
@@ -7779,7 +8213,21 @@
     "debye_temperature": {
       "low_temperature_limit": "160 K",
       "room_temperature": "140 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "fermium": {
     "element_code": "AASXuxJkWCcjJcAWkZZ",
@@ -7975,7 +8423,21 @@
     "debye_temperature": {
       "low_temperature_limit": "110 K",
       "room_temperature": "100 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "flerovium": {
     "element_code": "AAGvMTMUBNEGesi7wZZ",
@@ -8031,7 +8493,21 @@
     "iso_A_1": "--",
     "crystal_structure": null,
     "lattice_constants": null,
-    "debye_temperature": null
+    "debye_temperature": null,
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "fluorine": {
     "element_code": "AAygeqS98dB2SMxjqZZ",
@@ -8228,7 +8704,21 @@
     "debye_temperature": {
       "low_temperature_limit": "56 K",
       "room_temperature": "50 K"
-    }
+    },
+    "thermal_conductivity": "0.0277 W/(m·K)",
+    "electron_affinity": "328 kJ/mol",
+    "molar_heat_capacity": "31.304 J/(mol·K)",
+    "molar_volume": "11.2 cm³/mol",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "4.193",
+    "work_function": "---",
+    "space_group_name": "C2/c",
+    "space_group_number": "15",
+    "refractive_index": "1.000195",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "60 mg/kg",
+    "human_body": "0.0037 mg/kg"
   },
   "francium": {
     "element_code": "AAKYkS7Fo8EYzgH8pZZ",
@@ -8550,7 +9040,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "gadolinium": {
     "element_code": "AAkwhviu4kEBUZfnYZZ",
@@ -8864,7 +9368,21 @@
     "debye_temperature": {
       "low_temperature_limit": "197 K",
       "room_temperature": "180 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "gallium": {
     "element_code": "AABqC7oaryQjJNeW2ZZ",
@@ -9170,7 +9688,21 @@
     "debye_temperature": {
       "low_temperature_limit": "320 K",
       "room_temperature": "270 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "germanium": {
     "element_code": "AAcCPnLrLoncEmkirZZ",
@@ -9479,7 +10011,21 @@
     "debye_temperature": {
       "low_temperature_limit": "374 K",
       "room_temperature": "360 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "gold": {
     "element_code": "AAFTnYks3NBjqHcMqZZ",
@@ -9836,7 +10382,21 @@
     "debye_temperature": {
       "low_temperature_limit": "170 K",
       "room_temperature": "165 K"
-    }
+    },
+    "thermal_conductivity": "318 W/(m·K)",
+    "electron_affinity": "222.8 kJ/mol",
+    "molar_heat_capacity": "25.418 J/(mol·K)",
+    "molar_volume": "10.21 cm³/mol",
+    "thermal_expansion": "14.2 µm/(m·K)",
+    "electronegativity_allen": "2.586",
+    "work_function": "5.1 eV",
+    "space_group_name": "Fm-3m",
+    "space_group_number": "225",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "0.18 mg/kg",
+    "human_body": "0.0001 mg/kg"
   },
   "hafnium": {
     "element_code": "AAFsKkJcxivc83R2XZZ",
@@ -10192,7 +10752,21 @@
     "debye_temperature": {
       "low_temperature_limit": "252 K",
       "room_temperature": "230 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "hassium": {
     "element_code": "AASoCBrA26pm7vptSZZ",
@@ -10252,7 +10826,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "helium": {
     "element_code": "AA9i8GmaTr3EnXftzZZ",
@@ -10373,7 +10961,21 @@
     "debye_temperature": {
       "low_temperature_limit": "25 K",
       "room_temperature": "20 K"
-    }
+    },
+    "thermal_conductivity": "0.1513 W/(m·K)",
+    "electron_affinity": "0 kJ/mol",
+    "molar_heat_capacity": "20.786 J/(mol·K)",
+    "molar_volume": "27.2 cm³/mol",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "4.160",
+    "work_function": "---",
+    "space_group_name": "Fm-3m",
+    "space_group_number": "225",
+    "refractive_index": "1.000035",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "holmium": {
     "element_code": "AAKjMdiPDVNmX4JJXZZ",
@@ -10708,7 +11310,21 @@
     "debye_temperature": {
       "low_temperature_limit": "195 K",
       "room_temperature": "175 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "hydrogen": {
     "element_code": "AA4ZGoQoit6yL9Ui7ZZ",
@@ -10831,7 +11447,21 @@
     "debye_temperature": {
       "low_temperature_limit": "104 K",
       "room_temperature": "90 K"
-    }
+    },
+    "thermal_conductivity": "0.1805 W/(m·K)",
+    "electron_affinity": "72.8 kJ/mol",
+    "molar_heat_capacity": "28.836 J/(mol·K)",
+    "molar_volume": "11.42 cm³/mol",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "2.300",
+    "work_function": "---",
+    "space_group_name": "P6₃/mmc",
+    "space_group_number": "194",
+    "refractive_index": "1.000132",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "2400 mg/kg",
+    "human_body": "10% (by mass)"
   },
   "indium": {
     "element_code": "AANBVPnjhxFLa5WzFZZ",
@@ -11171,7 +11801,21 @@
     "debye_temperature": {
       "low_temperature_limit": "108 K",
       "room_temperature": "105 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "iodine": {
     "element_code": "AAcELg7gDqRkmv4wJZZ",
@@ -11495,7 +12139,21 @@
     "debye_temperature": {
       "low_temperature_limit": "165 K",
       "room_temperature": "150 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "iridium": {
     "element_code": "AATGC4aGnW59u9pLkZZ",
@@ -11847,7 +12505,21 @@
     "debye_temperature": {
       "low_temperature_limit": "420 K",
       "room_temperature": "420 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "iron": {
     "element_code": "AArLYPEnPgbP9SBGUZZ",
@@ -12167,7 +12839,21 @@
     "debye_temperature": {
       "low_temperature_limit": "470 K",
       "room_temperature": "420 K"
-    }
+    },
+    "thermal_conductivity": "80.4 W/(m·K)",
+    "electron_affinity": "15.7 kJ/mol",
+    "molar_heat_capacity": "25.10 J/(mol·K)",
+    "molar_volume": "7.09 cm³/mol",
+    "thermal_expansion": "11.8 µm/(m·K)",
+    "electronegativity_allen": "1.826",
+    "work_function": "4.67 eV",
+    "space_group_name": "Im-3m",
+    "space_group_number": "229",
+    "refractive_index": "---",
+    "curie_point": "1043 K",
+    "neel_point": "---",
+    "meteorites": "190000 mg/kg",
+    "human_body": "0.0042 mg/kg"
   },
   "krypton": {
     "element_code": "AA48HLFdLgrtbZkN4ZZ",
@@ -12504,7 +13190,21 @@
     "debye_temperature": {
       "low_temperature_limit": "72 K",
       "room_temperature": "65 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "lanthanum": {
     "element_code": "AAg5LfCUgLq2uJJ6xZZ",
@@ -12836,7 +13536,21 @@
     "debye_temperature": {
       "low_temperature_limit": "142 K",
       "room_temperature": "120 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "lawrencium": {
     "element_code": "AA4jBKYwKVjrzaJnkZZ",
@@ -12902,7 +13616,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "lead": {
     "element_code": "AA4aUtLoJQRYGB24fZZ",
@@ -13264,7 +13992,21 @@
     "debye_temperature": {
       "low_temperature_limit": "105 K",
       "room_temperature": "88 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "lithium": {
     "element_code": "AApc4YAhpQABJGKpZZZ",
@@ -13422,7 +14164,21 @@
     "debye_temperature": {
       "low_temperature_limit": "344 K",
       "room_temperature": "300 K"
-    }
+    },
+    "thermal_conductivity": "84.8 W/(m·K)",
+    "electron_affinity": "59.6 kJ/mol",
+    "molar_heat_capacity": "24.860 J/(mol·K)",
+    "molar_volume": "13.02 cm³/mol",
+    "thermal_expansion": "46 µm/(m·K)",
+    "electronegativity_allen": "0.912",
+    "work_function": "2.9 eV",
+    "space_group_name": "Im-3m",
+    "space_group_number": "229",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "1.7 mg/kg",
+    "human_body": "0.002 mg/kg"
   },
   "livermorium": {
     "element_code": "AAGMxsQfceFPiWkUCZZ",
@@ -13480,7 +14236,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "lutetium": {
     "element_code": "AAn2bF7sJzr3rYP7pZZ",
@@ -13834,7 +14604,21 @@
     "debye_temperature": {
       "low_temperature_limit": "205 K",
       "room_temperature": "190 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "magnesium": {
     "element_code": "AAcrc3qEWRYNDueJ2ZZ",
@@ -14078,7 +14862,21 @@
     "debye_temperature": {
       "low_temperature_limit": "318 K",
       "room_temperature": "270 K"
-    }
+    },
+    "thermal_conductivity": "156 W/(m·K)",
+    "electron_affinity": "0 kJ/mol",
+    "molar_heat_capacity": "24.869 J/(mol·K)",
+    "molar_volume": "14.00 cm³/mol",
+    "thermal_expansion": "24.8 µm/(m·K)",
+    "electronegativity_allen": "1.293",
+    "work_function": "3.66 eV",
+    "space_group_name": "P6₃/mmc",
+    "space_group_number": "194",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "120000 mg/kg",
+    "human_body": "0.027% (by mass)"
   },
   "manganese": {
     "element_code": "AAKkosywRBsAfgRE7ZZ",
@@ -14387,7 +15185,21 @@
     "debye_temperature": {
       "low_temperature_limit": "310 K",
       "room_temperature": "275 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "meitnerium": {
     "element_code": "",
@@ -14447,7 +15259,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "mendelevium": {
     "element_code": "AA7abfuRPnTy2tQXNZZ",
@@ -14525,7 +15351,21 @@
     "debye_temperature": {
       "low_temperature_limit": "110 K",
       "room_temperature": "100 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "mercury": {
     "element_code": "AAd7KEHAXuiohSNqMZZ",
@@ -14879,7 +15719,21 @@
     "debye_temperature": {
       "low_temperature_limit": "71 K",
       "room_temperature": "70 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "molybdenum": {
     "element_code": "AA5hkjGCXLnS2Bth5ZZ",
@@ -15238,7 +16092,21 @@
     "debye_temperature": {
       "low_temperature_limit": "450 K",
       "room_temperature": "400 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "moscovium": {
     "element_code": "AAjY9jgqg8M8BaWMTZZ",
@@ -15296,7 +16164,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "neodymium": {
     "element_code": "AAgKdRPjE2rjuqHimZZ",
@@ -15659,7 +16541,21 @@
     "debye_temperature": {
       "low_temperature_limit": "200 K",
       "room_temperature": "180 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "neon": {
     "element_code": "AAqZ22XoTAZvanNPVZZ",
@@ -15871,7 +16767,21 @@
     "debye_temperature": {
       "low_temperature_limit": "75 K",
       "room_temperature": "70 K"
-    }
+    },
+    "thermal_conductivity": "0.0491 W/(m·K)",
+    "electron_affinity": "0 kJ/mol",
+    "molar_heat_capacity": "20.786 J/(mol·K)",
+    "molar_volume": "13.23 cm³/mol",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "4.787",
+    "work_function": "---",
+    "space_group_name": "Fm-3m",
+    "space_group_number": "225",
+    "refractive_index": "1.000067",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "neptunium": {
     "element_code": "AAMiN9sPPcVc7LS85ZZ",
@@ -16106,7 +17016,21 @@
     "debye_temperature": {
       "low_temperature_limit": "170 K",
       "room_temperature": "150 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "nickel": {
     "element_code": "AAXwyuTAMqJEzkgcCZZ",
@@ -16449,7 +17373,21 @@
     "debye_temperature": {
       "low_temperature_limit": "450 K",
       "room_temperature": "375 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "nihonium": {
     "element_code": "AATkPivreNW6gPyPzZZ",
@@ -16507,7 +17445,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "niobium": {
     "element_code": "AACE6uFQKBUoYPZ8eZZ",
@@ -16839,7 +17791,21 @@
     "debye_temperature": {
       "low_temperature_limit": "275 K",
       "room_temperature": "260 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "nitrogen": {
     "element_code": "AAAaMoDC8vA5KGQUvZZ",
@@ -17024,7 +17990,21 @@
     "debye_temperature": {
       "low_temperature_limit": "90 K",
       "room_temperature": "80 K"
-    }
+    },
+    "thermal_conductivity": "0.02598 W/(m·K)",
+    "electron_affinity": "7 kJ/mol",
+    "molar_heat_capacity": "29.124 J/(mol·K)",
+    "molar_volume": "17.3 cm³/mol",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "3.066",
+    "work_function": "---",
+    "space_group_name": "P6₃/mmc",
+    "space_group_number": "194",
+    "refractive_index": "1.000298",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "3000 mg/kg",
+    "human_body": "3% (by mass)"
   },
   "nobelium": {
     "element_code": "AA5pdeoFjXV52rBZRZZ",
@@ -17090,7 +18070,21 @@
     "debye_temperature": {
       "low_temperature_limit": "110 K",
       "room_temperature": "100 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "oganesson": {
     "element_code": "AACRrMcHBLJDDaAmaZZ",
@@ -17148,7 +18142,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "osmium": {
     "element_code": "AA2eTRf69yV7xEPhmZZ",
@@ -17479,7 +18487,21 @@
     "debye_temperature": {
       "low_temperature_limit": "550 K",
       "room_temperature": "500 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "oxygen": {
     "element_code": "AAKsuH7pv8sjWfwHmZZ",
@@ -17664,7 +18686,21 @@
     "debye_temperature": {
       "low_temperature_limit": "155 K",
       "room_temperature": "140 K"
-    }
+    },
+    "thermal_conductivity": "0.02658 W/(m·K)",
+    "electron_affinity": "141 kJ/mol",
+    "molar_heat_capacity": "29.378 J/(mol·K)",
+    "molar_volume": "17.36 cm³/mol",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "3.610",
+    "work_function": "---",
+    "space_group_name": "C2/m",
+    "space_group_number": "12",
+    "refractive_index": "1.000271",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "464000 mg/kg",
+    "human_body": "65% (by mass)"
   },
   "palladium": {
     "element_code": "AA5dwuMLRN8zo7h3SZZ",
@@ -17985,7 +19021,21 @@
     "debye_temperature": {
       "low_temperature_limit": "274 K",
       "room_temperature": "250 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "phosphorus": {
     "element_code": "AALzUt22PVqduT2TJZZ",
@@ -18230,7 +19280,21 @@
     "debye_temperature": {
       "low_temperature_limit": "465 K",
       "room_temperature": "400 K"
-    }
+    },
+    "thermal_conductivity": "0.236 W/(m·K)",
+    "electron_affinity": "72 kJ/mol",
+    "molar_heat_capacity": "23.824 J/(mol·K)",
+    "molar_volume": "17.02 cm³/mol",
+    "thermal_expansion": "124 µm/(m·K)",
+    "electronegativity_allen": "2.253",
+    "work_function": "---",
+    "space_group_name": "Pnma",
+    "space_group_number": "62",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "1100 mg/kg",
+    "human_body": "1.1% (by mass)"
   },
   "platinum": {
     "element_code": "AAzWPpmFtpCCGq87bZZ",
@@ -18585,7 +19649,21 @@
     "debye_temperature": {
       "low_temperature_limit": "240 K",
       "room_temperature": "230 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "plutonium": {
     "element_code": "AABRcqXEt5nqxijnRZZ",
@@ -18771,7 +19849,21 @@
     "debye_temperature": {
       "low_temperature_limit": "110 K",
       "room_temperature": "100 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "polonium": {
     "element_code": "AAiEPp6gVdhiwS4fhZZ",
@@ -19109,7 +20201,21 @@
     "debye_temperature": {
       "low_temperature_limit": "90 K",
       "room_temperature": "80 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "potassium": {
     "element_code": "AAgGkiPbGhyBSKGgyZZ",
@@ -19409,7 +20515,21 @@
     "debye_temperature": {
       "low_temperature_limit": "91 K",
       "room_temperature": "70 K"
-    }
+    },
+    "thermal_conductivity": "102.5 W/(m·K)",
+    "electron_affinity": "48.4 kJ/mol",
+    "molar_heat_capacity": "29.600 J/(mol·K)",
+    "molar_volume": "45.94 cm³/mol",
+    "thermal_expansion": "83 µm/(m·K)",
+    "electronegativity_allen": "0.734",
+    "work_function": "2.30 eV",
+    "space_group_name": "Im-3m",
+    "space_group_number": "229",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "900 mg/kg",
+    "human_body": "0.20% (by mass)"
   },
   "praseodymium": {
     "element_code": "AAKJq8oxs5TngLqXfZZ",
@@ -19745,7 +20865,21 @@
     "debye_temperature": {
       "low_temperature_limit": "190 K",
       "room_temperature": "170 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "promethium": {
     "element_code": "AAr8pTcq2xBjtZ2WfZZ",
@@ -20087,7 +21221,21 @@
     "debye_temperature": {
       "low_temperature_limit": "200 K",
       "room_temperature": "180 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "protactinium": {
     "element_code": "AAhoz89B4jQWun9XzZZ",
@@ -20364,7 +21512,21 @@
     "debye_temperature": {
       "low_temperature_limit": "160 K",
       "room_temperature": "140 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "radium": {
     "element_code": "AApsTsVYNFpLwRdSFZZ",
@@ -20661,7 +21823,21 @@
     "debye_temperature": {
       "low_temperature_limit": "120 K",
       "room_temperature": "110 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "radon": {
     "element_code": "AAjsgb2SBmZSTowvFZZ",
@@ -20995,7 +22171,21 @@
     "debye_temperature": {
       "low_temperature_limit": "55 K",
       "room_temperature": "50 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "rhenium": {
     "element_code": "AAxibQtfkRYgxD3JVZZ",
@@ -21348,7 +22538,21 @@
     "debye_temperature": {
       "low_temperature_limit": "417 K",
       "room_temperature": "400 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "rhodium": {
     "element_code": "AAAT7hy4JzJW6acj2ZZ",
@@ -21658,7 +22862,21 @@
     "debye_temperature": {
       "low_temperature_limit": "480 K",
       "room_temperature": "400 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "roentgenium": {
     "element_code": "AAmS6vgJwg6DcTTLsZZ",
@@ -21713,7 +22931,21 @@
     "iso_A_1": "--",
     "crystal_structure": null,
     "lattice_constants": null,
-    "debye_temperature": null
+    "debye_temperature": null,
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "rubidium": {
     "element_code": "AAameG2dPiGwJaKfrZZ",
@@ -22038,7 +23270,21 @@
     "debye_temperature": {
       "low_temperature_limit": "56 K",
       "room_temperature": "50 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "ruthenium": {
     "element_code": "AAr9vCebvjRzbKw8PZZ",
@@ -22363,7 +23609,21 @@
     "debye_temperature": {
       "low_temperature_limit": "600 K",
       "room_temperature": "500 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "rutherfordium": {
     "element_code": "AAti2U4RYQViPe8gwZZ",
@@ -22429,7 +23689,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "samarium": {
     "element_code": "AAEw6PCVvw233bmbVZZ",
@@ -22778,7 +24052,21 @@
     "debye_temperature": {
       "low_temperature_limit": "180 K",
       "room_temperature": "160 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "scandium": {
     "element_code": "AAHPC5RfTpvGgb3bNZZ",
@@ -23074,7 +24362,21 @@
     "debye_temperature": {
       "low_temperature_limit": "354 K",
       "room_temperature": "300 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "seaborgium": {
     "element_code": "AAoTwjnu98nFJ7P9cZZ",
@@ -23134,7 +24436,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "selenium": {
     "element_code": "AAGzEMKkzhQhLmeAgZZ",
@@ -23446,7 +24762,21 @@
     "debye_temperature": {
       "low_temperature_limit": "190 K",
       "room_temperature": "170 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "silicon": {
     "element_code": "AA8nFu7fYxC4w62evZZ",
@@ -23697,7 +25027,21 @@
     "debye_temperature": {
       "low_temperature_limit": "645 K",
       "room_temperature": "625 K"
-    }
+    },
+    "thermal_conductivity": "149 W/(m·K)",
+    "electron_affinity": "133.6 kJ/mol",
+    "molar_heat_capacity": "19.789 J/(mol·K)",
+    "molar_volume": "12.06 cm³/mol",
+    "thermal_expansion": "2.6 µm/(m·K)",
+    "electronegativity_allen": "1.916",
+    "work_function": "4.85 eV",
+    "space_group_name": "Fd-3m",
+    "space_group_number": "227",
+    "refractive_index": "3.42",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "140000 mg/kg",
+    "human_body": "0.002 mg/kg"
   },
   "silver": {
     "element_code": "AABUnhh5a24pGzooXZZ",
@@ -24064,7 +25408,21 @@
     "debye_temperature": {
       "low_temperature_limit": "225 K",
       "room_temperature": "215 K"
-    }
+    },
+    "thermal_conductivity": "429 W/(m·K)",
+    "electron_affinity": "125.6 kJ/mol",
+    "molar_heat_capacity": "25.350 J/(mol·K)",
+    "molar_volume": "10.27 cm³/mol",
+    "thermal_expansion": "18.9 µm/(m·K)",
+    "electronegativity_allen": "1.870",
+    "work_function": "4.26 eV",
+    "space_group_name": "Fm-3m",
+    "space_group_number": "225",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "0.14 mg/kg",
+    "human_body": "0.000001 mg/kg"
   },
   "sodium": {
     "element_code": "AAmGUz3QxyBqkYjDYZZ",
@@ -24293,7 +25651,21 @@
     "debye_temperature": {
       "low_temperature_limit": "158 K",
       "room_temperature": "150 K"
-    }
+    },
+    "thermal_conductivity": "142 W/(m·K)",
+    "electron_affinity": "52.8 kJ/mol",
+    "molar_heat_capacity": "28.230 J/(mol·K)",
+    "molar_volume": "23.78 cm³/mol",
+    "thermal_expansion": "71 µm/(m·K)",
+    "electronegativity_allen": "0.869",
+    "work_function": "2.75 eV",
+    "space_group_name": "Im-3m",
+    "space_group_number": "229",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "5000 mg/kg",
+    "human_body": "0.15% (by mass)"
   },
   "strontium": {
     "element_code": "AAmmKA6c2LmzKkzVfZZ",
@@ -24616,7 +25988,21 @@
     "debye_temperature": {
       "low_temperature_limit": "137 K",
       "room_temperature": "120 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "sulfur": {
     "element_code": "AARQu8hiKgm47sUSvZZ",
@@ -24862,7 +26248,21 @@
     "debye_temperature": {
       "low_temperature_limit": "205 K",
       "room_temperature": "190 K"
-    }
+    },
+    "thermal_conductivity": "0.205 W/(m·K)",
+    "electron_affinity": "200 kJ/mol",
+    "molar_heat_capacity": "22.75 J/(mol·K)",
+    "molar_volume": "15.53 cm³/mol",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "2.589",
+    "work_function": "---",
+    "space_group_name": "Fddd",
+    "space_group_number": "70",
+    "refractive_index": "1.957",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "40000 mg/kg",
+    "human_body": "0.20% (by mass)"
   },
   "tantalum": {
     "element_code": "AAeJykfm5BiSRoaukZZ",
@@ -25216,7 +26616,21 @@
     "debye_temperature": {
       "low_temperature_limit": "240 K",
       "room_temperature": "225 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "technetium": {
     "element_code": "AAhQ9tPNqfQZxSNXEZZ",
@@ -25522,7 +26936,21 @@
     "debye_temperature": {
       "low_temperature_limit": "420 K",
       "room_temperature": "400 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "tellurium": {
     "element_code": "AAqCuA7XBS5paZ4pDZZ",
@@ -25866,7 +27294,21 @@
     "debye_temperature": {
       "low_temperature_limit": "150 K",
       "room_temperature": "140 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "tennessine": {
     "element_code": "AAZViSDXeRKsWAvtHZZ",
@@ -25924,7 +27366,21 @@
     "debye_temperature": {
       "low_temperature_limit": null,
       "room_temperature": null
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "terbium": {
     "element_code": "AAFq8fR3CPBjBHeciZZ",
@@ -26252,7 +27708,21 @@
     "debye_temperature": {
       "low_temperature_limit": "158 K",
       "room_temperature": "140 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "thallium": {
     "element_code": "AA83rK2xLmvb6zvnnZZ",
@@ -26609,7 +28079,21 @@
     "debye_temperature": {
       "low_temperature_limit": "96 K",
       "room_temperature": "90 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "thorium": {
     "element_code": "AApxttohpRY2SSCghZZ",
@@ -26922,7 +28406,21 @@
     "debye_temperature": {
       "low_temperature_limit": "163 K",
       "room_temperature": "150 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "thulium": {
     "element_code": "AAo5dsob5VewbP2sMZZ",
@@ -27245,7 +28743,21 @@
     "debye_temperature": {
       "low_temperature_limit": "200 K",
       "room_temperature": "180 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "tin": {
     "element_code": "AAhCREPWtZzX9etQdZZ",
@@ -27622,7 +29134,21 @@
     "debye_temperature": {
       "low_temperature_limit": "200 K",
       "room_temperature": "160 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "titanium": {
     "element_code": "AAg79HFaHAKPfZSqDZZ",
@@ -27925,7 +29451,21 @@
     "debye_temperature": {
       "low_temperature_limit": "420 K",
       "room_temperature": "380 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "tungsten": {
     "element_code": "AAsTW2q8zbYqZszxuZZ",
@@ -28280,7 +29820,21 @@
     "debye_temperature": {
       "low_temperature_limit": "400 K",
       "room_temperature": "370 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "uranium": {
     "element_code": "AAfNuk25DanUbGDACZZ",
@@ -28557,7 +30111,21 @@
     "debye_temperature": {
       "low_temperature_limit": "207 K",
       "room_temperature": "190 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "vanadium": {
     "element_code": "AAJ7kbsxKxj9pY2oRZZ",
@@ -28860,7 +30428,21 @@
     "debye_temperature": {
       "low_temperature_limit": "380 K",
       "room_temperature": "340 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "xenon": {
     "element_code": "AANxnZbKF4YxSv7FtZZ",
@@ -29198,7 +30780,21 @@
     "debye_temperature": {
       "low_temperature_limit": "55 K",
       "room_temperature": "50 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "ytterbium": {
     "element_code": "AAA4RK9TvNs5QgQwfZZ",
@@ -29553,7 +31149,21 @@
     "debye_temperature": {
       "low_temperature_limit": "120 K",
       "room_temperature": "110 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "yttrium": {
     "element_code": "AAKr9mc6YmKrSxyu4ZZ",
@@ -29886,7 +31496,21 @@
     "debye_temperature": {
       "low_temperature_limit": "330 K",
       "room_temperature": "280 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "zinc": {
     "element_code": "AAjjfi6TZ3ceTYymbZZ",
@@ -30217,7 +31841,21 @@
     "debye_temperature": {
       "low_temperature_limit": "234 K",
       "room_temperature": "230 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   },
   "zirconium": {
     "element_code": "AAA5adKNtXmfFngDDZZ",
@@ -30552,6 +32190,20 @@
     "debye_temperature": {
       "low_temperature_limit": "273 K",
       "room_temperature": "250 K"
-    }
+    },
+    "thermal_conductivity": "---",
+    "electron_affinity": "---",
+    "molar_heat_capacity": "---",
+    "molar_volume": "---",
+    "thermal_expansion": "---",
+    "electronegativity_allen": "---",
+    "work_function": "---",
+    "space_group_name": "---",
+    "space_group_number": "---",
+    "refractive_index": "---",
+    "curie_point": "---",
+    "neel_point": "---",
+    "meteorites": "---",
+    "human_body": "---"
   }
 }

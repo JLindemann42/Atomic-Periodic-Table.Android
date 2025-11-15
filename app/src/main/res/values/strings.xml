@@ -776,6 +776,22 @@
     <string name="back">Back</string>
     <string name="feature_check">Feature included</string>
 
+    <!-- New element properties -->
+    <string name="thermal_conductivity_colon">Thermal Conductivity:</string>
+    <string name="electron_affinity_colon">Electron Affinity:</string>
+    <string name="molar_heat_capacity_colon">Molar Heat Capacity:</string>
+    <string name="molar_volume_colon">Molar Volume:</string>
+    <string name="thermal_expansion_colon">Thermal Expansion:</string>
+    <string name="electronegativity_allen_colon">Electronegativity (Allen):</string>
+    <string name="work_function_colon">Work Function:</string>
+    <string name="space_group_name_colon">Space Group Name:</string>
+    <string name="space_group_number_colon">Space Group Number:</string>
+    <string name="refractive_index_colon">Refractive Index:</string>
+    <string name="curie_point_colon">Curie Point:</string>
+    <string name="neel_point_colon">Néel Point:</string>
+    <string name="abundance_meteorites">In meteorites</string>
+    <string name="abundance_human_body">In human body</string>
+
 
 
 </resources>
