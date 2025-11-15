@@ -33,7 +33,7 @@ class StreakReminderReceiver : BroadcastReceiver() {
         val body = context.getString(R.string.streak_notification_body, streak)
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(R.drawable.icon_monochrome) // replace with a small app icon if available
+            .setSmallIcon(R.drawable.icon_notification) // replace with a small app icon if available
             .setContentTitle(title)
             .setContentText(body)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
