@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="PRO-User"
+            android:text="@string/pro_user_badge"
             android:textColor="?attr/colorSurface"
             android:background="@drawable/toast"
             android:backgroundTint="?attr/colorAccent"
@@ -65,6 +65,32 @@
             android:paddingBottom="4dp"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/login_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_for_sync_and_more"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:drawableStart="@drawable/ic_cloud_sync"
+            android:drawableTint="?attr/colorPrimary"
+            android:drawablePadding="4dp"
+            android:background="@drawable/toast_outline"
+            android:backgroundTint="?attr/colorPrimary"
+            android:foreground="@drawable/c_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/login_for_sync_and_more"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
 
         <LinearLayout
             android:id="@+id/stats_Box"
@@ -79,7 +105,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Usage Statistics"
+                android:text="@string/usage_statistics"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="?attr/colorAccent"
@@ -124,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="Elements opened"
+                    android:text="@string/elements_opened"
                     android:textAlignment="center"
                     android:gravity="center_horizontal"
                     android:layout_gravity="center_horizontal"
@@ -151,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="Calculations"
+                    android:text="@string/calculations_stat"
                     android:textAlignment="center"
                     android:layout_gravity="center_horizontal"
                     android:textColor="?attr/colorOnSurface"/>
@@ -177,7 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="Searches"
+                    android:text="@string/searches"
                     android:textAlignment="center"
                     android:layout_gravity="center_horizontal"
                     android:textColor="?attr/colorOnSurface"/>
@@ -206,7 +232,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rate App"
+                    android:text="@string/rate_app"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
@@ -234,7 +260,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:textSize="14sp"
-                    android:text="Let us know what you think of the app, by rating it on the Play Store!"
+                    android:text="@string/rate_app_description"
                     android:textColor="?attr/colorOnSurface"/>
 
                 <TextView
@@ -254,7 +280,7 @@
                     android:gravity="center_vertical"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp"
-                    android:text="Rate"
+                    android:text="@string/rate"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -275,7 +301,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Share App"
+                    android:text="@string/share_app"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
@@ -303,7 +329,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:textSize="14sp"
-                    android:text="If you find the app useful, please share it with your friends and others!"
+                    android:text="@string/share_app_description"
                     android:textColor="?attr/colorOnSurface"/>
 
                 <TextView
@@ -323,7 +349,7 @@
                     android:gravity="center_vertical"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp"
-                    android:text="Share"
+                    android:text="@string/share"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -337,7 +363,6 @@
             android:background="@drawable/toast_card"
             android:layout_marginStart="@dimen/default_padding"
             android:layout_marginEnd="@dimen/default_padding"
-            android:layout_marginBottom="80dp"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="600dp">
@@ -376,8 +401,33 @@
                 android:padding="16dp"/>
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/signout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="@string/sign_out"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:background="@drawable/toast_outline"
+            android:backgroundTint="?attr/colorPrimary"
+            android:foreground="@drawable/c_ripple"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@string/sign_out"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:layout_marginBottom="80dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
 
     </LinearLayout>
+
     </ScrollView>
 
     <FrameLayout

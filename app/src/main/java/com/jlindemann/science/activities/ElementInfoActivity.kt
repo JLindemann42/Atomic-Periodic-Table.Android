@@ -39,11 +39,13 @@ import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.*
+import com.jlindemann.science.utils.ElementDataLoader
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONObject
+import org.w3c.dom.Text
 import java.io.IOException
 import java.io.InputStream
 import java.net.ConnectException
@@ -102,6 +104,10 @@ class ElementInfoActivity : InfoExtension() {
         }
         findViewById<TextView>(R.id.get_pro_hazard_btn).setOnClickListener {
             val intent = Intent(this, ProActivity::class.java)
+            startActivity(intent)
+        }
+        findViewById<TextView>(R.id.notes_sync_status).setOnClickListener {
+            val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
         }
         //Check if PRO version and if make changes:
@@ -335,46 +341,36 @@ class ElementInfoActivity : InfoExtension() {
 
     private fun nextPrev() {
         findViewById<ImageButton>(R.id.next_btn).setOnClickListener {
-            var jsonString : String? = null
             try {
                 val ElementSendAndLoadPreference = ElementSendAndLoad(this)
                 val ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
-                val name = ElementSendAndLoadValue
-                val ext = ".json"
-                val ElementJson: String? = "$name$ext"
-                val inputStream: InputStream = assets.open(ElementJson.toString())
-                jsonString = inputStream.bufferedReader().use { it.readText() }
-                val jsonArray = JSONArray(jsonString)
-                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-                val currentNumb = jsonObject.optString("element_atomic_number", "---")
-                val elements = ArrayList<Element>()
-                ElementModel.getList(elements)
-                val item = elements[currentNumb.toInt()]
-                val elementSendAndLoad = ElementSendAndLoad(this)
-                elementSendAndLoad.setValue(item.element)
-                readJson()
+                val jsonObject = ElementDataLoader.loadElementData(this, ElementSendAndLoadValue ?: "hydrogen")
+                if (jsonObject != null) {
+                    val currentNumb = jsonObject.optString("element_atomic_number", "---")
+                    val elements = ArrayList<Element>()
+                    ElementModel.getList(elements, this)
+                    val item = elements[currentNumb.toInt()]
+                    val elementSendAndLoad = ElementSendAndLoad(this)
+                    elementSendAndLoad.setValue(item.elementKey)
+                    readJson()
+                }
             }
             catch (e: IOException) {}
         }
         findViewById<ImageButton>(R.id.previous_btn).setOnClickListener {
-            var jsonString : String? = null
             try {
                 val ElementSendAndLoadPreference = ElementSendAndLoad(this)
                 val ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
-                val name = ElementSendAndLoadValue
-                val ext = ".json"
-                val ElementJson: String? = "$name$ext"
-                val inputStream: InputStream = assets.open(ElementJson.toString())
-                jsonString = inputStream.bufferedReader().use { it.readText() }
-                val jsonArray = JSONArray(jsonString)
-                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-                val currentNumb = jsonObject.optString("element_atomic_number", "---")
-                val elements = ArrayList<Element>()
-                ElementModel.getList(elements)
-                val item = elements[currentNumb.toInt()-2]
-                val elementSendAndLoad = ElementSendAndLoad(this)
-                elementSendAndLoad.setValue(item.element)
-                readJson()
+                val jsonObject = ElementDataLoader.loadElementData(this, ElementSendAndLoadValue ?: "hydrogen")
+                if (jsonObject != null) {
+                    val currentNumb = jsonObject.optString("element_atomic_number", "---")
+                    val elements = ArrayList<Element>()
+                    ElementModel.getList(elements, this)
+                    val item = elements[currentNumb.toInt()-2]
+                    val elementSendAndLoad = ElementSendAndLoad(this)
+                    elementSendAndLoad.setValue(item.elementKey)
+                    readJson()
+                }
             }
             catch (e: IOException) {}
         }

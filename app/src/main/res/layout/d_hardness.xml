@@ -46,7 +46,7 @@
                     android:focusable="true"
                     android:foreground="@drawable/c_ripple"
                     android:gravity="center_vertical"
-                    android:text="Hardness Properties"
+                    android:text="@string/hardness_properties"
                     android:textColor="?attr/colorPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin"
-                    android:text="Hardness properties requires PRO-version. Get PRO to unlock more data and tables:"
+                    android:text="@string/hardness_properties_requires_pro"
                     android:textColor="?attr/colorOnSurfaceVariant" />
 
             </LinearLayout>
@@ -155,7 +155,7 @@
             android:id="@+id/mohs_hardness_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mohs hardness:"
+            android:text="@string/mohs_hardness_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -185,7 +185,7 @@
             android:id="@+id/vickers_hardness_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Vickers hardness:"
+            android:text="@string/vickers_hardness_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -215,7 +215,7 @@
             android:id="@+id/brinell_hardness_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Brinell hardness:"
+            android:text="@string/brinell_hardness_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />

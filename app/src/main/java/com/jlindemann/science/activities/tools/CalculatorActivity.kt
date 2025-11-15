@@ -32,6 +32,7 @@ import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.ElementDataLoader
 import com.jlindemann.science.utils.ToastUtil
 import org.json.JSONArray
 import java.io.IOException
@@ -229,7 +230,7 @@ class CalculatorActivity : BaseActivity() {
 
         var result = 0.0
         val elementList = ArrayList<Element>()
-        ElementModel.getList(elementList)
+        ElementModel.getList(elementList, this)
 
         val elementWeights = mutableMapOf<String, Double>()
         val elementNames = mutableMapOf<String, String>()
@@ -237,18 +238,15 @@ class CalculatorActivity : BaseActivity() {
 
         for (element in elementList) {
             try {
-                val elementJson = "${element.element}.json"
-                val inputStream = assets.open(elementJson)
-                val jsonString = inputStream.bufferedReader().use { it.readText() }
-                val jsonArray = JSONArray(jsonString)
-                val jsonObject = jsonArray.getJSONObject(0)
-                val weightVal = jsonObject.optString("element_atomicmass", "---").removeSuffix(" (u)")
-                val shortEl = jsonObject.optString("short", "---")
-                val fullName = jsonObject.optString("element", "---")
+                val jsonObject = ElementDataLoader.loadElementData(this, element.elementKey)
+                if (jsonObject != null) {
+                    val weightVal = jsonObject.optString("element_atomicmass", "---").removeSuffix(" (u)")
+                    val shortEl = jsonObject.optString("short", "---")
+                    val fullName = jsonObject.optString("element", "---")
 
-                elementWeights[shortEl] = weightVal.toDoubleOrNull() ?: 0.0
-                elementNames[shortEl] = fullName
-
+                    elementWeights[shortEl] = weightVal.toDoubleOrNull() ?: 0.0
+                    elementNames[shortEl] = fullName
+                }
             } catch (e: IOException) {
                 ToastUtil.showToast(this, "Error")
             }

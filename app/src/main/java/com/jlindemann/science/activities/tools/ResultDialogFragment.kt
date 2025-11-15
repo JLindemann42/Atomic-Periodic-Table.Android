@@ -63,10 +63,10 @@ class ResultDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<TextView>(R.id.tv_popup_title).text = "Game Results"
+        view.findViewById<TextView>(R.id.tv_popup_title).text = getString(R.string.game_results)
 
         val correctAnswers = results.count { it.wasCorrect }
-        view.findViewById<TextView>(R.id.tv_score_summary).text = "Score: $correctAnswers/$totalQuestions"
+        view.findViewById<TextView>(R.id.tv_score_summary).text = getString(R.string.score_summary, correctAnswers, totalQuestions)
 
         val allAnswersCompleted = results.size == totalQuestions && results.all { it.pickedAnswer != null }
 
@@ -99,7 +99,7 @@ class ResultDialogFragment : DialogFragment() {
                 textSize = 15f
             }
             val yourAnswer = TextView(context).apply {
-                text = "Your answer: ${result.pickedAnswer ?: "-"}"
+                text = getString(R.string.your_answer, result.pickedAnswer ?: "-")
                 textSize = 14f
                 setTextColor(
                     if (result.wasCorrect) resources.getColor(R.color.green, null)
@@ -107,7 +107,7 @@ class ResultDialogFragment : DialogFragment() {
                 )
             }
             val correctAnswer = TextView(context).apply {
-                text = "Correct answer: ${result.correctAnswer}"
+                text = getString(R.string.correct_answer, result.correctAnswer)
                 textSize = 14f
             }
             val perQXp = (result.baseXp * getXpMultiplier(difficulty)).roundToInt()
@@ -175,14 +175,14 @@ class ResultDialogFragment : DialogFragment() {
         val xpPerfect = if (allCorrect) (20 * xpMultiplier).roundToInt() else 0
 
         val elementsRow = TextView(context).apply {
-            text = "Questions Correct: +${xpElements}xp"
+            text = getString(R.string.questions_correct_xp, xpElements)
             textSize = 15f
         }
         breakdownList.addView(elementsRow)
 
         if (xpGameWin > 0) {
             val winRow = TextView(context).apply {
-                text = "Finished Game: +${xpGameWin}xp"
+                text = getString(R.string.finished_game_xp, xpGameWin)
                 textSize = 15f
             }
             breakdownList.addView(winRow)
@@ -190,7 +190,7 @@ class ResultDialogFragment : DialogFragment() {
 
         if (xpPerfect > 0) {
             val perfectRow = TextView(context).apply {
-                text = "Perfect (All Correct): +${xpPerfect}xp"
+                text = getString(R.string.perfect_all_correct_xp, xpPerfect)
                 textSize = 15f
             }
             breakdownList.addView(perfectRow)
@@ -200,7 +200,7 @@ class ResultDialogFragment : DialogFragment() {
         val wrongOrTimeoutAnswers = results.count { !it.wasCorrect }
         val livesLostTotal = wrongOrTimeoutAnswers * livesLostPerWrong
         val livesRow = TextView(context).apply {
-            text = "Lives lost: $livesLostTotal ($livesLostPerWrong per wrong/timeout answer)"
+            text = getString(R.string.lives_lost_detail, livesLostTotal, livesLostPerWrong)
             textSize = 15f
         }
         breakdownList.addView(livesRow)

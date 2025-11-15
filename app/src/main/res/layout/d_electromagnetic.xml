@@ -70,7 +70,7 @@
             android:id="@+id/element_electrical_type_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Electrical Type:"
+            android:text="@string/electrical_type_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -101,7 +101,7 @@
             android:id="@+id/element_resistivity_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Electrical Resistivity:"
+            android:text="@string/electrical_resistivity_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -132,7 +132,7 @@
             android:id="@+id/element_magnetic_type_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Magnetic Type:"
+            android:text="@string/magnetic_type_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -163,7 +163,7 @@
             android:id="@+id/element_superconducting_point_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Superconducting Point:"
+            android:text="@string/superconducting_point_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />

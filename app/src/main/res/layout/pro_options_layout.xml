@@ -17,15 +17,12 @@
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:layout_marginEnd="2dp"
+        app:cardBackgroundColor="?attr/colorSurfaceVariant"
         app:cardCornerRadius="16dp"
         app:cardElevation="2dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:background="@drawable/pro_gradient_border"
-            android:layout_height="match_parent">
 
             <!-- Content overlays -->
             <LinearLayout
@@ -38,7 +35,7 @@
                     android:id="@+id/pro_badge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Most popular"
+                    android:text="@string/all_core_features"
                     android:textColor="@android:color/white"
                     android:textSize="12sp"
                     android:background="@drawable/badge_bg"
@@ -51,7 +48,7 @@
                     android:id="@+id/pro_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PRO Version"
+                    android:text="@string/pro_version"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="?attr/colorOnSecondaryContainer"/>
@@ -60,7 +57,7 @@
                     android:id="@+id/pro_subtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Unlock advanced data and extra Atomic content."
+                    android:text="@string/unlock_advanced_data_and_extra_atomic_content"
                     android:textSize="14sp"
                     android:layout_marginTop="4dp"
                     android:textColor="?attr/colorOnSecondaryContainer"/>
@@ -89,13 +86,12 @@
                     android:foreground="@drawable/d_ripple"
                     android:gravity="center"
                     android:padding="4dp"
-                    android:text="Get PRO"
+                    android:text="@string/get_pro"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="16sp"
                     android:textStyle="normal" />
 
             </LinearLayout>
-        </FrameLayout>
     </androidx.cardview.widget.CardView>
 
     <!-- PRO+ Version Card -->
@@ -111,6 +107,12 @@
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true">
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:background="@drawable/pro_gradient_border"
+            android:layout_height="match_parent">
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -121,7 +123,7 @@
                 android:id="@+id/pro_plus_badge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Most advanced"
+                android:text="@string/most_advanced"
                 android:textColor="@android:color/white"
                 android:textSize="12sp"
                 android:background="@drawable/badge_bg_advanced"
@@ -134,7 +136,7 @@
                 android:id="@+id/pro_plus_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PRO+ Version"
+                android:text="@string/pro_plus_version"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="?attr/colorOnSecondaryContainer"/>
@@ -143,7 +145,7 @@
                 android:id="@+id/pro_plus_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Unlock advanced data and additional flashcards."
+                android:text="@string/unlock_advanced_data_and_additional_flashcards"
                 android:textSize="14sp"
                 android:layout_marginTop="4dp"
                 android:textColor="?attr/colorOnSecondaryContainer"/>
@@ -173,11 +175,12 @@
                 android:padding="4dp"
 
                 android:layout_marginTop="4dp"
-                android:text="Get PRO+"
+                android:text="@string/get_pro_plus_button"
                 android:textColor="?attr/colorOnPrimary"
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
         </LinearLayout>
+        </FrameLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

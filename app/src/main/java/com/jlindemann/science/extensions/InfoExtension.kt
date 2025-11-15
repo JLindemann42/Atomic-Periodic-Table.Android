@@ -33,9 +33,11 @@ import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.*
+import com.jlindemann.science.sync.NotesSyncManager
 import com.jlindemann.science.utils.Pasteur
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
+import com.jlindemann.science.utils.ElementDataLoader
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.*
 import org.json.JSONArray
@@ -55,9 +57,20 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
     private var systemUiConfigured = false
     private val mainScope = MainScope()
     private var notesTextWatcher: TextWatcher? = null // Track watcher for note editing
+    private var currentElementCode: String? = null // Track current element code
+    private var notesEditText: EditText? = null // Track notes EditText
+    private var notesSyncStatusView: TextView? = null // Track sync status indicator
+
+    // Store the element key used to load data (the value returned from ElementSendAndLoad)
+    // so we can send it to the isotopes preference when user navigates to isotopes.
+    private var currentElementKeyPref: String? = null
 
     override fun onDestroy() {
         super.onDestroy()
+        // Save notes before destroying
+        saveCurrentNotes()
+        // Cancel any pending syncs
+        NotesSyncManager.cancelPendingSync()
         mainScope.cancel()
     }
 
@@ -103,16 +116,18 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
 
         mainScope.launch {
             try {
-                val (elementKey, jsonObject) = withContext(Dispatchers.IO) {
+                val (elementKey, jsonObject, englishName) = withContext(Dispatchers.IO) {
                     val pref = ElementSendAndLoad(this@InfoExtension)
                     val value = pref.getValue()
-                    val jsonFile = "$value.json"
-                    val inputStream: InputStream = assets.open(jsonFile)
-                    val jsonString = inputStream.bufferedReader().use { it.readText() }
-                    val jsonArray = JSONArray(jsonString)
-                    val jsonObject = jsonArray.getJSONObject(0)
-                    Pair(value, jsonObject)
+                    val jsonObject = ElementDataLoader.loadElementData(this@InfoExtension, value ?: "hydrogen")
+                    // Load English element name
+                    val englishJsonObject = ElementDataLoader.loadElementData(this@InfoExtension, value ?: "hydrogen", "en")
+                    val englishName = englishJsonObject?.optString("element", "---") ?: "---"
+                    Triple(value, jsonObject, englishName)
                 }
+
+                // Save the element key returned from the preference so we can send it to isotopes later
+                currentElementKeyPref = elementKey
 
                 // Previous/next button visibility
                 findViewById<ImageButton>(R.id.previous_btn).visibility =
@@ -120,7 +135,12 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                 findViewById<ImageButton>(R.id.next_btn).visibility =
                     if (elementKey == "oganesson") View.GONE else View.VISIBLE
 
-                updateElementUI(jsonObject)
+                if (jsonObject != null) {
+                    updateElementUI(jsonObject, englishName)
+                } else {
+                    findViewById<TextView>(R.id.element_title).text = "Element not found"
+                    ToastUtil.showToast(this@InfoExtension, "Couldn't load element: $elementKey")
+                }
             } catch (e: IOException) {
                 findViewById<TextView>(R.id.element_title).text = "Not able to load json"
                 val stringText = "Couldn't load element:"
@@ -133,9 +153,9 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
     /**
      * Updates the UI with element data from the given JSON object.
      */
-    private fun updateElementUI(jsonObject: JSONObject) {
+    private fun updateElementUI(jsonObject: JSONObject, englishName: String = "---") {
         val elementCode = jsonObject.optString("element_code", "---")
-        val element = jsonObject.optString("element", "---")
+        val element = englishName
         val description = jsonObject.optString("description", "---")
         val url = jsonObject.optString("link", "---")
         val short = jsonObject.optString("short", "---")
@@ -251,13 +271,28 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.element_block).text = elementBlock
         findViewById<TextView>(R.id.element_appearance).text = elementAppearance
 
+        // Initialize notes sync status view so updates reach the UI
+        notesSyncStatusView = findViewById(R.id.notes_sync_status)
+
+        // Set initial visibility / icon for notes sync indicator:
+        // - If user is NOT eligible to sync (not Pro/Pro+ or not signed in) show ic_no_sync (VISIBLE).
+        // - If user CAN sync (Pro/Pro+) keep the indicator INVISIBLE until a sync action occurs.
+        notesSyncStatusView?.let { v ->
+            if (NotesSyncManager.canSyncNotes(this)) {
+                v.visibility = View.INVISIBLE
+            } else {
+                v.setBackgroundResource(R.drawable.ic_no_sync)
+                v.visibility = View.VISIBLE
+            }
+        }
+
         // Notes setup
         val eText = findViewById<EditText>(R.id.notes_edit_text)
         val notesPref = NotesPreference(this)
         val notesPrefValue = notesPref.getValue()
         val str = notesPrefValue
         if (!str.contains("<$elementCode>")) {
-            val newString = str + "<$elementCode>Take notes for the element:</$elementCode>"
+            val newString = str + "<$elementCode>" + getString(R.string.notes_placeholder) + "</$elementCode>"
             notesPref.setValue(newString)
             handleNotes(elementCode, eText)
         } else {
@@ -269,15 +304,17 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.neutron_cross_sectional_text).text = neutronCrossSection
         findViewById<FrameLayout>(R.id.isotopes_frame).setOnClickListener {
             val isoPreference = ElementSendAndLoad(this)
-            isoPreference.setValue(element.lowercase())
+
+            isoPreference.setValue(currentElementKeyPref ?: element.lowercase())
             val isoSend = sendIso(this)
             isoSend.setValue("true")
             val intent = Intent(this, IsotopesActivityExperimental::class.java)
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.isotope_btn).setOnClickListener {
+        findViewById<ImageButton>(R.id.isotopes_icon).setOnClickListener {
             val isoPreference = ElementSendAndLoad(this)
-            isoPreference.setValue(element.lowercase())
+
+            isoPreference.setValue(currentElementKeyPref ?: element.lowercase())
             val isoSend = sendIso(this)
             isoSend.setValue("true")
             val intent = Intent(this, IsotopesActivityExperimental::class.java)
@@ -613,11 +650,41 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
 
 
     /**
+     * Saves the current notes for the current element explicitly.
+     * This is called before navigating to ensure notes are persisted.
+     */
+    private fun saveCurrentNotes() {
+        val eText = notesEditText ?: return
+        val elementCode = currentElementCode ?: return
+        val notesPref = NotesPreference(this)
+        val firstDelim = "<$elementCode>"
+        val lastDelim = "</$elementCode>"
+
+        val currentNotes = notesPref.getValue()
+        val start = currentNotes.indexOf(firstDelim)
+        val end = currentNotes.indexOf(lastDelim, start)
+
+        if (start != -1 && end != -1) {
+            val newNotes = currentNotes.substring(0, start + firstDelim.length) +
+                    eText.text.toString() +
+                    currentNotes.substring(end)
+            notesPref.setValue(newNotes)
+        }
+    }
+
+    /**
      * Handles loading and updating notes for the current element.
      *
      * Ensures only one TextWatcher is attached and always operates on the latest notes string.
      */
     private fun handleNotes(elementCode: String, eText: EditText) {
+        // Save previous notes before switching to new element
+        saveCurrentNotes()
+
+        // Update tracking variables
+        currentElementCode = elementCode
+        notesEditText = eText
+
         val notesPref = NotesPreference(this)
         val firstDelim = "<$elementCode>"
         val lastDelim = "</$elementCode>"
@@ -631,7 +698,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         val note = if (p1 != -1 && p2 != -1) {
             notesPrefValue.substring(p1 + firstDelim.length, p2)
         } else {
-            "Take notes for the element:"
+            getString(R.string.notes_placeholder)
         }
 
         eText.setText(note)
@@ -647,12 +714,59 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                             (s ?: "") +
                             currentNotes.substring(end)
                     notesPref.setValue(newNotes)
+
+                    // Request sync with debouncing
+                    NotesSyncManager.requestSync(this@InfoExtension) { status ->
+                        updateSyncStatusUI(status)
+                    }
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         }
         eText.addTextChangedListener(notesTextWatcher)
+    }
+
+    /**
+     * Update the sync status indicator UI based on current sync status.
+     */
+    private fun updateSyncStatusUI(status: NotesSyncManager.SyncStatus) {
+        // Always post UI work to main thread; find view lazily if not set
+        mainScope.launch(Dispatchers.Main) {
+            val view = notesSyncStatusView ?: run {
+                // attempt to find the view from the current activity layout
+                val v = try {
+                    findViewById<TextView>(R.id.notes_sync_status)
+                } catch (e: Exception) {
+                    null
+                }
+                notesSyncStatusView = v
+                v
+            } ?: return@launch
+
+            when (status) {
+                NotesSyncManager.SyncStatus.NOT_ELIGIBLE -> {
+                    // Not logged in or no Pro/Pro+ version
+                    view.setBackgroundResource(R.drawable.ic_no_sync)
+                    view.visibility = View.VISIBLE
+                }
+                NotesSyncManager.SyncStatus.SYNCING -> {
+                    // Currently syncing
+                    view.setBackgroundResource(R.drawable.ic_cloud_sync)
+                    view.visibility = View.VISIBLE
+                }
+                NotesSyncManager.SyncStatus.SYNCED -> {
+                    // Successfully synced
+                    view.setBackgroundResource(R.drawable.ic_cloud_done)
+                    view.visibility = View.VISIBLE
+                }
+                NotesSyncManager.SyncStatus.ERROR -> {
+                    // Error during sync - show no sync icon
+                    view.setBackgroundResource(R.drawable.ic_no_sync)
+                    view.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
     /**

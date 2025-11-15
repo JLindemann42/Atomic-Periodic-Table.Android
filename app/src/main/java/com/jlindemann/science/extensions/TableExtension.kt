@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.TextUtils
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
@@ -21,10 +23,8 @@ import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Pasteur
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
-import org.json.JSONArray
-import org.json.JSONObject
+import com.jlindemann.science.utils.ElementDataLoader
 import java.io.IOException
-import java.io.InputStream
 
 abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener {
     companion object { private const val TAG = "BaseActivity" }
@@ -59,7 +59,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
 
     fun initName(list: ArrayList<Element>) {
         for (item in list) {
-            val name = item.element
+            val name = item.elementKey
             closeHover()
             val extText = "_text"
             val eView = "$name$extText"
@@ -69,18 +69,25 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
             val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
 
             val text = findViewById<TextView>(resID)
-            text.text = item.element.capitalize()
+            val jsonObject = ElementDataLoader.loadElementData(this, name)
+            val elementGroup = jsonObject?.optString("element", "---") ?: "---"
+            text.text = elementGroup
             val btn = findViewById<TextView>(resIDB)
             val themePreference = ThemePreference(this)
             val themePrefValue = themePreference.getValue()
 
             val params = text.layoutParams as ViewGroup.MarginLayoutParams
-            params.leftMargin = 0
-            params.rightMargin = 0
+            params.leftMargin = resources.getDimensionPixelSize(R.dimen.padding_small)
+            params.rightMargin = resources.getDimensionPixelSize(R.dimen.padding_small)
             params.bottomMargin = resources.getDimensionPixelSize(R.dimen.groups2b)
             text.layoutParams = params
             text.layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
             btn.elevation = (resources.getDimension(R.dimen.zero_elevation))
+            text.maxLines = 2
+            text.ellipsize = TextUtils.TruncateAt.END
+            text.gravity = Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
+            text.textAlignment = View.TEXT_ALIGNMENT_CENTER
+
             findViewById<TextView>(R.id.lanthanoids_btn).elevation = (resources.getDimension(R.dimen.zero_elevation))
             findViewById<TextView>(R.id.actinoids_btn).elevation = (resources.getDimension(R.dimen.zero_elevation))
 
@@ -114,21 +121,15 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
         closeHover()
         delay.postDelayed({
             for (item in list) {
-                val name = item.element
+                val name = item.elementKey
                 val extText = "_text"
                 val eView = "$name$extText"
                 val iText = findViewById<TextView>(resources.getIdentifier(eView, "id", packageName))
-                var jsonString : String? = null
                 try {
-                    val ext = ".json"
-                    val ElementJson: String? = "$name$ext"
-                    val inputStream: InputStream = assets.open(ElementJson.toString())
-                    jsonString = inputStream.bufferedReader().use { it.readText() }
-                    val jsonArray = JSONArray(jsonString)
-                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    val jsonObject = ElementDataLoader.loadElementData(this, name)
                     val tempPreference = TemperatureUnits(this)
                     val tempPrefValue = tempPreference.getValue()
-                    val elementAtomicWeight = jsonObject.optString("element_boiling_$tempPrefValue", "---")
+                    val elementAtomicWeight = jsonObject?.optString("element_boiling_$tempPrefValue", "---") ?: "---"
                     iText.text = elementAtomicWeight
                 } catch(e: IOException) { }
             } },10)
@@ -140,21 +141,15 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
         closeHover()
         delay.postDelayed({
             for (item in list) {
-                val name = item.element
+                val name = item.elementKey
                 val extText = "_text"
                 val eView = "$name$extText"
                 val iText = findViewById<TextView>(resources.getIdentifier(eView, "id", packageName))
-                var jsonString : String? = null
                 try {
-                    val ext = ".json"
-                    val ElementJson: String? = "$name$ext"
-                    val inputStream: InputStream = assets.open(ElementJson.toString())
-                    jsonString = inputStream.bufferedReader().use { it.readText() }
-                    val jsonArray = JSONArray(jsonString)
-                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
+                    val jsonObject = ElementDataLoader.loadElementData(this, name)
                     val tempPreference = TemperatureUnits(this)
                     val tempPrefValue = tempPreference.getValue()
-                    val elementAtomicWeight = jsonObject.optString("element_melting_$tempPrefValue", "---")
+                    val elementAtomicWeight = jsonObject?.optString("element_melting_$tempPrefValue", "---") ?: "---"
                     iText.text = elementAtomicWeight
                 } catch(e: IOException) { }
             } },10)
@@ -166,7 +161,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
         closeHover()
         delay.postDelayed({
             for (item in list) {
-                val name = item.element
+                val name = item.elementKey
                 val extText = "_text"
                 val eView = "$name$extText"
                 val extBtn = "_btn"
@@ -212,7 +207,7 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
         delay.postDelayed({
             for (item in list) {
                 closeHover()
-                val name = item.element
+                val name = item.elementKey
                 val extBtn = "_btn"
                 val extText = "_text"
                 val eViewBtn = "$name$extBtn"
@@ -221,16 +216,9 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
                 val resID = resources.getIdentifier(eText, "id", packageName)
 
                 val iText = findViewById<TextView>(resID)
-                var jsonstring : String? = null
                 try {
-                    val ext = ".json"
-                    val elementJson: String? = "$name$ext"
-                    val inputStream: InputStream = assets.open(elementJson.toString())
-                    jsonstring = inputStream.bufferedReader().use { it.readText() }
-
-                    val jsonArray = JSONArray(jsonstring)
-                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-                    val elementGroup = jsonObject.optString("element_group", "---")
+                    val jsonObject = ElementDataLoader.loadElementData(this, name)
+                    val elementGroup = jsonObject?.optString("element_group", "---") ?: "---"
                     iText.text = elementGroup
                     val params = iText.layoutParams as ViewGroup.MarginLayoutParams
                     params.leftMargin = resources.getDimensionPixelSize(R.dimen.groups)
@@ -277,22 +265,15 @@ abstract class TableExtension : BaseActivity(), View.OnApplyWindowInsetsListener
         val delay = Handler(Looper.getMainLooper()) //Using new Looper.getMainLooper() as Handler() is deprecated in java
         delay.postDelayed({
             for (item in list) {
-                val name = item.element
+                val name = item.elementKey
                 val extText = "_text"
                 val eView = "$name$extText"
                 val resID = resources.getIdentifier(eView, "id", packageName)
                 val iText = findViewById<TextView>(resID)
 
-                var jsonstring : String? = null
                 try {
-                    val ext = ".json"
-                    val elementJson: String? = "$name$ext" //Building asset path
-                    val inputStream: InputStream = assets.open(elementJson.toString())
-                    jsonstring = inputStream.bufferedReader().use { it.readText() }
-
-                    val jsonArray = JSONArray(jsonstring)
-                    val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-                    val outputText = jsonObject.optString(jsonName, "---") //Retrieving value from element asset
+                    val jsonObject = ElementDataLoader.loadElementData(this, name)
+                    val outputText = jsonObject?.optString(jsonName, "---") ?: "---"
                     iText.text = outputText
                 }
                 catch(e: IOException) {

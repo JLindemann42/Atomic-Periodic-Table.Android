@@ -10,6 +10,7 @@ import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
+import com.jlindemann.science.preferences.NotesPreference
 import com.jlindemann.science.util.XpManager
 import com.jlindemann.science.utils.StreakManager
 
@@ -24,14 +25,16 @@ object ProgressSyncManager {
         val lastUpdated: Timestamp? = null,
         val achievements: List<CloudAchievement>? = null,
         val statistics: Map<Int, Long>? = null,
-        val streak: Long? = null
+        val streak: Long? = null,
+        val streakLastPlay: String? = null,  // ISO date string (yyyy-MM-dd)
+        val notes: String? = null  // Element notes data
     )
 
     private fun docRefForUid(uid: String) = db.collection("users").document(uid)
 
     /**
      * Load cloud progress for uid and call callback. If document not present, callback with null.
-     * Also attempts to read achievements (list of maps), statistics (map of id->progress) and streak.
+     * Also attempts to read achievements (list of maps), statistics (map of id->progress), streak, and notes.
      */
     fun loadCloudProgress(uid: String, onLoaded: (CloudProgress?) -> Unit) {
         docRefForUid(uid).get()
@@ -90,7 +93,11 @@ object ProgressSyncManager {
                             else -> null
                         }
 
-                        onLoaded(CloudProgress(xp = xp, level = level, lastUpdated = last, achievements = cloudAchievements, statistics = cloudStats, streak = cloudStreak))
+                        val cloudStreakLastPlay: String? = snap.getString("streakLastPlay")
+                        
+                        val cloudNotes: String? = snap.getString("notes")
+
+                        onLoaded(CloudProgress(xp = xp, level = level, lastUpdated = last, achievements = cloudAchievements, statistics = cloudStats, streak = cloudStreak, streakLastPlay = cloudStreakLastPlay, notes = cloudNotes))
                     } catch (t: Throwable) {
                         Log.w(TAG, "Failed to parse cloud progress", t)
                         onLoaded(null)
@@ -106,7 +113,7 @@ object ProgressSyncManager {
     }
 
     /**
-     * Write progress and optionally achievements/statistics/streak to cloud (merge). lastUpdated will be server timestamp.
+     * Write progress and optionally achievements/statistics/streak/streakLastPlay/notes to cloud (merge). lastUpdated will be server timestamp.
      */
     fun saveFullProgressToCloud(
         uid: String,
@@ -115,6 +122,8 @@ object ProgressSyncManager {
         achievements: List<Achievement>? = null,
         statistics: List<Statistics>? = null,
         streak: Int? = null,
+        streakLastPlay: String? = null,
+        notes: String? = null,
         onComplete: ((Boolean, Exception?) -> Unit)? = null
     ) {
         val data = mutableMapOf<String, Any>(
@@ -144,6 +153,14 @@ object ProgressSyncManager {
 
         streak?.let {
             data["streak"] = it
+        }
+
+        streakLastPlay?.let {
+            data["streakLastPlay"] = it
+        }
+
+        notes?.let {
+            data["notes"] = it
         }
 
         docRefForUid(uid).set(data, SetOptions.merge())
@@ -177,12 +194,18 @@ object ProgressSyncManager {
         StatisticsModel.getList(context, localStatistics)
         localStatistics.forEach { it.loadProgress(context) }
 
-        // read local streak
+        // read local streak and last play date
         val localStreak = try {
             StreakManager.getCurrentStreak(context)
         } catch (t: Throwable) {
             Log.w(TAG, "Failed to read local streak", t)
             0
+        }
+        val localLastPlayDate = try {
+            StreakManager.getLastPlayDate(context)
+        } catch (t: Throwable) {
+            Log.w(TAG, "Failed to read local last play date", t)
+            null
         }
 
         loadCloudProgress(uid) { cloud ->
@@ -233,11 +256,44 @@ object ProgressSyncManager {
                     Statistics(id, title, prog)
                 }
 
-                // Merge streak: use max
-                val mergedStreak: Int = maxOf(localStreak, (cloud?.streak?.toInt() ?: 0))
+                // Merge streak: use max streak, but prefer the last play date from the higher streak
+                val cloudStreakInt = cloud?.streak?.toInt() ?: 0
+                val mergedStreak: Int
+                var mergedLastPlayDate: String?
+                
+                if (localStreak > cloudStreakInt) {
+                    // Local streak is higher, use local values
+                    mergedStreak = localStreak
+                    mergedLastPlayDate = localLastPlayDate
+                } else if (cloudStreakInt > localStreak) {
+                    // Cloud streak is higher, use cloud values
+                    mergedStreak = cloudStreakInt
+                    mergedLastPlayDate = cloud?.streakLastPlay
+                } else {
+                    // Equal streaks - prefer the most recent last play date
+                    mergedStreak = localStreak
+                    if (localLastPlayDate != null && cloud?.streakLastPlay != null) {
+                        // Compare dates, use the more recent one
+                        try {
+                            val localDate = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).parse(localLastPlayDate)
+                            val cloudDate = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).parse(cloud.streakLastPlay)
+                            mergedLastPlayDate = if (localDate!!.after(cloudDate)) localLastPlayDate else cloud.streakLastPlay
+                        } catch (e: Exception) {
+                            mergedLastPlayDate = localLastPlayDate
+                        }
+                    } else {
+                        mergedLastPlayDate = localLastPlayDate ?: cloud?.streakLastPlay
+                    }
+                }
+
+                // Merge notes: per-element, take the longer content (more detailed)
+                val notesPref = NotesPreference(context)
+                val localNotes = notesPref.getValue()
+                val cloudNotes = cloud?.notes
+                val mergedNotes = mergeNotes(localNotes, cloudNotes)
 
                 // persist merged to cloud (write full state)
-                saveFullProgressToCloud(uid, mergedXp, mergedLevel, mergedAchievements, mergedStatistics, mergedStreak) { success, _ ->
+                saveFullProgressToCloud(uid, mergedXp, mergedLevel, mergedAchievements, mergedStatistics, mergedStreak, mergedLastPlayDate, mergedNotes) { success, _ ->
                     if (success) {
                         try {
                             // Update local XP if mergedXp is greater than local
@@ -297,14 +353,19 @@ object ProgressSyncManager {
                             }
                         }
 
-                        // Streak: increase local streak if merged is greater (do not reduce)
+                        // Streak: update local streak with merged value and date
+                        // Use setCurrentStreakWithDate to ensure proper validation and date tracking
                         try {
-                            val currentLocalStreak = StreakManager.getCurrentStreak(context)
-                            if (mergedStreak > currentLocalStreak) {
-                                StreakManager.setCurrentStreak(context, mergedStreak)
-                            }
+                            StreakManager.setCurrentStreakWithDate(context, mergedStreak, mergedLastPlayDate)
                         } catch (t: Throwable) {
                             Log.w(TAG, "Failed to update local streak", t)
+                        }
+
+                        // Notes: update local notes with merged value
+                        try {
+                            notesPref.setValue(mergedNotes)
+                        } catch (t: Throwable) {
+                            Log.w(TAG, "Failed to update local notes", t)
                         }
 
                         onComplete?.invoke(true)
@@ -317,5 +378,65 @@ object ProgressSyncManager {
                 onComplete?.invoke(false)
             }
         }
+    }
+
+    /**
+     * Merge notes from local and cloud sources.
+     * Strategy: For each element, keep the longer content (more detailed notes).
+     * Notes format: "<element_code>note text</element_code>"
+     */
+    private fun mergeNotes(localNotes: String, cloudNotes: String?): String {
+        if (cloudNotes == null || cloudNotes.isEmpty()) {
+            return localNotes
+        }
+        if (localNotes.isEmpty()) {
+            return cloudNotes
+        }
+
+        // Parse both notes strings to extract element-specific notes
+        val localElementNotes = parseElementNotes(localNotes)
+        val cloudElementNotes = parseElementNotes(cloudNotes)
+
+        // Merge: for each element, take the longer content
+        val allElements = (localElementNotes.keys + cloudElementNotes.keys).toSet()
+        val mergedElementNotes = mutableMapOf<String, String>()
+
+        for (element in allElements) {
+            val localNote = localElementNotes[element] ?: ""
+            val cloudNote = cloudElementNotes[element] ?: ""
+            
+            // Take the longer note (more content means more user edits)
+            mergedElementNotes[element] = if (localNote.length >= cloudNote.length) localNote else cloudNote
+        }
+
+        // Reconstruct the notes string
+        return buildNotesString(mergedElementNotes)
+    }
+
+    /**
+     * Parse notes string into a map of element code to note content.
+     */
+    private fun parseElementNotes(notes: String): Map<String, String> {
+        val elementNotes = mutableMapOf<String, String>()
+        val regex = Regex("<([^>]+)>(.*?)</\\1>", RegexOption.DOT_MATCHES_ALL)
+        
+        regex.findAll(notes).forEach { match ->
+            val elementCode = match.groups[1]?.value ?: return@forEach
+            val noteContent = match.groups[2]?.value ?: ""
+            elementNotes[elementCode] = noteContent
+        }
+        
+        return elementNotes
+    }
+
+    /**
+     * Build notes string from element notes map.
+     */
+    private fun buildNotesString(elementNotes: Map<String, String>): String {
+        return elementNotes.entries
+            .sortedBy { it.key }
+            .joinToString("") { (element, content) ->
+                "<$element>$content</$element>"
+            }
     }
 }

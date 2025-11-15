@@ -13,10 +13,8 @@ import com.jlindemann.science.R
 import com.jlindemann.science.activities.tables.IonActivity
 import com.jlindemann.science.model.Equation
 import com.jlindemann.science.model.Ion
-import org.json.JSONArray
-import org.json.JSONObject
+import com.jlindemann.science.utils.ElementDataLoader
 import java.io.IOException
-import java.io.InputStream
 
 
 class IonAdapter(var list: ArrayList<Ion>, var clickListener: IonActivity, val context: Context) : RecyclerView.Adapter<IonAdapter.ViewHolder>() {
@@ -39,22 +37,11 @@ class IonAdapter(var list: ArrayList<Ion>, var clickListener: IonActivity, val c
         private val textViewVoltage = itemView.findViewById(R.id.tv_ionization) as TextView
 
         fun initialize(item: Ion, action: OnIonClickListener, context: Context) {
-            var jsonString : String? = null
             try {
-                val ext = ".json"
                 val element = item.name
-                val ElementJson: String? = "$element$ext"
-
-                val inputStream: InputStream = context.assets.open(ElementJson.toString())
-                jsonString = inputStream.bufferedReader().use { it.readText() }
-
-                val jsonArray = JSONArray(jsonString)
-                val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-
-                val ionization1 = jsonObject.optString("element_ionization_energy1", "---")
+                val jsonObject = ElementDataLoader.loadElementData(context, element)
+                val ionization1 = jsonObject?.optString("element_ionization_energy1", "---") ?: "---"
                 textViewVoltage.text = ionization1
-
-
             }
             catch (e: IOException) { }
             textViewName.text = item.name

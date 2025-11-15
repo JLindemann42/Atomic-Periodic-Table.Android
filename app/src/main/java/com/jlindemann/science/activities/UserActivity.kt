@@ -52,7 +52,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
     private lateinit var recyclerView: RecyclerView
     private var mAdapter: AchievementAdapter? = null
 
-    private lateinit var btnSignOut: Button
+    private lateinit var btnSignOut: TextView
     private lateinit var tvUserInfo: TextView
     private lateinit var tvSyncStatus: TextView
     private lateinit var userImg: ImageView
@@ -145,6 +145,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         tvUserInfo = TextView(this).apply {
             textSize = 14f
             gravity = Gravity.CENTER
+            setTextColor(context.obtainStyledAttributes(intArrayOf(androidx.appcompat.R.attr.actionMenuTextColor)).let { ta -> val color = ta.getColor(0, currentTextColor); ta.recycle(); color })
         }
         tvSyncStatus = TextView(this).apply {
             textSize = 12f
@@ -169,10 +170,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             Log.w(TAG, "Failed to add dynamic UI elements", e)
         }
 
-        btnSignOut = Button(this).apply {
-            text = getString(R.string.sign_out)
-            visibility = View.GONE
-        }
+        btnSignOut = findViewById(R.id.signout_button)
         try {
             val proBadge = findViewById<TextView>(R.id.pro_badge)
             val parent = proBadge.parent as? ViewGroup
@@ -195,9 +193,9 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         // PRO badge text
         val proPref = ProVersion(this).getValue()
         val proPlusPref = ProPlusVersion(this).getValue()
-        if (proPref == 1) findViewById<TextView>(R.id.pro_badge).text = "NON-PRO"
-        if (proPref == 100) findViewById<TextView>(R.id.pro_badge).text = "PRO-USER"
-        if (proPlusPref == 100) findViewById<TextView>(R.id.pro_badge).text = "PRO+-USER"
+        if (proPref == 1) findViewById<TextView>(R.id.pro_badge).text = getString(R.string.non_pro)
+        if (proPref == 100) findViewById<TextView>(R.id.pro_badge).text = getString(R.string.pro_user)
+        if (proPlusPref == 100) findViewById<TextView>(R.id.pro_badge).text = getString(R.string.pro_plus_user)
 
         // Replace user title views with user's name (they will be updated from updateUi)
         // initialize with a default placeholder
@@ -230,6 +228,37 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
                 .build()
         } catch (t: Throwable) {
             Log.w(TAG, "OneTap initialization failed, legacy fallback will be used", t)
+        }
+
+        findViewById<TextView>(R.id.login_button).setOnClickListener {
+            // Try One Tap
+            var oneTapStarted = false
+            try {
+                if (::oneTapClient.isInitialized) {
+                    oneTapClient.beginSignIn(oneTapRequest)
+                        .addOnSuccessListener { result ->
+                            try {
+                                val intentSender = result.pendingIntent.intentSender
+                                oneTapLauncher.launch(IntentSenderRequest.Builder(intentSender).build())
+                            } catch (t: Throwable) {
+                                Log.w(TAG, "OneTap pending intent launch failed", t)
+                                // fall back to legacy if available
+                                startLegacySignIn()
+                            }
+                        }
+                        .addOnFailureListener { _ ->
+                            // fall back to legacy
+                            startLegacySignIn()
+                        }
+                    oneTapStarted = true
+                }
+            } catch (t: Throwable) {
+                Log.w(TAG, "OneTap beginSignIn failed", t)
+            }
+
+            if (!oneTapStarted) {
+                startLegacySignIn()
+            }
         }
 
         // profile image click: sign-in/out (use One Tap first, fallback to legacy)
@@ -310,6 +339,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             val displayName = user.displayName ?: user.email ?: "User Page"
             setUserTitleViews(displayName)
             btnSignOut.visibility = View.VISIBLE
+            findViewById<TextView>(R.id.login_button).visibility = View.GONE
             val photo = user.photoUrl
             if (photo != null) {
                 loadImageFromUrlIntoImageView(photo.toString(), userImg)
@@ -335,7 +365,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
      * Called after Firebase sign-in is established (or when UI is refreshed while signed in).
      * Reads FirebaseAuth.currentUser for uid/photo/name and performs progress sync.
      *
-     * Sync is only performed for Pro or Pro+ users. All users may sign in.
+     * Sync is only performed for Pro or Pro+ users. All users may sign in, but only sync for paying users.
      */
     private fun onSigninSuccess() {
         val uid = AuthManager.getUid()
@@ -343,11 +373,14 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             tvSyncStatus.text = getString(R.string.sign_in_failed)
             return
         }
+        findViewById<TextView>(R.id.login_button).visibility = View.GONE
+        tvUserInfo.text = "Logged in"
 
         // Check Pro/Pro+ status and only run sync if user has Pro or Pro+
         val proPref = ProVersion(this).getValue()
         val proPlusPref = ProPlusVersion(this).getValue()
         val isProOrProPlus = (proPref == 100) || (proPlusPref == 100)
+
 
         if (!isProOrProPlus) {
             // Allow sign-in but do not sync for non-Pro users.

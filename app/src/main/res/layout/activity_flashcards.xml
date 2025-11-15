@@ -190,7 +190,7 @@
                     android:textSize="14sp"
                     android:text="@string/bonus_xp"
                     android:layout_marginStart="16dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginTop="4dp"
                     android:textColor="?attr/colorOnSurface"/>
@@ -204,7 +204,7 @@
                     android:visibility="gone"
                     android:textStyle="italic"
                     android:layout_marginStart="16dp"
-                    android:layout_marginBottom="4dp"
+                    android:layout_marginBottom="16dp"
                     android:layout_marginEnd="16dp"
                     android:textColor="?attr/colorOnSurface"/>
 
@@ -215,7 +215,7 @@
                     android:layout_marginStart="@dimen/margin"
                     android:layout_marginEnd="@dimen/margin"
                     android:layout_marginBottom="@dimen/margin"
-                    android:background="@drawable/toast"
+                    android:background="@drawable/toast_outline"
                     android:backgroundTint="?attr/colorPrimary"
                     android:clickable="true"
                     android:elevation="2dp"
@@ -230,7 +230,7 @@
                     android:textStyle="bold"
                     android:text="@string/login_for_sync"
                     android:textSize="12sp"
-                    android:textColor="?attr/colorOnPrimary" />
+                    android:textColor="?attr/colorPrimary" />
             </LinearLayout>
 
             <FrameLayout
@@ -285,7 +285,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/margin"
                             android:clickable="true"
-                            android:drawableStart="@drawable/ic_sync"
+                            android:drawableStart="@drawable/ic_cloud_sync"
                             android:drawablePadding="12dp"
                             android:drawableTint="?attr/colorPrimary"
                             android:elevation="1dp"
@@ -526,6 +526,7 @@
                         android:layout_gravity="center_vertical"
                         app:tint="?attr/colorOnPrimary"
                         android:src="@drawable/ic_achievements" />
+
 
                     <TextView
                         android:id="@+id/tv_lives_count"

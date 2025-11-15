@@ -120,7 +120,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/margin"
                     android:layout_marginEnd="@dimen/margin"
-                    android:text="Wikipedia Commons"
+                    android:text="@string/wikipedia_commons"
                     android:textColor="?attr/colorOnSurfaceVariant" />
 
             </FrameLayout>
@@ -145,7 +145,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="@dimen/margin"
                     android:layout_marginEnd="@dimen/margin"
-                    android:text="Sothree Android Sliding Up Panel"
+                    android:text="@string/sothree_android_sliding_up_panel"
                     android:textColor="?attr/colorOnSurfaceVariant" />
 
             </FrameLayout>

@@ -73,7 +73,7 @@
             android:id="@+id/electron_Config_title2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Oxidation States:"
+            android:text="@string/oxidation_states_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -100,7 +100,7 @@
             android:id="@+id/electron_Config_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Electron Configuration:"
+            android:text="@string/electron_configuration_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -131,7 +131,7 @@
             android:id="@+id/ion_charge_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ion Charge:"
+            android:text="@string/ion_charge_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -161,7 +161,7 @@
             android:id="@+id/ionization_energies_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ionization Energies:"
+            android:text="@string/ionization_energies_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -192,7 +192,7 @@
             android:id="@+id/atomic_radius_e_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Atomic Radius (Empirical):"
+            android:text="@string/atomic_radius_empirical_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -222,7 +222,7 @@
             android:id="@+id/atomic_radius_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Atomic Radius (Calculated):"
+            android:text="@string/atomic_radius_calculated_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />

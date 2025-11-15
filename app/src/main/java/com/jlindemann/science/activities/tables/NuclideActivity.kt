@@ -20,7 +20,6 @@ import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ThemePreference
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +29,7 @@ import com.jlindemann.science.activities.IsotopesActivityExperimental
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.sendIso
+import com.jlindemann.science.utils.ElementDataLoader
 import com.otaliastudios.zoom.ZoomLayout
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -182,8 +182,9 @@ class NuclideActivity : BaseActivity() {
 
     @SuppressLint("SetTextI18n") //suppresses as it's only showing number and therefore no attr needed
     private suspend fun loadAndDisplayElements() {
+        val context = this@NuclideActivity
         withContext(Dispatchers.IO) {
-            ElementModel.getList(elementLists)
+            ElementModel.getList(elementLists, context)
         }
         initializeDefaultView()
 
@@ -226,12 +227,9 @@ class NuclideActivity : BaseActivity() {
     private suspend fun loadElementData(item: Element): JSONObject? {
         return withContext(Dispatchers.IO) {
             try {
-                val inputStream = assets.open("${item.element}.json")
-                val jsonString = inputStream.bufferedReader().use { it.readText() }
-                val jsonArray = JSONArray(jsonString)
-                jsonArray.getJSONObject(0)
+                ElementDataLoader.loadElementData(this@NuclideActivity, item.elementKey)
             } catch (e: IOException) {
-                Log.e("NuclideActivity", "Failed to load element data for ${item.element}", e)
+                Log.e("NuclideActivity", "Failed to load element data for ${item.elementKey}", e)
                 null
             }
         }
@@ -296,7 +294,7 @@ class NuclideActivity : BaseActivity() {
 
         frame.setOnClickListener {
             val isoPreference = ElementSendAndLoad(this)
-            isoPreference.setValue(item.element.lowercase(Locale.ROOT)) //Send element number
+            isoPreference.setValue(item.elementKey) //Send element number
             val isoSend = sendIso(this)
             isoSend.setValue("true") //Set flag for sent
             val intent = Intent(this, IsotopesActivityExperimental::class.java)

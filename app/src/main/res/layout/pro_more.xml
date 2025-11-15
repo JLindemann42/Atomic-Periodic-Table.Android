@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="textStart"
-        android:text="More information:"
+        android:text="@string/more_information"
         android:layout_marginStart="@dimen/margin"
         android:layout_marginEnd="@dimen/margin"
         android:layout_marginTop="16dp"
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="textStart"
-        android:text="In the following table features included in the FREE, PRO, and PRO+ Versions are detailed:"
+        android:text="@string/pro_features_table_description"
         android:layout_marginStart="@dimen/margin"
         android:layout_marginEnd="@dimen/margin"
         android:textColor="?attr/colorOnSecondaryContainer"
@@ -52,14 +52,14 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:alpha="1.0"
-                android:text="Features:"/>
+                android:text="@string/features"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -77,7 +77,7 @@
                 android:alpha="0.7"
                 android:textSize="11sp"
                 android:gravity="center"
-                android:text="FREE" />
+                android:text="@string/free" />
 
             <TextView
                 android:layout_width="0dp"
@@ -94,7 +94,7 @@
                 android:paddingBottom="4dp"
                 android:gravity="center"
                 android:textSize="11sp"
-                android:text="PRO" />
+                android:text="@string/get_pro_short" />
 
             <TextView
                 android:layout_width="0dp"
@@ -111,7 +111,7 @@
                 android:paddingBottom="4dp"
                 android:gravity="center"
                 android:textSize="11sp"
-                android:text="PRO+" />
+                android:text="@string/pro_plus_badge" />
         </LinearLayout>
 
         <!-- Divider -->
@@ -132,19 +132,19 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Element Overview:"/>
+                android:text="@string/element_overview"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -153,7 +153,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -162,7 +162,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -187,19 +187,19 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Isotopes:"/>
+                android:text="@string/isotopes_colon"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -208,7 +208,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -217,7 +217,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -242,19 +242,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Dictionary:"/>
+                android:text="@string/dictionary"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -263,7 +264,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -272,7 +273,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -297,19 +298,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Favorite Bar:"/>
+                android:text="@string/favorite_bar"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -318,7 +320,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -327,13 +329,12 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorPrimary"/>
         </LinearLayout>
-
         <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
@@ -352,19 +353,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Nuclide Table:"/>
+                android:text="@string/sync_data"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -373,7 +375,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -382,13 +384,12 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
                 app:tint="?attr/colorPrimary"/>
         </LinearLayout>
-
         <!-- Divider -->
         <TextView
             android:layout_width="match_parent"
@@ -407,19 +408,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Save Calculations:"/>
+                android:text="@string/nuclide_table"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -428,7 +430,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -437,7 +439,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -462,19 +464,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Save Units:"/>
+                android:text="@string/save_calculations"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -483,7 +486,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -492,7 +495,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -517,19 +520,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Data Visualisations:"/>
+                android:text="@string/save_units"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -538,7 +542,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -547,7 +551,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -572,19 +576,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Hardness Properties:"/>
+                android:text="@string/data_visualisations"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -593,7 +598,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -602,7 +607,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -627,19 +632,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Young-, Bulk-, Shear modulus:"/>
+                android:text="@string/hardness_properties"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -648,7 +654,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -657,7 +663,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -682,19 +688,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Poisson's Constants, Sound of Speed:"/>
+                android:text="@string/young_bulk_shear_modulus"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -703,7 +710,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -712,7 +719,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -737,19 +744,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Hazard of Materials:"/>
+                android:text="@string/poisson_constants_sound_speed"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -758,7 +766,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -767,7 +775,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -792,19 +800,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Constants Table:"/>
+                android:text="@string/hazard_materials"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -813,7 +822,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -822,7 +831,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -847,19 +856,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Geology Table:"/>
+                android:text="@string/constants_table_label"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -868,7 +878,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -877,7 +887,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -902,19 +912,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Poisson's Ratio Table:"/>
+                android:text="@string/geology_table"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -923,7 +934,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -932,7 +943,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -957,19 +968,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Emission Spectrum Table:"/>
+                android:text="@string/poisson_ratio_table"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -978,7 +990,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -987,7 +999,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -1012,19 +1024,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="50 lives in Flashcards:"/>
+                android:text="@string/emission_spectrum_table"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -1033,7 +1046,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -1042,7 +1055,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -1067,19 +1080,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Unlimited lives in Flashcards:"/>
+                android:text="@string/fifty_lives_in_flashcards"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -1088,7 +1102,63 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.26"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="@string/flashcards_unlimited_lives"/>
+
+            <!-- FREE -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -1097,7 +1167,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -1121,19 +1191,19 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Additional Flashcards games:"/>
+                android:text="@string/additional_flashcards_games"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -1142,7 +1212,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -1151,7 +1221,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"
@@ -1174,19 +1244,20 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
-                android:layout_weight="6"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
                 android:gravity="center_vertical"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
-                android:text="Early Access to new Features:"/>
+                android:text="@string/early_access_features"/>
 
             <!-- FREE -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -1195,7 +1266,7 @@
             <!-- PRO -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cancel"
@@ -1204,7 +1275,7 @@
             <!-- PRO+ -->
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_check"

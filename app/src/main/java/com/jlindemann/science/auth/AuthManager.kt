@@ -31,10 +31,6 @@ object AuthManager {
         }
     }
 
-    /**
-     * Exchange Google idToken for a Firebase credential and sign in to Firebase.
-     * onResult(true) when sign-in succeeded and Firebase user available.
-     */
     fun handleIdTokenForFirebase(idToken: String, onResult: (Boolean, Exception?) -> Unit) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         firebaseAuth.signInWithCredential(credential)
@@ -47,10 +43,6 @@ object AuthManager {
             }
     }
 
-    /**
-     * Build a GoogleSignInClient configured to request an ID token for the provided webClientId.
-     * Pass the web client id from your Firebase console (strings.xml).
-     */
     fun buildGoogleSignInClient(activity: Activity, webClientId: String): GoogleSignInClient {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(webClientId)

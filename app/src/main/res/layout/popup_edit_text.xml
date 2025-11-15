@@ -9,13 +9,13 @@
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter new text" />
+        android:hint="@string/enter_new_text" />
 
     <Button
         android:id="@+id/buttonOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="@string/ok"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="10dp" />
 
