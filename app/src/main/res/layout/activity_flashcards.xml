@@ -30,8 +30,11 @@
                 android:paddingBottom="12dp"
                 android:text="@string/flashcards_title"
                 android:textColor="?attr/colorOnSurface"
+                android:drawableStart="@drawable/ic_flashcards_large"
+                android:drawablePadding="8dp"
+                android:drawableTint="?attr/colorOnSurface"
                 android:textSize="32sp"
-                android:textStyle="normal" />
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -484,7 +487,7 @@
                 <TextView
                     android:id="@+id/flashcard_title"
                     android:layout_width="wrap_content"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="56dp"
                     android:alpha="0.9"
                     android:layout_height="56dp"
                     android:gravity="center"

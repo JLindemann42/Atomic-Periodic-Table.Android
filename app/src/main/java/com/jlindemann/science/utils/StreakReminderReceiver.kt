@@ -1,10 +1,12 @@
 package com.jlindemann.science.activities.tools
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.jlindemann.science.R
@@ -17,6 +19,7 @@ class StreakReminderReceiver : BroadcastReceiver() {
         private const val NOTIF_ID = 9101
     }
 
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     override fun onReceive(context: Context, intent: Intent?) {
         // Show notification reminding user to "save their streak"
         val streak = StreakManager.getCurrentStreak(context)
