@@ -631,4 +631,5 @@
     <string name="intro_skip">छोड़ें</string>
     <string name="intro_finish">शुरू करें</string>
     <string name="intro_image_description">परिचय चित्र</string>
+    <string name="electron_affinity_colon">इलेक्ट्रॉन आत्मीयता:</string>
     </resources>

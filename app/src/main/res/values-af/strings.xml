@@ -628,4 +628,5 @@ Jy sal %3$d lewe%4$s kry.</string>
     <string name="intro_skip">Slaan oor</string>
     <string name="intro_finish">Begin</string>
     <string name="intro_image_description">Inleidingsbeeld</string>
+    <string name="electron_affinity_colon">Elektronaffiniteit:</string>
     </resources>

@@ -632,4 +632,5 @@ Du får %3$d liv%4$s.</string>
     <string name="intro_skip">Hoppa över</string>
     <string name="intro_finish">Kom igång</string>
     <string name="intro_image_description">Introduktionsbild</string>
+    <string name="electron_affinity_colon">Elektronaffinitet:</string>
     </resources>

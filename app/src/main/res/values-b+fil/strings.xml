@@ -629,4 +629,5 @@ Makakakuha ka ng %3$d buhay%4$s.</string>
     <string name="intro_skip">Laktawan</string>
     <string name="intro_finish">Magsimula</string>
     <string name="intro_image_description">Larawan ng pagpapakilala</string>
+    <string name="electron_affinity_colon">Electron Affinity:</string>
     </resources>

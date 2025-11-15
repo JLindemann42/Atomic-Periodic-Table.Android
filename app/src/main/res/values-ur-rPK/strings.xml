@@ -628,4 +628,5 @@
     <string name="intro_skip">چھوڑیں</string>
     <string name="intro_finish">شروع کریں</string>
     <string name="intro_image_description">تعارفی تصویر</string>
+    <string name="electron_affinity_colon">الیکٹران کی مائلیت:</string>
     </resources>

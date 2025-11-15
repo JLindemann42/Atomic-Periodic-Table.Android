@@ -634,4 +634,5 @@ I：不溶"</string>
     <string name="intro_skip">跳过</string>
     <string name="intro_finish">开始使用</string>
     <string name="intro_image_description">介绍图片</string>
+    <string name="electron_affinity_colon">电子亲和能:</string>
     </resources>

@@ -628,4 +628,5 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="intro_skip">Salta</string>
     <string name="intro_finish">Inizia</string>
     <string name="intro_image_description">Immagine di introduzione</string>
+    <string name="electron_affinity_colon">Affinità Elettronica:</string>
     </resources>
