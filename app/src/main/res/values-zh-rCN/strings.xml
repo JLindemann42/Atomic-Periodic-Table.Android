@@ -498,7 +498,7 @@ I：不溶"</string>
     <string name="phase_stp_colon">相（STP）：</string>
     <string name="pro_plus_rewards">PRO+奖励：%s</string>
     <string name="pro_plus_user">PRO+用户</string>
-    <string name="pro_plus_version">PRO+ Version</string>
+    <string name="pro_plus_version">PRO+ 版本</string>
     <string name="pro_user">PRO用户</string>
     <string name="pro_version">PRO版本</string>
     <string name="progress_xp">%1$d/%2$d</string>
@@ -584,7 +584,7 @@ I：不溶"</string>
     <string name="view_all_isotopes">查看所有同位素</string>
     <string name="not_available">N/A</string>
     <string name="hardness_properties_requires_pro">硬度属性需要PRO版本。获取PRO以解锁更多数据和表格：</string>
-    <string name="calculator_default_value">0.0 (g/mol)</string>
+    <string name="calculator_default_value">0</string>
     <string name="data_visualisations">数据可视化：</string>
     <string name="early_access_features">提前访问新功能：</string>
     <string name="element_overview">元素概览：</string>
@@ -605,7 +605,7 @@ I：不溶"</string>
     <string name="ok">确定</string>
     <string name="poisson_constants_sound_speed">泊松常数，声速：</string>
     <string name="poisson_ratio_table">泊松比表：</string>
-    <string name="price_placeholder">---</string>
+    <string name="price_placeholder">价格</string>
     <string name="pro_additional_sync">笔记和进度同步</string>
     <string name="pro_additional_sync_descr">启用笔记和进度同步，让您在所有设备上更轻松地学习</string>
     <string name="pro_features_table_description">下表详细列出了免费版、PRO版和PRO+版中包含的功能：</string>

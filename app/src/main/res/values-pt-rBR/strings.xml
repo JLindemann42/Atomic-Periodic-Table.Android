@@ -603,7 +603,7 @@ Você ganhará %3$d vida%4$s.</string>
     <string name="ok">OK</string>
     <string name="poisson_constants_sound_speed">Constantes de Poisson, velocidade do som:</string>
     <string name="poisson_ratio_table">Tabela de razão de Poisson:</string>
-    <string name="price_placeholder">---</string>
+    <string name="price_placeholder">Preço</string>
     <string name="pro_additional_sync">Sincronização para notas e progresso</string>
     <string name="pro_additional_sync_descr">Habilite a sincronização para notas e progresso para facilitar seus estudos em todos os seus dispositivos</string>
     <string name="pro_features_table_description">Na tabela a seguir, os recursos incluídos nas versões GRÁTIS, PRO e PRO+ são detalhados:</string>

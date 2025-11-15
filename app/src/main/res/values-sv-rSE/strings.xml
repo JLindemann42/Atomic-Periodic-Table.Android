@@ -524,7 +524,7 @@ Du får %3$d liv%4$s.</string>
     <string name="water_and_wastewater_engineering">Water and Wastewater Engineering</string>
     <string name="wikipedia_commons">Wikipedia Commons</string>
     <string name="wrong">Fel</string>
-    <string name="xp_bonus">+%d%% bonus xp</string>
+    <string name="xp_bonus">+%d%% bonus XP</string>
     <string name="you_have_full_lives">Du har fulla liv!</string>
     <string name="your_answer">Ditt svar: %s</string>
     <string name="question_appearance">Vad är utseendet på %s?</string>
@@ -603,7 +603,7 @@ Du får %3$d liv%4$s.</string>
     <string name="ok">OK</string>
     <string name="poisson_constants_sound_speed">Poissons konstanter, ljudhastighet:</string>
     <string name="poisson_ratio_table">Poissons kvottabell:</string>
-    <string name="price_placeholder">---</string>
+    <string name="price_placeholder">Pris</string>
     <string name="pro_additional_sync">Synkronisering för anteckningar och framsteg</string>
     <string name="pro_additional_sync_descr">Aktivera synkronisering för anteckningar och framsteg för att underlätta dina studier på alla dina enheter</string>
     <string name="pro_features_table_description">I följande tabell beskrivs de funktioner som ingår i versionerna GRATIS, PRO och PRO+:</string>

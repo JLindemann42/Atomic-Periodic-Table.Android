@@ -520,7 +520,7 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="water_and_wastewater_engineering">Water and Wastewater Engineering</string>
     <string name="wikipedia_commons">Wikipedia Commons</string>
     <string name="wrong">Sbagliato</string>
-    <string name="xp_bonus">+%d%% bonus xp</string>
+    <string name="xp_bonus">+%d%% XP bonus</string>
     <string name="you_have_full_lives">Hai tutte le vite!</string>
     <string name="your_answer">La tua risposta: %s</string>
     <string name="question_appearance">Qual è l\'aspetto di %s?</string>
@@ -599,7 +599,7 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="ok">OK</string>
     <string name="poisson_constants_sound_speed">Costanti di Poisson, velocità del suono:</string>
     <string name="poisson_ratio_table">Tabella rapporto di Poisson:</string>
-    <string name="price_placeholder">---</string>
+    <string name="price_placeholder">Prezzo</string>
     <string name="pro_additional_sync">Sincronizzazione per note e progressi</string>
     <string name="pro_additional_sync_descr">Abilita la sincronizzazione per note e progressi per facilitare i tuoi studi su tutti i tuoi dispositivi</string>
     <string name="pro_features_table_description">Nella seguente tabella sono dettagliate le funzionalità incluse nelle versioni GRATUITA, PRO e PRO+:</string>

@@ -524,7 +524,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="water_and_wastewater_engineering">Water and Wastewater Engineering</string>
     <string name="wikipedia_commons">Wikipedia Commons</string>
     <string name="wrong">Incorrect</string>
-    <string name="xp_bonus">+%d%% bonus xp</string>
+    <string name="xp_bonus">+%d%% XP bonus</string>
     <string name="you_have_full_lives">Vous avez toutes vos vies!</string>
     <string name="your_answer">Votre réponse: %s</string>
     <string name="question_appearance">Quelle est l\'apparence de %s?</string>
@@ -603,7 +603,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="ok">OK</string>
     <string name="poisson_constants_sound_speed">Constantes de Poisson, vitesse du son:</string>
     <string name="poisson_ratio_table">Table du rapport de Poisson:</string>
-    <string name="price_placeholder">---</string>
+    <string name="price_placeholder">Prix</string>
     <string name="pro_additional_sync">Synchronisation pour les notes et la progression</string>
     <string name="pro_additional_sync_descr">Activez la synchronisation pour les notes et la progression afin de faciliter vos études sur tous vos appareils</string>
     <string name="pro_features_table_description">Le tableau suivant détaille les fonctionnalités incluses dans les versions GRATUITE, PRO et PRO+:</string>

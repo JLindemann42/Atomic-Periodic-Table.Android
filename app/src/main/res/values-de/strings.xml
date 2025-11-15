@@ -603,7 +603,7 @@ Sie erhalten %3$d Leben%4$s.</string>
     <string name="ok">OK</string>
     <string name="poisson_constants_sound_speed">Poisson-Konstanten, Schallgeschwindigkeit:</string>
     <string name="poisson_ratio_table">Poisson-Verhältnis-Tabelle:</string>
-    <string name="price_placeholder">---</string>
+    <string name="price_placeholder">Preis</string>
     <string name="pro_additional_sync">Synchronisierung für Notizen und Fortschritt</string>
     <string name="pro_additional_sync_descr">Aktivieren Sie die Synchronisierung für Notizen und Fortschritt, um Ihr Studium auf allen Ihren Geräten zu erleichtern</string>
     <string name="pro_features_table_description">In der folgenden Tabelle sind die in den KOSTENLOSEN, PRO- und PRO+-Versionen enthaltenen Funktionen detailliert aufgeführt:</string>
