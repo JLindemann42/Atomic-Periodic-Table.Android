@@ -343,6 +343,7 @@ I：不溶"</string>
     <string name="total_xp_placeholder">Total XP: ---</string>
     <string name="unlock_all_flashcards">解锁所有闪卡和功能</string>
     <string name="upgrade_to_pro_plus">升级到PRO+</string>
+    <string name="owns_pro_plus">拥有 PRO+</string>
     <string name="upgrade_pro_plus_description">获得无限生命和额外的闪卡游戏，如电负性、放射性、晶体结构等！</string>
     <string name="easy">简单</string>
     <string name="medium">中等</string>

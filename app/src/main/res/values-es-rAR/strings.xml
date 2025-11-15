@@ -316,6 +316,7 @@
     <string name="total_xp_placeholder">XP total: ---</string>
     <string name="unlock_all_flashcards">Desbloqueá todas las tarjetas educativas y funciones</string>
     <string name="upgrade_to_pro_plus">Actualizar a PRO+</string>
+    <string name="owns_pro_plus">Tiene PRO+</string>
     <string name="upgrade_pro_plus_description">Obtené vidas ilimitadas y juegos educativos adicionales como electronegatividad, radiactividad, estructura cristalina y más!</string>
     <string name="easy">Fácil</string>
     <string name="medium">Medio</string>

@@ -339,6 +339,7 @@
     <string name="total_xp_placeholder">Totalt XP: ---</string>
     <string name="unlock_all_flashcards">Lås upp alla Flashcards och funktioner</string>
     <string name="upgrade_to_pro_plus">Uppgradera till PRO+</string>
+    <string name="owns_pro_plus">Äger PRO+</string>
     <string name="upgrade_pro_plus_description">Skaffa obegränsat antal liv och ytterligare flashcardspel som elektronegativitet, radioaktivitet, kristallstruktur och mer!</string>
     <string name="easy">Lätt</string>
     <string name="medium">Medel</string>

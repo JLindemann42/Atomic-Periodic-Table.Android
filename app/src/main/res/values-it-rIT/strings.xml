@@ -336,6 +336,7 @@
     <string name="total_xp_placeholder">XP totale: ---</string>
     <string name="unlock_all_flashcards">Sblocca tutte le flashcard e le funzionalità</string>
     <string name="upgrade_to_pro_plus">Passa a PRO+</string>
+    <string name="owns_pro_plus">Possiede PRO+</string>
     <string name="upgrade_pro_plus_description">Ottieni vite illimitate e giochi flashcard aggiuntivi come elettronegatività, radioattività, struttura cristallina e altro!</string>
     <string name="easy">Facile</string>
     <string name="medium">Medio</string>

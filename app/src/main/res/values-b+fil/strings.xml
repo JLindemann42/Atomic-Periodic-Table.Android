@@ -337,6 +337,7 @@
     <string name="total_xp_placeholder">Kabuuang XP: ---</string>
     <string name="unlock_all_flashcards">I-unlock lahat ng Flashcards at Tampok</string>
     <string name="upgrade_to_pro_plus">Mag-upgrade sa PRO+</string>
+    <string name="owns_pro_plus">May PRO+</string>
     <string name="upgrade_pro_plus_description">Makakuha ng unlimited na buhay at karagdagang flashcard games gaya ng electronegativity, radioactivity, crystal structure at iba pa!</string>
     <string name="easy">Madali</string>
     <string name="medium">Katamtaman</string>

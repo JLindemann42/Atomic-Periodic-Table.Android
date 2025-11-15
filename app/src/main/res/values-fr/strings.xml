@@ -341,6 +341,7 @@
     <string name="total_xp_placeholder">XP total : ---</string>
     <string name="unlock_all_flashcards">Débloquer toutes les cartes mémoire et fonctionnalités</string>
     <string name="upgrade_to_pro_plus">Passer à PRO+</string>
+    <string name="owns_pro_plus">Possède PRO+</string>
     <string name="upgrade_pro_plus_description">Obtenez des vies illimitées et des jeux de cartes mémoire supplémentaires tels que l\'électronégativité, la radioactivité, la structure cristalline et plus encore !</string>
     <string name="easy">Facile</string>
     <string name="medium">Moyen</string>
