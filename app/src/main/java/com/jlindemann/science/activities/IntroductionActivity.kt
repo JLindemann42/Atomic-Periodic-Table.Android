@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.MainActivity
 import com.jlindemann.science.adapter.IntroductionPagerAdapter
 import com.jlindemann.science.preferences.ThemePreference
 

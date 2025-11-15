@@ -18,7 +18,7 @@ class IntroductionPagerAdapter(private val activity: android.app.Activity) :
     
     private val pages = listOf(
         IntroPage(
-            R.drawable.ic_launcher,
+            R.mipmap.ic_launcher,
             R.string.intro_welcome_title,
             R.string.intro_welcome_description,
             VIEW_TYPE_NORMAL
@@ -91,7 +91,6 @@ class IntroductionPagerAdapter(private val activity: android.app.Activity) :
                 holder.image.setImageResource(page.imageRes)
                 holder.title.setText(page.titleRes)
                 holder.description.setText(page.descriptionRes)
-                // Pro options layout is already included via XML
             }
         }
     }
