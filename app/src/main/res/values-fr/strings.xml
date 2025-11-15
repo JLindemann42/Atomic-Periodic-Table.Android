@@ -621,7 +621,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="sync_data">Synchroniser les données:</string>
     <string name="young_bulk_shear_modulus">Module de Young, de compression et de cisaillement:</string>
 <string name="intro_welcome_title">Bienvenue sur Atomic</string>
-    <string name="intro_welcome_description">Votre référence complète du tableau périodique avec des informations détaillées sur les éléments, des outils interactifs et des fonctionnalités d'apprentissage.</string>
+    <string name="intro_welcome_description">Votre référence complète du tableau périodique avec des informations détaillées sur les éléments, des outils interactifs et des fonctionnalités d\'apprentissage.</string>
     <string name="intro_flashcards_title">Apprendre avec des Cartes Mémoire</string>
     <string name="intro_flashcards_description">Maîtrisez le tableau périodique avec des cartes mémoire interactives. Testez vos connaissances sur les symboles des éléments, les masses atomiques et les propriétés chimiques.</string>
     <string name="intro_calculator_title">Calculateur de Masse Molaire</string>
@@ -631,6 +631,6 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="intro_next">Suivant</string>
     <string name="intro_skip">Passer</string>
     <string name="intro_finish">Commencer</string>
-    <string name="intro_image_description">Image d'introduction</string>
+    <string name="intro_image_description">Image d\'introduction</string>
     <string name="electron_affinity_colon">Affinité Électronique:</string>
     </resources>

@@ -473,7 +473,7 @@
     <string name="go_pro_school_start_sale">GO PRO - SIMULA NG PASUKAN SALE</string>
     <string name="group_label">Grupo: </string>
     <string name="hardness_label">Tigas: </string>
-    <string name="isotopes_table_description">Isang table na may mga isotope para sa iba't ibang elemento pati na rin ang half-time, mass, proton, neutron at nucleons data.</string>
+    <string name="isotopes_table_description">Isang table na may mga isotope para sa iba\'t ibang elemento pati na rin ang half-time, mass, proton, neutron at nucleons data.</string>
     <string name="level_x_y">Level X-Y</string>
     <string name="lives_label">Buhay: %s</string>
     <string name="lives_lost_detail">Nawalang buhay: %1$d (%2$d bawat mali/timeout na sagot)</string>
