@@ -119,7 +119,18 @@ THERMAL_CONDUCTIVITY = {
     "aluminium": "237", "beryllium": "200", "magnesium": "156", "sodium": "142",
     "tungsten": "173", "zinc": "116", "nickel": "91", "iron": "80.4",
     "platinum": "71.6", "tin": "66.8", "lead": "35.3", "silicon": "148",
-    "germanium": "60.2",
+    "germanium": "60.2", "lithium": "85", "calcium": "201", "potassium": "102.4",
+    "titanium": "21.9", "vanadium": "30.7", "chromium": "93.7", "manganese": "7.82",
+    "cobalt": "100", "rhodium": "150", "palladium": "71.8", "cadmium": "96.8",
+    "indium": "81.6", "antimony": "24.3", "bismuth": "7.87", "molybdenum": "138",
+    "tantalum": "57.5", "rhenium": "48.0", "osmium": "87.6", "iridium": "147",
+    "mercury": "8.34", "thallium": "46.1", "polonium": "20", "thorium": "54",
+    "uranium": "27.6", "gallium": "40.6", "rubidium": "58.2", "strontium": "35.3",
+    "yttrium": "17.2", "zirconium": "22.7", "niobium": "53.7", "technetium": "50.6",
+    "ruthenium": "117", "scandium": "15.8", "europium": "13.9", "gadolinium": "10.6",
+    "terbium": "11.1", "dysprosium": "10.7", "holmium": "16.2", "erbium": "14.5",
+    "thulium": "16.9", "ytterbium": "38.5", "lutetium": "16.4", "hafnium": "23.0",
+    "neptunium": "6.3", "plutonium": "6.74", "americium": "10",
 }
 
 # Electron affinity data in kJ/mol
@@ -133,6 +144,14 @@ ELECTRON_AFFINITY = {
     "manganese": "0", "iron": "15.7", "cobalt": "63.7", "nickel": "112",
     "copper": "118.4", "zinc": "0", "gallium": "28.9", "germanium": "119",
     "arsenic": "78", "selenium": "195.0", "bromine": "324.6", "krypton": "0",
+    "rubidium": "46.9", "strontium": "5.03", "yttrium": "29.6", "zirconium": "41.1",
+    "niobium": "86.1", "molybdenum": "71.9", "technetium": "53", "ruthenium": "101.3",
+    "rhodium": "109.7", "palladium": "53.7", "silver": "125.6", "cadmium": "0",
+    "indium": "28.9", "tin": "107.3", "antimony": "103.2", "tellurium": "190.2",
+    "iodine": "295.2", "xenon": "0", "caesium": "45.5", "barium": "13.95",
+    "platinum": "205.3", "gold": "222.8", "mercury": "0", "thallium": "19.2",
+    "lead": "35.1", "bismuth": "91.2", "polonium": "183.3", "astatine": "270.1",
+    "radon": "0",
 }
 
 # Allen electronegativity scale
@@ -146,6 +165,19 @@ ELECTRONEGATIVITY_ALLEN = {
     "manganese": "1.75", "iron": "1.80", "cobalt": "1.84", "nickel": "1.88",
     "copper": "1.85", "zinc": "1.588", "gallium": "1.756", "germanium": "1.994",
     "arsenic": "2.211", "selenium": "2.424", "bromine": "2.685", "krypton": "2.966",
+    "rubidium": "0.706", "strontium": "0.963", "yttrium": "1.11", "zirconium": "1.32",
+    "niobium": "1.41", "molybdenum": "1.47", "technetium": "1.51", "ruthenium": "1.54",
+    "rhodium": "1.56", "palladium": "1.58", "silver": "1.87", "cadmium": "1.521",
+    "indium": "1.656", "tin": "1.824", "antimony": "1.984", "tellurium": "2.158",
+    "iodine": "2.359", "xenon": "2.582", "caesium": "0.659", "barium": "0.881",
+    "lanthanum": "1.09", "cerium": "1.08", "praseodymium": "1.07", "neodymium": "1.07",
+    "promethium": "1.07", "samarium": "1.07", "europium": "1.06", "gadolinium": "1.11",
+    "terbium": "1.10", "dysprosium": "1.10", "holmium": "1.10", "erbium": "1.11",
+    "thulium": "1.11", "ytterbium": "1.06", "lutetium": "1.14", "hafnium": "1.23",
+    "tantalum": "1.33", "tungsten": "1.40", "rhenium": "1.46", "osmium": "1.52",
+    "iridium": "1.55", "platinum": "1.44", "gold": "1.41", "mercury": "1.44",
+    "thallium": "1.44", "lead": "1.55", "bismuth": "1.67", "polonium": "1.76",
+    "astatine": "1.90", "radon": "2.06", "francium": "0.67", "radium": "0.89",
 }
 
 # Work function data in eV
@@ -192,7 +224,15 @@ SPACE_GROUP = {
     "osmium": ("P6_3/mmc", "194"), "iridium": ("Fm-3m", "225"),
     "platinum": ("Fm-3m", "225"), "gold": ("Fm-3m", "225"),
     "lead": ("Fm-3m", "225"), "thorium": ("Fm-3m", "225"),
-    "uranium": ("Cmcm", "63"),
+    "uranium": ("Cmcm", "63"), "rubidium": ("Im-3m", "229"),
+    "caesium": ("Im-3m", "229"), "technetium": ("P6_3/mmc", "194"),
+    "tin": ("I4_1/amd", "141"), "antimony": ("R-3m", "166"),
+    "bismuth": ("R-3m", "166"), "polonium": ("Pm-3m", "221"),
+    "francium": ("Im-3m", "229"), "radium": ("Im-3m", "229"),
+    "actinium": ("Fm-3m", "225"), "protactinium": ("I4/mmm", "139"),
+    "neptunium": ("Pnma", "62"), "plutonium": ("P2_1/m", "11"),
+    "samarium": ("R-3m", "166"), "europium": ("Im-3m", "229"),
+    "thallium": ("P6_3/mmc", "194"), "mercury": ("R-3m", "166"),
 }
 
 # Magnetic type data
@@ -208,7 +248,28 @@ MAGNETIC_TYPE = {
     "zinc": "Diamagnetic", "copper": "Diamagnetic", "silver": "Diamagnetic",
     "gold": "Diamagnetic", "mercury": "Diamagnetic", "lead": "Diamagnetic",
     "bismuth": "Diamagnetic", "sodium": "Paramagnetic", "potassium": "Paramagnetic",
-    "scandium": "Paramagnetic", "lithium": "Paramagnetic",
+    "scandium": "Paramagnetic", "lithium": "Paramagnetic", "hydrogen": "Diamagnetic",
+    "boron": "Diamagnetic", "oxygen": "Paramagnetic", "fluorine": "Diamagnetic",
+    "phosphorus": "Diamagnetic", "sulfur": "Diamagnetic", "chlorine": "Diamagnetic",
+    "germanium": "Diamagnetic", "arsenic": "Diamagnetic", "selenium": "Diamagnetic",
+    "bromine": "Diamagnetic", "krypton": "Diamagnetic", "rubidium": "Paramagnetic",
+    "strontium": "Paramagnetic", "yttrium": "Paramagnetic", "zirconium": "Paramagnetic",
+    "niobium": "Paramagnetic", "molybdenum": "Paramagnetic", "technetium": "Paramagnetic",
+    "ruthenium": "Paramagnetic", "rhodium": "Paramagnetic", "palladium": "Paramagnetic",
+    "cadmium": "Diamagnetic", "indium": "Diamagnetic", "tin": "Diamagnetic",
+    "antimony": "Diamagnetic", "tellurium": "Diamagnetic", "iodine": "Diamagnetic",
+    "xenon": "Diamagnetic", "caesium": "Paramagnetic", "barium": "Paramagnetic",
+    "lanthanum": "Paramagnetic", "cerium": "Paramagnetic", "praseodymium": "Paramagnetic",
+    "neodymium": "Paramagnetic", "promethium": "Paramagnetic", "samarium": "Paramagnetic",
+    "europium": "Paramagnetic", "thulium": "Paramagnetic", "ytterbium": "Paramagnetic",
+    "lutetium": "Paramagnetic", "hafnium": "Paramagnetic", "tantalum": "Paramagnetic",
+    "tungsten": "Paramagnetic", "rhenium": "Paramagnetic", "osmium": "Paramagnetic",
+    "iridium": "Paramagnetic", "platinum": "Paramagnetic", "thallium": "Diamagnetic",
+    "polonium": "Diamagnetic", "astatine": "Diamagnetic", "radon": "Diamagnetic",
+    "francium": "Paramagnetic", "radium": "Paramagnetic", "actinium": "Paramagnetic",
+    "thorium": "Paramagnetic", "protactinium": "Paramagnetic", "uranium": "Paramagnetic",
+    "neptunium": "Paramagnetic", "plutonium": "Paramagnetic", "americium": "Paramagnetic",
+    "curium": "Paramagnetic", "berkelium": "Paramagnetic", "californium": "Paramagnetic",
 }
 
 # Curie point data in Kelvin
@@ -226,6 +287,9 @@ HUMAN_BODY = {
     "strontium": "0.00046%", "bromine": "0.00029%", "lead": "0.00017%", "copper": "0.0001%",
     "aluminium": "0.00009%", "cadmium": "0.00007%", "boron": "0.00007%", "tin": "0.00003%",
     "iodine": "0.00002%", "selenium": "0.00002%", "manganese": "0.00002%",
+    "chromium": "0.000024%", "molybdenum": "0.000013%", "cobalt": "0.000021%",
+    "nickel": "0.000015%", "vanadium": "0.000026%", "arsenic": "0.00007%",
+    "barium": "0.000031%", "lithium": "0.000003%", "beryllium": "0.0000004%",
 }
 
 # Meteorite abundance in mg/kg (ppm)
@@ -236,6 +300,18 @@ METEORITES = {
     "potassium": "720", "titanium": "620", "cobalt": "600", "fluorine": "560",
     "zinc": "310", "nitrogen": "140", "copper": "110", "scandium": "7.3",
     "vanadium": "60", "lithium": "1.7", "boron": "0.87", "beryllium": "0.026",
+    "hydrogen": "2400", "carbon": "35000", "chlorine": "560", "strontium": "7.8",
+    "barium": "2.7", "yttrium": "1.9", "zirconium": "4.4", "niobium": "0.19",
+    "molybdenum": "0.96", "ruthenium": "0.71", "rhodium": "0.134", "palladium": "0.56",
+    "silver": "0.093", "cadmium": "0.45", "indium": "0.004", "tin": "1.1",
+    "antimony": "0.12", "tellurium": "2.2", "iodine": "0.45", "caesium": "0.14",
+    "lanthanum": "0.344", "cerium": "0.835", "praseodymium": "0.117", "neodymium": "0.63",
+    "samarium": "0.204", "europium": "0.077", "gadolinium": "0.292", "terbium": "0.052",
+    "dysprosium": "0.378", "holmium": "0.081", "erbium": "0.226", "thulium": "0.032",
+    "ytterbium": "0.22", "lutetium": "0.033", "hafnium": "0.13", "tantalum": "0.015",
+    "tungsten": "0.093", "rhenium": "0.038", "osmium": "0.45", "iridium": "0.45",
+    "platinum": "0.92", "gold": "0.18", "mercury": "0.25", "thallium": "0.013",
+    "lead": "1.5", "bismuth": "0.069", "thorium": "0.040", "uranium": "0.013",
 }
 
 # Molar volume data in cm³/mol at STP
@@ -254,6 +330,14 @@ MOLAR_VOLUME = {
     "rhodium": "8.28", "palladium": "8.56", "silver": "10.27", "cadmium": "13.00",
     "indium": "15.76", "tin": "16.29", "antimony": "18.19", "tellurium": "20.46",
     "iodine": "25.72", "xenon": "42.9", "caesium": "70.94", "barium": "38.16",
+    "lanthanum": "22.39", "cerium": "20.69", "praseodymium": "20.8", "neodymium": "20.6",
+    "promethium": "20.2", "samarium": "19.95", "europium": "28.97", "gadolinium": "19.90",
+    "terbium": "19.3", "dysprosium": "19.0", "holmium": "18.7", "erbium": "18.4",
+    "thulium": "18.1", "ytterbium": "24.84", "lutetium": "17.8", "hafnium": "13.44",
+    "tantalum": "10.85", "tungsten": "9.47", "rhenium": "8.86", "osmium": "8.43",
+    "iridium": "8.52", "platinum": "9.09", "gold": "10.21", "mercury": "14.09",
+    "thallium": "17.22", "lead": "18.26", "bismuth": "21.31", "polonium": "22.7",
+    "radon": "50.5", "radium": "41.1", "thorium": "19.8", "uranium": "12.5",
 }
 
 # Molar heat capacity in J/(mol·K)
@@ -268,6 +352,18 @@ MOLAR_HEAT_CAPACITY = {
     "copper": "24.440", "zinc": "25.390", "gallium": "25.86", "germanium": "23.222",
     "arsenic": "24.64", "selenium": "25.363", "bromine": "36.057", "krypton": "20.786",
     "rubidium": "31.060", "strontium": "26.4", "yttrium": "26.53", "zirconium": "25.36",
+    "niobium": "24.60", "molybdenum": "24.06", "technetium": "24.27", "ruthenium": "24.06",
+    "rhodium": "24.98", "palladium": "25.98", "silver": "25.350", "cadmium": "26.020",
+    "indium": "26.74", "tin": "27.112", "antimony": "25.23", "tellurium": "25.73",
+    "iodine": "36.888", "xenon": "20.786", "caesium": "32.210", "barium": "28.07",
+    "lanthanum": "27.11", "cerium": "26.94", "praseodymium": "27.20", "neodymium": "27.45",
+    "promethium": "27.3", "samarium": "29.54", "europium": "27.66", "gadolinium": "37.03",
+    "terbium": "28.91", "dysprosium": "27.70", "holmium": "27.15", "erbium": "28.12",
+    "thulium": "27.03", "ytterbium": "26.74", "lutetium": "26.86", "hafnium": "25.73",
+    "tantalum": "25.36", "tungsten": "24.27", "rhenium": "25.48", "osmium": "24.7",
+    "iridium": "25.10", "platinum": "25.86", "gold": "25.418", "mercury": "27.983",
+    "thallium": "26.32", "lead": "26.650", "bismuth": "25.52", "polonium": "26.4",
+    "radon": "20.786", "radium": "31.1", "thorium": "26.230", "uranium": "27.665",
 }
 
 # Thermal expansion coefficient in µm/(m·K)
