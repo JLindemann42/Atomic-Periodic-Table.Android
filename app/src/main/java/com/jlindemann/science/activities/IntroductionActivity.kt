@@ -17,6 +17,8 @@ import com.jlindemann.science.R
 import com.jlindemann.science.activities.MainActivity
 import com.jlindemann.science.adapter.IntroductionPagerAdapter
 import com.jlindemann.science.billing.BillingManager
+import com.jlindemann.science.preferences.ProPlusVersion
+import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 import kotlinx.coroutines.launch
 
@@ -121,11 +123,28 @@ class IntroductionActivity : AppCompatActivity(), BillingManager.Listener {
     }
 
     override fun onPurchasesUpdated() {
+        // Check if user already has products and set preferences accordingly
+        checkAndSetPreferences()
         // refresh pro page to reflect ownership flags
         runOnUiThread { viewPager.adapter?.notifyItemChanged(PRO_PAGE_INDEX) }
     }
 
     override fun onPurchaseCompleted(productId: String) {
+        // Set preferences based on the purchase
+        val proPref = ProVersion(this)
+        val proPlusPref = ProPlusVersion(this)
+
+        when (productId) {
+            BillingManager.PRO_VERSION_ID -> {
+                proPref.setValue(100)
+                proPlusPref.setValue(1)
+            }
+            BillingManager.PRO_PLUS_VERSION_ID, BillingManager.PRO_PLUS_UPGRADE_ID -> {
+                proPref.setValue(100)
+                proPlusPref.setValue(100)
+            }
+        }
+
         // update UI and optionally set preferences
         runOnUiThread {
             viewPager.adapter?.notifyItemChanged(PRO_PAGE_INDEX)
@@ -137,6 +156,28 @@ class IntroductionActivity : AppCompatActivity(), BillingManager.Listener {
     override fun onError(message: String) {
         // optional logging / user feedback
         // e.g., Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    // Function to set preferences based on account products
+    private fun checkAndSetPreferences() {
+        val proPref = ProVersion(this)
+        val proPlusPref = ProPlusVersion(this)
+        val ownsPro = billingManager.isOwnsProVersion()
+        val ownsProPlus = billingManager.isOwnsProPlusVersion()
+        when {
+            ownsPro && !ownsProPlus -> {
+                proPref.setValue(100)
+                proPlusPref.setValue(1)
+            }
+            ownsProPlus -> {
+                proPref.setValue(100)
+                proPlusPref.setValue(100)
+            }
+            else -> {
+                proPref.setValue(1)
+                proPlusPref.setValue(1)
+            }
+        }
     }
 
     private fun updateButtonStates(position: Int, totalPages: Int) {
