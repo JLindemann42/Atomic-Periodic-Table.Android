@@ -1143,7 +1143,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "---",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "argon": {
     "element_code": "AAhUB6AovxqoGSxkaZZ",
@@ -1418,8 +1418,8 @@
     "refractive_index": "1.000281",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "trace",
+    "human_body": "trace"
   },
   "arsenic": {
     "element_code": "AAufZVwYGt79SNCZxZZ",
@@ -1743,8 +1743,8 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "1.8 mg/kg",
+    "human_body": "0.07 mg/kg"
   },
   "astatine": {
     "element_code": "AARsuunotxAXKMWbjZZ",
@@ -3079,8 +3079,8 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.069 mg/kg",
+    "human_body": "trace"
   },
   "bohrium": {
     "element_code": "AATuyDzm8GSteCT4mZZ",
@@ -3668,7 +3668,7 @@
       "low_temperature_limit": "80 K",
       "room_temperature": "75 K"
     },
-    "thermal_conductivity": "---",
+    "thermal_conductivity": "0.122 W/(m·K)",
     "electron_affinity": "---",
     "molar_heat_capacity": "---",
     "molar_volume": "---",
@@ -3677,11 +3677,11 @@
     "work_function": "---",
     "space_group_name": "---",
     "space_group_number": "---",
-    "refractive_index": "---",
+    "refractive_index": "1.661",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "3.5 mg/kg",
+    "human_body": "2.9 mg/kg"
   },
   "cadmium": {
     "element_code": "AAK9hkQbjVkfnZYaXZZ",
@@ -4023,7 +4023,7 @@
       "room_temperature": "195 K"
     },
     "thermal_conductivity": "---",
-    "electron_affinity": "---",
+    "electron_affinity": "0 kJ/mol",
     "molar_heat_capacity": "---",
     "molar_volume": "---",
     "thermal_expansion": "---",
@@ -4034,8 +4034,8 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.45 mg/kg",
+    "human_body": "0.05 mg/kg"
   },
   "caesium": {
     "element_code": "AANvodbURvuFEv2jtZZ",
@@ -4395,7 +4395,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "---",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "calcium": {
     "element_code": "AAKNwwnwekZqWbBHLZZ",
@@ -5376,9 +5376,9 @@
     "space_group_number": "---",
     "refractive_index": "---",
     "curie_point": "---",
-    "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "neel_point": "12.5 K",
+    "meteorites": "0.8 mg/kg",
+    "human_body": "trace"
   },
   "chlorine": {
     "element_code": "AAFveN3bseA4tFy9MZZ",
@@ -5968,14 +5968,14 @@
     "molar_volume": "---",
     "thermal_expansion": "---",
     "electronegativity_allen": "---",
-    "work_function": "---",
+    "work_function": "4.5 eV",
     "space_group_name": "---",
     "space_group_number": "---",
     "refractive_index": "---",
     "curie_point": "---",
-    "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "neel_point": "311 K",
+    "meteorites": "2650 mg/kg",
+    "human_body": "0.03 mg/kg"
   },
   "cobalt": {
     "element_code": "AAPRuxeuZUdESLxBqZZ",
@@ -6308,14 +6308,14 @@
     "molar_volume": "---",
     "thermal_expansion": "---",
     "electronegativity_allen": "---",
-    "work_function": "---",
+    "work_function": "5.0 eV",
     "space_group_name": "---",
     "space_group_number": "---",
     "refractive_index": "---",
-    "curie_point": "---",
+    "curie_point": "1388 K",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "500 mg/kg",
+    "human_body": "0.02 mg/kg"
   },
   "copernicium": {
     "element_code": "AAJNC8iyDdbdrJBrBZZ",
@@ -7453,10 +7453,10 @@
     "space_group_name": "---",
     "space_group_number": "---",
     "refractive_index": "---",
-    "curie_point": "---",
-    "neel_point": "---",
+    "curie_point": "88 K",
+    "neel_point": "179 K",
     "meteorites": "---",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "einsteinium": {
     "element_code": "AApVu8spXxx9x4YtpZZ",
@@ -7873,9 +7873,9 @@
     "space_group_number": "194",
     "refractive_index": "---",
     "curie_point": "19 K",
-    "neel_point": "---",
+    "neel_point": "85 K",
     "meteorites": "0.226 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "europium": {
     "element_code": "AAwFvQNkgJiux3GRHZZ",
@@ -8224,10 +8224,10 @@
     "space_group_name": "Im-3m",
     "space_group_number": "229",
     "refractive_index": "---",
-    "curie_point": "---",
+    "curie_point": "90.5 K",
     "neel_point": "---",
     "meteorites": "0.077 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "fermium": {
     "element_code": "AASXuxJkWCcjJcAWkZZ",
@@ -9382,7 +9382,7 @@
     "curie_point": "293 K",
     "neel_point": "---",
     "meteorites": "0.292 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "gallium": {
     "element_code": "AABqC7oaryQjJNeW2ZZ",
@@ -9702,7 +9702,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "---",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "germanium": {
     "element_code": "AAcCPnLrLoncEmkirZZ",
@@ -10024,8 +10024,8 @@
     "refractive_index": "4.0",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "32 mg/kg",
+    "human_body": "trace"
   },
   "gold": {
     "element_code": "AAFTnYks3NBjqHcMqZZ",
@@ -10766,7 +10766,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "0.13 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "hassium": {
     "element_code": "AASoCBrA26pm7vptSZZ",
@@ -10974,8 +10974,8 @@
     "refractive_index": "1.000035",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "trace",
+    "human_body": "trace"
   },
   "holmium": {
     "element_code": "AAKjMdiPDVNmX4JJXZZ",
@@ -11322,9 +11322,9 @@
     "space_group_number": "194",
     "refractive_index": "---",
     "curie_point": "20 K",
-    "neel_point": "---",
+    "neel_point": "132 K",
     "meteorites": "0.081 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "hydrogen": {
     "element_code": "AA4ZGoQoit6yL9Ui7ZZ",
@@ -11815,7 +11815,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "0.004 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "iodine": {
     "element_code": "AAcELg7gDqRkmv4wJZZ",
@@ -12152,8 +12152,8 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.25 mg/kg",
+    "human_body": "0.14 mg/kg"
   },
   "iridium": {
     "element_code": "AATGC4aGnW59u9pLkZZ",
@@ -12519,7 +12519,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "0.45 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "iron": {
     "element_code": "AArLYPEnPgbP9SBGUZZ",
@@ -13194,17 +13194,17 @@
     "thermal_conductivity": "---",
     "electron_affinity": "---",
     "molar_heat_capacity": "---",
-    "molar_volume": "---",
+    "molar_volume": "27.99 cm³/mol",
     "thermal_expansion": "---",
     "electronegativity_allen": "---",
     "work_function": "---",
     "space_group_name": "---",
     "space_group_number": "---",
-    "refractive_index": "---",
+    "refractive_index": "1.000427",
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "---",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "lanthanum": {
     "element_code": "AAg5LfCUgLq2uJJ6xZZ",
@@ -13549,8 +13549,8 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.31 mg/kg",
+    "human_body": "trace"
   },
   "lawrencium": {
     "element_code": "AA4jBKYwKVjrzaJnkZZ",
@@ -13999,14 +13999,14 @@
     "molar_volume": "---",
     "thermal_expansion": "---",
     "electronegativity_allen": "---",
-    "work_function": "---",
+    "work_function": "4.25 eV",
     "space_group_name": "---",
     "space_group_number": "---",
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.14 mg/kg",
+    "human_body": "0.12 mg/kg"
   },
   "lithium": {
     "element_code": "AApc4YAhpQABJGKpZZZ",
@@ -14618,7 +14618,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "0.033 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "magnesium": {
     "element_code": "AAcrc3qEWRYNDueJ2ZZ",
@@ -15192,14 +15192,14 @@
     "molar_volume": "---",
     "thermal_expansion": "---",
     "electronegativity_allen": "---",
-    "work_function": "---",
+    "work_function": "4.1 eV",
     "space_group_name": "---",
     "space_group_number": "---",
     "refractive_index": "---",
     "curie_point": "---",
-    "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "neel_point": "100 K",
+    "meteorites": "1900 mg/kg",
+    "human_body": "0.12 mg/kg"
   },
   "meitnerium": {
     "element_code": "",
@@ -15721,7 +15721,7 @@
       "room_temperature": "70 K"
     },
     "thermal_conductivity": "---",
-    "electron_affinity": "---",
+    "electron_affinity": "0 kJ/mol",
     "molar_heat_capacity": "---",
     "molar_volume": "---",
     "thermal_expansion": "---",
@@ -15733,7 +15733,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "---",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "molybdenum": {
     "element_code": "AA5hkjGCXLnS2Bth5ZZ",
@@ -16099,14 +16099,14 @@
     "molar_volume": "---",
     "thermal_expansion": "---",
     "electronegativity_allen": "---",
-    "work_function": "---",
+    "work_function": "4.6 eV",
     "space_group_name": "---",
     "space_group_number": "---",
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.92 mg/kg",
+    "human_body": "0.05 mg/kg"
   },
   "moscovium": {
     "element_code": "AAjY9jgqg8M8BaWMTZZ",
@@ -16542,7 +16542,7 @@
       "low_temperature_limit": "200 K",
       "room_temperature": "180 K"
     },
-    "thermal_conductivity": "---",
+    "thermal_conductivity": "16.5 W/(m·K)",
     "electron_affinity": "---",
     "molar_heat_capacity": "---",
     "molar_volume": "---",
@@ -16552,10 +16552,10 @@
     "space_group_name": "---",
     "space_group_number": "---",
     "refractive_index": "---",
-    "curie_point": "---",
+    "curie_point": "292 K",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.6 mg/kg",
+    "human_body": "trace"
   },
   "neon": {
     "element_code": "AAqZ22XoTAZvanNPVZZ",
@@ -16780,8 +16780,8 @@
     "refractive_index": "1.000067",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "trace",
+    "human_body": "trace"
   },
   "neptunium": {
     "element_code": "AAMiN9sPPcVc7LS85ZZ",
@@ -17380,14 +17380,14 @@
     "molar_volume": "---",
     "thermal_expansion": "---",
     "electronegativity_allen": "---",
-    "work_function": "---",
+    "work_function": "5.15 eV",
     "space_group_name": "---",
     "space_group_number": "---",
     "refractive_index": "---",
-    "curie_point": "---",
+    "curie_point": "627 K",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "11000 mg/kg",
+    "human_body": "0.015 mg/kg"
   },
   "nihonium": {
     "element_code": "AATkPivreNW6gPyPzZZ",
@@ -17805,7 +17805,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "0.19 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "nitrogen": {
     "element_code": "AAAaMoDC8vA5KGQUvZZ",
@@ -18501,7 +18501,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "0.45 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "oxygen": {
     "element_code": "AAKsuH7pv8sjWfwHmZZ",
@@ -19035,7 +19035,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "0.56 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "phosphorus": {
     "element_code": "AALzUt22PVqduT2TJZZ",
@@ -19663,7 +19663,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "0.92 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "plutonium": {
     "element_code": "AABRcqXEt5nqxijnRZZ",
@@ -20206,7 +20206,7 @@
     "electron_affinity": "183.3 kJ/mol",
     "molar_heat_capacity": "26.4 J/(mol·K)",
     "molar_volume": "22.7 cm³/mol",
-    "thermal_expansion": "---",
+    "thermal_expansion": "23 µm/(m·K)",
     "electronegativity_allen": "1.76",
     "work_function": "---",
     "space_group_name": "Pm-3m",
@@ -20866,7 +20866,7 @@
       "low_temperature_limit": "190 K",
       "room_temperature": "170 K"
     },
-    "thermal_conductivity": "---",
+    "thermal_conductivity": "12.5 W/(m·K)",
     "electron_affinity": "---",
     "molar_heat_capacity": "---",
     "molar_volume": "---",
@@ -20878,8 +20878,8 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.12 mg/kg",
+    "human_body": "trace"
   },
   "promethium": {
     "element_code": "AAr8pTcq2xBjtZ2WfZZ",
@@ -22172,15 +22172,15 @@
       "low_temperature_limit": "55 K",
       "room_temperature": "50 K"
     },
-    "thermal_conductivity": "---",
+    "thermal_conductivity": "0.00361 W/(m·K)",
     "electron_affinity": "0 kJ/mol",
     "molar_heat_capacity": "20.786 J/(mol·K)",
     "molar_volume": "50.5 cm³/mol",
     "thermal_expansion": "---",
     "electronegativity_allen": "2.06",
     "work_function": "---",
-    "space_group_name": "---",
-    "space_group_number": "---",
+    "space_group_name": "Fm-3m",
+    "space_group_number": "225",
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
@@ -22551,8 +22551,8 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.04 mg/kg",
+    "human_body": "trace"
   },
   "rhodium": {
     "element_code": "AAAT7hy4JzJW6acj2ZZ",
@@ -22875,8 +22875,8 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.13 mg/kg",
+    "human_body": "trace"
   },
   "roentgenium": {
     "element_code": "AAmS6vgJwg6DcTTLsZZ",
@@ -23283,7 +23283,7 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
+    "meteorites": "0.57 mg/kg",
     "human_body": "0.00046%"
   },
   "ruthenium": {
@@ -23622,8 +23622,8 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.71 mg/kg",
+    "human_body": "trace"
   },
   "rutherfordium": {
     "element_code": "AAti2U4RYQViPe8gwZZ",
@@ -24053,7 +24053,7 @@
       "low_temperature_limit": "180 K",
       "room_temperature": "160 K"
     },
-    "thermal_conductivity": "---",
+    "thermal_conductivity": "13.3 W/(m·K)",
     "electron_affinity": "---",
     "molar_heat_capacity": "29.54 J/(mol·K)",
     "molar_volume": "19.95 cm³/mol",
@@ -24063,10 +24063,10 @@
     "space_group_name": "R-3m",
     "space_group_number": "166",
     "refractive_index": "---",
-    "curie_point": "---",
+    "curie_point": "106 K",
     "neel_point": "---",
     "meteorites": "0.204 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "scandium": {
     "element_code": "AAHPC5RfTpvGgb3bNZZ",
@@ -24375,8 +24375,8 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "6 mg/kg",
+    "human_body": "trace"
   },
   "seaborgium": {
     "element_code": "AAoTwjnu98nFJ7P9cZZ",
@@ -24763,20 +24763,20 @@
       "low_temperature_limit": "190 K",
       "room_temperature": "170 K"
     },
-    "thermal_conductivity": "---",
+    "thermal_conductivity": "0.52 W/(m·K)",
     "electron_affinity": "---",
     "molar_heat_capacity": "---",
     "molar_volume": "---",
     "thermal_expansion": "---",
     "electronegativity_allen": "---",
     "work_function": "---",
-    "space_group_name": "---",
-    "space_group_number": "---",
+    "space_group_name": "P3_121",
+    "space_group_number": "152",
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "trace",
+    "human_body": "0.05 mg/kg"
   },
   "silicon": {
     "element_code": "AA8nFu7fYxC4w62evZZ",
@@ -26629,8 +26629,8 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.014 mg/kg",
+    "human_body": "trace"
   },
   "technetium": {
     "element_code": "AAhQ9tPNqfQZxSNXEZZ",
@@ -27295,20 +27295,20 @@
       "low_temperature_limit": "150 K",
       "room_temperature": "140 K"
     },
-    "thermal_conductivity": "---",
+    "thermal_conductivity": "1.97 W/(m·K)",
     "electron_affinity": "---",
     "molar_heat_capacity": "---",
     "molar_volume": "---",
     "thermal_expansion": "---",
     "electronegativity_allen": "---",
     "work_function": "---",
-    "space_group_name": "---",
-    "space_group_number": "---",
+    "space_group_name": "P3_121",
+    "space_group_number": "152",
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "---",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "tennessine": {
     "element_code": "AAZViSDXeRKsWAvtHZZ",
@@ -27720,9 +27720,9 @@
     "space_group_number": "194",
     "refractive_index": "---",
     "curie_point": "219 K",
-    "neel_point": "---",
+    "neel_point": "230 K",
     "meteorites": "0.052 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "thallium": {
     "element_code": "AA83rK2xLmvb6zvnnZZ",
@@ -28092,8 +28092,8 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.073 mg/kg",
+    "human_body": "trace"
   },
   "thorium": {
     "element_code": "AApxttohpRY2SSCghZZ",
@@ -28419,8 +28419,8 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.04 mg/kg",
+    "human_body": "trace"
   },
   "thulium": {
     "element_code": "AAo5dsob5VewbP2sMZZ",
@@ -28754,10 +28754,10 @@
     "space_group_name": "---",
     "space_group_number": "---",
     "refractive_index": "---",
-    "curie_point": "---",
-    "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "curie_point": "25 K",
+    "neel_point": "56 K",
+    "meteorites": "0.03 mg/kg",
+    "human_body": "trace"
   },
   "tin": {
     "element_code": "AAhCREPWtZzX9etQdZZ",
@@ -29465,7 +29465,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "620 mg/kg",
-    "human_body": "---"
+    "human_body": "0.7 mg/kg"
   },
   "tungsten": {
     "element_code": "AAsTW2q8zbYqZszxuZZ",
@@ -29827,14 +29827,14 @@
     "molar_volume": "---",
     "thermal_expansion": "---",
     "electronegativity_allen": "---",
-    "work_function": "---",
+    "work_function": "4.55 eV",
     "space_group_name": "---",
     "space_group_number": "---",
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "0.13 mg/kg",
+    "human_body": "0.001 mg/kg"
   },
   "uranium": {
     "element_code": "AAfNuk25DanUbGDACZZ",
@@ -30125,7 +30125,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "0.013 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "vanadium": {
     "element_code": "AAJ7kbsxKxj9pY2oRZZ",
@@ -30781,20 +30781,20 @@
       "low_temperature_limit": "55 K",
       "room_temperature": "50 K"
     },
-    "thermal_conductivity": "---",
+    "thermal_conductivity": "0.00565 W/(m·K)",
     "electron_affinity": "0 kJ/mol",
     "molar_heat_capacity": "20.786 J/(mol·K)",
     "molar_volume": "42.9 cm³/mol",
     "thermal_expansion": "---",
     "electronegativity_allen": "2.582",
     "work_function": "---",
-    "space_group_name": "---",
-    "space_group_number": "---",
-    "refractive_index": "---",
+    "space_group_name": "Fm-3m",
+    "space_group_number": "225",
+    "refractive_index": "1.000702",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "trace",
+    "human_body": "trace"
   },
   "ytterbium": {
     "element_code": "AAA4RK9TvNs5QgQwfZZ",
@@ -31163,7 +31163,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "0.22 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "yttrium": {
     "element_code": "AAKr9mc6YmKrSxyu4ZZ",
@@ -31510,7 +31510,7 @@
     "curie_point": "---",
     "neel_point": "---",
     "meteorites": "1.9 mg/kg",
-    "human_body": "---"
+    "human_body": "trace"
   },
   "zinc": {
     "element_code": "AAjjfi6TZ3ceTYymbZZ",
@@ -31848,14 +31848,14 @@
     "molar_volume": "---",
     "thermal_expansion": "---",
     "electronegativity_allen": "---",
-    "work_function": "---",
+    "work_function": "4.33 eV",
     "space_group_name": "---",
     "space_group_number": "---",
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "45 mg/kg",
+    "human_body": "33 mg/kg"
   },
   "zirconium": {
     "element_code": "AAA5adKNtXmfFngDDZZ",
@@ -32203,7 +32203,7 @@
     "refractive_index": "---",
     "curie_point": "---",
     "neel_point": "---",
-    "meteorites": "---",
-    "human_body": "---"
+    "meteorites": "3.9 mg/kg",
+    "human_body": "0.05 mg/kg"
   }
 }
