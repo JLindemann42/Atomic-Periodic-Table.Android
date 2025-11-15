@@ -274,6 +274,18 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         // Initialize notes sync status view so updates reach the UI
         notesSyncStatusView = findViewById(R.id.notes_sync_status)
 
+        // Set initial visibility / icon for notes sync indicator:
+        // - If user is NOT eligible to sync (not Pro/Pro+ or not signed in) show ic_no_sync (VISIBLE).
+        // - If user CAN sync (Pro/Pro+) keep the indicator INVISIBLE until a sync action occurs.
+        notesSyncStatusView?.let { v ->
+            if (NotesSyncManager.canSyncNotes(this)) {
+                v.visibility = View.INVISIBLE
+            } else {
+                v.setBackgroundResource(R.drawable.ic_no_sync)
+                v.visibility = View.VISIBLE
+            }
+        }
+
         // Notes setup
         val eText = findViewById<EditText>(R.id.notes_edit_text)
         val notesPref = NotesPreference(this)
@@ -299,7 +311,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
             val intent = Intent(this, IsotopesActivityExperimental::class.java)
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.isotope_btn).setOnClickListener {
+        findViewById<ImageButton>(R.id.isotopes_icon).setOnClickListener {
             val isoPreference = ElementSendAndLoad(this)
 
             isoPreference.setValue(currentElementKeyPref ?: element.lowercase())
@@ -736,18 +748,22 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                 NotesSyncManager.SyncStatus.NOT_ELIGIBLE -> {
                     // Not logged in or no Pro/Pro+ version
                     view.setBackgroundResource(R.drawable.ic_no_sync)
+                    view.visibility = View.VISIBLE
                 }
                 NotesSyncManager.SyncStatus.SYNCING -> {
                     // Currently syncing
                     view.setBackgroundResource(R.drawable.ic_cloud_sync)
+                    view.visibility = View.VISIBLE
                 }
                 NotesSyncManager.SyncStatus.SYNCED -> {
                     // Successfully synced
                     view.setBackgroundResource(R.drawable.ic_cloud_done)
+                    view.visibility = View.VISIBLE
                 }
                 NotesSyncManager.SyncStatus.ERROR -> {
                     // Error during sync - show no sync icon
                     view.setBackgroundResource(R.drawable.ic_no_sync)
+                    view.visibility = View.VISIBLE
                 }
             }
         }

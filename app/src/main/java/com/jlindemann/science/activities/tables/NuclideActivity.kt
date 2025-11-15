@@ -294,7 +294,7 @@ class NuclideActivity : BaseActivity() {
 
         frame.setOnClickListener {
             val isoPreference = ElementSendAndLoad(this)
-            isoPreference.setValue(item.element.lowercase(Locale.ROOT)) //Send element number
+            isoPreference.setValue(item.elementKey) //Send element number
             val isoSend = sendIso(this)
             isoSend.setValue("true") //Set flag for sent
             val intent = Intent(this, IsotopesActivityExperimental::class.java)

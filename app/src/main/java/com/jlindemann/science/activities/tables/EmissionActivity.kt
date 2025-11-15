@@ -137,7 +137,7 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
                 val hUrl = "https://www.jlindemann.se/atomic/emission_lines/"
                 val extg = ".gif"
                 val fURL = hUrl + url + extg
-                findViewById<TextView>(R.id.emi_title).text = item.element
+                findViewById<TextView>(R.id.emi_title).text = item.elementKey
                 try {
                     Picasso.get().load(fURL).into(findViewById<ImageView>(R.id.emi_img_detail))
                     Utils.fadeInAnimBack(findViewById<TextView>(R.id.background_emi), 300)

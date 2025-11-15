@@ -43,8 +43,7 @@ class EmissionAdapter(var list: ArrayList<Element>, var clickListener: EmissionA
 
         fun initialize(item: Element, action: OnEmissionClickListener, context: Context) {
             try {
-                val element = item.element
-                val jsonObject = ElementDataLoader.loadElementData(context, element)
+                val jsonObject = ElementDataLoader.loadElementData(context, item.elementKey)
                 val url = jsonObject?.optString("short", "---") ?: "---"
                 val hUrl = "https://www.jlindemann.se/atomic/emission_lines/"
                 val extg = ".gif"
