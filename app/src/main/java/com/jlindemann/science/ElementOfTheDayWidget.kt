@@ -99,10 +99,13 @@ class ElementOfTheDayWidget : AppWidgetProvider() {
             PendingIntent.FLAG_UPDATE_CURRENT
         }
         
+        // Create intent to open ElementInfoActivity with the element
         val intent = Intent(context, MainActivity::class.java).apply {
-            putExtra("element_key", elementKey)
+            action = Intent.ACTION_VIEW
+            putExtra("widget_element_key", elementKey)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent, flags)
+        val pendingIntent = PendingIntent.getActivity(context, appWidgetId, intent, flags)
         views.setOnClickPendingIntent(R.id.widget_container, pendingIntent)
         
         // Load element data asynchronously
