@@ -152,6 +152,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         handleWidgetIntent()
         
         findViewById<ImageButton>(R.id.flaschard_btn).setOnClickListener {
+            AnalyticsHelper.logFeatureUsage(this, "flashcards")
             val intent = Intent(this, FlashCardActivity::class.java)
             startActivity(intent)
         }
@@ -566,10 +567,12 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             startActivity(intent)
         }
         findViewById<TextView>(R.id.solubility_btn).setOnClickListener {
+            AnalyticsHelper.logFeatureUsage(this, "tables")
             val intent = Intent(this, TableActivity::class.java)
             startActivity(intent)
         }
         findViewById<TextView>(R.id.calculator_btn).setOnClickListener {
+            AnalyticsHelper.logFeatureUsage(this, "tools")
             val intent = Intent(this, ToolsActivity::class.java)
             startActivity(intent)
         }
