@@ -807,6 +807,7 @@
     <string name="ideal_gas_result">Result:</string>
     <string name="ideal_gas_text">Calculate ideal gas properties using the ideal gas law equation PV=nRT. Choose which variable to calculate and enter the other three values.</string>
     <string name="gas">Ideal Gas Calculator</string>
+    <string name="ideal_calculated">Disabled</string>
 
 
 </resources>

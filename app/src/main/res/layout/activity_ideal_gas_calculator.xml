@@ -73,13 +73,15 @@
                     android:layout_marginStart="@dimen/margin"
                     android:layout_marginEnd="@dimen/margin"
                     android:layout_marginBottom="16dp"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorSurface"
+                    android:foreground="@drawable/spinner_arrow"
+                    android:background="@drawable/spinner_background"
+                    android:popupBackground="@drawable/spinner_dropdown_background"
                     android:paddingStart="18dp"
                     android:paddingEnd="18dp" />
 
                 <!-- Pressure Input -->
                 <TextView
+                    android:id="@+id/pressure_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin"
@@ -91,6 +93,7 @@
                     android:textSize="16sp" />
 
                 <LinearLayout
+                    android:id="@+id/pressure_linear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -412,7 +415,7 @@
                 <TextView
                     android:id="@+id/ideal_gas_calculator_title"
                     android:layout_width="wrap_content"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="56dp"
                     android:alpha="0.9"
                     android:layout_height="56dp"
                     android:gravity="center"

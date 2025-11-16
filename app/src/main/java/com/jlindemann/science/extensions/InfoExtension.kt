@@ -194,7 +194,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         val phaseText = jsonObject.optString("element_phase", "---")
         val electronConfig = jsonObject.optString("element_electron_config", "---")
         val ionCharge = jsonObject.optString("element_ion_charge", "---")
-        val ionizationEnergies = jsonObject.optString("element_ionization_energy", "---")
+        val ionizationEnergies = jsonObject.optString("element_ionization_energy1", "---")
         val atomicRadiusE = jsonObject.optString("element_atomic_radius_e", "---")
         val atomicRadius = jsonObject.optString("element_atomic_radius", "---")
         val covalentRadius = jsonObject.optString("element_covalent_radius", "---")

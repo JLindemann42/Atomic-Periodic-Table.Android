@@ -246,24 +246,40 @@ class IdealGasCalculatorActivity : BaseActivity() {
         volumeInput.isEnabled = true
         molesInput.isEnabled = true
         temperatureInput.isEnabled = true
+        pressureInput.hint = getString(R.string.ideal_gas_pressure_hint)
+        volumeInput.hint = getString(R.string.ideal_gas_volume_hint)
+        molesInput.hint = getString(R.string.ideal_gas_moles_hint)
+        temperatureInput.hint = getString(R.string.ideal_gas_temperature_hint)
+        pressureInput.alpha = 1.0f
+        volumeInput.alpha = 1.0f
+        molesInput.alpha = 1.0f
+        temperatureInput.alpha = 1.0f
         
         // Disable the field we're calculating
         when (calculateField) {
             "pressure" -> {
                 pressureInput.isEnabled = false
                 pressureInput.setText("")
+                pressureInput.hint = getString(R.string.ideal_calculated)
+                pressureInput.alpha =0.7f
             }
             "volume" -> {
                 volumeInput.isEnabled = false
                 volumeInput.setText("")
+                volumeInput.hint = getString(R.string.ideal_calculated)
+                volumeInput.alpha =0.7f
             }
             "moles" -> {
                 molesInput.isEnabled = false
                 molesInput.setText("")
+                molesInput.hint = getString(R.string.ideal_calculated)
+                molesInput.alpha =0.7f
             }
             "temperature" -> {
                 temperatureInput.isEnabled = false
                 temperatureInput.setText("")
+                temperatureInput.hint = getString(R.string.ideal_calculated)
+                temperatureInput.alpha =0.7f
             }
         }
     }
