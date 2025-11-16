@@ -362,6 +362,27 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/pro_plus_gas_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin_space"
+                    android:alpha="0.8"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorTertiary"
+                    android:gravity="center"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:text="@string/requires_pro_plus_until_2026"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnTertiary"
+                    android:textSize="11sp"
+                    android:visibility="gone" />
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin"

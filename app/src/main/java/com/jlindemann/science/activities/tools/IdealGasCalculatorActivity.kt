@@ -27,6 +27,7 @@ import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.MostUsedToolPreference
+import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
@@ -133,16 +134,21 @@ class IdealGasCalculatorActivity : BaseActivity() {
 
         findViewById<ImageButton>(R.id.back_btn_ideal_gas).setOnClickListener { this.onBackPressed() }
 
-        // Check if favorite list should be shown or not (PRO)
+        // Check if favorite list should be shown or not (PRO or PRO+)
         val proPref = ProVersion(this)
         val proPrefValue = proPref.getValue()
-        if (proPrefValue == 1) {
+        val proPlusPref = ProPlusVersion(this)
+        val proPlusPrefValue = proPlusPref.getValue()
+        
+        // Show favorites if user has either PRO or PRO+
+        val hasProAccess = proPrefValue == 100 || proPlusPrefValue == 100
+        
+        if (!hasProAccess) {
             findViewById<RecyclerView>(R.id.fav_rec_list_ideal_gas).visibility = View.INVISIBLE
             findViewById<TextView>(R.id.no_pro_text_ideal_gas).visibility = View.VISIBLE
             findViewById<TextView>(R.id.pro_button_ideal_gas).visibility = View.VISIBLE
             findViewById<ImageButton>(R.id.fav_star_btn_ideal_gas).visibility = View.GONE
-        }
-        if (proPrefValue == 100) {
+        } else {
             findViewById<RecyclerView>(R.id.fav_rec_list_ideal_gas).visibility = View.VISIBLE
             findViewById<TextView>(R.id.no_pro_text_ideal_gas).visibility = View.GONE
             findViewById<TextView>(R.id.pro_button_ideal_gas).visibility = View.GONE
