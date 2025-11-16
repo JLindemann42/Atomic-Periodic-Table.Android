@@ -316,6 +316,7 @@
     <string name="emi" >Emission Spectrum Table</string>
 
     <string name="requires_pro" >Requires PRO-Version</string>
+    <string name="requires_pro_plus_until_2026" >Requires PRO+ until 1 jan 2026</string>
     <string name="try_another_search" >Try searching for another word or check your spelling.</string>
 
     <string name="emission_title" >Emission Spectrum Table</string>
