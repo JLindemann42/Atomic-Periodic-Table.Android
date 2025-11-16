@@ -53,6 +53,7 @@ import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.utils.TabUtil
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
+import com.jlindemann.science.utils.AnalyticsHelper
 import com.otaliastudios.zoom.ZoomLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
@@ -320,6 +321,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val randomNumber = (0..117).random()
         val item = elements[randomNumber]
 
+        AnalyticsHelper.logFeatureUsage(this, "random_element")
+        
         val elementSendAndLoad = ElementSendAndLoad(this)
         elementSendAndLoad.setValue(item.elementKey)
         val intent = Intent(this, ElementInfoActivity::class.java)
@@ -571,6 +574,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             startActivity(intent)
         }
         findViewById<TextView>(R.id.dictionary_btn).setOnClickListener {
+            AnalyticsHelper.logFeatureUsage(this, "dictionary")
             val intent = Intent(this, DictionaryActivity::class.java)
             startActivity(intent)
         }
