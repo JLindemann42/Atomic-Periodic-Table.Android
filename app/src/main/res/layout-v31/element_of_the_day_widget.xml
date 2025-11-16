@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/widget_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/toast_widget"
     android:backgroundTint="@android:color/system_accent1_100"
-    android:padding="16dp"
-    android:theme="@style/ThemeOverlay.Science.AppWidgetContainer">
-
-    <!-- Title -->
-    <TextView
-        android:id="@+id/widget_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/element_of_the_day"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/system_accent2_800"
-        android:gravity="center"
-        android:paddingBottom="8dp" />
+    android:padding="16dp">
 
     <!-- Element Symbol and Atomic Number Container -->
     <LinearLayout
@@ -36,12 +22,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="H"
+            android:textColor="@android:color/system_accent1_600"
             android:textSize="48sp"
             android:textStyle="bold"
-            android:textColor="@android:color/system_accent1_600"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="4dp"
             android:minWidth="80dp"
-            android:gravity="center" />
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1" />
 
         <!-- Element Name and Atomic Number -->
         <LinearLayout
@@ -56,9 +44,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Hydrogen"
+                android:textColor="@android:color/system_accent2_800"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/system_accent2_800" />
+                android:ellipsize="end"
+                android:maxLines="1" />
 
             <!-- Atomic Number -->
             <TextView
@@ -66,30 +56,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1"
-                android:textSize="14sp"
                 android:textColor="@android:color/system_accent2_600"
-                android:alpha="0.8" />
+                android:textSize="14sp"
+                android:alpha="0.8"
+                android:ellipsize="end"
+                android:maxLines="1" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <!-- Divider -->
-    <View
+    <!-- Divider (use a simple View if you prefer) -->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/system_accent2_600"
-        android:alpha="0.3"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="8dp" />
 
-    <!-- Element Description (Scrollable) -->
-    <ScrollView
+    <!-- Element Description (expandable with weight when widget is taller) -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scrollbars="vertical"
-        android:fadeScrollbars="false">
+        android:orientation="vertical"
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/widget_element_description"
@@ -99,8 +89,25 @@
             android:textSize="12sp"
             android:textColor="@android:color/system_accent2_700"
             android:lineSpacingMultiplier="1.2"
-            android:alpha="0.9" />
+            android:alpha="0.9"
+            android:ellipsize="end" />
 
-    </ScrollView>
+    </LinearLayout>
 
+    <!-- Read more button (kept simple; RemoteViews can't use clickable foregrounds reliably) -->
+    <TextView
+        android:id="@+id/widget_read_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/read_more_widget"
+        android:textColor="@android:color/system_accent1_600"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/toast_outline"
+        android:ellipsize="end"
+        android:maxLines="1" />
 </LinearLayout>

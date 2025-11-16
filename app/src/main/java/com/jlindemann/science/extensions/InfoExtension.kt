@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -36,6 +37,7 @@ import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.activities.IsotopesActivityExperimental
 import com.jlindemann.science.activities.settings.ProActivity
+import com.jlindemann.science.activities.tables.IonActivity
 import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.model.Statistics
@@ -362,6 +364,16 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.atomic_radius_e_text).text = atomicRadiusE
         findViewById<TextView>(R.id.covalent_radius_text).text = covalentRadius
         findViewById<TextView>(R.id.van_der_waals_radius_text).text = vanDerWaalsRadius
+
+        //Ionization click listener:
+        findViewById<TextView>(R.id.ion_charge_view_all_text).setOnClickListener {
+            val intent = Intent(this@InfoExtension, IonActivity::class.java)
+            this@InfoExtension.startActivity(intent)
+        }
+        findViewById<ImageButton>(R.id.ionization_button).setOnClickListener {
+            val intent = Intent(this@InfoExtension, IonActivity::class.java)
+            this@InfoExtension.startActivity(intent)
+        }
 
         // Speed of sound and hardness
         val proPref = ProVersion(this)
