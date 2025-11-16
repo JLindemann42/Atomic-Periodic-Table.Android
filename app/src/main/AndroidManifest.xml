@@ -21,6 +21,16 @@
                 android:resource="@xml/short_command_widget_info" />
         </receiver>
 
+        <receiver android:name=".ElementOfTheDayWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/element_of_the_day_widget_info" />
+        </receiver>
+
         <receiver android:name=".activities.tools.StreakReminderReceiver"
             android:exported="false">
             <intent-filter>

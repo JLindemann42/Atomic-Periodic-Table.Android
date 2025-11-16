@@ -147,6 +147,9 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         // Load and cache Google account profile image for user button
         loadUserProfileImage()
         
+        // Handle widget intent - if opened from Element of the Day widget
+        handleWidgetIntent()
+        
         findViewById<ImageButton>(R.id.flaschard_btn).setOnClickListener {
             val intent = Intent(this, FlashCardActivity::class.java)
             startActivity(intent)
@@ -958,6 +961,25 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             Log.e("MainActivity", "Failed to load user profile image", e)
             // Fallback to default icon
             findViewById<ImageButton>(R.id.user_btn)?.setImageResource(R.drawable.ic_account)
+        }
+    }
+
+    /**
+     * Handle intent from Element of the Day widget
+     */
+    private fun handleWidgetIntent() {
+        val widgetElementKey = intent.getStringExtra("widget_element_key")
+        if (widgetElementKey != null) {
+            // Set the element key and navigate to ElementInfoActivity
+            val elementSendAndLoad = ElementSendAndLoad(this)
+            elementSendAndLoad.setValue(widgetElementKey)
+            
+            // Use Handler to delay navigation slightly to allow MainActivity to fully initialize
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed({
+                val elementIntent = Intent(this, ElementInfoActivity::class.java)
+                startActivity(elementIntent)
+            }, 100)
         }
     }
 
