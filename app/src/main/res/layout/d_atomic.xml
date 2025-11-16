@@ -127,23 +127,63 @@
             android:background="@drawable/toast_element_list"
             android:backgroundTint="?attr/colorPrimaryDark">
 
-        <TextView
-            android:id="@+id/ion_charge_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ion_charge_colon"
-            android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/ion_charge_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ion_charge_text"
-            android:textIsSelectable="true"
-            android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="14sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/ion_charge_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ion_charge_colon"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ion_charge_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ion_charge_text"
+                        android:textIsSelectable="true"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/ion_charge_view_all_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/view_all"
+                        android:textIsSelectable="true"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/ionization_button"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:background="@drawable/square_button"
+                    android:backgroundTint="?attr/colorTertiary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="@drawable/square_button_ripple"
+                    android:rotation="270"
+                    app:srcCompat="@drawable/ic_arrow"
+                    app:tint="?attr/colorOnTertiary" />
+
+
+            </FrameLayout>
+
+
 
         </LinearLayout>
         <LinearLayout

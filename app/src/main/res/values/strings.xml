@@ -810,6 +810,8 @@
     <string name="gas">Ideal Gas Calculator</string>
     <string name="ideal_calculated">Disabled</string>
 
+    <string name="view_all">View all</string>
+
 
 </resources>
 
