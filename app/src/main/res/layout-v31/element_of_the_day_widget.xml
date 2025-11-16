@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/widget_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/toast_widget"
+    android:backgroundTint="@android:color/system_accent1_100"
+    android:padding="16dp"
+    android:theme="@style/ThemeOverlay.Science.AppWidgetContainer">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/widget_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/element_of_the_day"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/system_accent2_800"
+        android:gravity="center"
+        android:paddingBottom="8dp" />
+
+    <!-- Element Symbol and Atomic Number Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp">
+
+        <!-- Element Symbol -->
+        <TextView
+            android:id="@+id/widget_element_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="H"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/system_accent1_600"
+            android:layout_marginEnd="16dp"
+            android:minWidth="80dp"
+            android:gravity="center" />
+
+        <!-- Element Name and Atomic Number -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Element Name -->
+            <TextView
+                android:id="@+id/widget_element_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hydrogen"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/system_accent2_800" />
+
+            <!-- Atomic Number -->
+            <TextView
+                android:id="@+id/widget_atomic_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="14sp"
+                android:textColor="@android:color/system_accent2_600"
+                android:alpha="0.8" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/system_accent2_600"
+        android:alpha="0.3"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Element Description (Scrollable) -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:fadeScrollbars="false">
+
+        <TextView
+            android:id="@+id/widget_element_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/widget_description_placeholder"
+            android:textSize="12sp"
+            android:textColor="@android:color/system_accent2_700"
+            android:lineSpacingMultiplier="1.2"
+            android:alpha="0.9" />
+
+    </ScrollView>
+
+</LinearLayout>
