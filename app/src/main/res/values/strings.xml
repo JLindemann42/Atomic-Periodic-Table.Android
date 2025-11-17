@@ -194,6 +194,8 @@
     <string name="go_online_for_emission">Go online for emission lines</string>
     <string name="auto_hide_bottombar">Auto-hide Bottombar</string>
     <string name="auto_hide_bottombar_desc">Disables the standard behaviour</string>
+    <string name="analytics_title">Usage Analytics</string>
+    <string name="analytics_desc">Help improve the app by sharing anonymous usage data</string>
 
     <!-- Calculator Activity -->
     <string name="weight_calculator_title">Weight Calculator</string>

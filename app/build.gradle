@@ -88,6 +88,7 @@ dependencies {
     // Firebase libraries without explicit versions (BoM controls versions)
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Google Sign-In
     implementation 'com.google.android.gms:play-services-auth:21.4.0'

@@ -21,6 +21,7 @@ import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.utils.Pasteur
 import com.jlindemann.science.utils.LocaleUtil
+import com.jlindemann.science.utils.AnalyticsHelper
 import java.util.*
 
 abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListener {
@@ -52,6 +53,9 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
             t.printStackTrace()
         }
 
+        // Initialize Firebase Analytics
+        AnalyticsHelper.initialize(this)
+
         // Optional: enable Firestore offline persistence
         try {
             val fs = FirebaseFirestore.getInstance()
@@ -68,6 +72,10 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
     override fun onResume() {
         super.onResume()
         checkAchievements()
+        
+        // Log screen view for analytics
+        val screenName = this.javaClass.simpleName.replace("Activity", "")
+        AnalyticsHelper.logScreenView(this, screenName, this.javaClass.simpleName)
     }
 
     override fun onStart() {
