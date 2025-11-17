@@ -10,8 +10,8 @@
         android:id="@+id/l_background_e"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.6"
-        android:background="@color/colorLightText"
+        android:alpha="0.4"
+        android:background="#000000"
         android:visibility="visible" />
 
     <FrameLayout

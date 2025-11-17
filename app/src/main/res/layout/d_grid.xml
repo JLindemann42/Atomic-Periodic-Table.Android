@@ -167,7 +167,7 @@
                     android:layout_marginEnd="4dp"
                     android:orientation="vertical"
                     android:padding="10dp"
-                    android:background="@drawable/toast_element_list_bottom"
+                    android:background="@drawable/toast_element_list"
                     android:backgroundTint="?attr/colorPrimaryDark">
 
                 <TextView
@@ -184,6 +184,96 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/debye_temperature_room_temperature"
+                    android:textIsSelectable="true"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="4dp"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:background="@drawable/toast_element_list"
+                    android:backgroundTint="?attr/colorPrimaryDark">
+
+                <TextView
+                    android:id="@+id/space_group_name_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/space_group_name_colon"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/space_group_name_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="space_group_name_text"
+                    android:textIsSelectable="true"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="4dp"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:background="@drawable/toast_element_list"
+                    android:backgroundTint="?attr/colorPrimaryDark">
+
+                <TextView
+                    android:id="@+id/space_group_number_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/space_group_number_colon"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/space_group_number_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="space_group_number_text"
+                    android:textIsSelectable="true"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="4dp"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:background="@drawable/toast_element_list_bottom"
+                    android:backgroundTint="?attr/colorPrimaryDark">
+
+                <TextView
+                    android:id="@+id/refractive_index_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/refractive_index_colon"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/refractive_index_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="refractive_index_text"
                     android:textIsSelectable="true"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="14sp" />

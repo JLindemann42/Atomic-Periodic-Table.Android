@@ -72,7 +72,7 @@
             android:id="@+id/element_atomic_number_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Atomic Number:"
+            android:text="@string/atomic_number_label"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -102,7 +102,7 @@
             android:id="@+id/element_atomic_weight_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Atomic Weight (Relative Atomic Mass):"
+            android:text="@string/atomic_weight_relative_atomic_mass"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -133,7 +133,7 @@
             android:id="@+id/element_density_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Density:"
+            android:text="@string/density_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -163,7 +163,7 @@
             android:id="@+id/element_electronegativty_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Electronegativity:"
+            android:text="@string/electronegativity_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -191,10 +191,41 @@
             android:backgroundTint="?attr/colorPrimaryDark">
 
         <TextView
+            android:id="@+id/element_electronegativty_allen_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/electronegativity_allen_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/element_electronegativty_allen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="element_name"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
             android:id="@+id/element_block_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Block:"
+            android:text="@string/block_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -223,7 +254,7 @@
             android:id="@+id/sp_lines_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Emission Spectrum:"
+            android:text="@string/emission_spectrum_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -232,7 +263,7 @@
             android:id="@+id/sp_offline"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Go online for emission lines"
+            android:text="@string/go_online_for_emission_lines"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="18sp"
             android:visibility="gone" />
@@ -297,7 +328,7 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="18dp"
                         android:layout_marginBottom="2dp"
-                        android:text="Electron Shell:"
+                        android:text="@string/electron_shell_colon"
                         android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="14sp"
                         android:textStyle="bold" />

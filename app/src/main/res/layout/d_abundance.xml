@@ -247,7 +247,7 @@
         android:layout_marginEnd="12dp"
         android:orientation="vertical"
         android:padding="10dp"
-        android:background="@drawable/toast_element_list_bottom"
+        android:background="@drawable/toast_element_list"
         android:backgroundTint="?attr/colorPrimaryDark">
 
         <TextView
@@ -264,6 +264,66 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="abundance_solar_system_text"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textIsSelectable="true"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@drawable/toast_element_list"
+        android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/abundance_meteorites_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/abundance_meteorites"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/abundance_meteorites_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="abundance_meteorites_text"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textIsSelectable="true"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@drawable/toast_element_list_bottom"
+        android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/abundance_human_body_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/abundance_human_body"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/abundance_human_body_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="abundance_human_body_text"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textIsSelectable="true"
             android:textSize="14sp" />

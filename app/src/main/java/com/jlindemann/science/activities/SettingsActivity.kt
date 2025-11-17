@@ -26,8 +26,10 @@ import com.jlindemann.science.activities.tools.TitleBarAnimator
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.preferences.offlinePreference
+import com.jlindemann.science.preferences.AnalyticsPreference
 import com.jlindemann.science.settings.ExperimentalActivity
 import com.jlindemann.science.utils.*
+import com.jlindemann.science.utils.AnalyticsHelper
 import java.io.File
 import java.io.IOException
 import java.text.DecimalFormat
@@ -85,12 +87,16 @@ class SettingsActivity : BaseActivity() {
         cacheSettings()
         initOfflineSwitches()
         initNavSwitches()
+        initAnalyticsSwitch()
 
         findViewById<RelativeLayout>(R.id.offline_settings).setOnClickListener {
             findViewById<SwitchCompat>(R.id.offline_internet_switch).toggle()
         }
         findViewById<RelativeLayout>(R.id.nav_bar_settings).setOnClickListener {
             findViewById<SwitchCompat>(R.id.nav_bar_switch).toggle()
+        }
+        findViewById<RelativeLayout>(R.id.analytics_settings).setOnClickListener {
+            findViewById<SwitchCompat>(R.id.analytics_switch).toggle()
         }
 
         findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
@@ -253,6 +259,10 @@ class SettingsActivity : BaseActivity() {
         LanguageOption("Spanish (Argentina)", Locale("es", "AR").getDisplayLanguage(Locale("es", "AR")), Locale("es", "AR")),
         LanguageOption("Spanish (Mexico)", Locale("es", "MX").getDisplayLanguage(Locale("es", "MX")), Locale("es", "MX")),
         LanguageOption("Italian", Locale("it", "IT").getDisplayLanguage(Locale("it", "IT")), Locale("it", "IT")),
+        LanguageOption("French", Locale("fr").getDisplayLanguage(Locale("fr")), Locale("fr")),
+        LanguageOption("German", Locale("de").getDisplayLanguage(Locale("de")), Locale("de")),
+        LanguageOption("Portuguese (Brazil)", Locale("pt", "BR").getDisplayLanguage(Locale("pt", "BR")), Locale("pt", "BR")),
+        LanguageOption("Chinese (Simplified)", Locale("zh", "CN").getDisplayLanguage(Locale("zh", "CN")), Locale("zh", "CN")),
         LanguageOption("Afrikaans", Locale("af").getDisplayLanguage(Locale("af")), Locale("af")),
         LanguageOption("Hindi", Locale("hi").getDisplayLanguage(Locale("hi")), Locale("hi")),
         LanguageOption("Filipino", Locale.forLanguageTag("fil").getDisplayLanguage(Locale.forLanguageTag("fil")), Locale.forLanguageTag("fil")),
@@ -355,6 +365,8 @@ class SettingsActivity : BaseActivity() {
                 .putString("app_country", locale.country ?: "")
                 .apply()
         }
+        // Clear the language cache when preference changes
+        com.jlindemann.science.utils.ElementDataLoader.clearCache()
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -415,6 +427,22 @@ class SettingsActivity : BaseActivity() {
         findViewById<SwitchCompat>(R.id.nav_bar_switch).setOnCheckedChangeListener { _, _ ->
             if (findViewById<SwitchCompat>(R.id.nav_bar_switch).isChecked) { navPreferences.setValue(1) }
             else { navPreferences.setValue(0) }
+        }
+    }
+
+    private fun initAnalyticsSwitch() {
+        val analyticsPreferences = AnalyticsPreference(this)
+        val analyticsPrefValue = analyticsPreferences.getValue()
+        findViewById<SwitchCompat>(R.id.analytics_switch).isChecked = analyticsPrefValue
+
+        findViewById<SwitchCompat>(R.id.analytics_switch).setOnCheckedChangeListener { _, isChecked ->
+            analyticsPreferences.setValue(isChecked)
+            AnalyticsHelper.updateAnalyticsCollection(this)
+            
+            // Log analytics toggle event
+            if (isChecked) {
+                AnalyticsHelper.logEvent(this, "analytics_enabled", null)
+            }
         }
     }
 

@@ -72,7 +72,7 @@
             android:id="@+id/radioactive_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Radioactive:"
+            android:text="@string/radioactive_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -130,7 +130,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
-                    android:text="Isotopes:"
+                    android:text="@string/isotopes_colon"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -139,7 +139,7 @@
                     android:id="@+id/isotopes_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="View all Isotopes"
+                    android:text="@string/view_all_isotopes"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -161,7 +161,7 @@
             android:id="@+id/neutron_cross_sectional_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Neutron Cross Sectional:"
+            android:text="@string/neutron_cross_sectional_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />

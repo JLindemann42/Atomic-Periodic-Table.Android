@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/toast_widget"
+    android:padding="12dp">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/widget_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/element_of_the_day"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="8dp"
+        android:ellipsize="end"
+        android:maxLines="1" />
+
+    <!-- Element Symbol and Atomic Number Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp">
+
+        <!-- Element Symbol -->
+        <TextView
+            android:id="@+id/widget_element_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="H"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="12dp"
+            android:minWidth="64dp"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+        <!-- Element Name and Atomic Number -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Element Name -->
+            <TextView
+                android:id="@+id/widget_element_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hydrogen"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:maxLines="1" />
+
+            <!-- Atomic Number -->
+            <TextView
+                android:id="@+id/widget_atomic_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="14sp"
+                android:alpha="0.8"
+                android:ellipsize="end"
+                android:maxLines="1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#22000000"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp" />
+
+    <!-- Element Description (uses weight so widget can grow when resized) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/widget_element_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/widget_description_placeholder"
+            android:textSize="12sp"
+            android:lineSpacingMultiplier="1.2"
+            android:alpha="0.9"
+            android:ellipsize="end"
+            android:maxLines="6" />
+
+    </LinearLayout>
+
+    <!-- Read more button -->
+    <TextView
+        android:id="@+id/widget_read_more"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/read_more_widget"
+        android:layout_gravity="end"
+        android:layout_marginTop="8dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/toast_outline"
+        android:ellipsize="end"
+        android:maxLines="1" />
+</LinearLayout>

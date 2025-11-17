@@ -1,12 +1,16 @@
 package com.jlindemann.science.extensions
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.TypedValue
 import android.view.View
 import android.view.WindowInsets
 import android.widget.EditText
@@ -17,10 +21,15 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Space
 import android.widget.TextView
+import androidx.annotation.AttrRes
+import androidx.annotation.DimenRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.doAfterTextChanged
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -28,14 +37,17 @@ import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.activities.IsotopesActivityExperimental
 import com.jlindemann.science.activities.settings.ProActivity
+import com.jlindemann.science.activities.tables.IonActivity
 import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.*
+import com.jlindemann.science.sync.NotesSyncManager
 import com.jlindemann.science.utils.Pasteur
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
+import com.jlindemann.science.utils.ElementDataLoader
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.*
 import org.json.JSONArray
@@ -55,9 +67,20 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
     private var systemUiConfigured = false
     private val mainScope = MainScope()
     private var notesTextWatcher: TextWatcher? = null // Track watcher for note editing
+    private var currentElementCode: String? = null // Track current element code
+    private var notesEditText: EditText? = null // Track notes EditText
+    private var notesSyncStatusView: TextView? = null // Track sync status indicator
+
+    // Store the element key used to load data (the value returned from ElementSendAndLoad)
+    // so we can send it to the isotopes preference when user navigates to isotopes.
+    private var currentElementKeyPref: String? = null
 
     override fun onDestroy() {
         super.onDestroy()
+        // Save notes before destroying
+        saveCurrentNotes()
+        // Cancel any pending syncs
+        NotesSyncManager.cancelPendingSync()
         mainScope.cancel()
     }
 
@@ -103,16 +126,18 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
 
         mainScope.launch {
             try {
-                val (elementKey, jsonObject) = withContext(Dispatchers.IO) {
+                val (elementKey, jsonObject, englishName) = withContext(Dispatchers.IO) {
                     val pref = ElementSendAndLoad(this@InfoExtension)
                     val value = pref.getValue()
-                    val jsonFile = "$value.json"
-                    val inputStream: InputStream = assets.open(jsonFile)
-                    val jsonString = inputStream.bufferedReader().use { it.readText() }
-                    val jsonArray = JSONArray(jsonString)
-                    val jsonObject = jsonArray.getJSONObject(0)
-                    Pair(value, jsonObject)
+                    val jsonObject = ElementDataLoader.loadElementData(this@InfoExtension, value ?: "hydrogen")
+                    // Load English element name
+                    val englishJsonObject = ElementDataLoader.loadElementData(this@InfoExtension, value ?: "hydrogen", "en")
+                    val englishName = englishJsonObject?.optString("element", "---") ?: "---"
+                    Triple(value, jsonObject, englishName)
                 }
+
+                // Save the element key returned from the preference so we can send it to isotopes later
+                currentElementKeyPref = elementKey
 
                 // Previous/next button visibility
                 findViewById<ImageButton>(R.id.previous_btn).visibility =
@@ -120,7 +145,12 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                 findViewById<ImageButton>(R.id.next_btn).visibility =
                     if (elementKey == "oganesson") View.GONE else View.VISIBLE
 
-                updateElementUI(jsonObject)
+                if (jsonObject != null) {
+                    updateElementUI(jsonObject, englishName)
+                } else {
+                    findViewById<TextView>(R.id.element_title).text = "Element not found"
+                    ToastUtil.showToast(this@InfoExtension, "Couldn't load element: $elementKey")
+                }
             } catch (e: IOException) {
                 findViewById<TextView>(R.id.element_title).text = "Not able to load json"
                 val stringText = "Couldn't load element:"
@@ -133,9 +163,9 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
     /**
      * Updates the UI with element data from the given JSON object.
      */
-    private fun updateElementUI(jsonObject: JSONObject) {
+    private fun updateElementUI(jsonObject: JSONObject, englishName: String = "---") {
         val elementCode = jsonObject.optString("element_code", "---")
-        val element = jsonObject.optString("element", "---")
+        val element = englishName
         val description = jsonObject.optString("description", "---")
         val url = jsonObject.optString("link", "---")
         val short = jsonObject.optString("short", "---")
@@ -166,7 +196,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         val phaseText = jsonObject.optString("element_phase", "---")
         val electronConfig = jsonObject.optString("element_electron_config", "---")
         val ionCharge = jsonObject.optString("element_ion_charge", "---")
-        val ionizationEnergies = jsonObject.optString("element_ionization_energy", "---")
+        val ionizationEnergies = jsonObject.optString("element_ionization_energy1", "---")
         val atomicRadiusE = jsonObject.optString("element_atomic_radius_e", "---")
         val atomicRadius = jsonObject.optString("element_atomic_radius", "---")
         val covalentRadius = jsonObject.optString("element_covalent_radius", "---")
@@ -203,6 +233,22 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         val specificHazard = jsonObject.optString("special", "---")
         val casNumber = jsonObject.optString("cas_number", "---")
         val egNumber = jsonObject.optString("eg_number", "---")
+        
+        // New properties from enhancement
+        val thermalConductivity = jsonObject.optString("thermal_conductivity", "---")
+        val electronAffinity = jsonObject.optString("electron_affinity", "---")
+        val molarHeatCapacity = jsonObject.optString("molar_heat_capacity", "---")
+        val molarVolume = jsonObject.optString("molar_volume", "---")
+        val thermalExpansion = jsonObject.optString("thermal_expansion", "---")
+        val electronegativityAllen = jsonObject.optString("electronegativity_allen", "---")
+        val workFunction = jsonObject.optString("work_function", "---")
+        val spaceGroupName = jsonObject.optString("space_group_name", "---")
+        val spaceGroupNumber = jsonObject.optString("space_group_number", "---")
+        val refractiveIndex = jsonObject.optString("refractive_index", "---")
+        val curiePoint = jsonObject.optString("curie_point", "---")
+        val neelPoint = jsonObject.optString("neel_point", "---")
+        val abundanceMeteorites = jsonObject.optString("meteorites", "N/A") + " mg/kg"
+        val abundanceHumanBody = jsonObject.optString("human_body", "N/A")
 
         findViewById<TextView>(R.id.element_resistivity).text = resistivity
 
@@ -242,6 +288,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.element_boiling_celsius).text = elementBoilingCelsius
         findViewById<TextView>(R.id.element_boiling_fahrenheit).text = elementBoilingFahrenheit
         findViewById<TextView>(R.id.element_electronegativty).text = elementElectronegativity
+        findViewById<TextView>(R.id.element_electronegativty_allen).text = electronegativityAllen
         findViewById<TextView>(R.id.element_melting_kelvin).text = elementMeltingKelvin
         findViewById<TextView>(R.id.element_melting_celsius).text = elementMeltingCelsius
         findViewById<TextView>(R.id.element_melting_fahrenheit).text = elementMeltingFahrenheit
@@ -251,13 +298,28 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.element_block).text = elementBlock
         findViewById<TextView>(R.id.element_appearance).text = elementAppearance
 
+        // Initialize notes sync status view so updates reach the UI
+        notesSyncStatusView = findViewById(R.id.notes_sync_status)
+
+        // Set initial visibility / icon for notes sync indicator:
+        // - If user is NOT eligible to sync (not Pro/Pro+ or not signed in) show ic_no_sync (VISIBLE).
+        // - If user CAN sync (Pro/Pro+) keep the indicator INVISIBLE until a sync action occurs.
+        notesSyncStatusView?.let { v ->
+            if (NotesSyncManager.canSyncNotes(this)) {
+                v.visibility = View.INVISIBLE
+            } else {
+                v.setBackgroundResource(R.drawable.ic_no_sync)
+                v.visibility = View.VISIBLE
+            }
+        }
+
         // Notes setup
         val eText = findViewById<EditText>(R.id.notes_edit_text)
         val notesPref = NotesPreference(this)
         val notesPrefValue = notesPref.getValue()
         val str = notesPrefValue
         if (!str.contains("<$elementCode>")) {
-            val newString = str + "<$elementCode>Take notes for the element:</$elementCode>"
+            val newString = str + "<$elementCode>" + getString(R.string.notes_placeholder) + "</$elementCode>"
             notesPref.setValue(newString)
             handleNotes(elementCode, eText)
         } else {
@@ -269,15 +331,17 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.neutron_cross_sectional_text).text = neutronCrossSection
         findViewById<FrameLayout>(R.id.isotopes_frame).setOnClickListener {
             val isoPreference = ElementSendAndLoad(this)
-            isoPreference.setValue(element.lowercase())
+
+            isoPreference.setValue(currentElementKeyPref ?: element.lowercase())
             val isoSend = sendIso(this)
             isoSend.setValue("true")
             val intent = Intent(this, IsotopesActivityExperimental::class.java)
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.isotope_btn).setOnClickListener {
+        findViewById<ImageButton>(R.id.isotopes_icon).setOnClickListener {
             val isoPreference = ElementSendAndLoad(this)
-            isoPreference.setValue(element.lowercase())
+
+            isoPreference.setValue(currentElementKeyPref ?: element.lowercase())
             val isoSend = sendIso(this)
             isoSend.setValue("true")
             val intent = Intent(this, IsotopesActivityExperimental::class.java)
@@ -288,6 +352,10 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.fusion_heat_text).text = fusionHeat
         findViewById<TextView>(R.id.specific_heat_text).text = specificHeatCapacity
         findViewById<TextView>(R.id.vaporization_heat_text).text = vaporizationHeat
+        findViewById<TextView>(R.id.thermal_conductivity_text).text = thermalConductivity
+        findViewById<TextView>(R.id.thermal_expansion_text).text = thermalExpansion
+        findViewById<TextView>(R.id.molar_heat_capacity_text).text = molarHeatCapacity
+        findViewById<TextView>(R.id.molar_volume_text).text = molarVolume
 
         findViewById<TextView>(R.id.electron_config_text).text = formatSuperscript(electronConfig)
         findViewById<TextView>(R.id.ion_charge_text).text = formatSuperscript(ionCharge)
@@ -296,6 +364,16 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.atomic_radius_e_text).text = atomicRadiusE
         findViewById<TextView>(R.id.covalent_radius_text).text = covalentRadius
         findViewById<TextView>(R.id.van_der_waals_radius_text).text = vanDerWaalsRadius
+
+        //Ionization click listener:
+        findViewById<TextView>(R.id.ion_charge_view_all_text).setOnClickListener {
+            val intent = Intent(this@InfoExtension, IonActivity::class.java)
+            this@InfoExtension.startActivity(intent)
+        }
+        findViewById<ImageButton>(R.id.ionization_button).setOnClickListener {
+            val intent = Intent(this@InfoExtension, IonActivity::class.java)
+            this@InfoExtension.startActivity(intent)
+        }
 
         // Speed of sound and hardness
         val proPref = ProVersion(this)
@@ -311,6 +389,12 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
             findViewById<TextView>(R.id.mohs_hardness_text).text = mohsHardness
             findViewById<TextView>(R.id.vickers_hardness_text).text = vickersHardness
             findViewById<TextView>(R.id.brinell_hardness_text).text = brinellHardness
+            findViewById<TextView>(R.id.element_curie_point).text = if (curiePoint != "---") "$curiePoint (K)" else "---"
+            findViewById<TextView>(R.id.element_neel_point).text = if (neelPoint != "---") "$neelPoint (K)" else "---"
+            findViewById<TextView>(R.id.electron_affinity_text).text = electronAffinity
+            findViewById<TextView>(R.id.space_group_name_text).text = spaceGroupName
+            findViewById<TextView>(R.id.space_group_number_text).text = spaceGroupNumber
+            findViewById<TextView>(R.id.refractive_index_text).text = refractiveIndex
 
             findViewById<TextView>(R.id.speed_sound_solid_text).visibility =
                 if (soundOfSpeedSolid == "---") View.GONE else View.VISIBLE
@@ -320,19 +404,9 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                 if (soundOfSpeedLiquid == "---") View.GONE else View.VISIBLE
         } else {
             // Set the "get pro" text
-            findViewById<TextView>(R.id.speed_sound_solid_text).text = getString(R.string.get_pro_element_text)
             findViewById<TextView>(R.id.speed_sound_gas_text).visibility = View.GONE
             findViewById<TextView>(R.id.speed_sound_liquid_text).visibility = View.GONE
-            findViewById<TextView>(R.id.poisson_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.bulk_modulus_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.young_modulus_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.shear_modulus_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.mohs_hardness_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.vickers_hardness_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.brinell_hardness_text).text = getString(R.string.get_pro_element_text)
-
-            // Make the "get pro" TextViews clickable and open ProActivity when clicked.
-            // Collect the IDs that show "get pro" text in the else branch.
+            val proTextRes = R.string.get_pro_element_text
             val proClickableIds = listOf(
                 R.id.speed_sound_solid_text,
                 R.id.poisson_text,
@@ -341,10 +415,18 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                 R.id.shear_modulus_text,
                 R.id.mohs_hardness_text,
                 R.id.vickers_hardness_text,
-                R.id.brinell_hardness_text
+                R.id.brinell_hardness_text,
+                R.id.electron_affinity_text,
+                R.id.element_curie_point,
+                R.id.element_neel_point,
+                R.id.space_group_name_text,
+                R.id.space_group_number_text,
+                R.id.refractive_index_text
+
             )
 
-            for (id in proClickableIds) {
+            proClickableIds.forEach { id ->
+                findViewById<TextView>(id)?.setLockedText(proTextRes)
                 findViewById<TextView>(id).apply {
                     isClickable = true
                     isFocusable = true
@@ -365,6 +447,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         // Electromagnetic Properties
         findViewById<TextView>(R.id.element_electrical_type).text = electricalType
         findViewById<TextView>(R.id.element_magnetic_type).text = magneticType
+        findViewById<TextView>(R.id.element_work_function).text = workFunction
         findViewById<TextView>(R.id.element_superconducting_point).text = "$superconductingPoint (K)"
 
         val phaseIconView = findViewById<ImageView>(R.id.phase_icon)
@@ -423,6 +506,8 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         findViewById<TextView>(R.id.abundance_sea_water_text).text = formatSuperscript(abundanceSeaWater)
         findViewById<TextView>(R.id.abundance_sun_text).text = formatSuperscript(abundanceSun)
         findViewById<TextView>(R.id.abundance_solar_system_text).text = formatSuperscript(abundanceSolarSystem)
+        findViewById<TextView>(R.id.abundance_meteorites_text).text = formatSuperscript(abundanceMeteorites)
+        findViewById<TextView>(R.id.abundance_human_body_text).text = formatSuperscript(abundanceHumanBody)
 
         // Grid Parameters:
         val crystalStructure = jsonObject.optString("crystal_structure", "null")
@@ -574,11 +659,27 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
             }
         }
         else {
-            // Set the "get pro" text
-            findViewById<TextView>(R.id.fire_hazard_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.health_hazard_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.reactivity_hazard_text).text = getString(R.string.get_pro_element_text)
-            findViewById<TextView>(R.id.specific_hazard_text).text = getString(R.string.get_pro_element_text)
+            val proTextRes = R.string.get_pro_element_text
+            val proClickableHazardIds = listOf(
+                R.id.fire_hazard_text,
+                R.id.health_hazard_text,
+                R.id.reactivity_hazard_text,
+                R.id.specific_hazard_text,
+            )
+
+            proClickableHazardIds.forEach { id ->
+                findViewById<TextView>(id)?.setLockedText(proTextRes)
+                findViewById<TextView>(id).apply {
+                    isClickable = true
+                    isFocusable = true
+                    setOnClickListener {
+                        // Use the Activity context explicitly to create the Intent
+                        val intent = Intent(this@InfoExtension, ProActivity::class.java)
+                        this@InfoExtension.startActivity(intent)
+                    }
+                }
+            }
+
             findViewById<TextView>(R.id.fire_hazard_txt).text = getString(R.string.get_pro_short)
             findViewById<TextView>(R.id.health_hazard_txt).text = getString(R.string.get_pro_short)
             findViewById<TextView>(R.id.reactivity_hazard_txt).text = getString(R.string.get_pro_short)
@@ -613,11 +714,41 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
 
 
     /**
+     * Saves the current notes for the current element explicitly.
+     * This is called before navigating to ensure notes are persisted.
+     */
+    private fun saveCurrentNotes() {
+        val eText = notesEditText ?: return
+        val elementCode = currentElementCode ?: return
+        val notesPref = NotesPreference(this)
+        val firstDelim = "<$elementCode>"
+        val lastDelim = "</$elementCode>"
+
+        val currentNotes = notesPref.getValue()
+        val start = currentNotes.indexOf(firstDelim)
+        val end = currentNotes.indexOf(lastDelim, start)
+
+        if (start != -1 && end != -1) {
+            val newNotes = currentNotes.substring(0, start + firstDelim.length) +
+                    eText.text.toString() +
+                    currentNotes.substring(end)
+            notesPref.setValue(newNotes)
+        }
+    }
+
+    /**
      * Handles loading and updating notes for the current element.
      *
      * Ensures only one TextWatcher is attached and always operates on the latest notes string.
      */
     private fun handleNotes(elementCode: String, eText: EditText) {
+        // Save previous notes before switching to new element
+        saveCurrentNotes()
+
+        // Update tracking variables
+        currentElementCode = elementCode
+        notesEditText = eText
+
         val notesPref = NotesPreference(this)
         val firstDelim = "<$elementCode>"
         val lastDelim = "</$elementCode>"
@@ -631,7 +762,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         val note = if (p1 != -1 && p2 != -1) {
             notesPrefValue.substring(p1 + firstDelim.length, p2)
         } else {
-            "Take notes for the element:"
+            getString(R.string.notes_placeholder)
         }
 
         eText.setText(note)
@@ -647,12 +778,59 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                             (s ?: "") +
                             currentNotes.substring(end)
                     notesPref.setValue(newNotes)
+
+                    // Request sync with debouncing
+                    NotesSyncManager.requestSync(this@InfoExtension) { status ->
+                        updateSyncStatusUI(status)
+                    }
                 }
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         }
         eText.addTextChangedListener(notesTextWatcher)
+    }
+
+    /**
+     * Update the sync status indicator UI based on current sync status.
+     */
+    private fun updateSyncStatusUI(status: NotesSyncManager.SyncStatus) {
+        // Always post UI work to main thread; find view lazily if not set
+        mainScope.launch(Dispatchers.Main) {
+            val view = notesSyncStatusView ?: run {
+                // attempt to find the view from the current activity layout
+                val v = try {
+                    findViewById<TextView>(R.id.notes_sync_status)
+                } catch (e: Exception) {
+                    null
+                }
+                notesSyncStatusView = v
+                v
+            } ?: return@launch
+
+            when (status) {
+                NotesSyncManager.SyncStatus.NOT_ELIGIBLE -> {
+                    // Not logged in or no Pro/Pro+ version
+                    view.setBackgroundResource(R.drawable.ic_no_sync)
+                    view.visibility = View.VISIBLE
+                }
+                NotesSyncManager.SyncStatus.SYNCING -> {
+                    // Currently syncing
+                    view.setBackgroundResource(R.drawable.ic_cloud_sync)
+                    view.visibility = View.VISIBLE
+                }
+                NotesSyncManager.SyncStatus.SYNCED -> {
+                    // Successfully synced
+                    view.setBackgroundResource(R.drawable.ic_cloud_done)
+                    view.visibility = View.VISIBLE
+                }
+                NotesSyncManager.SyncStatus.ERROR -> {
+                    // Error during sync - show no sync icon
+                    view.setBackgroundResource(R.drawable.ic_no_sync)
+                    view.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
     /**
@@ -838,6 +1016,37 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
             val superscriptSign = superscriptMap[signPart.firstOrNull()] ?: ""
             superscriptNumber + superscriptSign
         }
+    }
+
+    // resolve an attribute color (returns either resolved color resource or typed value data)
+    private fun resolveAttrColor(context: Context, @AttrRes attr: Int): Int {
+        val tv = TypedValue()
+        return if (context.theme.resolveAttribute(attr, tv, true)) {
+            if (tv.resourceId != 0) ContextCompat.getColor(context, tv.resourceId) else tv.data
+        } else {
+            Color.TRANSPARENT // fallback
+        }
+    }
+
+    fun TextView.setLockedText(
+        @StringRes textRes: Int,
+        @DrawableRes lockDrawableRes: Int = R.drawable.ic_lock,
+        @DimenRes paddingRes: Int = R.dimen.padding_small,
+        @AttrRes colorAttr: Int = R.attr.colorError
+    ) {
+        text = context.getString(textRes)
+
+        // get & tint drawable
+        val color = resolveAttrColor(context, colorAttr)
+        val drawable = ContextCompat.getDrawable(context, lockDrawableRes)
+            ?.mutate()
+            ?.let { DrawableCompat.wrap(it) }
+            ?.also { DrawableCompat.setTint(it, color) }
+
+        // set start compound drawable (RTL-aware)
+        setCompoundDrawablesRelativeWithIntrinsicBounds(drawable, null, null, null)
+
+        compoundDrawablePadding = context.resources.getDimensionPixelSize(paddingRes)
     }
 
     /**

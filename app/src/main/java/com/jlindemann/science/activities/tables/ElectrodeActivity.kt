@@ -115,7 +115,7 @@ class ElectrodeActivity : BaseActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.e_view)
         val series = ArrayList<Series>()
 
-        SeriesModel.getList(series)
+        SeriesModel.getList(series, this)
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val adapter = ElectrodeAdapter(series, this, this)
         recyclerView.adapter = adapter

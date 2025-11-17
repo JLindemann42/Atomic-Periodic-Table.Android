@@ -27,7 +27,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.doOnLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tables.DictionaryActivity
@@ -50,6 +53,7 @@ import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.utils.TabUtil
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
+import com.jlindemann.science.utils.AnalyticsHelper
 import com.otaliastudios.zoom.ZoomLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
@@ -88,7 +92,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val recyclerView = findViewById<RecyclerView>(R.id.element_recyclerview)
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         val elements = ArrayList<Element>()
-        ElementModel.getList(elements)
+        ElementModel.getList(elements, this)
         val adapter = ElementAdapter(elements, this, this)
         recyclerView.adapter = adapter
         findViewById<EditText>(R.id.edit_element).addTextChangedListener(object : TextWatcher {
@@ -140,7 +144,15 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
         }
+        
+        // Load and cache Google account profile image for user button
+        loadUserProfileImage()
+        
+        // Handle widget intent - if opened from Element of the Day widget
+        handleWidgetIntent()
+        
         findViewById<ImageButton>(R.id.flaschard_btn).setOnClickListener {
+            AnalyticsHelper.logFeatureUsage(this, "flashcards")
             val intent = Intent(this, FlashCardActivity::class.java)
             startActivity(intent)
         }
@@ -231,13 +243,13 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
         if (date > saleStartDate) {
             //Set new attributes for DonateBtn
-            proText.text = "GO PRO - SCHOOL START SALE"
+            proText.text = getString(R.string.go_pro_school_start_sale)
             proText.setTextColor(getColorStateList(R.color.orange))
             proText.setCompoundDrawableTintList(getColorStateList(R.color.orange))
         }
         if (date > saleEndDate) {
             Timer().schedule(2) {
-                proText.text = "Go Pro - more features"
+                proText.text = getString(R.string.go_pro_more_features)
             }
         }
         else {
@@ -306,12 +318,14 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     private fun getRandomItem() {
         val elements = ArrayList<Element>()
-        ElementModel.getList(elements)
+        ElementModel.getList(elements, this)
         val randomNumber = (0..117).random()
         val item = elements[randomNumber]
 
+        AnalyticsHelper.logFeatureUsage(this, "random_element")
+        
         val elementSendAndLoad = ElementSendAndLoad(this)
-        elementSendAndLoad.setValue(item.element)
+        elementSendAndLoad.setValue(item.elementKey)
         val intent = Intent(this, ElementInfoActivity::class.java)
         startActivity(intent)
     }
@@ -361,7 +375,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     override fun elementClickListener2(item: Element, position: Int) {
         val elementSendAndLoad = ElementSendAndLoad(this)
-        elementSendAndLoad.setValue(item.element)
+        elementSendAndLoad.setValue(item.elementKey)
 
         val intent = Intent(this, ElementInfoActivity::class.java)
         startActivity(intent)
@@ -553,14 +567,17 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             startActivity(intent)
         }
         findViewById<TextView>(R.id.solubility_btn).setOnClickListener {
+            AnalyticsHelper.logFeatureUsage(this, "tables")
             val intent = Intent(this, TableActivity::class.java)
             startActivity(intent)
         }
         findViewById<TextView>(R.id.calculator_btn).setOnClickListener {
+            AnalyticsHelper.logFeatureUsage(this, "tools")
             val intent = Intent(this, ToolsActivity::class.java)
             startActivity(intent)
         }
         findViewById<TextView>(R.id.dictionary_btn).setOnClickListener {
+            AnalyticsHelper.logFeatureUsage(this, "dictionary")
             val intent = Intent(this, DictionaryActivity::class.java)
             startActivity(intent)
         }
@@ -635,22 +652,24 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     private fun setOnCLickListenerSetups(list: ArrayList<Element>) {
         for (item in list) {
-            val name = item.element
+            val name = item.elementKey
             val extBtn = "_btn"
             val eViewBtn = "$name$extBtn"
             val resIDB = resources.getIdentifier(eViewBtn, "id", packageName)
 
             val btn = findViewById<TextView>(resIDB)
-            btn.foreground = ContextCompat.getDrawable(this,
-                R.drawable.t_ripple
-            );
-            btn.isClickable = true
-            btn.isFocusable = true
-            btn.setOnClickListener {
-                val intent = Intent(this, ElementInfoActivity::class.java)
-                val ElementSend = ElementSendAndLoad(this)
-                ElementSend.setValue(item.element)
-                startActivity(intent)
+            if (btn != null) {
+                btn.foreground = ContextCompat.getDrawable(this,
+                    R.drawable.t_ripple
+                );
+                btn.isClickable = true
+                btn.isFocusable = true
+                btn.setOnClickListener {
+                    val intent = Intent(this, ElementInfoActivity::class.java)
+                    val ElementSend = ElementSendAndLoad(this)
+                    ElementSend.setValue(item.elementKey)
+                    startActivity(intent)
+                }
             }
         }
     }
@@ -744,6 +763,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     override fun onResume() {
         super.onResume()
         setProFabVisibilityGoneIfProValue100()
+        // Refresh profile image when returning to MainActivity (e.g., after sign in/out in UserActivity)
+        loadUserProfileImage()
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -891,6 +912,81 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                     onBackInvokedCb = null
                 }
             }
+        }
+    }
+    
+    /**
+     * Loads the Google account profile image into the user button if user is signed in.
+     * Uses caching to avoid loading on every launch by storing the photo URL in SharedPreferences
+     * and utilizing Glide's disk cache.
+     */
+    private fun loadUserProfileImage() {
+        try {
+            val firebaseAuth = FirebaseAuth.getInstance()
+            val currentUser = firebaseAuth.currentUser
+            val userBtn = findViewById<ImageButton>(R.id.user_btn)
+            
+            if (currentUser != null) {
+                val photoUrl = currentUser.photoUrl
+                
+                // Get SharedPreferences for caching
+                val prefs = getSharedPreferences("user_profile_prefs", Context.MODE_PRIVATE)
+                val cachedPhotoUrl = prefs.getString("cached_photo_url", null)
+                
+                if (photoUrl != null) {
+                    val photoUrlString = photoUrl.toString()
+                    
+                    // Only update cache if URL has changed
+                    if (photoUrlString != cachedPhotoUrl) {
+                        prefs.edit().putString("cached_photo_url", photoUrlString).apply()
+                    }
+                    
+                    // Load image using Glide with disk caching enabled
+                    Glide.with(this)
+                        .load(photoUrl)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL) // Cache both original and resized image
+                        .circleCrop() // Make it circular to match typical profile images
+                        .placeholder(R.drawable.ic_account) // Show default icon while loading
+                        .error(R.drawable.ic_account) // Show default icon if loading fails
+                        .into(userBtn)
+                } else {
+                    // No photo URL, clear cache and use default icon
+                    if (cachedPhotoUrl != null) {
+                        prefs.edit().remove("cached_photo_url").apply()
+                    }
+                    userBtn.setImageResource(R.drawable.ic_account)
+                }
+            } else {
+                // User not signed in, clear cache and use default icon
+                val prefs = getSharedPreferences("user_profile_prefs", Context.MODE_PRIVATE)
+                if (prefs.contains("cached_photo_url")) {
+                    prefs.edit().remove("cached_photo_url").apply()
+                }
+                userBtn.setImageResource(R.drawable.ic_account)
+            }
+        } catch (e: Exception) {
+            Log.e("MainActivity", "Failed to load user profile image", e)
+            // Fallback to default icon
+            findViewById<ImageButton>(R.id.user_btn)?.setImageResource(R.drawable.ic_account)
+        }
+    }
+
+    /**
+     * Handle intent from Element of the Day widget
+     */
+    private fun handleWidgetIntent() {
+        val widgetElementKey = intent.getStringExtra("widget_element_key")
+        if (widgetElementKey != null) {
+            // Set the element key and navigate to ElementInfoActivity
+            val elementSendAndLoad = ElementSendAndLoad(this)
+            elementSendAndLoad.setValue(widgetElementKey)
+            
+            // Use Handler to delay navigation slightly to allow MainActivity to fully initialize
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed({
+                val elementIntent = Intent(this, ElementInfoActivity::class.java)
+                startActivity(elementIntent)
+            }, 100)
         }
     }
 

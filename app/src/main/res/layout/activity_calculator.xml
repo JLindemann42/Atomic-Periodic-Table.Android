@@ -119,7 +119,7 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:gravity="top"
-                    android:text="0.0 (g/mol)"
+                    android:text="@string/calculator_default_value"
                     android:textColor="?attr/colorOnSurface"
                     android:textSize="16sp" />
 

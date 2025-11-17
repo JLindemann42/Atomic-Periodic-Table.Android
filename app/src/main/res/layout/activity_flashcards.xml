@@ -30,8 +30,11 @@
                 android:paddingBottom="12dp"
                 android:text="@string/flashcards_title"
                 android:textColor="?attr/colorOnSurface"
+                android:drawableStart="@drawable/ic_flashcards_large"
+                android:drawablePadding="8dp"
+                android:drawableTint="?attr/colorOnSurface"
                 android:textSize="32sp"
-                android:textStyle="normal" />
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -285,7 +288,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="@dimen/margin"
                             android:clickable="true"
-                            android:drawableStart="@drawable/ic_sync"
+                            android:drawableStart="@drawable/ic_cloud_sync"
                             android:drawablePadding="12dp"
                             android:drawableTint="?attr/colorPrimary"
                             android:elevation="1dp"
@@ -484,7 +487,7 @@
                 <TextView
                     android:id="@+id/flashcard_title"
                     android:layout_width="wrap_content"
-                    android:layout_marginStart="70dp"
+                    android:layout_marginStart="56dp"
                     android:alpha="0.9"
                     android:layout_height="56dp"
                     android:gravity="center"
@@ -526,6 +529,7 @@
                         android:layout_gravity="center_vertical"
                         app:tint="?attr/colorOnPrimary"
                         android:src="@drawable/ic_achievements" />
+
 
                     <TextView
                         android:id="@+id/tv_lives_count"

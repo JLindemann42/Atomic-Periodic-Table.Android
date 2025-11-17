@@ -11,13 +11,17 @@ import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.TextView
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tools.CalculatorActivity
 import com.jlindemann.science.activities.tools.ChemicalReactionsActivity
 import com.jlindemann.science.activities.tools.FlashCardActivity
+import com.jlindemann.science.activities.tools.IdealGasCalculatorActivity
 import com.jlindemann.science.activities.tools.TitleBarAnimator
 import com.jlindemann.science.activities.tools.UnitConversionActivity
 import com.jlindemann.science.preferences.MostUsedToolPreference
+import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.ProPlusTimeUtil
 
 class ToolsActivity : BaseActivity() {
 
@@ -77,6 +81,7 @@ class ToolsActivity : BaseActivity() {
 
         toolListeners()
         mostUsedBar()
+        updateProPlusBadge()
 
         findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
             this.onBackPressed()
@@ -94,8 +99,25 @@ class ToolsActivity : BaseActivity() {
             findViewById<TextView>(R.id.tools_title_downstate).layoutParams = params2
     }
 
+    private fun updateProPlusBadge() {
+        val proPlusPref = ProPlusVersion(this)
+        val proPlusPrefValue = proPlusPref.getValue()
+        val isBeforeDeadline = ProPlusTimeUtil.isBeforeJanuary2026()
+        
+        // Show badge if user is not PRO+ and we're still before the deadline
+        if (proPlusPrefValue != 100 && isBeforeDeadline) {
+            findViewById<TextView>(R.id.pro_plus_gas_text).visibility = View.VISIBLE
+        } else {
+            findViewById<TextView>(R.id.pro_plus_gas_text).visibility = View.GONE
+        }
+    }
+
     private fun mostUsedBar() {
         val mostUsedToolPreference = MostUsedToolPreference(this)
+        val proPlusPref = ProPlusVersion(this)
+        val proPlusPrefValue = proPlusPref.getValue()
+        val isBeforeDeadline = ProPlusTimeUtil.isBeforeJanuary2026()
+        
         val regex = Regex("(\\w{3})=(\\d\\.\\d)") // Corrected regex pattern
         val matches = regex.findAll(mostUsedToolPreference.getValue())
             .map { it.groups[1]!!.value to it.groups[2]!!.value.toDouble() }
@@ -115,18 +137,27 @@ class ToolsActivity : BaseActivity() {
                     "cal" -> textViewList[index].text = getString(R.string.cal)
                     "uni" -> textViewList[index].text = getString(R.string.uni)
                     "fla" -> textViewList[index].text = getString(R.string.fla)
+                    "gas" -> textViewList[index].text = getString(R.string.gas)
                 }
 
                 textViewList[index].setOnClickListener {
-                    val activity = when (pair.first) {
-                        "cal" -> CalculatorActivity::class.java
-                        "uni" -> UnitConversionActivity::class.java
-                        "fla" -> FlashCardActivity::class.java
-                        else -> null
-                    }
-                    activity?.let {
-                        val intent = Intent(this, it)
+                    // Check if gas calculator requires PRO+
+                    if (pair.first == "gas" && proPlusPrefValue != 100 && isBeforeDeadline) {
+                        // Open ProActivity if user doesn't have PRO+
+                        val intent = Intent(this, ProActivity::class.java)
                         startActivity(intent)
+                    } else {
+                        val activity = when (pair.first) {
+                            "cal" -> CalculatorActivity::class.java
+                            "uni" -> UnitConversionActivity::class.java
+                            "fla" -> FlashCardActivity::class.java
+                            "gas" -> IdealGasCalculatorActivity::class.java
+                            else -> null
+                        }
+                        activity?.let {
+                            val intent = Intent(this, it)
+                            startActivity(intent)
+                        }
                     }
                 }
             }
@@ -134,6 +165,10 @@ class ToolsActivity : BaseActivity() {
     }
 
     private fun toolListeners() {
+        val proPlusPref = ProPlusVersion(this)
+        val proPlusPrefValue = proPlusPref.getValue()
+        val isBeforeDeadline = ProPlusTimeUtil.isBeforeJanuary2026()
+        
         //Calculator
         findViewById<FrameLayout>(R.id.tool_calculator).setOnClickListener {
             val intent = Intent(this, CalculatorActivity::class.java)
@@ -162,6 +197,28 @@ class ToolsActivity : BaseActivity() {
         findViewById<TextView>(R.id.flashcards_btn).setOnClickListener {
             val intent = Intent(this, FlashCardActivity::class.java)
             startActivity(intent)
+        }
+
+        //Ideal Gas Calculator
+        findViewById<FrameLayout>(R.id.tool_ideal_gas_calculator).setOnClickListener {
+            if (proPlusPrefValue != 100 && isBeforeDeadline) {
+                // Open ProActivity if user doesn't have PRO+
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, IdealGasCalculatorActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        findViewById<TextView>(R.id.ideal_gas_calculator_btn).setOnClickListener {
+            if (proPlusPrefValue != 100 && isBeforeDeadline) {
+                // Open ProActivity if user doesn't have PRO+
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, IdealGasCalculatorActivity::class.java)
+                startActivity(intent)
+            }
         }
 
     }

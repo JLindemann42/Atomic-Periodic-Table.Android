@@ -25,7 +25,7 @@ import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.util.XpManager
 import com.jlindemann.science.utils.StreakManager
 import com.jlindemann.science.views.AnimatedEffectView
-import org.json.JSONArray
+import org.json.JSONObject
 import kotlin.math.roundToInt
 
 class LearningGamesActivity : BaseActivity() {
@@ -444,9 +444,6 @@ class LearningGamesActivity : BaseActivity() {
             if (gameResults.all { it.wasCorrect }) {
                 XpManager.addGameXp(this, xpPerfect)
             }
-            val prefs = getSharedPreferences("game_stats", MODE_PRIVATE)
-            val current = prefs.getInt("completed_quizzes", 0)
-            prefs.edit().putInt("completed_quizzes", current + 1).apply()
         }
 
         // Record a play for streak tracking (this will schedule reminders when streak >= 3)
@@ -475,13 +472,13 @@ class LearningGamesActivity : BaseActivity() {
         val livesLost = getLivesLost()
 
         if (selectedAnswer == "__TIMEOUT__") {
-            resultText.text = "Time's Up"
+            resultText.text = getString(R.string.time_up)
             resultSubtext.text = if (livesLost == 1) "Lost 1 life" else "Lost $livesLost lives"
         } else if (correct) {
-            resultText.text = "Correct"
+            resultText.text = getString(R.string.correct)
             resultSubtext.text = if (xpGained > 0) "+${xpGained}xp" else ""
         } else {
-            resultText.text = "Wrong"
+            resultText.text = getString(R.string.wrong)
             resultSubtext.text = if (livesLost == 1) "Lost 1 life" else "Lost $livesLost lives"
         }
 
@@ -507,9 +504,13 @@ class LearningGamesActivity : BaseActivity() {
     }
 
     private fun generateQuestions(category: String, count: Int): List<Question> {
-        val elementFiles = assets.list("")?.filter { it.endsWith(".json") } ?: emptyList()
-        val elements = elementFiles.flatMap { loadElementsFromAsset(it) }
-            .filter { it.element.isNotBlank() }
+        val language = com.jlindemann.science.utils.ElementDataLoader.getAppLanguage(this)
+        // Try to load elements in the user's language, fallback to English if not available
+        var elements = loadElementsFromAsset("elements_$language.json")
+        if (elements.isEmpty() && language != "en") {
+            elements = loadElementsFromAsset("elements_en.json")
+        }
+        elements = elements.filter { it.element.isNotBlank() }
 
         val questions = mutableListOf<Question>()
         val usedElements = mutableSetOf<String>()
@@ -535,182 +536,182 @@ class LearningGamesActivity : BaseActivity() {
             val baseXp = getBaseXp(category)
             val (questionText, correct, alternatives) = when (category) {
                 "element_symbols" -> {
-                    val question = "What is the symbol for ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_element_symbol, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.short)
                     val wrongs = wrongAnswersFor({ it.short }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "element_names" -> {
-                    val question = "What is the name for ${normalizeLabel(element.short)}?"
+                    val question = getString(R.string.question_element_name, normalizeLabel(element.short))
                     val correct = normalizeLabel(element.element)
                     val wrongs = wrongAnswersFor({ it.element }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "element_classifications" -> {
-                    val question = "What is the element group of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_element_group, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.element_group)
                     val wrongs = wrongAnswersFor({ it.element_group }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "discovered_by" -> {
-                    val question = "Who discovered ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_discovered_by, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.element_discovered_name)
                     val wrongs = wrongAnswersFor({ it.element_discovered_name }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "discovery_year" -> {
-                    val question = "In what year was ${normalizeLabel(element.element)} discovered?"
+                    val question = getString(R.string.question_discovery_year, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.element_year)
                     val wrongs = wrongAnswersFor({ it.element_year }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "appearance" -> {
-                    val question = "What is the appearance of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_appearance, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.appearance)
                     val wrongs = wrongAnswersFor({ it.appearance }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "atomic_number" -> {
-                    val question = "What is the atomic number of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_atomic_number, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.atomic_number)
                     val wrongs = wrongAnswersFor({ it.atomic_number }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "electrical_type" -> {
-                    val question = "What is the electrical type of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_electrical_type, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.electrical_type)
                     val wrongs = wrongAnswersFor({ it.electrical_type }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "radioactive" -> {
-                    val question = "Is ${normalizeLabel(element.element)} radioactive?"
+                    val question = getString(R.string.question_radioactive, normalizeLabel(element.element))
                     val isRadioactive = element.radioactive.trim().lowercase() == "yes"
                     val correct = if (isRadioactive) "Yes" else "No"
                     val options = listOf("Yes", "No")
                     Triple(question, correct, options)
                 }
                 "atomic_mass" -> {
-                    val question = "What is the atomic mass of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_atomic_mass, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.element_atomicmass)
                     val wrongs = wrongAnswersFor({ it.element_atomicmass }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "density" -> {
-                    val question = "What is the density of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_density, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.density)
                     val wrongs = wrongAnswersFor({ it.density }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "electronegativity" -> {
-                    val question = "What is the electronegativity of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_electronegativity, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.element_electronegativty)
                     val wrongs = wrongAnswersFor({ it.element_electronegativty }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "block" -> {
-                    val question = "What block does ${normalizeLabel(element.element)} belong to?"
+                    val question = getString(R.string.question_block, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.element_block)
                     val wrongs = wrongAnswersFor({ it.element_block }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "magnetic_type" -> {
-                    val question = "What is the magnetic type of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_magnetic_type, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.magnetic_type)
                     val wrongs = wrongAnswersFor({ it.magnetic_type }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "phase_stp" -> {
-                    val question = "What is the phase of ${normalizeLabel(element.element)} at STP?"
+                    val question = getString(R.string.question_phase_stp, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.element_phase)
                     val wrongs = wrongAnswersFor({ it.element_phase }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "crystal_structure" -> {
-                    val question = "What is the crystal structure of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_crystal_structure, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.crystal_structure)
                     val wrongs = wrongAnswersFor({ it.crystal_structure }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "superconducting_point" -> {
-                    val question = "What is the superconducting point of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_superconducting_point, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.superconducting_point)
                     val wrongs = wrongAnswersFor({ it.superconducting_point }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "neutron_cross_sectional" -> {
-                    val question = "What is the neutron cross sectional of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_neutron_cross_sectional, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.neutron_cross_sectional)
                     val wrongs = wrongAnswersFor({ it.neutron_cross_sectional }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "specific_heat_capacity" -> {
-                    val question = "What is the specific heat capacity of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_specific_heat_capacity, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.specific_heat_capacity)
                     val wrongs = wrongAnswersFor({ it.specific_heat_capacity }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "mohs_hardness" -> {
-                    val question = "What is the mohs hardness of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_mohs_hardness, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.mohs_hardness)
                     val wrongs = wrongAnswersFor({ it.mohs_hardness }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "vickers_hardness" -> {
-                    val question = "What is the vickers hardness of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_vickers_hardness, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.vickers_hardness)
                     val wrongs = wrongAnswersFor({ it.vickers_hardness }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "brinell_hardness" -> {
-                    val question = "What is the brinell hardness of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_brinell_hardness, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.brinell_hardness)
                     val wrongs = wrongAnswersFor({ it.brinell_hardness }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "element_boiling_kelvin" -> {
-                    val question = "What is the boiling point (Kelvin) of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_boiling_point_kelvin, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.boiling_kelvin)
                     val wrongs = wrongAnswersFor({ it.boiling_kelvin }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "element_boiling_celsius" -> {
-                    val question = "What is the boiling point (°C) of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_boiling_point_celsius, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.boiling_celsius)
                     val wrongs = wrongAnswersFor({ it.boiling_celsius }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "element_boiling_fahrenheit" -> {
-                    val question = "What is the boiling point (°F) of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_boiling_point_fahrenheit, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.boiling_fahrenheit)
                     val wrongs = wrongAnswersFor({ it.boiling_fahrenheit }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "element_melting_kelvin" -> {
-                    val question = "What is the melting point (Kelvin) of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_melting_point_kelvin, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.melting_kelvin)
                     val wrongs = wrongAnswersFor({ it.melting_kelvin }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "element_melting_celsius" -> {
-                    val question = "What is the melting point (°C) of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_melting_point_celsius, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.melting_celsius)
                     val wrongs = wrongAnswersFor({ it.melting_celsius }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "element_melting_fahrenheit" -> {
-                    val question = "What is the melting point (°F) of ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_melting_point_fahrenheit, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.melting_fahrenheit)
                     val wrongs = wrongAnswersFor({ it.melting_fahrenheit }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "earth_crust" -> {
-                    val question = "What is the abundance of ${normalizeLabel(element.element)} in the earths crust? mg/kg (ppm)"
+                    val question = getString(R.string.question_earth_crust_abundance, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.earth_crust)
                     val wrongs = wrongAnswersFor({ it.earth_crust }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
                 "earth_soils" -> {
-                    val question = "What is the abundance of ${normalizeLabel(element.element)} in the earths soils? mg/kg (ppm)"
+                    val question = getString(R.string.question_earth_soils_abundance, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.earth_soils)
                     val wrongs = wrongAnswersFor({ it.earth_soils }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
@@ -726,14 +727,14 @@ class LearningGamesActivity : BaseActivity() {
                     val mixedQ = generateQuestions(cat, 1).firstOrNull()
                     if (mixedQ != null) Triple(mixedQ.question, mixedQ.correctAnswer, mixedQ.alternatives)
                     else {
-                        val question = "What is the symbol for ${normalizeLabel(element.element)}?"
+                        val question = getString(R.string.question_element_symbol, normalizeLabel(element.element))
                         val correct = normalizeLabel(element.short)
                         val wrongs = wrongAnswersFor({ it.short }, correct)
                         Triple(question, correct, (wrongs + correct).distinct().shuffled())
                     }
                 }
                 else -> {
-                    val question = "What is the symbol for ${normalizeLabel(element.element)}?"
+                    val question = getString(R.string.question_element_symbol, normalizeLabel(element.element))
                     val correct = normalizeLabel(element.short)
                     val wrongs = wrongAnswersFor({ it.short }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
@@ -792,10 +793,16 @@ class LearningGamesActivity : BaseActivity() {
     private fun loadElementsFromAsset(filename: String): List<ElementData> {
         return try {
             val json = assets.open(filename).bufferedReader().use { it.readText() }
-            val arr = JSONArray(json)
-            (0 until arr.length()).map { i ->
-                val obj = arr.getJSONObject(i)
-                ElementData(
+            val jsonObject = org.json.JSONObject(json)
+            val elementsList = mutableListOf<ElementData>()
+            
+            // Iterate over all keys (element names) in the JSON object
+            val keys = jsonObject.keys()
+            while (keys.hasNext()) {
+                val elementKey = keys.next()
+                val obj = jsonObject.getJSONObject(elementKey)
+                
+                elementsList.add(ElementData(
                     element = obj.optString("element"),
                     short = obj.optString("short"),
                     appearance = obj.optString("element_appearance"),
@@ -822,13 +829,15 @@ class LearningGamesActivity : BaseActivity() {
                     boiling_kelvin = obj.optString("element_boiling_kelvin"),
                     boiling_celsius = obj.optString("element_boiling_celsius"),
                     boiling_fahrenheit = obj.optString("element_boiling_fahrenheit"),
-                    melting_kelvin = obj.optString("element_boiling_kelvin"),
-                    melting_celsius = obj.optString("element_boiling_celsius"),
-                    melting_fahrenheit = obj.optString("element_boiling_fahrenheit"),
+                    melting_kelvin = obj.optString("element_melting_kelvin"),
+                    melting_celsius = obj.optString("element_melting_celsius"),
+                    melting_fahrenheit = obj.optString("element_melting_fahrenheit"),
                     earth_crust = obj.optString("earth_crust"),
                     earth_soils = obj.optString("earth_soils")
-                )
+                ))
             }
+            
+            elementsList
         } catch (e: Exception) {
             e.printStackTrace()
             emptyList()
@@ -842,11 +851,11 @@ class LearningGamesActivity : BaseActivity() {
         val livesLabelView = findViewById<TextView>(R.id.tv_lives)
         if (isInfinite) {
             livesTextView.text = "∞"
-            livesLabelView.text = "Lives: ∞"
+            livesLabelView.text = getString(R.string.lives_unlimited)
         } else {
             val lives = LivesManager.getLives(this)
             livesTextView.text = lives.toString()
-            livesLabelView.text = "Lives: $lives"
+            livesLabelView.text = getString(R.string.lives_label, lives.toString())
         }
     }
 

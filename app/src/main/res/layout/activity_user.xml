@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="PRO-User"
+            android:text="@string/pro_user_badge"
             android:textColor="?attr/colorSurface"
             android:background="@drawable/toast"
             android:backgroundTint="?attr/colorAccent"
@@ -75,7 +75,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:drawableStart="@drawable/ic_sync"
+            android:drawableStart="@drawable/ic_cloud_sync"
             android:drawableTint="?attr/colorPrimary"
             android:drawablePadding="4dp"
             android:background="@drawable/toast_outline"
@@ -105,7 +105,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Usage Statistics"
+                android:text="@string/usage_statistics"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:textColor="?attr/colorAccent"
@@ -150,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="Elements opened"
+                    android:text="@string/elements_opened"
                     android:textAlignment="center"
                     android:gravity="center_horizontal"
                     android:layout_gravity="center_horizontal"
@@ -177,7 +177,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="Calculations"
+                    android:text="@string/calculations_stat"
                     android:textAlignment="center"
                     android:layout_gravity="center_horizontal"
                     android:textColor="?attr/colorOnSurface"/>
@@ -203,7 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
-                    android:text="Searches"
+                    android:text="@string/searches"
                     android:textAlignment="center"
                     android:layout_gravity="center_horizontal"
                     android:textColor="?attr/colorOnSurface"/>
@@ -232,7 +232,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rate App"
+                    android:text="@string/rate_app"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
@@ -260,7 +260,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:textSize="14sp"
-                    android:text="Let us know what you think of the app, by rating it on the Play Store!"
+                    android:text="@string/rate_app_description"
                     android:textColor="?attr/colorOnSurface"/>
 
                 <TextView
@@ -280,7 +280,7 @@
                     android:gravity="center_vertical"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp"
-                    android:text="Rate"
+                    android:text="@string/rate"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -301,7 +301,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Share App"
+                    android:text="@string/share_app"
                     android:textStyle="bold"
                     android:textSize="20sp"
                     android:textColor="?attr/colorAccent"
@@ -329,7 +329,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
                     android:textSize="14sp"
-                    android:text="If you find the app useful, please share it with your friends and others!"
+                    android:text="@string/share_app_description"
                     android:textColor="?attr/colorOnSurface"/>
 
                 <TextView
@@ -349,7 +349,7 @@
                     android:gravity="center_vertical"
                     android:paddingStart="24dp"
                     android:paddingEnd="24dp"
-                    android:text="Share"
+                    android:text="@string/share"
                     android:textColor="?attr/colorOnPrimary"
                     android:textSize="18sp"
                     android:textStyle="bold" />

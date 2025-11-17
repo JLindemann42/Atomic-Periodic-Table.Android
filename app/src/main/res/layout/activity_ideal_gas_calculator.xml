@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/view_ideal_gas"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/backgroundColor">
+
+    <ScrollView
+        android:id="@+id/ideal_gas_calculator_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="120dp">
+
+            <TextView
+                android:id="@+id/ideal_gas_calculator_title_downstate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="28dp"
+                android:text="@string/ideal_gas_calculator_title"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="32sp"
+                android:textStyle="normal" />
+
+
+            <LinearLayout
+                android:id="@+id/ideal_gas_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/margin_space"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorSurfaceVariant"
+                android:elevation="2dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin"
+                    android:text="@string/ideal_gas_card_title"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/ideal_gas_calculate_field"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/calculate_field_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="16dp"
+                    android:foreground="@drawable/spinner_arrow"
+                    android:background="@drawable/spinner_background"
+                    android:popupBackground="@drawable/spinner_dropdown_background"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp" />
+
+                <!-- Pressure Input -->
+                <TextView
+                    android:id="@+id/pressure_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="4dp"
+                    android:text="@string/ideal_gas_pressure"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:id="@+id/pressure_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="16dp">
+
+                    <EditText
+                        android:id="@+id/pressure_input"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="56dp"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorSurface"
+                        android:hint="@string/ideal_gas_pressure_hint"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurface"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/pressure_unit_spinner"
+                        android:layout_width="100dp"
+                        android:layout_height="56dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorSurface"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp" />
+                </LinearLayout>
+
+                <!-- Volume Input -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="4dp"
+                    android:text="@string/ideal_gas_volume"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="16dp">
+
+                    <EditText
+                        android:id="@+id/volume_input"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="56dp"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorSurface"
+                        android:hint="@string/ideal_gas_volume_hint"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurface"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/volume_unit_spinner"
+                        android:layout_width="100dp"
+                        android:layout_height="56dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorSurface"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp" />
+                </LinearLayout>
+
+                <!-- Moles Input -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="4dp"
+                    android:text="@string/ideal_gas_moles"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/moles_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:hint="@string/ideal_gas_moles_hint"
+                    android:inputType="numberDecimal|numberSigned"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textColorHint="?attr/colorOnSurface"
+                    android:textSize="18sp" />
+
+                <!-- Temperature Input -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="4dp"
+                    android:text="@string/ideal_gas_temperature"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="16dp">
+
+                    <EditText
+                        android:id="@+id/temperature_input"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="56dp"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorSurface"
+                        android:hint="@string/ideal_gas_temperature_hint"
+                        android:inputType="numberDecimal|numberSigned"
+                        android:paddingStart="18dp"
+                        android:paddingEnd="18dp"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textColorHint="?attr/colorOnSurface"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/temperature_unit_spinner"
+                        android:layout_width="100dp"
+                        android:layout_height="56dp"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorSurface"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginTop="8dp"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="top"
+                    android:text="@string/ideal_gas_result"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/out_text_ideal_gas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin"
+                        android:layout_marginEnd="@dimen/margin"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="8dp"
+                        android:drawableStart="@drawable/ic_weight_outline"
+                        android:drawablePadding="6dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:gravity="top"
+                        android:text="@string/calculator_default_value"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="16sp" />
+
+                    <ImageButton
+                        android:id="@+id/fav_star_btn_ideal_gas"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="@dimen/margin"
+                        android:backgroundTint="@color/transparent"
+                        app:tint="?attr/colorOnSurface"
+                        android:src="@drawable/ic_star"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fav_box_ideal_gas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/margin_space"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorSurfaceVariant"
+                android:elevation="2dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="@string/calc_favorites"
+                    android:layout_margin="@dimen/margin"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/no_pro_text_ideal_gas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:visibility="visible"
+                    android:text="@string/calc_no_pro_text"
+                    android:layout_margin="@dimen/margin"
+                    android:textColor="?attr/colorOnSurface"/>
+
+                <TextView
+                    android:id="@+id/no_fav_text_ideal_gas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textAlignment="center"
+                    android:visibility="gone"
+                    android:text="@string/calc_no_favorites"
+                    android:layout_margin="@dimen/margin"
+                    android:textColor="?attr/colorOnSurface"/>
+
+                <TextView
+                    android:id="@+id/pro_button_ideal_gas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/margin_space"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="@drawable/toast_ripple"
+                    android:gravity="center"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:text="@string/get_pro_title"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="16sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/fav_rec_list_ideal_gas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+    <FrameLayout
+        android:id="@+id/common_title_back_ideal_gas"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:elevation="1dp"
+        android:background="?attr/colorSurface"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/common_title_back_ideal_gas_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/title_box_ideal_gas"
+                android:layout_width="match_parent"
+                android:layout_height="56dp">
+
+                <ImageButton
+                    android:id="@+id/back_btn_ideal_gas"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical"
+                    android:rotation="180"
+                    app:tint="?attr/colorOnSecondaryContainer"
+                    android:src="@drawable/ic_arrow_back_whit" />
+
+                <TextView
+                    android:id="@+id/ideal_gas_calculator_title"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="56dp"
+                    android:alpha="0.9"
+                    android:layout_height="56dp"
+                    android:gravity="center"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="@string/ideal_gas_calculator_title"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

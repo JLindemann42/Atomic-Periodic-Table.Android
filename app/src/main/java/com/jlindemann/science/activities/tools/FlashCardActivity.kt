@@ -19,6 +19,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.app.AlertDialog
 import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.Gravity
 import android.os.Handler
@@ -346,12 +347,13 @@ class FlashCardActivity : BaseActivity() {
             val streakView = TextView(this).apply {
                 id = resources.getIdentifier("streak_count_text", "id", packageName).takeIf { it != 0 }
                     ?: View.generateViewId()
-                val sizePx = (48 * resources.displayMetrics.density).toInt()
+                val sizePx = (46 * resources.displayMetrics.density).toInt()
                 val padH = resources.getDimensionPixelSize(R.dimen.padding_small)
                 val padV = resources.getDimensionPixelSize(R.dimen.padding_small)
                 setPadding(padH, padV, padH, padV)
-                setTextColor(context.obtainStyledAttributes(intArrayOf(androidx.appcompat.R.attr.actionMenuTextColor)).let { ta -> val color = ta.getColor(0, currentTextColor); ta.recycle(); color })
+                setTextColor(context.obtainStyledAttributes(intArrayOf(R.attr.colorOnPrimary)).let { ta -> val color = ta.getColor(0, currentTextColor); ta.recycle(); color })
                 textSize = 14f
+                setTypeface(null, Typeface.BOLD)
                 gravity = Gravity.CENTER
                 setBackgroundResource(R.drawable.sunny)
                 visibility = View.GONE
@@ -487,7 +489,7 @@ class FlashCardActivity : BaseActivity() {
                     val checkIcon = rewardView.findViewById<ImageView>(R.id.reward_check_icon)
 
                     // Show the label with PRO+ hint — display "PRO+ Rewards" as requested
-                    text.text = "PRO+ Rewards: ${getString(R.string.reward_5pct_title)}"
+                    text.text = getString(R.string.pro_plus_rewards, getString(R.string.reward_5pct_title))
                     val claimed = isRewardClaimed(rl)
 
                     if (claimed) {
@@ -777,9 +779,9 @@ class FlashCardActivity : BaseActivity() {
             val seconds = TimeUnit.MILLISECONDS.toSeconds(millis) % 60
             // show hours only if > 0
             if (hours > 0) {
-                infoText.text = "Out of lives! More lives in $hours hours, $minutes minutes and $seconds seconds."
+                infoText.text = getString(R.string.out_of_lives_hours, hours, minutes, seconds)
             } else {
-                infoText.text = "Out of lives! More lives in $minutes minutes and $seconds seconds."
+                infoText.text = getString(R.string.out_of_lives_minutes, minutes, seconds)
             }
         } else {
             infoText.visibility = View.GONE
@@ -799,15 +801,15 @@ class FlashCardActivity : BaseActivity() {
         // show multiplier (optional, for visibility) by reading stored multiplier
         val multiplier = XpManager.getXpBonusMultiplier(this)
         val multiplierPct = ((multiplier - 1.0f) * 100).toInt()
-        findViewById<TextView>(R.id.total_xp_stat).text = "Total XP: $xp"
-        findViewById<TextView>(R.id.xp_bonus).text = "+${multiplierPct}% bonus xp"
+        findViewById<TextView>(R.id.total_xp_stat).text = getString(R.string.total_xp_stat, xp)
+        findViewById<TextView>(R.id.xp_bonus).text = getString(R.string.xp_bonus, multiplierPct)
 
         findViewById<TextView>(R.id.level_stat).text = level.toString()
         findViewById<ProgressBar>(R.id.xp_progress).apply {
             max = xpRequired
             progress = xpInLevel
         }
-        findViewById<TextView>(R.id.progress_text).text = "$xpInLevel/$xpRequired"
+        findViewById<TextView>(R.id.progress_text).text = getString(R.string.progress_xp, xpInLevel, xpRequired)
     }
 
     override fun onBackPressed() {
@@ -979,9 +981,9 @@ class FlashCardActivity : BaseActivity() {
 
         val livesText = popupView.findViewById<TextView>(R.id.lives_info_text)
         if (lives >= maxLives) {
-            livesText.text = "You have full lives!"
+            livesText.text = getString(R.string.you_have_full_lives)
         } else {
-            livesText.text = "Next life in $minutes minutes and $seconds seconds.\nYou will gain $refillAmount life${if (refillAmount > 1) "s" else ""}."
+            livesText.text = getString(R.string.next_life_in, minutes, seconds, refillAmount, if (refillAmount > 1) "s" else "")
         }
     }
 

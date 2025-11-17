@@ -21,6 +21,23 @@
                 android:resource="@xml/short_command_widget_info" />
         </receiver>
 
+        <receiver android:name=".ElementOfTheDayWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/element_of_the_day_widget_info" />
+        </receiver>
+
+        <receiver android:name=".activities.tools.StreakReminderReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.jlindemann.science.STREAK_REMINDER" />
+            </intent-filter>
+        </receiver>
+
 
         <activity
             android:name=".activities.MainActivity"
@@ -41,6 +58,15 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.IntroductionActivity"
+            android:label="INTRODUCTIONACTIVITY"
+            android:exported="true"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
             </intent-filter>
         </activity>
         <activity
@@ -152,6 +178,15 @@
         <activity
             android:name=".activities.tools.ChemicalReactionsActivity"
             android:label="CHEMICALREACTIONSPAGE"
+            android:exported="true"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.tools.IdealGasCalculatorActivity"
+            android:label="IDEALGASCALCULATORPAGE"
             android:exported="true"
             android:theme="@style/AppTheme">
             <intent-filter>

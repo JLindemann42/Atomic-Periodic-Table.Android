@@ -73,7 +73,7 @@
             android:id="@+id/electron_Config_title2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Oxidation States:"
+            android:text="@string/oxidation_states_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -100,7 +100,7 @@
             android:id="@+id/electron_Config_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Electron Configuration:"
+            android:text="@string/electron_configuration_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -127,25 +127,26 @@
             android:background="@drawable/toast_element_list"
             android:backgroundTint="?attr/colorPrimaryDark">
 
-        <TextView
-            android:id="@+id/ion_charge_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ion Charge:"
-            android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/ion_charge_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ion_charge_colon"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/ion_charge_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ion_charge_text"
-            android:textIsSelectable="true"
-            android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/ion_charge_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ion_charge_text"
+                android:textIsSelectable="true"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -157,24 +158,61 @@
             android:background="@drawable/toast_element_list"
             android:backgroundTint="?attr/colorPrimaryDark">
 
-        <TextView
-            android:id="@+id/ionization_energies_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ionization Energies:"
-            android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="14sp"
-            android:textStyle="bold" />
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/ionization_energies_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ionization_energies_text"
-            android:textIsSelectable="true"
-            android:textColor="?attr/colorOnSecondaryContainer"
-            android:textSize="14sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/ionization_energies_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ionization_energies_colon"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ionization_energies_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ionization_energies_text"
+                        android:textIsSelectable="true"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/ion_charge_view_all_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/view_all"
+                        android:textIsSelectable="true"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/ionization_button"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:background="@drawable/square_button"
+                    android:backgroundTint="?attr/colorTertiary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="@drawable/square_button_ripple"
+                    android:rotation="270"
+                    app:srcCompat="@drawable/ic_arrow"
+                    app:tint="?attr/colorOnTertiary" />
+
+
+            </FrameLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -192,7 +230,7 @@
             android:id="@+id/atomic_radius_e_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Atomic Radius (Empirical):"
+            android:text="@string/atomic_radius_empirical_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -222,7 +260,7 @@
             android:id="@+id/atomic_radius_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Atomic Radius (Calculated):"
+            android:text="@string/atomic_radius_calculated_colon"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
             android:textStyle="bold" />

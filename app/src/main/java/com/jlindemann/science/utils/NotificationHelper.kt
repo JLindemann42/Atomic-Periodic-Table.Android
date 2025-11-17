@@ -41,8 +41,8 @@ object NotificationHelper {
             }
             val pendingIntent = PendingIntent.getActivity(context, 0, intent, flags)
 
-            val smallIconRes = if (hasResource(context, "icon_monochrome")) {
-                context.resources.getIdentifier("icon_monochrome", "drawable", context.packageName)
+            val smallIconRes = if (hasResource(context, "icon_notification")) {
+                context.resources.getIdentifier("icon_notification", "drawable", context.packageName)
             } else {
                 android.R.drawable.ic_dialog_info
             }

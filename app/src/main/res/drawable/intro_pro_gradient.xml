@@ -1,0 +1,13 @@
+<!-- Rounded border with gradient stroke for PRO Version -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background Layer -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="?attr/backgroundColor"
+                android:endColor="#00FFFFFF"
+                android:angle="90"/>
+        </shape>
+    </item>
+
+</layer-list>

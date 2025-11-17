@@ -193,9 +193,9 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         // PRO badge text
         val proPref = ProVersion(this).getValue()
         val proPlusPref = ProPlusVersion(this).getValue()
-        if (proPref == 1) findViewById<TextView>(R.id.pro_badge).text = "NON-PRO"
-        if (proPref == 100) findViewById<TextView>(R.id.pro_badge).text = "PRO USER"
-        if (proPlusPref == 100) findViewById<TextView>(R.id.pro_badge).text = "PRO+ USER"
+        if (proPref == 1) findViewById<TextView>(R.id.pro_badge).text = getString(R.string.non_pro)
+        if (proPref == 100) findViewById<TextView>(R.id.pro_badge).text = getString(R.string.pro_user)
+        if (proPlusPref == 100) findViewById<TextView>(R.id.pro_badge).text = getString(R.string.pro_plus_user)
 
         // Replace user title views with user's name (they will be updated from updateUi)
         // initialize with a default placeholder

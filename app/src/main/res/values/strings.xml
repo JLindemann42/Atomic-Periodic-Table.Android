@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v4.3.1m-Build.194</string>
+    <string name="app_version" translatable="false">v4.5.0m-Build.204</string>
     <string name="next_sale_start" translatable="false" >2024/08/05</string>
     <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
@@ -53,13 +53,15 @@
     <string name="pro_better_calculator" >Better Calculator</string>
     <string name="pro_better_calculator_descr" >An enhanced calculator with the possibility to save molar weights of different compounds in the favorite page.</string>
     <string name="pro_additional_flashcards">Additional Flashcards and Sync</string>
-    <string name="pro_additional_flashcards_descr" translatable="false" >Access to additional flashcards, more lives and syncing of your progress</string>
+    <string name="pro_additional_flashcards_descr">Access to additional flashcards, more lives and syncing of your progress</string>
+    <string name="pro_additional_sync">Sync for notes and progress</string>
+    <string name="pro_additional_sync_descr">Enable sync for notes and progress to make your studies easier on all of your devices</string>
     <string name="pro_additional_visualisations" >Additional Visualisations</string>
     <string name="pro_additional_visualisations_descr" >Access to more visualisations in the main table such as Poisson\'s Ratio, bulk modulus etc.</string>
     <string name="pro_already_purchased_title" >Already purchased Atomic - Periodic Table PRO?</string>
     <string name="pro_already_purchased_check" >Check product on account</string>
     <string name="pro_price_loading" >retrieving price...</string>
-    <string name="pro_price_discount" >pro_price_discount</string>
+    <string name="pro_price_discount" translatable="false" >pro_price_discount</string>
 
     <!-- Activity Element Info-->
     <string name="element_description_title">Description</string>
@@ -91,9 +93,9 @@
     <string name="show_stp_phase" >Show STP Phase</string>
     <string name="show_electronegativity" >Show Electronegativity</string>
     <string name="show_density" >Show Density</string>
-    <string name="kelvin" >Kelvin</string>
-    <string name="celsius" >Celsius</string>
-    <string name="fahrenheit" >Fahrenheit</string>
+    <string name="kelvin" translatable="false" >Kelvin</string>
+    <string name="celsius" translatable="false" >Celsius</string>
+    <string name="fahrenheit" translatable="false" >Fahrenheit</string>
     <string name="show_boiling_point" >Show Boiling Point</string>
     <string name="show_melting_point" >Show Melting Point</string>
     <string name="show_atomic_radius_empirical" >Show Atomic Radius (Empirical)</string>
@@ -109,7 +111,7 @@
     <!-- Activity Sources Settings -->
     <string name="sources_settings_title" >Sources</string>
     <string name="sources_wwe_title" >Water and Wastewater Engineering</string>
-    <string name="sources_wwe_text" >Mackenzie L. Davis, (2019). Water and wastewater Engineering: Design Principles and Practise, second edition. ISBN: 978-1-260-13227-4</string>
+    <string name="sources_wwe_text" translatable="false" >Mackenzie L. Davis, (2019). Water and wastewater Engineering: Design Principles and Practise, second edition. ISBN: 978-1-260-13227-4</string>
 
     <!-- Activity Unit Settings -->
     <string name="unit_settings_title">Table Units</string>
@@ -136,7 +138,7 @@
     <string name="experimental_title">Experimental Settings</string>
     <string name="experimental_text">Additional experimental settings</string>
     <string name="clear_cache_title">Clear Cache</string>
-    <string name="clear_cache_text">cache_size</string>
+    <string name="clear_cache_text" translatable="false">cache_size</string>
     <string name="submit_activity_title">Submit issue</string>
     <string name="submit_data_i">Data Issue</string>
     <string name="submit_bug">Bug</string>
@@ -150,13 +152,13 @@
     <string name="licenses_text">Licenses of works used by Atomic</string>
     <string name="info_title">Information</string>
     <string name="info_text">App version and details</string>
-    <string name="git_title" >Github</string>
+    <string name="git_title" translatable="false" >Github</string>
     <string name="git_text" >Atomics open-source GitHub repo</string>
     <string name="table_order_title" >Sort table list</string>
     <string name="table_order_text" >Determine order of tables</string>
     <string name="win_title" >Get Desktop App</string>
     <string name="win_text" >Download the app for Windows</string>
-    <string name="about_author_name" >J.LINDEMANN</string>
+    <string name="about_author_name" translatable="false" >J.LINDEMANN</string>
     <string name="about_app_name" >Atomic - Periodic Table</string>
     <string name="about_title" >About</string>
     <string name="settings_title" >Settings</string>
@@ -189,9 +191,11 @@
     <string name="customize_units_table">Customize the units in the main table</string>
     <string name="offline_mode">Offline Mode</string>
     <string name="offline_mode_desc">Disables loading of images</string>
-    <string name="go_online_for_emission" translatable="false">Go online for emission lines</string>
+    <string name="go_online_for_emission">Go online for emission lines</string>
     <string name="auto_hide_bottombar">Auto-hide Bottombar</string>
     <string name="auto_hide_bottombar_desc">Disables the standard behaviour</string>
+    <string name="analytics_title">Usage Analytics</string>
+    <string name="analytics_desc">Help improve the app by sharing anonymous usage data</string>
 
     <!-- Calculator Activity -->
     <string name="weight_calculator_title">Weight Calculator</string>
@@ -263,10 +267,10 @@
     <string name="ion_try_another_search" >Try searching for another word or check your spelling.</string>
 
     <!-- Social-Media Links-->
-    <string name="bluesky" >https://bsky.app/profile/jlindemanndev.bsky.social</string>
-    <string name="instagram" >https://www.instagram.com/jlindemanndev</string>
-    <string name="facebook" >https://www.facebook.com/jlindemanndev</string>
-    <string name="homepage" >https://www.jlindemann.se/homepage</string>
+    <string name="bluesky" translatable="false" >https://bsky.app/profile/jlindemanndev.bsky.social</string>
+    <string name="instagram" translatable="false" >https://www.instagram.com/jlindemanndev</string>
+    <string name="facebook" translatable="false" >https://www.facebook.com/jlindemanndev</string>
+    <string name="homepage" translatable="false" >https://www.jlindemann.se/homepage</string>
 
     <string name="solubility_info_t">Solubility Help</string>
     <string name="solubility_info_c" >"S: Soluble\nSs: Slightly Soluble\nI: Insoluble"</string>
@@ -287,18 +291,20 @@
     <string name="chip_reactions">Reactions</string>
     <string name="chip_water" >Water</string>
 
-    <string name="wikipedia_license" >Wikipedia Commons</string>
-    <string name="wikipedia_license_text" >CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL SERVICES.
+    <string name="wikipedia_license" translatable="false" >Wikipedia Commons</string>
+    <string name="wikipedia_license_text" translatable="false" >CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE LEGAL SERVICES.
         DISTRIBUTION OF THIS LICENSE DOES NOT CREATE AN ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS INFORMATION ON AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES REGARDING THE INFORMATION PROVIDED, AND DISCLAIMS LIABILITY FOR DAMAGES RESULTING FROM ITS USE.\n\nTHE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE ("CCPL" OR "LICENSE").
         THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
         BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE. TO THE EXTENT THIS LICENSE MAY BE CONSIDERED TO BE A CONTRACT, THE LICENSOR GRANTS YOU THE RIGHTS CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND CONDITIONS.</string>
-    <string name="sothree_license" >Android Sliding Up Panel</string>
-    <string name="sothree_license_text" >Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
+    <string name="sothree_license" translatable="false" >Android Sliding Up Panel</string>
+    <string name="sothree_license_text" translatable="false" >Copyright 2015 Anton Lopyrev\n\nLicensed under the Apache License, Version 2.0 (the "License");you may not use this file except in compliance with the License.You may obtain a copy of the License at
     \n\nhttp://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, softwaredistributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.See the License for the specific language governing permissions andlimitations under the License.</string>
     <string name="appwidget_text" >EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="element_of_the_day">Element of the Day</string>
+    <string name="element_of_the_day_description">Displays a different element each day with its symbol, name, and description</string>
+    <string name="widget_description_placeholder">Loading element information...</string>
 
-    <string name="no_results" >No Results</string>
     <string name="spelling" >Try searching for another word or check your spelling</string>
 
     <!-- New Tables Strings -->
@@ -315,6 +321,7 @@
     <string name="emi" >Emission Spectrum Table</string>
 
     <string name="requires_pro" >Requires PRO-Version</string>
+    <string name="requires_pro_plus_until_2026" >Requires PRO+ until 1 jan 2026</string>
     <string name="try_another_search" >Try searching for another word or check your spelling.</string>
 
     <string name="emission_title" >Emission Spectrum Table</string>
@@ -414,11 +421,42 @@
     <string name="flashcards_game_element_appearance" >Appearance</string>
     <string name="flashcards_game_element_atomic_mass" >Atomic Mass</string>
     <string name="flashcards_game_element_density" >Density</string>
-    <string name="progress_text_placeholder" >50/500</string>
-    <string name="total_xp_placeholder" >Total XP: ---</string>
+    <string name="progress_text_placeholder" translatable="false" >50/500</string>
+    <string name="total_xp_placeholder" translatable="false" >Total XP: ---</string>
     <string name="unlock_all_flashcards" >Unlock all Flashcards and Features</string>
-    <string name="upgrade_to_pro_plus" >Upgrade to PRO+</string>
     <string name="upgrade_pro_plus_description" >Get unlimited lives and additional flashcard games such as electronegativity, radioactivity, crystal structure and more!</string>
+
+    <!-- Flashcard question formats -->
+    <string name="question_element_symbol">What is the symbol for %s?</string>
+    <string name="question_element_name">What is the name for %s?</string>
+    <string name="question_element_group">What is the element group of %s?</string>
+    <string name="question_discovered_by">Who discovered %s?</string>
+    <string name="question_discovery_year">In what year was %s discovered?</string>
+    <string name="question_appearance">What is the appearance of %s?</string>
+    <string name="question_atomic_number">What is the atomic number of %s?</string>
+    <string name="question_electrical_type">What is the electrical type of %s?</string>
+    <string name="question_radioactive">Is %s radioactive?</string>
+    <string name="question_atomic_mass">What is the atomic mass of %s?</string>
+    <string name="question_density">What is the density of %s?</string>
+    <string name="question_electronegativity">What is the electronegativity of %s?</string>
+    <string name="question_block">What block does %s belong to?</string>
+    <string name="question_magnetic_type">What is the magnetic type of %s?</string>
+    <string name="question_phase_stp">What is the phase of %s at STP?</string>
+    <string name="question_crystal_structure">What is the crystal structure of %s?</string>
+    <string name="question_superconducting_point">What is the superconducting point of %s?</string>
+    <string name="question_neutron_cross_sectional">What is the neutron cross sectional of %s?</string>
+    <string name="question_specific_heat_capacity">What is the specific heat capacity of %s?</string>
+    <string name="question_mohs_hardness">What is the mohs hardness of %s?</string>
+    <string name="question_vickers_hardness">What is the vickers hardness of %s?</string>
+    <string name="question_brinell_hardness">What is the brinell hardness of %s?</string>
+    <string name="question_boiling_point_kelvin">What is the boiling point (Kelvin) of %s?</string>
+    <string name="question_boiling_point_celsius">What is the boiling point (°C) of %s?</string>
+    <string name="question_boiling_point_fahrenheit">What is the boiling point (°F) of %s?</string>
+    <string name="question_melting_point_kelvin">What is the melting point (Kelvin) of %s?</string>
+    <string name="question_melting_point_celsius">What is the melting point (°C) of %s?</string>
+    <string name="question_melting_point_fahrenheit">What is the melting point (°F) of %s?</string>
+    <string name="question_earth_crust_abundance">What is the abundance of %s in the earths crust? mg/kg (ppm)</string>
+    <string name="question_earth_soils_abundance">What is the abundance of %s in the earths soils? mg/kg (ppm)</string>
     <string name="easy" >Easy</string>
     <string name="medium" >Medium</string>
     <string name="hard" >Hard</string>
@@ -448,31 +486,31 @@
     <string name="mohs_hardness" >Mohs Hardness</string>
     <string name="vickers_hardness" >Vickers Hardness</string>
     <string name="brinell_hardness" >Brinell Hardness</string>
-    <string name="level_25_29" translatable="false" >Level 25</string>
-    <string name="level_30_34" translatable="false" >Level 30</string>
-    <string name="boiling_point_celsius" translatable="false">Boiling Point (°C):</string>
-    <string name="boiling_point_fahrenheit" translatable="false">Boiling Point (°F):</string>
-    <string name="boiling_point_kelvin" translatable="false">Boiling Point (Kelvin):</string>
-    <string name="melting_point_celsius" translatable="false">Melting Point (°C):</string>
-    <string name="melting_point_fahrenheit" translatable="false">Melting Point (°F):</string>
-    <string name="melting_point_kelvin" translatable="false">Melting Point (Kelvin):</string>
-    <string name="rewards_available" translatable="false">Rewards:</string>
-    <string name="level_range_format" translatable="false">Level %1$d</string>
-    <string name="reward_5pct_title" translatable="false">+5% XP bonus</string>
-    <string name="bonus_xp" translatable="false">+0% bonus active</string>
-    <string name="enable_sync" translatable="false">Enable Syncing</string>
-    <string name="enable_sync_desc" translatable="false">Syncing of progress for level, xp, achievements etc is available for PRO and PRO+ users</string>
-    <string name="enable_sync_pro_button" translatable="false">Upgrade</string>
-    <string name="sync_available_pro_only" translatable="false">Get PRO or PRO+ to enable cloud sync</string>
-    <string name="login_for_sync" translatable="false">Login to enable sync</string>
-    <string name="sync_status" translatable="false">Not synced</string>
-    <string name="login_for_sync_and_more" translatable="false">Login to sync data</string>
+    <string name="level_25_29">Level 25</string>
+    <string name="level_30_34">Level 30</string>
+    <string name="boiling_point_celsius">Boiling Point (°C):</string>
+    <string name="boiling_point_fahrenheit">Boiling Point (°F):</string>
+    <string name="boiling_point_kelvin">Boiling Point (Kelvin):</string>
+    <string name="melting_point_celsius">Melting Point (°C):</string>
+    <string name="melting_point_fahrenheit">Melting Point (°F):</string>
+    <string name="melting_point_kelvin">Melting Point (Kelvin):</string>
+    <string name="rewards_available">Rewards:</string>
+    <string name="level_range_format">Level %1$d</string>
+    <string name="reward_5pct_title">+5% XP bonus</string>
+    <string name="bonus_xp">+0% bonus active</string>
+    <string name="enable_sync">Enable Syncing</string>
+    <string name="enable_sync_desc">Syncing of progress for level, xp, achievements etc is available for PRO and PRO+ users</string>
+    <string name="enable_sync_pro_button">Upgrade</string>
+    <string name="sync_available_pro_only">Get PRO or PRO+ to enable cloud sync</string>
+    <string name="login_for_sync">Login to enable sync</string>
+    <string name="sync_status">Not synced</string>
+    <string name="login_for_sync_and_more">Login to sync data</string>
 
 
-    <string name="pro_plus_badge" >PRO+</string>
-    <string name="lives_count_placeholder" >5</string>
-    <string name="level_stat_placeholder" >---</string>
-    <string name="completed_quizzes_stat_placeholder" >---</string>
+    <string name="pro_plus_badge" translatable="false" >PRO+</string>
+    <string name="lives_count_placeholder" translatable="false" >5</string>
+    <string name="level_stat_placeholder" translatable="false" >---</string>
+    <string name="completed_quizzes_stat_placeholder" translatable="false" >---</string>
 
     <!-- Popup Pro -->
     <string name="popup_title">Upgrade to PRO+</string>
@@ -482,38 +520,304 @@
     <string name="credits_title">Credits</string>
     <string name="credits_text">Credits to contributors</string>
     <string name="credits_giancarlo" translatable="false">Giancarlo Mérida</string>
-    <string name="credits_giancarlo_info" translatable="false">Translations for Spanish and Italian</string>
+    <string name="credits_giancarlo_info">Translations for Spanish and Italian</string>
     <string name="credits_electro_boy" translatable="false">ElectroBoy10</string>
-    <string name="credits_electro_boy_info" translatable="false">Translations for Afrikaan</string>
+    <string name="credits_electro_boy_info">Translations for Afrikaan</string>
 
     <!-- Additional Pro -->
     <string name="get_pro_element_text">Get PRO-Version to unlock additional information of elements</string>
-    <string name="overview" translatable="false">Overview</string>
-    <string name="properties" translatable="false">Properties</string>
-    <string name="temperatures" translatable="false">Temperatures</string>
-    <string name="atomic_properties" translatable="false">Atomic Properties</string>
-    <string name="electromagnetic_properties" translatable="false">Electromagnetic Properties</string>
-    <string name="thermodynamic_properties" translatable="false">Thermodynamic Properties</string>
-    <string name="nuclear_properties" translatable="false">Nuclear Properties</string>
-    <string name="hardness_properties" translatable="false">Hardness Properties</string>
+    <string name="overview">Overview</string>
+    <string name="properties">Properties</string>
+    <string name="temperatures">Temperatures</string>
+    <string name="atomic_properties">Atomic Properties</string>
+    <string name="electromagnetic_properties">Electromagnetic Properties</string>
+    <string name="thermodynamic_properties">Thermodynamic Properties</string>
+    <string name="nuclear_properties">Nuclear Properties</string>
+    <string name="hardness_properties">Hardness Properties</string>
     <string name="get_pro_short" translatable="false">PRO</string>
 
-    <string name="streak_notification_title" translatable="false">Keep your %1$d-day streak!</string>
-    <string name="streak_notification_body" translatable="false">Play today to save your %1$d-day streak.</string>
-    <string name="no_questions_title" translatable="false">Not enough data</string>
+    <string name="streak_notification_title">Keep your %1$d-day streak!</string>
+    <string name="streak_notification_body">Play today to save your %1$d-day streak.</string>
+    <string name="no_questions_title">Not enough data</string>
 
     <!-- Google login -->
     <string name="web_client_id" translatable="false">315118082769-ivqq7fhga4pjja0t95iuansjs2vjdu9j.apps.googleusercontent.com</string>
-    <string name="signing_in" translatable="false">Signing in…</string>
-    <string name="sign_in_failed" translatable="false">Sign in failed</string>
-    <string name="user_signed_in_fmt" translatable="false">Signed in as %1$s</string>
-    <string name="user_signed_out" translatable="false">Not signed in</string>
-    <string name="syncing_progress" translatable="false">Syncing progress…</string>
-    <string name="sync_complete" translatable="false">Progress synced</string>
-    <string name="sync_failed" translatable="false">Sync failed</string>
+    <string name="signing_in">Signing in…</string>
+    <string name="sign_in_failed">Sign in failed</string>
+    <string name="user_signed_in_fmt">Signed in as %1$s</string>
+    <string name="user_signed_out">Not signed in</string>
+    <string name="syncing_progress">Syncing progress…</string>
+    <string name="sync_complete">Progress synced</string>
+    <string name="sync_failed">Sync failed</string>
 
     <!-- Sign out UI -->
-    <string name="sign_out" translatable="false">Sign out</string>
-    <string name="confirm_sign_out" translatable="false">Are you sure you want to sign out?</string>
+    <string name="sign_out">Sign out</string>
+    <string name="confirm_sign_out">Are you sure you want to sign out?</string>
+
+    <!-- MainActivity strings -->
+    <string name="go_pro_school_start_sale">GO PRO - SCHOOL START SALE</string>
+    <string name="go_pro_more_features">Go Pro - more features</string>
+
+    <!-- GeologyActivity strings -->
+    <string name="type_label">Type: </string>
+    <string name="group_label">Group: </string>
+    <string name="color_label">Color: </string>
+    <string name="streak_label">Streak: </string>
+    <string name="cristal_structure_label">Cristal Structure: </string>
+    <string name="hardness_label">Hardness: </string>
+    <string name="density_label">Density: </string>
+    <string name="magnetism_label">Magnetism: </string>
+
+    <!-- BaseActivity strings -->
+    <string name="lives_label">Lives: %s</string>
+    <string name="lives_unlimited">Lives: ∞</string>
+
+    <!-- LearningGamesActivity strings -->
+    <string name="time_up">Time\'s Up</string>
+    <string name="correct">Correct</string>
+    <string name="wrong">Wrong</string>
+
+    <!-- ResultDialogFragment strings -->
+    <string name="game_results">Game Results</string>
+    <string name="score_summary">Score: %1$d/%2$d</string>
+    <string name="your_answer">Your answer: %s</string>
+    <string name="correct_answer">Correct answer: %s</string>
+    <string name="questions_correct_xp">Questions Correct: +%dxp</string>
+    <string name="finished_game_xp">Finished Game: +%dxp</string>
+    <string name="perfect_all_correct_xp">Perfect (All Correct): +%dxp</string>
+    <string name="lives_lost_detail">Lives lost: %1$d (%2$d per wrong/timeout answer)</string>
+
+    <!-- FlashCardActivity strings -->
+    <string name="pro_plus_rewards">PRO+ Rewards: %s</string>
+    <string name="out_of_lives_hours">Out of lives! More lives in %1$d hours, %2$d minutes and %3$d seconds.</string>
+    <string name="out_of_lives_minutes">Out of lives! More lives in %1$d minutes and %2$d seconds.</string>
+    <string name="total_xp_stat">Total XP: %d</string>
+    <string name="xp_bonus">+%d%% bonus xp</string>
+    <string name="progress_xp" translatable="false">%1$d/%2$d</string>
+    <string name="you_have_full_lives">You have full lives!</string>
+    <string name="next_life_in">Next life in %1$d minutes and %2$d seconds.\nYou will gain %3$d life%4$s.</string>
+
+    <!-- UserActivity strings -->
+    <string name="non_pro">NON-PRO</string>
+    <string name="pro_user">PRO USER</string>
+    <string name="pro_plus_user">PRO+ USER</string>
+
+    <!-- UnitConversionActivity strings -->
+    <string name="unit_conversion_format" translatable="false">%1$s %2$s → %3$s %4$s (%5$s)</string>
+
+    <!-- Element properties panel -->
+    <string name="atomic_number_label">Atomic Number:</string>
+    <string name="atomic_weight_relative_atomic_mass">Atomic Weight (Relative Atomic Mass):</string>
+    <string name="density_colon">Density:</string>
+    <string name="electronegativity_colon">Electronegativity:</string>
+    <string name="block_colon">Block:</string>
+    <string name="emission_spectrum_colon">Emission Spectrum:</string>
+    <string name="go_online_for_emission_lines">Go online for emission lines</string>
+    <string name="electron_shell_colon">Electron Shell:</string>
+    <string name="phase_stp_colon">Phase (STP):</string>
+    <string name="fusion_heat_colon">Fusion heat:</string>
+    <string name="specific_heat_capacity_colon">Specific Heat Capacity:</string>
+    <string name="vaporization_heat_colon">Vaporization Heat:</string>
+    <string name="appearance_colon">Appearance:</string>
+    <string name="atomic_mass_colon">Atomic Mass:</string>
+    <string name="atomic_radius_calculated_colon">Atomic Radius (Calculated):</string>
+    <string name="atomic_radius_empirical_colon">Atomic Radius (Empirical):</string>
+    <string name="boiling_point_colon">Boiling Point:</string>
+    <string name="melting_point_colon">Melting Point:</string>
+    <string name="brinell_hardness_colon">Brinell hardness:</string>
+    <string name="english_name_colon">English Name:</string>
+    <string name="description_colon">Description:</string>
+    <string name="year_discovered_colon">Year Discovered:</string>
+    <string name="discovered_by_colon">Discovered By:</string>
+    <string name="oxidation_states_colon">Oxidation States:</string>
+    <string name="electron_configuration_colon">Electron Configuration:</string>
+    <string name="ion_charge_colon">Ion Charge:</string>
+    <string name="ionization_energies_colon">Ionization Energies:</string>
+    <string name="electrical_type_colon">Electrical Type:</string>
+    <string name="electrical_resistivity_colon">Electrical Resistivity:</string>
+    <string name="magnetic_type_colon">Magnetic Type:</string>
+    <string name="superconducting_point_colon">Superconducting Point:</string>
+    <string name="mohs_hardness_colon">Mohs hardness:</string>
+    <string name="vickers_hardness_colon">Vickers hardness:</string>
+    <string name="radioactive_colon">Radioactive:</string>
+    <string name="isotopes_colon">Isotopes:</string>
+    <string name="neutron_cross_sectional_colon">Neutron Cross Sectional:</string>
+    <string name="cas_number_colon">CAS Number:</string>
+    <string name="eg_number_colon">EG Number:</string>
+    <string name="take_notes_for_element">Take notes for element</string>
+    <string name="read_more">..more</string>
+    <string name="view_all_isotopes">View all Isotopes</string>
+    <string name="not_available" translatable="false">N/A</string>
+    <string name="hardness_properties_requires_pro">Hardness properties requires PRO-version. Get PRO to unlock more data and tables:</string>
+
+    <!-- Tools UI -->
+    <string name="tools">Tools</string>
+    <string name="new_label">NEW</string>
+    <string name="level_x_y">Level X-Y</string>
+    <string name="no_image">No Image</string>
+    <string name="calculations">Calculations</string>
+    <string name="balance_equation_colon">Balance equation:</string>
+
+    <!-- Pro version strings -->
+    <string name="all_core_features">All Core Features</string>
+    <string name="pro_version">PRO Version</string>
+    <string name="unlock_advanced_data_and_extra_atomic_content">Unlock advanced data and extra Atomic content.</string>
+    <string name="get_pro_button">Get PRO</string>
+    <string name="most_advanced">Most advanced</string>
+    <string name="pro_plus_version">PRO+ Version</string>
+    <string name="unlock_advanced_data_and_additional_flashcards">Unlock advanced data and additional flashcards.</string>
+    <string name="get_pro_plus_button">Get PRO+</string>
+
+    <!-- Sources -->
+    <string name="water_and_wastewater_engineering" translatable="false">Water and Wastewater Engineering</string>
+    <string name="mackenzie_l_davis" translatable="false">Mackenzie L. Davis</string>
+    <string name="sothree_android_sliding_up_panel" translatable="false">Sothree Android Sliding Up Panel</string>
+
+    <!-- Table description -->
+    <string name="isotopes_table_description">A table with isotopes for different elements as well as half-time, mass, proton, neutron and nucleons data.</string>
+
+    <!-- Additional features -->
+    <string name="additional_data_item">- Additional Data:</string>
+    <string name="additional_tables_item">- Additional Tables:</string>
+    <string name="and_more_item">- And more</string>
+    <string name="additional_flashcards_games">Additional Flashcards games:</string>
+    <string name="fifty_lives_in_flashcards">50 lives in Flashcards:</string>
+    <string name="additional_properties_requires_pro">Additional properties requires PRO-version. Get PRO to unlock more data and tables:</string>
+    <string name="achievement_reached_prefix">Achievement reached: </string>
+    <string name="constants_table_label">Constants Table:</string>
+
+    <!-- Chemical Reactions -->
+    <string name="reaction_balancer">Reaction Balancer:</string>
+    <string name="balance_equation">Balance equation:</string>
+    <string name="elements_included_will_be_shown_here">Elements included will be shown here</string>
+    <string name="favorites_colon">Favorites:</string>
+    <string name="currently_no_favorites">Currently no favorites</string>
+
+    <!-- General UI -->
+    <string name="no_results">No results</string>
+    <string name="experimental">Experimental</string>
+    <string name="enable_zoom_in_tables">Enable Zoom in tables</string>
+    <string name="question_text">Question text</string>
+    <string name="option_placeholder" translatable="false">Option %d</string>
+    <string name="card_order">Card Order</string>
+    <string name="wikipedia_commons" translatable="false">Wikipedia Commons</string>
+    <string name="solubility_table">Solubility Table</string>
+    <string name="formula_will_be_displayed_here">Formula will be displayed here</string>
+
+    <!-- User Activity -->
+    <string name="usage_statistics">Usage Statistics</string>
+    <string name="elements_opened">Elements opened</string>
+    <string name="calculations_stat">Calculations</string>
+    <string name="searches">Searches</string>
+    <string name="rate_app">Rate App</string>
+    <string name="rate_app_description">Let us know what you think of the app, by rating it on the Play Store!</string>
+    <string name="rate">Rate</string>
+
+    <!-- Element Notes -->
+    <string name="notes_placeholder">Take notes for the element:</string>
+
+    <!-- Dialog and UI Elements -->
+    <string name="enter_new_text">Enter new text</string>
+    <string name="ok">OK</string>
+    <string name="share_app">Share App</string>
+    <string name="share_app_description">If you find the app useful, please share it with your friends and others!</string>
+    <string name="share">Share</string>
+
+    <!-- PRO Features -->
+    <string name="pro_user_badge">PRO-User</string>
+    <string name="more_information">More information:</string>
+    <string name="pro_features_table_description">In the following table features included in the FREE, PRO, and PRO+ Versions are detailed:</string>
+    <string name="features">Features:</string>
+    <string name="free">FREE</string>
+    <string name="element_overview">Element Overview:</string>
+    <string name="sync_data">Sync data:</string>
+    <string name="nuclide_table">Nuclide Table:</string>
+    <string name="save_calculations">Save Calculations:</string>
+    <string name="save_units">Save Units:</string>
+    <string name="data_visualisations">Data Visualisations:</string>
+    <string name="young_bulk_shear_modulus">Young-, Bulk-, Shear modulus:</string>
+    <string name="poisson_constants_sound_speed">Poisson\'s Constants, Sound of Speed:</string>
+    <string name="hazard_materials">Hazard of Materials:</string>
+    <string name="geology_table">Geology Table:</string>
+    <string name="poisson_ratio_table">Poisson\'s Ratio Table:</string>
+    <string name="emission_spectrum_table">Emission Spectrum Table:</string>
+    <string name="flashcards_unlimited_lives">Unlimited lives in Flashcards:</string>
+    <string name="early_access_features">Early Access to new Features:</string>
+
+    <!-- Calculator -->
+    <string name="calculator_default_value">0.0 (g/mol)</string>
+
+    <!-- Widget -->
+    <string name="search_for_element">Search for element</string>
+
+    <!-- Isotope Panel -->
+    <string name="neutrons">Neutrons:</string>
+    <string name="nucleons">Nucleons:</string>
+    <string name="protons">Protons:</string>
+    <string name="isotope">Isotope</string>
+
+    <string name="pro_plus_badge_text">Most advanced</string>
+    <string name="pro_plus_subtitle">Unlock advanced data and additional flashcards.</string>
+    <string name="get_pro">Get PRO</string>
+    <string name="get_pro_plus">Get PRO+</string>
+    <string name="price_placeholder">---</string>
+    <string name="current_version">Current Version</string>
+    <string name="owns_pro_plus">Owns PRO+</string>
+    <string name="upgrade_to_pro_plus">Upgrade to PRO+</string>
+    <string name="price_not_available">Price not available</string>
+
+    <!-- Introduction Activity -->
+    <string name="intro_welcome_title">Welcome to Atomic</string>
+    <string name="intro_welcome_description">Your comprehensive periodic table reference with detailed element information, interactive tools, and learning features.</string>
+    <string name="intro_flashcards_title">Learn with Flashcards</string>
+    <string name="intro_flashcards_description">Master the periodic table with interactive flashcards. Test your knowledge of element symbols, atomic masses, and chemical properties.</string>
+    <string name="intro_calculator_title">Molar Mass Calculator</string>
+    <string name="intro_calculator_description">Calculate molar masses of chemical compounds quickly and accurately. Perfect for chemistry students and professionals.</string>
+    <string name="intro_pro_title">Unlock PRO Features</string>
+    <string name="intro_pro_description">Get access to additional data, advanced tables, enhanced calculators, and exclusive features with PRO version.</string>
+    <string name="intro_next">Next</string>
+    <string name="intro_skip">Skip</string>
+    <string name="intro_finish">Get Started</string>
+    <string name="intro_image_description">Introduction image</string>
+    <string name="back">Back</string>
+    <string name="feature_check">Feature included</string>
+
+    <!-- New element properties -->
+    <string name="thermal_conductivity_colon">Thermal Conductivity:</string>
+    <string name="electron_affinity_colon">Electron Affinity:</string>
+    <string name="molar_heat_capacity_colon">Molar Heat Capacity:</string>
+    <string name="molar_volume_colon">Molar Volume:</string>
+    <string name="thermal_expansion_colon">Thermal Expansion:</string>
+    <string name="electronegativity_allen_colon">Electronegativity (Allen):</string>
+    <string name="work_function_colon">Work Function:</string>
+    <string name="space_group_name_colon">Space Group Name:</string>
+    <string name="space_group_number_colon">Space Group Number:</string>
+    <string name="refractive_index_colon">Refractive Index:</string>
+    <string name="curie_point_colon">Curie Point:</string>
+    <string name="neel_point_colon">Néel Point:</string>
+    <string name="abundance_meteorites">In meteorites</string>
+    <string name="abundance_human_body">In human body</string>
+
+    <!-- Ideal Gas Calculator Activity -->
+    <string name="ideal_gas_calculator_title">Ideal Gas Calculator</string>
+    <string name="ideal_gas_card_title">Ideal Gas Law Calculator (PV=nRT):</string>
+    <string name="ideal_gas_calculate_field">Calculate:</string>
+    <string name="ideal_gas_pressure">Pressure (P):</string>
+    <string name="ideal_gas_pressure_hint">Enter pressure</string>
+    <string name="ideal_gas_volume">Volume (V):</string>
+    <string name="ideal_gas_volume_hint">Enter volume</string>
+    <string name="ideal_gas_moles">Moles (n):</string>
+    <string name="ideal_gas_moles_hint">Enter moles</string>
+    <string name="ideal_gas_temperature">Temperature (T):</string>
+    <string name="ideal_gas_temperature_hint">Enter temperature</string>
+    <string name="ideal_gas_result">Result:</string>
+    <string name="ideal_gas_text">Calculate ideal gas properties using the ideal gas law equation PV=nRT. Choose which variable to calculate and enter the other three values.</string>
+    <string name="gas">Ideal Gas Calculator</string>
+    <string name="ideal_calculated">Disabled</string>
+
+    <string name="view_all">View all</string>
+    <string name="read_more_widget">Read more</string>
+
 
 </resources>
+
