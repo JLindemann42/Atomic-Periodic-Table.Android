@@ -629,7 +629,7 @@
                 <RelativeLayout
                     android:id="@+id/analytics_settings"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="wrap_content"
                     android:background="?attr/backgroundColor"
                     android:clickable="true"
                     android:elevation="0dp"
@@ -649,7 +649,7 @@
                             android:background="?attr/backgroundColor"
                             android:backgroundTint="?attr/backgroundColor"
                             android:padding="10dp"
-                            app:srcCompat="@drawable/ic_data"
+                            app:srcCompat="@drawable/ic_stats"
                             app:tint="?attr/colorOnBackground" />
 
                         <LinearLayout
