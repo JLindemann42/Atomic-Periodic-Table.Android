@@ -28,8 +28,8 @@ class TableAdapter(
         notifyDataSetChanged()
     }
 
-    override fun getViewHolder(itemView: View): ViewHolder {
-        return ViewHolder(itemView)
+    override fun getViewHolder(itemLayout: View): ViewHolder {
+        return ViewHolder(itemLayout)
     }
 
     override fun onBindViewHolder(item: TableItem, viewHolder: ViewHolder, position: Int) {
@@ -42,6 +42,11 @@ class TableAdapter(
         position: Int
     ): View? {
         return if (isReorderMode) viewHolder.itemView else null
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.table_list_item, parent, false)
+        return ViewHolder(view)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -5,20 +5,31 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
-import android.widget.FrameLayout
+import android:view.ViewTreeObserver
+import android:widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tables.*
 import com.jlindemann.science.activities.tools.TitleBarAnimator
+import com.jlindemann.science.adapter.TableAdapter
+import com.jlindemann.science.model.TableItem
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ProVersion
+import com.jlindemann.science.preferences.TableOrderPreference
 import com.jlindemann.science.preferences.ThemePreference
 
-class TableActivity : BaseActivity() {
+class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
+
+    private lateinit var adapter: TableAdapter
+    private lateinit var recyclerView: DragDropSwipeRecyclerView
+    private lateinit var tableOrderPref: TableOrderPreference
+    private var isReorderMode = false
+    private lateinit var reorderBtn: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +48,111 @@ class TableActivity : BaseActivity() {
 
         findViewById<FrameLayout>(R.id.view_sub).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
+        tableOrderPref = TableOrderPreference(this)
+        setupRecyclerView()
+        setupTitleBar()
+        mostUsedBar()
+
+        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
+            this.onBackPressed()
+        }
+
+        reorderBtn = findViewById(R.id.reorder_btn)
+        reorderBtn.setOnClickListener {
+            toggleReorderMode()
+        }
+    }
+
+    private fun setupRecyclerView() {
+        recyclerView = findViewById(R.id.tables_recycler_view)
+        
+        val proPref = ProVersion(this)
+        val proPrefValue = proPref.getValue()
+        
+        val tables = getTableItems(proPrefValue)
+        
+        adapter = TableAdapter(this, tables, this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        recyclerView.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
+        
+        adapter.setDataChangeListener(object : DragDropSwipeRecyclerView.DataChangeListener {
+            override fun onDatasetChanged() {
+                saveTableOrder()
+            }
+        })
+    }
+
+    private fun getTableItems(proPrefValue: Int): List<TableItem> {
+        val defaultTables = mutableListOf(
+            TableItem("iso", R.string.isotopes_title, R.string.isotopes_table_description, false, 0),
+            TableItem("phi", R.string.table_ph, R.string.table_ph_text, false, 1),
+            TableItem("ele", R.string.table_electrochemical, R.string.table_electrochemical_text, false, 2),
+            TableItem("eqe", R.string.table_equations, R.string.table_equations_text, false, 3),
+            TableItem("ion", R.string.table_ionization, R.string.table_ionization_text, false, 4),
+            TableItem("sol", R.string.table_solubility, R.string.table_solubility_text, false, 5),
+            TableItem("poi", R.string.table_poisson, R.string.table_poisson_text, proPrefValue == 1, 6),
+            TableItem("nuc", R.string.table_nuclide, R.string.table_nuclide_text, proPrefValue == 1, 7),
+            TableItem("con", R.string.constants_tite, R.string.table_constants_text, proPrefValue == 1, 8),
+            TableItem("geo", R.string.table_geology, R.string.table_geology_text, proPrefValue == 1, 9),
+            TableItem("emi", R.string.emission_title, R.string.emission_text, proPrefValue == 1, 10)
+        )
+
+        val savedOrder = tableOrderPref.getOrder()
+        if (savedOrder.isNotEmpty()) {
+            return savedOrder.mapNotNull { id ->
+                defaultTables.find { it.id == id }
+            }
+        }
+
+        return defaultTables
+    }
+
+    private fun saveTableOrder() {
+        val currentOrder = (0 until adapter.itemCount).map { position ->
+            adapter.dataSet[position].id
+        }
+        tableOrderPref.saveOrder(currentOrder)
+    }
+
+    private fun toggleReorderMode() {
+        isReorderMode = !isReorderMode
+        adapter.setReorderMode(isReorderMode)
+        
+        if (isReorderMode) {
+            reorderBtn.alpha = 1.0f
+        } else {
+            reorderBtn.alpha = 0.6f
+            saveTableOrder()
+        }
+    }
+
+    override fun onTableItemClick(item: TableItem) {
+        if (isReorderMode) return
+
+        val proPref = ProVersion(this)
+        val proPrefValue = proPref.getValue()
+
+        val activityClass = when (item.id) {
+            "iso" -> IsotopesActivityExperimental::class.java
+            "phi" -> phActivity::class.java
+            "ele" -> ElectrodeActivity::class.java
+            "eqe" -> EquationsActivity::class.java
+            "ion" -> IonActivity::class.java
+            "sol" -> SolubilityActivity::class.java
+            "poi" -> if (proPrefValue == 100) PoissonActivity::class.java else ProActivity::class.java
+            "nuc" -> if (proPrefValue == 100) NuclideActivity::class.java else ProActivity::class.java
+            "con" -> if (proPrefValue == 100) ConstantsActivity::class.java else ProActivity::class.java
+            "geo" -> if (proPrefValue == 100) GeologyActivity::class.java else ProActivity::class.java
+            "emi" -> if (proPrefValue == 100) EmissionActivity::class.java else ProActivity::class.java
+            else -> return
+        }
+
+        val intent = Intent(this, activityClass)
+        startActivity(intent)
+    }
+
+    private fun setupTitleBar() {
         /// Title Controller with animated visibility
         findViewById<FrameLayout>(R.id.common_title_table_color).visibility = View.INVISIBLE
         findViewById<TextView>(R.id.tables_title).visibility = View.INVISIBLE
@@ -73,30 +189,6 @@ class TableActivity : BaseActivity() {
                     }
                 }
             })
-
-        tableListeners()
-        mostUsedBar()
-
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
-            this.onBackPressed()
-        }
-        //Update tables depending on PRO or Not:
-        val proPref = ProVersion(this)
-        val proPrefValue = proPref.getValue()
-        if (proPrefValue == 1) {
-            findViewById<TextView>(R.id.pro_poi_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_nuc_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_con_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_geo_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_emi_text).visibility = View.VISIBLE
-        }
-        if (proPrefValue == 100) {
-            findViewById<TextView>(R.id.pro_poi_text).visibility = View.GONE
-            findViewById<TextView>(R.id.pro_nuc_text).visibility = View.GONE
-            findViewById<TextView>(R.id.pro_con_text).visibility = View.GONE
-            findViewById<TextView>(R.id.pro_geo_text).visibility = View.GONE
-            findViewById<TextView>(R.id.pro_emi_text).visibility = View.GONE
-        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -269,185 +361,6 @@ class TableActivity : BaseActivity() {
                         }
                     }
                 }
-            }
-        }
-    }
-
-    private fun tableListeners() {
-        findViewById<FrameLayout>(R.id.sol_table).setOnClickListener {
-            val intent = Intent(this, SolubilityActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.iso_table).setOnClickListener {
-            val intent = Intent(this, IsotopesActivityExperimental::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.iso_button).setOnClickListener {
-            val intent = Intent(this, IsotopesActivityExperimental::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.sol_button).setOnClickListener {
-            val intent = Intent(this, SolubilityActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.ele_table).setOnClickListener {
-            val intent = Intent(this, ElectrodeActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.ele_button).setOnClickListener {
-            val intent = Intent(this, ElectrodeActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.equ_table).setOnClickListener {
-            val intent = Intent(this, EquationsActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.equ_button).setOnClickListener {
-            val intent = Intent(this, EquationsActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.ion_table).setOnClickListener {
-            val intent = Intent(this, IonActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.ion_button).setOnClickListener {
-            val intent = Intent(this, IonActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.nuc_table).setOnClickListener {
-            val intent = Intent(this, NuclideActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.nuc_button).setOnClickListener {
-            val intent = Intent(this, NuclideActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.ph_table).setOnClickListener {
-            val intent = Intent(this, phActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.ph_button).setOnClickListener {
-            val intent = Intent(this, phActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.poi_table).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, PoissonActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<TextView>(R.id.poi_button).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, PoissonActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<FrameLayout>(R.id.nuc_table).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, NuclideActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<TextView>(R.id.nuc_button).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, NuclideActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<FrameLayout>(R.id.con_table).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, ConstantsActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<TextView>(R.id.con_button).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, ConstantsActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<FrameLayout>(R.id.geo_table).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, GeologyActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<TextView>(R.id.geo_button).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, GeologyActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<FrameLayout>(R.id.emi_table).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, EmissionActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<TextView>(R.id.emi_button).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, EmissionActivity::class.java)
-                startActivity(intent)
             }
         }
     }
