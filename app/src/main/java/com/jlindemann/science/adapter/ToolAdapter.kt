@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeAdapter
 import com.jlindemann.science.R
 import com.jlindemann.science.model.ToolItem
@@ -49,7 +48,7 @@ class ToolAdapter(
         return ViewHolder(view)
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : DragDropSwipeAdapter.ViewHolder(itemView) {
         private val titleText: TextView = itemView.findViewById(R.id.tool_title)
         private val descriptionText: TextView = itemView.findViewById(R.id.tool_description)
         private val openButton: TextView = itemView.findViewById(R.id.tool_button)
