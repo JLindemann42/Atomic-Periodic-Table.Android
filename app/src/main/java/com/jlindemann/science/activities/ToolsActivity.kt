@@ -10,20 +10,30 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tools.CalculatorActivity
-import com.jlindemann.science.activities.tools.ChemicalReactionsActivity
 import com.jlindemann.science.activities.tools.FlashCardActivity
 import com.jlindemann.science.activities.tools.IdealGasCalculatorActivity
 import com.jlindemann.science.activities.tools.TitleBarAnimator
 import com.jlindemann.science.activities.tools.UnitConversionActivity
+import com.jlindemann.science.adapter.ToolAdapter
+import com.jlindemann.science.model.ToolItem
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.preferences.ToolOrderPreference
 import com.jlindemann.science.utils.ProPlusTimeUtil
 
-class ToolsActivity : BaseActivity() {
+class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
+
+    private lateinit var adapter: ToolAdapter
+    private lateinit var recyclerView: DragDropSwipeRecyclerView
+    private lateinit var toolOrderPref: ToolOrderPreference
+    private var isReorderMode = false
+    private lateinit var reorderBtn: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +52,105 @@ class ToolsActivity : BaseActivity() {
 
         findViewById<FrameLayout>(R.id.view_tools).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
+        toolOrderPref = ToolOrderPreference(this)
+        setupRecyclerView()
+        setupTitleBar()
+        mostUsedBar()
+
+        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
+            this.onBackPressed()
+        }
+
+        reorderBtn = findViewById(R.id.reorder_btn)
+        reorderBtn.setOnClickListener {
+            toggleReorderMode()
+        }
+    }
+
+    private fun setupRecyclerView() {
+        recyclerView = findViewById(R.id.tools_recycler_view)
+        
+        val proPlusPref = ProPlusVersion(this)
+        val proPlusPrefValue = proPlusPref.getValue()
+        val isBeforeDeadline = ProPlusTimeUtil.isBeforeJanuary2026()
+        
+        val tools = getToolItems(proPlusPrefValue, isBeforeDeadline)
+        
+        adapter = ToolAdapter(this, tools, this)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        recyclerView.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
+        
+        adapter.setDataChangeListener(object : DragDropSwipeRecyclerView.DataChangeListener {
+            override fun onDatasetChanged() {
+                saveToolOrder()
+            }
+        })
+    }
+
+    private fun getToolItems(proPlusPrefValue: Int, isBeforeDeadline: Boolean): List<ToolItem> {
+        val defaultTools = mutableListOf(
+            ToolItem("fla", R.string.flashcards_title, R.string.flashcards_info, false, true, 0),
+            ToolItem("cal", R.string.calculator_title, R.string.calculator_text, false, false, 1),
+            ToolItem("uni", R.string.unit_title, R.string.unit_description, false, false, 2),
+            ToolItem("gas", R.string.ideal_gas_calculator_title, R.string.ideal_gas_text, proPlusPrefValue != 100 && isBeforeDeadline, false, 3)
+        )
+
+        val savedOrder = toolOrderPref.getOrder()
+        if (savedOrder.isNotEmpty()) {
+            return savedOrder.mapNotNull { id ->
+                defaultTools.find { it.id == id }
+            }
+        }
+
+        return defaultTools
+    }
+
+    private fun saveToolOrder() {
+        val currentOrder = (0 until adapter.itemCount).map { position ->
+            adapter.dataSet[position].id
+        }
+        toolOrderPref.saveOrder(currentOrder)
+    }
+
+    private fun toggleReorderMode() {
+        isReorderMode = !isReorderMode
+        adapter.setReorderMode(isReorderMode)
+        
+        if (isReorderMode) {
+            reorderBtn.alpha = 1.0f
+        } else {
+            reorderBtn.alpha = 0.6f
+            saveToolOrder()
+        }
+    }
+
+    override fun onToolItemClick(item: ToolItem) {
+        if (isReorderMode) return
+
+        val proPlusPref = ProPlusVersion(this)
+        val proPlusPrefValue = proPlusPref.getValue()
+        val isBeforeDeadline = ProPlusTimeUtil.isBeforeJanuary2026()
+
+        val activityClass = when (item.id) {
+            "cal" -> CalculatorActivity::class.java
+            "uni" -> UnitConversionActivity::class.java
+            "fla" -> FlashCardActivity::class.java
+            "gas" -> {
+                if (proPlusPrefValue != 100 && isBeforeDeadline) {
+                    ProActivity::class.java
+                } else {
+                    IdealGasCalculatorActivity::class.java
+                }
+            }
+            else -> return
+        }
+
+        val intent = Intent(this, activityClass)
+        startActivity(intent)
+    }
+
+    private fun setupTitleBar() {
         // Title Controller with animated visibility
         findViewById<FrameLayout>(R.id.common_title_tool_color).visibility = View.INVISIBLE
         findViewById<TextView>(R.id.tools_title).visibility = View.INVISIBLE
@@ -78,15 +187,6 @@ class ToolsActivity : BaseActivity() {
                     }
                 }
             })
-
-        toolListeners()
-        mostUsedBar()
-        updateProPlusBadge()
-
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
-            this.onBackPressed()
-        }
-
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -97,19 +197,6 @@ class ToolsActivity : BaseActivity() {
             val params2 = findViewById<TextView>(R.id.tools_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
             params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
             findViewById<TextView>(R.id.tools_title_downstate).layoutParams = params2
-    }
-
-    private fun updateProPlusBadge() {
-        val proPlusPref = ProPlusVersion(this)
-        val proPlusPrefValue = proPlusPref.getValue()
-        val isBeforeDeadline = ProPlusTimeUtil.isBeforeJanuary2026()
-        
-        // Show badge if user is not PRO+ and we're still before the deadline
-        if (proPlusPrefValue != 100 && isBeforeDeadline) {
-            findViewById<TextView>(R.id.pro_plus_gas_text).visibility = View.VISIBLE
-        } else {
-            findViewById<TextView>(R.id.pro_plus_gas_text).visibility = View.GONE
-        }
     }
 
     private fun mostUsedBar() {
@@ -162,65 +249,6 @@ class ToolsActivity : BaseActivity() {
                 }
             }
         }
-    }
-
-    private fun toolListeners() {
-        val proPlusPref = ProPlusVersion(this)
-        val proPlusPrefValue = proPlusPref.getValue()
-        val isBeforeDeadline = ProPlusTimeUtil.isBeforeJanuary2026()
-        
-        //Calculator
-        findViewById<FrameLayout>(R.id.tool_calculator).setOnClickListener {
-            val intent = Intent(this, CalculatorActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.calculator_btn).setOnClickListener {
-            val intent = Intent(this, CalculatorActivity::class.java)
-            startActivity(intent)
-        }
-
-        //Unit converter
-        findViewById<FrameLayout>(R.id.tool_unit_converter).setOnClickListener {
-            val intent = Intent(this, UnitConversionActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.unit_converter_btn).setOnClickListener {
-            val intent = Intent(this, UnitConversionActivity::class.java)
-            startActivity(intent)
-        }
-
-        //Unit converter
-        findViewById<FrameLayout>(R.id.flashcards).setOnClickListener {
-            val intent = Intent(this, FlashCardActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.flashcards_btn).setOnClickListener {
-            val intent = Intent(this, FlashCardActivity::class.java)
-            startActivity(intent)
-        }
-
-        //Ideal Gas Calculator
-        findViewById<FrameLayout>(R.id.tool_ideal_gas_calculator).setOnClickListener {
-            if (proPlusPrefValue != 100 && isBeforeDeadline) {
-                // Open ProActivity if user doesn't have PRO+
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            } else {
-                val intent = Intent(this, IdealGasCalculatorActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<TextView>(R.id.ideal_gas_calculator_btn).setOnClickListener {
-            if (proPlusPrefValue != 100 && isBeforeDeadline) {
-                // Open ProActivity if user doesn't have PRO+
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            } else {
-                val intent = Intent(this, IdealGasCalculatorActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
     }
 
 }
