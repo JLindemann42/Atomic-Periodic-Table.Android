@@ -12,6 +12,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
+import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tools.CalculatorActivity
@@ -80,12 +81,18 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
-        
-        adapter.setDataChangeListener(object : DragDropSwipeRecyclerView.DataChangeListener {
-            override fun onDatasetChanged() {
-                saveToolOrder()
-            }
-        })
+        recyclerView.dragListener = onItemDragListener
+    }
+    
+    private val onItemDragListener = object : OnItemDragListener<ToolItem> {
+        override fun onItemDragged(previousPosition: Int, newPosition: Int, item: ToolItem) {
+            // Item is being dragged
+        }
+
+        override fun onItemDropped(initialPosition: Int, finalPosition: Int, item: ToolItem) {
+            // Item has been dropped, save the new order
+            saveToolOrder()
+        }
     }
 
     private fun getToolItems(proPlusPrefValue: Int, isBeforeDeadline: Boolean): List<ToolItem> {
