@@ -12,6 +12,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
+import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tables.*
@@ -75,12 +76,18 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
-        
-        adapter.setDataChangeListener(object : DragDropSwipeRecyclerView.DataChangeListener {
-            override fun onDatasetChanged() {
-                saveTableOrder()
-            }
-        })
+        recyclerView.dragListener = onItemDragListener
+    }
+    
+    private val onItemDragListener = object : OnItemDragListener<TableItem> {
+        override fun onItemDragged(previousPosition: Int, newPosition: Int, item: TableItem) {
+            // Item is being dragged
+        }
+
+        override fun onItemDropped(initialPosition: Int, finalPosition: Int, item: TableItem) {
+            // Item has been dropped, save the new order
+            saveTableOrder()
+        }
     }
 
     private fun getTableItems(proPrefValue: Int): List<TableItem> {
