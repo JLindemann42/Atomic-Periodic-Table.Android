@@ -485,7 +485,7 @@ class ElementInfoActivity : InfoExtension() {
         val topSpace = Space(this)
         topSpace.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
-            resources.getDimensionPixelSize(R.dimen.title_bar) + 56
+            resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.title_bar)
         )
         scrollContent.addView(topSpace)
 
@@ -519,20 +519,27 @@ class ElementInfoActivity : InfoExtension() {
         propertiesContent.setPadding(24, 24, 24, 24)
 
         val propertiesTitle = TextView(this)
-        propertiesTitle.text = "Properties"
+        propertiesTitle.text = getString(R.string.properties)
         propertiesTitle.textSize = 18f
         propertiesTitle.setTypeface(null, android.graphics.Typeface.BOLD)
         propertiesTitle.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurface))
         propertiesTitle.setPadding(0, 0, 0, 16)
         propertiesContent.addView(propertiesTitle)
 
+        val atomicMass = jsonObject.optString("element_atomic_mass", "---")
+        val electronegativity = jsonObject.optString("element_electronegativity", "---")
+        val density = jsonObject.optString("element_density", "---")
+        val meltingPoint = jsonObject.optString("element_melting_point", "---")
+        val boilingPoint = jsonObject.optString("element_boiling_point", "---")
+        val electronConfig = jsonObject.optString("element_electron_configuration", "---")
+
         val properties = listOf(
-            "Atomic Mass" to jsonObject.optString("element_atomic_mass", "---"),
-            "Electronegativity" to jsonObject.optString("element_electronegativity", "---"),
-            "Density" to jsonObject.optString("element_density", "---") + " g/cm³",
-            "Melting Point" to jsonObject.optString("element_melting_point", "---") + " K",
-            "Boiling Point" to jsonObject.optString("element_boiling_point", "---") + " K",
-            "Electron Config" to jsonObject.optString("element_electron_configuration", "---")
+            "Atomic Mass" to atomicMass,
+            "Electronegativity" to electronegativity,
+            "Density" to if (density != "---") "$density g/cm³" else density,
+            "Melting Point" to if (meltingPoint != "---") "$meltingPoint K" else meltingPoint,
+            "Boiling Point" to if (boilingPoint != "---") "$boilingPoint K" else boilingPoint,
+            "Electron Config" to electronConfig
         )
 
         for ((label, value) in properties) {

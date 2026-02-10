@@ -821,6 +821,7 @@
     <string name="select_element_to_compare">Select Element to Compare</string>
     <string name="compare_elements">Compare Elements</string>
     <string name="exit_compare_mode">Exit Compare Mode</string>
+    <string name="properties">Properties</string>
 
 </resources>
 

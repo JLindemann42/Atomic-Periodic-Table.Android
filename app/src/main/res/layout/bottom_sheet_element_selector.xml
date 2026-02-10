@@ -20,7 +20,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/elements_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="@dimen/bottom_sheet_element_list_height"
         android:clipToPadding="false" />
 
 </LinearLayout>
