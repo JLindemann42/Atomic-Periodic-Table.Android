@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -23,7 +24,10 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.mmin18.widget.RealtimeBlurView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.FavoritePageActivity
@@ -31,6 +35,7 @@ import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
 import com.jlindemann.science.activities.tables.NuclideActivity
 import com.jlindemann.science.adapter.AchievementAdapter
+import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.extensions.InfoExtension
 import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
@@ -56,6 +61,10 @@ class ElementInfoActivity : InfoExtension() {
     // Lifecycle-aware callback references
     private var backCallback: OnBackPressedCallback? = null
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
+    
+    // Comparison mode tracking
+    private var isCompareMode = false
+    private var compareElementKey: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +95,9 @@ class ElementInfoActivity : InfoExtension() {
         findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         findViewById<ImageButton>(R.id.back_btn).setOnClickListener { super.onBackPressed() }
+        findViewById<ImageButton>(R.id.compare_btn).setOnClickListener {
+            toggleCompareMode()
+        }
         findViewById<FloatingActionButton>(R.id.edit_fav_btn).setOnClickListener {
             val intent = Intent(this, FavoritePageActivity::class.java)
             startActivity(intent)
@@ -180,7 +192,8 @@ class ElementInfoActivity : InfoExtension() {
         val detail = findViewById<CardView?>(R.id.detail_emission)
         val detailBg = findViewById<RealtimeBlurView?>(R.id.detail_emission_background)
 
-        return (shell?.visibility == View.VISIBLE) ||
+        return isCompareMode ||
+                (shell?.visibility == View.VISIBLE) ||
                 (shellBg?.visibility == View.VISIBLE) ||
                 (detail?.visibility == View.VISIBLE) ||
                 (detailBg?.visibility == View.VISIBLE)
@@ -228,6 +241,13 @@ class ElementInfoActivity : InfoExtension() {
 
     // Close overlays (shell or detail emission) if visible; return true if consumed.
     private fun handleBackPress(): Boolean {
+        // First check if we're in compare mode
+        if (isCompareMode) {
+            exitCompareMode()
+            setBackInterceptionEnabled(anyOverlayOpen())
+            return true
+        }
+        
         val shell = findViewById<CardView>(R.id.shell)
         val shellBg = findViewById<RealtimeBlurView>(R.id.shell_background)
         val detail = findViewById<CardView>(R.id.detail_emission)
@@ -374,6 +394,203 @@ class ElementInfoActivity : InfoExtension() {
             }
             catch (e: IOException) {}
         }
+    }
+
+    private fun toggleCompareMode() {
+        if (isCompareMode) {
+            exitCompareMode()
+        } else {
+            showElementSelector()
+        }
+    }
+
+    private fun showElementSelector() {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_element_selector, null)
+        bottomSheetDialog.setContentView(view)
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.elements_recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val elements = ArrayList<Element>()
+        ElementModel.getList(elements, this)
+
+        val adapter = ElementAdapter(elements, object : ElementAdapter.OnElementClickListener2 {
+            override fun elementClickListener2(item: Element, position: Int) {
+                bottomSheetDialog.dismiss()
+                enterCompareMode(item.elementKey)
+            }
+        }, this)
+
+        recyclerView.adapter = adapter
+        bottomSheetDialog.show()
+    }
+
+    private fun enterCompareMode(elementKey: String) {
+        isCompareMode = true
+        compareElementKey = elementKey
+
+        // Show comparison layout
+        val scrViewCompare = findViewById<ScrollView>(R.id.scr_view_compare)
+        val divider = findViewById<View>(R.id.divider)
+        
+        scrViewCompare.visibility = View.VISIBLE
+        divider.visibility = View.VISIBLE
+
+        // Enable back interception for compare mode
+        setBackInterceptionEnabled(true)
+        
+        // Load comparison element data
+        loadComparisonElement(elementKey)
+    }
+
+    private fun exitCompareMode() {
+        isCompareMode = false
+        compareElementKey = null
+
+        // Hide comparison layout
+        val scrViewCompare = findViewById<ScrollView>(R.id.scr_view_compare)
+        val divider = findViewById<View>(R.id.divider)
+        
+        scrViewCompare.visibility = View.GONE
+        divider.visibility = View.GONE
+    }
+
+    private fun loadComparisonElement(elementKey: String) {
+        val compareContentFrame = findViewById<FrameLayout>(R.id.compare_content_frame)
+        compareContentFrame.removeAllViews()
+
+        try {
+            val jsonObject = ElementDataLoader.loadElementData(this, elementKey)
+            if (jsonObject != null) {
+                // Create a simplified view for comparison element
+                val comparisonView = createComparisonView(jsonObject)
+                compareContentFrame.addView(comparisonView)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun createComparisonView(jsonObject: JSONObject): View {
+        val scrollContent = LinearLayout(this)
+        scrollContent.orientation = LinearLayout.VERTICAL
+        scrollContent.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        scrollContent.setBackgroundColor(getColorFromAttr(com.google.android.material.R.attr.colorSurface))
+
+        // Add some top padding
+        val topSpace = Space(this)
+        topSpace.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.title_bar)
+        )
+        scrollContent.addView(topSpace)
+
+        // Add element header card
+        val headerCard = createCardView()
+        val headerContent = LinearLayout(this)
+        headerContent.orientation = LinearLayout.VERTICAL
+        headerContent.setPadding(24, 24, 24, 24)
+
+        val nameTextView = TextView(this)
+        nameTextView.text = jsonObject.optString("element", "")
+        nameTextView.textSize = 28f
+        nameTextView.setTypeface(null, android.graphics.Typeface.BOLD)
+        nameTextView.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurface))
+        headerContent.addView(nameTextView)
+
+        val symbolTextView = TextView(this)
+        symbolTextView.text = "${jsonObject.optString("element_symbol", "")} (${jsonObject.optString("element_atomic_number", "")})"
+        symbolTextView.textSize = 20f
+        symbolTextView.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurfaceVariant))
+        symbolTextView.setPadding(0, 8, 0, 0)
+        headerContent.addView(symbolTextView)
+
+        headerCard.addView(headerContent)
+        scrollContent.addView(headerCard)
+
+        // Add properties card
+        val propertiesCard = createCardView()
+        val propertiesContent = LinearLayout(this)
+        propertiesContent.orientation = LinearLayout.VERTICAL
+        propertiesContent.setPadding(24, 24, 24, 24)
+
+        val propertiesTitle = TextView(this)
+        propertiesTitle.text = getString(R.string.properties)
+        propertiesTitle.textSize = 18f
+        propertiesTitle.setTypeface(null, android.graphics.Typeface.BOLD)
+        propertiesTitle.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurface))
+        propertiesTitle.setPadding(0, 0, 0, 16)
+        propertiesContent.addView(propertiesTitle)
+
+        val atomicMass = jsonObject.optString("element_atomic_mass", "---")
+        val electronegativity = jsonObject.optString("element_electronegativity", "---")
+        val density = jsonObject.optString("element_density", "---")
+        val meltingPoint = jsonObject.optString("element_melting_point", "---")
+        val boilingPoint = jsonObject.optString("element_boiling_point", "---")
+        val electronConfig = jsonObject.optString("element_electron_configuration", "---")
+
+        val properties = listOf(
+            "Atomic Mass" to atomicMass,
+            "Electronegativity" to electronegativity,
+            "Density" to if (density != "---") "$density g/cm³" else density,
+            "Melting Point" to if (meltingPoint != "---") "$meltingPoint K" else meltingPoint,
+            "Boiling Point" to if (boilingPoint != "---") "$boilingPoint K" else boilingPoint,
+            "Electron Config" to electronConfig
+        )
+
+        for ((label, value) in properties) {
+            val propertyLayout = createPropertyRow(label, value)
+            propertiesContent.addView(propertyLayout)
+        }
+
+        propertiesCard.addView(propertiesContent)
+        scrollContent.addView(propertiesCard)
+
+        return scrollContent
+    }
+
+    private fun createPropertyRow(label: String, value: String): View {
+        val layout = LinearLayout(this)
+        layout.orientation = LinearLayout.VERTICAL
+        layout.setPadding(0, 8, 0, 8)
+
+        val labelTextView = TextView(this)
+        labelTextView.text = label
+        labelTextView.textSize = 12f
+        labelTextView.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurfaceVariant))
+        layout.addView(labelTextView)
+
+        val valueTextView = TextView(this)
+        valueTextView.text = value
+        valueTextView.textSize = 16f
+        valueTextView.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurface))
+        layout.addView(valueTextView)
+
+        return layout
+    }
+
+    private fun createCardView(): CardView {
+        val card = CardView(this)
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.setMargins(16, 16, 16, 16)
+        card.layoutParams = params
+        card.radius = 12f
+        card.cardElevation = 2f
+        card.setCardBackgroundColor(getColorFromAttr(com.google.android.material.R.attr.colorSurfaceVariant))
+        return card
+    }
+
+    private fun getColorFromAttr(attr: Int): Int {
+        val typedValue = TypedValue()
+        theme.resolveAttribute(attr, typedValue, true)
+        return typedValue.data
     }
 
     override fun onDestroy() {

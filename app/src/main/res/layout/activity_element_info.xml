@@ -49,6 +49,19 @@
                     android:src="@drawable/ic_arrow_back_whit" />
 
                 <ImageButton
+                    android:id="@+id/compare_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:padding="16dp"
+                    android:layout_marginEnd="112dp"
+                    android:alpha="0.9"
+                    android:scaleType="fitStart"
+                    app:tint="?attr/colorOnSecondaryContainer"
+                    android:src="@drawable/ic_compare" />
+
+                <ImageButton
                     android:id="@+id/wikipedia_btn"
                     style="?android:attr/borderlessButtonStyle"
                     android:layout_width="56dp"
@@ -93,9 +106,17 @@
 
     </FrameLayout>
 
+    <LinearLayout
+        android:id="@+id/content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:baselineAligned="false">
+
     <ScrollView
         android:id="@+id/scr_view"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -279,6 +300,30 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="?attr/colorOutline"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/scr_view_compare"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        
+        <FrameLayout
+            android:id="@+id/compare_content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- Comparison element content will be loaded here programmatically -->
+        </FrameLayout>
+    </ScrollView>
+
+    </LinearLayout>
 
     <com.github.mmin18.widget.RealtimeBlurView
         android:id="@+id/shell_background"
