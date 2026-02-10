@@ -23,7 +23,10 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.mmin18.widget.RealtimeBlurView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.FavoritePageActivity
@@ -31,6 +34,7 @@ import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
 import com.jlindemann.science.activities.tables.NuclideActivity
 import com.jlindemann.science.adapter.AchievementAdapter
+import com.jlindemann.science.adapter.ElementAdapter
 import com.jlindemann.science.extensions.InfoExtension
 import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
@@ -56,6 +60,10 @@ class ElementInfoActivity : InfoExtension() {
     // Lifecycle-aware callback references
     private var backCallback: OnBackPressedCallback? = null
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
+    
+    // Comparison mode tracking
+    private var isCompareMode = false
+    private var compareElementKey: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +94,9 @@ class ElementInfoActivity : InfoExtension() {
         findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         findViewById<ImageButton>(R.id.back_btn).setOnClickListener { super.onBackPressed() }
+        findViewById<ImageButton>(R.id.compare_btn).setOnClickListener {
+            toggleCompareMode()
+        }
         findViewById<FloatingActionButton>(R.id.edit_fav_btn).setOnClickListener {
             val intent = Intent(this, FavoritePageActivity::class.java)
             startActivity(intent)
@@ -180,7 +191,8 @@ class ElementInfoActivity : InfoExtension() {
         val detail = findViewById<CardView?>(R.id.detail_emission)
         val detailBg = findViewById<RealtimeBlurView?>(R.id.detail_emission_background)
 
-        return (shell?.visibility == View.VISIBLE) ||
+        return isCompareMode ||
+                (shell?.visibility == View.VISIBLE) ||
                 (shellBg?.visibility == View.VISIBLE) ||
                 (detail?.visibility == View.VISIBLE) ||
                 (detailBg?.visibility == View.VISIBLE)
@@ -228,6 +240,13 @@ class ElementInfoActivity : InfoExtension() {
 
     // Close overlays (shell or detail emission) if visible; return true if consumed.
     private fun handleBackPress(): Boolean {
+        // First check if we're in compare mode
+        if (isCompareMode) {
+            exitCompareMode()
+            setBackInterceptionEnabled(anyOverlayOpen())
+            return true
+        }
+        
         val shell = findViewById<CardView>(R.id.shell)
         val shellBg = findViewById<RealtimeBlurView>(R.id.shell_background)
         val detail = findViewById<CardView>(R.id.detail_emission)
@@ -374,6 +393,130 @@ class ElementInfoActivity : InfoExtension() {
             }
             catch (e: IOException) {}
         }
+    }
+
+    private fun toggleCompareMode() {
+        if (isCompareMode) {
+            exitCompareMode()
+        } else {
+            showElementSelector()
+        }
+    }
+
+    private fun showElementSelector() {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_element_selector, null)
+        bottomSheetDialog.setContentView(view)
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.elements_recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val elements = ArrayList<Element>()
+        ElementModel.getList(elements, this)
+
+        val adapter = ElementAdapter(elements, object : ElementAdapter.OnElementClickListener2 {
+            override fun elementClickListener2(item: Element, position: Int) {
+                bottomSheetDialog.dismiss()
+                enterCompareMode(item.elementKey)
+            }
+        }, this)
+
+        recyclerView.adapter = adapter
+        bottomSheetDialog.show()
+    }
+
+    private fun enterCompareMode(elementKey: String) {
+        isCompareMode = true
+        compareElementKey = elementKey
+
+        // Show comparison layout
+        val scrViewCompare = findViewById<ScrollView>(R.id.scr_view_compare)
+        val divider = findViewById<View>(R.id.divider)
+        
+        scrViewCompare.visibility = View.VISIBLE
+        divider.visibility = View.VISIBLE
+
+        // Update compare button icon/state (optional: could change icon to indicate exit mode)
+        
+        // Load comparison element data
+        loadComparisonElement(elementKey)
+    }
+
+    private fun exitCompareMode() {
+        isCompareMode = false
+        compareElementKey = null
+
+        // Hide comparison layout
+        val scrViewCompare = findViewById<ScrollView>(R.id.scr_view_compare)
+        val divider = findViewById<View>(R.id.divider)
+        
+        scrViewCompare.visibility = View.GONE
+        divider.visibility = View.GONE
+    }
+
+    private fun loadComparisonElement(elementKey: String) {
+        val compareContentFrame = findViewById<FrameLayout>(R.id.compare_content_frame)
+        compareContentFrame.removeAllViews()
+
+        try {
+            val jsonObject = ElementDataLoader.loadElementData(this, elementKey)
+            if (jsonObject != null) {
+                // Create a simplified view for comparison element
+                val comparisonView = createComparisonView(jsonObject)
+                compareContentFrame.addView(comparisonView)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+    private fun createComparisonView(jsonObject: JSONObject): View {
+        val linearLayout = LinearLayout(this)
+        linearLayout.orientation = LinearLayout.VERTICAL
+        linearLayout.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        linearLayout.setPadding(16, 16, 16, 16)
+
+        // Add element name
+        val nameTextView = TextView(this)
+        nameTextView.text = jsonObject.optString("element", "")
+        nameTextView.textSize = 24f
+        nameTextView.setTypeface(null, android.graphics.Typeface.BOLD)
+        nameTextView.setPadding(0, 0, 0, 16)
+        linearLayout.addView(nameTextView)
+
+        // Add basic properties
+        val properties = listOf(
+            "Symbol" to jsonObject.optString("element_symbol", "---"),
+            "Atomic Number" to jsonObject.optString("element_atomic_number", "---"),
+            "Atomic Mass" to jsonObject.optString("element_atomic_mass", "---"),
+            "Electronegativity" to jsonObject.optString("element_electronegativity", "---"),
+            "Density" to jsonObject.optString("element_density", "---"),
+            "Melting Point" to jsonObject.optString("element_melting_point", "---"),
+            "Boiling Point" to jsonObject.optString("element_boiling_point", "---"),
+            "Electron Configuration" to jsonObject.optString("element_electron_configuration", "---")
+        )
+
+        for ((label, value) in properties) {
+            val propertyView = LinearLayout(this)
+            propertyView.orientation = LinearLayout.HORIZONTAL
+            propertyView.setPadding(0, 8, 0, 8)
+
+            val labelTextView = TextView(this)
+            labelTextView.text = "$label: "
+            labelTextView.setTypeface(null, android.graphics.Typeface.BOLD)
+            propertyView.addView(labelTextView)
+
+            val valueTextView = TextView(this)
+            valueTextView.text = value
+            propertyView.addView(valueTextView)
+
+            linearLayout.addView(propertyView)
+        }
+
+        return linearLayout
     }
 
     override fun onDestroy() {
