@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.text.TextUtils
+import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -436,7 +437,8 @@ class ElementInfoActivity : InfoExtension() {
         scrViewCompare.visibility = View.VISIBLE
         divider.visibility = View.VISIBLE
 
-        // Update compare button icon/state (optional: could change icon to indicate exit mode)
+        // Enable back interception for compare mode
+        setBackInterceptionEnabled(true)
         
         // Load comparison element data
         loadComparisonElement(elementKey)
@@ -471,52 +473,117 @@ class ElementInfoActivity : InfoExtension() {
     }
 
     private fun createComparisonView(jsonObject: JSONObject): View {
-        val linearLayout = LinearLayout(this)
-        linearLayout.orientation = LinearLayout.VERTICAL
-        linearLayout.layoutParams = LinearLayout.LayoutParams(
+        val scrollContent = LinearLayout(this)
+        scrollContent.orientation = LinearLayout.VERTICAL
+        scrollContent.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
-        linearLayout.setPadding(16, 16, 16, 16)
+        scrollContent.setBackgroundColor(getColorFromAttr(com.google.android.material.R.attr.colorSurface))
 
-        // Add element name
+        // Add some top padding
+        val topSpace = Space(this)
+        topSpace.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            resources.getDimensionPixelSize(R.dimen.title_bar) + 56
+        )
+        scrollContent.addView(topSpace)
+
+        // Add element header card
+        val headerCard = createCardView()
+        val headerContent = LinearLayout(this)
+        headerContent.orientation = LinearLayout.VERTICAL
+        headerContent.setPadding(24, 24, 24, 24)
+
         val nameTextView = TextView(this)
         nameTextView.text = jsonObject.optString("element", "")
-        nameTextView.textSize = 24f
+        nameTextView.textSize = 28f
         nameTextView.setTypeface(null, android.graphics.Typeface.BOLD)
-        nameTextView.setPadding(0, 0, 0, 16)
-        linearLayout.addView(nameTextView)
+        nameTextView.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurface))
+        headerContent.addView(nameTextView)
 
-        // Add basic properties
+        val symbolTextView = TextView(this)
+        symbolTextView.text = "${jsonObject.optString("element_symbol", "")} (${jsonObject.optString("element_atomic_number", "")})"
+        symbolTextView.textSize = 20f
+        symbolTextView.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurfaceVariant))
+        symbolTextView.setPadding(0, 8, 0, 0)
+        headerContent.addView(symbolTextView)
+
+        headerCard.addView(headerContent)
+        scrollContent.addView(headerCard)
+
+        // Add properties card
+        val propertiesCard = createCardView()
+        val propertiesContent = LinearLayout(this)
+        propertiesContent.orientation = LinearLayout.VERTICAL
+        propertiesContent.setPadding(24, 24, 24, 24)
+
+        val propertiesTitle = TextView(this)
+        propertiesTitle.text = "Properties"
+        propertiesTitle.textSize = 18f
+        propertiesTitle.setTypeface(null, android.graphics.Typeface.BOLD)
+        propertiesTitle.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurface))
+        propertiesTitle.setPadding(0, 0, 0, 16)
+        propertiesContent.addView(propertiesTitle)
+
         val properties = listOf(
-            "Symbol" to jsonObject.optString("element_symbol", "---"),
-            "Atomic Number" to jsonObject.optString("element_atomic_number", "---"),
             "Atomic Mass" to jsonObject.optString("element_atomic_mass", "---"),
             "Electronegativity" to jsonObject.optString("element_electronegativity", "---"),
-            "Density" to jsonObject.optString("element_density", "---"),
-            "Melting Point" to jsonObject.optString("element_melting_point", "---"),
-            "Boiling Point" to jsonObject.optString("element_boiling_point", "---"),
-            "Electron Configuration" to jsonObject.optString("element_electron_configuration", "---")
+            "Density" to jsonObject.optString("element_density", "---") + " g/cm³",
+            "Melting Point" to jsonObject.optString("element_melting_point", "---") + " K",
+            "Boiling Point" to jsonObject.optString("element_boiling_point", "---") + " K",
+            "Electron Config" to jsonObject.optString("element_electron_configuration", "---")
         )
 
         for ((label, value) in properties) {
-            val propertyView = LinearLayout(this)
-            propertyView.orientation = LinearLayout.HORIZONTAL
-            propertyView.setPadding(0, 8, 0, 8)
-
-            val labelTextView = TextView(this)
-            labelTextView.text = "$label: "
-            labelTextView.setTypeface(null, android.graphics.Typeface.BOLD)
-            propertyView.addView(labelTextView)
-
-            val valueTextView = TextView(this)
-            valueTextView.text = value
-            propertyView.addView(valueTextView)
-
-            linearLayout.addView(propertyView)
+            val propertyLayout = createPropertyRow(label, value)
+            propertiesContent.addView(propertyLayout)
         }
 
-        return linearLayout
+        propertiesCard.addView(propertiesContent)
+        scrollContent.addView(propertiesCard)
+
+        return scrollContent
+    }
+
+    private fun createPropertyRow(label: String, value: String): View {
+        val layout = LinearLayout(this)
+        layout.orientation = LinearLayout.VERTICAL
+        layout.setPadding(0, 8, 0, 8)
+
+        val labelTextView = TextView(this)
+        labelTextView.text = label
+        labelTextView.textSize = 12f
+        labelTextView.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurfaceVariant))
+        layout.addView(labelTextView)
+
+        val valueTextView = TextView(this)
+        valueTextView.text = value
+        valueTextView.textSize = 16f
+        valueTextView.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurface))
+        layout.addView(valueTextView)
+
+        return layout
+    }
+
+    private fun createCardView(): CardView {
+        val card = CardView(this)
+        val params = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        params.setMargins(16, 16, 16, 16)
+        card.layoutParams = params
+        card.radius = 12f
+        card.cardElevation = 2f
+        card.setCardBackgroundColor(getColorFromAttr(com.google.android.material.R.attr.colorSurfaceVariant))
+        return card
+    }
+
+    private fun getColorFromAttr(attr: Int): Int {
+        val typedValue = TypedValue()
+        theme.resolveAttribute(attr, typedValue, true)
+        return typedValue.data
     }
 
     override fun onDestroy() {
