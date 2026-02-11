@@ -77,7 +77,7 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
         recyclerView.adapter = adapter
         recyclerView.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
         recyclerView.dragListener = onItemDragListener
-        recyclerView.longPressDragDurationMillis = 500 // Require 500ms hold to start drag, preventing conflicts with scrolling
+        recyclerView.longPressToStartDragging = true // Require long press to start drag, preventing conflicts with scrolling
     }
     
     private val onItemDragListener = object : OnItemDragListener<TableItem> {
