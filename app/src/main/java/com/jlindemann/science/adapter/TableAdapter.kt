@@ -14,7 +14,7 @@ class TableAdapter(
     private val context: Context,
     dataSet: List<TableItem> = emptyList(),
     private val clickListener: OnTableItemClickListener
-) : DragDropSwipeAdapter<TableItem, TableAdapter.ViewHolder>(dataSet) {
+) : DragDropSwipeAdapter<TableItem,     TableAdapter.ViewHolder>(dataSet) {
 
     private var isReorderMode = false
 

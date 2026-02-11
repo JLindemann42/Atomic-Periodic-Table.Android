@@ -358,7 +358,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:src="@drawable/ic_edit"
-                    android:tint="?attr/colorOnSecondaryContainer" />
+                    app:tint="?attr/actionMenuTextColor" />
             </FrameLayout>
         </LinearLayout>
     </FrameLayout>
