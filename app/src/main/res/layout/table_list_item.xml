@@ -43,7 +43,7 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="@dimen/margin"
                 android:padding="12dp"
-                android:src="@drawable/ic_edit"
+                android:src="@drawable/ic_drag"
                 android:tint="?attr/colorOnSurfaceVariant"
                 android:alpha="0.6"
                 android:visibility="gone" />

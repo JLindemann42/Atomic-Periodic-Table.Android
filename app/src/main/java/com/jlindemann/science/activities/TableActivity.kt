@@ -130,7 +130,7 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
         if (isReorderMode) {
             reorderBtn.alpha = 1.0f
         } else {
-            reorderBtn.alpha = 0.6f
+            reorderBtn.alpha = 1.0f
             saveTableOrder()
         }
     }
