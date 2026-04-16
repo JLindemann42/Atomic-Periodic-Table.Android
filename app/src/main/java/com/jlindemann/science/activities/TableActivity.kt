@@ -108,9 +108,13 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
 
         val savedOrder = tableOrderPref.getOrder()
         if (savedOrder.isNotEmpty()) {
-            return savedOrder.mapNotNull { id ->
+            val orderedTables = savedOrder.mapNotNull { id ->
                 defaultTables.find { it.id == id }
             }
+            val missingTables = defaultTables.filter { table ->
+                orderedTables.none { it.id == table.id }
+            }
+            return orderedTables + missingTables
         }
 
         return defaultTables
@@ -374,6 +378,5 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
     }
 
 }
-
 
 
