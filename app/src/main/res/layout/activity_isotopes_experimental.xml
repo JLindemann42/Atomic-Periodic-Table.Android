@@ -10,9 +10,7 @@
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/empty_search_box_iso"
@@ -77,12 +75,23 @@
             android:focusable="true"
             android:visibility="gone" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/r_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/backgroundColor"
+            android:clipToPadding="false"
+            android:paddingBottom="60dp"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:verticalScrollbarPosition="defaultPosition" />
+
         <FrameLayout
             android:id="@+id/common_title_back_iso"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="?attr/colorSurface"
-            android:elevation="8dp"
+            android:elevation="0dp"
             android:gravity="center|center_vertical"
             android:orientation="horizontal"
             app:layout_constraintTop_toTopOf="parent">
@@ -92,7 +101,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/colorPrimary"
-                android:alpha="0.11"/>
+                android:alpha="0.11"
+                android:visibility="invisible"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -138,7 +148,8 @@
                         android:textAlignment="center"
                         android:textColor="?attr/colorOnSecondaryContainer"
                         android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:visibility="invisible"/>
 
                 </FrameLayout>
 
@@ -201,20 +212,6 @@
                 </FrameLayout>
             </LinearLayout>
         </FrameLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id='@+id/r_view'
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/backgroundColor"
-            android:clipToPadding="false"
-            android:paddingTop="9dp"
-            android:paddingBottom="60dp"
-            android:scrollbarStyle="insideOverlay"
-            android:scrollbars="vertical"
-            android:verticalScrollbarPosition="defaultPosition">
-
-        </androidx.recyclerview.widget.RecyclerView>
     </FrameLayout>
 
     <TextView

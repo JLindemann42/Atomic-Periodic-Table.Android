@@ -37,11 +37,13 @@
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
+
             <ImageView
                 android:id="@+id/drag_handle"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginEnd="@dimen/margin"
+                android:layout_marginTop="14dp"
                 android:padding="12dp"
                 android:src="@drawable/ic_drag"
                 android:tint="?attr/colorOnSurfaceVariant"
@@ -49,6 +51,12 @@
                 android:visibility="gone" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/space_drag"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"/>
 
         <TextView
             android:id="@+id/pro_badge"
@@ -90,7 +98,6 @@
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/margin_space"
             android:layout_marginEnd="@dimen/margin"
-            android:layout_marginBottom="@dimen/margin"
             android:background="@drawable/toast"
             android:backgroundTint="?attr/colorPrimary"
             android:clickable="true"
@@ -99,6 +106,7 @@
             android:gravity="center"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/open_table_button"
             android:textAlignment="center"
             android:textColor="?attr/colorOnPrimary"

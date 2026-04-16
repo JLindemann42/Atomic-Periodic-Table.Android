@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.activity.OnBackPressedCallback
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.tools.TitleBarAnimator
 import com.jlindemann.science.adapter.IsotopeAdapter
 import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.model.Element
@@ -43,6 +44,8 @@ import kotlin.collections.ArrayList
 class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementClickListener {
     private var elementList = ArrayList<Element>()
     var mAdapter = IsotopeAdapter(elementList, this, this)
+    private var headerView: View? = null
+    private var lastTopInset = 0
 
     // Unified back handling fields
     private var backCallback: OnBackPressedCallback? = null
@@ -90,15 +93,21 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         val recyclerView = findViewById<RecyclerView>(R.id.r_view)
         findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val elements = ArrayList<Element>()
-        ElementModel.getList(elements, this)
-        val adapter = IsotopeAdapter(elements, this, this)
-        recyclerView.adapter = adapter
+        
+        ElementModel.getList(elementList, this)
+        mAdapter = IsotopeAdapter(elementList, this, this)
+        mAdapter.setHeaderBindingAction { view ->
+            headerView = view
+            applyHeaderInsets(view, lastTopInset)
+        }
+        recyclerView.adapter = mAdapter
+
+        setupTitleBar(recyclerView)
 
         findViewById<EditText>(R.id.edit_iso).addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable) { filter(s.toString(), elements, recyclerView) }
+            override fun afterTextChanged(s: Editable) { filter(s.toString(), elementList, recyclerView) }
         })
 
         findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
@@ -131,8 +140,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         val mostUsedPreference = MostUsedPreference(this)
         val mostUsedPrefValue = mostUsedPreference.getValue()
         val targetLabel = "iso"
-        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
-        val match = regex.find(mostUsedPrefValue)
+        val regex = Regex("(\\w{3})=(\\d\\.\\d)")
+        val match = regex.findAll(mostUsedPrefValue).find { it.groups[1]?.value == targetLabel }
         if (match != null) {
             val value = match.groups[2]!!.value.toDouble()
             val newValue = value + 1
@@ -141,7 +150,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
 
         findViewById<FrameLayout>(R.id.view1).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         clickSearch()
-        searchFilter(elements, recyclerView)
+        searchFilter(elementList, recyclerView)
         sentIsotope()
         findViewById<ImageButton>(R.id.back_btn).setOnClickListener { this.onBackPressed() }
     }
@@ -350,7 +359,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        findViewById<RecyclerView>(R.id.r_view).setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.margin_space) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar))
+        lastTopInset = top
         val params2 = findViewById<FrameLayout>(R.id.common_title_back_iso).layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<FrameLayout>(R.id.common_title_back_iso).layoutParams = params2
@@ -362,6 +371,59 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_iso).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
         findViewById<LinearLayout>(R.id.empty_search_box_iso).layoutParams = searchEmptyImgPrm
+
+        headerView?.let {
+            applyHeaderInsets(it, top)
+        }
+    }
+
+    private fun applyHeaderInsets(view: View, top: Int) {
+        val titleDownstate = view.findViewById<TextView>(R.id.isotopes_title_downstate)
+        val params = titleDownstate.layoutParams as ViewGroup.MarginLayoutParams
+        params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        titleDownstate.layoutParams = params
+    }
+
+    private fun setupTitleBar(recyclerView: RecyclerView) {
+        findViewById<FrameLayout>(R.id.common_title_isotope_color).visibility = View.INVISIBLE
+        findViewById<TextView>(R.id.element_title).visibility = View.INVISIBLE
+        findViewById<FrameLayout>(R.id.common_title_back_iso).elevation = (resources.getDimension(R.dimen.zero_elevation))
+
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            private var totalScrollY = 0
+            private var isTitleVisible = false
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                totalScrollY += dy
+
+                val threshold = 150
+                val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_isotope_color)
+                val titleText = findViewById<TextView>(R.id.element_title)
+                val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_iso)
+
+                val headerView = recyclerView.findViewHolderForAdapterPosition(0)?.itemView
+                val titleDownstateText = headerView?.findViewById<TextView>(R.id.isotopes_title_downstate)
+
+                if (totalScrollY > threshold) {
+                    if (!isTitleVisible) {
+                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
+                        TitleBarAnimator.animateVisibility(titleText, true)
+                        titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, false) }
+                        titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
+                        isTitleVisible = true
+                    }
+                } else {
+                    if (isTitleVisible) {
+                        TitleBarAnimator.animateVisibility(titleColorBackground, false)
+                        TitleBarAnimator.animateVisibility(titleText, false)
+                        titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, true) }
+                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
+                        isTitleVisible = false
+                    }
+                }
+            }
+        })
     }
 
     // Basic handler for in-activity overlays

@@ -61,13 +61,21 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginEnd="@dimen/margin"
+                android:layout_marginTop="14dp"
                 android:padding="12dp"
-                android:src="@drawable/ic_edit"
+                android:src="@drawable/ic_drag"
                 android:tint="?attr/colorOnSurfaceVariant"
                 android:alpha="0.6"
                 android:visibility="gone" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/space_drag"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"/>
+
 
         <TextView
             android:id="@+id/pro_plus_badge"

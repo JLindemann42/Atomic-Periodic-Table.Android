@@ -1,138 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <FrameLayout
-        android:id="@+id/view_tools"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+<FrameLayout
+    android:id="@+id/view_tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor">
+
+    <com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
+        android:id="@+id/tools_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="?attr/backgroundColor">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-    <ScrollView
-        android:id="@+id/tools_scroll"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:paddingBottom="100dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tools_title_downstate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="0dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="28dp"
-            android:text="@string/tools"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="32sp"
-            android:textStyle="normal" />
-
-        <HorizontalScrollView
-            android:id="@+id/most_used_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:orientation="horizontal"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/mostT_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginTop="@dimen/margin_space_card"
-                android:layout_marginEnd="@dimen/margin_space_card"
-                android:layout_marginBottom="@dimen/margin_space_card"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="16sp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:text="most_1"
-                android:clickable="true"
-                android:focusable="true"
-
-                android:foreground="@drawable/toast_ripple"/>
-
-            <TextView
-                android:id="@+id/mostT_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_space_card"
-                android:layout_marginEnd="@dimen/margin_space_card"
-                android:layout_marginBottom="@dimen/margin_space_card"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="16sp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:text="most_2"
-                android:padding="@dimen/margin_space_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/toast_ripple"/>
-
-            <TextView
-                android:id="@+id/mostT_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_space_card"
-                android:layout_marginEnd="@dimen/margin_space_card"
-                android:layout_marginBottom="@dimen/margin_space_card"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="16sp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:text="most_3"
-                android:padding="@dimen/margin_space_card"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/toast_ripple"/>
-
-        </LinearLayout>
-
-        </HorizontalScrollView>
-
-        <com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
-            android:id="@+id/tools_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:nestedScrollingEnabled="false"
-            android:overScrollMode="never" />
-
-    </LinearLayout>
-    </ScrollView>
-
-    </LinearLayout>
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
 
     <FrameLayout
         android:id="@+id/common_title_back_tab"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title_bar"
-        android:elevation="1dp"
+        android:elevation="0dp"
         android:background="?attr/colorSurface"
         android:gravity="center|center_vertical"
         android:orientation="horizontal">
@@ -142,7 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/colorPrimary"
-            android:alpha="0.11"/>
+            android:alpha="0.11"
+            android:visibility="invisible"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -179,7 +67,8 @@
                     android:textAlignment="center"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="invisible"/>
 
                 <ImageButton
                     android:id="@+id/reorder_btn"
