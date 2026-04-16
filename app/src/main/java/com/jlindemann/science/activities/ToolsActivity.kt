@@ -72,8 +72,10 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
         val isBeforeDeadline = ProPlusTimeUtil.isBeforeJanuary2026()
         
         val tools = getToolItems(proPlusPrefValue, isBeforeDeadline)
+        val toolsWithHeader = mutableListOf(ToolItem("header", 0, 0))
+        toolsWithHeader.addAll(tools)
         
-        adapter = ToolAdapter(this, tools, this)
+        adapter = ToolAdapter(this, toolsWithHeader, this)
         adapter.setHeaderBindingAction { view ->
             headerView = view
             applyHeaderInsets(view, lastTopInset)
@@ -122,7 +124,7 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
     }
 
     private fun saveToolOrder() {
-        val currentOrder = adapter.dataSet.map { it.id }
+        val currentOrder = adapter.dataSet.filter { it.id != "header" }.map { it.id }
         toolOrderPref.saveOrder(currentOrder)
     }
 

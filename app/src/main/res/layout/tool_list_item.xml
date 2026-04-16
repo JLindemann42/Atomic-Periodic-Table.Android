@@ -118,7 +118,7 @@
             android:layout_marginTop="@dimen/margin_space"
             android:layout_marginEnd="@dimen/margin"
             android:layout_marginBottom="@dimen/margin"
-            android:background="@drawable/toast"
+            android:background="@drawable/button_m3e"
             android:backgroundTint="?attr/colorPrimary"
             android:clickable="true"
             android:focusable="true"

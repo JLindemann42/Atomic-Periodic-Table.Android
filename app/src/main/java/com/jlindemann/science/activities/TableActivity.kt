@@ -73,8 +73,10 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
         val proPrefValue = proPref.getValue()
         
         val tables = getTableItems(proPrefValue)
+        val tablesWithHeader = mutableListOf(TableItem("header", 0, 0))
+        tablesWithHeader.addAll(tables)
         
-        adapter = TableAdapter(this, tables, this)
+        adapter = TableAdapter(this, tablesWithHeader, this)
         adapter.setHeaderBindingAction { view ->
             headerView = view
             applyHeaderInsets(view, lastTopInset)
@@ -129,8 +131,8 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
     }
 
     private fun saveTableOrder() {
-        // Use adapter.dataSet directly to avoid header offset issues if the library provides it
-        val currentOrder = adapter.dataSet.map { it.id }
+        // Filter out the header before saving
+        val currentOrder = adapter.dataSet.filter { it.id != "header" }.map { it.id }
         tableOrderPref.saveOrder(currentOrder)
     }
 
