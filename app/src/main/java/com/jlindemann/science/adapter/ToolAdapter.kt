@@ -86,6 +86,7 @@ class ToolAdapter(
     class HeaderViewHolder(itemView: View) : BaseViewHolder(itemView)
 
     class ItemViewHolder(itemView: View) : BaseViewHolder(itemView) {
+        private val cardView: View = itemView.findViewById(R.id.tool_card)
         private val titleText: TextView = itemView.findViewById(R.id.tool_title)
         private val descriptionText: TextView = itemView.findViewById(R.id.tool_description)
         private val openButton: TextView = itemView.findViewById(R.id.tool_button)
@@ -113,6 +114,7 @@ class ToolAdapter(
                 space.visibility = View.VISIBLE
                 itemView.alpha = 0.8f
                 itemView.setOnClickListener(null)
+                cardView.setOnClickListener(null)
                 openButton.setOnClickListener(null)
             } else {
                 dragHandle.visibility = View.GONE
@@ -120,8 +122,11 @@ class ToolAdapter(
                 descriptionText.visibility = View.VISIBLE
                 space.visibility = View.GONE
                 itemView.alpha = 1.0f
-                itemView.setOnClickListener { clickListener.onToolItemClick(item) }
-                openButton.setOnClickListener { clickListener.onToolItemClick(item) }
+                
+                val listener = View.OnClickListener { clickListener.onToolItemClick(item) }
+                itemView.setOnClickListener(listener)
+                cardView.setOnClickListener(listener)
+                openButton.setOnClickListener(listener)
             }
         }
     }

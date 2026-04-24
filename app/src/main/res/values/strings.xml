@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v4.6.0m-Build.205</string>
+    <string name="app_version" translatable="false">v4.6.0m-Build.208</string>
     <string name="next_sale_start" translatable="false" >2024/08/05</string>
     <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
@@ -32,6 +32,7 @@
     <string name="shear_modulus">Shear Modulus</string>
     <string name="electrical_resistivity">Electrical Resistivity</string>
     <string name="random_element">Random Element</string>
+    <string name="comparison_title_format">%1$s | %2$s</string>
 
 
     <!-- PRO Activity -->
@@ -820,6 +821,6 @@
 
     <string name="select_element_to_compare">Select Element to Compare</string>
     <string name="compare_elements">Compare Elements</string>
-    <string name="exit_compare_mode">Exit Compare Mode</string>
+    <string name="exit_compare_mode">Exit Comparison</string>
 </resources>
 

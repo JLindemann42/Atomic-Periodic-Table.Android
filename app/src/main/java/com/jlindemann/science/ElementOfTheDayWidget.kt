@@ -56,6 +56,16 @@ class ElementOfTheDayWidget : AppWidgetProvider() {
         }
     }
     
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+        if (intent.action == Intent.ACTION_DATE_CHANGED || intent.action == Intent.ACTION_TIMEZONE_CHANGED) {
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val componentName = ComponentName(context, ElementOfTheDayWidget::class.java)
+            val appWidgetIds = appWidgetManager.getAppWidgetIds(componentName)
+            onUpdate(context, appWidgetManager, appWidgetIds)
+        }
+    }
+
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,
@@ -72,6 +82,7 @@ class ElementOfTheDayWidget : AppWidgetProvider() {
     
     override fun onEnabled(context: Context) {
         // Called when the first widget is created
+        // Set up a daily alarm to update the widget at midnight
     }
     
     override fun onDisabled(context: Context) {
@@ -120,7 +131,6 @@ class ElementOfTheDayWidget : AppWidgetProvider() {
                     val symbol = jsonObject.optString("short", "---")
                     val atomicNumber = jsonObject.optString("element_atomic_number", "---")
                     val description = jsonObject.optString("description", "---")
-                    val imageUrl = jsonObject.optString("link", "")
                     
                     // Update widget views
                     views.setTextViewText(R.id.widget_element_name, elementName)
@@ -128,9 +138,8 @@ class ElementOfTheDayWidget : AppWidgetProvider() {
                     views.setTextViewText(R.id.widget_atomic_number, atomicNumber)
                     views.setTextViewText(R.id.widget_element_description, description)
                     
-                    // Note: Loading images in widgets requires special handling
-                    // For simplicity, we'll just show the element data without image for now
-                    // Images can be loaded using Glide with AppWidgetTarget if needed
+                    // Show "Read more" button
+                    views.setViewVisibility(R.id.widget_read_more, android.view.View.VISIBLE)
                     
                     // Update the widget
                     appWidgetManager.updateAppWidget(appWidgetId, views)
@@ -154,6 +163,7 @@ class ElementOfTheDayWidget : AppWidgetProvider() {
         
         // Update with basic info immediately (before async load completes)
         views.setTextViewText(R.id.widget_element_name, "Loading...")
+        views.setViewVisibility(R.id.widget_read_more, android.view.View.GONE)
         appWidgetManager.updateAppWidget(appWidgetId, views)
     }
 }

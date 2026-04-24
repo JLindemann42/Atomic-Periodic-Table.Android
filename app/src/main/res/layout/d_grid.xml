@@ -17,6 +17,7 @@
 
         <!-- Container with center icon -->
         <LinearLayout
+            android:id="@+id/header_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -28,6 +29,7 @@
 
             <!-- Container with center icon -->
             <FrameLayout
+                android:id="@+id/icon_container"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@drawable/cookie_7"
@@ -60,25 +62,15 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/crystal_structure_toast"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_weight="0.5"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="4dp"
-                    android:orientation="vertical"
-                    android:padding="10dp"
-                    android:background="@drawable/toast_element_list_top"
-                    android:backgroundTint="?attr/colorPrimaryDark">
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list_top"
+            android:backgroundTint="?attr/colorPrimaryDark">
 
                 <TextView
                     android:id="@+id/crystal_structure_title"
@@ -100,11 +92,12 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/grid_params_toast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginEnd="4dp"
+                    android:layout_marginEnd="12dp"
                     android:orientation="vertical"
                     android:padding="10dp"
                     android:background="@drawable/toast_element_list"
@@ -130,11 +123,12 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/debye_low_toast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginEnd="4dp"
+                    android:layout_marginEnd="12dp"
                     android:orientation="vertical"
                     android:padding="10dp"
                     android:background="@drawable/toast_element_list"
@@ -160,11 +154,12 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/debye_room_toast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginEnd="4dp"
+                    android:layout_marginEnd="12dp"
                     android:orientation="vertical"
                     android:padding="10dp"
                     android:background="@drawable/toast_element_list"
@@ -190,11 +185,12 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/space_group_name_toast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginEnd="4dp"
+                    android:layout_marginEnd="12dp"
                     android:orientation="vertical"
                     android:padding="10dp"
                     android:background="@drawable/toast_element_list"
@@ -220,11 +216,12 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/space_group_number_toast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginEnd="4dp"
+                    android:layout_marginEnd="12dp"
                     android:orientation="vertical"
                     android:padding="10dp"
                     android:background="@drawable/toast_element_list"
@@ -250,11 +247,12 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/refractive_index_toast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginStart="12dp"
-                    android:layout_marginEnd="4dp"
+                    android:layout_marginEnd="12dp"
                     android:orientation="vertical"
                     android:padding="10dp"
                     android:background="@drawable/toast_element_list_bottom"
@@ -281,20 +279,28 @@
 
             </LinearLayout>
 
-            <FrameLayout
+            <LinearLayout
+                android:id="@+id/crystal_container"
                 android:layout_width="140dp"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="12dp"
-                android:background="@drawable/toast_element"
-                android:backgroundTint="?attr/colorPrimaryDark">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
 
-                <com.jlindemann.science.extensions.CrystalStructureView
-                    android:id="@+id/crystal_view"
+                <FrameLayout
+                    android:id="@+id/crystal_card"
                     android:layout_width="140dp"
                     android:layout_height="140dp"
-                    android:layout_gravity="center"/>
-            </FrameLayout>
-        </LinearLayout>
+                    android:background="@drawable/toast_element"
+                    android:backgroundTint="?attr/colorPrimaryDark">
+
+                    <com.jlindemann.science.extensions.CrystalStructureView
+                        android:id="@+id/crystal_view"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_gravity="center"/>
+                </FrameLayout>
+            </LinearLayout>
 
     </LinearLayout>
 </FrameLayout>

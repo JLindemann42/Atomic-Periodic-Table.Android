@@ -181,7 +181,7 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
 
     private fun setupTitleBar() {
         /// Title Controller with animated visibility
-        findViewById<FrameLayout>(R.id.common_title_table_color).visibility = View.INVISIBLE
+        findViewById<FrameLayout>(R.id.common_title_table_color).visibility = View.VISIBLE
         findViewById<TextView>(R.id.tables_title).visibility = View.INVISIBLE
         findViewById<FrameLayout>(R.id.common_title_back_tab).elevation = (resources.getDimension(R.dimen.zero_elevation))
         
@@ -212,12 +212,12 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
                         TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
                         TitleBarAnimator.animateVisibility(titleText, true)
                         titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, false) }
-                        titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
+                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
                         isTitleVisible = true
                     }
                 } else {
                     if (isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, false)
+                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
                         TitleBarAnimator.animateVisibility(titleText, false)
                         titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, true) }
                         titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)

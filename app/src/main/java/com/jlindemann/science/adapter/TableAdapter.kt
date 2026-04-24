@@ -86,6 +86,7 @@ class TableAdapter(
     class HeaderViewHolder(itemView: View) : BaseViewHolder(itemView)
 
     class ItemViewHolder(itemView: View) : BaseViewHolder(itemView) {
+        private val cardView: View = itemView.findViewById(R.id.table_card)
         private val titleText: TextView = itemView.findViewById(R.id.table_title)
         private val descriptionText: TextView = itemView.findViewById(R.id.table_description)
         private val openButton: TextView = itemView.findViewById(R.id.table_button)
@@ -112,6 +113,7 @@ class TableAdapter(
                 proBadge.visibility = View.GONE
                 itemView.alpha = 0.8f
                 itemView.setOnClickListener(null)
+                cardView.setOnClickListener(null)
                 openButton.setOnClickListener(null)
             } else {
                 dragHandle.visibility = View.GONE
@@ -120,8 +122,11 @@ class TableAdapter(
                 space.visibility = View.GONE
                 proBadge.visibility = if (item.requiresPro) View.VISIBLE else View.GONE
                 itemView.alpha = 1.0f
-                itemView.setOnClickListener { clickListener.onTableItemClick(item) }
-                openButton.setOnClickListener { clickListener.onTableItemClick(item) }
+                
+                val listener = View.OnClickListener { clickListener.onTableItemClick(item) }
+                itemView.setOnClickListener(listener)
+                cardView.setOnClickListener(listener)
+                openButton.setOnClickListener(listener)
             }
         }
     }

@@ -172,7 +172,7 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
     }
 
     private fun setupTitleBar() {
-        findViewById<FrameLayout>(R.id.common_title_tool_color).visibility = View.INVISIBLE
+        findViewById<FrameLayout>(R.id.common_title_tool_color).visibility = View.VISIBLE
         findViewById<TextView>(R.id.tools_title).visibility = View.INVISIBLE
         findViewById<FrameLayout>(R.id.common_title_back_tab).elevation = (resources.getDimension(R.dimen.zero_elevation))
         
@@ -183,12 +183,17 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
             override fun onListScrollStateChanged(scrollState: OnListScrollListener.ScrollState) {}
 
             override fun onListScrolled(scrollDirection: OnListScrollListener.ScrollDirection, distance: Int) {
-                totalScrolledY += distance
+                if (scrollDirection == OnListScrollListener.ScrollDirection.DOWN) {
+                    totalScrolledY += distance
+                } else if (scrollDirection == OnListScrollListener.ScrollDirection.UP) {
+                    totalScrolledY -= distance
+                }
+                
                 val threshold = 150
 
                 val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_tool_color)
                 val titleText = findViewById<TextView>(R.id.tools_title)
-                val titleDownstateText = headerView?.findViewById<TextView>(R.id.tools_title_downstate)
+                val titleDownstateText = recyclerView.findViewHolderForAdapterPosition(0)?.itemView?.findViewById<TextView>(R.id.tools_title_downstate)
                 val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_tab)
 
                 if (totalScrolledY > threshold) {
@@ -196,12 +201,12 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
                         TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
                         TitleBarAnimator.animateVisibility(titleText, true)
                         titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, false) }
-                        titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
+                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
                         isTitleVisible = true
                     }
                 } else {
                     if (isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, false)
+                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
                         TitleBarAnimator.animateVisibility(titleText, false)
                         titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, true) }
                         titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)

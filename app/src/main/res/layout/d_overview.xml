@@ -69,6 +69,7 @@
 
         <!-- Container with center icon -->
         <LinearLayout
+            android:id="@+id/header_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -80,6 +81,7 @@
 
             <!-- Container with center icon -->
             <FrameLayout
+                android:id="@+id/icon_container"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@drawable/cookie_7"
@@ -380,15 +382,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="76dp"
-                android:orientation="horizontal"
-                android:weightSum="3">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/isotope_electrons_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
-                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -415,10 +416,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/isotope_protons_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
-                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -446,10 +447,10 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/isotope_neutrons_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="9dp"
-                    android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 

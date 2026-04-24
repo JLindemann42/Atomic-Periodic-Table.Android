@@ -2,13 +2,17 @@ package com.jlindemann.science.activities
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.content.res.Configuration
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.transition.TransitionManager
 import android.text.TextUtils
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -28,6 +32,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mmin18.widget.RealtimeBlurView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.FavoritePageActivity
@@ -65,6 +70,8 @@ class ElementInfoActivity : InfoExtension() {
     // Comparison mode tracking
     private var isCompareMode = false
     private var compareElementKey: String? = null
+    private var mainElementName: String? = null
+    private var compareElementName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,10 +91,11 @@ class ElementInfoActivity : InfoExtension() {
         setContentView(R.layout.activity_element_info)
         Utils.fadeInAnim(findViewById<ScrollView>(R.id.scr_view), 300)
 
+        // readJson() will call updateElementUI which now handles overlay listeners
         readJson()
         findViewById<CardView>(R.id.shell).visibility = View.GONE
         findViewById<CardView>(R.id.detail_emission).visibility = View.GONE
-        detailViews()
+        setupStaticDetailListeners()
         offlineCheck()
         nextPrev()
         favoriteBarSetup()
@@ -97,6 +105,9 @@ class ElementInfoActivity : InfoExtension() {
         findViewById<ImageButton>(R.id.back_btn).setOnClickListener { super.onBackPressed() }
         findViewById<ImageButton>(R.id.compare_btn).setOnClickListener {
             toggleCompareMode()
+        }
+        findViewById<View>(R.id.close_compare_btn).setOnClickListener {
+            exitCompareMode()
         }
         findViewById<FloatingActionButton>(R.id.edit_fav_btn).setOnClickListener {
             val intent = Intent(this, FavoritePageActivity::class.java)
@@ -133,6 +144,20 @@ class ElementInfoActivity : InfoExtension() {
             findViewById<LinearLayout>(R.id.hardness_properties).visibility = View.VISIBLE //Changed as implementing new PRO dialog
         }
 
+        // Restore comparison mode state if needed
+        if (savedInstanceState != null) {
+            isCompareMode = savedInstanceState.getBoolean("isCompareMode", false)
+            compareElementKey = savedInstanceState.getString("compareElementKey")
+            
+            if (isCompareMode && compareElementKey != null) {
+                // Register callback as enabled early so it's ready before enterCompareMode
+                // which might depend on it via setBackInterceptionEnabled
+                findViewById<ScrollView>(R.id.scr_view).post {
+                    enterCompareMode(compareElementKey!!)
+                }
+            }
+        }
+
         // Register lifecycle-aware OnBackPressedCallback in DISABLED state.
         // We'll enable it only when overlays (shell, emission detail) are visible.
         backCallback = object : OnBackPressedCallback(false) {
@@ -162,6 +187,7 @@ class ElementInfoActivity : InfoExtension() {
 
         // We will dynamically register the platform OnBackInvokedCallback when interception is enabled
         // via setBackInterceptionEnabled(enabled) below.
+        setBackInterceptionEnabled(anyOverlayOpen())
     }
 
     private fun proChanges() {
@@ -241,39 +267,30 @@ class ElementInfoActivity : InfoExtension() {
 
     // Close overlays (shell or detail emission) if visible; return true if consumed.
     private fun handleBackPress(): Boolean {
-        // First check if we're in compare mode
-        if (isCompareMode) {
-            exitCompareMode()
-            setBackInterceptionEnabled(anyOverlayOpen())
-            return true
-        }
-        
         val shell = findViewById<CardView>(R.id.shell)
         val shellBg = findViewById<RealtimeBlurView>(R.id.shell_background)
         val detail = findViewById<CardView>(R.id.detail_emission)
         val detailBg = findViewById<RealtimeBlurView>(R.id.detail_emission_background)
 
-        return if (shellBg.visibility == View.VISIBLE || shell.visibility == View.VISIBLE) {
+        if (shellBg.visibility == View.VISIBLE || shell.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(shell, 300)
             Utils.fadeOutAnim(shellBg, 300)
-            // update interception state immediately so the next system back/gesture is routed correctly
-            setBackInterceptionEnabled(anyOverlayOpen())
-            true
+            setBackInterceptionEnabled(isCompareMode || anyOverlayOpen())
+            return true
         } else if (detail.visibility == View.VISIBLE || detailBg.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(detail, 300)
             Utils.fadeOutAnim(detailBg, 300)
-            // update interception state immediately so the next system back/gesture is routed correctly
+            setBackInterceptionEnabled(isCompareMode || anyOverlayOpen())
+            return true
+        } else if (isCompareMode) {
+            exitCompareMode()
             setBackInterceptionEnabled(anyOverlayOpen())
-            true
-        } else {
-            false
+            return true
         }
+        return false
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.frame).layoutParams as ViewGroup.MarginLayoutParams
-        params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.frame).layoutParams = params
 
         val paramsO = findViewById<Space>(R.id.offline_space).layoutParams as ViewGroup.MarginLayoutParams
         paramsO.topMargin += top
@@ -288,18 +305,25 @@ class ElementInfoActivity : InfoExtension() {
         val offlinePreferences = offlinePreference(this)
         val offlinePrefValue = offlinePreferences.getValue()
 
-        if (offlinePrefValue == 1) {
-            findViewById<FrameLayout>(R.id.frame).visibility = View.GONE
-            findViewById<Space>(R.id.offline_space).visibility = View.VISIBLE
-            findViewById<ImageView>(R.id.sp_img).visibility = View.GONE
-            findViewById<TextView>(R.id.sp_offline).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.sp_offline).text = getString(R.string.go_online_for_emission)
+        fun applyOffline(root: View) {
+            if (offlinePrefValue == 1) {
+                root.findViewById<FrameLayout>(R.id.frame).visibility = View.GONE
+                // Only show offline_space if not in compare mode (where notes_frame is hidden)
+                root.findViewById<Space>(R.id.offline_space).visibility = if (isCompareMode) View.GONE else View.VISIBLE
+                root.findViewById<ImageView>(R.id.sp_img).visibility = View.GONE
+                root.findViewById<TextView>(R.id.sp_offline).visibility = View.VISIBLE
+                root.findViewById<TextView>(R.id.sp_offline).text = getString(R.string.go_online_for_emission)
+            } else {
+                root.findViewById<FrameLayout>(R.id.frame).visibility = View.VISIBLE
+                root.findViewById<Space>(R.id.offline_space).visibility = View.GONE
+                root.findViewById<ImageView>(R.id.sp_img).visibility = View.VISIBLE
+                root.findViewById<TextView>(R.id.sp_offline).visibility = View.GONE
+            }
         }
-        else {
-            findViewById<FrameLayout>(R.id.frame).visibility = View.VISIBLE
-            findViewById<Space>(R.id.offline_space).visibility = View.GONE
-            findViewById<ImageView>(R.id.sp_img).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.sp_offline).visibility = View.GONE
+
+        applyOffline(findViewById(android.R.id.content))
+        if (isCompareMode) {
+            applyOffline(findViewById(R.id.compare_element_content))
         }
     }
 
@@ -308,42 +332,62 @@ class ElementInfoActivity : InfoExtension() {
         favoriteBarSetup()
     }
 
-    private fun detailViews() {
-        findViewById<CardView>(R.id.electron_view).setOnClickListener {
+    override fun updateElementUI(jsonObject: JSONObject, englishName: String, rootView: View, elementKey: String) {
+        super.updateElementUI(jsonObject, englishName, rootView, elementKey)
+        
+        if (rootView == findViewById<View>(android.R.id.content)) {
+            mainElementName = englishName
+        } else if (rootView.id == R.id.compare_element_content) {
+            compareElementName = englishName
+        }
+
+        if (isCompareMode && mainElementName != null && compareElementName != null) {
+            findViewById<TextView>(R.id.element_title).text = getString(R.string.comparison_title_format, mainElementName, compareElementName)
+        }
+
+        // Hide specific property icons in comparison mode
+        val propertyIcons = listOf(
+            R.id.phase_icon, R.id.wikipedia_description, R.id.open_btn, R.id.open_btn2,
+            R.id.isotopes_icon, R.id.ionization_button
+        )
+        propertyIcons.forEach { iconId ->
+            rootView.findViewById<View>(iconId)?.visibility = if (isCompareMode) View.GONE else View.VISIBLE
+        }
+
+        // Hook up interactive overlays for the specific rootView (main or compare side)
+        rootView.findViewById<CardView>(R.id.electron_view)?.setOnClickListener {
+            updateShellWithData(jsonObject)
             Utils.fadeInAnim(findViewById<CardView>(R.id.shell), 300)
             Utils.fadeInAnim(findViewById<RealtimeBlurView>(R.id.shell_background), 300)
-            // overlay shown -> enable interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<FloatingActionButton>(R.id.close_shell_btn).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<CardView>(R.id.shell), 300)
-            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.shell_background), 300)
-            // update interception state immediately (do not defer)
-            setBackInterceptionEnabled(anyOverlayOpen())
-        }
-        findViewById<RealtimeBlurView>(R.id.shell_background).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<CardView>(R.id.shell), 300)
-            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.shell_background), 300)
-            // update interception state immediately (do not defer)
-            setBackInterceptionEnabled(anyOverlayOpen())
-        }
-        findViewById<ImageView>(R.id.sp_img).setOnClickListener {
+
+        rootView.findViewById<ImageView>(R.id.sp_img)?.setOnClickListener {
+            updateEmissionWithData(jsonObject)
             Utils.fadeInAnim(findViewById<CardView>(R.id.detail_emission), 300)
             Utils.fadeInAnim(findViewById<RealtimeBlurView>(R.id.detail_emission_background), 300)
-            // overlay shown -> enable interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<FloatingActionButton>(R.id.close_emission_btn).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<CardView>(R.id.detail_emission), 300)
-            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.detail_emission_background), 300)
-            // update interception state immediately (do not defer)
-            setBackInterceptionEnabled(anyOverlayOpen())
-        }
-        findViewById<RealtimeBlurView>(R.id.detail_emission_background).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<CardView>(R.id.detail_emission), 300)
-            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.detail_emission_background), 300)
-            // update interception state immediately (do not defer)
-            setBackInterceptionEnabled(anyOverlayOpen())
+    }
+
+    private fun updateShellWithData(jsonObject: JSONObject) {
+        val shell = findViewById<CardView>(R.id.shell)
+        val elementShellElectrons = jsonObject.optString("element_shells_electrons", "---")
+        val electronConfig = jsonObject.optString("element_electron_config", "---")
+        
+        shell.findViewById<TextView>(R.id.config_data)?.text = elementShellElectrons
+        shell.findViewById<TextView>(R.id.e_config_data)?.text = formatSuperscript(electronConfig)
+    }
+
+    private fun updateEmissionWithData(jsonObject: JSONObject) {
+        val detail = findViewById<CardView>(R.id.detail_emission)
+        val short = jsonObject.optString("short", "---")
+        val hUrl = "https://www.jlindemann.se/atomic/emission_lines/"
+        val ext = ".gif"
+        val fURL = hUrl + short + ext
+        
+        detail.findViewById<ImageView>(R.id.sp_img_detail)?.let {
+            Picasso.get().load(fURL).into(it)
         }
     }
 
@@ -427,181 +471,165 @@ class ElementInfoActivity : InfoExtension() {
     }
 
     private fun enterCompareMode(elementKey: String) {
+        val root = findViewById<ViewGroup>(R.id.view)
+        TransitionManager.beginDelayedTransition(root)
+
         isCompareMode = true
         compareElementKey = elementKey
+        mainElementName = null
+        compareElementName = null
 
         // Show comparison layout
-        val scrViewCompare = findViewById<ScrollView>(R.id.scr_view_compare)
+        val compareRoot = findViewById<View>(R.id.compare_element_content)
         val divider = findViewById<View>(R.id.divider)
         
-        scrViewCompare.visibility = View.VISIBLE
+        compareRoot.visibility = View.VISIBLE
         divider.visibility = View.VISIBLE
+
+        // Hide navigation buttons for main view
+        findViewById<ImageButton>(R.id.previous_btn).visibility = View.GONE
+        findViewById<ImageButton>(R.id.next_btn).visibility = View.GONE
+        
+        // Hide navigation buttons on the comparison side as well
+        compareRoot.findViewById<ImageButton>(R.id.previous_btn).visibility = View.GONE
+        compareRoot.findViewById<ImageButton>(R.id.next_btn).visibility = View.GONE
+
+        // Hide isotope, wikipedia and compare buttons in title bar
+        findViewById<ImageButton>(R.id.wikipedia_btn).visibility = View.GONE
+        findViewById<ImageButton>(R.id.isotope_btn).visibility = View.GONE
+        findViewById<ImageButton>(R.id.compare_btn).visibility = View.GONE
+
+        // Show close comparison button
+        findViewById<View>(R.id.close_compare_btn).visibility = View.VISIBLE
+
+        // Adjust title margins to use full width when buttons are hidden
+        val titleText = findViewById<TextView>(R.id.element_title)
+        val titleParams = titleText.layoutParams as FrameLayout.LayoutParams
+        titleParams.marginEnd = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics).toInt()
+        titleText.layoutParams = titleParams
+
+        // Hide notes section in comparison mode as it's not needed and takes space
+        findViewById<FrameLayout>(R.id.notes_frame).visibility = View.GONE
+        compareRoot.findViewById<FrameLayout>(R.id.notes_frame).visibility = View.GONE
+        
+        // Hide top padding spacer if notes are hidden
+        findViewById<View>(R.id.offline_space).visibility = View.GONE
+        compareRoot.findViewById<View>(R.id.offline_space).visibility = View.GONE
+
+        // Hide "submit data issue" button in comparison mode
+        findViewById<AppCompatButton>(R.id.i_btn).visibility = View.GONE
+        compareRoot.findViewById<AppCompatButton>(R.id.i_btn).visibility = View.GONE
+
+        // Hide bottom space to save vertical space in split screen
+        findViewById<View>(R.id.bottom_spacer)?.visibility = View.GONE
+        compareRoot.findViewById<View>(R.id.bottom_spacer)?.visibility = View.GONE
+
+        // Hide favorite bar in comparison mode as it takes too much vertical space
+        findViewById<View>(R.id.favorite_bar).visibility = View.GONE
+        compareRoot.findViewById<View>(R.id.favorite_bar).visibility = View.GONE
 
         // Enable back interception for compare mode
         setBackInterceptionEnabled(true)
         
-        // Load comparison element data
-        loadComparisonElement(elementKey)
+        // Reload main view to apply UI changes
+        readJson()
+        // Load comparison element data using the new readJson signature
+        readJson(compareRoot, elementKey)
     }
+
+
 
     private fun exitCompareMode() {
+        val root = findViewById<ViewGroup>(R.id.view)
+        TransitionManager.beginDelayedTransition(root)
+
         isCompareMode = false
         compareElementKey = null
+        mainElementName = null
+        compareElementName = null
+
+        // Restore title
+        findViewById<TextView>(R.id.element_title).text = getString(R.string.element_info_title)
 
         // Hide comparison layout
-        val scrViewCompare = findViewById<ScrollView>(R.id.scr_view_compare)
+        val compareRoot = findViewById<View>(R.id.compare_element_content)
         val divider = findViewById<View>(R.id.divider)
         
-        scrViewCompare.visibility = View.GONE
+        compareRoot.visibility = View.GONE
         divider.visibility = View.GONE
+
+        // Restore title bar buttons
+        findViewById<ImageButton>(R.id.wikipedia_btn).visibility = View.VISIBLE
+        findViewById<ImageButton>(R.id.isotope_btn).visibility = View.VISIBLE
+        findViewById<ImageButton>(R.id.compare_btn).visibility = View.VISIBLE
+
+        // Reset title margins
+        val titleText = findViewById<TextView>(R.id.element_title)
+        val titleParams = titleText.layoutParams as FrameLayout.LayoutParams
+        titleParams.marginEnd = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 168f, resources.displayMetrics).toInt()
+        titleText.layoutParams = titleParams
+
+        // Show navigation buttons
+        findViewById<ImageButton>(R.id.previous_btn).visibility = View.VISIBLE
+        findViewById<ImageButton>(R.id.next_btn).visibility = View.VISIBLE
+
+        // Show notes and other hidden elements
+        findViewById<FrameLayout>(R.id.notes_frame).visibility = View.VISIBLE
+        findViewById<View>(R.id.offline_space).visibility = View.VISIBLE
+        findViewById<AppCompatButton>(R.id.i_btn).visibility = View.VISIBLE
+        findViewById<View>(R.id.favorite_bar).visibility = View.VISIBLE
+        findViewById<View>(R.id.bottom_spacer)?.visibility = View.VISIBLE
+
+        // Disable back interception
+        setBackInterceptionEnabled(false)
+
+        // Reload to restore original UI state
+        readJson()
+
+        // Hide close comparison button
+        findViewById<View>(R.id.close_compare_btn).visibility = View.GONE
     }
 
-    private fun loadComparisonElement(elementKey: String) {
-        val compareContentFrame = findViewById<FrameLayout>(R.id.compare_content_frame)
-        compareContentFrame.removeAllViews()
 
+
+
+
+
+private fun setupStaticDetailListeners() {
+    val shell = findViewById<CardView>(R.id.shell)
+    val shellBg = findViewById<RealtimeBlurView>(R.id.shell_background)
+    val detail = findViewById<CardView>(R.id.detail_emission)
+    val detailBg = findViewById<RealtimeBlurView>(R.id.detail_emission_background)
+
+    shellBg.setOnClickListener {
+        Utils.fadeOutAnim(shell, 300)
+        Utils.fadeOutAnim(shellBg, 300)
+        setBackInterceptionEnabled(anyOverlayOpen())
+    }
+    detailBg.setOnClickListener {
+        Utils.fadeOutAnim(detail, 300)
+        Utils.fadeOutAnim(detailBg, 300)
+        setBackInterceptionEnabled(anyOverlayOpen())
+    }
+}
+
+
+override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    outState.putBoolean("isCompareMode", isCompareMode)
+    outState.putString("compareElementKey", compareElementKey)
+}
+
+override fun onDestroy() {
+    super.onDestroy()
+    backCallback?.remove()
+    backCallback = null
+    if (onBackInvokedCb != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
         try {
-            val jsonObject = ElementDataLoader.loadElementData(this, elementKey)
-            if (jsonObject != null) {
-                // Create a simplified view for comparison element
-                val comparisonView = createComparisonView(jsonObject)
-                compareContentFrame.addView(comparisonView)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+            onBackInvokedDispatcher.unregisterOnBackInvokedCallback(onBackInvokedCb!!)
+        } catch (_: Exception) { }
+        onBackInvokedCb = null
     }
+}
 
-    private fun createComparisonView(jsonObject: JSONObject): View {
-        val scrollContent = LinearLayout(this)
-        scrollContent.orientation = LinearLayout.VERTICAL
-        scrollContent.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        scrollContent.setBackgroundColor(getColorFromAttr(com.google.android.material.R.attr.colorSurface))
-
-        // Add some top padding
-        val topSpace = Space(this)
-        topSpace.layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.title_bar)
-        )
-        scrollContent.addView(topSpace)
-
-        // Add element header card
-        val headerCard = createCardView()
-        val headerContent = LinearLayout(this)
-        headerContent.orientation = LinearLayout.VERTICAL
-        headerContent.setPadding(24, 24, 24, 24)
-
-        val nameTextView = TextView(this)
-        nameTextView.text = jsonObject.optString("element", "")
-        nameTextView.textSize = 28f
-        nameTextView.setTypeface(null, android.graphics.Typeface.BOLD)
-        nameTextView.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurface))
-        headerContent.addView(nameTextView)
-
-        val symbolTextView = TextView(this)
-        symbolTextView.text = "${jsonObject.optString("element_symbol", "")} (${jsonObject.optString("element_atomic_number", "")})"
-        symbolTextView.textSize = 20f
-        symbolTextView.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurfaceVariant))
-        symbolTextView.setPadding(0, 8, 0, 0)
-        headerContent.addView(symbolTextView)
-
-        headerCard.addView(headerContent)
-        scrollContent.addView(headerCard)
-
-        // Add properties card
-        val propertiesCard = createCardView()
-        val propertiesContent = LinearLayout(this)
-        propertiesContent.orientation = LinearLayout.VERTICAL
-        propertiesContent.setPadding(24, 24, 24, 24)
-
-        val propertiesTitle = TextView(this)
-        propertiesTitle.text = getString(R.string.properties)
-        propertiesTitle.textSize = 18f
-        propertiesTitle.setTypeface(null, android.graphics.Typeface.BOLD)
-        propertiesTitle.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurface))
-        propertiesTitle.setPadding(0, 0, 0, 16)
-        propertiesContent.addView(propertiesTitle)
-
-        val atomicMass = jsonObject.optString("element_atomic_mass", "---")
-        val electronegativity = jsonObject.optString("element_electronegativity", "---")
-        val density = jsonObject.optString("element_density", "---")
-        val meltingPoint = jsonObject.optString("element_melting_point", "---")
-        val boilingPoint = jsonObject.optString("element_boiling_point", "---")
-        val electronConfig = jsonObject.optString("element_electron_configuration", "---")
-
-        val properties = listOf(
-            "Atomic Mass" to atomicMass,
-            "Electronegativity" to electronegativity,
-            "Density" to if (density != "---") "$density g/cm³" else density,
-            "Melting Point" to if (meltingPoint != "---") "$meltingPoint K" else meltingPoint,
-            "Boiling Point" to if (boilingPoint != "---") "$boilingPoint K" else boilingPoint,
-            "Electron Config" to electronConfig
-        )
-
-        for ((label, value) in properties) {
-            val propertyLayout = createPropertyRow(label, value)
-            propertiesContent.addView(propertyLayout)
-        }
-
-        propertiesCard.addView(propertiesContent)
-        scrollContent.addView(propertiesCard)
-
-        return scrollContent
-    }
-
-    private fun createPropertyRow(label: String, value: String): View {
-        val layout = LinearLayout(this)
-        layout.orientation = LinearLayout.VERTICAL
-        layout.setPadding(0, 8, 0, 8)
-
-        val labelTextView = TextView(this)
-        labelTextView.text = label
-        labelTextView.textSize = 12f
-        labelTextView.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurfaceVariant))
-        layout.addView(labelTextView)
-
-        val valueTextView = TextView(this)
-        valueTextView.text = value
-        valueTextView.textSize = 16f
-        valueTextView.setTextColor(getColorFromAttr(com.google.android.material.R.attr.colorOnSurface))
-        layout.addView(valueTextView)
-
-        return layout
-    }
-
-    private fun createCardView(): CardView {
-        val card = CardView(this)
-        val params = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
-        )
-        params.setMargins(16, 16, 16, 16)
-        card.layoutParams = params
-        card.radius = 12f
-        card.cardElevation = 2f
-        card.setCardBackgroundColor(getColorFromAttr(com.google.android.material.R.attr.colorSurfaceVariant))
-        return card
-    }
-
-    private fun getColorFromAttr(attr: Int): Int {
-        val typedValue = TypedValue()
-        theme.resolveAttribute(attr, typedValue, true)
-        return typedValue.data
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        backCallback?.remove()
-        backCallback = null
-        if (onBackInvokedCb != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            try {
-                onBackInvokedDispatcher.unregisterOnBackInvokedCallback(onBackInvokedCb!!)
-            } catch (_: Exception) { }
-            onBackInvokedCb = null
-        }
-    }
 }

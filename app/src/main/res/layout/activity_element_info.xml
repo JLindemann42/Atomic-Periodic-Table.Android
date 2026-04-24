@@ -7,18 +7,20 @@
     android:layout_width="match_parent"
 
     android:id="@+id/view"
-    android:fitsSystemWindows="true"
+    android:fitsSystemWindows="false"
     android:layout_height="match_parent">
 
     <FrameLayout
         android:id="@+id/common_title_back"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:background="?attr/colorSurface"
         android:elevation="1dp"
-        android:gravity="center|center_vertical"
-        android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorSurface"/>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -88,17 +90,19 @@
 
                 <TextView
                     android:id="@+id/element_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_marginStart="70dp"
+                    android:layout_marginEnd="168dp"
                     android:layout_height="56dp"
-                    android:gravity="center"
+                    android:gravity="center_vertical"
                     android:paddingStart="0dp"
                     android:alpha="0.9"
                     android:paddingEnd="0dp"
                     android:text="@string/element_info_title"
-                    android:textAlignment="center"
                     android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textStyle="bold" />
             </FrameLayout>
 
@@ -106,224 +110,45 @@
 
     </FrameLayout>
 
-    <LinearLayout
-        android:id="@+id/content_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
-
     <ScrollView
         android:id="@+id/scr_view"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@id/common_title_back"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
+            android:id="@+id/content_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorSurface"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:baselineAligned="false">
 
-            <Space
-                android:id="@+id/offline_space"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="56dp" />
+            <include
+                android:id="@+id/main_element_content"
+                layout="@layout/element_info_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            <FrameLayout
-                android:id="@+id/frame"
-                android:layout_width="match_parent"
-                android:layout_height="260dp"
-                android:layout_marginTop="56dp">
-
-                <include
-                    android:id="@+id/ldn_place"
-                    layout="@layout/loading_view"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_marginBottom="24dp"
-                    android:layout_gravity="center_horizontal|center_vertical" />
-
-                <ImageView
-                    android:id="@+id/element_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="240dp"
-                    android:adjustViewBounds="true"
-                    android:elevation="2dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher_background" />
-
-                <ImageButton
-                    android:id="@+id/previous_btn"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_gravity="start|center_vertical"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginStart="12dp"
-                    android:clickable="true"
-                    android:elevation="4dp"
-                    android:rotation="180"
-                    app:tint="?attr/colorAccent"
-                    android:visibility="visible"
-                    android:background="@drawable/square_button"
-                    app:backgroundTint="?attr/colorSurface"
-                    android:foreground="@drawable/square_button_ripple"
-                    app:fabSize="mini"
-                    app:srcCompat="@drawable/ic_arrow_back_whit" />
-
-                <ImageButton
-                    android:id="@+id/next_btn"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_marginBottom="24dp"
-                    android:layout_marginEnd="12dp"
-                    android:clickable="true"
-                    android:elevation="4dp"
-                    app:tint="?attr/colorPrimary"
-                    android:visibility="visible"
-                    android:background="@drawable/square_button"
-                    app:backgroundTint="?attr/colorSurface"
-                    android:foreground="@drawable/square_button_ripple"
-                    app:fabSize="mini"
-                    app:srcCompat="@drawable/ic_arrow_back_whit" />
-            </FrameLayout>
-
-            <Space
-                android:id="@+id/offline_div"
-                android:layout_width="wrap_content"
-                android:layout_height="110dp"
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:visibility="gone" />
 
             <include
-                android:id="@+id/favorite_bar"
-                layout="@layout/favorite_bar"
-                android:layout_gravity="bottom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            </FrameLayout>
-
-            <include
-                android:id="@+id/overview_inc"
-                layout="@layout/d_overview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                android:id="@+id/properties_inc"
-                layout="@layout/d_properties"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                layout="@layout/d_temperatures"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                layout="@layout/d_atomic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                layout="@layout/d_electromagnetic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                android:id="@+id/addition_physics"
-                layout="@layout/d_thermodynamic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                layout="@layout/d_nuclear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                layout="@layout/d_hardness"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                layout="@layout/d_more"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                layout="@layout/d_abundance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                layout="@layout/d_grid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                layout="@layout/d_hazards"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <include
-                layout="@layout/d_other"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/i_btn"
-                android:layout_width="match_parent"
+                android:id="@+id/compare_element_content"
+                layout="@layout/element_info_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp"
-                android:layout_marginBottom="18dp"
-                android:background="@drawable/square_button"
-                android:backgroundTint="?attr/colorPrimary"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/square_button_ripple"
-                android:text="@string/submit_data_issue"
-                android:textColor="?attr/colorOnPrimary" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="60dp" />
+                android:layout_weight="1"
+                android:visibility="gone" />
 
         </LinearLayout>
 
     </ScrollView>
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="?attr/colorOutline"
-        android:visibility="gone" />
-
-    <ScrollView
-        android:id="@+id/scr_view_compare"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-        
-        <FrameLayout
-            android:id="@+id/compare_content_frame"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <!-- Comparison element content will be loaded here programmatically -->
-        </FrameLayout>
-    </ScrollView>
-
-    </LinearLayout>
 
     <com.github.mmin18.widget.RealtimeBlurView
         android:id="@+id/shell_background"
@@ -384,5 +209,40 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/close_compare_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_marginBottom="64dp"
+        android:background="@drawable/bg_close_compare_fab"
+        android:clickable="true"
+        android:elevation="6dp"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="20dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_close"
+            app:tint="?attr/colorOnPrimaryContainer" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="@string/exit_compare_mode"
+            android:textColor="?attr/colorOnPrimaryContainer"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

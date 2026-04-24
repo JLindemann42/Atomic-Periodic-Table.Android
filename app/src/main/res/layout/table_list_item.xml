@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin"
-    android:layout_marginTop="@dimen/margin_space_card"
-    android:layout_marginEnd="@dimen/margin"
-    android:layout_marginBottom="@dimen/margin_space_card"
-    android:background="@drawable/toast_card"
-    android:backgroundTint="?attr/colorSurfaceVariant"
     android:clickable="true"
-    android:elevation="0dp"
-    android:focusable="true"
-    android:foreground="@drawable/toast_card_ripple">
+    android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/table_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin"
+        android:layout_marginTop="@dimen/margin_space_card"
+        android:layout_marginEnd="@dimen/margin"
+        android:layout_marginBottom="@dimen/margin_space_card"
+        android:background="@drawable/toast_card"
+        android:backgroundTint="?attr/colorSurfaceVariant"
+        android:clickable="true"
+        android:elevation="0dp"
+        android:focusable="true"
+        android:foreground="@drawable/toast_card_ripple"
         android:orientation="vertical">
 
         <LinearLayout

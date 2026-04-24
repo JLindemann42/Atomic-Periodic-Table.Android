@@ -17,6 +17,7 @@
 
         <!-- Container with center icon -->
         <LinearLayout
+            android:id="@+id/header_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -28,6 +29,7 @@
 
             <!-- Container with center icon -->
             <FrameLayout
+                android:id="@+id/icon_container"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@drawable/cookie_7"
@@ -178,7 +180,7 @@
             android:layout_marginEnd="12dp"
             android:orientation="vertical"
             android:padding="10dp"
-            android:background="@drawable/toast_element_list_bottom"
+            android:background="@drawable/toast_element_list"
             android:backgroundTint="?attr/colorPrimaryDark">
 
         <TextView

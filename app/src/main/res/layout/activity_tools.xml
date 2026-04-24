@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:paddingBottom="100dp"
         android:clipToPadding="false"
+        android:overScrollMode="never"
         android:scrollbars="vertical" />
 
     <FrameLayout
@@ -21,6 +22,7 @@
         android:layout_height="@dimen/title_bar"
         android:elevation="0dp"
         android:background="?attr/colorSurface"
+        android:alpha="1"
         android:gravity="center|center_vertical"
         android:orientation="horizontal">
 
@@ -30,7 +32,7 @@
             android:layout_height="match_parent"
             android:background="?attr/colorPrimary"
             android:alpha="0.11"
-            android:visibility="invisible"/>
+            android:visibility="visible"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -80,7 +82,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:src="@drawable/ic_edit"
-                    android:tint="?attr/colorOnSecondaryContainer" />
+                    app:tint="?attr/actionMenuTextColor" />
             </FrameLayout>
         </LinearLayout>
     </FrameLayout>

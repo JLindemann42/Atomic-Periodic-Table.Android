@@ -1290,7 +1290,7 @@
     <FrameLayout
         android:id="@+id/common_title_back_set"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/title_bar"
         android:alpha="1"
         android:background="?attr/colorSurface"
         android:elevation="0dp"
