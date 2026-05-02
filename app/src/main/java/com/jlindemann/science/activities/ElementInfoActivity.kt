@@ -103,9 +103,7 @@ class ElementInfoActivity : InfoExtension() {
         findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         findViewById<ImageButton>(R.id.back_btn).setOnClickListener { super.onBackPressed() }
-        findViewById<ImageButton>(R.id.compare_btn).setOnClickListener {
-            toggleCompareMode()
-        }
+
         findViewById<View>(R.id.close_compare_btn).setOnClickListener {
             exitCompareMode()
         }
@@ -143,6 +141,22 @@ class ElementInfoActivity : InfoExtension() {
             findViewById<LinearLayout>(R.id.more_properties).visibility = View.VISIBLE //Changed as implementing new PRO dialog
             findViewById<LinearLayout>(R.id.hardness_properties).visibility = View.VISIBLE //Changed as implementing new PRO dialog
         }
+        //Check ProPlus
+        val proPlusPref = ProPlusVersion(this)
+        var proPlusPrefValue = proPlusPref.getValue()
+        if (proPlusPrefValue==100) {
+            findViewById<ImageButton>(R.id.compare_btn).setOnClickListener {
+                toggleCompareMode()
+            }
+        }
+        else {
+            findViewById<ImageButton>(R.id.compare_btn).setOnClickListener {
+                //val intent = Intent(this, ProActivity::class.java)
+                //startActivity(intent)
+                toggleCompareMode()
+            }
+        }
+
 
         // Restore comparison mode state if needed
         if (savedInstanceState != null) {
@@ -158,8 +172,7 @@ class ElementInfoActivity : InfoExtension() {
             }
         }
 
-        // Register lifecycle-aware OnBackPressedCallback in DISABLED state.
-        // We'll enable it only when overlays (shell, emission detail) are visible.
+        // Register lifecycle-aware OnBackPressedCallback in DISABLED state, enables when overlays are visible.
         backCallback = object : OnBackPressedCallback(false) {
             override fun handleOnBackPressed() {
                 // Try to close overlays first
@@ -291,11 +304,6 @@ class ElementInfoActivity : InfoExtension() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-
-        val paramsO = findViewById<Space>(R.id.offline_space).layoutParams as ViewGroup.MarginLayoutParams
-        paramsO.topMargin += top
-        findViewById<Space>(R.id.offline_space).layoutParams = paramsO
-
         val params2 = findViewById<FrameLayout>(R.id.common_title_back).layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<FrameLayout>(R.id.common_title_back).layoutParams = params2
@@ -348,10 +356,34 @@ class ElementInfoActivity : InfoExtension() {
         // Hide specific property icons in comparison mode
         val propertyIcons = listOf(
             R.id.phase_icon, R.id.wikipedia_description, R.id.open_btn, R.id.open_btn2,
-            R.id.isotopes_icon, R.id.ionization_button
+            R.id.isotopes_icon, R.id.ionization_button, R.id.dsc_btn
         )
         propertyIcons.forEach { iconId ->
             rootView.findViewById<View>(iconId)?.visibility = if (isCompareMode) View.GONE else View.VISIBLE
+        }
+
+        // Hide header sections on the comparison side to reduce clutter
+        if (isCompareMode && rootView.id == R.id.compare_element_content) {
+            val headerContainers = listOf(
+                R.id.overview_inc, R.id.properties_inc, R.id.temperatures_inc,
+                R.id.atomic_inc, R.id.electromagnetic_inc, R.id.addition_physics,
+                R.id.nuclear_inc, R.id.hardness_inc, R.id.more_inc,
+                R.id.abundance_inc, R.id.grid_inc, R.id.hazards_inc, R.id.other_inc
+            )
+            headerContainers.forEach { containerId ->
+                rootView.findViewById<View>(containerId)?.findViewById<View>(R.id.header_container)?.visibility = View.INVISIBLE
+            }
+        } else {
+            // Ensure headers are visible on the main side or when not in compare mode
+            val headerContainers = listOf(
+                R.id.overview_inc, R.id.properties_inc, R.id.temperatures_inc,
+                R.id.atomic_inc, R.id.electromagnetic_inc, R.id.addition_physics,
+                R.id.nuclear_inc, R.id.hardness_inc, R.id.more_inc,
+                R.id.abundance_inc, R.id.grid_inc, R.id.hazards_inc, R.id.other_inc
+            )
+            headerContainers.forEach { containerId ->
+                rootView.findViewById<View>(containerId)?.findViewById<View>(R.id.header_container)?.visibility = View.VISIBLE
+            }
         }
 
         // Hook up interactive overlays for the specific rootView (main or compare side)
@@ -512,9 +544,8 @@ class ElementInfoActivity : InfoExtension() {
         findViewById<FrameLayout>(R.id.notes_frame).visibility = View.GONE
         compareRoot.findViewById<FrameLayout>(R.id.notes_frame).visibility = View.GONE
         
-        // Hide top padding spacer if notes are hidden
-        findViewById<View>(R.id.offline_space).visibility = View.GONE
-        compareRoot.findViewById<View>(R.id.offline_space).visibility = View.GONE
+        // Update offline UI state for comparison mode
+        offlineCheck()
 
         // Hide "submit data issue" button in comparison mode
         findViewById<AppCompatButton>(R.id.i_btn).visibility = View.GONE
@@ -535,6 +566,107 @@ class ElementInfoActivity : InfoExtension() {
         readJson()
         // Load comparison element data using the new readJson signature
         readJson(compareRoot, elementKey)
+
+        // Adjust orientation for side-by-side sections in compare mode
+        updateSectionOrientations(true)
+    }
+
+    private fun updateSectionOrientations(isCompare: Boolean) {
+        val orientation = if (isCompare) LinearLayout.VERTICAL else LinearLayout.HORIZONTAL
+        
+        // Find containers in both main and compare views
+        val mainContent = findViewById<View>(R.id.main_element_content)
+        val compareContent = findViewById<View>(R.id.compare_element_content)
+
+        listOf(mainContent, compareContent).forEach { root ->
+            root?.findViewById<LinearLayout>(R.id.grid_content_wrapper)?.orientation = orientation
+            root?.findViewById<LinearLayout>(R.id.hazard_content_wrapper)?.orientation = orientation
+
+            // For visualization containers, adjust top margin and height when stacked vertically
+            val gridViz = root?.findViewById<View>(R.id.grid_visualization_container)
+            val hazardViz = root?.findViewById<View>(R.id.hazard_visualization_container)
+
+            val margin = if (isCompare) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4f, resources.displayMetrics).toInt() else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics).toInt()
+            val innerMargin = if (isCompare) 0 else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 52f, resources.displayMetrics).toInt()
+            val fixedHeight = if (isCompare) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 110f, resources.displayMetrics).toInt() else LinearLayout.LayoutParams.MATCH_PARENT
+            
+            listOf(gridViz, hazardViz).forEach { viz ->
+                (viz?.layoutParams as? LinearLayout.LayoutParams)?.let { params ->
+                    params.topMargin = margin
+                    params.height = fixedHeight
+                    if (isCompare) {
+                        params.width = LinearLayout.LayoutParams.MATCH_PARENT
+                        params.weight = 0f
+                        params.marginEnd = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12f, resources.displayMetrics).toInt()
+                        params.marginStart = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12f, resources.displayMetrics).toInt()
+                    } else {
+                        params.width = 0
+                        params.weight = 0.28f
+                        params.marginEnd = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12f, resources.displayMetrics).toInt()
+                        params.marginStart = 0
+                    }
+                    viz.layoutParams = params
+                }
+            }
+
+            // Adjust inner containers (crystal/hazard card parents) to remove the alignment margin in compare mode
+            root?.findViewById<View>(R.id.crystal_container)?.let { v ->
+                (v.layoutParams as? LinearLayout.LayoutParams)?.let { p ->
+                    p.topMargin = innerMargin
+                    v.layoutParams = p
+                }
+            }
+            root?.findViewById<View>(R.id.hazard_container)?.let { v ->
+                (v.layoutParams as? LinearLayout.LayoutParams)?.let { p ->
+                    p.topMargin = innerMargin
+                    v.layoutParams = p
+                }
+            }
+
+            // Also adjust data containers weights
+            val gridData = root?.findViewById<View>(R.id.grid_data_container)
+            val hazardData = root?.findViewById<View>(R.id.hazard_data_container)
+
+            listOf(gridData, hazardData).forEach { data ->
+                (data?.layoutParams as? LinearLayout.LayoutParams)?.let { params ->
+                    if (isCompare) {
+                        params.width = LinearLayout.LayoutParams.MATCH_PARENT
+                        params.weight = 0f
+                    } else {
+                        params.width = 0
+                        params.weight = 0.72f
+                    }
+                    data.layoutParams = params
+                }
+            }
+
+            // Adjust electron view height and layout in compare mode
+            root?.findViewById<View>(R.id.electron_view)?.let { ev ->
+                (ev.layoutParams as? LinearLayout.LayoutParams)?.let { params ->
+                    params.height = if (isCompare) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 110f, resources.displayMetrics).toInt() 
+                                   else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 140f, resources.displayMetrics).toInt()
+                    ev.layoutParams = params
+                }
+                
+                // Adjust text container margin to avoid overlap with image
+                ev.findViewById<View>(R.id.electron_text_container)?.let { tc ->
+                    (tc.layoutParams as? FrameLayout.LayoutParams)?.let { params ->
+                        params.marginEnd = if (isCompare) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 110f, resources.displayMetrics).toInt()
+                                          else 0
+                        tc.layoutParams = params
+                    }
+                }
+
+                // Adjust model image size
+                ev.findViewById<View>(R.id.model_view)?.let { mv ->
+                    (mv.layoutParams as? FrameLayout.LayoutParams)?.let { params ->
+                        params.width = if (isCompare) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 110f, resources.displayMetrics).toInt()
+                                       else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 140f, resources.displayMetrics).toInt()
+                        mv.layoutParams = params
+                    }
+                }
+            }
+        }
     }
 
 
@@ -575,7 +707,7 @@ class ElementInfoActivity : InfoExtension() {
 
         // Show notes and other hidden elements
         findViewById<FrameLayout>(R.id.notes_frame).visibility = View.VISIBLE
-        findViewById<View>(R.id.offline_space).visibility = View.VISIBLE
+        offlineCheck()
         findViewById<AppCompatButton>(R.id.i_btn).visibility = View.VISIBLE
         findViewById<View>(R.id.favorite_bar).visibility = View.VISIBLE
         findViewById<View>(R.id.bottom_spacer)?.visibility = View.VISIBLE
@@ -585,6 +717,9 @@ class ElementInfoActivity : InfoExtension() {
 
         // Reload to restore original UI state
         readJson()
+
+        // Restore orientation for side-by-side sections
+        updateSectionOrientations(false)
 
         // Hide close comparison button
         findViewById<View>(R.id.close_compare_btn).visibility = View.GONE
