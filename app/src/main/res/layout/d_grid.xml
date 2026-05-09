@@ -13,6 +13,52 @@
         android:orientation="vertical"
         android:visibility="visible">
 
+        <!-- Container with center icon -->
+        <LinearLayout
+            android:id="@+id/header_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Container with center icon -->
+            <FrameLayout
+                android:id="@+id/icon_container"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/cookie_7"
+                android:backgroundTint="?attr/colorAccent"
+                android:foregroundGravity="center">
+
+                <ImageView
+                    android:id="@+id/overview_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_grid"
+                    app:tint="?attr/colorOnPrimary" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/overview_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/grid_title"
+                android:textColor="?attr/colorAccent"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
         <LinearLayout
             android:id="@+id/grid_content_wrapper"
             android:layout_width="match_parent"
@@ -26,52 +72,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.72"
                 android:orientation="vertical">
-
-                <!-- Container with center icon -->
-                <LinearLayout
-                    android:id="@+id/header_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="12dp"
-                    android:layout_marginBottom="4dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <!-- Container with center icon -->
-                    <FrameLayout
-                        android:id="@+id/icon_container"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/cookie_7"
-                        android:backgroundTint="?attr/colorAccent"
-                        android:foregroundGravity="center">
-
-                        <ImageView
-                            android:id="@+id/overview_icon"
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:layout_gravity="center"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerInside"
-                            android:src="@drawable/ic_grid"
-                            app:tint="?attr/colorOnPrimary" />
-                    </FrameLayout>
-
-                    <TextView
-                        android:id="@+id/overview_text"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="2dp"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:text="@string/grid_title"
-                        android:textColor="?attr/colorAccent"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/crystal_structure_toast"
