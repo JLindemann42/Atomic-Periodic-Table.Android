@@ -153,7 +153,6 @@ class ElementInfoActivity : InfoExtension() {
             findViewById<ImageButton>(R.id.compare_btn).setOnClickListener {
                 //val intent = Intent(this, ProActivity::class.java)
                 //startActivity(intent)
-                toggleCompareMode()
             }
         }
 
@@ -667,7 +666,89 @@ class ElementInfoActivity : InfoExtension() {
                 }
             }
         }
+
+        if (isCompare) {
+            syncAllRowHeights()
+        }
     }
+
+    private fun syncAllRowHeights() {
+        val mainContent = findViewById<View>(R.id.main_element_content) ?: return
+        val compareContent = findViewById<View>(R.id.compare_element_content) ?: return
+
+        val containerIds = listOf(
+            // Overview
+            R.id.description_container, R.id.english_name_container, R.id.year_discovered_container,
+            R.id.discovered_by_container, R.id.group_container, R.id.appearance_container,
+            R.id.electrons_container, R.id.isotope_container,
+            // Properties
+            R.id.atomic_number_container, R.id.atomic_weight_container, R.id.density_container,
+            R.id.electronegativity_container, R.id.electronegativity_allen_container,
+            R.id.block_container, R.id.emission_spectrum_container,
+            // Atomic
+            R.id.oxidation_states_container, R.id.electron_configuration_container,
+            R.id.ion_charge_container, R.id.ionization_energies_container,
+            R.id.atomic_radius_e_container, R.id.atomic_radius_container,
+            R.id.covalent_radius_container, R.id.van_der_waals_radius_container,
+            // Thermodynamic
+            R.id.phase_container, R.id.fusion_heat_container, R.id.specific_heat_container,
+            R.id.vaporization_heat_container, R.id.thermal_conductivity_container,
+            R.id.thermal_expansion_container, R.id.molar_heat_capacity_container,
+            R.id.molar_volume_container, R.id.electron_affinity_container,
+            // Temperatures
+            R.id.boiling_kelvin_container, R.id.boiling_celsius_container, R.id.boiling_fahrenheit_container,
+            R.id.melting_kelvin_container, R.id.melting_celsius_container, R.id.melting_fahrenheit_container,
+            // Nuclear
+            R.id.radioactive_container, R.id.isotopes_container, R.id.neutron_cross_section_container,
+            // Hardness
+            R.id.mohs_hardness_container, R.id.vickers_hardness_container, R.id.brinell_hardness_container,
+            // Abundance
+            R.id.abundance_earth_crust_container, R.id.abundance_earth_soil_container,
+            R.id.abundance_urban_soil_container, R.id.abundance_crustal_rocks_container,
+            R.id.abundance_sea_water_container, R.id.abundance_sun_container,
+            R.id.abundance_solar_system_container, R.id.abundance_meteorites_container,
+            R.id.abundance_human_body_container,
+            // Electromagnetic
+            R.id.electrical_type_container, R.id.resistivity_container,
+            R.id.work_function_container, R.id.magnetic_type_container,
+            R.id.curie_point_container, R.id.neel_point_container,
+            R.id.superconducting_point_container,
+            // Hazards
+            R.id.fire_hazard_container, R.id.health_hazard_container,
+            R.id.reactivity_hazard_container, R.id.specific_hazard_container,
+            // Grid
+            R.id.crystal_structure_container, R.id.grid_parameters_container,
+            R.id.debye_low_container, R.id.debye_room_container,
+            R.id.space_group_name_container, R.id.space_group_number_container,
+            R.id.refractive_index_container,
+            // More
+            R.id.speed_sound_container, R.id.poisson_ratio_container,
+            R.id.young_modulus_container, R.id.bulk_modulus_container,
+            R.id.shear_modulus_container
+        )
+
+        containerIds.forEach { id ->
+            val mainRow = mainContent.findViewById<View>(id)
+            val compareRow = compareContent.findViewById<View>(id)
+
+            if (mainRow != null && compareRow != null) {
+                // Reset heights to wrap_content to measure natural height
+                mainRow.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                compareRow.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+
+                mainRow.post {
+                    val maxHeight = Math.max(mainRow.height, compareRow.height)
+                    if (maxHeight > 0) {
+                        mainRow.layoutParams.height = maxHeight
+                        compareRow.layoutParams.height = maxHeight
+                        mainRow.requestLayout()
+                        compareRow.requestLayout()
+                    }
+                }
+            }
+        }
+    }
+
 
 
 

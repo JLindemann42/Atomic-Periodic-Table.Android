@@ -59,6 +59,7 @@
                 android:textStyle="bold" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/electrical_type_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -89,6 +90,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/resistivity_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -120,6 +122,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/work_function_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -151,6 +154,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/magnetic_type_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -182,6 +186,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/curie_point_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -213,6 +218,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/neel_point_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -244,6 +250,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/superconducting_point_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"

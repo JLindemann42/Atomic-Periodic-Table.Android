@@ -629,4 +629,5 @@ Ganarás %3$d vida%4$s.</string>
     <string name="intro_finish">Comenzar</string>
     <string name="intro_image_description">Imagen de introducción</string>
     <string name="electron_affinity_colon">Afinidad Electrónica:</string>
-    </resources>
+    <string name="split_view">Vista dividida de elementos</string>
+</resources>

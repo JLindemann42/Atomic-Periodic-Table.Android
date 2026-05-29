@@ -145,6 +145,7 @@
         </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/mohs_hardness_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -173,6 +174,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/vickers_hardness_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -203,6 +205,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/brinell_hardness_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"

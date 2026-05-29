@@ -59,6 +59,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/boiling_kelvin_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -88,6 +89,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/boiling_celsius_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -119,6 +121,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/boiling_fahrenheit_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -150,6 +153,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/melting_kelvin_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -180,6 +184,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/melting_celsius_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -211,6 +216,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/melting_fahrenheit_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"

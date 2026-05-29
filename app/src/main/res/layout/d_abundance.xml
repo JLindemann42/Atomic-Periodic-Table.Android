@@ -67,7 +67,7 @@
         android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/abundance_earth_crust_toast"
+        android:id="@+id/abundance_earth_crust_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -98,6 +98,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/abundance_earth_soil_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -128,6 +129,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/abundance_urban_soil_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -159,6 +161,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/abundance_crustal_rocks_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -189,6 +192,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/abundance_sea_water_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -219,6 +223,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/abundance_sun_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -249,6 +254,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/abundance_solar_system_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -279,6 +285,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/abundance_meteorites_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -309,6 +316,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/abundance_human_body_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"

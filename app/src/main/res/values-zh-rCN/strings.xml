@@ -635,4 +635,5 @@ I：不溶"</string>
     <string name="intro_finish">开始使用</string>
     <string name="intro_image_description">介绍图片</string>
     <string name="electron_affinity_colon">电子亲和能:</string>
-    </resources>
+    <string name="split_view">元素拆分视图</string>
+</resources>

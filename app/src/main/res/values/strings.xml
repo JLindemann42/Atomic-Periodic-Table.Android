@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v4.6.0m-Build.209</string>
+    <string name="app_version" translatable="false">v4.6.0m-Build.210</string>
     <string name="next_sale_start" translatable="false" >2024/08/05</string>
     <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
@@ -185,6 +185,7 @@
     <string name="themes">Themes</string>
     <string name="select_theme">Select Theme</string>
     <string name="favorite_bar">Favorite Bar</string>
+    <string name="split_view">Element Split View</string>
     <string name="personalise_favorite_bar">Personalise the favorite bar</string>
     <string name="detail_card_order">Detail Card Order</string>
     <string name="customize_detail_card_order">Customize order of Detail Cards</string>

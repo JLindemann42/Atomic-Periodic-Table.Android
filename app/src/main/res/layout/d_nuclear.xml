@@ -61,6 +61,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/radioactive_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -90,6 +91,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/isotopes_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -149,6 +151,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/neutron_cross_section_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"

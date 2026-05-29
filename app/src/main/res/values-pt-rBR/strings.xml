@@ -633,4 +633,5 @@ Você ganhará %3$d vida%4$s.</string>
     <string name="intro_finish">Começar</string>
     <string name="intro_image_description">Imagem de introdução</string>
     <string name="electron_affinity_colon">Afinidade Eletrônica:</string>
-    </resources>
+    <string name="split_view">Vista dividida de elementos</string>
+</resources>

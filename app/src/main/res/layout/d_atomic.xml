@@ -62,6 +62,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/oxidation_states_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -88,6 +89,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/electron_configuration_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -119,6 +121,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ion_charge_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -150,6 +153,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ionization_energies_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -218,6 +222,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/atomic_radius_e_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -248,6 +253,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/atomic_radius_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -278,6 +284,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/covalent_radius_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -309,6 +316,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/van_der_waals_radius_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"

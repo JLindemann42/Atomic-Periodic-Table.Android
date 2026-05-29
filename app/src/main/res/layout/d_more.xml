@@ -148,6 +148,7 @@
         </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/speed_sound_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -198,6 +199,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/poisson_ratio_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -241,6 +243,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/young_modulus_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -272,6 +275,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/bulk_modulus_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -301,6 +305,7 @@
             android:textSize="14sp" />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/shear_modulus_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"

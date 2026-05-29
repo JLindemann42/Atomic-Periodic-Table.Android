@@ -633,4 +633,5 @@ Sie erhalten %3$d Leben%4$s.</string>
     <string name="intro_finish">Loslegen</string>
     <string name="intro_image_description">Einführungsbild</string>
     <string name="electron_affinity_colon">Elektronenaffinität:</string>
-    </resources>
+    <string name="split_view">Element-Split-Ansicht</string>
+</resources>

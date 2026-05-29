@@ -61,6 +61,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/atomic_number_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -90,6 +91,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/atomic_weight_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -121,6 +123,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/density_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -151,6 +154,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/electronegativity_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -182,6 +186,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/electronegativity_allen_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -213,6 +218,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/block_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -243,6 +249,7 @@
 
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/emission_spectrum_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
