@@ -22,8 +22,8 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 24
         targetSdkVersion 36
-        versionCode 210
-        versionName "4.6.0m"
+        versionCode 211
+        versionName "4.7.0m"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -66,7 +66,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:okhttp:5.3.2'
     implementation 'com.github.ar-android:AndroidSvgLoader:1.0.2'
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -82,7 +82,7 @@ dependencies {
     implementation 'androidx.work:work-runtime-ktx:2.11.0'
 
     // Firebase BoM (analytics, auth, firestore controlled by BOM)
-    implementation platform('com.google.firebase:firebase-bom:32.2.1')
+    implementation platform('com.google.firebase:firebase-bom:33.1.2')
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
@@ -97,6 +97,7 @@ dependencies {
     implementation 'org.apache.commons:commons-math3:3.6.1'
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+    implementation 'com.google.android.recaptcha:recaptcha:18.5.1'
 
     def billing_version = "8.0.0"
     implementation "com.android.billingclient:billing-ktx:$billing_version"
