@@ -28,9 +28,12 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mmin18.widget.RealtimeBlurView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -38,9 +41,11 @@ import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.FavoritePageActivity
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
+import com.jlindemann.science.activities.tables.IonActivity
 import com.jlindemann.science.activities.tables.NuclideActivity
 import com.jlindemann.science.adapter.AchievementAdapter
 import com.jlindemann.science.adapter.ElementAdapter
+import com.jlindemann.science.extensions.CrystalStructureView
 import com.jlindemann.science.extensions.InfoExtension
 import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
@@ -48,11 +53,19 @@ import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
-import com.jlindemann.science.preferences.*
+import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.preferences.ElementSendAndLoad
+import com.jlindemann.science.preferences.ProVersion
+import com.jlindemann.science.preferences.ProPlusVersion
+import com.jlindemann.science.preferences.offlinePreference
+import com.jlindemann.science.preferences.sendIso
 import com.jlindemann.science.utils.ElementDataLoader
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
 import org.w3c.dom.Text
@@ -131,6 +144,27 @@ class ElementInfoActivity : InfoExtension() {
             val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
         }
+        findViewById<ImageButton>(R.id.wikipedia_btn).setOnClickListener {
+            // Wikipedia logic is in InfoExtension.wikiListener
+            // We can trigger it by finding the Wikipedia URL and calling wikiListener or just let the button handle it.
+            // However, the button in activity_element_info is outside the content that updateElementUI handles.
+            // We need the wikilink for the current element.
+            val elementSendAndLoadValue = ElementSendAndLoad(this).getValue()
+            val jsonObject = ElementDataLoader.loadElementData(this, elementSendAndLoadValue ?: "hydrogen")
+            val wikipedia = jsonObject?.optString("wikilink", "")
+            if (wikipedia?.isNotEmpty() == true) {
+                super.wikiListener(wikipedia, findViewById(android.R.id.content))
+            }
+        }
+        findViewById<ImageButton>(R.id.isotope_btn).setOnClickListener {
+            val elementSendAndLoadValue = ElementSendAndLoad(this).getValue()
+            val isoPreference = ElementSendAndLoad(this)
+            isoPreference.setValue(elementSendAndLoadValue ?: "hydrogen")
+            val isoSend = sendIso(this)
+            isoSend.setValue("true")
+            val intent = Intent(this, IsotopesActivityExperimental::class.java)
+            startActivity(intent)
+        }
         //Check if PRO version and if make changes:
         val proPref = ProVersion(this)
         var proPrefValue = proPref.getValue()
@@ -151,8 +185,8 @@ class ElementInfoActivity : InfoExtension() {
         }
         else {
             findViewById<ImageButton>(R.id.compare_btn).setOnClickListener {
-                //val intent = Intent(this, ProActivity::class.java)
-                //startActivity(intent)
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent)
             }
         }
 
@@ -303,9 +337,10 @@ class ElementInfoActivity : InfoExtension() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params2 = findViewById<FrameLayout>(R.id.common_title_back).layoutParams as ViewGroup.LayoutParams
+        val commonTitleBack = findViewById<FrameLayout>(R.id.common_title_back) ?: return
+        val params2 = commonTitleBack.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back).layoutParams = params2
+        commonTitleBack.layoutParams = params2
     }
 
     private fun offlineCheck() {
@@ -483,6 +518,22 @@ class ElementInfoActivity : InfoExtension() {
         val bottomSheetDialog = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.bottom_sheet_element_selector, null)
         bottomSheetDialog.setContentView(view)
+
+        // Make the bottom sheet background transparent so our custom background with margins is visible
+        val bottomSheet = bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        bottomSheet?.let {
+            it.setBackgroundColor(Color.TRANSPARENT)
+            val behavior = BottomSheetBehavior.from(it)
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.skipCollapsed = true
+        }
+
+        // Handle navigation bar insets to ensure the floating sheet stays above the navigation bar area
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            v.setPadding(0, 0, 0, insets.bottom)
+            windowInsets
+        }
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.elements_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
