@@ -23,8 +23,13 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 24
         targetSdkVersion 36
+<<<<<<< Updated upstream
         versionCode 204
         versionName "4.5.0m"
+=======
+        versionCode 214
+        versionName "4.7.0m"
+>>>>>>> Stashed changes
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -113,7 +113,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).panelState = PanelState.COLLAPSED
         searchFilter(elements, recyclerView)
         mediaListeners()
-        checkSale()
+        //checkSale()
         initName(elements)
         val achievements = ArrayList<Achievement>()
         maybeShowProPopup()
