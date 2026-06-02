@@ -1,7 +1,6 @@
 package com.jlindemann.science.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,28 +10,65 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.model.Element
 
-class IsotopeAdapter(var elementList: ArrayList<Element>, var clickListener: OnElementClickListener, val context: Context) : RecyclerView.Adapter<IsotopeAdapter.ViewHolder>() {
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.initialize(elementList[position], clickListener, context)
+class IsotopeAdapter(
+    var elementList: ArrayList<Element>,
+    var clickListener: OnElementClickListener,
+    val context: Context
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    private var headerBindingAction: ((View) -> Unit)? = null
+
+    companion object {
+        private const val TYPE_HEADER = 0
+        private const val TYPE_ITEM = 1
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.isotope_list_item, parent, false)
-        return ViewHolder(v)
+    interface OnElementClickListener {
+        fun elementClickListener(item: Element, position: Int)
+    }
+
+    fun setHeaderBindingAction(action: (View) -> Unit) {
+        headerBindingAction = action
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position == 0) TYPE_HEADER else TYPE_ITEM
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == TYPE_HEADER) {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.isotope_list_header, parent, false)
+            HeaderViewHolder(view)
+        } else {
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.isotope_list_item, parent, false)
+            ItemViewHolder(view)
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) == TYPE_HEADER) {
+            headerBindingAction?.invoke(holder.itemView)
+        } else {
+            val item = elementList[position - 1]
+            if (holder is ItemViewHolder) {
+                holder.bind(item, clickListener, context)
+            }
+        }
     }
 
     override fun getItemCount(): Int {
-        return elementList.size
+        return elementList.size + 1
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+
+    class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val textViewElement = itemView.findViewById(R.id.tv_iso_type) as TextView
         private val textViewShort = itemView.findViewById(R.id.ic_iso_type) as TextView
         private val textViewNumb = itemView.findViewById(R.id.tv_iso_numb) as TextView
 
-        fun initialize(item: Element, action: OnElementClickListener, context: Context) {
-            textViewElement.text = item.element
-            textViewElement.text = item.element.capitalize()
+        fun bind(item: Element, action: OnElementClickListener, context: Context) {
+            textViewElement.text = item.element.replaceFirstChar { it.uppercase() }
             textViewShort.text = item.short
             textViewNumb.text = item.number.toString()
 
@@ -46,14 +82,8 @@ class IsotopeAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
         }
     }
 
-    interface OnElementClickListener {
-        fun elementClickListener(item: Element, position: Int)
-    }
-
     fun filterList(filteredList: ArrayList<Element>) {
         elementList = filteredList
         notifyDataSetChanged()
     }
 }
-
-

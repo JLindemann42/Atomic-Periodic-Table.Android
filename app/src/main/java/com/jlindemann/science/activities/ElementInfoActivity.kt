@@ -2,12 +2,17 @@ package com.jlindemann.science.activities
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
 import android.content.res.Configuration
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.transition.TransitionManager
 import android.text.TextUtils
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -23,14 +28,24 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.github.mmin18.widget.RealtimeBlurView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.FavoritePageActivity
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
+import com.jlindemann.science.activities.tables.IonActivity
 import com.jlindemann.science.activities.tables.NuclideActivity
 import com.jlindemann.science.adapter.AchievementAdapter
+import com.jlindemann.science.adapter.ElementAdapter
+import com.jlindemann.science.extensions.CrystalStructureView
 import com.jlindemann.science.extensions.InfoExtension
 import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
@@ -38,11 +53,19 @@ import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
-import com.jlindemann.science.preferences.*
+import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.preferences.ElementSendAndLoad
+import com.jlindemann.science.preferences.ProVersion
+import com.jlindemann.science.preferences.ProPlusVersion
+import com.jlindemann.science.preferences.offlinePreference
+import com.jlindemann.science.preferences.sendIso
 import com.jlindemann.science.utils.ElementDataLoader
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
 import org.w3c.dom.Text
@@ -56,6 +79,12 @@ class ElementInfoActivity : InfoExtension() {
     // Lifecycle-aware callback references
     private var backCallback: OnBackPressedCallback? = null
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
+    
+    // Comparison mode tracking
+    private var isCompareMode = false
+    private var compareElementKey: String? = null
+    private var mainElementName: String? = null
+    private var compareElementName: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,10 +104,11 @@ class ElementInfoActivity : InfoExtension() {
         setContentView(R.layout.activity_element_info)
         Utils.fadeInAnim(findViewById<ScrollView>(R.id.scr_view), 300)
 
+        // readJson() will call updateElementUI which now handles overlay listeners
         readJson()
         findViewById<CardView>(R.id.shell).visibility = View.GONE
         findViewById<CardView>(R.id.detail_emission).visibility = View.GONE
-        detailViews()
+        setupStaticDetailListeners()
         offlineCheck()
         nextPrev()
         favoriteBarSetup()
@@ -86,6 +116,10 @@ class ElementInfoActivity : InfoExtension() {
         findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         findViewById<ImageButton>(R.id.back_btn).setOnClickListener { super.onBackPressed() }
+
+        findViewById<View>(R.id.close_compare_btn).setOnClickListener {
+            exitCompareMode()
+        }
         findViewById<FloatingActionButton>(R.id.edit_fav_btn).setOnClickListener {
             val intent = Intent(this, FavoritePageActivity::class.java)
             startActivity(intent)
@@ -110,6 +144,27 @@ class ElementInfoActivity : InfoExtension() {
             val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
         }
+        findViewById<ImageButton>(R.id.wikipedia_btn).setOnClickListener {
+            // Wikipedia logic is in InfoExtension.wikiListener
+            // We can trigger it by finding the Wikipedia URL and calling wikiListener or just let the button handle it.
+            // However, the button in activity_element_info is outside the content that updateElementUI handles.
+            // We need the wikilink for the current element.
+            val elementSendAndLoadValue = ElementSendAndLoad(this).getValue()
+            val jsonObject = ElementDataLoader.loadElementData(this, elementSendAndLoadValue ?: "hydrogen")
+            val wikipedia = jsonObject?.optString("wikilink", "")
+            if (wikipedia?.isNotEmpty() == true) {
+                super.wikiListener(wikipedia, findViewById(android.R.id.content))
+            }
+        }
+        findViewById<ImageButton>(R.id.isotope_btn).setOnClickListener {
+            val elementSendAndLoadValue = ElementSendAndLoad(this).getValue()
+            val isoPreference = ElementSendAndLoad(this)
+            isoPreference.setValue(elementSendAndLoadValue ?: "hydrogen")
+            val isoSend = sendIso(this)
+            isoSend.setValue("true")
+            val intent = Intent(this, IsotopesActivityExperimental::class.java)
+            startActivity(intent)
+        }
         //Check if PRO version and if make changes:
         val proPref = ProVersion(this)
         var proPrefValue = proPref.getValue()
@@ -120,9 +175,37 @@ class ElementInfoActivity : InfoExtension() {
             findViewById<LinearLayout>(R.id.more_properties).visibility = View.VISIBLE //Changed as implementing new PRO dialog
             findViewById<LinearLayout>(R.id.hardness_properties).visibility = View.VISIBLE //Changed as implementing new PRO dialog
         }
+        //Check ProPlus
+        val proPlusPref = ProPlusVersion(this)
+        var proPlusPrefValue = proPlusPref.getValue()
+        if (proPlusPrefValue==100) {
+            findViewById<ImageButton>(R.id.compare_btn).setOnClickListener {
+                toggleCompareMode()
+            }
+        }
+        else {
+            findViewById<ImageButton>(R.id.compare_btn).setOnClickListener {
+                val intent = Intent(this, ProActivity::class.java)
+                startActivity(intent)
+            }
+        }
 
-        // Register lifecycle-aware OnBackPressedCallback in DISABLED state.
-        // We'll enable it only when overlays (shell, emission detail) are visible.
+
+        // Restore comparison mode state if needed
+        if (savedInstanceState != null) {
+            isCompareMode = savedInstanceState.getBoolean("isCompareMode", false)
+            compareElementKey = savedInstanceState.getString("compareElementKey")
+            
+            if (isCompareMode && compareElementKey != null) {
+                // Register callback as enabled early so it's ready before enterCompareMode
+                // which might depend on it via setBackInterceptionEnabled
+                findViewById<ScrollView>(R.id.scr_view).post {
+                    enterCompareMode(compareElementKey!!)
+                }
+            }
+        }
+
+        // Register lifecycle-aware OnBackPressedCallback in DISABLED state, enables when overlays are visible.
         backCallback = object : OnBackPressedCallback(false) {
             override fun handleOnBackPressed() {
                 // Try to close overlays first
@@ -150,6 +233,7 @@ class ElementInfoActivity : InfoExtension() {
 
         // We will dynamically register the platform OnBackInvokedCallback when interception is enabled
         // via setBackInterceptionEnabled(enabled) below.
+        setBackInterceptionEnabled(anyOverlayOpen())
     }
 
     private fun proChanges() {
@@ -180,7 +264,8 @@ class ElementInfoActivity : InfoExtension() {
         val detail = findViewById<CardView?>(R.id.detail_emission)
         val detailBg = findViewById<RealtimeBlurView?>(R.id.detail_emission_background)
 
-        return (shell?.visibility == View.VISIBLE) ||
+        return isCompareMode ||
+                (shell?.visibility == View.VISIBLE) ||
                 (shellBg?.visibility == View.VISIBLE) ||
                 (detail?.visibility == View.VISIBLE) ||
                 (detailBg?.visibility == View.VISIBLE)
@@ -233,53 +318,54 @@ class ElementInfoActivity : InfoExtension() {
         val detail = findViewById<CardView>(R.id.detail_emission)
         val detailBg = findViewById<RealtimeBlurView>(R.id.detail_emission_background)
 
-        return if (shellBg.visibility == View.VISIBLE || shell.visibility == View.VISIBLE) {
+        if (shellBg.visibility == View.VISIBLE || shell.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(shell, 300)
             Utils.fadeOutAnim(shellBg, 300)
-            // update interception state immediately so the next system back/gesture is routed correctly
-            setBackInterceptionEnabled(anyOverlayOpen())
-            true
+            setBackInterceptionEnabled(isCompareMode || anyOverlayOpen())
+            return true
         } else if (detail.visibility == View.VISIBLE || detailBg.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(detail, 300)
             Utils.fadeOutAnim(detailBg, 300)
-            // update interception state immediately so the next system back/gesture is routed correctly
+            setBackInterceptionEnabled(isCompareMode || anyOverlayOpen())
+            return true
+        } else if (isCompareMode) {
+            exitCompareMode()
             setBackInterceptionEnabled(anyOverlayOpen())
-            true
-        } else {
-            false
+            return true
         }
+        return false
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.frame).layoutParams as ViewGroup.MarginLayoutParams
-        params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.frame).layoutParams = params
-
-        val paramsO = findViewById<Space>(R.id.offline_space).layoutParams as ViewGroup.MarginLayoutParams
-        paramsO.topMargin += top
-        findViewById<Space>(R.id.offline_space).layoutParams = paramsO
-
-        val params2 = findViewById<FrameLayout>(R.id.common_title_back).layoutParams as ViewGroup.LayoutParams
+        val commonTitleBack = findViewById<FrameLayout>(R.id.common_title_back) ?: return
+        val params2 = commonTitleBack.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back).layoutParams = params2
+        commonTitleBack.layoutParams = params2
     }
 
     private fun offlineCheck() {
         val offlinePreferences = offlinePreference(this)
         val offlinePrefValue = offlinePreferences.getValue()
 
-        if (offlinePrefValue == 1) {
-            findViewById<FrameLayout>(R.id.frame).visibility = View.GONE
-            findViewById<Space>(R.id.offline_space).visibility = View.VISIBLE
-            findViewById<ImageView>(R.id.sp_img).visibility = View.GONE
-            findViewById<TextView>(R.id.sp_offline).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.sp_offline).text = getString(R.string.go_online_for_emission)
+        fun applyOffline(root: View) {
+            if (offlinePrefValue == 1) {
+                root.findViewById<FrameLayout>(R.id.frame).visibility = View.GONE
+                // Only show offline_space if not in compare mode (where notes_frame is hidden)
+                root.findViewById<Space>(R.id.offline_space).visibility = if (isCompareMode) View.GONE else View.VISIBLE
+                root.findViewById<ImageView>(R.id.sp_img).visibility = View.GONE
+                root.findViewById<TextView>(R.id.sp_offline).visibility = View.VISIBLE
+                root.findViewById<TextView>(R.id.sp_offline).text = getString(R.string.go_online_for_emission)
+            } else {
+                root.findViewById<FrameLayout>(R.id.frame).visibility = View.VISIBLE
+                root.findViewById<Space>(R.id.offline_space).visibility = View.GONE
+                root.findViewById<ImageView>(R.id.sp_img).visibility = View.VISIBLE
+                root.findViewById<TextView>(R.id.sp_offline).visibility = View.GONE
+            }
         }
-        else {
-            findViewById<FrameLayout>(R.id.frame).visibility = View.VISIBLE
-            findViewById<Space>(R.id.offline_space).visibility = View.GONE
-            findViewById<ImageView>(R.id.sp_img).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.sp_offline).visibility = View.GONE
+
+        applyOffline(findViewById(android.R.id.content))
+        if (isCompareMode) {
+            applyOffline(findViewById(R.id.compare_element_content))
         }
     }
 
@@ -288,42 +374,86 @@ class ElementInfoActivity : InfoExtension() {
         favoriteBarSetup()
     }
 
-    private fun detailViews() {
-        findViewById<CardView>(R.id.electron_view).setOnClickListener {
+    override fun updateElementUI(jsonObject: JSONObject, englishName: String, rootView: View, elementKey: String) {
+        super.updateElementUI(jsonObject, englishName, rootView, elementKey)
+        
+        if (rootView == findViewById<View>(android.R.id.content)) {
+            mainElementName = englishName
+        } else if (rootView.id == R.id.compare_element_content) {
+            compareElementName = englishName
+        }
+
+        if (isCompareMode && mainElementName != null && compareElementName != null) {
+            findViewById<TextView>(R.id.element_title).text = getString(R.string.comparison_title_format, mainElementName, compareElementName)
+        }
+
+        // Hide specific property icons in comparison mode
+        val propertyIcons = listOf(
+            R.id.phase_icon, R.id.wikipedia_description, R.id.open_btn, R.id.open_btn2,
+            R.id.isotopes_icon, R.id.ionization_button, R.id.dsc_btn
+        )
+        propertyIcons.forEach { iconId ->
+            rootView.findViewById<View>(iconId)?.visibility = if (isCompareMode) View.GONE else View.VISIBLE
+        }
+
+        // Hide header sections on the comparison side to reduce clutter
+        if (isCompareMode && rootView.id == R.id.compare_element_content) {
+            val headerContainers = listOf(
+                R.id.overview_inc, R.id.properties_inc, R.id.temperatures_inc,
+                R.id.atomic_inc, R.id.electromagnetic_inc, R.id.addition_physics,
+                R.id.nuclear_inc, R.id.hardness_inc, R.id.more_inc,
+                R.id.abundance_inc, R.id.grid_inc, R.id.hazards_inc, R.id.other_inc
+            )
+            headerContainers.forEach { containerId ->
+                rootView.findViewById<View>(containerId)?.findViewById<View>(R.id.header_container)?.visibility = View.INVISIBLE
+            }
+        } else {
+            // Ensure headers are visible on the main side or when not in compare mode
+            val headerContainers = listOf(
+                R.id.overview_inc, R.id.properties_inc, R.id.temperatures_inc,
+                R.id.atomic_inc, R.id.electromagnetic_inc, R.id.addition_physics,
+                R.id.nuclear_inc, R.id.hardness_inc, R.id.more_inc,
+                R.id.abundance_inc, R.id.grid_inc, R.id.hazards_inc, R.id.other_inc
+            )
+            headerContainers.forEach { containerId ->
+                rootView.findViewById<View>(containerId)?.findViewById<View>(R.id.header_container)?.visibility = View.VISIBLE
+            }
+        }
+
+        // Hook up interactive overlays for the specific rootView (main or compare side)
+        rootView.findViewById<CardView>(R.id.electron_view)?.setOnClickListener {
+            updateShellWithData(jsonObject)
             Utils.fadeInAnim(findViewById<CardView>(R.id.shell), 300)
             Utils.fadeInAnim(findViewById<RealtimeBlurView>(R.id.shell_background), 300)
-            // overlay shown -> enable interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<FloatingActionButton>(R.id.close_shell_btn).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<CardView>(R.id.shell), 300)
-            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.shell_background), 300)
-            // update interception state immediately (do not defer)
-            setBackInterceptionEnabled(anyOverlayOpen())
-        }
-        findViewById<RealtimeBlurView>(R.id.shell_background).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<CardView>(R.id.shell), 300)
-            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.shell_background), 300)
-            // update interception state immediately (do not defer)
-            setBackInterceptionEnabled(anyOverlayOpen())
-        }
-        findViewById<ImageView>(R.id.sp_img).setOnClickListener {
+
+        rootView.findViewById<ImageView>(R.id.sp_img)?.setOnClickListener {
+            updateEmissionWithData(jsonObject)
             Utils.fadeInAnim(findViewById<CardView>(R.id.detail_emission), 300)
             Utils.fadeInAnim(findViewById<RealtimeBlurView>(R.id.detail_emission_background), 300)
-            // overlay shown -> enable interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<FloatingActionButton>(R.id.close_emission_btn).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<CardView>(R.id.detail_emission), 300)
-            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.detail_emission_background), 300)
-            // update interception state immediately (do not defer)
-            setBackInterceptionEnabled(anyOverlayOpen())
-        }
-        findViewById<RealtimeBlurView>(R.id.detail_emission_background).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<CardView>(R.id.detail_emission), 300)
-            Utils.fadeOutAnim(findViewById<RealtimeBlurView>(R.id.detail_emission_background), 300)
-            // update interception state immediately (do not defer)
-            setBackInterceptionEnabled(anyOverlayOpen())
+    }
+
+    private fun updateShellWithData(jsonObject: JSONObject) {
+        val shell = findViewById<CardView>(R.id.shell)
+        val elementShellElectrons = jsonObject.optString("element_shells_electrons", "---")
+        val electronConfig = jsonObject.optString("element_electron_config", "---")
+        
+        shell.findViewById<TextView>(R.id.config_data)?.text = elementShellElectrons
+        shell.findViewById<TextView>(R.id.e_config_data)?.text = formatSuperscript(electronConfig)
+    }
+
+    private fun updateEmissionWithData(jsonObject: JSONObject) {
+        val detail = findViewById<CardView>(R.id.detail_emission)
+        val short = jsonObject.optString("short", "---")
+        val hUrl = "https://www.jlindemann.se/atomic/emission_lines/"
+        val ext = ".gif"
+        val fURL = hUrl + short + ext
+        
+        detail.findViewById<ImageView>(R.id.sp_img_detail)?.let {
+            Picasso.get().load(fURL).into(it)
         }
     }
 
@@ -376,15 +506,397 @@ class ElementInfoActivity : InfoExtension() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        backCallback?.remove()
-        backCallback = null
-        if (onBackInvokedCb != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            try {
-                onBackInvokedDispatcher.unregisterOnBackInvokedCallback(onBackInvokedCb!!)
-            } catch (_: Exception) { }
-            onBackInvokedCb = null
+    private fun toggleCompareMode() {
+        if (isCompareMode) {
+            exitCompareMode()
+        } else {
+            showElementSelector()
         }
     }
+
+    private fun showElementSelector() {
+        val bottomSheetDialog = BottomSheetDialog(this)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet_element_selector, null)
+        bottomSheetDialog.setContentView(view)
+
+        // Make the bottom sheet background transparent so our custom background with margins is visible
+        val bottomSheet = bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        bottomSheet?.let {
+            it.setBackgroundColor(Color.TRANSPARENT)
+            val behavior = BottomSheetBehavior.from(it)
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.skipCollapsed = true
+        }
+
+        // Handle navigation bar insets to ensure the floating sheet stays above the navigation bar area
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            v.setPadding(0, 0, 0, insets.bottom)
+            windowInsets
+        }
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.elements_recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val elements = ArrayList<Element>()
+        ElementModel.getList(elements, this)
+
+        val adapter = ElementAdapter(elements, object : ElementAdapter.OnElementClickListener2 {
+            override fun elementClickListener2(item: Element, position: Int) {
+                bottomSheetDialog.dismiss()
+                enterCompareMode(item.elementKey)
+            }
+        }, this)
+
+        recyclerView.adapter = adapter
+        bottomSheetDialog.show()
+    }
+
+    private fun enterCompareMode(elementKey: String) {
+        val root = findViewById<ViewGroup>(R.id.view)
+        TransitionManager.beginDelayedTransition(root)
+
+        isCompareMode = true
+        compareElementKey = elementKey
+        mainElementName = null
+        compareElementName = null
+
+        // Show comparison layout
+        val compareRoot = findViewById<View>(R.id.compare_element_content)
+        val divider = findViewById<View>(R.id.divider)
+        
+        compareRoot.visibility = View.VISIBLE
+        divider.visibility = View.VISIBLE
+
+        // Hide navigation buttons for main view
+        findViewById<ImageButton>(R.id.previous_btn).visibility = View.GONE
+        findViewById<ImageButton>(R.id.next_btn).visibility = View.GONE
+        
+        // Hide navigation buttons on the comparison side as well
+        compareRoot.findViewById<ImageButton>(R.id.previous_btn).visibility = View.GONE
+        compareRoot.findViewById<ImageButton>(R.id.next_btn).visibility = View.GONE
+
+        // Hide isotope, wikipedia and compare buttons in title bar
+        findViewById<ImageButton>(R.id.wikipedia_btn).visibility = View.GONE
+        findViewById<ImageButton>(R.id.isotope_btn).visibility = View.GONE
+        findViewById<ImageButton>(R.id.compare_btn).visibility = View.GONE
+
+        // Show close comparison button
+        findViewById<View>(R.id.close_compare_btn).visibility = View.VISIBLE
+
+        // Adjust title margins to use full width when buttons are hidden
+        val titleText = findViewById<TextView>(R.id.element_title)
+        val titleParams = titleText.layoutParams as FrameLayout.LayoutParams
+        titleParams.marginEnd = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics).toInt()
+        titleText.layoutParams = titleParams
+
+        // Hide notes section in comparison mode as it's not needed and takes space
+        findViewById<FrameLayout>(R.id.notes_frame).visibility = View.GONE
+        compareRoot.findViewById<FrameLayout>(R.id.notes_frame).visibility = View.GONE
+        
+        // Update offline UI state for comparison mode
+        offlineCheck()
+
+        // Hide "submit data issue" button in comparison mode
+        findViewById<AppCompatButton>(R.id.i_btn).visibility = View.GONE
+        compareRoot.findViewById<AppCompatButton>(R.id.i_btn).visibility = View.GONE
+
+        // Hide bottom space to save vertical space in split screen
+        findViewById<View>(R.id.bottom_spacer)?.visibility = View.GONE
+        compareRoot.findViewById<View>(R.id.bottom_spacer)?.visibility = View.GONE
+
+        // Hide favorite bar in comparison mode as it takes too much vertical space
+        findViewById<View>(R.id.favorite_bar).visibility = View.GONE
+        compareRoot.findViewById<View>(R.id.favorite_bar).visibility = View.GONE
+
+        // Enable back interception for compare mode
+        setBackInterceptionEnabled(true)
+        
+        // Reload main view to apply UI changes
+        readJson()
+        // Load comparison element data using the new readJson signature
+        readJson(compareRoot, elementKey)
+
+        // Adjust orientation for side-by-side sections in compare mode
+        updateSectionOrientations(true)
+    }
+
+    private fun updateSectionOrientations(isCompare: Boolean) {
+        val orientation = if (isCompare) LinearLayout.VERTICAL else LinearLayout.HORIZONTAL
+        
+        // Find containers in both main and compare views
+        val mainContent = findViewById<View>(R.id.main_element_content)
+        val compareContent = findViewById<View>(R.id.compare_element_content)
+
+        listOf(mainContent, compareContent).forEach { root ->
+            root?.findViewById<LinearLayout>(R.id.grid_content_wrapper)?.orientation = orientation
+            root?.findViewById<LinearLayout>(R.id.hazard_content_wrapper)?.orientation = orientation
+
+            // For visualization containers, adjust top margin and height when stacked vertically
+            val gridViz = root?.findViewById<View>(R.id.grid_visualization_container)
+            val hazardViz = root?.findViewById<View>(R.id.hazard_visualization_container)
+
+            val margin = if (isCompare) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4f, resources.displayMetrics).toInt() else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8f, resources.displayMetrics).toInt()
+            val innerMargin = if (isCompare) 0 else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 52f, resources.displayMetrics).toInt()
+            val fixedHeight = if (isCompare) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 110f, resources.displayMetrics).toInt() else LinearLayout.LayoutParams.MATCH_PARENT
+            
+            listOf(gridViz, hazardViz).forEach { viz ->
+                (viz?.layoutParams as? LinearLayout.LayoutParams)?.let { params ->
+                    params.topMargin = margin
+                    params.height = fixedHeight
+                    if (isCompare) {
+                        params.width = LinearLayout.LayoutParams.MATCH_PARENT
+                        params.weight = 0f
+                        params.marginEnd = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12f, resources.displayMetrics).toInt()
+                        params.marginStart = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12f, resources.displayMetrics).toInt()
+                    } else {
+                        params.width = 0
+                        params.weight = 0.28f
+                        params.marginEnd = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12f, resources.displayMetrics).toInt()
+                        params.marginStart = 0
+                    }
+                    viz.layoutParams = params
+                }
+            }
+
+            // Adjust inner containers (crystal/hazard card parents) to remove the alignment margin in compare mode
+            root?.findViewById<View>(R.id.crystal_container)?.let { v ->
+                (v.layoutParams as? LinearLayout.LayoutParams)?.let { p ->
+                    p.topMargin = innerMargin
+                    v.layoutParams = p
+                }
+            }
+            root?.findViewById<View>(R.id.hazard_container)?.let { v ->
+                (v.layoutParams as? LinearLayout.LayoutParams)?.let { p ->
+                    p.topMargin = innerMargin
+                    v.layoutParams = p
+                }
+            }
+
+            // Also adjust data containers weights
+            val gridData = root?.findViewById<View>(R.id.grid_data_container)
+            val hazardData = root?.findViewById<View>(R.id.hazard_data_container)
+
+            listOf(gridData, hazardData).forEach { data ->
+                (data?.layoutParams as? LinearLayout.LayoutParams)?.let { params ->
+                    if (isCompare) {
+                        params.width = LinearLayout.LayoutParams.MATCH_PARENT
+                        params.weight = 0f
+                    } else {
+                        params.width = 0
+                        params.weight = 0.72f
+                    }
+                    data.layoutParams = params
+                }
+            }
+
+            // Adjust electron view height and layout in compare mode
+            root?.findViewById<View>(R.id.electron_view)?.let { ev ->
+                (ev.layoutParams as? LinearLayout.LayoutParams)?.let { params ->
+                    params.height = if (isCompare) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 110f, resources.displayMetrics).toInt() 
+                                   else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 140f, resources.displayMetrics).toInt()
+                    ev.layoutParams = params
+                }
+                
+                // Adjust text container margin to avoid overlap with image
+                ev.findViewById<View>(R.id.electron_text_container)?.let { tc ->
+                    (tc.layoutParams as? FrameLayout.LayoutParams)?.let { params ->
+                        params.marginEnd = if (isCompare) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 110f, resources.displayMetrics).toInt()
+                                          else 0
+                        tc.layoutParams = params
+                    }
+                }
+
+                // Adjust model image size
+                ev.findViewById<View>(R.id.model_view)?.let { mv ->
+                    (mv.layoutParams as? FrameLayout.LayoutParams)?.let { params ->
+                        params.width = if (isCompare) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 110f, resources.displayMetrics).toInt()
+                                       else TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 140f, resources.displayMetrics).toInt()
+                        mv.layoutParams = params
+                    }
+                }
+            }
+        }
+
+        if (isCompare) {
+            syncAllRowHeights()
+        }
+    }
+
+    private fun syncAllRowHeights() {
+        val mainContent = findViewById<View>(R.id.main_element_content) ?: return
+        val compareContent = findViewById<View>(R.id.compare_element_content) ?: return
+
+        val containerIds = listOf(
+            // Overview
+            R.id.description_container, R.id.english_name_container, R.id.year_discovered_container,
+            R.id.discovered_by_container, R.id.group_container, R.id.appearance_container,
+            R.id.electrons_container, R.id.isotope_container,
+            // Properties
+            R.id.atomic_number_container, R.id.atomic_weight_container, R.id.density_container,
+            R.id.electronegativity_container, R.id.electronegativity_allen_container,
+            R.id.block_container, R.id.emission_spectrum_container,
+            // Atomic
+            R.id.oxidation_states_container, R.id.electron_configuration_container,
+            R.id.ion_charge_container, R.id.ionization_energies_container,
+            R.id.atomic_radius_e_container, R.id.atomic_radius_container,
+            R.id.covalent_radius_container, R.id.van_der_waals_radius_container,
+            // Thermodynamic
+            R.id.phase_container, R.id.fusion_heat_container, R.id.specific_heat_container,
+            R.id.vaporization_heat_container, R.id.thermal_conductivity_container,
+            R.id.thermal_expansion_container, R.id.molar_heat_capacity_container,
+            R.id.molar_volume_container, R.id.electron_affinity_container,
+            // Temperatures
+            R.id.boiling_kelvin_container, R.id.boiling_celsius_container, R.id.boiling_fahrenheit_container,
+            R.id.melting_kelvin_container, R.id.melting_celsius_container, R.id.melting_fahrenheit_container,
+            // Nuclear
+            R.id.radioactive_container, R.id.isotopes_container, R.id.neutron_cross_section_container,
+            // Hardness
+            R.id.mohs_hardness_container, R.id.vickers_hardness_container, R.id.brinell_hardness_container,
+            // Abundance
+            R.id.abundance_earth_crust_container, R.id.abundance_earth_soil_container,
+            R.id.abundance_urban_soil_container, R.id.abundance_crustal_rocks_container,
+            R.id.abundance_sea_water_container, R.id.abundance_sun_container,
+            R.id.abundance_solar_system_container, R.id.abundance_meteorites_container,
+            R.id.abundance_human_body_container,
+            // Electromagnetic
+            R.id.electrical_type_container, R.id.resistivity_container,
+            R.id.work_function_container, R.id.magnetic_type_container,
+            R.id.curie_point_container, R.id.neel_point_container,
+            R.id.superconducting_point_container,
+            // Hazards
+            R.id.fire_hazard_container, R.id.health_hazard_container,
+            R.id.reactivity_hazard_container, R.id.specific_hazard_container,
+            // Grid
+            R.id.crystal_structure_container, R.id.grid_parameters_container,
+            R.id.debye_low_container, R.id.debye_room_container,
+            R.id.space_group_name_container, R.id.space_group_number_container,
+            R.id.refractive_index_container,
+            // More
+            R.id.speed_sound_container, R.id.poisson_ratio_container,
+            R.id.young_modulus_container, R.id.bulk_modulus_container,
+            R.id.shear_modulus_container
+        )
+
+        containerIds.forEach { id ->
+            val mainRow = mainContent.findViewById<View>(id)
+            val compareRow = compareContent.findViewById<View>(id)
+
+            if (mainRow != null && compareRow != null) {
+                // Reset heights to wrap_content to measure natural height
+                mainRow.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+                compareRow.layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT
+
+                mainRow.post {
+                    val maxHeight = Math.max(mainRow.height, compareRow.height)
+                    if (maxHeight > 0) {
+                        mainRow.layoutParams.height = maxHeight
+                        compareRow.layoutParams.height = maxHeight
+                        mainRow.requestLayout()
+                        compareRow.requestLayout()
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+    private fun exitCompareMode() {
+        val root = findViewById<ViewGroup>(R.id.view)
+        TransitionManager.beginDelayedTransition(root)
+
+        isCompareMode = false
+        compareElementKey = null
+        mainElementName = null
+        compareElementName = null
+
+        // Restore title
+        findViewById<TextView>(R.id.element_title).text = getString(R.string.element_info_title)
+
+        // Hide comparison layout
+        val compareRoot = findViewById<View>(R.id.compare_element_content)
+        val divider = findViewById<View>(R.id.divider)
+        
+        compareRoot.visibility = View.GONE
+        divider.visibility = View.GONE
+
+        // Restore title bar buttons
+        findViewById<ImageButton>(R.id.wikipedia_btn).visibility = View.VISIBLE
+        findViewById<ImageButton>(R.id.isotope_btn).visibility = View.VISIBLE
+        findViewById<ImageButton>(R.id.compare_btn).visibility = View.VISIBLE
+
+        // Reset title margins
+        val titleText = findViewById<TextView>(R.id.element_title)
+        val titleParams = titleText.layoutParams as FrameLayout.LayoutParams
+        titleParams.marginEnd = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 168f, resources.displayMetrics).toInt()
+        titleText.layoutParams = titleParams
+
+        // Show navigation buttons
+        findViewById<ImageButton>(R.id.previous_btn).visibility = View.VISIBLE
+        findViewById<ImageButton>(R.id.next_btn).visibility = View.VISIBLE
+
+        // Show notes and other hidden elements
+        findViewById<FrameLayout>(R.id.notes_frame).visibility = View.VISIBLE
+        offlineCheck()
+        findViewById<AppCompatButton>(R.id.i_btn).visibility = View.VISIBLE
+        findViewById<View>(R.id.favorite_bar).visibility = View.VISIBLE
+        findViewById<View>(R.id.bottom_spacer)?.visibility = View.VISIBLE
+
+        // Disable back interception
+        setBackInterceptionEnabled(false)
+
+        // Reload to restore original UI state
+        readJson()
+
+        // Restore orientation for side-by-side sections
+        updateSectionOrientations(false)
+
+        // Hide close comparison button
+        findViewById<View>(R.id.close_compare_btn).visibility = View.GONE
+    }
+
+
+
+
+
+
+private fun setupStaticDetailListeners() {
+    val shell = findViewById<CardView>(R.id.shell)
+    val shellBg = findViewById<RealtimeBlurView>(R.id.shell_background)
+    val detail = findViewById<CardView>(R.id.detail_emission)
+    val detailBg = findViewById<RealtimeBlurView>(R.id.detail_emission_background)
+
+    shellBg.setOnClickListener {
+        Utils.fadeOutAnim(shell, 300)
+        Utils.fadeOutAnim(shellBg, 300)
+        setBackInterceptionEnabled(anyOverlayOpen())
+    }
+    detailBg.setOnClickListener {
+        Utils.fadeOutAnim(detail, 300)
+        Utils.fadeOutAnim(detailBg, 300)
+        setBackInterceptionEnabled(anyOverlayOpen())
+    }
+}
+
+
+override fun onSaveInstanceState(outState: Bundle) {
+    super.onSaveInstanceState(outState)
+    outState.putBoolean("isCompareMode", isCompareMode)
+    outState.putString("compareElementKey", compareElementKey)
+}
+
+override fun onDestroy() {
+    super.onDestroy()
+    backCallback?.remove()
+    backCallback = null
+    if (onBackInvokedCb != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+        try {
+            onBackInvokedDispatcher.unregisterOnBackInvokedCallback(onBackInvokedCb!!)
+        } catch (_: Exception) { }
+        onBackInvokedCb = null
+    }
+}
+
 }
