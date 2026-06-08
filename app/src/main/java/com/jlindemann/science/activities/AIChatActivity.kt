@@ -127,6 +127,9 @@ class AIChatActivity : AppCompatActivity() {
         adapter?.notifyItemInserted(chatMessages.size - 1)
         chatRecyclerView.scrollToPosition(chatMessages.size - 1)
         
+        // Update AI agent's conversation history
+        aiAgentManager.addToConversationHistory(userMessage)
+        
         messageInput.text.clear()
         loadingIndicator.visibility = View.VISIBLE
         
@@ -137,6 +140,9 @@ class AIChatActivity : AppCompatActivity() {
             adapter?.notifyItemInserted(chatMessages.size - 1)
             chatRecyclerView.scrollToPosition(chatMessages.size - 1)
             loadingIndicator.visibility = View.GONE
+            
+            // Update AI agent's conversation history with response
+            aiAgentManager.addToConversationHistory(aiMessage)
         }
     }
     
