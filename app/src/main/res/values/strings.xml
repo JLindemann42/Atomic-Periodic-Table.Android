@@ -381,6 +381,8 @@
 
     <string name="dictionary" >Dictionary</string>
     <string name="dictionary_search" >Search For Dictionary Item</string>
+    <string name="ask_atomic">Ask Atomic</string>
+
 
     <string name="element_info_title" >Element Information</string>
 

@@ -124,6 +124,11 @@ class ElementInfoActivity : InfoExtension() {
             val intent = Intent(this, FavoritePageActivity::class.java)
             startActivity(intent)
         }
+        findViewById<FloatingActionButton>(R.id.ai_chat_fab).setOnClickListener {
+            val intent = Intent(this, AIChatActivity::class.java)
+            intent.putExtra("element", mainElementName ?: "")
+            startActivity(intent)
+        }
         findViewById<AppCompatButton>(R.id.i_btn).setOnClickListener {
             val intent = Intent(this, SubmitActivity::class.java)
             startActivity(intent)

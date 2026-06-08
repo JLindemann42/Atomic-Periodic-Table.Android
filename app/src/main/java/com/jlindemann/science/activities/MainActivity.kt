@@ -581,6 +581,11 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             val intent = Intent(this, DictionaryActivity::class.java)
             startActivity(intent)
         }
+        findViewById<TextView>(R.id.ai_chat_btn).setOnClickListener {
+            AnalyticsHelper.logFeatureUsage(this, "ai_chat")
+            val intent = Intent(this, AIChatActivity::class.java)
+            startActivity(intent)
+        }
         findViewById<TextView>(R.id.blog_btn).setOnClickListener{
             val packageManager = packageManager
             val blogURL = "https://www.jlindemann.se/homepage/blog"

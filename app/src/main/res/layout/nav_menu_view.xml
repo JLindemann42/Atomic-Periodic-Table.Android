@@ -325,6 +325,50 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
+                android:layout_height="54dp">
+
+                <TextView
+                    android:id="@+id/ai_chat_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:background="?attr/colorSurface"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_ai_mascot"
+                    android:drawablePadding="18dp"
+                    android:drawableTint="?attr/colorOnSecondaryContainer"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/d_ripple"
+                    android:gravity="center_vertical"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:paddingTop="9dp"
+                    android:paddingBottom="9dp"
+                    android:text="@string/ask_atomic"
+                    android:textAllCaps="false"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:elevation="0dp"
+                    android:background="?attr/colorPrimary"
+                    android:alpha="0.11"/>
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/space6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/colorOnSecondaryContainer" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?attr/colorSurface">
 

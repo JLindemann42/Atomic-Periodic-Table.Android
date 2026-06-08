@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Mascot: Cute atom with face -->
+    
+    <!-- Nucleus -->
+    <circle
+        android:cx="12"
+        android:cy="12"
+        android:r="3"
+        android:fillColor="@color/colorPrimary" />
+    
+    <!-- Electron orbits -->
+    <path
+        android:pathData="M 12,12 m -8,0 a 8,8 0 0,1 16,0 a 8,8 0 0,1 -16,0"
+        android:strokeWidth="0.8"
+        android:strokeColor="@color/colorPrimary"
+        android:fillColor="@android:color/transparent" />
+    
+    <path
+        android:pathData="M 12,12 m -6,0 a 6,6 0 0,1 12,0 a 6,6 0 0,1 -12,0"
+        android:strokeWidth="0.8"
+        android:strokeColor="@color/colorPrimary"
+        android:fillColor="@android:color/transparent"
+        android:rotation="60"
+        android:pivotX="12"
+        android:pivotY="12" />
+    
+    <!-- Electrons as small circles -->
+    <circle
+        android:cx="20"
+        android:cy="12"
+        android:r="1"
+        android:fillColor="@color/colorPrimary" />
+    
+    <circle
+        android:cx="4"
+        android:cy="12"
+        android:r="1"
+        android:fillColor="@color/colorPrimary" />
+    
+    <circle
+        android:cx="12"
+        android:cy="20"
+        android:r="1"
+        android:fillColor="@color/colorPrimary" />
+    
+    <!-- Happy eyes -->
+    <circle
+        android:cx="10"
+        android:cy="10"
+        android:r="1"
+        android:fillColor="@color/colorPrimary" />
+    
+    <circle
+        android:cx="14"
+        android:cy="10"
+        android:r="1"
+        android:fillColor="@color/colorPrimary" />
+    
+    <!-- Smile -->
+    <path
+        android:pathData="M 10,13 Q 12,15 14,13"
+        android:strokeWidth="0.8"
+        android:strokeColor="@color/colorPrimary"
+        android:fillColor="@android:color/transparent"
+        android:strokeLineCap="round" />
+
+</vector>
