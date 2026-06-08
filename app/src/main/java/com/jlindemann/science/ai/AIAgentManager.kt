@@ -2,6 +2,7 @@ package com.jlindemann.science.ai
 
 import android.content.Context
 import com.jlindemann.science.model.ChatMessage
+import com.jlindemann.science.preferences.LanguagePreference
 import com.jlindemann.science.utils.ElementDataLoader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -22,10 +23,32 @@ class AIAgentManager(private val context: Context) {
     suspend fun initialize() {
         withContext(Dispatchers.IO) {
             try {
-                elementData = ElementDataLoader.loadElementDataAsJSON(context)
+                val language = ElementDataLoader.getAppLanguage(context)
+                elementData = getElementDataByLanguage(language)
                 isDataLoaded = true
             } catch (e: Exception) {
                 isDataLoaded = false
+            }
+        }
+    }
+    
+    /**
+     * Load element data for the specified language using assets
+     */
+    private fun getElementDataByLanguage(language: String): JSONObject? {
+        return try {
+            val fileName = "elements_$language.json"
+            val inputStream = context.assets.open(fileName)
+            val jsonString = inputStream.bufferedReader().use { it.readText() }
+            JSONObject(jsonString)
+        } catch (e: Exception) {
+            // Fallback to English
+            try {
+                val inputStream = context.assets.open("elements_en.json")
+                val jsonString = inputStream.bufferedReader().use { it.readText() }
+                JSONObject(jsonString)
+            } catch (e: Exception) {
+                null
             }
         }
     }

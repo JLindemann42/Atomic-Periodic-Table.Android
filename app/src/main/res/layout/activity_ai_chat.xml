@@ -35,7 +35,7 @@
             android:text="Ask Atomic"
             android:textSize="18sp"
             android:textColor="?attr/colorOnSecondaryContainer"
-            android:fontFamily="@font/poppins_semibold"
+            android:textStyle="bold"
             android:alpha="0.9" />
 
     </FrameLayout>

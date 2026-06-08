@@ -1,39 +1,41 @@
 package com.jlindemann.science.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
-import com.jlindemann.science.databinding.ItemChatMessageBinding
+import com.jlindemann.science.R
 import com.jlindemann.science.model.ChatMessage
 
 class ChatMessageAdapter(
     private val messages: List<ChatMessage>
 ) : RecyclerView.Adapter<ChatMessageAdapter.ChatViewHolder>() {
     
-    inner class ChatViewHolder(private val binding: ItemChatMessageBinding) : 
-        RecyclerView.ViewHolder(binding.root) {
+    inner class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val userContainer: CardView = itemView.findViewById(R.id.userMessageContainer)
+        private val aiContainer: CardView = itemView.findViewById(R.id.aiMessageContainer)
+        private val userMessageText: TextView = itemView.findViewById(R.id.userMessageText)
+        private val aiMessageText: TextView = itemView.findViewById(R.id.aiMessageText)
         
         fun bind(message: ChatMessage) {
-            binding.messageText.text = message.text
-            
-            // Show/hide user or AI message containers
             if (message.isFromUser) {
-                binding.userMessageContainer.visibility = android.view.View.VISIBLE
-                binding.aiMessageContainer.visibility = android.view.View.GONE
+                userContainer.visibility = View.VISIBLE
+                aiContainer.visibility = View.GONE
+                userMessageText.text = message.text
             } else {
-                binding.userMessageContainer.visibility = android.view.View.GONE
-                binding.aiMessageContainer.visibility = android.view.View.VISIBLE
+                userContainer.visibility = View.GONE
+                aiContainer.visibility = View.VISIBLE
+                aiMessageText.text = message.text
             }
         }
     }
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
-        val binding = ItemChatMessageBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return ChatViewHolder(binding)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_chat_message, parent, false)
+        return ChatViewHolder(view)
     }
     
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
