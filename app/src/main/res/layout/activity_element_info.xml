@@ -245,4 +245,22 @@
 
     </LinearLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/ai_chat_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_ai_mascot"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="?attr/colorOnPrimary" />
+
+    <include
+        android:id="@+id/ai_panel_include"
+        layout="@layout/ai_chat_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="5000dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

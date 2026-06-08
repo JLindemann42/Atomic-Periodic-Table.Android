@@ -60,8 +60,15 @@ import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.offlinePreference
 import com.jlindemann.science.preferences.sendIso
 import com.jlindemann.science.utils.ElementDataLoader
-import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
+import com.jlindemann.science.ai.AIAgentManager
+import com.jlindemann.science.adapter.ChatMessageAdapter
+import com.jlindemann.science.model.ChatMessage
+import com.jlindemann.science.ai.AIPersonality
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
+import android.widget.*
+import java.util.UUID
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -85,6 +92,12 @@ class ElementInfoActivity : InfoExtension() {
     private var compareElementKey: String? = null
     private var mainElementName: String? = null
     private var compareElementName: String? = null
+
+    // AI Panel
+    private lateinit var aiAgentManager: AIAgentManager
+    private var aiChatMessages = mutableListOf<ChatMessage>()
+    private var aiAdapter: ChatMessageAdapter? = null
+    private val aiScope = CoroutineScope(Dispatchers.Main)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,6 +126,7 @@ class ElementInfoActivity : InfoExtension() {
         nextPrev()
         favoriteBarSetup()
         elementAnim(findViewById<FrameLayout>(R.id.overview_inc), findViewById<FrameLayout>(R.id.properties_inc))
+        setupAIPanel()
         findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         findViewById<ImageButton>(R.id.back_btn).setOnClickListener { super.onBackPressed() }
@@ -125,9 +139,7 @@ class ElementInfoActivity : InfoExtension() {
             startActivity(intent)
         }
         findViewById<FloatingActionButton>(R.id.ai_chat_fab).setOnClickListener {
-            val intent = Intent(this, AIChatActivity::class.java)
-            intent.putExtra("element", mainElementName ?: "")
-            startActivity(intent)
+            openAIPanel()
         }
         findViewById<AppCompatButton>(R.id.i_btn).setOnClickListener {
             val intent = Intent(this, SubmitActivity::class.java)
@@ -268,12 +280,15 @@ class ElementInfoActivity : InfoExtension() {
         val shellBg = findViewById<RealtimeBlurView?>(R.id.shell_background)
         val detail = findViewById<CardView?>(R.id.detail_emission)
         val detailBg = findViewById<RealtimeBlurView?>(R.id.detail_emission_background)
+        val aiPanelInclude = findViewById<View?>(R.id.ai_panel_include)
+        val aiPanelRoot = aiPanelInclude?.findViewById<View>(R.id.ai_panel_root)
 
         return isCompareMode ||
                 (shell?.visibility == View.VISIBLE) ||
                 (shellBg?.visibility == View.VISIBLE) ||
                 (detail?.visibility == View.VISIBLE) ||
-                (detailBg?.visibility == View.VISIBLE)
+                (detailBg?.visibility == View.VISIBLE) ||
+                (aiPanelRoot?.visibility == View.VISIBLE)
     }
 
     // Centralized enabling/disabling of back interception; also registers/unregisters platform callback on newer OS.
@@ -322,8 +337,13 @@ class ElementInfoActivity : InfoExtension() {
         val shellBg = findViewById<RealtimeBlurView>(R.id.shell_background)
         val detail = findViewById<CardView>(R.id.detail_emission)
         val detailBg = findViewById<RealtimeBlurView>(R.id.detail_emission_background)
+        val aiPanelInclude = findViewById<View>(R.id.ai_panel_include)
+        val aiPanelRoot = aiPanelInclude?.findViewById<View>(R.id.ai_panel_root)
 
-        if (shellBg.visibility == View.VISIBLE || shell.visibility == View.VISIBLE) {
+        if (aiPanelRoot?.visibility == View.VISIBLE) {
+            closeAIPanel()
+            return true
+        } else if (shellBg.visibility == View.VISIBLE || shell.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(shell, 300)
             Utils.fadeOutAnim(shellBg, 300)
             setBackInterceptionEnabled(isCompareMode || anyOverlayOpen())
@@ -886,6 +906,118 @@ private fun setupStaticDetailListeners() {
 }
 
 
+    private fun setupAIPanel() {
+        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
+        val aiPanelContainerView = aiPanelRoot.findViewById<ConstraintLayout>(R.id.ai_panel_container) ?: return
+        val aiScrim = aiPanelRoot.findViewById<View>(R.id.ai_panel_scrim) ?: return
+        val aiRecyclerView = aiPanelRoot.findViewById<RecyclerView>(R.id.ai_chat_recycler)
+        val aiMessageInput = aiPanelRoot.findViewById<EditText>(R.id.ai_message_input)
+        val aiSendBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_send_btn)
+        val aiCloseBtn = aiPanelRoot.findViewById<ImageView>(R.id.ai_close_btn)
+        val aiLoadingIndicator = aiPanelRoot.findViewById<ProgressBar>(R.id.ai_loading_indicator)
+
+        aiAdapter = ChatMessageAdapter(aiChatMessages)
+        aiRecyclerView.layoutManager = LinearLayoutManager(this).apply { stackFromEnd = true }
+        aiRecyclerView.adapter = aiAdapter
+
+        aiAgentManager = AIAgentManager(this)
+        aiScope.launch {
+            aiAgentManager.initialize()
+            if (aiChatMessages.isEmpty()) {
+                addAIGreeting()
+            }
+        }
+
+        aiSendBtn.setOnClickListener {
+            val text = aiMessageInput.text.toString().trim()
+            if (text.isNotEmpty()) {
+                sendMessageToAI(text, aiMessageInput, aiLoadingIndicator, aiRecyclerView)
+            }
+        }
+
+        aiCloseBtn.setOnClickListener {
+            closeAIPanel()
+        }
+
+        aiScrim.setOnClickListener {
+            closeAIPanel()
+        }
+    }
+
+    private fun openAIPanel() {
+        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
+        val aiPanelContainerView = aiPanelRoot.findViewById<ConstraintLayout>(R.id.ai_panel_container) ?: return
+        val aiScrim = aiPanelRoot.findViewById<View>(R.id.ai_panel_scrim) ?: return
+
+        aiPanelRoot.visibility = View.VISIBLE
+
+        // Initial state: panel is below screen
+        aiPanelContainerView.translationY = aiPanelContainerView.height.toFloat()
+        if (aiPanelContainerView.height == 0) {
+            aiPanelContainerView.post {
+                aiPanelContainerView.translationY = aiPanelContainerView.height.toFloat()
+                aiPanelContainerView.animate().translationY(0f).setDuration(300).start()
+            }
+        } else {
+            aiPanelContainerView.animate().translationY(0f).setDuration(300).start()
+        }
+
+        aiScrim.animate().alpha(1f).setDuration(300).start()
+        setBackInterceptionEnabled(true)
+    }
+
+    private fun closeAIPanel() {
+        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
+        val aiPanelContainerView = aiPanelRoot.findViewById<ConstraintLayout>(R.id.ai_panel_container) ?: return
+        val aiScrim = aiPanelRoot.findViewById<View>(R.id.ai_panel_scrim) ?: return
+
+        aiPanelContainerView.animate()
+            .translationY(aiPanelContainerView.height.toFloat())
+            .setDuration(300)
+            .withEndAction {
+                aiPanelRoot.visibility = View.GONE
+                setBackInterceptionEnabled(anyOverlayOpen())
+            }
+            .start()
+
+        aiScrim.animate().alpha(0f).setDuration(300).start()
+    }
+
+    private fun addAIGreeting() {
+        val greeting = ChatMessage(
+            id = UUID.randomUUID().toString(),
+            text = AIPersonality.getGreeting(),
+            isFromUser = false,
+            timestamp = System.currentTimeMillis()
+        )
+        aiChatMessages.add(greeting)
+        aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
+    }
+
+    private fun sendMessageToAI(text: String, input: EditText, loader: ProgressBar, recycler: RecyclerView) {
+        val userMsg = ChatMessage(
+            id = UUID.randomUUID().toString(),
+            text = text,
+            isFromUser = true,
+            timestamp = System.currentTimeMillis()
+        )
+        aiChatMessages.add(userMsg)
+        aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
+        recycler.scrollToPosition(aiChatMessages.size - 1)
+        input.text.clear()
+        loader.visibility = View.VISIBLE
+
+        aiAgentManager.addToConversationHistory(userMsg)
+        aiScope.launch {
+            val response = aiAgentManager.generateResponse(text, contextElement = mainElementName)
+            loader.visibility = View.GONE
+            aiChatMessages.add(response)
+            aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
+            recycler.scrollToPosition(aiChatMessages.size - 1)
+            aiAgentManager.addToConversationHistory(response)
+        }
+    }
+
 override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     outState.putBoolean("isCompareMode", isCompareMode)
@@ -894,6 +1026,7 @@ override fun onSaveInstanceState(outState: Bundle) {
 
 override fun onDestroy() {
     super.onDestroy()
+    aiScope.cancel()
     backCallback?.remove()
     backCallback = null
     if (onBackInvokedCb != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {

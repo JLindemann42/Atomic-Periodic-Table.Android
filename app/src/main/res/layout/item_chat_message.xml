@@ -1,60 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="8dp">
+    android:paddingVertical="4dp"
+    android:paddingHorizontal="8dp">
 
     <!-- User Message Container (Right-aligned) -->
     <androidx.cardview.widget.CardView
         android:id="@+id/userMessageContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|center_vertical"
-        android:layout_marginEnd="8dp"
         android:visibility="gone"
         app:cardCornerRadius="16dp"
         app:cardBackgroundColor="?attr/colorPrimary"
-        app:cardElevation="2dp">
+        app:cardElevation="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toStartOf="@+id/guideline_user"
+        app:layout_constraintHorizontal_bias="1"
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/userMessageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="280dp"
             android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp"
+            android:paddingVertical="10dp"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="14sp"
-            
-            android:text="Message" />
+            tools:text="Hello, tell me about Oxygen!" />
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <!-- AI Mascot Icon -->
+    <ImageView
+        android:id="@+id/aiMascotIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_ai_mascot"
+        android:visibility="gone"
+        android:contentDescription="Atomic Assistant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/aiMessageContainer"
+        tools:visibility="visible" />
 
     <!-- AI Message Container (Left-aligned) -->
     <androidx.cardview.widget.CardView
         android:id="@+id/aiMessageContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start|center_vertical"
         android:layout_marginStart="8dp"
         android:visibility="gone"
         app:cardCornerRadius="16dp"
         app:cardBackgroundColor="?attr/colorSecondaryContainer"
-        app:cardElevation="2dp">
+        app:cardElevation="1dp"
+        app:layout_constraintStart_toEndOf="@id/aiMascotIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0"
+        tools:visibility="visible">
 
         <TextView
             android:id="@+id/aiMessageText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="280dp"
             android:paddingHorizontal="16dp"
-            android:paddingVertical="12dp"
+            android:paddingVertical="10dp"
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="14sp"
-            
-            android:text="Message" />
+            tools:text="Oxygen is a chemical element with symbol O and atomic number 8." />
 
     </androidx.cardview.widget.CardView>
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

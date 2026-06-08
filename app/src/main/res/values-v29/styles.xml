@@ -22,7 +22,7 @@
 
         <item name="colorSurfaceVariant">#E2E2EC</item>
         <item name="colorOnSurfaceVariant">#44464E</item>
-        <item name="colorOutline">#75767F</item>
+        <item name="colorOutline">#75767F</item><item name="colorOutlineVariant">#C5C6D0</item>
 
         <item name="backgroundColor">#FEFBFF</item>
         <item name="colorOnBackground">#1B1B1E</item>
@@ -66,7 +66,7 @@
 
         <item name="colorSurfaceVariant">#44464E</item>
         <item name="colorOnSurfaceVariant">#C5C6D0</item>
-        <item name="colorOutline">#8F909A</item>
+        <item name="colorOutline">#8F909A</item><item name="colorOutlineVariant">#44464E</item>
 
         <item name="backgroundColor">#1B1B1E</item>
         <item name="colorOnBackground">#E4E2E6</item>

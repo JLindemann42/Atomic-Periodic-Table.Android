@@ -54,9 +54,15 @@ import com.jlindemann.science.utils.TabUtil
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.jlindemann.science.utils.AnalyticsHelper
+import com.jlindemann.science.ai.AIAgentManager
+import com.jlindemann.science.adapter.ChatMessageAdapter
+import com.jlindemann.science.model.ChatMessage
+import com.jlindemann.science.ai.AIPersonality
 import com.otaliastudios.zoom.ZoomLayout
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
-import com.sothree.slidinguppanel.SlidingUpPanelLayout.PanelState
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 import org.deejdev.twowaynestedscrollview.TwoWayNestedScrollView
 import java.text.SimpleDateFormat
 import java.util.*
@@ -71,6 +77,12 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     // Optional OnBackInvokedCallback for newer platforms (registered only when interception is needed)
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
+
+    // AI Panel
+    private lateinit var aiAgentManager: AIAgentManager
+    private var aiChatMessages = mutableListOf<ChatMessage>()
+    private var aiAdapter: ChatMessageAdapter? = null
+    private val aiScope = CoroutineScope(Dispatchers.Main)
 
     // Tracks whether we've already adjusted the scrollView upward while bars are hidden
     private var isScrollViewRaised = false
@@ -108,9 +120,9 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         setOnCLickListenerSetups(elements)
         setupNavListeners()
         onClickNav()
+        setupAIPanel()
         scrollAdapter()
         searchListener()
-        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).panelState = PanelState.COLLAPSED
         searchFilter(elements, recyclerView)
         mediaListeners()
         checkSale()
@@ -156,27 +168,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             val intent = Intent(this, FlashCardActivity::class.java)
             startActivity(intent)
         }
-
-        // IMPORTANT: Panel listener handles fade/visibility and enabling/disabling back interception.
-        // Keep it as the single source of truth for panel state transitions.
-        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
-            override fun onPanelSlide(panel: View?, slideOffset: Float) {}
-            override fun onPanelStateChanged(panel: View?, previousState: PanelState, newState: PanelState) {
-                val navMenuInclude = findViewById<FrameLayout>(R.id.nav_menu_include)
-                val navBackground = findViewById<TextView>(R.id.nav_background)
-                if (newState == PanelState.COLLAPSED) {
-                    // perform fade and hide when collapse finished
-                    Utils.fadeOutAnim(navBackground, 150)
-                    navMenuInclude.visibility = View.GONE
-                    // Nothing left to intercept: disable callback
-                    setBackInterceptionEnabled(false)
-                } else if (newState == PanelState.EXPANDED) {
-                    // Panel expanded -> intercept back
-                    // make sure menu is visible while expanding (click to open already sets visibility)
-                    setBackInterceptionEnabled(true)
-                }
-            }
-        })
 
         // Register a lifecycle-aware OnBackPressedCallback in DISABLED state.
         // We'll enable it only when overlays are shown (search, filter, nav, hover, popup).
@@ -392,7 +383,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val popupView = findViewById<ConstraintLayout>(R.id.pro_popup_include)
         val hoverBackground = findViewById<TextView>(R.id.hover_background)
         val hoverMenu = findViewById<ConstraintLayout>(R.id.hover_menu_include)
-        val slidingLayout = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout)
         val navBackground = findViewById<TextView>(R.id.nav_background)
         val navMenuInclude = findViewById<FrameLayout>(R.id.nav_menu_include)
         val searchMenu = findViewById<FrameLayout>(R.id.search_menu_include)
@@ -400,8 +390,15 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val moreBtn = findViewById<FloatingActionButton>(R.id.more_btn)
         val searchBackground = findViewById<TextView>(R.id.background) // filter overlay background
         val filterBox = findViewById<ConstraintLayout>(R.id.filter_box)
+        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include)
 
-        // 1) pro popup
+        // 1) AI Chat Panel
+        if (aiPanelRoot?.visibility == View.VISIBLE) {
+            closeAIPanel()
+            return
+        }
+
+        // 2) pro popup
         if (popupView?.visibility == View.VISIBLE) {
             Anim.fadeOutAnim(popupView, 300)
             val prefs = getSharedPreferences("popup_prefs", Context.MODE_PRIVATE)
@@ -422,16 +419,9 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             return
         }
 
-        // 3) Navigation (sliding panel) - prefer collapsing if expanded
-        if (slidingLayout != null && slidingLayout.panelState == PanelState.EXPANDED) {
-            // Request collapse and let the PanelSlideListener handle the fade/visibility and back interception state.
-            slidingLayout.setPanelState(PanelState.COLLAPSED)
-            return
-        }
-        // Also handle scenario where nav background/menu is visible but panel not expanded:
+        // 3) Navigation menu: scenarion where nav background/menu is visible:
         if (navBackground?.visibility == View.VISIBLE || navMenuInclude?.visibility == View.VISIBLE) {
-            // Request collapse and let the PanelSlideListener handle the fade/visibility and back interception state.
-            slidingLayout?.setPanelState(PanelState.COLLAPSED)
+            closeNavMenu()
             return
         }
 
@@ -475,6 +465,24 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         } else {
             super.onBackPressed()
         }
+    }
+
+    private fun closeNavMenu() {
+        val navMenuInclude = findViewById<FrameLayout>(R.id.nav_menu_include)
+        val navBackground = findViewById<TextView>(R.id.nav_background)
+        val navLin = navMenuInclude.findViewById<LinearLayout>(R.id.navLin)
+
+        navLin.animate()
+            .translationY(navLin.height.toFloat())
+            .setDuration(300)
+            .withEndAction {
+                navMenuInclude.visibility = View.GONE
+                navBackground.visibility = View.GONE
+                setBackInterceptionEnabled(anyOverlayOpen())
+            }
+            .start()
+
+        Utils.fadeOutAnim(navBackground, 300)
     }
 
     private fun searchListener() {
@@ -543,20 +551,30 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     // Navmenu listeners
     private fun onClickNav() {
         findViewById<ImageButton>(R.id.menu_btn).setOnClickListener {
-            findViewById<FrameLayout>(R.id.nav_menu_include).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.nav_background).visibility = View.VISIBLE
-            Utils.fadeInAnimBack(findViewById<TextView>(R.id.nav_background), 200)
-            findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).panelState = PanelState.EXPANDED
+            val navMenuInclude = findViewById<FrameLayout>(R.id.nav_menu_include)
+            val navBackground = findViewById<TextView>(R.id.nav_background)
+            val navLin = navMenuInclude.findViewById<LinearLayout>(R.id.navLin)
+
+            navMenuInclude.visibility = View.VISIBLE
+            navBackground.visibility = View.VISIBLE
+            Utils.fadeInAnimBack(navBackground, 200)
+
+            if (navLin.height == 0) {
+                navLin.doOnLayout {
+                    navLin.translationY = navLin.height.toFloat()
+                    navLin.animate().translationY(0f).setDuration(300).start()
+                }
+            } else {
+                navLin.translationY = navLin.height.toFloat()
+                navLin.animate().translationY(0f).setDuration(300).start()
+            }
             // nav opened -> intercept back
             setBackInterceptionEnabled(true)
         }
         findViewById<TextView>(R.id.nav_background).setOnClickListener {
             findViewById<FrameLayout>(R.id.search_menu_include).visibility = View.GONE
-            findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).setPanelState(PanelState.COLLAPSED)
+            closeNavMenu()
             findViewById<FrameLayout>(R.id.nav_bar_main).visibility = View.VISIBLE
-            Utils.fadeOutAnim(findViewById<TextView>(R.id.nav_background), 100)
-            // nav closed -> disable interception
-            setBackInterceptionEnabled(false)
         }
         findViewById<TextView>(R.id.pro_btn).setOnClickListener {
             val intent = Intent(this, ProActivity::class.java)
@@ -583,8 +601,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         }
         findViewById<TextView>(R.id.ai_chat_btn).setOnClickListener {
             AnalyticsHelper.logFeatureUsage(this, "ai_chat")
-            val intent = Intent(this, AIChatActivity::class.java)
-            startActivity(intent)
+            openAIPanel()
         }
         findViewById<TextView>(R.id.blog_btn).setOnClickListener{
             val packageManager = packageManager
@@ -835,10 +852,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         params6.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_main) + resources.getDimensionPixelSize(R.dimen.left_bar)
         findViewById<ZoomLayout>(R.id.scrollView).layoutParams = params6
 
-        val params7 = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).layoutParams as ViewGroup.LayoutParams
-        params7.height = bottom + resources.getDimensionPixelSize(R.dimen.nav_view)
-        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout).layoutParams = params7
-
         val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
         findViewById<LinearLayout>(R.id.empty_search_box).layoutParams = searchEmptyImgPrm
@@ -866,22 +879,22 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val popupView = findViewById<ConstraintLayout>(R.id.pro_popup_include)
         val hoverBackground = findViewById<TextView>(R.id.hover_background)
         val hoverMenu = findViewById<ConstraintLayout>(R.id.hover_menu_include)
-        val slidingLayout = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout)
         val navBackground = findViewById<TextView>(R.id.nav_background)
         val navMenuInclude = findViewById<FrameLayout>(R.id.nav_menu_include)
         val searchMenu = findViewById<FrameLayout>(R.id.search_menu_include)
         val searchBackground = findViewById<TextView>(R.id.background)
         val filterBox = findViewById<ConstraintLayout>(R.id.filter_box)
+        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include)
 
         if (popupView?.visibility == View.VISIBLE) return true
         if (hoverBackground?.visibility == View.VISIBLE) return true
         if (hoverMenu?.visibility == View.VISIBLE) return true
-        if (slidingLayout != null && slidingLayout.panelState == PanelState.EXPANDED) return true
         if (navBackground?.visibility == View.VISIBLE) return true
         if (navMenuInclude?.visibility == View.VISIBLE) return true
         if (filterBox?.visibility == View.VISIBLE) return true
         if (searchBackground?.visibility == View.VISIBLE) return true
         if (searchMenu?.visibility == View.VISIBLE) return true
+        if (aiPanelRoot?.visibility == View.VISIBLE) return true
         return false
     }
 
@@ -995,8 +1008,128 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         }
     }
 
+    private fun setupAIPanel() {
+        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
+        val aiPanelContainerView = aiPanelRoot.findViewById<ConstraintLayout>(R.id.ai_panel_container) ?: return
+        val aiScrim = aiPanelRoot.findViewById<View>(R.id.ai_panel_scrim) ?: return
+        val aiRecyclerView = aiPanelRoot.findViewById<RecyclerView>(R.id.ai_chat_recycler) ?: return
+        val aiMessageInput = aiPanelRoot.findViewById<EditText>(R.id.ai_message_input) ?: return
+        val aiSendBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_send_btn) ?: return
+        val aiCloseBtn = aiPanelRoot.findViewById<ImageView>(R.id.ai_close_btn) ?: return
+        val aiLoadingIndicator = aiPanelRoot.findViewById<ProgressBar>(R.id.ai_loading_indicator) ?: return
+
+        aiAdapter = ChatMessageAdapter(aiChatMessages)
+        aiRecyclerView.layoutManager = LinearLayoutManager(this).apply { stackFromEnd = true }
+        aiRecyclerView.adapter = aiAdapter
+
+        aiAgentManager = AIAgentManager(this)
+        aiScope.launch {
+            aiAgentManager.initialize()
+            if (aiChatMessages.isEmpty()) {
+                addAIGreeting()
+            }
+        }
+
+        aiSendBtn.setOnClickListener {
+            val text = aiMessageInput.text.toString().trim()
+            if (text.isNotEmpty()) {
+                sendMessageToAI(text, aiMessageInput, aiLoadingIndicator, aiRecyclerView)
+            }
+        }
+
+        aiCloseBtn.setOnClickListener {
+            closeAIPanel()
+        }
+        
+        aiScrim.setOnClickListener {
+            closeAIPanel()
+        }
+    }
+
+    private fun openAIPanel() {
+        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
+        val aiPanelContainerView = aiPanelRoot.findViewById<ConstraintLayout>(R.id.ai_panel_container) ?: return
+        val aiScrim = aiPanelRoot.findViewById<View>(R.id.ai_panel_scrim) ?: return
+
+        aiPanelRoot.visibility = View.VISIBLE
+        
+        // Ensure initial position is set correctly before animating
+        if (aiPanelContainerView.height == 0) {
+            aiPanelContainerView.doOnLayout {
+                aiPanelContainerView.translationY = aiPanelContainerView.height.toFloat()
+                aiPanelContainerView.animate()
+                    .translationY(0f)
+                    .setDuration(300)
+                    .start()
+            }
+        } else {
+            aiPanelContainerView.translationY = aiPanelContainerView.height.toFloat()
+            aiPanelContainerView.animate()
+                .translationY(0f)
+                .setDuration(300)
+                .start()
+        }
+        
+        aiScrim.animate().alpha(1f).setDuration(300).start()
+        setBackInterceptionEnabled(true)
+    }
+
+    private fun closeAIPanel() {
+        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
+        val aiPanelContainerView = aiPanelRoot.findViewById<ConstraintLayout>(R.id.ai_panel_container) ?: return
+        val aiScrim = aiPanelRoot.findViewById<View>(R.id.ai_panel_scrim) ?: return
+
+        aiPanelContainerView.animate()
+            .translationY(aiPanelContainerView.height.toFloat())
+            .setDuration(300)
+            .withEndAction {
+                aiPanelRoot.visibility = View.GONE
+                setBackInterceptionEnabled(anyOverlayOpen())
+            }
+            .start()
+        
+        aiScrim.animate().alpha(0f).setDuration(300).start()
+    }
+
+    private fun addAIGreeting() {
+        val greeting = ChatMessage(
+            id = UUID.randomUUID().toString(),
+            text = AIPersonality.getGreeting(),
+            isFromUser = false,
+            timestamp = System.currentTimeMillis()
+        )
+        aiChatMessages.add(greeting)
+        aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
+    }
+
+    private fun sendMessageToAI(text: String, input: EditText, loader: ProgressBar, recycler: RecyclerView) {
+        val userMsg = ChatMessage(
+            id = UUID.randomUUID().toString(),
+            text = text,
+            isFromUser = true,
+            timestamp = System.currentTimeMillis()
+        )
+        aiChatMessages.add(userMsg)
+        aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
+        recycler.scrollToPosition(aiChatMessages.size - 1)
+        input.text.clear()
+        loader.visibility = View.VISIBLE
+
+        aiAgentManager.addToConversationHistory(userMsg)
+        aiScope.launch {
+            val response = aiAgentManager.generateResponse(text)
+            loader.visibility = View.GONE
+            aiChatMessages.add(response)
+            aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
+            recycler.scrollToPosition(aiChatMessages.size - 1)
+            aiAgentManager.addToConversationHistory(response)
+        }
+    }
+
     override fun onDestroy() {
         super.onDestroy()
+        aiScope.cancel()
+        // ... (existing onDestroy code)
         // Remove callback
         backCallback?.remove()
         backCallback = null

@@ -18,15 +18,18 @@ class ChatMessageAdapter(
         private val aiContainer: CardView = itemView.findViewById(R.id.aiMessageContainer)
         private val userMessageText: TextView = itemView.findViewById(R.id.userMessageText)
         private val aiMessageText: TextView = itemView.findViewById(R.id.aiMessageText)
+        private val aiMascotIcon: android.widget.ImageView = itemView.findViewById(R.id.aiMascotIcon)
         
         fun bind(message: ChatMessage) {
             if (message.isFromUser) {
                 userContainer.visibility = View.VISIBLE
                 aiContainer.visibility = View.GONE
+                aiMascotIcon.visibility = View.GONE
                 userMessageText.text = message.text
             } else {
                 userContainer.visibility = View.GONE
                 aiContainer.visibility = View.VISIBLE
+                aiMascotIcon.visibility = View.VISIBLE
                 aiMessageText.text = message.text
             }
         }

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ai_panel_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    android:elevation="10000dp"
+    tools:visibility="visible">
+
+    <!-- Scrim Background -->
+    <View
+        android:id="@+id/ai_panel_scrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:alpha="0" />
+
+    <!-- Sliding Panel Content -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ai_panel_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/ai_panel_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="16dp">
+
+        <!-- Header/Drag Handle -->
+        <FrameLayout
+            android:id="@+id/ai_panel_header"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="?attr/colorSurface"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_marginTop="8dp"
+                android:background="?attr/colorOutlineVariant" />
+
+            <ImageView
+                android:id="@+id/ai_close_btn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="8dp"
+                android:padding="12dp"
+                android:src="@drawable/ic_arrow"
+                android:rotation="-90"
+                app:tint="?attr/colorOnSurfaceVariant" />
+
+            <TextView
+                android:id="@+id/ai_panel_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawablePadding="12dp"
+                android:gravity="center"
+                android:text="@string/ask_atomic"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:drawableStartCompat="@drawable/ic_ai_mascot" />
+
+        </FrameLayout>
+
+        <!-- Chat Area -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ai_chat_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/ai_input_container"
+            app:layout_constraintTop_toBottomOf="@id/ai_panel_header" />
+
+        <!-- Loading Indicator -->
+        <ProgressBar
+            android:id="@+id/ai_loading_indicator"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/ai_chat_recycler"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ai_chat_recycler" />
+
+        <!-- Input Area -->
+        <LinearLayout
+            android:id="@+id/ai_input_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSurface"
+            android:elevation="8dp"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <EditText
+                android:id="@+id/ai_message_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_box"
+                android:backgroundTint="?attr/colorSurfaceVariant"
+                android:hint="Ask me anything..."
+                android:importantForAutofill="no"
+                android:inputType="textCapSentences|textMultiLine"
+                android:maxLines="4"
+                android:minHeight="48dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textColorHint="?attr/colorOnSurfaceVariant"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/ai_send_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="8dp"
+                android:contentDescription="Send"
+                android:src="@drawable/ic_send"
+                app:tint="?attr/colorPrimary" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

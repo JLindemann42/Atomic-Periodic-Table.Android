@@ -850,9 +850,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="100dp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <include
         android:id="@+id/hover_menu_include"
@@ -862,7 +863,9 @@
         android:layout_marginBottom="36dp"
         android:elevation="102dp"
         android:visibility="gone"
-        app:layout_constraintStart_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <include
         android:id="@+id/search_menu_include"
@@ -872,7 +875,8 @@
         android:elevation="2000dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <include
         android:id="@+id/pro_popup_include"
@@ -880,9 +884,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="3000dp"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageButton
         android:id="@+id/pro_fab"
@@ -900,5 +905,16 @@
         app:tint="?attr/colorOnTertiary"
         app:layout_constraintBottom_toBottomOf="@id/view_main"
         app:layout_constraintEnd_toEndOf="@id/view_main" />
+
+    <include
+        android:id="@+id/ai_panel_include"
+        layout="@layout/ai_chat_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="50000dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
