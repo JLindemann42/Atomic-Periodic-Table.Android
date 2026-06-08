@@ -825,5 +825,9 @@
     <string name="select_element_to_compare">Select Element to Compare</string>
     <string name="compare_elements">Compare Elements</string>
     <string name="exit_compare_mode">Exit Comparison</string>
+
+    <!-- AI Settings -->
+    <string name="ai_chat_setting">Enable AI Chat Assistant</string>
+    <string name="ai_chat_setting_description">Allow AI assistant to answer questions about elements</string>
 </resources>
 
