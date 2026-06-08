@@ -103,6 +103,7 @@
 
         <!-- Container with center icon -->
         <LinearLayout
+            android:id="@+id/header_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -114,6 +115,7 @@
 
             <!-- Container with center icon -->
             <FrameLayout
+                android:id="@+id/icon_container"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@drawable/cookie_7"
@@ -146,6 +148,7 @@
         </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/speed_sound_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -196,6 +199,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/poisson_ratio_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -239,6 +243,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/young_modulus_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -270,6 +275,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/bulk_modulus_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -299,6 +305,7 @@
             android:textSize="14sp" />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/shear_modulus_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"

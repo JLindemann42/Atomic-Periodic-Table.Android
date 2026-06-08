@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/isotopes_title_downstate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        android:paddingStart="@dimen/default_padding"
+        android:paddingEnd="@dimen/default_padding"
+        android:paddingTop="4dp"
+        android:paddingBottom="16dp"
+        android:text="@string/isotopes_title"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="32sp"
+        android:textStyle="normal" />
+
+</LinearLayout>

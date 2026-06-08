@@ -17,6 +17,7 @@
 
         <!-- Container with center icon -->
         <LinearLayout
+            android:id="@+id/header_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -28,6 +29,7 @@
 
             <!-- Container with center icon -->
             <FrameLayout
+                android:id="@+id/icon_container"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="@drawable/cookie_7"
@@ -60,6 +62,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/phase_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -111,6 +114,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/fusion_heat_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -141,6 +145,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/specific_heat_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -171,6 +176,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/vaporization_heat_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -178,7 +184,7 @@
             android:layout_marginEnd="12dp"
             android:orientation="vertical"
             android:padding="10dp"
-            android:background="@drawable/toast_element_list_bottom"
+            android:background="@drawable/toast_element_list"
             android:backgroundTint="?attr/colorPrimaryDark">
 
         <TextView
@@ -201,6 +207,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/thermal_conductivity_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -231,6 +238,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/thermal_expansion_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -261,6 +269,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/molar_heat_capacity_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -291,6 +300,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/molar_volume_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
@@ -321,6 +331,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/electron_affinity_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"

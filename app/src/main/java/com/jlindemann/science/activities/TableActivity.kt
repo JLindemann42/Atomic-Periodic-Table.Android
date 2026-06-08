@@ -5,20 +5,35 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import android.widget.ImageButton
-import android.widget.ScrollView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
+import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
+import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tables.*
 import com.jlindemann.science.activities.tools.TitleBarAnimator
+import com.jlindemann.science.adapter.TableAdapter
+import com.jlindemann.science.model.TableItem
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ProVersion
+import com.jlindemann.science.preferences.TableOrderPreference
 import com.jlindemann.science.preferences.ThemePreference
 
-class TableActivity : BaseActivity() {
+class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
+
+    private lateinit var adapter: TableAdapter
+    private lateinit var recyclerView: DragDropSwipeRecyclerView
+    private lateinit var tableOrderPref: TableOrderPreference
+    private var isReorderMode = false
+    private lateinit var reorderBtn: ImageButton
+
+    private var headerView: View? = null
+    private var lastTopInset = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,422 +52,267 @@ class TableActivity : BaseActivity() {
 
         findViewById<FrameLayout>(R.id.view_sub).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        /// Title Controller with animated visibility
-        findViewById<FrameLayout>(R.id.common_title_table_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.tables_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_tab).elevation = (resources.getDimension(R.dimen.zero_elevation))
-        findViewById<ScrollView>(R.id.table_scroll).viewTreeObserver
-            .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
-                private var isTitleVisible = false // Track animation state
-
-                override fun onScrollChanged() {
-                    val scrollY = findViewById<ScrollView>(R.id.table_scroll).scrollY
-                    val threshold = 150
-
-                    val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_table_color)
-                    val titleText = findViewById<TextView>(R.id.tables_title)
-                    val titleDownstateText = findViewById<TextView>(R.id.tables_title_downstate)
-                    val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_tab)
-
-                    if (scrollY > threshold) {
-                        if (!isTitleVisible) {
-                            TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
-                            TitleBarAnimator.animateVisibility(titleText, true)
-                            TitleBarAnimator.animateVisibility(titleDownstateText, false)
-                            titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
-                            isTitleVisible = true
-                        }
-                    } else {
-                        if (isTitleVisible) {
-                            TitleBarAnimator.animateVisibility(titleColorBackground, false)
-                            TitleBarAnimator.animateVisibility(titleText, false)
-                            TitleBarAnimator.animateVisibility(titleDownstateText, true)
-                            titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
-                            isTitleVisible = false
-                        }
-                    }
-                }
-            })
-
-        tableListeners()
-        mostUsedBar()
+        tableOrderPref = TableOrderPreference(this)
+        setupRecyclerView()
+        setupTitleBar()
 
         findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
             this.onBackPressed()
         }
-        //Update tables depending on PRO or Not:
+
+        reorderBtn = findViewById(R.id.reorder_btn)
+        reorderBtn.setOnClickListener {
+            toggleReorderMode()
+        }
+    }
+
+    private fun setupRecyclerView() {
+        recyclerView = findViewById(R.id.tables_recycler_view)
+        
         val proPref = ProVersion(this)
         val proPrefValue = proPref.getValue()
-        if (proPrefValue == 1) {
-            findViewById<TextView>(R.id.pro_poi_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_nuc_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_con_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_geo_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_emi_text).visibility = View.VISIBLE
+        
+        val tables = getTableItems(proPrefValue)
+        val tablesWithHeader = mutableListOf(TableItem("header", 0, 0))
+        tablesWithHeader.addAll(tables)
+        
+        adapter = TableAdapter(this, tablesWithHeader, this)
+        adapter.setHeaderBindingAction { view ->
+            headerView = view
+            applyHeaderInsets(view, lastTopInset)
+            mostUsedBar(view)
         }
-        if (proPrefValue == 100) {
-            findViewById<TextView>(R.id.pro_poi_text).visibility = View.GONE
-            findViewById<TextView>(R.id.pro_nuc_text).visibility = View.GONE
-            findViewById<TextView>(R.id.pro_con_text).visibility = View.GONE
-            findViewById<TextView>(R.id.pro_geo_text).visibility = View.GONE
-            findViewById<TextView>(R.id.pro_emi_text).visibility = View.GONE
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        recyclerView.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
+        recyclerView.dragListener = onItemDragListener
+        recyclerView.longPressToStartDragging = true // Require long press to start drag, preventing conflicts with scrolling
+    }
+    
+    private val onItemDragListener = object : OnItemDragListener<TableItem> {
+        override fun onItemDragged(previousPosition: Int, newPosition: Int, item: TableItem) {
+            // Item is being dragged
+        }
+
+        override fun onItemDropped(initialPosition: Int, finalPosition: Int, item: TableItem) {
+            // Item has been dropped, save the new order
+            // Adjust for header if necessary, but library might handle dataSet directly
+            saveTableOrder()
+        }
+    }
+
+    private fun getTableItems(proPrefValue: Int): List<TableItem> {
+        val defaultTables = mutableListOf(
+            TableItem("iso", R.string.isotopes_title, R.string.isotopes_table_description, false, 0),
+            TableItem("phi", R.string.table_ph, R.string.table_ph_text, false, 1),
+            TableItem("ele", R.string.table_electrochemical, R.string.table_electrochemical_text, false, 2),
+            TableItem("eqe", R.string.table_equations, R.string.table_equations_text, false, 3),
+            TableItem("ion", R.string.table_ionization, R.string.table_ionization_text, false, 4),
+            TableItem("sol", R.string.table_solubility, R.string.table_solubility_text, false, 5),
+            TableItem("poi", R.string.table_poisson, R.string.table_poisson_text, proPrefValue == 1, 6),
+            TableItem("nuc", R.string.table_nuclide, R.string.table_nuclide_text, proPrefValue == 1, 7),
+            TableItem("con", R.string.constants_tite, R.string.table_constants_text, proPrefValue == 1, 8),
+            TableItem("geo", R.string.table_geology, R.string.table_geology_text, proPrefValue == 1, 9),
+            TableItem("emi", R.string.emission_title, R.string.emission_text, proPrefValue == 1, 10)
+        )
+
+        val savedOrder = tableOrderPref.getOrder()
+        if (savedOrder.isNotEmpty()) {
+            val orderedTables = savedOrder.mapNotNull { id ->
+                defaultTables.find { it.id == id }
+            }
+            val missingTables = defaultTables.filter { table ->
+                orderedTables.none { it.id == table.id }
+            }
+            return orderedTables + missingTables
+        }
+
+        return defaultTables
+    }
+
+    private fun saveTableOrder() {
+        // Filter out the header before saving
+        val currentOrder = adapter.dataSet.filter { it.id != "header" }.map { it.id }
+        tableOrderPref.saveOrder(currentOrder)
+    }
+
+    private fun toggleReorderMode() {
+        isReorderMode = !isReorderMode
+        adapter.setReorderMode(isReorderMode)
+        
+        if (isReorderMode) {
+            reorderBtn.setImageResource(R.drawable.ic_check_2)
+            val typedValue = android.util.TypedValue()
+            theme.resolveAttribute(R.attr.colorAccent, typedValue, true)
+            reorderBtn.setColorFilter(typedValue.data)
+            reorderBtn.alpha = 1.0f
+        } else {
+            reorderBtn.setImageResource(R.drawable.ic_edit)
+            reorderBtn.clearColorFilter()
+            reorderBtn.alpha = 1.0f
+            saveTableOrder()
+        }
+    }
+
+    override fun onTableItemClick(item: TableItem) {
+        if (isReorderMode) return
+
+        val proPref = ProVersion(this)
+        val proPrefValue = proPref.getValue()
+
+        val activityClass = when (item.id) {
+            "iso" -> IsotopesActivityExperimental::class.java
+            "phi" -> phActivity::class.java
+            "ele" -> ElectrodeActivity::class.java
+            "eqe" -> EquationsActivity::class.java
+            "ion" -> IonActivity::class.java
+            "sol" -> SolubilityActivity::class.java
+            "poi" -> if (proPrefValue == 100) PoissonActivity::class.java else ProActivity::class.java
+            "nuc" -> if (proPrefValue == 100) NuclideActivity::class.java else ProActivity::class.java
+            "con" -> if (proPrefValue == 100) ConstantsActivity::class.java else ProActivity::class.java
+            "geo" -> if (proPrefValue == 100) GeologyActivity::class.java else ProActivity::class.java
+            "emi" -> if (proPrefValue == 100) EmissionActivity::class.java else ProActivity::class.java
+            else -> return
+        }
+
+        val intent = Intent(this, activityClass)
+        startActivity(intent)
+    }
+
+    private fun setupTitleBar() {
+        /// Title Controller with animated visibility
+        findViewById<FrameLayout>(R.id.common_title_table_color).visibility = View.VISIBLE
+        findViewById<TextView>(R.id.tables_title).visibility = View.INVISIBLE
+        findViewById<FrameLayout>(R.id.common_title_back_tab).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        
+        var totalScrollY = 0
+        var isTitleVisible = false // Track animation state
+
+        recyclerView.scrollListener = object : OnListScrollListener {
+            override fun onListScrollStateChanged(scrollState: OnListScrollListener.ScrollState) {}
+
+            override fun onListScrolled(scrollDirection: OnListScrollListener.ScrollDirection, distance: Int) {
+                if (scrollDirection == OnListScrollListener.ScrollDirection.DOWN) {
+                    totalScrollY += distance
+                } else if (scrollDirection == OnListScrollListener.ScrollDirection.UP) {
+                    totalScrollY -= distance
+                }
+
+                val threshold = 150
+                val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_table_color)
+                val titleText = findViewById<TextView>(R.id.tables_title)
+                val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_tab)
+
+                // Header view might contain the downstate title now
+                val headerView = recyclerView.findViewHolderForAdapterPosition(0)?.itemView
+                val titleDownstateText = headerView?.findViewById<TextView>(R.id.tables_title_downstate)
+
+                if (totalScrollY > threshold) {
+                    if (!isTitleVisible) {
+                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
+                        TitleBarAnimator.animateVisibility(titleText, true)
+                        titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, false) }
+                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
+                        isTitleVisible = true
+                    }
+                } else {
+                    if (isTitleVisible) {
+                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
+                        TitleBarAnimator.animateVisibility(titleText, false)
+                        titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, true) }
+                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
+                        isTitleVisible = false
+                    }
+                }
+            }
         }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-            val params = findViewById<FrameLayout>(R.id.common_title_back_tab).layoutParams as ViewGroup.LayoutParams
-            params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            findViewById<FrameLayout>(R.id.common_title_back_tab).layoutParams = params
+        lastTopInset = top
+        val params = findViewById<FrameLayout>(R.id.common_title_back_tab).layoutParams as ViewGroup.LayoutParams
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        findViewById<FrameLayout>(R.id.common_title_back_tab).layoutParams = params
 
-            val params2 = findViewById<TextView>(R.id.tables_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
-            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
-            findViewById<TextView>(R.id.tables_title_downstate).layoutParams = params2
+        headerView?.let {
+            applyHeaderInsets(it, top)
+        }
     }
 
-    private fun mostUsedBar() {
+    private fun applyHeaderInsets(view: View, top: Int) {
+        val titleDownstate = view.findViewById<TextView>(R.id.tables_title_downstate)
+        val params = titleDownstate.layoutParams as ViewGroup.MarginLayoutParams
+        params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        titleDownstate.layoutParams = params
+    }
+
+    private fun mostUsedBar(rootView: View) {
         val mostUsedPreference = MostUsedPreference(this)
         val mostUsedPrefValue = mostUsedPreference.getValue()
         val proPref = ProVersion(this)
         val proPrefValue = proPref.getValue()
 
-        val regex = Regex("(\\w{3})=(\\d.\\d)")
+        val regex = Regex("(\\w{3})=(\\d\\.\\d)")
         val matches = regex.findAll(mostUsedPrefValue).map { it.groups[1]!!.value to it.groups[2]!!.value.toDouble() }.toList()
         val sortedValues = matches.sortedByDescending { it.second }
 
-        val textView1: TextView = findViewById(R.id.most_1)
-        val textView2: TextView = findViewById(R.id.most_2)
-        val textView3: TextView = findViewById(R.id.most_3)
-        val textView4: TextView = findViewById(R.id.most_4)
-        val textView5: TextView = findViewById(R.id.most_5)
-        val textView6: TextView = findViewById(R.id.most_6)
-        val textView7: TextView = findViewById(R.id.most_7)
-        val textView8: TextView = findViewById(R.id.most_8)
-        val textView9: TextView = findViewById(R.id.most_9)
-        val textView10: TextView = findViewById(R.id.most_10)
-        val textView11: TextView = findViewById(R.id.most_11)
-
-
-        val textViewList = listOf(textView1, textView2, textView3, textView4, textView5, textView6, textView7, textView8, textView9, textView10, textView11)
+        val textViewList = listOf<TextView>(
+            rootView.findViewById(R.id.most_1),
+            rootView.findViewById(R.id.most_2),
+            rootView.findViewById(R.id.most_3),
+            rootView.findViewById(R.id.most_4),
+            rootView.findViewById(R.id.most_5),
+            rootView.findViewById(R.id.most_6),
+            rootView.findViewById(R.id.most_7),
+            rootView.findViewById(R.id.most_8),
+            rootView.findViewById(R.id.most_9),
+            rootView.findViewById(R.id.most_10),
+            rootView.findViewById(R.id.most_11)
+        )
 
         sortedValues.forEachIndexed { index, pair ->
             if (index < textViewList.size) {
+                val textView = textViewList[index]
                 //Setup TextViews
-                if (pair.first == "geo") {textViewList[index].text = getString(R.string.geo)}
-                if (pair.first == "phi") {textViewList[index].text = getString(R.string.phi)}
-                if (pair.first == "eqe") {textViewList[index].text = getString(R.string.eqe)}
-                if (pair.first == "ion") {textViewList[index].text = getString(R.string.ion)}
-                if (pair.first == "sol") {textViewList[index].text = getString(R.string.sol)}
-                if (pair.first == "poi") {textViewList[index].text = getString(R.string.poi)}
-                if (pair.first == "nuc") {textViewList[index].text = getString(R.string.nuc)}
-                if (pair.first == "con") {textViewList[index].text = getString(R.string.con)}
-                if (pair.first == "ele") {textViewList[index].text = getString(R.string.ele)}
-                if (pair.first == "iso") {textViewList[index].text = getString(R.string.iso)}
-                if (pair.first == "emi") {textViewList[index].text = getString(R.string.emi)}
+                textView.text = when (pair.first) {
+                    "geo" -> getString(R.string.geo)
+                    "phi" -> getString(R.string.phi)
+                    "eqe" -> getString(R.string.eqe)
+                    "ion" -> getString(R.string.ion)
+                    "sol" -> getString(R.string.sol)
+                    "poi" -> getString(R.string.poi)
+                    "nuc" -> getString(R.string.nuc)
+                    "con" -> getString(R.string.con)
+                    "ele" -> getString(R.string.ele)
+                    "iso" -> getString(R.string.iso)
+                    "emi" -> getString(R.string.emi)
+                    else -> ""
+                }
 
-                //Setup clickListener for non-pro
-                if (proPrefValue==1) {
-                    textViewList[index].setOnClickListener {
-                        if (pair.first == "iso") {
-                            val activity = IsotopesActivityExperimental::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "phi") {
-                            val activity = phActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "eqe") {
-                            val activity = EquationsActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "ion") {
-                            val activity = IonActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "sol") {
-                            val activity = SolubilityActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "ele") {
-                            val activity = ElectrodeActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "poi") {
-                            val activity = ProActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "nuc") {
-                            val activity = ProActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "con") {
-                            val activity = ProActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "geo") {
-                            val activity = ProActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "emi") {
-                            val activity = ProActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
+                textView.setOnClickListener {
+                    val activityClass = when (pair.first) {
+                        "iso" -> IsotopesActivityExperimental::class.java
+                        "phi" -> phActivity::class.java
+                        "eqe" -> EquationsActivity::class.java
+                        "ion" -> IonActivity::class.java
+                        "sol" -> SolubilityActivity::class.java
+                        "ele" -> ElectrodeActivity::class.java
+                        "poi" -> if (proPrefValue == 100) PoissonActivity::class.java else ProActivity::class.java
+                        "nuc" -> if (proPrefValue == 100) NuclideActivity::class.java else ProActivity::class.java
+                        "con" -> if (proPrefValue == 100) ConstantsActivity::class.java else ProActivity::class.java
+                        "geo" -> if (proPrefValue == 100) GeologyActivity::class.java else ProActivity::class.java
+                        "emi" -> if (proPrefValue == 100) EmissionActivity::class.java else ProActivity::class.java
+                        else -> null
+                    }
+                    activityClass?.let {
+                        val intent = Intent(this, it)
+                        startActivity(intent)
                     }
                 }
-                //Setup clickListener for pro
-                if (proPrefValue==100) {
-                    textViewList[index].setOnClickListener {
-                        if (pair.first == "iso") {
-                            val activity = IsotopesActivityExperimental::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "phi") {
-                            val activity = phActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "eqe") {
-                            val activity = EquationsActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "ion") {
-                            val activity = IonActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "sol") {
-                            val activity = SolubilityActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "ele") {
-                            val activity = ElectrodeActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "poi") {
-                            val activity = PoissonActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "nuc") {
-                            val activity = NuclideActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "con") {
-                            val activity = ConstantsActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "geo") {
-                            val activity = GeologyActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                        if (pair.first == "emi") {
-                            val activity = EmissionActivity::class.java
-                            val intent = Intent(this, activity)
-                            startActivity(intent)
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun tableListeners() {
-        findViewById<FrameLayout>(R.id.sol_table).setOnClickListener {
-            val intent = Intent(this, SolubilityActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.iso_table).setOnClickListener {
-            val intent = Intent(this, IsotopesActivityExperimental::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.iso_button).setOnClickListener {
-            val intent = Intent(this, IsotopesActivityExperimental::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.sol_button).setOnClickListener {
-            val intent = Intent(this, SolubilityActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.ele_table).setOnClickListener {
-            val intent = Intent(this, ElectrodeActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.ele_button).setOnClickListener {
-            val intent = Intent(this, ElectrodeActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.equ_table).setOnClickListener {
-            val intent = Intent(this, EquationsActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.equ_button).setOnClickListener {
-            val intent = Intent(this, EquationsActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.ion_table).setOnClickListener {
-            val intent = Intent(this, IonActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.ion_button).setOnClickListener {
-            val intent = Intent(this, IonActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.nuc_table).setOnClickListener {
-            val intent = Intent(this, NuclideActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.nuc_button).setOnClickListener {
-            val intent = Intent(this, NuclideActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.ph_table).setOnClickListener {
-            val intent = Intent(this, phActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<TextView>(R.id.ph_button).setOnClickListener {
-            val intent = Intent(this, phActivity::class.java)
-            startActivity(intent)
-        }
-        findViewById<FrameLayout>(R.id.poi_table).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, PoissonActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<TextView>(R.id.poi_button).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, PoissonActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<FrameLayout>(R.id.nuc_table).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, NuclideActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<TextView>(R.id.nuc_button).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, NuclideActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<FrameLayout>(R.id.con_table).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, ConstantsActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<TextView>(R.id.con_button).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, ConstantsActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<FrameLayout>(R.id.geo_table).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, GeologyActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<TextView>(R.id.geo_button).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, GeologyActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<FrameLayout>(R.id.emi_table).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, EmissionActivity::class.java)
-                startActivity(intent)
-            }
-        }
-        findViewById<TextView>(R.id.emi_button).setOnClickListener {
-            val proPref = ProVersion(this)
-            val proPrefValue = proPref.getValue()
-            if (proPrefValue == 1) {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
-            }
-            if (proPrefValue == 100) {
-                val intent = Intent(this, EmissionActivity::class.java)
-                startActivity(intent)
             }
         }
     }
 
 }
-
 
 

@@ -69,6 +69,7 @@
 
         <!-- Container with center icon -->
         <LinearLayout
+            android:id="@+id/header_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -112,6 +113,7 @@
     </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/description_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -167,6 +169,7 @@
         </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/english_name_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -198,6 +201,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/year_discovered_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -230,6 +234,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/discovered_by_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -261,6 +266,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/group_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -292,6 +298,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/appearance_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -323,6 +330,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/electrons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
@@ -355,6 +363,7 @@
     </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/isotope_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
