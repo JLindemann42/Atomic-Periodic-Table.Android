@@ -98,6 +98,101 @@
     <string name="celsius" translatable="false" >Celsius</string>
     <string name="fahrenheit" translatable="false" >Fahrenheit</string>
     <string name="show_boiling_point" >Show Boiling Point</string>
+
+    <!-- AI Chat Panel -->
+    <string name="ask_atomic">Ask Atomic</string>
+    <string name="ai_hint">Ask me anything...</string>
+    <string name="ai_lang_switched">AI language switched to: %1$s 🌐</string>
+    <string name="ai_no_data">Hmm, I couldn\'t find information about that. Try asking about an element like \'oxygen\' or \'gold\'!</string>
+    <string name="ai_greeting">Hey there! 👋 I\'m your chemistry buddy. Ask me anything about elements!</string>
+    <string name="ai_encouragement">Great question! 🌟</string>
+    <string name="ai_comparing_title">Comparing %1$s:</string>
+    <string name="ai_higher_than">%1$s has a higher %2$s than %3$s.</string>
+    <string name="ai_same_value">Both have the same %1$s!</string>
+    <string name="ai_property_is">%1$s\'s %2$s is %3$s.</string>
+    <string name="ai_recap_is">Just to recap, %1$s\'s %2$s is %3$s.</string>
+    <string name="ai_no_property_data">I\'m sorry, I don\'t have the data for %1$s\'s %2$s right now.</string>
+    <string name="ai_appears_as">%1$s appears as: %2$s</string>
+    <string name="ai_discovered_by">%1$s was discovered by %2$s in %3$s.</string>
+    <string name="ai_discovered_in">%1$s was discovered in %2$s.</string>
+    <string name="ai_radioactive_yes">%1$s is radioactive: %2$s</string>
+    <string name="ai_radioactive_no">%1$s is generally considered stable and not radioactive.</string>
+    <string name="ai_molar_mass_of">The molar mass of %1$s is %2$s.</string>
+    <string name="ai_quiz_correct">✨ **Correct!** Well done. The answer was indeed **%1$s**. Ready for another question?</string>
+    <string name="ai_quiz_wrong">Not quite! The answer was **%1$s**. Want to try another one? Just say \'quiz\'!</string>
+    <string name="ai_quiz_start">I\'m thinking of an element. Its symbol is **%1$s**. What\'s its name?</string>
+    <string name="ai_quiz_atomic">Which element has the atomic number **%1$s**?</string>
+    <string name="ai_quiz_history">This element was discovered by **%1$s** in **%2$s**. Can you guess which one it is?</string>
+    <string name="ai_superlative_result">The element with the %1$s %2$s is **%3$s**, with a value of %4$s.</string>
+    <string name="ai_trend_electronegativity">Electronegativity generally increases from left to right across a period and decreases down a group. Fluorine is the champion here!</string>
+    <string name="ai_trend_radius">Atomic radius decreases across a period (left to right) because the nucleus pulls electrons tighter, and increases down a group as more shells are added.</string>
+    <string name="ai_trend_ionization">Ionization energy increases across a period and decreases down a group. It gets harder to pull away an electron as you move right!</string>
+    <string name="ai_trend_metallic">Metallic character decreases across a period and increases down a group. The most metallic elements are at the bottom left (like Francium).</string>
+    <string name="ai_trend_general">Periodic trends are patterns in the properties of elements! Which trend are you curious about: Atomic Radius, Electronegativity, or Ionization Energy?</string>
+    <string name="ai_formula_h2o">H2O is Water! It\'s made of two Hydrogen atoms and one Oxygen atom.</string>
+    <string name="ai_formula_co2">CO2 is Carbon Dioxide. It\'s composed of one Carbon atom and two Oxygen atoms.</string>
+    <string name="ai_formula_nacl">NaCl is Sodium Chloride, better known as table salt! It combines Sodium and Chlorine.</string>
+    <string name="ai_formula_o2">O2 is the oxygen we breathe! It\'s two oxygen atoms bonded together.</string>
+    <string name="ai_formula_ch4">CH4 is Methane, the simplest alkane and a powerful greenhouse gas. It\'s one Carbon and four Hydrogens.</string>
+    <string name="ai_formula_nh3">NH3 is Ammonia, often used in cleaning products. It\'s one Nitrogen and three Hydrogens.</string>
+    <string name="ai_formula_c6h12o6">C6H12O6 is Glucose, a simple sugar that provides energy for living things. It has 6 Carbons, 12 Hydrogens, and 6 Oxygens.</string>
+    <string name="ai_formula_h2so4">H2SO4 is Sulfuric Acid, a very strong and important industrial acid. It contains Hydrogen, Sulfur, and Oxygen.</string>
+    <string name="ai_formula_hcl">HCl is Hydrochloric Acid, which is actually found in your stomach to help digestion!</string>
+    <string name="ai_formula_generic">I recognize that looks like a chemical formula, but I\'m still learning about molecules! Ask me about the individual elements.</string>
+    <string name="ai_series_alkali">Alkali metals are in Group 1. They are very reactive and have one electron in their outer shell. Examples include Lithium, Sodium, and Potassium.</string>
+    <string name="ai_series_halogen">Halogens are in Group 17. They are highly reactive nonmetals. Fluorine and Chlorine are the most famous ones!</string>
+    <string name="ai_series_noble_gas">Noble gases are in Group 18. They are very stable and rarely react with other elements because their outer shells are full.</string>
+    <string name="ai_series_lanthanide">Lanthanides are the 15 elements with atomic numbers 57 through 71. They are also called \'rare earth elements\'.</string>
+    <string name="ai_series_actinide">Actinides are the 15 elements with atomic numbers 89 through 103. They are all radioactive!</string>
+    <string name="ai_series_transition">Transition metals are the elements in groups 3-12. They are good conductors and often form colorful compounds.</string>
+    <string name="ai_series_metalloid">Metalloids have properties of both metals and nonmetals. They are found along the \'staircase\' of the periodic table.</string>
+    <string name="ai_series_generic">I\'m familiar with that series! They have unique chemical properties. Which specific element in that series would you like to know about?</string>
+    <string name="ai_block_s">The s-block consists of the first two groups: alkali metals, alkaline earth metals, plus hydrogen and helium.</string>
+    <string name="ai_block_p">The p-block contains groups 13 to 18, including all nonmetals (except H and He), metalloids, and post-transition metals.</string>
+    <string name="ai_block_d">The d-block contains the transition metals from groups 3 to 12.</string>
+    <string name="ai_block_f">The f-block contains the lanthanide and actinide series, usually shown below the main table.</string>
+    <string name="ai_block_generic">I\'m not sure which block you mean. I know about s, p, d, and f blocks!</string>
+    <string name="ai_molar_mass_generic">I can help with molar masses! Try asking \"What is the molar mass of H2O?\"</string>
+    <string name="ai_superlative_generic">That\'s a great question! I can find the densest, heaviest, or most electronegative elements. Which one would you like to know?</string>
+    <string name="ai_superlative_no_calculate">I couldn\'t calculate that right now.</string>
+    <string name="highest">highest</string>
+    <string name="lowest">lowest</string>
+    <string name="ai_element_overview_intro">%1$s %2$s (%3$s) is a fascinating element! It\'s atomic number %4$s and belongs to the %5$s group.</string>
+    <string name="ai_element_overview_series"> It is part of the %1$s series.</string>
+    <string name="ai_element_overview_appearance"> It typically appears as %1$s.</string>
+    <string name="ai_element_overview_isotopes"> An atom of %1$s contains %2$s protons, %3$s electrons, and usually %4$s neutrons.</string>
+    <string name="ai_element_overview_electrons"> It has %1$s electrons orbiting its nucleus.</string>
+    <string name="ai_technical_mass"> Its precise atomic mass is %1$s.</string>
+    <string name="ai_technical_config"> It has an electron configuration of %1$s.</string>
+    <string name="ai_all_covered">We\'ve covered a lot about %1$s! Did you know? </string>
+    <string name="ai_compare_all_same">\n• **%1$s:** All are %2$s%3$s.</string>
+    <string name="ai_compare_mixed_item">%1$s is %2$s%3$s</string>
+    <string name="ai_common_isotopes">Common isotopes for %1$s include %2$s.</string>
+    <string name="ai_isotope_half_life"> It has a half-life of %1$s and decays via %2$s.</string>
+    <string name="ai_another_isotope"> Another isotope is %1$s.</string>
+    <string name="ai_check_isotope_table">%1$s has various isotopes. You can check the detailed isotope table for a full list!</string>
+    <string name="ai_radius_details">Here are the radius details for %1$s:</string>
+    <string name="ai_thermal_properties">Thermal properties of %1$s:</string>
+    <string name="ai_elec_mag_properties">Electrical &amp; Magnetic properties of %1$s:</string>
+    <string name="ai_identifiers_for">Identifiers for %1$s:</string>
+    <string name="ai_valence_alkali">As an Alkali Metal, it has **1 valence electron** in its outer shell.</string>
+    <string name="ai_valence_alkaline">As an Alkaline Earth Metal, it has **2 valence electrons**.</string>
+    <string name="ai_valence_halogen">As a Halogen, it has **7 valence electrons** and is very eager to gain one more!</string>
+    <string name="ai_valence_noble_helium">Helium has **2 valence electrons**, completing its only shell.</string>
+    <string name="ai_valence_noble_other">It has a full outer shell of **8 valence electrons**, making it very stable.</string>
+    <string name="ai_oxidation_states">%1$s has several possible oxidation states.</string>
+    <string-array name="ai_facts">
+        <item>Did you know? Oxygen is the most abundant element in Earth\'s crust!</item>
+        <item>Fun fact: Gold never rusts or corrodes. It stays shiny forever!</item>
+        <item>Here\'s something cool: Hydrogen is the most abundant element in the universe! 🌌</item>
+        <item>Amazing: Carbon is the basis for all known life on Earth!</item>
+        <item>Interesting: Helium is the only element that doesn\'t solidify under normal pressure!</item>
+        <item>Fun fact: Mercury is the only element that is liquid at room temperature! 💧</item>
+        <item>Did you know? The element francium is so radioactive it would vaporize instantly!</item>
+        <item>Cool: Diamond and graphite are both made of pure carbon but have completely different properties!</item>
+        <item>Amazing: A single ounce of gold can be beaten into a sheet 300 square feet in area!</item>
+        <item>Interesting: Neon doesn\'t actually form any chemical compounds under normal conditions!</item>
+    </string-array>
     <string name="show_melting_point" >Show Melting Point</string>
     <string name="show_atomic_radius_empirical" >Show Atomic Radius (Empirical)</string>
     <string name="show_atomic_radius_calculated" >Show Atomic Radius (Calculated)</string>
@@ -381,8 +476,6 @@
 
     <string name="dictionary" >Dictionary</string>
     <string name="dictionary_search" >Search For Dictionary Item</string>
-    <string name="ask_atomic">Ask Atomic</string>
-
 
     <string name="element_info_title" >Element Information</string>
 

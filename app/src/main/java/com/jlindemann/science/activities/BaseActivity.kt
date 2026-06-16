@@ -22,6 +22,7 @@ import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.utils.Pasteur
 import com.jlindemann.science.utils.LocaleUtil
 import com.jlindemann.science.utils.AnalyticsHelper
+import androidx.core.view.WindowInsetsCompat
 import java.util.*
 
 abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListener {
@@ -91,14 +92,19 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
     open fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) = Unit
 
     override fun onApplyWindowInsets(v: View, insets: WindowInsets): WindowInsets {
-        Pasteur.info(TAG, "height: ${insets.systemWindowInsetBottom}")
+        val insetsCompat = WindowInsetsCompat.toWindowInsetsCompat(insets)
+        val systemBars = insetsCompat.getInsets(WindowInsetsCompat.Type.systemBars())
+        val ime = insetsCompat.getInsets(WindowInsetsCompat.Type.ime())
+        
+        // Report system bars + IME height to subclasses
         onApplySystemInsets(
-            insets.systemWindowInsetTop,
-            insets.systemWindowInsetBottom,
-            insets.systemWindowInsetLeft,
-            insets.systemWindowInsetRight
+            systemBars.top,
+            ime.bottom.coerceAtLeast(systemBars.bottom),
+            systemBars.left,
+            systemBars.right
         )
-        return insets.consumeSystemWindowInsets()
+        // Return original insets to allow children to handle them (e.g. for smooth animations)
+        return insets
     }
 
     private fun checkAchievements() {

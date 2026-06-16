@@ -299,6 +299,84 @@
     <string name="dictionary">शब्दकोश</string>
     <string name="dictionary_search">शब्दकोश वस्तु खोजें</string>
     <string name="element_info_title">तत्व जानकारी</string>
+
+    <!-- AI Chat Panel -->
+    <string name="ask_atomic">एटॉमिक से पूछें</string>
+    <string name="ai_hint">मुझसे कुछ भी पूछें...</string>
+    <string name="ai_lang_switched">AI भाषा बदलकर यह कर दी गई है: %1$s 🌐</string>
+    <string name="ai_no_data">हम्म, मुझे इसके बारे में जानकारी नहीं मिली। \'ऑक्सीजन\' या \'गोल्ड\' जैसे किसी तत्व के बारे में पूछने का प्रयास करें!</string>
+    <string name="ai_greeting">नमस्ते! 👋 मैं आपका केमिस्ट्री बडी हूँ। तत्वों के बारे में मुझसे कुछ भी पूछें!</string>
+    <string name="ai_encouragement">अच्छा सवाल! 🌟</string>
+    <string name="ai_comparing_title">%1$s की तुलना:</string>
+    <string name="ai_higher_than">%1$s का %2$s, %3$s से अधिक है।</string>
+    <string name="ai_same_value">दोनों का %1$s समान है!</string>
+    <string name="ai_property_is">%1$s का %2$s, %3$s है।</string>
+    <string name="ai_recap_is">संक्षेप में, %1$s का %2$s, %3$s है।</string>
+    <string name="ai_no_property_data">क्षमा करें, मेरे पास अभी %1$s के %2$s का डेटा नहीं है।</string>
+    <string name="ai_appears_as">%1$s ऐसा दिखता है: %2$s</string>
+    <string name="ai_discovered_by">%1$s की खोज %2$s ने %3$s में की थी।</string>
+    <string name="ai_discovered_in">%1$s की खोज %2$s में हुई थी।</string>
+    <string name="ai_radioactive_yes">%1$s रेडियोधर्मी है: %2$s</string>
+    <string name="ai_radioactive_no">%1$s आम तौर पर स्थिर माना जाता है और रेडियोधर्मी नहीं है।</string>
+    <string name="ai_molar_mass_of">%1$s का मोलर द्रव्यमान %2$s है।</string>
+    <string name="ai_quiz_correct">✨ **सही!** बहुत बढ़िया। उत्तर वास्तव में **%1$s** था। अगले प्रश्न के लिए तैयार हैं?</string>
+    <string name="ai_quiz_wrong">बिल्कुल नहीं! उत्तर **%1$s** था। क्या आप एक और प्रयास करना चाहते हैं? बस \'quiz\' कहें!</string>
+    <string name="ai_quiz_start">मैं एक तत्व के बारे में सोच रहा हूँ। इसका प्रतीक **%1$s** है। इसका नाम क्या है?</string>
+    <string name="ai_quiz_atomic">किस तत्व का परमाणु क्रमांक **%1$s** है?</string>
+    <string name="ai_quiz_history">इस तत्व की खोज **%1$s** द्वारा **%2$s** में की गई थी। क्या आप अनुमान लगा सकते हैं कि यह कौन सा है?</string>
+    <string name="ai_superlative_result">%1$s %2$s वाला तत्व **%3$s** है, जिसका मान %4$s है।</string>
+    <string name="ai_trend_electronegativity">वैद्युतीय ऋणात्मकता (Electronegativity) आम तौर पर एक आवर्त (Period) में बाएं से दाएं बढ़ती है और एक समूह (Group) में नीचे की ओर घटती है। फ्लोरीन यहाँ का चैंपियन है!</string>
+    <string name="ai_trend_radius">परमाणु त्रिज्या एक आवर्त में (बाएं से दाएं) घटती है क्योंकि नाभिक इलेक्ट्रॉनों को अधिक मजबूती से खींचता है, और एक समूह में नीचे की ओर बढ़ती है क्योंकि अधिक कोश (Shells) जुड़ते जाते हैं।</string>
+    <string name="ai_trend_ionization">आयनन ऊर्जा (Ionization energy) एक आवर्त में बढ़ती है और समूह में नीचे की ओर घटती है। जैसे-जैसे आप दाईं ओर बढ़ते हैं, इलेक्ट्रॉन को बाहर निकालना कठिन होता जाता है!</string>
+    <string name="ai_trend_metallic">धात्विक गुण एक आवर्त में घटता है और समूह में नीचे की ओर बढ़ता है। सबसे धात्विक तत्व नीचे बाईं ओर (जैसे फ्रांसियम) पाए जाते हैं।</string>
+    <string name="ai_trend_general">आवर्त प्रवृत्तियाँ (Periodic trends) तत्वों के गुणों में एक पैटर्न हैं! आप किस प्रवृत्ति के बारे में जानना चाहते हैं: परमाणु त्रिज्या, वैद्युतीय ऋणात्मकता, या आयनन ऊर्जा?</string>
+    <string name="ai_formula_h2o">H2O पानी है! यह दो हाइड्रोजन परमाणुओं और एक ऑक्सीजन परमाणु से बना है।</string>
+    <string name="ai_formula_co2">CO2 कार्बन डाइऑक्साइड है। यह एक कार्बन परमाणु और दो ऑक्सीजन परमाणुओं से बना है।</string>
+    <string name="ai_formula_nacl">NaCl सोडियम क्लोराइड है, जिसे नमक के नाम से जाना जाता है! यह सोडियम और क्लोरीन को जोड़ता है।</string>
+    <string name="ai_formula_o2">O2 वह ऑक्सीजन है जिसमें हम सांस लेते हैं! यह एक साथ जुड़े दो ऑक्सीजन परमाणु हैं।</string>
+    <string name="ai_formula_ch4">CH4 मीथेन है, जो सबसे सरल अल्केन और एक शक्तिशाली ग्रीनहाउस गैस है। इसमें एक कार्बन और चार हाइड्रोजन होते हैं।</string>
+    <string name="ai_formula_nh3">NH3 अमोनिया है, जिसका उपयोग अक्सर सफाई उत्पादों में किया जाता है। इसमें एक नाइट्रोजन और तीन हाइड्रोजन होते हैं।</string>
+    <string name="ai_formula_c6h12o6">C6H12O6 ग्लूकोज है, एक साधारण शर्करा जो जीवित चीजों को ऊर्जा प्रदान करती है। इसमें 6 कार्बन, 12 हाइड्रोजन और 6 ऑक्सीजन होते हैं।</string>
+    <string name="ai_formula_h2so4">H2SO4 सल्फ्यूरिक एसिड है, जो एक बहुत शक्तिशाली और महत्वपूर्ण औद्योगिक एसिड है। इसमें हाइड्रोजन, सल्फर और ऑक्सीजन होते हैं।</string>
+    <string name="ai_formula_hcl">HCl हाइड्रोक्लोरिक एसिड है, जो वास्तव में आपके पेट में पाचन में मदद करने के लिए पाया जाता है!</string>
+    <string name="ai_formula_generic">मैं पहचानता हूँ कि यह एक रासायनिक सूत्र जैसा दिखता है, लेकिन मैं अभी भी अणुओं के बारे में सीख रहा हूँ! मुझसे अलग-अलग तत्वों के बारे में पूछें।</string>
+    <string name="ai_series_alkali">क्षार धातुएं (Alkali metals) समूह 1 में हैं। वे बहुत प्रतिक्रियाशील होती हैं और उनके बाहरी कोश में एक इलेक्ट्रॉन होता है। उदाहरणों में लिथियम, सोडियम और पोटेशियम शामिल हैं।</string>
+    <string name="ai_series_halogen">हैलोजन समूह 17 में हैं। वे अत्यधिक प्रतिक्रियाशील अधातुएं हैं। फ्लोरीन और क्लोरीन सबसे प्रसिद्ध हैं!</string>
+    <string name="ai_series_noble_gas">नोबल गैसें समूह 18 में हैं। वे बहुत स्थिर होती हैं और शायद ही कभी अन्य तत्वों के साथ प्रतिक्रिया करती हैं क्योंकि उनके बाहरी कोश भरे होते हैं।</string>
+    <string name="ai_series_lanthanide">लैंथेनाइड्स परमाणु क्रमांक 57 से 71 तक के 15 तत्व हैं। इन्हें \'दुर्लभ मृदा तत्व\' (Rare earth elements) भी कहा जाता है।</string>
+    <string name="ai_series_actinide">एक्टिनाइड्स परमाणु क्रमांक 89 से 103 तक के 15 तत्व हैं। वे सभी रेडियोधर्मी हैं!</string>
+    <string name="ai_series_transition">संक्रमण धातुएं (Transition metals) समूह 3-12 के तत्व हैं। वे अच्छे संवाहक होते हैं और अक्सर रंगीन यौगिक बनाते हैं।</string>
+    <string name="ai_series_metalloid">उपधातुओं (Metalloids) में धातुओं और अधातुओं दोनों के गुण होते हैं। वे आवर्त सारणी की \'सीढ़ी\' के साथ पाए जाते हैं।</string>
+    <string name="ai_series_generic">मैं उस श्रृंखला से परिचित हूँ! उनके अद्वितीय रासायनिक गुण हैं। आप उस श्रृंखला के किस विशिष्ट तत्व के बारे में जानना चाहेंगे?</string>
+    <string name="ai_block_s">s-ब्लॉक में पहले दो समूह होते हैं: क्षार धातुएं, क्षारीय मृदा धातुएं, साथ ही हाइड्रोजन और हीलियम।</string>
+    <string name="ai_block_p">p-ब्लॉक में समूह 13 से 18 शामिल हैं, जिनमें सभी अधातुएं (H और He को छोड़कर), उपधातुएं और उत्तर-संक्रमण धातुएं शामिल हैं।</string>
+    <string name="ai_block_d">d-ब्लॉक में समूह 3 से 12 तक की संक्रमण धातुएं होती हैं।</string>
+    <string name="ai_block_f">f-ब्लॉक में लैंथेनाइड और एक्टिनाइड श्रृंखला होती है, जो आमतौर पर मुख्य तालिका के नीचे दिखाई जाती है।</string>
+    <string name="ai_block_generic">मुझे यकीन नहीं है कि आपका मतलब किस ब्लॉक से है। मैं s, p, d और f ब्लॉक के बारे में जानता हूँ!</string>
+    <string name="ai_molar_mass_generic">मैं मोलर द्रव्यमान में मदद कर सकता हूँ! "H2O का मोलर द्रव्यमान क्या है?" पूछने का प्रयास करें।</string>
+    <string name="ai_superlative_generic">यह एक बहुत अच्छा सवाल है! मैं सबसे घने, सबसे भारी या सबसे अधिक वैद्युतीय ऋणात्मक तत्वों को ढूंढ सकता हूँ। आप किसे जानना चाहेंगे?</string>
+    <string name="ai_superlative_no_calculate">मैं अभी इसकी गणना नहीं कर सका।</string>
+    <string name="highest">उच्चतम</string>
+    <string name="lowest">न्यूनतम</string>
+    <string name="ai_element_overview_intro">%1$s %2$s (%3$s) एक दिलचस्प तत्व है! इसका परमाणु क्रमांक %4$s है और यह %5$s समूह से संबंधित है।</string>
+    <string name="ai_element_overview_series"> यह %1$s श्रृंखला का हिस्सा है।</string>
+    <string name="ai_element_overview_appearance"> यह आमतौर पर %1$s के रूप में दिखता है।</string>
+    <string name="ai_element_overview_isotopes"> %1$s के एक परमाणु में %2$s प्रोटॉन, %3$s इलेक्ट्रॉन और आमतौर पर %4$s न्यूट्रॉन होते हैं।</string>
+    <string name="ai_element_overview_electrons"> इसके नाभिक के चारों ओर %1$s इलेक्ट्रॉन चक्कर लगाते हैं।</string>
+    <string name="ai_technical_mass"> इसका सटीक परमाणु द्रव्यमान %1$s है।</string>
+    <string name="ai_technical_config"> इसका इलेक्ट्रॉन विन्यास %1$s है।</string>
+    <string-array name="ai_facts">
+        <item>क्या आप जानते हैं? पृथ्वी की पपड़ी में ऑक्सीजन सबसे प्रचुर मात्रा में पाया जाने वाला तत्व है!</item>
+        <item>मज़ेदार तथ्य: सोना कभी नहीं जंग खाता या खराब नहीं होता। यह हमेशा चमकदार रहता है!</item>
+        <item>यहाँ कुछ शानदार है: हाइड्रोजन ब्रह्मांड में सबसे प्रचुर मात्रा में पाया जाने वाला तत्व है! 🌌</item>
+        <item>अद्भुत: कार्बन पृथ्वी पर सभी ज्ञात जीवन का आधार है!</item>
+        <item>दिलचस्प: हीलियम एकमात्र ऐसा तत्व है जो सामान्य दबाव में ठोस नहीं होता!</item>
+        <item>मज़ेदार तथ्य: पारा एकमात्र ऐसा धातु तत्व है जो कमरे के तापमान पर तरल होता है! 💧</item>
+        <item>क्या आप जानते हैं? फ्रांसियम तत्व इतना रेडियोधर्मी है कि यह तुरंत वाष्पित हो जाएगा!</item>
+        <item>शानदार: हीरा और ग्रेफाइट दोनों शुद्ध कार्बन से बने होते हैं लेकिन उनके गुण पूरी तरह से अलग होते हैं!</item>
+        <item>अद्भुत: सोने के एक औंस को कूटकर 300 वर्ग फुट की चादर बनाई जा सकती है!</item>
+        <item>दिलचस्प: नियॉन वास्तव में सामान्य परिस्थितियों में कोई रासायनिक यौगिक नहीं बनाता है!</item>
+    </string-array>
     <string name="submit_data_issue">डेटा समस्या सबमिट करें</string>
     <string name="unit_converter_title">इकाई परिवर्तक</string>
     <string name="unit_enter_value">मान</string>

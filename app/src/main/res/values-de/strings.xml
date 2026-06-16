@@ -302,6 +302,84 @@
     <string name="dictionary">Wörterbuch</string>
     <string name="dictionary_search">Nach Wörterbucheintrag suchen</string>
     <string name="element_info_title">Elementinformationen</string>
+
+    <!-- AI Chat Panel -->
+    <string name="ask_atomic">Atomic fragen</string>
+    <string name="ai_hint">Frag mich alles...</string>
+    <string name="ai_lang_switched">AI-Sprache gewechselt zu: %1$s 🌐</string>
+    <string name="ai_no_data">Hmm, dazu konnte ich keine Informationen finden. Versuche es mit einem Element wie \'Sauerstoff\' oder \'Gold\'!</string>
+    <string name="ai_greeting">Hallo! 👋 Ich bin dein Chemie-Buddy. Frag mich alles über die Elemente!</string>
+    <string name="ai_encouragement">Gute Frage! 🌟</string>
+    <string name="ai_comparing_title">Vergleich von %1$s:</string>
+    <string name="ai_higher_than">%1$s hat eine höhere %2$s als %3$s.</string>
+    <string name="ai_same_value">Beide haben den gleichen Wert für %1$s!</string>
+    <string name="ai_property_is">Die %2$s von %1$s ist %3$s.</string>
+    <string name="ai_recap_is">Nochmal zur Erinnerung: Die %2$s von %1$s ist %3$s.</string>
+    <string name="ai_no_property_data">Es tut mir leid, ich habe momentan keine Daten für die %2$s von %1$s.</string>
+    <string name="ai_appears_as">%1$s sieht so aus: %2$s</string>
+    <string name="ai_discovered_by">%1$s wurde von %2$s im Jahr %3$s entdeckt.</string>
+    <string name="ai_discovered_in">%1$s wurde im Jahr %2$s entdeckt.</string>
+    <string name="ai_radioactive_yes">%1$s ist radioaktiv: %2$s</string>
+    <string name="ai_radioactive_no">%1$s gilt allgemein als stabil und nicht radioaktiv.</string>
+    <string name="ai_molar_mass_of">Die molare Masse von %1$s beträgt %2$s.</string>
+    <string name="ai_quiz_correct">✨ **Richtig!** Gut gemacht. Die Antwort war tatsächlich **%1$s**. Bereit für die nächste Frage?</string>
+    <string name="ai_quiz_wrong">Nicht ganz! Die Antwort war **%1$s**. Möchtest du es noch einmal versuchen? Sag einfach \'Quiz\'!</string>
+    <string name="ai_quiz_start">Ich denke an ein Element. Sein Symbol ist **%1$s**. Wie heißt es?</string>
+    <string name="ai_quiz_atomic">Welches Element hat die Ordnungszahl **%1$s**?</string>
+    <string name="ai_quiz_history">Dieses Element wurde von **%1$s** im Jahr **%2$s** entdeckt. Kannst du erraten, welches es ist?</string>
+    <string name="ai_superlative_result">Das Element mit der/dem %1$s %2$s ist **%3$s**, mit einem Wert von %4$s.</string>
+    <string name="ai_trend_electronegativity">Die Elektronegativität nimmt im Allgemeinen von links nach rechts innerhalb einer Periode zu und nimmt innerhalb einer Gruppe von oben nach unten ab. Fluor ist hier der Spitzenreiter!</string>
+    <string name="ai_trend_radius">Der Atomradius nimmt innerhalb einer Periode (von links nach rechts) ab, da der Kern die Elektronen stärker anzieht, und nimmt innerhalb einer Gruppe nach unten zu, da mehr Schalen hinzugefügt werden.</string>
+    <string name="ai_trend_ionization">Die Ionisierungsenergie nimmt innerhalb einer Periode zu und innerhalb einer Gruppe nach unten ab. Es wird schwieriger, ein Elektron zu entfernen, je weiter man sich nach rechts bewegt!</string>
+    <string name="ai_trend_metallic">Der metallische Charakter nimmt innerhalb einer Periode ab und innerhalb einer Gruppe nach unten zu. Die metallischsten Elemente befinden sich unten links (wie Francium).</string>
+    <string name="ai_trend_general">Periodische Trends sind Muster in den Eigenschaften der Elemente! Für welchen Trend interessierst du dich: Atomradius, Elektronegativität oder Ionisierungsenergie?</string>
+    <string name="ai_formula_h2o">H2O ist Wasser! Es besteht aus zwei Wasserstoffatomen und einem Sauerstoffatom.</string>
+    <string name="ai_formula_co2">CO2 ist Kohlendioxid. Es besteht aus einem Kohlenstoffatom und zwei Sauerstoffatomen.</string>
+    <string name="ai_formula_nacl">NaCl ist Natriumchlorid, besser bekannt als Kochsalz! Es kombiniert Natrium und Chlor.</string>
+    <string name="ai_formula_o2">O2 ist der Sauerstoff, den wir atmen! Es sind zwei aneinander gebundene Sauerstoffatome.</string>
+    <string name="ai_formula_ch4">CH4 ist Methan, das einfachste Alkan und ein starkes Treibhausgas. Es besteht aus einem Kohlenstoff- und vier Wasserstoffatomen.</string>
+    <string name="ai_formula_nh3">NH3 ist Ammoniak, das oft in Reinigungsmitteln verwendet wird. Es besteht aus einem Stickstoff- und drei Wasserstoffatomen.</string>
+    <string name="ai_formula_c6h12o6">C6H12O6 ist Glukose, ein einfacher Zucker, der Lebewesen Energie liefert. Es hat 6 Kohlenstoff-, 12 Wasserstoff- und 6 Sauerstoffatome.</string>
+    <string name="ai_formula_h2so4">H2SO4 ist Schwefelsäure, eine sehr starke und wichtige Industriesäure. Sie enthält Wasserstoff, Schwefel und Sauerstoff.</string>
+    <string name="ai_formula_hcl">HCl ist Salzsäure, die sogar in deinem Magen vorkommt, um bei der Verdauung zu helfen!</string>
+    <string name="ai_formula_generic">Ich erkenne, dass das wie eine chemische Formel aussieht, aber ich lerne noch etwas über Moleküle! Frag mich nach den einzelnen Elementen.</string>
+    <string name="ai_series_alkali">Alkalimetalle befinden sich in Gruppe 1. Sie sind sehr reaktiv und haben ein Elektron in ihrer Außenschale. Beispiele sind Lithium, Natrium und Kalium.</string>
+    <string name="ai_series_halogen">Halogene befinden sich in Gruppe 17. Sie sind hochreaktive Nichtmetalle. Fluor und Chlor sind die bekanntesten!</string>
+    <string name="ai_series_noble_gas">Edelgase befinden sich in Gruppe 18. Sie sind sehr stabil und reagieren selten mit anderen Elementen, da ihre Außenschalen voll sind.</string>
+    <string name="ai_series_lanthanide">Lanthanoide sind die 15 Elemente mit den Ordnungszahlen 57 bis 71. Sie werden auch als \'Seltenerdelemente\' bezeichnet.</string>
+    <string name="ai_series_actinide">Actinoide sind die 15 Elemente mit den Ordnungszahlen 89 bis 103. Sie sind alle radioaktiv!</string>
+    <string name="ai_series_transition">Übergangsmetalle sind die Elemente der Gruppen 3-12. Sie sind gute Leiter und bilden oft farbige Verbindungen.</string>
+    <string name="ai_series_metalloid">Metalloide haben sowohl Eigenschaften von Metallen als auch von Nichtmetallen. Sie befinden sich entlang der \'Treppe\' im Periodensystem.</string>
+    <string name="ai_series_generic">Ich kenne diese Serie! Sie haben einzigartige chemische Eigenschaften. Über welches spezifische Element in dieser Serie möchtest du etwas wissen?</string>
+    <string name="ai_block_s">Der s-Block besteht aus den ersten beiden Gruppen: Alkalimetalle, Erdalkalimetalle, plus Wasserstoff und Helium.</string>
+    <string name="ai_block_p">Der p-Block enthält die Gruppen 13 bis 18, einschließlich aller Nichtmetalle (außer H und He), Metalloide und Post-Übergangsmetalle.</string>
+    <string name="ai_block_d">Der d-Block enthält die Übergangsmetalle der Gruppen 3 bis 12.</string>
+    <string name="ai_block_f">Der f-Block enthält die Lanthanoiden- und Actinoiden-Serien, die normalerweise unter der Haupttabelle angezeigt werden.</string>
+    <string name="ai_block_generic">Ich bin mir nicht sicher, welchen Block du meinst. Ich kenne s-, p-, d- und f-Blöcke!</string>
+    <string name="ai_molar_mass_generic">Ich kann bei molaren Massen helfen! Frag mich zum Beispiel: "Wie hoch ist die molare Masse von H2O?"</string>
+    <string name="ai_superlative_generic">Das ist eine tolle Frage! Ich kann die dichtesten, schwersten oder elektronegativsten Elemente finden. Welches möchtest du wissen?</string>
+    <string name="ai_superlative_no_calculate">Das konnte ich gerade nicht berechnen.</string>
+    <string name="highest">höchste</string>
+    <string name="lowest">niedrigste</string>
+    <string name="ai_element_overview_intro">%1$s %2$s (%3$s) ist ein faszinierendes Element! Es hat die Ordnungszahl %4$s und gehört zur Gruppe der %5$s.</string>
+    <string name="ai_element_overview_series"> Es ist Teil der %1$s-Serie.</string>
+    <string name="ai_element_overview_appearance"> Es erscheint normalerweise als %1$s.</string>
+    <string name="ai_element_overview_isotopes"> Ein Atom von %1$s enthält %2$s Protonen, %3$s Elektronen und normalerweise %4$s Neutronen.</string>
+    <string name="ai_element_overview_electrons"> Es hat %1$s Elektronen, die seinen Kern umkreisen.</string>
+    <string name="ai_technical_mass"> Seine genaue Atommasse beträgt %1$s.</string>
+    <string name="ai_technical_config"> Es hat eine Elektronenkonfiguration von %1$s.</string>
+    <string-array name="ai_facts">
+        <item>Wusstest du schon? Sauerstoff ist das am häufigsten vorkommende Element in der Erdkruste!</item>
+        <item>Fun Fact: Gold rostet oder korrodiert niemals. Es bleibt für immer glänzend!</item>
+        <item>Hier ist etwas Cooles: Wasserstoff ist das am häufigsten vorkommende Element im Universum! 🌌</item>
+        <item>Erstaunlich: Kohlenstoff ist die Basis für alles bekannte Leben auf der Erde!</item>
+        <item>Interessant: Helium ist das einzige Element, das unter normalem Druck nicht fest wird!</item>
+        <item>Fun Fact: Quecksilber ist das einzige Element, das bei Raumtemperatur flüssig ist! 💧</item>
+        <item>Wusstest du schon? Das Element Francium ist so radioaktiv, dass es sofort verdampfen würde!</item>
+        <item>Cool: Diamant und Graphit bestehen beide aus reinem Kohlenstoff, haben aber völlig unterschiedliche Eigenschaften!</item>
+        <item>Erstaunlich: Eine einzige Unze Gold kann zu einem Blech von 300 Quadratfuß Fläche geschlagen werden!</item>
+        <item>Interessant: Neon bildet unter normalen Bedingungen eigentlich keine chemischen Verbindungen!</item>
+    </string-array>
     <string name="submit_data_issue">Datenproblem melden</string>
     <string name="unit_converter_title">Einheitenumrechner</string>
     <string name="unit_enter_value">Wert</string>

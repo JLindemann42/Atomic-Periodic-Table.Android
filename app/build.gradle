@@ -22,7 +22,7 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 24
         targetSdkVersion 36
-        versionCode 215
+        versionCode 216
         versionName "5.0.0m"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -58,7 +58,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation "androidx.activity:activity-ktx:1.10.1"
     implementation 'androidx.core:core-ktx:1.15.0'
@@ -88,10 +88,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Google Sign-In
-    implementation('com.google.android.gms:play-services-auth:21.4.0') {
-        exclude group: 'com.google.android.gms', module: 'play-services-measurement'
-        exclude group: 'com.google.android.gms', module: 'play-services-measurement-impl'
-    }
+    implementation 'com.google.android.gms:play-services-auth:21.3.0'
 
     testImplementation 'junit:junit:4.13.2'
     implementation 'org.apache.commons:commons-math3:3.6.1'

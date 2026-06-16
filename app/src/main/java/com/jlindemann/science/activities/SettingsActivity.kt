@@ -99,7 +99,7 @@ class SettingsActivity : BaseActivity() {
             findViewById<SwitchCompat>(R.id.analytics_switch).toggle()
         }
 
-        findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
         // Title Controller with animated visibility
         findViewById<FrameLayout>(R.id.common_title_settings_color).visibility = View.VISIBLE
@@ -385,6 +385,8 @@ class SettingsActivity : BaseActivity() {
 
         findViewById<LinearLayout>(R.id.personalization_box).setPadding(left, 0, right, 0)
         findViewById<LinearLayout>(R.id.advanced_box).setPadding(left, 0, right, 0)
+
+        findViewById<ScrollView>(R.id.scroll_settings).setPadding(0, 0, 0, bottom)
     }
 
     // Handle back logic: closes theme panel if visible and returns true to indicate consumed.
@@ -438,7 +440,7 @@ class SettingsActivity : BaseActivity() {
         findViewById<SwitchCompat>(R.id.analytics_switch).setOnCheckedChangeListener { _, isChecked ->
             analyticsPreferences.setValue(isChecked)
             AnalyticsHelper.updateAnalyticsCollection(this)
-            
+
             // Log analytics toggle event
             if (isChecked) {
                 AnalyticsHelper.logEvent(this, "analytics_enabled", null)

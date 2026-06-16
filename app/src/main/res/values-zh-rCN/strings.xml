@@ -304,6 +304,84 @@ I：不溶"</string>
     <string name="dictionary">词典</string>
     <string name="dictionary_search">搜索词典项</string>
     <string name="element_info_title">元素信息</string>
+
+    <!-- AI Chat Panel -->
+    <string name="ask_atomic">咨询 Atomic</string>
+    <string name="ai_hint">问我任何问题...</string>
+    <string name="ai_lang_switched">AI 语言已切换为：%1$s 🌐</string>
+    <string name="ai_no_data">嗯，我没能找到相关信息。试着询问像“氧”或“金”这样的元素吧！</string>
+    <string name="ai_greeting">你好！👋 我是你的化学伙伴。有任何关于元素的问题都可以问我！</string>
+    <string name="ai_encouragement">好问题！🌟</string>
+    <string name="ai_comparing_title">%1$s 的比较：</string>
+    <string name="ai_higher_than">%1$s 的 %2$s 比 %3$s 高。</string>
+    <string name="ai_same_value">两者的 %1$s 相同！</string>
+    <string name="ai_property_is">%1$s 的 %2$s 是 %3$s。</string>
+    <string name="ai_recap_is">重申一下，%1$s 的 %2$s 是 %3$s。</string>
+    <string name="ai_no_property_data">抱歉，我目前没有 %1$s 的 %2$s 数据。</string>
+    <string name="ai_appears_as">%1$s 的外观为：%2$s</string>
+    <string name="ai_discovered_by">%1$s 由 %2$s 在 %3$s 年发现。</string>
+    <string name="ai_discovered_in">%1$s 在 %2$s 年被发现。</string>
+    <string name="ai_radioactive_yes">%1$s 具有放射性：%2$s</string>
+    <string name="ai_radioactive_no">%1$s 通常被认为是稳定的，不具放射性。</string>
+    <string name="ai_molar_mass_of">%1$s 的摩尔质量为 %2$s。</string>
+    <string name="ai_quiz_correct">✨ **正确！** 做得好。答案确实是 **%1$s**。准备好进入下一题了吗？</string>
+    <string name="ai_quiz_wrong">不完全正确！答案是 **%1$s**。想再试一次吗？只需输入“quiz”！</string>
+    <string name="ai_quiz_start">我正在想一个元素。它的符号是 **%1$s**。它叫什么名字？</string>
+    <string name="ai_quiz_atomic">哪个元素的原子序数是 **%1$s**？</string>
+    <string name="ai_quiz_history">这个元素由 **%1$s** 在 **%2$s** 年发现。你能猜出它是哪一个吗？</string>
+    <string name="ai_superlative_result">%2$s 最 %1$s 的元素是 **%3$s**，其数值为 %4$s。</string>
+    <string name="ai_trend_electronegativity">电负性通常在同一周期内从左向右增加，在同一族内从上到下减少。氟是这里的冠军！</string>
+    <string name="ai_trend_radius">原子半径在同一周期内（从左向右）减小，因为原子核对电子的吸引力更强；而在同一族内向下增加，因为增加了更多的电子层。</string>
+    <string name="ai_trend_ionization">电离能沿周期增加，沿族减少。越往右移动，就越难剥离一个电子！</string>
+    <string name="ai_trend_metallic">金属性沿周期减小，沿族增加。金属性最强的元素位于左下角（如钫）。</string>
+    <string name="ai_trend_general">周期性趋势是元素属性中的规律！你对哪种趋势感兴趣：原子半径、电负性还是电离能？</string>
+    <string name="ai_formula_h2o">H2O 是水！它由两个氢原子和一个氧原子组成。</string>
+    <string name="ai_formula_co2">CO2 是二氧化碳。它由一个碳原子和两个氧原子组成。</string>
+    <string name="ai_formula_nacl">NaCl 是氯化钠，也就是我们常说的食盐！它结合了钠和氯。</string>
+    <string name="ai_formula_o2">O2 是我们呼吸的氧气！它是两个氧原子结合在一起。</string>
+    <string name="ai_formula_ch4">CH4 是甲烷，它是最简单的烷烃，也是一种强效温室气体。它由一个碳和四个氢组成。</string>
+    <string name="ai_formula_nh3">NH3 是氨，常用于清洁产品。它由一个氮和三个氢组成。</string>
+    <string name="ai_formula_c6h12o6">C6H12O6 是葡萄糖，一种为生物提供能量的单糖。它含有 6 个碳、12 个氢和 6 个氧。</string>
+    <string name="ai_formula_h2so4">H2SO4 是硫酸，一种非常强且重要的工业酸。它含有氢、硫和氧。</string>
+    <string name="ai_formula_hcl">HCl 是盐酸，它实际上存在于你的胃里，帮助消化！</string>
+    <string name="ai_formula_generic">我看出这像是一个化学式，但我还在学习分子方面的知识！请问我关于单个元素的问题吧。</string>
+    <string name="ai_series_alkali">碱金属位于第 1 族。它们非常活泼，最外层有一个电子。例子包括锂、钠和钾。</string>
+    <string name="ai_series_halogen">卤素位于第 17 族。它们是高度活泼的非金属。氟和氯是最著名的卤素！</string>
+    <string name="ai_series_noble_gas">稀有气体位于第 18 族。它们非常稳定，很少与其他元素反应，因为它们的最外层电子已满。</string>
+    <string name="ai_series_lanthanide">镧系元素是原子序数为 57 到 71 的 15 种元素。它们也被称为“稀土元素”。</string>
+    <string name="ai_series_actinide">锕系元素是原子序数为 89 到 103 的 15 种元素。它们都具有放射性！</string>
+    <string name="ai_series_transition">过渡金属是第 3-12 族的元素。它们是良好的导体，经常形成色彩鲜艳的化合物。</string>
+    <string name="ai_series_metalloid">类金属兼有金属和非金属的性质。它们位于周期表的“阶梯”线上。</string>
+    <string name="ai_series_generic">我熟悉那个系列！它们具有独特的化学性质。你想了解该系列中的哪个特定元素？</string>
+    <string name="ai_block_s">s 区由前两族组成：碱金属、碱土金属，加上氢和氦。</string>
+    <string name="ai_block_p">p 区包含第 13 到 18 族，包括所有非金属（除 H 和 He 外）、类金属和后过渡金属。</string>
+    <string name="ai_block_d">d 区包含第 3 到 12 族的过渡金属。</string>
+    <string name="ai_block_f">f 区包含镧系和锕系，通常显示在主表下方。</string>
+    <string name="ai_block_generic">我不确定你指的是哪个区。我了解 s、p、d 和 f 区！</string>
+    <string name="ai_molar_mass_generic">我可以帮忙计算摩尔质量！试着问“H2O 的摩尔质量是多少？”</string>
+    <string name="ai_superlative_generic">这是一个好问题！我可以找到密度最大、最重或电负性最强的元素。你想知道哪一个？</string>
+    <string name="ai_superlative_no_calculate">我目前无法计算出那个结果。</string>
+    <string name="highest">最高的</string>
+    <string name="lowest">最低的</string>
+    <string name="ai_element_overview_intro">%1$s %2$s (%3$s) 是一个迷人的元素！它的原子序数是 %4$s，属于 %5$s 族。</string>
+    <string name="ai_element_overview_series"> 它是 %1$s 系列的一部分。</string>
+    <string name="ai_element_overview_appearance"> 它通常表现为：%1$s。</string>
+    <string name="ai_element_overview_isotopes"> %1$s 的一个原子包含 %2$s 个质子、%3$s 个电子，通常还有 %4$s 个中子。</string>
+    <string name="ai_element_overview_electrons"> 它有 %1$s 个电子绕核运行。</string>
+    <string name="ai_technical_mass"> 它的精确原子质量为 %1$s。</string>
+    <string name="ai_technical_config"> 它的电子排布为 %1$s。</string>
+    <string-array name="ai_facts">
+        <item>你知道吗？氧是地壳中含量最丰富的元素！</item>
+        <item>趣闻：黄金永远不会生锈或腐蚀。它永远闪闪发光！</item>
+        <item>这里有个很酷的事实：氢是宇宙中含量最丰富的元素！ 🌌</item>
+        <item>太神奇了：碳是地球上所有已知生命的基础！</item>
+        <item>有意思：氦是唯一一种在常压下不会固化的元素！</item>
+        <item>趣闻：汞是唯一在室温下呈液态的金属元素！ 💧</item>
+        <item>你知道吗？钫元素极具放射性，会瞬间气化！</item>
+        <item>很酷：钻石和石墨都是由纯碳组成的，但性质却完全不同！</item>
+        <item>太神奇了：一盎司黄金可以被打成 300 平方英尺的薄片！</item>
+        <item>有意思：氖在正常条件下实际上不会形成任何化学化合物！</item>
+    </string-array>
     <string name="submit_data_issue">提交数据问题</string>
     <string name="unit_converter_title">单位转换器</string>
     <string name="unit_enter_value">值</string>

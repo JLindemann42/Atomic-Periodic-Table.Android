@@ -30,6 +30,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.mmin18.widget.RealtimeBlurView
@@ -65,17 +66,21 @@ import com.jlindemann.science.ai.AIAgentManager
 import com.jlindemann.science.adapter.ChatMessageAdapter
 import com.jlindemann.science.model.ChatMessage
 import com.jlindemann.science.ai.AIPersonality
+import com.jlindemann.science.ai.ChatHistoryManager
+import com.jlindemann.science.model.ChatSession
+import com.jlindemann.science.adapter.ChatHistoryAdapter
+import com.jlindemann.science.auth.AuthManager
+import android.widget.Toast
+import org.json.JSONArray
+import org.json.JSONObject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
-import android.widget.*
-import java.util.UUID
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.json.JSONArray
-import org.json.JSONObject
-import org.w3c.dom.Text
+import android.widget.*
+import java.util.UUID
+import com.squareup.picasso.Picasso
 import java.io.IOException
 import java.io.InputStream
 import java.net.ConnectException
@@ -96,6 +101,7 @@ class ElementInfoActivity : InfoExtension() {
     // AI Panel
     private lateinit var aiAgentManager: AIAgentManager
     private var aiChatMessages = mutableListOf<ChatMessage>()
+    private var currentChatSessionId: String? = null
     private var aiAdapter: ChatMessageAdapter? = null
     private val aiScope = CoroutineScope(Dispatchers.Main)
 
@@ -362,10 +368,20 @@ class ElementInfoActivity : InfoExtension() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val commonTitleBack = findViewById<FrameLayout>(R.id.common_title_back) ?: return
-        val params2 = commonTitleBack.layoutParams as ViewGroup.LayoutParams
-        params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        commonTitleBack.layoutParams = params2
+        val commonTitleBack = findViewById<FrameLayout>(R.id.common_title_back)
+        if (commonTitleBack != null) {
+            val params2 = commonTitleBack.layoutParams as ViewGroup.LayoutParams
+            params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+            commonTitleBack.layoutParams = params2
+        }
+
+        // Handle AI Panel insets
+        val aiInputContainer = findViewById<View>(R.id.ai_input_container)
+        if (aiInputContainer != null) {
+            val params9 = aiInputContainer.layoutParams as ViewGroup.MarginLayoutParams
+            params9.bottomMargin = bottom + resources.getDimensionPixelSize(R.dimen.margin)
+            aiInputContainer.layoutParams = params9
+        }
     }
 
     private fun offlineCheck() {
@@ -915,6 +931,13 @@ private fun setupStaticDetailListeners() {
         val aiSendBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_send_btn)
         val aiCloseBtn = aiPanelRoot.findViewById<ImageView>(R.id.ai_close_btn)
         val aiLoadingIndicator = aiPanelRoot.findViewById<ProgressBar>(R.id.ai_loading_indicator)
+        val aiLanguageBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_language_btn)
+        val aiUserBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_user_btn)
+        val aiHistoryBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_history_btn)
+        val aiHistoryContainer = aiPanelRoot.findViewById<View>(R.id.ai_history_container)
+        val aiHistoryRecycler = aiPanelRoot.findViewById<RecyclerView>(R.id.ai_history_recycler)
+        val aiCloseHistoryBtn = aiPanelRoot.findViewById<ImageButton>(R.id.close_history_btn)
+        val aiHistoryEmptyView = aiPanelRoot.findViewById<View>(R.id.history_empty_view)
 
         aiAdapter = ChatMessageAdapter(aiChatMessages)
         aiRecyclerView.layoutManager = LinearLayoutManager(this).apply { stackFromEnd = true }
@@ -928,6 +951,10 @@ private fun setupStaticDetailListeners() {
             }
         }
 
+        aiLanguageBtn?.setOnClickListener {
+            showAILanguageMenu(aiLanguageBtn)
+        }
+
         aiSendBtn.setOnClickListener {
             val text = aiMessageInput.text.toString().trim()
             if (text.isNotEmpty()) {
@@ -939,9 +966,56 @@ private fun setupStaticDetailListeners() {
             closeAIPanel()
         }
 
+        aiHistoryBtn?.setOnClickListener {
+            if (AuthManager.isSignedIn()) {
+                if (aiHistoryContainer != null && aiHistoryRecycler != null && aiHistoryEmptyView != null) {
+                    showChatHistory(aiHistoryContainer, aiHistoryRecycler, aiHistoryEmptyView)
+                }
+            } else {
+                Toast.makeText(this, "Please sign in to view chat history", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        aiCloseHistoryBtn?.setOnClickListener {
+            aiHistoryContainer?.visibility = View.GONE
+        }
+
+        aiUserBtn?.setOnClickListener {
+            val intent = Intent(this, UserActivity::class.java)
+            startActivity(intent)
+        }
+
         aiScrim.setOnClickListener {
             closeAIPanel()
         }
+    }
+
+    private fun showAILanguageMenu(anchor: View) {
+        val popup = PopupMenu(this, anchor)
+        val languages = ElementDataLoader.getAvailableLanguages(assets)
+        
+        languages.forEachIndexed { index, lang ->
+            popup.menu.add(0, index, index, lang.uppercase())
+        }
+        
+        popup.setOnMenuItemClickListener { item ->
+            val selectedLang = languages[item.itemId]
+            aiScope.launch {
+                aiAgentManager.setLanguage(selectedLang)
+                // Add a small system message about language change
+                val msg = ChatMessage(
+                    id = UUID.randomUUID().toString(),
+                    text = getString(R.string.ai_lang_switched, selectedLang.uppercase()),
+                    isFromUser = false,
+                    timestamp = System.currentTimeMillis()
+                )
+                aiChatMessages.add(msg)
+                aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
+                findViewById<RecyclerView>(R.id.ai_chat_recycler)?.scrollToPosition(aiChatMessages.size - 1)
+            }
+            true
+        }
+        popup.show()
     }
 
     private fun openAIPanel() {
@@ -963,7 +1037,34 @@ private fun setupStaticDetailListeners() {
         }
 
         aiScrim.animate().alpha(1f).setDuration(300).start()
+        updateAIUserProfileImage()
         setBackInterceptionEnabled(true)
+    }
+
+    private fun updateAIUserProfileImage() {
+        try {
+            val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
+            val aiUserBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_user_btn) ?: return
+            val currentUser = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser
+            
+            if (currentUser != null && currentUser.photoUrl != null) {
+                com.bumptech.glide.Glide.with(this)
+                    .load(currentUser.photoUrl)
+                    .diskCacheStrategy(com.bumptech.glide.load.engine.DiskCacheStrategy.ALL)
+                    .circleCrop()
+                    .placeholder(R.drawable.ic_account)
+                    .error(R.drawable.ic_account)
+                    .into(aiUserBtn)
+                aiUserBtn.imageTintList = null
+            } else {
+                aiUserBtn.setImageResource(R.drawable.ic_account)
+                val typedValue = TypedValue()
+                theme.resolveAttribute(com.google.android.material.R.attr.colorOnSurfaceVariant, typedValue, true)
+                aiUserBtn.imageTintList = android.content.res.ColorStateList.valueOf(typedValue.data)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun closeAIPanel() {
@@ -986,7 +1087,7 @@ private fun setupStaticDetailListeners() {
     private fun addAIGreeting() {
         val greeting = ChatMessage(
             id = UUID.randomUUID().toString(),
-            text = AIPersonality.getGreeting(),
+            text = AIPersonality.getGreeting(this, aiAgentManager.getActiveLanguage()),
             isFromUser = false,
             timestamp = System.currentTimeMillis()
         )
@@ -1008,6 +1109,8 @@ private fun setupStaticDetailListeners() {
         loader.visibility = View.VISIBLE
 
         aiAgentManager.addToConversationHistory(userMsg)
+        saveCurrentChatSession() // Sync immediately when user asks
+        
         aiScope.launch {
             val response = aiAgentManager.generateResponse(text, contextElement = mainElementName)
             loader.visibility = View.GONE
@@ -1015,7 +1118,65 @@ private fun setupStaticDetailListeners() {
             aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
             recycler.scrollToPosition(aiChatMessages.size - 1)
             aiAgentManager.addToConversationHistory(response)
+            saveCurrentChatSession() // Sync again with response
         }
+    }
+
+    private fun saveCurrentChatSession() {
+        if (AuthManager.isSignedIn() && aiChatMessages.isNotEmpty()) {
+            if (currentChatSessionId == null) {
+                currentChatSessionId = java.util.UUID.randomUUID().toString()
+            }
+            
+            val firstUserMessage = aiChatMessages.firstOrNull { it.isFromUser }?.text ?: "New Chat"
+            val title = if (firstUserMessage.length > 40) firstUserMessage.take(37) + "..." else firstUserMessage
+            
+            val session = ChatSession(
+                id = currentChatSessionId!!,
+                title = title,
+                timestamp = System.currentTimeMillis(),
+                messages = aiChatMessages.toList()
+            )
+
+            ChatHistoryManager.saveChatSession(session) { success, id ->
+                if (success && currentChatSessionId == null) {
+                    currentChatSessionId = id
+                }
+            }
+        }
+    }
+
+    private fun showChatHistory(container: View, recycler: RecyclerView, emptyView: View) {
+        container.visibility = View.VISIBLE
+        val loadingIndicator = findViewById<ProgressBar>(R.id.ai_loading_indicator)
+        loadingIndicator?.visibility = View.VISIBLE
+
+        ChatHistoryManager.loadChatHistory { sessions ->
+            loadingIndicator?.visibility = View.GONE
+            if (sessions.isEmpty()) {
+                emptyView.visibility = View.VISIBLE
+                recycler.visibility = View.GONE
+            } else {
+                emptyView.visibility = View.GONE
+                recycler.visibility = View.VISIBLE
+                recycler.layoutManager = LinearLayoutManager(this)
+                recycler.adapter = ChatHistoryAdapter(sessions) { selectedSession ->
+                    loadChatSession(selectedSession, container)
+                }
+            }
+        }
+    }
+
+    private fun loadChatSession(session: ChatSession, historyContainer: View) {
+        aiChatMessages.clear()
+        aiChatMessages.addAll(session.messages)
+        currentChatSessionId = session.id
+        aiAdapter?.notifyDataSetChanged()
+        findViewById<RecyclerView>(R.id.ai_chat_recycler)?.scrollToPosition(aiChatMessages.size - 1)
+        historyContainer.visibility = View.GONE
+        
+        // Also update AIAgentManager history
+        aiAgentManager.setConversationHistory(session.messages)
     }
 
 override fun onSaveInstanceState(outState: Bundle) {

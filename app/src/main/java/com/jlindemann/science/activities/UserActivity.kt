@@ -62,8 +62,8 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
 
     // Legacy sign-in launcher (fallback)
     private val signInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(result.data)
         try {
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             val account = task.getResult(ApiException::class.java)
             val idToken = account?.idToken
             if (idToken != null) {
@@ -86,7 +86,15 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             }
         } catch (e: ApiException) {
             tvSyncStatus.text = getString(R.string.sign_in_failed)
-            Log.w(TAG, "Google sign-in failed", e)
+            if (e.statusCode == 10) {
+                Log.e(TAG, "Google Sign-In failed with DEVELOPER_ERROR (10). This usually means the SHA-1 of your signing certificate is not registered in the Firebase/Google Cloud Console, or the package name is incorrect.", e)
+            } else {
+                Log.w(TAG, "Google sign-in failed with code ${e.statusCode}", e)
+            }
+            Toast.makeText(this, R.string.sign_in_failed, Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            tvSyncStatus.text = getString(R.string.sign_in_failed)
+            Log.e(TAG, "Google sign-in unexpected error", e)
             Toast.makeText(this, R.string.sign_in_failed, Toast.LENGTH_SHORT).show()
         }
     }

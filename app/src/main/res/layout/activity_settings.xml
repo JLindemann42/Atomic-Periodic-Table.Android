@@ -4,10 +4,7 @@
     android:id="@+id/view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/backgroundColor"
-    android:backgroundTint="?attr/colorSurface"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:background="?attr/backgroundColor">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -19,6 +16,7 @@
         android:id="@+id/scroll_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:elevation="0dp">
 
         <LinearLayout

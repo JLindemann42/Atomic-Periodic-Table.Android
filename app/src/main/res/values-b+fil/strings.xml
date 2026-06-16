@@ -298,6 +298,84 @@
     <string name="dictionary">Diksiyonaryo</string>
     <string name="dictionary_search">Maghanap ng Diksiyonaryo Item</string>
     <string name="element_info_title">Impormasyon ng Elemento</string>
+
+    <!-- AI Chat Panel -->
+    <string name="ask_atomic">Magtanong sa Atomic</string>
+    <string name="ai_hint">Magtanong ng kahit ano...</string>
+    <string name="ai_lang_switched">Ang wika ng AI ay inilipat sa: %1$s 🌐</string>
+    <string name="ai_no_data">Hmm, hindi ako makahanap ng impormasyon tungkol diyan. Subukang magtanong tungkol sa isang elemento tulad ng \'oxygen\' o \'gold\'!</string>
+    <string name="ai_greeting">Kumusta! 👋 Ako ang iyong chemistry buddy. Magtanong sa akin ng kahit ano tungkol sa mga elemento!</string>
+    <string name="ai_encouragement">Magandang tanong! 🌟</string>
+    <string name="ai_comparing_title">Paghahambing ng %1$s:</string>
+    <string name="ai_higher_than">Ang %1$s ay may mas mataas na %2$s kaysa sa %3$s.</string>
+    <string name="ai_same_value">Parehong may parehong %1$s!</string>
+    <string name="ai_property_is">Ang %2$s ng %1$s ay %3$s.</string>
+    <string name="ai_recap_is">Bilang pagbubuod, ang %2$s ng %1$s ay %3$s.</string>
+    <string name="ai_no_property_data">Paumanhin, wala akong data para sa %2$s ng %1$s sa ngayon.</string>
+    <string name="ai_appears_as">Ang %1$s ay mukhang: %2$s</string>
+    <string name="ai_discovered_by">Ang %1$s ay natuklasan ni %2$s noong %3$s.</string>
+    <string name="ai_discovered_in">Ang %1$s ay natuklasan noong %2$s.</string>
+    <string name="ai_radioactive_yes">Ang %1$s ay radyaktibo: %2$s</string>
+    <string name="ai_radioactive_no">Ang %1$s ay itinuturing na matatag at hindi radyaktibo.</string>
+    <string name="ai_molar_mass_of">Ang molar mass ng %1$s ay %2$s.</string>
+    <string name="ai_quiz_correct">✨ **Tama!** Magaling. Ang sagot ay talagang **%1$s**. Handa na para sa isa pang tanong?</string>
+    <string name="ai_quiz_wrong">Hindi masyado! Ang sagot ay **%1$s**. Gusto mo bang sumubok muli? Sabihin lang ang \'quiz\'!</string>
+    <string name="ai_quiz_start">May iniisip akong elemento. Ang simbolo nito ay **%1$s**. Ano ang pangalan nito?</string>
+    <string name="ai_quiz_atomic">Anong elemento ang may atomic number na **%1$s**?</string>
+    <string name="ai_quiz_history">Ang elementong ito ay natuklasan ni **%1$s** noong **%2$s**. Mahuhulaan mo ba kung ano ito?</string>
+    <string name="ai_superlative_result">Ang elemento na may pinaka-%1$s %2$s ay **%3$s**, na may halagang %4$s.</string>
+    <string name="ai_trend_electronegativity">Ang electronegativity ay karaniwang tumataas mula kaliwa pakanan sa isang period at bumababa pababa sa isang group. Ang Fluorine ang kampeon dito!</string>
+    <string name="ai_trend_radius">Ang atomic radius ay bumababa sa isang period (kaliwa pakanan) dahil mas hinihila ng nucleus ang mga electron, at tumataas pababa sa isang group habang nagdaragdag ng mas maraming shell.</string>
+    <string name="ai_trend_ionization">Ang ionization energy ay tumataas sa isang period at bumababa pababa sa isang group. Mas nagiging mahirap kumuha ng electron habang gumagalaw pakanan!</string>
+    <string name="ai_trend_metallic">Ang metallic character ay bumababa sa isang period at tumataas pababa sa isang group. Ang pinaka-metallic na mga elemento ay nasa ibabang kaliwa (tulad ng Francium).</string>
+    <string name="ai_trend_general">Ang mga periodic trend ay mga pattern sa mga katangian ng mga elemento! Aling trend ang gusto mong malaman: Atomic Radius, Electronegativity, o Ionization Energy?</string>
+    <string name="ai_formula_h2o">Ang H2O ay Tubig! Binubuo ito ng dalawang Hydrogen atom at isang Oxygen atom.</string>
+    <string name="ai_formula_co2">Ang CO2 ay Carbon Dioxide. Binubuo ito ng isang Carbon atom at dalawang Oxygen atom.</string>
+    <string name="ai_formula_nacl">Ang NaCl ay Sodium Chloride, na mas kilala bilang asin! Pinagsasama nito ang Sodium at Chlorine.</string>
+    <string name="ai_formula_o2">O2 ang oxygen na nilalanghap natin! Ito ay dalawang oxygen atom na magkadikit.</string>
+    <string name="ai_formula_ch4">Ang CH4 ay Methane, ang pinakasimpleng alkane at isang malakas na greenhouse gas. Binubuo ito ng isang Carbon at apat na Hydrogen.</string>
+    <string name="ai_formula_nh3">Ang NH3 ay Ammonia, madalas gamitin sa mga panlinis. Binubuo ito ng isang Nitrogen at tatlong Hydrogen.</string>
+    <string name="ai_formula_c6h12o6">Ang C6H12O6 ay Glucose, isang simpleng asukal na nagbibigay ng enerhiya sa mga buhay na bagay. Mayroon itong 6 na Carbon, 12 Hydrogen, at 6 na Oxygen.</string>
+    <string name="ai_formula_h2so4">Ang H2SO4 ay Sulfuric Acid, isang napakalakas at importanteng industrial acid. Naglalaman ito ng Hydrogen, Sulfur, at Oxygen.</string>
+    <string name="ai_formula_hcl">Ang HCl ay Hydrochloric Acid, na matatagpuan sa iyong tiyan para tumulong sa pagtunaw ng pagkain!</string>
+    <string name="ai_formula_generic">Mukhang chemical formula iyan, pero nag-aaral pa lang ako tungkol sa mga molecule! Itanong mo sa akin ang tungkol sa mga indibidwal na elemento.</string>
+    <string name="ai_series_alkali">Ang mga alkali metal ay nasa Group 1. Sila ay napaka-reactive at may isang electron sa kanilang outer shell. Halimbawa nito ay Lithium, Sodium, at Potassium.</string>
+    <string name="ai_series_halogen">Ang mga halogen ay nasa Group 17. Sila ay mga nonmetal na napaka-reactive. Fluorine at Chlorine ang pinakasikat!</string>
+    <string name="ai_series_noble_gas">Ang mga noble gas ay nasa Group 18. Sila ay napaka-stable at bihirang mag-react sa ibang elemento dahil puno ang kanilang outer shells.</string>
+    <string name="ai_series_lanthanide">Ang mga lanthanide ay ang 15 elemento na may atomic numbers mula 57 hanggang 71. Tinatawag din silang \'rare earth elements\'.</string>
+    <string name="ai_series_actinide">Ang mga actinide ay ang 15 elemento na may atomic numbers mula 89 hanggang 103. Lahat sila ay radyaktibo!</string>
+    <string name="ai_series_transition">Ang mga transition metal ay ang mga elemento sa groups 3-12. Sila ay mahusay na conductor at madalas bumubuo ng makukulay na compound.</string>
+    <string name="ai_series_metalloid">Ang mga metalloid ay may mga katangian ng parehong metal at nonmetal. Matatagpuan sila sa kahabaan ng \'staircase\' ng periodic table.</string>
+    <string name="ai_series_generic">Pamilyar ako sa seryeng iyan! Mayroon silang natatanging chemical properties. Aling partikular na elemento sa seryeng iyan ang gusto mong malaman?</string>
+    <string name="ai_block_s">Ang s-block ay binubuo ng unang dalawang group: alkali metals, alkaline earth metals, kasama ang hydrogen at helium.</string>
+    <string name="ai_block_p">Ang p-block ay naglalaman ng groups 13 hanggang 18, kabilang ang lahat ng nonmetal (maliban sa H at He), metalloids, at post-transition metals.</string>
+    <string name="ai_block_d">Ang d-block ay naglalaman ng mga transition metal mula groups 3 hanggang 12.</string>
+    <string name="ai_block_f">Ang f-block ay naglalaman ng mga serye ng lanthanide at actinide, na karaniwang ipinapakita sa ibaba ng pangunahing table.</string>
+    <string name="ai_block_generic">Hindi ako sigurado kung aling block ang tinutukoy mo. Alam ko ang tungkol sa s, p, d, at f blocks!</string>
+    <string name="ai_molar_mass_generic">Makakatulong ako sa mga molar mass! Subukang magtanong ng "Ano ang molar mass ng H2O?"</string>
+    <string name="ai_superlative_generic">Magandang tanong iyan! Kaya kong hanapin ang mga elementong pinaka-siksik (densest), pinakamabigat, o may pinakamataas na electronegativity. Alin ang gusto mong malaman?</string>
+    <string name="ai_superlative_no_calculate">Hindi ko iyan makalkula sa ngayon.</string>
+    <string name="highest">pinakamataas</string>
+    <string name="lowest">pinakamababa</string>
+    <string name="ai_element_overview_intro">Ang %1$s %2$s (%3$s) ay isang kamangha-manghang elemento! Ito ay atomic number %4$s at kabilang sa grupong %5$s.</string>
+    <string name="ai_element_overview_series"> Bahagi ito ng seryeng %1$s.</string>
+    <string name="ai_element_overview_appearance"> Karaniwan itong lumalabas bilang: %1$s.</string>
+    <string name="ai_element_overview_isotopes"> Ang isang atom ng %1$s ay naglalaman ng %2$s proton, %3$s electron, at karaniwang %4$s neutron.</string>
+    <string name="ai_element_overview_electrons"> Mayroon itong %1$s electron na umiikot sa nucleus nito.</string>
+    <string name="ai_technical_mass"> Ang eksaktong atomic mass nito ay %1$s.</string>
+    <string name="ai_technical_config"> Ito ay may electron configuration na %1$s.</string>
+    <string-array name="ai_facts">
+        <item>Alam mo ba? Ang Oxygen ang pinakamaraming elemento sa crust ng Earth!</item>
+        <item>Nakakatuwang katotohanan: Ang ginto ay hindi kailanman kinakalawang o nadedemolish. Mananatili itong makintab magpakailanman!</item>
+        <item>Heto ang isang cool na bagay: Ang Hydrogen ang pinakamaraming elemento sa uniberso! 🌌</item>
+        <item>Kahanga-hanga: Ang Carbon ang basehan para sa lahat ng kilalang buhay sa Earth!</item>
+        <item>Interesante: Ang Helium ang tanging elemento na hindi tumitigas sa ilalim ng normal na pressure!</item>
+        <item>Nakakatuwang katotohanan: Ang Mercury ang tanging metal na likido sa room temperature! 💧</item>
+        <item>Alam mo ba? Ang elementong francium ay sobrang radyaktibo na agad itong maglalaho!</item>
+        <item>Cool: Ang brilyante at graphite ay parehong gawa sa purong carbon ngunit may ganap na magkakaibang katangian!</item>
+        <item>Kahanga-hanga: Ang isang onsa ng ginto ay maaaring pukpukin para maging isang sheet na 300 square feet ang laki!</item>
+        <item>Interesante: Ang Neon ay hindi talaga bumubuo ng anumang chemical compounds sa ilalim ng mga normal na kondisyon!</item>
+    </string-array>
     <string name="submit_data_issue">Ipasa ang Isyu sa Data</string>
     <string name="unit_converter_title">Unit Converter</string>
     <string name="unit_enter_value">Halaga</string>

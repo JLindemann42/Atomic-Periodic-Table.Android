@@ -277,6 +277,84 @@
     <string name="dictionary">Woordeboek</string>
     <string name="dictionary_search">Soek na Woordeboekitem</string>
     <string name="element_info_title">Element Inligting</string>
+
+    <!-- AI Chat Panel -->
+    <string name="ask_atomic">Vra Atomic</string>
+    <string name="ai_hint">Vra my enigiets...</string>
+    <string name="ai_lang_switched">AI-taal verander na: %1$s 🌐</string>
+    <string name="ai_no_data">Hmm, ek kon nie inligting daaroor vind nie. Probeer vra oor \'n element soos \'suurstof\' of \'goud\'!</string>
+    <string name="ai_greeting">Haai daar! 👋 Ek is jou chemie-buddy. Vra my enigiets oor elemente!</string>
+    <string name="ai_encouragement">Goeie vraag! 🌟</string>
+    <string name="ai_comparing_title">Vergelyk %1$s:</string>
+    <string name="ai_higher_than">%1$s het \'n hoër %2$s as %3$s.</string>
+    <string name="ai_same_value">Albei het dieselfde %1$s!</string>
+    <string name="ai_property_is">%1$s se %2$s is %3$s.</string>
+    <string name="ai_recap_is">Net om te herhaal, %1$s se %2$s is %3$s.</string>
+    <string name="ai_no_property_data">Jammer, ek het nie tans die data vir %1$s se %2$s nie.</string>
+    <string name="ai_appears_as">%1$s lyk soos: %2$s</string>
+    <string name="ai_discovered_by">%1$s is ontdek deur %2$s in %3$s.</string>
+    <string name="ai_discovered_in">%1$s is ontdek in %2$s.</string>
+    <string name="ai_radioactive_yes">%1$s is radioaktief: %2$s</string>
+    <string name="ai_radioactive_no">%1$s word algemeen as stabiel beskou en nie radioaktief nie.</string>
+    <string name="ai_molar_mass_of">Die molêre massa van %1$s is %2$s.</string>
+    <string name="ai_quiz_correct">✨ **Korrek!** Wel gedaan. Die antwoord was inderdaad **%1$s**. Gereed vir nog \'n vraag?</string>
+    <string name="ai_quiz_wrong">Nie heeltemal nie! Die antwoord was **%1$s**. Wil jy nog een probeer? Sê net \'quiz\'!</string>
+    <string name="ai_quiz_start">Ek dink aan \'n element. Sy simbool is **%1$s**. Wat is sy naam?</string>
+    <string name="ai_quiz_atomic">Watter element het die atoomgetal **%1$s**?</string>
+    <string name="ai_quiz_history">Hierdie element is ontdek deur **%1$s** in **%2$s**. Kan jy raai watter een dit is?</string>
+    <string name="ai_superlative_result">Die element met die %1$s %2$s is **%3$s**, met \'n waarde van %4$s.</string>
+    <string name="ai_trend_electronegativity">Elektronegatiwiteit neem gewoonlik toe van links na regs oor \'n periode en neem af afwaarts in \'n groep. Fluoor is die kampioen hier!</string>
+    <string name="ai_trend_radius">Atoomradius neem af oor \'n periode (links na regs) omdat die kern elektrone stywer trek, en neem toe afwaarts in \'n groep namate meer skille bygevoeg word.</string>
+    <string name="ai_trend_ionization">Ionisasie-energie neem toe oor \'n periode en neem af afwaarts in \'n groep. Dit word moeiliker om \'n elektron weg te trek namate jy na regs beweeg!</string>
+    <string name="ai_trend_metallic">Metaalkarakter neem af oor \'n periode en neem toe afwaarts in \'n groep. Die mees metaalagtige elemente is links onder (soos Fransium).</string>
+    <string name="ai_trend_general">Periodieke tendense is patrone in die eienskappe van elemente! Oor watter tendens is jy nuuskierig: Atoomradius, Elektronegatiwiteit, of Ionisasie-energie?</string>
+    <string name="ai_formula_h2o">H2O is water! Dit is gemaak van twee Waterstofatome en een Suurstofatoom.</string>
+    <string name="ai_formula_co2">CO2 is Koolstofdioksied. Dit is saamgestel uit een Koolstofatoom and twee Suurstofatome.</string>
+    <string name="ai_formula_nacl">NaCl is Natriumchloried, beter bekend as tafelsout! Dit kombineer Natrium en Chloor.</string>
+    <string name="ai_formula_o2">O2 is die suurstof wat ons inasem! Dit is twee suurstofatome wat aanmekaar gebind is.</string>
+    <string name="ai_formula_ch4">CH4 is Metaan, die eenvoudigste alkaan en \'n kragtige kweekhuisgas. Dit is een Koolstof en vier Waterstowwe.</string>
+    <string name="ai_formula_nh3">NH3 is Ammoniak, wat dikwels in skoonmaakmiddels gebruik word. Dit is een Stikstof en drie Waterstowwe.</string>
+    <string name="ai_formula_c6h12o6">C6H12O6 is Glukose, \'n eenvoudige suiker wat energie aan lewende dinge verskaf. Dit het 6 Koolstowwe, 12 Waterstowwe, en 6 Suurstowwe.</string>
+    <string name="ai_formula_h2so4">H2SO4 is Swawelsuur, \'n baie sterk en belangrike industriële suur. Dit bevat Waterstof, Swawel en Suurstof.</string>
+    <string name="ai_formula_hcl">HCl is Soutsuur, wat eintlik in jou maag gevind word om met vertering te help!</string>
+    <string name="ai_formula_generic">Ek herken dat dit soos \'n chemiese formule lyk, maar ek leer nog oor molekules! Vra my oor die individuele elemente.</string>
+    <string name="ai_series_alkali">Alkalimetale is in Groep 1. Hulle is baie reaktief en het een elektron in hul buitenste skil. Voorbeelde sluit in Litium, Natrium en Kalium.</string>
+    <string name="ai_series_halogen">Halogene is in Groep 17. Hulle is hoogs reaktiewe nie-metale. Fluoor en Chloor is die bekendstes!</string>
+    <string name="ai_series_noble_gas">Edelgasse is in Groep 18. Hulle is baie stabiel en reageer selde met ander elemente omdat hul buitenste skille vol is.</string>
+    <string name="ai_series_lanthanide">Lantanoiede is die 15 elemente met atoomgetalle 57 tot 71. Hulle word ook \'seldsame aardelemente\' genoem.</string>
+    <string name="ai_series_actinide">Aktinoiede is die 15 elemente met atoomgetalle 89 tot 103. Hulle is almal radioaktief!</string>
+    <string name="ai_series_transition">Oorgangsmetale is die elemente in groepe 3-12. Hulle is goeie geleiers en vorm dikwels kleurvolle verbindings.</string>
+    <string name="ai_series_metalloid">Metalloïede het eienskappe van beide metale en nie-metale. Hulle word langs die \'trap\' van die periodieke tabel gevind.</string>
+    <string name="ai_series_generic">Ek is bekend met daardie reeks! Hulle het unieke chemiese eienskappe. Van watter spesifieke element in daardie reeks wil jy graag weet?</string>
+    <string name="ai_block_s">Die s-blok bestaan uit die eerste twee groepe: alkalimetale, aardalkalimetale, plus waterstof en helium.</string>
+    <string name="ai_block_p">Die p-blok bevat groepe 13 tot 18, insluitend alle nie-metale (behalwe H en He), metalloïede en post-oorgangsmetale.</string>
+    <string name="ai_block_d">Die d-blok bevat die oorgangsmetale van groepe 3 tot 12.</string>
+    <string name="ai_block_f">Die f-blok bevat die lantanoiede- en aktinoiede-reekse, wat gewoonlik onder die hooftabel gewys word.</string>
+    <string name="ai_block_generic">Ek is nie seker watter blok jy bedoel nie. Ek weet van s, p, d en f blokke!</string>
+    <string name="ai_molar_mass_generic">Ek kan help met molêre massas! Probeer vra "Wat is die molêre massa van H2O?"</string>
+    <string name="ai_superlative_generic">Dit is \'n goeie vraag! Ek kan die mees digte, swaarste of mees elektronegatiewe elemente vind. Watter een wil jy weet?</string>
+    <string name="ai_superlative_no_calculate">Ek kon dit nie nou bereken nie.</string>
+    <string name="highest">hoogste</string>
+    <string name="lowest">laagste</string>
+    <string name="ai_element_overview_intro">%1$s %2$s (%3$s) is \'n fassinerende element! Dit is atoomgetal %4$s en behoort aan die %5$s groep.</string>
+    <string name="ai_element_overview_series"> Dit is deel van die %1$s-reeks.</string>
+    <string name="ai_element_overview_appearance"> Dit verskyn gewoonlik as: %1$s.</string>
+    <string name="ai_element_overview_isotopes"> \'n Atoom van %1$s bevat %2$s protone, %3$s elektrone, en gewoonlik %4$s neutrone.</string>
+    <string name="ai_element_overview_electrons"> Dit het %1$s elektrone wat om sy kern wentel.</string>
+    <string name="ai_technical_mass"> Sy presiese atoommassa is %1$s.</string>
+    <string name="ai_technical_config"> Dit het \'n elektronkonfigurasie van %1$s.</string>
+    <string-array name="ai_facts">
+        <item>Het jy geweet? Suurstof is die mees oorvloedige element in die aardkors!</item>
+        <item>Prettige feit: Goud roes of korrodeer nooit nie. Dit bly vir ewig blink!</item>
+        <item>Hier is iets koel: Waterstof is die mees oorvloedige element in die heelal! 🌌</item>
+        <item>Verbasend: Koolstof is die basis vir alle bekende lewe op aarde!</item>
+        <item>Interessant: Helium is die enigste element wat nie onder normale druk stol nie!</item>
+        <item>Prettige feit: Kwik is die enigste metaal wat vloeibaar is by kamertemperatuur! 💧</item>
+        <item>Het jy geweet? Die element frankium is so radioaktief dat dit onmiddellik sal verdamp!</item>
+        <item>Koel: Diamant en grafiet is albei gemaak van suiwer koolstof, maar het heeltemal verskillende eienskappe!</item>
+        <item>Verbasend: \'n Enkele ons goud kan in \'n plaat van 300 vierkante voet geslaan word!</item>
+        <item>Interessant: Neon vorm eintlik geen chemiese verbindings onder normale toestande nie!</item>
+    </string-array>
     <string name="submit_data_issue">Dien Data-probleem in</string>
     <string name="unit_converter_title">Eenheidsomskakelaar</string>
     <string name="unit_enter_value">Waarde</string>

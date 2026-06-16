@@ -1076,8 +1076,8 @@ class FlashCardActivity : BaseActivity() {
     }
 
     private val signInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(result.data)
         try {
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             val account = task.getResult(ApiException::class.java)
             val idToken = account?.idToken
             if (idToken != null) {
@@ -1094,7 +1094,7 @@ class FlashCardActivity : BaseActivity() {
                     }
                 }
             }
-        } catch (e: ApiException) {
+        } catch (_: Exception) {
             // silent per requirement
         }
     }

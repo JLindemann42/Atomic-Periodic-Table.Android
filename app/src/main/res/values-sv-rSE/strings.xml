@@ -300,6 +300,84 @@
     <string name="dictionary">Ordbok</string>
     <string name="dictionary_search">Sök efter ordboksobjekt</string>
     <string name="element_info_title">Elementinformation</string>
+
+    <!-- AI Chat Panel -->
+    <string name="ask_atomic">Fråga Atomic</string>
+    <string name="ai_hint">Fråga mig vad som helst...</string>
+    <string name="ai_lang_switched">AI-språk ändrat till: %1$s 🌐</string>
+    <string name="ai_no_data">Hmm, jag hittade ingen information om det. Prova att fråga om ett grundämne som \'syre\' eller \'guld\'!</string>
+    <string name="ai_greeting">Hej där! 👋 Jag är din kemikompis. Fråga mig vad som helst om grundämnen!</string>
+    <string name="ai_encouragement">Bra fråga! 🌟</string>
+    <string name="ai_comparing_title">Jämför %1$s:</string>
+    <string name="ai_higher_than">%1$s har högre %2$s än %3$s.</string>
+    <string name="ai_same_value">Båda har samma %1$s!</string>
+    <string name="ai_property_is">%1$s:s %2$s är %3$s.</string>
+    <string name="ai_recap_is">Bara för att repetera, %1$s:s %2$s är %3$s.</string>
+    <string name="ai_no_property_data">Tyvärr har jag ingen data för %1$s:s %2$s just nu.</string>
+    <string name="ai_appears_as">%1$s ser ut som: %2$s</string>
+    <string name="ai_discovered_by">%1$s upptäcktes av %2$s år %3$s.</string>
+    <string name="ai_discovered_in">%1$s upptäcktes år %2$s.</string>
+    <string name="ai_radioactive_yes">%1$s är radioaktivt: %2$s</string>
+    <string name="ai_radioactive_no">%1$s anses generellt vara stabilt och inte radioaktivt.</string>
+    <string name="ai_molar_mass_of">Molmassan för %1$s är %2$s.</string>
+    <string name="ai_quiz_correct">✨ **Rätt!** Bra jobbat. Svaret var mycket riktigt **%1$s**. Redo för en till fråga?</string>
+    <string name="ai_quiz_wrong">Inte riktigt! Svaret var **%1$s**. Vill du prova en till? Säg bara \'quiz\'!</string>
+    <string name="ai_quiz_start">Jag tänker på ett grundämne. Dess symbol är **%1$s**. Vad heter det?</string>
+    <string name="ai_quiz_atomic">Vilket grundämne har atomnummer **%1$s**?</string>
+    <string name="ai_quiz_history">Detta grundämne upptäcktes av **%1$s** år **%2$s**. Kan du gissa vilket det är?</string>
+    <string name="ai_superlative_result">Grundämnet med %1$s %2$s är **%3$s**, med värdet %4$s.</string>
+    <string name="ai_trend_electronegativity">Elektronegativitet ökar generellt från vänster till höger över en period och minskar neråt i en grupp. Fluor är mästaren här!</string>
+    <string name="ai_trend_radius">Atomradien minskar över en period (vänster till höger) eftersom kärnan drar till sig elektroner hårdare, och ökar neråt i en grupp då fler skal läggs till.</string>
+    <string name="ai_trend_ionization">Joniseringsenergin ökar över en period och minskar neråt i en grupp. Det blir svårare att dra bort en elektron ju längre till höger du kommer!</string>
+    <string name="ai_trend_metallic">Metallisk karaktär minskar över en period och ökar neråt i en grupp. De mest metalliska grundämnena finns längst ner till vänster (som Francium).</string>
+    <string name="ai_trend_general">Periodiska trender är mönster i grundämnenas egenskaper! Vilken trend är du nyfiken på: atomradie, elektronegativitet eller joniseringsenergi?</string>
+    <string name="ai_formula_h2o">H2O är vatten! Det består av två väteatomer och en syreatom.</string>
+    <string name="ai_formula_co2">CO2 är koldioxid. Det består av en kolatom och två syreatomer.</string>
+    <string name="ai_formula_nacl">NaCl är natriumklorid, mer känt som bordssalt! Det kombinerar natrium och klor.</string>
+    <string name="ai_formula_o2">O2 är syret vi andas! Det är två syreatomer bundna till varandra.</string>
+    <string name="ai_formula_ch4">CH4 är metan, den enklaste alkanen och en kraftfull växthusgas. Det är ett kol och fyra väte.</string>
+    <string name="ai_formula_nh3">NH3 är ammoniak, används ofta i rengöringsprodukter. Det är ett kväve och tre väte.</string>
+    <string name="ai_formula_c6h12o6">C6H12O6 är glukos, ett enkelt socker som ger energi till levande varelser. Det har 6 kol, 12 väte och 6 syre.</string>
+    <string name="ai_formula_h2so4">H2SO4 är svavelsyra, en mycket stark och viktig industriell syra. Den innehåller väte, svavel och syre.</string>
+    <string name="ai_formula_hcl">HCl är saltsyra, som faktiskt finns i din mage för att hjälpa till med matsmältningen!</string>
+    <string name="ai_formula_generic">Jag känner igen att det där ser ut som en kemisk formel, men jag lär mig fortfarande om molekyler! Fråga mig om de enskilda grundämnena.</string>
+    <string name="ai_series_alkali">Alkalimetaller finns i grupp 1. De är mycket reaktiva och har en elektron i sitt yttersta skal. Exempel inkluderar litium, natrium och kalium.</string>
+    <string name="ai_series_halogen">Halogener finns i grupp 17. De är mycket reaktiva ickemetaller. Fluor och klor är de mest kända!</string>
+    <string name="ai_series_noble_gas">Ädelgaser finns i grupp 18. De är mycket stabila och reagerar sällan med andra grundämnen eftersom deras yttersta skal är fulla.</string>
+    <string name="ai_series_lanthanide">Lantanider är de 15 grundämnena med atomnummer 57 till 71. De kallas också "sällsynta jordartsmetaller".</string>
+    <string name="ai_series_actinide">Aktinider är de 15 grundämnena med atomnummer 89 till 103. De är alla radioaktiva!</string>
+    <string name="ai_series_transition">Övergångsmetaller är grundämnena i grupperna 3-12. De är goda ledare och bildar ofta färgglada föreningar.</string>
+    <string name="ai_series_metalloid">Halvmetaller har egenskaper från både metaller och ickemetaller. De finns längs "trappan" i det periodiska systemet.</string>
+    <string name="ai_series_generic">Jag känner till den serien! De har unika kemiska egenskaper. Vilket specifikt grundämne i den serien vill du veta mer om?</string>
+    <string name="ai_block_s">s-blocket består av de två första grupperna: alkalimetaller, alkaliska jordartsmetaller, plus väte och helium.</string>
+    <string name="ai_block_p">p-blocket innehåller grupperna 13 till 18, inklusive alla ickemetaller (utom H och He), halvmetaller och post-övergångsmetaller.</string>
+    <string name="ai_block_d">d-blocket innehåller övergångsmetallerna från grupperna 3 till 12.</string>
+    <string name="ai_block_f">f-blocket innehåller lantanid- och aktinidserierna, som vanligtvis visas under huvudtabellen.</string>
+    <string name="ai_block_generic">Jag är inte säker på vilket block du menar. Jag känner till s-, p-, d- och f-blocken!</string>
+    <string name="ai_molar_mass_generic">Jag kan hjälpa till med molmassor! Prova att fråga "Vad är molmassan för H2O?"</string>
+    <string name="ai_superlative_generic">Det är en bra fråga! Jag kan hitta de tätaste, tyngsta eller mest elektronegativa grundämnena. Vilket vill du veta mer om?</string>
+    <string name="ai_superlative_no_calculate">Jag kunde inte beräkna det just nu.</string>
+    <string name="highest">högsta</string>
+    <string name="lowest">lägsta</string>
+    <string name="ai_element_overview_intro">%1$s %2$s (%3$s) är ett fascinerande grundämne! Det har atomnummer %4$s och tillhör gruppen %5$s.</string>
+    <string name="ai_element_overview_series"> Det är en del av %1$s-serien.</string>
+    <string name="ai_element_overview_appearance"> Det ser vanligtvis ut som %1$s.</string>
+    <string name="ai_element_overview_isotopes"> En atom av %1$s innehåller %2$s protoner, %3$s elektroner och vanligtvis %4$s neutroner.</string>
+    <string name="ai_element_overview_electrons"> Det har %1$s elektroner som kretsar kring sin kärna.</string>
+    <string name="ai_technical_mass"> Dess exakta atommassa är %1$s.</string>
+    <string name="ai_technical_config"> Den har elektronkonfigurationen %1$s.</string>
+    <string-array name="ai_facts">
+        <item>Visste du? Syre är det vanligaste grundämnet i jordskorpan!</item>
+        <item>Kul fakta: Guld rostar eller korroderar aldrig. Det förblir glänsande för alltid!</item>
+        <item>Här är något häftigt: Väte är det vanligaste grundämnet i universum! 🌌</item>
+        <item>Fantastiskt: Kol är basen för allt känt liv på jorden!</item>
+        <item>Intressant: Helium är det enda grundämnet som inte stelnar under normalt tryck!</item>
+        <item>Kul fakta: Kvicksilver är det enda grundämnet som är flytande vid rumstemperatur! 💧</item>
+        <item>Visste du? Grundämnet francium är så radioaktivt att det skulle förångas omedelbart!</item>
+        <item>Häftigt: Diamant och grafit är båda gjorda av rent kol men har helt olika egenskaper!</item>
+        <item>Fantastiskt: Ett enda uns guld kan slås ut till ett ark på 28 kvadratmeter!</item>
+        <item>Intressant: Neon bildar faktiskt inga kemiska föreningar under normala förhållanden!</item>
+    </string-array>
     <string name="submit_data_issue">Skicka datafel</string>
     <string name="unit_converter_title">Enhetsomvandlare</string>
     <string name="unit_enter_value">Värde</string>

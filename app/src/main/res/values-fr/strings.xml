@@ -302,6 +302,84 @@
     <string name="dictionary">Dictionnaire</string>
     <string name="dictionary_search">Rechercher un élément du dictionnaire</string>
     <string name="element_info_title">Informations sur l\'élément</string>
+
+    <!-- AI Chat Panel -->
+    <string name="ask_atomic">Demander à Atomic</string>
+    <string name="ai_hint">Posez-moi n\'importe quelle question...</string>
+    <string name="ai_lang_switched">Langue de l\'IA changée en : %1$s 🌐</string>
+    <string name="ai_no_data">Hmm, je n\'ai pas trouvé d\'informations à ce sujet. Essayez de me poser une question sur un élément comme l\'oxygène ou l\'or !</string>
+    <string name="ai_greeting">Salut ! 👋 Je suis ton compagnon de chimie. Pose-moi n\'importe quelle question sur les éléments !</string>
+    <string name="ai_encouragement">Excellente question ! 🌟</string>
+    <string name="ai_comparing_title">Comparaison de %1$s :</string>
+    <string name="ai_higher_than">%1$s a une %2$s plus élevée que %3$s.</string>
+    <string name="ai_same_value">Les deux ont la même valeur pour %1$s !</string>
+    <string name="ai_property_is">La %2$s de %1$s est %3$s.</string>
+    <string name="ai_recap_is">Pour rappel, la %2$s de %1$s est %3$s.</string>
+    <string name="ai_no_property_data">Je suis désolé, je n\'ai pas de données pour la %2$s de %1$s pour le moment.</string>
+    <string name="ai_appears_as">%1$s ressemble à : %2$s</string>
+    <string name="ai_discovered_by">%1$s a été découvert par %2$s en %3$s.</string>
+    <string name="ai_discovered_in">%1$s a été découvert en %2$s.</string>
+    <string name="ai_radioactive_yes">%1$s est radioactif : %2$s</string>
+    <string name="ai_radioactive_no">%1$s est généralement considéré comme stable et non radioactif.</string>
+    <string name="ai_molar_mass_of">La masse molaire de %1$s est %2$s.</string>
+    <string name="ai_quiz_correct">✨ **Correct !** Bravo. La réponse était bien **%1$s**. Prêt pour une autre question ?</string>
+    <string name="ai_quiz_wrong">Pas tout à fait ! La réponse était **%1$s**. Tu veux en essayer une autre ? Dis juste \'quiz\' !</string>
+    <string name="ai_quiz_start">Je pense à un élément. Son symbole est **%1$s**. Quel est son nom ?</string>
+    <string name="ai_quiz_atomic">Quel élément a le numéro atomique **%1$s** ?</string>
+    <string name="ai_quiz_history">Cet élément a été découvert par **%1$s** en **%2$s**. Peux-tu deviner lequel c\'est ?</string>
+    <string name="ai_superlative_result">L\'élément avec la/le %2$s le plus %1$s est **%3$s**, avec une valeur de %4$s.</string>
+    <string name="ai_trend_electronegativity">L\'électronégativité augmente généralement de gauche à droite à travers une période et diminue en descendant dans un groupe. Le fluor est le champion ici !</string>
+    <string name="ai_trend_radius">Le rayon atomique diminue à travers une période (de gauche à droite) car le noyau attire les électrons plus fortement, et il augmente en descendant dans un groupe à mesure que des couches sont ajoutées.</string>
+    <string name="ai_trend_ionization">L\'énergie d\'ionisation augmente à travers une période et diminue en descendant dans un groupe. Il devient plus difficile d\'arracher un électron à mesure que l\'on se déplace vers la droite !</string>
+    <string name="ai_trend_metallic">Le caractère métallique diminue à travers une période et augmente en descendant dans un groupe. Les éléments les plus métalliques se trouvent en bas à gauche (comme le Francium).</string>
+    <string name="ai_trend_general">Les tendances périodiques sont des modèles dans les propriétés des éléments ! Quelle tendance vous intéresse : le rayon atomique, l\'électronégativité ou l\'énergie d\'ionisation ?</string>
+    <string name="ai_formula_h2o">H2O, c\'est l\'eau ! Elle est composée de deux atomes d\'hydrogène et d\'un atome d\'oxygène.</string>
+    <string name="ai_formula_co2">CO2 est le dioxyde de carbone. Il est composé d\'un atome de carbone et de deux atomes d\'oxygène.</string>
+    <string name="ai_formula_nacl">NaCl est le chlorure de sodium, plus connu sous le nom de sel de table ! Il combine le sodium et le chlore.</string>
+    <string name="ai_formula_o2">O2 est l\'oxygène que nous respirons ! Ce sont deux atomes d\'oxygène liés ensemble.</string>
+    <string name="ai_formula_ch4">CH4 est le méthane, l\'alcane le plus simple et un puissant gaz à effet de serre. C\'est un carbone et quatre hydrogènes.</string>
+    <string name="ai_formula_nh3">NH3 est l\'ammoniac, souvent utilisé dans les produits de nettoyage. C\'est un azote et trois hydrogènes.</string>
+    <string name="ai_formula_c6h12o6">C6H12O6 est le glucose, un sucre simple qui fournit de l\'énergie aux êtres vivants. Il possède 6 carbones, 12 hydrogènes et 6 oxygènes.</string>
+    <string name="ai_formula_h2so4">H2SO4 est l\'acide sulfurique, un acide industriel très fort et important. Il contient de l\'hydrogène, du soufre et de l\'oxygène.</string>
+    <string name="ai_formula_hcl">HCl est l\'acide chlorhydrique, que l\'on trouve d\'ailleurs dans votre estomac pour aider à la digestion !</string>
+    <string name="ai_formula_generic">Je reconnais que cela ressemble à une formule chimique, mais j\'en apprends encore sur les molécules ! Posez-moi des questions sur les éléments individuels.</string>
+    <string name="ai_series_alkali">Les métaux alcalins sont dans le groupe 1. Ils sont très réactifs et possèdent un électron sur leur couche externe. Les exemples incluent le lithium, le sodium et le potassium.</string>
+    <string name="ai_series_halogen">Les halogènes sont dans le groupe 17. Ce sont des non-métaux très réactifs. Le fluor et le chlore sont les plus célèbres !</string>
+    <string name="ai_series_noble_gas">Les gaz nobles sont dans le groupe 18. Ils sont très stables et réagissent rarement avec d\'autres éléments car leurs couches externes sont pleines.</string>
+    <string name="ai_series_lanthanide">Les lanthanides sont les 15 éléments dont le numéro atomique va de 57 à 71. On les appelle aussi \'terres rares\'.</string>
+    <string name="ai_series_actinide">Les actinides sont les 15 éléments dont le numéro atomique va de 89 à 103. Ils sont tous radioactifs !</string>
+    <string name="ai_series_transition">Les métaux de transition sont les éléments des groupes 3 à 12. Ce sont de bons conducteurs et ils forment souvent des composés colorés.</string>
+    <string name="ai_series_metalloid">Les métalloïdes ont des propriétés à la fois métalliques et non métalliques. On les trouve le long de \'l\'escalier\' du tableau périodique.</string>
+    <string name="ai_series_generic">Je connais cette série ! Ils ont des propriétés chimiques uniques. Quel élément spécifique de cette série aimeriez-vous connaître ?</string>
+    <string name="ai_block_s">Le bloc s se compose des deux premiers groupes : les métaux alcalins, les métaux alcalino-terreux, plus l\'hydrogène et l\'hélium.</string>
+    <string name="ai_block_p">Le bloc p contient les groupes 13 à 18, y compris tous les non-métaux (sauf H et He), les métalloïdes et les métaux de post-transition.</string>
+    <string name="ai_block_d">Le bloc d contient les métaux de transition des groupes 3 à 12.</string>
+    <string name="ai_block_f">Le bloc f contient les séries des lanthanides et des actinides, généralement représentées sous le tableau principal.</string>
+    <string name="ai_block_generic">Je ne sais pas de quel bloc vous parlez. Je connais les blocs s, p, d et f !</string>
+    <string name="ai_molar_mass_generic">Je peux aider avec les masses molaires ! Essayez de demander "Quelle est la masse molaire de H2O ?"</string>
+    <string name="ai_superlative_generic">C\'est une excellente question ! Je peux trouver les éléments les plus denses, les plus lourds ou les plus électronégatifs. Lequel aimeriez-vous connaître ?</string>
+    <string name="ai_superlative_no_calculate">Je n\'ai pas pu calculer cela pour le moment.</string>
+    <string name="highest">le plus élevé</string>
+    <string name="lowest">le plus bas</string>
+    <string name="ai_element_overview_intro">%1$s %2$s (%3$s) est un élément fascinant ! Son numéro atomique est %4$s et il appartient au groupe %5$s.</string>
+    <string name="ai_element_overview_series"> Il fait partie de la série des %1$s.</string>
+    <string name="ai_element_overview_appearance"> Il apparaît généralement sous la forme de : %1$s.</string>
+    <string name="ai_element_overview_isotopes"> Un atome de %1$s contient %2$s protons, %3$s électrons et généralement %4$s neutrons.</string>
+    <string name="ai_element_overview_electrons"> Il possède %1$s électrons gravitant autour de son noyau.</string>
+    <string name="ai_technical_mass"> Sa masse atomique précise est %1$s.</string>
+    <string name="ai_technical_config"> Il a une configuration électronique de %1$s.</string>
+    <string-array name="ai_facts">
+        <item>Le saviez-vous ? L\'oxygène est l\'élément le plus abondant dans la croûte terrestre !</item>
+        <item>Le saviez-vous ? L\'or ne rouille et ne se corrode jamais. Il reste brillant pour toujours !</item>
+        <item>Voici quelque chose de cool : l\'hydrogène est l\'élément le plus abondant de l\'univers ! 🌌</item>
+        <item>Incroyable : le carbone est la base de toute forme de vie connue sur Terre !</item>
+        <item>Intéressant : l\'hélium est le seul élément qui ne se solidifie pas sous une pression normale !</item>
+        <item>Le saviez-vous ? Le mercure est le seul élément liquide à température ambiante ! 💧</item>
+        <item>Le saviez-vous ? Le francium est si radioactif qu\'il se vaporiserait instantanément !</item>
+        <item>Cool : le diamant et le graphite sont tous deux faits de carbone pur mais ont des propriétés complètement différentes !</item>
+        <item>Incroyable : une seule once d\'or peut être battue en une feuille de 300 pieds carrés !</item>
+        <item>Intéressant : le néon ne forme en fait aucun composé chimique dans des conditions normales !</item>
+    </string-array>
     <string name="submit_data_issue">Signaler un problème de données</string>
     <string name="unit_converter_title">Convertisseur d\'unités</string>
     <string name="unit_enter_value">Valeur</string>

@@ -296,6 +296,84 @@
     <string name="dictionary">ڈکشنری</string>
     <string name="dictionary_search">ڈکشنری آئٹم تلاش کریں</string>
     <string name="element_info_title">عنصر کی معلومات</string>
+
+    <!-- AI Chat Panel -->
+    <string name="ask_atomic">ایٹامک سے پوچھیں</string>
+    <string name="ai_hint">مجھ سے کچھ بھی پوچھیں...</string>
+    <string name="ai_lang_switched">AI زبان تبدیل کر دی گئی ہے: %1$s 🌐</string>
+    <string name="ai_no_data">ہمم، مجھے اس بارے میں معلومات نہیں مل سکیں۔ \'آکسیجن\' یا \'گولڈ\' جیسے کسی عنصر کے بارے میں پوچھنے کی کوشش کریں!</string>
+    <string name="ai_greeting">ہیلو! 👋 میں آپ کا کیمسٹری بڈی ہوں۔ مجھ سے عناصر کے بارے میں کچھ بھی پوچھیں!</string>
+    <string name="ai_encouragement">اچھا سوال! 🌟</string>
+    <string name="ai_comparing_title">%1$s کا موازنہ:</string>
+    <string name="ai_higher_than">%1$s کا %2$s، %3$s سے زیادہ ہے۔</string>
+    <string name="ai_same_value">دونوں کا %1$s برابر ہے!</string>
+    <string name="ai_property_is">%1$s کا %2$s، %3$s ہے۔</string>
+    <string name="ai_recap_is">خلاصہ یہ کہ، %1$s کا %2$s، %3$s ہے۔</string>
+    <string name="ai_no_property_data">معذرت، میرے پاس ابھی %1$s کے %2$s کا ڈیٹا نہیں ہے۔</string>
+    <string name="ai_appears_as">%1$s ایسا لگتا ہے: %2$s</string>
+    <string name="ai_discovered_by">%1$s کو %2$s نے %3$s میں دریافت کیا تھا۔</string>
+    <string name="ai_discovered_in">%1$s کو %2$s میں دریافت کیا گیا تھا۔</string>
+    <string name="ai_radioactive_yes">%1$s تابکار ہے: %2$s</string>
+    <string name="ai_radioactive_no">%1$s عام طور پر مستحکم مانا جاتا ہے اور تابکار نہیں ہے۔</string>
+    <string name="ai_molar_mass_of">%1$s کا مولر ماس %2$s ہے۔</string>
+    <string name="ai_quiz_correct">✨ **درست!** بہت اچھے. جواب واقعی **%1$s** تھا۔ اگلے سوال کے لیے تیار ہیں؟</string>
+    <string name="ai_quiz_wrong">بالکل نہیں! جواب **%1$s** تھا۔ کیا آپ ایک اور کوشش کرنا چاہتے ہیں؟ بس \'quiz\' کہیں!</string>
+    <string name="ai_quiz_start">میں ایک عنصر کے بارے میں سوچ رہا ہوں۔ اس کا سمبل **%1$s** ہے۔ اس کا نام کیا ہے؟</string>
+    <string name="ai_quiz_atomic">کس عنصر کا ایٹمی نمبر **%1$s** ہے؟</string>
+    <string name="ai_quiz_history">یہ عنصر **%1$s** نے **%2$s** میں دریافت کیا تھا۔ کیا آپ اندازہ لگا سکتے ہیں کہ یہ کون سا ہے؟</string>
+    <string name="ai_superlative_result">%1$s %2$s والا عنصر **%3$s** ہے، جس کی ویلیو %4$s ہے۔</string>
+    <string name="ai_trend_electronegativity">الیکٹرو نیگیٹیوٹی عام طور پر ایک پیریڈ میں بائیں سے دائیں بڑھتی ہے اور گروپ میں اوپر سے نیچے کم ہوتی ہے۔ فلورین یہاں کا فاتح ہے!</string>
+    <string name="ai_trend_radius">ایٹمی رداس (Atomic radius) ایک پیریڈ میں کم ہوتا ہے کیونکہ نیوکلیئس الیکٹرانوں کو زیادہ طاقت سے کھینچتا ہے، اور گروپ میں نیچے کی طرف بڑھتا ہے کیونکہ مزید شیلز شامل ہوتے جاتے ہیں۔</string>
+    <string name="ai_trend_ionization">آئیونائزیشن انرجی ایک پیریڈ میں بڑھتی ہے اور گروپ میں نیچے کی طرف کم ہوتی ہے۔ جیسے جیسے آپ دائیں طرف بڑھتے ہیں، الیکٹران کو باہر نکالنا مشکل ہوتا جاتا ہے!</string>
+    <string name="ai_trend_metallic">دھاتی خاصیت (Metallic character) ایک پیریڈ میں کم ہوتی ہے اور گروپ میں نیچے کی طرف بڑھتی ہے۔ سب سے زیادہ دھاتی عناصر نیچے بائیں طرف (جیسے فرانسیم) پائے جاتے ہیں۔</string>
+    <string name="ai_trend_general">پیریاڈک ٹرینڈز عناصر کی خصوصیات میں ایک پیٹرن ہیں! آپ کس ٹرینڈ کے بارے میں جاننا چاہتے ہیں: ایٹمی رداس، الیکٹرو نیگیٹیوٹی، یا آئیونائزیشن انرجی؟</string>
+    <string name="ai_formula_h2o">H2O پانی ہے! یہ دو ہائیڈروجن ایٹموں اور ایک آکسیجن ایٹم سے بنا ہے۔</string>
+    <string name="ai_formula_co2">CO2 کاربن ڈائی آکسائیڈ ہے۔ یہ ایک کاربن ایٹم اور دو آکسیجن ایٹموں پر مشتمل ہے۔</string>
+    <string name="ai_formula_nacl">NaCl سوڈیم کلورائڈ ہے، جسے نمک کے نام سے جانا جاتا ہے! یہ سوڈیم اور کلورین کو ملاتا ہے۔</string>
+    <string name="ai_formula_o2">O2 وہ آکسیجن ہے جس میں ہم سانس لیتے ہیں! یہ ایک ساتھ جڑے ہوئے دو آکسیجن ایٹم ہیں۔</string>
+    <string name="ai_formula_ch4">CH4 میتھین ہے، جو سب سے سادہ الکین اور ایک طاقتور گرین ہاؤس گیس ہے۔ اس میں ایک کاربن اور چار ہائیڈروجن ہوتے ہیں۔</string>
+    <string name="ai_formula_nh3">NH3 امونیا ہے، جو اکثر صفائی کی مصنوعات میں استعمال ہوتا ہے۔ اس میں ایک نائٹروجن اور تین ہائیڈروجن ہوتے ہیں۔</string>
+    <string name="ai_formula_c6h12o6">C6H12O6 گلوکوز ہے، ایک سادہ شکر جو جانداروں کو توانائی فراہم کرتی ہے۔ اس میں 6 کاربن، 12 ہائیڈروجن اور 6 آکسیجن ہوتے ہیں۔</string>
+    <string name="ai_formula_h2so4">H2SO4 سلفیورک ایسڈ ہے، ایک بہت طاقتور اور اہم صنعتی تیزاب۔ اس میں ہائیڈروجن، سلفر اور آکسیجن ہوتے ہیں۔</string>
+    <string name="ai_formula_hcl">HCl ہائیڈروکلورک ایسڈ ہے، جو درحقیقت آپ کے معدے میں ہاضمے میں مدد کے لیے پایا جاتا ہے!</string>
+    <string name="ai_formula_generic">میں پہچانتا ہوں کہ یہ ایک کیمیائی فارمولہ لگتا ہے، لیکن میں ابھی مالیکیولز کے بارے میں سیکھ رہا ہوں! مجھ سے انفرادی عناصر کے بارے میں پوچھیں۔</string>
+    <string name="ai_series_alkali">الکلی دھاتیں گروپ 1 میں ہیں۔ وہ بہت ری ایکٹو ہوتی ہیں اور ان کے بیرونی شیل میں ایک الیکٹران ہوتا ہے۔ مثالوں میں لیتھیم، سوڈیم اور پوٹاشیم شامل ہیں۔</string>
+    <string name="ai_series_halogen">ہیلوجن گروپ 17 میں ہیں۔ وہ انتہائی ری ایکٹو غیر دھاتیں ہیں۔ فلورین اور کلورین سب سے زیادہ مشہور ہیں!</string>
+    <string name="ai_series_noble_gas">نوبل گیسیں گروپ 18 میں ہیں۔ وہ بہت مستحکم ہوتی ہیں اور شاذ و نادر ہی دوسرے عناصر کے ساتھ ردعمل ظاہر کرتی ہیں کیونکہ ان کے بیرونی شیلز بھرے ہوتے ہیں۔</string>
+    <string name="ai_series_lanthanide">لینتھانائڈز ایٹمی نمبر 57 سے 71 تک کے 15 عناصر ہیں۔ انہیں \'نایاب زمینی عناصر\' (Rare earth elements) بھی کہا جاتا ہے۔</string>
+    <string name="ai_series_actinide">ایکٹینائڈز ایٹمی نمبر 89 سے 103 تک کے 15 عناصر ہیں۔ وہ تمام تابکار ہیں!</string>
+    <string name="ai_series_transition">ٹرانزیشن میٹلز گروپ 3-12 کے عناصر ہیں۔ وہ اچھے موصل ہوتے ہیں اور اکثر رنگین مرکبات بناتے ہیں۔</string>
+    <string name="ai_series_metalloid">میٹلائڈز میں دھاتوں اور غیر دھاتوں دونوں کی خصوصیات ہوتی ہیں۔ وہ پیریاڈک ٹیبل کی \'سیڑھی\' کے ساتھ پائے جاتے ہیں۔</string>
+    <string name="ai_series_generic">میں اس سیریز سے واقف ہوں! ان کی منفرد کیمیائی خصوصیات ہیں۔ آپ اس سیریز کے کس مخصوص عنصر کے بارے میں جاننا چاہیں گے؟</string>
+    <string name="ai_block_s">s-بلاک پہلے دو گروپس پر مشتمل ہے: الکلی دھاتیں، الکلائن ارتھ میٹلز، علاوہ ہائیڈروجن اور ہیلیم۔</string>
+    <string name="ai_block_p">p-بلاک میں گروپ 13 سے 18 شامل ہیں، جن میں تمام غیر دھاتیں (H اور He کے علاوہ)، میٹلائڈز، اور پوسٹ ٹرانزیشن میٹلز شامل ہیں۔</string>
+    <string name="ai_block_d">d-بلاک میں گروپ 3 سے 12 تک کی ٹرانزیشن دھاتیں ہوتی ہیں۔</string>
+    <string name="ai_block_f">f-بلاک میں لینتھانائڈ اور ایکٹینائڈ سیریز ہوتی ہے، جو عام طور پر مین ٹیبل کے نیچے دکھائی جاتی ہے۔</string>
+    <string name="ai_block_generic">مجھے یقین نہیں ہے کہ آپ کا مطلب کس بلاک سے ہے۔ میں s, p, d اور f بلاکس کے بارے میں جانتا ہوں!</string>
+    <string name="ai_molar_mass_generic">میں مولر ماس میں مدد کر سکتا ہوں! "H2O کا مولر ماس کیا ہے؟" پوچھنے کی کوشش کریں۔</string>
+    <string name="ai_superlative_generic">یہ ایک بہت اچھا سوال ہے! میں سب سے گھنے، سب سے بھاری یا سب سے زیادہ الیکٹرو نیگیٹو عناصر تلاش کر سکتا ہوں۔ آپ کسے جاننا چاہیں گے؟</string>
+    <string name="ai_superlative_no_calculate">میں ابھی اس کا حساب نہیں لگا سکا۔</string>
+    <string name="highest">سب سے زیادہ</string>
+    <string name="lowest">سب سے کم</string>
+    <string name="ai_element_overview_intro">%1$s %2$s (%3$s) ایک دلچسپ عنصر ہے! اس کا ایٹمی نمبر %4$s ہے اور اس کا تعلق %5$s گروپ سے ہے۔</string>
+    <string name="ai_element_overview_series"> یہ %1$s سیریز کا حصہ ہے۔</string>
+    <string name="ai_element_overview_appearance"> یہ عام طور پر %1$s کے طور پر ظاہر ہوتا ہے۔</string>
+    <string name="ai_element_overview_isotopes"> %1$s کے ایک ایٹم میں %2$s پروٹان، %3$s الیکٹران، اور عام طور پر %4$s نیوٹران ہوتے ہیں۔</string>
+    <string name="ai_element_overview_electrons"> اس کے نیوکلیئس کے گرد %1$s الیکٹران گردش کرتے ہیں۔</string>
+    <string name="ai_technical_mass"> اس کا درست ایٹمی ماس %1$s ہے۔</string>
+    <string name="ai_technical_config"> اس کی الیکٹران کنفیگریشن %1$s ہے۔</string>
+    <string-array name="ai_facts">
+        <item>کیا آپ جانتے ہیں؟ زمین کی پرت میں آکسیجن سب سے وافر عنصر ہے!</item>
+        <item>دلچسپ حقیقت: سونا کبھی زنگ آلود نہیں ہوتا۔ یہ ہمیشہ چمکدار رہتا ہے!</item>
+        <item>یہاں کچھ ٹھنڈا ہے: ہائیڈروجن کائنات میں سب سے وافر عنصر ہے! 🌌</item>
+        <item>حیرت انگیز: کاربن زمین پر تمام معلوم زندگی کی بنیاد ہے!</item>
+        <item>دلچسپ: ہیلیم وہ واحد عنصر ہے جو عام دباؤ میں ٹھوس نہیں ہوتا!</item>
+        <item>دلچسپ حقیقت: پارہ وہ واحد دھاتی عنصر ہے جو کمرے کے درجہ حرارت پر مائع ہوتا ہے! 💧</item>
+        <item>کیا آپ جانتے ہیں؟ فرانسیم عنصر اتنا تابکار ہے کہ یہ فوراً بخارات بن جائے گا!</item>
+        <item>زبردست: ہیرا اور گریفائٹ دونوں خالص کاربن سے بنے ہیں لیکن ان کی خصوصیات بالکل مختلف ہیں!</item>
+        <item>حیرت انگیز: سونے کے ایک اونس کو کوٹ کر 300 مربع فٹ کی چادر بنائی جا سکتی ہے!</item>
+        <item>دلچسپ: نیون اصل میں عام حالات میں کوئی کیمیائی مرکب نہیں بناتا!</item>
+    </string-array>
     <string name="submit_data_issue">ڈیٹا مسئلہ جمع کروائیں</string>
     <string name="unit_converter_title">یونٹ کنورٹر</string>
     <string name="unit_enter_value">ویلیو</string>

@@ -297,6 +297,84 @@
     <string name="dictionary">Dizionario</string>
     <string name="dictionary_search">Cerca voce dizionario</string>
     <string name="element_info_title">Informazioni elemento</string>
+
+    <!-- AI Chat Panel -->
+    <string name="ask_atomic">Chiedi ad Atomic</string>
+    <string name="ai_hint">Chiedimi qualsiasi cosa...</string>
+    <string name="ai_lang_switched">Lingua AI cambiata in: %1$s 🌐</string>
+    <string name="ai_no_data">Hmm, non sono riuscito a trovare informazioni al riguardo. Prova a chiedere di un elemento come \'ossigeno\' o \'oro\'!</string>
+    <string name="ai_greeting">Ehi! 👋 Sono il tuo compagno di chimica. Chiedimi qualsiasi cosa sugli elementi!</string>
+    <string name="ai_encouragement">Ottima domanda! 🌟</string>
+    <string name="ai_comparing_title">Confronto di %1$s:</string>
+    <string name="ai_higher_than">%1$s ha un valore di %2$s più alto rispetto a %3$s.</string>
+    <string name="ai_same_value">Entrambi hanno lo stesso valore per %1$s!</string>
+    <string name="ai_property_is">La %2$s di %1$s è %3$s.</string>
+    <string name="ai_recap_is">Giusto per riepilogare, la %2$s di %1$s è %3$s.</string>
+    <string name="ai_no_property_data">Spiacente, non ho i dati per la %2$s di %1$s al momento.</string>
+    <string name="ai_appears_as">%1$s appare come: %2$s</string>
+    <string name="ai_discovered_by">%1$s è stato scoperto da %2$s nel %3$s.</string>
+    <string name="ai_discovered_in">%1$s è stato scoperto nel %2$s.</string>
+    <string name="ai_radioactive_yes">%1$s è radioattivo: %2$s</string>
+    <string name="ai_radioactive_no">%1$s è generalmente considerato stabile e non radioattivo.</string>
+    <string name="ai_molar_mass_of">La massa molare di %1$s è %2$s.</string>
+    <string name="ai_quiz_correct">✨ **Corretto!** Ben fatto. La risposta era proprio **%1$s**. Pronto per un\'altra domanda?</string>
+    <string name="ai_quiz_wrong">Non proprio! La risposta era **%1$s**. Vuoi provarne un\'altra? Di\' solo \'quiz\'!</string>
+    <string name="ai_quiz_start">Sto pensando a un elemento. Il suo simbolo è **%1$s**. Qual è il suo nome?</string>
+    <string name="ai_quiz_atomic">Quale elemento ha il numero atomico **%1$s**?</string>
+    <string name="ai_quiz_history">Questo elemento è stato scoperto da **%1$s** nel **%2$s**. Riesci a indovinare qual è?</string>
+    <string name="ai_superlative_result">L\'elemento con il %2$s più %1$s è **%3$s**, con un valore di %4$s.</string>
+    <string name="ai_trend_electronegativity">L\'elettronegatività generalmente aumenta da sinistra a destra lungo un periodo e diminuisce scendendo in un gruppo. Il fluoro è il campione qui!</string>
+    <string name="ai_trend_radius">Il raggio atomico diminuisce lungo un periodo (da sinistra a destra) perché il nucleo attira gli elettroni più fortemente, e aumenta scendendo in un gruppo man mano che si aggiungono più gusci.</string>
+    <string name="ai_trend_ionization">L\'energia di ionizzazione aumenta lungo un periodo e diminuisce scendendo in un gruppo. Diventa più difficile strappare un elettrone man mano che ci si sposta a destra!</string>
+    <string name="ai_trend_metallic">Il carattere metallico diminuisce lungo un periodo e aumenta scendendo in un gruppo. Gli elementi più metallici si trovano in basso a sinistra (come il francio).</string>
+    <string name="ai_trend_general">Le tendenze periodiche sono modelli nelle proprietà degli elementi! Quale tendenza ti incuriosisce: raggio atomico, elettronegatività o energia di ionizzazione?</string>
+    <string name="ai_formula_h2o">H2O è l\'acqua! È composta da due atomi di idrogeno e un atomo di ossigeno.</string>
+    <string name="ai_formula_co2">CO2 è l\'anidride carbonica. È composta da un atomo di carbonio e due atomi di ossigeno.</string>
+    <string name="ai_formula_nacl">NaCl è il cloruro di sodio, meglio noto come sale da cucina! Combina sodio e cloro.</string>
+    <string name="ai_formula_o2">O2 è l\'ossigeno che respiriamo! Sono due atomi di ossigeno legati insieme.</string>
+    <string name="ai_formula_ch4">CH4 è il metano, l\'alcano più semplice e un potente gas serra. È un carbonio e quattro idrogeni.</string>
+    <string name="ai_formula_nh3">NH3 è l\'ammoniaca, spesso usata nei prodotti per la pulizia. È un azoto e tre idrogeni.</string>
+    <string name="ai_formula_c6h12o6">C6H12O6 è il glucosio, uno zucchero semplice che fornisce energia agli esseri viventi. Ha 6 carboni, 12 idrogeni e 6 ossigeni.</string>
+    <string name="ai_formula_h2so4">H2SO4 è l\'acido solforico, un acido industriale molto forte e importante. Contiene idrogeno, zolfo e ossigeno.</string>
+    <string name="ai_formula_hcl">HCl è l\'acido cloridrico, che si trova persino nello stomaco per aiutare la digestione!</string>
+    <string name="ai_formula_generic">Riconosco che sembra una formula chimica, ma sto ancora imparando a conoscere le molecole! Chiedimi informazioni sui singoli elementi.</string>
+    <string name="ai_series_alkali">I metalli alcalini sono nel Gruppo 1. Sono molto reattivi e hanno un elettrone nel loro guscio esterno. Gli esempi includono litio, sodio e potassio.</string>
+    <string name="ai_series_halogen">Gli alogeni sono nel Gruppo 17. Sono non metalli altamente reattivi. Il fluoro e il cloro sono i più famosi!</string>
+    <string name="ai_series_noble_gas">I gas nobili sono nel Gruppo 18. Sono molto stabili e reagiscono raramente con altri elementi perché i loro gusci esterni sono pieni.</string>
+    <string name="ai_series_lanthanide">I lantanidi sono i 15 elementi con numero atomico da 57 a 71. Sono anche chiamati \'terre rare\'.</string>
+    <string name="ai_series_actinide">Gli attinidi sono i 15 elementi con numero atomico da 89 a 103. Sono tutti radioattivi!</string>
+    <string name="ai_series_transition">I metalli di transizione sono gli elementi dei gruppi da 3 a 12. Sono buoni conduttori e spesso formano composti colorati.</string>
+    <string name="ai_series_metalloid">I metalloidi hanno proprietà sia dei metalli che dei non metalli. Si trovano lungo la \'scala\' della tavola periodica.</string>
+    <string name="ai_series_generic">Conosco quella serie! Hanno proprietà chimiche uniche. Di quale elemento specifico di quella serie vorresti sapere?</string>
+    <string name="ai_block_s">Il blocco s è costituito dai primi due gruppi: metalli alcalini, metalli alcalino-terrosi, più idrogeno ed elio.</string>
+    <string name="ai_block_p">Il blocco p contiene i gruppi da 13 a 18, compresi tutti i non metalli (eccetto H ed He), i metalloidi e i metalli di post-transizione.</string>
+    <string name="ai_block_d">Il blocco d contiene i metalli di transizione dei gruppi da 3 a 12.</string>
+    <string name="ai_block_f">Il blocco f contiene le serie dei lantanidi e degli attinidi, solitamente mostrate sotto la tavola principale.</string>
+    <string name="ai_block_generic">Non sono sicuro di quale blocco tu intenda. Conosco i blocchi s, p, d e f!</string>
+    <string name="ai_molar_mass_generic">Posso aiutare con le masse molari! Prova a chiedere "Qual è la massa molare di H2O?"</string>
+    <string name="ai_superlative_generic">Questa è un\'ottima domanda! Posso trovare gli elementi più densi, pesanti o più elettronegativi. Quale vorresti conoscere?</string>
+    <string name="ai_superlative_no_calculate">Non sono riuscito a calcolarlo in questo momento.</string>
+    <string name="highest">più alto</string>
+    <string name="lowest">più basso</string>
+    <string name="ai_element_overview_intro">%1$s %2$s (%3$s) è un elemento affascinante! Il suo numero atomico è %4$s e appartiene al gruppo %5$s.</string>
+    <string name="ai_element_overview_series"> Fa parte della serie dei %1$s.</string>
+    <string name="ai_element_overview_appearance"> Di solito appare come: %1$s.</string>
+    <string name="ai_element_overview_isotopes"> Un atomo di %1$s contiene %2$s protoni, %3$s elettroni e solitamente %4$s neutroni.</string>
+    <string name="ai_element_overview_electrons"> Ha %1$s elettroni che orbitano attorno al suo nucleo.</string>
+    <string name="ai_technical_mass"> La sua massa atomica precisa è %1$s.</string>
+    <string name="ai_technical_config"> Ha una configurazione elettronica di %1$s.</string>
+    <string-array name="ai_facts">
+        <item>Lo sapevi? L\'ossigeno è l\'elemento più abbondante nella crosta terrestre!</item>
+        <item>Curiosità: l\'oro non arrugginisce né si corrode mai. Rimane lucido per sempre!</item>
+        <item>Ecco una cosa fantastica: l\'idrogeno è l\'elemento più abbondante nell\'universo! 🌌</item>
+        <item>Incredibile: il carbonio è la base di tutta la vita conosciuta sulla Terra!</item>
+        <item>Interessante: l\'elio è l\'unico elemento che non solidifica sotto la normale pressione!</item>
+        <item>Curiosità: il mercurio è l\'unico elemento liquido a temperatura ambiente! 💧</item>
+        <item>Lo sapevi? L\'elemento francio è così radioattivo che evaporerebbe all\'istante!</item>
+        <item>Forte: il diamante e la grafite sono entrambi fatti di carbonio puro ma hanno proprietà completamente diverse!</item>
+        <item>Incredibile: un\'oncia d\'oro può essere battuta in un foglio di 300 piedi quadrati!</item>
+        <item>Interessante: il neon non forma alcun composto chimico in condizioni normali!</item>
+    </string-array>
     <string name="submit_data_issue">Invia problema dati</string>
     <string name="unit_converter_title">Convertitore di unità</string>
     <string name="unit_enter_value">Valore</string>
