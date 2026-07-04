@@ -117,7 +117,18 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         mediaListeners()
         checkSale()
         maybeShowProPopup()
-        
+
+        //Setup Version under logo
+        val proPref = ProVersion(this)
+        val proPlusPref = ProPlusVersion(this)
+        val attrColor = when {
+            proPref.getValue() == 100 -> R.attr.colorPrimary
+            proPlusPref.getValue() == 100 -> R.attr.colorTertiary
+            else -> R.attr.colorOnSurface
+        }
+        val typedValue = TypedValue()
+        theme.resolveAttribute(attrColor, typedValue, true)
+
         // Initial fragment
         if (savedInstanceState == null) {
             switchFragment(HomeFragment(), "home")
@@ -164,11 +175,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                 R.id.nav_tools -> {
                     switchFragment(ToolsFragment(), "tools")
                     true
-                }
-                R.id.nav_ai -> {
-                    AnalyticsHelper.logFeatureUsage(this, "ai_chat")
-                    openAIPanel()
-                    false
                 }
                 else -> false
             }
