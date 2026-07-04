@@ -1,5 +1,6 @@
 package com.jlindemann.science.activities
 
+import android.animation.ValueAnimator
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
@@ -104,6 +105,7 @@ class ElementInfoActivity : InfoExtension() {
     private var currentChatSessionId: String? = null
     private var aiAdapter: ChatMessageAdapter? = null
     private val aiScope = CoroutineScope(Dispatchers.Main)
+    private var aiGradientAnimator: ValueAnimator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -286,8 +288,7 @@ class ElementInfoActivity : InfoExtension() {
         val shellBg = findViewById<RealtimeBlurView?>(R.id.shell_background)
         val detail = findViewById<CardView?>(R.id.detail_emission)
         val detailBg = findViewById<RealtimeBlurView?>(R.id.detail_emission_background)
-        val aiPanelInclude = findViewById<View?>(R.id.ai_panel_include)
-        val aiPanelRoot = aiPanelInclude?.findViewById<View>(R.id.ai_panel_root)
+        val aiPanelRoot = findViewById<View?>(R.id.ai_panel_include)
 
         return isCompareMode ||
                 (shell?.visibility == View.VISIBLE) ||
@@ -343,8 +344,7 @@ class ElementInfoActivity : InfoExtension() {
         val shellBg = findViewById<RealtimeBlurView>(R.id.shell_background)
         val detail = findViewById<CardView>(R.id.detail_emission)
         val detailBg = findViewById<RealtimeBlurView>(R.id.detail_emission_background)
-        val aiPanelInclude = findViewById<View>(R.id.ai_panel_include)
-        val aiPanelRoot = aiPanelInclude?.findViewById<View>(R.id.ai_panel_root)
+        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include)
 
         if (aiPanelRoot?.visibility == View.VISIBLE) {
             closeAIPanel()
@@ -375,13 +375,7 @@ class ElementInfoActivity : InfoExtension() {
             commonTitleBack.layoutParams = params2
         }
 
-        // Handle AI Panel insets
-        val aiInputContainer = findViewById<View>(R.id.ai_input_container)
-        if (aiInputContainer != null) {
-            val params9 = aiInputContainer.layoutParams as ViewGroup.MarginLayoutParams
-            params9.bottomMargin = bottom + resources.getDimensionPixelSize(R.dimen.margin)
-            aiInputContainer.layoutParams = params9
-        }
+        // Handle AI Panel insets handled by its own listener now
     }
 
     private fun offlineCheck() {
@@ -924,12 +918,11 @@ private fun setupStaticDetailListeners() {
 
     private fun setupAIPanel() {
         val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
-        val aiPanelContainerView = aiPanelRoot.findViewById<ConstraintLayout>(R.id.ai_panel_container) ?: return
+        val aiPanelContainerView = aiPanelRoot.findViewById<View>(R.id.ai_panel_container) ?: return
         val aiScrim = aiPanelRoot.findViewById<View>(R.id.ai_panel_scrim) ?: return
         val aiRecyclerView = aiPanelRoot.findViewById<RecyclerView>(R.id.ai_chat_recycler)
         val aiMessageInput = aiPanelRoot.findViewById<EditText>(R.id.ai_message_input)
         val aiSendBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_send_btn)
-        val aiCloseBtn = aiPanelRoot.findViewById<ImageView>(R.id.ai_close_btn)
         val aiLoadingIndicator = aiPanelRoot.findViewById<ProgressBar>(R.id.ai_loading_indicator)
         val aiLanguageBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_language_btn)
         val aiUserBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_user_btn)
@@ -938,6 +931,7 @@ private fun setupStaticDetailListeners() {
         val aiHistoryRecycler = aiPanelRoot.findViewById<RecyclerView>(R.id.ai_history_recycler)
         val aiCloseHistoryBtn = aiPanelRoot.findViewById<ImageButton>(R.id.close_history_btn)
         val aiHistoryEmptyView = aiPanelRoot.findViewById<View>(R.id.history_empty_view)
+        val aiNewChatBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_new_chat)
 
         aiAdapter = ChatMessageAdapter(aiChatMessages)
         aiRecyclerView.layoutManager = LinearLayoutManager(this).apply { stackFromEnd = true }
@@ -962,10 +956,6 @@ private fun setupStaticDetailListeners() {
             }
         }
 
-        aiCloseBtn.setOnClickListener {
-            closeAIPanel()
-        }
-
         aiHistoryBtn?.setOnClickListener {
             if (AuthManager.isSignedIn()) {
                 if (aiHistoryContainer != null && aiHistoryRecycler != null && aiHistoryEmptyView != null) {
@@ -985,9 +975,54 @@ private fun setupStaticDetailListeners() {
             startActivity(intent)
         }
 
+        aiNewChatBtn?.setOnClickListener {
+            startNewAIChat()
+        }
+
         aiScrim.setOnClickListener {
             closeAIPanel()
         }
+
+        ViewCompat.setOnApplyWindowInsetsListener(aiPanelRoot) { _, insets ->
+            val bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+            val aiInputContainerView = aiPanelRoot.findViewById<View>(R.id.ai_input_container)
+            if (aiInputContainerView != null) {
+                val params = aiInputContainerView.layoutParams as ViewGroup.MarginLayoutParams
+                params.bottomMargin = bottom + resources.getDimensionPixelSize(R.dimen.margin)
+                aiInputContainerView.layoutParams = params
+            }
+            insets
+        }
+
+        val behavior = BottomSheetBehavior.from(aiPanelContainerView)
+        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    aiPanelRoot.visibility = View.GONE
+                    setBackInterceptionEnabled(anyOverlayOpen())
+                    stopAIGradientPulsation()
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                aiScrim.alpha = slideOffset
+            }
+        })
+
+        startAIInputAnimation(aiPanelRoot)
+    }
+
+    private fun startAIInputAnimation(root: View) {
+        val inputBg = root.findViewById<View>(R.id.ai_input_gradient_bg) ?: return
+        
+        val animator = ValueAnimator.ofFloat(0.6f, 1.0f)
+        animator.duration = 4000
+        animator.repeatCount = ValueAnimator.INFINITE
+        animator.repeatMode = ValueAnimator.REVERSE
+        animator.addUpdateListener { anim ->
+            inputBg.alpha = anim.animatedValue as Float
+        }
+        animator.start()
     }
 
     private fun showAILanguageMenu(anchor: View) {
@@ -1020,25 +1055,48 @@ private fun setupStaticDetailListeners() {
 
     private fun openAIPanel() {
         val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
-        val aiPanelContainerView = aiPanelRoot.findViewById<ConstraintLayout>(R.id.ai_panel_container) ?: return
+        val aiPanelContainerView = aiPanelRoot.findViewById<View>(R.id.ai_panel_container) ?: return
         val aiScrim = aiPanelRoot.findViewById<View>(R.id.ai_panel_scrim) ?: return
 
         aiPanelRoot.visibility = View.VISIBLE
+        val behavior = BottomSheetBehavior.from(aiPanelContainerView)
+        behavior.state = BottomSheetBehavior.STATE_EXPANDED
 
-        // Initial state: panel is below screen
-        aiPanelContainerView.translationY = aiPanelContainerView.height.toFloat()
-        if (aiPanelContainerView.height == 0) {
-            aiPanelContainerView.post {
-                aiPanelContainerView.translationY = aiPanelContainerView.height.toFloat()
-                aiPanelContainerView.animate().translationY(0f).setDuration(300).start()
-            }
-        } else {
-            aiPanelContainerView.animate().translationY(0f).setDuration(300).start()
+        // Force a layout pass and state update to handle first-time opening height issues
+        aiPanelContainerView.post {
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
-        aiScrim.animate().alpha(1f).setDuration(300).start()
+        aiScrim.alpha = 1f
         updateAIUserProfileImage()
         setBackInterceptionEnabled(true)
+        startAIGradientPulsation(1500, 2)
+    }
+
+    private fun startAIGradientPulsation(duration: Long = 2000, repeatCount: Int = ValueAnimator.INFINITE) {
+        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
+        val gradientView = aiPanelRoot.findViewById<View>(R.id.ai_panel_gradient_view) ?: return
+        
+        aiGradientAnimator?.cancel()
+        aiGradientAnimator = ValueAnimator.ofFloat(0f, 0.27f).apply {
+            this.duration = duration
+            this.repeatCount = repeatCount
+            this.repeatMode = ValueAnimator.REVERSE
+            addUpdateListener { anim ->
+                gradientView.alpha = anim.animatedValue as Float
+            }
+            start()
+        }
+    }
+
+    private fun stopAIGradientPulsation() {
+        aiGradientAnimator?.let {
+            it.cancel()
+            val aiPanelRoot = findViewById<View>(R.id.ai_panel_include)
+            val gradientView = aiPanelRoot?.findViewById<View>(R.id.ai_panel_gradient_view)
+            gradientView?.animate()?.alpha(0f)?.setDuration(500)?.start()
+        }
+        aiGradientAnimator = null
     }
 
     private fun updateAIUserProfileImage() {
@@ -1069,19 +1127,24 @@ private fun setupStaticDetailListeners() {
 
     private fun closeAIPanel() {
         val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
-        val aiPanelContainerView = aiPanelRoot.findViewById<ConstraintLayout>(R.id.ai_panel_container) ?: return
-        val aiScrim = aiPanelRoot.findViewById<View>(R.id.ai_panel_scrim) ?: return
+        val aiPanelContainerView = aiPanelRoot.findViewById<View>(R.id.ai_panel_container) ?: return
 
-        aiPanelContainerView.animate()
-            .translationY(aiPanelContainerView.height.toFloat())
-            .setDuration(300)
-            .withEndAction {
-                aiPanelRoot.visibility = View.GONE
-                setBackInterceptionEnabled(anyOverlayOpen())
-            }
-            .start()
+        // Hide keyboard if it's open
+        val imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
+        imm.hideSoftInputFromWindow(aiPanelRoot.windowToken, 0)
 
-        aiScrim.animate().alpha(0f).setDuration(300).start()
+        val behavior = BottomSheetBehavior.from(aiPanelContainerView)
+        behavior.state = BottomSheetBehavior.STATE_HIDDEN
+        
+        // BottomSheetCallback handles visibility, back interception and stopping pulsation
+    }
+
+    private fun startNewAIChat() {
+        aiChatMessages.clear()
+        currentChatSessionId = null
+        aiAgentManager.clearConversation()
+        aiAdapter?.notifyDataSetChanged()
+        addAIGreeting()
     }
 
     private fun addAIGreeting() {
@@ -1111,6 +1174,8 @@ private fun setupStaticDetailListeners() {
         aiAgentManager.addToConversationHistory(userMsg)
         saveCurrentChatSession() // Sync immediately when user asks
         
+        startAIGradientPulsation(1000, ValueAnimator.INFINITE)
+
         aiScope.launch {
             val response = aiAgentManager.generateResponse(text, contextElement = mainElementName)
             loader.visibility = View.GONE
@@ -1119,6 +1184,7 @@ private fun setupStaticDetailListeners() {
             recycler.scrollToPosition(aiChatMessages.size - 1)
             aiAgentManager.addToConversationHistory(response)
             saveCurrentChatSession() // Sync again with response
+            stopAIGradientPulsation()
         }
     }
 

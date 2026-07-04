@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ai_panel_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="gone"
-    android:elevation="10000dp"
+    android:elevation="50000dp"
     tools:visibility="visible">
 
     <!-- Scrim Background -->
@@ -14,26 +14,43 @@
         android:id="@+id/ai_panel_scrim"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#80000000"
+        android:background="#99000000"
         android:alpha="0" />
 
     <!-- Sliding Panel Content -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/ai_panel_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="82dp"
         android:background="@drawable/ai_panel_background"
         android:clickable="true"
         android:focusable="true"
-        android:elevation="16dp">
+        android:elevation="20dp"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:behavior_skipCollapsed="true"
+        app:behavior_fitToContents="false"
+        app:behavior_expandedOffset="82dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <!-- Header/Drag Handle -->
-        <FrameLayout
-            android:id="@+id/ai_panel_header"
+        <View
+            android:id="@+id/ai_panel_gradient_view"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/ai_full_panel_gradient"
+            android:alpha="0" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="82dp">
+
+            <!-- Header/Drag Handle -->
+            <FrameLayout
+                android:id="@+id/ai_panel_header"
+                android:layout_width="match_parent"
+                android:layout_height="64dp">
 
             <View
                 android:layout_width="40dp"
@@ -90,7 +107,20 @@
                 android:src="@drawable/ic_account"
                 app:tint="?attr/colorOnSurfaceVariant" />
 
-            <ImageButton
+                <ImageButton
+                    android:id="@+id/ai_new_chat"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="56dp"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_chat"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
+
+                <ImageButton
                 android:id="@+id/ai_language_btn"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="48dp"
@@ -103,129 +133,145 @@
 
         </FrameLayout>
 
-        <!-- Chat Area -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ai_chat_recycler"
+        <!-- Main Content Area with History and Chat -->
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/ai_input_container"
-            app:layout_constraintTop_toBottomOf="@id/ai_panel_header" />
+            android:layout_weight="1">
 
-        <!-- History Area (Hidden by default) -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/ai_history_container"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="?attr/colorSurface"
-            android:visibility="gone"
-            android:elevation="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ai_panel_header">
-
-            <TextView
-                android:id="@+id/history_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="Chat History"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/close_history_btn"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/ic_arrow"
-                android:rotation="90"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="?attr/colorOnSurfaceVariant" />
-
+            <!-- Chat Area -->
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ai_history_recycler"
+                android:id="@+id/ai_chat_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:clipToPadding="false"
-                android:paddingVertical="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/history_header" />
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="8dp" />
 
-            <TextView
-                android:id="@+id/history_empty_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No history found. Sign in to save chats."
+            <!-- History Area (Hidden by default) -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ai_history_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorSurface"
                 android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/history_header" />
+                android:elevation="30dp">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/history_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="Chat History"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Loading Indicator -->
-        <ProgressBar
-            android:id="@+id/ai_loading_indicator"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/ai_chat_recycler"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ai_chat_recycler" />
+                <ImageButton
+                    android:id="@+id/close_history_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/ic_arrow"
+                    android:rotation="90"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/ai_history_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:clipToPadding="false"
+                    android:paddingVertical="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/history_header" />
+
+                <TextView
+                    android:id="@+id/history_empty_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No history found. Sign in to save chats."
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/history_header" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Loading Indicator -->
+            <ProgressBar
+                android:id="@+id/ai_loading_indicator"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:elevation="35dp" />
+
+        </FrameLayout>
 
         <!-- Input Area -->
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/ai_input_container"
             android:layout_width="match_parent"
             android:layout_height="92dp"
-            android:background="@drawable/toast"
-            android:layout_margin="12dp"
-            android:backgroundTint="?attr/colorSurface"
-            android:elevation="24dp"
-            android:orientation="horizontal"
-            android:padding="12dp"
-            app:layout_constraintBottom_toBottomOf="parent">
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginBottom="12dp"
+            android:elevation="24dp">
 
-            <EditText
-                android:id="@+id/ai_message_input"
-                android:layout_width="0dp"
+            <View
+                android:id="@+id/ai_input_gradient_bg"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/rounded_box"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:hint="Ask me anything..."
-                android:importantForAutofill="no"
-                android:inputType="textCapSentences|textMultiLine"
-                android:maxLines="4"
-                android:minHeight="48dp"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textColorHint="?attr/colorOnSurfaceVariant"
-                android:textSize="14sp" />
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorSurface"
+                android:alpha="0.85" />
 
-            <ImageButton
-                android:id="@+id/ai_send_btn"
-                style="?android:attr/borderlessButtonStyle"
-                android:layout_width="48dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="8dp"
-                android:contentDescription="Send"
-                android:src="@drawable/ic_send"
-                app:tint="?attr/colorPrimary" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="12dp">
+
+                <EditText
+                    android:id="@+id/ai_message_input"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_box"
+                    android:backgroundTint="?attr/colorSurfaceVariant"
+                    android:hint="Ask me anything..."
+                    android:importantForAutofill="no"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:maxLines="3"
+                    android:minHeight="48dp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textColorHint="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp" />
+
+                <ImageButton
+                    android:id="@+id/ai_send_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="Send"
+                    android:src="@drawable/ic_send"
+                    app:tint="?attr/colorPrimary" />
+
+            </LinearLayout>
+
+        </FrameLayout>
 
         </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

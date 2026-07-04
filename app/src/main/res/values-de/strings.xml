@@ -312,6 +312,7 @@
     <string name="ai_encouragement">Gute Frage! 🌟</string>
     <string name="ai_comparing_title">Vergleich von %1$s:</string>
     <string name="ai_higher_than">%1$s hat eine höhere %2$s als %3$s.</string>
+    <string name="ai_lower_than">%1$s hat eine niedrigere %2$s als %3$s.</string>
     <string name="ai_same_value">Beide haben den gleichen Wert für %1$s!</string>
     <string name="ai_property_is">Die %2$s von %1$s ist %3$s.</string>
     <string name="ai_recap_is">Nochmal zur Erinnerung: Die %2$s von %1$s ist %3$s.</string>

@@ -24,9 +24,9 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.activity.OnBackPressedCallback
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.tools.TitleBarAnimator
 import com.jlindemann.science.adapter.IsotopeAdapter
 import com.jlindemann.science.animations.Anim
+import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.*

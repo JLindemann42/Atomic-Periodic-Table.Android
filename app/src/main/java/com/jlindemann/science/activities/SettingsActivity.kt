@@ -22,7 +22,7 @@ import com.jlindemann.science.activities.settings.LicensesActivity
 import com.jlindemann.science.activities.settings.OrderActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
 import com.jlindemann.science.activities.settings.UnitActivity
-import com.jlindemann.science.activities.tools.TitleBarAnimator
+import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.preferences.offlinePreference

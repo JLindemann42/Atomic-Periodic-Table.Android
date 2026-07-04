@@ -24,6 +24,7 @@ import android.view.ViewPropertyAnimator
 import androidx.appcompat.widget.AppCompatButton
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.activities.settings.ProActivity
+import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference

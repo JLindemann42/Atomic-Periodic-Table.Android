@@ -16,6 +16,7 @@ import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tools.*
 import com.jlindemann.science.adapter.ToolAdapter
+import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.model.ToolItem
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ProPlusVersion
@@ -72,15 +73,8 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
         val isBeforeDeadline = ProPlusTimeUtil.isBeforeJanuary2026()
         
         val tools = getToolItems(proPlusPrefValue, isBeforeDeadline)
-        val toolsWithHeader = mutableListOf(ToolItem("header", 0, 0))
-        toolsWithHeader.addAll(tools)
         
-        adapter = ToolAdapter(this, toolsWithHeader, this)
-        adapter.setHeaderBindingAction { view ->
-            headerView = view
-            applyHeaderInsets(view, lastTopInset)
-            mostUsedBar(view)
-        }
+        adapter = ToolAdapter(this, tools, this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
@@ -124,7 +118,7 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
     }
 
     private fun saveToolOrder() {
-        val currentOrder = adapter.dataSet.filter { it.id != "header" }.map { it.id }
+        val currentOrder = adapter.dataSet.map { it.id }
         toolOrderPref.saveOrder(currentOrder)
     }
 
@@ -191,28 +185,6 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
                 
                 val threshold = 150
 
-                val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_tool_color)
-                val titleText = findViewById<TextView>(R.id.tools_title)
-                val titleDownstateText = recyclerView.findViewHolderForAdapterPosition(0)?.itemView?.findViewById<TextView>(R.id.tools_title_downstate)
-                val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_tab)
-
-                if (totalScrolledY > threshold) {
-                    if (!isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
-                        TitleBarAnimator.animateVisibility(titleText, true)
-                        titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, false) }
-                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
-                        isTitleVisible = true
-                    }
-                } else {
-                    if (isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
-                        TitleBarAnimator.animateVisibility(titleText, false)
-                        titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, true) }
-                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
-                        isTitleVisible = false
-                    }
-                }
             }
         }
     }
@@ -229,10 +201,7 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
     }
 
     private fun applyHeaderInsets(view: View, top: Int) {
-        val titleDownstate = view.findViewById<TextView>(R.id.tools_title_downstate)
-        val params = titleDownstate.layoutParams as ViewGroup.MarginLayoutParams
-        params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
-        titleDownstate.layoutParams = params
+
     }
 
     private fun mostUsedBar(rootView: View) {

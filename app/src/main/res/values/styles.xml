@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">#0856CF</item>
         <item name="colorOnPrimary">#ffffff</item>
         <item name="colorPrimaryContainer">#D9E2FF</item>
@@ -40,7 +40,7 @@
         <item name="rippleColor">@color/colorLightRipple</item>
     </style>
 
-    <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeDark" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">#b0c5ff</item>
         <item name="colorOnPrimary">#002B76</item>
         <item name="colorPrimaryContainer">#003FA4</item>
@@ -78,7 +78,7 @@
 
     <style name="ToggleStyle"></style>
 
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="SplashTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/background</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:navigationBarColor">@color/colorLightPrimaryDark</item>
@@ -123,6 +123,29 @@
         <item name="android:src">@drawable/ic_arrow</item>
         <item name="android:rotation">270</item>
         <item name="android:contentDescription">@null</item>
+    </style>
+
+    <style name="App.CustomActiveIndicator" parent="">
+        <item name="android:color">?attr/colorSecondaryContainer</item>
+    </style>
+
+    <style name="MostUsedPill">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:background">@drawable/toast</item>
+        <item name="android:backgroundTint">?attr/colorSurfaceVariant</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">@drawable/toast_ripple</item>
     </style>
 
     <declare-styleable name="ShadowView">

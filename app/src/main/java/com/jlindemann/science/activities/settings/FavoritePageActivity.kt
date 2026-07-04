@@ -15,7 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
-import com.jlindemann.science.activities.tools.TitleBarAnimator
+import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.preferences.*
 
 class FavoritePageActivity : BaseActivity() {

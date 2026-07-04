@@ -310,6 +310,7 @@
     <string name="ai_encouragement">Bra fråga! 🌟</string>
     <string name="ai_comparing_title">Jämför %1$s:</string>
     <string name="ai_higher_than">%1$s har högre %2$s än %3$s.</string>
+    <string name="ai_lower_than">%1$s har lägre %2$s än %3$s.</string>
     <string name="ai_same_value">Båda har samma %1$s!</string>
     <string name="ai_property_is">%1$s:s %2$s är %3$s.</string>
     <string name="ai_recap_is">Bara för att repetera, %1$s:s %2$s är %3$s.</string>

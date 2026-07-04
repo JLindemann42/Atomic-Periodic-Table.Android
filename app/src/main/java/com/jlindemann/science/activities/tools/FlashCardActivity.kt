@@ -41,6 +41,7 @@ import com.google.android.gms.tasks.Task
 import com.jlindemann.science.activities.UserActivity
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
+import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ProVersion

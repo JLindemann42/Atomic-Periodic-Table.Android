@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_grid"
+        android:title="Home" />
+    <item
+        android:id="@+id/nav_tables"
+        android:icon="@drawable/ic_menu"
+        android:title="@string/Tables" />
+    <item
+        android:id="@+id/nav_tools"
+        android:icon="@drawable/ic_tools"
+        android:title="@string/tools" />
+    <item
+        android:id="@+id/nav_ai"
+        android:icon="@drawable/ic_ai_mascot"
+        android:title="@string/ask_atomic" />
+</menu>

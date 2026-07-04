@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v5.0.0m-Build.215</string>
+    <string name="app_version" translatable="false">v5.0.0m-Build.217</string>
     <string name="next_sale_start" translatable="false" >2024/08/05</string>
     <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
@@ -108,6 +108,7 @@
     <string name="ai_encouragement">Great question! 🌟</string>
     <string name="ai_comparing_title">Comparing %1$s:</string>
     <string name="ai_higher_than">%1$s has a higher %2$s than %3$s.</string>
+    <string name="ai_lower_than">%1$s has a lower %2$s than %3$s.</string>
     <string name="ai_same_value">Both have the same %1$s!</string>
     <string name="ai_property_is">%1$s\'s %2$s is %3$s.</string>
     <string name="ai_recap_is">Just to recap, %1$s\'s %2$s is %3$s.</string>
@@ -228,6 +229,8 @@
     <string name="poi_search_hint" >Search For Dictionary Item</string>
     <string name="poi_clear_filter" >Clear Filter</string>
     <string name="poissons_ratio_title" >Poisson\'s Ratio</string>
+
+    <string name="filter">Filter</string>
 
     <!-- Activity Settings-->
     <string name="other_settings">Advanced</string>

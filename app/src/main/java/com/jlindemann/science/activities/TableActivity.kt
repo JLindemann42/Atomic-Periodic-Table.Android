@@ -16,8 +16,8 @@ import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListen
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tables.*
-import com.jlindemann.science.activities.tools.TitleBarAnimator
 import com.jlindemann.science.adapter.TableAdapter
+import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.model.TableItem
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ProVersion
@@ -73,15 +73,8 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
         val proPrefValue = proPref.getValue()
         
         val tables = getTableItems(proPrefValue)
-        val tablesWithHeader = mutableListOf(TableItem("header", 0, 0))
-        tablesWithHeader.addAll(tables)
         
-        adapter = TableAdapter(this, tablesWithHeader, this)
-        adapter.setHeaderBindingAction { view ->
-            headerView = view
-            applyHeaderInsets(view, lastTopInset)
-            mostUsedBar(view)
-        }
+        adapter = TableAdapter(this, tables, this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
@@ -131,8 +124,7 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
     }
 
     private fun saveTableOrder() {
-        // Filter out the header before saving
-        val currentOrder = adapter.dataSet.filter { it.id != "header" }.map { it.id }
+        val currentOrder = adapter.dataSet.map { it.id }
         tableOrderPref.saveOrder(currentOrder)
     }
 
@@ -198,32 +190,6 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
                     totalScrollY -= distance
                 }
 
-                val threshold = 150
-                val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_table_color)
-                val titleText = findViewById<TextView>(R.id.tables_title)
-                val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_tab)
-
-                // Header view might contain the downstate title now
-                val headerView = recyclerView.findViewHolderForAdapterPosition(0)?.itemView
-                val titleDownstateText = headerView?.findViewById<TextView>(R.id.tables_title_downstate)
-
-                if (totalScrollY > threshold) {
-                    if (!isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
-                        TitleBarAnimator.animateVisibility(titleText, true)
-                        titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, false) }
-                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
-                        isTitleVisible = true
-                    }
-                } else {
-                    if (isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
-                        TitleBarAnimator.animateVisibility(titleText, false)
-                        titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, true) }
-                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
-                        isTitleVisible = false
-                    }
-                }
             }
         }
     }
@@ -240,10 +206,6 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
     }
 
     private fun applyHeaderInsets(view: View, top: Int) {
-        val titleDownstate = view.findViewById<TextView>(R.id.tables_title_downstate)
-        val params = titleDownstate.layoutParams as ViewGroup.MarginLayoutParams
-        params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
-        titleDownstate.layoutParams = params
     }
 
     private fun mostUsedBar(rootView: View) {
