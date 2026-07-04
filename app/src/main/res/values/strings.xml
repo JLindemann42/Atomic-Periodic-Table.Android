@@ -7,6 +7,8 @@
     <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
     <string name="open_table_button">Open table</string>
+    <string name="account">Account</string>
+    <string name="learning_games_nav">Flashcards</string>
 
     <string name="search">Search Elements</string>
     <string name="search_elements">Search For Elements</string>

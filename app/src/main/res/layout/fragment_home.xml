@@ -9,8 +9,7 @@
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/ai_chat_fab"
-        style="@style/Widget.Material3.ExtendedFloatingActionButton.Primary"
-        android:layout_width="wrap_content"
+        app:materialThemeOverlay="@style/ThemeOverlay.Material3Expressive.FloatingActionButton.Primary"        android:layout_width="wrap_content"
         android:layout_height="56dp"
         android:text="@string/ask_atomic"
         android:textAllCaps="false"
@@ -25,7 +24,7 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/filterFab"
-        style="@style/Widget.Material3.FloatingActionButton.Tertiary"
+        app:materialThemeOverlay="@style/ThemeOverlay.Material3Expressive.FloatingActionButton.Tertiary"
         android:contentDescription="@string/filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

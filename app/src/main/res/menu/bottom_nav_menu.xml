@@ -13,7 +13,11 @@
         android:icon="@drawable/ic_tools"
         android:title="@string/tools" />
     <item
-        android:id="@+id/nav_ai"
-        android:icon="@drawable/ic_ai_mascot"
-        android:title="@string/ask_atomic" />
+        android:id="@+id/nav_learning_games"
+        android:icon="@drawable/ic_flashcards"
+        android:title="@string/learning_games_nav" />
+    <item
+        android:id="@+id/nav_pro"
+        android:icon="@drawable/ic_star"
+        android:title="@string/get_pro" />
 </menu>
