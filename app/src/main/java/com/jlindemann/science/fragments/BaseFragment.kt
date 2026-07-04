@@ -14,4 +14,6 @@ abstract class BaseFragment : Fragment() {
         // Request insets dispatch to handle specific fragment UI
         view.requestApplyInsets()
     }
+
+    open fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {}
 }

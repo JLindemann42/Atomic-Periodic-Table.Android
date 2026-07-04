@@ -50,7 +50,6 @@ class HomeFragment : BaseFragment() {
         setupPeriodicTable(view)
         scrollAdapter(view)
         initName(view, elementList)
-        view.findViewById<FloatingActionButton>(R.id.filterFab).setOnClickListener { (activity as MainActivity).openHover() }
 
         // Initial name refresh
         Handler(Looper.getMainLooper()).postDelayed({

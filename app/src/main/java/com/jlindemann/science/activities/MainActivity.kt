@@ -46,7 +46,9 @@ import com.jlindemann.science.utils.*
 import com.jlindemann.science.adapter.*
 import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.extensions.TableExtension
+import com.jlindemann.science.fragments.FlashcardFragment
 import com.jlindemann.science.fragments.HomeFragment
+import com.jlindemann.science.fragments.ProFragment
 import com.jlindemann.science.fragments.TablesFragment
 import com.jlindemann.science.fragments.ToolsFragment
 import com.otaliastudios.zoom.ZoomLayout
@@ -112,6 +114,15 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         setupBottomNavigation()
         setupAIPanel()
         setupKeyboardAnimation()
+        
+        findViewById<View>(R.id.ai_chat_fab).setOnClickListener {
+            openAIPanel()
+        }
+        
+        findViewById<View>(R.id.filterFab_main).setOnClickListener {
+            openHover()
+        }
+
         searchListener()
         searchFilter(elementList, recyclerView)
         mediaListeners()
@@ -176,6 +187,14 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                     switchFragment(ToolsFragment(), "tools")
                     true
                 }
+                R.id.nav_learning_games -> {
+                    switchFragment(FlashcardFragment(), "flashcards")
+                    true
+                }
+                R.id.nav_pro -> {
+                    switchFragment(ProFragment(), "pro")
+                    true
+                }
                 else -> false
             }
         }
@@ -186,7 +205,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         
         val transaction = supportFragmentManager.beginTransaction()
         
-        // Material You like transition
         transaction.setCustomAnimations(
             android.R.anim.fade_in,
             android.R.anim.fade_out,
@@ -196,9 +214,26 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         
         transaction.replace(R.id.fragment_container, fragment, tag)
         transaction.commit()
-        currentFragmentTag = tag
         
+        handleFilterFabVisibility(tag)
+        currentFragmentTag = tag
         updateTopBarForFragment(tag)
+    }
+
+    private fun handleFilterFabVisibility(tag: String) {
+        val filterFab = findViewById<View>(R.id.filterFab_main) ?: return
+        if (tag == "home") {
+            if (filterFab.visibility != View.VISIBLE) {
+                filterFab.visibility = View.VISIBLE
+                filterFab.animate().alpha(1f).scaleX(1f).scaleY(1f).setDuration(200).start()
+            }
+        } else {
+            if (filterFab.visibility == View.VISIBLE) {
+                filterFab.animate().alpha(0f).scaleX(0f).scaleY(0f).setDuration(200).withEndAction {
+                    filterFab.visibility = View.GONE
+                }.start()
+            }
+        }
     }
 
     private fun updateTopBarForFragment(tag: String) {
@@ -476,6 +511,12 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val filterBox = findViewById<View>(R.id.filter_box)
         (filterBox?.layoutParams as? ViewGroup.MarginLayoutParams)?.topMargin = mainBarHeight + TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4f, resources.displayMetrics).toInt()
         filterBox?.requestLayout()
+
+        supportFragmentManager.fragments.forEach {
+            if (it is com.jlindemann.science.fragments.BaseFragment) {
+                it.onApplySystemInsets(top, bottom, left, right)
+            }
+        }
     }
 
     private fun updateStats() { }

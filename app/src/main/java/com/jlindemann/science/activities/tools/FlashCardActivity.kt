@@ -1,6 +1,6 @@
 package com.jlindemann.science.activities.tools
 
-import GameResultItem
+import com.jlindemann.science.utils.GameResultItem
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build

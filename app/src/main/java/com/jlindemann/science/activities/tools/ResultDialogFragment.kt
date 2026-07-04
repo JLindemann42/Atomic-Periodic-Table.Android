@@ -1,6 +1,6 @@
 package com.jlindemann.science.activities.tools
 
-import GameResultItem
+import com.jlindemann.science.utils.GameResultItem
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

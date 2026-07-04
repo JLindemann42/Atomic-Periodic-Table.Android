@@ -1,6 +1,6 @@
 package com.jlindemann.science.activities.tools
 
-import GameResultItem
+import com.jlindemann.science.utils.GameResultItem
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator

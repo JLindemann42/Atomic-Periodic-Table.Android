@@ -66,10 +66,9 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
 
     private fun getToolItems(proPlusValue: Int, isBeforeDeadline: Boolean): List<ToolItem> {
         val defaultTools = mutableListOf(
-            ToolItem("fla", R.string.flashcards_title, R.string.flashcards_info, false, true, 0),
-            ToolItem("cal", R.string.calculator_title, R.string.calculator_text, false, false, 1),
-            ToolItem("uni", R.string.unit_title, R.string.unit_description, false, false, 2),
-            ToolItem("gas", R.string.ideal_gas_calculator_title, R.string.ideal_gas_text, proPlusValue != 100 && isBeforeDeadline, false, 3)
+            ToolItem("cal", R.string.calculator_title, R.string.calculator_text, false, false, 0),
+            ToolItem("uni", R.string.unit_title, R.string.unit_description, false, false, 1),
+            ToolItem("gas", R.string.ideal_gas_calculator_title, R.string.ideal_gas_text, proPlusValue != 100 && isBeforeDeadline, false, 2)
         )
 
         val savedOrder = toolOrderPreference.getOrder()
@@ -100,7 +99,6 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
         val activityClass = when (item.id) {
             "cal" -> CalculatorActivity::class.java
             "uni" -> UnitConversionActivity::class.java
-            "fla" -> FlashCardActivity::class.java
             "gas" -> if (proPlusValue != 100 && isBeforeDeadline) ProActivity::class.java else IdealGasCalculatorActivity::class.java
             else -> return
         }
@@ -141,7 +139,6 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
                         val activity = when (pair.first) {
                             "cal" -> CalculatorActivity::class.java
                             "uni" -> UnitConversionActivity::class.java
-                            "fla" -> FlashCardActivity::class.java
                             "gas" -> IdealGasCalculatorActivity::class.java
                             else -> null
                         }
