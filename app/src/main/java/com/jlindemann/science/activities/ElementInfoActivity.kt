@@ -26,7 +26,8 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatButton
 import androidx.browser.customtabs.CustomTabsIntent
-import androidx.cardview.widget.CardView
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.button.MaterialButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -80,6 +81,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import android.widget.*
+import androidx.appcompat.widget.AppCompatImageView
 import java.util.UUID
 import com.squareup.picasso.Picasso
 import java.io.IOException
@@ -127,8 +129,8 @@ class ElementInfoActivity : InfoExtension() {
 
         // readJson() will call updateElementUI which now handles overlay listeners
         readJson()
-        findViewById<CardView>(R.id.shell).visibility = View.GONE
-        findViewById<CardView>(R.id.detail_emission).visibility = View.GONE
+        findViewById<MaterialCardView>(R.id.shell).visibility = View.GONE
+        findViewById<MaterialCardView>(R.id.detail_emission).visibility = View.GONE
         setupStaticDetailListeners()
         offlineCheck()
         nextPrev()
@@ -137,7 +139,7 @@ class ElementInfoActivity : InfoExtension() {
         setupAIPanel()
         findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener { super.onBackPressed() }
+        findViewById<MaterialButton>(R.id.back_btn).setOnClickListener { super.onBackPressed() }
 
         findViewById<View>(R.id.close_compare_btn).setOnClickListener {
             exitCompareMode()
@@ -149,7 +151,7 @@ class ElementInfoActivity : InfoExtension() {
         findViewById<FloatingActionButton>(R.id.ai_chat_fab).setOnClickListener {
             openAIPanel()
         }
-        findViewById<AppCompatButton>(R.id.i_btn).setOnClickListener {
+        findViewById<MaterialButton>(R.id.i_btn).setOnClickListener {
             val intent = Intent(this, SubmitActivity::class.java)
             startActivity(intent)
         }
@@ -165,11 +167,11 @@ class ElementInfoActivity : InfoExtension() {
             val intent = Intent(this, ProActivity::class.java)
             startActivity(intent)
         }
-        findViewById<TextView>(R.id.notes_sync_status).setOnClickListener {
+        findViewById<AppCompatImageView>(R.id.notes_sync_status).setOnClickListener {
             val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.wikipedia_btn).setOnClickListener {
+        findViewById<MaterialButton>(R.id.wikipedia_btn).setOnClickListener {
             // Wikipedia logic is in InfoExtension.wikiListener
             // We can trigger it by finding the Wikipedia URL and calling wikiListener or just let the button handle it.
             // However, the button in activity_element_info is outside the content that updateElementUI handles.
@@ -181,7 +183,7 @@ class ElementInfoActivity : InfoExtension() {
                 super.wikiListener(wikipedia, findViewById(android.R.id.content))
             }
         }
-        findViewById<ImageButton>(R.id.isotope_btn).setOnClickListener {
+        findViewById<MaterialButton>(R.id.isotope_btn).setOnClickListener {
             val elementSendAndLoadValue = ElementSendAndLoad(this).getValue()
             val isoPreference = ElementSendAndLoad(this)
             isoPreference.setValue(elementSendAndLoadValue ?: "hydrogen")
@@ -204,12 +206,12 @@ class ElementInfoActivity : InfoExtension() {
         val proPlusPref = ProPlusVersion(this)
         var proPlusPrefValue = proPlusPref.getValue()
         if (proPlusPrefValue==100) {
-            findViewById<ImageButton>(R.id.compare_btn).setOnClickListener {
+            findViewById<MaterialButton>(R.id.compare_btn).setOnClickListener {
                 toggleCompareMode()
             }
         }
         else {
-            findViewById<ImageButton>(R.id.compare_btn).setOnClickListener {
+            findViewById<MaterialButton>(R.id.compare_btn).setOnClickListener {
                 val intent = Intent(this, ProActivity::class.java)
                 startActivity(intent)
             }
@@ -284,17 +286,15 @@ class ElementInfoActivity : InfoExtension() {
 
     // Helper to determine whether any overlay is currently open and requires interception
     private fun anyOverlayOpen(): Boolean {
-        val shell = findViewById<CardView?>(R.id.shell)
-        val shellBg = findViewById<RealtimeBlurView?>(R.id.shell_background)
-        val detail = findViewById<CardView?>(R.id.detail_emission)
-        val detailBg = findViewById<RealtimeBlurView?>(R.id.detail_emission_background)
+        val shell = findViewById<MaterialCardView?>(R.id.shell)
+        val overlayBg = findViewById<View?>(R.id.overlay_background)
+        val detail = findViewById<MaterialCardView?>(R.id.detail_emission)
         val aiPanelRoot = findViewById<View?>(R.id.ai_panel_include)
 
         return isCompareMode ||
                 (shell?.visibility == View.VISIBLE) ||
-                (shellBg?.visibility == View.VISIBLE) ||
+                (overlayBg?.visibility == View.VISIBLE) ||
                 (detail?.visibility == View.VISIBLE) ||
-                (detailBg?.visibility == View.VISIBLE) ||
                 (aiPanelRoot?.visibility == View.VISIBLE)
     }
 
@@ -340,23 +340,18 @@ class ElementInfoActivity : InfoExtension() {
 
     // Close overlays (shell or detail emission) if visible; return true if consumed.
     private fun handleBackPress(): Boolean {
-        val shell = findViewById<CardView>(R.id.shell)
-        val shellBg = findViewById<RealtimeBlurView>(R.id.shell_background)
-        val detail = findViewById<CardView>(R.id.detail_emission)
-        val detailBg = findViewById<RealtimeBlurView>(R.id.detail_emission_background)
+        val shell = findViewById<MaterialCardView>(R.id.shell)
+        val overlayBg = findViewById<View>(R.id.overlay_background)
+        val detail = findViewById<MaterialCardView>(R.id.detail_emission)
         val aiPanelRoot = findViewById<View>(R.id.ai_panel_include)
 
         if (aiPanelRoot?.visibility == View.VISIBLE) {
             closeAIPanel()
             return true
-        } else if (shellBg.visibility == View.VISIBLE || shell.visibility == View.VISIBLE) {
+        } else if (overlayBg.visibility == View.VISIBLE || shell.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(shell, 300)
-            Utils.fadeOutAnim(shellBg, 300)
-            setBackInterceptionEnabled(isCompareMode || anyOverlayOpen())
-            return true
-        } else if (detail.visibility == View.VISIBLE || detailBg.visibility == View.VISIBLE) {
+            Utils.fadeOutAnim(overlayBg, 300)
             Utils.fadeOutAnim(detail, 300)
-            Utils.fadeOutAnim(detailBg, 300)
             setBackInterceptionEnabled(isCompareMode || anyOverlayOpen())
             return true
         } else if (isCompareMode) {
@@ -456,23 +451,23 @@ class ElementInfoActivity : InfoExtension() {
         }
 
         // Hook up interactive overlays for the specific rootView (main or compare side)
-        rootView.findViewById<CardView>(R.id.electron_view)?.setOnClickListener {
+        rootView.findViewById<View>(R.id.electron_view)?.setOnClickListener {
             updateShellWithData(jsonObject)
-            Utils.fadeInAnim(findViewById<CardView>(R.id.shell), 300)
-            Utils.fadeInAnim(findViewById<RealtimeBlurView>(R.id.shell_background), 300)
+            Utils.fadeInAnim(findViewById<MaterialCardView>(R.id.shell), 300)
+            Utils.fadeInAnim(findViewById<View>(R.id.overlay_background), 300)
             setBackInterceptionEnabled(true)
         }
 
         rootView.findViewById<ImageView>(R.id.sp_img)?.setOnClickListener {
             updateEmissionWithData(jsonObject)
-            Utils.fadeInAnim(findViewById<CardView>(R.id.detail_emission), 300)
-            Utils.fadeInAnim(findViewById<RealtimeBlurView>(R.id.detail_emission_background), 300)
+            Utils.fadeInAnim(findViewById<MaterialCardView>(R.id.detail_emission), 300)
+            Utils.fadeInAnim(findViewById<View>(R.id.overlay_background), 300)
             setBackInterceptionEnabled(true)
         }
     }
 
     private fun updateShellWithData(jsonObject: JSONObject) {
-        val shell = findViewById<CardView>(R.id.shell)
+        val shell = findViewById<MaterialCardView>(R.id.shell)
         val elementShellElectrons = jsonObject.optString("element_shells_electrons", "---")
         val electronConfig = jsonObject.optString("element_electron_config", "---")
         
@@ -481,7 +476,7 @@ class ElementInfoActivity : InfoExtension() {
     }
 
     private fun updateEmissionWithData(jsonObject: JSONObject) {
-        val detail = findViewById<CardView>(R.id.detail_emission)
+        val detail = findViewById<MaterialCardView>(R.id.detail_emission)
         val short = jsonObject.optString("short", "---")
         val hUrl = "https://www.jlindemann.se/atomic/emission_lines/"
         val ext = ".gif"
@@ -505,7 +500,7 @@ class ElementInfoActivity : InfoExtension() {
     }
 
     private fun nextPrev() {
-        findViewById<ImageButton>(R.id.next_btn).setOnClickListener {
+        findViewById<MaterialButton>(R.id.next_btn).setOnClickListener {
             try {
                 val ElementSendAndLoadPreference = ElementSendAndLoad(this)
                 val ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
@@ -522,7 +517,7 @@ class ElementInfoActivity : InfoExtension() {
             }
             catch (e: IOException) {}
         }
-        findViewById<ImageButton>(R.id.previous_btn).setOnClickListener {
+        findViewById<MaterialButton>(R.id.previous_btn).setOnClickListener {
             try {
                 val ElementSendAndLoadPreference = ElementSendAndLoad(this)
                 val ElementSendAndLoadValue = ElementSendAndLoadPreference.getValue()
@@ -604,24 +599,24 @@ class ElementInfoActivity : InfoExtension() {
         divider.visibility = View.VISIBLE
 
         // Hide navigation buttons for main view
-        findViewById<ImageButton>(R.id.previous_btn).visibility = View.GONE
-        findViewById<ImageButton>(R.id.next_btn).visibility = View.GONE
+        findViewById<MaterialButton>(R.id.previous_btn).visibility = View.GONE
+        findViewById<MaterialButton>(R.id.next_btn).visibility = View.GONE
         
         // Hide navigation buttons on the comparison side as well
-        compareRoot.findViewById<ImageButton>(R.id.previous_btn).visibility = View.GONE
-        compareRoot.findViewById<ImageButton>(R.id.next_btn).visibility = View.GONE
+        compareRoot.findViewById<MaterialButton>(R.id.previous_btn).visibility = View.GONE
+        compareRoot.findViewById<MaterialButton>(R.id.next_btn).visibility = View.GONE
 
         // Hide isotope, wikipedia and compare buttons in title bar
-        findViewById<ImageButton>(R.id.wikipedia_btn).visibility = View.GONE
-        findViewById<ImageButton>(R.id.isotope_btn).visibility = View.GONE
-        findViewById<ImageButton>(R.id.compare_btn).visibility = View.GONE
+        findViewById<MaterialButton>(R.id.wikipedia_btn).visibility = View.GONE
+        findViewById<MaterialButton>(R.id.isotope_btn).visibility = View.GONE
+        findViewById<MaterialButton>(R.id.compare_btn).visibility = View.GONE
 
         // Show close comparison button
         findViewById<View>(R.id.close_compare_btn).visibility = View.VISIBLE
 
         // Adjust title margins to use full width when buttons are hidden
         val titleText = findViewById<TextView>(R.id.element_title)
-        val titleParams = titleText.layoutParams as FrameLayout.LayoutParams
+        val titleParams = titleText.layoutParams as ConstraintLayout.LayoutParams
         titleParams.marginEnd = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics).toInt()
         titleText.layoutParams = titleParams
 
@@ -633,8 +628,8 @@ class ElementInfoActivity : InfoExtension() {
         offlineCheck()
 
         // Hide "submit data issue" button in comparison mode
-        findViewById<AppCompatButton>(R.id.i_btn).visibility = View.GONE
-        compareRoot.findViewById<AppCompatButton>(R.id.i_btn).visibility = View.GONE
+        findViewById<MaterialButton>(R.id.i_btn).visibility = View.GONE
+        compareRoot.findViewById<MaterialButton>(R.id.i_btn).visibility = View.GONE
 
         // Hide bottom space to save vertical space in split screen
         findViewById<View>(R.id.bottom_spacer)?.visibility = View.GONE
@@ -701,7 +696,7 @@ class ElementInfoActivity : InfoExtension() {
                     v.layoutParams = p
                 }
             }
-            root?.findViewById<View>(R.id.hazard_container)?.let { v ->
+            root?.findViewById<View>(R.id.hazard_visualization_container)?.let { v ->
                 (v.layoutParams as? LinearLayout.LayoutParams)?.let { p ->
                     p.topMargin = innerMargin
                     v.layoutParams = p
@@ -858,24 +853,24 @@ class ElementInfoActivity : InfoExtension() {
         divider.visibility = View.GONE
 
         // Restore title bar buttons
-        findViewById<ImageButton>(R.id.wikipedia_btn).visibility = View.VISIBLE
-        findViewById<ImageButton>(R.id.isotope_btn).visibility = View.VISIBLE
-        findViewById<ImageButton>(R.id.compare_btn).visibility = View.VISIBLE
+        findViewById<MaterialButton>(R.id.wikipedia_btn).visibility = View.VISIBLE
+        findViewById<MaterialButton>(R.id.isotope_btn).visibility = View.VISIBLE
+        findViewById<MaterialButton>(R.id.compare_btn).visibility = View.VISIBLE
 
         // Reset title margins
         val titleText = findViewById<TextView>(R.id.element_title)
-        val titleParams = titleText.layoutParams as FrameLayout.LayoutParams
+        val titleParams = titleText.layoutParams as ConstraintLayout.LayoutParams
         titleParams.marginEnd = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 168f, resources.displayMetrics).toInt()
         titleText.layoutParams = titleParams
 
         // Show navigation buttons
-        findViewById<ImageButton>(R.id.previous_btn).visibility = View.VISIBLE
-        findViewById<ImageButton>(R.id.next_btn).visibility = View.VISIBLE
+        findViewById<MaterialButton>(R.id.previous_btn).visibility = View.VISIBLE
+        findViewById<MaterialButton>(R.id.next_btn).visibility = View.VISIBLE
 
         // Show notes and other hidden elements
         findViewById<FrameLayout>(R.id.notes_frame).visibility = View.VISIBLE
         offlineCheck()
-        findViewById<AppCompatButton>(R.id.i_btn).visibility = View.VISIBLE
+        findViewById<MaterialButton>(R.id.i_btn).visibility = View.VISIBLE
         findViewById<View>(R.id.favorite_bar).visibility = View.VISIBLE
         findViewById<View>(R.id.bottom_spacer)?.visibility = View.VISIBLE
 
@@ -898,19 +893,14 @@ class ElementInfoActivity : InfoExtension() {
 
 
 private fun setupStaticDetailListeners() {
-    val shell = findViewById<CardView>(R.id.shell)
-    val shellBg = findViewById<RealtimeBlurView>(R.id.shell_background)
-    val detail = findViewById<CardView>(R.id.detail_emission)
-    val detailBg = findViewById<RealtimeBlurView>(R.id.detail_emission_background)
+    val shell = findViewById<MaterialCardView>(R.id.shell)
+    val shellBg = findViewById<View>(R.id.overlay_background)
+    val detail = findViewById<MaterialCardView>(R.id.detail_emission)
 
     shellBg.setOnClickListener {
         Utils.fadeOutAnim(shell, 300)
         Utils.fadeOutAnim(shellBg, 300)
-        setBackInterceptionEnabled(anyOverlayOpen())
-    }
-    detailBg.setOnClickListener {
         Utils.fadeOutAnim(detail, 300)
-        Utils.fadeOutAnim(detailBg, 300)
         setBackInterceptionEnabled(anyOverlayOpen())
     }
 }

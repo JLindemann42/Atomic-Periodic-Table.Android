@@ -266,22 +266,4 @@ class ProActivity : BaseActivity(), BillingManager.Listener {
             proPlusCard?.alpha = 1.0f
         }
     }
-
-    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val titleBarHeight = resources.getDimensionPixelSize(R.dimen.title_bar)
-        val navBarHeight = resources.getDimensionPixelSize(R.dimen.nav_bar)
-        val titleFrame = findViewById<FrameLayout>(R.id.common_title_back_pro)
-        val purchaseBox = findViewById<FrameLayout>(R.id.pro_purschase_box)
-        val proLinear = findViewById<LinearLayout>(R.id.pro_linear)
-
-        val titleParams = titleFrame.layoutParams as ViewGroup.LayoutParams
-        titleParams.height = top + titleBarHeight
-        titleFrame.layoutParams = titleParams
-
-        proLinear.setPadding(0, top, 0, 0)
-
-        val purchaseParams = purchaseBox.layoutParams as ViewGroup.LayoutParams
-        purchaseParams.height = bottom + navBarHeight
-        purchaseBox.layoutParams = purchaseParams
-    }
 }

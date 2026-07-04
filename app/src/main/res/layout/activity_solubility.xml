@@ -1,190 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_sub"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor">
+
     <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:orientation="vertical"
-        android:id="@+id/view_sub"
-        android:background="?attr/backgroundColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimary"
+        android:alpha="0.05"/>
+
+    <LinearLayout
+        android:id="@+id/boxm"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/common_title_back_sul"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <include
+            layout="@layout/solubility_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <include layout="@layout/solubility_group_1" android:layout_width="92dp" android:layout_height="wrap_content" />
+                    <include layout="@layout/solubility_group_2" android:layout_width="92dp" android:layout_height="wrap_content" />
+                    <include layout="@layout/solubility_group_3" android:layout_width="92dp" android:layout_height="wrap_content" />
+                    <include layout="@layout/solubility_group_4" android:layout_width="92dp" android:layout_height="wrap_content" />
+                    <include layout="@layout/solubility_group_5" android:layout_width="92dp" android:layout_height="wrap_content" />
+                    <include layout="@layout/solubility_group_6" android:layout_width="92dp" android:layout_height="wrap_content" />
+                    <include layout="@layout/solubility_group_7" android:layout_width="92dp" android:layout_height="wrap_content" />
+                    <include layout="@layout/solubility_group_8" android:layout_width="92dp" android:layout_height="wrap_content" />
+                    <include layout="@layout/solubility_group_9" android:layout_width="92dp" android:layout_height="wrap_content" />
+                    <include layout="@layout/solubility_group_10" android:layout_width="92dp" android:layout_height="wrap_content" />
+                    <include layout="@layout/solubility_group_11" android:layout_width="92dp" android:layout_height="wrap_content" />
+                    <include layout="@layout/solubility_group_12" android:layout_width="92dp" android:layout_height="wrap_content" />
+                    <include layout="@layout/solubility_group_13" android:layout_width="92dp" android:layout_height="wrap_content" />
+
+                </LinearLayout>
+            </ScrollView>
+        </HorizontalScrollView>
+    </LinearLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/common_title_back_sul"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:strokeWidth="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_box"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back_btn"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:rotation="180"
+                app:icon="@drawable/ic_arrow_back_whit"
+                app:iconTint="?attr/colorOnSecondaryContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/element_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Solubility Table"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/back_btn"
+                app:layout_constraintEnd_toStartOf="@+id/info_btn" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/info_btn"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                app:icon="@drawable/ic_info"
+                app:iconTint="?attr/colorOnSecondaryContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <include
         android:id="@+id/info_panel"
         layout="@layout/panel_info"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
         android:visibility="gone" />
 
-        <FrameLayout
-            android:id="@+id/common_title_back_sul"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="?attr/colorSurface"
-            android:elevation="2dp"
-            android:gravity="center|center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:alpha="0.11"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:id="@+id/title_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp">
-
-                    <ImageButton
-                        android:id="@+id/back_btn"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_gravity="center_vertical"
-                        android:rotation="180"
-                        app:tint="?attr/colorOnSecondaryContainer"
-                        android:src="@drawable/ic_arrow_back_whit" />
-
-                    <TextView
-                        android:id="@+id/element_title"
-                        android:layout_width="wrap_content"
-                        android:layout_marginStart="70dp"
-                        android:alpha="0.9"
-                        android:layout_height="56dp"
-                        android:gravity="center"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="0dp"
-                        android:text="Solubility Table"
-                        android:textAlignment="center"
-                        android:textColor="?attr/colorOnSecondaryContainer"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <ImageButton
-                        android:id="@+id/info_btn"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_gravity="center_vertical|end"
-                        app:tint="?attr/colorOnSecondaryContainer"
-                        android:src="@drawable/ic_info" />
-                </FrameLayout>
-            </LinearLayout>
-        </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/boxm"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
-        android:background="?attr/backgroundColor"
-        android:elevation="1dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <include
-                layout="@layout/solubility_left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none">
-
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <include
-                            layout="@layout/solubility_group_1"
-                            android:layout_width="92dp"
-                            android:layout_height="wrap_content" />
-
-                        <include
-                            layout="@layout/solubility_group_2"
-                            android:layout_width="92dp"
-                            android:layout_height="wrap_content" />
-
-                        <include
-                            layout="@layout/solubility_group_3"
-                            android:layout_width="92dp"
-                            android:layout_height="wrap_content" />
-
-                        <include
-                            layout="@layout/solubility_group_4"
-                            android:layout_width="92dp"
-                            android:layout_height="wrap_content" />
-
-                        <include
-                            layout="@layout/solubility_group_5"
-                            android:layout_width="92dp"
-                            android:layout_height="wrap_content" />
-
-                        <include
-                            layout="@layout/solubility_group_6"
-                            android:layout_width="92dp"
-                            android:layout_height="wrap_content" />
-
-                        <include
-                            layout="@layout/solubility_group_7"
-                            android:layout_width="92dp"
-                            android:layout_height="wrap_content" />
-
-                        <include
-                            layout="@layout/solubility_group_8"
-                            android:layout_width="92dp"
-                            android:layout_height="wrap_content" />
-
-                        <include
-                            layout="@layout/solubility_group_9"
-                            android:layout_width="92dp"
-                            android:layout_height="wrap_content" />
-
-                        <include
-                            layout="@layout/solubility_group_10"
-                            android:layout_width="92dp"
-                            android:layout_height="wrap_content" />
-
-                        <include
-                            layout="@layout/solubility_group_11"
-                            android:layout_width="92dp"
-                            android:layout_height="wrap_content" />
-
-                        <include
-                            layout="@layout/solubility_group_12"
-                            android:layout_width="92dp"
-                            android:layout_height="wrap_content" />
-
-                        <include
-                            layout="@layout/solubility_group_13"
-                            android:layout_width="92dp"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-                </ScrollView>
-
-            </HorizontalScrollView>
-
-        </LinearLayout>
-
-    </FrameLayout>
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

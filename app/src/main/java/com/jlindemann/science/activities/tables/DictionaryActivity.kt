@@ -73,7 +73,6 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         recyclerView()
         clickSearch()
         chipListeners(itemse, recyclerView)
-        findViewById<Button>(R.id.clear_btn).visibility = View.GONE
 
         //Set achievement
         val achievements = java.util.ArrayList<Achievement>()
@@ -95,7 +94,7 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
 
         val dictionaryPreference = DictionaryPreferences(this)
         findViewById<FrameLayout>(R.id.view_dic).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        findViewById<ImageButton>(R.id.back_btn_d).setOnClickListener {
+        findViewById<View>(R.id.back_btn_d).setOnClickListener {
             this.onBackPressed()
         }
 
@@ -167,8 +166,8 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
 
     // If search overlay open, close it and return true (consumed)
     private fun handleBackPress(): Boolean {
-        val searchBar = findViewById<FrameLayout>(R.id.search_bar_iso)
-        val titleBox = findViewById<FrameLayout>(R.id.title_box)
+        val searchBar = findViewById<View>(R.id.search_bar_iso)
+        val titleBox = findViewById<View>(R.id.title_box)
         val editIso = findViewById<EditText>(R.id.edit_iso)
 
         return if (searchBar.visibility == View.VISIBLE) {
@@ -196,60 +195,20 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
     }
 
     private fun chipListeners(list: ArrayList<Dictionary>, recyclerView: RecyclerView) {
-        findViewById<Button>(R.id.chemistry_btn).setOnClickListener {
-            updateButtonColor("chemistry_btn")
-            val dictionaryPreference = DictionaryPreferences(this)
-            dictionaryPreference.setValue("chemistry")
-            findViewById<EditText>(R.id.edit_iso).setText("test")
+        val dictionaryPreference = DictionaryPreferences(this)
+        val clearBtn = findViewById<com.google.android.material.chip.Chip>(R.id.clear_btn)
+        
+        val applyFilter = { filter: String ->
+            dictionaryPreference.setValue(filter)
             findViewById<EditText>(R.id.edit_iso).setText("")
+            clearBtn.visibility = if (filter.isEmpty()) View.GONE else View.VISIBLE
         }
-        findViewById<Button>(R.id.physics_btn).setOnClickListener {
-            updateButtonColor("physics_btn")
-            val dictionaryPreference = DictionaryPreferences(this)
-            dictionaryPreference.setValue("physics")
-            findViewById<EditText>(R.id.edit_iso).setText("test")
-            findViewById<EditText>(R.id.edit_iso).setText("")
-        }
-        findViewById<Button>(R.id.math_btn).setOnClickListener {
-            updateButtonColor("math_btn")
-            val dictionaryPreference = DictionaryPreferences(this)
-            dictionaryPreference.setValue("math")
-            findViewById<EditText>(R.id.edit_iso).setText("test")
-            findViewById<EditText>(R.id.edit_iso).setText("")
-        }
-        findViewById<Button>(R.id.reactions_btn).setOnClickListener {
-            updateButtonColor("reactions_btn")
-            val dictionaryPreference = DictionaryPreferences(this)
-            dictionaryPreference.setValue("reactions")
-            findViewById<EditText>(R.id.edit_iso).setText("test")
-            findViewById<EditText>(R.id.edit_iso).setText("")
-        }
-    }
 
-    private fun updateButtonColor(btn: String) {
-        findViewById<Button>(R.id.chemistry_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.physics_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.math_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.reactions_btn).background = getDrawable(R.drawable.chip)
-
-        val delay = Handler()
-        delay.postDelayed({
-            val resIDB = resources.getIdentifier(btn, "id", packageName)
-            val button = findViewById<Button>(resIDB)
-            button.background = getDrawable(R.drawable.chip_active)
-        }, 200)
-
-        findViewById<Button>(R.id.clear_btn).visibility = View.VISIBLE
-        findViewById<Button>(R.id.clear_btn).setOnClickListener {
-            val resIDB = resources.getIdentifier(btn, "id", packageName)
-            val button = findViewById<Button>(resIDB)
-            val dictionaryPreference = DictionaryPreferences(this)
-            button.background = getDrawable(R.drawable.chip)
-            dictionaryPreference.setValue("")
-            findViewById<EditText>(R.id.edit_iso).setText("test")
-            findViewById<EditText>(R.id.edit_iso).setText("")
-            findViewById<Button>(R.id.clear_btn).visibility = View.GONE
-        }
+        findViewById<View>(R.id.chemistry_btn).setOnClickListener { applyFilter("chemistry") }
+        findViewById<View>(R.id.physics_btn).setOnClickListener { applyFilter("physics") }
+        findViewById<View>(R.id.math_btn).setOnClickListener { applyFilter("math") }
+        findViewById<View>(R.id.reactions_btn).setOnClickListener { applyFilter("reactions") }
+        clearBtn.setOnClickListener { applyFilter("") }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -312,9 +271,9 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
     }
 
     private fun clickSearch() {
-        findViewById<ImageButton>(R.id.search_btn).setOnClickListener {
-            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_iso), 150)
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box), 1)
+        findViewById<View>(R.id.search_btn).setOnClickListener {
+            Utils.fadeInAnim(findViewById<View>(R.id.search_bar_iso), 150)
+            Utils.fadeOutAnim(findViewById<View>(R.id.title_box), 1)
 
             findViewById<EditText>(R.id.edit_iso).requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -323,12 +282,12 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
             // search opened -> enable back interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<ImageButton>(R.id.close_iso_search).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_iso), 1)
+        findViewById<View>(R.id.close_iso_search).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<View>(R.id.search_bar_iso), 1)
 
             val delayClose = Handler()
             delayClose.postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box), 150)
             }, 151)
 
             val view = this.currentFocus

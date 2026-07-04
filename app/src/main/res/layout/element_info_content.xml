@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/colorSurface"
     android:orientation="vertical">
 
     <Space
@@ -18,63 +17,62 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <FrameLayout
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/frame"
             android:layout_width="match_parent"
-            android:layout_height="260dp">
+            android:layout_height="280dp"
+            android:layout_margin="12dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.ExtraLarge">
 
             <include
                 android:id="@+id/ldn_place"
                 layout="@layout/loading_view"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginBottom="24dp"
-                android:layout_gravity="center_horizontal|center_vertical" />
+                android:layout_gravity="center" />
 
             <ImageView
                 android:id="@+id/element_image"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
-                android:adjustViewBounds="true"
-                android:elevation="2dp"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_background" />
 
-            <ImageButton
-                android:id="@+id/previous_btn"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:layout_gravity="start|center_vertical"
-                android:layout_marginBottom="24dp"
-                android:layout_marginStart="12dp"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:rotation="180"
-                app:tint="?attr/colorAccent"
-                android:visibility="visible"
-                android:background="@drawable/square_button"
-                app:backgroundTint="?attr/colorSurface"
-                android:foreground="@drawable/square_button_ripple"
-                app:fabSize="mini"
-                app:srcCompat="@drawable/ic_arrow_back_whit" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#33000000" />
 
-            <ImageButton
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/previous_btn"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="12dp"
+                android:padding="0dp"
+                android:rotation="180"
+                app:icon="@drawable/ic_arrow_back_whit"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/next_btn"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_gravity="end|center_vertical"
-                android:layout_marginBottom="24dp"
                 android:layout_marginEnd="12dp"
-                android:clickable="true"
-                android:elevation="4dp"
-                app:tint="?attr/colorPrimary"
-                android:visibility="visible"
-                android:background="@drawable/square_button"
-                app:backgroundTint="?attr/colorSurface"
-                android:foreground="@drawable/square_button_ripple"
-                app:fabSize="mini"
-                app:srcCompat="@drawable/ic_arrow_back_whit" />
-        </FrameLayout>
+                android:padding="0dp"
+                app:icon="@drawable/ic_arrow_back_whit"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
+
+        </com.google.android.material.card.MaterialCardView>
 
         <Space
             android:id="@+id/offline_div"
@@ -87,7 +85,9 @@
             layout="@layout/favorite_bar"
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginBottom="24dp" />
 
     </FrameLayout>
 
@@ -169,21 +169,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/i_btn"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="18dp"
-        android:background="@drawable/square_button"
-        android:backgroundTint="?attr/colorPrimary"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="@drawable/square_button_ripple"
+        android:layout_height="56dp"
+        android:layout_margin="16dp"
         android:text="@string/submit_data_issue"
-        android:textColor="?attr/colorOnPrimary" />
+        app:icon="@drawable/ic_bug"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
 
     <Space
         android:id="@+id/bottom_spacer"

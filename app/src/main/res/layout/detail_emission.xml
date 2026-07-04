@@ -1,167 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:alpha="1"
-    android:clickable="true"
-    android:elevation="100dp"
-    android:focusable="true"
-    android:orientation="vertical"
-    app:cardBackgroundColor="#54818181"
-    app:cardCornerRadius="18dp"
-    app:cardElevation="100dp">
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp"
+    app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.ExtraLarge">
 
-
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
 
-        <com.github.mmin18.widget.RealtimeBlurView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:realtimeBlurRadius="1dp"
-            android:alpha="0.95"
-            app:realtimeOverlayColor="@color/colorDarkPrimary" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/close_emission_btn"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|top"
-            android:layout_margin="18dp"
-            android:rotation="180"
-            android:src="@drawable/ic_close"
-            app:backgroundTint="?attr/colorPrimary"
-            app:fabSize="mini" />
+            android:layout_marginBottom="16dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/sp_img_detail"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="82dp"
-                android:adjustViewBounds="true"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:text="Emission spectrum"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/close_emission_btn" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/close_emission_btn"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:icon="@drawable/ic_close"
+                app:iconTint="?attr/colorOnSurfaceVariant"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="?attr/colorSurfaceVariant"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="4dp"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <ImageView
+                    android:id="@+id/sp_img_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_launcher_background" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/textView30"
-                        android:layout_width="2dp"
-                        android:layout_height="36dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="4dp"
-                        android:alpha="0.66"
-                        android:background="@color/colorLightPrimary" />
+                    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:gravity="center" android:orientation="vertical">
+                        <View android:layout_width="1dp" android:layout_height="16dp" android:background="?attr/colorOnSurfaceVariant" android:alpha="0.5" />
+                        <TextView android:id="@+id/nm4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="400" android:textSize="10sp" android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/nm4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="400 (nm)"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorLightPrimary" />
+                    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:gravity="center" android:orientation="vertical">
+                        <View android:layout_width="1dp" android:layout_height="16dp" android:background="?attr/colorOnSurfaceVariant" android:alpha="0.5" />
+                        <TextView android:id="@+id/nm5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="500" android:textSize="10sp" android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:gravity="center" android:orientation="vertical">
+                        <View android:layout_width="1dp" android:layout_height="16dp" android:background="?attr/colorOnSurfaceVariant" android:alpha="0.5" />
+                        <TextView android:id="@+id/nm6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="600" android:textSize="10sp" android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:gravity="center" android:orientation="vertical">
+                        <View android:layout_width="1dp" android:layout_height="16dp" android:background="?attr/colorOnSurfaceVariant" android:alpha="0.5" />
+                        <TextView android:id="@+id/nm7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="700" android:textSize="10sp" android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
                 </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView31"
-                        android:layout_width="2dp"
-                        android:layout_height="36dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="4dp"
-                        android:alpha="0.66"
-                        android:background="@color/colorLightPrimary" />
-
-                    <TextView
-                        android:id="@+id/nm5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="500 (nm)"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorLightPrimary" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView34"
-                        android:layout_width="2dp"
-                        android:layout_height="36dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="4dp"
-                        android:alpha="0.66"
-                        android:background="@color/colorLightPrimary" />
-
-                    <TextView
-                        android:id="@+id/nm6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="600 (nm)"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorLightPrimary" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.25"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView35"
-                        android:layout_width="2dp"
-                        android:layout_height="36dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="2dp"
-                        android:layout_marginBottom="4dp"
-                        android:alpha="0.66"
-                        android:background="@color/colorLightPrimary" />
-
-                    <TextView
-                        android:id="@+id/nm7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="700 (nm)"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorLightPrimary" />
-                </LinearLayout>
-
             </LinearLayout>
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-    </FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Visible emission lines in nanometers (nm)."
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="13sp"
+            android:textStyle="italic" />
 
-</androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

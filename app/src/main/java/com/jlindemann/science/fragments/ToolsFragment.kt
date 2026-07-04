@@ -116,33 +116,37 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
             .toList()
         val sortedValues = matches.sortedByDescending { it.second }
 
-        val textViewList = listOf<TextView?>(
+        val chipList = listOf<com.google.android.material.chip.Chip?>(
             root.findViewById(R.id.mostT_1), root.findViewById(R.id.mostT_2),
             root.findViewById(R.id.mostT_3), root.findViewById(R.id.mostT_4)
         )
 
         sortedValues.forEachIndexed { index, pair ->
-            if (index < textViewList.size) {
-                val textView = textViewList[index] ?: return@forEachIndexed
-                textView.text = when (pair.first) {
+            if (index < chipList.size) {
+                val chip = chipList[index] ?: return@forEachIndexed
+                val text = when (pair.first) {
                     "cal" -> getString(R.string.cal)
                     "uni" -> getString(R.string.uni)
                     "fla" -> getString(R.string.fla)
                     "gas" -> getString(R.string.gas)
                     else -> ""
                 }
-
-                textView.setOnClickListener {
-                    if (pair.first == "gas" && proPlusPrefValue != 100 && isBeforeDeadline) {
-                        startActivity(Intent(requireContext(), ProActivity::class.java))
-                    } else {
-                        val activity = when (pair.first) {
-                            "cal" -> CalculatorActivity::class.java
-                            "uni" -> UnitConversionActivity::class.java
-                            "gas" -> IdealGasCalculatorActivity::class.java
-                            else -> null
+                
+                if (text.isNotEmpty()) {
+                    chip.text = text
+                    chip.visibility = View.VISIBLE
+                    chip.setOnClickListener {
+                        if (pair.first == "gas" && proPlusPrefValue != 100 && isBeforeDeadline) {
+                            startActivity(Intent(requireContext(), ProActivity::class.java))
+                        } else {
+                            val activity = when (pair.first) {
+                                "cal" -> CalculatorActivity::class.java
+                                "uni" -> UnitConversionActivity::class.java
+                                "gas" -> IdealGasCalculatorActivity::class.java
+                                else -> null
+                            }
+                            activity?.let { startActivity(Intent(requireContext(), it)) }
                         }
-                        activity?.let { startActivity(Intent(requireContext(), it)) }
                     }
                 }
             }

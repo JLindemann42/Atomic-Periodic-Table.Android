@@ -1,284 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    android:id="@+id/view_unit"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/view_unit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimary"
+        android:alpha="0.05"/>
+
     <ScrollView
         android:id="@+id/unit_scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="120dp">
+            android:orientation="vertical">
 
             <!-- Title -->
             <TextView
                 android:id="@+id/unit_title_downstate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="0dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="28dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:paddingTop="80dp"
+                android:paddingBottom="24dp"
                 android:text="@string/unit_converter_title"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="32sp"
-                android:textStyle="normal" />
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:letterSpacing="-0.02" />
 
-            <!-- Converter Card -->
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/unit_converter_card"
+                style="@style/Widget.Science.Expressive.SectionCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/margin_space"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:elevation="2dp"
-                android:orientation="vertical"
-                android:padding="@dimen/margin">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/category_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/unit_category"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="?attr/colorOnSurface"
-                    android:layout_marginBottom="8dp"/>
-
-                <Spinner
-                    android:id="@+id/category_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:foreground="@drawable/spinner_arrow"
-                    android:background="@drawable/spinner_background"
-                    android:popupBackground="@drawable/spinner_dropdown_background"
-                    android:layout_marginBottom="16dp"/>
-
-                <!-- Conversion Row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:paddingTop="0dp"
-                    android:paddingBottom="8dp">
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/unit_category"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textAllCaps="true"
+                        android:letterSpacing="0.1"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginBottom="8dp"/>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="?attr/colorSurface"
+                        app:strokeWidth="0dp"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium"
+                        android:layout_marginBottom="20dp">
+                        <Spinner
+                            android:id="@+id/category_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingHorizontal="12dp"
+                            android:background="@android:color/transparent" />
+                    </com.google.android.material.card.MaterialCardView>
 
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="0.48"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                    <EditText
-                        android:id="@+id/input_value"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:hint="@string/unit_enter_value"
-                        android:inputType="numberDecimal"
-                        android:background="@drawable/toast"
-                        android:backgroundTint="?attr/colorSurface"
-                        android:paddingTop="18dp"
-                        android:paddingBottom="18dp"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textColorHint="?attr/colorOnSurface"
-                        android:alpha="0.85"
-                        android:textSize="32sp" />
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="?attr/colorSurface"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp"
+                            app:hintEnabled="false">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/input_value"
+                                android:layout_width="match_parent"
+                                android:layout_height="72dp"
+                                android:hint="@string/unit_enter_value"
+                                android:inputType="numberDecimal"
+                                android:paddingHorizontal="16dp"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="28sp"
+                                android:textStyle="bold" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <Spinner
-                        android:id="@+id/from_unit_spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:alpha="0.6"
-                        android:foreground="@drawable/spinner_arrow"
-                        android:background="@drawable/spinner_background_bottom"
-                        android:popupBackground="@drawable/spinner_dropdown_background"
-                        android:layout_marginTop="4dp"/>
+                        <Spinner
+                            android:id="@+id/from_unit_spinner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="8dp" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginVertical="12dp"
+                            app:srcCompat="@drawable/ic_arrow"
+                            android:rotation="180"
+                            app:tint="?attr/colorPrimary" />
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="?attr/colorSurface"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp"
+                            app:hintEnabled="false">
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/output_value"
+                                android:layout_width="match_parent"
+                                android:layout_height="72dp"
+                                android:hint=""
+                                android:inputType="numberDecimal"
+                                android:paddingHorizontal="16dp"
+                                android:textColor="?attr/colorPrimary"
+                                android:textSize="28sp"
+                                android:textStyle="bold" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Spinner
+                            android:id="@+id/to_unit_spinner"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="8dp" />
                     </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.04"
-                        android:text="="
-                        android:textColor="?attr/colorOnSurface"
-                        android:textAlignment="center"
-                        android:gravity="center"
-                        android:textSize="40sp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginBottom="26dp"
-                        android:layout_marginEnd="8dp"/>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="0.48"
+                        android:text="@string/unit_formula"
+                        android:textStyle="bold"
+                        android:paddingTop="20dp"
+                        android:textSize="14sp"
+                        android:textAllCaps="true"
+                        android:letterSpacing="0.1"
+                        android:textColor="?attr/colorOnSurfaceVariant"/>
+                    <TextView
+                        android:id="@+id/formula_value"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:text="Formula will be displayed here"
+                        android:paddingTop="4dp"
+                        android:textSize="16sp"
+                        android:textColor="?attr/colorOnSurface"/>
 
-                        <EditText
-                            android:id="@+id/output_value"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint=""
-                            android:inputType="numberDecimal"
-                            android:background="@drawable/toast"
-                            android:backgroundTint="?attr/colorSurface"
-                            android:paddingTop="18dp"
-                            android:paddingBottom="18dp"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="12dp"
-                            android:alpha="0.85"
-                            android:textColor="?attr/colorOnSurface"
-                            android:textColorHint="?attr/colorOnSurface"
-                            android:textSize="32sp" />
-
-                    <Spinner
-                        android:id="@+id/to_unit_spinner"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/add_favorite_button"
+                        style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:alpha="0.6"
-                        android:foreground="@drawable/spinner_arrow"
-                        android:background="@drawable/spinner_background_bottom"
-                        android:popupBackground="@drawable/spinner_dropdown_background"
-                        android:layout_marginTop="8dp"/>
-                    </LinearLayout>
+                        android:text="@string/unit_add_favorite"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="16dp"
+                        app:icon="@drawable/ic_star"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
+
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <TextView
-                    android:id="@+id/formula_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/unit_formula"
-                    android:textStyle="bold"
-                    android:paddingTop="12dp"
-                    android:textSize="16sp"
-                    android:textColor="?attr/colorOnSurface"/>
-                <TextView
-                    android:id="@+id/formula_value"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Formula will be displayed here"
-                    android:paddingTop="4dp"
-                    android:textSize="16sp"
-                    android:textColor="?attr/colorOnSurface"/>
-
-                <Button
-                    android:id="@+id/add_favorite_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/unit_add_favorite"
-                    android:layout_gravity="end"
-                    android:padding="12dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:foreground="@drawable/toast_ripple"/>
-
-            </LinearLayout>
-
-            <!-- Favorites Card -->
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/fav_box"
+                style="@style/Widget.Science.Expressive.SectionCard"
                 android:layout_width="match_parent"
-                android:layout_height="360dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/margin_space"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:elevation="2dp"
-                android:orientation="vertical"
-                android:padding="@dimen/margin">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp">
 
-                <TextView
-                    android:id="@+id/favorites_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/unit_favorites"
-                    android:textStyle="bold"
-                    android:textSize="18sp"
-                    android:textColor="?attr/colorOnSurface"
-                    android:layout_marginBottom="8dp"/>
-                <TextView
-                    android:id="@+id/no_pro_text"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    android:visibility="visible"
-                    android:text="@string/calc_no_pro_text"
-                    android:layout_margin="@dimen/margin"
-                    android:textColor="?attr/colorOnSurface"/>
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/pro_button_cal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="@dimen/margin_space"
-                    android:layout_marginBottom="@dimen/margin"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/toast_ripple"
-                    android:gravity="center"
-                    android:paddingStart="24dp"
-                    android:paddingEnd="24dp"
-                    android:text="@string/get_pro_title"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/unit_favorites"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="?attr/colorPrimary"
+                        android:layout_marginBottom="12dp"/>
 
-                <TextView
-                    android:id="@+id/no_fav_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    android:visibility="gone"
-                    android:text="@string/calc_no_favorites"
-                    android:layout_margin="@dimen/margin"
-                    android:textColor="?attr/colorOnSurface"/>
+                    <TextView
+                        android:id="@+id/no_pro_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        android:visibility="visible"
+                        android:text="@string/calc_no_pro_text"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginBottom="16dp"/>
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/pro_button_cal"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/get_pro_title"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
 
+                    <TextView
+                        android:id="@+id/no_fav_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        android:visibility="gone"
+                        android:text="@string/calc_no_favorites"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginBottom="16dp"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/favorites_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin"/>
-            </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/favorites_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>
 
-    <!-- Title Bar -->
-    <FrameLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/common_title_back_unit"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:elevation="1dp"
-        android:background="?attr/colorSurface"
-        android:gravity="center|center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="64dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:strokeWidth="0dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:id="@+id/common_title_back_unit_color"
@@ -287,42 +268,38 @@
             android:background="?attr/colorPrimary"
             android:alpha="0.11"/>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_box_unit"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/title_box_unit"
-                android:layout_width="match_parent"
-                android:layout_height="56dp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back_btn"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:rotation="180"
+                app:icon="@drawable/ic_arrow_back_whit"
+                app:iconTint="?attr/colorOnSecondaryContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-                <ImageButton
-                    android:id="@+id/back_btn"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical"
-                    android:rotation="180"
-                    app:tint="?attr/colorOnSecondaryContainer"
-                    android:src="@drawable/ic_arrow_back_whit" />
+            <TextView
+                android:id="@+id/unit_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/unit_converter_title"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/back_btn" />
 
-                <TextView
-                    android:id="@+id/unit_title"
-                    android:layout_width="wrap_content"
-                    android:layout_marginStart="70dp"
-                    android:alpha="0.9"
-                    android:layout_height="56dp"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/unit_converter_title"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
-        </LinearLayout>
-    </FrameLayout>
-</FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

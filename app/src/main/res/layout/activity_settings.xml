@@ -10,1290 +10,479 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/colorPrimary"
-        android:alpha="0.11"/>
+        android:alpha="0.05"/>
 
     <ScrollView
         android:id="@+id/scroll_settings"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:elevation="0dp">
+        android:paddingBottom="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="100dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/element_title_downstate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="0dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="28dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:paddingTop="80dp"
+                android:paddingBottom="24dp"
                 android:text="@string/settings"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="32sp"
-                android:textStyle="normal" />
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:letterSpacing="-0.02" />
 
             <LinearLayout
                 android:id="@+id/personalization_box"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-
+                style="@style/Widget.Science.Expressive.SectionHeader">
                 <TextView
                     android:id="@+id/personalization_header"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="?attr/backgroundColor"
-                    android:background="@drawable/half_up_toast"
-                    android:elevation="0dp"
-                    android:paddingStart="16dp"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="8dp"
                     android:text="@string/personalization_settings"
-                    android:textSize="18sp"
-                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
-
-                <RelativeLayout
-                    android:id="@+id/themes_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <LinearLayout
-                        android:id="@+id/quick_download_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/theme_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:tint="?attr/colorOnBackground"
-                            app:srcCompat="@drawable/ic_themes" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/settings_item_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/themes"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/settings_item_content"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/select_theme"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:id="@+id/divider_view"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/favorite_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <LinearLayout
-                        android:id="@+id/favorite_setting_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/favorite_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:tint="?attr/colorOnBackground"
-                            app:srcCompat="@drawable/ic_star" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/settings_favorite_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/favorite_bar"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/settings_favorite_content"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/personalise_favorite_bar"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:id="@+id/divider_view2"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/order_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple"
-                    android:visibility="gone">
-
-                    <LinearLayout
-                        android:id="@+id/order_setting_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/order_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/ic_alphab"
-                            app:tint="?attr/colorOnBackground" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/settings_order_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/detail_card_order"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/settings_order_content"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/customize_detail_card_order"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/table_order_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple"
-                    android:visibility="gone">
-
-                    <LinearLayout
-                        android:id="@+id/table_order_setting_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/table_order_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/ic_sort_table"
-                            app:tint="?attr/colorOnBackground" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/settings_table_order_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/table_order_title"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/settings_table_order_content"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/table_order_text"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/unit_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <LinearLayout
-                        android:id="@+id/unit_setting_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/unit_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:tint="?attr/colorOnBackground"
-                            app:srcCompat="@drawable/ic_unit" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/unit_favorite_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/table_units"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/unit_favorite_content"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/customize_units_table"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/language_setting"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <LinearLayout
-                        android:id="@+id/language_setting_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/language_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:tint="?attr/colorOnBackground"
-                            app:srcCompat="@drawable/ic_language" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/language_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/language_title"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/language_content"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/language_content"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/offline_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:tint="?attr/colorOnBackground"
-                            app:srcCompat="@drawable/ic_data" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/offline_mode"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/offline_mode_desc"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/offline_internet_switch"
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:thumb="@drawable/switch_thumb"
-                            app:track="@drawable/switch_track"
-                            android:scaleX="1.2"
-                            android:scaleY="1.2"
-                            android:layout_marginEnd="24dp"
-                            android:gravity="center" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/nav_bar_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:visibility="gone"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/ic_visibility"
-                            app:tint="?attr/colorOnBackground" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/auto_hide_bottombar"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/auto_hide_bottombar_desc"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/nav_bar_switch"
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="24dp"
-                            android:gravity="center"
-                            android:scaleX="1.2"
-                            android:scaleY="1.2"
-                            android:thumb="@drawable/switch_thumb"
-                            app:track="@drawable/switch_track" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/analytics_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/ic_stats"
-                            app:tint="?attr/colorOnBackground" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/analytics_title"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/analytics_desc"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/analytics_switch"
-                            android:layout_width="100dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginEnd="24dp"
-                            android:gravity="center"
-                            android:scaleX="1.2"
-                            android:scaleY="1.2"
-                            android:thumb="@drawable/switch_thumb"
-                            app:track="@drawable/switch_track" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/divider_settings_1"
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Science.Expressive.SectionCard"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:alpha="0.5"
-                android:background="?attr/colorOutline" />
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Themes -->
+                    <LinearLayout
+                        android:id="@+id/themes_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            app:srcCompat="@drawable/ic_themes"
+                            app:tint="?attr/colorPrimary" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/themes" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/select_theme" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" app:srcCompat="@drawable/ic_arrow" android:rotation="270" app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <!-- Favorites -->
+                    <LinearLayout
+                        android:id="@+id/favorite_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_star" app:tint="?attr/colorPrimary" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/favorite_bar" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/personalise_favorite_bar" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" app:srcCompat="@drawable/ic_arrow" android:rotation="270" app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <!-- Order Settings (Dynamic) -->
+                    <LinearLayout
+                        android:id="@+id/order_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_alphab" app:tint="?attr/colorPrimary" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/detail_card_order" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/customize_detail_card_order" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" app:srcCompat="@drawable/ic_arrow" android:rotation="270" app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <View android:id="@+id/order_divider" android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" android:visibility="gone" />
+
+                    <!-- Units -->
+                    <LinearLayout
+                        android:id="@+id/unit_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_unit" app:tint="?attr/colorPrimary" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/table_units" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/customize_units_table" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" app:srcCompat="@drawable/ic_arrow" android:rotation="270" app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <!-- Language -->
+                    <LinearLayout
+                        android:id="@+id/language_setting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_language" app:tint="?attr/colorPrimary" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/language_title" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/language_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/language_content" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" app:srcCompat="@drawable/ic_arrow" android:rotation="270" app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:id="@+id/advanced_box"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/backgroundColor"
-                android:orientation="vertical">
-
+                style="@style/Widget.Science.Expressive.SectionHeader">
                 <TextView
-                    android:id="@+id/other_header"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginBottom="0dp"
-                    android:background="?attr/backgroundColor"
-                    android:elevation="0dp"
-                    android:paddingStart="16dp"
-                    android:paddingTop="24dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/other_settings"
-                    android:textSize="18sp"
-                    android:textAllCaps="false"
+                    android:text="Data &amp; Behavior"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
+            </LinearLayout>
 
-                <RelativeLayout
-                    android:id="@+id/clear_cache_settings"
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Science.Expressive.SectionCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
+                    <!-- Offline Mode -->
+                    <LinearLayout
+                        android:id="@+id/offline_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_data" app:tint="?attr/colorPrimary" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/offline_mode" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/offline_mode_desc" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/offline_internet_switch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <!-- Bottom Bar (Nav Bar Settings) -->
+                    <LinearLayout
+                        android:id="@+id/nav_bar_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_visibility" app:tint="?attr/colorPrimary" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/auto_hide_bottombar" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/auto_hide_bottombar_desc" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/nav_bar_switch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <View android:id="@+id/nav_divider" android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" android:visibility="gone" />
+
+                    <!-- Analytics -->
+                    <LinearLayout
+                        android:id="@+id/analytics_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_stats" app:tint="?attr/colorPrimary" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/analytics_title" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/analytics_desc" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/analytics_switch"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <!-- Clear Cache -->
                     <LinearLayout
                         android:id="@+id/cache_lay"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:foreground="@drawable/d_ripple"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/clear_cache_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:tint="?attr/colorOnBackground"
-                            app:srcCompat="@drawable/ic_close" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/clear_cache_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/clear_cache_title"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/clear_cache_content"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/clear_cache_text"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_close" app:tint="?attr/colorError" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/clear_cache_title" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/clear_cache_content" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/clear_cache_text" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
                         </LinearLayout>
-
                     </LinearLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <RelativeLayout
-                    android:id="@+id/submit_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <LinearLayout
-                        android:id="@+id/submit_lay"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/submit_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:tint="?attr/colorOnBackground"
-                            app:srcCompat="@drawable/ic_bug" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/submit_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/submit_title"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/submit_content"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/submit_text"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/licenses_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <LinearLayout
-                        android:id="@+id/licenses_lay"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/licenses_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:tint="?attr/colorOnBackground"
-                            app:srcCompat="@drawable/overview_icon" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/licenses_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/licenses_title"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/licenses_content"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/licenses_text"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/credits_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:visibility="visible"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <LinearLayout
-                        android:id="@+id/credits_lay"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/credits_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:tint="?attr/colorOnBackground"
-                            app:srcCompat="@drawable/ic_credits" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/credits_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/credits_title"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/credits_content"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/credits_text"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/about_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <LinearLayout
-                        android:id="@+id/about_lay"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/about_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:tint="?attr/colorOnBackground"
-                            app:srcCompat="@drawable/ic_info" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/about_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/info_title"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/about_content"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/info_text"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/git_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <LinearLayout
-                        android:id="@+id/git_lay"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/git_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:tint="?attr/colorOnBackground"
-                            app:srcCompat="@drawable/ic_github" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/git_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/git_title"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/gitcontent"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/git_text"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/win_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?attr/backgroundColor"
-                    android:clickable="true"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <LinearLayout
-                        android:id="@+id/win_lay"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/win_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:srcCompat="@drawable/ic_windows"
-                            app:tint="?attr/colorOnBackground" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/win_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/win_title"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/wincontent"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/win_text"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/experimental_settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:elevation="8dp"
-                    android:visibility="gone">
-
-                    <LinearLayout
-                        android:id="@+id/exp_lay"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="?attr/backgroundColor"
-                        android:theme="@style/ThemeOverlay.AppCompat.Light">
-
-                        <ImageView
-                            android:id="@+id/texperimental_settings_icon"
-                            android:layout_width="56dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0"
-                            android:background="?attr/backgroundColor"
-                            android:backgroundTint="?attr/backgroundColor"
-                            android:padding="10dp"
-                            app:tint="?attr/colorOnBackground"
-                            app:srcCompat="@drawable/ic_experimental" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_marginStart="8dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/experimental_title"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="4dp"
-                                android:text="@string/experimental_title"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="16sp" />
-
-                            <TextView
-                                android:id="@+id/experimentalcontent"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="10dp"
-                                android:alpha="0.5"
-                                android:paddingEnd="18dp"
-                                android:text="@string/experimental_text"
-                                android:textColor="?attr/colorOnBackground"
-                                android:textSize="12sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                    <View
-                        android:id="@+id/divider_view22"
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_alignParentBottom="true"
-                        android:backgroundTint="?attr/backgroundColor"
-                        android:visibility="invisible" />
-                </RelativeLayout>
+            <LinearLayout
+                style="@style/Widget.Science.Expressive.SectionHeader">
+                <TextView
+                    android:id="@+id/other_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/other_settings"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold" />
             </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Science.Expressive.SectionCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="120dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Submit Data Issue -->
+                    <LinearLayout
+                        android:id="@+id/submit_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_bug" app:tint="?attr/colorPrimary" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/submit_title" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/submit_text" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" app:srcCompat="@drawable/ic_arrow" android:rotation="270" app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <!-- Licenses -->
+                    <LinearLayout
+                        android:id="@+id/licenses_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/overview_icon" app:tint="?attr/colorPrimary" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/licenses_title" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/licenses_text" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" app:srcCompat="@drawable/ic_arrow" android:rotation="270" app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <!-- Credits -->
+                    <LinearLayout
+                        android:id="@+id/credits_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_credits" app:tint="?attr/colorPrimary" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/credits_title" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/credits_text" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" app:srcCompat="@drawable/ic_arrow" android:rotation="270" app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <!-- About -->
+                    <LinearLayout
+                        android:id="@+id/about_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_info" app:tint="?attr/colorPrimary" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/info_title" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/info_text" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" app:srcCompat="@drawable/ic_arrow" android:rotation="270" app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <!-- GitHub -->
+                    <LinearLayout
+                        android:id="@+id/git_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_github" app:tint="?attr/colorOnSurface" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/git_title" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/git_text" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" app:srcCompat="@drawable/ic_open" app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <!-- Windows -->
+                    <LinearLayout
+                        android:id="@+id/win_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_windows" app:tint="?attr/colorPrimary" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/win_title" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/win_text" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" app:srcCompat="@drawable/ic_open" app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <!-- Experimental (Dynamic) -->
+                    <LinearLayout
+                        android:id="@+id/experimental_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" app:srcCompat="@drawable/ic_experimental" app:tint="?attr/colorAccent" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/experimental_title" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/experimental_text" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp" app:srcCompat="@drawable/ic_arrow" android:rotation="270" app:tint="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>
 
-    <FrameLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/common_title_back_set"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/title_bar"
-        android:alpha="1"
-        android:background="?attr/colorSurface"
-        android:elevation="0dp"
-        android:gravity="center|center_vertical"
-        android:orientation="horizontal"
+        android:layout_height="64dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:strokeWidth="0dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
@@ -1303,55 +492,39 @@
             android:background="?attr/colorPrimary"
             android:alpha="0.11"/>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_box_settings"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:elevation="0dp"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/title_box_settings"
-                android:layout_width="match_parent"
-                android:layout_height="56dp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back_btn_set"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:rotation="180"
+                app:icon="@drawable/ic_arrow_back_whit"
+                app:iconTint="?attr/colorOnSecondaryContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-                <ImageButton
-                    android:id="@+id/back_btn_set"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:rotation="180"
-                    android:layout_gravity="center_vertical"
-                    app:tint="?attr/colorOnSecondaryContainer"
-                    android:src="@drawable/ic_arrow_back_whit" />
+            <TextView
+                android:id="@+id/element_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/settings"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/back_btn_set" />
 
-                <ImageButton
-                    android:id="@+id/info_btn_set"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:visibility="gone"
-                    app:tint="?attr/colorOnSecondaryContainer"
-                    android:layout_gravity="center_vertical|end"
-                    android:src="@drawable/ic_info" />
-
-                <TextView
-                    android:id="@+id/element_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="56dp"
-                    android:layout_marginStart="70dp"
-                    android:alpha="0.9"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/settings"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
-        </LinearLayout>
-    </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <include
         android:id="@+id/theme_panel"

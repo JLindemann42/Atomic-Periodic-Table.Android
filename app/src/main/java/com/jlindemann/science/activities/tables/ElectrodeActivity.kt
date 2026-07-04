@@ -94,7 +94,7 @@ class ElectrodeActivity : BaseActivity() {
         }
 
         findViewById<FrameLayout>(R.id.view_ele).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
+        findViewById<View>(R.id.back_btn).setOnClickListener {
             this.onBackPressed()
         }
     }
@@ -164,9 +164,9 @@ class ElectrodeActivity : BaseActivity() {
     }
 
     private fun clickSearch() {
-        findViewById<ImageButton>(R.id.search_btn).setOnClickListener {
-            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_ele), 150)
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box), 1)
+        findViewById<View>(R.id.search_btn).setOnClickListener {
+            Utils.fadeInAnim(findViewById<View>(R.id.search_bar_ele), 150)
+            Utils.fadeOutAnim(findViewById<View>(R.id.title_box), 1)
 
             findViewById<EditText>(R.id.edit_ele).requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -175,12 +175,12 @@ class ElectrodeActivity : BaseActivity() {
             // Search bar shown -> enable back interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<ImageButton>(R.id.close_ele_search).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_ele), 1)
+        findViewById<View>(R.id.close_ele_search).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<View>(R.id.search_bar_ele), 1)
 
             val delayClose = Handler()
             delayClose.postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box), 150)
             }, 151)
 
             val view = this.currentFocus
@@ -196,20 +196,20 @@ class ElectrodeActivity : BaseActivity() {
 
     // Basic handler for in-activity overlays (search bar currently)
     private fun anyOverlayOpen(): Boolean {
-        val searchBarVisible = findViewById<FrameLayout>(R.id.search_bar_ele).visibility == View.VISIBLE
+        val searchBarVisible = findViewById<View>(R.id.search_bar_ele).visibility == View.VISIBLE
         return searchBarVisible
     }
 
     // Close overlays if visible; return true when consumed.
     private fun handleBackPress(): Boolean {
-        val searchBar = findViewById<FrameLayout>(R.id.search_bar_ele)
+        val searchBar = findViewById<View>(R.id.search_bar_ele)
 
         // If search bar visible, close it
         if (searchBar.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(searchBar, 1)
             // restore title box after a short delay to match original timing
             Handler(Looper.getMainLooper()).postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box), 150)
             }, 151)
 
             val view = this.currentFocus

@@ -53,27 +53,27 @@ class ChemicalReactionsActivity : BaseActivity() {
         setContentView(R.layout.activity_chemical_reactions)
         findViewById<FrameLayout>(R.id.view_rec).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        findViewById<ImageButton>(R.id.back_btn_rec).setOnClickListener {
+        findViewById<View>(R.id.back_btn_rec).setOnClickListener {
             this.onBackPressed()
         }
 
         //Title Controller
-        findViewById<FrameLayout>(R.id.common_title_back_rec_color).visibility = View.INVISIBLE
+        findViewById<View>(R.id.common_title_back_rec_color).visibility = View.INVISIBLE
         findViewById<TextView>(R.id.reaction_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_rec).elevation = resources.getDimension(R.dimen.zero_elevation)
+        findViewById<View>(R.id.common_title_back_rec).elevation = resources.getDimension(R.dimen.zero_elevation)
         findViewById<ScrollView>(R.id.reaction_scroll).viewTreeObserver
             .addOnScrollChangedListener {
                 val scrollY = findViewById<ScrollView>(R.id.reaction_scroll).scrollY.toFloat()
                 if (scrollY > 150f) {
-                    findViewById<FrameLayout>(R.id.common_title_back_rec_color).visibility = View.VISIBLE
+                    findViewById<View>(R.id.common_title_back_rec_color).visibility = View.VISIBLE
                     findViewById<TextView>(R.id.reaction_title).visibility = View.VISIBLE
                     findViewById<TextView>(R.id.reaction_title_downstate).visibility = View.INVISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_rec).elevation = resources.getDimension(R.dimen.one_elevation)
+                    findViewById<View>(R.id.common_title_back_rec).elevation = resources.getDimension(R.dimen.one_elevation)
                 } else {
-                    findViewById<FrameLayout>(R.id.common_title_back_rec_color).visibility = View.INVISIBLE
+                    findViewById<View>(R.id.common_title_back_rec_color).visibility = View.INVISIBLE
                     findViewById<TextView>(R.id.reaction_title).visibility = View.INVISIBLE
                     findViewById<TextView>(R.id.reaction_title_downstate).visibility = View.VISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_rec).elevation = resources.getDimension(R.dimen.zero_elevation)
+                    findViewById<View>(R.id.common_title_back_rec).elevation = resources.getDimension(R.dimen.zero_elevation)
                 }
             }
 

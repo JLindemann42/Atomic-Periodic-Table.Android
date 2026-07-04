@@ -68,44 +68,20 @@ class phActivity : BaseActivity()  {
         val neutralText = "[H+]=[OH-] pH="
         val alkalineText = "[H+]<[OH-] pH>"
 
-        val item = indicatorList[0]
-        findViewById<TextView>(R.id.acid_info).text = acidText + item.acid
-        findViewById<TextView>(R.id.neutral_info).text = neutralText + item.neutral
-        findViewById<TextView>(R.id.alkaline_info).text = alkalineText + item.alkali
-        updatePhColor(item)
-        updateButtonColor("bromothymol_blue_btn")
+        val updateUi = { item: Indicator ->
+            findViewById<TextView>(R.id.acid_info).text = acidText + item.acid
+            findViewById<TextView>(R.id.neutral_info).text = neutralText + item.neutral
+            findViewById<TextView>(R.id.alkaline_info).text = alkalineText + item.alkali
+            updatePhColor(item)
+        }
 
-        findViewById<Button>(R.id.bromothymol_blue_btn).setOnClickListener {
-            findViewById<TextView>(R.id.acid_info).text = acidText + item.acid
-            findViewById<TextView>(R.id.neutral_info).text = neutralText + item.neutral
-            findViewById<TextView>(R.id.alkaline_info).text = alkalineText + item.alkali
-            updatePhColor(item)
-            updateButtonColor("bromothymol_blue_btn")
-        }
-        findViewById<Button>(R.id.methyl_orange_btn).setOnClickListener {
-            val item = indicatorList[1]
-            findViewById<TextView>(R.id.acid_info).text = acidText + item.acid
-            findViewById<TextView>(R.id.neutral_info).text = neutralText + item.neutral
-            findViewById<TextView>(R.id.alkaline_info).text = alkalineText + item.alkali
-            updatePhColor(item)
-            updateButtonColor("methyl_orange_btn")
-        }
-        findViewById<Button>(R.id.congo_red_btn).setOnClickListener {
-            val item = indicatorList[2]
-            findViewById<TextView>(R.id.acid_info).text = acidText + item.acid
-            findViewById<TextView>(R.id.neutral_info).text = neutralText + item.neutral
-            findViewById<TextView>(R.id.alkaline_info).text = alkalineText + item.alkali
-            updatePhColor(item)
-            updateButtonColor("congo_red_btn")
-        }
-        findViewById<Button>(R.id.phenolphthalein_btn).setOnClickListener {
-            val item = indicatorList[3]
-            findViewById<TextView>(R.id.acid_info).text = acidText + item.acid
-            findViewById<TextView>(R.id.neutral_info).text = neutralText + item.neutral
-            findViewById<TextView>(R.id.alkaline_info).text = alkalineText + item.alkali
-            updatePhColor(item)
-            updateButtonColor("phenolphthalein_btn")
-        }
+        // Initialize with first indicator
+        updateUi(indicatorList[0])
+
+        findViewById<com.google.android.material.chip.Chip>(R.id.bromothymol_blue_btn).setOnClickListener { updateUi(indicatorList[0]) }
+        findViewById<com.google.android.material.chip.Chip>(R.id.methyl_orange_btn).setOnClickListener { updateUi(indicatorList[1]) }
+        findViewById<com.google.android.material.chip.Chip>(R.id.congo_red_btn).setOnClickListener { updateUi(indicatorList[2]) }
+        findViewById<com.google.android.material.chip.Chip>(R.id.phenolphthalein_btn).setOnClickListener { updateUi(indicatorList[3]) }
     }
 
     private fun updatePhColor(item: Indicator) {
@@ -116,20 +92,6 @@ class phActivity : BaseActivity()  {
         findViewById<ImageView>(R.id.left).setColorFilter(ContextCompat.getColor(this, leftColor), android.graphics.PorterDuff.Mode.SRC_IN)
         findViewById<ImageView>(R.id.center).setColorFilter(ContextCompat.getColor(this, centerColor), android.graphics.PorterDuff.Mode.SRC_IN)
         findViewById<ImageView>(R.id.right).setColorFilter(ContextCompat.getColor(this, rightColor), android.graphics.PorterDuff.Mode.SRC_IN)
-    }
-
-    private fun updateButtonColor(btn: String) {
-        findViewById<Button>(R.id.methyl_orange_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.bromothymol_blue_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.congo_red_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.phenolphthalein_btn).background = getDrawable(R.drawable.chip)
-
-        val delay = Handler()
-        delay.postDelayed({
-            val resIDB = resources.getIdentifier(btn, "id", packageName)
-            val button = findViewById<Button>(resIDB)
-            button.background = getDrawable(R.drawable.chip_active)
-        }, 1)
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {

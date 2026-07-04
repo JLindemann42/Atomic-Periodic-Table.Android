@@ -128,23 +128,13 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         mediaListeners()
         checkSale()
         maybeShowProPopup()
-
-        //Setup Version under logo
-        val proPref = ProVersion(this)
-        val proPlusPref = ProPlusVersion(this)
-        val attrColor = when {
-            proPref.getValue() == 100 -> R.attr.colorPrimary
-            proPlusPref.getValue() == 100 -> R.attr.colorTertiary
-            else -> R.attr.colorOnSurface
-        }
-        val typedValue = TypedValue()
-        theme.resolveAttribute(attrColor, typedValue, true)
+        updateVersionBadge()
 
         // Initial fragment
         if (savedInstanceState == null) {
             switchFragment(HomeFragment(), "home")
         }
-        
+
         // Modern Top Bar actions
         findViewById<ImageButton>(R.id.user_btn).setOnClickListener {
             startActivity(Intent(this, UserActivity::class.java))
@@ -219,6 +209,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         currentFragmentTag = tag
         updateTopBarForFragment(tag)
     }
+
 
     private fun handleFilterFabVisibility(tag: String) {
         val filterFab = findViewById<View>(R.id.filterFab_main) ?: return
@@ -403,23 +394,27 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         findViewById<View>(R.id.h_name_btn).setOnClickListener { 
             val fragment = getHome()
             fragment?.view?.let { fragment.initName(it, elements) } 
+            closeHover()
         }
         
         val click = { btn: Int, key: String ->
             findViewById<View>(btn).setOnClickListener {
                 val fragment = getHome()
                 fragment?.view?.let { fragment.initTableChange(it, elements, key) }
+                closeHover()
             }
         }
         
         findViewById<View>(R.id.h_group_btn).setOnClickListener { 
             val fragment = getHome()
             fragment?.view?.let { fragment.initTableChange(it, elements, "element_group") } 
+            closeHover()
         }
         
         findViewById<View>(R.id.h_electronegativity_btn).setOnClickListener { 
             val fragment = getHome()
             fragment?.view?.let { fragment.initTableChange(it, elements, "element_electronegativty") } 
+            closeHover()
         }
         
         click(R.id.atomic_weight_btn, "element_atomicmass")
@@ -442,6 +437,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                 if (proValue == 100) {
                     val fragment = getHome()
                     fragment?.view?.let { fragment.initTableChange(it, elements, key) }
+                    closeHover()
                 } else {
                     startActivity(Intent(this, ProActivity::class.java))
                 }
@@ -484,6 +480,29 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     override fun onResume() {
         super.onResume()
         loadUserProfileImage()
+        updateVersionBadge()
+        intent?.let {
+            if (it.getBooleanExtra("show_flashcard_results", false)) {
+                it.removeExtra("show_flashcard_results")
+                findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId = R.id.nav_learning_games
+                // Give it a tiny bit of time for the fragment to be swapped in if needed
+                Handler(Looper.getMainLooper()).postDelayed({
+                    (supportFragmentManager.findFragmentByTag("flashcards") as? FlashcardFragment)?.handleGameResults(it)
+                }, 100)
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        if (intent.getBooleanExtra("show_flashcard_results", false)) {
+            findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId = R.id.nav_learning_games
+            // The fragment might already be active or being created
+            Handler(Looper.getMainLooper()).postDelayed({
+                (supportFragmentManager.findFragmentByTag("flashcards") as? FlashcardFragment)?.handleGameResults(intent)
+            }, 100)
+        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
@@ -538,6 +557,50 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             Handler(Looper.getMainLooper()).postDelayed({
                 startActivity(Intent(this, ElementInfoActivity::class.java))
             }, 100)
+        }
+    }
+
+    fun updateVersionBadge() {
+        val versionBadge = findViewById<TextView>(R.id.version_badge) ?: return
+        val proPref = ProVersion(this)
+        val proPlusPref = ProPlusVersion(this)
+
+        when {
+            proPlusPref.getValue() == 100 -> {
+                versionBadge.text = getString(R.string.pro_plus_badge)
+                versionBadge.backgroundTintList = getColorStateListFromAttr(R.attr.colorTertiary)
+                versionBadge.setTextColor(getColorFromAttr(R.attr.colorOnTertiary))
+            }
+            proPref.getValue() == 100 -> {
+                versionBadge.text = getString(R.string.pro_title)
+                versionBadge.backgroundTintList = getColorStateListFromAttr(R.attr.colorPrimary)
+                versionBadge.setTextColor(getColorFromAttr(R.attr.colorOnPrimary))
+            }
+            else -> {
+                versionBadge.text = getString(R.string.free)
+                versionBadge.backgroundTintList = getColorStateListFromAttr(R.attr.colorSecondary)
+                versionBadge.setTextColor(getColorFromAttr(R.attr.colorOnSecondary))
+            }
+        }
+    }
+
+    private fun getColorFromAttr(attr: Int): Int {
+        val typedValue = TypedValue()
+        theme.resolveAttribute(attr, typedValue, true)
+        return if (typedValue.resourceId != 0) {
+            ContextCompat.getColor(this, typedValue.resourceId)
+        } else {
+            typedValue.data
+        }
+    }
+
+    private fun getColorStateListFromAttr(attr: Int): android.content.res.ColorStateList? {
+        val typedValue = TypedValue()
+        theme.resolveAttribute(attr, typedValue, true)
+        return if (typedValue.resourceId != 0) {
+            ContextCompat.getColorStateList(this, typedValue.resourceId)
+        } else {
+            android.content.res.ColorStateList.valueOf(typedValue.data)
         }
     }
 

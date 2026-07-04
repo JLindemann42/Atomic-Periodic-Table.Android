@@ -1,82 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/view_constraint"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_constraint"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorSurface">
 
     <FrameLayout
         android:id="@+id/view_nuc"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="?attr/colorSurface"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent">
+        android:layout_height="match_parent">
 
         <include
             android:id="@+id/ldn_place"
             layout="@layout/loading_view"
             android:layout_width="48dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal|center_vertical" />
-
-        <FrameLayout
-            android:id="@+id/common_title_back_nuc"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="?attr/colorSurface"
-            android:elevation="8dp"
-            android:gravity="center|center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:alpha="0.11"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:id="@+id/title_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp">
-
-                    <ImageButton
-                        android:id="@+id/nuc_back_btn"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_gravity="center_vertical"
-                        android:rotation="180"
-                        app:tint="?attr/colorOnSecondaryContainer"
-                        android:src="@drawable/ic_arrow_back_whit" />
-
-                    <TextView
-                        android:id="@+id/nuc_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="56dp"
-                        android:layout_marginStart="70dp"
-                        android:alpha="0.9"
-                        android:gravity="center"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/nuclide_table_title"
-                        android:textAlignment="center"
-                        android:textColor="?attr/colorOnSecondaryContainer"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-                </FrameLayout>
-            </LinearLayout>
-        </FrameLayout>
+            android:layout_height="48dp"
+            android:layout_gravity="center" />
 
         <com.otaliastudios.zoom.ZoomLayout
             android:id="@+id/nuclideZoomView"
@@ -144,20 +85,67 @@
             android:visibility="gone" />
     </FrameLayout>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/common_title_back_nuc"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:strokeWidth="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_box"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/nuc_back_btn"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:rotation="180"
+                app:icon="@drawable/ic_arrow_back_whit"
+                app:iconTint="?attr/colorOnSecondaryContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/nuc_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/nuclide_table_title"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/nuc_back_btn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/nuc_info_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/decay_info_fab"
-        android:src="@drawable/ic_info"
-        android:tint="?attr/colorSurface"
-        android:backgroundTint="?attr/colorAccent"
-        android:clickable="true"
-        android:focusable="true"
-        android:elevation="4dp"
-        app:layout_constraintBottom_toBottomOf="@id/view_constraint"
-        app:layout_constraintEnd_toEndOf="@id/view_constraint"
-        android:layout_margin="16dp"/>
+        app:srcCompat="@drawable/ic_info"
+        app:tint="?attr/colorOnPrimary"
+        app:backgroundTint="?attr/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
 
     <include
         android:id="@+id/nuc_info_panel"

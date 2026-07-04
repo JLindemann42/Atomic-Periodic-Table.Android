@@ -449,7 +449,7 @@ class LearningGamesActivity : BaseActivity() {
         // Record a play for streak tracking (this will schedule reminders when streak >= 3)
         StreakManager.recordPlay(this)
 
-        val intent = Intent(this, FlashCardActivity::class.java)
+        val intent = Intent(this, com.jlindemann.science.activities.MainActivity::class.java)
         intent.putParcelableArrayListExtra("game_results", ArrayList(gameResults))
         intent.putExtra("game_finished", finishedGame)
         intent.putExtra("total_questions", totalQuestions)
@@ -458,6 +458,7 @@ class LearningGamesActivity : BaseActivity() {
         intent.putExtra("xp_multiplier", xpMultiplier)
         intent.putExtra("total_xp", totalXp)
         intent.putExtra("category", category)
+        intent.putExtra("show_flashcard_results", true)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
         finish()

@@ -66,7 +66,7 @@ class CalculatorActivity : BaseActivity() {
         setContentView(R.layout.activity_calculator)
         findViewById<FrameLayout>(R.id.view_cal).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        findViewById<ImageButton>(R.id.back_btn_cal).setOnClickListener {
+        findViewById<View>(R.id.back_btn_cal).setOnClickListener {
             this.onBackPressed()
         }
 
@@ -126,17 +126,17 @@ class CalculatorActivity : BaseActivity() {
         if (proPrefValue == 1) {
             findViewById<RecyclerView>(R.id.fav_rec_list).visibility = View.INVISIBLE
             findViewById<TextView>(R.id.no_pro_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_button_cal).visibility = View.VISIBLE
-            findViewById<ImageButton>(R.id.fav_star_btn).visibility = View.GONE
+            findViewById<View>(R.id.pro_button_cal).visibility = View.VISIBLE
+            findViewById<View>(R.id.fav_star_btn).visibility = View.GONE
         }
         if (proPrefValue == 100) {
             findViewById<RecyclerView>(R.id.fav_rec_list).visibility = View.VISIBLE
             findViewById<TextView>(R.id.no_pro_text).visibility = View.GONE
-            findViewById<TextView>(R.id.pro_button_cal).visibility = View.GONE
-            findViewById<ImageButton>(R.id.fav_star_btn).visibility = View.VISIBLE
+            findViewById<View>(R.id.pro_button_cal).visibility = View.GONE
+            findViewById<View>(R.id.fav_star_btn).visibility = View.VISIBLE
         }
 
-        findViewById<TextView>(R.id.pro_button_cal).setOnClickListener {
+        findViewById<View>(R.id.pro_button_cal).setOnClickListener {
             val intent = Intent(this, ProActivity::class.java)
             startActivity(intent)
         }
@@ -159,7 +159,7 @@ class CalculatorActivity : BaseActivity() {
         loadFavorites()
 
         // Set up favorite button
-        findViewById<ImageButton>(R.id.fav_star_btn).setOnClickListener {
+        findViewById<View>(R.id.fav_star_btn).setOnClickListener {
             val compound = findViewById<EditText>(R.id.edit_text_cal).text.toString()
             val molarWeight = findViewById<TextView>(R.id.out_text).text.toString()
             if (compound.isNotEmpty() && molarWeight.isNotEmpty()) {

@@ -43,10 +43,10 @@ class IdealGasCalculatorActivity : BaseActivity() {
     private val R_JOULE = 8.314 // J/(mol·K)
     
     // Input fields
-    private lateinit var pressureInput: EditText
-    private lateinit var volumeInput: EditText
-    private lateinit var molesInput: EditText
-    private lateinit var temperatureInput: EditText
+    private lateinit var pressureInput: com.google.android.material.textfield.TextInputEditText
+    private lateinit var volumeInput: com.google.android.material.textfield.TextInputEditText
+    private lateinit var molesInput: com.google.android.material.textfield.TextInputEditText
+    private lateinit var temperatureInput: com.google.android.material.textfield.TextInputEditText
     
     // Spinners for units
     private lateinit var pressureUnitSpinner: Spinner
@@ -146,16 +146,16 @@ class IdealGasCalculatorActivity : BaseActivity() {
         if (!hasProAccess) {
             findViewById<RecyclerView>(R.id.fav_rec_list_ideal_gas).visibility = View.INVISIBLE
             findViewById<TextView>(R.id.no_pro_text_ideal_gas).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_button_ideal_gas).visibility = View.VISIBLE
-            findViewById<ImageButton>(R.id.fav_star_btn_ideal_gas).visibility = View.GONE
+            findViewById<View>(R.id.pro_button_ideal_gas).visibility = View.VISIBLE
+            findViewById<View>(R.id.fav_star_btn_ideal_gas).visibility = View.GONE
         } else {
             findViewById<RecyclerView>(R.id.fav_rec_list_ideal_gas).visibility = View.VISIBLE
             findViewById<TextView>(R.id.no_pro_text_ideal_gas).visibility = View.GONE
-            findViewById<TextView>(R.id.pro_button_ideal_gas).visibility = View.GONE
-            findViewById<ImageButton>(R.id.fav_star_btn_ideal_gas).visibility = View.VISIBLE
+            findViewById<View>(R.id.pro_button_ideal_gas).visibility = View.GONE
+            findViewById<View>(R.id.fav_star_btn_ideal_gas).visibility = View.VISIBLE
         }
 
-        findViewById<TextView>(R.id.pro_button_ideal_gas).setOnClickListener {
+        findViewById<View>(R.id.pro_button_ideal_gas).setOnClickListener {
             val intent = Intent(this, ProActivity::class.java)
             startActivity(intent)
         }
@@ -171,7 +171,7 @@ class IdealGasCalculatorActivity : BaseActivity() {
         loadFavorites()
 
         // Set up favorite button
-        findViewById<ImageButton>(R.id.fav_star_btn_ideal_gas).setOnClickListener {
+        findViewById<View>(R.id.fav_star_btn_ideal_gas).setOnClickListener {
             val result = findViewById<TextView>(R.id.out_text_ideal_gas).text.toString()
             if (result.isNotEmpty() && !result.contains("---")) {
                 saveFavorite(getCurrentCalculationString(), result)

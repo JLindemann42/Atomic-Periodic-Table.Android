@@ -128,7 +128,7 @@ class TablesFragment : BaseFragment(), TableAdapter.OnTableItemClickListener {
         val matches = regex.findAll(mostUsedPrefValue).map { it.groups[1]!!.value to it.groups[2]!!.value.toDouble() }.toList()
         val sortedValues = matches.sortedByDescending { it.second }
 
-        val textViewList = listOf<TextView?>(
+        val chipList = listOf<com.google.android.material.chip.Chip?>(
             root.findViewById(R.id.most_1), root.findViewById(R.id.most_2), root.findViewById(R.id.most_3),
             root.findViewById(R.id.most_4), root.findViewById(R.id.most_5), root.findViewById(R.id.most_6),
             root.findViewById(R.id.most_7), root.findViewById(R.id.most_8), root.findViewById(R.id.most_9),
@@ -136,9 +136,9 @@ class TablesFragment : BaseFragment(), TableAdapter.OnTableItemClickListener {
         )
 
         sortedValues.forEachIndexed { index, pair ->
-            if (index < textViewList.size) {
-                val textView = textViewList[index] ?: return@forEachIndexed
-                textView.text = when (pair.first) {
+            if (index < chipList.size) {
+                val chip = chipList[index] ?: return@forEachIndexed
+                val text = when (pair.first) {
                     "geo" -> getString(R.string.geo)
                     "phi" -> getString(R.string.phi)
                     "eqe" -> getString(R.string.eqe)
@@ -153,22 +153,26 @@ class TablesFragment : BaseFragment(), TableAdapter.OnTableItemClickListener {
                     else -> ""
                 }
 
-                textView.setOnClickListener {
-                    val activityClass = when (pair.first) {
-                        "iso" -> IsotopesActivityExperimental::class.java
-                        "phi" -> phActivity::class.java
-                        "eqe" -> EquationsActivity::class.java
-                        "ion" -> IonActivity::class.java
-                        "sol" -> SolubilityActivity::class.java
-                        "ele" -> ElectrodeActivity::class.java
-                        "poi" -> if (proPrefValue == 100) PoissonActivity::class.java else ProActivity::class.java
-                        "nuc" -> if (proPrefValue == 100) NuclideActivity::class.java else ProActivity::class.java
-                        "con" -> if (proPrefValue == 100) ConstantsActivity::class.java else ProActivity::class.java
-                        "geo" -> if (proPrefValue == 100) GeologyActivity::class.java else ProActivity::class.java
-                        "emi" -> if (proPrefValue == 100) EmissionActivity::class.java else ProActivity::class.java
-                        else -> null
+                if (text.isNotEmpty()) {
+                    chip.text = text
+                    chip.visibility = View.VISIBLE
+                    chip.setOnClickListener {
+                        val activityClass = when (pair.first) {
+                            "iso" -> IsotopesActivityExperimental::class.java
+                            "phi" -> phActivity::class.java
+                            "eqe" -> EquationsActivity::class.java
+                            "ion" -> IonActivity::class.java
+                            "sol" -> SolubilityActivity::class.java
+                            "ele" -> ElectrodeActivity::class.java
+                            "poi" -> if (proPrefValue == 100) PoissonActivity::class.java else ProActivity::class.java
+                            "nuc" -> if (proPrefValue == 100) NuclideActivity::class.java else ProActivity::class.java
+                            "con" -> if (proPrefValue == 100) ConstantsActivity::class.java else ProActivity::class.java
+                            "geo" -> if (proPrefValue == 100) GeologyActivity::class.java else ProActivity::class.java
+                            "emi" -> if (proPrefValue == 100) EmissionActivity::class.java else ProActivity::class.java
+                            else -> null
+                        }
+                        activityClass?.let { startActivity(Intent(requireContext(), it)) }
                     }
-                    activityClass?.let { startActivity(Intent(requireContext(), it)) }
                 }
             }
         }

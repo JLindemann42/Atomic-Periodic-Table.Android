@@ -1,180 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?attr/backgroundColor"
+    android:id="@+id/view_ele"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor">
 
     <FrameLayout
-        android:id="@+id/view_ele"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/colorPrimary"
+        android:alpha="0.05"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/e_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="64dp"
+        android:paddingBottom="80dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical" />
+
+    <LinearLayout
+        android:id="@+id/empty_search_box_ele"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:visibility="gone"
+        android:gravity="center"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/empty_search_box_ele"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="56dp"
-            android:visibility="gone"
-            android:elevation="1dp"
-            android:orientation="vertical">
+        <ImageView
+            android:id="@+id/empty_ele_search_image"
+            android:layout_width="164dp"
+            android:layout_height="164dp"
+            app:srcCompat="@drawable/graphic_light_search" />
 
-            <ImageView
-                android:id="@+id/empty_ele_search_image"
-                android:layout_width="164dp"
-                android:layout_marginTop="44dp"
-                android:layout_height="164dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/graphic_light_search" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:textColor="?attr/colorOnSurface"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:text="@string/no_results"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="42dp"
-                android:layout_marginEnd="42dp"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="24sp"
-                android:text="@string/no_results"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="16sp"
+            android:text="@string/try_another_search"/>
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textColor="?attr/colorOnSurface"
-                android:layout_marginStart="42dp"
-                android:layout_marginEnd="42dp"
-                android:textSize="16sp"
-                android:text="@string/try_another_search"/>
-        </LinearLayout>
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/common_title_back_elo"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:strokeWidth="0dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
-            android:id="@+id/common_title_back_elo"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="?attr/colorSurface"
-            android:elevation="8dp"
-            android:gravity="center|center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <FrameLayout
-                android:id="@+id/common_title_back_elo_color"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:alpha="0.11"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:id="@+id/title_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp">
-
-                    <ImageButton
-                        android:id="@+id/back_btn"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_gravity="center_vertical"
-                        android:rotation="180"
-                        app:tint="?attr/colorOnSecondaryContainer"
-                        android:src="@drawable/ic_arrow_back_whit" />
-
-                    <ImageButton
-                        android:id="@+id/search_btn"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_gravity="center_vertical|end"
-                        app:tint="?attr/colorOnSecondaryContainer"
-                        android:src="@drawable/ic_search" />
-
-                    <TextView
-                        android:id="@+id/element_title"
-                        android:layout_width="wrap_content"
-                        android:layout_marginStart="70dp"
-                        android:alpha="0.9"
-                        android:layout_height="56dp"
-                        android:gravity="center"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/electrochemical_series"
-                        android:textAlignment="center"
-                        android:textColor="?attr/colorOnSecondaryContainer"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/search_bar_ele"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:visibility="gone">
-
-                    <ImageButton
-                        android:id="@+id/close_ele_search"
-                        android:layout_width="56dp"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_height="56dp"
-                        android:layout_gravity="center_vertical"
-                        android:rotation="180"
-                        android:alpha="0.9"
-                        app:tint="?attr/colorOnSecondaryContainer"
-                        android:src="@drawable/ic_arrow_back_whit"/>
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="56dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="8dp"
-                        android:elevation="0dp">
-
-                        <EditText
-                            android:id="@+id/edit_ele"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@android:color/transparent"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:hint="@string/electrochemical_series_search"
-                            android:imeOptions="actionSearch"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:paddingStart="0dp"
-                            android:textColor="?attr/colorOnSecondaryContainer"
-                            android:textColorHint="?attr/colorOnSecondaryContainer"
-                            android:textSize="14sp" />
-                    </FrameLayout>
-                </FrameLayout>
-            </LinearLayout>
-        </FrameLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/e_view"
+            android:id="@+id/common_title_back_elo_color"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingTop="9dp"
-            android:paddingBottom="60dp"
-            android:scrollbarStyle="insideOverlay"
-            android:scrollbars="vertical"
-            android:verticalScrollbarPosition="defaultPosition" />
-    </FrameLayout>
+            android:background="?attr/colorPrimary"
+            android:alpha="0.11"
+            android:visibility="invisible"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_box"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back_btn"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:rotation="180"
+                app:icon="@drawable/ic_arrow_back_whit"
+                app:iconTint="?attr/colorOnSecondaryContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/element_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/electrochemical_series"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/back_btn"
+                app:layout_constraintEnd_toStartOf="@+id/search_btn" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/search_btn"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                app:icon="@drawable/ic_search"
+                app:iconTint="?attr/colorOnSecondaryContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/search_bar_ele"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/close_ele_search"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:rotation="180"
+                app:icon="@drawable/ic_arrow_back_whit"
+                app:iconTint="?attr/colorOnSecondaryContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="44dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="16dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                app:strokeWidth="0dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/close_ele_search"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <EditText
+                    android:id="@+id/edit_ele"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="@string/electrochemical_series_search"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingHorizontal="16dp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textColorHint="?attr/colorOnSurfaceVariant"
+                    android:textSize="16sp" />
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

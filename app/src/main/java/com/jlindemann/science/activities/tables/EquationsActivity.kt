@@ -96,11 +96,11 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
         recyclerView()
         clickSearch()
 
-        findViewById<FloatingActionButton>(R.id.e_back_btn).setOnClickListener { hideInfoPanel() }
+        findViewById<View>(R.id.e_back_btn).setOnClickListener { hideInfoPanel() }
         findViewById<TextView>(R.id.l_background_e).setOnClickListener { hideInfoPanel() }
 
         findViewById<FrameLayout>(R.id.view_equ).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        findViewById<ImageButton>(R.id.back_btn_equ).setOnClickListener {
+        findViewById<View>(R.id.back_btn_equ).setOnClickListener {
             this.onBackPressed()
         }
     }
@@ -185,9 +185,9 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
     }
 
     private fun clickSearch() {
-        findViewById<ImageButton>(R.id.search_btn_equ).setOnClickListener {
-            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_equ), 150)
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box_equ), 1)
+        findViewById<View>(R.id.search_btn_equ).setOnClickListener {
+            Utils.fadeInAnim(findViewById<View>(R.id.search_bar_equ), 150)
+            Utils.fadeOutAnim(findViewById<View>(R.id.title_box_equ), 1)
 
             findViewById<EditText>(R.id.edit_equ).requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -196,12 +196,12 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
             // Search bar shown -> enable back interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<ImageButton>(R.id.close_equ_search).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_equ), 1)
+        findViewById<View>(R.id.close_equ_search).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<View>(R.id.search_bar_equ), 1)
 
             val delayClose = Handler()
             delayClose.postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box_equ), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box_equ), 150)
             }, 151)
 
             val view = this.currentFocus
@@ -260,7 +260,7 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
     private fun anyOverlayOpen(): Boolean {
         val infoVisible = findViewById<ConstraintLayout>(R.id.e_inc).visibility == View.VISIBLE
         val backgroundVisible = findViewById<TextView>(R.id.l_background_e).visibility == View.VISIBLE
-        val searchBarVisible = findViewById<FrameLayout>(R.id.search_bar_equ).visibility == View.VISIBLE
+        val searchBarVisible = findViewById<View>(R.id.search_bar_equ).visibility == View.VISIBLE
         return infoVisible || backgroundVisible || searchBarVisible
     }
 
@@ -268,7 +268,7 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
     private fun handleBackPress(): Boolean {
         val infoPanel = findViewById<ConstraintLayout>(R.id.e_inc)
         val background = findViewById<TextView>(R.id.l_background_e)
-        val searchBar = findViewById<FrameLayout>(R.id.search_bar_equ)
+        val searchBar = findViewById<View>(R.id.search_bar_equ)
 
         // If info panel visible, hide it
         if (infoPanel.visibility == View.VISIBLE) {
@@ -282,7 +282,7 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
             Utils.fadeOutAnim(searchBar, 1)
             // restore title box after a short delay to match original timing
             Handler(Looper.getMainLooper()).postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box_equ), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box_equ), 150)
             }, 151)
 
             val view = this.currentFocus

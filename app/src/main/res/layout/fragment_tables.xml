@@ -25,26 +25,26 @@
             android:fadingEdgeLength="32dp"
             android:requiresFadingEdge="horizontal">
 
-            <LinearLayout
+            <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:paddingStart="16dp"
-                android:paddingEnd="8dp">
+                android:paddingEnd="8dp"
+                app:chipSpacingHorizontal="8dp">
 
-                <TextView android:id="@+id/most_1" style="@style/MostUsedPill" />
-                <TextView android:id="@+id/most_2" style="@style/MostUsedPill" />
-                <TextView android:id="@+id/most_3" style="@style/MostUsedPill" />
-                <TextView android:id="@+id/most_4" style="@style/MostUsedPill" />
-                <TextView android:id="@+id/most_5" style="@style/MostUsedPill" />
-                <TextView android:id="@+id/most_6" style="@style/MostUsedPill" />
-                <TextView android:id="@+id/most_7" style="@style/MostUsedPill" />
-                <TextView android:id="@+id/most_8" style="@style/MostUsedPill" />
-                <TextView android:id="@+id/most_9" style="@style/MostUsedPill" />
-                <TextView android:id="@+id/most_10" style="@style/MostUsedPill" />
-                <TextView android:id="@+id/most_11" style="@style/MostUsedPill" />
+                <com.google.android.material.chip.Chip android:id="@+id/most_1" style="@style/MostUsedPill" android:visibility="gone" />
+                <com.google.android.material.chip.Chip android:id="@+id/most_2" style="@style/MostUsedPill" android:visibility="gone" />
+                <com.google.android.material.chip.Chip android:id="@+id/most_3" style="@style/MostUsedPill" android:visibility="gone" />
+                <com.google.android.material.chip.Chip android:id="@+id/most_4" style="@style/MostUsedPill" android:visibility="gone" />
+                <com.google.android.material.chip.Chip android:id="@+id/most_5" style="@style/MostUsedPill" android:visibility="gone" />
+                <com.google.android.material.chip.Chip android:id="@+id/most_6" style="@style/MostUsedPill" android:visibility="gone" />
+                <com.google.android.material.chip.Chip android:id="@+id/most_7" style="@style/MostUsedPill" android:visibility="gone" />
+                <com.google.android.material.chip.Chip android:id="@+id/most_8" style="@style/MostUsedPill" android:visibility="gone" />
+                <com.google.android.material.chip.Chip android:id="@+id/most_9" style="@style/MostUsedPill" android:visibility="gone" />
+                <com.google.android.material.chip.Chip android:id="@+id/most_10" style="@style/MostUsedPill" android:visibility="gone" />
+                <com.google.android.material.chip.Chip android:id="@+id/most_11" style="@style/MostUsedPill" android:visibility="gone" />
 
-            </LinearLayout>
+            </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
         <ImageButton

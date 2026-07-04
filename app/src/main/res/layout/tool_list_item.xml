@@ -1,141 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tool_card"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/margin"
+    android:layout_marginTop="@dimen/margin_space_card"
+    android:layout_marginEnd="@dimen/margin"
+    android:layout_marginBottom="@dimen/margin_space_card"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+    app:strokeWidth="0dp"
+    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.MediumComponent"
     android:clickable="true"
-    android:layout_height="wrap_content">
+    android:focusable="true">
 
-    <FrameLayout
-        android:id="@+id/tool_card"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin"
-        android:layout_marginTop="@dimen/margin_space_card"
-        android:layout_marginEnd="@dimen/margin"
-        android:layout_marginBottom="@dimen/margin_space_card"
-        android:background="@drawable/toast_card"
-        android:backgroundTint="?attr/colorSurfaceVariant"
-        android:clickable="true"
-        android:elevation="0dp"
-        android:focusable="true"
-        android:foreground="@drawable/toast_card_ripple">
+        android:layout_height="wrap_content">
 
-    <!-- "New" Badge -->
-    <TextView
-        android:id="@+id/new_badge"
-        android:layout_width="wrap_content"
-        android:layout_height="22dp"
-        android:layout_gravity="end|top"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/toast_card"
-        android:backgroundTint="?attr/colorError"
-        android:gravity="center"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:text="@string/new_label"
-        android:textAllCaps="true"
-        android:textColor="?attr/colorOnPrimary"
-        android:textSize="11sp"
-        android:visibility="gone" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <!-- "New" Badge -->
+        <TextView
+            android:id="@+id/new_badge"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/tool_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginTop="@dimen/margin"
-                android:layout_marginEnd="@dimen/margin_space"
-                android:layout_marginBottom="@dimen/margin_space"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/drag_handle"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="@dimen/margin"
-                android:layout_marginTop="14dp"
-                android:padding="12dp"
-                android:src="@drawable/ic_drag"
-                android:tint="?attr/colorOnSurfaceVariant"
-                android:alpha="0.6"
-                android:visibility="gone" />
-
-        </LinearLayout>
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/toast_card"
+            android:backgroundTint="?attr/colorError"
+            android:gravity="center"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:text="@string/new_label"
+            android:textAllCaps="true"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="11sp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/space_drag"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="28dp"/>
+            android:id="@+id/tool_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginEnd="@dimen/margin_space"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/drag_handle" />
 
+        <ImageView
+            android:id="@+id/drag_handle"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="@dimen/margin"
+            android:padding="12dp"
+            android:src="@drawable/ic_drag"
+            app:tint="?attr/colorOnSurfaceVariant"
+            android:alpha="0.6"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@+id/tool_title"
+            app:layout_constraintBottom_toBottomOf="@+id/tool_title"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/pro_plus_badge"
             android:layout_width="wrap_content"
-            android:layout_height="28dp"
-            android:layout_gravity="start"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
-            android:layout_marginTop="@dimen/margin_space"
-            android:layout_marginEnd="@dimen/margin"
-            android:layout_marginBottom="@dimen/margin_space"
-            android:alpha="0.8"
+            android:layout_marginTop="8dp"
             android:background="@drawable/toast"
             android:backgroundTint="?attr/colorTertiary"
             android:gravity="center"
             android:paddingStart="14dp"
             android:paddingEnd="14dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:text="@string/requires_pro_plus_until_2026"
-            android:textAlignment="center"
             android:textColor="?attr/colorOnTertiary"
             android:textSize="11sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/tool_title"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tool_description"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin"
-            android:layout_marginTop="@dimen/margin_space"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/margin"
-            android:layout_marginBottom="@dimen/margin_space"
             android:textColor="?attr/colorOnSurfaceVariant"
             android:textSize="16sp"
-            android:textStyle="normal" />
+            app:layout_constraintTop_toBottomOf="@+id/pro_plus_badge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
+            android:id="@+id/space_drag"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            app:layout_constraintTop_toBottomOf="@+id/tool_title" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/tool_button"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="end"
-            android:layout_marginTop="@dimen/margin_space"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/margin"
             android:layout_marginBottom="@dimen/margin"
-            android:background="@drawable/button_m3e"
-            android:backgroundTint="?attr/colorPrimary"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="@drawable/toast_ripple"
-            android:gravity="center"
-            android:paddingStart="24dp"
-            android:paddingEnd="24dp"
             android:text="@string/tool_btn_open"
-            android:textAlignment="center"
-            android:textColor="?attr/colorOnPrimary"
-            android:textSize="16sp" />
-    </LinearLayout>
-    </FrameLayout>
-</FrameLayout>
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.LargeComponent"
+            app:layout_constraintTop_toBottomOf="@+id/tool_description"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

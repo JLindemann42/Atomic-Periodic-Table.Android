@@ -14,6 +14,7 @@ import android.window.OnBackInvokedDispatcher
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.button.MaterialButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.AboutActivity
 import com.jlindemann.science.activities.settings.CreditsActivity
@@ -89,13 +90,13 @@ class SettingsActivity : BaseActivity() {
         initNavSwitches()
         initAnalyticsSwitch()
 
-        findViewById<RelativeLayout>(R.id.offline_settings).setOnClickListener {
+        findViewById<View>(R.id.offline_settings).setOnClickListener {
             findViewById<SwitchCompat>(R.id.offline_internet_switch).toggle()
         }
-        findViewById<RelativeLayout>(R.id.nav_bar_settings).setOnClickListener {
+        findViewById<View>(R.id.nav_bar_settings)?.setOnClickListener {
             findViewById<SwitchCompat>(R.id.nav_bar_switch).toggle()
         }
-        findViewById<RelativeLayout>(R.id.analytics_settings).setOnClickListener {
+        findViewById<View>(R.id.analytics_settings).setOnClickListener {
             findViewById<SwitchCompat>(R.id.analytics_switch).toggle()
         }
 
@@ -138,35 +139,35 @@ class SettingsActivity : BaseActivity() {
                 }
             })
 
-        findViewById<RelativeLayout>(R.id.about_settings).setOnClickListener {
+        findViewById<View>(R.id.about_settings).setOnClickListener {
             val intent = Intent(this, AboutActivity::class.java)
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.back_btn_set).setOnClickListener {
+        findViewById<MaterialButton>(R.id.back_btn_set).setOnClickListener {
             this.onBackPressed()
         }
-        findViewById<RelativeLayout>(R.id.submit_settings).setOnClickListener {
+        findViewById<View>(R.id.submit_settings).setOnClickListener {
             val intent = Intent(this, SubmitActivity::class.java)
             startActivity(intent)
         }
-        findViewById<RelativeLayout>(R.id.licenses_settings).setOnClickListener {
+        findViewById<View>(R.id.licenses_settings).setOnClickListener {
             val intent = Intent(this, LicensesActivity::class.java)
             startActivity(intent)
         }
-        findViewById<RelativeLayout>(R.id.credits_settings).setOnClickListener {
+        findViewById<View>(R.id.credits_settings).setOnClickListener {
             val intent = Intent(this, CreditsActivity::class.java)
             startActivity(intent)
         }
-        findViewById<RelativeLayout>(R.id.unit_settings).setOnClickListener {
+        findViewById<View>(R.id.unit_settings).setOnClickListener {
             val intent = Intent(this, UnitActivity::class.java)
             startActivity(intent)
         }
-        findViewById<RelativeLayout>(R.id.git_settings).setOnClickListener{
+        findViewById<View>(R.id.git_settings).setOnClickListener{
             val packageManager = packageManager
             val blogURL = "https://github.com/JLindemann42/Atomic-Periodic-Table.Android"
             TabUtil.openCustomTab(blogURL, packageManager, this)
         }
-        findViewById<RelativeLayout>(R.id.win_settings).setOnClickListener{
+        findViewById<View>(R.id.win_settings)?.setOnClickListener{
             val packageManager = packageManager
             val winURL = "https://apps.microsoft.com/detail/9NBT1TCW2CNT"
             TabUtil.openCustomTab(winURL, packageManager, this)
@@ -201,7 +202,7 @@ class SettingsActivity : BaseActivity() {
         onBackPressedDispatcher.addCallback(this, backCallback!!)
 
         // --- Language selection setup ---
-        findViewById<RelativeLayout>(R.id.language_setting).setOnClickListener {
+        findViewById<View>(R.id.language_setting).setOnClickListener {
             showLanguageSelectionDialog()
         }
         updateLanguageContentText()
@@ -285,7 +286,7 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun setupLanguageListener() {
-        findViewById<RelativeLayout>(R.id.language_setting).setOnClickListener {
+        findViewById<View>(R.id.language_setting).setOnClickListener {
             showLanguageSelectionDialog()
         }
     }
@@ -374,10 +375,10 @@ class SettingsActivity : BaseActivity() {
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<FrameLayout>(R.id.common_title_back_set).layoutParams = params
 
-        val titleParam = findViewById<FrameLayout>(R.id.title_box_settings).layoutParams as ViewGroup.MarginLayoutParams
+        val titleParam = findViewById<ConstraintLayout>(R.id.title_box_settings).layoutParams as ViewGroup.MarginLayoutParams
         titleParam.rightMargin = right
         titleParam.leftMargin = left
-        findViewById<FrameLayout>(R.id.title_box_settings).layoutParams = titleParam
+        findViewById<ConstraintLayout>(R.id.title_box_settings).layoutParams = titleParam
 
         val params2 = findViewById<TextView>(R.id.element_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
@@ -449,15 +450,15 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun openPages() {
-        findViewById<RelativeLayout>(R.id.favorite_settings).setOnClickListener {
+        findViewById<View>(R.id.favorite_settings).setOnClickListener {
             val intent = Intent(this, FavoritePageActivity::class.java)
             startActivity(intent)
         }
-        findViewById<RelativeLayout>(R.id.order_settings).setOnClickListener {
+        findViewById<View>(R.id.order_settings)?.setOnClickListener {
             val intent = Intent(this, OrderActivity::class.java)
             startActivity(intent)
         }
-        findViewById<RelativeLayout>(R.id.experimental_settings).setOnClickListener {
+        findViewById<View>(R.id.experimental_settings)?.setOnClickListener {
             val intent = Intent(this, ExperimentalActivity::class.java)
             startActivity(intent)
         }
@@ -566,7 +567,7 @@ class SettingsActivity : BaseActivity() {
                 overridePendingTransition(0, 0)
             }, 302)
         }
-        findViewById<RelativeLayout>(R.id.themes_settings).setOnClickListener {
+        findViewById<View>(R.id.themes_settings).setOnClickListener {
             Utils.fadeInAnim(themePanel, 300)
             // theme opened -> enable interception (back should close theme panel)
             setBackInterceptionEnabled(true)

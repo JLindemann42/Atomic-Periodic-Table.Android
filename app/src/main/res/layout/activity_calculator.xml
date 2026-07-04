@@ -1,235 +1,233 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    android:id="@+id/view_cal"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/view_cal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="?attr/backgroundColor">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimary"
+        android:alpha="0.05"/>
 
     <ScrollView
         android:id="@+id/calculator_scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="120dp">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/calculator_title_downstate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="0dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="28dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:paddingTop="80dp"
+                android:paddingBottom="24dp"
                 android:text="@string/calculator_title"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="32sp"
-                android:textStyle="normal" />
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:letterSpacing="-0.02" />
 
-
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cal_box"
+                style="@style/Widget.Science.Expressive.SectionCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/margin_space"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:elevation="2dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin"
-                    android:text="@string/calculator_card_title"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/edit_text_cal"
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="72dp"
-                        android:layout_marginStart="@dimen/margin"
-                        android:layout_marginEnd="@dimen/margin"
-                        android:background="@drawable/toast"
-                        android:backgroundTint="?attr/colorSurface"
-                        android:focusable="true"
-                        android:focusableInTouchMode="true"
-                        android:hint="@string/calculator_formula"
-                        android:imeOptions="actionSearch"
-                        android:inputType="textNoSuggestions"
-                        android:maxLines="1"
-                        android:paddingStart="18dp"
-                        android:paddingEnd="68dp"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textColorHint="?attr/colorOnSurface"
-                        android:textSize="22sp" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/calculator_card_title"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp" />
 
-                    <ImageButton
-                        android:id="@+id/fav_star_btn"
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"
-                        android:layout_gravity="end"
-                        android:layout_marginEnd="@dimen/margin"
-                        android:backgroundTint="@color/transparent"
-                        app:tint="?attr/colorOnSurface"
-                        android:src="@drawable/ic_star"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                </FrameLayout>
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/formula_input_layout"
+                            style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:boxBackgroundColor="?attr/colorSurface"
+                            app:boxCornerRadiusTopStart="16dp"
+                            app:boxCornerRadiusTopEnd="16dp"
+                            app:boxCornerRadiusBottomStart="16dp"
+                            app:boxCornerRadiusBottomEnd="16dp"
+                            app:boxStrokeWidth="0dp"
+                            app:boxStrokeWidthFocused="0dp"
+                            app:hintEnabled="false"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/fav_star_btn"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginEnd="8dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:layout_marginTop="8dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:gravity="top"
-                    android:text="@string/calc_molar_mass"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edit_text_cal"
+                                android:layout_width="match_parent"
+                                android:layout_height="64dp"
+                                android:hint="@string/calculator_formula"
+                                android:inputType="textNoSuggestions"
+                                android:maxLines="1"
+                                android:paddingStart="16dp"
+                                android:paddingEnd="16dp"
+                                android:textColor="?attr/colorOnSurface"
+                                android:textSize="20sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/out_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="8dp"
-                    android:drawableStart="@drawable/ic_weight_outline"
-                    android:drawablePadding="6dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:gravity="top"
-                    android:text="@string/calculator_default_value"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="16sp" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/fav_star_btn"
+                            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            app:icon="@drawable/ic_star"
+                            app:iconSize="24dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@+id/formula_input_layout"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
 
-                <TextView
-                    android:id="@+id/hint_calc_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    android:visibility="gone"
-                    android:text="@string/calc_elements_shown"
-                    android:layout_margin="@dimen/margin"
-                    android:textColor="?attr/colorOnSurface"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/inc_weight_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:layout_marginBottom="@dimen/margin" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/calc_molar_mass"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textAllCaps="true"
+                        android:letterSpacing="0.1" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/out_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:background="?attr/colorSurface"
+                        android:padding="16dp"
+                        android:text="@string/calculator_default_value"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        app:drawableStartCompat="@drawable/ic_weight_outline"
+                        android:drawablePadding="12dp"
+                        app:drawableTint="?attr/colorPrimary"
+                        android:elevation="0dp"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
 
-            <LinearLayout
+                    <TextView
+                        android:id="@+id/hint_calc_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        android:visibility="gone"
+                        android:text="@string/calc_elements_shown"
+                        android:layout_marginTop="16dp"
+                        android:textColor="?attr/colorOnSurfaceVariant"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/inc_weight_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/fav_box"
+                style="@style/Widget.Science.Expressive.SectionCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/margin_space"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:elevation="2dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:text="@string/calc_favorites"
-                    android:layout_margin="@dimen/margin"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textStyle="bold"/>
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/no_pro_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    android:visibility="visible"
-                    android:text="@string/calc_no_pro_text"
-                    android:layout_margin="@dimen/margin"
-                    android:textColor="?attr/colorOnSurface"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="@string/calc_favorites"
+                        android:textColor="?attr/colorPrimary"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp"/>
 
-                <TextView
-                    android:id="@+id/no_fav_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textAlignment="center"
-                    android:visibility="gone"
-                    android:text="@string/calc_no_favorites"
-                    android:layout_margin="@dimen/margin"
-                    android:textColor="?attr/colorOnSurface"/>
+                    <TextView
+                        android:id="@+id/no_pro_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        android:visibility="visible"
+                        android:text="@string/calc_no_pro_text"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginBottom="16dp"/>
 
-                <TextView
-                    android:id="@+id/pro_button_cal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_gravity="end"
-                    android:layout_marginTop="@dimen/margin_space"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:layout_marginBottom="@dimen/margin"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/toast_ripple"
-                    android:gravity="center"
-                    android:paddingStart="24dp"
-                    android:paddingEnd="24dp"
-                    android:text="@string/get_pro_title"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/no_fav_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textAlignment="center"
+                        android:visibility="gone"
+                        android:text="@string/calc_no_favorites"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:layout_marginBottom="16dp"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/fav_rec_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:layout_marginBottom="@dimen/margin" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/pro_button_cal"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/get_pro_title"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
 
-            </LinearLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/fav_rec_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>
-    <FrameLayout
+
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/common_title_back_cal"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:elevation="1dp"
-        android:background="?attr/colorSurface"
-        android:gravity="center|center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="64dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:strokeWidth="0dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:id="@+id/common_title_back_cal_color"
@@ -238,42 +236,38 @@
             android:background="?attr/colorPrimary"
             android:alpha="0.11"/>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_box"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/title_box"
-                android:layout_width="match_parent"
-                android:layout_height="56dp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back_btn_cal"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:rotation="180"
+                app:icon="@drawable/ic_arrow_back_whit"
+                app:iconTint="?attr/colorOnSecondaryContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-                <ImageButton
-                    android:id="@+id/back_btn_cal"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical"
-                    android:rotation="180"
-                    app:tint="?attr/colorOnSecondaryContainer"
-                    android:src="@drawable/ic_arrow_back_whit" />
+            <TextView
+                android:id="@+id/calculator_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/calculator_title"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/back_btn_cal" />
 
-                <TextView
-                    android:id="@+id/calculator_title"
-                    android:layout_width="wrap_content"
-                    android:layout_marginStart="70dp"
-                    android:alpha="0.9"
-                    android:layout_height="56dp"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/calculator_title"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
-        </LinearLayout>
-    </FrameLayout>
-</FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

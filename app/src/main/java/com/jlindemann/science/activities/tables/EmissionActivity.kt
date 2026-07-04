@@ -126,7 +126,7 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
         }
 
         findViewById<FrameLayout>(R.id.view_emi).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        findViewById<ImageButton>(R.id.back_btn_emi).setOnClickListener { this.onBackPressed() }
+        findViewById<View>(R.id.back_btn_emi).setOnClickListener { this.onBackPressed() }
     }
 
     override fun emiClickListener(item: Element, position: Int) {
@@ -189,9 +189,9 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
     }
 
     private fun clickSearch() {
-        findViewById<ImageButton>(R.id.search_btn_emi).setOnClickListener {
-            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_emi), 150)
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box), 1)
+        findViewById<View>(R.id.search_btn_emi).setOnClickListener {
+            Utils.fadeInAnim(findViewById<View>(R.id.search_bar_emi), 150)
+            Utils.fadeOutAnim(findViewById<View>(R.id.title_box), 1)
             findViewById<EditText>(R.id.edit_emi).requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(findViewById<EditText>(R.id.edit_emi), InputMethodManager.SHOW_IMPLICIT)
@@ -199,11 +199,11 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
             // Search bar shown -> enable back interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<ImageButton>(R.id.close_ele_search_emi).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_emi), 1)
+        findViewById<View>(R.id.close_ele_search_emi).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<View>(R.id.search_bar_emi), 1)
             val delayClose = Handler(Looper.getMainLooper())
             delayClose.postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box), 150)
             }, 151)
 
             val view = this.currentFocus
@@ -229,8 +229,8 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
         val panel = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_e)
         val panelExpanded = panel.panelState == SlidingUpPanelLayout.PanelState.EXPANDED
         val backgroundVisible = findViewById<TextView>(R.id.background_emi).visibility == View.VISIBLE
-        val detailVisible = findViewById<FrameLayout>(R.id.emission_detail).visibility == View.VISIBLE
-        val searchBarVisible = findViewById<FrameLayout>(R.id.search_bar_emi).visibility == View.VISIBLE
+        val detailVisible = findViewById<View>(R.id.emission_detail).visibility == View.VISIBLE
+        val searchBarVisible = findViewById<View>(R.id.search_bar_emi).visibility == View.VISIBLE
         return panelExpanded || backgroundVisible || detailVisible || searchBarVisible
     }
 
@@ -238,8 +238,8 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
     private fun handleBackPress(): Boolean {
         val panel = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_e)
         val background = findViewById<TextView>(R.id.background_emi)
-        val detail = findViewById<FrameLayout>(R.id.emission_detail)
-        val searchBar = findViewById<FrameLayout>(R.id.search_bar_emi)
+        val detail = findViewById<View>(R.id.emission_detail)
+        val searchBar = findViewById<View>(R.id.search_bar_emi)
 
         // If emission detail visible, hide it and collapse panel
         if (detail.visibility == View.VISIBLE) {
@@ -263,7 +263,7 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
         if (searchBar.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(searchBar, 1)
             Handler(Looper.getMainLooper()).postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box), 150)
             }, 151)
             val view = this.currentFocus
             if (view != null) {

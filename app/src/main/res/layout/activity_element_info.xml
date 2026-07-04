@@ -2,25 +2,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="?attr/colorSurface"
-    android:layout_width="match_parent"
-
     android:id="@+id/view"
-    android:fitsSystemWindows="false"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor">
 
-    <FrameLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/common_title_back"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:elevation="1dp"
+        android:layout_height="64dp"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:strokeWidth="0dp"
         app:layout_constraintTop_toTopOf="parent">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorSurface"/>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -28,92 +22,87 @@
             android:background="?attr/colorPrimary"
             android:alpha="0.11"/>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_box"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/title_box"
-                android:layout_width="match_parent"
-                android:layout_height="56dp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back_btn"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:rotation="180"
+                app:icon="@drawable/ic_arrow_back_whit"
+                app:iconTint="?attr/colorOnSecondaryContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
-                <ImageButton
-                    android:id="@+id/back_btn"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical"
-                    android:rotation="180"
-                    android:alpha="0.9"
-                    app:tint="?attr/colorOnSecondaryContainer"
-                    android:src="@drawable/ic_arrow_back_whit" />
+            <TextView
+                android:id="@+id/element_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/element_info_title"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:singleLine="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/back_btn"
+                app:layout_constraintEnd_toStartOf="@+id/button_container" />
 
-                <ImageButton
+            <LinearLayout
+                android:id="@+id/button_container"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/compare_btn"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical|end"
-                    android:padding="16dp"
-                    android:layout_marginEnd="112dp"
-                    android:alpha="0.9"
-                    android:scaleType="fitStart"
-                    app:tint="?attr/colorOnSecondaryContainer"
-                    android:src="@drawable/ic_compare" />
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:icon="@drawable/ic_compare"
+                    app:iconTint="?attr/colorOnSecondaryContainer" />
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/wikipedia_btn"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical|end"
-                    android:padding="16dp"
-                    android:layout_marginEnd="56dp"
-                    android:alpha="0.9"
-                    android:scaleType="fitStart"
-                    app:tint="?attr/colorOnSecondaryContainer"
-                    android:src="@drawable/ic_wikipedia_logo" />
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:icon="@drawable/ic_wikipedia_logo"
+                    app:iconTint="?attr/colorOnSecondaryContainer" />
 
-                <ImageButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/isotope_btn"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical|end"
-                    android:padding="16dp"
-                    android:alpha="0.9"
-                    android:scaleType="fitStart"
-                    app:tint="?attr/colorOnSecondaryContainer"
-                    android:src="@drawable/ic_isotopes" />
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:icon="@drawable/ic_isotopes"
+                    app:iconTint="?attr/colorOnSecondaryContainer" />
 
-                <TextView
-                    android:id="@+id/element_title"
-                    android:layout_width="match_parent"
-                    android:layout_marginStart="70dp"
-                    android:layout_marginEnd="168dp"
-                    android:layout_height="56dp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="0dp"
-                    android:alpha="0.9"
-                    android:paddingEnd="0dp"
-                    android:text="@string/element_info_title"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="18sp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:textStyle="bold" />
-            </FrameLayout>
+            </LinearLayout>
 
-        </LinearLayout>
-
-    </FrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <ScrollView
         android:id="@+id/scr_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
         android:scrollbars="none"
         app:layout_constraintTop_toBottomOf="@id/common_title_back"
         app:layout_constraintBottom_toBottomOf="parent">
@@ -134,8 +123,10 @@
 
             <View
                 android:id="@+id/divider"
-                android:layout_width="0dp"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
+                android:background="?attr/colorOutlineVariant"
+                android:alpha="0.2"
                 android:visibility="gone" />
 
             <include
@@ -150,100 +141,46 @@
 
     </ScrollView>
 
-    <com.github.mmin18.widget.RealtimeBlurView
-        android:id="@+id/shell_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#A8000000"
-        android:elevation="12dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:realtimeBlurRadius="4dp"
-        app:realtimeOverlayColor="#A80B0B0B" />
-
-    <com.github.mmin18.widget.RealtimeBlurView
-        android:id="@+id/detail_emission_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#A8000000"
-        android:elevation="12dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:realtimeBlurRadius="4dp"
-        app:realtimeOverlayColor="#A80B0B0B" />
-
-    <include
-        android:id="@+id/shell"
-        layout="@layout/shell_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="130dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="130dp"
-        android:elevation="112dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <include
-        android:id="@+id/detail_emission"
-        layout="@layout/detail_emission"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="130dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="130dp"
-        android:elevation="112dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/close_compare_btn"
         android:layout_width="wrap_content"
         android:layout_height="56dp"
-        android:layout_marginBottom="64dp"
-        android:background="@drawable/bg_close_compare_fab"
+        android:layout_marginBottom="32dp"
+        app:cardBackgroundColor="?attr/colorPrimaryContainer"
+        app:cardElevation="6dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium"
+        app:strokeWidth="0dp"
         android:clickable="true"
-        android:elevation="6dp"
         android:focusable="true"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingStart="16dp"
-        android:paddingEnd="20dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_close"
-            app:tint="?attr/colorOnPrimaryContainer" />
-
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/exit_compare_mode"
-            android:textColor="?attr/colorOnPrimaryContainer"
-            android:textSize="16sp" />
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp">
 
-    </LinearLayout>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_close"
+                app:tint="?attr/colorOnPrimaryContainer" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/exit_compare_mode"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ai_chat_fab"
@@ -255,6 +192,36 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="?attr/colorOnPrimary" />
+
+    <TextView
+        android:id="@+id/overlay_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66000000"
+        android:elevation="20dp"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/shell"
+        layout="@layout/shell_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:elevation="32dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <include
+        android:id="@+id/detail_emission"
+        layout="@layout/detail_emission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:elevation="32dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <include
         android:id="@+id/ai_panel_include"

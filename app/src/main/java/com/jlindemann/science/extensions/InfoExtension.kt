@@ -21,11 +21,13 @@ import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.Space
 import android.widget.TextView
+import com.google.android.material.button.MaterialButton
 import androidx.annotation.AttrRes
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
@@ -69,7 +71,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
     private var notesTextWatcher: TextWatcher? = null // Track watcher for note editing
     private var currentElementCode: String? = null // Track current element code
     private var notesEditText: EditText? = null // Track notes EditText
-    private var notesSyncStatusView: TextView? = null // Track sync status indicator
+    private var notesSyncStatusView: AppCompatImageView? = null // Track sync status indicator
 
     // Store the element key used to load data (the value returned from ElementSendAndLoad)
     // so we can send it to the isotopes preference when user navigates to isotopes.
@@ -146,9 +148,9 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                     val isCompareMode = divider != null && divider.visibility == View.VISIBLE
 
                     // Previous/next button visibility - only for main view and NOT in comparison mode
-                    findViewById<ImageButton>(R.id.previous_btn).visibility =
+                    findViewById<MaterialButton>(R.id.previous_btn).visibility =
                         if (isCompareMode || elementKey == "hydrogen") View.GONE else View.VISIBLE
-                    findViewById<ImageButton>(R.id.next_btn).visibility =
+                    findViewById<MaterialButton>(R.id.next_btn).visibility =
                         if (isCompareMode || elementKey == "oganesson") View.GONE else View.VISIBLE
                 }
 
@@ -311,7 +313,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
 
         // Initialize notes sync status view so updates reach the UI
         if (rootView == findViewById<View>(android.R.id.content)) {
-            notesSyncStatusView = rootView.findViewById(R.id.notes_sync_status)
+            notesSyncStatusView = rootView.findViewById<AppCompatImageView>(R.id.notes_sync_status)
 
             // Set initial visibility / icon for notes sync indicator:
             // - If user is NOT eligible to sync (not Pro/Pro+ or not signed in) show ic_no_sync (VISIBLE).
@@ -353,7 +355,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
             val intent = Intent(this, IsotopesActivityExperimental::class.java)
             startActivity(intent)
         }
-        rootView.findViewById<ImageButton>(R.id.isotopes_icon).setOnClickListener {
+        rootView.findViewById<View>(R.id.isotopes_icon).setOnClickListener {
             val isoPreference = ElementSendAndLoad(this)
 
             isoPreference.setValue(elementKey)
@@ -385,7 +387,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
             val intent = Intent(this@InfoExtension, IonActivity::class.java)
             this@InfoExtension.startActivity(intent)
         }
-        rootView.findViewById<ImageButton>(R.id.ionization_button).setOnClickListener {
+        rootView.findViewById<View>(R.id.ionization_button).setOnClickListener {
             val intent = Intent(this@InfoExtension, IonActivity::class.java)
             this@InfoExtension.startActivity(intent)
         }
@@ -817,7 +819,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
             val view = notesSyncStatusView ?: run {
                 // attempt to find the view from the current activity layout
                 val v = try {
-                    findViewById<TextView>(R.id.notes_sync_status)
+                    findViewById<AppCompatImageView>(R.id.notes_sync_status)
                 } catch (e: Exception) {
                     null
                 }
@@ -934,7 +936,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                 ToastUtil.showToast(this, "Error Code: 11001")
             }
         }
-        rootView.findViewById<ImageButton>(R.id.wikipedia_btn)?.setOnClickListener(clickListener)
+        rootView.findViewById<MaterialButton>(R.id.wikipedia_btn)?.setOnClickListener(clickListener)
         rootView.findViewById<ImageView>(R.id.wikipedia_description)?.setOnClickListener(clickListener)
     }
 

@@ -105,7 +105,7 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
             setBackInterceptionEnabled(anyOverlayOpen())
         }
 
-        findViewById<ImageButton>(R.id.back_btn_ion).setOnClickListener { this.onBackPressed() }
+        findViewById<View>(R.id.back_btn_ion).setOnClickListener { this.onBackPressed() }
     }
 
     override fun ionClickListener(item: Ion, position: Int) {
@@ -193,9 +193,9 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
     }
 
     private fun clickSearch() {
-        findViewById<ImageButton>(R.id.search_btn_ion).setOnClickListener {
-            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_ion), 150)
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box), 1)
+        findViewById<View>(R.id.search_btn_ion).setOnClickListener {
+            Utils.fadeInAnim(findViewById<View>(R.id.search_bar_ion), 150)
+            Utils.fadeOutAnim(findViewById<View>(R.id.title_box), 1)
             findViewById<EditText>(R.id.edit_ion).requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(findViewById<EditText>(R.id.edit_ion), InputMethodManager.SHOW_IMPLICIT)
@@ -203,11 +203,11 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
             // Search bar shown -> enable back interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<ImageButton>(R.id.close_ele_search_ion).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_ion), 1)
-            val delayClose = Handler()
+        findViewById<View>(R.id.close_ele_search_ion).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<View>(R.id.search_bar_ion), 1)
+            val delayClose = Handler(Looper.getMainLooper())
             delayClose.postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box), 150)
             }, 151)
 
             val view = this.currentFocus
@@ -230,15 +230,15 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
 
     // Basic handler for in-activity overlays
     private fun anyOverlayOpen(): Boolean {
-        val detailVisible = findViewById<FrameLayout>(R.id.ion_detail).visibility == View.VISIBLE
-        val searchBarVisible = findViewById<FrameLayout>(R.id.search_bar_ion).visibility == View.VISIBLE
+        val detailVisible = findViewById<View>(R.id.ion_detail).visibility == View.VISIBLE
+        val searchBarVisible = findViewById<View>(R.id.search_bar_ion).visibility == View.VISIBLE
         return detailVisible || searchBarVisible
     }
 
     // Close overlays if visible; return true when consumed.
     private fun handleBackPress(): Boolean {
-        val detail = findViewById<FrameLayout>(R.id.ion_detail)
-        val searchBar = findViewById<FrameLayout>(R.id.search_bar_ion)
+        val detail = findViewById<View>(R.id.ion_detail)
+        val searchBar = findViewById<View>(R.id.search_bar_ion)
 
         // If ion detail visible, hide it
         if (detail.visibility == View.VISIBLE) {
@@ -252,7 +252,7 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
         if (searchBar.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(searchBar, 1)
             Handler(Looper.getMainLooper()).postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box), 150)
             }, 151)
             val view = this.currentFocus
             if (view != null) {

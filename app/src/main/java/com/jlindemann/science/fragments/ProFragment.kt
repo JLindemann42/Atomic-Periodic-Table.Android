@@ -37,12 +37,12 @@ class ProFragment : BaseFragment(), BillingManager.Listener {
         billingManager = BillingManager(requireActivity(), viewLifecycleOwner.lifecycleScope, this)
         billingManager.initialize()
 
-        view.findViewById<TextView>(R.id.pro_buy_btn).setOnClickListener {
+        view.findViewById<View>(R.id.pro_buy_btn).setOnClickListener {
             if (!billingManager.isOwnsProVersion() && !billingManager.isOwnsProPlusVersion()) {
                 billingManager.getProductDetail(PRO_PAGE_PRODUCT_ID)?.let { billingManager.launchPurchase(it) }
             }
         }
-        view.findViewById<TextView>(R.id.pro_plus_buy_btn).setOnClickListener {
+        view.findViewById<View>(R.id.pro_plus_buy_btn).setOnClickListener {
             if (!billingManager.isOwnsProPlusVersion()) {
                 if (billingManager.isOwnsProVersion()) {
                     billingManager.getProductDetail(PRO_PLUS_UPGRADE_PRODUCT_ID)?.let { billingManager.launchPurchase(it) }
@@ -52,7 +52,6 @@ class ProFragment : BaseFragment(), BillingManager.Listener {
             }
         }
 
-        view.findViewById<ImageButton>(R.id.back_btn_pro).visibility = View.GONE
 
         view.findViewById<TextView>(R.id.product_text)?.setOnClickListener {
             checkAndSetPreferences()
@@ -78,6 +77,7 @@ class ProFragment : BaseFragment(), BillingManager.Listener {
                 updateProOptionsUI(it)
                 updatePurchaseCardsUI(it)
             }
+            (activity as? com.jlindemann.science.activities.MainActivity)?.updateVersionBadge()
         }
     }
 
@@ -89,6 +89,7 @@ class ProFragment : BaseFragment(), BillingManager.Listener {
                 updateProOptionsUI(it)
                 updatePurchaseCardsUI(it)
             }
+            (activity as? com.jlindemann.science.activities.MainActivity)?.updateVersionBadge()
         }
     }
 
@@ -113,6 +114,7 @@ class ProFragment : BaseFragment(), BillingManager.Listener {
 
         activity?.runOnUiThread {
             Toast.makeText(requireContext(), "Purchase complete!", Toast.LENGTH_SHORT).show()
+            (activity as? com.jlindemann.science.activities.MainActivity)?.updateVersionBadge()
             android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
                 view?.let {
                     updateProOptionsUI(it)
@@ -164,8 +166,8 @@ class ProFragment : BaseFragment(), BillingManager.Listener {
     }
 
     private fun updateProOptionsUI(view: View) {
-        val proBuyBtn = view.findViewById<TextView>(R.id.pro_buy_btn)
-        val proPlusBuyBtn = view.findViewById<TextView>(R.id.pro_plus_buy_btn)
+        val proBuyBtn = view.findViewById<com.google.android.material.button.MaterialButton>(R.id.pro_buy_btn)
+        val proPlusBuyBtn = view.findViewById<com.google.android.material.button.MaterialButton>(R.id.pro_plus_buy_btn)
         val proPriceView = view.findViewById<TextView>(R.id.pro_price)
         val proPlusPriceView = view.findViewById<TextView>(R.id.pro_plus_price)
         val proPref = ProVersion(requireContext())
@@ -228,21 +230,5 @@ class ProFragment : BaseFragment(), BillingManager.Listener {
         }
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        view?.let {
-            val titleBarHeight = resources.getDimensionPixelSize(R.dimen.title_bar)
-            val navBarHeight = resources.getDimensionPixelSize(R.dimen.nav_bar)
-            val titleFrame = it.findViewById<FrameLayout>(R.id.common_title_back_pro)
-            val purchaseBox = it.findViewById<FrameLayout>(R.id.pro_purschase_box)
-            val proLinear = it.findViewById<LinearLayout>(R.id.pro_linear)
 
-            titleFrame.layoutParams.height = top + titleBarHeight
-            titleFrame.requestLayout()
-
-            proLinear.setPadding(0, top, 0, 0)
-
-            purchaseBox.layoutParams.height = bottom + navBarHeight
-            purchaseBox.requestLayout()
-        }
-    }
 }

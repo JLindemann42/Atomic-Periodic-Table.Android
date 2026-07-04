@@ -296,44 +296,8 @@ class FlashCardActivity : BaseActivity() {
         }
 
         // --- Rest of UI wiring (preserve existing initialization) ---
-        findViewById<FrameLayout>(R.id.common_title_back_fla_color).visibility = View.INVISIBLE
         findViewById<TextView>(R.id.flashcard_title).visibility = View.INVISIBLE
         findViewById<FrameLayout>(R.id.common_title_back_fla).elevation = (resources.getDimension(R.dimen.zero_elevation))
-
-        val scrollView = findViewById<NestedScrollView>(R.id.flashcard_scroll)
-        scrollView?.viewTreeObserver?.addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
-            private var isTitleVisible = false
-            override fun onScrollChanged() {
-                val scrollY = scrollView.scrollY
-                val threshold = 150
-                val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_back_fla_color)
-                val titleText = findViewById<TextView>(R.id.flashcard_title)
-                val titleDownstateText = findViewById<TextView>(R.id.flashcard_title_downstate)
-                val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_fla)
-
-                if (scrollY > threshold) {
-                    if (!isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
-                        TitleBarAnimator.animateVisibility(titleText, true)
-                        TitleBarAnimator.animateVisibility(titleDownstateText, false)
-                        titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
-                        isTitleVisible = true
-                    }
-                } else {
-                    if (isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, false)
-                        TitleBarAnimator.animateVisibility(titleText, false)
-                        TitleBarAnimator.animateVisibility(titleDownstateText, true)
-                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
-                        isTitleVisible = false
-                    }
-                }
-            }
-        })
-
-        findViewById<ImageButton>(R.id.back_btn_fla).setOnClickListener {
-            onBackPressed()
-        }
 
         val achievementsBtn = findViewById<ImageButton>(R.id.achievements_btn)
         achievementsBtn.setOnClickListener {
@@ -813,13 +777,6 @@ class FlashCardActivity : BaseActivity() {
         findViewById<TextView>(R.id.progress_text).text = getString(R.string.progress_xp, xpInLevel, xpRequired)
     }
 
-    override fun onBackPressed() {
-        // Try to handle overlays first; if not consumed, allow system/back behaviour
-        if (!handleBackPress()) {
-            super.onBackPressed()
-        }
-    }
-
     private fun showGameResultsPopup(
         results: List<GameResultItem>,
         gameFinished: Boolean,
@@ -917,14 +874,7 @@ class FlashCardActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_fla).layoutParams as ViewGroup.LayoutParams
-        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_fla).layoutParams = params
 
-        val params2 = findViewById<TextView>(R.id.flashcard_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) +
-                resources.getDimensionPixelSize(R.dimen.header_down_margin)
-        findViewById<TextView>(R.id.flashcard_title_downstate).layoutParams = params2
     }
 
     private fun showLivesInfoPopup(anchor: View) {

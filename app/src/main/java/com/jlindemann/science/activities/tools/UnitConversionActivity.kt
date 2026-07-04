@@ -117,10 +117,10 @@ class UnitConversionActivity : BaseActivity() {
     private lateinit var categorySpinner: Spinner
     private lateinit var fromUnitSpinner: Spinner
     private lateinit var toUnitSpinner: Spinner
-    private lateinit var inputValue: EditText
-    private lateinit var outputValue: EditText
+    private lateinit var inputValue: com.google.android.material.textfield.TextInputEditText
+    private lateinit var outputValue: com.google.android.material.textfield.TextInputEditText
     private lateinit var formulaValue: TextView
-    private lateinit var addFavoriteButton: Button
+    private lateinit var addFavoriteButton: com.google.android.material.button.MaterialButton
     private lateinit var favoritesList: RecyclerView
 
     private val favorites = mutableListOf<UnitConversionFavorite>()
@@ -213,17 +213,17 @@ class UnitConversionActivity : BaseActivity() {
         if (proPrefValue == 1) {
             findViewById<RecyclerView>(R.id.favorites_list).visibility = View.INVISIBLE
             findViewById<TextView>(R.id.no_pro_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_button_cal).visibility = View.VISIBLE
-            findViewById<AppCompatButton>(R.id.add_favorite_button).visibility = View.GONE
+            findViewById<View>(R.id.pro_button_cal).visibility = View.VISIBLE
+            findViewById<View>(R.id.add_favorite_button).visibility = View.GONE
         }
         if (proPrefValue == 100) {
             findViewById<RecyclerView>(R.id.favorites_list).visibility = View.VISIBLE
             findViewById<TextView>(R.id.no_pro_text).visibility = View.GONE
-            findViewById<TextView>(R.id.pro_button_cal).visibility = View.GONE
-            findViewById<AppCompatButton>(R.id.add_favorite_button).visibility = View.VISIBLE
+            findViewById<View>(R.id.pro_button_cal).visibility = View.GONE
+            findViewById<View>(R.id.add_favorite_button).visibility = View.VISIBLE
         }
 
-        findViewById<TextView>(R.id.pro_button_cal).setOnClickListener {
+        findViewById<View>(R.id.pro_button_cal).setOnClickListener {
             val intent = Intent(this, ProActivity::class.java)
             startActivity(intent)
         }

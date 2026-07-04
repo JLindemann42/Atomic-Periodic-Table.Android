@@ -102,20 +102,18 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
         recyclerView()
         clickSearch()
         chipListeners(itempoi, recyclerView)
-        findViewById<Button>(R.id.clear_btn).visibility = View.GONE
 
         // When tapping background, hide panel and update interception
-        findViewById<FrameLayout>(R.id.poi_det_inc_background).setOnClickListener {
+        findViewById<View>(R.id.poi_det_inc_background).setOnClickListener {
             hideInfoPanel()
             setBackInterceptionEnabled(anyOverlayOpen())
         }
-        findViewById<ImageButton>(R.id.close_detail_poisson_btn).setOnClickListener {
+        findViewById<View>(R.id.close_detail_poisson_btn).setOnClickListener {
             hideInfoPanel()
             setBackInterceptionEnabled(anyOverlayOpen())
         }
 
-        findViewById<FrameLayout>(R.id.view_poi).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        findViewById<ImageButton>(R.id.back_btn_poi).setOnClickListener {
+        findViewById<View>(R.id.back_btn_poi).setOnClickListener {
             this.onBackPressed()
         }
     }
@@ -205,9 +203,9 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
     }
 
     private fun clickSearch() {
-        findViewById<ImageButton>(R.id.search_btn_poi).setOnClickListener {
-            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_poi), 150)
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box_poi), 1)
+        findViewById<View>(R.id.search_btn_poi).setOnClickListener {
+            Utils.fadeInAnim(findViewById<View>(R.id.search_bar_poi), 150)
+            Utils.fadeOutAnim(findViewById<View>(R.id.title_box_poi), 1)
 
             findViewById<EditText>(R.id.edit_poi).requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -216,12 +214,12 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
             // Search bar shown -> enable back interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<ImageButton>(R.id.close_poi_search).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_poi), 1)
+        findViewById<View>(R.id.close_poi_search).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<View>(R.id.search_bar_poi), 1)
 
-            val delayClose = Handler()
+            val delayClose = Handler(Looper.getMainLooper())
             delayClose.postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box_poi), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box_poi), 150)
             }, 151)
 
             val view = this.currentFocus
@@ -236,67 +234,34 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
     }
 
     private fun chipListeners(list: ArrayList<Poisson>, recyclerView: RecyclerView) {
-        findViewById<Button>(R.id.rocks_btn).setOnClickListener {
-            updateButtonColor("rocks_btn")
-            val poissonPreference = PoissonPreferences(this)
-            poissonPreference.setValue("rock")
-            findViewById<EditText>(R.id.edit_poi).setText("test")
+        val poissonPreference = PoissonPreferences(this)
+        val clearBtn = findViewById<com.google.android.material.chip.Chip>(R.id.clear_btn)
+        
+        val applyFilter = { filter: String ->
+            poissonPreference.setValue(filter)
             findViewById<EditText>(R.id.edit_poi).setText("")
+            clearBtn.visibility = if (filter.isEmpty()) View.GONE else View.VISIBLE
         }
-        findViewById<Button>(R.id.soils_btn).setOnClickListener {
-            updateButtonColor("soils_btn")
-            val poissonPreference = PoissonPreferences(this)
-            poissonPreference.setValue("soil")
-            findViewById<EditText>(R.id.edit_poi).setText("test")
-            findViewById<EditText>(R.id.edit_poi).setText("")
-        }
-        findViewById<Button>(R.id.minerals_btn).setOnClickListener {
-            updateButtonColor("minerals_btn")
-            val poissonPreference = PoissonPreferences(this)
-            poissonPreference.setValue("mineral")
-            findViewById<EditText>(R.id.edit_poi).setText("test")
-            findViewById<EditText>(R.id.edit_poi).setText("")
-        }
-    }
 
-    private fun updateButtonColor(btn: String) {
-        findViewById<Button>(R.id.rocks_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.soils_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.minerals_btn).background = getDrawable(R.drawable.chip)
-
-        val delay = Handler()
-        delay.postDelayed({
-            val resIDB = resources.getIdentifier(btn, "id", packageName)
-            val button = findViewById<Button>(resIDB)
-            button.background = getDrawable(R.drawable.chip_active)
-        }, 200)
-
-        findViewById<Button>(R.id.clear_btn).visibility = View.VISIBLE
-        findViewById<Button>(R.id.clear_btn).setOnClickListener {
-            val resIDB = resources.getIdentifier(btn, "id", packageName)
-            val button = findViewById<Button>(resIDB)
-            val poissonPreference = PoissonPreferences(this)
-            button.background = getDrawable(R.drawable.chip)
-            poissonPreference.setValue("")
-            findViewById<EditText>(R.id.edit_poi).setText("test")
-            findViewById<EditText>(R.id.edit_poi).setText("")
-            findViewById<Button>(R.id.clear_btn).visibility = View.GONE
-        }
+        findViewById<View>(R.id.rocks_btn).setOnClickListener { applyFilter("rock") }
+        findViewById<View>(R.id.soils_btn).setOnClickListener { applyFilter("soil") }
+        findViewById<View>(R.id.minerals_btn).setOnClickListener { applyFilter("mineral") }
+        clearBtn.setOnClickListener { applyFilter("") }
     }
 
     // Centralized overlay detection
     private fun anyOverlayOpen(): Boolean {
         val infoVisible = findViewById<ConstraintLayout>(R.id.poi_det_inc).visibility == View.VISIBLE
-        val backgroundVisible = findViewById<FrameLayout>(R.id.poi_det_inc_background).visibility == View.VISIBLE
-        val searchBarVisible = findViewById<FrameLayout>(R.id.search_bar_poi).visibility == View.VISIBLE
+        val backgroundVisible = findViewById<View>(R.id.poi_det_inc_background).visibility == View.VISIBLE
+        val searchBarVisible = findViewById<View>(R.id.search_bar_poi).visibility == View.VISIBLE
         return infoVisible || backgroundVisible || searchBarVisible
     }
 
     // Close overlays if visible; return true when consumed.
     private fun handleBackPress(): Boolean {
         val infoPanel = findViewById<ConstraintLayout>(R.id.poi_det_inc)
-        val background = findViewById<FrameLayout>(R.id.poi_det_inc_background)
-        val searchBar = findViewById<FrameLayout>(R.id.search_bar_poi)
+        val background = findViewById<View>(R.id.poi_det_inc_background)
+        val searchBar = findViewById<View>(R.id.search_bar_poi)
 
         if (infoPanel.visibility == View.VISIBLE || background.visibility == View.VISIBLE) {
             hideInfoPanel()
@@ -307,7 +272,7 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
         if (searchBar.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(searchBar, 1)
             Handler(Looper.getMainLooper()).postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box_poi), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box_poi), 150)
             }, 151)
             val view = this.currentFocus
             if (view != null) {

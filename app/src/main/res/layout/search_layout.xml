@@ -86,14 +86,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:tint="?attr/colorOnSurfaceVariant" />
 
-            <FrameLayout
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/search_bar_element"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorSurfaceVariant"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                app:strokeWidth="0dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.LargeComponent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/filter_btn"
                 app:layout_constraintStart_toEndOf="@id/close_element_search">
@@ -115,7 +117,7 @@
                     android:textColorHint="?attr/colorOnSurfaceVariant"
                     android:textSize="16sp" />
 
-            </FrameLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <ImageButton
                 android:id="@+id/filter_btn"

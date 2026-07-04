@@ -22,6 +22,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.activity.OnBackPressedCallback
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.adapter.IsotopeAdapter
@@ -152,11 +153,11 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         clickSearch()
         searchFilter(elementList, recyclerView)
         sentIsotope()
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener { this.onBackPressed() }
+        findViewById<MaterialButton>(R.id.back_btn).setOnClickListener { this.onBackPressed() }
     }
 
     private fun searchFilter(list: ArrayList<Element>, recyclerView: RecyclerView) {
-        findViewById<FloatingActionButton>(R.id.filter_btn2).setOnClickListener {
+        findViewById<MaterialButton>(R.id.filter_btn2).setOnClickListener {
             Utils.fadeInAnim(findViewById<ConstraintLayout>(R.id.iso_filter_box), 150)
             Utils.fadeInAnim(findViewById<TextView>(R.id.filter_background), 150)
             // show overlay -> enable back interception
@@ -204,7 +205,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     }
 
     private fun clickSearch() {
-        findViewById<ImageButton>(R.id.search_btn).setOnClickListener {
+        findViewById<MaterialButton>(R.id.search_btn).setOnClickListener {
             Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_iso), 300)
             Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box), 300)
 
@@ -215,7 +216,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             // Search bar shown -> enable back interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<ImageButton>(R.id.close_iso_search).setOnClickListener {
+        findViewById<MaterialButton>(R.id.close_iso_search).setOnClickListener {
             Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_iso), 300)
             Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 300)
 

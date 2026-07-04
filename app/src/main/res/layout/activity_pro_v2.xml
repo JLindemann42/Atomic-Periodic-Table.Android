@@ -5,10 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="?attr/backgroundColor">
+    android:background="@drawable/bg_fragment_rounded"
+    android:clipToOutline="true"
+    android:orientation="vertical">
 
     <ScrollView
+        android:id="@+id/pro_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -16,17 +18,8 @@
             android:id="@+id/pro_linear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="28dp"
             android:paddingBottom="180dp"
             android:orientation="vertical">
-
-            <!-- Image & Text Callout to upgrade -->
-            <ImageView
-                android:layout_marginTop="100dp"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
-                android:layout_gravity="center"
-                android:src="@mipmap/ic_launcher"/>
 
             <TextView
                 android:id="@+id/pro_title_view"
@@ -559,62 +552,5 @@
                 android:textSize="16sp"
                 android:textStyle="normal" />
         </FrameLayout>
-
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/common_title_back_pro"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:elevation="1dp"
-        android:background="?attr/colorSurface"
-        android:gravity="center|center_vertical"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:id="@+id/common_title_back_pro_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.11"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:id="@+id/title_box_pro"
-                android:layout_width="match_parent"
-                android:layout_height="56dp">
-
-                <ImageButton
-                    android:id="@+id/back_btn_pro"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical"
-                    android:rotation="180"
-                    app:tint="?attr/colorOnSecondaryContainer"
-                    android:src="@drawable/ic_arrow_back_whit" />
-
-                <TextView
-                    android:id="@+id/pro_title"
-                    android:layout_width="wrap_content"
-                    android:layout_marginStart="70dp"
-                    android:alpha="0.9"
-                    android:layout_height="56dp"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/pro_title"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
-        </LinearLayout>
     </FrameLayout>
 </FrameLayout>

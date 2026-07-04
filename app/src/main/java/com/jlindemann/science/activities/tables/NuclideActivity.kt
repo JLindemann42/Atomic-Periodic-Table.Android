@@ -170,7 +170,7 @@ class NuclideActivity : BaseActivity() {
     }
 
     private fun setupBackButton() {
-        findViewById<ImageButton>(R.id.nuc_back_btn).setOnClickListener { this.onBackPressed() }
+        findViewById<View>(R.id.nuc_back_btn).setOnClickListener { this.onBackPressed() }
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {

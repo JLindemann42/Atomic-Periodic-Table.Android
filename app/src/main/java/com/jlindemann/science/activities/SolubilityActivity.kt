@@ -82,7 +82,7 @@ class SolubilityActivity : BaseActivity() {
             mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
         }
 
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
+        findViewById<View>(R.id.back_btn).setOnClickListener {
             this.onBackPressed()
         }
     }
@@ -98,7 +98,7 @@ class SolubilityActivity : BaseActivity() {
     }
 
     private fun infoPanel() {
-        findViewById<ImageButton>(R.id.info_btn).setOnClickListener {
+        findViewById<View>(R.id.info_btn).setOnClickListener {
             Anim.fadeIn(findViewById<ConstraintLayout>(R.id.info_panel), 300)
             findViewById<TextView>(R.id.info_title).text = resources.getString(R.string.solubility_info_t)
             findViewById<TextView>(R.id.info_text).text = resources.getString(R.string.solubility_info_c)

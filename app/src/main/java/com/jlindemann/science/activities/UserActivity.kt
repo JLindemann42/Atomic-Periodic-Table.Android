@@ -17,7 +17,10 @@ import android.widget.*
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
-import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.chip.Chip
+import com.google.android.material.card.MaterialCardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -52,7 +55,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
     private lateinit var recyclerView: RecyclerView
     private var mAdapter: AchievementAdapter? = null
 
-    private lateinit var btnSignOut: TextView
+    private lateinit var btnSignOut: MaterialButton
     private lateinit var tvUserInfo: TextView
     private lateinit var tvSyncStatus: TextView
     private lateinit var userImg: ImageView
@@ -163,7 +166,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
 
         // insert status text under pro_badge if possible
         try {
-            val proBadge = findViewById<TextView>(R.id.pro_badge)
+            val proBadge = findViewById<Chip>(R.id.pro_badge)
             val parent = proBadge.parent as? ViewGroup
             parent?.let {
                 val index = it.indexOfChild(proBadge)
@@ -190,7 +193,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         setupRecyclerView()
 
-        findViewById<FrameLayout>(R.id.view_user).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view_user).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         setupTitleController()
         setupBackButton()
@@ -201,9 +204,9 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         // PRO badge text
         val proPref = ProVersion(this).getValue()
         val proPlusPref = ProPlusVersion(this).getValue()
-        if (proPref == 1) findViewById<TextView>(R.id.pro_badge).text = getString(R.string.non_pro)
-        if (proPref == 100) findViewById<TextView>(R.id.pro_badge).text = getString(R.string.pro_user)
-        if (proPlusPref == 100) findViewById<TextView>(R.id.pro_badge).text = getString(R.string.pro_plus_user)
+        if (proPref == 1) findViewById<Chip>(R.id.pro_badge).text = getString(R.string.non_pro)
+        if (proPref == 100) findViewById<Chip>(R.id.pro_badge).text = getString(R.string.pro_user)
+        if (proPlusPref == 100) findViewById<Chip>(R.id.pro_badge).text = getString(R.string.pro_plus_user)
 
         // Replace user title views with user's name (they will be updated from updateUi)
         // initialize with a default placeholder
@@ -238,7 +241,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             Log.w(TAG, "OneTap initialization failed, legacy fallback will be used", t)
         }
 
-        findViewById<TextView>(R.id.login_button).setOnClickListener {
+        findViewById<MaterialButton>(R.id.login_button).setOnClickListener {
             // Try One Tap
             var oneTapStarted = false
             try {
@@ -347,7 +350,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             val displayName = user.displayName ?: user.email ?: "User Page"
             setUserTitleViews(displayName)
             btnSignOut.visibility = View.VISIBLE
-            findViewById<TextView>(R.id.login_button).visibility = View.GONE
+            findViewById<MaterialButton>(R.id.login_button).visibility = View.GONE
             val photo = user.photoUrl
             if (photo != null) {
                 loadImageFromUrlIntoImageView(photo.toString(), userImg)
@@ -381,7 +384,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             tvSyncStatus.text = getString(R.string.sign_in_failed)
             return
         }
-        findViewById<TextView>(R.id.login_button).visibility = View.GONE
+        findViewById<MaterialButton>(R.id.login_button).visibility = View.GONE
         tvUserInfo.text = "Logged in"
 
         // Check Pro/Pro+ status and only run sync if user has Pro or Pro+
@@ -449,7 +452,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
     }
 
     private fun setupBackButton() {
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
+        findViewById<MaterialButton>(R.id.back_btn).setOnClickListener {
             onBackPressed()
         }
     }
@@ -522,9 +525,9 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<FrameLayout>(R.id.common_title_back_user).layoutParams = params
 
-        val params2 = findViewById<CardView>(R.id.user_img_container).layoutParams as ViewGroup.MarginLayoutParams
+        val params2 = findViewById<MaterialCardView>(R.id.user_img_container).layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
-        findViewById<CardView>(R.id.user_img_container).layoutParams = params2
+        findViewById<MaterialCardView>(R.id.user_img_container).layoutParams = params2
     }
 
     override fun achievementClickListener(item: Achievement, position: Int) {

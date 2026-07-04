@@ -45,7 +45,6 @@ import java.util.concurrent.TimeUnit
 
 class FlashcardFragment : BaseFragment() {
 
-    private lateinit var toggles: List<ToggleButton>
     private lateinit var infoText: TextView
     private var resultDialog: ResultDialogFragment? = null
     private var lastLevel: Int = -1
@@ -190,9 +189,8 @@ class FlashcardFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // Adjust top bar visibility and elevation since it's now a fragment
-        view.findViewById<FrameLayout>(R.id.common_title_back_fla_color).visibility = View.INVISIBLE
-        view.findViewById<TextView>(R.id.flashcard_title).visibility = View.INVISIBLE
-        view.findViewById<FrameLayout>(R.id.common_title_back_fla).elevation = 0f
+        view.findViewById<TextView>(R.id.flashcard_title).visibility = View.VISIBLE
+        view.findViewById<FrameLayout>(R.id.common_title_back_fla).elevation = resources.getDimension(R.dimen.one_elevation)
 
         tvEnableSyncLogin = view.findViewById(R.id.enable_sync_login)
         tvSyncStatus = view.findViewById(R.id.sync_status)
@@ -242,9 +240,8 @@ class FlashcardFragment : BaseFragment() {
         }
 
         view.findViewById<TextView>(R.id.get_pro_plus_btn).setOnClickListener {
-            // Should probably switch fragment here instead of activity
-            (activity as? com.jlindemann.science.activities.MainActivity)?.let {
-                // it.switchFragment(ProFragment(), "pro") // I'll create ProFragment soon
+            (activity as? com.jlindemann.science.activities.MainActivity)?.let { mainActivity ->
+                mainActivity.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_nav)?.selectedItemId = R.id.nav_pro
             } ?: startActivity(Intent(requireContext(), ProActivity::class.java))
         }
 
@@ -257,10 +254,6 @@ class FlashcardFragment : BaseFragment() {
         } else {
             tvSyncStatus?.visibility = View.GONE
         }
-
-        setupScrollViewAnimation(view)
-
-        view.findViewById<ImageButton>(R.id.back_btn_fla).visibility = View.GONE // Hide back button in bottom nav tab
 
         view.findViewById<ImageButton>(R.id.achievements_btn).setOnClickListener {
             startActivity(Intent(requireContext(), UserActivity::class.java))
@@ -284,39 +277,6 @@ class FlashcardFragment : BaseFragment() {
         livesCountView.setOnClickListener {
             showLivesInfoPopup(livesCountView)
         }
-    }
-
-    private fun setupScrollViewAnimation(view: View) {
-        val scrollView = view.findViewById<NestedScrollView>(R.id.flashcard_scroll)
-        scrollView?.viewTreeObserver?.addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
-            private var isTitleVisible = false
-            override fun onScrollChanged() {
-                val scrollY = scrollView.scrollY
-                val threshold = 150
-                val titleColorBackground = view.findViewById<FrameLayout>(R.id.common_title_back_fla_color)
-                val titleText = view.findViewById<TextView>(R.id.flashcard_title)
-                val titleDownstateText = view.findViewById<TextView>(R.id.flashcard_title_downstate)
-                val titleBackground = view.findViewById<FrameLayout>(R.id.common_title_back_fla)
-
-                if (scrollY > threshold) {
-                    if (!isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
-                        TitleBarAnimator.animateVisibility(titleText, true)
-                        TitleBarAnimator.animateVisibility(titleDownstateText, false)
-                        titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
-                        isTitleVisible = true
-                    }
-                } else {
-                    if (isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, false)
-                        TitleBarAnimator.animateVisibility(titleText, false)
-                        TitleBarAnimator.animateVisibility(titleDownstateText, true)
-                        titleBackground.elevation = 0f
-                        isTitleVisible = false
-                    }
-                }
-            }
-        })
     }
 
     private fun setupStreakBadge(view: View) {
@@ -387,7 +347,9 @@ class FlashcardFragment : BaseFragment() {
                 row.tag = cat
                 row.setOnClickListener {
                     if (cat.isPro && !checkProPlusStatus()) {
-                        startActivity(Intent(requireContext(), ProActivity::class.java))
+                        (activity as? com.jlindemann.science.activities.MainActivity)?.let { mainActivity ->
+                            mainActivity.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_nav)?.selectedItemId = R.id.nav_pro
+                        } ?: startActivity(Intent(requireContext(), ProActivity::class.java))
                         return@setOnClickListener
                     }
                     if (!row.isEnabled) return@setOnClickListener
@@ -526,24 +488,19 @@ class FlashcardFragment : BaseFragment() {
     }
 
     private fun setupDifficultyToggles(view: View) {
-        toggles = listOf(
-            view.findViewById(R.id.toggle_easy),
-            view.findViewById(R.id.toggle_medium),
-            view.findViewById(R.id.toggle_hard)
-        )
-        toggles.forEach { toggle ->
-            toggle.setOnCheckedChangeListener { btn, isChecked ->
-                if (isChecked) toggles.filter { it != btn }.forEach { it.isChecked = false }
-            }
+        val toggleGroup = view.findViewById<com.google.android.material.button.MaterialButtonToggleGroup>(R.id.difficulty_toggle_group)
+        toggleGroup.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            // MaterialButtonToggleGroup handles single selection via xml attribute app:singleSelection="true"
         }
-        toggles[0].isChecked = true
     }
 
     private fun getSelectedDifficulty(): String {
-        return when {
-            toggles[0].isChecked -> "easy"
-            toggles[1].isChecked -> "medium"
-            toggles[2].isChecked -> "hard"
+        val view = view ?: return "easy"
+        val toggleGroup = view.findViewById<com.google.android.material.button.MaterialButtonToggleGroup>(R.id.difficulty_toggle_group)
+        return when (toggleGroup.checkedButtonId) {
+            R.id.toggle_easy -> "easy"
+            R.id.toggle_medium -> "medium"
+            R.id.toggle_hard -> "hard"
             else -> "easy"
         }
     }
@@ -623,10 +580,9 @@ class FlashcardFragment : BaseFragment() {
         view.findViewById<TextView>(R.id.total_xp_stat).text = getString(R.string.total_xp_stat, xp)
         view.findViewById<TextView>(R.id.xp_bonus).text = getString(R.string.xp_bonus, multiplierPct)
         view.findViewById<TextView>(R.id.level_stat).text = level.toString()
-        view.findViewById<ProgressBar>(R.id.xp_progress).apply {
-            max = xpRequired
-            progress = xpInLevel
-        }
+        val xpProgress = view.findViewById<com.google.android.material.progressindicator.LinearProgressIndicator>(R.id.xp_progress)
+        xpProgress.max = xpRequired
+        xpProgress.setProgress(xpInLevel, true)
         view.findViewById<TextView>(R.id.progress_text).text = getString(R.string.progress_xp, xpInLevel, xpRequired)
     }
 
@@ -646,18 +602,6 @@ class FlashcardFragment : BaseFragment() {
             putExtra("difficulty", getSelectedDifficulty())
             putExtra("category", category)
         })
-    }
-
-    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        view?.let {
-            val titleBar = it.findViewById<FrameLayout>(R.id.common_title_back_fla)
-            titleBar.layoutParams.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            titleBar.requestLayout()
-
-            val titleDownstate = it.findViewById<TextView>(R.id.flashcard_title_downstate)
-            (titleDownstate.layoutParams as ViewGroup.MarginLayoutParams).topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
-            titleDownstate.requestLayout()
-        }
     }
 
     private fun showLivesInfoPopup(anchor: View) {
@@ -741,5 +685,32 @@ class FlashcardFragment : BaseFragment() {
     private fun TextView.setLockDrawable(unlocked: Boolean) {
         val drawable = if (unlocked) R.drawable.ic_lock_open else R.drawable.ic_lock
         setCompoundDrawablesWithIntrinsicBounds(drawable, 0, 0, 0)
+    }
+
+    fun handleGameResults(intent: Intent) {
+        val results = intent.getParcelableArrayListExtra<GameResultItem>("game_results")
+        if (results != null && results.isNotEmpty()) {
+            val gameFinished = intent.getBooleanExtra("game_finished", false)
+            val totalQuestions = intent.getIntExtra("total_questions", results.size)
+            val difficulty = intent.getStringExtra("difficulty") ?: "easy"
+
+            if (resultDialog?.isVisible == true) return
+            resultDialog = ResultDialogFragment.newInstance(results, gameFinished, totalQuestions, difficulty)
+            resultDialog?.show(childFragmentManager, "GameResultsPopup")
+            
+            view?.let {
+                updateXpAndLevelStats(it)
+                if (gameFinished) {
+                    incrementCompletedQuizzes()
+                }
+            }
+            attemptSyncIfAllowed()
+        }
+    }
+
+    private fun incrementCompletedQuizzes() {
+        val prefs = requireContext().getSharedPreferences("game_stats", Context.MODE_PRIVATE)
+        val current = prefs.getInt("completed_quizzes", 0)
+        prefs.edit().putInt("completed_quizzes", current + 1).apply()
     }
 }
