@@ -23,7 +23,6 @@ import android.content.Intent
 import android.view.ViewPropertyAnimator
 import androidx.appcompat.widget.AppCompatButton
 import com.jlindemann.science.activities.BaseActivity
-import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ProVersion
@@ -160,26 +159,21 @@ class UnitConversionActivity : BaseActivity() {
 
         findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility = View.INVISIBLE
         findViewById<TextView>(R.id.unit_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation =
-            (resources.getDimension(R.dimen.zero_elevation))
+        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation = (resources.getDimension(R.dimen.zero_elevation))
         findViewById<ScrollView>(R.id.unit_scroll).viewTreeObserver
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
                 override fun onScrollChanged() {
-                    if (findViewById<ScrollView>(R.id.unit_scroll).scrollY > 150f) {
-                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility =
-                            View.VISIBLE
+                    val scrollY = findViewById<ScrollView>(R.id.unit_scroll).scrollY
+                    if (scrollY > 150) {
+                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility = View.VISIBLE
                         findViewById<TextView>(R.id.unit_title).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.unit_title_downstate).visibility =
-                            View.INVISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation =
-                            (resources.getDimension(R.dimen.one_elevation))
+                        findViewById<TextView>(R.id.unit_title_downstate).visibility = View.INVISIBLE
+                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation = (resources.getDimension(R.dimen.one_elevation))
                     } else {
-                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility =
-                            View.INVISIBLE
+                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility = View.INVISIBLE
                         findViewById<TextView>(R.id.unit_title).visibility = View.INVISIBLE
                         findViewById<TextView>(R.id.unit_title_downstate).visibility = View.VISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation =
-                            (resources.getDimension(R.dimen.zero_elevation))
+                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation = (resources.getDimension(R.dimen.zero_elevation))
                     }
                 }
             })
@@ -224,8 +218,7 @@ class UnitConversionActivity : BaseActivity() {
         }
 
         findViewById<View>(R.id.pro_button_cal).setOnClickListener {
-            val intent = Intent(this, ProActivity::class.java)
-            startActivity(intent)
+            goToProPage()
         }
 
         //Add value to most used:

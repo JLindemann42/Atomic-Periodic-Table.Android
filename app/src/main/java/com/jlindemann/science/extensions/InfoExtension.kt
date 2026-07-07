@@ -38,7 +38,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.activities.IsotopesActivityExperimental
-import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tables.IonActivity
 import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
@@ -448,9 +447,8 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                     isClickable = true
                     isFocusable = true
                     setOnClickListener {
-                        // Use the Activity context explicitly to create the Intent
-                        val intent = Intent(this@InfoExtension, ProActivity::class.java)
-                        this@InfoExtension.startActivity(intent)
+                        // Use the activity method to go to Pro page
+                        goToProPage()
                     }
                 }
             }
@@ -692,9 +690,8 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                     isClickable = true
                     isFocusable = true
                     setOnClickListener {
-                        // Use the Activity context explicitly to create the Intent
-                        val intent = Intent(this@InfoExtension, ProActivity::class.java)
-                        this@InfoExtension.startActivity(intent)
+                        // Use the activity method to go to Pro page
+                        goToProPage()
                     }
                 }
             }
@@ -722,9 +719,8 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                     isClickable = true
                     isFocusable = true
                     setOnClickListener {
-                        // Use the Activity context explicitly to create the Intent
-                        val intent = Intent(this@InfoExtension, ProActivity::class.java)
-                        this@InfoExtension.startActivity(intent)
+                        // Use the activity method to go to Pro page
+                        goToProPage()
                     }
                 }
             }

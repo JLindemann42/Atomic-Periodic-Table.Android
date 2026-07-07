@@ -62,21 +62,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="?attr/colorSurface"
         app:strokeWidth="0dp"
+        android:background="?attr/backgroundColor"
         app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/common_title_geo_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:background="?attr/colorSurface">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11" />
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:alpha="0.11"
-                android:visibility="visible"/>
+            android:orientation="vertical"
+            android:layout_gravity="bottom">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/title_box_geo"

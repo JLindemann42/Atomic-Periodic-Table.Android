@@ -59,8 +59,9 @@
                 <ImageView
                     android:id="@+id/sp_img_detail"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:scaleType="centerCrop"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="8dp"
+                    android:adjustViewBounds="true"
                     app:srcCompat="@drawable/ic_launcher_background" />
 
                 <LinearLayout

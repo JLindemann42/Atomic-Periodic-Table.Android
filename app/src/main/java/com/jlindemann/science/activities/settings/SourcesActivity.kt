@@ -68,24 +68,21 @@ class SourcesActivity : BaseActivity() {
         findViewById<FrameLayout>(R.id.common_title_back_src_color).visibility = View.INVISIBLE
         findViewById<TextView>(R.id.sources_title).visibility = View.INVISIBLE
         findViewById<FrameLayout>(R.id.common_title_back_src).elevation = (resources.getDimension(R.dimen.zero_elevation))
-        findViewById<ScrollView>(R.id.sources_scroll).getViewTreeObserver()
-            .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
-                var y = 300f
-                override fun onScrollChanged() {
-                    if (findViewById<ScrollView>(R.id.sources_scroll).getScrollY() > 150) {
-                        findViewById<FrameLayout>(R.id.common_title_back_src_color).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.sources_title).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.sources_title_downstate).visibility = View.INVISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_src).elevation = (resources.getDimension(R.dimen.one_elevation))
-                    } else {
-                        findViewById<FrameLayout>(R.id.common_title_back_src_color).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.sources_title).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.sources_title_downstate).visibility = View.VISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_src).elevation = (resources.getDimension(R.dimen.zero_elevation))
-                    }
-                    y = findViewById<ScrollView>(R.id.sources_scroll).getScrollY().toFloat()
+        findViewById<ScrollView>(R.id.sources_scroll).viewTreeObserver
+            .addOnScrollChangedListener {
+                val scrollY = findViewById<ScrollView>(R.id.sources_scroll).scrollY
+                if (scrollY > 150) {
+                    findViewById<FrameLayout>(R.id.common_title_back_src_color).visibility = View.VISIBLE
+                    findViewById<TextView>(R.id.sources_title).visibility = View.VISIBLE
+                    findViewById<TextView>(R.id.sources_title_downstate).visibility = View.INVISIBLE
+                    findViewById<FrameLayout>(R.id.common_title_back_src).elevation = (resources.getDimension(R.dimen.one_elevation))
+                } else {
+                    findViewById<FrameLayout>(R.id.common_title_back_src_color).visibility = View.INVISIBLE
+                    findViewById<TextView>(R.id.sources_title).visibility = View.INVISIBLE
+                    findViewById<TextView>(R.id.sources_title_downstate).visibility = View.VISIBLE
+                    findViewById<FrameLayout>(R.id.common_title_back_src).elevation = (resources.getDimension(R.dimen.zero_elevation))
                 }
-            })
+            }
 
         listeners()
         findViewById<ImageButton>(R.id.back_btn_src).setOnClickListener {

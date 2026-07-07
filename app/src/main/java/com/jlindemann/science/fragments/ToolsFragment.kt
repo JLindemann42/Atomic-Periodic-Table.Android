@@ -13,7 +13,7 @@ import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.settings.ProActivity
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.activities.tools.*
 import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.adapter.ToolAdapter
@@ -96,10 +96,15 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
         val proPlusValue = ProPlusVersion(requireContext()).getValue()
         val isBeforeDeadline = ProPlusTimeUtil.isBeforeJanuary2026()
 
+        if (item.requiresProPlus && proPlusValue != 100 && isBeforeDeadline) {
+            (requireActivity() as? BaseActivity)?.goToProPage()
+            return
+        }
+
         val activityClass = when (item.id) {
             "cal" -> CalculatorActivity::class.java
             "uni" -> UnitConversionActivity::class.java
-            "gas" -> if (proPlusValue != 100 && isBeforeDeadline) ProActivity::class.java else IdealGasCalculatorActivity::class.java
+            "gas" -> IdealGasCalculatorActivity::class.java
             else -> return
         }
         startActivity(Intent(requireContext(), activityClass))
@@ -137,7 +142,7 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
                     chip.visibility = View.VISIBLE
                     chip.setOnClickListener {
                         if (pair.first == "gas" && proPlusPrefValue != 100 && isBeforeDeadline) {
-                            startActivity(Intent(requireContext(), ProActivity::class.java))
+                            (requireActivity() as? BaseActivity)?.goToProPage()
                         } else {
                             val activity = when (pair.first) {
                                 "cal" -> CalculatorActivity::class.java

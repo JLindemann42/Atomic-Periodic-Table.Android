@@ -453,17 +453,17 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/edit_fav_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        app:materialThemeOverlay="@style/ThemeOverlay.Material3Expressive.FloatingActionButton.Tertiary"
         android:layout_gravity="end"
         android:layout_marginEnd="9dp"
         android:alpha="0.85"
         android:elevation="0dp"
         android:foregroundGravity="center"
-        android:tint="?attr/colorOnSecondaryContainer"
         android:src="@drawable/ic_edit"
-        app:backgroundTint="@color/transparent"
-        app:borderWidth="0dp"
+        app:fabCustomSize="42dp"
+        app:iconTint="?attr/colorOnPrimary"
         app:elevation="0dp"
         app:fabSize="mini" />
 

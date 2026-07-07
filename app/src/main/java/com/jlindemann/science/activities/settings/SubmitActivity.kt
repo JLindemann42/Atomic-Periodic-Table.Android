@@ -51,11 +51,11 @@ class SubmitActivity : BaseActivity() {
         findViewById<FrameLayout>(R.id.common_title_back_sub_color).visibility = View.INVISIBLE
         findViewById<TextView>(R.id.submit_title).visibility = View.INVISIBLE
         findViewById<FrameLayout>(R.id.common_title_back_sub).elevation = (resources.getDimension(R.dimen.zero_elevation))
-        findViewById<ScrollView>(R.id.submit_scroll).getViewTreeObserver()
+        findViewById<ScrollView>(R.id.submit_scroll).viewTreeObserver
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
-                var y = 200f
                 override fun onScrollChanged() {
-                    if (findViewById<ScrollView>(R.id.submit_scroll).getScrollY() > 150f) {
+                    val scrollY = findViewById<ScrollView>(R.id.submit_scroll).scrollY
+                    if (scrollY > 150) {
                         findViewById<FrameLayout>(R.id.common_title_back_sub_color).visibility = View.VISIBLE
                         findViewById<TextView>(R.id.submit_title).visibility = View.VISIBLE
                         findViewById<TextView>(R.id.submit_title_downstate).visibility = View.INVISIBLE
@@ -66,7 +66,6 @@ class SubmitActivity : BaseActivity() {
                         findViewById<TextView>(R.id.submit_title_downstate).visibility = View.VISIBLE
                         findViewById<FrameLayout>(R.id.common_title_back_sub).elevation = (resources.getDimension(R.dimen.zero_elevation))
                     }
-                    y = findViewById<ScrollView>(R.id.submit_scroll).getScrollY().toFloat()
                 }
             })
 

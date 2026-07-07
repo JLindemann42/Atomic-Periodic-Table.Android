@@ -257,21 +257,28 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="?attr/colorSurface"
         app:strokeWidth="0dp"
+        android:background="?attr/backgroundColor"
         app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:id="@+id/common_title_back_unit_color"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.11"/>
+            android:visibility="invisible"
+            android:background="?attr/colorSurface">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11" />
+        </FrameLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/title_box_unit"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="64dp"
+            android:layout_gravity="bottom">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/back_btn"
@@ -295,6 +302,7 @@
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:visibility="invisible"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/back_btn" />

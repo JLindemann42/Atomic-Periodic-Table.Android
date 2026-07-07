@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.android.billingclient.api.ProductDetails
+import com.google.android.material.button.MaterialButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.billing.BillingManager
@@ -69,7 +70,7 @@ class ProActivity : BaseActivity(), BillingManager.Listener {
             }
         }
 
-        findViewById<ImageButton>(R.id.back_btn_pro).setOnClickListener {
+        findViewById<MaterialButton>(R.id.back_btn_pro).setOnClickListener {
             this.onBackPressed()
         }
 

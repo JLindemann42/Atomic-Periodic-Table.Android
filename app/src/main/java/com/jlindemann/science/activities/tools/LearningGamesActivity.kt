@@ -97,6 +97,24 @@ class LearningGamesActivity : BaseActivity() {
         setupAnswerListeners()
         setupBackButton()
 
+        //Title Controller
+        findViewById<FrameLayout>(R.id.common_title_back_learn_color).visibility = View.INVISIBLE
+        findViewById<TextView>(R.id.learn_title).visibility = View.INVISIBLE
+        findViewById<FrameLayout>(R.id.common_title_back_learn).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        findViewById<ScrollView>(R.id.quiz_scroll).viewTreeObserver
+            .addOnScrollChangedListener {
+                val scrollY = findViewById<ScrollView>(R.id.quiz_scroll).scrollY
+                if (scrollY > 150) {
+                    findViewById<FrameLayout>(R.id.common_title_back_learn_color).visibility = View.VISIBLE
+                    findViewById<TextView>(R.id.learn_title).visibility = View.VISIBLE
+                    findViewById<FrameLayout>(R.id.common_title_back_learn).elevation = resources.getDimension(R.dimen.one_elevation)
+                } else {
+                    findViewById<FrameLayout>(R.id.common_title_back_learn_color).visibility = View.INVISIBLE
+                    findViewById<TextView>(R.id.learn_title).visibility = View.INVISIBLE
+                    findViewById<FrameLayout>(R.id.common_title_back_learn).elevation = resources.getDimension(R.dimen.zero_elevation)
+                }
+            }
+
         // Register lifecycle-aware OnBackPressedCallback.
         backCallback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {

@@ -32,28 +32,36 @@ class AboutActivity : BaseActivity() {
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_info)
 
-        findViewById<FrameLayout>(R.id.view_info).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<FrameLayout>(R.id.view_info).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         setupLinks()
 
-        findViewById<FloatingActionButton>(R.id.back_btn).setOnClickListener {
+        //Title Controller
+        findViewById<FrameLayout>(R.id.common_title_info_color).visibility = View.INVISIBLE
+        findViewById<ScrollView>(R.id.scroll_info).viewTreeObserver
+            .addOnScrollChangedListener {
+                val scrollY = findViewById<ScrollView>(R.id.scroll_info).scrollY
+                if (scrollY > 150) {
+                    findViewById<FrameLayout>(R.id.common_title_info_color).visibility = View.VISIBLE
+                    findViewById<FrameLayout>(R.id.common_title_back_info).elevation = resources.getDimension(R.dimen.one_elevation)
+                } else {
+                    findViewById<FrameLayout>(R.id.common_title_info_color).visibility = View.INVISIBLE
+                    findViewById<FrameLayout>(R.id.common_title_back_info).elevation = resources.getDimension(R.dimen.zero_elevation)
+                }
+            }
+
+        findViewById<View>(R.id.back_btn).setOnClickListener {
             this.onBackPressed()
         }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-            val params = findViewById<FrameLayout>(R.id.common_title_back_info).layoutParams as ViewGroup.LayoutParams
-            params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            findViewById<FrameLayout>(R.id.common_title_back_info).layoutParams = params
+        val params = findViewById<FrameLayout>(R.id.common_title_back_info).layoutParams as ViewGroup.LayoutParams
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        findViewById<FrameLayout>(R.id.common_title_back_info).layoutParams = params
 
-            val params2 = findViewById<ImageView>(R.id.imageView3).layoutParams as ViewGroup.MarginLayoutParams
-            params2.topMargin += top
-            findViewById<ImageView>(R.id.imageView3).layoutParams = params2
-
-            val titleParam = findViewById<FrameLayout>(R.id.title_box_info).layoutParams as ViewGroup.MarginLayoutParams
-            titleParam.rightMargin = right
-            titleParam.leftMargin = left
-            findViewById<FrameLayout>(R.id.title_box_info).layoutParams = titleParam
-
+        val params2 = findViewById<ImageView>(R.id.imageView3).layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        findViewById<ImageView>(R.id.imageView3).layoutParams = params2
     }
 
     private fun setupLinks() {

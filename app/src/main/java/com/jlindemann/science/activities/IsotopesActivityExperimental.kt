@@ -365,14 +365,6 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<FrameLayout>(R.id.common_title_back_iso).layoutParams = params2
 
-        val params3 = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).layoutParams as ViewGroup.MarginLayoutParams
-        params3.topMargin = top + resources.getDimensionPixelSize(R.dimen.panel_margin)
-        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).layoutParams = params3
-
-        val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_iso).layoutParams as ViewGroup.MarginLayoutParams
-        searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
-        findViewById<LinearLayout>(R.id.empty_search_box_iso).layoutParams = searchEmptyImgPrm
-
         headerView?.let {
             applyHeaderInsets(it, top)
         }
@@ -400,6 +392,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
 
                 val threshold = 150
                 val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_isotope_color)
+                val colorBackground = findViewById<FrameLayout>(R.id.common_title_back_isotope_color)
                 val titleText = findViewById<TextView>(R.id.element_title)
                 val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_iso)
 
@@ -408,6 +401,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
 
                 if (totalScrollY > threshold) {
                     if (!isTitleVisible) {
+                        TitleBarAnimator.animateVisibility(colorBackground, true)
                         TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
                         TitleBarAnimator.animateVisibility(titleText, true)
                         titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, false) }
@@ -416,6 +410,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
                     }
                 } else {
                     if (isTitleVisible) {
+                        colorBackground.visibility = View.INVISIBLE
+                        TitleBarAnimator.animateVisibility(colorBackground, false)
                         TitleBarAnimator.animateVisibility(titleColorBackground, false)
                         TitleBarAnimator.animateVisibility(titleText, false)
                         titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, true) }
@@ -432,7 +428,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         val panelExpanded = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState == SlidingUpPanelLayout.PanelState.EXPANDED
         val backgroundVisible = findViewById<TextView>(R.id.background_i2).visibility == View.VISIBLE
         val filterVisible = findViewById<TextView>(R.id.filter_background).visibility == View.VISIBLE
-        val searchBarVisible = findViewById<FrameLayout>(R.id.search_bar_iso).visibility == View.VISIBLE
+        val searchBarVisible = findViewById<ConstraintLayout>(R.id.search_bar_iso).visibility == View.VISIBLE
         val panelInfoVisible = findViewById<ConstraintLayout>(R.id.panel_info).visibility == View.VISIBLE
         return panelExpanded || backgroundVisible || filterVisible || searchBarVisible || panelInfoVisible
     }
@@ -442,7 +438,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         val slidingLayout = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i)
         val background = findViewById<TextView>(R.id.background_i2)
         val filterBackground = findViewById<TextView>(R.id.filter_background)
-        val searchBar = findViewById<FrameLayout>(R.id.search_bar_iso)
+        val searchBar = findViewById<ConstraintLayout>(R.id.search_bar_iso)
         val panelInfo = findViewById<ConstraintLayout>(R.id.panel_info)
 
         // If panel info is visible, hide it

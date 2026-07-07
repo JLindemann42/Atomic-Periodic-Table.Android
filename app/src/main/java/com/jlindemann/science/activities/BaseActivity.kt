@@ -1,6 +1,7 @@
 package com.jlindemann.science.activities
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Insets
 import android.os.Build
@@ -132,5 +133,14 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
         livesLabelView?.text = getString(R.string.lives_label, livesDisplay)
     }
 
-
+    /**
+     * Navigates to the Pro page (ProFragment within MainActivity).
+     */
+    fun goToProPage() {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra("show_pro", true)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        }
+        startActivity(intent)
+    }
 }

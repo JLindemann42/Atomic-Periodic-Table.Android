@@ -24,7 +24,6 @@ import com.jlindemann.science.activities.FavoriteCompound
 import com.jlindemann.science.activities.FavoriteCompoundsAdapter
 import com.jlindemann.science.activities.IncludedElementsAdapter
 import com.jlindemann.science.activities.Quadruple
-import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.model.Statistics
@@ -81,8 +80,8 @@ class CalculatorActivity : BaseActivity() {
         findViewById<FrameLayout>(R.id.common_title_back_cal).elevation = resources.getDimension(R.dimen.zero_elevation)
         findViewById<ScrollView>(R.id.calculator_scroll).viewTreeObserver
             .addOnScrollChangedListener {
-                val scrollY = findViewById<ScrollView>(R.id.calculator_scroll).scrollY.toFloat()
-                if (scrollY > 150f) {
+                val scrollY = findViewById<ScrollView>(R.id.calculator_scroll).scrollY
+                if (scrollY > 150) {
                     findViewById<FrameLayout>(R.id.common_title_back_cal_color).visibility = View.VISIBLE
                     findViewById<TextView>(R.id.calculator_title).visibility = View.VISIBLE
                     findViewById<TextView>(R.id.calculator_title_downstate).visibility = View.INVISIBLE
@@ -137,8 +136,7 @@ class CalculatorActivity : BaseActivity() {
         }
 
         findViewById<View>(R.id.pro_button_cal).setOnClickListener {
-            val intent = Intent(this, ProActivity::class.java)
-            startActivity(intent)
+            goToProPage()
         }
 
         // Initialize RecyclerView for included elements

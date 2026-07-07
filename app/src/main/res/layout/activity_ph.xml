@@ -7,12 +7,6 @@
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/colorPrimary"
-        android:alpha="0.05"/>
-
     <ScrollView
         android:id="@+id/ph_scroll"
         android:layout_width="match_parent"
@@ -98,22 +92,30 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="?attr/colorSurface"
         app:strokeWidth="0dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.BottomRounded"
         app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:id="@+id/common_title_ph_color"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.11"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            android:background="?attr/colorSurface">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:visibility="invisible"
+                android:alpha="0.11" />
+        </FrameLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/title_box_ph"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="64dp"
+            android:layout_gravity="bottom">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/back_btn_ph"

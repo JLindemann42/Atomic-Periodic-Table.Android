@@ -13,8 +13,8 @@ import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.activities.*
-import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tables.*
 import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.adapter.TableAdapter
@@ -102,6 +102,12 @@ class TablesFragment : BaseFragment(), TableAdapter.OnTableItemClickListener {
     override fun onTableItemClick(item: TableItem) {
         if (isReorderMode) return
         val proPrefValue = ProVersion(requireContext()).getValue()
+
+        if (item.requiresPro && proPrefValue != 100) {
+            (requireActivity() as? BaseActivity)?.goToProPage()
+            return
+        }
+
         val activityClass = when (item.id) {
             "iso" -> IsotopesActivityExperimental::class.java
             "phi" -> phActivity::class.java
@@ -109,11 +115,11 @@ class TablesFragment : BaseFragment(), TableAdapter.OnTableItemClickListener {
             "eqe" -> EquationsActivity::class.java
             "ion" -> IonActivity::class.java
             "sol" -> SolubilityActivity::class.java
-            "poi" -> if (proPrefValue == 100) PoissonActivity::class.java else ProActivity::class.java
-            "nuc" -> if (proPrefValue == 100) NuclideActivity::class.java else ProActivity::class.java
-            "con" -> if (proPrefValue == 100) ConstantsActivity::class.java else ProActivity::class.java
-            "geo" -> if (proPrefValue == 100) GeologyActivity::class.java else ProActivity::class.java
-            "emi" -> if (proPrefValue == 100) EmissionActivity::class.java else ProActivity::class.java
+            "poi" -> PoissonActivity::class.java
+            "nuc" -> NuclideActivity::class.java
+            "con" -> ConstantsActivity::class.java
+            "geo" -> GeologyActivity::class.java
+            "emi" -> EmissionActivity::class.java
             else -> return
         }
         startActivity(Intent(requireContext(), activityClass))
@@ -157,21 +163,25 @@ class TablesFragment : BaseFragment(), TableAdapter.OnTableItemClickListener {
                     chip.text = text
                     chip.visibility = View.VISIBLE
                     chip.setOnClickListener {
-                        val activityClass = when (pair.first) {
-                            "iso" -> IsotopesActivityExperimental::class.java
-                            "phi" -> phActivity::class.java
-                            "eqe" -> EquationsActivity::class.java
-                            "ion" -> IonActivity::class.java
-                            "sol" -> SolubilityActivity::class.java
-                            "ele" -> ElectrodeActivity::class.java
-                            "poi" -> if (proPrefValue == 100) PoissonActivity::class.java else ProActivity::class.java
-                            "nuc" -> if (proPrefValue == 100) NuclideActivity::class.java else ProActivity::class.java
-                            "con" -> if (proPrefValue == 100) ConstantsActivity::class.java else ProActivity::class.java
-                            "geo" -> if (proPrefValue == 100) GeologyActivity::class.java else ProActivity::class.java
-                            "emi" -> if (proPrefValue == 100) EmissionActivity::class.java else ProActivity::class.java
-                            else -> null
+                        if (proPrefValue != 100 && listOf("poi", "nuc", "con", "geo", "emi").contains(pair.first)) {
+                            (requireActivity() as? BaseActivity)?.goToProPage()
+                        } else {
+                            val activityClass = when (pair.first) {
+                                "iso" -> IsotopesActivityExperimental::class.java
+                                "phi" -> phActivity::class.java
+                                "eqe" -> EquationsActivity::class.java
+                                "ion" -> IonActivity::class.java
+                                "sol" -> SolubilityActivity::class.java
+                                "ele" -> ElectrodeActivity::class.java
+                                "poi" -> PoissonActivity::class.java
+                                "nuc" -> NuclideActivity::class.java
+                                "con" -> ConstantsActivity::class.java
+                                "geo" -> GeologyActivity::class.java
+                                "emi" -> EmissionActivity::class.java
+                                else -> null
+                            }
+                            activityClass?.let { startActivity(Intent(requireContext(), it)) }
                         }
-                        activityClass?.let { startActivity(Intent(requireContext(), it)) }
                     }
                 }
             }

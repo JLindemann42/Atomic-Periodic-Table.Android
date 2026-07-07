@@ -132,7 +132,7 @@
     <style name="Widget.Science.Expressive.SectionCard" parent="Widget.Material3.CardView.Elevated">
         <item name="cardElevation">0dp</item>
         <item name="cardBackgroundColor">?attr/colorSurfaceVariant</item>
-        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Material3.LargeComponent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Material3.Corner.Large</item>
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_marginEnd">16dp</item>
         <item name="android:layout_marginTop">8dp</item>
@@ -191,5 +191,13 @@
         <item name="android:orientation">horizontal</item>
         <item name="android:padding">16dp</item>
         <item name="android:gravity">center_vertical</item>
+    </style>
+
+
+    <style name="ShapeAppearance.Science.BottomRounded" parent="ShapeAppearance.Material3.Corner.Small">
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomLeft">8dp</item>
+        <item name="cornerSizeBottomRight">8dp</item>
     </style>
 </resources>

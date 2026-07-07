@@ -4,238 +4,403 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.card.MaterialCardView
+    <FrameLayout
         android:id="@+id/pro_hazard_box"
-        style="@style/Widget.Science.Expressive.SectionCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor"
+        android:elevation="10dp"
         android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="24dp"
-            android:gravity="center">
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/margin_space"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/toast"
+            android:backgroundTint="?attr/colorSurfaceVariant"
+            android:elevation="2dp"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_lock"
-                app:tint="?attr/colorPrimary" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="@string/hazard_title"
-                android:textColor="?attr/colorOnSurface"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="@dimen/margin"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/hazard_title_requires_pro"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textAlignment="center" />
+                <TextView
+                    android:id="@+id/pro_hazard_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/margin"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_health"
+                    android:drawablePadding="12dp"
+                    android:drawableTint="?attr/colorPrimary"
+                    android:elevation="1dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/c_ripple"
+                    android:gravity="center_vertical"
+                    android:text="@string/hazard_title"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/get_pro_hazard_btn"
-                style="@style/Widget.Material3.Button.TonalButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/get_pro_title"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin"
+                    android:text="@string/hazard_title_requires_pro"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
 
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp">
+
+                <TextView
+                    android:id="@+id/get_pro_hazard_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginTop="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin"
+                    android:layout_marginBottom="@dimen/margin"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorPrimary"
+                    android:clickable="true"
+                    android:elevation="2dp"
+                    android:focusable="true"
+                    android:foreground="@drawable/c_ripple"
+                    android:gravity="center_vertical"
+                    android:paddingStart="24dp"
+                    android:paddingEnd="24dp"
+                    android:text="@string/get_pro_title"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
 
     <LinearLayout
         android:id="@+id/hazard_properties"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginBottom="8dp"
+        android:elevation="2dp"
+        android:orientation="vertical"
+        android:visibility="visible">
 
+        <!-- Container with center icon -->
         <LinearLayout
             android:id="@+id/header_container"
-            style="@style/Widget.Science.Expressive.SectionHeader">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/overview_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_hazard"
-                app:tint="?attr/colorAccent" />
+            <!-- Container with center icon -->
+            <FrameLayout
+                android:id="@+id/icon_container"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/cookie_7"
+                android:backgroundTint="?attr/colorAccent"
+                android:foregroundGravity="center">
+
+                <ImageView
+                    android:id="@+id/overview_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_hazard"
+                    app:tint="?attr/colorOnPrimary" />
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/overview_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:text="@string/hazard_title"
                 android:textColor="?attr/colorAccent"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Science.Expressive.SectionCard"
+        <LinearLayout
+            android:id="@+id/hazard_content_wrapper"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/hazard_content_wrapper"
-                android:layout_width="match_parent"
+                android:id="@+id/hazard_data_container"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="0.72"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:id="@+id/hazard_data_container"
-                    android:layout_width="0dp"
+                    android:id="@+id/fire_hazard_container"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/toast_element_list_top"
+                    android:backgroundTint="?attr/colorPrimaryDark"
+                    android:orientation="vertical"
+                    android:padding="10dp">
 
-                    <LinearLayout
-                        android:id="@+id/fire_hazard_container"
-                        style="@style/Widget.Science.Expressive.PropertyRow"
-                        android:paddingVertical="12dp">
-                        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/fire_hazard" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                            <TextView android:id="@+id/fire_hazard_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/fire_hazard_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fire_hazard"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
 
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
-
-                    <LinearLayout
-                        android:id="@+id/health_hazard_container"
-                        style="@style/Widget.Science.Expressive.PropertyRow"
-                        android:paddingVertical="12dp">
-                        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/health_hazard" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                            <TextView android:id="@+id/health_hazard_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
-
-                    <LinearLayout
-                        android:id="@+id/reactivity_hazard_container"
-                        style="@style/Widget.Science.Expressive.PropertyRow"
-                        android:paddingVertical="12dp">
-                        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/reactivity_hazard" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                            <TextView android:id="@+id/reactivity_hazard_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
-
-                    <LinearLayout
-                        android:id="@+id/specific_hazard_container"
-                        style="@style/Widget.Science.Expressive.PropertyRow"
-                        android:paddingVertical="12dp">
-                        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/specific_hazard" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                            <TextView android:id="@+id/specific_hazard_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-                        </LinearLayout>
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/fire_hazard_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="fire_hazard_text"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp"
+                        android:textIsSelectable="true" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/hazard_visualization_container"
-                    android:layout_width="120dp"
+                    android:id="@+id/health_hazard_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/toast_element_list"
+                    android:backgroundTint="?attr/colorPrimaryDark"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/health_hazard_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/health_hazard"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/health_hazard_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="health_hazard_text"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp"
+                        android:textIsSelectable="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/reactivity_hazard_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/toast_element_list"
+                    android:backgroundTint="?attr/colorPrimaryDark"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/reactivity_hazard_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/reactivity_hazard"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/reactivity_hazard_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="reactivity_hazard_text"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp"
+                        android:textIsSelectable="true" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/specific_hazard_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/toast_element_list_bottom"
+                    android:backgroundTint="?attr/colorPrimaryDark"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/specific_hazard_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/specific_hazard"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/specific_hazard_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="specific_hazard_text"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp"
+                        android:textIsSelectable="true" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hazard_visualization_container"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="0.28"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/hazard_container"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:padding="8dp">
+                    android:layout_marginTop="52dp"
+                    android:background="@drawable/toast_element"
+                    android:backgroundTint="?attr/colorPrimaryDark"
+                    android:orientation="vertical">
 
                     <FrameLayout
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:rotation="45">
+                        android:id="@+id/hazard_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:paddingTop="8dp"
+                        android:paddingBottom="8dp">
 
                         <FrameLayout
-                            android:id="@+id/fire_hazard_box"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:background="@drawable/cookie_7"
-                            android:backgroundTint="?attr/colorError">
-                            <TextView
-                                android:id="@+id/fire_hazard_txt"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:rotation="-45"
-                                android:text="-"
-                                android:textColor="?attr/colorOnPrimary"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-                        </FrameLayout>
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_gravity="center">
 
-                        <FrameLayout
-                            android:id="@+id/reactivity_hazard_box"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:layout_marginStart="42dp"
-                            android:background="@drawable/cookie_7"
-                            android:backgroundTint="?attr/colorTertiary">
-                            <TextView
-                                android:id="@+id/reactivity_hazard_txt"
+                            <FrameLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:rotation="-45"
-                                android:text="-"
-                                android:textColor="?attr/colorOnPrimary"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-                        </FrameLayout>
+                                android:layout_margin="12dp"
+                                android:layout_gravity="center"
+                                android:rotation="45">
 
-                        <FrameLayout
-                            android:id="@+id/health_hazard_box"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:layout_marginTop="42dp"
-                            android:background="@drawable/cookie_7"
-                            android:backgroundTint="?attr/colorPrimary">
-                            <TextView
-                                android:id="@+id/health_hazard_txt"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:rotation="-45"
-                                android:text="-"
-                                android:textColor="?attr/colorOnPrimary"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-                        </FrameLayout>
+                                <FrameLayout
+                                    android:id="@+id/fire_hazard_box"
+                                    android:layout_width="26dp"
+                                    android:layout_height="26dp"
+                                    android:background="@drawable/toast_card"
+                                    android:backgroundTint="?attr/colorError">
 
-                        <FrameLayout
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:layout_marginStart="42dp"
-                            android:layout_marginTop="42dp"
-                            android:background="@drawable/cookie_7"
-                            android:backgroundTint="?attr/colorSurfaceVariant">
-                            <TextView
-                                android:id="@+id/specific_hazard_txt"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:gravity="center"
-                                android:rotation="-45"
-                                android:text="-"
-                                android:textColor="?attr/colorOnSurface"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
+                                    <TextView
+                                        android:id="@+id/fire_hazard_txt"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:rotation="-45"
+                                        android:text="@string/not_available"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/colorOnPrimary"
+                                        android:textSize="12sp" />
+                                </FrameLayout>
+
+                                <FrameLayout
+                                    android:id="@+id/reactivity_hazard_box"
+                                    android:layout_width="26dp"
+                                    android:layout_height="26dp"
+                                    android:layout_marginStart="28dp"
+                                    android:background="@drawable/toast_card"
+                                    android:backgroundTint="?attr/colorTertiary">
+
+                                    <TextView
+                                        android:id="@+id/reactivity_hazard_txt"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:rotation="-45"
+                                        android:text="@string/not_available"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/colorOnPrimary"
+                                        android:textSize="12sp" />
+                                </FrameLayout>
+
+                                <FrameLayout
+                                    android:id="@+id/health_hazard_box"
+                                    android:layout_width="26dp"
+                                    android:layout_height="26dp"
+                                    android:layout_marginTop="28dp"
+                                    android:background="@drawable/toast_card"
+                                    android:backgroundTint="?attr/colorPrimary">
+
+                                    <TextView
+                                        android:id="@+id/health_hazard_txt"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:rotation="-45"
+                                        android:text="@string/not_available"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/colorOnPrimary"
+                                        android:textSize="12sp" />
+                                </FrameLayout>
+
+                                <FrameLayout
+                                    android:layout_width="26dp"
+                                    android:layout_height="26dp"
+                                    android:layout_marginStart="28dp"
+                                    android:layout_marginTop="28dp"
+                                    android:background="@drawable/toast_card"
+                                    android:backgroundTint="?attr/colorSurfaceVariant">
+
+                                    <TextView
+                                        android:id="@+id/specific_hazard_txt"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:gravity="center"
+                                        android:rotation="-45"
+                                        android:text="@string/not_available"
+                                        android:textAlignment="center"
+                                        android:textColor="?attr/colorOnSurface"
+                                        android:textSize="12sp" />
+                                </FrameLayout>
+                            </FrameLayout>
                         </FrameLayout>
                     </FrameLayout>
                 </LinearLayout>
-
             </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

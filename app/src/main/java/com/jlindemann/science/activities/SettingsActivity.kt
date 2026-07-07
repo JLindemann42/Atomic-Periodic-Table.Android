@@ -114,30 +114,36 @@ class SettingsActivity : BaseActivity() {
                     val scrollY = findViewById<ScrollView>(R.id.scroll_settings).scrollY
                     val threshold = 158
 
-                    val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_settings_color)
+                    val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_isotope_color)
                     val titleText = findViewById<TextView>(R.id.element_title)
                     val titleDownstateText = findViewById<TextView>(R.id.element_title_downstate)
+                    val colorBackground = findViewById<FrameLayout>(R.id.common_title_settings_color)
                     val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_set)
 
                     if (scrollY > threshold) {
                         if (!isTitleVisible) {
+                            TitleBarAnimator.animateVisibility(colorBackground, true)
                             TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
                             TitleBarAnimator.animateVisibility(titleText, true)
-                            TitleBarAnimator.animateVisibility(titleDownstateText, false)
-                            titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
+                            titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, false) }
+                            titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
                             isTitleVisible = true
                         }
                     } else {
                         if (isTitleVisible) {
-                            TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
+                            colorBackground.visibility = View.INVISIBLE
+                            TitleBarAnimator.animateVisibility(colorBackground, false)
+                            TitleBarAnimator.animateVisibility(titleColorBackground, false)
                             TitleBarAnimator.animateVisibility(titleText, false)
-                            TitleBarAnimator.animateVisibility(titleDownstateText, true)
+                            titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, true) }
                             titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
                             isTitleVisible = false
                         }
                     }
                 }
             })
+
+
 
         findViewById<View>(R.id.about_settings).setOnClickListener {
             val intent = Intent(this, AboutActivity::class.java)
@@ -375,13 +381,9 @@ class SettingsActivity : BaseActivity() {
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<FrameLayout>(R.id.common_title_back_set).layoutParams = params
 
-        val titleParam = findViewById<ConstraintLayout>(R.id.title_box_settings).layoutParams as ViewGroup.MarginLayoutParams
-        titleParam.rightMargin = right
-        titleParam.leftMargin = left
-        findViewById<ConstraintLayout>(R.id.title_box_settings).layoutParams = titleParam
 
         val params2 = findViewById<TextView>(R.id.element_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<TextView>(R.id.element_title_downstate).layoutParams = params2
 
         findViewById<LinearLayout>(R.id.personalization_box).setPadding(left, 0, right, 0)

@@ -42,7 +42,6 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.FavoritePageActivity
-import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
 import com.jlindemann.science.activities.tables.IonActivity
 import com.jlindemann.science.activities.tables.NuclideActivity
@@ -156,16 +155,13 @@ class ElementInfoActivity : InfoExtension() {
             startActivity(intent)
         }
         findViewById<TextView>(R.id.get_pro_btn).setOnClickListener {
-            val intent = Intent(this, ProActivity::class.java)
-            startActivity(intent)
+            goToProPage()
         }
         findViewById<TextView>(R.id.get_pro_hardness_btn).setOnClickListener {
-            val intent = Intent(this, ProActivity::class.java)
-            startActivity(intent)
+            goToProPage()
         }
         findViewById<TextView>(R.id.get_pro_hazard_btn).setOnClickListener {
-            val intent = Intent(this, ProActivity::class.java)
-            startActivity(intent)
+            goToProPage()
         }
         findViewById<AppCompatImageView>(R.id.notes_sync_status).setOnClickListener {
             val intent = Intent(this, UserActivity::class.java)
@@ -212,8 +208,7 @@ class ElementInfoActivity : InfoExtension() {
         }
         else {
             findViewById<MaterialButton>(R.id.compare_btn).setOnClickListener {
-                val intent = Intent(this, ProActivity::class.java)
-                startActivity(intent)
+                goToProPage()
             }
         }
 

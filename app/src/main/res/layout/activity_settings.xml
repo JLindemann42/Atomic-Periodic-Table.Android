@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/colorPrimary"
-        android:alpha="0.05"/>
-
     <ScrollView
         android:id="@+id/scroll_settings"
         android:layout_width="match_parent"
@@ -28,10 +22,9 @@
                 android:id="@+id/element_title_downstate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:paddingTop="80dp"
-                android:paddingBottom="24dp"
                 android:text="@string/settings"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="36sp"
@@ -47,8 +40,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/personalization_settings"
                     android:textSize="14sp"
-                    android:textAllCaps="true"
-                    android:letterSpacing="0.1"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -189,8 +180,6 @@
                     android:layout_height="wrap_content"
                     android:text="Data &amp; Behavior"
                     android:textSize="14sp"
-                    android:textAllCaps="true"
-                    android:letterSpacing="0.1"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -307,8 +296,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/other_settings"
                     android:textSize="14sp"
-                    android:textAllCaps="true"
-                    android:letterSpacing="0.1"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -481,21 +468,33 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="?attr/colorSurface"
         app:strokeWidth="0dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.BottomRounded"
         app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:id="@+id/common_title_settings_color"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.11"/>
+            android:background="?attr/colorSurface"
+            android:visibility="invisible">
+
+            <FrameLayout
+                android:id="@+id/common_title_isotope_color"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11" />
+        </FrameLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/title_box_settings"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="64dp"
+            android:layout_gravity="bottom">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/back_btn_set"
@@ -519,6 +518,7 @@
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:visibility="invisible"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/back_btn_set" />

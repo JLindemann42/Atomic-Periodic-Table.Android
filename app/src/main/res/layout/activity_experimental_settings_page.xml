@@ -1,70 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
     android:id="@+id/viewe"
-    android:fitsSystemWindows="true"
-    android:layout_height="match_parent">
-
-    <FrameLayout
-        android:id="@+id/common_title_back_exp"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:alpha="0.975"
-        android:elevation="8dp"
-        android:background="?attr/colorPrimary"
-        android:gravity="center|center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:gravity="bottom"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:id="@+id/title_box"
-                android:layout_width="match_parent"
-                android:layout_height="80dp">
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/back_btn_exp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="12dp"
-                    android:elevation="0dp"
-                    android:src="@drawable/ic_arrow_back_whit"
-                    android:rotation="180"
-                    app:backgroundTint="@color/transparent"
-                    app:borderWidth="0dp"
-                    app:elevation="0dp"
-                    app:fabSize="normal" />
-
-                <TextView
-                    android:id="@+id/element_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="Experimental"
-                    android:textAlignment="center"
-                    android:textColor="?attr/actionMenuTextColor"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </FrameLayout>
-        </LinearLayout>
-    </FrameLayout>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor">
 
     <ScrollView
+        android:id="@+id/scroll_exp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:backgroundTintMode="?attr/colorPrimaryDark"
-        android:elevation="2dp">
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,48 +19,122 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/general_header_exp"
+                android:id="@+id/element_title_downstate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="80dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:background="?attr/colorPrimary"
-                android:paddingStart="18dp"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
-                android:text="WARNING: These settings are either early in development or very unstable. Enable at your own risk!"
-                android:textAllCaps="true"
-                android:textColor="@color/colorLightError"
-                android:textStyle="normal|bold" />
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:paddingTop="80dp"
+                android:paddingBottom="24dp"
+                android:text="Experimental"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:letterSpacing="-0.02" />
 
-            <FrameLayout
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Science.Expressive.SectionCard"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="?attr/colorPrimary"
-                android:clickable="true"
-                android:focusable="true">
+                android:layout_height="wrap_content">
 
-                <CheckBox
-                    android:id="@+id/zoom_check"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginEnd="18dp"
-                    android:checked="false"
-                    android:drawableEnd="@drawable/ic_search"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="Enable Zoom in tables"
-                    android:textColor="?attr/actionMenuTextColor" />
-            </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <androidx.legacy.widget.Space
-                android:layout_width="match_parent"
-                android:layout_height="50dp"/>
+                    <TextView
+                        android:id="@+id/general_header_exp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:text="WARNING: These settings are either early in development or very unstable. Enable at your own risk!"
+                        android:textColor="?attr/colorError"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="16dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/zoom_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:checked="false"
+                            android:text="Enable Zoom in tables"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_search"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/common_title_back_exp"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
+        android:background="?attr/backgroundColor"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/common_title_back_exp_color"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:background="?attr/colorSurface">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11" />
+        </FrameLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_box"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_gravity="bottom">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back_btn_exp"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:rotation="180"
+                app:icon="@drawable/ic_arrow_back_whit"
+                app:iconTint="?attr/colorOnSecondaryContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/element_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="Experimental"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/back_btn_exp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

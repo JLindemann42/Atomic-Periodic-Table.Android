@@ -35,7 +35,6 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.ai.AIAgentManager
 import com.jlindemann.science.ai.AIPersonality
 import com.jlindemann.science.ai.ChatHistoryManager
@@ -148,6 +147,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         // Load profile
         loadUserProfileImage()
         handleWidgetIntent()
+        handleProIntent(intent)
 
         // Back button interception setup
         backCallback = object : OnBackPressedCallback(false) {
@@ -308,7 +308,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         Anim.fadeIn(popupView, 300)
         setBackInterceptionEnabled(true)
         findViewById<Button>(R.id.popup_action_button)?.setOnClickListener {
-            startActivity(Intent(this, ProActivity::class.java))
+            goToProPage()
             setBackInterceptionEnabled(false)
         }
         val suppressPopup: () -> Unit = {
@@ -439,7 +439,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                     fragment?.view?.let { fragment.initTableChange(it, elements, key) }
                     closeHover()
                 } else {
-                    startActivity(Intent(this, ProActivity::class.java))
+                    goToProPage()
                 }
             }
         }
@@ -496,12 +496,19 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         setIntent(intent)
+        handleProIntent(intent)
         if (intent.getBooleanExtra("show_flashcard_results", false)) {
             findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId = R.id.nav_learning_games
             // The fragment might already be active or being created
             Handler(Looper.getMainLooper()).postDelayed({
                 (supportFragmentManager.findFragmentByTag("flashcards") as? FlashcardFragment)?.handleGameResults(intent)
             }, 100)
+        }
+    }
+
+    private fun handleProIntent(intent: Intent?) {
+        if (intent?.getBooleanExtra("show_pro", false) == true) {
+            findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId = R.id.nav_pro
         }
     }
 
@@ -564,6 +571,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val versionBadge = findViewById<TextView>(R.id.version_badge) ?: return
         val proPref = ProVersion(this)
         val proPlusPref = ProPlusVersion(this)
+        proPlusPref.setValue(100)
 
         when {
             proPlusPref.getValue() == 100 -> {

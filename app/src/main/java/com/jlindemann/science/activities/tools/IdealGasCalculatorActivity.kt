@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
-import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.MostUsedToolPreference
@@ -99,8 +98,8 @@ class IdealGasCalculatorActivity : BaseActivity() {
         findViewById<FrameLayout>(R.id.common_title_back_ideal_gas).elevation = resources.getDimension(R.dimen.zero_elevation)
         findViewById<ScrollView>(R.id.ideal_gas_calculator_scroll).viewTreeObserver
             .addOnScrollChangedListener {
-                val scrollY = findViewById<ScrollView>(R.id.ideal_gas_calculator_scroll).scrollY.toFloat()
-                if (scrollY > 150f) {
+                val scrollY = findViewById<ScrollView>(R.id.ideal_gas_calculator_scroll).scrollY
+                if (scrollY > 150) {
                     findViewById<FrameLayout>(R.id.common_title_back_ideal_gas_color).visibility = View.VISIBLE
                     findViewById<TextView>(R.id.ideal_gas_calculator_title).visibility = View.VISIBLE
                     findViewById<TextView>(R.id.ideal_gas_calculator_title_downstate).visibility = View.INVISIBLE
@@ -156,8 +155,7 @@ class IdealGasCalculatorActivity : BaseActivity() {
         }
 
         findViewById<View>(R.id.pro_button_ideal_gas).setOnClickListener {
-            val intent = Intent(this, ProActivity::class.java)
-            startActivity(intent)
+            goToProPage()
         }
 
         // Initialize RecyclerView for favorite calculations

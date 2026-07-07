@@ -1,227 +1,385 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/header_container"
-        style="@style/Widget.Science.Expressive.SectionHeader">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="2dp"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/overview_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ic_isotopes"
-            app:tint="?attr/colorAccent" />
-
-        <TextView
-            android:id="@+id/overview_text"
-            android:layout_width="wrap_content"
+        <!-- Container with center icon -->
+        <LinearLayout
+            android:id="@+id/header_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="@string/properties"
-            android:textColor="?attr/colorAccent"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-    <com.google.android.material.card.MaterialCardView
-        style="@style/Widget.Science.Expressive.SectionCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:id="@+id/atomic_number_container"
-                style="@style/Widget.Science.Expressive.PropertyRow">
-                <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/atomic_number_label" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                <TextView android:id="@+id/element_atomic_number" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-            </LinearLayout>
-
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
-
-            <LinearLayout
-                android:id="@+id/atomic_weight_container"
-                style="@style/Widget.Science.Expressive.PropertyRow">
-                <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/atomic_weight_relative_atomic_mass" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                <TextView android:id="@+id/element_atomic_weight" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-            </LinearLayout>
-
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
-
-            <LinearLayout
-                android:id="@+id/density_container"
-                style="@style/Widget.Science.Expressive.PropertyRow">
-                <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/density_colon" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                <TextView android:id="@+id/element_density" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-            </LinearLayout>
-
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
-
-            <LinearLayout
-                android:id="@+id/electronegativity_container"
-                style="@style/Widget.Science.Expressive.PropertyRow">
-                <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/electronegativity_colon" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                <TextView android:id="@+id/element_electronegativty" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-            </LinearLayout>
-
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
-
-            <LinearLayout
-                android:id="@+id/electronegativity_allen_container"
-                style="@style/Widget.Science.Expressive.PropertyRow">
-                <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/electronegativity_allen_colon" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                <TextView android:id="@+id/element_electronegativty_allen" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-            </LinearLayout>
-
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
-
-            <LinearLayout
-                android:id="@+id/block_container"
-                style="@style/Widget.Science.Expressive.PropertyRow">
-                <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/block_colon" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                <TextView android:id="@+id/element_block" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-            </LinearLayout>
-
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
-
-            <LinearLayout
-                android:id="@+id/emission_spectrum_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <TextView
-                    android:id="@+id/sp_lines_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/emission_spectrum_colon"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textAllCaps="true"
-                    android:letterSpacing="0.1" />
-
-                <TextView
-                    android:id="@+id/sp_offline"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@string/go_online_for_emission_lines"
-                    android:textColor="?attr/colorError"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    app:cardElevation="0dp"
-                    app:cardBackgroundColor="?attr/colorSurface"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/sp_img"
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/ic_launcher_background" />
-
-                        <ImageView
-                            android:id="@+id/open_btn2"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_gravity="end|top"
-                            android:layout_margin="8dp"
-                            android:padding="6dp"
-                            android:background="@drawable/cookie_7"
-                            android:backgroundTint="?attr/colorSurface"
-                            android:elevation="4dp"
-                            app:srcCompat="@drawable/ic_open"
-                            app:tint="?attr/colorPrimary"/>
-                    </FrameLayout>
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/electron_view"
-        style="@style/Widget.Science.Expressive.SectionCard"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
-        app:cardBackgroundColor="?attr/colorSecondaryContainer">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:id="@+id/electron_text_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:paddingStart="20dp"
-                android:paddingEnd="140dp">
-
-                <TextView
-                    android:id="@+id/electron_shell"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/electron_shell_colon"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textAllCaps="true"
-                    android:letterSpacing="0.1" />
-
-                <TextView
-                    android:id="@+id/element_shells_electrons"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="---"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/open_btn"
+            <!-- Container with center icon -->
+            <FrameLayout
+                android:id="@+id/icon_container"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_gravity="end|top"
-                android:layout_margin="8dp"
-                android:padding="6dp"
                 android:background="@drawable/cookie_7"
-                android:backgroundTint="?attr/colorSurface"
-                android:elevation="4dp"
-                app:srcCompat="@drawable/ic_open"
-                app:tint="?attr/colorSecondary"/>
+                android:backgroundTint="?attr/colorAccent"
+                android:layout_gravity="center_vertical"
+                android:foregroundGravity="center">
 
-            <ImageView
-                android:id="@+id/model_view"
-                android:layout_width="140dp"
+                <ImageView
+                    android:id="@+id/overview_icon"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1dp"
+                    android:src="@drawable/ic_isotopes"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    app:tint="?attr/colorOnPrimary" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/overview_text"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="end"
-                android:scaleType="centerCrop"
-                android:alpha="0.8"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:layout_marginStart="2dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/properties"
+                android:textColor="?attr/colorAccent"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-        </FrameLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <LinearLayout
+            android:id="@+id/atomic_number_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list_top"
+            android:backgroundTint="?attr/colorPrimaryDark">
 
+        <TextView
+            android:id="@+id/element_atomic_number_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/atomic_number_label"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/element_atomic_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="element_name"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/atomic_weight_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/element_atomic_weight_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/atomic_weight_relative_atomic_mass"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/element_atomic_weight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="element_name"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/density_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/element_density_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/density_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/element_density"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="element_name"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/electronegativity_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/element_electronegativty_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/electronegativity_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/element_electronegativty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="element_name"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/electronegativity_allen_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/element_electronegativty_allen_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/electronegativity_allen_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/element_electronegativty_allen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="element_name"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/block_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/element_block_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/block_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/element_block"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="element_block"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/emission_spectrum_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list_bottom"
+            android:backgroundTint="?attr/colorPrimaryDark">
+        <TextView
+            android:id="@+id/sp_lines_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/emission_spectrum_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/sp_offline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/go_online_for_emission_lines"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:cardCornerRadius="24dp">
+
+                <ImageView
+                    android:id="@+id/open_btn2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_margin="8dp"
+                    android:background="@color/transparent"
+                    android:backgroundTint="@color/transparent"
+                    android:elevation="4dp"
+                    app:srcCompat="@drawable/ic_open"
+                    app:tint="?attr/colorTertiary"/>
+
+                <ImageView
+                    android:id="@+id/sp_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity=""
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_launcher_background" />
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/electron_view"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="?attr/colorPrimaryDark"
+            android:elevation="0dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/electron_text_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/electron_shell"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginBottom="2dp"
+                        android:text="@string/electron_shell_colon"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/element_shells_electrons"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="18dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="element_electrons"
+                        android:textIsSelectable="true"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/open_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_margin="8dp"
+                    android:elevation="4dp"
+                    app:srcCompat="@drawable/ic_open" />
+
+                <ImageView
+                    android:id="@+id/model_view"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_launcher_background" />
+
+            </FrameLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+    </LinearLayout>
 </LinearLayout>

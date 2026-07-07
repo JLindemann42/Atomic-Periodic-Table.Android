@@ -39,7 +39,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.jlindemann.science.activities.UserActivity
-import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
 import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.preferences.MostUsedToolPreference
@@ -280,7 +279,7 @@ class FlashCardActivity : BaseActivity() {
 
         //Set pro upgrade button listener
         findViewById<TextView>(R.id.get_pro_plus_btn).setOnClickListener {
-            startActivity(Intent(this, ProActivity::class.java))
+            goToProPage()
         }
 
         // Ensure UI reflects current sign-in state immediately
@@ -420,8 +419,7 @@ class FlashCardActivity : BaseActivity() {
                 row.setOnClickListener {
                     val isPro = checkProPlusStatus()
                     if (cat.isPro && !isPro) {
-                        // send to ProActivity
-                        startActivity(Intent(this, ProActivity::class.java))
+                        goToProPage()
                         return@setOnClickListener
                     }
                     // if the row is disabled, do nothing
@@ -864,7 +862,7 @@ class FlashCardActivity : BaseActivity() {
         val catSpec = btn.tag as? CategorySpec
         val isProCategory = catSpec?.isPro == true
         if (isProCategory && !checkProPlusStatus()) {
-            startActivity(Intent(this, ProActivity::class.java))
+            goToProPage()
             return
         }
         val intent = Intent(this, LearningGamesActivity::class.java)

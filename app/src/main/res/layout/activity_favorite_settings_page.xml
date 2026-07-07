@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
     android:id="@+id/viewf"
-    android:fitsSystemWindows="true"
-    android:background="?attr/backgroundColor"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor">
 
     <ScrollView
         android:id="@+id/fav_set_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="0dp">
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,652 +22,570 @@
                 android:id="@+id/favorite_set_title_downstate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="0dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="28dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:paddingTop="80dp"
+                android:paddingBottom="24dp"
                 android:text="@string/favorite_settings_title"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="32sp"
-                android:textStyle="normal" />
-
-            <TextView
-                android:id="@+id/general_header"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="@dimen/margin_space_card"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:paddingStart="@dimen/margin"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
-                android:text="@string/favorite_settings_general"
-                android:textColor="?attr/colorPrimary"
-                android:textStyle="normal|normal" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/molar_mass_check"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:buttonTint="?attr/colorPrimary"
-                    android:buttonTintMode="src_in"
-                    android:checked="true"
-                    android:drawableEnd="@drawable/ic_weight_outline"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_molar_mass"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.5"
-                android:background="?attr/rippleColor" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/phase_check"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:buttonTint="?attr/colorPrimary"
-                    android:checked="true"
-                    android:drawableEnd="@drawable/fav_gas"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_stp_phase"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/textView21"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.5"
-                android:background="?attr/rippleColor" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/electronegativity_check"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:buttonTint="?attr/colorPrimary"
-                    android:checked="true"
-                    android:drawableEnd="@drawable/fav_electronegativity"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_electronegativity"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/textView22"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.5"
-                android:background="?attr/rippleColor" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/density_check"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:buttonTint="?attr/colorPrimary"
-                    android:checked="false"
-                    android:drawableEnd="@drawable/ic_weight_outline"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_density"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/general_header2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:paddingStart="@dimen/margin"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
-                android:text="@string/favorite_settings_temperatures"
-                android:textColor="?attr/colorAccent"
-                android:textStyle="normal|normal" />
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:letterSpacing="-0.02" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/kelvin_btn"
-                    style="@style/Widget.AppCompat.Button"
+                style="@style/Widget.Science.Expressive.SectionHeader">
+                <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="36dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginEnd="9dp"
-                    android:layout_marginBottom="9dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/chip_outline"
-                    android:clickable="true"
-                    android:elevation="2dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/chip_ripple"
-                    android:text="@string/kelvin"
-                    android:textAllCaps="false"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="14sp" />
-
-                <Button
-                    android:id="@+id/celsius_btn"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_margin="9dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/toast_outline"
-                    android:clickable="true"
-                    android:elevation="2dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/chip_outline"
-                    android:text="@string/celsius"
-                    android:textAllCaps="false"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="14sp" />
-
-                <Button
-                    android:id="@+id/fahrenheit_btn"
-                    style="@style/Widget.AppCompat.Button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="9dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginEnd="36dp"
-                    android:layout_marginBottom="9dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/chip_outline"
-                    android:clickable="true"
-                    android:elevation="2dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/chip_ripple"
-                    android:text="@string/fahrenheit"
-                    android:textAllCaps="false"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="14sp" />
+                    android:layout_height="wrap_content"
+                    android:text="@string/favorite_settings_general"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView29"
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Science.Expressive.SectionCard"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.5"
-                android:background="?attr/rippleColor" />
+                android:layout_height="wrap_content">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/boiling_check"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:checked="false"
-                    android:drawableEnd="@drawable/ic_temperature"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_boiling_point"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:buttonTint="?attr/colorPrimary" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/textView23"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.5"
-                android:background="?attr/rippleColor" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/melting_check"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:buttonTint="?attr/colorPrimary"
-                    android:checked="false"
-                    android:drawableEnd="@drawable/ic_temperature"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_melting_point"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-            </FrameLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:paddingStart="@dimen/margin"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
-                android:text="@string/favorite_settings_atomic_properties"
-                android:textColor="?attr/colorAccent"
-                android:textStyle="normal|normal" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/atomic_radius_empirical_check"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:buttonTint="?attr/colorPrimary"
-                    android:checked="false"
-                    android:drawableEnd="@drawable/ic_radius"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_atomic_radius_empirical"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/textView24"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.5"
-                android:background="?attr/rippleColor" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/atomic_radius_calculated_check"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:buttonTint="?attr/colorPrimary"
-                    android:checked="false"
-                    android:drawableEnd="@drawable/ic_radius"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_atomic_radius_calculated"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/textView25"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.5"
-                android:background="?attr/rippleColor" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/covalent_radius_check"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:buttonTint="?attr/colorPrimary"
-                    android:checked="false"
-                    android:drawableEnd="@drawable/ic_radius"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_covalent_radius"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/textView26"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.5"
-                android:background="?attr/rippleColor" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/van_der_waals_radius_check"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:buttonTint="?attr/colorPrimary"
-                    android:checked="false"
-                    android:drawableEnd="@drawable/ic_radius"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_van_der_waals_radius"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/general_header_electro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:paddingStart="@dimen/margin"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
-                android:text="@string/favorite_settings_electromagnetic"
-                android:textColor="?attr/colorAccent"
-                android:textStyle="normal|normal" />
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple">
-
-                    <CheckBox
-                        android:id="@+id/resitivity_check"
+                    <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="@dimen/margin"
-                        android:layout_marginEnd="@dimen/margin"
-                        android:buttonTint="?attr/colorPrimary"
-                        android:checked="false"
-                        android:drawableEnd="@drawable/ic_heat"
-                        android:drawablePadding="9dp"
-                        android:layoutDirection="rtl"
-                        android:text="@string/show_resistivity"
-                        android:textColor="?attr/colorOnSecondaryContainer" />
-                </FrameLayout>
-            </FrameLayout>
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/molar_mass_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:checked="true"
+                            android:text="@string/show_molar_mass"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_weight_outline"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
 
-            <TextView
-                android:id="@+id/general_header3"
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="16dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/phase_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:checked="true"
+                            android:text="@string/show_stp_phase"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/fav_gas"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="16dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/electronegativity_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:checked="true"
+                            android:text="@string/show_electronegativity"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/fav_electronegativity"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="16dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/density_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:checked="false"
+                            android:text="@string/show_density"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_weight_outline"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Temperature Settings -->
+            <LinearLayout
+                style="@style/Widget.Science.Expressive.SectionHeader">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/favorite_settings_temperatures"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Science.Expressive.SectionCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/temp_unit_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:singleSelection="true"
+                        app:selectionRequired="true">
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/kelvin_btn"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/kelvin" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/celsius_btn"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/celsius" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/fahrenheit_btn"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fahrenheit" />
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="16dp">
+                        <CheckBox
+                            android:id="@+id/boiling_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:text="@string/show_boiling_point"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_temperature"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp">
+                        <CheckBox
+                            android:id="@+id/melting_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:text="@string/show_melting_point"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_temperature"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Atomic Properties -->
+            <LinearLayout
+                style="@style/Widget.Science.Expressive.SectionHeader">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/favorite_settings_atomic_properties"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Science.Expressive.SectionCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:paddingStart="@dimen/margin"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
-                android:text="@string/favorite_settings_thermodynamics"
-                android:textColor="?attr/colorAccent"
-                android:textStyle="normal|normal" />
+                android:layout_marginBottom="40dp">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/fusion_heat_check"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:buttonTint="?attr/colorPrimary"
-                    android:checked="false"
-                    android:drawableEnd="@drawable/ic_heat"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_fusion_heat"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-            </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView27"
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/atomic_radius_empirical_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:text="@string/show_atomic_radius_empirical"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_radius"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="16dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/atomic_radius_calculated_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:text="@string/show_atomic_radius_calculated"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_radius"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="16dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/covalent_radius_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:text="@string/show_covalent_radius"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_radius"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="16dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/van_der_waals_radius_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:text="@string/show_van_der_waals_radius"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_radius"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Electromagnetic -->
+            <LinearLayout
+                style="@style/Widget.Science.Expressive.SectionHeader">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/favorite_settings_electromagnetic"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Science.Expressive.SectionCard"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.5"
-                android:background="?attr/rippleColor" />
+                android:layout_height="wrap_content">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/specific_heat_check"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:buttonTint="?attr/colorPrimary"
-                    android:checked="false"
-                    android:drawableEnd="@drawable/ic_heat"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_specific_heat_capacity"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-            </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView28"
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/resitivity_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:checked="false"
+                            android:text="@string/show_resistivity"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_heat"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Thermodynamics -->
+            <LinearLayout
+                style="@style/Widget.Science.Expressive.SectionHeader">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/favorite_settings_thermodynamics"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Science.Expressive.SectionCard"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:alpha="0.5"
-                android:background="?attr/rippleColor" />
+                android:layout_height="wrap_content">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/vaporization_heat_check"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:checked="false"
-                    android:drawableEnd="@drawable/ic_vaporization"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_vaporization_heat"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:buttonTint="?attr/colorPrimary" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            </FrameLayout>
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/fusion_heat_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:checked="false"
+                            android:text="@string/show_fusion_heat"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_heat"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
 
-            <TextView
-                android:id="@+id/general_header4"
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="16dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/specific_heat_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:checked="false"
+                            android:text="@string/show_specific_heat_capacity"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_heat"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="16dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/vaporization_heat_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:checked="false"
+                            android:text="@string/show_vaporization_heat"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_vaporization"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Nuclear -->
+            <LinearLayout
+                style="@style/Widget.Science.Expressive.SectionHeader">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/favorite_settings_nuclear"
+                    android:textSize="14sp"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.1"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Science.Expressive.SectionCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginEnd="0dp"
-                android:layout_marginBottom="0dp"
-                android:paddingStart="@dimen/margin"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
-                android:text="@string/favorite_settings_nuclear"
-                android:textColor="?attr/colorAccent"
-                android:textStyle="normal|normal" />
+                android:layout_marginBottom="40dp">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple">
-
-                <CheckBox
-                    android:id="@+id/radioactive_check"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:buttonTint="?attr/colorPrimary"
-                    android:checked="false"
-                    android:drawableEnd="@drawable/ic_nucleari"
-                    android:drawablePadding="9dp"
-                    android:layoutDirection="rtl"
-                    android:text="@string/show_if_radioactive"
-                    android:textColor="?attr/colorOnSecondaryContainer" />
-            </FrameLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <androidx.legacy.widget.Space
-                android:layout_width="match_parent"
-                android:layout_height="60dp" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
+                        <CheckBox
+                            android:id="@+id/radioactive_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="16dp"
+                            android:buttonTint="?attr/colorPrimary"
+                            android:checked="false"
+                            android:text="@string/show_if_radioactive"
+                            android:textColor="?attr/colorOnSecondaryContainer"
+                            android:layoutDirection="rtl"
+                            android:drawableEnd="@drawable/ic_nucleari"
+                            android:drawablePadding="12dp" />
+                    </FrameLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>
 
-    <FrameLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/common_title_back_fav"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:elevation="1dp"
-        android:background="?attr/colorSurface"
-        android:gravity="center|center_vertical"
-        android:orientation="horizontal"
+        android:layout_height="64dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
+        android:background="?attr/backgroundColor"
         app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:id="@+id/common_title_back_fav_color"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.11"/>
-
-        <LinearLayout
-            android:gravity="bottom"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:id="@+id/title_box"
+            android:visibility="invisible"
+            android:background="?attr/colorSurface">
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="56dp">
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11" />
+        </FrameLayout>
 
-                <ImageButton
-                    android:id="@+id/back_btn_fav"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center_vertical"
-                    android:rotation="180"
-                    android:elevation="2dp"
-                    app:tint="?attr/colorOnSecondaryContainer"
-                    android:src="@drawable/ic_arrow_back_whit" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_box"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_gravity="bottom">
 
-                <TextView
-                    android:id="@+id/favorite_set_title"
-                    android:layout_width="wrap_content"
-                    android:layout_marginStart="70dp"
-                    android:alpha="0.9"
-                    android:layout_height="56dp"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/favorite_settings_title"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="20sp"
-                    android:textStyle="normal" />
-            </FrameLayout>
-        </LinearLayout>
-    </FrameLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back_btn_fav"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:rotation="180"
+                app:icon="@drawable/ic_arrow_back_whit"
+                app:iconTint="?attr/colorOnSecondaryContainer"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/favorite_set_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/favorite_settings_title"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/back_btn_fav" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

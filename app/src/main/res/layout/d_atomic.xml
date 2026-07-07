@@ -1,150 +1,351 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+
     <LinearLayout
-        android:id="@+id/header_container"
-        style="@style/Widget.Science.Expressive.SectionHeader">
-
-        <ImageView
-            android:id="@+id/overview_icon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/overview_icon"
-            app:tint="?attr/colorAccent" />
-
-        <TextView
-            android:id="@+id/overview_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:text="@string/atomic_properties"
-            android:textColor="?attr/colorAccent"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <com.google.android.material.card.MaterialCardView
-        style="@style/Widget.Science.Expressive.SectionCard"
+        android:id="@+id/physics_properties"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:elevation="2dp"
+        android:orientation="vertical">
 
+        <!-- Container with center icon -->
         <LinearLayout
+            android:id="@+id/header_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/oxidation_states_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
+            <!-- Container with center icon -->
+            <FrameLayout
+                android:id="@+id/icon_container"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/cookie_7"
+                android:backgroundTint="?attr/colorAccent"
+                android:layout_gravity="center_vertical"
+                android:foregroundGravity="center">
 
-                <TextView
-                    android:id="@+id/electron_Config_title2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/oxidation_states_colon"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textAllCaps="true"
-                    android:letterSpacing="0.1" />
+                <ImageView
+                    android:id="@+id/overview_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/overview_icon"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    app:tint="?attr/colorOnPrimary" />
+            </FrameLayout>
 
-                <include
-                    android:id="@+id/ox_view"
-                    layout="@layout/oxidiation_states"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/overview_text"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="2dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@string/atomic_properties"
+                android:textColor="?attr/colorAccent"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
+        <LinearLayout
+            android:id="@+id/oxidation_states_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list_top"
+            android:backgroundTint="?attr/colorPrimaryDark">
 
-            <LinearLayout
-                android:id="@+id/electron_configuration_container"
-                style="@style/Widget.Science.Expressive.PropertyRow">
-                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/electron_configuration_colon" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                    <TextView android:id="@+id/electron_config_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
+        <TextView
+            android:id="@+id/electron_Config_title2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/oxidation_states_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
+        <include
+            android:id="@+id/ox_view"
+            layout="@layout/oxidiation_states"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/ion_charge_container"
-                style="@style/Widget.Science.Expressive.PropertyRow">
-                <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/ion_charge_colon" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                <TextView android:id="@+id/ion_charge_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/electron_configuration_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
 
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
+        <TextView
+            android:id="@+id/electron_Config_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/electron_configuration_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <LinearLayout
-                android:id="@+id/ionization_energies_container"
-                style="@style/Widget.Science.Expressive.PropertyRow">
-                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ionization_energies_colon" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                    <TextView android:id="@+id/ionization_energies_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-                </LinearLayout>
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/ionization_button"
-                    style="@style/Widget.Material3.Button.IconButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    app:icon="@drawable/ic_arrow"
-                    android:rotation="270"
-                    app:iconTint="?attr/colorTertiary" />
-
-                <TextView
-                    android:id="@+id/ion_charge_view_all_text"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
-
-            <LinearLayout
-                android:id="@+id/atomic_radius_e_container"
-                style="@style/Widget.Science.Expressive.PropertyRow">
-                <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/atomic_radius_empirical_colon" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                <TextView android:id="@+id/atomic_radius_e_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-            </LinearLayout>
-
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
-
-            <LinearLayout
-                android:id="@+id/atomic_radius_container"
-                style="@style/Widget.Science.Expressive.PropertyRow">
-                <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/atomic_radius_calculated_colon" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                <TextView android:id="@+id/atomic_radius_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-            </LinearLayout>
-
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
-
-            <LinearLayout
-                android:id="@+id/covalent_radius_container"
-                style="@style/Widget.Science.Expressive.PropertyRow">
-                <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Covalent Radius:" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                <TextView android:id="@+id/covalent_radius_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-            </LinearLayout>
-
-            <View android:layout_width="match_parent" android:layout_height="1dp" android:background="?attr/colorOutlineVariant" android:alpha="0.1" />
-
-            <LinearLayout
-                android:id="@+id/van_der_waals_radius_container"
-                style="@style/Widget.Science.Expressive.PropertyRow">
-                <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Van Der Waals Radius:" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
-                <TextView android:id="@+id/van_der_waals_radius_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="---" android:textColor="?attr/colorOnSurface" android:textSize="14sp" android:textStyle="bold" />
-            </LinearLayout>
+        <TextView
+            android:id="@+id/electron_config_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="electron_config_text"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
 
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
 
+        <LinearLayout
+            android:id="@+id/ion_charge_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+            <TextView
+                android:id="@+id/ion_charge_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ion_charge_colon"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/ion_charge_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ion_charge_text"
+                android:textIsSelectable="true"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ionization_energies_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/ionization_energies_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ionization_energies_colon"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ionization_energies_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="ionization_energies_text"
+                        android:textIsSelectable="true"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/ion_charge_view_all_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/view_all"
+                        android:textIsSelectable="true"
+                        android:textColor="?attr/colorOnSecondaryContainer"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/ionization_button"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:background="@drawable/square_button"
+                    android:backgroundTint="?attr/colorTertiary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="@drawable/square_button_ripple"
+                    android:rotation="270"
+                    app:srcCompat="@drawable/ic_arrow"
+                    app:tint="?attr/colorOnTertiary" />
+
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/atomic_radius_e_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/atomic_radius_e_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/atomic_radius_empirical_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/atomic_radius_e_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="atomic_radius_e_text"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/atomic_radius_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/atomic_radius_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/atomic_radius_calculated_colon"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/atomic_radius_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+            android:text="atomic_radius_text"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/covalent_radius_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/covalent_radius_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Covalent Radius:"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/covalent_radius_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="covalent_radius_text"
+            android:textIsSelectable="true"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/van_der_waals_radius_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:background="@drawable/toast_element_list_bottom"
+            android:backgroundTint="?attr/colorPrimaryDark">
+
+        <TextView
+            android:id="@+id/van_der_waals_radius_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Van Der Waals Radius:"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/van_der_waals_radius_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textIsSelectable="true"
+            android:layout_marginBottom="8dp"
+            android:text="van_der_waals_radius_text"
+            android:textColor="?attr/colorOnSecondaryContainer"
+            android:textSize="14sp" />
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>

@@ -99,7 +99,7 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
         findViewById<View>(R.id.e_back_btn).setOnClickListener { hideInfoPanel() }
         findViewById<TextView>(R.id.l_background_e).setOnClickListener { hideInfoPanel() }
 
-        findViewById<FrameLayout>(R.id.view_equ).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view_equ).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         findViewById<View>(R.id.back_btn_equ).setOnClickListener {
             this.onBackPressed()
         }
@@ -222,7 +222,6 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
     private fun showInfoPanel(title: Int, text: String) {
         Anim.fadeIn(findViewById<ConstraintLayout>(R.id.e_inc), 150)
         // show background too so user can tap to dismiss
-        Anim.fadeIn(findViewById<TextView>(R.id.l_background_e), 150)
 
         findViewById<ImageView>(R.id.e_title).setImageResource(title)
         val themePreference = ThemePreference(this)
@@ -243,7 +242,6 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
 
     private fun hideInfoPanel() {
         Anim.fadeOutAnim(findViewById<ConstraintLayout>(R.id.e_inc), 150)
-        Anim.fadeOutAnim(findViewById<TextView>(R.id.l_background_e), 150)
 
         // After hiding, update interception state
         setBackInterceptionEnabled(anyOverlayOpen())

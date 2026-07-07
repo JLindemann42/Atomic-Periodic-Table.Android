@@ -14,7 +14,6 @@ import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tables.*
 import com.jlindemann.science.adapter.TableAdapter
 import com.jlindemann.science.animations.TitleBarAnimator
@@ -152,6 +151,11 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
         val proPref = ProVersion(this)
         val proPrefValue = proPref.getValue()
 
+        if (item.requiresPro && proPrefValue != 100) {
+            goToProPage()
+            return
+        }
+
         val activityClass = when (item.id) {
             "iso" -> IsotopesActivityExperimental::class.java
             "phi" -> phActivity::class.java
@@ -159,11 +163,11 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
             "eqe" -> EquationsActivity::class.java
             "ion" -> IonActivity::class.java
             "sol" -> SolubilityActivity::class.java
-            "poi" -> if (proPrefValue == 100) PoissonActivity::class.java else ProActivity::class.java
-            "nuc" -> if (proPrefValue == 100) NuclideActivity::class.java else ProActivity::class.java
-            "con" -> if (proPrefValue == 100) ConstantsActivity::class.java else ProActivity::class.java
-            "geo" -> if (proPrefValue == 100) GeologyActivity::class.java else ProActivity::class.java
-            "emi" -> if (proPrefValue == 100) EmissionActivity::class.java else ProActivity::class.java
+            "poi" -> PoissonActivity::class.java
+            "nuc" -> NuclideActivity::class.java
+            "con" -> ConstantsActivity::class.java
+            "geo" -> GeologyActivity::class.java
+            "emi" -> EmissionActivity::class.java
             else -> return
         }
 
@@ -252,23 +256,27 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
                 }
 
                 textView.setOnClickListener {
-                    val activityClass = when (pair.first) {
-                        "iso" -> IsotopesActivityExperimental::class.java
-                        "phi" -> phActivity::class.java
-                        "eqe" -> EquationsActivity::class.java
-                        "ion" -> IonActivity::class.java
-                        "sol" -> SolubilityActivity::class.java
-                        "ele" -> ElectrodeActivity::class.java
-                        "poi" -> if (proPrefValue == 100) PoissonActivity::class.java else ProActivity::class.java
-                        "nuc" -> if (proPrefValue == 100) NuclideActivity::class.java else ProActivity::class.java
-                        "con" -> if (proPrefValue == 100) ConstantsActivity::class.java else ProActivity::class.java
-                        "geo" -> if (proPrefValue == 100) GeologyActivity::class.java else ProActivity::class.java
-                        "emi" -> if (proPrefValue == 100) EmissionActivity::class.java else ProActivity::class.java
-                        else -> null
-                    }
-                    activityClass?.let {
-                        val intent = Intent(this, it)
-                        startActivity(intent)
+                    if (proPrefValue != 100 && listOf("poi", "nuc", "con", "geo", "emi").contains(pair.first)) {
+                        goToProPage()
+                    } else {
+                        val activityClass = when (pair.first) {
+                            "iso" -> IsotopesActivityExperimental::class.java
+                            "phi" -> phActivity::class.java
+                            "eqe" -> EquationsActivity::class.java
+                            "ion" -> IonActivity::class.java
+                            "sol" -> SolubilityActivity::class.java
+                            "ele" -> ElectrodeActivity::class.java
+                            "poi" -> PoissonActivity::class.java
+                            "nuc" -> NuclideActivity::class.java
+                            "con" -> ConstantsActivity::class.java
+                            "geo" -> GeologyActivity::class.java
+                            "emi" -> EmissionActivity::class.java
+                            else -> null
+                        }
+                        activityClass?.let {
+                            val intent = Intent(this, it)
+                            startActivity(intent)
+                        }
                     }
                 }
             }

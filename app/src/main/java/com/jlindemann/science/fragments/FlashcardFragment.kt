@@ -27,9 +27,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.android.material.button.MaterialButton
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.activities.UserActivity
-import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tools.LearningGamesActivity
 import com.jlindemann.science.activities.tools.ResultDialogFragment
 import com.jlindemann.science.animations.TitleBarAnimator
@@ -240,9 +241,7 @@ class FlashcardFragment : BaseFragment() {
         }
 
         view.findViewById<TextView>(R.id.get_pro_plus_btn).setOnClickListener {
-            (activity as? com.jlindemann.science.activities.MainActivity)?.let { mainActivity ->
-                mainActivity.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_nav)?.selectedItemId = R.id.nav_pro
-            } ?: startActivity(Intent(requireContext(), ProActivity::class.java))
+            (requireActivity() as? BaseActivity)?.goToProPage()
         }
 
         updateLoginUiState()
@@ -255,7 +254,7 @@ class FlashcardFragment : BaseFragment() {
             tvSyncStatus?.visibility = View.GONE
         }
 
-        view.findViewById<ImageButton>(R.id.achievements_btn).setOnClickListener {
+        view.findViewById<MaterialButton>(R.id.achievements_btn).setOnClickListener {
             startActivity(Intent(requireContext(), UserActivity::class.java))
         }
 
@@ -347,9 +346,7 @@ class FlashcardFragment : BaseFragment() {
                 row.tag = cat
                 row.setOnClickListener {
                     if (cat.isPro && !checkProPlusStatus()) {
-                        (activity as? com.jlindemann.science.activities.MainActivity)?.let { mainActivity ->
-                            mainActivity.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_nav)?.selectedItemId = R.id.nav_pro
-                        } ?: startActivity(Intent(requireContext(), ProActivity::class.java))
+                        (requireActivity() as? BaseActivity)?.goToProPage()
                         return@setOnClickListener
                     }
                     if (!row.isEnabled) return@setOnClickListener

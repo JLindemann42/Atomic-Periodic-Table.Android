@@ -38,6 +38,7 @@
                     android:clipToPadding="false"
                     android:paddingTop="64dp"
                     android:paddingBottom="80dp"
+                    android:background="?attr/backgroundColor"
                     android:scrollbarStyle="insideOverlay"
                     android:scrollbars="vertical" />
 
@@ -80,22 +81,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     app:cardElevation="0dp"
-                    app:cardBackgroundColor="?attr/colorSurface"
                     app:strokeWidth="0dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.BottomRounded"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <FrameLayout
-                        android:id="@+id/common_title_isotope_color"
+                        android:id="@+id/common_title_back_isotope_color"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="?attr/colorPrimary"
-                        android:alpha="0.11"
-                        android:visibility="invisible"/>
+                        android:visibility="invisible"
+                        android:background="?attr/colorSurface">
+
+                        <FrameLayout
+                            android:id="@+id/common_title_isotope_color"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?attr/colorPrimary"
+                            android:alpha="0.11" />
+                    </FrameLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/title_box"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="64dp"
+                        android:layout_gravity="bottom">
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/back_btn"
@@ -141,7 +151,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/search_bar_iso"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="64dp"
+                        android:layout_gravity="bottom"
                         android:visibility="gone">
 
                         <com.google.android.material.button.MaterialButton

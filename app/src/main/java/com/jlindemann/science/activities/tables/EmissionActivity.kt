@@ -125,7 +125,7 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
             setBackInterceptionEnabled(anyOverlayOpen())
         }
 
-        findViewById<FrameLayout>(R.id.view_emi).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view_emi).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         findViewById<View>(R.id.back_btn_emi).setOnClickListener { this.onBackPressed() }
     }
 

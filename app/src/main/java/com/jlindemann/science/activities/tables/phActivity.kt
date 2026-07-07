@@ -13,8 +13,10 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginTop
+import com.google.android.material.button.MaterialButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.model.*
@@ -40,8 +42,27 @@ class phActivity : BaseActivity()  {
         setContentView(R.layout.activity_ph) //REMEMBER: Never move any function calls above this
 
         indicatorListener()
-        findViewById<FrameLayout>(R.id.view_ph).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        //Title Controller
+        findViewById<ConstraintLayout>(R.id.view_ph).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        
+        // Title Controller
+        findViewById<FrameLayout>(R.id.common_title_ph_color).visibility = View.INVISIBLE
+        findViewById<TextView>(R.id.ph_title).visibility = View.INVISIBLE
+        findViewById<FrameLayout>(R.id.common_title_back_ph).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        findViewById<ScrollView>(R.id.ph_scroll).viewTreeObserver
+            .addOnScrollChangedListener {
+                val scrollY = findViewById<ScrollView>(R.id.ph_scroll).scrollY
+                if (scrollY > 150) {
+                    findViewById<FrameLayout>(R.id.common_title_ph_color).visibility = View.VISIBLE
+                    findViewById<TextView>(R.id.ph_title).visibility = View.VISIBLE
+                    findViewById<TextView>(R.id.ph_title_downstate).visibility = View.INVISIBLE
+                    findViewById<FrameLayout>(R.id.common_title_back_ph).elevation = resources.getDimension(R.dimen.one_elevation)
+                } else {
+                    findViewById<FrameLayout>(R.id.common_title_ph_color).visibility = View.INVISIBLE
+                    findViewById<TextView>(R.id.ph_title).visibility = View.INVISIBLE
+                    findViewById<TextView>(R.id.ph_title_downstate).visibility = View.VISIBLE
+                    findViewById<FrameLayout>(R.id.common_title_back_ph).elevation = resources.getDimension(R.dimen.zero_elevation)
+                }
+            }
 
         //Add value to most used:
         val mostUsedPreference = MostUsedPreference(this)
@@ -56,7 +77,7 @@ class phActivity : BaseActivity()  {
         }
 
         //Set-up for back button
-        findViewById<ImageButton>(R.id.back_btn_ph).setOnClickListener {
+        findViewById<MaterialButton>(R.id.back_btn_ph).setOnClickListener {
             this.onBackPressed()
         }
     }
@@ -96,12 +117,12 @@ class phActivity : BaseActivity()  {
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         val paramsTitle = findViewById<FrameLayout>(R.id.common_title_back_ph).layoutParams as ViewGroup.LayoutParams
-        paramsTitle.height = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
+        paramsTitle.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<FrameLayout>(R.id.common_title_back_ph).layoutParams = paramsTitle
 
-        val pScroll = findViewById<ScrollView>(R.id.ph_scroll).layoutParams as ViewGroup.MarginLayoutParams
-        pScroll.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
-        findViewById<ScrollView>(R.id.ph_scroll).layoutParams = pScroll
+        val params2 = findViewById<TextView>(R.id.ph_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        findViewById<TextView>(R.id.ph_title_downstate).layoutParams = params2
     }
 }
 

@@ -17,6 +17,7 @@ import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.animations.Anim
@@ -45,7 +46,7 @@ class SolubilityActivity : BaseActivity() {
         if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_solubility) //Don't move down (Needs to be before we call our functions)
-        findViewById<FrameLayout>(R.id.view_sub).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view_sub).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         // Register lifecycle-aware OnBackPressedCallback (disabled by default).
         backCallback = object : OnBackPressedCallback(false) {
@@ -88,9 +89,7 @@ class SolubilityActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val paramsO = findViewById<FrameLayout>(R.id.boxm).layoutParams as ViewGroup.MarginLayoutParams
-        paramsO.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.boxm).layoutParams = paramsO
+
 
         val params2 = findViewById<FrameLayout>(R.id.common_title_back_sul).layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
@@ -105,7 +104,7 @@ class SolubilityActivity : BaseActivity() {
             // Info panel is shown -> enable back interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<FloatingActionButton>(R.id.info_back_btn).setOnClickListener {
+        findViewById<MaterialButton>(R.id.info_back_btn).setOnClickListener {
             Anim.fadeOutAnim(findViewById<ConstraintLayout>(R.id.info_panel), 300)
             // Update interception after hiding
             setBackInterceptionEnabled(anyOverlayOpen())

@@ -17,6 +17,7 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
@@ -96,7 +97,7 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
 
         recyclerView()
         clickSearch()
-        findViewById<FrameLayout>(R.id.view_ion).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view_ion).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         // When tapping the background detail area we should hide the detail and update interception.
         findViewById<TextView>(R.id.detail_background_ion).setOnClickListener {

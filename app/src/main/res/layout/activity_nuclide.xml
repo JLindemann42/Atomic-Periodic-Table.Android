@@ -90,20 +90,30 @@
         android:layout_width="match_parent"
         android:layout_height="64dp"
         app:cardElevation="0dp"
-        app:cardBackgroundColor="?attr/colorSurface"
         app:strokeWidth="0dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.BottomRounded"
         app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
+            android:id="@+id/common_title_nuc_color"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.11"/>
+            android:background="?attr/colorSurface"
+            android:visibility="visible">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11" />
+        </FrameLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/title_box"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="64dp"
+            android:layout_gravity="bottom">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/nuc_back_btn"

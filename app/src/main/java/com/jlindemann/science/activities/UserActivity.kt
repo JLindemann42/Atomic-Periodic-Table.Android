@@ -438,14 +438,16 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         findViewById<TextView>(R.id.user_title).visibility = View.INVISIBLE
         findViewById<FrameLayout>(R.id.common_title_back_user).elevation = resources.getDimension(R.dimen.zero_elevation)
         findViewById<ScrollView>(R.id.user_scroll).viewTreeObserver.addOnScrollChangedListener {
-            if (findViewById<ScrollView>(R.id.user_scroll).scrollY > 150) {
+            val scrollY = findViewById<ScrollView>(R.id.user_scroll).scrollY
+            if (scrollY > 150) {
                 findViewById<FrameLayout>(R.id.common_title_user_color).visibility = View.VISIBLE
                 findViewById<TextView>(R.id.user_title).visibility = View.VISIBLE
-                findViewById<ImageView>(R.id.user_img).visibility = View.VISIBLE
+                findViewById<TextView>(R.id.user_title_downstate).visibility = View.INVISIBLE
                 findViewById<FrameLayout>(R.id.common_title_back_user).elevation = resources.getDimension(R.dimen.one_elevation)
             } else {
                 findViewById<FrameLayout>(R.id.common_title_user_color).visibility = View.INVISIBLE
                 findViewById<TextView>(R.id.user_title).visibility = View.INVISIBLE
+                findViewById<TextView>(R.id.user_title_downstate).visibility = View.VISIBLE
                 findViewById<FrameLayout>(R.id.common_title_back_user).elevation = resources.getDimension(R.dimen.zero_elevation)
             }
         }

@@ -63,8 +63,8 @@ class ChemicalReactionsActivity : BaseActivity() {
         findViewById<View>(R.id.common_title_back_rec).elevation = resources.getDimension(R.dimen.zero_elevation)
         findViewById<ScrollView>(R.id.reaction_scroll).viewTreeObserver
             .addOnScrollChangedListener {
-                val scrollY = findViewById<ScrollView>(R.id.reaction_scroll).scrollY.toFloat()
-                if (scrollY > 150f) {
+                val scrollY = findViewById<ScrollView>(R.id.reaction_scroll).scrollY
+                if (scrollY > 150) {
                     findViewById<View>(R.id.common_title_back_rec_color).visibility = View.VISIBLE
                     findViewById<TextView>(R.id.reaction_title).visibility = View.VISIBLE
                     findViewById<TextView>(R.id.reaction_title_downstate).visibility = View.INVISIBLE
