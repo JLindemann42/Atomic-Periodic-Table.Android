@@ -908,6 +908,7 @@ private fun setupStaticDetailListeners() {
         val aiRecyclerView = aiPanelRoot.findViewById<RecyclerView>(R.id.ai_chat_recycler)
         val aiMessageInput = aiPanelRoot.findViewById<EditText>(R.id.ai_message_input)
         val aiSendBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_send_btn)
+        aiPanelRoot.findViewById<TextView>(R.id.ai_message_limit_view)
         val aiLoadingIndicator = aiPanelRoot.findViewById<ProgressBar>(R.id.ai_loading_indicator)
         val aiLanguageBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_language_btn)
         val aiUserBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_user_btn)
@@ -925,7 +926,20 @@ private fun setupStaticDetailListeners() {
         aiAgentManager = AIAgentManager(this)
         aiScope.launch {
             aiAgentManager.initialize()
-            if (aiChatMessages.isEmpty()) {
+            updateAIMessageLimitView()
+            if (AuthManager.isSignedIn()) {
+                ChatHistoryManager.loadLatestChatSession { latest ->
+                    if (latest != null && aiChatMessages.isEmpty()) {
+                        aiScope.launch {
+                            aiAgentManager.setLanguage(latest.language)
+                            applyChatSession(latest)
+                            updateAIMessageLimitView()
+                        }
+                    } else if (aiChatMessages.isEmpty()) {
+                        addAIGreeting()
+                    }
+                }
+            } else if (aiChatMessages.isEmpty()) {
                 addAIGreeting()
             }
         }
@@ -1022,6 +1036,10 @@ private fun setupStaticDetailListeners() {
             val selectedLang = languages[item.itemId]
             aiScope.launch {
                 aiAgentManager.setLanguage(selectedLang)
+                getSharedPreferences("settings", MODE_PRIVATE).edit()
+                    .putString("app_language", selectedLang)
+                    .remove("app_country")
+                    .apply()
                 // Add a small system message about language change
                 val msg = ChatMessage(
                     id = UUID.randomUUID().toString(),
@@ -1032,6 +1050,8 @@ private fun setupStaticDetailListeners() {
                 aiChatMessages.add(msg)
                 aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
                 findViewById<RecyclerView>(R.id.ai_chat_recycler)?.scrollToPosition(aiChatMessages.size - 1)
+                saveCurrentChatSession()
+                updateAIMessageLimitView()
             }
             true
         }
@@ -1054,6 +1074,7 @@ private fun setupStaticDetailListeners() {
 
         aiScrim.alpha = 1f
         updateAIUserProfileImage()
+        updateAIMessageLimitView()
         setBackInterceptionEnabled(true)
         startAIGradientPulsation(1500, 2)
     }
@@ -1130,6 +1151,7 @@ private fun setupStaticDetailListeners() {
         aiAgentManager.clearConversation()
         aiAdapter?.notifyDataSetChanged()
         addAIGreeting()
+        updateAIMessageLimitView()
     }
 
     private fun addAIGreeting() {
@@ -1141,6 +1163,17 @@ private fun setupStaticDetailListeners() {
         )
         aiChatMessages.add(greeting)
         aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
+    }
+
+    private fun updateAIMessageLimitView() {
+        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
+        val limitView = aiPanelRoot.findViewById<TextView>(R.id.ai_message_limit_view) ?: return
+        if (!aiAgentManager.shouldShowMessageLimit()) {
+            limitView.visibility = View.GONE
+            return
+        }
+        limitView.visibility = View.VISIBLE
+        limitView.text = aiAgentManager.getMessageLimitDisplay()
     }
 
     private fun sendMessageToAI(text: String, input: EditText, loader: ProgressBar, recycler: RecyclerView) {
@@ -1169,6 +1202,7 @@ private fun setupStaticDetailListeners() {
             recycler.scrollToPosition(aiChatMessages.size - 1)
             aiAgentManager.addToConversationHistory(response)
             saveCurrentChatSession() // Sync again with response
+            updateAIMessageLimitView()
             stopAIGradientPulsation()
         }
     }
@@ -1186,7 +1220,8 @@ private fun setupStaticDetailListeners() {
                 id = currentChatSessionId!!,
                 title = title,
                 timestamp = System.currentTimeMillis(),
-                messages = aiChatMessages.toList()
+                messages = aiChatMessages.toList(),
+                language = aiAgentManager.getActiveLanguage()
             )
 
             ChatHistoryManager.saveChatSession(session) { success, id ->
@@ -1219,14 +1254,20 @@ private fun setupStaticDetailListeners() {
     }
 
     private fun loadChatSession(session: ChatSession, historyContainer: View) {
+        aiScope.launch {
+            aiAgentManager.setLanguage(session.language)
+            applyChatSession(session)
+            updateAIMessageLimitView()
+            historyContainer.visibility = View.GONE
+        }
+    }
+
+    private fun applyChatSession(session: ChatSession) {
         aiChatMessages.clear()
         aiChatMessages.addAll(session.messages)
         currentChatSessionId = session.id
         aiAdapter?.notifyDataSetChanged()
         findViewById<RecyclerView>(R.id.ai_chat_recycler)?.scrollToPosition(aiChatMessages.size - 1)
-        historyContainer.visibility = View.GONE
-        
-        // Also update AIAgentManager history
         aiAgentManager.setConversationHistory(session.messages)
     }
 

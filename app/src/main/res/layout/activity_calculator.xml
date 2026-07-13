@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/colorPrimary"
-        android:alpha="0.05"/>
 
     <ScrollView
         android:id="@+id/calculator_scroll"
@@ -61,13 +56,13 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="64dp">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/formula_input_layout"
                             style="@style/Widget.Material3.TextInputLayout.FilledBox"
                             android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="64dp"
                             app:boxBackgroundColor="?attr/colorSurface"
                             app:boxCornerRadiusTopStart="16dp"
                             app:boxCornerRadiusTopEnd="16dp"
@@ -96,15 +91,15 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/fav_star_btn"
-                            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
-                            android:layout_width="64dp"
-                            android:layout_height="64dp"
-                            app:icon="@drawable/ic_star"
-                            app:iconSize="24dp"
+                            style="@style/Widget.Material3.Button.IconButton.Filled"
+                            android:layout_width="68dp"
+                            android:layout_height="68dp"
+                            app:icon="@drawable/ic_star_xl"
+                            app:cornerRadius="16dp"
+                            app:iconSize="34dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="@+id/formula_input_layout"
-                            app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
+                            app:layout_constraintBottom_toBottomOf="@+id/formula_input_layout" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -115,26 +110,21 @@
                         android:text="@string/calc_molar_mass"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:textAllCaps="true"
-                        android:letterSpacing="0.1" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/out_text"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:background="?attr/colorSurface"
-                        android:padding="16dp"
+                        android:layout_marginTop="8dp"
                         android:text="@string/calculator_default_value"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="24sp"
+                        android:textColor="?attr/colorTertiary"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         app:drawableStartCompat="@drawable/ic_weight_outline"
-                        android:drawablePadding="12dp"
-                        app:drawableTint="?attr/colorPrimary"
-                        android:elevation="0dp"
-                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
+                        android:drawablePadding="4dp"
+                        app:drawableTint="?attr/colorTertiary"
+                        android:elevation="0dp" />
 
                     <TextView
                         android:id="@+id/hint_calc_text"
@@ -220,62 +210,9 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/common_title_back_cal"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="0dp"
-        android:background="?attr/backgroundColor"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <FrameLayout
-            android:id="@+id/common_title_back_cal_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible"
-            android:background="?attr/colorSurface">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:alpha="0.11" />
-        </FrameLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/title_box"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_gravity="bottom">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/back_btn_cal"
-                style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:rotation="180"
-                app:icon="@drawable/ic_arrow_back_whit"
-                app:iconTint="?attr/colorOnSecondaryContainer"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/calculator_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="@string/calculator_title"
-                android:textColor="?attr/colorOnSecondaryContainer"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="invisible"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/back_btn_cal" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    <include
+        android:id="@+id/unified_titlebar_include"
+        layout="@layout/view_unified_titlebar"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

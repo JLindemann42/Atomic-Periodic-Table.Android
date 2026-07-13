@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v5.0.0m-Build.218</string>
+    <string name="app_version" translatable="false">v5.0.0m-Build.220</string>
     <string name="next_sale_start" translatable="false" >2024/08/05</string>
     <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
@@ -106,6 +106,9 @@
     <string name="ai_hint">Ask me anything...</string>
     <string name="ai_lang_switched">AI language switched to: %1$s 🌐</string>
     <string name="ai_no_data">Hmm, I couldn\'t find information about that. Try asking about an element like \'oxygen\' or \'gold\'!</string>
+    <string name="ai_related_label">Related info:</string>
+    <string name="ai_related_offer">I found local related info. Ask \'show related\' to see it.</string>
+    <string name="ai_related_offer_lang">I found local related info but not in your selected language. Try switching language or ask anyway.</string>
     <string name="ai_greeting">Hey there! 👋 I\'m your chemistry buddy. Ask me anything about elements!</string>
     <string name="ai_encouragement">Great question! 🌟</string>
     <string name="ai_comparing_title">Comparing %1$s:</string>
@@ -408,6 +411,8 @@
     <string name="widget_description_placeholder">Loading element information...</string>
 
     <string name="spelling" >Try searching for another word or check your spelling</string>
+    <string name="dictionary_text">A comprehensive dictionary of chemical and physical terms</string>
+    <string name="dic">Dictionary</string>
 
     <!-- New Tables Strings -->
     <string name="phi" >pH-Indicators</string>

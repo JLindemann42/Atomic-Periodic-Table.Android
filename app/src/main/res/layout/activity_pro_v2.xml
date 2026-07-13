@@ -1,96 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/view_pro"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_pro"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_fragment_rounded"
-    android:clipToOutline="true"
-    android:orientation="vertical">
+    android:clipToOutline="true">
+
+    <!-- Fixed Header -->
+    <LinearLayout
+        android:id="@+id/pro_header_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/pro_header"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingVertical="4dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/back_btn_pro"
+                style="@style/Widget.Material3.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:rotation="180"
+                android:visibility="gone"
+                app:icon="@drawable/ic_arrow_back_whit"
+                app:iconTint="?attr/colorOnSurface" />
+
+            <TextView
+                android:id="@+id/pro_title_view"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingStart="24dp"
+                android:layout_marginTop="2dp"
+                android:text="@string/pro_title"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorSurfaceVariant" />
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/pro_scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        app:layout_constraintBottom_toTopOf="@+id/pro_purschase_box"
+        app:layout_constraintTop_toBottomOf="@id/pro_header_container">
 
         <LinearLayout
             android:id="@+id/pro_linear"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="180dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/pro_title_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/pro_get_more_out"
-                android:textSize="20sp"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginEnd="@dimen/margin"
-                android:textStyle="bold"
-                android:textColor="?attr/colorOnSecondaryContainer"
-                android:alpha="1"
-                android:layout_marginTop="@dimen/margin"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="40dp"
+            android:paddingTop="16dp">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="@string/pro_descr"
-                android:textSize="16sp"
-                android:textColor="?attr/colorOnSecondaryContainer"
                 android:alpha="0.7"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginEnd="@dimen/margin"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginHorizontal="24dp"
+                android:text="@string/pro_descr"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="16sp" />
 
-            <include
-                layout="@layout/pro_options_layout" />
+            <include layout="@layout/pro_options_layout" />
 
             <!-- Cards of unlocks in PRO Version -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="textStart"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/pro_features_title"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginEnd="@dimen/margin"
                 android:textColor="?attr/colorOnSecondaryContainer"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="2dp"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="textStart"
-                android:text="@string/pro_features_descr"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginEnd="@dimen/margin"
-                android:textColor="?attr/colorOnSecondaryContainer"
-                android:textSize="14sp"
-                android:textStyle="normal"
                 android:alpha="0.7"
-                android:layout_marginTop="4dp"/>
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/pro_features_descr"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="2dp">
+                android:layout_marginTop="8dp"
+                android:paddingBottom="2dp"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="8dp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="280dp"
+                        android:layout_height="400dp"
+                        android:layout_margin="8dp"
                         app:cardCornerRadius="18dp"
-                        android:layout_margin="@dimen/margin"
-                        android:layout_height="360dp">
+                        app:cardElevation="2dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -100,17 +131,17 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="0.55"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/additional_data_2" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="0.45"
                                 android:orientation="vertical"
-                                android:padding="12dp">
+                                android:padding="16dp">
 
                                 <TextView
                                     android:id="@+id/pro_data_lock"
@@ -122,16 +153,16 @@
                                     android:text="@string/pro_upgrade_to_pro"
                                     android:textAllCaps="true"
                                     android:textColor="?attr/colorAccent"
-                                    android:textSize="17sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
+                                    android:layout_marginTop="8dp"
                                     android:text="@string/pro_additional_data"
-                                    android:textColor="?attr/colorOnSecondaryContainer"
-                                    android:textSize="14sp"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -140,9 +171,8 @@
                                     android:layout_marginTop="4dp"
                                     android:alpha="0.7"
                                     android:text="@string/pro_additional_data_descr"
-                                    android:textColor="?attr/colorOnSecondaryContainer"
-                                    android:textSize="13sp"
-                                    android:textStyle="bold" />
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:textSize="13sp" />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -150,29 +180,30 @@
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="280dp"
+                        android:layout_height="400dp"
+                        android:layout_margin="8dp"
                         app:cardCornerRadius="18dp"
-                        android:layout_margin="@dimen/margin"
-                        android:layout_height="360dp">
+                        app:cardElevation="2dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:background="?attr/colorSurfaceVariant">
+                            android:background="?attr/colorSurfaceVariant"
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="0.55"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/additional_tables_2" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="0.45"
                                 android:orientation="vertical"
-                                android:padding="12dp"
-                                android:layout_weight="0.45">
+                                android:padding="16dp">
 
                                 <TextView
                                     android:id="@+id/pro_table_lock"
@@ -184,36 +215,36 @@
                                     android:text="@string/pro_upgrade_to_pro"
                                     android:textAllCaps="true"
                                     android:textColor="?attr/colorAccent"
-                                    android:textSize="17sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
                                     android:text="@string/pro_additional_tables"
-                                    android:textSize="14sp"
-                                    android:layout_marginTop="4dp"
-                                    android:textColor="?attr/colorOnSecondaryContainer"
-                                    android:textStyle="bold"/>
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/pro_additional_tables_descr"
-                                    android:textSize="13sp"
                                     android:layout_marginTop="4dp"
-                                    android:textColor="?attr/colorOnSecondaryContainer"
                                     android:alpha="0.7"
-                                    android:textStyle="bold"/>
+                                    android:text="@string/pro_additional_tables_descr"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:textSize="13sp" />
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="280dp"
-                        android:layout_height="360dp"
-                        android:layout_margin="@dimen/margin"
-                        app:cardCornerRadius="18dp">
+                        android:layout_height="400dp"
+                        android:layout_margin="8dp"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="2dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -223,17 +254,17 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="0.55"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/additional_flashcards" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="0.45"
                                 android:orientation="vertical"
-                                android:padding="12dp">
+                                android:padding="16dp">
 
                                 <TextView
                                     android:id="@+id/pro_flashcard_lock"
@@ -245,16 +276,16 @@
                                     android:text="@string/pro_upgrade_to_pro"
                                     android:textAllCaps="true"
                                     android:textColor="?attr/colorAccent"
-                                    android:textSize="17sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
+                                    android:layout_marginTop="8dp"
                                     android:text="@string/pro_additional_flashcards"
-                                    android:textColor="?attr/colorOnSecondaryContainer"
-                                    android:textSize="14sp"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -263,18 +294,18 @@
                                     android:layout_marginTop="4dp"
                                     android:alpha="0.7"
                                     android:text="@string/pro_additional_flashcards_descr"
-                                    android:textColor="?attr/colorOnSecondaryContainer"
-                                    android:textSize="13sp"
-                                    android:textStyle="bold" />
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:textSize="13sp" />
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="280dp"
-                        android:layout_height="360dp"
-                        android:layout_margin="@dimen/margin"
-                        app:cardCornerRadius="18dp">
+                        android:layout_height="400dp"
+                        android:layout_margin="8dp"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="2dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -284,17 +315,17 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="0.55"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/additional_sync" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="0.45"
                                 android:orientation="vertical"
-                                android:padding="12dp">
+                                android:padding="16dp">
 
                                 <TextView
                                     android:id="@+id/pro_sync_lock"
@@ -306,16 +337,16 @@
                                     android:text="@string/pro_upgrade_to_pro"
                                     android:textAllCaps="true"
                                     android:textColor="?attr/colorAccent"
-                                    android:textSize="17sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
+                                    android:layout_marginTop="8dp"
                                     android:text="@string/pro_additional_sync"
-                                    android:textColor="?attr/colorOnSecondaryContainer"
-                                    android:textSize="14sp"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -324,19 +355,18 @@
                                     android:layout_marginTop="4dp"
                                     android:alpha="0.7"
                                     android:text="@string/pro_additional_sync_descr"
-                                    android:textColor="?attr/colorOnSecondaryContainer"
-                                    android:textSize="13sp"
-                                    android:textStyle="bold" />
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:textSize="13sp" />
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
-
                     <androidx.cardview.widget.CardView
                         android:layout_width="280dp"
-                        android:layout_height="360dp"
-                        android:layout_margin="@dimen/margin"
-                        app:cardCornerRadius="18dp">
+                        android:layout_height="400dp"
+                        android:layout_margin="8dp"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="2dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -346,17 +376,17 @@
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="0.55"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/additional_calculator_2" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="0.45"
                                 android:orientation="vertical"
-                                android:padding="12dp">
+                                android:padding="16dp">
 
                                 <TextView
                                     android:id="@+id/pro_calculator_lock"
@@ -368,16 +398,16 @@
                                     android:text="@string/pro_upgrade_to_pro"
                                     android:textAllCaps="true"
                                     android:textColor="?attr/colorAccent"
-                                    android:textSize="17sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="4dp"
+                                    android:layout_marginTop="8dp"
                                     android:text="@string/pro_better_calculator"
-                                    android:textColor="?attr/colorOnSecondaryContainer"
-                                    android:textSize="14sp"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="16sp"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -386,70 +416,69 @@
                                     android:layout_marginTop="4dp"
                                     android:alpha="0.7"
                                     android:text="@string/pro_better_calculator_descr"
-                                    android:textColor="?attr/colorOnSecondaryContainer"
-                                    android:textSize="13sp"
-                                    android:textStyle="bold" />
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:textSize="13sp" />
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="280dp"
+                        android:layout_height="400dp"
+                        android:layout_margin="8dp"
                         app:cardCornerRadius="18dp"
-                        android:layout_margin="@dimen/margin"
-                        android:layout_height="360dp">
+                        app:cardElevation="2dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:background="?attr/colorSurfaceVariant">
+                            android:background="?attr/colorSurfaceVariant"
+                            android:orientation="vertical">
 
                             <ImageView
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="0dp"
                                 android:layout_weight="0.55"
                                 android:scaleType="centerCrop"
                                 android:src="@drawable/additional_vis_2" />
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="0.45"
                                 android:orientation="vertical"
-                                android:padding="12dp"
-                                android:layout_weight="0.45">
+                                android:padding="16dp">
 
                                 <TextView
+                                    android:id="@+id/pro_visualisation_lock"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/pro_visualisation_lock"
                                     android:drawableStart="@drawable/ic_lock"
                                     android:drawablePadding="4dp"
                                     android:drawableTint="?attr/colorAccent"
                                     android:text="@string/pro_upgrade_to_pro"
                                     android:textAllCaps="true"
                                     android:textColor="?attr/colorAccent"
-                                    android:textSize="17sp"
+                                    android:textSize="14sp"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
                                     android:text="@string/pro_additional_visualisations"
-                                    android:textSize="14sp"
-                                    android:layout_marginTop="4dp"
-                                    android:textColor="?attr/colorOnSecondaryContainer"
-                                    android:textStyle="bold"/>
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="@string/pro_additional_visualisations_descr"
-                                    android:textSize="13sp"
                                     android:layout_marginTop="4dp"
-                                    android:textColor="?attr/colorOnSecondaryContainer"
                                     android:alpha="0.7"
-                                    android:textStyle="bold"/>
+                                    android:text="@string/pro_additional_visualisations_descr"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:textSize="13sp" />
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
@@ -457,100 +486,87 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-            <include
-                layout="@layout/pro_more" />
+            <include layout="@layout/pro_more" />
 
             <TextView
                 android:id="@+id/product_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/pro_already_purchased_title"
-                android:textColor="?attr/colorOnSecondaryContainer"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:text="@string/pro_already_purchased_title"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="4dp"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/product_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                android:padding="8dp"
                 android:text="@string/pro_already_purchased_check"
                 android:textColor="?attr/colorAccent"
-                android:layout_marginBottom="100dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_gravity="center_horizontal" />
+                android:textSize="14sp" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="40dp"/>
         </LinearLayout>
     </ScrollView>
 
+    <!-- Purchase Box at bottom -->
     <FrameLayout
         android:id="@+id/pro_purschase_box"
         android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:visibility="gone"
+        android:layout_height="80dp"
         android:background="?attr/colorSurfaceVariant"
-        android:elevation="4dp"
-        android:layout_gravity="bottom">
+        android:elevation="8dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <FrameLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top">
+            android:layout_height="match_parent"
+            android:paddingHorizontal="24dp">
 
-            <TextView
-                android:id="@+id/pro_price"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="30dp"
-                android:text="@string/pro_price_loading"
-                android:textColor="?attr/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/pro_price_discount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="30dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/pro_price_discount"
-                android:textColor="?attr/colorPrimary"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                <TextView
+                    android:id="@+id/pro_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pro_price_loading"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <TextView
+                <TextView
+                    android:id="@+id/pro_price_discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pro_price_discount"
+                    android:textColor="?attr/colorSecondary"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/buy_btn"
+                style="@style/Widget.Material3.Button"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_gravity="end"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginTop="@dimen/margin"
-                android:layout_marginEnd="@dimen/margin"
-                android:layout_marginBottom="@dimen/margin"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorPrimary"
-                android:clickable="true"
-                android:elevation="2dp"
-                android:focusable="true"
-                android:foreground="@drawable/c_ripple"
-                android:gravity="center_vertical"
-                android:paddingStart="24dp"
-                android:paddingEnd="24dp"
+                android:layout_height="wrap_content"
                 android:text="@string/get_pro_title"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp"
-                android:textStyle="normal" />
-        </FrameLayout>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
-</FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

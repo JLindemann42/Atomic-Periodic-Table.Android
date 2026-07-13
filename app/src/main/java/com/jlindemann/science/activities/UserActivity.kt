@@ -44,6 +44,7 @@ import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.sync.ProgressSyncManager
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.concurrent.Executors
@@ -51,6 +52,7 @@ import java.util.concurrent.Executors
 class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListener {
     private val TAG = "UserActivity"
 
+    private lateinit var titleBar: UnifiedTitleBarController
     private var achievementsList = ArrayList<Achievement>()
     private lateinit var recyclerView: RecyclerView
     private var mAdapter: AchievementAdapter? = null
@@ -195,8 +197,19 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
 
         findViewById<ConstraintLayout>(R.id.view_user).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        setupTitleController()
-        setupBackButton()
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.user_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
+        setupTitleController(titleSurface)
         setupStats()
         rateSetup()
         shareSetup()
@@ -339,9 +352,9 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
 
     private fun setUserTitleViews(name: String) {
         val downState = findViewById<TextView>(R.id.user_title_downstate)
-        val upState = findViewById<TextView>(R.id.user_title)
+        val upState = titleBar.titleView
         downState?.text = name
-        upState?.text = name
+        upState.text = name
     }
 
     private fun updateUi() {
@@ -401,7 +414,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
 
         // perform sync for Pro/Pro+ users
         tvSyncStatus.text = getString(R.string.syncing_progress)
-        ProgressSyncManager.mergeAndUploadLocalProgress(this, uid) { success ->
+        ProgressSyncManager.mergeAndUploadLocalProgress(this, uid) { success: Boolean ->
             runOnUiThread {
                 tvSyncStatus.text = if (success) getString(R.string.sync_complete) else getString(R.string.sync_failed)
                 // Always refresh the achievements/statistics view after a sync attempt
@@ -433,30 +446,24 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         }
     }
 
-    private fun setupTitleController() {
-        findViewById<FrameLayout>(R.id.common_title_user_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.user_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_user).elevation = resources.getDimension(R.dimen.zero_elevation)
+    private fun setupTitleController(titleSurface: View) {
         findViewById<ScrollView>(R.id.user_scroll).viewTreeObserver.addOnScrollChangedListener {
             val scrollY = findViewById<ScrollView>(R.id.user_scroll).scrollY
             if (scrollY > 150) {
-                findViewById<FrameLayout>(R.id.common_title_user_color).visibility = View.VISIBLE
-                findViewById<TextView>(R.id.user_title).visibility = View.VISIBLE
+                titleSurface.visibility = View.VISIBLE
+                titleBar.titleView.visibility = View.VISIBLE
                 findViewById<TextView>(R.id.user_title_downstate).visibility = View.INVISIBLE
-                findViewById<FrameLayout>(R.id.common_title_back_user).elevation = resources.getDimension(R.dimen.one_elevation)
+                titleBar.container.elevation = resources.getDimension(R.dimen.one_elevation)
             } else {
-                findViewById<FrameLayout>(R.id.common_title_user_color).visibility = View.INVISIBLE
-                findViewById<TextView>(R.id.user_title).visibility = View.INVISIBLE
+                titleSurface.visibility = View.INVISIBLE
+                titleBar.titleView.visibility = View.INVISIBLE
                 findViewById<TextView>(R.id.user_title_downstate).visibility = View.VISIBLE
-                findViewById<FrameLayout>(R.id.common_title_back_user).elevation = resources.getDimension(R.dimen.zero_elevation)
+                titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
             }
         }
     }
 
     private fun setupBackButton() {
-        findViewById<MaterialButton>(R.id.back_btn).setOnClickListener {
-            onBackPressed()
-        }
     }
 
     private fun setupRecyclerView() {
@@ -523,12 +530,12 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_user).layoutParams as ViewGroup.LayoutParams
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_user).layoutParams = params
+        titleBar.container.layoutParams = params
 
         val params2 = findViewById<MaterialCardView>(R.id.user_img_container).layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        params2.topMargin = top
         findViewById<MaterialCardView>(R.id.user_img_container).layoutParams = params2
     }
 

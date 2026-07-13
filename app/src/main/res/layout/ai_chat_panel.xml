@@ -84,6 +84,17 @@
                 android:textStyle="bold"
                 app:drawableStartCompat="@drawable/ic_ai_mascot" />
 
+            <TextView
+                android:id="@+id/ai_message_limit_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="6dp"
+                android:text="0/0"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
             <ImageButton
                 android:id="@+id/ai_history_btn"
                 style="?android:attr/borderlessButtonStyle"
@@ -116,7 +127,7 @@
                     android:layout_marginEnd="56dp"
                     android:padding="10dp"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_chat"
+                    android:src="@drawable/ic_add"
                     app:tint="?attr/colorOnSurfaceVariant" />
 
 
@@ -128,6 +139,7 @@
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="56dp"
                 android:padding="12dp"
+                    android:visibility="gone"
                 android:src="@drawable/ic_language"
                 app:tint="?attr/colorOnSurfaceVariant" />
 

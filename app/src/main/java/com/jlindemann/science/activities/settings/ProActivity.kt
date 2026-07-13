@@ -2,10 +2,12 @@ package com.jlindemann.science.activities.settings
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
@@ -70,15 +72,14 @@ class ProActivity : BaseActivity(), BillingManager.Listener {
             }
         }
 
-        findViewById<MaterialButton>(R.id.back_btn_pro).setOnClickListener {
-            this.onBackPressed()
-        }
-
         // NEW: Handle click on "product_text"
         findViewById<TextView>(R.id.product_text)?.setOnClickListener {
             checkAndSetPreferences()
             showUserProductsToast()
         }
+
+        findViewById<View>(R.id.back_btn_pro).visibility = View.VISIBLE
+        findViewById<View>(R.id.back_btn_pro).setOnClickListener { onBackPressedDispatcher.onBackPressed() }
     }
 
     override fun onDestroy() {
@@ -266,5 +267,15 @@ class ProActivity : BaseActivity(), BillingManager.Listener {
             proCard?.alpha = 1.0f
             proPlusCard?.alpha = 1.0f
         }
+    }
+
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
+        val params = findViewById<View>(R.id.pro_header_container).layoutParams as ViewGroup.LayoutParams
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        findViewById<View>(R.id.pro_header_container).layoutParams = params
+
+        val params2 = findViewById<LinearLayout>(R.id.pro_linear).layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin = 0 // Padding is enough
+        findViewById<LinearLayout>(R.id.pro_linear).layoutParams = params2
     }
 }

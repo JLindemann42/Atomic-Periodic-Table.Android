@@ -1,6 +1,7 @@
 package com.jlindemann.science.activities.tools
 
 import com.jlindemann.science.utils.GameResultItem
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
@@ -16,6 +17,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.card.MaterialCardView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.activities.tools.FlashCardActivity
@@ -40,6 +43,7 @@ class LearningGamesActivity : BaseActivity() {
     private var hasLeftGame = false
     private var leaveDialogShowing = false
     private var quizCompleted = false
+    private lateinit var titleBar: UnifiedTitleBarController
     private lateinit var category: String
 
     private val handler = Handler(Looper.getMainLooper())
@@ -73,7 +77,7 @@ class LearningGamesActivity : BaseActivity() {
         if (themePrefValue == 1) setTheme(R.style.AppThemeDark)
 
         setContentView(R.layout.activity_learninggames)
-        findViewById<FrameLayout>(R.id.view_learn).systemUiVisibility =
+        findViewById<ConstraintLayout>(R.id.view_learn).systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         difficulty = intent.getStringExtra("difficulty") ?: "easy"
@@ -95,23 +99,31 @@ class LearningGamesActivity : BaseActivity() {
         setupQuestionUI()
         updateLivesCount()
         setupAnswerListeners()
-        setupBackButton()
+
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.flashcards_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { showExitConfirmationDialog() }
+
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
 
         //Title Controller
-        findViewById<FrameLayout>(R.id.common_title_back_learn_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.learn_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_learn).elevation = (resources.getDimension(R.dimen.zero_elevation))
         findViewById<ScrollView>(R.id.quiz_scroll).viewTreeObserver
             .addOnScrollChangedListener {
                 val scrollY = findViewById<ScrollView>(R.id.quiz_scroll).scrollY
                 if (scrollY > 150) {
-                    findViewById<FrameLayout>(R.id.common_title_back_learn_color).visibility = View.VISIBLE
-                    findViewById<TextView>(R.id.learn_title).visibility = View.VISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_learn).elevation = resources.getDimension(R.dimen.one_elevation)
+                    titleSurface.visibility = View.VISIBLE
+                    titleBar.titleView.visibility = View.VISIBLE
+                    titleBar.container.elevation = resources.getDimension(R.dimen.one_elevation)
                 } else {
-                    findViewById<FrameLayout>(R.id.common_title_back_learn_color).visibility = View.INVISIBLE
-                    findViewById<TextView>(R.id.learn_title).visibility = View.INVISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_learn).elevation = resources.getDimension(R.dimen.zero_elevation)
+                    titleSurface.visibility = View.INVISIBLE
+                    titleBar.titleView.visibility = View.INVISIBLE
+                    titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
                 }
             }
 
@@ -143,10 +155,10 @@ class LearningGamesActivity : BaseActivity() {
 
     private fun setupAnswerListeners() {
         val answerCards = listOf(
-            findViewById<LinearLayout>(R.id.answer_1),
-            findViewById<LinearLayout>(R.id.answer_2),
-            findViewById<LinearLayout>(R.id.answer_3),
-            findViewById<LinearLayout>(R.id.answer_4)
+            findViewById<MaterialCardView>(R.id.answer_1),
+            findViewById<MaterialCardView>(R.id.answer_2),
+            findViewById<MaterialCardView>(R.id.answer_3),
+            findViewById<MaterialCardView>(R.id.answer_4)
         )
         answerCards.forEachIndexed { index, card ->
             card.setOnClickListener {
@@ -165,11 +177,6 @@ class LearningGamesActivity : BaseActivity() {
         }
     }
 
-    private fun setupBackButton() {
-        findViewById<ImageButton>(R.id.back_btn_learn).setOnClickListener {
-            showExitConfirmationDialog()
-        }
-    }
 
     override fun onBackPressed() {
         showExitConfirmationDialog()
@@ -270,17 +277,17 @@ class LearningGamesActivity : BaseActivity() {
         }
 
         if (category == "radioactive") {
-            findViewById<LinearLayout>(R.id.answer_3).visibility = View.GONE
-            findViewById<LinearLayout>(R.id.answer_4).visibility = View.GONE
+            findViewById<MaterialCardView>(R.id.answer_3).visibility = View.GONE
+            findViewById<MaterialCardView>(R.id.answer_4).visibility = View.GONE
         } else if (category == "electrical_type") {
-            findViewById<LinearLayout>(R.id.answer_4).visibility = View.GONE
+            findViewById<MaterialCardView>(R.id.answer_4).visibility = View.GONE
         }
         else if (category == "phase_stp") {
-            findViewById<LinearLayout>(R.id.answer_4).visibility = View.GONE
+            findViewById<MaterialCardView>(R.id.answer_4).visibility = View.GONE
         }
         else {
-            findViewById<LinearLayout>(R.id.answer_3).visibility = View.VISIBLE
-            findViewById<LinearLayout>(R.id.answer_4).visibility = View.VISIBLE
+            findViewById<MaterialCardView>(R.id.answer_3).visibility = View.VISIBLE
+            findViewById<MaterialCardView>(R.id.answer_4).visibility = View.VISIBLE
         }
 
         grid.animate().alpha(1f).setDuration(300).start()
@@ -290,10 +297,10 @@ class LearningGamesActivity : BaseActivity() {
 
     private fun setAnswerEnabled(enabled: Boolean) {
         listOf(
-            findViewById<LinearLayout>(R.id.answer_1),
-            findViewById<LinearLayout>(R.id.answer_2),
-            findViewById<LinearLayout>(R.id.answer_3),
-            findViewById<LinearLayout>(R.id.answer_4)
+            findViewById<MaterialCardView>(R.id.answer_1),
+            findViewById<MaterialCardView>(R.id.answer_2),
+            findViewById<MaterialCardView>(R.id.answer_3),
+            findViewById<MaterialCardView>(R.id.answer_4)
         ).forEach {
             it.isEnabled = enabled
         }
@@ -906,9 +913,9 @@ class LearningGamesActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_learn).layoutParams as ViewGroup.LayoutParams
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_learn).layoutParams = params
+        titleBar.container.layoutParams = params
 
         val params2 = findViewById<TextView>(R.id.tv_question_number).layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) +

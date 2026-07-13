@@ -16,6 +16,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
@@ -24,6 +25,7 @@ import com.jlindemann.science.activities.FavoriteCompound
 import com.jlindemann.science.activities.FavoriteCompoundsAdapter
 import com.jlindemann.science.activities.IncludedElementsAdapter
 import com.jlindemann.science.activities.Quadruple
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.model.Statistics
@@ -38,6 +40,7 @@ import java.io.IOException
 
 class CalculatorActivity : BaseActivity() {
 
+    private lateinit var titleBar: UnifiedTitleBarController
     private lateinit var includedElementsAdapter: IncludedElementsAdapter
     private lateinit var favoriteCompoundsAdapter: FavoriteCompoundsAdapter
     private var isFormatting: Boolean = false
@@ -63,11 +66,19 @@ class CalculatorActivity : BaseActivity() {
         }
 
         setContentView(R.layout.activity_calculator)
-        findViewById<FrameLayout>(R.id.view_cal).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view_cal).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        findViewById<View>(R.id.back_btn_cal).setOnClickListener {
-            this.onBackPressed()
-        }
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.calculator_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
 
         updateStats()
 
@@ -75,28 +86,23 @@ class CalculatorActivity : BaseActivity() {
         sharedPreferences = getSharedPreferences("CalculatorPrefs", Context.MODE_PRIVATE)
 
         //Title Controller
-        findViewById<FrameLayout>(R.id.common_title_back_cal_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.calculator_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_cal).elevation = resources.getDimension(R.dimen.zero_elevation)
         findViewById<ScrollView>(R.id.calculator_scroll).viewTreeObserver
             .addOnScrollChangedListener {
                 val scrollY = findViewById<ScrollView>(R.id.calculator_scroll).scrollY
                 if (scrollY > 150) {
-                    findViewById<FrameLayout>(R.id.common_title_back_cal_color).visibility = View.VISIBLE
-                    findViewById<TextView>(R.id.calculator_title).visibility = View.VISIBLE
+                    titleSurface.visibility = View.VISIBLE
+                    titleBar.titleView.visibility = View.VISIBLE
                     findViewById<TextView>(R.id.calculator_title_downstate).visibility = View.INVISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_cal).elevation = resources.getDimension(R.dimen.one_elevation)
+                    titleBar.container.elevation = resources.getDimension(R.dimen.one_elevation)
                 } else {
-                    findViewById<FrameLayout>(R.id.common_title_back_cal_color).visibility = View.INVISIBLE
-                    findViewById<TextView>(R.id.calculator_title).visibility = View.INVISIBLE
+                    titleSurface.visibility = View.INVISIBLE
+                    titleBar.titleView.visibility = View.INVISIBLE
                     findViewById<TextView>(R.id.calculator_title_downstate).visibility = View.VISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_cal).elevation = resources.getDimension(R.dimen.zero_elevation)
+                    titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
                 }
             }
 
         inputController()
-
-        //Add value to most used:
         val mostUsedPreference = MostUsedToolPreference(this)
         val mostUsedPrefValue = mostUsedPreference.getValue()
         val targetLabel = "cal"
@@ -113,8 +119,6 @@ class CalculatorActivity : BaseActivity() {
             val blockCharacterSet = "/-%¤#!@&£$€{}^¨~<>`´="
             if (blockCharacterSet.any { it in source }) "" else null
         })
-
-        findViewById<ImageButton>(R.id.back_btn_cal).setOnClickListener { this.onBackPressed() }
 
         //Show hint text at start:
         findViewById<TextView>(R.id.hint_calc_text).visibility = View.VISIBLE
@@ -341,9 +345,9 @@ class CalculatorActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_cal).layoutParams as ViewGroup.LayoutParams
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_cal).layoutParams = params
+        titleBar.container.layoutParams = params
 
         val params2 = findViewById<TextView>(R.id.calculator_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)

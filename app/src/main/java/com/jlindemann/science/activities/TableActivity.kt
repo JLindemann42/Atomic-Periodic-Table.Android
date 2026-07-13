@@ -6,22 +6,22 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
+import com.google.android.material.button.MaterialButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.tables.*
 import com.jlindemann.science.adapter.TableAdapter
-import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.model.TableItem
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.TableOrderPreference
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.UnifiedTitleBarController
 
 class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
 
@@ -29,7 +29,8 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
     private lateinit var recyclerView: DragDropSwipeRecyclerView
     private lateinit var tableOrderPref: TableOrderPreference
     private var isReorderMode = false
-    private lateinit var reorderBtn: ImageButton
+    private lateinit var reorderBtn: MaterialButton
+    private lateinit var titleBar: UnifiedTitleBarController
 
     private var headerView: View? = null
     private var lastTopInset = 0
@@ -54,15 +55,6 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
         tableOrderPref = TableOrderPreference(this)
         setupRecyclerView()
         setupTitleBar()
-
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
-            this.onBackPressed()
-        }
-
-        reorderBtn = findViewById(R.id.reorder_btn)
-        reorderBtn.setOnClickListener {
-            toggleReorderMode()
-        }
     }
 
     private fun setupRecyclerView() {
@@ -132,14 +124,16 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
         adapter.setReorderMode(isReorderMode)
         
         if (isReorderMode) {
-            reorderBtn.setImageResource(R.drawable.ic_check_2)
+            reorderBtn.setIconResource(R.drawable.ic_check_2)
             val typedValue = android.util.TypedValue()
             theme.resolveAttribute(R.attr.colorAccent, typedValue, true)
-            reorderBtn.setColorFilter(typedValue.data)
+            reorderBtn.iconTint = android.content.res.ColorStateList.valueOf(typedValue.data)
             reorderBtn.alpha = 1.0f
         } else {
-            reorderBtn.setImageResource(R.drawable.ic_edit)
-            reorderBtn.clearColorFilter()
+            reorderBtn.setIconResource(R.drawable.ic_edit)
+            val typedValue = android.util.TypedValue()
+            theme.resolveAttribute(com.google.android.material.R.attr.colorOnSecondaryContainer, typedValue, true)
+            reorderBtn.iconTint = android.content.res.ColorStateList.valueOf(typedValue.data)
             reorderBtn.alpha = 1.0f
             saveTableOrder()
         }
@@ -176,10 +170,14 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
     }
 
     private fun setupTitleBar() {
-        /// Title Controller with animated visibility
-        findViewById<FrameLayout>(R.id.common_title_table_color).visibility = View.VISIBLE
-        findViewById<TextView>(R.id.tables_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_tab).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.activity_table_title)
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+        titleBar.setAction(R.drawable.ic_edit) { toggleReorderMode() }
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+        reorderBtn = titleBar.actionButton
         
         var totalScrollY = 0
         var isTitleVisible = false // Track animation state
@@ -200,9 +198,9 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         lastTopInset = top
-        val params = findViewById<FrameLayout>(R.id.common_title_back_tab).layoutParams as ViewGroup.LayoutParams
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_tab).layoutParams = params
+        titleBar.container.layoutParams = params
 
         headerView?.let {
             applyHeaderInsets(it, top)
@@ -284,5 +282,3 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
     }
 
 }
-
-

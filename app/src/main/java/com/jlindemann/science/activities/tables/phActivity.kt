@@ -20,12 +20,15 @@ import com.google.android.material.button.MaterialButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.model.*
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ThemePreference
 import kotlin.collections.ArrayList
 
 
 class phActivity : BaseActivity()  {
+    private lateinit var titleBar: UnifiedTitleBarController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val themePreference = ThemePreference(this)
@@ -44,23 +47,32 @@ class phActivity : BaseActivity()  {
         indicatorListener()
         findViewById<ConstraintLayout>(R.id.view_ph).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.activity_ph_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
         // Title Controller
-        findViewById<FrameLayout>(R.id.common_title_ph_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.ph_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_ph).elevation = (resources.getDimension(R.dimen.zero_elevation))
         findViewById<ScrollView>(R.id.ph_scroll).viewTreeObserver
             .addOnScrollChangedListener {
                 val scrollY = findViewById<ScrollView>(R.id.ph_scroll).scrollY
                 if (scrollY > 150) {
-                    findViewById<FrameLayout>(R.id.common_title_ph_color).visibility = View.VISIBLE
-                    findViewById<TextView>(R.id.ph_title).visibility = View.VISIBLE
+                    titleSurface.visibility = View.VISIBLE
+                    titleBar.titleView.visibility = View.VISIBLE
                     findViewById<TextView>(R.id.ph_title_downstate).visibility = View.INVISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_ph).elevation = resources.getDimension(R.dimen.one_elevation)
+                    titleBar.container.elevation = resources.getDimension(R.dimen.one_elevation)
                 } else {
-                    findViewById<FrameLayout>(R.id.common_title_ph_color).visibility = View.INVISIBLE
-                    findViewById<TextView>(R.id.ph_title).visibility = View.INVISIBLE
+                    titleSurface.visibility = View.INVISIBLE
+                    titleBar.titleView.visibility = View.INVISIBLE
                     findViewById<TextView>(R.id.ph_title_downstate).visibility = View.VISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_ph).elevation = resources.getDimension(R.dimen.zero_elevation)
+                    titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
                 }
             }
 
@@ -77,9 +89,6 @@ class phActivity : BaseActivity()  {
         }
 
         //Set-up for back button
-        findViewById<MaterialButton>(R.id.back_btn_ph).setOnClickListener {
-            this.onBackPressed()
-        }
     }
 
     private fun indicatorListener() {
@@ -116,9 +125,9 @@ class phActivity : BaseActivity()  {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val paramsTitle = findViewById<FrameLayout>(R.id.common_title_back_ph).layoutParams as ViewGroup.LayoutParams
+        val paramsTitle = titleBar.container.layoutParams as ViewGroup.LayoutParams
         paramsTitle.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_ph).layoutParams = paramsTitle
+        titleBar.container.layoutParams = paramsTitle
 
         val params2 = findViewById<TextView>(R.id.ph_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)

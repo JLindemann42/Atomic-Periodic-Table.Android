@@ -22,9 +22,13 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 24
         targetSdkVersion 36
-        versionCode 218
+        versionCode 220
         versionName "5.0.0m"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            // Ship only 16KB-compatible ABI for native dependencies.
+            abiFilters "arm64-v8a"
+        }
     }
     buildTypes {
         release {
@@ -32,9 +36,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
 
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {}
-            }
         }
     }
     sourceSets {
@@ -54,6 +55,13 @@ android {
     }
 
     namespace 'com.jlindemann.science'
+
+    // Ensure native libraries are packaged with 16KB alignment for compatibility on older devices
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
 }
 
 dependencies {
@@ -95,6 +103,8 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
     implementation 'com.google.android.recaptcha:recaptcha:18.5.1'
+    // TensorFlow Lite runtime for on-device embedding inference
+    implementation 'org.tensorflow:tensorflow-lite:2.17.0'
 
     def billing_version = "8.0.0"
     implementation "com.android.billingclient:billing-ktx:$billing_version"

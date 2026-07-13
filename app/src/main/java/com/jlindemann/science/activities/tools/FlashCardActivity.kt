@@ -47,10 +47,12 @@ import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.utils.StreakManager
 import com.jlindemann.science.auth.AuthManager
 import com.jlindemann.science.sync.ProgressSyncManager
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import org.w3c.dom.Text
 
 class FlashCardActivity : BaseActivity() {
 
+    private lateinit var titleBar: UnifiedTitleBarController
     private lateinit var toggles: List<ToggleButton>
     private lateinit var infoText: TextView
     private var resultDialog: ResultDialogFragment? = null
@@ -294,11 +296,8 @@ class FlashCardActivity : BaseActivity() {
             tvSyncStatus?.visibility = View.GONE
         }
 
-        // --- Rest of UI wiring (preserve existing initialization) ---
-        findViewById<TextView>(R.id.flashcard_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_fla).elevation = (resources.getDimension(R.dimen.zero_elevation))
 
-        val achievementsBtn = findViewById<ImageButton>(R.id.achievements_btn)
+        val achievementsBtn = findViewById<View>(R.id.achievements_btn)
         achievementsBtn.setOnClickListener {
             val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
@@ -343,6 +342,32 @@ class FlashCardActivity : BaseActivity() {
             val newValue = value + 1
             mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
         }
+
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.flashcards_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
+        findViewById<NestedScrollView>(R.id.flashcard_scroll).viewTreeObserver
+            .addOnScrollChangedListener {
+                val scrollY = findViewById<NestedScrollView>(R.id.flashcard_scroll).scrollY
+                if (scrollY > 150) {
+                    titleSurface.visibility = View.VISIBLE
+                    titleBar.titleView.visibility = View.VISIBLE
+                    titleBar.container.elevation = resources.getDimension(R.dimen.one_elevation)
+                } else {
+                    titleSurface.visibility = View.INVISIBLE
+                    titleBar.titleView.visibility = View.INVISIBLE
+                    titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+                }
+            }
 
         infoText = findViewById(R.id.tv_lives_info)
         setupDifficultyToggles()
@@ -872,7 +897,13 @@ class FlashCardActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        titleBar.container.layoutParams = params
 
+        val paramsContent = findViewById<LinearLayout>(R.id.flashcard_content_container).layoutParams as ViewGroup.MarginLayoutParams
+        paramsContent.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        findViewById<LinearLayout>(R.id.flashcard_content_container).layoutParams = paramsContent
     }
 
     private fun showLivesInfoPopup(anchor: View) {
@@ -1093,7 +1124,7 @@ class FlashCardActivity : BaseActivity() {
         setSyncStatus(getString(R.string.syncing_progress))
 
         // Call merge/upload. ProgressSyncManager handles merge rules (including streak).
-        ProgressSyncManager.mergeAndUploadLocalProgress(this, uid) { success ->
+        ProgressSyncManager.mergeAndUploadLocalProgress(this, uid) { success: Boolean ->
             runOnUiThread {
                 if (success) {
                     // Refresh UI to reflect merged state from cloud

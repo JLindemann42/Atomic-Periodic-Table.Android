@@ -569,25 +569,31 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     fun updateVersionBadge() {
         val versionBadge = findViewById<TextView>(R.id.version_badge) ?: return
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         val proPref = ProVersion(this)
         val proPlusPref = ProPlusVersion(this)
-        proPlusPref.setValue(100)
+
+        val isProPlus = proPlusPref.getValue() == 100
+        val isPro = proPref.getValue() == 100
 
         when {
-            proPlusPref.getValue() == 100 -> {
+            isProPlus -> {
                 versionBadge.text = getString(R.string.pro_plus_badge)
                 versionBadge.backgroundTintList = getColorStateListFromAttr(R.attr.colorTertiary)
                 versionBadge.setTextColor(getColorFromAttr(R.attr.colorOnTertiary))
+                bottomNav?.menu?.findItem(R.id.nav_pro)?.title = getString(R.string.get_pro_short)
             }
-            proPref.getValue() == 100 -> {
+            isPro -> {
                 versionBadge.text = getString(R.string.pro_title)
                 versionBadge.backgroundTintList = getColorStateListFromAttr(R.attr.colorPrimary)
                 versionBadge.setTextColor(getColorFromAttr(R.attr.colorOnPrimary))
+                bottomNav?.menu?.findItem(R.id.nav_pro)?.title = getString(R.string.get_pro_short)
             }
             else -> {
                 versionBadge.text = getString(R.string.free)
                 versionBadge.backgroundTintList = getColorStateListFromAttr(R.attr.colorSecondary)
                 versionBadge.setTextColor(getColorFromAttr(R.attr.colorOnSecondary))
+                bottomNav?.menu?.findItem(R.id.nav_pro)?.title = getString(R.string.get_pro)
             }
         }
     }
@@ -619,6 +625,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val aiRecyclerView = aiPanelRoot.findViewById<RecyclerView>(R.id.ai_chat_recycler) ?: return
         val aiMessageInput = aiPanelRoot.findViewById<EditText>(R.id.ai_message_input) ?: return
         val aiSendBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_send_btn) ?: return
+        aiPanelRoot.findViewById<TextView>(R.id.ai_message_limit_view) ?: return
         val aiLoadingIndicator = aiPanelRoot.findViewById<ProgressBar>(R.id.ai_loading_indicator) ?: return
         val aiLanguageBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_language_btn) ?: return
         val aiInputContainer = aiPanelRoot.findViewById<View>(R.id.ai_input_container) ?: return
@@ -637,7 +644,22 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         aiAgentManager = AIAgentManager(this)
         aiScope.launch {
             aiAgentManager.initialize()
-            if (aiChatMessages.isEmpty()) addAIGreeting()
+            updateAIMessageLimitView()
+            if (AuthManager.isSignedIn()) {
+                ChatHistoryManager.loadLatestChatSession { latest ->
+                    if (latest != null && aiChatMessages.isEmpty()) {
+                        aiScope.launch {
+                            aiAgentManager.setLanguage(latest.language)
+                            applyChatSession(latest)
+                            updateAIMessageLimitView()
+                        }
+                    } else if (aiChatMessages.isEmpty()) {
+                        addAIGreeting()
+                    }
+                }
+            } else if (aiChatMessages.isEmpty()) {
+                addAIGreeting()
+            }
         }
 
         aiLanguageBtn.setOnClickListener { showAILanguageMenu(aiLanguageBtn) }
@@ -710,10 +732,17 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             val selectedLang = languages[item.itemId]
             aiScope.launch {
                 aiAgentManager.setLanguage(selectedLang)
+                // Keep app locale preference aligned so next launches use the same language.
+                getSharedPreferences("settings", MODE_PRIVATE).edit()
+                    .putString("app_language", selectedLang)
+                    .remove("app_country")
+                    .apply()
                 val msg = ChatMessage(UUID.randomUUID().toString(), getString(R.string.ai_lang_switched, selectedLang.uppercase()), false, System.currentTimeMillis())
                 aiChatMessages.add(msg)
                 aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
                 findViewById<RecyclerView>(R.id.ai_chat_recycler)?.scrollToPosition(aiChatMessages.size - 1)
+                saveCurrentChatSession()
+                updateAIMessageLimitView()
             }
             true
         }
@@ -729,6 +758,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
         aiPanelContainerView.post { behavior.state = BottomSheetBehavior.STATE_EXPANDED }
         aiScrim.alpha = 1f
+        updateAIMessageLimitView()
         setBackInterceptionEnabled(true)
         startAIGradientPulsation(1500, 2)
     }
@@ -737,7 +767,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
         val gradientView = aiPanelRoot.findViewById<View>(R.id.ai_panel_gradient_view) ?: return
         aiGradientAnimator?.cancel()
-        aiGradientAnimator = ValueAnimator.ofFloat(0f, 0.6f).apply {
+        aiGradientAnimator = ValueAnimator.ofFloat(0f, 0.35f).apply {
             this.duration = duration
             this.repeatCount = repeatCount
             this.repeatMode = ValueAnimator.REVERSE
@@ -768,12 +798,24 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         aiAgentManager.clearConversation()
         aiAdapter?.notifyDataSetChanged()
         addAIGreeting()
+        updateAIMessageLimitView()
     }
 
     private fun addAIGreeting() {
         val greeting = ChatMessage(UUID.randomUUID().toString(), AIPersonality.getGreeting(this, aiAgentManager.getActiveLanguage()), false, System.currentTimeMillis())
         aiChatMessages.add(greeting)
         aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
+    }
+
+    private fun updateAIMessageLimitView() {
+        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
+        val limitView = aiPanelRoot.findViewById<TextView>(R.id.ai_message_limit_view) ?: return
+        if (!aiAgentManager.shouldShowMessageLimit()) {
+            limitView.visibility = View.GONE
+            return
+        }
+        limitView.visibility = View.VISIBLE
+        limitView.text = aiAgentManager.getMessageLimitDisplay()
     }
 
     private fun sendMessageToAI(text: String, input: EditText, loader: ProgressBar, recycler: RecyclerView) {
@@ -794,6 +836,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             recycler.scrollToPosition(aiChatMessages.size - 1)
             aiAgentManager.addToConversationHistory(response)
             saveCurrentChatSession()
+            updateAIMessageLimitView()
             stopAIGradientPulsation()
         }
     }
@@ -803,7 +846,13 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             if (currentChatSessionId == null) currentChatSessionId = UUID.randomUUID().toString()
             val firstUserMessage = aiChatMessages.firstOrNull { it.isFromUser }?.text ?: "New Chat"
             val title = if (firstUserMessage.length > 40) firstUserMessage.take(37) + "..." else firstUserMessage
-            val session = ChatSession(currentChatSessionId!!, title, System.currentTimeMillis(), aiChatMessages.toList())
+            val session = ChatSession(
+                id = currentChatSessionId!!,
+                title = title,
+                timestamp = System.currentTimeMillis(),
+                messages = aiChatMessages.toList(),
+                language = aiAgentManager.getActiveLanguage()
+            )
             ChatHistoryManager.saveChatSession(session) { success, id -> if (success && currentChatSessionId == null) currentChatSessionId = id }
         }
     }
@@ -827,12 +876,20 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     }
 
     private fun loadChatSession(session: ChatSession, historyContainer: View) {
+        aiScope.launch {
+            aiAgentManager.setLanguage(session.language)
+            applyChatSession(session)
+            updateAIMessageLimitView()
+            historyContainer.visibility = View.GONE
+        }
+    }
+
+    private fun applyChatSession(session: ChatSession) {
         aiChatMessages.clear()
         aiChatMessages.addAll(session.messages)
         currentChatSessionId = session.id
         aiAdapter?.notifyDataSetChanged()
         findViewById<RecyclerView>(R.id.ai_chat_recycler)?.scrollToPosition(aiChatMessages.size - 1)
-        historyContainer.visibility = View.GONE
         aiAgentManager.setConversationHistory(session.messages)
     }
 

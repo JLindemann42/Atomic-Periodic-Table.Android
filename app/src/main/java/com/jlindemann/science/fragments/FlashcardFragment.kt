@@ -41,6 +41,7 @@ import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.sync.ProgressSyncManager
 import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.util.XpManager
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import com.jlindemann.science.utils.StreakManager
 import java.util.concurrent.TimeUnit
 
@@ -183,15 +184,11 @@ class FlashcardFragment : BaseFragment() {
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.activity_flashcards, container, false)
+        return inflater.inflate(R.layout.fragment_flashcards, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Adjust top bar visibility and elevation since it's now a fragment
-        view.findViewById<TextView>(R.id.flashcard_title).visibility = View.VISIBLE
-        view.findViewById<FrameLayout>(R.id.common_title_back_fla).elevation = resources.getDimension(R.dimen.one_elevation)
 
         tvEnableSyncLogin = view.findViewById(R.id.enable_sync_login)
         tvSyncStatus = view.findViewById(R.id.sync_status)
@@ -660,7 +657,7 @@ class FlashcardFragment : BaseFragment() {
             return
         }
         setSyncStatus(getString(R.string.syncing_progress))
-        ProgressSyncManager.mergeAndUploadLocalProgress(requireContext(), uid) { success ->
+        ProgressSyncManager.mergeAndUploadLocalProgress(requireContext(), uid) { success: Boolean ->
             activity?.runOnUiThread {
                 if (success) {
                     view?.let {

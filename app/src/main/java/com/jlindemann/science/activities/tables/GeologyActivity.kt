@@ -30,6 +30,7 @@ import com.jlindemann.science.preferences.GeologyPreference
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import android.widget.TextView
 import java.util.*
 import kotlin.collections.ArrayList
@@ -37,6 +38,8 @@ import kotlin.collections.ArrayList
 class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
     private var geologyList = ArrayList<Geology>()
     var mAdapter = GeologyAdapter(geologyList, this, this)
+
+    private lateinit var titleBar: UnifiedTitleBarController
 
     // Unified back handling fields
     private var backCallback: OnBackPressedCallback? = null
@@ -82,13 +85,29 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         val item = ArrayList<Geology>()
         GeologyModel.getList(item)
 
-        recyclerView()
-        clickSearch()
-        chipListeners(item, recyclerView)
-
-        findViewById<View>(R.id.back_btn_geo).setOnClickListener {
-            this.onBackPressed()
+        //recyclerView()
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.activity_geology_title)
+        titleBar.setAction(R.drawable.ic_search) { titleBar.showSearch() }
+        titleBar.searchCloseButton.setOnClickListener {
+            titleBar.hideSearch()
+            titleBar.searchInput.setText("")
         }
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        setupChips(item, recyclerView)
+
+        // Initial filter to show all items
+        GeologyPreference(this).setValue("")
+        filter("", item, recyclerView)
+
+        findViewById<EditText>(R.id.unified_titlebar_search_input).addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){}
+            override fun afterTextChanged(s: Editable) {
+                filter(s.toString(), item, recyclerView)
+            }
+        })
     }
 
     override fun geologyClickListener(item: Geology, position: Int) {
@@ -111,45 +130,35 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         findViewById<RecyclerView>(R.id.geo_view).setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar_ph) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar_ph))
-        val params2 = findViewById<FrameLayout>(R.id.common_title_back_geo).layoutParams as ViewGroup.LayoutParams
+        val params2 = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
-        findViewById<FrameLayout>(R.id.common_title_back_geo).layoutParams = params2
+        titleBar.container.layoutParams = params2
 
         val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_geo).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
         findViewById<LinearLayout>(R.id.empty_search_box_geo).layoutParams = searchEmptyImgPrm
     }
 
-    private fun recyclerView() {
-        val recyclerView = findViewById<RecyclerView>(R.id.geo_view)
-        val geology = ArrayList<Geology>()
-
-        GeologyModel.getList(geology)
-        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val adapter = GeologyAdapter(geology, this, this)
-        recyclerView.adapter = adapter
-
-        adapter.notifyDataSetChanged()
-
-        //Add value to most used:
-        val mostUsedPreference = MostUsedPreference(this)
-        val mostUsedPrefValue = mostUsedPreference.getValue()
-        val targetLabel = "geo"
-        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
-        val match = regex.find(mostUsedPrefValue)
-        if (match != null) {
-            val value = match.groups[2]!!.value.toDouble()
-            val newValue = value + 1
-            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
-        }
-
-        findViewById<EditText>(R.id.edit_geo).addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){}
-            override fun afterTextChanged(s: Editable) {
-                filter(s.toString(), geology, recyclerView)
+    private fun setupChips(list: ArrayList<Geology>, recyclerView: RecyclerView) {
+        val geoPreference = GeologyPreference(this)
+        val categories = listOf(
+            0 to getString(R.string.geo_clear_filter),
+            1 to getString(R.string.activity_geology_mineral),
+            2 to getString(R.string.activity_geology_rock),
+            3 to getString(R.string.activity_geology_soil)
+        )
+        
+        titleBar.setCategories(categories) { id ->
+            val filter = when (id) {
+                1 -> "mineral"
+                2 -> "rock"
+                3 -> "soil"
+                else -> ""
             }
-        })
+            geoPreference.setValue(filter)
+            titleBar.searchInput.setText("")
+            filter(titleBar.searchInput.text.toString(), list, recyclerView)
+        }
     }
 
     // Filters the listView by different sorts of material by using the geossonPreference to filter by the stringValue.
@@ -178,87 +187,27 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         recyclerView.adapter = GeologyAdapter(filteredList, this, this)
     }
 
-    private fun clickSearch() {
-        findViewById<View>(R.id.search_btn_geo).setOnClickListener {
-            Utils.fadeInAnim(findViewById<View>(R.id.search_bar_geo), 150)
-            Utils.fadeOutAnim(findViewById<View>(R.id.title_box_geo), 1)
-
-            findViewById<EditText>(R.id.edit_geo).requestFocus()
-            val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(findViewById<EditText>(R.id.edit_geo), InputMethodManager.SHOW_IMPLICIT)
-
-            // Search bar shown -> enable back interception
-            setBackInterceptionEnabled(true)
-        }
-        findViewById<View>(R.id.close_geo_search).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<View>(R.id.search_bar_geo), 1)
-
-            val delayClose = Handler(Looper.getMainLooper())
-            delayClose.postDelayed({
-                Utils.fadeInAnim(findViewById<View>(R.id.title_box_geo), 150)
-            }, 151)
-
-            val view = this.currentFocus
-            if (view != null) {
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-            }
-
-            // closed -> update interception state
-            setBackInterceptionEnabled(anyOverlayOpen())
-        }
-    }
-
-    private fun chipListeners(list: ArrayList<Geology>, recyclerView: RecyclerView) {
-        val geoPreference = GeologyPreference(this)
-        val clearBtn = findViewById<com.google.android.material.chip.Chip>(R.id.clear_btn)
-        
-        val applyFilter = { filter: String ->
-            geoPreference.setValue(filter)
-            findViewById<EditText>(R.id.edit_geo).setText("")
-            clearBtn.visibility = if (filter.isEmpty()) View.GONE else View.VISIBLE
-        }
-
-        findViewById<View>(R.id.rocks_btn).setOnClickListener { applyFilter("rock") }
-        findViewById<View>(R.id.soils_btn).setOnClickListener { applyFilter("soil") }
-        findViewById<View>(R.id.minerals_btn).setOnClickListener { applyFilter("mineral") }
-        clearBtn.setOnClickListener { applyFilter("") }
-    }
-
     // Centralized overlay detection
     private fun anyOverlayOpen(): Boolean {
         val detailsVisible = findViewById<View>(R.id.geo_details).visibility == View.VISIBLE
-        val backgroundVisible = findViewById<TextView>(R.id.detail_background_geo).visibility == View.VISIBLE
-        val searchBarVisible = findViewById<View>(R.id.search_bar_geo).visibility == View.VISIBLE
-        return detailsVisible || backgroundVisible || searchBarVisible
+        val searchBarVisible = titleBar.searchRow.visibility == View.VISIBLE
+        return detailsVisible || searchBarVisible
     }
 
     // Close overlays if visible; return true when consumed.
     private fun handleBackPress(): Boolean {
         val details = findViewById<View>(R.id.geo_details)
-        val background = findViewById<TextView>(R.id.detail_background_geo)
-        val searchBar = findViewById<View>(R.id.search_bar_geo)
 
         // If details visible, hide them
-        if (details.visibility == View.VISIBLE || background.visibility == View.VISIBLE) {
+        if (details.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(details, 300)
-            Utils.fadeOutAnim(background, 300)
             setBackInterceptionEnabled(anyOverlayOpen())
             return true
         }
 
         // If search bar visible, close it
-        if (searchBar.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(searchBar, 1)
-            Handler(Looper.getMainLooper()).postDelayed({
-                Utils.fadeInAnim(findViewById<View>(R.id.title_box_geo), 150)
-            }, 151)
-
-            val view = this.currentFocus
-            if (view != null) {
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-            }
+        if (titleBar.searchRow.visibility == View.VISIBLE) {
+            titleBar.hideSearch()
             setBackInterceptionEnabled(anyOverlayOpen())
             return true
         }

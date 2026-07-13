@@ -19,6 +19,7 @@ import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jlindemann.science.R
@@ -30,9 +31,11 @@ import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
+import com.jlindemann.science.utils.UnifiedTitleBarController
 
 class IdealGasCalculatorActivity : BaseActivity() {
 
+    private lateinit var titleBar: UnifiedTitleBarController
     private lateinit var favoriteCalculationsAdapter: FavoriteIdealGasAdapter
     private lateinit var sharedPreferences: SharedPreferences
     private val FAVORITES_KEY = "ideal_gas_favorites"
@@ -81,11 +84,19 @@ class IdealGasCalculatorActivity : BaseActivity() {
         }
 
         setContentView(R.layout.activity_ideal_gas_calculator)
-        findViewById<FrameLayout>(R.id.view_ideal_gas).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view_ideal_gas).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        findViewById<ImageButton>(R.id.back_btn_ideal_gas).setOnClickListener {
-            this.onBackPressed()
-        }
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.ideal_gas_calculator_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
 
         updateStats()
 
@@ -93,22 +104,19 @@ class IdealGasCalculatorActivity : BaseActivity() {
         sharedPreferences = getSharedPreferences("IdealGasCalculatorPrefs", Context.MODE_PRIVATE)
 
         //Title Controller
-        findViewById<FrameLayout>(R.id.common_title_back_ideal_gas_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.ideal_gas_calculator_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_ideal_gas).elevation = resources.getDimension(R.dimen.zero_elevation)
         findViewById<ScrollView>(R.id.ideal_gas_calculator_scroll).viewTreeObserver
             .addOnScrollChangedListener {
                 val scrollY = findViewById<ScrollView>(R.id.ideal_gas_calculator_scroll).scrollY
                 if (scrollY > 150) {
-                    findViewById<FrameLayout>(R.id.common_title_back_ideal_gas_color).visibility = View.VISIBLE
-                    findViewById<TextView>(R.id.ideal_gas_calculator_title).visibility = View.VISIBLE
+                    titleSurface.visibility = View.VISIBLE
+                    titleBar.titleView.visibility = View.VISIBLE
                     findViewById<TextView>(R.id.ideal_gas_calculator_title_downstate).visibility = View.INVISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_ideal_gas).elevation = resources.getDimension(R.dimen.one_elevation)
+                    titleBar.container.elevation = resources.getDimension(R.dimen.one_elevation)
                 } else {
-                    findViewById<FrameLayout>(R.id.common_title_back_ideal_gas_color).visibility = View.INVISIBLE
-                    findViewById<TextView>(R.id.ideal_gas_calculator_title).visibility = View.INVISIBLE
+                    titleSurface.visibility = View.INVISIBLE
+                    titleBar.titleView.visibility = View.INVISIBLE
                     findViewById<TextView>(R.id.ideal_gas_calculator_title_downstate).visibility = View.VISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_ideal_gas).elevation = resources.getDimension(R.dimen.zero_elevation)
+                    titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
                 }
             }
 
@@ -130,8 +138,6 @@ class IdealGasCalculatorActivity : BaseActivity() {
             val newValue = "$mostUsedPrefValue gas=1.0"
             mostUsedPreference.setValue(newValue)
         }
-
-        findViewById<ImageButton>(R.id.back_btn_ideal_gas).setOnClickListener { this.onBackPressed() }
 
         // Check if favorite list should be shown or not (PRO or PRO+)
         val proPref = ProVersion(this)
@@ -454,9 +460,9 @@ class IdealGasCalculatorActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_ideal_gas).layoutParams as ViewGroup.LayoutParams
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_ideal_gas).layoutParams = params
+        titleBar.container.layoutParams = params
 
         val params2 = findViewById<TextView>(R.id.ideal_gas_calculator_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)

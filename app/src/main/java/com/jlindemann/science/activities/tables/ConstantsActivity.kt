@@ -31,13 +31,16 @@ import com.jlindemann.science.model.ConstantsModel
 import com.jlindemann.science.preferences.ConstantsPreference
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ThemePreference
-import com.jlindemann.science.utils.Utils
+import com.jlindemann.science.utils.UnifiedTitleBarController
+import com.google.android.material.chip.Chip
 import java.util.*
 import kotlin.collections.ArrayList
 
 class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListener {
     private var constantsList = ArrayList<Constants>()
     var mAdapter = ConstantsAdapter(constantsList, this, this)
+
+    private lateinit var titleBar: UnifiedTitleBarController
 
     // Unified back handling fields
     private var backCallback: OnBackPressedCallback? = null
@@ -94,96 +97,65 @@ class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListe
             val newValue = value + 1
             mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
         }
-        recyclerView()
-        chipListeners(itemCon, recyclerView)
-        clickSearch()
-
-        findViewById<View>(R.id.back_btn_con).setOnClickListener {
-            this.onBackPressed()
+        //recyclerView()
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.constants_tite)
+        titleBar.setAction(R.drawable.ic_search) { titleBar.showSearch() }
+        titleBar.searchCloseButton.setOnClickListener {
+            titleBar.hideSearch()
+            titleBar.searchInput.setText("")
         }
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        setupChips(itemCon, recyclerView)
+
+        // Initial filter to show all items
+        ConstantsPreference(this).setValue("")
+        filter("", itemCon, recyclerView)
+
+        findViewById<EditText>(R.id.unified_titlebar_search_input).addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){}
+            override fun afterTextChanged(s: Editable) {
+                filter(s.toString(), itemCon, recyclerView)
+            }
+        })
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         findViewById<RecyclerView>(R.id.con_view).setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar_ph) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar_ph))
-        val params2 = findViewById<FrameLayout>(R.id.common_title_back_con).layoutParams as ViewGroup.LayoutParams
+        val params2 = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
-        findViewById<FrameLayout>(R.id.common_title_back_con).layoutParams = params2
+        titleBar.container.layoutParams = params2
 
         val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_con).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
         findViewById<LinearLayout>(R.id.empty_search_box_con).layoutParams = searchEmptyImgPrm
     }
 
-    private fun recyclerView() {
-        val recyclerView = findViewById<RecyclerView>(R.id.con_view)
-        val constants = ArrayList<Constants>()
-
-        ConstantsModel.getList(constants)
-        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val adapter = ConstantsAdapter(constants, this, this)
-        recyclerView.adapter = adapter
-
-        adapter.notifyDataSetChanged()
-
-        findViewById<EditText>(R.id.edit_con).addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){}
-            override fun afterTextChanged(s: Editable) {
-                filter(s.toString(), constants, recyclerView)
-            }
-        })
-    }
-
-    // Overrides the clickListener from ConstantsAdapter (no-op currently)
-    override fun constantsClickListener(item: Constants, position: Int) {
-    }
-
-    private fun clickSearch() {
-        findViewById<View>(R.id.search_btn_con).setOnClickListener {
-            Utils.fadeInAnim(findViewById<View>(R.id.search_bar_con), 150)
-            Utils.fadeOutAnim(findViewById<View>(R.id.title_box_con), 1)
-
-            findViewById<EditText>(R.id.edit_con).requestFocus()
-            val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(findViewById<EditText>(R.id.edit_con), InputMethodManager.SHOW_IMPLICIT)
-
-            // Search bar shown -> enable back interception so gestures/back close it first
-            setBackInterceptionEnabled(true)
-        }
-        findViewById<View>(R.id.close_con_search).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<View>(R.id.search_bar_con), 1)
-
-            val delayClose = Handler(Looper.getMainLooper())
-            delayClose.postDelayed({
-                Utils.fadeInAnim(findViewById<View>(R.id.title_box_con), 150)
-            }, 151)
-
-            val view = this.currentFocus
-            if (view != null) {
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-            }
-
-            // closed -> update interception state
-            setBackInterceptionEnabled(anyOverlayOpen())
-        }
-    }
-
-    // listen to button presses in filter
-    private fun chipListeners(list: ArrayList<Constants>, recyclerView: RecyclerView) {
+    private fun setupChips(list: ArrayList<Constants>, recyclerView: RecyclerView) {
         val constantsPreference = ConstantsPreference(this)
-        val clearBtn = findViewById<com.google.android.material.chip.Chip>(R.id.clear_btn_con)
+        val categories = listOf(
+            0 to getString(R.string.clear_filter),
+            1 to getString(R.string.chip_math),
+            2 to getString(R.string.chip_physics),
+            3 to getString(R.string.chip_water)
+        )
         
-        val applyFilter = { filter: String ->
+        titleBar.setCategories(categories) { id ->
+            val filter = when (id) {
+                1 -> "mathematics"
+                2 -> "physics"
+                3 -> "water"
+                else -> ""
+            }
             constantsPreference.setValue(filter)
-            findViewById<EditText>(R.id.edit_con).setText("")
-            clearBtn.visibility = if (filter.isEmpty()) View.GONE else View.VISIBLE
+            titleBar.searchInput.setText("")
+            filter(titleBar.searchInput.text.toString(), list, recyclerView)
         }
+    }
 
-        findViewById<View>(R.id.mathematic_btn_con).setOnClickListener { applyFilter("mathematics") }
-        findViewById<View>(R.id.physics_btn_con).setOnClickListener { applyFilter("physics") }
-        findViewById<View>(R.id.water_btn_con).setOnClickListener { applyFilter("water") }
-        clearBtn.setOnClickListener { applyFilter("") }
+    override fun constantsClickListener(item: Constants, position: Int) {
     }
 
     // Filters
@@ -216,33 +188,16 @@ class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListe
 
     // Basic handler for in-activity overlays
     private fun anyOverlayOpen(): Boolean {
-        val searchBarVisible = findViewById<View>(R.id.search_bar_con).visibility == View.VISIBLE
-        return searchBarVisible
+        return titleBar.searchRow.visibility == View.VISIBLE
     }
 
     // Close overlays if visible; return true when consumed.
     private fun handleBackPress(): Boolean {
-        val searchBar = findViewById<View>(R.id.search_bar_con)
-
-        // If search bar visible, close it
-        if (searchBar.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(searchBar, 1)
-            // restore title box after a short delay to match original timing
-            Handler(Looper.getMainLooper()).postDelayed({
-                Utils.fadeInAnim(findViewById<View>(R.id.title_box_con), 150)
-            }, 151)
-
-            val view = this.currentFocus
-            if (view != null) {
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-            }
-
-            // update interception state after closing
+        if (titleBar.searchRow.visibility == View.VISIBLE) {
+            titleBar.hideSearch()
             setBackInterceptionEnabled(anyOverlayOpen())
             return true
         }
-
         return false
     }
 

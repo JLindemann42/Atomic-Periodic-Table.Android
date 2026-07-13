@@ -1,0 +1,592 @@
+[
+  {
+    "id": "actinium",
+    "title": "actinium",
+    "index": 0
+  },
+  {
+    "id": "aluminium",
+    "title": "aluminium",
+    "index": 1
+  },
+  {
+    "id": "americium",
+    "title": "americium",
+    "index": 2
+  },
+  {
+    "id": "antimony",
+    "title": "antimony",
+    "index": 3
+  },
+  {
+    "id": "argon",
+    "title": "argon",
+    "index": 4
+  },
+  {
+    "id": "arsenic",
+    "title": "arsenic",
+    "index": 5
+  },
+  {
+    "id": "astatine",
+    "title": "astatine",
+    "index": 6
+  },
+  {
+    "id": "barium",
+    "title": "barium",
+    "index": 7
+  },
+  {
+    "id": "berkelium",
+    "title": "berkelium",
+    "index": 8
+  },
+  {
+    "id": "beryllium",
+    "title": "beryllium",
+    "index": 9
+  },
+  {
+    "id": "bismuth",
+    "title": "bismuth",
+    "index": 10
+  },
+  {
+    "id": "bohrium",
+    "title": "bohrium",
+    "index": 11
+  },
+  {
+    "id": "boron",
+    "title": "boron",
+    "index": 12
+  },
+  {
+    "id": "bromine",
+    "title": "bromine",
+    "index": 13
+  },
+  {
+    "id": "cadmium",
+    "title": "cadmium",
+    "index": 14
+  },
+  {
+    "id": "caesium",
+    "title": "caesium",
+    "index": 15
+  },
+  {
+    "id": "calcium",
+    "title": "calcium",
+    "index": 16
+  },
+  {
+    "id": "californium",
+    "title": "californium",
+    "index": 17
+  },
+  {
+    "id": "carbon",
+    "title": "carbon",
+    "index": 18
+  },
+  {
+    "id": "cerium",
+    "title": "cerium",
+    "index": 19
+  },
+  {
+    "id": "chlorine",
+    "title": "chlorine",
+    "index": 20
+  },
+  {
+    "id": "chromium",
+    "title": "chromium",
+    "index": 21
+  },
+  {
+    "id": "cobalt",
+    "title": "cobalt",
+    "index": 22
+  },
+  {
+    "id": "copernicium",
+    "title": "copernicium",
+    "index": 23
+  },
+  {
+    "id": "copper",
+    "title": "copper",
+    "index": 24
+  },
+  {
+    "id": "curium",
+    "title": "curium",
+    "index": 25
+  },
+  {
+    "id": "darmstadtium",
+    "title": "darmstadtium",
+    "index": 26
+  },
+  {
+    "id": "dubnium",
+    "title": "dubnium",
+    "index": 27
+  },
+  {
+    "id": "dysprosium",
+    "title": "dysprosium",
+    "index": 28
+  },
+  {
+    "id": "einsteinium",
+    "title": "einsteinium",
+    "index": 29
+  },
+  {
+    "id": "erbium",
+    "title": "erbium",
+    "index": 30
+  },
+  {
+    "id": "europium",
+    "title": "europium",
+    "index": 31
+  },
+  {
+    "id": "fermium",
+    "title": "fermium",
+    "index": 32
+  },
+  {
+    "id": "flerovium",
+    "title": "flerovium",
+    "index": 33
+  },
+  {
+    "id": "fluorine",
+    "title": "fluorine",
+    "index": 34
+  },
+  {
+    "id": "francium",
+    "title": "francium",
+    "index": 35
+  },
+  {
+    "id": "gadolinium",
+    "title": "gadolinium",
+    "index": 36
+  },
+  {
+    "id": "gallium",
+    "title": "gallium",
+    "index": 37
+  },
+  {
+    "id": "germanium",
+    "title": "germanium",
+    "index": 38
+  },
+  {
+    "id": "gold",
+    "title": "gold",
+    "index": 39
+  },
+  {
+    "id": "hafnium",
+    "title": "hafnium",
+    "index": 40
+  },
+  {
+    "id": "hassium",
+    "title": "hassium",
+    "index": 41
+  },
+  {
+    "id": "helium",
+    "title": "helium",
+    "index": 42
+  },
+  {
+    "id": "holmium",
+    "title": "holmium",
+    "index": 43
+  },
+  {
+    "id": "hydrogen",
+    "title": "hydrogen",
+    "index": 44
+  },
+  {
+    "id": "indium",
+    "title": "indium",
+    "index": 45
+  },
+  {
+    "id": "iodine",
+    "title": "iodine",
+    "index": 46
+  },
+  {
+    "id": "iridium",
+    "title": "iridium",
+    "index": 47
+  },
+  {
+    "id": "iron",
+    "title": "iron",
+    "index": 48
+  },
+  {
+    "id": "krypton",
+    "title": "krypton",
+    "index": 49
+  },
+  {
+    "id": "lanthanum",
+    "title": "lanthanum",
+    "index": 50
+  },
+  {
+    "id": "lawrencium",
+    "title": "lawrencium",
+    "index": 51
+  },
+  {
+    "id": "lead",
+    "title": "lead",
+    "index": 52
+  },
+  {
+    "id": "lithium",
+    "title": "lithium",
+    "index": 53
+  },
+  {
+    "id": "livermorium",
+    "title": "livermorium",
+    "index": 54
+  },
+  {
+    "id": "lutetium",
+    "title": "lutetium",
+    "index": 55
+  },
+  {
+    "id": "magnesium",
+    "title": "magnesium",
+    "index": 56
+  },
+  {
+    "id": "manganese",
+    "title": "manganese",
+    "index": 57
+  },
+  {
+    "id": "meitnerium",
+    "title": "meitnerium",
+    "index": 58
+  },
+  {
+    "id": "mendelevium",
+    "title": "mendelevium",
+    "index": 59
+  },
+  {
+    "id": "mercury",
+    "title": "mercury",
+    "index": 60
+  },
+  {
+    "id": "molybdenum",
+    "title": "molybdenum",
+    "index": 61
+  },
+  {
+    "id": "moscovium",
+    "title": "moscovium",
+    "index": 62
+  },
+  {
+    "id": "neodymium",
+    "title": "neodymium",
+    "index": 63
+  },
+  {
+    "id": "neon",
+    "title": "neon",
+    "index": 64
+  },
+  {
+    "id": "neptunium",
+    "title": "neptunium",
+    "index": 65
+  },
+  {
+    "id": "nickel",
+    "title": "nickel",
+    "index": 66
+  },
+  {
+    "id": "nihonium",
+    "title": "nihonium",
+    "index": 67
+  },
+  {
+    "id": "niobium",
+    "title": "niobium",
+    "index": 68
+  },
+  {
+    "id": "nitrogen",
+    "title": "nitrogen",
+    "index": 69
+  },
+  {
+    "id": "nobelium",
+    "title": "nobelium",
+    "index": 70
+  },
+  {
+    "id": "oganesson",
+    "title": "oganesson",
+    "index": 71
+  },
+  {
+    "id": "osmium",
+    "title": "osmium",
+    "index": 72
+  },
+  {
+    "id": "oxygen",
+    "title": "oxygen",
+    "index": 73
+  },
+  {
+    "id": "palladium",
+    "title": "palladium",
+    "index": 74
+  },
+  {
+    "id": "phosphorus",
+    "title": "phosphorus",
+    "index": 75
+  },
+  {
+    "id": "platinum",
+    "title": "platinum",
+    "index": 76
+  },
+  {
+    "id": "plutonium",
+    "title": "plutonium",
+    "index": 77
+  },
+  {
+    "id": "polonium",
+    "title": "polonium",
+    "index": 78
+  },
+  {
+    "id": "potassium",
+    "title": "potassium",
+    "index": 79
+  },
+  {
+    "id": "praseodymium",
+    "title": "praseodymium",
+    "index": 80
+  },
+  {
+    "id": "promethium",
+    "title": "promethium",
+    "index": 81
+  },
+  {
+    "id": "protactinium",
+    "title": "protactinium",
+    "index": 82
+  },
+  {
+    "id": "radium",
+    "title": "radium",
+    "index": 83
+  },
+  {
+    "id": "radon",
+    "title": "radon",
+    "index": 84
+  },
+  {
+    "id": "rhenium",
+    "title": "rhenium",
+    "index": 85
+  },
+  {
+    "id": "rhodium",
+    "title": "rhodium",
+    "index": 86
+  },
+  {
+    "id": "roentgenium",
+    "title": "roentgenium",
+    "index": 87
+  },
+  {
+    "id": "rubidium",
+    "title": "rubidium",
+    "index": 88
+  },
+  {
+    "id": "ruthenium",
+    "title": "ruthenium",
+    "index": 89
+  },
+  {
+    "id": "rutherfordium",
+    "title": "rutherfordium",
+    "index": 90
+  },
+  {
+    "id": "samarium",
+    "title": "samarium",
+    "index": 91
+  },
+  {
+    "id": "scandium",
+    "title": "scandium",
+    "index": 92
+  },
+  {
+    "id": "seaborgium",
+    "title": "seaborgium",
+    "index": 93
+  },
+  {
+    "id": "selenium",
+    "title": "selenium",
+    "index": 94
+  },
+  {
+    "id": "silicon",
+    "title": "silicon",
+    "index": 95
+  },
+  {
+    "id": "silver",
+    "title": "silver",
+    "index": 96
+  },
+  {
+    "id": "sodium",
+    "title": "sodium",
+    "index": 97
+  },
+  {
+    "id": "strontium",
+    "title": "strontium",
+    "index": 98
+  },
+  {
+    "id": "sulfur",
+    "title": "sulfur",
+    "index": 99
+  },
+  {
+    "id": "tantalum",
+    "title": "tantalum",
+    "index": 100
+  },
+  {
+    "id": "technetium",
+    "title": "technetium",
+    "index": 101
+  },
+  {
+    "id": "tellurium",
+    "title": "tellurium",
+    "index": 102
+  },
+  {
+    "id": "tennessine",
+    "title": "tennessine",
+    "index": 103
+  },
+  {
+    "id": "terbium",
+    "title": "terbium",
+    "index": 104
+  },
+  {
+    "id": "thallium",
+    "title": "thallium",
+    "index": 105
+  },
+  {
+    "id": "thorium",
+    "title": "thorium",
+    "index": 106
+  },
+  {
+    "id": "thulium",
+    "title": "thulium",
+    "index": 107
+  },
+  {
+    "id": "tin",
+    "title": "tin",
+    "index": 108
+  },
+  {
+    "id": "titanium",
+    "title": "titanium",
+    "index": 109
+  },
+  {
+    "id": "tungsten",
+    "title": "tungsten",
+    "index": 110
+  },
+  {
+    "id": "uranium",
+    "title": "uranium",
+    "index": 111
+  },
+  {
+    "id": "vanadium",
+    "title": "vanadium",
+    "index": 112
+  },
+  {
+    "id": "xenon",
+    "title": "xenon",
+    "index": 113
+  },
+  {
+    "id": "ytterbium",
+    "title": "ytterbium",
+    "index": 114
+  },
+  {
+    "id": "yttrium",
+    "title": "yttrium",
+    "index": 115
+  },
+  {
+    "id": "zinc",
+    "title": "zinc",
+    "index": 116
+  },
+  {
+    "id": "zirconium",
+    "title": "zirconium",
+    "index": 117
+  }
+]

@@ -1,20 +1,25 @@
 package com.jlindemann.science.ai
 
 import android.content.Context
+import android.util.Log
 import com.jlindemann.science.R
 import com.jlindemann.science.model.ChatMessage
 import com.jlindemann.science.utils.ElementDataLoader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import java.text.Normalizer
 import java.util.UUID
 
-/**
- * Manager for AI agent responses and element data retrieval.
- * Handles fuzzy matching for element names and keywords to be resilient to typos.
- */
+/** Orchestrates AI responses: element lookup, context tracking, language handling, RAG. */
 class AIAgentManager(private val context: Context?) {
-    
+
+    companion object {
+        private const val TAG = "AIAgentManager"
+        private const val PREFS_NAME = "ai_agent_settings"
+        private const val PREF_LANGUAGE = "ai_agent_language"
+    }
+
     private var elementData: JSONObject? = null
     private var isDataLoaded = false
     private var conversationHistory = mutableListOf<ChatMessage>()
@@ -23,26 +28,42 @@ class AIAgentManager(private val context: Context?) {
     private var currentQuizAnswer: String? = null
     private var activeLanguage: String = "en"
     private var localizedContext: Context? = null
-    private val rateLimiter: AIRateLimiter? by lazy {
-        context?.let { AIRateLimiter(it) }
-    }
-    private val learningManager: AILearningManager? by lazy { 
-        context?.let { AILearningManager(it) } 
-    }
-    private var molarMassCalculator: MolarMassCalculator? = null
 
+    private val rateLimiter: AIRateLimiter? by lazy { context?.let { AIRateLimiter(it) } }
+    private val learningManager: AILearningManager? by lazy { context?.let { AILearningManager(it) } }
+    private val localKnowledgeManager: LocalKnowledgeManager? by lazy { context?.let { LocalKnowledgeManager(it) } }
+
+    private var molarMassCalculator: MolarMassCalculator? = null
+    private var ragAgent: TfliteRagAgent? = null
+
+    // Maps localized element name → JSON key, built across all languages once
     private val localizedElementMap = mutableMapOf<String, String>()
+    // Maps localized element name → set of languages it appears in
+    private val localizedElementLanguageMap = mutableMapOf<String, MutableSet<String>>()
 
     fun getActiveLanguage(): String = activeLanguage
 
+    fun shouldShowMessageLimit(): Boolean {
+        val limiter = rateLimiter ?: return false
+        return !limiter.isProPlus()
+    }
+
+    fun getMessageLimitDisplay(): String {
+        val limiter = rateLimiter ?: return "0/0"
+        val total = limiter.getDailyLimit()
+        if (total == Int.MAX_VALUE) return "∞/∞"
+        val left = limiter.getRemainingMessages().coerceAtLeast(0)
+        return "$left/$total"
+    }
+
     suspend fun setLanguage(language: String) {
         activeLanguage = language
+        context?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+            ?.edit()?.putString(PREF_LANGUAGE, language)?.apply()
         updateLocalizedContext()
         withContext(Dispatchers.IO) {
             elementData = getElementDataByLanguage(language)
             molarMassCalculator = MolarMassCalculator(elementData)
-            // Reload map if language changes significantly? 
-            // Actually, the map is cross-language, so we only need to load it once.
             if (localizedElementMap.isEmpty()) {
                 loadCrossLanguageElementMap()
             }
@@ -59,40 +80,67 @@ class AIAgentManager(private val context: Context?) {
         }
     }
 
+    private fun normalizeForLookup(text: String): String {
+        val nfd = Normalizer.normalize(text.lowercase(), Normalizer.Form.NFD)
+        return nfd.replace(Regex("\\p{M}"), "")
+    }
+
     private suspend fun loadCrossLanguageElementMap() {
         val ctx = context ?: return
         withContext(Dispatchers.IO) {
-            val languages = listOf("af", "de", "en", "es", "fr", "hi", "it", "pt", "sv", "ur", "zh", "fil")
+            val languages = ElementDataLoader.getAvailableLanguages(ctx.assets)
             for (lang in languages) {
                 try {
-                    val fileName = "elements_$lang.json"
-                    val inputStream = ctx.assets.open(fileName)
-                    val jsonString = inputStream.bufferedReader().use { it.readText() }
-                    val data = JSONObject(jsonString)
+                    val inputStream = ctx.assets.open("elements_$lang.json")
+                    val data = JSONObject(inputStream.bufferedReader().use { it.readText() })
                     val keys = data.keys()
                     while (keys.hasNext()) {
                         val key = keys.next()
                         val element = data.optJSONObject(key)
-                        val localizedName = element?.optString("element")?.lowercase()
-                        if (localizedName != null) {
-                            localizedElementMap[localizedName] = key
-                        }
+                        val rawName = element?.optString("element") ?: continue
+                        val normalized = normalizeForLookup(rawName)
+                        localizedElementMap[normalized] = key
+                        localizedElementMap[rawName.lowercase()] = key
+                        localizedElementLanguageMap.getOrPut(normalized) { mutableSetOf() }.add(lang)
+                        localizedElementLanguageMap.getOrPut(rawName.lowercase()) { mutableSetOf() }.add(lang)
                     }
                 } catch (e: Exception) {
-                    // Skip if file doesn't exist or error
+                    // File missing for this language — skip
                 }
             }
         }
     }
-    
+
     /**
-     * Initialize AI agent with element data
+     * Detect which language the query is most likely in, based on element-name matches.
+     * Returns the detected language code, or the current active language if ambiguous.
      */
+    private fun detectResponseLanguage(query: String): String {
+        val words = query.lowercase().split(Regex("\\W+")).filter { it.length > 2 }
+        val scores = mutableMapOf<String, Int>()
+        for (word in words) {
+            val normalized = normalizeForLookup(word)
+            val langs = localizedElementLanguageMap[normalized]
+                ?: localizedElementLanguageMap[word]
+                ?: continue
+            for (lang in langs) scores[lang] = (scores[lang] ?: 0) + 1
+        }
+        if (scores.isEmpty()) return activeLanguage
+        val maxScore = scores.values.max()
+        val topLangs = scores.filter { it.value == maxScore }.keys
+        // Keep current language on tie to avoid spurious switches
+        return if (activeLanguage in topLangs) activeLanguage
+        else topLangs.firstOrNull { it != "en" } ?: topLangs.first()
+    }
+
+    /** Initialize AI agent with element data */
     suspend fun initialize() {
         withContext(Dispatchers.IO) {
             try {
                 val ctx = context ?: return@withContext
-                activeLanguage = ElementDataLoader.getAppLanguage(ctx)
+                activeLanguage = ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                    .getString(PREF_LANGUAGE, null)
+                    ?: ElementDataLoader.getAppLanguage(ctx)
                 updateLocalizedContext()
                 elementData = getElementDataByLanguage(activeLanguage)
                 molarMassCalculator = MolarMassCalculator(elementData)
@@ -179,6 +227,21 @@ class AIAgentManager(private val context: Context?) {
             rateLimiter?.incrementMessageCount()
 
             val lowerQuery = userMessage.lowercase().trim()
+
+            // Auto-detect language from element names in the query
+            if (localizedElementLanguageMap.isNotEmpty()) {
+                val detected = detectResponseLanguage(lowerQuery)
+                if (detected != activeLanguage) {
+                    activeLanguage = detected
+                    context?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                        ?.edit()?.putString(PREF_LANGUAGE, detected)?.apply()
+                    updateLocalizedContext()
+                    withContext(Dispatchers.IO) {
+                        elementData = getElementDataByLanguage(detected)
+                        molarMassCalculator = MolarMassCalculator(elementData)
+                    }
+                }
+            }
 
             // Handle active Quiz answer
             if (currentQuizAnswer != null && !isQuizQuery(lowerQuery)) {
@@ -292,6 +355,17 @@ class AIAgentManager(private val context: Context?) {
         val data = elementData ?: return emptyList()
 
         for (word in words) {
+            // Check cross-language map with normalization
+            val englishKey = localizedElementMap[word]
+                ?: localizedElementMap[normalizeForLookup(word)]
+            if (englishKey != null && !seenKeys.contains(englishKey)) {
+                val element = data.optJSONObject(englishKey)
+                if (element != null) {
+                    found.add(element)
+                    seenKeys.add(englishKey)
+                    continue
+                }
+            }
             val keys = data.keys()
             while (keys.hasNext()) {
                 val key = keys.next()
@@ -1475,6 +1549,7 @@ class AIAgentManager(private val context: Context?) {
         
         for (word in queryWords) {
             val englishKey = localizedElementMap[word]
+                ?: localizedElementMap[normalizeForLookup(word)]
             if (englishKey != null) {
                 val element = data.optJSONObject(englishKey)
                 if (element != null) return element

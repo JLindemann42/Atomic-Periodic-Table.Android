@@ -6,13 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?attr/colorSurfaceVariant"
     tools:context=".activities.MainActivity">
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.12"
-        android:background="?attr/colorPrimary"
-        android:elevation="0dp" />
 
     <!-- Top Bar -->
     <FrameLayout

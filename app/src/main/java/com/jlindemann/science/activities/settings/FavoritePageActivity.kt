@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.Button
 import android.widget.CheckBox
-import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -17,8 +15,10 @@ import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.preferences.*
+import com.jlindemann.science.utils.UnifiedTitleBarController
 
 class FavoritePageActivity : BaseActivity() {
+    private lateinit var titleBar: UnifiedTitleBarController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,21 +74,12 @@ class FavoritePageActivity : BaseActivity() {
 
         //Degree
         val degreePreference = DegreePreference(this)
-        var degreePrefValue = degreePreference.getValue()
-        if (degreePrefValue == 0) {
-            findViewById<Button>(R.id.kelvin_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_active))
-            findViewById<Button>(R.id.celsius_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
-            findViewById<Button>(R.id.fahrenheit_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
-        }
-        if (degreePrefValue == 1) {
-            findViewById<Button>(R.id.kelvin_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
-            findViewById<Button>(R.id.celsius_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_active))
-            findViewById<Button>(R.id.fahrenheit_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
-        }
-        if (degreePrefValue == 2) {
-            findViewById<Button>(R.id.kelvin_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
-            findViewById<Button>(R.id.celsius_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
-            findViewById<Button>(R.id.fahrenheit_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_active))
+        val degreePrefValue = degreePreference.getValue()
+        val tempUnitGroup = findViewById<com.google.android.material.button.MaterialButtonToggleGroup>(R.id.temp_unit_group)
+        when (degreePrefValue) {
+            0 -> tempUnitGroup.check(R.id.kelvin_btn)
+            1 -> tempUnitGroup.check(R.id.celsius_btn)
+            2 -> tempUnitGroup.check(R.id.fahrenheit_btn)
         }
 
         //Boiling Point
@@ -187,10 +178,18 @@ class FavoritePageActivity : BaseActivity() {
         onCheckboxClicked()
         findViewById<ConstraintLayout>(R.id.viewf).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.settings_favorite_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
         // Title Controller with animated visibility
-        findViewById<FrameLayout>(R.id.common_title_back_fav_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.favorite_set_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_fav).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
         findViewById<ScrollView>(R.id.fav_set_scroll).viewTreeObserver
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
                 private var isTitleVisible = false // Track animation state
@@ -199,10 +198,10 @@ class FavoritePageActivity : BaseActivity() {
                     val scrollY = findViewById<ScrollView>(R.id.fav_set_scroll).scrollY
                     val threshold = 150
 
-                    val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_back_fav_color)
-                    val titleText = findViewById<TextView>(R.id.favorite_set_title)
+                    val titleColorBackground = titleSurface
+                    val titleText = titleBar.titleView
                     val titleDownstateText = findViewById<TextView>(R.id.favorite_set_title_downstate)
-                    val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_fav)
+                    val titleBackground = titleBar.container
 
                     if (scrollY > threshold) {
                         if (!isTitleVisible) {
@@ -223,18 +222,15 @@ class FavoritePageActivity : BaseActivity() {
                     }
                 }
             })
-        findViewById<ImageButton>(R.id.back_btn_fav).setOnClickListener {
-            this.onBackPressed()
-        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-            val params = findViewById<FrameLayout>(R.id.common_title_back_fav).layoutParams as ViewGroup.LayoutParams
+            val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
             params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-            findViewById<FrameLayout>(R.id.common_title_back_fav).layoutParams = params
+            titleBar.container.layoutParams = params
 
             val params2 = findViewById<TextView>(R.id.favorite_set_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
-            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+            params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
             findViewById<TextView>(R.id.favorite_set_title_downstate).layoutParams = params2
     }
 
@@ -252,32 +248,15 @@ class FavoritePageActivity : BaseActivity() {
             }
         }
 
-        findViewById<Button>(R.id.kelvin_btn).setOnClickListener {
-            val degreePreference = DegreePreference(this)
-            var degreePrefValue = degreePreference.getValue()
-
-            degreePreference.setValue(0)
-            findViewById<Button>(R.id.kelvin_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_active))
-            findViewById<Button>(R.id.celsius_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
-            findViewById<Button>(R.id.fahrenheit_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
-        }
-        findViewById<Button>(R.id.celsius_btn).setOnClickListener {
-            val degreePreference = DegreePreference(this)
-            var degreePrefValue = degreePreference.getValue()
-
-            degreePreference.setValue(1)
-            findViewById<Button>(R.id.kelvin_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
-            findViewById<Button>(R.id.celsius_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_active))
-            findViewById<Button>(R.id.fahrenheit_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
-        }
-        findViewById<Button>(R.id.fahrenheit_btn).setOnClickListener {
-            val degreePreference = DegreePreference(this)
-            var degreePrefValue = degreePreference.getValue()
-
-            degreePreference.setValue(2)
-            findViewById<Button>(R.id.kelvin_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
-            findViewById<Button>(R.id.celsius_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_outline))
-            findViewById<Button>(R.id.fahrenheit_btn).setBackground(ContextCompat.getDrawable(this, R.drawable.chip_active))
+        findViewById<com.google.android.material.button.MaterialButtonToggleGroup>(R.id.temp_unit_group).addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                val degreePreference = DegreePreference(this)
+                when (checkedId) {
+                    R.id.kelvin_btn -> degreePreference.setValue(0)
+                    R.id.celsius_btn -> degreePreference.setValue(1)
+                    R.id.fahrenheit_btn -> degreePreference.setValue(2)
+                }
+            }
         }
 
         //STP Phase
@@ -441,7 +420,4 @@ class FavoritePageActivity : BaseActivity() {
     }
 
 }
-
-
-
 

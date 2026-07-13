@@ -7,129 +7,56 @@
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/colorPrimary"
-        android:alpha="0.05"/>
 
-    <LinearLayout
+    <include
+        android:id="@+id/unified_titlebar_include"
+        layout="@layout/view_unified_titlebar"
+        android:layout_height="64dp"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/boxm"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/common_title_back_sul"
+        android:background="?attr/colorSurface"
+        app:layout_constraintTop_toBottomOf="@+id/unified_titlebar_include"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <include
-            layout="@layout/solubility_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <HorizontalScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="92dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center" />
 
                 <LinearLayout
+                    android:id="@+id/anions_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical" />
+            </LinearLayout>
 
-                    <include layout="@layout/solubility_group_1" android:layout_width="92dp" android:layout_height="wrap_content" />
-                    <include layout="@layout/solubility_group_2" android:layout_width="92dp" android:layout_height="wrap_content" />
-                    <include layout="@layout/solubility_group_3" android:layout_width="92dp" android:layout_height="wrap_content" />
-                    <include layout="@layout/solubility_group_4" android:layout_width="92dp" android:layout_height="wrap_content" />
-                    <include layout="@layout/solubility_group_5" android:layout_width="92dp" android:layout_height="wrap_content" />
-                    <include layout="@layout/solubility_group_6" android:layout_width="92dp" android:layout_height="wrap_content" />
-                    <include layout="@layout/solubility_group_7" android:layout_width="92dp" android:layout_height="wrap_content" />
-                    <include layout="@layout/solubility_group_8" android:layout_width="92dp" android:layout_height="wrap_content" />
-                    <include layout="@layout/solubility_group_9" android:layout_width="92dp" android:layout_height="wrap_content" />
-                    <include layout="@layout/solubility_group_10" android:layout_width="92dp" android:layout_height="wrap_content" />
-                    <include layout="@layout/solubility_group_11" android:layout_width="92dp" android:layout_height="wrap_content" />
-                    <include layout="@layout/solubility_group_12" android:layout_width="92dp" android:layout_height="wrap_content" />
-                    <include layout="@layout/solubility_group_13" android:layout_width="92dp" android:layout_height="wrap_content" />
-
-                </LinearLayout>
-            </ScrollView>
-        </HorizontalScrollView>
-    </LinearLayout>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/common_title_back_sul"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="0dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.BottomRounded"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <FrameLayout
-            android:id="@+id/common_title_sul_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorSurface"
-            android:visibility="visible">
             <View
-                android:layout_width="match_parent"
+                android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:alpha="0.11" />
-        </FrameLayout>
+                android:background="?attr/colorOutlineVariant" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/title_box"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_gravity="bottom">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/back_btn"
-                style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:rotation="180"
-                app:icon="@drawable/ic_arrow_back_whit"
-                app:iconTint="?attr/colorOnSecondaryContainer"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/element_title"
-                android:layout_width="0dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/columns_recycler_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="Solubility Table"
-                android:textColor="?attr/colorOnSecondaryContainer"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/back_btn"
-                app:layout_constraintEnd_toStartOf="@+id/info_btn" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/info_btn"
-                style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="8dp"
-                app:icon="@drawable/ic_info"
-                app:iconTint="?attr/colorOnSecondaryContainer"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+                android:overScrollMode="never" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <include
         android:id="@+id/info_panel"

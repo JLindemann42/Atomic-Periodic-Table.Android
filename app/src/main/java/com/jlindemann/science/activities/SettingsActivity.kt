@@ -14,7 +14,6 @@ import android.window.OnBackInvokedDispatcher
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SwitchCompat
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.button.MaterialButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.settings.AboutActivity
 import com.jlindemann.science.activities.settings.CreditsActivity
@@ -50,6 +49,7 @@ class SettingsActivity : BaseActivity() {
 
     // Optional OnBackInvokedCallback for newer platforms (registered only when interception is needed)
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
+    private lateinit var titleBar: UnifiedTitleBarController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -102,10 +102,18 @@ class SettingsActivity : BaseActivity() {
 
         findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
-        // Title Controller with animated visibility
-        findViewById<FrameLayout>(R.id.common_title_settings_color).visibility = View.VISIBLE
-        findViewById<TextView>(R.id.element_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_set).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        // Unified title bar
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.settings)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
         findViewById<ScrollView>(R.id.scroll_settings).viewTreeObserver
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
                 private var isTitleVisible = false // Track animation state
@@ -114,16 +122,13 @@ class SettingsActivity : BaseActivity() {
                     val scrollY = findViewById<ScrollView>(R.id.scroll_settings).scrollY
                     val threshold = 158
 
-                    val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_isotope_color)
-                    val titleText = findViewById<TextView>(R.id.element_title)
+                    val titleText = titleBar.titleView
                     val titleDownstateText = findViewById<TextView>(R.id.element_title_downstate)
-                    val colorBackground = findViewById<FrameLayout>(R.id.common_title_settings_color)
-                    val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_set)
+                    val titleBackground = titleBar.container
 
                     if (scrollY > threshold) {
                         if (!isTitleVisible) {
-                            TitleBarAnimator.animateVisibility(colorBackground, true)
-                            TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
+                            TitleBarAnimator.animateVisibility(titleSurface, true)
                             TitleBarAnimator.animateVisibility(titleText, true)
                             titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, false) }
                             titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
@@ -131,9 +136,7 @@ class SettingsActivity : BaseActivity() {
                         }
                     } else {
                         if (isTitleVisible) {
-                            colorBackground.visibility = View.INVISIBLE
-                            TitleBarAnimator.animateVisibility(colorBackground, false)
-                            TitleBarAnimator.animateVisibility(titleColorBackground, false)
+                            TitleBarAnimator.animateVisibility(titleSurface, false)
                             TitleBarAnimator.animateVisibility(titleText, false)
                             titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, true) }
                             titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
@@ -148,9 +151,6 @@ class SettingsActivity : BaseActivity() {
         findViewById<View>(R.id.about_settings).setOnClickListener {
             val intent = Intent(this, AboutActivity::class.java)
             startActivity(intent)
-        }
-        findViewById<MaterialButton>(R.id.back_btn_set).setOnClickListener {
-            this.onBackPressed()
         }
         findViewById<View>(R.id.submit_settings).setOnClickListener {
             val intent = Intent(this, SubmitActivity::class.java)
@@ -377,9 +377,10 @@ class SettingsActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_set).layoutParams as ViewGroup.LayoutParams
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_set).layoutParams = params
+        titleBar.container.layoutParams = params
+        titleBar.container.setPadding(0, 0, 0, 0)
 
 
         val params2 = findViewById<TextView>(R.id.element_title_downstate).layoutParams as ViewGroup.MarginLayoutParams

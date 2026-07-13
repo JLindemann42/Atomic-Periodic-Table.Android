@@ -62,6 +62,15 @@ class ProFragment : BaseFragment(), BillingManager.Listener {
         updatePurchaseCardsUI(view)
     }
 
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
+        view?.let {
+            val params = it.findViewById<View>(R.id.pro_header_container).layoutParams as ViewGroup.LayoutParams
+            params.height = resources.getDimensionPixelSize(R.dimen.pro_text)
+            it.findViewById<View>(R.id.pro_header_container).layoutParams = params
+
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         billingManager.endConnection()

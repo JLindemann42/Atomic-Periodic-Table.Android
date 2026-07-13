@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?attr/colorPrimary"
-        android:alpha="0.05"/>
-
     <ScrollView
         android:id="@+id/user_scroll"
         android:layout_width="match_parent"
@@ -136,6 +130,7 @@
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
                         <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_star" app:tint="?attr/colorPrimary" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/rate_app" android:textColor="?attr/colorOnSurface" android:textStyle="bold" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/rate_app_description" android:textColor="?attr/colorOnSurface" android:textStyle="normal" />
                         <com.google.android.material.button.MaterialButton android:id="@+id/rate_btn" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/rate" android:padding="0dp" android:layout_gravity="end" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -149,6 +144,7 @@
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
                         <ImageView android:layout_width="24dp" android:layout_height="24dp" android:src="@drawable/ic_share" app:tint="?attr/colorPrimary" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/share_app" android:textColor="?attr/colorOnSurface" android:textStyle="bold" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/share_app_description" android:textColor="?attr/colorOnSurface" android:textStyle="normal" />
                         <com.google.android.material.button.MaterialButton android:id="@+id/share_btn" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="@string/share" android:padding="0dp" android:layout_gravity="end" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -195,62 +191,9 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/common_title_back_user"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="0dp"
-        android:background="?attr/backgroundColor"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <FrameLayout
-            android:id="@+id/common_title_user_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible"
-            android:background="?attr/colorSurface">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:alpha="0.11" />
-        </FrameLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/title_box"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_gravity="bottom">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/back_btn"
-                style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:rotation="180"
-                app:icon="@drawable/ic_arrow_back_whit"
-                app:iconTint="?attr/colorOnSecondaryContainer"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/user_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="@string/user_title"
-                android:textColor="?attr/colorOnSecondaryContainer"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="invisible"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/back_btn" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    <include
+        android:id="@+id/unified_titlebar_include"
+        layout="@layout/view_unified_titlebar"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

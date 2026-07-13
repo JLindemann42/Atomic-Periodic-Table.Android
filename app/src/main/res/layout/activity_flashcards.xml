@@ -426,86 +426,43 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/common_title_back_fla"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="0dp"
-        android:background="?attr/backgroundColor"
-        app:layout_constraintTop_toTopOf="parent">
+    <include
+        android:id="@+id/unified_titlebar_include"
+        layout="@layout/view_unified_titlebar"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <FrameLayout
-            android:id="@+id/common_title_fla_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorSurface"
-            android:visibility="invisible">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:alpha="0.11" />
-        </FrameLayout>
+    <LinearLayout
+        android:id="@+id/tools_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginEnd="16dp"
+        android:elevation="1dp"
+        app:layout_constraintTop_toTopOf="@+id/unified_titlebar_include"
+        app:layout_constraintBottom_toBottomOf="@+id/unified_titlebar_include"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/title_box"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_gravity="bottom">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/achievements_btn"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:icon="@drawable/ic_achievements"
+            app:iconTint="?attr/colorOnSecondaryContainer" />
 
-            <TextView
-                android:id="@+id/flashcard_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/flashcards_title"
-                android:textColor="?attr/colorOnSecondaryContainer"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:drawableStartCompat="@drawable/ic_flashcards"
-                app:drawableTint="?attr/colorOnSecondaryContainer"
-                android:drawablePadding="8dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/tools_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/achievements_btn"
-                    style="@style/Widget.Material3.Button.IconButton"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    app:icon="@drawable/ic_achievements"
-                    app:iconTint="?attr/colorOnPrimary"
-                    android:background="@drawable/gem"
-                    android:backgroundTint="?attr/colorAccent" />
-
-                <TextView
-                    android:id="@+id/tv_lives_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lives_count_placeholder"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="?attr/colorOnSurface"
-                    app:drawableStartCompat="@drawable/ic_heart"
-                    app:drawableTint="?attr/colorError"
-                    android:drawablePadding="4dp"
-                    android:layout_marginStart="8dp" />
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:id="@+id/tv_lives_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lives_count_placeholder"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnSurface"
+            app:drawableStartCompat="@drawable/ic_heart"
+            app:drawableTint="?attr/colorError"
+            android:drawablePadding="4dp"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

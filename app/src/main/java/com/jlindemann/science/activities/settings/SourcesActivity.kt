@@ -7,18 +7,19 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.animations.Anim
+import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.UnifiedTitleBarController
 
 class SourcesActivity : BaseActivity() {
 
@@ -26,6 +27,7 @@ class SourcesActivity : BaseActivity() {
     private var backCallback: OnBackPressedCallback? = null
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
     private val uiHandler = Handler(Looper.getMainLooper())
+    private lateinit var titleBar: UnifiedTitleBarController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +42,7 @@ class SourcesActivity : BaseActivity() {
         }
         if (themePrefValue == 0) { setTheme(R.style.AppTheme) }
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
-        setContentView(R.layout.activity_settings_licenses) //REMEMBER: Never move any function calls above this
+        setContentView(R.layout.activity_settings_sources) //REMEMBER: Never move any function calls above this
 
         findViewById<FrameLayout>(R.id.view_src).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
@@ -64,36 +66,57 @@ class SourcesActivity : BaseActivity() {
         // Start with platform OnBackInvoked interception disabled; enable when overlays appear.
         setBackInterceptionEnabled(false)
 
-        //Title Controller
-        findViewById<FrameLayout>(R.id.common_title_back_src_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.sources_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_src).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.sources_settings_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
         findViewById<ScrollView>(R.id.sources_scroll).viewTreeObserver
-            .addOnScrollChangedListener {
-                val scrollY = findViewById<ScrollView>(R.id.sources_scroll).scrollY
-                if (scrollY > 150) {
-                    findViewById<FrameLayout>(R.id.common_title_back_src_color).visibility = View.VISIBLE
-                    findViewById<TextView>(R.id.sources_title).visibility = View.VISIBLE
-                    findViewById<TextView>(R.id.sources_title_downstate).visibility = View.INVISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_src).elevation = (resources.getDimension(R.dimen.one_elevation))
-                } else {
-                    findViewById<FrameLayout>(R.id.common_title_back_src_color).visibility = View.INVISIBLE
-                    findViewById<TextView>(R.id.sources_title).visibility = View.INVISIBLE
-                    findViewById<TextView>(R.id.sources_title_downstate).visibility = View.VISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_src).elevation = (resources.getDimension(R.dimen.zero_elevation))
+            .addOnScrollChangedListener(object : android.view.ViewTreeObserver.OnScrollChangedListener {
+                private var isTitleVisible = false
+
+                override fun onScrollChanged() {
+                    val scrollY = findViewById<ScrollView>(R.id.sources_scroll).scrollY
+                    val threshold = 158
+
+                    val titleColorBackground = titleSurface
+                    val titleText = titleBar.titleView
+                    val titleDownstateText = findViewById<TextView>(R.id.sources_title_downstate)
+                    val titleBackground = titleBar.container
+
+                    if (scrollY > threshold) {
+                        if (!isTitleVisible) {
+                            TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
+                            TitleBarAnimator.animateVisibility(titleText, true)
+                            TitleBarAnimator.animateVisibility(titleDownstateText, false)
+                            titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
+                            isTitleVisible = true
+                        }
+                    } else {
+                        if (isTitleVisible) {
+                            TitleBarAnimator.animateVisibility(titleColorBackground, false)
+                            TitleBarAnimator.animateVisibility(titleText, false)
+                            TitleBarAnimator.animateVisibility(titleDownstateText, true)
+                            titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
+                            isTitleVisible = false
+                        }
+                    }
                 }
-            }
+            })
 
         listeners()
-        findViewById<ImageButton>(R.id.back_btn_src).setOnClickListener {
-            this.onBackPressed()
-        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params2 = findViewById<FrameLayout>(R.id.common_title_back_src).layoutParams as ViewGroup.LayoutParams
+        val params2 = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_src).layoutParams = params2
+        titleBar.container.layoutParams = params2
 
         val params3 = findViewById<TextView>(R.id.sources_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
         params3.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
@@ -108,12 +131,12 @@ class SourcesActivity : BaseActivity() {
     }
 
     private fun listeners() {
-        findViewById<FrameLayout>(R.id.l_wwe_btn).setOnClickListener {
+        findViewById<View>(R.id.l_wwe_btn).setOnClickListener {
             val title = resources.getString(R.string.sources_wwe_title)
             val text = resources.getString(R.string.sources_wwe_text)
             showInfoPanel(title, text)
         }
-        findViewById<FrameLayout>(R.id.l_sothree_btn).setOnClickListener {
+        findViewById<View>(R.id.l_sothree_btn).setOnClickListener {
             val title = resources.getString(R.string.sothree_license)
             val text = resources.getString(R.string.sothree_license_text)
             showInfoPanel(title, text)

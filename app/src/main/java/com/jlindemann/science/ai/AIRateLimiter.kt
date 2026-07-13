@@ -26,14 +26,8 @@ class AIRateLimiter(private val context: Context) {
 
     fun incrementMessageCount() {
         if (isProPlus()) return
-        
         val today = getTodayKey()
-        val currentCount = prefs.getInt(today, 0)
-        
-        prefs.edit().putInt(today, currentCount + 1).apply()
-        
-        // Optional: Clean up old keys (keep only last 7 days)
-        // cleanUpOldEntries()
+        prefs.edit().putInt(today, prefs.getInt(today, 0) + 1).apply()
     }
 
     fun getRemainingMessages(): Int {

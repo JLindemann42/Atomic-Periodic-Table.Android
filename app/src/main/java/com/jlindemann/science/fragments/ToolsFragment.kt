@@ -14,6 +14,7 @@ import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
+import com.jlindemann.science.activities.tables.DictionaryActivity
 import com.jlindemann.science.activities.tools.*
 import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.adapter.ToolAdapter
@@ -68,7 +69,8 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
         val defaultTools = mutableListOf(
             ToolItem("cal", R.string.calculator_title, R.string.calculator_text, false, false, 0),
             ToolItem("uni", R.string.unit_title, R.string.unit_description, false, false, 1),
-            ToolItem("gas", R.string.ideal_gas_calculator_title, R.string.ideal_gas_text, proPlusValue != 100 && isBeforeDeadline, false, 2)
+            ToolItem("gas", R.string.ideal_gas_calculator_title, R.string.ideal_gas_text, proPlusValue != 100 && isBeforeDeadline, false, 2),
+            ToolItem("dic", R.string.dictionary, R.string.dictionary_text, false, false, 3)
         )
 
         val savedOrder = toolOrderPreference.getOrder()
@@ -105,6 +107,7 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
             "cal" -> CalculatorActivity::class.java
             "uni" -> UnitConversionActivity::class.java
             "gas" -> IdealGasCalculatorActivity::class.java
+            "dic" -> DictionaryActivity::class.java
             else -> return
         }
         startActivity(Intent(requireContext(), activityClass))
@@ -134,6 +137,7 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
                     "uni" -> getString(R.string.uni)
                     "fla" -> getString(R.string.fla)
                     "gas" -> getString(R.string.gas)
+                    "dic" -> getString(R.string.dic)
                     else -> ""
                 }
                 
@@ -148,6 +152,7 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
                                 "cal" -> CalculatorActivity::class.java
                                 "uni" -> UnitConversionActivity::class.java
                                 "gas" -> IdealGasCalculatorActivity::class.java
+                                "dic" -> DictionaryActivity::class.java
                                 else -> null
                             }
                             activity?.let { startActivity(Intent(requireContext(), it)) }

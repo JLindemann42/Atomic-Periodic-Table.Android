@@ -9,13 +9,16 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.ScrollView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.UnifiedTitleBarController
 
 class AboutActivity : BaseActivity() {
+    private lateinit var titleBar: UnifiedTitleBarController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,35 +35,41 @@ class AboutActivity : BaseActivity() {
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_info)
 
-        findViewById<FrameLayout>(R.id.view_info).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        findViewById<ConstraintLayout>(R.id.view_info).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         setupLinks()
 
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.about_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.VISIBLE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
         //Title Controller
-        findViewById<FrameLayout>(R.id.common_title_info_color).visibility = View.INVISIBLE
         findViewById<ScrollView>(R.id.scroll_info).viewTreeObserver
             .addOnScrollChangedListener {
                 val scrollY = findViewById<ScrollView>(R.id.scroll_info).scrollY
                 if (scrollY > 150) {
-                    findViewById<FrameLayout>(R.id.common_title_info_color).visibility = View.VISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_info).elevation = resources.getDimension(R.dimen.one_elevation)
+                    titleSurface.visibility = View.VISIBLE
+                    titleBar.container.elevation = resources.getDimension(R.dimen.one_elevation)
                 } else {
-                    findViewById<FrameLayout>(R.id.common_title_info_color).visibility = View.INVISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_info).elevation = resources.getDimension(R.dimen.zero_elevation)
+                    titleSurface.visibility = View.INVISIBLE
+                    titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
                 }
             }
-
-        findViewById<View>(R.id.back_btn).setOnClickListener {
-            this.onBackPressed()
-        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_info).layoutParams as ViewGroup.LayoutParams
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_info).layoutParams = params
+        titleBar.container.layoutParams = params
 
         val params2 = findViewById<ImageView>(R.id.imageView3).layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<ImageView>(R.id.imageView3).layoutParams = params2
     }
 
@@ -68,6 +77,5 @@ class AboutActivity : BaseActivity() {
     //empty
     }
 }
-
 
 

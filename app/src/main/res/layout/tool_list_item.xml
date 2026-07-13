@@ -111,14 +111,17 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/tool_button"
-            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="@dimen/margin"
             android:layout_marginBottom="@dimen/margin"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:textSize="16sp"
             android:text="@string/tool_btn_open"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.LargeComponent"
+            android:background="@drawable/button_m3e"
+            android:backgroundTint="?attr/colorAccent"
             app:layout_constraintTop_toBottomOf="@+id/tool_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

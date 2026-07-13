@@ -25,73 +25,8 @@
 
     </LinearLayout>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/common_title_back_tab"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="0dp"
-        android:background="?attr/backgroundColor">
-
-        <FrameLayout
-            android:id="@+id/common_title_table_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorSurface"
-            android:visibility="invisible">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:alpha="0.11" />
-        </FrameLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/title_box"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_gravity="bottom">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/back_btn"
-                style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:rotation="180"
-                app:icon="@drawable/ic_arrow_back_whit"
-                app:iconTint="?attr/colorOnSecondaryContainer"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/tables_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="@string/activity_table_title"
-                android:textColor="?attr/colorOnSecondaryContainer"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="invisible"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/back_btn" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/reorder_btn"
-                style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="8dp"
-                app:icon="@drawable/ic_edit"
-                app:iconTint="?attr/colorOnSecondaryContainer"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    <include
+        android:id="@+id/unified_titlebar_include"
+        layout="@layout/view_unified_titlebar" />
 
 </FrameLayout>

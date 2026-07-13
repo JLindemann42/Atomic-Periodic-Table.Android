@@ -94,3 +94,21 @@ This creates `untranslated_strings.csv` in the repository root.
 - Scripts automatically detect the repository root
 - All scripts can be run from any directory
 - Output is color-coded for easy reading (when terminal supports it)
+
+## On-device RAG asset generation (new)
+
+This repo now contains helper scripts to prepare a small retrieval-augmented dataset for on-device use (element KB + model-backed table data -> embeddings -> Android assets).
+
+Files added:
+- prepare_corpus.py  (extracts passages from app/src/main/assets/elements_*.json and selected app model tables such as constants, dictionary, equations, indicators, Poisson ratios and ionization counts)
+- build_embeddings.py (computes sentence-transformer embeddings and writes data/embeddings.json, embeddings_meta.json and data/passages.jsonl)
+- requirements.txt (python deps)
+- convert_to_tflite.md (notes on converting generator/embedder to TFLite)
+
+Quick usage:
+1. Create a venv and install deps: `pip install -r scripts/requirements.txt`
+2. `python scripts/prepare_corpus.py`
+3. `python scripts/build_embeddings.py`
+4. Copy `data/embeddings.json`, `data/embeddings_meta.json`, and `data/passages.jsonl` into `app/src/main/assets/data/`
+
+See scripts/README (this section) and scripts/convert_to_tflite.md for conversion steps and Android integration notes.

@@ -306,6 +306,9 @@
     <string name="ai_hint">Fråga mig vad som helst...</string>
     <string name="ai_lang_switched">AI-språk ändrat till: %1$s 🌐</string>
     <string name="ai_no_data">Hmm, jag hittade ingen information om det. Prova att fråga om ett grundämne som \'syre\' eller \'guld\'!</string>
+    <string name="ai_related_label">Relaterad info:</string>
+    <string name="ai_related_offer">Jag hittade lokal relaterad info. Fråga \'visa relaterat\' för att se den.</string>
+    <string name="ai_related_offer_lang">Jag hittade lokal relaterad info men inte på ditt valda språk. Prova att byta språk eller fråga ändå.</string>
     <string name="ai_greeting">Hej där! 👋 Jag är din kemikompis. Fråga mig vad som helst om grundämnen!</string>
     <string name="ai_encouragement">Bra fråga! 🌟</string>
     <string name="ai_comparing_title">Jämför %1$s:</string>

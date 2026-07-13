@@ -22,13 +22,16 @@ import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.view.ViewPropertyAnimator
 import androidx.appcompat.widget.AppCompatButton
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.preferences.MostUsedToolPreference
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 
 class UnitConversionActivity : BaseActivity() {
+    private lateinit var titleBar: UnifiedTitleBarController
     private val unitCategories: Map<String, List<UnitDefinition>> = mapOf(
         "Length" to listOf(
             UnitDefinition("Meter", 1.0),
@@ -154,33 +157,38 @@ class UnitConversionActivity : BaseActivity() {
             setTheme(R.style.AppThemeDark)
         }
         setContentView(R.layout.activity_unit_converter)
-        findViewById<FrameLayout>(R.id.view_unit).systemUiVisibility =
+        findViewById<ConstraintLayout>(R.id.view_unit).systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.unit_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.unit_converter_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
         findViewById<ScrollView>(R.id.unit_scroll).viewTreeObserver
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
                 override fun onScrollChanged() {
                     val scrollY = findViewById<ScrollView>(R.id.unit_scroll).scrollY
                     if (scrollY > 150) {
-                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.unit_title).visibility = View.VISIBLE
+                        titleSurface.visibility = View.VISIBLE
+                        titleBar.titleView.visibility = View.VISIBLE
                         findViewById<TextView>(R.id.unit_title_downstate).visibility = View.INVISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation = (resources.getDimension(R.dimen.one_elevation))
+                        titleBar.container.elevation = (resources.getDimension(R.dimen.one_elevation))
                     } else {
-                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.unit_title).visibility = View.INVISIBLE
+                        titleSurface.visibility = View.INVISIBLE
+                        titleBar.titleView.visibility = View.INVISIBLE
                         findViewById<TextView>(R.id.unit_title_downstate).visibility = View.VISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation = (resources.getDimension(R.dimen.zero_elevation))
+                        titleBar.container.elevation = (resources.getDimension(R.dimen.zero_elevation))
                     }
                 }
             })
-
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
-            this.onBackPressed()
-        }
 
         // Setup unified back handling: register a lifecycle-aware OnBackPressedCallback (disabled by default).
         backCallback = object : OnBackPressedCallback(false) {
@@ -264,45 +272,6 @@ class UnitConversionActivity : BaseActivity() {
         loadFavorites()
         updateFavoriteButtonState()
 
-        findViewById<ScrollView>(R.id.unit_scroll).viewTreeObserver
-            .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
-                private var isTitleVisible = false
-
-                override fun onScrollChanged() {
-                    val scrollY = findViewById<ScrollView>(R.id.unit_scroll).scrollY
-                    val threshold = 150f
-
-                    val titleColorBackground =
-                        findViewById<FrameLayout>(R.id.common_title_back_unit_color)
-                    val titleText = findViewById<TextView>(R.id.unit_title)
-                    val titleDownstateText = findViewById<TextView>(R.id.unit_title_downstate)
-                    val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_unit)
-
-                    if (scrollY > threshold) {
-                        if (!isTitleVisible) {
-                            TitleBarAnimator.animateVisibility(
-                                titleColorBackground,
-                                true,
-                                visibleAlpha = 0.11f
-                            )
-                            TitleBarAnimator.animateVisibility(titleText, true)
-                            TitleBarAnimator.animateVisibility(titleDownstateText, false)
-                            titleBackground.elevation =
-                                resources.getDimension(R.dimen.one_elevation)
-                            isTitleVisible = true
-                        }
-                    } else {
-                        if (isTitleVisible) {
-                            TitleBarAnimator.animateVisibility(titleColorBackground, false)
-                            TitleBarAnimator.animateVisibility(titleText, false)
-                            TitleBarAnimator.animateVisibility(titleDownstateText, true)
-                            titleBackground.elevation =
-                                resources.getDimension(R.dimen.zero_elevation)
-                            isTitleVisible = false
-                        }
-                    }
-                }
-            })
 
     }
 
@@ -522,9 +491,9 @@ class UnitConversionActivity : BaseActivity() {
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         val params =
-            findViewById<FrameLayout>(R.id.common_title_back_unit).layoutParams as ViewGroup.LayoutParams
+            titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_unit).layoutParams = params
+        titleBar.container.layoutParams = params
 
         val params2 =
             findViewById<TextView>(R.id.unit_title_downstate).layoutParams as ViewGroup.MarginLayoutParams

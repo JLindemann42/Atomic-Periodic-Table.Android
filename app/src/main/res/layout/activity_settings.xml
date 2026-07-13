@@ -210,10 +210,10 @@
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/offline_mode" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/offline_mode_desc" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
                         </LinearLayout>
-                        <androidx.appcompat.widget.SwitchCompat
-                            android:id="@+id/offline_internet_switch"
+                        <com.google.android.material.materialswitch.MaterialSwitch                            android:id="@+id/offline_internet_switch"
+                            style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"/>
                     </LinearLayout>
 
                     <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="56dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
@@ -259,8 +259,9 @@
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/analytics_title" android:textColor="?attr/colorOnSurface" android:textSize="16sp" android:textStyle="bold" />
                             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/analytics_desc" android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
                         </LinearLayout>
-                        <androidx.appcompat.widget.SwitchCompat
+                        <com.google.android.material.materialswitch.MaterialSwitch
                             android:id="@+id/analytics_switch"
+                            style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
@@ -463,68 +464,10 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/common_title_back_set"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="0dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.BottomRounded"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <FrameLayout
-            android:id="@+id/common_title_settings_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorSurface"
-            android:visibility="invisible">
-
-            <FrameLayout
-                android:id="@+id/common_title_isotope_color"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="invisible"
-                android:background="?attr/colorPrimary"
-                android:alpha="0.11" />
-        </FrameLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/title_box_settings"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_gravity="bottom">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/back_btn_set"
-                style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:rotation="180"
-                app:icon="@drawable/ic_arrow_back_whit"
-                app:iconTint="?attr/colorOnSecondaryContainer"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/element_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="@string/settings"
-                android:textColor="?attr/colorOnSecondaryContainer"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="invisible"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/back_btn_set" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    <include
+        android:id="@+id/unified_titlebar_include"
+        layout="@layout/view_unified_titlebar"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/theme_panel"

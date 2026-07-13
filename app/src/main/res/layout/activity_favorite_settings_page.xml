@@ -25,7 +25,7 @@
                 android:paddingStart="24dp"
                 android:paddingEnd="24dp"
                 android:paddingTop="80dp"
-                android:paddingBottom="24dp"
+                android:paddingBottom="12dp"
                 android:text="@string/favorite_settings_title"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="36sp"
@@ -39,8 +39,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/favorite_settings_general"
                     android:textSize="14sp"
-                    android:textAllCaps="true"
-                    android:letterSpacing="0.1"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -61,12 +59,12 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
-                        <CheckBox
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/molar_mass_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="16dp"
-                            android:buttonTint="?attr/colorPrimary"
                             android:checked="true"
                             android:text="@string/show_molar_mass"
                             android:textColor="?attr/colorOnSecondaryContainer"
@@ -83,12 +81,13 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
-                        <CheckBox
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/phase_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="16dp"
-                            android:buttonTint="?attr/colorPrimary"
                             android:checked="true"
                             android:text="@string/show_stp_phase"
                             android:textColor="?attr/colorOnSecondaryContainer"
@@ -105,12 +104,12 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
-                        <CheckBox
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/electronegativity_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="16dp"
-                            android:buttonTint="?attr/colorPrimary"
                             android:checked="true"
                             android:text="@string/show_electronegativity"
                             android:textColor="?attr/colorOnSecondaryContainer"
@@ -127,12 +126,12 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
-                        <CheckBox
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/density_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="16dp"
-                            android:buttonTint="?attr/colorPrimary"
                             android:checked="false"
                             android:text="@string/show_density"
                             android:textColor="?attr/colorOnSecondaryContainer"
@@ -152,8 +151,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/favorite_settings_temperatures"
                     android:textSize="14sp"
-                    android:textAllCaps="true"
-                    android:letterSpacing="0.1"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -206,7 +203,6 @@
                             android:id="@+id/boiling_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:buttonTint="?attr/colorPrimary"
                             android:text="@string/show_boiling_point"
                             android:textColor="?attr/colorOnSecondaryContainer"
                             android:layoutDirection="rtl"
@@ -217,11 +213,12 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp">
-                        <CheckBox
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/melting_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:buttonTint="?attr/colorPrimary"
                             android:text="@string/show_melting_point"
                             android:textColor="?attr/colorOnSecondaryContainer"
                             android:layoutDirection="rtl"
@@ -240,8 +237,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/favorite_settings_atomic_properties"
                     android:textSize="14sp"
-                    android:textAllCaps="true"
-                    android:letterSpacing="0.1"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -263,12 +258,12 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
-                        <CheckBox
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/atomic_radius_empirical_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="16dp"
-                            android:buttonTint="?attr/colorPrimary"
                             android:text="@string/show_atomic_radius_empirical"
                             android:textColor="?attr/colorOnSecondaryContainer"
                             android:layoutDirection="rtl"
@@ -284,12 +279,12 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
-                        <CheckBox
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/atomic_radius_calculated_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="16dp"
-                            android:buttonTint="?attr/colorPrimary"
                             android:text="@string/show_atomic_radius_calculated"
                             android:textColor="?attr/colorOnSecondaryContainer"
                             android:layoutDirection="rtl"
@@ -305,12 +300,12 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
-                        <CheckBox
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/covalent_radius_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="16dp"
-                            android:buttonTint="?attr/colorPrimary"
                             android:text="@string/show_covalent_radius"
                             android:textColor="?attr/colorOnSecondaryContainer"
                             android:layoutDirection="rtl"
@@ -326,12 +321,12 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
-                        <CheckBox
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/van_der_waals_radius_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="16dp"
-                            android:buttonTint="?attr/colorPrimary"
                             android:text="@string/show_van_der_waals_radius"
                             android:textColor="?attr/colorOnSecondaryContainer"
                             android:layoutDirection="rtl"
@@ -350,8 +345,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/favorite_settings_electromagnetic"
                     android:textSize="14sp"
-                    android:textAllCaps="true"
-                    android:letterSpacing="0.1"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -372,12 +365,12 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
-                        <CheckBox
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/resitivity_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="16dp"
-                            android:buttonTint="?attr/colorPrimary"
                             android:checked="false"
                             android:text="@string/show_resistivity"
                             android:textColor="?attr/colorOnSecondaryContainer"
@@ -397,8 +390,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/favorite_settings_thermodynamics"
                     android:textSize="14sp"
-                    android:textAllCaps="true"
-                    android:letterSpacing="0.1"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -419,12 +410,12 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
-                        <CheckBox
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/fusion_heat_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="16dp"
-                            android:buttonTint="?attr/colorPrimary"
                             android:checked="false"
                             android:text="@string/show_fusion_heat"
                             android:textColor="?attr/colorOnSecondaryContainer"
@@ -441,12 +432,12 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
-                        <CheckBox
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/specific_heat_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="16dp"
-                            android:buttonTint="?attr/colorPrimary"
                             android:checked="false"
                             android:text="@string/show_specific_heat_capacity"
                             android:textColor="?attr/colorOnSecondaryContainer"
@@ -463,12 +454,12 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
-                        <CheckBox
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/vaporization_heat_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="16dp"
-                            android:buttonTint="?attr/colorPrimary"
                             android:checked="false"
                             android:text="@string/show_vaporization_heat"
                             android:textColor="?attr/colorOnSecondaryContainer"
@@ -488,8 +479,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/favorite_settings_nuclear"
                     android:textSize="14sp"
-                    android:textAllCaps="true"
-                    android:letterSpacing="0.1"
                     android:textColor="?attr/colorPrimary"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -511,12 +500,12 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:foreground="?attr/selectableItemBackground">
-                        <CheckBox
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            style="@style/Widget.Material3.CompoundButton.CheckBox"
                             android:id="@+id/radioactive_check"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginHorizontal="16dp"
-                            android:buttonTint="?attr/colorPrimary"
                             android:checked="false"
                             android:text="@string/show_if_radioactive"
                             android:textColor="?attr/colorOnSecondaryContainer"
@@ -531,61 +520,9 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/common_title_back_fav"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        app:cardElevation="0dp"
-        app:strokeWidth="0dp"
-        android:background="?attr/backgroundColor"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <FrameLayout
-            android:id="@+id/common_title_back_fav_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible"
-            android:background="?attr/colorSurface">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:alpha="0.11" />
-        </FrameLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/title_box"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_gravity="bottom">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/back_btn_fav"
-                style="@style/Widget.Material3.Button.IconButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginStart="8dp"
-                android:rotation="180"
-                app:icon="@drawable/ic_arrow_back_whit"
-                app:iconTint="?attr/colorOnSecondaryContainer"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/favorite_set_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:text="@string/favorite_settings_title"
-                android:textColor="?attr/colorOnSecondaryContainer"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="invisible"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/back_btn_fav" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
+    <include
+        android:id="@+id/unified_titlebar_include"
+        layout="@layout/view_unified_titlebar"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

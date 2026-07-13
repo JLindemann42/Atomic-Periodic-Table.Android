@@ -197,7 +197,18 @@
     <style name="ShapeAppearance.Science.BottomRounded" parent="ShapeAppearance.Material3.Corner.Small">
         <item name="cornerSizeTopLeft">0dp</item>
         <item name="cornerSizeTopRight">0dp</item>
-        <item name="cornerSizeBottomLeft">8dp</item>
-        <item name="cornerSizeBottomRight">8dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
+        <item name="cornerSizeBottomRight">16dp</item>
+    </style>
+
+    <style name="Widget.Science.Solubility.Cell" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/bg_solubility_cell</item>
+        <item name="android:elevation">0dp</item>
     </style>
 </resources>
