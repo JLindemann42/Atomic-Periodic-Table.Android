@@ -50,28 +50,26 @@
                         android:layout_height="wrap_content"
                         android:text="@string/unit_category"
                         android:textStyle="bold"
-                        android:textSize="12sp"
-                        android:textAllCaps="true"
-                        android:letterSpacing="0.1"
+                        android:textSize="18sp"
                         android:textColor="?attr/colorPrimary"
                         android:layout_marginBottom="8dp"/>
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        app:cardElevation="0dp"
-                        app:cardBackgroundColor="?attr/colorSurface"
-                        app:strokeWidth="1dp"
-                        app:strokeColor="?attr/colorOutlineVariant"
-                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium"
-                        android:layout_marginBottom="24dp">
-                        <Spinner
-                            android:id="@+id/category_spinner"
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:paddingHorizontal="12dp"
-                            android:background="@android:color/transparent" />
-                    </com.google.android.material.card.MaterialCardView>
+                            android:layout_height="56dp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="?attr/colorSurface"
+                            app:strokeWidth="1dp"
+                            app:strokeColor="?attr/colorOutlineVariant"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium"
+                            android:layout_marginBottom="24dp">
+                            <Spinner
+                                android:id="@+id/category_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:paddingHorizontal="12dp"
+                                android:background="@android:color/transparent" />
+                        </com.google.android.material.card.MaterialCardView>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -103,6 +101,7 @@
                                     android:hint="@string/unit_enter_value"
                                     android:inputType="numberDecimal"
                                     android:padding="0dp"
+                                    android:layout_marginBottom="8dp"
                                     android:background="@android:color/transparent"
                                     android:textColor="?attr/colorOnSurface"
                                     android:textSize="28sp"
@@ -116,13 +115,11 @@
                                 android:layout_marginStart="8dp" />
                         </LinearLayout>
 
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:layout_marginVertical="12dp"
-                            app:srcCompat="@drawable/ic_arrow"
-                            android:rotation="180"
-                            app:tint="?attr/colorOutline" />
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:alpha="0.5"
+                            android:background="?attr/colorOnSurface"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -139,11 +136,12 @@
                                 app:boxStrokeWidth="0dp"
                                 app:boxStrokeWidthFocused="0dp"
                                 app:hintEnabled="false">
+
                                 <com.google.android.material.textfield.TextInputEditText
                                     android:id="@+id/output_value"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:hint=""
+                                    android:hint="..."
                                     android:padding="0dp"
                                     android:background="@android:color/transparent"
                                     android:inputType="numberDecimal"
@@ -172,9 +170,9 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/add_favorite_button"
-                        style="@style/Widget.Material3.Button.TonalButton"
+                        style="@style/Widget.Material3.Button.IconButton.Outlined"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="54dp"
                         android:text="@string/unit_add_favorite"
                         android:layout_gravity="end"
                         android:layout_marginTop="16dp"

@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Title -->
             <TextView
                 android:id="@+id/ideal_gas_calculator_title_downstate"
                 android:layout_width="match_parent"
@@ -45,31 +46,21 @@
                     android:padding="16dp">
 
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ideal_gas_card_title"
-                        android:textColor="?attr/colorPrimary"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:layout_marginBottom="16dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/ideal_gas_calculate_field"
-                        android:textColor="?attr/colorOnSurfaceVariant"
                         android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:textAllCaps="true"
-                        android:letterSpacing="0.1"
-                        android:layout_marginBottom="8dp" />
+                        android:textSize="18sp"
+                        android:textColor="?attr/colorPrimary"
+                        android:layout_marginBottom="8dp"/>
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="match_parent"
                         android:layout_height="56dp"
                         app:cardElevation="0dp"
                         app:cardBackgroundColor="?attr/colorSurface"
-                        app:strokeWidth="0dp"
+                        app:strokeWidth="1dp"
+                        app:strokeColor="?attr/colorOutlineVariant"
                         app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium"
                         android:layout_marginBottom="24dp">
                         <Spinner
@@ -80,98 +71,236 @@
                             android:background="@android:color/transparent" />
                     </com.google.android.material.card.MaterialCardView>
 
-                    <!-- Input Grid -->
+                    <!-- Input Area -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorSurface"
+                        android:padding="16dp">
 
-                        <!-- Pressure -->
-                        <TextView android:id="@+id/pressure_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ideal_gas_pressure" android:textColor="?attr/colorOnSurfaceVariant" android:textStyle="bold" android:textSize="12sp" android:textAllCaps="true" android:letterSpacing="0.1" android:layout_marginBottom="4dp" />
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="16dp">
-                            <com.google.android.material.textfield.TextInputLayout style="@style/Widget.Material3.TextInputLayout.FilledBox" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" app:boxBackgroundColor="?attr/colorSurface" app:boxCornerRadiusTopStart="12dp" app:boxCornerRadiusTopEnd="12dp" app:boxCornerRadiusBottomStart="12dp" app:boxCornerRadiusBottomEnd="12dp" app:boxStrokeWidth="0dp" app:boxStrokeWidthFocused="0dp" app:hintEnabled="false">
-                                <com.google.android.material.textfield.TextInputEditText android:id="@+id/pressure_input" android:layout_width="match_parent" android:layout_height="56dp" android:hint="@string/ideal_gas_pressure_hint" android:inputType="numberDecimal|numberSigned" android:paddingHorizontal="16dp" android:textColor="?attr/colorOnSurface" android:textSize="16sp" />
+                        <!-- Pressure Input -->
+                        <LinearLayout
+                            android:id="@+id/pressure_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                app:boxBackgroundColor="@android:color/transparent"
+                                app:boxStrokeWidth="0dp"
+                                app:boxStrokeWidthFocused="0dp"
+                                app:hintEnabled="false">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/pressure_input"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/ideal_gas_pressure"
+                                    android:inputType="numberDecimal|numberSigned"
+                                    android:padding="0dp"
+                                    android:background="@android:color/transparent"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
                             </com.google.android.material.textfield.TextInputLayout>
-                            <Spinner android:id="@+id/pressure_unit_spinner" android:layout_width="100dp" android:layout_height="56dp" android:layout_marginStart="8dp" />
+
+                            <Spinner
+                                android:id="@+id/pressure_unit_spinner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="48dp"
+                                android:layout_marginStart="8dp" />
                         </LinearLayout>
 
-                        <!-- Volume -->
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ideal_gas_volume" android:textColor="?attr/colorOnSurfaceVariant" android:textStyle="bold" android:textSize="12sp" android:textAllCaps="true" android:letterSpacing="0.1" android:layout_marginBottom="4dp" />
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="16dp">
-                            <com.google.android.material.textfield.TextInputLayout style="@style/Widget.Material3.TextInputLayout.FilledBox" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" app:boxBackgroundColor="?attr/colorSurface" app:boxCornerRadiusTopStart="12dp" app:boxCornerRadiusTopEnd="12dp" app:boxCornerRadiusBottomStart="12dp" app:boxCornerRadiusBottomEnd="12dp" app:boxStrokeWidth="0dp" app:boxStrokeWidthFocused="0dp" app:hintEnabled="false">
-                                <com.google.android.material.textfield.TextInputEditText android:id="@+id/volume_input" android:layout_width="match_parent" android:layout_height="56dp" android:hint="@string/ideal_gas_volume_hint" android:inputType="numberDecimal|numberSigned" android:paddingHorizontal="16dp" android:textColor="?attr/colorOnSurface" android:textSize="16sp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:alpha="0.2"
+                            android:layout_marginVertical="12dp"
+                            android:background="?attr/colorOnSurface"/>
+
+                        <!-- Volume Input -->
+                        <LinearLayout
+                            android:id="@+id/volume_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                app:boxBackgroundColor="@android:color/transparent"
+                                app:boxStrokeWidth="0dp"
+                                app:boxStrokeWidthFocused="0dp"
+                                app:hintEnabled="false">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/volume_input"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/ideal_gas_volume"
+                                    android:inputType="numberDecimal|numberSigned"
+                                    android:padding="0dp"
+                                    android:background="@android:color/transparent"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
                             </com.google.android.material.textfield.TextInputLayout>
-                            <Spinner android:id="@+id/volume_unit_spinner" android:layout_width="100dp" android:layout_height="56dp" android:layout_marginStart="8dp" />
+
+                            <Spinner
+                                android:id="@+id/volume_unit_spinner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="48dp"
+                                android:layout_marginStart="8dp" />
                         </LinearLayout>
 
-                        <!-- Moles -->
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ideal_gas_moles" android:textColor="?attr/colorOnSurfaceVariant" android:textStyle="bold" android:textSize="12sp" android:textAllCaps="true" android:letterSpacing="0.1" android:layout_marginBottom="4dp" />
-                        <com.google.android.material.textfield.TextInputLayout style="@style/Widget.Material3.TextInputLayout.FilledBox" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="16dp" app:boxBackgroundColor="?attr/colorSurface" app:boxCornerRadiusTopStart="12dp" app:boxCornerRadiusTopEnd="12dp" app:boxCornerRadiusBottomStart="12dp" app:boxCornerRadiusBottomEnd="12dp" app:boxStrokeWidth="0dp" app:boxStrokeWidthFocused="0dp" app:hintEnabled="false">
-                            <com.google.android.material.textfield.TextInputEditText android:id="@+id/moles_input" android:layout_width="match_parent" android:layout_height="56dp" android:hint="@string/ideal_gas_moles_hint" android:inputType="numberDecimal|numberSigned" android:paddingHorizontal="16dp" android:textColor="?attr/colorOnSurface" android:textSize="16sp" />
-                        </com.google.android.material.textfield.TextInputLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:alpha="0.2"
+                            android:layout_marginVertical="12dp"
+                            android:background="?attr/colorOnSurface"/>
 
-                        <!-- Temperature -->
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/ideal_gas_temperature" android:textColor="?attr/colorOnSurfaceVariant" android:textStyle="bold" android:textSize="12sp" android:textAllCaps="true" android:letterSpacing="0.1" android:layout_marginBottom="4dp" />
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="16dp">
-                            <com.google.android.material.textfield.TextInputLayout style="@style/Widget.Material3.TextInputLayout.FilledBox" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" app:boxBackgroundColor="?attr/colorSurface" app:boxCornerRadiusTopStart="12dp" app:boxCornerRadiusTopEnd="12dp" app:boxCornerRadiusBottomStart="12dp" app:boxCornerRadiusBottomEnd="12dp" app:boxStrokeWidth="0dp" app:boxStrokeWidthFocused="0dp" app:hintEnabled="false">
-                                <com.google.android.material.textfield.TextInputEditText android:id="@+id/temperature_input" android:layout_width="match_parent" android:layout_height="56dp" android:hint="@string/ideal_gas_temperature_hint" android:inputType="numberDecimal|numberSigned" android:paddingHorizontal="16dp" android:textColor="?attr/colorOnSurface" android:textSize="16sp" />
+                        <!-- Moles Input -->
+                        <LinearLayout
+                            android:id="@+id/moles_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                app:boxBackgroundColor="@android:color/transparent"
+                                app:boxStrokeWidth="0dp"
+                                app:boxStrokeWidthFocused="0dp"
+                                app:hintEnabled="false">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/moles_input"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/ideal_gas_moles"
+                                    android:inputType="numberDecimal|numberSigned"
+                                    android:padding="0dp"
+                                    android:background="@android:color/transparent"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
                             </com.google.android.material.textfield.TextInputLayout>
-                            <Spinner android:id="@+id/temperature_unit_spinner" android:layout_width="100dp" android:layout_height="56dp" android:layout_marginStart="8dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="mol"
+                                android:textSize="14sp"
+                                android:layout_marginEnd="12dp"
+                                android:textColor="?attr/colorOnSurfaceVariant" />
                         </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:alpha="0.2"
+                            android:layout_marginVertical="12dp"
+                            android:background="?attr/colorOnSurface"/>
+
+                        <!-- Temperature Input -->
+                        <LinearLayout
+                            android:id="@+id/temperature_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                style="@style/Widget.Material3.TextInputLayout.FilledBox"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                app:boxBackgroundColor="@android:color/transparent"
+                                app:boxStrokeWidth="0dp"
+                                app:boxStrokeWidthFocused="0dp"
+                                app:hintEnabled="false">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/temperature_input"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/ideal_gas_temperature"
+                                    android:inputType="numberDecimal|numberSigned"
+                                    android:padding="0dp"
+                                    android:background="@android:color/transparent"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <Spinner
+                                android:id="@+id/temperature_unit_spinner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="48dp"
+                                android:layout_marginStart="8dp" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
-                    <TextView
+                    <!-- Result Section -->
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="@string/ideal_gas_result"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:textStyle="bold"
-                        android:textSize="14sp"
-                        android:textAllCaps="true"
-                        android:letterSpacing="0.1" />
+                        android:orientation="vertical"
+                        android:layout_marginTop="24dp"
+                        android:padding="16dp"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorPrimaryContainer">
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ideal_gas_result"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:letterSpacing="0.05"
+                            android:textColor="?attr/colorPrimary" />
 
                         <TextView
                             android:id="@+id/out_text_ideal_gas"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="?attr/colorSurface"
-                            android:padding="16dp"
                             android:text="@string/calculator_default_value"
-                            android:textColor="?attr/colorPrimary"
-                            android:textSize="20sp"
+                            android:textColor="?attr/colorOnPrimaryContainer"
+                            android:textSize="28sp"
                             android:textStyle="bold"
-                            app:drawableStartCompat="@drawable/ic_weight_outline"
-                            android:drawablePadding="12dp"
-                            app:drawableTint="?attr/colorPrimary"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/fav_star_btn_ideal_gas"
-                            android:layout_marginEnd="8dp" />
+                            android:layout_marginBottom="4dp"
+                            android:layout_marginTop="4dp" />
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/fav_star_btn_ideal_gas"
-                            style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
-                            android:layout_width="56dp"
-                            android:layout_height="56dp"
-                            app:icon="@drawable/ic_star"
-                            app:iconSize="24dp"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
+                    </LinearLayout>
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/fav_star_btn_ideal_gas"
+                        style="@style/Widget.Material3.Button.IconButton.Outlined"
+                        android:layout_width="wrap_content"
+                        android:layout_height="54dp"
+                        android:text="@string/unit_add_favorite"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="16dp"
+                        app:icon="@drawable/ic_star"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Favorites -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/fav_box_ideal_gas"
                 style="@style/Widget.Science.Expressive.SectionCard"
@@ -186,12 +315,12 @@
                     android:padding="16dp">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
                         android:text="@string/calc_favorites"
-                        android:textColor="?attr/colorPrimary"
                         android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="?attr/colorPrimary"
                         android:layout_marginBottom="12dp"/>
 
                     <TextView
@@ -205,6 +334,15 @@
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:layout_marginBottom="16dp"/>
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/pro_button_ideal_gas"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/get_pro_title"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
+
                     <TextView
                         android:id="@+id/no_fav_text_ideal_gas"
                         android:layout_width="match_parent"
@@ -215,15 +353,6 @@
                         android:text="@string/calc_no_favorites"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:layout_marginBottom="16dp"/>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/pro_button_ideal_gas"
-                        style="@style/Widget.Material3.Button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:text="@string/get_pro_title"
-                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/fav_rec_list_ideal_gas"

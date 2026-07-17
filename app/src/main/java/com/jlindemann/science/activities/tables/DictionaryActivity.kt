@@ -143,7 +143,25 @@ class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickLi
         findViewById<ConstraintLayout>(R.id.view_dic).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.container.elevation = 0f
 
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                val scrollY = recyclerView.computeVerticalScrollOffset()
+                if (scrollY > 20) {
+                    if (titleSurface.visibility != View.VISIBLE) {
+                        titleSurface.visibility = View.VISIBLE
+                        titleBar.container.elevation = resources.getDimension(R.dimen.one_elevation)
+                    }
+                } else {
+                    if (titleSurface.visibility != View.INVISIBLE) {
+                        titleSurface.visibility = View.INVISIBLE
+                        titleBar.container.elevation = 0f
+                    }
+                }
+            }
+        })
     }
 
     private fun setupChips(list: ArrayList<Dictionary>) {
