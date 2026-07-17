@@ -42,6 +42,10 @@ class BillingManager(
     private var ownsProPlusVersion = false
 
     fun initialize() {
+        if (billingClient != null) {
+            endConnection()
+        }
+
         val pendingPurchasesParams = PendingPurchasesParams.newBuilder()
             .enableOneTimeProducts()
             .build()
@@ -55,7 +59,13 @@ class BillingManager(
     }
 
     fun endConnection() {
-        billingClient?.endConnection()
+        try {
+            billingClient?.endConnection()
+        } catch (e: Exception) {
+            // Ignore if already disconnected or not bound
+        } finally {
+            billingClient = null
+        }
     }
 
     // --- Accessors used by UI / adapter ---

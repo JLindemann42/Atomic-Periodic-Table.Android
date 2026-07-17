@@ -23,6 +23,7 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.PoissonAdapter
@@ -47,6 +48,8 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
     private var backCallback: OnBackPressedCallback? = null
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
     private val uiHandler = Handler(Looper.getMainLooper())
+    
+    private var bottomSheetBehavior: BottomSheetBehavior<View>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,6 +109,7 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
         }
         titleBar.backButton.setOnClickListener { onBackPressed() }
 
+        setupBottomSheet()
         setupChips(itempoi, recyclerView)
 
         // Initial filter to show all items
@@ -119,15 +123,38 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
                 filter(s.toString(), itempoi, recyclerView)
             }
         })
+    }
 
-        // When tapping background, hide panel and update interception
-        findViewById<View>(R.id.poi_det_inc_background).setOnClickListener {
-            hideInfoPanel()
-            setBackInterceptionEnabled(anyOverlayOpen())
+    private fun setupBottomSheet() {
+        val poissonPanelRoot = findViewById<View>(R.id.poi_det_inc) ?: return
+        val background = findViewById<TextView>(R.id.background_poi) ?: return
+        
+        bottomSheetBehavior = BottomSheetBehavior.from(poissonPanelRoot)
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehavior?.skipCollapsed = true
+        
+        bottomSheetBehavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    background.visibility = View.GONE
+                    background.alpha = 0f
+                } else {
+                    background.visibility = View.VISIBLE
+                }
+                setBackInterceptionEnabled(anyOverlayOpen())
+            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                background.visibility = View.VISIBLE
+                background.alpha = slideOffset.coerceAtLeast(0f) * 0.6f
+            }
+        })
+        
+        background.setOnClickListener {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
-        findViewById<View>(R.id.close_detail_poisson_btn).setOnClickListener {
-            hideInfoPanel()
-            setBackInterceptionEnabled(anyOverlayOpen())
+
+        poissonPanelRoot.findViewById<View>(R.id.drag_frame_poisson)?.setOnClickListener {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
     }
 
@@ -140,6 +167,9 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
         val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_poi).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
         findViewById<LinearLayout>(R.id.empty_search_box_poi).layoutParams = searchEmptyImgPrm
+        
+        // Handle Poisson Panel insets
+        findViewById<View>(R.id.scroll_poisson)?.setPadding(0, 0, 0, bottom + resources.getDimensionPixelSize(R.dimen.default_padding))
     }
 
     private fun setupChips(list: ArrayList<Poisson>, recyclerView: RecyclerView) {
@@ -169,18 +199,17 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
     }
 
     private fun showInfoPanel(title: String, start: Double, end: Double, type: String) {
-        Anim.fadeIn(findViewById<ConstraintLayout>(R.id.poi_det_inc), 150)
-        findViewById<FrameLayout>(R.id.poi_det_inc_background).visibility = View.VISIBLE
-        setBackInterceptionEnabled(true)
+        val slider = findViewById<com.google.android.material.slider.RangeSlider>(R.id.rs_poisson_detail)
+        slider.setValues(start.toFloat(), end.toFloat())
 
-        findViewById<ProgressBar>(R.id.pb_poisson_detail).progress = (start*100*2).toInt()
-        findViewById<ProgressBar>(R.id.pb_poisson_detail).secondaryProgress = (end*100*2).toInt()
         findViewById<TextView>(R.id.detail_poisson_title).text = title
+        
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+        setBackInterceptionEnabled(true)
     }
 
     private fun hideInfoPanel() {
-        Anim.fadeOutAnim(findViewById<ConstraintLayout>(R.id.poi_det_inc), 150)
-        findViewById<FrameLayout>(R.id.poi_det_inc_background).visibility = View.GONE
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         setBackInterceptionEnabled(anyOverlayOpen())
     }
 
@@ -210,19 +239,15 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
     }
 
     private fun anyOverlayOpen(): Boolean {
-        val infoVisible = findViewById<ConstraintLayout>(R.id.poi_det_inc).visibility == View.VISIBLE
-        val backgroundVisible = findViewById<View>(R.id.poi_det_inc_background).visibility == View.VISIBLE
+        val infoVisible = bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN
+        val backgroundVisible = findViewById<TextView>(R.id.background_poi).visibility == View.VISIBLE
         val searchBarVisible = titleBar.searchRow.visibility == View.VISIBLE
         return infoVisible || backgroundVisible || searchBarVisible
     }
 
     private fun handleBackPress(): Boolean {
-        val infoPanel = findViewById<CardView>(R.id.poi_det_inc)
-        val background = findViewById<View>(R.id.poi_det_inc_background)
-
-        if (infoPanel.visibility == View.VISIBLE || background.visibility == View.VISIBLE) {
-            hideInfoPanel()
-            setBackInterceptionEnabled(anyOverlayOpen())
+        if (bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN) {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
             return true
         }
 

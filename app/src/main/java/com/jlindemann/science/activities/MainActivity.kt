@@ -20,6 +20,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsAnimationCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.doOnLayout
@@ -77,6 +78,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     private var currentFragmentTag: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         val themePreference = ThemePreference(this)
         when (themePreference.getValue()) {
             100 -> {
@@ -448,6 +450,21 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         proClick(R.id.h_bulk_modulus_btn, "bulk_modulus")
         proClick(R.id.h_shear_modulus_btn, "shear_modulus")
         proClick(R.id.h_poisson_constant_btn, "poisson_ratio")
+
+        findViewById<View>(R.id.random_btn).setOnClickListener {
+            if (elements.isNotEmpty()) {
+                val item = elements.random()
+
+                // Achievement 7: Element of Surprise!
+                val achievements = ArrayList<Achievement>()
+                AchievementModel.getList(this, achievements)
+                achievements.find { it.id == 7 }?.incrementProgress(this, 1)
+
+                ElementSendAndLoad(this).setValue(item.elementKey)
+                startActivity(Intent(this, ElementInfoActivity::class.java))
+                closeHover()
+            }
+        }
     }
 
     private fun setOnCLickListenerSetups(list: ArrayList<Element>) { }
@@ -550,11 +567,28 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     private fun loadUserProfileImage() {
         val currentUser = FirebaseAuth.getInstance().currentUser
-        val userBtn = findViewById<ImageButton>(R.id.user_btn) ?: return
+        val userBtn = findViewById<ImageButton>(R.id.user_btn)
+        val aiUserBtn = findViewById<ImageButton>(R.id.ai_user_btn)
+
         if (currentUser?.photoUrl != null) {
-            Glide.with(this).load(currentUser.photoUrl).diskCacheStrategy(DiskCacheStrategy.ALL).circleCrop().into(userBtn)
+            userBtn?.let {
+                it.imageTintList = null
+                Glide.with(this).load(currentUser.photoUrl).diskCacheStrategy(DiskCacheStrategy.ALL).circleCrop().into(it)
+            }
+            aiUserBtn?.let {
+                it.imageTintList = null
+                Glide.with(this).load(currentUser.photoUrl).diskCacheStrategy(DiskCacheStrategy.ALL).circleCrop().into(it)
+            }
         } else {
-            userBtn.setImageResource(R.drawable.ic_account)
+            val defaultColor = getColorStateListFromAttr(R.attr.colorOnSurfaceVariant)
+            userBtn?.let {
+                it.imageTintList = defaultColor
+                it.setImageResource(R.drawable.ic_account)
+            }
+            aiUserBtn?.let {
+                it.imageTintList = defaultColor
+                it.setImageResource(R.drawable.ic_account)
+            }
         }
     }
 
@@ -569,9 +603,9 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     fun updateVersionBadge() {
         val versionBadge = findViewById<TextView>(R.id.version_badge) ?: return
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav)
-        val proPref = ProVersion(this)
-        val proPlusPref = ProPlusVersion(this)
+        val bottomNav = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_nav)
+        val proPref = com.jlindemann.science.preferences.ProVersion(this)
+        val proPlusPref = com.jlindemann.science.preferences.ProPlusVersion(this)
 
         val isProPlus = proPlusPref.getValue() == 100
         val isPro = proPref.getValue() == 100
@@ -595,26 +629,6 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
                 versionBadge.setTextColor(getColorFromAttr(R.attr.colorOnSecondary))
                 bottomNav?.menu?.findItem(R.id.nav_pro)?.title = getString(R.string.get_pro)
             }
-        }
-    }
-
-    private fun getColorFromAttr(attr: Int): Int {
-        val typedValue = TypedValue()
-        theme.resolveAttribute(attr, typedValue, true)
-        return if (typedValue.resourceId != 0) {
-            ContextCompat.getColor(this, typedValue.resourceId)
-        } else {
-            typedValue.data
-        }
-    }
-
-    private fun getColorStateListFromAttr(attr: Int): android.content.res.ColorStateList? {
-        val typedValue = TypedValue()
-        theme.resolveAttribute(attr, typedValue, true)
-        return if (typedValue.resourceId != 0) {
-            ContextCompat.getColorStateList(this, typedValue.resourceId)
-        } else {
-            android.content.res.ColorStateList.valueOf(typedValue.data)
         }
     }
 
@@ -645,7 +659,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         aiScope.launch {
             aiAgentManager.initialize()
             updateAIMessageLimitView()
-            if (AuthManager.isSignedIn()) {
+            if (AuthManager.isSignedIn() && aiAgentManager.isHistoryEnabled()) {
                 ChatHistoryManager.loadLatestChatSession { latest ->
                     if (latest != null && aiChatMessages.isEmpty()) {
                         aiScope.launch {
@@ -668,8 +682,15 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             if (text.isNotEmpty()) sendMessageToAI(text, aiMessageInput, aiLoadingIndicator, aiRecyclerView)
         }
         aiHistoryBtn.setOnClickListener {
-            if (AuthManager.isSignedIn()) showChatHistory(aiHistoryContainer, aiHistoryRecycler, aiHistoryEmptyView)
-            else Toast.makeText(this, "Please sign in to view chat history", Toast.LENGTH_SHORT).show()
+            if (AuthManager.isSignedIn()) {
+                if (aiAgentManager.isHistoryEnabled()) {
+                    showChatHistory(aiHistoryContainer, aiHistoryRecycler, aiHistoryEmptyView)
+                } else {
+                    Toast.makeText(this, "Chat history is a PRO feature", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "Please sign in to view chat history", Toast.LENGTH_SHORT).show()
+            }
         }
         aiCloseHistoryBtn.setOnClickListener { aiHistoryContainer.visibility = View.GONE }
         aiUserBtn.setOnClickListener { startActivity(Intent(this, UserActivity::class.java)) }
@@ -677,7 +698,9 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         aiScrim.setOnClickListener { closeAIPanel() }
 
         ViewCompat.setOnApplyWindowInsetsListener(aiPanelRoot) { _, insets ->
-            val bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+            val ime = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
+            val nav = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+            val bottom = maxOf(ime, nav)
             (aiInputContainer.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = bottom + resources.getDimensionPixelSize(R.dimen.margin)
             insets
         }
@@ -712,13 +735,19 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
         val aiInputContainer = aiPanelRoot.findViewById<View>(R.id.ai_input_container) ?: return
         val aiRecyclerView = aiPanelRoot.findViewById<RecyclerView>(R.id.ai_chat_recycler) ?: return
-        ViewCompat.setWindowInsetsAnimationCallback(aiInputContainer, object : WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_STOP) {
+        
+        // Use the root of the panel to listen for animations
+        ViewCompat.setWindowInsetsAnimationCallback(aiPanelRoot, object : WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_STOP) {
             override fun onProgress(insets: WindowInsetsCompat, runningAnimations: MutableList<WindowInsetsAnimationCompat>): WindowInsetsCompat {
                 val ime = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-                val sys = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
-                val diff = (ime - sys).coerceAtLeast(0)
+                val nav = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
+                
+                // Only translate if the keyboard is higher than the navigation bar
+                val diff = (ime - nav).coerceAtLeast(0)
+                
                 aiInputContainer.translationY = -diff.toFloat()
                 aiRecyclerView.translationY = -diff.toFloat()
+
                 return insets
             }
         })
@@ -842,7 +871,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     }
 
     private fun saveCurrentChatSession() {
-        if (AuthManager.isSignedIn() && aiChatMessages.isNotEmpty()) {
+        if (AuthManager.isSignedIn() && aiAgentManager.isHistoryEnabled() && aiChatMessages.isNotEmpty()) {
             if (currentChatSessionId == null) currentChatSessionId = UUID.randomUUID().toString()
             val firstUserMessage = aiChatMessages.firstOrNull { it.isFromUser }?.text ?: "New Chat"
             val title = if (firstUserMessage.length > 40) firstUserMessage.take(37) + "..." else firstUserMessage

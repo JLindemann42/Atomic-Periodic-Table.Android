@@ -381,16 +381,6 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         rootView.findViewById<TextView>(R.id.covalent_radius_text).text = covalentRadius
         rootView.findViewById<TextView>(R.id.van_der_waals_radius_text).text = vanDerWaalsRadius
 
-        //Ionization click listener:
-        rootView.findViewById<TextView>(R.id.ion_charge_view_all_text).setOnClickListener {
-            val intent = Intent(this@InfoExtension, IonActivity::class.java)
-            this@InfoExtension.startActivity(intent)
-        }
-        rootView.findViewById<View>(R.id.ionization_button).setOnClickListener {
-            val intent = Intent(this@InfoExtension, IonActivity::class.java)
-            this@InfoExtension.startActivity(intent)
-        }
-
         // Speed of sound and hardness
         val proPref = ProVersion(this)
         val proPrefValue = proPref.getValue()
@@ -577,7 +567,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         val offlinePreferences = offlinePreference(this)
         if (offlinePreferences.getValue() == 0) {
             loadImage(url, rootView)
-            loadModelView(elementModelUrl, rootView)
+            loadModelView(elementShellElectrons, short, rootView)
             loadSp(short, rootView)
         }
         wikiListener(wikipedia, rootView)
@@ -886,18 +876,11 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
      */
     fun String.toEditable(): Editable = Editable.Factory.getInstance().newEditable(this)
     /**
-     * Loads the atom model image into the UI.
+     * Loads the atom model into the UI using local drawing.
      */
-    private fun loadModelView(url: String?, rootView: View = findViewById(android.R.id.content)) {
-        //Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.model_view))
-        //Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.card_model_view))
-
-        //Refactored loadModelView with Glide
-        rootView.findViewById<ImageView>(R.id.model_view)?.let {
-            Glide.with(this).load(url.toString()).into(it)
-        }
-        rootView.findViewById<ImageView>(R.id.card_model_view)?.let {
-            Glide.with(this).load(url.toString()).into(it)
+    private fun loadModelView(shellData: String?, symbol: String?, rootView: View = findViewById(android.R.id.content)) {
+        rootView.findViewById<com.jlindemann.science.views.ElectronShellView>(R.id.shell_model_view)?.let {
+            it.setShellData(shellData ?: "", symbol ?: "")
         }
     }
 

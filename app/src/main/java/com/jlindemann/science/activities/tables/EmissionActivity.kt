@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -31,12 +30,10 @@ import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ElementDataLoader
 import com.jlindemann.science.utils.Utils
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.squareup.picasso.Picasso
-import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
-import java.io.InputStream
 import java.net.ConnectException
 import java.util.*
 import kotlin.collections.ArrayList
@@ -49,6 +46,8 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
     private var backCallback: OnBackPressedCallback? = null
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
     private val uiHandler = Handler(Looper.getMainLooper())
+    
+    private var bottomSheetBehavior: BottomSheetBehavior<View>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,37 +95,42 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
             mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
         }
 
+        setupBottomSheet()
         recyclerView()
         clickSearch()
 
-        // Update interception when panel state changes
-        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_e).addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
-            override fun onPanelSlide(panel: View?, slideOffset: Float) { }
-            override fun onPanelStateChanged(panel: View?, previousState: SlidingUpPanelLayout.PanelState, newState: SlidingUpPanelLayout.PanelState) {
-                if (newState == SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                    Utils.fadeOutAnim(findViewById<TextView>(R.id.background_emi), 300)
-                    Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.emission_detail), 300)
-                }
-                // Keep platform callback registered while an overlay is open
-                setBackInterceptionEnabled(anyOverlayOpen())
-            }
-        })
-
         findViewById<TextView>(R.id.background_emi).setOnClickListener{
-            if (findViewById<FrameLayout>(R.id.emission_detail).visibility == View.VISIBLE) {
-                Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.emission_detail), 300)
-                Utils.fadeOutAnim(findViewById<TextView>(R.id.background_emi), 300)
-            }
-            else {
-                Utils.fadeOutAnim(findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_e), 300)
-                Utils.fadeOutAnim(findViewById<TextView>(R.id.background_emi), 300)
-            }
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
             // update interception after hiding overlays
             setBackInterceptionEnabled(anyOverlayOpen())
         }
 
-        findViewById<ConstraintLayout>(R.id.view_emi).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         findViewById<View>(R.id.back_btn_emi).setOnClickListener { this.onBackPressed() }
+    }
+
+    private fun setupBottomSheet() {
+        val emissionPanelRoot = findViewById<View>(R.id.emission_detail) ?: return
+        val background = findViewById<TextView>(R.id.background_emi) ?: return
+        
+        bottomSheetBehavior = BottomSheetBehavior.from(emissionPanelRoot)
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehavior?.skipCollapsed = true
+        
+        bottomSheetBehavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    background.visibility = View.GONE
+                    background.alpha = 0f
+                } else {
+                    background.visibility = View.VISIBLE
+                }
+                setBackInterceptionEnabled(anyOverlayOpen())
+            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                background.visibility = View.VISIBLE
+                background.alpha = slideOffset.coerceAtLeast(0f) * 0.6f
+            }
+        })
     }
 
     override fun emiClickListener(item: Element, position: Int) {
@@ -137,10 +141,9 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
                 val hUrl = "https://www.jlindemann.se/atomic/emission_lines/"
                 val extg = ".gif"
                 val fURL = hUrl + url + extg
-                findViewById<TextView>(R.id.emi_title).text = item.elementKey
+                findViewById<TextView>(R.id.emi_title).text = "${item.element} - Emission spectrum"
                 try {
-                    Picasso.get().load(fURL).into(findViewById<ImageView>(R.id.emi_img_detail))
-                    Utils.fadeInAnimBack(findViewById<TextView>(R.id.background_emi), 300)
+                    Picasso.get().load(fURL).into(findViewById<ImageView>(R.id.sp_img_detail))
                 }
                 catch(e: ConnectException) {
                     // network errors ignored gracefully
@@ -148,8 +151,8 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
             }
         }
         catch (e: IOException) { }
-        Utils.fadeInAnim(findViewById<FrameLayout>(R.id.emission_detail), 300)
-        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_e).panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+        
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
 
         // emission detail / panel shown -> enable back interception
         setBackInterceptionEnabled(true)
@@ -226,36 +229,20 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
 
     // Centralized overlay detection
     private fun anyOverlayOpen(): Boolean {
-        val panel = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_e)
-        val panelExpanded = panel.panelState == SlidingUpPanelLayout.PanelState.EXPANDED
+        val panelExpanded = bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN
         val backgroundVisible = findViewById<TextView>(R.id.background_emi).visibility == View.VISIBLE
-        val detailVisible = findViewById<View>(R.id.emission_detail).visibility == View.VISIBLE
         val searchBarVisible = findViewById<View>(R.id.search_bar_emi).visibility == View.VISIBLE
-        return panelExpanded || backgroundVisible || detailVisible || searchBarVisible
+        return panelExpanded || backgroundVisible || searchBarVisible
     }
 
     // Close overlays if visible; return true when consumed.
     private fun handleBackPress(): Boolean {
-        val panel = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_e)
         val background = findViewById<TextView>(R.id.background_emi)
-        val detail = findViewById<View>(R.id.emission_detail)
         val searchBar = findViewById<View>(R.id.search_bar_emi)
 
-        // If emission detail visible, hide it and collapse panel
-        if (detail.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(detail, 300)
-            Utils.fadeOutAnim(background, 300)
-            panel.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-            setBackInterceptionEnabled(anyOverlayOpen())
-            return true
-        }
-
-        // If sliding panel expanded, collapse it
-        if (panel.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) {
-            panel.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-            Utils.fadeOutAnim(background, 300)
-            Utils.fadeOutAnim(detail, 300)
-            setBackInterceptionEnabled(anyOverlayOpen())
+        // If emission detail visible, hide it
+        if (bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN) {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
             return true
         }
 
@@ -333,9 +320,8 @@ class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
         findViewById<LinearLayout>(R.id.empty_search_box_emi).layoutParams = searchEmptyImgPrm
 
-        val params3 = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_e).layoutParams as ViewGroup.MarginLayoutParams
-        params3.topMargin = top + resources.getDimensionPixelSize(R.dimen.panel_margin)
-        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_e).layoutParams = params3
+        // Handle Emission Panel insets
+        findViewById<View>(R.id.scroll_emission)?.setPadding(0, 0, 0, bottom + resources.getDimensionPixelSize(R.dimen.default_padding))
     }
 
     override fun onDestroy() {

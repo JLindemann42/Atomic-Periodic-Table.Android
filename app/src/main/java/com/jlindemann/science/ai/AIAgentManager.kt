@@ -43,6 +43,11 @@ class AIAgentManager(private val context: Context?) {
 
     fun getActiveLanguage(): String = activeLanguage
 
+    fun isHistoryEnabled(): Boolean {
+        val limiter = rateLimiter ?: return false
+        return limiter.isPro() || limiter.isProPlus()
+    }
+
     fun shouldShowMessageLimit(): Boolean {
         val limiter = rateLimiter ?: return false
         return !limiter.isProPlus()

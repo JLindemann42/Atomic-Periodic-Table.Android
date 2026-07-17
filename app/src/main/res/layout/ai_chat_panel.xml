@@ -165,7 +165,8 @@
                 android:id="@+id/ai_history_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?attr/colorSurface"
+                android:background="@drawable/half_up_toast"
+                android:backgroundTint="?attr/colorSurface"
                 android:visibility="gone"
                 android:elevation="30dp">
 

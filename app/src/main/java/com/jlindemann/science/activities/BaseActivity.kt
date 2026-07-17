@@ -133,9 +133,28 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
         livesLabelView?.text = getString(R.string.lives_label, livesDisplay)
     }
 
-    /**
-     * Navigates to the Pro page (ProFragment within MainActivity).
-     */
+
+    fun getColorFromAttr(attr: Int): Int {
+        val typedValue = android.util.TypedValue()
+        theme.resolveAttribute(attr, typedValue, true)
+        return if (typedValue.resourceId != 0) {
+            androidx.core.content.ContextCompat.getColor(this, typedValue.resourceId)
+        } else {
+            typedValue.data
+        }
+    }
+
+    fun getColorStateListFromAttr(attr: Int): android.content.res.ColorStateList? {
+        val typedValue = android.util.TypedValue()
+        theme.resolveAttribute(attr, typedValue, true)
+        return if (typedValue.resourceId != 0) {
+            androidx.core.content.ContextCompat.getColorStateList(this, typedValue.resourceId)
+        } else {
+            android.content.res.ColorStateList.valueOf(typedValue.data)
+        }
+    }
+
+    //Navigates to the Pro page (ProFragment within MainActivity).
     fun goToProPage() {
         val intent = Intent(this, MainActivity::class.java).apply {
             putExtra("show_pro", true)

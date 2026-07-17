@@ -4,7 +4,7 @@
     android:id="@+id/unified_titlebar_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/backgroundColor"
+    app:cardBackgroundColor="?attr/colorSurface"
     app:strokeWidth="0dp"
     app:shapeAppearance="@style/ShapeAppearance.Science.BottomRounded"
     app:cardElevation="0dp"
@@ -17,11 +17,6 @@
         android:layout_height="match_parent"
         android:background="?attr/colorSurface">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.11" />
     </FrameLayout>
 
     <LinearLayout

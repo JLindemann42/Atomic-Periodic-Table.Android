@@ -789,6 +789,9 @@
     <string name="and_more_item">- And more</string>
     <string name="additional_flashcards_games">Additional Flashcards games:</string>
     <string name="fifty_lives_in_flashcards">50 lives in Flashcards:</string>
+    <string name="additional_ai_messages">Increased AI messages limit:</string>
+    <string name="unlimited_ai_messages">Unlimited AI messages:</string>
+    <string name="all_ai_features">All AI features:</string>
     <string name="additional_properties_requires_pro">Additional properties requires PRO-version. Get PRO to unlock more data and tables:</string>
     <string name="achievement_reached_prefix">Achievement reached: </string>
     <string name="constants_table_label">Constants Table:</string>

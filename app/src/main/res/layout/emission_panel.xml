@@ -1,153 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:sothree="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:elevation="100dp">
+    android:background="@android:color/transparent"
+    android:elevation="32dp">
 
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout
-        android:id="@+id/sliding_layout_e"
+    <!-- This is the actual visible panel -->
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="bottom"
-        sothree:umanoFadeColor="@android:color/transparent"
-        sothree:umanoInitialState="collapsed"
-        sothree:umanoPanelHeight="0dp"
-        sothree:umanoShadowHeight="0dp">
+        android:layout_marginTop="@dimen/panel_margin"
+        android:background="@drawable/half_toast"
+        android:backgroundTint="?attr/colorSurface"
+        android:clickable="true"
+        android:focusable="true">
 
-        <!-- Background content (main activity content) -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <!-- Sliding Panel content -->
-        <com.google.android.material.card.MaterialCardView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:cardElevation="16dp"
-            app:cardBackgroundColor="?attr/colorSurface"
-            app:strokeWidth="0dp"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.LargeComponent">
+            android:background="@drawable/half_toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:alpha="0.11"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
+            android:id="@+id/drag_frame_emission"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="16dp"
+                android:alpha="0.85"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorOnSecondaryContainer"
+                android:elevation="4dp"
+                android:gravity="center_horizontal" />
+        </FrameLayout>
+
+        <ScrollView
+            android:id="@+id/scroll_emission"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_marginTop="36dp"
+            android:layout_height="match_parent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:paddingBottom="48dp">
 
-                <View
-                    android:id="@+id/drag_handle"
-                    android:layout_width="32dp"
-                    android:layout_height="4dp"
-                    android:layout_marginTop="12dp"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorOutlineVariant"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <ScrollView
-                    android:id="@+id/scroll_emi_panel"
+                <TextView
+                    android:id="@+id/emi_title"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/drag_handle"
-                    app:layout_constraintBottom_toBottomOf="parent">
+                    android:layout_height="wrap_content"
+                    android:text="Emission spectrum"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="24dp" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="24dp">
+                        android:padding="16dp">
 
-                        <TextView
-                            android:id="@+id/emi_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="Element"
-                            android:textColor="?attr/colorPrimary"
-                            android:textSize="28sp"
-                            android:textStyle="bold" />
-
-                        <com.google.android.material.card.MaterialCardView
+                        <ImageView
+                            android:id="@+id/sp_img_detail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="24dp"
-                            app:cardElevation="0dp"
-                            app:strokeWidth="1dp"
-                            app:strokeColor="?attr/colorOutlineVariant"
-                            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.MediumComponent">
+                            android:layout_marginTop="8dp"
+                            android:adjustViewBounds="true"
+                            app:srcCompat="@drawable/ic_launcher_background" />
 
-                            <ImageView
-                                android:id="@+id/emi_img_detail"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:adjustViewBounds="true"
-                                app:srcCompat="@drawable/ic_launcher_background" />
-                        </com.google.android.material.card.MaterialCardView>
-
-                        <!-- Scales -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
+                            android:layout_marginTop="16dp"
                             android:orientation="horizontal">
 
-                            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
-                                <View android:layout_width="2dp" android:layout_height="40dp" android:background="?attr/colorOnSurface" android:alpha="0.2" />
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="400" android:textSize="12sp" android:textColor="?attr/colorOnSurfaceVariant" />
+                            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:gravity="center" android:orientation="vertical">
+                                <View android:layout_width="1dp" android:layout_height="16dp" android:background="?attr/colorOnSurfaceVariant" android:alpha="0.5" />
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="400" android:textSize="10sp" android:textColor="?attr/colorOnSurfaceVariant" />
                             </LinearLayout>
 
-                            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
-                                <View android:layout_width="2dp" android:layout_height="24dp" android:background="?attr/colorOnSurface" android:alpha="0.2" />
+                            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:gravity="center" android:orientation="vertical">
+                                <View android:layout_width="1dp" android:layout_height="16dp" android:background="?attr/colorOnSurfaceVariant" android:alpha="0.5" />
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="500" android:textSize="10sp" android:textColor="?attr/colorOnSurfaceVariant" />
                             </LinearLayout>
 
-                            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
-                                <View android:layout_width="2dp" android:layout_height="40dp" android:background="?attr/colorOnSurface" android:alpha="0.2" />
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="500" android:textSize="12sp" android:textColor="?attr/colorOnSurfaceVariant" />
+                            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:gravity="center" android:orientation="vertical">
+                                <View android:layout_width="1dp" android:layout_height="16dp" android:background="?attr/colorOnSurfaceVariant" android:alpha="0.5" />
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="600" android:textSize="10sp" android:textColor="?attr/colorOnSurfaceVariant" />
                             </LinearLayout>
 
-                            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
-                                <View android:layout_width="2dp" android:layout_height="24dp" android:background="?attr/colorOnSurface" android:alpha="0.2" />
+                            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:gravity="center" android:orientation="vertical">
+                                <View android:layout_width="1dp" android:layout_height="16dp" android:background="?attr/colorOnSurfaceVariant" android:alpha="0.5" />
+                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="700" android:textSize="10sp" android:textColor="?attr/colorOnSurfaceVariant" />
                             </LinearLayout>
 
-                            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
-                                <View android:layout_width="2dp" android:layout_height="40dp" android:background="?attr/colorOnSurface" android:alpha="0.2" />
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="600" android:textSize="12sp" android:textColor="?attr/colorOnSurfaceVariant" />
-                            </LinearLayout>
-
-                            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
-                                <View android:layout_width="2dp" android:layout_height="24dp" android:background="?attr/colorOnSurface" android:alpha="0.2" />
-                            </LinearLayout>
-
-                            <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
-                                <View android:layout_width="2dp" android:layout_height="40dp" android:background="?attr/colorOnSurface" android:alpha="0.2" />
-                                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="700" android:textSize="12sp" android:textColor="?attr/colorOnSurfaceVariant" />
-                            </LinearLayout>
                         </LinearLayout>
-
-                        <com.google.android.material.card.MaterialCardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="24dp"
-                            app:cardElevation="0dp"
-                            app:cardBackgroundColor="?attr/colorSurfaceVariant"
-                            app:strokeWidth="0dp"
-                            app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.MediumComponent">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:padding="16dp">
-                                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Wavelength range: 380-720 nm" android:textColor="?attr/colorOnSurface" android:textSize="14sp" />
-                                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="Wavelength in: vacuum" android:textColor="?attr/colorOnSurface" android:textSize="14sp" />
-                            </LinearLayout>
-                        </com.google.android.material.card.MaterialCardView>
-
                     </LinearLayout>
-                </ScrollView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Visible emission lines in nanometers (nm)."
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="14sp"
+                    android:alpha="0.7" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </FrameLayout>
+
 </FrameLayout>

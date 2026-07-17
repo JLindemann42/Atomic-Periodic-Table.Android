@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -45,9 +44,6 @@ import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.sync.ProgressSyncManager
 import com.jlindemann.science.utils.UnifiedTitleBarController
-import java.net.HttpURLConnection
-import java.net.URL
-import java.util.concurrent.Executors
 
 class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListener {
     private val TAG = "UserActivity"
@@ -366,7 +362,8 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             findViewById<MaterialButton>(R.id.login_button).visibility = View.GONE
             val photo = user.photoUrl
             if (photo != null) {
-                loadImageFromUrlIntoImageView(photo.toString(), userImg)
+                userImg.imageTintList = null
+                com.bumptech.glide.Glide.with(this).load(photo).circleCrop().into(userImg)
             } else {
                 userImg.setImageResource(R.drawable.ic_account)
             }
@@ -382,6 +379,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         tvSyncStatus.text = ""
         btnSignOut.visibility = View.GONE
         userImg.setImageResource(R.drawable.ic_account)
+        userImg.imageTintList = getColorStateListFromAttr(R.attr.colorOnSurfaceVariant)
         setUserTitleViews("User Page")
     }
 
@@ -420,28 +418,6 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
                 // Always refresh the achievements/statistics view after a sync attempt
                 setupRecyclerView()
                 setupStats()
-            }
-        }
-    }
-
-    private fun loadImageFromUrlIntoImageView(urlString: String, imageView: ImageView) {
-        val executor = Executors.newSingleThreadExecutor()
-        executor.execute {
-            try {
-                val url = URL(urlString)
-                val conn = url.openConnection() as HttpURLConnection
-                conn.doInput = true
-                conn.connectTimeout = 5000
-                conn.readTimeout = 5000
-                conn.connect()
-                val input = conn.inputStream
-                val bmp = BitmapFactory.decodeStream(input)
-                runOnUiThread {
-                    if (bmp != null) imageView.setImageBitmap(bmp)
-                }
-                input.close()
-            } catch (t: Throwable) {
-                Log.w(TAG, "Failed to load profile image", t)
             }
         }
     }

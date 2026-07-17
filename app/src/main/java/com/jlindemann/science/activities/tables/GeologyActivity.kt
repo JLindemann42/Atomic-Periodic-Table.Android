@@ -20,6 +20,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.GeologyAdapter
@@ -45,6 +46,8 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
     private var backCallback: OnBackPressedCallback? = null
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
     private val uiHandler = Handler(Looper.getMainLooper())
+    
+    private var bottomSheetBehavior: BottomSheetBehavior<View>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,6 +98,7 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         }
         titleBar.backButton.setOnClickListener { onBackPressed() }
 
+        setupBottomSheet()
         setupChips(item, recyclerView)
 
         // Initial filter to show all items
@@ -110,6 +114,39 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         })
     }
 
+    private fun setupBottomSheet() {
+        val geologyPanelRoot = findViewById<View>(R.id.geo_details) ?: return
+        val background = findViewById<TextView>(R.id.background_geo) ?: return
+        
+        bottomSheetBehavior = BottomSheetBehavior.from(geologyPanelRoot)
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehavior?.skipCollapsed = true
+        
+        bottomSheetBehavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    background.visibility = View.GONE
+                    background.alpha = 0f
+                } else {
+                    background.visibility = View.VISIBLE
+                }
+                setBackInterceptionEnabled(anyOverlayOpen())
+            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                background.visibility = View.VISIBLE
+                background.alpha = slideOffset.coerceAtLeast(0f) * 0.6f
+            }
+        })
+        
+        background.setOnClickListener {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+
+        geologyPanelRoot.findViewById<View>(R.id.drag_frame_geology)?.setOnClickListener {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+    }
+
     override fun geologyClickListener(item: Geology, position: Int) {
         // Set textViews:
         findViewById<TextView>(R.id.geo_detail_title).text = item.name
@@ -123,8 +160,7 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         findViewById<TextView>(R.id.geo_magnetism).text = getString(R.string.magnetism_label) + item.magnetism
         findViewById<TextView>(R.id.geo_hydrochloride).text = item.hydrochloride
 
-        // Fade in geo_details and enable back interception while open
-        Utils.fadeInAnim(findViewById<FrameLayout>(R.id.geo_details), 300)
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
         setBackInterceptionEnabled(true)
     }
 
@@ -137,6 +173,9 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_geo).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
         findViewById<LinearLayout>(R.id.empty_search_box_geo).layoutParams = searchEmptyImgPrm
+        
+        // Handle Geology Panel insets
+        findViewById<View>(R.id.scroll_geology)?.setPadding(0, 0, 0, bottom + resources.getDimensionPixelSize(R.dimen.default_padding))
     }
 
     private fun setupChips(list: ArrayList<Geology>, recyclerView: RecyclerView) {
@@ -189,19 +228,16 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
 
     // Centralized overlay detection
     private fun anyOverlayOpen(): Boolean {
-        val detailsVisible = findViewById<View>(R.id.geo_details).visibility == View.VISIBLE
+        val detailsVisible = bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN
         val searchBarVisible = titleBar.searchRow.visibility == View.VISIBLE
         return detailsVisible || searchBarVisible
     }
 
     // Close overlays if visible; return true when consumed.
     private fun handleBackPress(): Boolean {
-        val details = findViewById<View>(R.id.geo_details)
-
         // If details visible, hide them
-        if (details.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(details, 300)
-            setBackInterceptionEnabled(anyOverlayOpen())
+        if (bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN) {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
             return true
         }
 

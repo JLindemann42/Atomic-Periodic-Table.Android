@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
@@ -24,7 +25,7 @@
             android:visibility="gone"/>
 
         <FrameLayout
-            android:id="@+id/drag_frame"
+            android:id="@+id/drag_frame_geology"
             android:layout_width="match_parent"
             android:layout_height="42dp"
             android:clickable="true"
@@ -32,7 +33,6 @@
             android:focusable="true">
 
             <TextView
-                android:id="@+id/drag_icon"
                 android:layout_width="48dp"
                 android:layout_height="2dp"
                 android:layout_gravity="center_horizontal"
@@ -45,7 +45,7 @@
         </FrameLayout>
 
         <ScrollView
-            android:id="@+id/scroll_iso"
+            android:id="@+id/scroll_geology"
             android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical"
             android:layout_width="match_parent"
@@ -53,11 +53,33 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/frame_iso"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
                 android:layout_height="wrap_content"
-                android:paddingBottom="32dp" />
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:paddingBottom="48dp">
+
+                <TextView
+                    android:id="@+id/geo_detail_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Element Name"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="24dp" />
+
+                <TextView android:id="@+id/geo_type" style="@style/IonDetailText" />
+                <TextView android:id="@+id/geo_group" style="@style/IonDetailText" />
+                <TextView android:id="@+id/geo_color" style="@style/IonDetailText" />
+                <TextView android:id="@+id/geo_strike" style="@style/IonDetailText" />
+                <TextView android:id="@+id/geo_cristal" style="@style/IonDetailText" />
+                <TextView android:id="@+id/geo_hardness" style="@style/IonDetailText" />
+                <TextView android:id="@+id/geo_density" style="@style/IonDetailText" />
+                <TextView android:id="@+id/geo_magnetism" style="@style/IonDetailText" />
+                <TextView android:id="@+id/geo_hydrochloride" style="@style/IonDetailText" />
+
+            </LinearLayout>
         </ScrollView>
 
     </FrameLayout>

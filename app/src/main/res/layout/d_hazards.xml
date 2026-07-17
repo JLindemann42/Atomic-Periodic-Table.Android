@@ -293,7 +293,6 @@
                     android:id="@+id/hazard_container"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="52dp"
                     android:background="@drawable/toast_element"
                     android:backgroundTint="?attr/colorPrimaryDark"
                     android:orientation="vertical">

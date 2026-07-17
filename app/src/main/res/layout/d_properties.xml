@@ -366,14 +366,12 @@
                     android:elevation="4dp"
                     app:srcCompat="@drawable/ic_open" />
 
-                <ImageView
-                    android:id="@+id/model_view"
+                <com.jlindemann.science.views.ElectronShellView
+                    android:id="@+id/shell_model_view"
                     android:layout_width="140dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|end"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    android:padding="8dp" />
 
             </FrameLayout>
 

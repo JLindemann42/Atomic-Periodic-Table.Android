@@ -1,83 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/view_poi_root"
+    android:id="@+id/coordinator_layout_poi"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/poi_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_poi"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="116dp"
-        android:paddingBottom="80dp"
-        android:scrollbarStyle="insideOverlay"
-        android:scrollbars="vertical" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/empty_search_box_poi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:visibility="gone"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/poi_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="112dp"
+            android:paddingBottom="80dp"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical" />
 
-        <ImageView
-            android:id="@+id/empty_poi_search_image"
-            android:layout_width="164dp"
-            android:layout_height="164dp"
-            app:srcCompat="@drawable/graphic_light_search" />
+        <include
+            android:id="@+id/unified_titlebar_include"
+            layout="@layout/view_unified_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/empty_search_box_poi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:visibility="gone"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/empty_poi_search_image"
+                android:layout_width="164dp"
+                android:layout_height="164dp"
+                app:srcCompat="@drawable/graphic_light_search" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:text="@string/no_results"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="16sp"
+                android:text="@string/try_another_search"/>
+        </LinearLayout>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:textColor="?attr/colorOnSurface"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:text="@string/no_results"/>
+            android:id="@+id/background_poi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.0"
+            android:background="?attr/colorOnSurface"
+            android:elevation="10dp"
+            android:visibility="gone"
+            android:clickable="true"
+            android:focusable="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="16sp"
-            android:text="@string/poi_try_another_search"/>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- Poisson detail Bottom Sheet -->
     <include
-        android:id="@+id/unified_titlebar_include"
-        layout="@layout/view_unified_titlebar"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <include
+        layout="@layout/poisson_panel"
         android:id="@+id/poi_det_inc"
-        layout="@layout/detail_poisson"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="130dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="130dp"
-        android:elevation="112dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:behavior_skipCollapsed="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
 
-    <FrameLayout
-        android:id="@+id/poi_det_inc_background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.6"
-        android:visibility="gone"
-        android:background="#80000000" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

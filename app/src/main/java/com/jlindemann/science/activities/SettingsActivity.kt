@@ -338,12 +338,6 @@ class SettingsActivity : BaseActivity() {
 
         dialog.show()
     }
-    private fun getColorFromAttr(attr: Int): Int {
-        val typedValue = android.util.TypedValue()
-        theme.resolveAttribute(attr, typedValue, true)
-        return typedValue.data
-    }
-
     private fun updateLanguageContentText() {
         val langOption = when (val pref = getCurrentLanguagePreference()) {
             null -> getSystemLanguageOption()
