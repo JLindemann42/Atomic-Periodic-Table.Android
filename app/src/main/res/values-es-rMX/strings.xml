@@ -337,6 +337,16 @@
     <string name="highest">más alto</string>
     <string name="lowest">más bajo</string>
     <string name="ai_element_overview_intro">¡%1$s %2$s (%3$s) es un elemento fascinante! Tiene el número atómico %4$s y pertenece al grupo %5$s.</string>
+    <string name="ai_rich_overview_basic_facts">Hechos básicos</string>
+    <string name="ai_rich_overview_where_found">¿Dónde se encuentra el %1$s?</string>
+    <string name="ai_rich_overview_applications">Aplicaciones y usos</string>
+    <string name="ai_rich_overview_etymology">Origen e historia</string>
+    <string name="ai_rich_overview_biological">Papel biológico</string>
+    <string name="ai_rich_overview_properties">Propiedades</string>
+    <string name="ai_rich_overview_advanced">Datos atómicos avanzados</string>
+    <string name="ai_rich_overview_safety">Seguridad y peligros</string>
+    <string name="ai_rich_overview_isotopes">Isótopos notables</string>
+    <string name="ai_rich_overview_compounds">Compuestos comunes</string>
     <string name="ai_element_overview_series"> Es parte de la serie %1$s.</string>
     <string name="ai_element_overview_appearance"> Normalmente aparece como %1$s.</string>
     <string name="ai_element_overview_isotopes"> Un átomo de %1$s contiene %2$s protones, %3$s electrones y, por lo general, %4$s neutrones.</string>

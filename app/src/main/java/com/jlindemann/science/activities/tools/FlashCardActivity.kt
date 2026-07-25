@@ -331,11 +331,11 @@ class FlashCardActivity : BaseActivity() {
             // ignore
         }
 
-        // update most-used preference, lives/info, toggles, boxes, etc.
+        // update most-used preference
         val mostUsedPreference = MostUsedToolPreference(this)
         val mostUsedPrefValue = mostUsedPreference.getValue()
         val targetLabel = "fla"
-        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val regex = Regex("($targetLabel)=(\\d+\\.\\d+)")
         val match = regex.find(mostUsedPrefValue)
         if (match != null) {
             val value = match.groups[2]!!.value.toDouble()
@@ -1076,6 +1076,21 @@ class FlashCardActivity : BaseActivity() {
             }
         } catch (_: Exception) {
             // silent per requirement
+        }
+    }
+
+    override fun updateLivesCount() {
+        val proPlusPref = ProPlusVersion(this)
+        val isInfinite = proPlusPref.getValue() == 100 || LivesManager.getLives(this) == Int.MAX_VALUE
+        val livesTextView = findViewById<TextView>(R.id.tv_lives_count)
+        val livesLabelView = findViewById<TextView>(R.id.tv_lives)
+        if (isInfinite) {
+            livesTextView?.text = "∞"
+            livesLabelView?.text = getString(R.string.lives_unlimited)
+        } else {
+            val lives = LivesManager.getLives(this)
+            livesTextView?.text = lives.toString()
+            livesLabelView?.text = getString(R.string.lives_label, lives.toString())
         }
     }
 

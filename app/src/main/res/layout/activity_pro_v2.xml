@@ -440,6 +440,67 @@
                                 android:layout_height="0dp"
                                 android:layout_weight="0.55"
                                 android:scaleType="centerCrop"
+                                android:src="@drawable/additional_ai" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="0.45"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <TextView
+                                    android:id="@+id/pro_ai_lock"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:drawableStart="@drawable/ic_lock"
+                                    android:drawablePadding="4dp"
+                                    android:drawableTint="?attr/colorAccent"
+                                    android:text="@string/pro_upgrade_to_pro"
+                                    android:textAllCaps="true"
+                                    android:textColor="?attr/colorAccent"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:text="@string/pro_better_ai"
+                                    android:textColor="?attr/colorOnSurface"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:alpha="0.7"
+                                    android:text="@string/pro_better_ai_descr"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:textSize="13sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="280dp"
+                        android:layout_height="400dp"
+                        android:layout_margin="8dp"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="2dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?attr/colorSurfaceVariant"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="0.55"
+                                android:scaleType="centerCrop"
                                 android:src="@drawable/additional_vis_2" />
 
                             <LinearLayout
@@ -482,6 +543,8 @@
                             </LinearLayout>
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
+
+
 
                 </LinearLayout>
             </HorizontalScrollView>

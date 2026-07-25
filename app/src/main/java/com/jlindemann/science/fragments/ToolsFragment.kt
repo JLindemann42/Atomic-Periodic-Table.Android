@@ -118,9 +118,10 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
         val proPlusPrefValue = ProPlusVersion(requireContext()).getValue()
         val isBeforeDeadline = ProPlusTimeUtil.isBeforeJanuary2026()
         
-        val regex = Regex("(\\w{3})=(\\d\\.\\d)")
+        val regex = Regex("(\\w{3})=(\\d+\\.\\d+)")
         val matches = regex.findAll(mostUsedToolPreference.getValue())
             .map { it.groups[1]!!.value to it.groups[2]!!.value.toDouble() }
+            .filter { it.first != "fla" } // Filter out flashcards per user request
             .toList()
         val sortedValues = matches.sortedByDescending { it.second }
 
@@ -135,7 +136,6 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
                 val text = when (pair.first) {
                     "cal" -> getString(R.string.cal)
                     "uni" -> getString(R.string.uni)
-                    "fla" -> getString(R.string.fla)
                     "gas" -> getString(R.string.gas)
                     "dic" -> getString(R.string.dic)
                     else -> ""

@@ -18,7 +18,7 @@ class AIRateLimiter(private val context: Context) {
     fun canSendMessage(): Boolean {
         if (isProPlus()) return true
         
-        val limit = if (isPro()) 50 else 10
+        val limit = if (isPro()) 200 else 30
         val count = getTodayMessageCount()
         
         return count < limit
@@ -33,7 +33,7 @@ class AIRateLimiter(private val context: Context) {
     fun getRemainingMessages(): Int {
         if (isProPlus()) return Int.MAX_VALUE
         
-        val limit = if (isPro()) 50 else 10
+        val limit = if (isPro()) 200 else 30
         val count = getTodayMessageCount()
         
         return (limit - count).coerceAtLeast(0)
@@ -41,7 +41,7 @@ class AIRateLimiter(private val context: Context) {
 
     fun getDailyLimit(): Int {
         if (isProPlus()) return Int.MAX_VALUE
-        return if (isPro()) 50 else 10
+        return if (isPro()) 200 else 30
     }
 
     fun isPro(): Boolean = proPref.getValue() == 100

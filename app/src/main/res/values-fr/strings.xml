@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Atomic</string>
     <string name="personalization_settings">Personnalisation</string>
@@ -302,16 +302,18 @@
     <string name="dictionary">Dictionnaire</string>
     <string name="dictionary_search">Rechercher un élément du dictionnaire</string>
     <string name="element_info_title">Informations sur l\'élément</string>
-
-    <!-- AI Chat Panel -->
     <string name="ask_atomic">Demander à Atomic</string>
     <string name="ai_hint">Posez-moi n\'importe quelle question...</string>
     <string name="ai_lang_switched">Langue de l\'IA changée en : %1$s 🌐</string>
     <string name="ai_no_data">Hmm, je n\'ai pas trouvé d\'informations à ce sujet. Essayez de me poser une question sur un élément comme l\'oxygène ou l\'or !</string>
+    <string name="ai_related_label">Infos connexes :</string>
+    <string name="ai_related_offer">J\'ai trouvé des informations connexes locales. Demandez \'afficher les éléments connexes\' pour les voir.</string>
+    <string name="ai_related_offer_lang">J\'ai trouvé des informations connexes locales mais pas dans la langue choisie. Essayez de changer de langue ou demandez quand même.</string>
     <string name="ai_greeting">Salut ! 👋 Je suis ton compagnon de chimie. Pose-moi n\'importe quelle question sur les éléments !</string>
     <string name="ai_encouragement">Excellente question ! 🌟</string>
     <string name="ai_comparing_title">Comparaison de %1$s :</string>
     <string name="ai_higher_than">%1$s a une %2$s plus élevée que %3$s.</string>
+    <string name="ai_lower_than">%1$s a une %2$s plus basse que %3$s.</string>
     <string name="ai_same_value">Les deux ont la même valeur pour %1$s !</string>
     <string name="ai_property_is">La %2$s de %1$s est %3$s.</string>
     <string name="ai_recap_is">Pour rappel, la %2$s de %1$s est %3$s.</string>
@@ -362,12 +364,60 @@
     <string name="highest">le plus élevé</string>
     <string name="lowest">le plus bas</string>
     <string name="ai_element_overview_intro">%1$s %2$s (%3$s) est un élément fascinant ! Son numéro atomique est %4$s et il appartient au groupe %5$s.</string>
+    <string name="ai_rich_overview_basic_facts">Faits de base</string>
+    <string name="ai_rich_overview_where_found">Où se trouve %1$s ?</string>
+    <string name="ai_rich_overview_applications">Applications et utilisations</string>
+    <string name="ai_rich_overview_etymology">Origine et histoire</string>
+    <string name="ai_rich_overview_biological">Rôle biologique</string>
+    <string name="ai_rich_overview_properties">Propriétés</string>
+    <string name="ai_rich_overview_advanced">Données atomiques avancées</string>
+    <string name="ai_rich_overview_safety">Sécurité et dangers</string>
+    <string name="ai_rich_overview_isotopes">Isotopes notables</string>
+    <string name="ai_rich_overview_compounds">Composés courants</string>
     <string name="ai_element_overview_series"> Il fait partie de la série des %1$s.</string>
     <string name="ai_element_overview_appearance"> Il apparaît généralement sous la forme de : %1$s.</string>
     <string name="ai_element_overview_isotopes"> Un atome de %1$s contient %2$s protons, %3$s électrons et généralement %4$s neutrons.</string>
     <string name="ai_element_overview_electrons"> Il possède %1$s électrons gravitant autour de son noyau.</string>
     <string name="ai_technical_mass"> Sa masse atomique précise est %1$s.</string>
     <string name="ai_technical_config"> Il a une configuration électronique de %1$s.</string>
+    <string name="ai_list_header">Voici les éléments **%1$s** :</string>
+    <string name="ai_no_list_data">Je n\'ai trouvé aucun élément correspondant à ces critères dans notre base de données.</string>
+    <string name="ai_pro_tip_hint">Conseil de pro : vous pouvez également m\'interroger sur son origine, son rôle biologique ou sa réactivité !</string>
+    <string name="ai_bio_role_header">En ce qui concerne son rôle biologique, voici ce que j\'ai trouvé sur **%1$s** :</string>
+    <string name="ai_no_bio_data">Je n\'ai pas de données biologiques détaillées pour %1$s, mais la sécurité standard dit :</string>
+    <string name="ai_etymology_header">Le nom **%1$s** a une origine intéressante :</string>
+    <string name="ai_no_etymology_data">Je ne suis pas exactement sûr de la racine de son nom, mais il a été découvert par %2$s en %3$s.</string>
+    <string name="ai_reaction_alkali_water">Les métaux alcalins comme %1$s réagissent **violemment** avec l\'eau, produisant de l\'hydrogène gazeux et une base forte. Cela peut même exploser !</string>
+    <string name="ai_reaction_magnesium_water">%1$s réagit lentement avec l\'eau froide mais rapidement avec la vapeur.</string>
+    <string name="ai_reaction_alkaline_earth_water">%1$s réagit vigoureusement avec l\'eau pour former de l\'hydrogène gazeux et son hydroxyde.</string>
+    <string name="ai_reaction_generic_water">Je n\'ai pas de données spécifiques sur la réaction de %1$s avec l\'eau, mais de nombreux métaux forment des oxydes ou des hydroxydes au fil du temps.</string>
+    <string name="ai_reaction_oxygen">La plupart des éléments réagissent avec l\'oxygène pour former des oxydes. Par exemple, les métaux comme %1$s forment souvent une couche protectrice ou de la rouille.</string>
+    <string name="ai_reaction_acid">De nombreux métaux réagissent avec les acides pour libérer de l\'hydrogène gazeux. La réactivité de %1$s dépend de sa position dans la série d\'activité.</string>
+    <string name="ai_reaction_complex">Les réactions peuvent être complexes ! En général, le comportement de %1$s dépend de son groupe (%2$s) et de son électronégativité.</string>
+    <string name="ai_reaction_alkali_halogen">Ceux-ci réagissent vigoureusement pour former un **sel** (un composé ionique). Par exemple, %1$s et %2$s peuvent se combiner pour créer un composé unique !</string>
+    <string name="ai_reaction_noble_gas">%1$s est un gaz noble et est extrêmement stable, réagissant rarement avec quoi que ce soit car sa couche externe est pleine.</string>
+    <string name="ai_reaction_generic_elements">La réaction entre %1$s et %2$s dépend de leurs configurations électroniques. Ils pourraient former un composé si l\'un peut donner et l\'autre accepter des électrons !</string>
+    <string name="ai_personalized_greeting_interest">Bon retour ! Prêt à en savoir plus sur %1$s ? Nous pourrions regarder à nouveau %2$s.</string>
+    <string name="ai_personalized_greeting_fav">Hé ! Je me souviens que tu as consulté %1$s récemment. Tu veux voir plus de détails ?</string>
+    <string name="ai_usage_header">Voici quelques applications courantes et des faits sur **%1$s** :</string>
+    <string name="ai_no_usage_data">Je n\'ai pas de liste spécifique d\'utilisations pour %1$s, mais c\'est un élément fascinant ! Vous pouvez en lire plus dans la description détaillée.</string>
+    <string name="ai_abundance_header">Voici les données d\'abondance pour **%1$s** provenant de la base de données de l\'application :</string>
+    <string name="ai_no_abundance_data">Je n\'ai pas de valeurs d\'abondance numérique spécifiques pour %1$s, mais la description dit : %2$s.</string>
+    <string name="ai_physical_header">Basé sur les propriétés physiques stockées dans l\'application pour **%1$s** :</string>
+    <string name="ai_no_physical_data">Je n\'ai pas de propriétés physiques détaillées pour %1$s dans les données d\'accès rapide, mais vous pouvez consulter les panneaux de propriétés détaillés !</string>
+    <string name="ai_isotope_header">Selon le tableau des isotopes de l\'application, voici les principaux isotopes de **%1$s** :</string>
+    <string name="ai_no_isotope_data">Je n\'ai pas de liste détaillée d\'isotopes pour %1$s dans mes données d\'accès rapide, mais vous pouvez trouver une liste complète dans le tableau des isotopes !</string>
+    <string name="iso_half_life_colon">Demi-vie :</string>
+    <string name="ai_oxidation_states">**%1$s** a plusieurs états d\'oxydation possibles.</string>
+    <string name="ai_radius_details">Voici les détails du rayon pour **%1$s** :</string>
+    <string name="ai_thermal_properties">Propriétés thermiques de **%1$s** :</string>
+    <string name="ai_elec_mag_properties">Propriétés électriques et magnétiques de **%1$s** :</string>
+    <string name="ai_identifiers_for">Identifiants pour **%1$s** :</string>
+    <string name="ai_valence_alkali">En tant que métal alcalin, il possède **1 électron de valence** sur sa couche externe.</string>
+    <string name="ai_valence_alkaline">En tant que métal alcalino-terreux, il possède **2 électrons de valence**.</string>
+    <string name="ai_valence_halogen">En tant qu\'halogène, il possède **7 électrons de valence** et est très impatient d\'en gagner un de plus !</string>
+    <string name="ai_valence_noble_helium">L\'hélium possède **2 électrons de valence**, complétant sa seule couche.</string>
+    <string name="ai_valence_noble_other">Il a une couche externe complète de **8 électrons de valence**, ce qui le rend très stable.</string>
     <string-array name="ai_facts">
         <item>Le saviez-vous ? L\'oxygène est l\'élément le plus abondant dans la croûte terrestre !</item>
         <item>Le saviez-vous ? L\'or ne rouille et ne se corrode jamais. Il reste brillant pour toujours !</item>
@@ -698,7 +748,7 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="share_app_description">Si vous trouvez l\'application utile, veuillez la partager avec vos amis et d\'autres personnes!</string>
     <string name="sync_data">Synchroniser les données:</string>
     <string name="young_bulk_shear_modulus">Module de Young, de compression et de cisaillement:</string>
-<string name="intro_welcome_title">Bienvenue sur Atomic</string>
+    <string name="intro_welcome_title">Bienvenue sur Atomic</string>
     <string name="intro_welcome_description">Votre référence complète du tableau périodique avec des informations détaillées sur les éléments, des outils interactifs et des fonctionnalités d\'apprentissage.</string>
     <string name="intro_flashcards_title">Apprendre avec des Cartes Mémoire</string>
     <string name="intro_flashcards_description">Maîtrisez le tableau périodique avec des cartes mémoire interactives. Testez vos connaissances sur les symboles des éléments, les masses atomiques et les propriétés chimiques.</string>
@@ -712,4 +762,221 @@ Vous gagnerez %3$d vie%4$s.</string>
     <string name="intro_image_description">Image d\'introduction</string>
     <string name="electron_affinity_colon">Affinité Électronique:</string>
     <string name="split_view">Vue fractionnée des éléments</string>
+    <string name="abundance_human_body">Dans le corps humain</string>
+    <string name="abundance_meteorites">Dans les météorites</string>
+    <string name="account">Compte</string>
+    <string name="additional_ai_messages">Limite de messages IA augmentée :</string>
+    <string name="ai_abundance_relative">(par rapport à H=10¹²)</string>
+    <string name="ai_adv_header">Propriétés avancées de %1$s :</string>
+    <string name="ai_all_covered">Nous avons couvert beaucoup de choses sur %1$s ! Le saviez-vous ?</string>
+    <string name="ai_another_isotope"> Un autre isotope est %1$s.</string>
+    <string name="ai_beta_badge">Bêta</string>
+    <string name="ai_chat_setting">Activer l\'assistant de chat IA</string>
+    <string name="ai_chat_setting_description">Autoriser l\'assistant IA à répondre aux questions sur les éléments</string>
+    <string name="ai_check_isotope_table">%1$s a divers isotopes. Vous pouvez consulter le tableau des isotopes détaillé pour une liste complète !</string>
+    <string name="ai_common_isotopes">Les isotopes communs de %1$s incluent %2$s.</string>
+    <string name="ai_compare_all_same">
+• **%1$s :** Tous sont %2$s%3$s.</string>
+    <string name="ai_compare_difference_value">Il y a une différence de **%1$s%2$s** entre eux.</string>
+    <string name="ai_compare_mixed_item">%1$s est %2$s%3$s</string>
+    <string name="ai_compare_property_row">• %1$s : %2$s%3$s</string>
+    <string name="ai_compare_the_others">les autres</string>
+    <string name="ai_comparison_all">tous </string>
+    <string name="ai_comparison_and"> et </string>
+    <string name="ai_comparison_are"> sont </string>
+    <string name="ai_comparison_but">, mais </string>
+    <string name="ai_comparison_is"> est </string>
+    <string name="ai_comparison_vs"> vs </string>
+    <string name="ai_comparison_while">, alors que </string>
+    <string name="ai_concept_atomic_number">Le **Numéro Atomique** est le nombre de protons dans un atome. C\'est la manière principale dont les éléments sont ordonnés dans le tableau périodique.</string>
+    <string name="ai_concept_electron">Les **Électrons** sont des particules chargées négativement qui orbitent autour du noyau. Ils sont impliqués dans les liaisons et l\'électricité.</string>
+    <string name="ai_concept_electronegativity">L\'**Électronégativité** mesure la force avec laquelle un atome attire les électrons vers lui dans une liaison chimique. Le fluor est le plus électronégatif !</string>
+    <string name="ai_concept_generic">C\'est un concept central de la chimie ! Quelle partie souhaitez-vous approfondir ? Je connais les protons, les liaisons, la radioactivité et plus encore.</string>
+    <string name="ai_concept_group">Un **Groupe** est une colonne verticale. Les éléments d\'un groupe ont généralement des propriétés chimiques similaires et le même nombre d\'électrons de valence.</string>
+    <string name="ai_concept_ionization">L\'**Énergie d\'ionisation** est l\'énergie requise pour retirer un électron d\'un atome. Elle augmente généralement vers la droite dans le tableau périodique.</string>
+    <string name="ai_concept_isotope">Un **isotope** est une variante d\'un élément avec le même nombre de protons mais un nombre différent de neutrons. Cela affecte sa masse atomique !</string>
+    <string name="ai_concept_neutron">Les **Neutrons** sont des particules neutres dans le noyau. Ils ajoutent de la masse et aident à stabiliser le noyau, surtout dans les éléments plus lourds.</string>
+    <string name="ai_concept_orbital">Les **Orbitales** sont des régions de l\'espace autour d\'un noyau où il y a une forte probabilité de trouver un électron. Elles ont des formes comme s, p, d et f.</string>
+    <string name="ai_concept_period">Une **Période** est une rangée horizontale dans le tableau périodique. Les éléments d\'une même période ont le même nombre de couches électroniques.</string>
+    <string name="ai_concept_proton">Les **Protons** sont des particules chargées positivement dans le noyau. Le nombre de protons (Numéro Atomique) définit de quel élément il s\'agit !</string>
+    <string name="ai_concept_radioactivity">La **Radioactivité** est le processus par lequel un noyau atomique instable perd de l\'énergie en émettant un rayonnement. Des éléments comme l\'uranium sont célèbres pour cela !</string>
+    <string name="ai_concept_shell">Les électrons résident dans des **couches** (niveaux d\'énergie) autour du noyau. La configuration détermine la position de l\'élément dans le tableau.</string>
+    <string name="ai_concept_valence">Les **Électrons de valence** sont les électrons de la couche la plus externe d\'un atome. Ils déterminent comment un élément réagit avec les autres.</string>
+    <string name="ai_config_is">Sa configuration électronique est %1$s.</string>
+    <string name="ai_connector_question_1">Pour répondre à votre question,</string>
+    <string name="ai_connector_question_2">Je vois. Voici ce que j\'ai trouvé :</string>
+    <string name="ai_connector_question_3">À ce sujet,</string>
+    <string name="ai_connector_why_1">C\'est un excellent suivi !</string>
+    <string name="ai_connector_why_2">Bon point. Laissez-moi vous expliquer davantage.</string>
+    <string name="ai_connector_why_3">En élargissant ce que je viens de dire,</string>
+    <string name="ai_context_lost">Contexte perdu</string>
+    <string name="ai_covered_all">Nous avons couvert beaucoup de choses sur **%1$s** !</string>
+    <string name="ai_difference_group">• **%1$s** : %2$s : %3$s, %4$s : %5$s</string>
+    <string name="ai_difference_mass">• **%1$s** : %2$s est nettement plus lourd.</string>
+    <string name="ai_difference_need_two">J\'ai besoin de deux éléments pour expliquer leurs différences !</string>
+    <string name="ai_difference_phase">• **%1$s** : %2$s : %3$s, %4$s : %5$s</string>
+    <string name="ai_difference_similar">%1$s et %2$s sont assez similaires ! Ce sont tous deux des éléments %3$s %4$s de la série %5$s.</string>
+    <string name="ai_difference_type">• **%1$s** : %2$s : %3$s, %4$s : %5$s</string>
+    <string name="ai_elec_mag_header">Propriétés électriques et magnétiques de %1$s :</string>
+    <string name="ai_element">élément</string>
+    <string name="ai_eqn_no_desc">L\'application inclut cette équation comme référence visuelle.</string>
+    <string name="ai_formula_composition_offer"> Souhaitez-vous que je détaille sa composition élémentaire ?</string>
+    <string name="ai_formula_consists_of">Il se compose de :</string>
+    <string name="ai_formula_item">• %1$s × %2$s (%3$s)</string>
+    <string name="ai_formula_pro_plus">Analyser des composés chimiques comme **%1$s** est une fonctionnalité **PRO+**. En tant qu\'utilisateur %2$s, je ne peux vous aider qu\'avec des éléments individuels !</string>
+    <string name="ai_formula_recognize">Je reconnais **%1$s** comme un composé chimique avec une masse molaire de **%2$s**.</string>
+    <string name="ai_free_user">Gratuit</string>
+    <string name="ai_geo_color">%1$s : %2$s %3$s, %4$s %5$s.</string>
+    <string name="ai_geo_dens">%1$s : %2$s %3$s.</string>
+    <string name="ai_geo_hard">%1$s : %2$s %3$s.</string>
+    <string name="ai_geo_info">%1$s est un %2$s dans le groupe %3$s. Couleur : %4$s. Dureté : %5$s. Densité : %6$s. Magnétisme : %7$s.</string>
+    <string name="ai_group">Groupe</string>
+    <string name="ai_hard_header">Propriétés de dureté de %1$s :</string>
+    <string name="ai_help_response">Je suis formé strictement sur les données disponibles dans cette application ! Je peux vous aider pour :
+
+🧪 **Éléments détaillés** : Propriétés, apparence et faits de découverte directement de notre base de données JSON.
+⚖️ **Comparaisons de données** : Comparez la densité, la masse, le rayon et la réactivité entre les éléments.
+💥 **Réactivité** : J\'utilise les données de groupe et de période de l\'application pour expliquer comment des éléments comme le sodium réagissent avec l\'eau.
+🧬 **Biologique/Sécurité** : Toxicité et rôles biologiques trouvés dans les descriptions des éléments.
+⚛️ **Isotopes et Abondance** : Données spécifiques de nos tableaux dédiés aux isotopes et à l\'abondance.
+📉 **Tendances périodiques** : Explication de modèles comme l\'électronégativité basés sur la structure du tableau.
+🔢 **Masse molaire** : Calculs précis utilisant les poids atomiques de l\'application.
+📝 **Définitions** : Explications des termes de chimie utilisés dans toute l\'application.
+
+Demandez et je trouverai la réponse dans les registres de l\'application ! 🌟</string>
+    <string name="ai_id_header">Identifiants pour %1$s :</string>
+    <string name="ai_identity_result">D\'après les valeurs de l\'application, l\'élément avec une valeur proche de **%1$s** pour ses propriétés est **%2$s** (réel : %3$s).</string>
+    <string name="ai_ion_count">%1$s a %2$d valeur(s) d\'énergie d\'ionisation disponible(s) dans l\'application.</string>
+    <string name="ai_isotope_decay">(Désintégration : %1$s)</string>
+    <string name="ai_isotope_half_life"> Il a une demi-vie de %1$s et se désintègre via %2$s.</string>
+    <string name="ai_mech_header">%1$s pour %2$s :</string>
+    <string name="ai_molar_mass_pro_plus">Calculer la masse molaire des composés est une fonctionnalité **PRO+**. En tant qu\'utilisateur %1$s, vous pouvez toujours obtenir la masse molaire des éléments individuels !</string>
+    <string name="ai_nfpa_flammable_0">Ne brûlera pas</string>
+    <string name="ai_nfpa_flammable_1">Doit être préchauffé pour brûler</string>
+    <string name="ai_nfpa_flammable_2">S\'enflamme lorsqu\'il est modérément chauffé</string>
+    <string name="ai_nfpa_flammable_3">S\'enflamme aux températures normales</string>
+    <string name="ai_nfpa_flammable_4">Extrêmement inflammable</string>
+    <string name="ai_nfpa_health_0">Matériau normal</string>
+    <string name="ai_nfpa_health_1">Légèrement dangereux</string>
+    <string name="ai_nfpa_health_2">Dangereux</string>
+    <string name="ai_nfpa_health_3">Danger extrême</string>
+    <string name="ai_nfpa_health_4">Mortel</string>
+    <string name="ai_no_data_right_now">Je ne peux pas vérifier cela pour le moment.</string>
+    <string name="ai_oxidation_neg">• Négatif : %1$s</string>
+    <string name="ai_oxidation_pos">• Positif : %1$s</string>
+    <string name="ai_period">Période</string>
+    <string name="ai_ph_info">%1$s : acide en dessous de pH %2$s est %3$s, la plage neutre %4$s est %5$s, et au-dessus de pH %6$s, il est %7$s.</string>
+    <string name="ai_ph_info_short">%1$s : la plage de pH %2$s est %3$s.</string>
+    <string name="ai_phase_gas">Gaz</string>
+    <string name="ai_phase_liquid">Liquide</string>
+    <string name="ai_phase_solid">Solide</string>
+    <string name="ai_poi_info">%1$s : plage de coefficient de Poisson %2$s (%3$s).</string>
+    <string name="ai_pro_user">PRO</string>
+    <string name="ai_quick_ask_description">Demandez n\'importe quoi à l\'IA scientifique instantanément</string>
+    <string name="ai_quiz_no_start">Je ne peux pas commencer un quiz pour le moment.</string>
+    <string name="ai_quiz_not_active">Je ne suis pas en mode quiz pour le moment.</string>
+    <string name="ai_radius_header">Détails du rayon pour %1$s :</string>
+    <string name="ai_rate_limit_reached">Vous avez atteint votre limite quotidienne de %1$d messages. Passez à PRO ou PRO+ pour en avoir plus !</string>
+    <string name="ai_reactivity_more">**%1$s** est généralement plus réactif que **%2$s** en fonction de sa position dans le tableau périodique.</string>
+    <string name="ai_reactivity_need_two">J\'ai besoin d\'au moins deux éléments pour comparer leur réactivité !</string>
+    <string name="ai_reactivity_no_result">Je n\'ai pas pu déterminer l\'élément le plus réactif.</string>
+    <string name="ai_reactivity_result">Le %1$s le plus réactif est **%2$s**.</string>
+    <string name="ai_reactivity_similar">**%1$s** et **%2$s** ont des niveaux de réactivité similaires.</string>
+    <string name="ai_safety_caution_flammable">Attention : Cet élément est extrêmement inflammable !</string>
+    <string name="ai_safety_caution_health">Attention : Cet élément est très dangereux pour la santé !</string>
+    <string name="ai_safety_flammability">• **Inflammabilité :** %1$d/4 (%2$s)</string>
+    <string name="ai_safety_header">Profil de sécurité pour %1$s (NFPA 704) :</string>
+    <string name="ai_safety_health">• **Santé :** %1$d/4 (%2$s)</string>
+    <string name="ai_safety_instability">• **Instabilité :** %1$d/4</string>
+    <string name="ai_safety_no_data">Je n\'ai pas de cotes de danger NFPA spécifiques pour %1$s, mais suivez toujours les protocoles de sécurité de laboratoire standard.</string>
+    <string name="ai_safety_radioactive">%1$s est radioactif (%2$s), ce qui est sa principale préoccupation en matière de sécurité. Manipulez avec une extrême prudence !</string>
+    <string name="ai_safety_special">• **Spécial :** %1$s</string>
+    <string name="ai_series_actinide_label">Actinide</string>
+    <string name="ai_series_alkali_metal_label">Métal Alcalin</string>
+    <string name="ai_series_alkaline_earth_label">Métal Alcalino-terreux</string>
+    <string name="ai_series_halogen_label">Halogène</string>
+    <string name="ai_series_lanthanide_label">Lanthanide</string>
+    <string name="ai_series_metalloid_label">Métalloïde</string>
+    <string name="ai_series_noble_gas_label">Gaz Noble</string>
+    <string name="ai_series_nonmetal_label">Non-métal</string>
+    <string name="ai_series_transition_metal_label">Métal de Transition</string>
+    <string name="ai_similarity_generic">**%1$s** fait partie de la série %2$s. D\'autres éléments de cette série auront des propriétés liées !</string>
+    <string name="ai_similarity_no_element">Je ne sais pas pour quel élément vous voulez trouver des similitudes.</string>
+    <string name="ai_similarity_result_footer">.
+
+Ils partagent des comportements chimiques similaires grâce à leurs électrons de valence !</string>
+    <string name="ai_similarity_result_header">Comme **%1$s**, ces éléments sont aussi des **%2$ss** : 
+
+</string>
+    <string name="ai_structural_no_results">Je n\'ai rien trouvé dans ce groupe ou cette période. Rappelez-vous : il y a 18 groupes et 7 périodes !</string>
+    <string name="ai_structural_result">Les éléments dans le **%1$s %2$s** sont : 
+</string>
+    <string name="ai_structural_specify_number">Veuillez spécifier un numéro de groupe ou de période !</string>
+    <string name="ai_suggestion_abundance">Devrions-nous regarder où on le trouve dans l\'univers ?</string>
+    <string name="ai_suggestion_bio">Aimeriez-vous connaître son rôle biologique ?</string>
+    <string name="ai_suggestion_compare">Voulez-vous le comparer à un autre élément ?</string>
+    <string name="ai_suggestion_iso">Je peux aussi vous parler de ses isotopes.</string>
+    <string name="ai_suggestion_safety">J\'ai aussi des données de sécurité pour lui, si vous êtes intéressé.</string>
+    <string name="ai_superlative_among">Parmi les %1$ss, %2$s</string>
+    <string name="ai_thermal_header">Propriétés thermiques de %1$s :</string>
+    <string name="all_ai_features">Toutes les fonctionnalités IA :</string>
+    <string name="analytics_desc">Aidez à améliorer l\'application en partageant des données d\'utilisation anonymes</string>
+    <string name="analytics_title">Analyses d\'utilisation</string>
+    <string name="app_version">v5.0.0m-Build.221</string>
+    <string name="back">Retour</string>
+    <string name="compare_elements">Comparer les éléments</string>
+    <string name="comparison_title_format">%1$s | %2$s</string>
+    <string name="covalent_radius_colon">Rayon covalent :</string>
+    <string name="curie_point_colon">Point de Curie :</string>
+    <string name="current_version">Version actuelle</string>
+    <string name="dic">Dictionnaire</string>
+    <string name="dictionary_text">Un dictionnaire complet de termes chimiques et physiques</string>
+    <string name="electronegativity_allen_colon">Électronégativité (Allen) :</string>
+    <string name="element_electrons">Électrons :</string>
+    <string name="element_of_the_day">Élément du jour</string>
+    <string name="element_of_the_day_description">Affiche un élément différent chaque jour avec son symbole, son nom et sa description</string>
+    <string name="element_quick_nav_description">Navigation rapide vers le tableau périodique, le quiz et les outils IA</string>
+    <string name="exit_compare_mode">Quitter la comparaison</string>
+    <string name="feature_check">Fonctionnalité incluse</string>
+    <string name="filter">Filtrer</string>
+    <string name="gas">Calculateur de gaz parfait</string>
+    <string name="ideal_calculated">Désactivé</string>
+    <string name="ideal_gas_calculate_field">Calculer :</string>
+    <string name="ideal_gas_calculator_title">Calculateur de gaz parfait</string>
+    <string name="ideal_gas_card_title">Calculateur de la loi des gaz parfaits (PV=nRT) :</string>
+    <string name="ideal_gas_moles">Moles (n) :</string>
+    <string name="ideal_gas_moles_hint">Entrez les moles</string>
+    <string name="ideal_gas_pressure">Pression (P) :</string>
+    <string name="ideal_gas_pressure_hint">Entrez la pression</string>
+    <string name="ideal_gas_result">Résultat :</string>
+    <string name="ideal_gas_temperature">Température (T) :</string>
+    <string name="ideal_gas_temperature_hint">Entrez la température</string>
+    <string name="ideal_gas_text">Calculez les propriétés d\'un gaz parfait à l\'aide de l\'équation de la loi des gaz parfaits PV=nRT. Choisissez la variable à calculer et saisissez les trois autres valeurs.</string>
+    <string name="ideal_gas_volume">Volume (V) :</string>
+    <string name="ideal_gas_volume_hint">Entrez le volume</string>
+    <string name="learning_games_nav">Flashcards</string>
+    <string name="molar_heat_capacity_colon">Capacité thermique molaire :</string>
+    <string name="molar_volume_colon">Volume molaire :</string>
+    <string name="neel_point_colon">Point de Néel :</string>
+    <string name="next_sale_end">2024/09/15</string>
+    <string name="next_sale_start">2024/08/05</string>
+    <string name="price_not_available">Prix non disponible</string>
+    <string name="pro_better_ai">Fonctionnalités IA supplémentaires</string>
+    <string name="pro_better_ai_descr">Débloquez toutes les fonctionnalités de l\'agent IA, avec quiz, accès aux données pro et bien plus encore</string>
+    <string name="read_more_widget">Lire plus</string>
+    <string name="refractive_index_colon">Indice de réfraction :</string>
+    <string name="requires_pro_plus_until_2026">Nécessite PRO+ jusqu\'au 1 jan 2026</string>
+    <string name="science_daily_description">Faits scientifiques aléatoires livrés quotidiennement</string>
+    <string name="select_element_to_compare">Sélectionner l\'élément à comparer</string>
+    <string name="space_group_name_colon">Nom du groupe d\'espace :</string>
+    <string name="space_group_number_colon">Numéro du groupe d\'espace :</string>
+    <string name="thermal_conductivity_colon">Conductivité thermique :</string>
+    <string name="thermal_expansion_colon">Dilatation thermique :</string>
+    <string name="unknown">Inconnu</string>
+    <string name="unlimited_ai_messages">Messages IA illimités :</string>
+    <string name="van_der_waals_radius_colon">Rayon de Van Der Waals :</string>
+    <string name="view_all">Voir tout</string>
+    <string name="web_client_id">315118082769-ivqq7fhga4pjja0t95iuansjs2vjdu9j.apps.googleusercontent.com</string>
+    <string name="widget_description_placeholder">Chargement des informations sur l\'élément...</string>
+    <string name="work_function_colon">Travail de sortie :</string>
 </resources>

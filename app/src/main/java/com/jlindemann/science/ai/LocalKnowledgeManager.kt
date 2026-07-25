@@ -1,6 +1,7 @@
 package com.jlindemann.science.ai
 
 import android.content.Context
+import com.jlindemann.science.R
 import com.jlindemann.science.model.Constants
 import com.jlindemann.science.model.ConstantsModel
 import com.jlindemann.science.model.Dictionary
@@ -17,7 +18,7 @@ import com.jlindemann.science.model.Poisson
 import com.jlindemann.science.model.PoissonModel
 import java.util.Locale
 
-class LocalKnowledgeManager(private val context: Context) {
+class LocalKnowledgeManager(private val context: Context?) {
 
     data class QueryResult(
         val response: String,
@@ -57,13 +58,35 @@ class LocalKnowledgeManager(private val context: Context) {
         val normalized = normalize(query)
         if (normalized.isBlank()) return null
 
-        return resolveEquation(normalized)
+        return resolveAppFeature(normalized)
+            ?: resolveEquation(normalized)
             ?: resolveConstant(normalized)
             ?: resolveIndicator(normalized)
             ?: resolvePoisson(normalized)
             ?: resolveGeology(normalized)
             ?: resolveIon(normalized)
             ?: resolveDictionary(normalized, activeLanguage)
+    }
+
+    private fun resolveAppFeature(query: String): QueryResult? {
+        val features = listOf(
+            listOf("nuclide", "table of nuclides", "nuklid", "kärnavfall", "isotoptabell") to "The app includes a comprehensive **Table of Nuclides** (Nuclide Table) showing isotopes for all elements, color-coded by their decay types (alpha, beta, etc.).",
+            listOf("emission", "spectrum", "spectral", "lines", "spektrum", "emissionsspektrum") to "You can view the **Emission Spectrum** (spectral lines) for elements in their detailed property panels. It shows the unique light pattern each element produces.",
+            listOf("flashcard", "game", "learn", "quiz", "test", "lärspel", "öva") to "The app features several **Flashcard mini-games** to help you master element symbols, atomic masses, classifications, and more. You can track your level and XP!",
+            listOf("achievement", "progress", "stat", "prestation", "framsteg", "statistik") to "Track your chemistry knowledge with **Achievements** and usage statistics, which can be found on the User Page.",
+            listOf("molar mass", "calculator", "formula", "molmassa", "beräkna", "kalkylator") to "There is a built-in **Molar Mass Calculator** tool that lets you calculate the molecular weight of complex chemical compounds.",
+            listOf("unit", "converter", "temperature", "kelvin", "celsius", "enhetsomvandlare") to "The app includes a versatile **Unit Converter** for converting temperatures and other scientific units used in chemistry.",
+            listOf("ideal gas", "pv=nrt", "gas law", "ideala gaslagen") to "Use the **Ideal Gas Calculator** to calculate pressure, volume, moles, or temperature for any ideal gas using the PV=nRT equation.",
+            listOf("reaction", "balancer", "equation", "favorit", "reaktionsbalanserare") to "The **Chemical Reaction Balancer** tool helps you balance complex chemical equations and save your favorite reactions for later study.",
+            listOf("how to use", "what can you do", "features", "vad kan du göra", "hjälp", "funktioner") to "I can help you explore elements, compare properties, calculate molar masses, explain chemical concepts, and guide you through the app's tables and tools! Just ask about an element or a chemistry term."
+        )
+
+        for ((keywords, desc) in features) {
+            if (keywords.any { query.contains(it) }) {
+                return QueryResult(response = desc, topic = "app_feature", isTechnical = false)
+            }
+        }
+        return null
     }
 
     private fun resolveEquation(query: String): QueryResult? {
@@ -73,7 +96,7 @@ class LocalKnowledgeManager(private val context: Context) {
         val score = scoreMatch(query, normalize(match.equationTitle))
         if (score <= 0) return null
 
-        val description = match.description.ifBlank { "The app includes this equation as a visual reference." }
+        val description = match.description.ifBlank { context?.getString(R.string.ai_eqn_no_desc) ?: "No description available" }
         return QueryResult(
             response = "${match.equationTitle} (${match.category}):\n$description",
             topic = "equations",
@@ -131,17 +154,23 @@ class LocalKnowledgeManager(private val context: Context) {
         if (score <= 0) return null
 
         val response = when {
-            containsAny(query, listOf("hardness", "mohs")) ->
-                "${match.name}: hardness ${match.hardness}."
-            containsAny(query, listOf("density")) ->
-                "${match.name}: density ${match.density}."
-            containsAny(query, listOf("color", "colour")) ->
-                "${match.name}: color ${match.color}, streak ${match.streak}."
+            containsAny(query, listOf("hardness", "mohs")) -> {
+                val label = context?.getString(R.string.hardness_label)?.replace(":","")?.trim() ?: "Hardness"
+                context?.getString(R.string.ai_geo_hard, match.name, label, match.hardness) ?: "${match.name}: ${match.hardness} (Mohs)"
+            }
+            containsAny(query, listOf("density")) -> {
+                val label = context?.getString(R.string.density_label)?.replace(":","")?.trim() ?: "Density"
+                context?.getString(R.string.ai_geo_dens, match.name, label, match.density) ?: "${match.name}: ${match.density} g/cm³"
+            }
+            containsAny(query, listOf("color", "colour")) -> {
+                val cl = context?.getString(R.string.color_label)?.replace(":","")?.trim() ?: "Color"
+                val sl = context?.getString(R.string.streak_label)?.replace(":","")?.trim() ?: "Streak"
+                context?.getString(R.string.ai_geo_color, match.name, cl, match.color, sl, match.streak) ?: "${match.name}: ${match.color}."
+            }
             containsAny(query, listOf("magnetic", "magnetism")) ->
                 "${match.name}: ${match.magnetism}."
             else ->
-                "${match.name} is a ${match.type.lowercase(Locale.ROOT)} in the ${match.group} group. " +
-                    "Color: ${match.color}. Hardness: ${match.hardness}. Density: ${match.density}. Magnetism: ${match.magnetism}."
+                context?.getString(R.string.ai_geo_info, match.name, match.type, match.group, match.color, match.hardness, match.density, match.magnetism) ?: "${match.name} info."
         }
 
         return QueryResult(response = response, topic = "geology", isTechnical = false)
@@ -157,8 +186,7 @@ class LocalKnowledgeManager(private val context: Context) {
         if (score <= 0) return null
 
         return QueryResult(
-            response = "${match.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }} " +
-                "has ${match.count} ionization energy value(s) available in the app.",
+            response = context?.getString(R.string.ai_ion_count, match.name.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }, match.count) ?: "${match.name}: ${match.count}",
             topic = "ionization",
             isTechnical = true
         )
@@ -172,9 +200,7 @@ class LocalKnowledgeManager(private val context: Context) {
 
         val displayName = match.name.replace('_', ' ')
         return QueryResult(
-            response = "$displayName: acid below pH ${match.acid} is ${match.acidColor}, " +
-                "neutral range ${match.neutral} is ${match.neutralColor}, " +
-                "and above pH ${match.alkali} it is ${match.alkaliColor}.",
+            response = context?.getString(R.string.ai_ph_info, displayName, match.acid, match.acidColor, match.neutral, match.neutralColor, match.alkali, match.alkaliColor) ?: "$displayName indicator info.",
             topic = "ph indicator",
             isTechnical = false
         )
@@ -194,7 +220,7 @@ class LocalKnowledgeManager(private val context: Context) {
         }
 
         return QueryResult(
-            response = "${match.name}: Poisson's ratio range ${range} (${match.type}).",
+            response = context?.getString(R.string.ai_poi_info, match.name, range, match.type) ?: "${match.name}: $range",
             topic = "poisson ratio",
             isTechnical = true
         )
@@ -206,6 +232,13 @@ class LocalKnowledgeManager(private val context: Context) {
 
     private fun scoreMatch(query: String, candidate: String): Int {
         if (candidate.isBlank()) return 0
+        
+        // Use word boundaries for very short candidates to avoid matching "me" (electron mass) in "mer"
+        if (candidate.length <= 2) {
+            val regex = "\\b${Regex.escape(candidate)}\\b".toRegex()
+            return if (regex.containsMatchIn(query)) 100 else 0
+        }
+
         return when {
             query == candidate -> 100
             query.contains(candidate) -> 80 + candidate.length

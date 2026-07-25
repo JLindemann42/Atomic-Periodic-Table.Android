@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_science_daily_widget"
+    android:backgroundTint="@android:color/system_accent3_100"
+    android:padding="24dp"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/widget_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Science Daily Fact"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/system_accent3_800"
+        android:alpha="0.8"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/widget_fact_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Did you know? Oxygen is the most abundant element in Earth's crust!"
+        android:textSize="18sp"
+        android:textColor="@android:color/system_accent3_900"
+        android:lineSpacingMultiplier="1.2"
+        android:gravity="center"
+        android:ellipsize="end" />
+
+    <TextView
+        android:id="@+id/widget_ask_ai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ask Science AI"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/system_accent3_800"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:background="@drawable/toast_outline"
+        android:backgroundTint="@android:color/system_accent3_800" />
+
+</LinearLayout>

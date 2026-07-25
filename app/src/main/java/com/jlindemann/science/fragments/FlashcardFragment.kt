@@ -257,8 +257,6 @@ class FlashcardFragment : BaseFragment() {
 
         setupStreakBadge(view)
 
-        updateMostUsedPreference()
-
         infoText = view.findViewById(R.id.tv_lives_info)
         setupDifficultyToggles(view)
         buildLevelBoxes(view)
@@ -673,7 +671,18 @@ class FlashcardFragment : BaseFragment() {
     }
 
     private fun updateLivesCount(view: View) {
-        view.findViewById<TextView>(R.id.tv_lives_count).text = LivesManager.getLives(requireContext()).toString()
+        val proPlusPref = ProPlusVersion(requireContext())
+        val isInfinite = proPlusPref.getValue() == 100 || LivesManager.getLives(requireContext()) == Int.MAX_VALUE
+        val livesTextView = view.findViewById<TextView>(R.id.tv_lives_count)
+        val livesLabelView = view.findViewById<TextView>(R.id.tv_lives)
+        if (isInfinite) {
+            livesTextView?.text = "∞"
+            livesLabelView?.text = getString(R.string.lives_unlimited)
+        } else {
+            val lives = LivesManager.getLives(requireContext())
+            livesTextView?.text = lives.toString()
+            livesLabelView?.text = getString(R.string.lives_label, lives.toString())
+        }
     }
 
     private fun TextView.setLockDrawable(unlocked: Boolean) {

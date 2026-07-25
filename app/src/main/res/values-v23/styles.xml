@@ -69,8 +69,11 @@
 
         <item name="colorPrimaryDark">#1B1B1E</item>
         <item name="colorContainer">#B0C5FF</item>
-        <item name="colorAccent">#0856CF</item>
+        <item name="colorAccent">#b0c5ff</item>
         <item name="chipSurfaceColor">#1B1B1E</item>
+
+        <item name="backgroundColor">#1B1B1E</item>
+        <item name="colorOnBackground">#E4E2E6</item>
 
         <item name="android:windowLightStatusBar">false</item>
         <item name="android:windowTranslucentNavigation">true</item>

@@ -34,7 +34,7 @@ class GeologyAdapter(var list: ArrayList<Geology>, var clickListener: GeologyAct
         fun initialize(item: Geology, action: OnGeologyClickListener, context: Context) {
             textViewName.text = item.name
             textViewName.text = item.name.capitalize()
-            textViewShort.text = item.name.substring(0,2)
+            textViewShort.text = item.name.take(2)
             textViewType.text = item.type
             textViewGroup.text = item.group
 

@@ -66,8 +66,11 @@
 
         <item name="colorPrimaryDark">#1B1B1E</item>
         <item name="colorContainer">#B0C5FF</item>
-        <item name="colorAccent">#0856CF</item>
+        <item name="colorAccent">#b0c5ff</item>
         <item name="chipSurfaceColor">#1B1B1E</item>
+
+        <item name="backgroundColor">#1B1B1E</item>
+        <item name="colorOnBackground">#E4E2E6</item>
 
         <item name="android:windowLightStatusBar">false</item>
         <item name="actionMenuTextColor">@color/colorDarkText</item>
@@ -167,6 +170,21 @@
         <item name="android:layout_marginEnd">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
         <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Material3.LargeComponent</item>
+    </style>
+
+    <style name="Widget.Science.AI.SuggestionChip" parent="Widget.Material3.Chip.Assist">
+        <item name="chipBackgroundColor">?attr/colorTertiaryContainer</item>
+        <item name="android:textColor">?attr/colorOnTertiaryContainer</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Material3.Corner.Large</item>
+        <item name="chipStrokeWidth">1dp</item>
+    </style>
+
+    <style name="Widget_Material3_Chip_Suggestion_Outlined" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@android:color/transparent</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="chipStrokeColor">?attr/colorOutline</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Material3.Corner.Large</item>
     </style>
 
     <declare-styleable name="ShadowView">

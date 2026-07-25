@@ -123,14 +123,16 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
     open fun updateLivesCount() {
         val lives = LivesManager.getLives(this)
         val maxLives = LivesManager.getMaxLives(this)
-        val livesDisplay = if (maxLives == Int.MAX_VALUE) "∞" else lives.toString()
+        val isUnlimited = maxLives == Int.MAX_VALUE || lives == Int.MAX_VALUE
+        val livesDisplay = if (isUnlimited) "∞" else lives.toString()
 
         // Try both possible IDs (XML may differ between screens)
         val livesCountView = findViewById<TextView?>(R.id.tv_lives_count)
         livesCountView?.text = livesDisplay
 
         val livesLabelView = findViewById<TextView?>(R.id.tv_lives)
-        livesLabelView?.text = getString(R.string.lives_label, livesDisplay)
+        val label = if (isUnlimited) getString(R.string.lives_unlimited) else getString(R.string.lives_label, livesDisplay)
+        livesLabelView?.text = label
     }
 
 

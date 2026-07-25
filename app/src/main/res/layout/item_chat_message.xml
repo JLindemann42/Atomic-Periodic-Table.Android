@@ -46,8 +46,8 @@
     <!-- AI Mascot Icon -->
     <ImageView
         android:id="@+id/aiMascotIcon"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:src="@drawable/ic_ai_mascot"
         android:visibility="gone"
         android:contentDescription="Atomic Assistant"
@@ -60,7 +60,7 @@
         android:id="@+id/aiMessageRoot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="0dp"
         android:visibility="gone"
         android:clipChildren="false"
         android:clipToPadding="false"
@@ -83,21 +83,41 @@
             android:id="@+id/aiMessageContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:layout_gravity="start"
             app:cardCornerRadius="16dp"
             app:cardBackgroundColor="?attr/colorSecondaryContainer"
             app:cardElevation="2dp">
 
-            <TextView
-                android:id="@+id/aiMessageText"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="12dp"
-                android:textColor="?attr/colorOnSecondaryContainer"
-                android:textSize="14sp"
-                tools:text="Oxygen is a chemical element with symbol O and atomic number 8." />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/aiMessageText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="14sp"
+                    tools:text="Oxygen is a chemical element with symbol O and atomic number 8." />
+
+                <!-- Tappable sources for a grounded answer. The message renderer supports no
+                     links, so a citation is surfaced as a chip instead of an inline URL. -->
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/aiMessageActions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="12dp"
+                    android:paddingBottom="10dp"
+                    android:visibility="gone"
+                    app:chipSpacingHorizontal="6dp"
+                    app:chipSpacingVertical="0dp"
+                    app:singleLine="false" />
+
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
     </FrameLayout>

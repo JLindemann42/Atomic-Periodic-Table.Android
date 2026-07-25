@@ -1,19 +1,32 @@
 package com.jlindemann.science.adapter
 
 import android.animation.ValueAnimator
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.jlindemann.science.R
+import com.jlindemann.science.ai.compose.ChatAction
+import com.jlindemann.science.ai.compose.ChatActionCodec
 import com.jlindemann.science.model.ChatMessage
 
 class ChatMessageAdapter(
-    private val messages: List<ChatMessage>
+    private val messages: List<ChatMessage>,
+    /**
+     * Invoked when the user taps a source chip. Defaulted so existing call sites, which do not
+     * offer navigation, continue to compile and simply render no chips.
+     */
+    private val onAction: ((ChatAction) -> Unit)? = null
 ) : RecyclerView.Adapter<ChatMessageAdapter.ChatViewHolder>() {
-    
+
     inner class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val userContainer: CardView = itemView.findViewById(R.id.userMessageContainer)
         private val aiRoot: View = itemView.findViewById(R.id.aiMessageRoot)
@@ -21,26 +34,111 @@ class ChatMessageAdapter(
         private val aiMessageText: TextView = itemView.findViewById(R.id.aiMessageText)
         private val aiMascotIcon: android.widget.ImageView = itemView.findViewById(R.id.aiMascotIcon)
         private val aiGlow: View = itemView.findViewById(R.id.aiMessageGlow)
-        
+        private val aiActions: ChipGroup = itemView.findViewById(R.id.aiMessageActions)
+
         fun bind(message: ChatMessage) {
             if (message.isFromUser) {
                 userContainer.visibility = View.VISIBLE
                 aiRoot.visibility = View.GONE
                 aiMascotIcon.visibility = View.GONE
-                userMessageText.text = message.text
+                userMessageText.text = formatMarkdown(message.text)
             } else {
                 userContainer.visibility = View.GONE
                 aiRoot.visibility = View.VISIBLE
                 aiMascotIcon.visibility = View.VISIBLE
-                aiMessageText.text = message.text
-                
+                aiMessageText.text = formatMarkdown(message.text)
+                bindActions(message)
+
                 // Entrance animation
                 animateEntrance(aiRoot, aiMascotIcon)
-                
+
                 // Start pulsating glow effect
                 startGlowAnimation(aiGlow)
                 // Start mascot pulse
                 startMascotAnimation(aiMascotIcon)
+            }
+        }
+
+        /** Render the answer's sources as tappable chips, or hide the group when there are none. */
+        private fun bindActions(message: ChatMessage) {
+            aiActions.removeAllViews()
+            val actions = if (onAction == null) emptyList() else ChatActionCodec.decode(message.actions)
+            if (actions.isEmpty()) {
+                aiActions.visibility = View.GONE
+                return
+            }
+            aiActions.visibility = View.VISIBLE
+            val context = aiActions.context
+            for (action in actions) {
+                val chip = Chip(context).apply {
+                    text = action.label
+                    isCheckable = false
+                    isClickable = true
+                    textSize = 12f
+                    chipBackgroundColor = null
+                    setChipBackgroundColorResource(android.R.color.transparent)
+                    chipStrokeWidth = 1f
+                    setEnsureMinTouchTargetSize(false)
+                    setOnClickListener { onAction?.invoke(action) }
+                }
+                aiActions.addView(chip)
+            }
+        }
+
+        private fun formatMarkdown(text: String): CharSequence {
+            val builder = SpannableStringBuilder()
+            val lines = text.split("\n")
+            
+            for (i in lines.indices) {
+                val line = lines[i]
+                if (line.trimStart().startsWith("###")) {
+                    val headerText = line.trimStart().removePrefix("###").trim()
+                    val start = builder.length
+                    appendBoldText(builder, headerText)
+                    val end = builder.length
+                    
+                    // Apply header styles (Large + Bold)
+                    builder.setSpan(StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                    builder.setSpan(android.text.style.RelativeSizeSpan(1.2f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                } else {
+                    // Process bold text in normal lines
+                    appendBoldText(builder, line)
+                }
+                
+                if (i < lines.size - 1) {
+                    builder.append("\n")
+                }
+            }
+            return builder
+        }
+
+        private fun appendBoldText(builder: SpannableStringBuilder, text: String) {
+            var lastIdx = 0
+            val regex = Regex("\\*\\*(.*?)\\*\\*")
+            
+            regex.findAll(text).forEach { match ->
+                // Append text before the match
+                builder.append(text.substring(lastIdx, match.range.first))
+                
+                // Start of bold part
+                val start = builder.length
+                val content = match.groupValues[1]
+                builder.append(content)
+                
+                // Apply bold style
+                builder.setSpan(
+                    StyleSpan(Typeface.BOLD),
+                    start,
+                    builder.length,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                
+                lastIdx = match.range.last + 1
+            }
+            
+            // Append remaining text
+            if (lastIdx < text.length) {
+                builder.append(text.substring(lastIdx))
             }
         }
 

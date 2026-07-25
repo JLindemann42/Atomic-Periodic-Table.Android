@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.jlindemann.science.R
 
 /**
  * Manages the "learning" aspects of the AI.
@@ -94,15 +95,16 @@ class AILearningManager(context: Context) {
             .map { it.key }
     }
     
-    fun getPersonalizedGreeting(): String? {
+    fun getPersonalizedGreeting(context: Context, language: String): String? {
         val favElement = getFavoriteElement() ?: return null
         val interests = getTopProperties(1)
+        val localizedCtx = AIPersonality.getLocalizedContext(context, language)
         
         return when {
             interests.isNotEmpty() -> 
-                "Welcome back! Ready to explore more about ${interests[0]}? We could look at $favElement again."
+                localizedCtx.getString(R.string.ai_personalized_greeting_interest, interests[0], favElement)
             else -> 
-                "Hey! I remember you were checking out $favElement recently. Want to see some more details?"
+                localizedCtx.getString(R.string.ai_personalized_greeting_fav, favElement)
         }
     }
 }

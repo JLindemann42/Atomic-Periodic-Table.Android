@@ -103,8 +103,6 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
     implementation 'com.google.android.recaptcha:recaptcha:18.5.1'
-    // TensorFlow Lite runtime for on-device embedding inference
-    implementation 'org.tensorflow:tensorflow-lite:2.17.0'
 
     def billing_version = "8.0.0"
     implementation "com.android.billingclient:billing-ktx:$billing_version"

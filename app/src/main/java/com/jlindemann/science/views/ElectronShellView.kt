@@ -101,19 +101,18 @@ class ElectronShellView @JvmOverloads constructor(
 
         shells.forEachIndexed { index, electronCount ->
             val radius = nucleusRadius + (index + 1) * shellStep
-            
+
             // Draw shell orbit
             canvas.drawCircle(centerX, centerY, radius, shellPaint)
-            
+
             // Draw electrons
             val electronRadius = minOf(width, height) * 0.015f
+            val startAngle = -(Math.PI / 2).toFloat()
             for (i in 0 until electronCount) {
-                // Offset each shell's starting angle for better visual distribution
-                val startAngle = (index * 0.5).toFloat()
                 val angle = startAngle + (2 * Math.PI * i / electronCount).toFloat()
                 val ex = centerX + radius * cos(angle.toDouble()).toFloat()
                 val ey = centerY + radius * sin(angle.toDouble()).toFloat()
-                
+
                 canvas.drawCircle(ex, ey, electronRadius, electronPaint)
             }
         }

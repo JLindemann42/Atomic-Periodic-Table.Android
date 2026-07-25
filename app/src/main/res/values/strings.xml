@@ -55,6 +55,8 @@
     <string name="pro_additional_tables_descr" >Additional tables including a nuclide table, poisson\'s ratio table, constants table, geology table etc, with more coming in the future</string>
     <string name="pro_better_calculator" >Better Calculator</string>
     <string name="pro_better_calculator_descr" >An enhanced calculator with the possibility to save molar weights of different compounds in the favorite page.</string>
+    <string name="pro_better_ai" >Additional AI Features</string>
+    <string name="pro_better_ai_descr" >Unlock all features of the AI agent, with quiz, access to pro data and much more</string>
     <string name="pro_additional_flashcards">Additional Flashcards and Sync</string>
     <string name="pro_additional_flashcards_descr">Access to additional flashcards, more lives and syncing of your progress</string>
     <string name="pro_additional_sync">Sync for notes and progress</string>
@@ -95,7 +97,20 @@
     <string name="show_molar_mass" >Show Molar Mass</string>
     <string name="show_stp_phase" >Show STP Phase</string>
     <string name="show_electronegativity" >Show Electronegativity</string>
-    <string name="show_density" >Show Density</string>
+    <string name="show_density">Show Density</string>
+    <string name="science_daily_description" translatable="false">Random science facts delivered daily</string>
+    <string name="ai_quick_ask_description" translatable="false">Ask Science AI anything instantly</string>
+    <string name="element_quick_nav_description" translatable="false">Quick navigation to Periodic Table, Quiz, and AI tools</string>
+    <string name="ai_rich_overview_basic_facts">Basic Facts</string>
+    <string name="ai_rich_overview_where_found">Where is %1$s found?</string>
+    <string name="ai_rich_overview_applications">Applications &amp; Uses</string>
+    <string name="ai_rich_overview_etymology">Origin &amp; History</string>
+    <string name="ai_rich_overview_biological">Biological Role</string>
+    <string name="ai_rich_overview_properties">Properties</string>
+    <string name="ai_rich_overview_advanced">Advanced Atomic Data</string>
+    <string name="ai_rich_overview_safety">Safety &amp; Hazards</string>
+    <string name="ai_rich_overview_isotopes">Notable Isotopes</string>
+    <string name="ai_rich_overview_compounds">Common Compounds</string>
     <string name="kelvin" translatable="false" >Kelvin</string>
     <string name="celsius" translatable="false" >Celsius</string>
     <string name="fahrenheit" translatable="false" >Fahrenheit</string>
@@ -103,6 +118,7 @@
 
     <!-- AI Chat Panel -->
     <string name="ask_atomic">Ask Atomic</string>
+    <string name="ai_beta_badge">Beta</string>
     <string name="ai_hint">Ask me anything...</string>
     <string name="ai_lang_switched">AI language switched to: %1$s 🌐</string>
     <string name="ai_no_data">Hmm, I couldn\'t find information about that. Try asking about an element like \'oxygen\' or \'gold\'!</string>
@@ -118,6 +134,32 @@
     <string name="ai_property_is">%1$s\'s %2$s is %3$s.</string>
     <string name="ai_recap_is">Just to recap, %1$s\'s %2$s is %3$s.</string>
     <string name="ai_no_property_data">I\'m sorry, I don\'t have the data for %1$s\'s %2$s right now.</string>
+
+    <!-- Grounded answers: sources, coverage and computed results -->
+    <string name="ai_sources_header">Sources</string>
+    <string name="ai_history_sign_in">Please sign in to view chat history</string>
+    <string name="ai_history_pro_only">Chat history is a PRO feature</string>
+    <string name="ai_superlative_highest">highest</string>
+    <string name="ai_superlative_lowest">lowest</string>
+    <string name="ai_source_element_data">%1$s — element data (%2$s)</string>
+    <string name="ai_source_table">%1$s — %2$s table</string>
+    <string name="ai_coverage_note">%1$s is recorded for %2$d of %3$d elements.</string>
+    <string name="ai_aggregate_average">Average %1$s</string>
+    <string name="ai_aggregate_median">Median %1$s</string>
+    <string name="ai_aggregate_sum">Total %1$s</string>
+    <string name="ai_aggregate_result">**%1$s**: %2$s</string>
+    <string name="ai_aggregate_over">Calculated over %1$d of %2$d matching elements.</string>
+    <string name="ai_aggregate_missing_note">%1$d matched but have no recorded value, so they are excluded.</string>
+    <string name="ai_count_result">**%1$d** elements match.</string>
+    <string name="ai_filter_matched">%1$d elements match:</string>
+    <string name="ai_filter_top">Top %1$d of %2$d matching elements:</string>
+    <string name="ai_filter_none">No elements match those conditions.</string>
+    <string name="ai_list_row">• **%1$s** — %2$s</string>
+    <string name="ai_list_row_plain">• **%1$s**</string>
+    <string name="ai_list_more">…and %1$d more.</string>
+    <string name="ai_value_is_range">This is a range; ranking uses its midpoint.</string>
+    <string name="ai_converted_from">Converted from the recorded value %1$s.</string>
+    <string name="ai_open_in_app">Open %1$s</string>
     <string name="ai_appears_as">%1$s appears as: %2$s</string>
     <string name="ai_discovered_by">%1$s was discovered by %2$s in %3$s.</string>
     <string name="ai_discovered_in">%1$s was discovered in %2$s.</string>
@@ -161,21 +203,49 @@
     <string name="ai_molar_mass_generic">I can help with molar masses! Try asking \"What is the molar mass of H2O?\"</string>
     <string name="ai_superlative_generic">That\'s a great question! I can find the densest, heaviest, or most electronegative elements. Which one would you like to know?</string>
     <string name="ai_superlative_no_calculate">I couldn\'t calculate that right now.</string>
+    <string name="ai_list_header">Here are the **%1$s** elements: </string>
+    <string name="ai_no_list_data">I couldn\'t find any elements matching those criteria in our database.</string>
+    <string name="ai_pro_tip_hint">Pro tip: You can also ask me about its origin, biological role, or reactivity!</string>
+    <string name="ai_bio_role_header">Regarding its biological role, here\'s what I found about **%1$s**:</string>
+    <string name="ai_no_bio_data">I don\'t have detailed biological data for %1$s, but standard safety says:</string>
+    <string name="ai_etymology_header">The name **%1$s** has an interesting origin:</string>
+    <string name="ai_no_etymology_data">I\'m not exactly sure about the root of its name, but it was discovered by %2$s in %3$s.</string>
+    <string name="ai_reaction_alkali_water">Alkali metals like %1$s react **violently** with water, producing hydrogen gas and a strong base. It can even explode!</string>
+    <string name="ai_reaction_magnesium_water">%1$s reacts slowly with cold water but rapidly with steam.</string>
+    <string name="ai_reaction_alkaline_earth_water">%1$s reacts vigorously with water to form hydrogen gas and its hydroxide.</string>
+    <string name="ai_reaction_generic_water">I don\'t have specific data for %1$s\'s reaction with water, but many metals form oxides or hydroxides over time.</string>
+    <string name="ai_reaction_oxygen">Most elements react with oxygen to form oxides. For example, metals like %1$s often form a protective layer or rust.</string>
+    <string name="ai_reaction_acid">Many metals react with acids to release hydrogen gas. %1$s\'s reactivity depends on its position in the activity series.</string>
+    <string name="ai_reaction_complex">Reactions can be complex! In general, %1$s\'s behavior depends on its group (%2$s) and electronegativity.</string>
+    <string name="ai_reaction_alkali_halogen">These react vigorously to form a **salt** (an ionic compound). For example, %1$s and %2$s can combine to make a unique compound!</string>
+    <string name="ai_reaction_noble_gas">%1$s is a noble gas and is extremely stable, rarely reacting with anything because it has a full outer shell.</string>
+    <string name="ai_reaction_generic_elements">The reaction between %1$s and %2$s depends on their electron configurations. They might form a compound if one can donate and the other accept electrons!</string>
+    <string name="ai_personalized_greeting_interest">Welcome back! Ready to explore more about %1$s? We could look at %2$s again.</string>
+    <string name="ai_personalized_greeting_fav">Hey! I remember you were checking out %1$s recently. Want to see some more details?</string>
+    <string name="ai_usage_header">Here are some common applications and facts about **%1$s**:</string>
+    <string name="ai_no_usage_data">I don\'t have a specific list of uses for %1$s, but it\'s a fascinating element! You can read more in the detailed description.</string>
+    <string name="ai_abundance_header">Here is the abundance data for **%1$s** from the app\'s database:</string>
+    <string name="ai_no_abundance_data">I don\'t have specific numeric abundance values for %1$s, but the description says: %2$s.</string>
+    <string name="ai_physical_header">Based on the physical properties stored in the app for **%1$s**:</string>
+    <string name="ai_no_physical_data">I don\'t have detailed physical properties for %1$s in the quick-access data, but you can check the detailed property panels!</string>
+    <string name="ai_isotope_header">According to the app\'s isotope table, here are the key isotopes for **%1$s**:</string>
+    <string name="ai_no_isotope_data">I don\'t have a detailed list of isotopes for %1$s in my quick-access data, but you can find a comprehensive list in the Isotopes Table!</string>
+    <string name="iso_half_life_colon">Half-life:</string>
     <string name="highest">highest</string>
     <string name="lowest">lowest</string>
     <string name="ai_element_overview_intro">%1$s %2$s (%3$s) is a fascinating element! It\'s atomic number %4$s and belongs to the %5$s group.</string>
-    <string name="ai_element_overview_series"> It is part of the %1$s series.</string>
-    <string name="ai_element_overview_appearance"> It typically appears as %1$s.</string>
-    <string name="ai_element_overview_isotopes"> An atom of %1$s contains %2$s protons, %3$s electrons, and usually %4$s neutrons.</string>
-    <string name="ai_element_overview_electrons"> It has %1$s electrons orbiting its nucleus.</string>
-    <string name="ai_technical_mass"> Its precise atomic mass is %1$s.</string>
-    <string name="ai_technical_config"> It has an electron configuration of %1$s.</string>
+    <string name="ai_element_overview_series">" It is part of the %1$s series."</string>
+    <string name="ai_element_overview_appearance">" It typically appears as %1$s."</string>
+    <string name="ai_element_overview_isotopes">" An atom of %1$s contains %2$s protons, %3$s electrons, and usually %4$s neutrons."</string>
+    <string name="ai_element_overview_electrons">" It has %1$s electrons orbiting its nucleus."</string>
+    <string name="ai_technical_mass">" Its precise atomic mass is %1$s."</string>
+    <string name="ai_technical_config">" It has an electron configuration of %1$s."</string>
     <string name="ai_all_covered">We\'ve covered a lot about %1$s! Did you know? </string>
     <string name="ai_compare_all_same">\n• **%1$s:** All are %2$s%3$s.</string>
     <string name="ai_compare_mixed_item">%1$s is %2$s%3$s</string>
     <string name="ai_common_isotopes">Common isotopes for %1$s include %2$s.</string>
-    <string name="ai_isotope_half_life"> It has a half-life of %1$s and decays via %2$s.</string>
-    <string name="ai_another_isotope"> Another isotope is %1$s.</string>
+    <string name="ai_isotope_half_life">" It has a half-life of %1$s and decays via %2$s."</string>
+    <string name="ai_another_isotope">" Another isotope is %1$s."</string>
     <string name="ai_check_isotope_table">%1$s has various isotopes. You can check the detailed isotope table for a full list!</string>
     <string name="ai_radius_details">Here are the radius details for %1$s:</string>
     <string name="ai_thermal_properties">Thermal properties of %1$s:</string>
@@ -186,6 +256,10 @@
     <string name="ai_valence_halogen">As a Halogen, it has **7 valence electrons** and is very eager to gain one more!</string>
     <string name="ai_valence_noble_helium">Helium has **2 valence electrons**, completing its only shell.</string>
     <string name="ai_valence_noble_other">It has a full outer shell of **8 valence electrons**, making it very stable.</string>
+    <string name="ai_molar_mass_pro_plus">Calculating molar mass for compounds is a **PRO+** feature. As a %1$s user, you can still get molar mass for individual elements!</string>
+    <string name="ai_formula_pro_plus">Analyzing chemical compounds like **%1$s** is a **PRO+** feature. As a %2$s user, I can only help you with individual elements!</string>
+    <string name="ai_free_user">Free</string>
+    <string name="ai_pro_user">PRO</string>
     <string name="ai_oxidation_states">%1$s has several possible oxidation states.</string>
     <string-array name="ai_facts">
         <item>Did you know? Oxygen is the most abundant element in Earth\'s crust!</item>
@@ -370,6 +444,136 @@
     <string name="activity_io_title">Ionization Energies</string>
     <string name="ion_no_results" >No results</string>
     <string name="ion_try_another_search" >Try searching for another word or check your spelling.</string>
+
+    <string name="ai_no_data_right_now">I can\'t check that right now.</string>
+    <string name="ai_structural_specify_number">Please specify a group or period number!</string>
+    <string name="ai_structural_result">The elements in **%1$s %2$s** are: \n</string>
+    <string name="ai_structural_no_results">I couldn\'t find anything in that group or period. Remember: there are 18 groups and 7 periods!</string>
+    <string name="ai_difference_need_two">I need two elements to explain their differences!</string>
+    <string name="ai_difference_phase">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
+    <string name="ai_difference_type">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
+    <string name="ai_difference_group">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
+    <string name="ai_difference_mass">• **%1$s**: %2$s is significantly heavier.</string>
+    <string name="ai_difference_similar">%1$s and %2$s are quite similar! They are both %3$s %4$s elements in the %5$s series.</string>
+    <string name="ai_similarity_no_element">I\'m not sure which element you want to find similarities for.</string>
+    <string name="ai_similarity_result_header">Like **%1$s**, these elements are also **%2$ss**: \n\n</string>
+    <string name="ai_similarity_result_footer">.\n\nThey share similar chemical behaviors due to their valence electrons!</string>
+    <string name="ai_similarity_generic">**%1$s** is part of the %2$s series. Other elements in this series will have related properties!</string>
+    <string name="ai_superlative_among">Among the %1$ss, %2$s</string>
+    <string name="ai_reactivity_result">The most reactive %1$s is **%2$s**.</string>
+    <string name="ai_reactivity_no_result">I couldn\'t determine the most reactive element.</string>
+    <string name="ai_compare_property_row">• %1$s: %2$s%3$s</string>
+    <string name="ai_compare_the_others">the others</string>
+    <string name="ai_compare_difference_value">There is a difference of **%1$s%2$s** between them.</string>
+    <string name="ai_group">Group</string>
+    <string name="ai_period">Period</string>
+
+    <string name="ai_safety_radioactive">%1$s is radioactive (%2$s), which is its primary safety concern. Handle with extreme caution!</string>
+    <string name="ai_safety_no_data">I don\'t have specific NFPA hazard ratings for %1$s, but always follow standard laboratory safety protocols.</string>
+    <string name="ai_safety_header">Safety profile for %1$s (NFPA 704):</string>
+    <string name="ai_safety_health">• **Health:** %1$d/4 (%2$s)</string>
+    <string name="ai_safety_flammability">• **Flammability:** %1$d/4 (%2$s)</string>
+    <string name="ai_safety_instability">• **Instability:** %1$d/4</string>
+    <string name="ai_safety_special">• **Special:** %1$s</string>
+    <string name="ai_safety_caution_health">Caution: This element is highly hazardous to health!</string>
+    <string name="ai_safety_caution_flammable">Caution: This element is extremely flammable!</string>
+    <string name="ai_nfpa_health_0">Normal material</string>
+    <string name="ai_nfpa_health_1">Slightly hazardous</string>
+    <string name="ai_nfpa_health_2">Hazardous</string>
+    <string name="ai_nfpa_health_3">Extreme danger</string>
+    <string name="ai_nfpa_health_4">Deadly</string>
+    <string name="ai_nfpa_flammable_0">Will not burn</string>
+    <string name="ai_nfpa_flammable_1">Must be preheated to burn</string>
+    <string name="ai_nfpa_flammable_2">Ignites when moderately heated</string>
+    <string name="ai_nfpa_flammable_3">Ignites at normal temperatures</string>
+    <string name="ai_nfpa_flammable_4">Extremely flammable</string>
+    <string name="unknown">Unknown</string>
+    <string name="ai_context_lost">Context lost</string>
+    <string name="ai_rate_limit_reached">You\'ve reached your daily limit of %1$d messages. Upgrade to PRO or PRO+ for more!</string>
+    <string name="ai_formula_recognize">I recognize **%1$s** as a chemical compound with a molar mass of **%2$s**.</string>
+    <string name="ai_formula_consists_of">It consists of:</string>
+    <string name="ai_formula_item">• %1$s × %2$s (%3$s)</string>
+    <string name="ai_element">element</string>
+    <string name="ai_comparison_vs">" vs "</string>
+    <string name="ai_comparison_and">" and "</string>
+    <string name="ai_comparison_is">" is "</string>
+    <string name="ai_comparison_are">" are "</string>
+    <string name="ai_comparison_all">"all "</string>
+    <string name="ai_comparison_while">", while "</string>
+    <string name="ai_comparison_but">", but "</string>
+    <string name="ai_connector_why_1">That\'s a great follow-up!</string>
+    <string name="ai_connector_why_2">Good point. Let me explain further.</string>
+    <string name="ai_connector_why_3">Expanding on what I just said,</string>
+    <string name="ai_connector_question_1">To answer your question,</string>
+    <string name="ai_connector_question_2">I see. Here\'s what I found:</string>
+    <string name="ai_connector_question_3">Regarding that,</string>
+    <string name="ai_suggestion_bio">Would you like to know about its biological role?</string>
+    <string name="ai_suggestion_iso">I can also tell you about its isotopes.</string>
+    <string name="ai_suggestion_compare">Do you want to compare it with another element?</string>
+    <string name="ai_suggestion_safety">I have safety data for it too, if you\'re interested.</string>
+    <string name="ai_suggestion_abundance">Should we look at where it\'s found in the universe?</string>
+
+    <string name="ai_covered_all">We\'ve covered a lot about **%1$s**!</string>
+
+    <string name="ai_concept_isotope">An **isotope** is a variation of an element with the same number of protons but a different number of neutrons. This affects its atomic mass!</string>
+    <string name="ai_concept_electronegativity">**Electronegativity** measures how strongly an atom pulls electrons towards itself in a chemical bond. Fluorine is the most electronegative!</string>
+    <string name="ai_concept_ionization">**Ionization energy** is the energy required to remove an electron from an atom. It generally increases as you move right across the periodic table.</string>
+    <string name="ai_concept_radioactivity">**Radioactivity** is the process by which an unstable atomic nucleus loses energy by emitting radiation. Elements like Uranium are famous for this!</string>
+    <string name="ai_concept_valence">**Valence electrons** are the electrons in the outermost shell of an atom. they determine how an element reacts with others.</string>
+    <string name="ai_concept_shell">Electrons reside in **shells** (energy levels) around the nucleus. The configuration determines the element\'s position in the table.</string>
+    <string name="ai_concept_orbital">**Orbitals** are regions in space around a nucleus where there is a high probability of finding an electron. They have shapes like s, p, d, and f.</string>
+    <string name="ai_concept_proton">**Protons** are positively charged particles in the nucleus. The number of protons (Atomic Number) defines which element it is!</string>
+    <string name="ai_concept_neutron">**Neutrons** are neutral particles in the nucleus. They add mass and help stabilize the nucleus, especially in heavier elements.</string>
+    <string name="ai_concept_electron">**Electrons** are negatively charged particles that orbit the nucleus. They are involved in bonding and electricity.</string>
+    <string name="ai_concept_atomic_number">The **Atomic Number** is the number of protons in an atom. It\'s the primary way elements are ordered in the periodic table.</string>
+    <string name="ai_concept_period">A **Period** is a horizontal row in the periodic table. Elements in the same period have the same number of electron shells.</string>
+    <string name="ai_concept_group">A **Group** is a vertical column. Elements in a group usually have similar chemical properties and the same number of valence electrons.</string>
+    <string name="ai_concept_generic">That\'s a core concept in chemistry! Which part of it would you like me to dive deeper into? I know about protons, bonding, radioactivity, and more.</string>
+
+    <string name="ai_reactivity_more">**%1$s** is generally more reactive than **%2$s** based on its position in the periodic table.</string>
+    <string name="ai_reactivity_similar">Both **%1$s** and **%2$s** have similar reactivity levels.</string>
+    <string name="ai_reactivity_need_two">I need at least two elements to compare their reactivity!</string>
+    <string name="ai_identity_result">Based on the values in the app, the element with a value close to **%1$s** for its properties is **%2$s** (actual: %3$s).</string>
+
+    <string name="ai_mech_header">%1$s for %2$s:</string>
+    <string name="ai_hard_header">Hardness properties of %1$s:</string>
+    <string name="ai_adv_header">Advanced properties of %1$s:</string>
+    <string name="ai_oxidation_pos">• Positive: %1$s</string>
+    <string name="ai_oxidation_neg">• Negative: %1$s</string>
+    <string name="ai_config_is">Its electron configuration is %1$s.</string>
+    <string name="ai_radius_header">Radius details for %1$s:</string>
+    <string name="ai_thermal_header">Thermal properties of %1$s:</string>
+    <string name="ai_elec_mag_header">Electrical &amp; Magnetic properties of %1$s:</string>
+    <string name="ai_id_header">Identifiers for %1$s:</string>
+
+    <string name="ai_eqn_no_desc">The app includes this equation as a visual reference.</string>
+    <string name="ai_geo_hard">%1$s: %2$s %3$s.</string>
+    <string name="ai_geo_dens">%1$s: %2$s %3$s.</string>
+    <string name="ai_geo_color">%1$s: %2$s %3$s, %4$s %5$s.</string>
+    <string name="ai_geo_info">%1$s is a %2$s in the %3$s group. Color: %4$s. Hardness: %5$s. Density: %6$s. Magnetism: %7$s.</string>
+    <string name="ai_ion_count">%1$s has %2$d ionization energy value(s) available in the app.</string>
+    <string name="ai_ph_info">%1$s: acid below pH %2$s is %3$s, neutral range %4$s is %5$s, and above pH %6$s it is %7$s.</string>
+    <string name="ai_ph_info_short">%1$s: pH range %2$s is %3$s.</string>
+    <string name="ai_poi_info">%1$s: Poisson\'s ratio range %2$s (%3$s).</string>
+    <string name="ai_help_response">I am trained strictly on the data available within this app! I can help you with:\n\n🧪 **Detailed Elements**: Properties, appearance, and discovery facts directly from our JSON database.\n⚖️ **Data Comparisons**: Compare density, mass, radius, and reactivity between elements.\n💥 **Reactivity**: I use the app\'s group and period data to explain how elements like Sodium react with Water.\n🧬 **Biological/Safety**: Toxicity and biological roles found in the element descriptions.\n⚛️ **Isotopes &amp; Abundance**: Specific data from our dedicated isotope and abundance tables.\n📉 **Periodic Trends**: Explaining patterns like Electronegativity based on the table\'s structure.\n🔢 **Molar Mass**: Accurate calculations using the atomic weights in the app.\n📝 **Definitions**: Explanations for chemistry terms used throughout the app.\n\nJust ask and I\'ll find the answer in the app\'s records! 🌟</string>
+
+    <string name="ai_series_noble_gas_label">Noble Gas</string>
+    <string name="ai_series_alkali_metal_label">Alkali Metal</string>
+    <string name="ai_series_alkaline_earth_label">Alkaline Earth Metal</string>
+    <string name="ai_series_halogen_label">Halogen</string>
+    <string name="ai_series_lanthanide_label">Lanthanide</string>
+    <string name="ai_series_actinide_label">Actinide</string>
+    <string name="ai_series_transition_metal_label">Transition Metal</string>
+    <string name="ai_series_metalloid_label">Metalloid</string>
+    <string name="ai_series_nonmetal_label">Nonmetal</string>
+    <string name="ai_phase_liquid">Liquid</string>
+    <string name="ai_phase_gas">Gas</string>
+    <string name="ai_phase_solid">Solid</string>
+    <string name="ai_abundance_relative">(relative to H=10¹²)</string>
+    <string name="ai_isotope_decay">(Decay: %1$s)</string>
+    <string name="ai_quiz_not_active">I\'m not in quiz mode right now.</string>
+    <string name="ai_quiz_no_start">I can\'t start a quiz right now.</string>
+    <string name="ai_formula_composition_offer">" Would you like me to break down its elemental composition?"</string>
 
     <!-- Social-Media Links-->
     <string name="bluesky" translatable="false" >https://bsky.app/profile/jlindemanndev.bsky.social</string>
@@ -729,6 +933,8 @@
     <string name="atomic_mass_colon">Atomic Mass:</string>
     <string name="atomic_radius_calculated_colon">Atomic Radius (Calculated):</string>
     <string name="atomic_radius_empirical_colon">Atomic Radius (Empirical):</string>
+    <string name="covalent_radius_colon">Covalent Radius:</string>
+    <string name="van_der_waals_radius_colon">Van Der Waals Radius:</string>
     <string name="boiling_point_colon">Boiling Point:</string>
     <string name="melting_point_colon">Melting Point:</string>
     <string name="brinell_hardness_colon">Brinell hardness:</string>
@@ -864,6 +1070,7 @@
     <string name="neutrons">Neutrons:</string>
     <string name="nucleons">Nucleons:</string>
     <string name="protons">Protons:</string>
+    <string name="element_electrons">Electrons:</string>
     <string name="isotope">Isotope</string>
 
     <string name="pro_plus_badge_text">Most advanced</string>
@@ -936,4 +1143,3 @@
     <string name="ai_chat_setting">Enable AI Chat Assistant</string>
     <string name="ai_chat_setting_description">Allow AI assistant to answer questions about elements</string>
 </resources>
-

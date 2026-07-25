@@ -33,6 +33,36 @@
                 android:resource="@xml/element_of_the_day_widget_info" />
         </receiver>
 
+        <receiver android:name=".ScienceDailyWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/science_daily_widget_info" />
+        </receiver>
+
+        <receiver android:name=".AIQuickAskWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/ai_quick_ask_widget_info" />
+        </receiver>
+
+        <receiver android:name=".ElementQuickNavWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/element_quick_nav_widget_info" />
+        </receiver>
+
         <receiver android:name=".activities.tools.StreakReminderReceiver"
             android:exported="false">
             <intent-filter>

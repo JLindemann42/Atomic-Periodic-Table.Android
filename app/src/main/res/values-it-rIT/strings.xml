@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Atomico</string>
     <string name="personalization_settings">Personalizzazione</string>
@@ -297,16 +297,18 @@
     <string name="dictionary">Dizionario</string>
     <string name="dictionary_search">Cerca voce dizionario</string>
     <string name="element_info_title">Informazioni elemento</string>
-
-    <!-- AI Chat Panel -->
     <string name="ask_atomic">Chiedi ad Atomic</string>
     <string name="ai_hint">Chiedimi qualsiasi cosa...</string>
     <string name="ai_lang_switched">Lingua AI cambiata in: %1$s 🌐</string>
     <string name="ai_no_data">Hmm, non sono riuscito a trovare informazioni al riguardo. Prova a chiedere di un elemento come \'ossigeno\' o \'oro\'!</string>
+    <string name="ai_related_label">Info correlate:</string>
+    <string name="ai_related_offer">Ho trovato informazioni correlate locali. Chiedi \'mostra correlate\' per vederle.</string>
+    <string name="ai_related_offer_lang">Ho trovato informazioni correlate locali ma non nella lingua scelta. Prova a cambiare lingua o chiedi comunque.</string>
     <string name="ai_greeting">Ehi! 👋 Sono il tuo compagno di chimica. Chiedimi qualsiasi cosa sugli elementi!</string>
     <string name="ai_encouragement">Ottima domanda! 🌟</string>
     <string name="ai_comparing_title">Confronto di %1$s:</string>
     <string name="ai_higher_than">%1$s ha un valore di %2$s più alto rispetto a %3$s.</string>
+    <string name="ai_lower_than">%1$s ha un valore di %2$s più basso rispetto a %3$s.</string>
     <string name="ai_same_value">Entrambi hanno lo stesso valore per %1$s!</string>
     <string name="ai_property_is">La %2$s di %1$s è %3$s.</string>
     <string name="ai_recap_is">Giusto per riepilogare, la %2$s di %1$s è %3$s.</string>
@@ -338,7 +340,7 @@
     <string name="ai_formula_h2so4">H2SO4 è l\'acido solforico, un acido industriale molto forte e importante. Contiene idrogeno, zolfo e ossigeno.</string>
     <string name="ai_formula_hcl">HCl è l\'acido cloridrico, che si trova persino nello stomaco per aiutare la digestione!</string>
     <string name="ai_formula_generic">Riconosco che sembra una formula chimica, ma sto ancora imparando a conoscere le molecole! Chiedimi informazioni sui singoli elementi.</string>
-    <string name="ai_series_alkali">I metalli alcalini sono nel Gruppo 1. Sono molto reattivi e hanno un elettrone nel loro guscio esterno. Gli esempi includono litio, sodio e potassio.</string>
+    <string name="ai_series_alkali">I metalli alcalini sono nel Gruppo 1. Sono molto reattivi e hanno un elettrone nel loro guscio esterno. Gli esempi includono litio, sodio e potasio.</string>
     <string name="ai_series_halogen">Gli alogeni sono nel Gruppo 17. Sono non metalli altamente reattivi. Il fluoro e il cloro sono i più famosi!</string>
     <string name="ai_series_noble_gas">I gas nobili sono nel Gruppo 18. Sono molto stabili e reagiscono raramente con altri elementi perché i loro gusci esterni sono pieni.</string>
     <string name="ai_series_lanthanide">I lantanidi sono i 15 elementi con numero atomico da 57 a 71. Sono anche chiamati \'terre rare\'.</string>
@@ -356,13 +358,61 @@
     <string name="ai_superlative_no_calculate">Non sono riuscito a calcolarlo in questo momento.</string>
     <string name="highest">più alto</string>
     <string name="lowest">più basso</string>
-    <string name="ai_element_overview_intro">%1$s %2$s (%3$s) è un elemento affascinante! Il suo numero atomico è %4$s e appartiene al gruppo %5$s.</string>
+    <string name="ai_rich_overview_basic_facts">Fatti di base</string>
+    <string name="ai_rich_overview_where_found">Dove si trova l\'%1$s?</string>
+    <string name="ai_rich_overview_applications">Applicazioni e usi</string>
+    <string name="ai_rich_overview_etymology">Origine e storia</string>
+    <string name="ai_rich_overview_biological">Ruolo biologico</string>
+    <string name="ai_rich_overview_properties">Proprietà</string>
+    <string name="ai_rich_overview_advanced">Dati atomici avanzati</string>
+    <string name="ai_rich_overview_safety">Sicurezza e pericoli</string>
+    <string name="ai_rich_overview_isotopes">Isotopi notevoli</string>
+    <string name="ai_rich_overview_compounds">Composti comuni</string>
+    <string name="ai_element_overview_intro">¡%1$s %2$s (%3$s) è un elemento affascinante! Ha il numero atomico %4$s e appartiene al gruppo %5$s.</string>
     <string name="ai_element_overview_series"> Fa parte della serie dei %1$s.</string>
     <string name="ai_element_overview_appearance"> Di solito appare come: %1$s.</string>
     <string name="ai_element_overview_isotopes"> Un atomo di %1$s contiene %2$s protoni, %3$s elettroni e solitamente %4$s neutroni.</string>
     <string name="ai_element_overview_electrons"> Ha %1$s elettroni che orbitano attorno al suo nucleo.</string>
     <string name="ai_technical_mass"> La sua massa atomica precisa è %1$s.</string>
     <string name="ai_technical_config"> Ha una configurazione elettronica di %1$s.</string>
+    <string name="ai_list_header">Ecco gli elementi **%1$s**:</string>
+    <string name="ai_no_list_data">Non ho trovato alcun elemento corrispondente a questi criteri nel nostro database.</string>
+    <string name="ai_pro_tip_hint">Suggerimento professionale: puoi anche chiedermi della sua origine, del suo ruolo biologico o della sua reattività!</string>
+    <string name="ai_bio_role_header">Per quanto riguarda il suo ruolo biologico, ecco cosa ho trovato su **%1$s**:</string>
+    <string name="ai_no_bio_data">Non ho dati biologici dettagliati per %1$s, ma la sicurezza standard dice:</string>
+    <string name="ai_etymology_header">Il nome **%1$s** ha un\'origine interessante:</string>
+    <string name="ai_no_etymology_data">Non sono esattamente sicuro della radice del suo nome, ma è stato scoperto da %2$s nel %3$s.</string>
+    <string name="ai_reaction_alkali_water">I metalli alcalini come %1$s reagiscono **violentemente** con l\'acqua, producendo idrogeno gassoso e una base forte. Può anche esplodere!</string>
+    <string name="ai_reaction_magnesium_water">%1$s reagisce lentamente con l\'acqua fredda ma rapidamente con il vapore.</string>
+    <string name="ai_reaction_alkaline_earth_water">%1$s reagisce vigorosamente con l\'acqua per formare idrogeno gassoso e il suo idrossido.</string>
+    <string name="ai_reaction_generic_water">Non ho dati specifici sulla reazione di %1$s con l\'acqua, ma molti metalli formano ossidi o idrossidi nel tempo.</string>
+    <string name="ai_reaction_oxygen">La maggior parte degli elementi reagisce con l\'ossigeno per formare ossidi. Ad esempio, metalli come %1$s spesso formano uno strato protettivo o arrugginiscono.</string>
+    <string name="ai_reaction_acid">Molti metalli reagiscono con gli acidi per rilasciare idrogeno gassoso. La reattività di %1$s dipende dalla sua posizione nella serie di attività.</string>
+    <string name="ai_reaction_complex">Le reazioni possono essere complesse! In generale, il comportamento di %1$s dipende dal suo gruppo (%2$s) e dall\'elettronegatività.</string>
+    <string name="ai_reaction_alkali_halogen">Questi reagiscono vigorosamente per formare un **sale** (un composto ionico). Ad esempio, %1$s e %2$s possono combinarsi per creare un composto unico!</string>
+    <string name="ai_reaction_noble_gas">%1$s è un gas nobile ed è estremamente stabile, reagendo raramente con qualcosa perché ha il suo guscio esterno pieno.</string>
+    <string name="ai_reaction_generic_elements">La reazione tra %1$s e %2$s dipende dalle loro configurazioni elettroniche. Potrebbero formare un composto se uno può donare e l\'altro accettare elettroni!</string>
+    <string name="ai_personalized_greeting_interest">Bentornato! Pronto a scoprire di più su %1$s? Potremmo riguardare %2$s.</string>
+    <string name="ai_personalized_greeting_fav">Ehi! Ricordo che stavi consultando %1$s di recente. Vuoi vedere altri dettagli?</string>
+    <string name="ai_usage_header">Ecco alcune applicazioni comuni e fatti su **%1$s**:</string>
+    <string name="ai_no_usage_data">Non ho un elenco specifico di usi per %1$s, ma è un elemento affascinante! Puoi leggere di più nella descrizione dettagliata.</string>
+    <string name="ai_abundance_header">Ecco i dati sulla abbondanza per **%1$s** dal database dell\'app:</string>
+    <string name="ai_no_abundance_data">Non ho valori numerici di abbondanza specifici per %1$s, ma la descrizione dice: %2$s.</string>
+    <string name="ai_physical_header">In base alle proprietà fisiche memorizzate nell\'app per **%1$s**:</string>
+    <string name="ai_no_physical_data">Non ho proprietà fisiche dettagliate per %1$s nei dati di accesso rapido, ma puoi consultare i pannelli delle proprietà dettagliate!</string>
+    <string name="ai_isotope_header">In base alla tabella degli isotopi dell\'app, ecco gli isotopi chiave per **%1$s**:</string>
+    <string name="ai_no_isotope_data">Non ho un elenco dettagliato di isotopi per %1$s nei miei dati di accesso rapido, ma puoi trovare un elenco completo nella Tabella degli Isotopi!</string>
+    <string name="iso_half_life_colon">Emivita:</string>
+    <string name="ai_oxidation_states">**%1$s** ha diversi stati di ossidazione possibili.</string>
+    <string name="ai_radius_details">Ecco i dettagli del raggio per **%1$s**:</string>
+    <string name="ai_thermal_properties">Proprietà termiche di **%1$s**:</string>
+    <string name="ai_elec_mag_properties">Proprietà elettriche e magnetiche di **%1$s**:</string>
+    <string name="ai_identifiers_for">Identificatori per **%1$s**:</string>
+    <string name="ai_valence_alkali">In quanto metallo alcalino, ha **1 elettrone di valenza** nel suo guscio esterno.</string>
+    <string name="ai_valence_alkaline">In quanto metallo alcalino-terroso, ha **2 elettroni di valenza**.</string>
+    <string name="ai_valence_halogen">In quanto alogeno, ha **7 elettroni di valenza** ed è molto desideroso di guadagnarne uno in più!</string>
+    <string name="ai_valence_noble_helium">L\'elio ha **2 elettroni di valenza**, che completano il suo unico guscio.</string>
+    <string name="ai_valence_noble_other">Ha un guscio esterno completo di **8 elettroni di valenza**, il che lo rende molto stabile.</string>
     <string-array name="ai_facts">
         <item>Lo sapevi? L\'ossigeno è l\'elemento più abbondante nella crosta terrestre!</item>
         <item>Curiosità: l\'oro non arrugginisce né si corrode mai. Rimane lucido per sempre!</item>
@@ -694,7 +744,7 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="share_app_description">Se trovi l\'app utile, condividila con i tuoi amici e altri!</string>
     <string name="sync_data">Sincronizza dati:</string>
     <string name="young_bulk_shear_modulus">Modulo di Young, di compressione e di taglio:</string>
-<string name="intro_welcome_title">Benvenuto in Atomic</string>
+    <string name="intro_welcome_title">Benvenuto in Atomic</string>
     <string name="intro_welcome_description">Il tuo riferimento completo della tavola periodica con informazioni dettagliate sugli elementi, strumenti interattivi e funzionalità di apprendimento.</string>
     <string name="intro_flashcards_title">Impara con le Flashcard</string>
     <string name="intro_flashcards_description">Padroneggia la tavola periodica con flashcard interattive. Metti alla prova la tua conoscenza di simboli degli elementi, masse atomiche e proprietà chimiche.</string>
@@ -708,4 +758,221 @@ Guadagnerai %3$d vita%4$s.</string>
     <string name="intro_image_description">Immagine di introduzione</string>
     <string name="electron_affinity_colon">Affinità Elettronica:</string>
     <string name="split_view">Vista divisa elementi</string>
+    <string name="abundance_human_body">Nel corpo umano</string>
+    <string name="abundance_meteorites">Nelle meteoriti</string>
+    <string name="account">Account</string>
+    <string name="additional_ai_messages">Limite messaggi IA aumentato:</string>
+    <string name="ai_abundance_relative">(relativo a H=10¹²)</string>
+    <string name="ai_adv_header">Proprietà avanzate di %1$s:</string>
+    <string name="ai_all_covered">Abbiamo coperto molto su %1$s! Lo sapevi?</string>
+    <string name="ai_another_isotope"> Un altro isotopo è %1$s.</string>
+    <string name="ai_beta_badge">Beta</string>
+    <string name="ai_chat_setting">Attiva assistente chat IA</string>
+    <string name="ai_chat_setting_description">Consenti all\'assistente IA di rispondere a domande sugli elementi</string>
+    <string name="ai_check_isotope_table">%1$s ha vari isotopi. Puoi consultare la tabella degli isotopi dettagliata per un elenco completo!</string>
+    <string name="ai_common_isotopes">Gli isotopi comuni di %1$s includono %2$s.</string>
+    <string name="ai_compare_all_same">
+• **%1$s:** Tutti sono %2$s%3$s.</string>
+    <string name="ai_compare_difference_value">C\'è una differenza di **%1$s%2$s** tra loro.</string>
+    <string name="ai_compare_mixed_item">%1$s è %2$s%3$s</string>
+    <string name="ai_compare_property_row">• %1$s: %2$s%3$s</string>
+    <string name="ai_compare_the_others">gli altri</string>
+    <string name="ai_comparison_all">tutti </string>
+    <string name="ai_comparison_and"> e </string>
+    <string name="ai_comparison_are"> sono </string>
+    <string name="ai_comparison_but">, ma </string>
+    <string name="ai_comparison_is"> è </string>
+    <string name="ai_comparison_vs"> vs </string>
+    <string name="ai_comparison_while">, mentre </string>
+    <string name="ai_concept_atomic_number">Il **Numero Atomico** è il numero di protoni in un atomo. È il modo principale in cui gli elementi sono ordinati nella tavola periodica.</string>
+    <string name="ai_concept_electron">Gli **Elettroni** sono particelle cariche negativamente che orbitano attorno al nucleo. Sono coinvolti nei legami e nell\'elettricità.</string>
+    <string name="ai_concept_electronegativity">L\'**Elettronegatività** misura la forza con cui un atomo attrae gli elettroni a sé in un legame chimico. Il fluoro è il più elettronegativo!</string>
+    <string name="ai_concept_generic">Questo è un concetto fondamentale della chimica! Quale parte ti piacerebbe approfondire? Conosco i protoni, i legami, la radioattività e altro ancora.</string>
+    <string name="ai_concept_group">Un **Gruppo** è una colonna verticale. Gli elementi di un gruppo hanno solitamente proprietà chimiche simili e lo stesso numero di elettroni di valenza.</string>
+    <string name="ai_concept_ionization">L\'**Energia di ionizzazione** è l\'energia richiesta per rimuovere un elettrone da un atomo. Generalmente aumenta verso destra nella tavola periodica.</string>
+    <string name="ai_concept_isotope">Un **isotopo** è una variante di un elemento con lo stesso numero di protoni ma un numero diverso di neutroni. Questo influisce sulla sua massa atomica!</string>
+    <string name="ai_concept_neutron">I **Neutroni** sono particelle neutre nel nucleo. Aggiungono massa e aiutano a stabilizzare il nucleo, specialmente negli elementi più pesanti.</string>
+    <string name="ai_concept_orbital">Gli **Orbitali** sono regioni dello spazio attorno a un nucleo dove c\'è un\'alta probabilità di trovare un elettrone. Hanno forme come s, p, d e f.</string>
+    <string name="ai_concept_period">Un **Periodo** è una riga orizzontale nella tavola periodica. Gli elementi dello stesso periodo hanno lo stesso numero di gusci elettronici.</string>
+    <string name="ai_concept_proton">I **Protoni** sono particelle cariche positivamente nel nucleo. Il numero di protoni (Numero Atomico) definisce quale elemento è!</string>
+    <string name="ai_concept_radioactivity">La **Radioattività** è il processo mediante il quale un nucleo atomico instabile perde energia emettendo radiazioni. Elementi come l\'Uranio sono famosi per questo!</string>
+    <string name="ai_concept_shell">Gli elettroni risiedono in **gusci** (livelli energetici) attorno al nucleo. La configurazione determina la posizione dell\'elemento nella tavola.</string>
+    <string name="ai_concept_valence">Gli **Elettroni di valenza** sono gli elettroni nel guscio più esterno di un atomo. Determinano come un elemento reagisce con gli altri.</string>
+    <string name="ai_config_is">La sua configurazione elettronica è %1$s.</string>
+    <string name="ai_connector_question_1">Per rispondere alla tua domanda,</string>
+    <string name="ai_connector_question_2">Capisco. Ecco cosa ho trovato:</string>
+    <string name="ai_connector_question_3">A tal proposito,</string>
+    <string name="ai_connector_why_1">Questo è un ottimo approfondimento!</string>
+    <string name="ai_connector_why_2">Buon punto. Fammi spiegare meglio.</string>
+    <string name="ai_connector_why_3">Ampliando quanto ho appena detto,</string>
+    <string name="ai_context_lost">Contesto perso</string>
+    <string name="ai_covered_all">Abbiamo coperto molto su **%1$s**!</string>
+    <string name="ai_difference_group">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
+    <string name="ai_difference_mass">• **%1$s**: %2$s è significativamente più pesante.</string>
+    <string name="ai_difference_need_two">Ho bisogno di due elementi per spiegare le loro differenze!</string>
+    <string name="ai_difference_phase">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
+    <string name="ai_difference_similar">%1$s e %2$s sono piuttosto simili! Sono entrambi elementi %3$s %4$s nella serie %5$s.</string>
+    <string name="ai_difference_type">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
+    <string name="ai_elec_mag_header">Proprietà elettriche e magnetiche di %1$s:</string>
+    <string name="ai_element">elemento</string>
+    <string name="ai_eqn_no_desc">L\'app include questa equazione come riferimento visivo.</string>
+    <string name="ai_formula_composition_offer"> Vorresti che analizzassi la sua composizione elementare?</string>
+    <string name="ai_formula_consists_of">Consiste in:</string>
+    <string name="ai_formula_item">• %1$s × %2$s (%3$s)</string>
+    <string name="ai_formula_pro_plus">Analizzare composti chimici come **%1$s** è una funzione **PRO+**. Come utente %2$s, posso aiutarti solo con i singoli elementi!</string>
+    <string name="ai_formula_recognize">Riconosco **%1$s** come un composto chimico con una massa molare di **%2$s**.</string>
+    <string name="ai_free_user">Gratis</string>
+    <string name="ai_geo_color">%1$s: %2$s %3$s, %4$s %5$s.</string>
+    <string name="ai_geo_dens">%1$s: %2$s %3$s.</string>
+    <string name="ai_geo_hard">%1$s: %2$s %3$s.</string>
+    <string name="ai_geo_info">%1$s è un %2$s nel gruppo %3$s. Colore: %4$s. Durezza: %5$s. Densità: %6$s. Magnetismo: %7$s.</string>
+    <string name="ai_group">Gruppo</string>
+    <string name="ai_hard_header">Proprietà di durezza di %1$s:</string>
+    <string name="ai_help_response">Sono addestrato rigorosamente sui dati disponibili in questa app! Posso aiutarti con:
+
+🧪 **Elementi dettagliati**: Proprietà, aspetto e fatti di scoperta direttamente dal nostro database JSON.
+⚖️ **Confronti di dati**: Confronta densità, massa, raggio e reattività tra gli elementi.
+💥 **Reattività**: Uso i dati di gruppo e periodo dell\'app per spiegare come elementi come il sodio reagiscono con l\'acqua.
+🧬 **Biologico/Sicurezza**: Tossicità e ruoli biologici trovati nelle descrizioni degli elementi.
+⚛️ **Isotopi e Abbondanza**: Dati specifici dalle nostre tabelle dedicate agli isotopi e all\'abbondanza.
+📉 **Tendenze periodiche**: Spiegazione di schemi come l\'elettronegatività basata sulla struttura della tavola.
+🔢 **Massa molare**: Calcoli precisi usando i pesi atomici nell\'app.
+📝 **Definizioni**: Spiegazioni per i termini di chimica usati in tutta l\'app.
+
+Chiedi pure e troverò la risposta nei registri dell\'app! 🌟</string>
+    <string name="ai_id_header">Identificatori per %1$s:</string>
+    <string name="ai_identity_result">In base ai valori nell\'app, l\'elemento con un valore vicino a **%1$s** per le sue proprietà è **%2$s** (reale: %3$s).</string>
+    <string name="ai_ion_count">%1$s ha %2$d valore/i di energia di ionizzazione disponibili nell\'app.</string>
+    <string name="ai_isotope_decay">(Decadimento: %1$s)</string>
+    <string name="ai_isotope_half_life"> Ha un\'emivita di %1$s e decade tramite %2$s.</string>
+    <string name="ai_mech_header">%1$s per %2$s:</string>
+    <string name="ai_molar_mass_pro_plus">Calcolare la massa molare per i composti è una funzione **PRO+**. Come utente %1$s, puoi comunque ottenere la massa molare per i singoli elementi!</string>
+    <string name="ai_nfpa_flammable_0">Non brucia</string>
+    <string name="ai_nfpa_flammable_1">Deve essere preriscaldato per bruciare</string>
+    <string name="ai_nfpa_flammable_2">Si accende se riscaldato moderatamente</string>
+    <string name="ai_nfpa_flammable_3">Si accende a temperature normali</string>
+    <string name="ai_nfpa_flammable_4">Estremamente infiammabile</string>
+    <string name="ai_nfpa_health_0">Materiale normale</string>
+    <string name="ai_nfpa_health_1">Leggermente pericoloso</string>
+    <string name="ai_nfpa_health_2">Pericoloso</string>
+    <string name="ai_nfpa_health_3">Pericolo estremo</string>
+    <string name="ai_nfpa_health_4">Mortale</string>
+    <string name="ai_no_data_right_now">Non posso controllarlo in questo momento.</string>
+    <string name="ai_oxidation_neg">• Negativo: %1$s</string>
+    <string name="ai_oxidation_pos">• Positivo: %1$s</string>
+    <string name="ai_period">Periodo</string>
+    <string name="ai_ph_info">%1$s: acido sotto pH %2$s è %3$s, intervallo neutro %4$s è %5$s, e sopra pH %6$s è %7$s.</string>
+    <string name="ai_ph_info_short">%1$s: l\'intervallo di pH %2$s è %3$s.</string>
+    <string name="ai_phase_gas">Gas</string>
+    <string name="ai_phase_liquid">Liquido</string>
+    <string name="ai_phase_solid">Solido</string>
+    <string name="ai_poi_info">%1$s: intervallo del rapporto di Poisson %2$s (%3$s).</string>
+    <string name="ai_pro_user">PRO</string>
+    <string name="ai_quick_ask_description">Chiedi istantaneamente qualsiasi cosa all\'IA scientifica</string>
+    <string name="ai_quiz_no_start">Non posso iniziare un quiz in questo momento.</string>
+    <string name="ai_quiz_not_active">Non sono in modalità quiz in questo momento.</string>
+    <string name="ai_radius_header">Dettagli del raggio per %1$s:</string>
+    <string name="ai_rate_limit_reached">Hai raggiunto il limite giornaliero di %1$d messaggi. Passa a PRO o PRO+ per averne di più!</string>
+    <string name="ai_reactivity_more">**%1$s** è generalmente più reattivo di **%2$s** in base alla sua posizione nella tavola periodica.</string>
+    <string name="ai_reactivity_need_two">Ho bisogno di almeno due elementi per confrontare la loro reattività!</string>
+    <string name="ai_reactivity_no_result">Non sono riuscito a determinare l\'elemento più reattivo.</string>
+    <string name="ai_reactivity_result">Il %1$s più reattivo è **%2$s**.</string>
+    <string name="ai_reactivity_similar">Sia **%1$s** che **%2$s** hanno livelli di reattività simili.</string>
+    <string name="ai_safety_caution_flammable">Attenzione: questo elemento è estremamente infiammabile!</string>
+    <string name="ai_safety_caution_health">Attenzione: questo elemento è altamente pericoloso per la salute!</string>
+    <string name="ai_safety_flammability">• **Infiammabilità:** %1$d/4 (%2$s)</string>
+    <string name="ai_safety_header">Profilo di sicurezza per %1$s (NFPA 704):</string>
+    <string name="ai_safety_health">• **Salute:** %1$d/4 (%2$s)</string>
+    <string name="ai_safety_instability">• **Instabilità:** %1$d/4</string>
+    <string name="ai_safety_no_data">Non ho valutazioni di pericolo NFPA specifiche per %1$s, ma segui sempre i protocolli di sicurezza standard del laboratorio.</string>
+    <string name="ai_safety_radioactive">%1$s è radioattivo (%2$s), che è la sua principale preoccupazione per la sicurezza. Maneggiare con estrema cautela!</string>
+    <string name="ai_safety_special">• **Speciale:** %1$s</string>
+    <string name="ai_series_actinide_label">Attinide</string>
+    <string name="ai_series_alkali_metal_label">Metallo Alcalino</string>
+    <string name="ai_series_alkaline_earth_label">Metallo Alcalino-terroso</string>
+    <string name="ai_series_halogen_label">Alogeno</string>
+    <string name="ai_series_lanthanide_label">Lantanide</string>
+    <string name="ai_series_metalloid_label">Metalloide</string>
+    <string name="ai_series_noble_gas_label">Gas Nobile</string>
+    <string name="ai_series_nonmetal_label">Non metallo</string>
+    <string name="ai_series_transition_metal_label">Metallo di Transizione</string>
+    <string name="ai_similarity_generic">**%1$s** fa parte della serie %2$s. Altri elementi in questa serie avranno proprietà correlate!</string>
+    <string name="ai_similarity_no_element">Non sono sicuro di quale elemento tu voglia trovare somiglianze.</string>
+    <string name="ai_similarity_result_footer">.
+
+Condividono comportamenti chimici simili grazie ai loro elettroni di valenza!</string>
+    <string name="ai_similarity_result_header">Come **%1$s**, anche questi elementi sono **%2$ss**: 
+
+</string>
+    <string name="ai_structural_no_results">Non ho trovato nulla in quel gruppo o periodo. Ricorda: ci sono 18 gruppi e 7 periodi!</string>
+    <string name="ai_structural_result">Gli elementi nel **%1$s %2$s** sono: 
+</string>
+    <string name="ai_structural_specify_number">Specifica un numero di gruppo o periodo!</string>
+    <string name="ai_suggestion_abundance">Dovremmo guardare dove si trova nell\'universo?</string>
+    <string name="ai_suggestion_bio">Ti piacerebbe conoscere il suo ruolo biologico?</string>
+    <string name="ai_suggestion_compare">Vuoi confrontarlo con un altro elemento?</string>
+    <string name="ai_suggestion_iso">Posso anche parlarti dei suoi isotopi.</string>
+    <string name="ai_suggestion_safety">Ho anche dati sulla sicurezza, se ti interessa.</string>
+    <string name="ai_superlative_among">Tra gli %1$ss, %2$s</string>
+    <string name="ai_thermal_header">Proprietà termiche di %1$s:</string>
+    <string name="all_ai_features">Tutte le funzioni IA:</string>
+    <string name="analytics_desc">Aiuta a migliorare l\'app condividendo dati di utilizzo anonimi</string>
+    <string name="analytics_title">Analisi di utilizzo</string>
+    <string name="app_version">v5.0.0m-Build.221</string>
+    <string name="back">Indietro</string>
+    <string name="compare_elements">Confronta Elementi</string>
+    <string name="comparison_title_format">%1$s | %2$s</string>
+    <string name="covalent_radius_colon">Raggio covalente:</string>
+    <string name="curie_point_colon">Punto di Curie:</string>
+    <string name="current_version">Versione attuale</string>
+    <string name="dic">Dizionario</string>
+    <string name="dictionary_text">Un dizionario completo di termini chimici e fisici</string>
+    <string name="electronegativity_allen_colon">Elettronegatività (Allen):</string>
+    <string name="element_electrons">Elettroni:</string>
+    <string name="element_of_the_day">Elemento del giorno</string>
+    <string name="element_of_the_day_description">Mostra un elemento diverso ogni giorno con il suo simbolo, nome e descrizione</string>
+    <string name="element_quick_nav_description">Navigazione rapida verso la tavola periodica, il quiz e gli strumenti IA</string>
+    <string name="exit_compare_mode">Esci dal confronto</string>
+    <string name="feature_check">Funzione inclusa</string>
+    <string name="filter">Filtra</string>
+    <string name="gas">Calcolatore dei gas ideali</string>
+    <string name="ideal_calculated">Disattivato</string>
+    <string name="ideal_gas_calculate_field">Calcola:</string>
+    <string name="ideal_gas_calculator_title">Calcolatore dei gas ideali</string>
+    <string name="ideal_gas_card_title">Calcolatore della legge dei gas ideali (PV=nRT):</string>
+    <string name="ideal_gas_moles">Moli (n):</string>
+    <string name="ideal_gas_moles_hint">Inserisci le moli</string>
+    <string name="ideal_gas_pressure">Pressione (P):</string>
+    <string name="ideal_gas_pressure_hint">Inserisci la pressione</string>
+    <string name="ideal_gas_result">Risultato:</string>
+    <string name="ideal_gas_temperature">Temperatura (T):</string>
+    <string name="ideal_gas_temperature_hint">Inserisci la temperatura</string>
+    <string name="ideal_gas_text">Calcola le proprietà dei gas ideali utilizzando l\'equazione della legge dei gas ideali PV=nRT. Scegli quale variabile calcolare e inserisci gli altri tre valori.</string>
+    <string name="ideal_gas_volume">Volume (V):</string>
+    <string name="ideal_gas_volume_hint">Inserisci il volume</string>
+    <string name="learning_games_nav">Flashcards</string>
+    <string name="molar_heat_capacity_colon">Capacità termica molare:</string>
+    <string name="molar_volume_colon">Volume molare:</string>
+    <string name="neel_point_colon">Punto di Néel:</string>
+    <string name="next_sale_end">2024/09/15</string>
+    <string name="next_sale_start">2024/08/05</string>
+    <string name="price_not_available">Prezzo non disponibile</string>
+    <string name="pro_better_ai">Funzioni IA aggiuntive</string>
+    <string name="pro_better_ai_descr">Sblocca tutte le funzioni dell\'agente IA, con quiz, accesso ai dati pro e molto altro</string>
+    <string name="read_more_widget">Leggi di più</string>
+    <string name="refractive_index_colon">Indice di rifrazione:</string>
+    <string name="requires_pro_plus_until_2026">Richiede PRO+ fino al 1 gen 2026</string>
+    <string name="science_daily_description">Fatti scientifici casuali forniti quotidianamente</string>
+    <string name="select_element_to_compare">Seleziona elemento da confrontare</string>
+    <string name="space_group_name_colon">Nome del gruppo spaziale:</string>
+    <string name="space_group_number_colon">Numero del gruppo spaziale:</string>
+    <string name="thermal_conductivity_colon">Conduttività termica:</string>
+    <string name="thermal_expansion_colon">Espansione termica:</string>
+    <string name="unknown">Sconosciuto</string>
+    <string name="unlimited_ai_messages">Messaggi IA illimitati:</string>
+    <string name="van_der_waals_radius_colon">Raggio di Van der Waals:</string>
+    <string name="view_all">Vedi tutto</string>
+    <string name="web_client_id">315118082769-ivqq7fhga4pjja0t95iuansjs2vjdu9j.apps.googleusercontent.com</string>
+    <string name="widget_description_placeholder">Caricamento informazioni elemento...</string>
+    <string name="work_function_colon">Funzione lavoro:</string>
 </resources>

@@ -127,7 +127,7 @@ class IdealGasCalculatorActivity : BaseActivity() {
         val mostUsedPreference = MostUsedToolPreference(this)
         val mostUsedPrefValue = mostUsedPreference.getValue()
         val targetLabel = "gas"
-        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val regex = Regex("($targetLabel)=(\\d+\\.\\d+)")
         val match = regex.find(mostUsedPrefValue)
         if (match != null) {
             val value = match.groups[2]!!.value.toDouble()
@@ -222,10 +222,10 @@ class IdealGasCalculatorActivity : BaseActivity() {
             calculateResult()
         }
     }
-    
+
     private fun setupSpinner(spinner: Spinner, items: Array<String>, onItemSelected: (String) -> Unit) {
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, items)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter = ArrayAdapter(this, R.layout.spinner_item_text, items)
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         spinner.adapter = adapter
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

@@ -7,8 +7,8 @@
     android:layout_marginHorizontal="8dp"
     android:layout_marginVertical="4dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
-    app:cardBackgroundColor="?attr/colorSurfaceVariant">
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="?attr/colorPrimaryContainer">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:textSize="16sp"
             android:textStyle="bold"
             tools:text="Oxygen and its properties" />
@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textColor="?attr/colorOnPrimaryContainer"
             android:alpha="0.7"
             android:textSize="12sp"
             tools:text="Oct 24, 2023 10:30 AM" />

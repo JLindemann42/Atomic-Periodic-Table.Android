@@ -531,12 +531,8 @@ class LearningGamesActivity : BaseActivity() {
 
     private fun generateQuestions(category: String, count: Int): List<Question> {
         val language = com.jlindemann.science.utils.ElementDataLoader.getAppLanguage(this)
-        // Try to load elements in the user's language, fallback to English if not available
-        var elements = loadElementsFromAsset("elements_$language.json")
-        if (elements.isEmpty() && language != "en") {
-            elements = loadElementsFromAsset("elements_en.json")
-        }
-        elements = elements.filter { it.element.isNotBlank() }
+        // Shared loader handles the English fallback and caches the ~1 MB parse.
+        val elements = loadElementsForLanguage(language).filter { it.element.isNotBlank() }
 
         val questions = mutableListOf<Question>()
         val usedElements = mutableSetOf<String>()
@@ -816,12 +812,12 @@ class LearningGamesActivity : BaseActivity() {
         val earth_soils: String
     )
 
-    private fun loadElementsFromAsset(filename: String): List<ElementData> {
+    private fun loadElementsForLanguage(language: String): List<ElementData> {
         return try {
-            val json = assets.open(filename).bufferedReader().use { it.readText() }
-            val jsonObject = org.json.JSONObject(json)
+            val jsonObject = com.jlindemann.science.utils.ElementDataLoader
+                .getAllElements(assets, language) ?: return emptyList()
             val elementsList = mutableListOf<ElementData>()
-            
+
             // Iterate over all keys (element names) in the JSON object
             val keys = jsonObject.keys()
             while (keys.hasNext()) {
@@ -872,16 +868,16 @@ class LearningGamesActivity : BaseActivity() {
 
     override fun updateLivesCount() {
         val proPlusPref = com.jlindemann.science.preferences.ProPlusVersion(this)
-        val isInfinite = proPlusPref.getValue() == 100
+        val isInfinite = proPlusPref.getValue() == 100 || LivesManager.getLives(this) == Int.MAX_VALUE
         val livesTextView = findViewById<TextView>(R.id.tv_lives_count)
         val livesLabelView = findViewById<TextView>(R.id.tv_lives)
         if (isInfinite) {
-            livesTextView.text = "∞"
-            livesLabelView.text = getString(R.string.lives_unlimited)
+            livesTextView?.text = "∞"
+            livesLabelView?.text = getString(R.string.lives_unlimited)
         } else {
             val lives = LivesManager.getLives(this)
-            livesTextView.text = lives.toString()
-            livesLabelView.text = getString(R.string.lives_label, lives.toString())
+            livesTextView?.text = lives.toString()
+            livesLabelView?.text = getString(R.string.lives_label, lives.toString())
         }
     }
 

@@ -2,6 +2,7 @@ package com.jlindemann.science.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -131,6 +132,48 @@ class HomeFragment : BaseFragment() {
                 btnView.background.setTint(ContextCompat.getColor(requireContext(), R.color.element_box_dark))
             } else {
                 btnView.background.setTint(ContextCompat.getColor(requireContext(), R.color.element_box_light))
+            }
+        }
+    }
+
+    fun initElectro(view: View, list: ArrayList<Element>, jsonName: String) {
+        val themePrefValue = ThemePreference(requireContext()).getValue()
+
+        for (item in list) {
+            val name = item.elementKey
+            val resID = resources.getIdentifier("${name}_text", "id", requireContext().packageName)
+            val iText = view.findViewById<TextView>(resID) ?: continue
+            try {
+                val jsonObject = ElementDataLoader.loadElementData(requireContext(), name)
+                iText.text = jsonObject?.optString(jsonName, "---") ?: "---"
+            } catch (e: Exception) { }
+            val textResId = resources.getIdentifier("${name}_text", "id", requireContext().packageName)
+            val btnResId = resources.getIdentifier("${name}_btn", "id", requireContext().packageName)
+
+            val textView = view.findViewById<TextView>(textResId) ?: continue
+            val btnView = view.findViewById<TextView>(btnResId) ?: continue
+
+            val jsonObject = ElementDataLoader.loadElementData(requireContext(), name)
+            textView.text = jsonObject?.optString("element", "---") ?: "---"
+
+            if (item.electro == 0.0) {
+                if (themePrefValue == 100) {
+                    if ((resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES) {
+                        btnView.background.setTint(ContextCompat.getColor(requireContext(), R.color.element_box_dark))
+                    } else {
+                        btnView.background.setTint(ContextCompat.getColor(requireContext(), R.color.element_box_light))
+                    }
+                } else if (themePrefValue == 1) {
+                    btnView.background.setTint(ContextCompat.getColor(requireContext(), R.color.element_box_dark))
+                } else {
+                    btnView.background.setTint(ContextCompat.getColor(requireContext(), R.color.element_box_light))
+                }
+            } else {
+                if (item.electro > 1) {
+                    btnView.background.setTint(Color.argb(255, 255, 225.div(item.electro).toInt(), 0))
+                } else {
+                    btnView.background.setTint(Color.argb(255, 255, 214, 0))
+                }
             }
         }
     }

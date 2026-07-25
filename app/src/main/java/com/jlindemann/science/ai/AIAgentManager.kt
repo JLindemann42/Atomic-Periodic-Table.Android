@@ -3,12 +3,19 @@ package com.jlindemann.science.ai
 import android.content.Context
 import android.util.Log
 import com.jlindemann.science.R
+import com.jlindemann.science.ai.compose.ChatActionCodec
+import com.jlindemann.science.ai.core.AiEngine
+import com.jlindemann.science.ai.core.AndroidStrings
+import com.jlindemann.science.ai.core.DialogueState
+import com.jlindemann.science.ai.retrieval.RetrievalService
+import com.jlindemann.science.ai.retrieval.RetrievedRef
 import com.jlindemann.science.model.ChatMessage
 import com.jlindemann.science.utils.ElementDataLoader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.text.Normalizer
+import java.util.Locale
 import java.util.UUID
 
 /** Orchestrates AI responses: element lookup, context tracking, language handling, RAG. */
@@ -18,15 +25,19 @@ class AIAgentManager(private val context: Context?) {
         private const val TAG = "AIAgentManager"
         private const val PREFS_NAME = "ai_agent_settings"
         private const val PREF_LANGUAGE = "ai_agent_language"
+        private const val DEFAULT_LANGUAGE = "en"
     }
 
     private var elementData: JSONObject? = null
     private var isDataLoaded = false
     private var conversationHistory = mutableListOf<ChatMessage>()
     private var currentElement: String? = null
+    private var currentTopic: String? = null
     private val sharedProperties = mutableSetOf<String>()
     private var currentQuizAnswer: String? = null
-    private var activeLanguage: String = "en"
+    private var lastSuggestionType: String? = null
+    private var lastFormulaTarget: String? = null
+    private var activeLanguage: String = DEFAULT_LANGUAGE
     private var localizedContext: Context? = null
 
     private val rateLimiter: AIRateLimiter? by lazy { context?.let { AIRateLimiter(it) } }
@@ -34,14 +45,129 @@ class AIAgentManager(private val context: Context?) {
     private val localKnowledgeManager: LocalKnowledgeManager? by lazy { context?.let { LocalKnowledgeManager(it) } }
 
     private var molarMassCalculator: MolarMassCalculator? = null
-    private var ragAgent: TfliteRagAgent? = null
+    private var retrievalService: RetrievalService? = null
+    private val dialogueState = DialogueState()
+    private var cachedEngine: AiEngine? = null
+    private var cachedEngineLanguage: String? = null
+
+    // Multi-language keywords for rich section extraction
+    private val sectionKeywords = mapOf(
+        "abundance" to listOf(
+            "find", "found", "abundance", "crust", "universe", "nature", "meteorite",
+            "förekomst", "finns", "natur", "universum",
+            "vorkommen", "existiert", "natur", "universum",
+            "trouver", "abondance", "nature", "univers",
+            "encontrar", "abundancia", "naturaleza", "universo",
+            "encontrar", "abundância", "natureza", "universo",
+            "trovare", "abbondanza", "natura", "universo",
+            "matatagpuan", "abundance", "kalikasan", "sansinukob",
+            "gevind", "vorkoms", "natuur", "heelal",
+            "kahan", "paaya", "prachurta", "prakriti", "brahmand",
+            "jali", "maujood", "fitrat", "kayinat",
+            "yongtu", "cunzai", "ziran", "yuzhou"
+        ),
+        "usage" to listOf(
+            "use", "industry", "application", "medicine", "important", "human",
+            "användning", "används", "industri", "medicin", "viktig", "människa",
+            "industrie", "anwendung", "medizin", "wichtig", "mensch",
+            "industrie", "utilisation", "médecine", "important", "humain",
+            "aplicación", "industria", "medicina", "importante", "humano",
+            "aplicação", "indústria", "medicina", "importante", "humano",
+            "applicazione", "industria", "medicina", "importante", "umano",
+            "gamit", "industriya", "medisina", "importante", "tao",
+            "gebruik", "industrie", "medisyne", "belangrik", "mens",
+            "upayog", "udyog", "dava", "mahatvapurna", "manav",
+            "istimal", "sanat", "tibb", "aham", "insan",
+            "yongtu", "gongye", "yingyong", "yiyao", "zhongyao", "renlei"
+        ),
+        "history" to listOf(
+            "name", "greek", "latin", "discover", "history", "origin",
+            "namn", "upptäck", "historia", "ursprung",
+            "herkunft", "geschichte", "entdeckt",
+            "nom", "origine", "histoire", "découvert",
+            "nombre", "origen", "historia", "descubierto",
+            "nome", "origem", "história", "descoberto",
+            "nome", "origine", "storia", "scoperto",
+            "pangalan", "pinagmulan", "kasaysayan", "natuklasan",
+            "naam", "oorsprong", "geskiedenis", "ontdek",
+            "naam", "utpatti", "itihas", "khoj",
+            "naam", "tareekh", "asl", "daryaft",
+            "mingzi", "lishi", "yuanyuan", "fajian"
+        ),
+        "biological" to listOf(
+            "body", "blood", "living", "essential", "organism", "biology", "health",
+            "kropp", "blod", "levande", "organism", "biologi", "hälsa",
+            "körper", "blut", "lebewesen", "biologisch", "gesundheit",
+            "corps", "sang", "vivant", "biologie", "santé",
+            "cuerpo", "sangre", "vivo", "biología", "salud",
+            "corpo", "sangue", "vivo", "biologia", "saúde",
+            "corpo", "sangue", "vivente", "biologia", "salute",
+            "katawan", "dugo", "buhay", "biyolohiya", "kalusugan",
+            "liggaam", "bloed", "lewendige", "biologiese", "gesondheid",
+            "sharir", "rakta", "jeev", "jaivik", "swasthya",
+            "jism", "khoon", "zinda", "hayatati", "sehat",
+            "shenti", "xueye", "shengwu", "shengwuxue", "jiankang"
+        )
+    )
+
+    private val overviewKeywords = listOf(
+        "overview", "summary", "tell me about", "what is", "describe", "profile", "info", "brief", "details", "information",
+        "översikt", "berätta om", "vad är", "beskriv", "profil", "sammanfattning", "info", "detaljer", "information",
+        "überblick", "erzähl mir", "was ist", "beschreibe", "zusammenfassung", "details", "informationen",
+        "aperçu", "parle-moi", "qu'est-ce que", "décris", "résumé", "détails", "informations",
+        "resumen", "cuéntame", "qué es", "describe", "perfil", "detalles", "información",
+        "resumo", "conta-me", "o que é", "descreve", "detalhes", "informação",
+        "panoramica", "dimmi di", "cos'è", "descrivi", "dettagli", "informazioni",
+        "pangkalahatang-ideya", "sabihin sa akin", "ano ang", "ilarawan", "detalye", "impormasyon",
+        "oorsig", "vertel my", "wat is", "beskryf", "besonderhede", "inligting",
+        "vivran", "bataye", "kya hai", "varnan", "vivaran", "jankari",
+        "khulasa", "batao", "kya hai", "biyaan", "tafseelat", "maloomat",
+        "gaikuang", "gaishu", "gaolan", "jieshao", "xiangqing", "xinxi"
+    )
+
+    private val fullRequestKeywords = listOf(
+        "all", "everything", "complete", "full", "detailed", "whole", "total",
+        "allt", "hela", "komplett", "fullständig", "detaljerad",
+        "alles", "komplett", "vollständig", "detailliert",
+        "tout", "complet", "détaillé", "entier",
+        "todo", "completo", "detallado", "entero",
+        "tutto", "completo", "dettagliato",
+        "lahat", "kumpleto", "detalyado",
+        "alles", "volledig", "volledige",
+        "sab", "sab kuch", "purn", "vistrit",
+        "sab", "mukammal", "tafseeli",
+        "suoyou", "quanbu", "xiangxi", "quanmian"
+    )
 
     // Maps localized element name → JSON key, built across all languages once
     private val localizedElementMap = mutableMapOf<String, String>()
     // Maps localized element name → set of languages it appears in
     private val localizedElementLanguageMap = mutableMapOf<String, MutableSet<String>>()
+    private var availableElementLanguages = emptySet<String>()
 
     fun getActiveLanguage(): String = activeLanguage
+
+    fun setCurrentElement(element: String?) {
+        currentElement = element
+    }
+
+    fun getCurrentElement(): String? = currentElement
+
+    fun getCurrentTopic(): String? = currentTopic
+
+    fun getSuggestedQuestions(): List<String> {
+        val localizedElementName = currentElement?.let { key ->
+            val element = elementData?.optJSONObject(key.lowercase())
+            element?.optString("element")?.ifEmpty { null } ?: key
+        }
+        
+        return AIPersonality.getSuggestedQuestions(
+            context ?: return emptyList(),
+            activeLanguage,
+            localizedElementName,
+            currentTopic
+        )
+    }
 
     fun isHistoryEnabled(): Boolean {
         val limiter = rateLimiter ?: return false
@@ -61,28 +187,66 @@ class AIAgentManager(private val context: Context?) {
         return "$left/$total"
     }
 
+    suspend fun refreshLanguage() {
+        val ctx = context ?: return
+        val newLang = ElementDataLoader.getAppLanguage(ctx)
+        if (newLang != activeLanguage) {
+            setLanguage(newLang)
+        }
+    }
+
     suspend fun setLanguage(language: String) {
         activeLanguage = language
         context?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-            ?.edit()?.putString(PREF_LANGUAGE, language)?.apply()
+            ?.edit()?.putString(PREF_LANGUAGE, activeLanguage)?.apply()
         updateLocalizedContext()
+        // The engine caches localized labels and aliases, so it has to be rebuilt.
+        cachedEngine = null
+        cachedEngineLanguage = null
         withContext(Dispatchers.IO) {
-            elementData = getElementDataByLanguage(language)
+            elementData = getElementDataByLanguage(activeLanguage)
             molarMassCalculator = MolarMassCalculator(elementData)
-            if (localizedElementMap.isEmpty()) {
-                loadCrossLanguageElementMap()
-            }
+            ensureCrossLanguageMapLoaded()
         }
     }
 
     private fun updateLocalizedContext() {
         context?.let {
-            val locale = java.util.Locale(activeLanguage)
-            java.util.Locale.setDefault(locale)
+            val localeTag = toBcp47Tag(activeLanguage)
+            val locale = Locale.forLanguageTag(localeTag).let { parsed ->
+                if (parsed.language.isNullOrBlank()) Locale(resolveBaseLanguage(activeLanguage)) else parsed
+            }
+            // No Locale.setDefault: see AIPersonality.getLocalizedContext. The auto-detected chat
+            // language must not become the process-wide default.
             val config = android.content.res.Configuration(it.resources.configuration)
             config.setLocale(locale)
             localizedContext = it.createConfigurationContext(config)
         }
+    }
+
+    private fun toBcp47Tag(language: String): String {
+        val trimmed = language.trim()
+        if (trimmed.isEmpty()) return "en"
+        val normalized = trimmed.replace('_', '-')
+        val legacyRegion = Regex("^([a-zA-Z]{2,3})-r([a-zA-Z]{2})$")
+        val match = legacyRegion.matchEntire(normalized)
+        return if (match != null) "${match.groupValues[1]}-${match.groupValues[2]}" else normalized
+    }
+
+    private fun resolveBaseLanguage(language: String?): String {
+        val raw = language?.trim().orEmpty()
+        if (raw.isBlank()) return "en"
+
+        val tag = toBcp47Tag(raw)
+        val parsedLanguage = Locale.forLanguageTag(tag).language.lowercase()
+        if (parsedLanguage.isNotBlank()) return parsedLanguage
+
+        return raw
+            .substringBefore("-r")
+            .substringBefore('-')
+            .substringBefore('_')
+            .lowercase()
+            .ifBlank { "en" }
     }
 
     private fun normalizeForLookup(text: String): String {
@@ -90,10 +254,110 @@ class AIAgentManager(private val context: Context?) {
         return nfd.replace(Regex("\\p{M}"), "")
     }
 
+    private fun splitQueryTokens(query: String): List<String> {
+        return query.split(Regex("[^\\p{L}0-9]+"))
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+    }
+
+    private fun containsElementToken(rawQuery: String, normalizedQuery: String, token: String): Boolean {
+        if (token.isBlank()) return false
+        val asciiLikeToken = token.all { it.code < 128 && (it.isLetterOrDigit() || it == ' ' || it == '-') }
+        return if (asciiLikeToken) {
+            val escaped = Regex.escape(token)
+            val regex = "\\b$escaped\\b".toRegex()
+            regex.containsMatchIn(rawQuery) || regex.containsMatchIn(normalizedQuery)
+        } else {
+            rawQuery.contains(token) || normalizedQuery.contains(token)
+        }
+    }
+
+    private fun isCommonWordCollision(token: String, lowerQuery: String, queryWords: List<String>): Boolean {
+        if (token.length > 2) return false
+        
+        val isCommon = when (resolveBaseLanguage(activeLanguage)) {
+            "en" -> token in listOf("in", "as", "at", "be", "he", "am", "i", "no", "ar")
+            "sv" -> token in listOf("ar", "i", "se", "ne", "na", "be", "es") // "ar" for "är"
+            "de" -> token in listOf("as", "be", "er", "es", "in", "se", "am", "zu", "an", "um", "du", "so", "da")
+            "fr" -> token in listOf("au", "as", "y", "la", "ca", "ce", "es", "en", "de", "le", "un", "et", "il", "se", "ne")
+            "es" -> token in listOf("y", "la", "ca", "se", "no", "si", "as", "es", "de", "el", "en", "un", "al", "su", "lo", "ya")
+            "it" -> token in listOf("i", "la", "se", "si", "ne", "in", "di", "il", "ed", "un", "ad", "al", "lo", "su", "ma")
+            "hi", "ur" -> token in listOf("se", "ne", "na", "pa", "ka", "ki", "ke", "ko", "jo", "to", "ab", "vo", "hi")
+            "pt" -> token in listOf("o", "as", "os", "se", "em", "um", "ou", "ao", "do", "da")
+            "af" -> token in listOf("na", "te", "op", "in", "om", "by", "sy", "as", "hy", "is")
+            "fil" -> token in listOf("ng", "sa", "na", "at", "ay", "ko", "mo", "ba", "ka", "pa")
+            else -> false
+        }
+        
+        if (isCommon) {
+            // If it's a common word, only match if it's the ONLY word or clearly a symbol
+            if (queryWords.size > 1 && !lowerQuery.contains("element") && !lowerQuery.contains("symbol")) return true
+        }
+        return false
+    }
+
+    private fun findCrossLanguageElementKey(lowerQuery: String, queryWords: List<String>): String? {
+        val normalizedQuery = normalizeForLookup(lowerQuery)
+
+        // Try exact match first for high precision
+        elementData?.let { data ->
+            val keys = data.keys()
+            while (keys.hasNext()) {
+                val key = keys.next()
+                val element = data.optJSONObject(key)
+                val localizedName = element?.optString("element", "")?.lowercase()
+                if (localizedName == lowerQuery) return key
+            }
+        }
+
+        val allMatches = mutableListOf<Pair<String, Int>>() // Key to Score
+
+        // 1. Check mapped entries (O(1) lookups)
+        for (word in queryWords) {
+            val normalizedWord = normalizeForLookup(word)
+            
+            // Skip common word collisions
+            if (isCommonWordCollision(word, lowerQuery, queryWords)) continue
+            
+            // Collect all possible matches for this word
+            localizedElementMap[word]?.let { key ->
+                val score = if (word.length > 2) 100 + word.length else 10 + word.length
+                allMatches.add(key to score)
+            }
+            if (normalizedWord != word) {
+                localizedElementMap[normalizedWord]?.let { key ->
+                    val score = if (normalizedWord.length > 2) 90 + normalizedWord.length else 5 + normalizedWord.length
+                    allMatches.add(key to score)
+                }
+            }
+        }
+        
+        // 2. Fallback to contains check (O(N) search) if no word match or to catch multi-word names
+        localizedElementMap.entries.forEach { (localizedName, key) ->
+            if (localizedName.length < 3) return@forEach // Symbols handled by word split
+            
+            if (containsElementToken(lowerQuery, normalizedQuery, localizedName)) {
+                // If the element name is found in the sentence
+                val score = 50 + localizedName.length
+                allMatches.add(key to score)
+            }
+        }
+        
+        // 3. Heuristic: If we found "Gold" and "In" (Indium), pick "Gold" because it's longer/higher score
+        // Sort by score descending and take top
+        return allMatches.maxByOrNull { it.second }?.first
+    }
+
+    private suspend fun ensureCrossLanguageMapLoaded() {
+        if (localizedElementMap.isNotEmpty()) return
+        loadCrossLanguageElementMap()
+    }
+
     private suspend fun loadCrossLanguageElementMap() {
         val ctx = context ?: return
         withContext(Dispatchers.IO) {
             val languages = ElementDataLoader.getAvailableLanguages(ctx.assets)
+            availableElementLanguages = languages.toSet()
             for (lang in languages) {
                 try {
                     val inputStream = ctx.assets.open("elements_$lang.json")
@@ -103,11 +367,21 @@ class AIAgentManager(private val context: Context?) {
                         val key = keys.next()
                         val element = data.optJSONObject(key)
                         val rawName = element?.optString("element") ?: continue
+                        val symbol = element.optString("short", "").lowercase()
                         val normalized = normalizeForLookup(rawName)
+                        
+                        // Map name and symbol to the English key
                         localizedElementMap[normalized] = key
                         localizedElementMap[rawName.lowercase()] = key
+                        if (symbol.isNotEmpty()) {
+                            localizedElementMap[symbol] = key
+                        }
+                        
                         localizedElementLanguageMap.getOrPut(normalized) { mutableSetOf() }.add(lang)
                         localizedElementLanguageMap.getOrPut(rawName.lowercase()) { mutableSetOf() }.add(lang)
+                        if (symbol.isNotEmpty()) {
+                            localizedElementLanguageMap.getOrPut(symbol) { mutableSetOf() }.add(lang)
+                        }
                     }
                 } catch (e: Exception) {
                     // File missing for this language — skip
@@ -121,7 +395,9 @@ class AIAgentManager(private val context: Context?) {
      * Returns the detected language code, or the current active language if ambiguous.
      */
     private fun detectResponseLanguage(query: String): String {
-        val words = query.lowercase().split(Regex("\\W+")).filter { it.length > 2 }
+        val lowerQuery = query.lowercase()
+        val normalizedQuery = normalizeForLookup(lowerQuery)
+        val words = splitQueryTokens(lowerQuery).filter { it.isNotEmpty() }
         val scores = mutableMapOf<String, Int>()
         for (word in words) {
             val normalized = normalizeForLookup(word)
@@ -130,11 +406,18 @@ class AIAgentManager(private val context: Context?) {
                 ?: continue
             for (lang in langs) scores[lang] = (scores[lang] ?: 0) + 1
         }
+        if (scores.isEmpty()) {
+            for ((localizedName, langs) in localizedElementLanguageMap) {
+                if (!containsElementToken(lowerQuery, normalizedQuery, localizedName)) continue
+                for (lang in langs) scores[lang] = (scores[lang] ?: 0) + 1
+            }
+        }
         if (scores.isEmpty()) return activeLanguage
         val maxScore = scores.values.max()
         val topLangs = scores.filter { it.value == maxScore }.keys
+        val activeBaseLanguage = resolveBaseLanguage(activeLanguage)
         // Keep current language on tie to avoid spurious switches
-        return if (activeLanguage in topLangs) activeLanguage
+        return if (activeBaseLanguage in topLangs) activeLanguage
         else topLangs.firstOrNull { it != "en" } ?: topLangs.first()
     }
 
@@ -143,13 +426,23 @@ class AIAgentManager(private val context: Context?) {
         withContext(Dispatchers.IO) {
             try {
                 val ctx = context ?: return@withContext
-                activeLanguage = ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                    .getString(PREF_LANGUAGE, null)
-                    ?: ElementDataLoader.getAppLanguage(ctx)
+                activeLanguage = ElementDataLoader.getAppLanguage(ctx)
+                ctx.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                    .edit()
+                    .putString(PREF_LANGUAGE, activeLanguage)
+                    .apply()
                 updateLocalizedContext()
+                
                 elementData = getElementDataByLanguage(activeLanguage)
+
                 molarMassCalculator = MolarMassCalculator(elementData)
-                loadCrossLanguageElementMap()
+
+                // Typed index + BM25 over the app's own data. Built here, on the IO dispatcher,
+                // while the panel spinner is already showing; cached process-wide afterwards.
+                retrievalService = RetrievalService.get(ctx.assets)
+
+                // loadCrossLanguageElementMap() is now lazy-loaded via ensureCrossLanguageMapLoaded()
+
                 isDataLoaded = true
             } catch (e: Exception) {
                 isDataLoaded = false
@@ -172,35 +465,42 @@ class AIAgentManager(private val context: Context?) {
     }
 
     /**
+     * Reset the conversation context and re-initialize language to app default
+     */
+    suspend fun resetSession() {
+        clearConversation()
+        
+        // Ensure language is reset to app default for the new session
+        val ctx = context
+        if (ctx != null) {
+            val appLang = ElementDataLoader.getAppLanguage(ctx)
+            if (activeLanguage != appLang) {
+                setLanguage(appLang)
+            }
+        }
+    }
+
+    /**
      * Reset the conversation context
      */
     fun clearConversation() {
         conversationHistory.clear()
         currentElement = null
+        currentTopic = null
         sharedProperties.clear()
         currentQuizAnswer = null
+        lastSuggestionType = null
+        lastFormulaTarget = null
+        dialogueState.clear()
     }
     
     /**
-     * Load element data for the specified language using assets
+     * Load element data for the specified language, sharing ElementDataLoader's cache so the
+     * ~1 MB parse is not duplicated per language across the app.
      */
     private fun getElementDataByLanguage(language: String): JSONObject? {
         val ctx = context ?: return null
-        return try {
-            val fileName = "elements_$language.json"
-            val inputStream = ctx.assets.open(fileName)
-            val jsonString = inputStream.bufferedReader().use { it.readText() }
-            JSONObject(jsonString)
-        } catch (e: Exception) {
-            // Fallback to English
-            try {
-                val inputStream = ctx.assets.open("elements_en.json")
-                val jsonString = inputStream.bufferedReader().use { it.readText() }
-                JSONObject(jsonString)
-            } catch (e: Exception) {
-                null
-            }
-        }
+        return ElementDataLoader.getAllElements(ctx.assets, language)
     }
     
     /**
@@ -213,16 +513,31 @@ class AIAgentManager(private val context: Context?) {
         return withContext(Dispatchers.Default) {
             val ctx = context ?: return@withContext ChatMessage(
                 id = UUID.randomUUID().toString(),
-                text = "Context lost",
+                text = localizedContext?.getString(R.string.ai_context_lost) ?: "Context lost",
                 isFromUser = false,
                 timestamp = System.currentTimeMillis()
             )
+
+        // Detect language of the query and switch temporarily if needed
+        ensureCrossLanguageMapLoaded()
+        val detectedLang = detectResponseLanguage(userMessage)
+            if (detectedLang != activeLanguage) {
+                activeLanguage = detectedLang
+                updateLocalizedContext()
+                elementData = getElementDataByLanguage(activeLanguage)
+                molarMassCalculator = MolarMassCalculator(elementData)
+                // The engine caches localized labels and aliases, so it has to be rebuilt.
+                cachedEngine = null
+                cachedEngineLanguage = null
+            }
+            
+            val localizedCtx = localizedContext ?: ctx
 
             // Check Rate Limit
             if (rateLimiter?.canSendMessage() == false) {
                 return@withContext ChatMessage(
                     id = UUID.randomUUID().toString(),
-                    text = "You've reached your daily limit of ${rateLimiter?.getDailyLimit()} messages. Upgrade to PRO or PRO+ for more!",
+                    text = localizedCtx.getString(R.string.ai_rate_limit_reached, rateLimiter?.getDailyLimit() ?: 0),
                     isFromUser = false,
                     timestamp = System.currentTimeMillis()
                 )
@@ -232,21 +547,18 @@ class AIAgentManager(private val context: Context?) {
             rateLimiter?.incrementMessageCount()
 
             val lowerQuery = userMessage.lowercase().trim()
+            val isAffirmative = isAffirmative(lowerQuery)
 
-            // Auto-detect language from element names in the query
-            if (localizedElementLanguageMap.isNotEmpty()) {
-                val detected = detectResponseLanguage(lowerQuery)
-                if (detected != activeLanguage) {
-                    activeLanguage = detected
-                    context?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                        ?.edit()?.putString(PREF_LANGUAGE, detected)?.apply()
-                    updateLocalizedContext()
-                    withContext(Dispatchers.IO) {
-                        elementData = getElementDataByLanguage(detected)
-                        molarMassCalculator = MolarMassCalculator(elementData)
-                    }
-                }
+            // Clear suggestion if NOT an affirmative response
+            if (!isAffirmative) {
+                lastSuggestionType = null
             }
+            if (isMolarMassQuery(lowerQuery)) {
+                lastFormulaTarget = null
+            }
+
+            // Update Topic Memory
+            updateTopicFromIntent(lowerQuery)
 
             // Handle active Quiz answer
             if (currentQuizAnswer != null && !isQuizQuery(lowerQuery)) {
@@ -258,79 +570,170 @@ class AIAgentManager(private val context: Context?) {
                 )
             }
 
-            // 0. Handle comparison
-            var elementsInQuery = findMultipleElements(lowerQuery)
-            
-            // If user says "Compare with [Element]" and we have a current context
-            if (elementsInQuery.size == 1 && (lowerQuery.contains("compare") || lowerQuery.contains("vs")) && currentElement != null) {
-                val contextElementJson = elementData?.optJSONObject(currentElement!!.lowercase())
-                if (contextElementJson != null) {
-                    // Check if the one found is different from current
-                    val foundName = elementsInQuery[0].optString("element", "").lowercase()
-                    if (foundName != currentElement!!.lowercase()) {
-                        elementsInQuery = listOf(contextElementJson, elementsInQuery[0])
+            // Structured engine. It answers questions the keyword handlers below cannot express
+            // — filters, rankings, aggregates, unit conversions, follow-ups — and returns null
+            // for everything else, so unclaimed queries reach the existing handlers unchanged.
+            structuredAnswer(userMessage)?.let { return@withContext it }
+
+            // 1. Check if it's a numeric atomic number request (e.g. "element 79" or "what is 79?")
+            val numberMatch = Regex("\\b(\\d+)\\b").find(lowerQuery)
+            if (numberMatch != null && (lowerQuery.contains("element") || lowerQuery.contains("atomic number") || lowerQuery.contains("atomnummer") || lowerQuery.split(" ").size <= 3)) {
+                val numStr = numberMatch.groupValues[1]
+                elementData?.let { data ->
+                    val keys = data.keys()
+                    while (keys.hasNext()) {
+                        val key = keys.next()
+                        val element = data.optJSONObject(key) ?: continue
+                        if (element.optString("element_atomic_number") == numStr) {
+                            currentElement = key
+                            sharedProperties.clear()
+                            return@withContext handleElementContextQuery(userMessage, key).let {
+                                ChatMessage(UUID.randomUUID().toString(), it, false, System.currentTimeMillis())
+                            }
+                        }
                     }
                 }
             }
 
-            if (elementsInQuery.size >= 2) {
-                val text = handleComparison(elementsInQuery, lowerQuery)
-                return@withContext ChatMessage(
-                    id = UUID.randomUUID().toString(),
-                    text = text,
-                    isFromUser = false,
-                    timestamp = System.currentTimeMillis()
-                )
-            }
+            // Comparisons are handled by the structured engine above, including the
+            // "compare with X" form that pairs a named element with the one in focus.
 
             // 1. Explicitly requested element in query
-            val foundElement = findElementByQuery(userMessage)
-            if (foundElement != null) {
-                val elementName = foundElement.optString("element", "")
-                if (elementName != currentElement) {
-                    currentElement = elementName
+            val foundElementKey = findElementKeyByQuery(userMessage)
+            
+            if (foundElementKey != null) {
+                if (foundElementKey != currentElement) {
+                    currentElement = foundElementKey
                     sharedProperties.clear()
                 }
             }
             
             // 2. Use context if no new element is found
-            val targetElement = currentElement ?: contextElement ?: inferElementFromContext(userMessage)
+            val targetElementKey = currentElement ?: contextElement ?: inferElementFromContext(userMessage)
             
             // Track element interest if found
-            targetElement?.let { learningManager?.trackElementInterest(it) }
+            targetElementKey?.let { learningManager?.trackElementInterest(it) }
 
             // 3. Handle complex / multi-part queries
             val responseParts = mutableListOf<String>()
+
+            // 4. Add Conversational Connector sometimes
+            if (conversationHistory.size >= 2 && (0..2).random() == 0) {
+                getConversationalConnector(lowerQuery)?.let { responseParts.add(it) }
+            }
 
             when {
                 userMessage.isBlank() -> responseParts.add(AIPersonality.getNoDataResponse(ctx, activeLanguage, userMessage))
                 isQuizQuery(lowerQuery) -> responseParts.add(handleQuizQuery(lowerQuery))
                 isTrendsQuery(lowerQuery) -> responseParts.add(handleTrendsQuery(lowerQuery))
                 isMolarMassQuery(lowerQuery) -> responseParts.add(handleMolarMassQuery(userMessage))
-                isSuperlativeQuery(lowerQuery) -> responseParts.add(handleSuperlativeQuery(lowerQuery))
+                // Reactivity has no field in the element data — it is scored from group and
+                // position — so the structured engine cannot express it and it is routed here.
+                isReactivityQuery(lowerQuery) -> responseParts.add(handleReactivityQuery(lowerQuery))
+                isMultiPropertyQuery(lowerQuery) -> {
+                    val key = targetElementKey ?: inferElementFromContext(userMessage)
+                    if (key != null) responseParts.add(handleMultiPropertyQuery(key, lowerQuery))
+                    else responseParts.add(handleElementQuery(userMessage))
+                }
                 isSafetyQuery(lowerQuery) -> {
-                    val element = targetElement ?: inferElementFromContext(userMessage)
-                    if (element != null) responseParts.add(handleSafetyQuery(element))
+                    val key = targetElementKey ?: inferElementFromContext(userMessage)
+                    if (key != null) responseParts.add(handleSafetyQuery(key))
                     else responseParts.add(AIPersonality.getNoDataResponse(ctx, activeLanguage, userMessage))
                 }
-                isFormulaQuery(userMessage) -> responseParts.add(handleFormulaQuery(userMessage))
-                targetElement != null -> {
-                    currentElement = targetElement
-                    responseParts.add(handleElementContextQuery(userMessage, targetElement))
+                isBiologicalQuery(lowerQuery) -> {
+                    val key = targetElementKey ?: inferElementFromContext(userMessage)
+                    if (key != null) responseParts.add(handleBiologicalQuery(key))
+                    else responseParts.add(AIPersonality.getNoDataResponse(ctx, activeLanguage, userMessage))
                 }
-                isSeriesQuery(lowerQuery) -> responseParts.add(handleSeriesQuery(lowerQuery))
-                isBlockQuery(lowerQuery) -> responseParts.add(handleBlockQuery(lowerQuery))
-                isGeneralGreeting(userMessage) -> responseParts.add(learningManager?.getPersonalizedGreeting() ?: AIPersonality.getGreeting(ctx, activeLanguage))
+                isIsotopeQuery(lowerQuery) -> {
+                    val key = targetElementKey ?: inferElementFromContext(userMessage)
+                    if (key != null) responseParts.add(handleIsotopeQuery(key))
+                    else responseParts.add(AIPersonality.getNoDataResponse(ctx, activeLanguage, userMessage))
+                }
+                isUsageQuery(lowerQuery) -> {
+                    val key = targetElementKey ?: inferElementFromContext(userMessage)
+                    if (key != null) responseParts.add(handleUsageQuery(key))
+                    else responseParts.add(AIPersonality.getNoDataResponse(ctx, activeLanguage, userMessage))
+                }
+                isAbundanceQuery(lowerQuery) -> {
+                    val key = targetElementKey ?: inferElementFromContext(userMessage)
+                    if (key != null) responseParts.add(handleAbundanceQuery(key))
+                    else responseParts.add(AIPersonality.getNoDataResponse(ctx, activeLanguage, userMessage))
+                }
+                isPhysicalPropertyQuery(lowerQuery) -> {
+                    val key = targetElementKey ?: inferElementFromContext(userMessage)
+                    if (key != null) responseParts.add(handlePhysicalPropertyQuery(key))
+                    else responseParts.add(AIPersonality.getNoDataResponse(ctx, activeLanguage, userMessage))
+                }
+                isEtymologyQuery(lowerQuery) -> {
+                    val key = targetElementKey ?: inferElementFromContext(userMessage)
+                    if (key != null) responseParts.add(handleEtymologyQuery(key))
+                    else responseParts.add(AIPersonality.getNoDataResponse(ctx, activeLanguage, userMessage))
+                }
+                isAffirmative && lastFormulaTarget != null -> {
+                    responseParts.add(handleFormulaQuery("$lastFormulaTarget composition"))
+                    lastFormulaTarget = null
+                }
+                isAffirmative && targetElementKey != null && lastSuggestionType != null -> {
+                    val response = when (lastSuggestionType) {
+                        "bio" -> handleBiologicalQuery(targetElementKey)
+                        "iso" -> handleIsotopeQuery(targetElementKey)
+                        "safety" -> handleSafetyQuery(targetElementKey)
+                        "abundance" -> handleAbundanceQuery(targetElementKey)
+                        else -> provideNewInformation(elementData!!.getJSONObject(targetElementKey), targetElementKey)
+                    }
+                    responseParts.add(response)
+                    lastSuggestionType = null
+                }
+                isAffirmative && targetElementKey != null && sharedProperties.isNotEmpty() -> {
+                    responseParts.add(provideNewInformation(elementData!!.getJSONObject(targetElementKey), targetElementKey))
+                }
+                isPropertyOnlyQuery(lowerQuery) && targetElementKey != null -> responseParts.add(handleElementContextQuery(userMessage, targetElementKey))
+                isConceptQuery(lowerQuery) -> responseParts.add(handleConceptQuery(lowerQuery))
+                isHelpQuery(lowerQuery) -> responseParts.add(handleHelpQuery())
+                isFormulaQuery(userMessage) -> responseParts.add(handleFormulaQuery(userMessage))
+                isIdentityQuery(lowerQuery) -> responseParts.add(handleIdentityQuery(lowerQuery))
+                targetElementKey != null -> {
+                    currentElement = targetElementKey
+                    val response = handleElementContextQuery(userMessage, targetElementKey)
+                    responseParts.add(response)
+                    
+                    // Add a tiny context-aware hint sometimes
+                    if (responseParts.size == 1 && (0..3).random() == 0 && !response.contains("?")) {
+                        val localizedHint = ctx.getString(R.string.ai_pro_tip_hint)
+                        responseParts.add("💡 *$localizedHint*")
+                    }
+                }
+                isGeneralGreeting(userMessage) -> {
+                    val greeting = learningManager?.getPersonalizedGreeting(localizedCtx, activeLanguage) 
+                        ?: AIPersonality.getGreeting(localizedCtx, activeLanguage)
+                    responseParts.add(greeting)
+                }
                 isFactRequest(userMessage) -> responseParts.add(AIPersonality.getRandomFact(ctx, activeLanguage))
-                else -> responseParts.add(handleElementQuery(userMessage))
+                else -> {
+                    val localMatch = localKnowledgeManager?.resolve(userMessage, activeLanguage)
+                    if (localMatch != null) {
+                        responseParts.add(localMatch.response)
+                    } else {
+                        responseParts.add(
+                            retrieveAnswer(userMessage) ?: handleElementQuery(userMessage)
+                        )
+                    }
+                }
+            }
+
+            // 5. Proactively suggest a follow-up sometimes
+            if (responseParts.size == 1 && (0..3).random() == 0 && targetElementKey != null) {
+                suggestFollowUp(targetElementKey)?.let { responseParts.add(it) }
             }
 
             // Check if there's a second part in the query (e.g. "and also tell me its mass")
-            if (targetElement != null && (lowerQuery.contains("and ") || lowerQuery.contains("och ") || lowerQuery.contains("also ") || lowerQuery.contains("också "))) {
+            val conjunctions = listOf("and ", "och ", "also ", "också ", "und ", "auch ", "et ", "aussi ", "y ", "también ", "e ", "anche ")
+            if (targetElementKey != null && conjunctions.any { lowerQuery.contains(it) }) {
                 // Look for properties mentioned after the conjunction
-                val secondPart = lowerQuery.split("and ", "och ", "also ", "också ").last()
+                val secondPart = lowerQuery.split(*conjunctions.toTypedArray()).last()
                 if (secondPart.length > 3) {
-                    val additionalInfo = handleElementContextQuery(secondPart, targetElement)
+                    val additionalInfo = handleElementContextQuery(secondPart, targetElementKey)
                     // Only add if it's not the same response and not a "no data" response
                     if (additionalInfo != responseParts.firstOrNull() && !additionalInfo.contains(ctx.getString(R.string.ai_no_data).take(10))) {
                         responseParts.add(additionalInfo)
@@ -348,8 +751,151 @@ class AIAgentManager(private val context: Context?) {
     }
 
     /**
-     * Find multiple elements mentioned in a query for comparison
+     * Run the structured engine, or return null so the legacy handlers take the query.
+     *
+     * The engine keeps its own dialogue state, which is kept in step with the fields the rest of
+     * this class uses so the two views of the conversation cannot diverge.
      */
+    private fun structuredAnswer(userMessage: String): ChatMessage? {
+        val engine = engineFor(activeLanguage) ?: return null
+
+        dialogueState.focusElement = currentElement
+        dialogueState.activeLanguage = activeLanguage
+
+        val answer = try {
+            engine.answer(userMessage, dialogueState)
+        } catch (e: Exception) {
+            Log.w(TAG, "structured engine failed, falling back", e)
+            null
+        } ?: return null
+
+        dialogueState.focusElement?.let { key ->
+            if (key != currentElement) {
+                currentElement = key
+                sharedProperties.clear()
+            }
+            learningManager?.trackElementInterest(key)
+        }
+
+        return ChatMessage(
+            id = UUID.randomUUID().toString(),
+            text = answer.text,
+            isFromUser = false,
+            timestamp = System.currentTimeMillis(),
+            actions = ChatActionCodec.encode(answer.actions)
+        )
+    }
+
+    /** The engine for a language, rebuilt only when the active language changes. */
+    private fun engineFor(language: String): AiEngine? {
+        cachedEngine?.let { if (cachedEngineLanguage == language) return it }
+        val service = retrievalService ?: return null
+        val ctx = localizedContext ?: context ?: return null
+        val engine = AiEngine(
+            store = service.store,
+            datasets = service.datasets,
+            localized = service.localized(language),
+            strings = AndroidStrings(ctx, language),
+            entities = service.resolver(language),
+            retriever = service.retriever(language)
+        )
+        cachedEngine = engine
+        cachedEngineLanguage = language
+        return engine
+    }
+
+    /**
+     * Last-resort lookup over the app's own content when no intent handler claimed the query.
+     *
+     * Uses BM25 plus exact entity resolution over the element table and every in-app dataset.
+     * Returns null rather than a weak guess, so the caller falls through to the element handler
+     * instead of answering with something unrelated.
+     */
+    private fun retrieveAnswer(userMessage: String): String? {
+        val service = retrievalService ?: return null
+        val retriever = service.retriever(activeLanguage)
+        // Recent turns give the retriever the context a bare follow-up leaves implicit.
+        val context = conversationHistory.takeLast(2).joinToString(" ") { it.text }
+        val hit = retriever.best("$userMessage $context".take(300)) ?: return null
+
+        return when (val ref = hit.ref) {
+            is RetrievedRef.Element -> {
+                currentElement = ref.key
+                handleElementContextQuery(userMessage.lowercase(), ref.key)
+            }
+            is RetrievedRef.Dataset -> {
+                val row = service.datasets.row(ref.dataset, ref.id) ?: return null
+                "**${row.title}**\n${row.detail}"
+            }
+        }
+    }
+
+    private fun updateTopicFromIntent(lowerQuery: String) {
+        currentTopic = when {
+            isQuizQuery(lowerQuery) -> "quiz"
+            isTrendsQuery(lowerQuery) -> "trends"
+            isMolarMassQuery(lowerQuery) -> "molar_mass"
+            isSafetyQuery(lowerQuery) -> "safety"
+            isBiologicalQuery(lowerQuery) -> "biological"
+            isReactionQuery(lowerQuery) -> "reaction"
+            isStructuralQuery(lowerQuery) -> "structure"
+            else -> currentTopic
+        }
+    }
+
+    private fun getConversationalConnector(lowerQuery: String): String? {
+        val ctx = localizedContext ?: context ?: return null
+        val lastTurn = conversationHistory.lastOrNull { !it.isFromUser } ?: return null
+        
+        return when {
+            lowerQuery.contains("why") || lowerQuery.contains("how") || lowerQuery.contains("hur") || lowerQuery.contains("varfor") || lowerQuery.contains("wie") || lowerQuery.contains("warum") || lowerQuery.contains("porque") || lowerQuery.contains("como") -> {
+                listOf(
+                    ctx.getString(R.string.ai_connector_why_1),
+                    ctx.getString(R.string.ai_connector_why_2),
+                    ctx.getString(R.string.ai_connector_why_3)
+                ).random()
+            }
+            lastTurn.text.contains("?") -> {
+                listOf(
+                    ctx.getString(R.string.ai_connector_question_1),
+                    ctx.getString(R.string.ai_connector_question_2),
+                    ctx.getString(R.string.ai_connector_question_3)
+                ).random()
+            }
+            else -> null
+        }
+    }
+
+    private fun suggestFollowUp(elementKey: String): String? {
+        val ctx = localizedContext ?: context ?: return null
+        
+        // Define suggestions with their internal types
+        val suggestions = listOf(
+            ctx.getString(R.string.ai_suggestion_bio) to "bio",
+            ctx.getString(R.string.ai_suggestion_iso) to "iso",
+            ctx.getString(R.string.ai_suggestion_compare) to "compare",
+            ctx.getString(R.string.ai_suggestion_safety) to "safety",
+            ctx.getString(R.string.ai_suggestion_abundance) to "abundance"
+        )
+        
+        // Filter out what we already covered
+        val available = suggestions.filter { (text, type) ->
+            when (type) {
+                "bio" -> !sharedProperties.contains("biological")
+                "iso" -> !sharedProperties.contains("isotopes")
+                "safety" -> !sharedProperties.contains("safety")
+                "abundance" -> !sharedProperties.contains("abundance")
+                else -> true
+            }
+        }
+        
+        return if (available.isNotEmpty()) {
+            val picked = available.random()
+            lastSuggestionType = picked.second
+            "\n\n*${picked.first}*"
+        } else null
+    }
+
     /**
      * Find multiple elements mentioned in a query for comparison
      */
@@ -360,9 +906,14 @@ class AIAgentManager(private val context: Context?) {
         val data = elementData ?: return emptyList()
 
         for (word in words) {
+            val normalizedWord = normalizeForLookup(word)
+            
+            // Skip common word collisions
+            if (isCommonWordCollision(word, query, words) || isCommonWordCollision(normalizedWord, query, words)) continue
+
             // Check cross-language map with normalization
             val englishKey = localizedElementMap[word]
-                ?: localizedElementMap[normalizeForLookup(word)]
+                ?: localizedElementMap[normalizedWord]
             if (englishKey != null && !seenKeys.contains(englishKey)) {
                 val element = data.optJSONObject(englishKey)
                 if (element != null) {
@@ -390,120 +941,51 @@ class AIAgentManager(private val context: Context?) {
         return found
     }
 
-    private fun handleComparison(elements: List<JSONObject>, query: String): String {
-        val lowerQuery = query.lowercase()
-        val ctx = localizedContext ?: context!!
-        
-        // Support comparing up to 3 elements for now
-        val compareList = elements.take(3)
-        val names = compareList.map { it.optString("element", "Unknown") }
-        
-        // Detect "which is [superlative]" vs "compare [element] and [element]"
-        val findExtremum = lowerQuery.contains("which") || lowerQuery.contains("who") || lowerQuery.contains("vilken") || lowerQuery.contains("vem")
-        val findDifference = lowerQuery.contains("diff") || lowerQuery.contains("skillnad") || lowerQuery.contains("gap")
-        
-        // 1. Check for specific property comparison request
-        val propertyResult = when {
-            hasKeyword(lowerQuery, listOf("density", "dense", "densitet", "tätare", "heavy", "light")) -> 
-                compareProperty(compareList, "element_density", ctx.getString(R.string.density_colon).replace(":",""), "g/cm³", findExtremum, findMax = !lowerQuery.contains("light"), findDiff = findDifference)
-            hasKeyword(lowerQuery, listOf("boiling", "boil", "kokpunkt")) -> 
-                compareProperty(compareList, "element_boiling_celsius", ctx.getString(R.string.boiling_point_colon).replace(":",""), "°C", findExtremum, findMax = true, findDiff = findDifference)
-            hasKeyword(lowerQuery, listOf("melting", "melt", "smältpunkt")) -> 
-                compareProperty(compareList, "element_melting_celsius", ctx.getString(R.string.melting_point_colon).replace(":",""), "°C", findExtremum, findMax = true, findDiff = findDifference)
-            hasKeyword(lowerQuery, listOf("electronegativity", "negative", "elektronegativitet")) -> 
-                compareProperty(compareList, "element_electronegativty", ctx.getString(R.string.electronegativity_colon).replace(":",""), "", findExtremum, findMax = true, findDiff = findDifference)
-            hasKeyword(lowerQuery, listOf("radius", "size", "radie", "storlek", "större", "mindre")) -> 
-                compareProperty(compareList, "element_atomic_radius_e", ctx.getString(R.string.atomic_radius_empirical_colon).replace(":",""), "pm", findExtremum, findMax = lowerQuery.contains("big") || lowerQuery.contains("större") || lowerQuery.contains("large"), findDiff = findDifference)
-            hasKeyword(lowerQuery, listOf("mass", "weight", "massa", "vikt", "tyngre", "lättare")) -> 
-                compareProperty(compareList, "element_atomicmass", ctx.getString(R.string.atomic_mass_colon).replace(":",""), "u", findExtremum, findMax = !lowerQuery.contains("light") && !lowerQuery.contains("lättare"), findDiff = findDifference)
-            else -> null
-        }
 
-        if (propertyResult != null) return propertyResult
 
-        // 2. Default comprehensive comparison
-        var comparison = ctx.getString(R.string.ai_comparing_title, names.joinToString(" vs ")) + "\n"
-        
-        val props = listOf(
-            Triple(ctx.getString(R.string.atomic_number_label).replace(":",""), "element_atomic_number", ""),
-            Triple(ctx.getString(R.string.atomic_mass_colon).replace(":",""), "element_atomicmass", ""),
-            Triple(ctx.getString(R.string.type_label).replace(":",""), "element_type", ""),
-            Triple(ctx.getString(R.string.phase_stp_colon).replace(":",""), "element_phase", ""),
-            Triple(ctx.getString(R.string.electronegativity_colon).replace(":",""), "element_electronegativty", "")
+    private fun isAffirmative(query: String): Boolean {
+        val keywords = listOf(
+            // English
+            "yes", "sure", "ok", "okay", "yep", "yeah", "absolutely", "please", "do it", "more", "next", "tell me more",
+            // Swedish
+            "ja", "visst", "okej", "gärna", "absolut", "snälla", "gör det", "mer", "nästa", "berätta mer", "annat", "något annat", "nåt annat", "vidare",
+            // German
+            "jawohl", "sicher", "gerne", "bitte", "mehr", "erzähl mir mehr", "erzählen sie mir mehr",
+            // French
+            "oui", "bien sûr", "d'accord", "s'il vous plaît", "plus", "dis-m'en plus", "dites-m'en plus",
+            // Spanish
+            "sí", "claro", "por supuesto", "por favor", "más", "cuéntame más", "cuénteme más",
+            // Portuguese
+            "sim", "com certeza", "por favor", "mais", "conta-me mais", "me conte mais",
+            // Hindi / Urdu
+            "हाँ", "ज़रूर", "ठीक है", "ji", "ha", "zaroor", "thik hai", "aur", "zhada", "mujhe aur batao", "mujhe aur batayein", "mazeed", "mazeed batayein",
+            // Chinese
+            "是", "是的", "当然", "好的", "shi", "shide", "dangran", "haode", "geng duo", "jixu", "更多", "继续", "告诉我更多", "多跟我说说",
+            // Filipino
+            "oo", "sige", "oo naman", "walang anuman", "pa", "dagdag", "magkwento ka pa", "sabihin mo pa",
+            // Italian
+            "ancora", "di piu", "altro", "continua", "dimmi di più", "mi dica di più",
+            // Afrikaans
+            "meer", "vertel my meer", "sekerlik", "asseblief",
+            // Extra English
+            "something else", "anything else", "other", "another"
         )
-
-        for ((label, key, unit) in props) {
-            val values = compareList.map { it.optString(key, "---").replace(unit, "").trim() }
-            if (values.all { it == "---" || it.isEmpty() }) continue
-            
-            if (values.distinct().size == 1) {
-                comparison += "\n• **$label:** All are ${values[0]}$unit."
-            } else {
-                comparison += "\n• **$label:** " + compareList.indices.joinToString(", ") { i ->
-                    "${names[i]} is ${values[i]}$unit"
-                } + "."
-            }
-        }
-        
-        return comparison
-    }
-
-    private fun compareProperty(elements: List<JSONObject>, jsonKey: String, label: String, unit: String, findExtremum: Boolean = false, findMax: Boolean = true, findDiff: Boolean = false): String {
-        val names = elements.map { it.optString("element", "") }
-        val values = elements.map { it.optString(jsonKey, "---").replace(unit, "").trim() }
-        val ctx = localizedContext ?: context!!
-        
-        var response = ctx.getString(R.string.ai_comparing_title, label) + "\n"
-        for (i in elements.indices) {
-            response += "• ${names[i]}: ${values[i]}$unit\n"
-        }
-        
-        // Try to find the "winner" if there are numeric values
-        try {
-            val numericValues = values.map { it.filter { c -> c.isDigit() || c == '.' || c == '-' }.toDoubleOrNull() }
-            
-            if (numericValues.filterNotNull().size >= 2) {
-                val bestIdx = if (findMax) {
-                    numericValues.indices.filter { numericValues[it] != null }.maxByOrNull { numericValues[it]!! }
-                } else {
-                    numericValues.indices.filter { numericValues[it] != null }.minByOrNull { numericValues[it]!! }
-                }
-                
-                if (bestIdx != null) {
-                    val bestName = names[bestIdx]
-                    
-                    if (findExtremum) {
-                        return if (findMax) ctx.getString(R.string.ai_higher_than, bestName, label, "the others")
-                        else ctx.getString(R.string.ai_lower_than, bestName, label, "the others")
-                    }
-                    
-                    if (elements.size == 2) {
-                        val otherIdx = if (bestIdx == 0) 1 else 0
-                        val v1 = numericValues[bestIdx] ?: 0.0
-                        val v2 = numericValues[otherIdx] ?: 0.0
-                        val diff = Math.abs(v1 - v2)
-                        
-                        if (diff == 0.0) {
-                            response += "\n" + ctx.getString(R.string.ai_same_value, label)
-                        } else {
-                            if (findDiff) {
-                                val formattedDiff = String.format(java.util.Locale.US, "%.3f", diff)
-                                response += "\nThere is a difference of **$formattedDiff$unit** between them."
-                            } else {
-                                response += "\n" + (if (findMax) ctx.getString(R.string.ai_higher_than, bestName, label, names[otherIdx])
-                                else ctx.getString(R.string.ai_lower_than, bestName, label, names[otherIdx]))
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (e: Exception) { /* ignore non-numeric */ }
-        
-        return response.trim()
+        // Check if it's a very short response or exact phrase
+        return keywords.any { query == it || query.startsWith("$it ") || query.endsWith(" $it") } && query.length < 30
     }
 
     private fun isTrendsQuery(query: String): Boolean {
-        return query.contains("trend") || (query.contains("periodic table") || query.contains("periodiska systemet")) && (query.contains("how") || query.contains("change") || query.contains("hur") || query.contains("ändras")) || query.contains("periodiska trender")
+        val keywords = listOf(
+            "trend", "pattern", "change", "variation", "tendance", "tendência", "tendencia", "趋势", "qushi", "rujhan", "tendens", "periodiska trender",
+            "mönster", "förändring", "variations", "comportement", "comportamento", "padrão", "patrón", "propriedades periódicas", "propiedades periódicas",
+            "periodicidade", "periodicidad", "periodicity", "periodicità", "andamento", "verlauf", "änderung", "periodische", "प्रवृत्ति", "पैटर्न", "बदलाव",
+            "رجحان", "تبدیلی", "karakteristik", "kenang", "pagbabago", "uri", "neigong", "patroon"
+        )
+        // If query is short, only match if it clearly means trends or if element context is missing
+        if (query.length < 5 && currentElement != null) return false
+        return keywords.any { query.contains(it) } || 
+               ((query.contains("periodic table") || query.contains("periodiska systemet") || query.contains("periodensystem") || query.contains("tableau périodique") || query.contains("tabla periódica") || query.contains("आवर्त सारणी")) && 
+                (query.contains("how") || query.contains("change") || query.contains("hur") || query.contains("ändras") || query.contains("wie") || query.contains("comment") || query.contains("cómo") || query.contains("कैसे")))
     }
 
     private fun handleTrendsQuery(query: String): String {
@@ -518,7 +1000,15 @@ class AIAgentManager(private val context: Context?) {
     }
 
     private fun isMolarMassQuery(query: String): Boolean {
-        return (query.contains("molar mass") || query.contains("molecular weight") || query.contains("molmassa")) && (query.contains("of") || query.contains("for") || query.contains("för") || query.contains("på"))
+        val keywords = listOf(
+            "molar mass", "molecular weight", "atomic mass of", "mass of", "molmassa", "atommassa", 
+            "molare masse", "masse molaire", "masa molar", "massa molar", "मोलर द्रव्यमान", "摩尔质量", "moer zhiliang", "moler mass",
+            "poids moléculaire", "poids atomique", "peso molecolare", "peso atomico", "peso molecular", "peso atómico", "atomgewicht",
+            "molekulargewicht", "molmassa", "molmassa", "vikt", "massa", "massa atomica", "massa molecolare", "moleweight", "atomweight",
+            "atomaire massa", "molêre massa", "molêre gewig", "atomaire gewig", "molar na timbang", "molar na masa", "atomikong masa"
+        )
+        val formulaKeywords = listOf("compound", "formula", "formel", "pormula", "fórmula", "formule", "molecule", "molekyl", "molekül", "composto", "composto", "fórmulas", "molecula", "molécula", "compuesto", "samenstelling")
+        return keywords.any { query.contains(it) } || (query.contains("mass") && formulaKeywords.any { query.contains(it) })
     }
 
     private fun handleMolarMassQuery(query: String): String {
@@ -527,7 +1017,7 @@ class AIAgentManager(private val context: Context?) {
         
         // Extract the target (formula or name) after keywords while preserving casing
         val lower = query.lowercase()
-        val keywords = listOf("of ", "for ", "för ", "på ", "på:")
+        val keywords = listOf("calculate atomic mass of ", "atomic mass of ", "molar mass of ", "molecular weight of ", "mass of ", "molmassa på ", "för ", "på:", "of ")
         var targetIndex = -1
         for (kw in keywords) {
             val idx = lower.indexOf(kw)
@@ -561,25 +1051,35 @@ class AIAgentManager(private val context: Context?) {
         // 2. Otherwise treat it as a formula (preserving original casing for strict parsing)
         // Restricted to PRO+ only
         if (!isProPlus) {
-            return "Calculating molar mass for compounds is a **PRO+** feature. As a ${if (rateLimiter?.isPro() == true) "PRO" else "Free"} user, you can still get molar mass for individual elements!"
+            val userType = if (rateLimiter?.isPro() == true) ctx.getString(R.string.ai_pro_user) else ctx.getString(R.string.ai_free_user)
+            return ctx.getString(R.string.ai_molar_mass_pro_plus, userType)
         }
 
         val formula = target.replace(" ", "")
         val calculatedMass = molarMassCalculator?.calculate(formula)
         if (calculatedMass != null && calculatedMass > 0.0) {
+            lastFormulaTarget = formula
             val formattedMass = String.format(java.util.Locale.US, "%.3f", calculatedMass)
-            return ctx.getString(R.string.ai_molar_mass_of, formula, "$formattedMass g/mol")
+            var resp = ctx.getString(R.string.ai_molar_mass_of, formula, "$formattedMass g/mol")
+            resp += ctx.getString(R.string.ai_formula_composition_offer)
+            return resp
         }
 
         return ctx.getString(R.string.ai_molar_mass_generic)
     }
 
     private fun isQuizQuery(query: String): Boolean {
-        return query.contains("quiz") || query.contains("question") || query.contains("test") || query.contains("frågesport") || query.contains("tävling")
+        val keywords = listOf(
+            "quiz", "question", "test", "frågesport", "tävling", "rätsel", "examen", "प्रश्नोttari", "测验", "ceyan", "sawal", "toets",
+            "pagsusulit", "larong pang-edukasyon", "tanong", "preguntas", "pregunta", "juego", "domanda", "quesito", "interrogazione",
+            "frage", "prüfung", "testa mig", "interroger", "questionnaire", "concours", "pergunta", "questão", "desafio", "testar",
+            "fråga", "सवाल", "امتحان", "vrae", "vraag", "toetsie"
+        )
+        return keywords.any { query.contains(it) }
     }
 
     private fun handleQuizAnswer(query: String): String {
-        val answer = currentQuizAnswer ?: return "I'm not in quiz mode right now."
+        val answer = currentQuizAnswer ?: return localizedContext?.getString(R.string.ai_quiz_not_active) ?: "Oops!"
         val ctx = localizedContext ?: context!!
         
         val userFoundElement = findElementByQuery(query)?.optString("element", "")?.lowercase()
@@ -595,7 +1095,7 @@ class AIAgentManager(private val context: Context?) {
     }
 
     private fun handleQuizQuery(query: String): String {
-        val data = elementData ?: return "I can't start a quiz right now."
+        val data = elementData ?: return localizedContext?.getString(R.string.ai_quiz_no_start) ?: "Oops!"
         val ctx = localizedContext ?: context!!
         
         if (currentQuizAnswer != null) {
@@ -626,76 +1126,168 @@ class AIAgentManager(private val context: Context?) {
         }
     }
 
-    private fun isSuperlativeQuery(query: String): Boolean {
-        val keywords = listOf("most", "least", "highest", "lowest", "densest", "heaviest", "lightest", "biggest", "smallest", "hottest", "coldest", "tätaste", "tyngsta", "lättaste", "största", "minsta", "varmaste", "kallaste", "högsta", "lägsta")
-        return keywords.any { query.contains(it) }
+
+
+    /**
+     * Reactivity questions, in either the superlative or comparison form.
+     *
+     * Reactivity is not a field in the element data; it is derived from group and position by
+     * [handleReactivitySuperlative] and [compareReactivity]. The structured engine only plans
+     * over fields that exist, so these are routed here rather than through it.
+     */
+    private fun isReactivityQuery(query: String): Boolean =
+        hasKeyword(
+            query,
+            listOf(
+                "reactive", "reactivity", "reaktiv", "reaktivitet", "reaktivaste",
+                "reaktivität", "reactivo", "reactividad", "réactif", "réactivité",
+                "reattivo", "reattività", "reativo", "reatividade", "reaktief",
+                "reaktibo", "sakriya", "fa'aal", "活泼", "反应性"
+            )
+        )
+
+    private fun handleReactivityQuery(query: String): String {
+        val elements = findMultipleElements(query)
+        if (elements.size >= 2) return compareReactivity(elements)
+        val wantsLeast = hasKeyword(
+            query,
+            listOf("least", "lowest", "minst", "lägst", "wenigste", "menos", "moins", "meno", "最不")
+        )
+        return handleReactivitySuperlative(query, findMax = !wantsLeast)
     }
 
-    private fun handleSuperlativeQuery(query: String): String {
-        val data = elementData ?: return "I can't check that right now."
+    private fun handleReactivitySuperlative(query: String, findMax: Boolean = true): String {
+        val data = elementData ?: return "---"
         val ctx = localizedContext ?: context!!
         
-        val (jsonKey, label, findMax) = when {
-            query.contains("densest") || query.contains("most dense") || query.contains("tätaste") -> Triple("element_density", ctx.getString(R.string.density_colon).replace(":",""), true)
-            query.contains("heaviest") || query.contains("highest mass") || query.contains("tyngsta") -> Triple("element_atomicmass", ctx.getString(R.string.atomic_mass_colon).replace(":",""), true)
-            query.contains("lightest") || query.contains("lowest mass") || query.contains("lättaste") -> Triple("element_atomicmass", ctx.getString(R.string.atomic_mass_colon).replace(":",""), false)
-            query.contains("highest boiling") || query.contains("hottest boiling") || query.contains("högsta kokpunkt") -> Triple("element_boiling_celsius", ctx.getString(R.string.boiling_point_colon).replace(":",""), true)
-            query.contains("lowest boiling") || query.contains("kallaste kokpunkt") || query.contains("lägsta kokpunkt") -> Triple("element_boiling_celsius", ctx.getString(R.string.boiling_point_colon).replace(":",""), false)
-            query.contains("most electronegative") || query.contains("högsta elektronegativitet") -> Triple("element_electronegativty", ctx.getString(R.string.electronegativity_colon).replace(":",""), true)
-            else -> return ctx.getString(R.string.ai_superlative_generic)
-        }
-
-        // Check for series filter (e.g. "heaviest noble gas")
-        val seriesFilter = when {
-            query.contains("noble gas") || query.contains("ädelgas") -> "Noble Gas"
+        // Find series filter
+        val seriesId = when {
+            query.contains("noble gas") -> "Noble Gas"
             query.contains("alkali") -> "Alkali Metal"
             query.contains("halogen") -> "Halogen"
-            query.contains("lanthanide") || query.contains("lantanid") -> "Lanthanide"
-            query.contains("actinide") || query.contains("aktinid") -> "Actinide"
-            query.contains("transition metal") || query.contains("övergångsmetall") -> "Transition Metal"
             else -> null
         }
+        
+        val seriesLabel = when (seriesId) {
+            "Noble Gas" -> ctx.getString(R.string.ai_series_noble_gas_label)
+            "Alkali Metal" -> ctx.getString(R.string.ai_series_alkali_metal_label)
+            "Halogen" -> ctx.getString(R.string.ai_series_halogen_label)
+            else -> ctx.getString(R.string.ai_element)
+        }
 
-        var targetValue = if (findMax) Double.MIN_VALUE else Double.MAX_VALUE
-        var targetElement = ""
-        var targetValueStr = ""
+        var bestScore = if (findMax) -1 else Int.MAX_VALUE
+        var bestName = ""
 
         val keys = data.keys()
         while (keys.hasNext()) {
             val key = keys.next()
             val element = data.optJSONObject(key) ?: continue
-            
-            if (seriesFilter != null) {
-                val group = element.optString("element_group", "")
-                if (!group.contains(seriesFilter, ignoreCase = true)) continue
+            val name = element.optString("element", "")
+            val group = element.optString("element_group", "")
+            val number = element.optInt("element_atomic_number", 0)
+
+            if (seriesId != null && !group.contains(seriesId, ignoreCase = true)) continue
+
+            // Reuse existing reactivity score logic
+            val score = when {
+                name.lowercase() == "fluorine" -> 200
+                name.lowercase() == "cesium" || name.lowercase() == "francium" -> 190
+                group == "Alkali Metal" -> 100 + number
+                group == "Alkaline Earth Metal" -> 80 + number
+                group == "Halogen" -> 100 - number
+                group == "Noble Gas" -> 0
+                else -> 50
             }
 
-            val name = element.optString("element", "")
-            val valueStr = element.optString(jsonKey, "---").filter { it.isDigit() || it == '.' || it == '-' }
-            val value = valueStr.toDoubleOrNull() ?: continue
-
             if (findMax) {
-                if (value > targetValue) {
-                    targetValue = value
-                    targetElement = name
-                    targetValueStr = element.optString(jsonKey, "")
+                if (score > bestScore) {
+                    bestScore = score
+                    bestName = name
                 }
             } else {
-                if (value < targetValue) {
-                    targetValue = value
-                    targetElement = name
-                    targetValueStr = element.optString(jsonKey, "")
+                if (score < bestScore) {
+                    bestScore = score
+                    bestName = name
                 }
             }
         }
 
-        return if (targetElement.isNotEmpty()) {
-            val adj = if (findMax) ctx.getString(R.string.highest) else ctx.getString(R.string.lowest)
-            val seriesText = if (seriesFilter != null) " **$seriesFilter**" else ""
-            val result = ctx.getString(R.string.ai_superlative_result, adj, label, targetElement, targetValueStr)
-            if (seriesFilter != null) "Among the$seriesText, $result" else result
+        return if (bestName.isNotEmpty()) {
+            if (findMax) ctx.getString(R.string.ai_reactivity_result, seriesLabel, bestName)
+            else ctx.getString(R.string.ai_reactivity_result, seriesLabel, bestName).replace(ctx.getString(R.string.highest), ctx.getString(R.string.lowest)) // Heuristic for "least" if no specific string
+        } else ctx.getString(R.string.ai_reactivity_no_result)
+    }
+
+    private fun isMultiPropertyQuery(query: String): Boolean {
+        // Look for multiple property keywords or conjunctions like "and", "plus", "also"
+        val count = propertyKeywords.count { query.contains(it) }
+        return count >= 2 || (count >= 1 && (query.contains(" and ") || query.contains(" & ") || query.contains(" och ")))
+    }
+
+    private val propertyKeywords = listOf(
+        "mass", "weight", "density", "boil", "melt", "atomic", "number", "symbol", "discovered", "discoverer", "year", 
+        "radioactive", "radiation", "phase", "state", "color", "appearance", "proton", "electron", "neutron", "config", 
+        "shell", "oxidation", "charge", "electronegativity", "block", "radius", "abundance", "crystal", "thermal", 
+        "conduct", "hardness", "modulus", "usage", "origin", "biological", "ionization", "ionisation", "heat", "superconductivity",
+        "massa", "vikt", "densit", "kokpunkt", "smältpunkt", "atomnummer", "upptäckt", "färg", "utseende", "jonisering", "radioaktivitet", "radioaktivt",
+        "värmekapacitet", "smältvärme", "ångbildningsvärme", "supraledning", "supraledare", "supraledande", "hårdhet", "användning",
+        "poids", "masse", "densité", "ébullition", "fusion", "découverte", "couleur", "apparence",
+        "peso", "densidad", "ebullición", "descubrimiento", "color", "apariencia", "número", "símbolo", "ionización",
+        "massa", "peso", "densità", "ebollizione", "fusione", "scoperta", "colore", "apparenza",
+        "gewicht", "dichte", "siedepunkt", "schmelzpunkt", "ordnungszahl", "entdeckung", "farbe", "aussehen", "ionisierung",
+        "द्रव्यमान", "वजन", "घनत्व", "परमाणु", "नंबर", "प्रतीक", "खोज", "रंग", "उपस्थिति",
+        "massa", "timbang", "densidad", "pormula", "simbolo", "natuklasan", "hitsura", "kulay"
+    )
+
+    private fun handleMultiPropertyQuery(elementName: String, query: String): String {
+        val element = elementData?.optJSONObject(elementName.lowercase()) ?: return AIPersonality.getNoDataResponse(context!!, activeLanguage, "")
+        val results = mutableListOf<String>()
+        val ctx = localizedContext ?: context!!
+
+        // Specifically check for each property mentioned in the query
+        if (query.contains("mass") || query.contains("weight")) {
+            val mass = element.optString("element_atomicmass", "---")
+            if (mass != "---") results.add("• **${ctx.getString(R.string.atomic_mass_colon).replace(":","")}**: $mass")
+        }
+        if (query.contains("density")) {
+            val dens = element.optString("element_density", "---")
+            if (dens != "---") results.add("• **${ctx.getString(R.string.density_colon).replace(":","")}**: $dens")
+        }
+        if (query.contains("number") || query.contains("proton")) {
+            val num = element.optString("element_atomic_number", "---")
+            if (num != "---") results.add("• **${ctx.getString(R.string.atomic_number_label).replace(":","")}**: $num")
+        }
+        if (query.contains("boil")) {
+            val boil = element.optString("element_boiling_celsius", "---")
+            if (boil != "---") results.add("• **${ctx.getString(R.string.boiling_point_colon).replace(":","")}**: $boil°C")
+        }
+        if (query.contains("melt")) {
+            val melt = element.optString("element_melting_celsius", "---")
+            if (melt != "---") results.add("• **${ctx.getString(R.string.melting_point_colon).replace(":","")}**: $melt°C")
+        }
+        if (query.contains("config") || query.contains("shell")) {
+            val conf = element.optString("element_electron_config", "---")
+            if (conf != "---") results.add("• **${ctx.getString(R.string.electron_configuration_colon).replace(":","")}**: $conf")
+        }
+        if (query.contains("discover") || query.contains("history")) {
+            val disc = element.optString("element_discovered_name", "---")
+            val year = element.optString("element_year", "---")
+            if (disc != "---") results.add("• **${ctx.getString(R.string.discovered_by_colon).replace(":","")}**: $disc ($year)")
+        }
+        if (query.contains("radius")) {
+            val rad = element.optString("element_atomic_radius_e", "---")
+            if (rad != "---") results.add("• **${ctx.getString(R.string.atomic_radius_empirical_colon).replace(":","")}**: $rad pm")
+        }
+        if (query.contains("negativity")) {
+            val neg = element.optString("element_electronegativty", "---")
+            if (neg != "---") results.add("• **${ctx.getString(R.string.electronegativity_colon).replace(":","")}**: $neg")
+        }
+
+        return if (results.isNotEmpty()) {
+            val header = ctx.getString(R.string.ai_list_header, elementName)
+            "${AIPersonality.getEncouragement(ctx, activeLanguage)} $header\n\n" + results.joinToString("\n")
         } else {
-            ctx.getString(R.string.ai_superlative_no_calculate)
+            handleElementContextQuery(query, elementName)
         }
     }
 
@@ -725,7 +1317,18 @@ class AIAgentManager(private val context: Context?) {
     }
 
     private fun isSafetyQuery(query: String): Boolean {
-        val keywords = listOf("safety", "hazard", "dangerous", "flammable", "toxic", "poison", "nfpa", "fara", "farlig", "giftig", "brännbar", "brandfarlig")
+        val keywords = listOf(
+            "safety", "hazard", "dangerous", "flammable", "toxic", "poison", "nfpa", 
+            "fara", "risker", "farlig", "giftig", "brännbar", "brandfarlig",
+            "gefahr", "gefährlich", "giftig", "brennbar", "toxisch", "sicherheit",
+            "sécurité", "danger", "toxique", "inflammable", "poison",
+            "seguridad", "peligro", "tóxico", "veneno", "inflamable",
+            "sicurezza", "pericolo", "tossico", "veleno", "infiammabile",
+            "segurança", "perigo", "tóxico", "veneno", "inflamável",
+            "सुरक्षा", "खतरा", "जहरीला", "ज्वलनशील",
+            "安全", "危险", "毒", "易燃", "anquan", "weixian", "du", "yiran",
+            "hifazat", "khatra", "zeher", "veiligheid", "panganib", "kaligtasan"
+        )
         return keywords.any { query.contains(it) }
     }
 
@@ -739,45 +1342,53 @@ class AIAgentManager(private val context: Context?) {
         val special = element.optString("special", "")
         
         if (health == -1 && flammability == -1) {
-            val radio = element.optString("radioactive", "")
-            return if (radio.isNotEmpty() && radio != "no") {
-                "$elementName is radioactive ($radio), which is its primary safety concern. Handle with extreme caution!"
+            val radio = element.optString("radioactive", "").lowercase().trim()
+            val isActuallyRadioactive = radio.isNotEmpty() && radio != "no" && radio != "none" && radio != "false" && radio != "---" && !radio.contains("non-radioactive")
+            
+            return if (isActuallyRadioactive) {
+                ctx.getString(R.string.ai_safety_radioactive, elementName, radio)
             } else {
-                "I don't have specific NFPA hazard ratings for $elementName, but always follow standard laboratory safety protocols."
+                ctx.getString(R.string.ai_safety_no_data, elementName)
             }
         }
 
-        var safetyInfo = "Safety profile for $elementName (NFPA 704):"
-        safetyInfo += "\n• **Health:** $health/4 (${getNFPAHealthDesc(health)})"
-        safetyInfo += "\n• **Flammability:** $flammability/4 (${getNFPAFlammableDesc(flammability)})"
-        safetyInfo += "\n• **Instability:** $instability/4"
-        if (special.isNotEmpty() && special != "---") safetyInfo += "\n• **Special:** $special"
+        var safetyInfo = ctx.getString(R.string.ai_safety_header, elementName)
+        safetyInfo += "\n" + ctx.getString(R.string.ai_safety_health, health, getNFPAHealthDesc(health))
+        safetyInfo += "\n" + ctx.getString(R.string.ai_safety_flammability, flammability, getNFPAFlammableDesc(flammability))
+        safetyInfo += "\n" + ctx.getString(R.string.ai_safety_instability, instability)
+        if (special.isNotEmpty() && special != "---") safetyInfo += "\n" + ctx.getString(R.string.ai_safety_special, special)
         
         val desc = when {
-            health >= 3 -> "Caution: This element is highly hazardous to health!"
-            flammability >= 3 -> "Caution: This element is extremely flammable!"
+            health >= 3 -> ctx.getString(R.string.ai_safety_caution_health)
+            flammability >= 3 -> ctx.getString(R.string.ai_safety_caution_flammable)
             else -> ""
         }
         
         return if (desc.isNotEmpty()) "$safetyInfo\n\n$desc" else safetyInfo
     }
 
-    private fun getNFPAHealthDesc(level: Int) = when(level) {
-        0 -> "Normal material"
-        1 -> "Slightly hazardous"
-        2 -> "Hazardous"
-        3 -> "Extreme danger"
-        4 -> "Deadly"
-        else -> "Unknown"
+    private fun getNFPAHealthDesc(level: Int): String {
+        val ctx = localizedContext ?: context!!
+        return when(level) {
+            0 -> ctx.getString(R.string.ai_nfpa_health_0)
+            1 -> ctx.getString(R.string.ai_nfpa_health_1)
+            2 -> ctx.getString(R.string.ai_nfpa_health_2)
+            3 -> ctx.getString(R.string.ai_nfpa_health_3)
+            4 -> ctx.getString(R.string.ai_nfpa_health_4)
+            else -> ctx.getString(R.string.unknown)
+        }
     }
 
-    private fun getNFPAFlammableDesc(level: Int) = when(level) {
-        0 -> "Will not burn"
-        1 -> "Must be preheated to burn"
-        2 -> "Ignites when moderately heated"
-        3 -> "Ignites at normal temperatures"
-        4 -> "Extremely flammable"
-        else -> "Unknown"
+    private fun getNFPAFlammableDesc(level: Int): String {
+        val ctx = localizedContext ?: context!!
+        return when(level) {
+            0 -> ctx.getString(R.string.ai_nfpa_flammable_0)
+            1 -> ctx.getString(R.string.ai_nfpa_flammable_1)
+            2 -> ctx.getString(R.string.ai_nfpa_flammable_2)
+            3 -> ctx.getString(R.string.ai_nfpa_flammable_3)
+            4 -> ctx.getString(R.string.ai_nfpa_flammable_4)
+            else -> ctx.getString(R.string.unknown)
+        }
     }
 
     private fun handleFormulaQuery(query: String): String {
@@ -812,20 +1423,21 @@ class AIAgentManager(private val context: Context?) {
                 // If it's a compound (more than 1 element or multiple of same), check PRO+
                 val isCompound = elementCounts.size > 1 || elementCounts.values.any { it > 1.0 }
                 if (isCompound && !isProPlus) {
-                    return "Analyzing chemical compounds like **$clean** is a **PRO+** feature. As a ${if (rateLimiter?.isPro() == true) "PRO" else "Free"} user, I can only help you with individual elements!"
+                    val userType = if (rateLimiter?.isPro() == true) ctx.getString(R.string.ai_pro_user) else ctx.getString(R.string.ai_free_user)
+                    return ctx.getString(R.string.ai_formula_pro_plus, clean, userType)
                 }
 
                 val mass = molarMassCalculator?.calculate(clean)
                 val formattedMass = String.format(java.util.Locale.US, "%.3f", mass ?: 0.0)
                 
-                var response = "I recognize **$clean** as a chemical compound with a molar mass of **$formattedMass g/mol**."
+                var response = ctx.getString(R.string.ai_formula_recognize, clean, "$formattedMass g/mol")
                 
                 if (lowerQuery.contains("composition") || lowerQuery.contains("breakdown") || lowerQuery.contains("contain") || lowerQuery.contains("made of")) {
-                    response += "\n\nIt consists of:"
+                    response += "\n\n" + ctx.getString(R.string.ai_formula_consists_of)
                     for ((symbol, count) in elementCounts) {
                         val name = molarMassCalculator?.getElementName(symbol)
                         val countStr = if (count % 1.0 == 0.0) count.toInt().toString() else count.toString()
-                        response += "\n• $countStr × $name ($symbol)"
+                        response += "\n" + ctx.getString(R.string.ai_formula_item, countStr, name ?: symbol, symbol)
                     }
                 } else {
                     response += " Would you like me to break down its elemental composition?"
@@ -837,45 +1449,631 @@ class AIAgentManager(private val context: Context?) {
         return ctx.getString(R.string.ai_formula_generic)
     }
 
-    private fun isSeriesQuery(query: String): Boolean {
-        val series = listOf("alkali", "halogen", "noble gas", "lanthanide", "actinide", "metalloid", "transition metal", "ädelgas", "lantanid", "aktinid", "halvmetall", "övergångsmetall")
-        return series.any { query.contains(it) }
+    private fun isIdentityQuery(query: String): Boolean {
+        val keywords = listOf(
+            "which element has", "which element is", "identify element", "identify the element",
+            "vilket grundämne har", "vad har atomnummer", "vilket ämne",
+            "welches element hat", "welches element ist", "quel élément",
+            "qué elemento tiene", "qual elemento tem", "pertsono"
+        )
+        return keywords.any { query.contains(it) } && (query.contains("mass") || query.contains("atomic number") || query.contains("electronegativity") || query.contains("density") || query.contains("boiling") || query.contains("melting"))
     }
 
-    private fun handleSeriesQuery(query: String): String {
+    private fun handleIdentityQuery(query: String): String {
+        val data = elementData ?: return "---"
+        val ctx = localizedContext ?: context!!
+        
+        // Extract numeric value from query
+        val numberMatch = Regex("(\\d+\\.?\\d*)").find(query) ?: return ctx.getString(R.string.ai_structural_specify_number)
+        val targetValue = numberMatch.groupValues[1].toDoubleOrNull() ?: return ctx.getString(R.string.ai_structural_specify_number)
+        
+        var bestMatchKey: String? = null
+        var minDiff = Double.MAX_VALUE
+        var matchedProp = ""
+
+        val props = listOf(
+            "element_atomic_number" to "",
+            "element_atomicmass" to "u",
+            "element_density" to "g/cm³",
+            "element_electronegativty" to "",
+            "element_boiling_celsius" to "°C",
+            "element_melting_celsius" to "°C"
+        )
+
+        val keys = data.keys()
+        while (keys.hasNext()) {
+            val key = keys.next()
+            val element = data.optJSONObject(key) ?: continue
+            
+            for ((jsonKey, unit) in props) {
+                val rawValue = element.optString(jsonKey, "---").replace(unit, "").trim()
+                val value = rawValue.toDoubleOrNull() ?: continue
+                
+                val diff = Math.abs(value - targetValue)
+                if (diff < minDiff) {
+                    minDiff = diff
+                    bestMatchKey = key
+                    matchedProp = jsonKey
+                }
+            }
+        }
+
+        return if (bestMatchKey != null && minDiff < 1.0) {
+            val element = data.optJSONObject(bestMatchKey)
+            val name = element?.optString("element", bestMatchKey) ?: bestMatchKey
+            val actualValue = element?.optString(matchedProp, "---")
+            ctx.getString(R.string.ai_identity_result, targetValue.toString(), name, actualValue)
+        } else {
+            ctx.getString(R.string.ai_no_data)
+        }
+    }
+
+
+
+
+
+    private fun isReactionQuery(query: String): Boolean {
+        val keywords = listOf(
+            "react", "mix", "combine", "together", "reaction",
+            "reagera", "blanda", "tillsammans", "reaktion",
+            "reagieren", "mischen", "zusammen", "reaktion",
+            "réagir", "mélanger", "ensemble", "réaction",
+            "reaccionar", "mezclar", "juntos", "reacción",
+            "reagire", "mescolare", "insieme", "reazione",
+            "reagir", "misturar", "junto", "reação",
+            "प्रतिक्रिया", "अभिक्रिया", "मिलाएं", "साथ",
+            "反应", "混合", "结合", "fanying", "hunhe",
+            "radd-e-amal", "milana", "reageer", "reaksyon",
+            "paggawa", "pag-react"
+        )
+        val reactants = listOf(
+            "water", "vatten", "wasser", "eau", "agua", "acqua", "água",
+            "acid", "syra", "säure", "acide", "ácido", "acido", "ácido",
+            "air", "luft", "luft", "aire", "aria", "ar",
+            "oxygen", "syre", "sauerstoff", "oxygène", "oxígeno", "ossigeno", "oxigênio",
+            "tubig", "asido", "hangin", "oxyheno"
+        )
+        return keywords.any { query.contains(it) } && (findMultipleElements(query).isNotEmpty() || reactants.any { query.contains(it) })
+    }
+
+    private fun handleReactionQuery(query: String): String {
+        val elements = findMultipleElements(query)
+        val ctx = localizedContext ?: context!!
+        
+        if (elements.size < 2) {
+            // Check for element + common substances (water, air, acid)
+            val lower = query.lowercase()
+            val element = elements.firstOrNull() ?: return AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
+            val name = element.optString("element", "")
+            val group = element.optString("element_group", "")
+            
+            return when {
+                lower.contains("water") || lower.contains("vatten") || lower.contains("wasser") || lower.contains("eau") || lower.contains("agua") -> {
+                    when (group) {
+                        "Alkali Metal" -> ctx.getString(R.string.ai_reaction_alkali_water, name)
+                        "Alkaline Earth Metal" -> {
+                            if (name.lowercase() == "magnesium") ctx.getString(R.string.ai_reaction_magnesium_water, name)
+                            else ctx.getString(R.string.ai_reaction_alkaline_earth_water, name)
+                        }
+                        else -> ctx.getString(R.string.ai_reaction_generic_water, name)
+                    }
+                }
+                lower.contains("oxygen") || lower.contains("air") || lower.contains("syre") || lower.contains("luft") || lower.contains("sauerstoff") || lower.contains("oxygène") || lower.contains("oxígeno") -> {
+                    ctx.getString(R.string.ai_reaction_oxygen, name)
+                }
+                lower.contains("acid") || lower.contains("syra") || lower.contains("säure") || lower.contains("acide") || lower.contains("ácido") -> {
+                    ctx.getString(R.string.ai_reaction_acid, name)
+                }
+                else -> ctx.getString(R.string.ai_reaction_complex, name, group)
+            }
+        }
+
+        val e1 = elements[0].optString("element", "")
+        val g1 = elements[0].optString("element_group", "")
+        val e2 = elements[1].optString("element", "")
+        val g2 = elements[1].optString("element_group", "")
+
+        return when {
+            (g1 == "Alkali Metal" && g2 == "Halogen") || (g2 == "Alkali Metal" && g1 == "Halogen") -> 
+                ctx.getString(R.string.ai_reaction_alkali_halogen, e1, e2)
+            (g1 == "Noble Gas" || g2 == "Noble Gas") -> 
+                ctx.getString(R.string.ai_reaction_noble_gas, if (g1 == "Noble Gas") e1 else e2)
+            else -> ctx.getString(R.string.ai_reaction_generic_elements, e1, e2)
+        }
+    }
+
+
+
+    private fun getValenceInfo(element: JSONObject, name: String): String? {
+        val group = element.optString("element_group", "")
         val ctx = localizedContext ?: context!!
         return when {
-            query.contains("alkali") -> ctx.getString(R.string.ai_series_alkali)
-            query.contains("halogen") -> ctx.getString(R.string.ai_series_halogen)
-            query.contains("noble gas") || query.contains("ädelgas") -> ctx.getString(R.string.ai_series_noble_gas)
-            query.contains("lanthanide") || query.contains("lantanid") -> ctx.getString(R.string.ai_series_lanthanide)
-            query.contains("actinide") || query.contains("aktinid") -> ctx.getString(R.string.ai_series_actinide)
-            query.contains("transition metal") || query.contains("övergångsmetall") -> ctx.getString(R.string.ai_series_transition)
-            query.contains("metalloid") || query.contains("halvmetall") -> ctx.getString(R.string.ai_series_metalloid)
-            else -> ctx.getString(R.string.ai_series_generic)
+            group == "Alkali Metal" -> ctx.getString(R.string.ai_valence_alkali)
+            group == "Alkaline Earth Metal" -> ctx.getString(R.string.ai_valence_alkaline)
+            group == "Halogen" -> ctx.getString(R.string.ai_valence_halogen)
+            group == "Noble Gas" -> {
+                if (name.lowercase() == "helium") ctx.getString(R.string.ai_valence_noble_helium)
+                else ctx.getString(R.string.ai_valence_noble_other)
+            }
+            else -> null
         }
     }
 
-    private fun isBlockQuery(query: String): Boolean {
-        return query.contains("block") && (query.contains("s-") || query.contains("p-") || query.contains("d-") || query.contains("f-"))
+    private fun isStructuralQuery(query: String): Boolean {
+        val keywords = listOf(
+            "group", "period", "row", "column", 
+            "grupp", "rad", "kolumn", "periode",
+            "gruppe", "spalte", "zeile",
+            "groupe", "rangée", "colonne",
+            "grupo", "fila", "columna",
+            "gruppo", "periodo", "colonna",
+            "समूह", "आवर्त", "पंक्ति", "स्तंभ",
+            "族", "周期", "zu", "zhouqi", "hang", "lie",
+            "gurooh", "dor", "ry", "kolom", "hanay", "hilera"
+        )
+        return keywords.any { query.contains(it) } && query.any { it.isDigit() }
     }
 
-    private fun handleBlockQuery(query: String): String {
+    private fun handleStructuralQuery(query: String): String {
+        val data = elementData ?: return "---"
         val ctx = localizedContext ?: context!!
-        val block = when {
-            query.contains("s-") -> "s-block"
-            query.contains("p-") -> "p-block"
-            query.contains("d-") -> "d-block"
-            query.contains("f-") -> "f-block"
-            else -> return ctx.getString(R.string.ai_block_generic)
-        }
+        val numberMatch = Regex("(\\d+)").find(query) ?: return ctx.getString(R.string.ai_structural_specify_number)
+        val number = numberMatch.groupValues[1]
         
-        return when (block) {
-            "s-block" -> ctx.getString(R.string.ai_block_s)
-            "p-block" -> ctx.getString(R.string.ai_block_p)
-            "d-block" -> ctx.getString(R.string.ai_block_d)
-            "f-block" -> ctx.getString(R.string.ai_block_f)
-            else -> ""
+        val isGroup = query.contains("group") || query.contains("grupp") || query.contains("kolumn") || query.contains("gruppe") || query.contains("grupo") || query.contains("समूह") || query.contains("族") || query.contains("gurooh")
+        val isPeriod = query.contains("period") || query.contains("rad") || query.contains("periode") || query.contains("rangée") || query.contains("fila") || query.contains("आवर्त") || query.contains("周期") || query.contains("dor")
+        
+        val found = mutableListOf<String>()
+        val keys = data.keys()
+        while (keys.hasNext()) {
+            val key = keys.next()
+            val element = data.optJSONObject(key) ?: continue
+            
+            if (isGroup && element.optString("element_group_number") == number) {
+                found.add(element.optString("element", ""))
+            } else if (isPeriod && element.optString("element_period") == number) {
+                found.add(element.optString("element", ""))
+            }
+        }
+
+        return if (found.isNotEmpty()) {
+            val type = if (isGroup) ctx.getString(R.string.ai_group) else ctx.getString(R.string.ai_period)
+            ctx.getString(R.string.ai_structural_result, type, number) + found.sorted().joinToString(", ")
+        } else {
+            ctx.getString(R.string.ai_structural_no_results)
+        }
+    }
+
+    private fun isDifferenceQuery(query: String): Boolean {
+        val keywords = listOf(
+            "difference", "distinguish", "different", "contrast",
+            "skillnad", "skiljer", "differenz", "unterschied",
+            "différence", "distinguer", "diferencia", "distinguir",
+            "differenza", "distinguere", "differenz", "distinção", "distinguir",
+            "अंतर", "भेद", "فرق", "imtiyaz",
+            "区别", "不同", "qubie", "butong", "verskil", "pagkakaiba", "ibahin"
+        )
+        return keywords.any { query.contains(it) } && findMultipleElements(query).size >= 2
+    }
+
+    private fun handleDifferenceQuery(query: String): String {
+        val elements = findMultipleElements(query).take(2)
+        val ctx = localizedContext ?: context!!
+        if (elements.size < 2) return ctx.getString(R.string.ai_difference_need_two)
+        
+        val e1 = elements[0].optString("element", "")
+        val p1 = elements[0].optString("element_phase", "")
+        val t1 = elements[0].optString("element_type", "")
+        val g1 = elements[0].optString("element_group", "")
+        val n1 = elements[0].optInt("element_atomic_number", 0)
+
+        val e2 = elements[1].optString("element", "")
+        val p2 = elements[1].optString("element_phase", "")
+        val t2 = elements[1].optString("element_type", "")
+        val g2 = elements[1].optString("element_group", "")
+        val n2 = elements[1].optInt("element_atomic_number", 0)
+
+        val differences = mutableListOf<String>()
+        
+        if (p1 != p2) differences.add(ctx.getString(R.string.ai_difference_phase, ctx.getString(R.string.show_stp_phase).replace(":",""), e1, p1, e2, p2))
+        if (t1 != t2) differences.add(ctx.getString(R.string.ai_difference_type, ctx.getString(R.string.type_label).replace(":",""), e1, t1, e2, t2))
+        if (g1 != g2) differences.add(ctx.getString(R.string.ai_difference_group, ctx.getString(R.string.element_groups).replace(":",""), e1, g1, e2, g2))
+        
+        val massDiff = Math.abs(elements[0].optDouble("element_atomicmass", 0.0) - elements[1].optDouble("element_atomicmass", 0.0))
+        if (massDiff > 10.0) {
+            val heavier = if (n1 > n2) e1 else e2
+            differences.add(ctx.getString(R.string.ai_difference_mass, ctx.getString(R.string.atomic_weight).replace(":",""), heavier))
+        }
+
+        return if (differences.isNotEmpty()) {
+            val title = ctx.getString(R.string.ai_comparing_title, listOf(e1, e2).joinToString(ctx.getString(R.string.ai_comparison_vs)))
+            title + "\n\n" + differences.joinToString("\n")
+        } else {
+            ctx.getString(R.string.ai_difference_similar, e1, e2, p1, t1, g1)
+        }
+    }
+
+    private fun isSimilarityQuery(query: String): Boolean {
+        val keywords = listOf(
+            "similar", "like", "related", "equivalent", "analogy",
+            "liknar", "liknande", "ähnlich", "verwandt",
+            "similaire", "proche", "pareil", "similar", "parecido",
+            "somigliante", "simile", "simili", "semelhante", "igual",
+            "समान", "जैसा", "मिलता-जुलता", "ek jaisa", "muqabla",
+            "相似", "类似", "xiangsi", "leishi", "soortgelyk", "katulad", "pareho"
+        )
+        return keywords.any { query.contains(it) } && (currentElement != null || findElementByQuery(query) != null)
+    }
+
+    private fun handleSimilarityQuery(query: String): String {
+        val target = currentElement
+        val ctx = localizedContext ?: context!!
+        val element = findElementByQuery(query) ?: (if (target != null) elementData?.optJSONObject(target.lowercase()) else null)
+            ?: return ctx.getString(R.string.ai_similarity_no_element)
+        
+        val name = element.optString("element", "")
+        val group = element.optString("element_group", "")
+        val groupNum = element.optString("element_group_number", "")
+        
+        val similar = mutableListOf<String>()
+        val data = elementData ?: return "---"
+        val keys = data.keys()
+        while (keys.hasNext()) {
+            val key = keys.next()
+            val el = data.optJSONObject(key) ?: continue
+            if (el.optString("element") == name) continue
+            
+            if (el.optString("element_group_number") == groupNum && groupNum != "---") {
+                similar.add(el.optString("element"))
+            }
+        }
+
+        return if (similar.isNotEmpty()) {
+            ctx.getString(R.string.ai_similarity_result_header, name, group) + similar.joinToString(", ") + ctx.getString(R.string.ai_similarity_result_footer)
+        } else {
+            ctx.getString(R.string.ai_similarity_generic, name, group)
+        }
+    }
+
+    private fun isUsageQuery(query: String): Boolean {
+        val keywords = listOf(
+            "use", "used", "application", "where to find", "function", "utility", "industry", "medicine",
+            "används", "nytta", "funktion", "verwendung", "nutzen", "industrie", "medizin",
+            "utilisation", "usage", "industrie", "médecine",
+            "uso", "utilidad", "industria", "medicina",
+            "uso", "impiego", "utilidade", "indústria",
+            "उपयोग", "प्रयोग", "काम", "istimal",
+            "用途", "应用", "使用", "yongtu", "yingyong", "shiyong", "gebruik", "gamit", "paggamit"
+        )
+        return hasKeyword(query, keywords) && 
+               (query.contains("what") || query.contains("how") || query.contains("vad") || query.contains("hur") || 
+                query.contains("was") || query.contains("wie") || query.contains("quel") || query.contains("comment") || 
+                query.contains("qué") || query.contains("cómo") || query.contains("cosa") || query.contains("come") ||
+                query.contains("क्या") || query.contains("कैसे") || 
+                query.contains("什么") || query.contains("shenme") || query.contains("kya") || query.contains("kaise") || query.contains("ano") || query.contains("paano"))
+    }
+
+    private fun handleUsageQuery(elementKey: String): String {
+        val element = elementData?.optJSONObject(elementKey.lowercase()) ?: return AIPersonality.getNoDataResponse(context!!, activeLanguage, "")
+        val elementName = element.optString("element", "---")
+        val desc = element.optString("description", "")
+        val ctx = localizedContext ?: context!!
+        
+        // Find sentences about usages
+        val sentences = desc.split(".", "!", "?")
+        val usageSentences = sentences.filter { s ->
+            s.contains("use", ignoreCase = true) || s.contains("industry", ignoreCase = true) || s.contains("medicine", ignoreCase = true) || s.contains("application", ignoreCase = true) || s.contains("important", ignoreCase = true) || s.contains("användning", ignoreCase = true) || s.contains("viktig", ignoreCase = true)
+        }
+
+        return if (usageSentences.isNotEmpty()) {
+            ctx.getString(R.string.ai_usage_header, elementName) + "\n\n" + usageSentences.joinToString(". ").trim() + "."
+        } else {
+            ctx.getString(R.string.ai_no_usage_data, elementName)
+        }
+    }
+
+    private fun isAbundanceQuery(query: String): Boolean {
+        val keywords = listOf(
+            "abundance", "common", "rare", "find", "found", "crust", "universe", "ocean", "sun", "solar", "body", "earth",
+            "förekomst", "vanlig", "sällsynt", "vorkommen", "häufig", "selten", "erdoberfläche", "weltall",
+            "abondance", "commun", "rare", "trouver", "croûte", "univers",
+            "abundancia", "común", "raro", "encontrar", "corteza", "universo",
+            "abbondanza", "comune", "raro", "trovare", "crosta", "universo",
+            "abundância", "comum", "raro", "encontrar", "crosta", "universo",
+            "प्रचुरता", "सामान्य", "दुर्लभ", "मिलता", "पाया", "ब्रह्मांड",
+            "丰度", "常见", "稀o", "发现", "地壳", "宇宙", "fengdu", "changjian", "xiyou", "fazhan", "dike", "yuzhou",
+            "kashrat", "aam", "nadir", "milta", "paaya", "kainat", "hoeveelheid", "kasaganaan"
+        )
+        return hasKeyword(query, keywords) && 
+               (query.contains("how") || query.contains("where") || query.contains("what") || query.contains("hur") || query.contains("var") || query.contains("vad") || 
+                query.contains("wie") || query.contains("wo") || query.contains("was") || query.contains("où") || query.contains("dónde") || 
+                query.contains("dove") || query.contains("onde") ||
+                query.contains("कहाँ") || query.contains("कहां") || query.contains("कितna") || query.contains("kahan") || query.contains("kitna") || 
+                query.contains("哪里") || query.contains("nali") || query.contains("waar") || query.contains("saan") || query.contains("gaano"))
+    }
+
+    private fun handleAbundanceQuery(elementKey: String): String {
+        val element = elementData?.optJSONObject(elementKey.lowercase()) ?: return AIPersonality.getNoDataResponse(context!!, activeLanguage, "")
+        val elementName = element.optString("element", "---")
+        val ctx = localizedContext ?: context!!
+        
+        val crust = element.optString("earth_crust", "---")
+        val sea = element.optString("sea_water", "---")
+        val sun = element.optString("sun", "---")
+        val universe = element.optString("solar_system", "---")
+        
+        val lines = mutableListOf<String>()
+        if (crust != "---") lines.add("• **${ctx.getString(R.string.abundance_earth_crust)}**: $crust mg/kg")
+        if (sea != "---") lines.add("• **${ctx.getString(R.string.abundance_sea_water)}**: $sea mg/L")
+        if (sun != "---") lines.add("• **${ctx.getString(R.string.abundance_sun)}**: $sun ${ctx.getString(R.string.ai_abundance_relative)}")
+        if (universe != "---") lines.add("• **${ctx.getString(R.string.abundance_solar_system)}**: $universe ${ctx.getString(R.string.ai_abundance_relative)}")
+
+        return if (lines.isNotEmpty()) {
+            ctx.getString(R.string.ai_abundance_header, elementName) + "\n\n" + lines.joinToString("\n")
+        } else {
+            val shortDesc = element.optString("description").split(".").firstOrNull() ?: ""
+            ctx.getString(R.string.ai_no_abundance_data, elementName, shortDesc)
+        }
+    }
+
+    private fun isPhysicalPropertyQuery(query: String): Boolean {
+        val keywords = listOf(
+            "thermal", "mechanical", "magnetic", "electrical", "conduct", "resistivity", "hardness", "modulus", "expansion",
+            "värme", "hårdhet", "ledförmåga", "thermisch", "mechanisch", "magnetisch", "elektrisch", "leitfähigkeit", "härte",
+            "thermique", "mécanique", "magnétique", "électrique", "conductivité", "dureté",
+            "térmico", "mecánico", "magnético", "eléctrico", "conductividad", "dureza",
+            "termico", "meccanico", "magnetico", "elettrico", "conducibilità", "durezza",
+            "termico", "mecânico", "magnético", "elétrico", "condutividade", "dureza",
+            "तापीय", "यांत्रिक", "चुंबकीय", "विद्युत", "चालकता", "कठोरता",
+            "热", "力学", "磁", "电", "导电", "硬度", "re", "lixue", "ci", "dian", "daodian", "yingdu",
+            "hararati", "maqnatisi", "barqi", "sakhti", "termiese", "katigasan"
+        )
+        return hasKeyword(query, keywords)
+    }
+
+    private fun handlePhysicalPropertyQuery(elementKey: String): String {
+        val element = elementData?.optJSONObject(elementKey.lowercase()) ?: return AIPersonality.getNoDataResponse(context!!, activeLanguage, "")
+        val elementName = element.optString("element", "Element")
+        val ctx = localizedContext ?: context!!
+        val lines = mutableListOf<String>()
+        
+        // Thermal
+        val tc = element.optString("element_thermal_conductivity", "---")
+        val fh = element.optString("element_fusion_heat", "---")
+        if (tc != "---") lines.add("• ${ctx.getString(R.string.thermal_conductivity_colon).replace(":","")}: $tc W/(m·K)")
+        if (fh != "---") lines.add("• ${ctx.getString(R.string.fusion_heat_colon).replace(":","")}: $fh kJ/mol")
+        
+        // Mechanical
+        val mohs = element.optString("mohs_hardness", "---")
+        val ym = element.optString("young_modulus", "---")
+        if (mohs != "---") lines.add("• ${ctx.getString(R.string.mohs_hardness_colon).replace(":","")}: $mohs")
+        if (ym != "---") lines.add("• ${ctx.getString(R.string.element_young_modulus).replace(":","")}: $ym GPa")
+        
+        // Electromagnetic
+        val et = element.optString("electrical_type", "---")
+        val mt = element.optString("magnetic_type", "---")
+        if (et != "---") lines.add("• ${ctx.getString(R.string.electrical_type_colon).replace(":","")}: $et")
+        if (mt != "---") lines.add("• ${ctx.getString(R.string.magnetic_type_colon).replace(":","")}: $mt")
+
+        return if (lines.isNotEmpty()) {
+            ctx.getString(R.string.ai_physical_header, elementName) + "\n\n" + lines.joinToString("\n")
+        } else {
+            ctx.getString(R.string.ai_no_physical_data, elementName)
+        }
+    }
+
+    private fun isIsotopeQuery(query: String): Boolean {
+        val keywords = listOf(
+            "isotope", "half-life", "stable", "decay", "radiation",
+            "isotop", "halveringstid", "stabil", "sönderfall", "strahlung",
+            "isotoop", "halbwertszeit", "zerfall", "strahlung",
+            "isotope", "demi-vie", "stable", "désintégration", "rayonnement",
+            "isótopo", "vida media", "estable", "desintegración", "radiación",
+            "isotopo", "emivita", "stabile", "decadimento", "radiazione",
+            "isótopo", "meia-vida", "estável", "decaimento", "radiação",
+            "समस्थानिक", "अर्ध-आयु", "स्थिर", "क्षय", "विकिरण",
+            "同位素", "半衰期", "稳定", "衰变", "辐射", "tongweisu", "banshuaiqi", "wending", "shuaibian", "fushe",
+            "humsaja", "aadha dor", "mustahkam", "isotoop"
+        )
+        return keywords.any { query.contains(it) }
+    }
+
+    private fun handleIsotopeQuery(elementKey: String): String {
+        val element = elementData?.optJSONObject(elementKey.lowercase()) ?: return AIPersonality.getNoDataResponse(context!!, activeLanguage, "")
+        val elementName = element.optString("element", "---")
+        val ctx = localizedContext ?: context!!
+        val isotopes = mutableListOf<String>()
+        // Iterate through all possible isotopes (JSON has up to ~45 for some elements)
+        for (i in 1..100) {
+            val name = element.optString("iso_$i", "---")
+            if (name != "---" && name.isNotEmpty()) {
+                val halfLife = element.optString("iso_half_$i", "---")
+                val decay = element.optString("decay_type_$i", "---")
+                val decayText = ctx.getString(R.string.ai_isotope_decay, decay)
+                isotopes.add("• **$name**: ${ctx.getString(R.string.iso_half_life_colon)} $halfLife $decayText")
+            } else if (i > 7) {
+                // If we hit a gap after the first 7, assume we're done
+                break
+            }
+        }
+
+        return if (isotopes.isNotEmpty()) {
+            ctx.getString(R.string.ai_isotope_header, elementName) + "\n\n" + isotopes.joinToString("\n")
+        } else {
+            ctx.getString(R.string.ai_no_isotope_data, elementName)
+        }
+    }
+
+    private fun isBiologicalQuery(query: String): Boolean {
+        val keywords = listOf(
+            "body", "blood", "health", "toxic", "poison", "biological", "medicine", "essential", "diet", "nutrition",
+            "kropp", "hälsa", "giftig", "biologisk", "körper", "blut", "gesundheit", "medizin",
+            "corps", "sang", "santé", "toxique", "biologique", "médecine", "essentiel",
+            "cuerpo", "sangre", "salud", "tóxico", "biológico", "medicina", "esencial",
+            "corpo", "sangue", "salute", "tossico", "biologico", "medicina", "essenziale",
+            "corpo", "sangue", "saúde", "tóxico", "biológico", "medicina", "essencial",
+            "शरीर", "रक्त", "स्वास्थ्य", "जहरीला", "जैविक", "दवा",
+            "身体", "血液", "健康", "毒", "生物", "医学", "shenti", "xueye", "jiankang", "du", "shengwu", "yixue",
+            "jism", "khoon", "sehat", "zeher", "biologiese", "kalusugan", "katawan", "dugo"
+        )
+        return hasKeyword(query, keywords)
+    }
+
+    private fun handleBiologicalQuery(elementName: String): String {
+        val element = elementData?.optJSONObject(elementName.lowercase()) ?: return AIPersonality.getNoDataResponse(context!!, activeLanguage, "")
+        val desc = element.optString("description", "")
+        val ctx = localizedContext ?: context!!
+        
+        // Use heuristics to find biological info in description
+        val sentences = desc.split(".", "!", "?")
+        val bioSentences = sentences.filter { s ->
+            isBiologicalQuery(s.lowercase()) || s.contains("living", ignoreCase = true) || s.contains("organism", ignoreCase = true) || s.contains("role", ignoreCase = true) || s.contains("body", ignoreCase = true)
+        }
+
+        return if (bioSentences.isNotEmpty()) {
+            ctx.getString(R.string.ai_bio_role_header, elementName) + "\n\n" + bioSentences.joinToString(". ").trim() + "."
+        } else {
+            ctx.getString(R.string.ai_no_bio_data, elementName) + " " + handleSafetyQuery(elementName)
+        }
+    }
+
+    private fun isEtymologyQuery(query: String): Boolean {
+        val keywords = listOf(
+            "name", "called", "named", "origin", "etymology", "greek", "latin", "word", "meaning",
+            "namn", "ursprung", "betydelse", "name", "herkunft", "etymologie", "griechisch", "latein", "wort", "bedeutung",
+            "nom", "origine", "étymologie", "grec", "latin", "mot", "signification",
+            "nombre", "origen", "etimología", "griego", "latín", "palabra", "significado",
+            "nome", "origine", "etimologia", "greco", "latino", "parola", "significato",
+            "nome", "origem", "etimologia", "grego", "latim", "palavra", "significado",
+            "नाम", "उत्पत्ति", "व्युत्पत्ति", "यूनानी", "लैटिन", "शब्द", "अर्थ",
+            "名字", "叫", "起源", "语源", "希腊", "拉丁", "词", "意思", "mingzi", "jiao", "qiyuan", "yuyuan", "xila", "lading", "ci", "yisi",
+            "naam", "kaha jata", "asl", "itimaloji", "naam", "pangalan", "pinagmulan", "kahulugan"
+        )
+        return hasKeyword(query, keywords) && 
+               (query.contains("why") || query.contains("how") || query.contains("where") || query.contains("hur") || query.contains("varför") || 
+                query.contains("warum") || query.contains("wie") || query.contains("wo") || query.contains("pourquoi") || query.contains("comment") || 
+                query.contains("por qué") || query.contains("cómo") || query.contains("क्यों") || query.contains("कैसे") || 
+                query.contains("为什么") || query.contains("weishenme") || query.contains("kyun") || query.contains("kaise") || query.contains("hoekom") || query.contains("bakit") || query.contains("paano"))
+    }
+
+    private fun handleEtymologyQuery(elementName: String): String {
+        val ctx = localizedContext ?: context!!
+        val element = elementData?.optJSONObject(elementName.lowercase()) ?: return AIPersonality.getNoDataResponse(ctx, activeLanguage, "")
+        val desc = element.optString("description", "")
+        
+        // Find sentences about naming
+        val sentences = desc.split(".", "!", "?")
+        val namingSentences = sentences.filter { s ->
+            s.contains("name", ignoreCase = true) || s.contains("greek", ignoreCase = true) || s.contains("latin", ignoreCase = true) || s.contains("word", ignoreCase = true) || s.contains("from", ignoreCase = true) || s.contains("namn", ignoreCase = true) || s.contains("grek", ignoreCase = true) || s.contains("latin", ignoreCase = true) || s.contains("ord", ignoreCase = true)
+        }
+
+        return if (namingSentences.isNotEmpty()) {
+            ctx.getString(R.string.ai_etymology_header, elementName) + "\n\n" + namingSentences.joinToString(". ").trim() + "."
+        } else {
+            val discoverer = element.optString("element_discovered_name")
+            val year = element.optString("element_year")
+            ctx.getString(R.string.ai_no_etymology_data, elementName, discoverer, year)
+        }
+    }
+
+    private fun isConceptQuery(query: String): Boolean {
+        val keywords = listOf(
+            "what is", "define", "explain", "meaning of", "describe", "tell me about",
+            "vad är", "definiera", "förklara", "was ist", "definieren", "erklären",
+            "c\'est quoi", "définir", "expliquer", "qué es", "definir", "explicar",
+            "cos\'è", "che cosa è", "cos è", "o que é", "o que e",
+            "क्या है", "परिभाषा", "समझाएं",
+            "什么是", "定义", "解释", "shenme shi", "dingyi", "jieshi",
+            "kya hai", "wazahat", "bayan", "wat is", "ano ang"
+        )
+        val concepts = listOf(
+            "radioactivity", "isotope", "period", "group", "shell", "orbital", "valence", "proton", "neutron", "electron", 
+            "electronegativity", "ionization", "density", "mass", "radioaktiv", "isotop", "skal", "valens", "elektron", "atomnummer",
+            "radioactivité", "électronégativité", "ionisation", "électron", "proton", "neutron", "période", "groupe",
+            "radioattività", "elettronegatività", "ionizzazione", "elettrone", "protone", "neutrone", "periodo", "gruppo",
+            "radioactividad", "electronegatividad", "ionización", "electrón", "protón", "neutrón", "periodo", "grupo",
+            "radioatividade", "eletronegatividade", "ionização", "elétron", "próton", "nêutron", "período", "grupo",
+            "radioaktivität", "elektronegativität", "ionisierung", "elektron", "proton", "neutron", "periode", "gruppe",
+            "radyaktibidad", "isotopo", "proton", "elektron", "neutron", "masa", "densidad"
+        )
+        return keywords.any { query.contains(it) } || (query.split(" ").size < 4 && concepts.any { query.contains(it) })
+    }
+
+    private fun isPropertyOnlyQuery(query: String): Boolean {
+        return query.length < 25 && hasKeyword(query, propertyKeywords)
+    }
+
+    private fun handleConceptQuery(query: String): String {
+        val lower = query.lowercase()
+        val ctx = localizedContext ?: context!!
+        
+        return when {
+            lower.contains("isotope") || lower.contains("isotop") -> ctx.getString(R.string.ai_concept_isotope)
+            lower.contains("electronegativity") || lower.contains("elektronegativitet") -> ctx.getString(R.string.ai_concept_electronegativity)
+            lower.contains("ionization") || lower.contains("jonisering") -> ctx.getString(R.string.ai_concept_ionization)
+            lower.contains("radioactiv") || lower.contains("radioaktiv") -> ctx.getString(R.string.ai_concept_radioactivity)
+            lower.contains("valence") || lower.contains("valens") -> ctx.getString(R.string.ai_concept_valence)
+            lower.contains("shell") || lower.contains("skal") -> ctx.getString(R.string.ai_concept_shell)
+            lower.contains("orbital") -> ctx.getString(R.string.ai_concept_orbital)
+            lower.contains("proton") -> ctx.getString(R.string.ai_concept_proton)
+            lower.contains("neutron") -> ctx.getString(R.string.ai_concept_neutron)
+            lower.contains("electron") || lower.contains("elektron") -> ctx.getString(R.string.ai_concept_electron)
+            lower.contains("atomic number") || lower.contains("atomnummer") -> ctx.getString(R.string.ai_concept_atomic_number)
+            lower.contains("period") -> ctx.getString(R.string.ai_concept_period)
+            lower.contains("group") || lower.contains("grupp") -> ctx.getString(R.string.ai_concept_group)
+            else -> ctx.getString(R.string.ai_concept_generic)
+        }
+    }
+
+    private fun isHelpQuery(query: String): Boolean {
+        val keywords = listOf(
+            "help", "what can you do", "commands", "how to use", "options", 
+            "hjälp", "vad kan du göra", "hilfe", "was kannst du tun",
+            "aide", "que peux-tu faire", "ayuda", "qué puedes hacer",
+            "मदद", "सहायता", "तुम क्या कर सकते हो",
+            "帮助", "你能做什么", "bangzhu", "madad", "hulp"
+        )
+        return keywords.any { query.contains(it) }
+    }
+
+    private fun handleHelpQuery(): String {
+        val ctx = localizedContext ?: context!!
+        return ctx.getString(R.string.ai_help_response)
+    }
+
+    private fun compareReactivity(elements: List<JSONObject>): String {
+        val ctx = localizedContext ?: context!!
+        if (elements.size < 2) return ctx.getString(R.string.ai_reactivity_need_two)
+        
+        val e1 = elements[0].optString("element", "")
+        val g1 = elements[0].optString("element_group", "")
+        val n1 = elements[0].optInt("element_atomic_number", 0)
+        
+        val e2 = elements[1].optString("element", "")
+        val g2 = elements[1].optString("element_group", "")
+        val n2 = elements[1].optInt("element_atomic_number", 0)
+
+        // Heuristics for reactivity
+        fun getReactivityScore(group: String, number: Int, name: String): Int {
+            if (name.lowercase() == "fluorine") return 200 // The king of reactivity
+            if (name.lowercase() == "cesium" || name.lowercase() == "francium") return 190
+
+            return when (group) {
+                "Alkali Metal" -> 100 + number // Increases down the group
+                "Alkaline Earth Metal" -> 80 + number
+                "Halogen" -> 100 - number // Decreases down the group
+                "Noble Gas" -> 0
+                else -> 50
+            }
+        }
+
+        val s1 = getReactivityScore(g1, n1, e1)
+        val s2 = getReactivityScore(g2, n2, e2)
+
+        return when {
+            s1 > s2 -> ctx.getString(R.string.ai_reactivity_more, e1, e2)
+            s2 > s1 -> ctx.getString(R.string.ai_reactivity_more, e2, e1)
+            else -> ctx.getString(R.string.ai_reactivity_similar, e1, e2)
         }
     }
     
@@ -933,13 +2131,14 @@ class AIAgentManager(private val context: Context?) {
         return null
     }
     
-    private fun handleElementContextQuery(query: String, elementName: String): String {
+    private fun handleElementContextQuery(query: String, elementKey: String): String {
         val ctx = localizedContext ?: context!!
         return try {
-            val element = elementData?.optJSONObject(elementName.lowercase()) ?: return AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
+            val element = elementData?.optJSONObject(elementKey.lowercase()) ?: return AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
             val lowerQuery = query.lowercase()
+            val elementName = element.optString("element", "Element")
             
-            val response = when {
+            val response: String = when {
                 // Basic properties
                 hasKeyword(lowerQuery, listOf("atomic number", "proton", "number", "atomnummer", "atomnummeret", "ordnungszahl", "número atómico", "numéro atomique", "numbro")) || matchLabel(lowerQuery, R.string.atomic_number_label) -> {
                     val prop = "atomic number"
@@ -1015,7 +2214,7 @@ class AIAgentManager(private val context: Context?) {
                 }
                 
                 // Electron configuration and structure
-                hasKeyword(lowerQuery, listOf("electron", "shell", "orbital", "config", "elektron", "schale", "électron", "couche")) || matchLabel(lowerQuery, R.string.electron_configuration_colon) -> {
+                hasKeyword(lowerQuery, listOf("electron", "shell", "orbital", "config", "elektron", "schale", "électron", "couche", "órbita", "camada", "elettroni", "guscio", "elektronik", "shakti", "dianzi", "dianceng")) || matchLabel(lowerQuery, R.string.electron_configuration_colon) -> {
                     val prop = "electron configuration"
                     val label = ctx.getString(R.string.electron_configuration_colon).replace(":", "").trim()
                     learningManager?.trackPropertyInterest(prop, isTechnical = true)
@@ -1024,7 +2223,12 @@ class AIAgentManager(private val context: Context?) {
                     val config = element.optString("element_electron_config", "")
                     val shells = element.optString("element_shells_electrons", "")
                     val shellsLabel = ctx.getString(R.string.electron_shell_colon).replace(":", "").trim()
-                    if (lowerQuery.contains("shell") && shells.isNotEmpty()) {
+                    
+                    if (hasKeyword(lowerQuery, listOf("valence", "valens", "outer", "yttersta", "valencia", "valence", "valenza", "valency"))) {
+                        val valenceInfo = getValenceInfo(element, elementName)
+                        if (valenceInfo != null) valenceInfo
+                        else AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, "valence electrons", shells.split(",").last().trim(), isRepeat)
+                    } else if (hasKeyword(lowerQuery, listOf("shell", "schale", "couche", "capa", "camada", "guscio", "skal")) && shells.isNotEmpty()) {
                         AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, shellsLabel, shells, isRepeat)
                     } else {
                         AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, config, isRepeat)
@@ -1032,7 +2236,7 @@ class AIAgentManager(private val context: Context?) {
                 }
                 
                 // Temperature properties
-                hasKeyword(lowerQuery, listOf("boiling", "boil", "kokpunkt", "kokar", "siedepunkt", "kocht", "ebullición", "hierve", "ébullition")) || matchLabel(lowerQuery, R.string.boiling_point_colon) -> {
+                hasKeyword(lowerQuery, listOf("boiling", "boil", "kokpunkt", "kokar", "siedepunkt", "kocht", "ebullición", "hierve", "ébullition", "bollitura", "ferve", " उबाल", "kwento", "fubao", "boiling point")) || matchLabel(lowerQuery, R.string.boiling_point_colon) -> {
                     val prop = "boiling point"
                     val label = ctx.getString(R.string.boiling_point_colon).replace(":", "").trim()
                     learningManager?.trackPropertyInterest(prop, isTechnical = false)
@@ -1041,7 +2245,7 @@ class AIAgentManager(private val context: Context?) {
                     val boiling = element.optString("element_boiling_celsius", "")
                     AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, if (boiling.isNotEmpty()) "$boiling°C" else "", isRepeat)
                 }
-                hasKeyword(lowerQuery, listOf("melting", "melt", "smältpunkt", "smälter", "schmelzpunkt", "schmilzt", "fusión", "derrite", "fusion", "fond")) || matchLabel(lowerQuery, R.string.melting_point_colon) -> {
+                hasKeyword(lowerQuery, listOf("melting", "melt", "smältpunkt", "smälter", "schmelzpunkt", "schmilzt", "fusión", "derrite", "fusion", "fond", "fusione", "derretimento", "pighalna", "tunaw", "ronghua", "melting point")) || matchLabel(lowerQuery, R.string.melting_point_colon) -> {
                     val prop = "melting point"
                     val label = ctx.getString(R.string.melting_point_colon).replace(":", "").trim()
                     learningManager?.trackPropertyInterest(prop, isTechnical = false)
@@ -1062,62 +2266,44 @@ class AIAgentManager(private val context: Context?) {
                     val volume = element.optString("molar_volume", "")
                     var resp = AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, density, isRepeat)
                     if (volume.isNotEmpty() && volume != "---") {
-                        resp += "\n" + AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, "molar volume", volume)
+                        resp += "\n" + AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, ctx.getString(R.string.molar_volume_colon).replace(":",""), volume)
                     }
                     resp
                 }
                 
                 // Mechanical properties
-                hasKeyword(lowerQuery, listOf("modulus", "elastic", "stiff", "strong", "brittle", "malleable", "tough", "poisson", "ratio", "young", "shear", "bulk", "hårdhet", "elastisk")) -> {
+                hasKeyword(lowerQuery, listOf("modulus", "elastic", "stiff", "strong", "brittle", "malleable", "tough", "poisson", "ratio", "young", "shear", "bulk", "hårdhet", "elastisk", "modul", "rigidità", "elastico", "styrka", "duro", "elastico", "modulo", "tenacidade")) -> {
                     val ym = element.optString("young_modulus", "")
                     val sm = element.optString("shear_modulus", "")
                     val bm = element.optString("bulk_modulus", "")
                     val pr = element.optString("poisson_ratio", "")
                     
-                    var mechInfo = ctx.getString(R.string.element_elastic_modulus).replace(":", "").trim() + " for $elementName:"
-                    if (ym.isNotEmpty() && ym != "---") mechInfo += "\n• Young's Modulus: $ym"
-                    if (sm.isNotEmpty() && sm != "---") mechInfo += "\n• Shear Modulus: $sm"
-                    if (bm.isNotEmpty() && bm != "---") mechInfo += "\n• Bulk Modulus: $bm"
-                    if (pr.isNotEmpty() && pr != "---") mechInfo += "\n• Poisson's Ratio: $pr"
+                    var mechInfo = ctx.getString(R.string.ai_mech_header, ctx.getString(R.string.element_elastic_modulus).replace(":", "").trim(), elementName)
+                    if (ym.isNotEmpty() && ym != "---") mechInfo += "\n• ${ctx.getString(R.string.element_young_modulus).replace(":","")}: $ym"
+                    if (sm.isNotEmpty() && sm != "---") mechInfo += "\n• ${ctx.getString(R.string.element_shear_modulus).replace(":","")}: $sm"
+                    if (bm.isNotEmpty() && bm != "---") mechInfo += "\n• ${ctx.getString(R.string.element_bulk_modulus).replace(":","")}: $bm"
+                    if (pr.isNotEmpty() && pr != "---") mechInfo += "\n• ${ctx.getString(R.string.element_poisson_ratio).replace(":","")}: $pr"
                     
                     if (mechInfo.length > 30) mechInfo else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
                 }
 
                 // Hardness
-                hasKeyword(lowerQuery, listOf("hardness", "hard", "soft", "mohs", "vickers", "brinell")) -> {
+                hasKeyword(lowerQuery, listOf("hardness", "hard", "soft", "mohs", "vickers", "brinell", "hårdhet", "hård", "mjuk", "härte", "hart", "weich", "dureté", "dur", "mou", "dureza", "duro", "blando", "durezza", "katigasan", "sakhti", "kathorta", "yingdu")) -> {
                     val mohs = element.optString("mohs_hardness", "")
                     val vick = element.optString("vickers_hardness", "")
                     val brin = element.optString("brinell_hardness", "")
                     
-                    var hardInfo = "Hardness properties of $elementName:"
-                    if (mohs.isNotEmpty() && mohs != "---") hardInfo += "\n• Mohs Hardness: $mohs"
-                    if (vick.isNotEmpty() && vick != "---") hardInfo += "\n• Vickers Hardness: $vick"
-                    if (brin.isNotEmpty() && brin != "---") hardInfo += "\n• Brinell Hardness: $brin"
+                    var hardInfo = ctx.getString(R.string.ai_hard_header, elementName)
+                    if (mohs.isNotEmpty() && mohs != "---") hardInfo += "\n• ${ctx.getString(R.string.mohs_hardness_colon).replace(":","")}: $mohs"
+                    if (vick.isNotEmpty() && vick != "---") hardInfo += "\n• ${ctx.getString(R.string.vickers_hardness_colon).replace(":","")}: $vick"
+                    if (brin.isNotEmpty() && brin != "---") hardInfo += "\n• ${ctx.getString(R.string.brinell_hardness_colon).replace(":","")}: $brin"
                     
                     if (hardInfo.length > 30) hardInfo else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
                 }
 
                 // Abundance
-                hasKeyword(lowerQuery, listOf("abundance", "common", "rare", "find", "found", "where", "ocean", "crust", "universe", "sun", "solar")) -> {
-                    val crust = element.optString("earth_crust", "")
-                    val ocean = element.optString("sea_water", "")
-                    val sun = element.optString("sun", "")
-                    val solar = element.optString("solar_system", "")
-                    
-                    var abInfo = ctx.getString(R.string.abundance_title) + " of $elementName:"
-                    if (crust.isNotEmpty() && crust != "---") abInfo += "\n• " + ctx.getString(R.string.abundance_earth_crust) + ": $crust mg/kg"
-                    if (ocean.isNotEmpty() && ocean != "---") abInfo += "\n• " + ctx.getString(R.string.abundance_sea_water) + ": $ocean mg/L"
-                    if (sun.isNotEmpty() && sun != "---") abInfo += "\n• " + ctx.getString(R.string.abundance_sun) + ": $sun (relative to H=10¹²)"
-                    if (solar.isNotEmpty() && solar != "---") abInfo += "\n• " + ctx.getString(R.string.abundance_solar_system) + ": $solar (relative to H=10¹²)"
-                    
-                    val desc = element.optString("description", "")
-                    if (abInfo.length < 35 && desc.isNotEmpty()) {
-                        "${AIPersonality.getEncouragement(ctx, activeLanguage)} $desc"
-                    } else if (abInfo.length > 35) {
-                        abInfo
-                    } else {
-                        AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                    }
+                hasKeyword(lowerQuery, listOf("abundance", "common", "rare", "find", "found", "where", "ocean", "crust", "universe", "sun", "solar", "förekomst", "vanlig", "sällsynt", "vorkommen", "häufig", "selten", "abondance", "commun", "rare", "abundancia", "común", "raro")) -> {
+                    handleAbundanceQuery(elementKey)
                 }
                 
                 // Advanced Atomic
@@ -1128,13 +2314,22 @@ class AIAgentManager(private val context: Context?) {
                     val sgN = element.optString("space_group_name", "")
                     val sgNum = element.optString("space_group_number", "")
                     
-                    var advInfo = "Advanced properties of $elementName:"
-                    if (ea.isNotEmpty() && ea != "---") advInfo += "\n• Electron Affinity: $ea"
-                    if (wf.isNotEmpty() && wf != "---") advInfo += "\n• Work Function: $wf"
-                    if (ri.isNotEmpty() && ri != "---") advInfo += "\n• Refractive Index: $ri"
-                    if (sgN.isNotEmpty() && sgN != "---") advInfo += "\n• Space Group: $sgN (#$sgNum)"
+                    var advInfo = ctx.getString(R.string.ai_adv_header, elementName)
+                    if (ea.isNotEmpty() && ea != "---") advInfo += "\n• ${ctx.getString(R.string.electron_affinity_colon).replace(":","")}: $ea"
+                    if (wf.isNotEmpty() && wf != "---") advInfo += "\n• ${ctx.getString(R.string.work_function_colon).replace(":","")}: $wf"
+                    if (ri.isNotEmpty() && ri != "---") advInfo += "\n• ${ctx.getString(R.string.refractive_index_colon).replace(":","")}: $ri"
+                    if (sgN.isNotEmpty() && sgN != "---") advInfo += "\n• ${ctx.getString(R.string.space_group_name_colon).replace(":","")}: $sgN (#$sgNum)"
                     
                     if (advInfo.length > 30) advInfo else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
+                }
+
+                // Ionization
+                hasKeyword(lowerQuery, listOf("ionization", "ionisation", "jonisering", "ionización")) -> {
+                    val ie1 = element.optString("element_ionization_energy1", "")
+                    if (ie1.isNotEmpty() && ie1 != "---") {
+                        val label = ctx.getString(R.string.table_ionization).replace(":","").trim()
+                        AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, ie1)
+                    } else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
                 }
                 
                 // Electrochemistry
@@ -1206,14 +2401,6 @@ class AIAgentManager(private val context: Context?) {
                     }
                 }
 
-                // Wikipedia and more info
-                hasKeyword(lowerQuery, listOf("wiki", "more info", "link", "read more", "article", "länk", "läs mer", "artikel")) -> {
-                    val link = element.optString("wikilink", "")
-                    if (link.isNotEmpty()) {
-                        "${AIPersonality.getEncouragement(ctx, activeLanguage)} You can read more about $elementName here: $link"
-                    } else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                }
-
                 // Block
                 hasKeyword(lowerQuery, listOf("block")) || matchLabel(lowerQuery, R.string.block) -> {
                     val block = element.optString("element_block", "")
@@ -1228,44 +2415,30 @@ class AIAgentManager(private val context: Context?) {
                     val group = element.optString("element_group", "")
                     
                     var valenceInfo = when {
-                        group == "Alkali Metal" -> "As an Alkali Metal, it has **1 valence electron** in its outer shell."
-                        group == "Alkaline Earth Metal" -> "As an Alkaline Earth Metal, it has **2 valence electrons**."
-                        group == "Halogen" -> "As a Halogen, it has **7 valence electrons** and is very eager to gain one more!"
+                        group == "Alkali Metal" -> ctx.getString(R.string.ai_valence_alkali)
+                        group == "Alkaline Earth Metal" -> ctx.getString(R.string.ai_valence_alkaline)
+                        group == "Halogen" -> ctx.getString(R.string.ai_valence_halogen)
                         group == "Noble Gas" -> {
-                            if (elementName.lowercase() == "helium") "Helium has **2 valence electrons**, completing its only shell."
-                            else "It has a full outer shell of **8 valence electrons**, making it very stable."
+                            if (elementName.lowercase() == "helium") ctx.getString(R.string.ai_valence_noble_helium)
+                            else ctx.getString(R.string.ai_valence_noble_other)
                         }
                         else -> ""
                     }
 
                     var stateInfo = if (valenceInfo.isNotEmpty()) "$valenceInfo\n\n" else ""
-                    stateInfo += "$elementName has several possible oxidation states."
-                    if (pos.isNotEmpty() && pos != "---") stateInfo += "\n• Positive: $pos"
-                    if (neg.isNotEmpty() && neg != "---") stateInfo += "\n• Negative: $neg"
+                    stateInfo += ctx.getString(R.string.ai_oxidation_states, elementName)
+                    if (pos.isNotEmpty() && pos != "---") stateInfo += "\n" + ctx.getString(R.string.ai_oxidation_pos, pos)
+                    if (neg.isNotEmpty() && neg != "---") stateInfo += "\n" + ctx.getString(R.string.ai_oxidation_neg, neg)
                     
                     val config = element.optString("element_electron_config", "")
-                    if (config.isNotEmpty()) stateInfo += "\n\nIts electron configuration is $config."
+                    if (config.isNotEmpty()) stateInfo += "\n\n" + ctx.getString(R.string.ai_config_is, config)
                     
                     stateInfo
                 }
 
                 // Isotopes
                 hasKeyword(lowerQuery, listOf("isotope", "half-life", "stable")) || matchLabel(lowerQuery, R.string.isotopes_colon) -> {
-                    val iso1 = element.optString("iso_1", "")
-                    val half1 = element.optString("iso_half_1", "")
-                    val type1 = element.optString("decay_type_1", "")
-                    
-                    if (iso1.isNotEmpty() && iso1 != "---") {
-                        var isoResponse = "Common isotopes for $elementName include $iso1."
-                        if (half1.isNotEmpty() && half1 != "---") isoResponse += " It has a half-life of $half1 and decays via $type1."
-                        
-                        val iso2 = element.optString("iso_2", "")
-                        if (iso2.isNotEmpty() && iso2 != "---") isoResponse += " Another isotope is $iso2."
-                        
-                        isoResponse
-                    } else {
-                        "$elementName has various isotopes. You can check the detailed isotope table in the app for a full list!"
-                    }
+                    handleIsotopeQuery(elementKey)
                 }
 
                 // Radius properties
@@ -1275,48 +2448,48 @@ class AIAgentManager(private val context: Context?) {
                     val valC = element.optString("element_covalent_radius", "")
                     val valV = element.optString("element_van_der_waals", "")
                     
-                    var radiusInfo = "Here are the radius details for $elementName:"
-                    if (valE.isNotEmpty() && valE != "---") radiusInfo += "\n• Empirical Atomic Radius: $valE pm"
-                    if (valC.isNotEmpty() && valC != "---") radiusInfo += "\n• Covalent Radius: $valC pm"
-                    if (valV.isNotEmpty() && valV != "---") radiusInfo += "\n• Van der Waals Radius: $valV pm"
+                    var radiusInfo = ctx.getString(R.string.ai_radius_details, elementName)
+                    if (valE.isNotEmpty() && valE != "---") radiusInfo += "\n• ${ctx.getString(R.string.atomic_radius_empirical_colon).replace(":","")}: $valE pm"
+                    if (valC.isNotEmpty() && valC != "---") radiusInfo += "\n• ${ctx.getString(R.string.covalent_radius_colon ?: R.string.element_more_title).replace(":","")}: $valC pm"
+                    if (valV.isNotEmpty() && valV != "---") radiusInfo += "\n• ${ctx.getString(R.string.van_der_waals_radius_colon ?: R.string.element_more_title).replace(":","")}: $valV pm"
                     
                     if (radiusInfo.length > 50) radiusInfo else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
                 }
 
                 // Thermal and Heat
-                hasKeyword(lowerQuery, listOf("heat", "thermal", "conductivity", "fusion", "vaporization", "specific")) || matchLabel(lowerQuery, R.string.thermal_conductivity_colon) -> {
+                hasKeyword(lowerQuery, listOf("heat", "thermal", "conductivity", "fusion", "vaporization", "specific", "värme", "värmekapacitet", "specifik värme", "smältvärme", "ångbildningsvärme", "ledningsförmåga", "wärme", "leitfähigkeit", "calor", "conductividad", "chaleur", "conductivité", "calore", "conducibilità", "conductividade")) || matchLabel(lowerQuery, R.string.thermal_conductivity_colon) -> {
                     val sh = element.optString("element_specific_heat_capacity", "")
                     val fh = element.optString("element_fusion_heat", "")
                     val vh = element.optString("element_vaporization_heat", "")
                     val tc = element.optString("element_thermal_conductivity", "")
                     
-                    var heatInfo = "Thermal properties of $elementName:"
-                    if (sh.isNotEmpty() && sh != "---") heatInfo += "\n• Specific Heat Capacity: $sh J/(g·K)"
-                    if (fh.isNotEmpty() && fh != "---") heatInfo += "\n• Heat of Fusion: $fh kJ/mol"
-                    if (vh.isNotEmpty() && vh != "---") heatInfo += "\n• Heat of Vaporization: $vh kJ/mol"
-                    if (tc.isNotEmpty() && tc != "---") heatInfo += "\n• Thermal Conductivity: $tc W/(m·K)"
+                    var heatInfo = ctx.getString(R.string.ai_thermal_properties, elementName)
+                    if (sh.isNotEmpty() && sh != "---") heatInfo += "\n• ${ctx.getString(R.string.specific_heat_capacity_colon).replace(":","")}: $sh J/(g·K)"
+                    if (fh.isNotEmpty() && fh != "---") heatInfo += "\n• ${ctx.getString(R.string.fusion_heat_colon).replace(":","")}: $fh kJ/mol"
+                    if (vh.isNotEmpty() && vh != "---") heatInfo += "\n• ${ctx.getString(R.string.vaporization_heat_colon).replace(":","")}: $vh kJ/mol"
+                    if (tc.isNotEmpty() && tc != "---") heatInfo += "\n• ${ctx.getString(R.string.thermal_conductivity_colon).replace(":","")}: $tc W/(m·K)"
                     
                     if (heatInfo.length > 40) heatInfo else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
                 }
 
                 // Electrical and Magnetic
-                hasKeyword(lowerQuery, listOf("conductor", "magnetic", "resistivity", "electricity", "superconducting")) || matchLabel(lowerQuery, R.string.electrical_resistivity_colon) -> {
+                hasKeyword(lowerQuery, listOf("conductor", "magnetic", "resistivity", "electricity", "superconducting", "supraledning", "supraledare", "supraledande", "magnetisk", "ledare", "ledningsförmåga", "resistivitet", "elektrisch", "elektrisch", "conducteur", "magnétique", "conductor", "magnético", "condutor", "magnético", "conduttore", "magnetico", "bidu", "chumbakiya", "dian", "ci")) || matchLabel(lowerQuery, R.string.electrical_resistivity_colon) -> {
                     val et = element.optString("electrical_type", "")
                     val mt = element.optString("magnetic_type", "")
                     val sp = element.optString("superconducting_point", "")
                     val res = element.optString("resistivity", "")
                     
-                    var elecInfo = "Electrical & Magnetic properties of $elementName:"
-                    if (et.isNotEmpty() && et != "---") elecInfo += "\n• Electrical Type: $et"
-                    if (mt.isNotEmpty() && mt != "---") elecInfo += "\n• Magnetic Type: $mt"
-                    if (sp.isNotEmpty() && sp != "---") elecInfo += "\n• Superconducting Point: $sp K"
-                    if (res.isNotEmpty() && res != "---") elecInfo += "\n• Resistivity: $res Ω·m"
+                    var elecInfo = ctx.getString(R.string.ai_elec_mag_properties, elementName)
+                    if (et.isNotEmpty() && et != "---") elecInfo += "\n• ${ctx.getString(R.string.electrical_type_colon).replace(":","")}: $et"
+                    if (mt.isNotEmpty() && mt != "---") elecInfo += "\n• ${ctx.getString(R.string.magnetic_type_colon).replace(":","")}: $mt"
+                    if (sp.isNotEmpty() && sp != "---") elecInfo += "\n• ${ctx.getString(R.string.superconducting_point_colon).replace(":","")}: $sp K"
+                    if (res.isNotEmpty() && res != "---") elecInfo += "\n• ${ctx.getString(R.string.electrical_resistivity_colon).replace(":","")}: $res Ω·m"
                     
                     if (elecInfo.length > 50) elecInfo else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
                 }
                 
                 // Crystal Structure
-                hasKeyword(lowerQuery, listOf("crystal", "structure", "lattice", "kristall")) || matchLabel(lowerQuery, R.string.crystal_structure) -> {
+                hasKeyword(lowerQuery, listOf("crystal", "structure", "lattice", "kristall", "kristallstruktur", "structure cristalline", "estructura cristalina", "estrutura cristalina", "struttura cristallina", "kristal", "jingti", "daixu")) || matchLabel(lowerQuery, R.string.crystal_structure) -> {
                     val structure = element.optString("element_crystal_structure", "")
                     val label = ctx.getString(R.string.crystal_structure).trim()
                     AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, structure)
@@ -1339,16 +2512,25 @@ class AIAgentManager(private val context: Context?) {
                 }
                 
                 // Deep-dive or tell me more
-                hasKeyword(lowerQuery, listOf("additional", "extra", "further", "tell me more", "what else", "deep dive", "keep going", "next", "continue", "anything else", "more info")) -> {
+                hasKeyword(lowerQuery, listOf("additional", "extra", "further", "tell me more", "what else", "deep dive", "keep going", "next", "continue", "anything else", "more info", "mer info", "berätta mer", "plus", "mehr", "plus", "más", "mais", "altro", "karagdagan", "aur")) -> {
                     provideNewInformation(element, elementName)
                 }
 
                 // Default overview or summary
                 else -> {
-                    if (lowerQuery.contains("overview") || lowerQuery.contains("tell me about") || lowerQuery.length < 3 || !sharedProperties.contains("overview")) {
-                        provideOverview(element, elementName)
+                    val isOverview = hasKeyword(lowerQuery, overviewKeywords) || lowerQuery.contains("tell me about") || lowerQuery.length < 3 || !sharedProperties.contains("overview")
+                    val isFull = hasKeyword(lowerQuery, fullRequestKeywords)
+                    
+                    if (isOverview || isFull) {
+                        provideOverview(element, elementName, isFull)
                     } else {
-                        provideNewInformation(element, elementName)
+                        // If user is just asking for "more" or something generic, give new info
+                        if (isAffirmative(lowerQuery) || hasKeyword(lowerQuery, listOf("more", "further", "additional", "mer", "vidare", "plus", "annat", "other", "mehr", "más", "mais", "altro"))) {
+                            provideNewInformation(element, elementName)
+                        } else {
+                            // Otherwise, tell them we don't have that specific data
+                            AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
+                        }
                     }
                 }
             }
@@ -1358,101 +2540,127 @@ class AIAgentManager(private val context: Context?) {
         }
     }
 
-    private fun provideOverview(element: JSONObject, elementName: String): String {
+    private fun provideOverview(element: JSONObject, elementName: String, isFull: Boolean = false): String {
         val symbol = element.optString("short", "")
         val atomicNum = element.optString("element_atomic_number", "")
         val type = element.optString("element_type", "")
-        val group = element.optString("element_group", "")
-        val discoverer = element.optString("element_discovered_name", "")
-        val year = element.optString("element_year", "")
+        val mass = element.optString("element_atomicmass", "")
+        val phase = element.optString("element_phase", "")
         val description = element.optString("description", "")
-        val appearance = element.optString("element_appearance", "")
-        val protons = element.optString("element_protons", "")
-        val neutrons = element.optString("element_neutron_common", "")
-        val electrons = element.optString("element_electrons", "")
         val ctx = localizedContext ?: context!!
 
-        return if (!sharedProperties.contains("overview")) {
-            // First time getting a generic overview for this element
-            sharedProperties.add("overview")
-            sharedProperties.add("symbol")
-            sharedProperties.add("atomic number")
-            sharedProperties.add("category")
-            sharedProperties.add("history")
-            sharedProperties.add("appearance")
-            sharedProperties.add("protons")
-            sharedProperties.add("neutrons")
-            sharedProperties.add("electrons")
+        val sections = mutableListOf<Pair<Int, String>>()
 
-            val discoveryInfo = when {
-                discoverer.isNotEmpty() && year.isNotEmpty() ->
-                    ctx.getString(R.string.ai_discovered_by, elementName, discoverer, year)
-                year.isNotEmpty() ->
-                    ctx.getString(R.string.ai_discovered_in, elementName, year)
-                discoverer.isNotEmpty() -> {
-                    val label = ctx.getString(R.string.discovered_by_colon).replace(":", "").trim()
-                    "$elementName $label $discoverer."
-                }
-                else -> ""
-            }
+        // 1. Basic Facts (Always included first)
+        val basicFacts = StringBuilder()
+        basicFacts.append("• **${ctx.getString(R.string.atomic_number_label).replace(":","")}**: $atomicNum\n")
+        if (symbol.isNotEmpty()) basicFacts.append("• **${ctx.getString(R.string.element_symbols)}**: $symbol\n")
+        if (mass.isNotEmpty() && mass != "---") basicFacts.append("• **${ctx.getString(R.string.atomic_mass_colon).replace(":","")}**: $mass\n")
+        if (phase.isNotEmpty() && phase != "---") basicFacts.append("• **${ctx.getString(R.string.phase_stp_colon).replace(":","")}**: $phase\n")
+        if (type.isNotEmpty() && type != "---") basicFacts.append("• **${ctx.getString(R.string.type_label).replace(":","")}**: $type")
+        sections.add(R.string.ai_rich_overview_basic_facts to basicFacts.toString())
 
-            var response = AIPersonality.formatElementOverview(
-                ctx,
-                activeLanguage,
-                elementName,
-                symbol,
-                atomicNum,
-                type,
-                group,
-                appearance,
-                discoveryInfo,
-                description,
-                protons,
-                neutrons,
-                electrons
-            )
+        // 2. Extra Sections Pool
+        val sentences = description.split(Regex("(?<=[.!?])\\s+"))
+        val extraPool = mutableListOf<Pair<Int, String>>()
+        
+        // --- Where Found / Abundance ---
+        val foundInfo = StringBuilder()
+        val crust = element.optString("earth_crust", "---")
+        if (crust != "---") foundInfo.append("• **${ctx.getString(R.string.abundance_earth_crust)}**: $crust mg/kg\n")
+        val foundSentences = sentences.filter { s ->
+            sectionKeywords["abundance"]?.any { s.contains(it, true) } == true
+        }
+        if (foundSentences.isNotEmpty()) foundInfo.append("• ${foundSentences.first()}")
+        if (foundInfo.isNotEmpty()) extraPool.add(R.string.ai_rich_overview_where_found to foundInfo.toString())
 
-            // AI learns to provide more detail if user shows technical interest
-            if (learningManager?.isTechnicalPreferred() == true) {
-                val weight = element.optString("element_atomicmass", "")
-                if (weight.isNotEmpty() && weight != "---") {
-                    response += "\n\n" + ctx.getString(R.string.ai_technical_mass, weight)
-                }
-                val configuration = element.optString("element_electron_config", "")
-                if (configuration.isNotEmpty() && configuration != "---") {
-                    response += "\n" + ctx.getString(R.string.ai_technical_config, configuration)
-                }
-                val density = element.optString("element_density", "")
-                if (density.isNotEmpty() && density != "---") {
-                    response += "\n• Density: $density"
-                }
-                val block = element.optString("element_block", "")
-                if (block.isNotEmpty() && block != "---") {
-                    response += "\n• Block: $block"
-                }
-            }
-            response
-        } else {
-            // We've already shared the overview, give a lighter summary or a new fact
-            val summaryData = mutableMapOf<String, String>()
-            if (symbol.isNotEmpty()) summaryData["symbol"] = symbol
-            if (atomicNum.isNotEmpty()) summaryData["atomic number"] = atomicNum
-            if (type.isNotEmpty()) summaryData["category"] = type
-            
-            val melting = element.optString("element_melting_celsius", "")
-            if (melting.isNotEmpty() && melting != "---") summaryData["melting point"] = "$melting°C"
-            
-            val boiling = element.optString("element_boiling_celsius", "")
-            if (boiling.isNotEmpty() && boiling != "---") summaryData["boiling point"] = "$boiling°C"
+        // --- Applications ---
+        val appSentences = sentences.filter { s ->
+            sectionKeywords["usage"]?.any { s.contains(it, true) } == true
+        }
+        if (appSentences.isNotEmpty()) extraPool.add(R.string.ai_rich_overview_applications to "• ${appSentences.take(if (isFull) 4 else 2).joinToString("\n• ")}")
 
-            if (summaryData.size > 2) {
-                AIPersonality.formatComprehensiveResponse(ctx, activeLanguage, elementName, summaryData)
-            } else if (description.isNotEmpty()) {
-                "${AIPersonality.getEncouragement(ctx, activeLanguage)} $description"
-            } else {
-                provideNewInformation(element, elementName)
+        // --- Safety & Hazards ---
+        val health = element.optInt("health", -1)
+        val flame = element.optInt("flammability", -1)
+        if (health != -1 || flame != -1) {
+            val safetyInfo = StringBuilder()
+            if (health != -1) safetyInfo.append("• **Health**: $health/4 (${getNFPAHealthDesc(health)})\n")
+            if (flame != -1) safetyInfo.append("• **Flammability**: $flame/4")
+            extraPool.add(R.string.ai_rich_overview_safety to safetyInfo.toString().trim())
+        }
+
+        // --- Advanced Atomic Data ---
+        val ea = element.optString("electron_affinity", "---")
+        val wf = element.optString("work_function", "---")
+        val configuration = element.optString("element_electron_config", "---")
+        if (ea != "---" || configuration != "---") {
+            val advInfo = StringBuilder()
+            if (configuration != "---") advInfo.append("• **Config**: $configuration\n")
+            if (ea != "---") advInfo.append("• **Electron Affinity**: $ea")
+            extraPool.add(R.string.ai_rich_overview_advanced to advInfo.toString().trim())
+        }
+
+        // --- Origin & History ---
+        val etySentences = sentences.filter { s ->
+            sectionKeywords["history"]?.any { s.contains(it, true) } == true
+        }
+        if (etySentences.isNotEmpty()) extraPool.add(R.string.ai_rich_overview_etymology to "• ${etySentences.first()}")
+
+        // --- Biological Role ---
+        val bioSentences = sentences.filter { s ->
+            sectionKeywords["biological"]?.any { s.contains(it, true) } == true
+        }
+        if (bioSentences.isNotEmpty()) extraPool.add(R.string.ai_rich_overview_biological to "• ${bioSentences.first()}")
+
+        // --- Common Compounds ---
+        val formulaRegex = Regex("\\b[A-Z][a-z]?\\d*[A-Z][a-z]?\\d*\\b")
+        val compounds = formulaRegex.findAll(description).map { it.value }.distinct().filter { it.length > 2 }.toList()
+        if (compounds.isNotEmpty()) {
+            extraPool.add(R.string.ai_rich_overview_compounds to "• ${compounds.take(if (isFull) 10 else 5).joinToString(", ")}")
+        }
+        
+        // --- Notable Isotopes (Pick up to 3 or 5 if full) ---
+        val isotopes = mutableListOf<String>()
+        val numIsotopes = if (isFull) 5 else 3
+        for (i in 1..numIsotopes) {
+            val isoName = element.optString("iso_$i", "---")
+            if (isoName != "---" && isoName.isNotEmpty()) {
+                val halfLife = element.optString("iso_half_$i", "")
+                isotopes.add("• **$isoName** ($halfLife)")
             }
         }
+        if (isotopes.isNotEmpty()) {
+            extraPool.add(R.string.ai_rich_overview_isotopes to isotopes.joinToString("\n"))
+        }
+
+        // Pick 3-5 extra sections randomly, or include all if isFull is true
+        if (isFull) {
+            sections.addAll(extraPool)
+        } else {
+            // If we've already given an overview before, try to give a different mix of facts
+            extraPool.shuffle()
+            val numToTake = if (sharedProperties.contains("overview")) (4..6).random() else (3..5).random()
+            sections.addAll(extraPool.take(numToTake.coerceAtMost(extraPool.size)))
+        }
+
+        // Mark overview as shared
+        sharedProperties.add("overview")
+        sharedProperties.add("symbol")
+        sharedProperties.add("atomic number")
+
+        var response = AIPersonality.formatRichOverview(ctx, activeLanguage, elementName, sections)
+        
+        // Add a randomized conversational ending or fun fact for variety
+        if (!isFull) {
+            val randomFact = AIPersonality.getRandomFact(ctx, activeLanguage)
+            response += "\n\n💡 **${ctx.getString(R.string.ai_pro_tip_hint)}**: $randomFact"
+        }
+        
+        // Add a context-aware follow-up suggestion at the end
+        val suggestion = suggestFollowUp(elementName.lowercase())?.let { "\n\n$it" } ?: ""
+        
+        return response + suggestion
     }
 
     /**
@@ -1460,29 +2668,30 @@ class AIAgentManager(private val context: Context?) {
      * Can provide multiple related facts if Technical Preference is high.
      */
     private fun provideNewInformation(element: JSONObject, elementName: String): String {
+        val ctx = localizedContext ?: context!!
         val potentialProperties = listOf(
-            "atomic mass" to "element_atomicmass",
-            "boiling point" to "element_boiling_celsius",
-            "melting point" to "element_melting_celsius",
-            "density" to "element_density",
-            "electron configuration" to "element_electron_config",
-            "electronegativity" to "element_electronegativty",
-            "common ion charge" to "element_ion_charge",
-            "ionization energy" to "element_ionization_energy1",
-            "magnetic type" to "magnetic_type",
-            "electrical type" to "electrical_type",
-            "block" to "element_block",
-            "protons" to "element_protons",
-            "neutrons" to "element_neutron_common",
-            "electrons" to "element_electrons",
-            "Young's modulus" to "young_modulus",
-            "Poisson's ratio" to "poisson_ratio",
-            "abundance in crust" to "earth_crust",
-            "crystal structure" to "crystal_structure",
-            "CAS number" to "cas_number",
-            "molar volume" to "molar_volume",
-            "thermal conductivity" to "element_thermal_conductivity",
-            "discovery year" to "element_year"
+            ctx.getString(R.string.atomic_mass_colon).replace(":","") to "element_atomicmass",
+            ctx.getString(R.string.boiling_point_colon).replace(":","") to "element_boiling_celsius",
+            ctx.getString(R.string.melting_point_colon).replace(":","") to "element_melting_celsius",
+            ctx.getString(R.string.density_colon).replace(":","") to "element_density",
+            ctx.getString(R.string.electron_configuration_colon).replace(":","") to "element_electron_config",
+            ctx.getString(R.string.electronegativity_colon).replace(":","") to "element_electronegativty",
+            ctx.getString(R.string.ion_charge_colon).replace(":","") to "element_ion_charge",
+            ctx.getString(R.string.ionization_energies_colon).replace(":","") to "element_ionization_energy1",
+            ctx.getString(R.string.magnetic_type_colon).replace(":","") to "magnetic_type",
+            ctx.getString(R.string.electrical_type_colon).replace(":","") to "electrical_type",
+            ctx.getString(R.string.block_colon).replace(":","") to "element_block",
+            ctx.getString(R.string.protons).replace(":","") to "element_protons",
+            ctx.getString(R.string.neutrons).replace(":","") to "element_neutron_common",
+            ctx.getString(R.string.element_electrons).replace(":","") to "element_electrons",
+            ctx.getString(R.string.element_young_modulus).replace(":","") to "young_modulus",
+            ctx.getString(R.string.element_poisson_ratio).replace(":","") to "poisson_ratio",
+            ctx.getString(R.string.abundance_earth_crust).replace(":","") to "earth_crust",
+            ctx.getString(R.string.crystal_structure).replace(":","") to "crystal_structure",
+            ctx.getString(R.string.cas_number).replace(":","") to "cas_number",
+            ctx.getString(R.string.molar_volume_colon).replace(":","") to "molar_volume",
+            ctx.getString(R.string.thermal_conductivity_colon).replace(":","") to "element_thermal_conductivity",
+            ctx.getString(R.string.year_discovered_colon).replace(":","") to "element_year"
         )
         
         // Find properties we haven't shared yet
@@ -1490,7 +2699,17 @@ class AIAgentManager(private val context: Context?) {
         
         if (availableNewFacts.isEmpty()) {
             // If everything is shared, give a fun fact instead
-            return "${AIPersonality.getEncouragement(context!!, activeLanguage)} We've covered a lot! Did you know? ${AIPersonality.getRandomFact(context!!, activeLanguage)}"
+            return "${AIPersonality.getEncouragement(ctx, activeLanguage)} ${ctx.getString(R.string.ai_covered_all, elementName)} Did you know? ${AIPersonality.getRandomFact(ctx, activeLanguage)}"
+        }
+
+        // Try to pick a "logical next step" if possible
+        val lastProp = sharedProperties.lastOrNull()
+        val preferredIdx = when (lastProp) {
+            ctx.getString(R.string.boiling_point_colon).replace(":","") -> availableNewFacts.indexOfFirst { it.first == ctx.getString(R.string.melting_point_colon).replace(":","") }
+            ctx.getString(R.string.melting_point_colon).replace(":","") -> availableNewFacts.indexOfFirst { it.first == ctx.getString(R.string.boiling_point_colon).replace(":","") || it.first == ctx.getString(R.string.density_colon).replace(":","") }
+            ctx.getString(R.string.protons).replace(":","") -> availableNewFacts.indexOfFirst { it.first == ctx.getString(R.string.neutrons).replace(":","") || it.first == ctx.getString(R.string.element_electrons).replace(":","") }
+            ctx.getString(R.string.atomic_mass_colon).replace(":","") -> availableNewFacts.indexOfFirst { it.first == ctx.getString(R.string.density_colon).replace(":","") || it.first == ctx.getString(R.string.abundance_earth_crust).replace(":","") }
+            else -> -1
         }
 
         val results = mutableListOf<String>()
@@ -1498,12 +2717,12 @@ class AIAgentManager(private val context: Context?) {
         
         repeat(numToProvide) {
             if (availableNewFacts.isNotEmpty()) {
-                val randomIndex = (0 until availableNewFacts.size).random()
-                val (label, jsonKey) = availableNewFacts.removeAt(randomIndex)
+                val idx = if (preferredIdx != -1 && preferredIdx < availableNewFacts.size) preferredIdx else (0 until availableNewFacts.size).random()
+                val (label, jsonKey) = availableNewFacts.removeAt(idx)
                 sharedProperties.add(label)
                 val value = element.optString(jsonKey, "")
                 if (value.isNotEmpty() && value != "---") {
-                    results.add(AIPersonality.formatElementResponse(context!!, activeLanguage, elementName, label, value))
+                    results.add(AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, value))
                 }
             }
         }
@@ -1521,15 +2740,11 @@ class AIAgentManager(private val context: Context?) {
      */
     private fun handleElementQuery(query: String): String {
         return try {
-            val lowerQuery = query.lowercase()
+            val elementKey = findElementKeyByQuery(query)
             
-            // Try to find element by name (fuzzy matching)
-            val element = findElementByQuery(lowerQuery)
-            
-            if (element != null) {
-                val elementName = element.optString("element", "Element")
-                // Delegate to the more detailed context handler once element is identified
-                handleElementContextQuery(query, elementName)
+            if (elementKey != null) {
+                // Delegate to the more detailed context handler using the KEY
+                handleElementContextQuery(query, elementKey)
             } else {
                 AIPersonality.getNoDataResponse(context!!, activeLanguage, query)
             }
@@ -1539,30 +2754,41 @@ class AIAgentManager(private val context: Context?) {
     }
     
     /**
-     * Find element by name or symbol in the data with fuzzy matching support.
-     * Now supports finding an element mentioned within a larger sentence.
+     * Find element key by name or symbol in the data with fuzzy matching support.
+     * Always returns the English database key.
      */
-    private fun findElementByQuery(query: String): JSONObject? {
+    private fun findElementKeyByQuery(query: String): String? {
         val lowerQuery = query.lowercase().trim()
         if (lowerQuery.isEmpty()) return null
         
         val data = elementData ?: return null
 
-        // 1. Check cross-language map first for better translation support
-        val queryWords = lowerQuery.split(Regex("[^\\p{L}0-9]+")).filter { it.length >= 1 }
-            .map { it.removeSuffix("s") }
-        
-        for (word in queryWords) {
-            val englishKey = localizedElementMap[word]
-                ?: localizedElementMap[normalizeForLookup(word)]
-            if (englishKey != null) {
-                val element = data.optJSONObject(englishKey)
-                if (element != null) return element
+        // 1. Check if it's a numeric atomic number request (e.g. "element 79" or "what is 79?")
+        val numberMatch = Regex("\\b(\\d+)\\b").find(lowerQuery)
+        if (numberMatch != null && (lowerQuery.contains("element") || lowerQuery.contains("atomic number") || lowerQuery.split(" ").size <= 3)) {
+            val numStr = numberMatch.groupValues[1]
+            val keys = data.keys()
+            while (keys.hasNext()) {
+                val key = keys.next()
+                val element = data.optJSONObject(key) ?: continue
+                if (element.optString("element_atomic_number") == numStr) return key
             }
         }
+
+        // 2. Check cross-language map first for better translation support
+        val queryWords = splitQueryTokens(lowerQuery)
+            .map { it.removeSuffix("s") }
         
-        // 2. Original fuzzy matching logic as fallback
-        var bestMatch: JSONObject? = null
+        // Filter out technical terms that might contain symbols like "S" or "H"
+        val ignoreSymbols = listOf("euler", "poisson", "boltzmann", "planck", "avogadro", "celsius", "fahrenheit", "kelvin", "geology", "mineral", "rock")
+        val isTechnicalTerm = ignoreSymbols.any { lowerQuery.contains(it) }
+
+        val mappedElementKey = if (isTechnicalTerm && !lowerQuery.contains("element") && !lowerQuery.contains("symbol")) null 
+                               else findCrossLanguageElementKey(lowerQuery, queryWords)
+        if (mappedElementKey != null) return mappedElementKey
+        
+        // 3. Original fuzzy matching logic as fallback
+        var bestKey: String? = null
         var minDistance = Int.MAX_VALUE
         
         try {
@@ -1574,18 +2800,22 @@ class AIAgentManager(private val context: Context?) {
                 val symbol = element.optString("short", "").lowercase()
                 
                 // 1. Check if name or symbol is explicitly mentioned as a word in the query
-                if (queryWords.contains(name) || queryWords.contains(symbol)) return element
+                if (queryWords.contains(name) || queryWords.contains(symbol)) {
+                    // Check for symbol collision with common words
+                    if (isCommonWordCollision(symbol, lowerQuery, queryWords)) continue
+                    return key
+                }
                 
                 // Special case for common nicknames or variations
                 if (lowerQuery.contains(name) || (symbol.length > 1 && lowerQuery.contains(symbol))) {
                     // But check if it's a whole word match to avoid "in" matching "Indium"
                     if (lowerQuery.contains("\\b$name\\b".toRegex()) || lowerQuery.contains("\\b$symbol\\b".toRegex())) {
-                        return element
+                        return key
                     }
                 }
 
                 // 2. Exact match of the whole query
-                if (name == lowerQuery || symbol == lowerQuery) return element
+                if (name == lowerQuery || symbol == lowerQuery) return key
                 
                 // 3. Fuzzy match for each word in the query
                 for (word in queryWords) {
@@ -1599,21 +2829,33 @@ class AIAgentManager(private val context: Context?) {
                     
                     if (distance <= threshold && distance < minDistance) {
                         minDistance = distance
-                        bestMatch = element
+                        bestKey = key
                     }
                 }
             }
         } catch (e: Exception) {
             return null
         }
-        return bestMatch
+        return bestKey
+    }
+
+    private fun findElementByQuery(query: String): JSONObject? {
+        val key = findElementKeyByQuery(query) ?: return null
+        return elementData?.optJSONObject(key)
     }
 
     /**
      * Check if message is a greeting
      */
     private fun isGeneralGreeting(message: String): Boolean {
-        val greetings = listOf("hi", "hello", "hey", "start", "begin", "help", "what can you do", "hej", "hallå", "starta", "hjälp", "vad kan du göra")
+        val greetings = listOf(
+            "hi", "hello", "hey", "start", "begin", "help", "what can you do", 
+            "hej", "hallå", "starta", "hjälp", "vad kan du göra",
+            "hallo", "hi", "bonjour", "salut", "hola", "hola",
+            "ciao", "ehi", "oi", "ola", "olá",
+            "नमस्ते", "हैलो", "ही", "ہیلو", "سلام",
+            "你好", "嗨", "nihao", "heej", "hallo", "kumusta"
+        )
         return hasKeyword(message, greetings)
     }
     
@@ -1621,7 +2863,14 @@ class AIAgentManager(private val context: Context?) {
      * Check if message is asking for a fact
      */
     private fun isFactRequest(message: String): Boolean {
-        val factKeywords = listOf("fact", "fun fact", "did you know", "interesting", "cool", "fakta", "kul fakta", "visste du", "intressant", "häftigt")
+        val factKeywords = listOf(
+            "fact", "fun fact", "did you know", "interesting", "cool", 
+            "fakta", "kul fakta", "visste du", "intressant", "häftigt",
+            "faktum", "interessant", "fait", "curiosité", "dato curioso", "curiosidad",
+            "curiosità", "interessante", "fatti", "curiosidade", "curiosidades", "fatos",
+            "तथ्य", "क्या आप जानते हैं", "दिलचस्प",
+            "事实", "你知道吗", "有趣", "shishi", "haqiqat", "feit", "katotohanan"
+        )
         return hasKeyword(message, factKeywords)
     }
 
@@ -1632,14 +2881,10 @@ class AIAgentManager(private val context: Context?) {
     private fun hasKeyword(query: String, keywords: List<String>): Boolean {
         val lowerQuery = query.lowercase()
         
+        // Prioritize exact keyword matches with word boundaries
         for (keyword in keywords) {
-            // Use word boundary regex for short keywords (length < 5) to avoid false matches like "about" -> "bout"
-            if (keyword.length < 5) {
-                val regex = "\\b${Regex.escape(keyword)}\\b".toRegex()
-                if (regex.containsMatchIn(lowerQuery)) return true
-            } else {
-                if (lowerQuery.contains(keyword)) return true
-            }
+            val regex = "\\b${Regex.escape(keyword)}\\b".toRegex()
+            if (regex.containsMatchIn(lowerQuery)) return true
         }
         
         // Split query into words and check each against keywords for fuzzy matching

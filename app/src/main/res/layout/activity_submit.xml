@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="24dp"
                 android:paddingEnd="24dp"
-                android:paddingTop="80dp"
+                android:paddingTop="32dp"
                 android:paddingBottom="24dp"
                 android:text="@string/submit_activity_title"
                 android:textColor="?attr/colorOnSurface"
@@ -73,6 +73,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
                             android:hint="@string/submit_issue"
+                            android:textColorHint="?attr/colorOnSurfaceVariant"
                             android:paddingHorizontal="16dp"
                             android:textColor="?attr/colorOnSurface"
                             android:textSize="16sp" />
@@ -97,6 +98,7 @@
                             android:layout_height="160dp"
                             android:gravity="top"
                             android:hint="Description"
+                            android:textColorHint="?attr/colorOnSurfaceVariant"
                             android:paddingHorizontal="16dp"
                             android:paddingVertical="12dp"
                             android:textColor="?attr/colorOnSurface"
@@ -122,24 +124,5 @@
         android:id="@+id/unified_titlebar_include"
         layout="@layout/view_unified_titlebar"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#80000000"
-        android:visibility="gone"
-        android:clickable="true"
-        android:focusable="true" />
-
-    <include
-        android:id="@+id/drop_issue"
-        layout="@layout/drop_issue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/unified_titlebar_include"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="36dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

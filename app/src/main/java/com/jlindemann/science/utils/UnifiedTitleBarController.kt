@@ -69,6 +69,7 @@ class UnifiedTitleBarController(private val root: View) {
             return
         }
         categoriesScroll.visibility = View.VISIBLE
+        setSurfaceVisible(true)
         categories.forEach { (id, text) ->
             val chip = Chip(root.context).apply {
                 this.id = id
@@ -83,5 +84,11 @@ class UnifiedTitleBarController(private val root: View) {
 
     fun hideCategories() {
         categoriesScroll.visibility = View.GONE
+    }
+
+    fun setSurfaceVisible(visible: Boolean) {
+        val titleSurface = container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = if (visible) View.VISIBLE else View.INVISIBLE
+        container.elevation = if (visible) root.resources.getDimension(R.dimen.one_elevation) else 0f
     }
 }

@@ -53,7 +53,8 @@ class ElementAdapter(var elementList: ArrayList<Element>, var clickListener: OnE
             }
             if (searchPrefValue == 1) {
                 textViewNumb.text = item.electro.toString()
-                textViewShort.setTextColor(Color.argb(255, 18, 18, 18))
+                // Use adaptive color instead of hardcoded dark color
+                textViewShort.setTextColor(ContextCompat.getColor(con, R.color.colorDarkText))
                 if (item.electro == 0.0) {
                     elementCard.background.setTint(Color.argb(255, 180, 180, 180))
                     textViewNumb.text = "---"

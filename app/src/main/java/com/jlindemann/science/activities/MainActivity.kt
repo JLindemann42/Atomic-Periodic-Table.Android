@@ -1,6 +1,5 @@
 package com.jlindemann.science.activities
 
-import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -12,34 +11,31 @@ import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.graphics.Typeface
 import android.util.TypedValue
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.view.ContextThemeWrapper
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsAnimationCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.doOnLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.jlindemann.science.R
-import com.jlindemann.science.ai.AIAgentManager
-import com.jlindemann.science.ai.AIPersonality
-import com.jlindemann.science.ai.ChatHistoryManager
-import com.jlindemann.science.auth.AuthManager
 import com.jlindemann.science.model.*
 import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.*
@@ -48,14 +44,44 @@ import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.extensions.TableExtension
 import com.jlindemann.science.fragments.FlashcardFragment
 import com.jlindemann.science.fragments.HomeFragment
+import com.jlindemann.science.activities.tools.CalculatorActivity
+import com.jlindemann.science.activities.tools.LearningGamesActivity
+import com.jlindemann.science.activities.tools.FlashCardActivity
+import com.jlindemann.science.activities.TableActivity
+import com.jlindemann.science.activities.ToolsActivity
+import com.jlindemann.science.activities.UserActivity
+import com.jlindemann.science.activities.ElementInfoActivity
+import com.jlindemann.science.activities.IntroductionActivity
+import com.jlindemann.science.activities.SplashActivity
+import com.jlindemann.science.activities.SolubilityActivity
+import com.jlindemann.science.activities.tables.IonActivity
+import com.jlindemann.science.activities.tables.DictionaryActivity
+import com.jlindemann.science.activities.tables.ElectrodeActivity
+import com.jlindemann.science.activities.tables.EquationsActivity
+import com.jlindemann.science.activities.tables.EmissionActivity
+import com.jlindemann.science.activities.tables.phActivity
+import com.jlindemann.science.activities.tables.PoissonActivity
+import com.jlindemann.science.activities.tables.GeologyActivity
+import com.jlindemann.science.activities.tables.NuclideActivity
+import com.jlindemann.science.activities.tables.ConstantsActivity
+import com.jlindemann.science.activities.settings.FavoritePageActivity
+import com.jlindemann.science.activities.settings.OrderActivity
+import com.jlindemann.science.activities.settings.AboutActivity
+import com.jlindemann.science.activities.settings.SubmitActivity
+import com.jlindemann.science.activities.settings.ProActivity
+import com.jlindemann.science.activities.settings.LicensesActivity
+import com.jlindemann.science.activities.settings.CreditsActivity
+import com.jlindemann.science.activities.settings.SourcesActivity
+import com.jlindemann.science.activities.settings.UnitActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import com.jlindemann.science.fragments.ProFragment
 import com.jlindemann.science.fragments.TablesFragment
 import com.jlindemann.science.fragments.ToolsFragment
 import com.otaliastudios.zoom.ZoomLayout
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.concurrent.schedule
@@ -67,13 +93,9 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     private var backCallback: OnBackPressedCallback? = null
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
 
-    // AI Panel
-    private lateinit var aiAgentManager: AIAgentManager
-    private var aiChatMessages = mutableListOf<ChatMessage>()
-    private var currentChatSessionId: String? = null
-    private var aiAdapter: ChatMessageAdapter? = null
+    // AI Panel. All of its state and view wiring lives in the controller.
     private val aiScope = CoroutineScope(Dispatchers.Main)
-    private var aiGradientAnimator: ValueAnimator? = null
+    private var aiPanel: AiChatPanelController? = null
 
     private var currentFragmentTag: String? = null
 
@@ -113,12 +135,19 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         })
 
         setupBottomNavigation()
-        setupAIPanel()
-        setupKeyboardAnimation()
-        
-        findViewById<View>(R.id.ai_chat_fab).setOnClickListener {
-            openAIPanel()
+        findViewById<View>(R.id.ai_panel_include)?.let { panelRoot ->
+            aiPanel = AiChatPanelController(
+                activity = this,
+                panelRoot = panelRoot,
+                scope = aiScope,
+                // Hooked here rather than at each call site so no way of opening the panel can
+                // forget to take over the back gesture.
+                onPanelOpened = { setBackInterceptionEnabled(true) },
+                onPanelHidden = { setBackInterceptionEnabled(anyOverlayOpen()) }
+            ).also { it.setup() }
         }
+
+        findViewById<View>(R.id.ai_chat_fab).setOnClickListener { aiPanel?.open() }
         
         findViewById<View>(R.id.filterFab_main).setOnClickListener {
             openHover()
@@ -235,8 +264,8 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     }
 
     private fun handleBack() {
-        if (aiPanelRootVisible()) {
-            closeAIPanel()
+        if (aiPanel?.isOpen() == true) {
+            aiPanel?.close()
             return
         }
         if (popupVisible()) {
@@ -260,7 +289,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         if (isTaskRoot) moveTaskToBack(true) else super.onBackPressed()
     }
 
-    private fun aiPanelRootVisible() = findViewById<View>(R.id.ai_panel_include)?.visibility == View.VISIBLE
+    private fun aiPanelRootVisible() = aiPanel?.isOpen() == true
     private fun popupVisible() = findViewById<View>(R.id.pro_popup_include)?.visibility == View.VISIBLE
     private fun hoverVisible() = findViewById<View>(R.id.hover_menu_include)?.visibility == View.VISIBLE
     private fun searchVisible() = findViewById<View>(R.id.search_menu_include)?.visibility == View.VISIBLE
@@ -415,7 +444,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         
         findViewById<View>(R.id.h_electronegativity_btn).setOnClickListener { 
             val fragment = getHome()
-            fragment?.view?.let { fragment.initTableChange(it, elements, "element_electronegativty") } 
+            fragment?.view?.let { fragment.initElectro(it, elements, "element_electronegativty") }
             closeHover()
         }
         
@@ -498,6 +527,9 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         super.onResume()
         loadUserProfileImage()
         updateVersionBadge()
+
+        aiScope.launch { aiPanel?.refreshLanguage() }
+
         intent?.let {
             if (it.getBooleanExtra("show_flashcard_results", false)) {
                 it.removeExtra("show_flashcard_results")
@@ -593,11 +625,32 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     }
 
     private fun handleWidgetIntent() {
-        intent.getStringExtra("widget_element_key")?.let { key ->
-            ElementSendAndLoad(this).setValue(key)
-            Handler(Looper.getMainLooper()).postDelayed({
-                startActivity(Intent(this, ElementInfoActivity::class.java))
-            }, 100)
+        val action = intent.action
+        
+        when (action) {
+            "OPEN_AI_CHAT" -> {
+                aiPanel?.open()
+                // The controller queues this behind its own initialisation, so a widget query
+                // can no longer reach an agent that has not finished loading.
+                intent.getStringExtra("initial_query")?.let { aiPanel?.send(it) }
+            }
+            "OPEN_TABLE" -> {
+                findViewById<BottomNavigationView>(R.id.bottom_nav)?.selectedItemId = R.id.nav_home
+            }
+            "OPEN_QUIZ" -> {
+                startActivity(Intent(this, LearningGamesActivity::class.java))
+            }
+            "OPEN_MOLAR_MASS" -> {
+                startActivity(Intent(this, CalculatorActivity::class.java))
+            }
+            else -> {
+                intent.getStringExtra("widget_element_key")?.let { key ->
+                    ElementSendAndLoad(this).setValue(key)
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        startActivity(Intent(this, ElementInfoActivity::class.java))
+                    }, 100)
+                }
+            }
         }
     }
 
@@ -632,298 +685,26 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         }
     }
 
-    private fun setupAIPanel() {
-        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
-        val aiPanelContainerView = aiPanelRoot.findViewById<View>(R.id.ai_panel_container) ?: return
-        val aiScrim = aiPanelRoot.findViewById<View>(R.id.ai_panel_scrim) ?: return
-        val aiRecyclerView = aiPanelRoot.findViewById<RecyclerView>(R.id.ai_chat_recycler) ?: return
-        val aiMessageInput = aiPanelRoot.findViewById<EditText>(R.id.ai_message_input) ?: return
-        val aiSendBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_send_btn) ?: return
-        aiPanelRoot.findViewById<TextView>(R.id.ai_message_limit_view) ?: return
-        val aiLoadingIndicator = aiPanelRoot.findViewById<ProgressBar>(R.id.ai_loading_indicator) ?: return
-        val aiLanguageBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_language_btn) ?: return
-        val aiInputContainer = aiPanelRoot.findViewById<View>(R.id.ai_input_container) ?: return
-        val aiUserBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_user_btn) ?: return
-        val aiHistoryBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_history_btn) ?: return
-        val aiHistoryContainer = aiPanelRoot.findViewById<View>(R.id.ai_history_container) ?: return
-        val aiHistoryRecycler = aiPanelRoot.findViewById<RecyclerView>(R.id.ai_history_recycler) ?: return
-        val aiCloseHistoryBtn = aiPanelRoot.findViewById<ImageButton>(R.id.close_history_btn) ?: return
-        val aiHistoryEmptyView = aiPanelRoot.findViewById<View>(R.id.history_empty_view) ?: return
-        val aiNewChatBtn = aiPanelRoot.findViewById<ImageButton>(R.id.ai_new_chat) ?: return
 
-        aiAdapter = ChatMessageAdapter(aiChatMessages)
-        aiRecyclerView.layoutManager = LinearLayoutManager(this).apply { stackFromEnd = true }
-        aiRecyclerView.adapter = aiAdapter
 
-        aiAgentManager = AIAgentManager(this)
-        aiScope.launch {
-            aiAgentManager.initialize()
-            updateAIMessageLimitView()
-            if (AuthManager.isSignedIn() && aiAgentManager.isHistoryEnabled()) {
-                ChatHistoryManager.loadLatestChatSession { latest ->
-                    if (latest != null && aiChatMessages.isEmpty()) {
-                        aiScope.launch {
-                            aiAgentManager.setLanguage(latest.language)
-                            applyChatSession(latest)
-                            updateAIMessageLimitView()
-                        }
-                    } else if (aiChatMessages.isEmpty()) {
-                        addAIGreeting()
-                    }
-                }
-            } else if (aiChatMessages.isEmpty()) {
-                addAIGreeting()
-            }
-        }
 
-        aiLanguageBtn.setOnClickListener { showAILanguageMenu(aiLanguageBtn) }
-        aiSendBtn.setOnClickListener {
-            val text = aiMessageInput.text.toString().trim()
-            if (text.isNotEmpty()) sendMessageToAI(text, aiMessageInput, aiLoadingIndicator, aiRecyclerView)
-        }
-        aiHistoryBtn.setOnClickListener {
-            if (AuthManager.isSignedIn()) {
-                if (aiAgentManager.isHistoryEnabled()) {
-                    showChatHistory(aiHistoryContainer, aiHistoryRecycler, aiHistoryEmptyView)
-                } else {
-                    Toast.makeText(this, "Chat history is a PRO feature", Toast.LENGTH_SHORT).show()
-                }
-            } else {
-                Toast.makeText(this, "Please sign in to view chat history", Toast.LENGTH_SHORT).show()
-            }
-        }
-        aiCloseHistoryBtn.setOnClickListener { aiHistoryContainer.visibility = View.GONE }
-        aiUserBtn.setOnClickListener { startActivity(Intent(this, UserActivity::class.java)) }
-        aiNewChatBtn.setOnClickListener { startNewAIChat() }
-        aiScrim.setOnClickListener { closeAIPanel() }
 
-        ViewCompat.setOnApplyWindowInsetsListener(aiPanelRoot) { _, insets ->
-            val ime = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-            val nav = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
-            val bottom = maxOf(ime, nav)
-            (aiInputContainer.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin = bottom + resources.getDimensionPixelSize(R.dimen.margin)
-            insets
-        }
 
-        val behavior = BottomSheetBehavior.from(aiPanelContainerView)
-        behavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-                    aiPanelRoot.visibility = View.GONE
-                    setBackInterceptionEnabled(anyOverlayOpen())
-                    stopAIGradientPulsation()
-                }
-            }
-            override fun onSlide(bottomSheet: View, slideOffset: Float) { aiScrim.alpha = slideOffset }
-        })
 
-        startAIInputAnimation(aiPanelRoot)
-    }
 
-    private fun startAIInputAnimation(root: View) {
-        val inputBg = root.findViewById<View>(R.id.ai_input_gradient_bg) ?: return
-        ValueAnimator.ofFloat(0.6f, 1.0f).apply {
-            duration = 4000
-            repeatCount = ValueAnimator.INFINITE
-            repeatMode = ValueAnimator.REVERSE
-            addUpdateListener { inputBg.alpha = it.animatedValue as Float }
-            start()
-        }
-    }
 
-    private fun setupKeyboardAnimation() {
-        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
-        val aiInputContainer = aiPanelRoot.findViewById<View>(R.id.ai_input_container) ?: return
-        val aiRecyclerView = aiPanelRoot.findViewById<RecyclerView>(R.id.ai_chat_recycler) ?: return
-        
-        // Use the root of the panel to listen for animations
-        ViewCompat.setWindowInsetsAnimationCallback(aiPanelRoot, object : WindowInsetsAnimationCompat.Callback(DISPATCH_MODE_STOP) {
-            override fun onProgress(insets: WindowInsetsCompat, runningAnimations: MutableList<WindowInsetsAnimationCompat>): WindowInsetsCompat {
-                val ime = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
-                val nav = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
-                
-                // Only translate if the keyboard is higher than the navigation bar
-                val diff = (ime - nav).coerceAtLeast(0)
-                
-                aiInputContainer.translationY = -diff.toFloat()
-                aiRecyclerView.translationY = -diff.toFloat()
 
-                return insets
-            }
-        })
-    }
 
-    private fun showAILanguageMenu(anchor: View) {
-        val popup = PopupMenu(this, anchor)
-        val languages = ElementDataLoader.getAvailableLanguages(assets)
-        languages.forEachIndexed { index, lang -> popup.menu.add(0, index, index, lang.uppercase()) }
-        popup.setOnMenuItemClickListener { item ->
-            val selectedLang = languages[item.itemId]
-            aiScope.launch {
-                aiAgentManager.setLanguage(selectedLang)
-                // Keep app locale preference aligned so next launches use the same language.
-                getSharedPreferences("settings", MODE_PRIVATE).edit()
-                    .putString("app_language", selectedLang)
-                    .remove("app_country")
-                    .apply()
-                val msg = ChatMessage(UUID.randomUUID().toString(), getString(R.string.ai_lang_switched, selectedLang.uppercase()), false, System.currentTimeMillis())
-                aiChatMessages.add(msg)
-                aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
-                findViewById<RecyclerView>(R.id.ai_chat_recycler)?.scrollToPosition(aiChatMessages.size - 1)
-                saveCurrentChatSession()
-                updateAIMessageLimitView()
-            }
-            true
-        }
-        popup.show()
-    }
 
-    private fun openAIPanel() {
-        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
-        val aiPanelContainerView = aiPanelRoot.findViewById<View>(R.id.ai_panel_container) ?: return
-        val aiScrim = aiPanelRoot.findViewById<View>(R.id.ai_panel_scrim) ?: return
-        aiPanelRoot.visibility = View.VISIBLE
-        val behavior = BottomSheetBehavior.from(aiPanelContainerView)
-        behavior.state = BottomSheetBehavior.STATE_EXPANDED
-        aiPanelContainerView.post { behavior.state = BottomSheetBehavior.STATE_EXPANDED }
-        aiScrim.alpha = 1f
-        updateAIMessageLimitView()
-        setBackInterceptionEnabled(true)
-        startAIGradientPulsation(1500, 2)
-    }
 
-    private fun startAIGradientPulsation(duration: Long = 2000, repeatCount: Int = ValueAnimator.INFINITE) {
-        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
-        val gradientView = aiPanelRoot.findViewById<View>(R.id.ai_panel_gradient_view) ?: return
-        aiGradientAnimator?.cancel()
-        aiGradientAnimator = ValueAnimator.ofFloat(0f, 0.35f).apply {
-            this.duration = duration
-            this.repeatCount = repeatCount
-            this.repeatMode = ValueAnimator.REVERSE
-            addUpdateListener { gradientView.alpha = it.animatedValue as Float }
-            start()
-        }
-    }
 
-    private fun stopAIGradientPulsation() {
-        aiGradientAnimator?.let {
-            it.cancel()
-            findViewById<View>(R.id.ai_panel_include)?.findViewById<View>(R.id.ai_panel_gradient_view)?.animate()?.alpha(0f)?.setDuration(500)?.start()
-        }
-        aiGradientAnimator = null
-    }
 
-    private fun closeAIPanel() {
-        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
-        val aiPanelContainerView = aiPanelRoot.findViewById<View>(R.id.ai_panel_container) ?: return
-        val imm = getSystemService(android.content.Context.INPUT_METHOD_SERVICE) as android.view.inputmethod.InputMethodManager
-        imm.hideSoftInputFromWindow(aiPanelRoot.windowToken, 0)
-        BottomSheetBehavior.from(aiPanelContainerView).state = BottomSheetBehavior.STATE_HIDDEN
-    }
 
-    private fun startNewAIChat() {
-        aiChatMessages.clear()
-        currentChatSessionId = null
-        aiAgentManager.clearConversation()
-        aiAdapter?.notifyDataSetChanged()
-        addAIGreeting()
-        updateAIMessageLimitView()
-    }
 
-    private fun addAIGreeting() {
-        val greeting = ChatMessage(UUID.randomUUID().toString(), AIPersonality.getGreeting(this, aiAgentManager.getActiveLanguage()), false, System.currentTimeMillis())
-        aiChatMessages.add(greeting)
-        aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
-    }
-
-    private fun updateAIMessageLimitView() {
-        val aiPanelRoot = findViewById<View>(R.id.ai_panel_include) ?: return
-        val limitView = aiPanelRoot.findViewById<TextView>(R.id.ai_message_limit_view) ?: return
-        if (!aiAgentManager.shouldShowMessageLimit()) {
-            limitView.visibility = View.GONE
-            return
-        }
-        limitView.visibility = View.VISIBLE
-        limitView.text = aiAgentManager.getMessageLimitDisplay()
-    }
-
-    private fun sendMessageToAI(text: String, input: EditText, loader: ProgressBar, recycler: RecyclerView) {
-        val userMsg = ChatMessage(UUID.randomUUID().toString(), text, true, System.currentTimeMillis())
-        aiChatMessages.add(userMsg)
-        aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
-        recycler.scrollToPosition(aiChatMessages.size - 1)
-        input.text.clear()
-        loader.visibility = View.VISIBLE
-        aiAgentManager.addToConversationHistory(userMsg)
-        saveCurrentChatSession()
-        startAIGradientPulsation(1000, ValueAnimator.INFINITE)
-        aiScope.launch {
-            val response = aiAgentManager.generateResponse(text)
-            loader.visibility = View.GONE
-            aiChatMessages.add(response)
-            aiAdapter?.notifyItemInserted(aiChatMessages.size - 1)
-            recycler.scrollToPosition(aiChatMessages.size - 1)
-            aiAgentManager.addToConversationHistory(response)
-            saveCurrentChatSession()
-            updateAIMessageLimitView()
-            stopAIGradientPulsation()
-        }
-    }
-
-    private fun saveCurrentChatSession() {
-        if (AuthManager.isSignedIn() && aiAgentManager.isHistoryEnabled() && aiChatMessages.isNotEmpty()) {
-            if (currentChatSessionId == null) currentChatSessionId = UUID.randomUUID().toString()
-            val firstUserMessage = aiChatMessages.firstOrNull { it.isFromUser }?.text ?: "New Chat"
-            val title = if (firstUserMessage.length > 40) firstUserMessage.take(37) + "..." else firstUserMessage
-            val session = ChatSession(
-                id = currentChatSessionId!!,
-                title = title,
-                timestamp = System.currentTimeMillis(),
-                messages = aiChatMessages.toList(),
-                language = aiAgentManager.getActiveLanguage()
-            )
-            ChatHistoryManager.saveChatSession(session) { success, id -> if (success && currentChatSessionId == null) currentChatSessionId = id }
-        }
-    }
-
-    private fun showChatHistory(container: View, recycler: RecyclerView, emptyView: View) {
-        container.visibility = View.VISIBLE
-        val loader = findViewById<ProgressBar>(R.id.ai_loading_indicator)
-        loader?.visibility = View.VISIBLE
-        ChatHistoryManager.loadChatHistory { sessions ->
-            loader?.visibility = View.GONE
-            if (sessions.isEmpty()) {
-                emptyView.visibility = View.VISIBLE
-                recycler.visibility = View.GONE
-            } else {
-                emptyView.visibility = View.GONE
-                recycler.visibility = View.VISIBLE
-                recycler.layoutManager = LinearLayoutManager(this)
-                recycler.adapter = ChatHistoryAdapter(sessions) { loadChatSession(it, container) }
-            }
-        }
-    }
-
-    private fun loadChatSession(session: ChatSession, historyContainer: View) {
-        aiScope.launch {
-            aiAgentManager.setLanguage(session.language)
-            applyChatSession(session)
-            updateAIMessageLimitView()
-            historyContainer.visibility = View.GONE
-        }
-    }
-
-    private fun applyChatSession(session: ChatSession) {
-        aiChatMessages.clear()
-        aiChatMessages.addAll(session.messages)
-        currentChatSessionId = session.id
-        aiAdapter?.notifyDataSetChanged()
-        findViewById<RecyclerView>(R.id.ai_chat_recycler)?.scrollToPosition(aiChatMessages.size - 1)
-        aiAgentManager.setConversationHistory(session.messages)
-    }
 
     override fun onDestroy() {
         super.onDestroy()
+        aiPanel?.onDestroy()
         aiScope.cancel()
         backCallback?.remove()
         backCallback = null

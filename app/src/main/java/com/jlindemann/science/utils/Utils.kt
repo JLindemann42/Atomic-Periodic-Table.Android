@@ -1,7 +1,9 @@
 package com.jlindemann.science.utils
 
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.util.TypedValue
 import android.view.View
 
 object Utils {
@@ -49,6 +51,12 @@ object Utils {
             view.animate().setDuration(time)
             view.animate().alpha(1.0f)
         }, time+1)
+    }
+
+    fun getThemeColor(context: Context, attrRes: Int): Int {
+        val typedValue = TypedValue()
+        context.theme.resolveAttribute(attrRes, typedValue, true)
+        return typedValue.data
     }
 
 }

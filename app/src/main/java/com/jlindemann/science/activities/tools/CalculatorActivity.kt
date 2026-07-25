@@ -106,7 +106,7 @@ class CalculatorActivity : BaseActivity() {
         val mostUsedPreference = MostUsedToolPreference(this)
         val mostUsedPrefValue = mostUsedPreference.getValue()
         val targetLabel = "cal"
-        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val regex = Regex("($targetLabel)=(\\d+\\.\\d+)")
         val match = regex.find(mostUsedPrefValue)
         if (match != null) {
             val value = match.groups[2]!!.value.toDouble()

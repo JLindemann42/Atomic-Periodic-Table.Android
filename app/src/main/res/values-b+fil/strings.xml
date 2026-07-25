@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Atomic</string>
     <string name="personalization_settings">Pag-personalize</string>
@@ -298,16 +298,18 @@
     <string name="dictionary">Diksiyonaryo</string>
     <string name="dictionary_search">Maghanap ng Diksiyonaryo Item</string>
     <string name="element_info_title">Impormasyon ng Elemento</string>
-
-    <!-- AI Chat Panel -->
     <string name="ask_atomic">Magtanong sa Atomic</string>
     <string name="ai_hint">Magtanong ng kahit ano...</string>
     <string name="ai_lang_switched">Ang wika ng AI ay inilipat sa: %1$s 🌐</string>
     <string name="ai_no_data">Hmm, hindi ako makahanap ng impormasyon tungkol diyan. Subukang magtanong tungkol sa isang elemento tulad ng \'oxygen\' o \'gold\'!</string>
+    <string name="ai_related_label">Kaugnay na Impormasyon:</string>
+    <string name="ai_related_offer">Nakahanap ako ng lokal na kaugnay na impormasyon. Itanong ang \'ipakita ang kaugnay\' para makita ito.</string>
+    <string name="ai_related_offer_lang">Nakahanap ako ng lokal na kaugnay na impormasyon ngunit wala sa napiling wika. Subukang baguhin ang wika o magtanong pa rin.</string>
     <string name="ai_greeting">Kumusta! 👋 Ako ang iyong chemistry buddy. Magtanong sa akin ng kahit ano tungkol sa mga elemento!</string>
     <string name="ai_encouragement">Magandang tanong! 🌟</string>
     <string name="ai_comparing_title">Paghahambing ng %1$s:</string>
     <string name="ai_higher_than">Ang %1$s ay may mas mataas na %2$s kaysa sa %3$s.</string>
+    <string name="ai_lower_than">Ang %1$s ay may mas mababang %2$s kaysa sa %3$s.</string>
     <string name="ai_same_value">Parehong may parehong %1$s!</string>
     <string name="ai_property_is">Ang %2$s ng %1$s ay %3$s.</string>
     <string name="ai_recap_is">Bilang pagbubuod, ang %2$s ng %1$s ay %3$s.</string>
@@ -334,7 +336,7 @@
     <string name="ai_formula_nacl">Ang NaCl ay Sodium Chloride, na mas kilala bilang asin! Pinagsasama nito ang Sodium at Chlorine.</string>
     <string name="ai_formula_o2">O2 ang oxygen na nilalanghap natin! Ito ay dalawang oxygen atom na magkadikit.</string>
     <string name="ai_formula_ch4">Ang CH4 ay Methane, ang pinakasimpleng alkane at isang malakas na greenhouse gas. Binubuo ito ng isang Carbon at apat na Hydrogen.</string>
-    <string name="ai_formula_nh3">Ang NH3 ay Ammonia, madalas gamitin sa mga panlinis. Binubuo ito ng isang Nitrogen at tatlong Hydrogen.</string>
+    <string name="ai_formula_nh3">NH3 ay Ammonia, madalas gamitin sa mga panlinis. Binubuo ito ng isang Nitrogen at tatlong Hydrogen.</string>
     <string name="ai_formula_c6h12o6">Ang C6H12O6 ay Glucose, isang simpleng asukal na nagbibigay ng enerhiya sa mga buhay na bagay. Mayroon itong 6 na Carbon, 12 Hydrogen, at 6 na Oxygen.</string>
     <string name="ai_formula_h2so4">Ang H2SO4 ay Sulfuric Acid, isang napakalakas at importanteng industrial acid. Naglalaman ito ng Hydrogen, Sulfur, at Oxygen.</string>
     <string name="ai_formula_hcl">Ang HCl ay Hydrochloric Acid, na matatagpuan sa iyong tiyan para tumulong sa pagtunaw ng pagkain!</string>
@@ -351,12 +353,22 @@
     <string name="ai_block_p">Ang p-block ay naglalaman ng groups 13 hanggang 18, kabilang ang lahat ng nonmetal (maliban sa H at He), metalloids, at post-transition metals.</string>
     <string name="ai_block_d">Ang d-block ay naglalaman ng mga transition metal mula groups 3 hanggang 12.</string>
     <string name="ai_block_f">Ang f-block ay naglalaman ng mga serye ng lanthanide at actinide, na karaniwang ipinapakita sa ibaba ng pangunahing table.</string>
-    <string name="ai_block_generic">Hindi ako sigurado kung aling block ang tinutukoy mo. Alam ko ang tungkol sa s, p, d, at f blocks!</string>
+    <string name="ai_block_generic">Hindi ako sigurado kung aling block ang tinutukoy mo. Alam ko ang tungkol sa s, p, d at f blocks!</string>
     <string name="ai_molar_mass_generic">Makakatulong ako sa mga molar mass! Subukang magtanong ng "Ano ang molar mass ng H2O?"</string>
     <string name="ai_superlative_generic">Magandang tanong iyan! Kaya kong hanapin ang mga elementong pinaka-siksik (densest), pinakamabigat, o may pinakamataas na electronegativity. Alin ang gusto mong malaman?</string>
     <string name="ai_superlative_no_calculate">Hindi ko iyan makalkula sa ngayon.</string>
     <string name="highest">pinakamataas</string>
     <string name="lowest">pinakamababa</string>
+    <string name="ai_rich_overview_basic_facts">Mga Pangunahing Katotohanan</string>
+    <string name="ai_rich_overview_where_found">Saan matatagpuan ang %1$s?</string>
+    <string name="ai_rich_overview_applications">Mga Aplikasyon at Gamit</string>
+    <string name="ai_rich_overview_etymology">Pinagmulan at Kasaysayan</string>
+    <string name="ai_rich_overview_biological">Papel sa Biyolohiya</string>
+    <string name="ai_rich_overview_properties">Mga Katangian</string>
+    <string name="ai_rich_overview_advanced">Masusing Datos na Atomiko</string>
+    <string name="ai_rich_overview_safety">Kaligtasan at mga Panganib</string>
+    <string name="ai_rich_overview_isotopes">Mahahalagang Isotopo</string>
+    <string name="ai_rich_overview_compounds">Mga Karaniwang Compound</string>
     <string name="ai_element_overview_intro">Ang %1$s %2$s (%3$s) ay isang kamangha-manghang elemento! Ito ay atomic number %4$s at kabilang sa grupong %5$s.</string>
     <string name="ai_element_overview_series"> Bahagi ito ng seryeng %1$s.</string>
     <string name="ai_element_overview_appearance"> Karaniwan itong lumalabas bilang: %1$s.</string>
@@ -364,6 +376,59 @@
     <string name="ai_element_overview_electrons"> Mayroon itong %1$s electron na umiikot sa nucleus nito.</string>
     <string name="ai_technical_mass"> Ang eksaktong atomic mass nito ay %1$s.</string>
     <string name="ai_technical_config"> Ito ay may electron configuration na %1$s.</string>
+    <string name="ai_list_header">Narito ang mga elementong **%1$s**:</string>
+    <string name="ai_no_list_data">Hindi ako nakahanap ng anumang elemento na tumutugma sa mga kraytiryang iyon sa aming database.</string>
+    <string name="ai_pro_tip_hint">Pro tip: Maaari mo rin akong tanungin tungkol sa pinagmulan nito, papel sa biyolohiya, o reaktibidad!</string>
+    <string name="ai_bio_role_header">Tungkol sa papel nito sa biyolohiya, narito ang nahanap ko tungkol sa **%1$s**:</string>
+    <string name="ai_no_bio_data">Wala akong detalyadong data sa biyolohiya para sa %1$s, ngunit ang pamantayang pangkaligtasan ay nagsasabing:</string>
+    <string name="ai_etymology_header">Ang pangalang **%1$s** ay may kawili-wiling pinagmulan:</string>
+    <string name="ai_no_etymology_data">Hindi ako sigurado sa pinagmulan ng pangalan nito, ngunit ito ay natuklasan ni %2$s noong %3$s.</string>
+    <string name="ai_reaction_alkali_water">Ang mga alkali metal tulad ng %1$s ay nagre-react nang **marahas** sa tubig, na gumagawa ng hydrogen gas at isang malakas na base. Maaari pa itong sumabog!</string>
+    <string name="ai_reaction_magnesium_water">Ang %1$s ay nagre-react nang mabagal sa malamig na tubig ngunit mabilis sa singaw.</string>
+    <string name="ai_reaction_alkaline_earth_water">Ang %1$s ay nagre-react nang masigla sa tubig upang bumuo ng hydrogen gas at ang hydroxide nito.</string>
+    <string name="ai_reaction_generic_water">Wala akong partikular na data para sa reaksyon ng %1$s sa tubig, ngunit maraming metal ang bumubuo ng mga oxide o hydroxide sa paglipas ng panahon.</string>
+    <string name="ai_reaction_oxygen">Karamihan sa mga elemento ay nagre-react sa oxygen upang bumuo ng mga oxide. Halimbawa, ang mga metal tulad ng %1$s ay madalas na bumubuo ng isang protektadong layer o kalawang.</string>
+    <string name="ai_reaction_acid">Maraming metal ang nagre-react sa mga asido upang maglabas ng hydrogen gas. Ang reaktibidad ng %1$s ay nakadepende sa posisyon nito sa serye ng aktibidad.</string>
+    <string name="ai_reaction_complex">Ang mga reaksyon ay maaaring maging kumplikado! Sa pangkalahatan, ang gawi ng %1$s ay nakadepende sa grupo nito (%2$s) at electronegativity.</string>
+    <string name="ai_reaction_alkali_halogen">Ang mga ito ay nagre-react nang masigla upang bumuo ng isang **asin** (isang ionic compound). Halimbawa, ang %1$s at %2$s ay maaaring magsama upang lumika ng isang natatanging compound!</string>
+    <string name="ai_reaction_noble_gas">Ang %1$s ay isang noble gas at napaka-stable, bihirang mag-react sa anumang bagay dahil puno ang outer shell nito.</string>
+    <string name="ai_reaction_generic_elements">Ang reaksyon sa pagitan ng %1$s at %2$s ay nakadepende sa kanilang mga electron configuration. Maaari silang bumuo ng isang compound kung ang isa ay makakapagbigay at ang isa ay makakatanggap ng mga electron!</string>
+    <string name="ai_personalized_greeting_interest">Maligayang pagbabalik! Handa nang galugarin ang higit pa tungkol sa %1$s? Maaari nating tingnan muli ang %2$s.</string>
+    <string name="ai_personalized_greeting_fav">Hé! Natatandaan ko na tiningnan mo ang %1$s kamakailan. Gusto mo bang makita ang higit pang mga detalye?</string>
+    <string name="ai_usage_header">Narito ang ilang karaniwang aplikasyon at katotohanan tungkol sa **%1$s**:</string>
+    <string name="ai_no_usage_data">Wala akong partikular na listahan ng mga gamit para sa %1$s, ngunit ito ay isang kamangha-manghang elemento! Maaari kang magbasa nang higit pa sa detalyadong paglalarawan.</string>
+    <string name="ai_abundance_header">Narito ang data ng kasaganaan para sa **%1$s** mula sa database ng app:</string>
+    <string name="ai_no_abundance_data">Wala akong partikular na numerong halaga ng kasaganaan para sa %1$s, ngunit ang paglalarawan ay nagsasabing: %2$s.</string>
+    <string name="ai_physical_header">Batay sa mga pisikal na katangian na nakaimbak sa app para sa **%1$s**:</string>
+    <string name="ai_no_physical_data">Wala akong detalyadong pisikal na katangian para sa %1$s sa mabilisang data, ngunit maaari mong suriin ang mga detalyadong panel ng katangian!</string>
+    <string name="ai_isotope_header">Ayon sa talahanayan ng isotope ng app, narito ang mga pangunahing isotope para sa **%1$s**:</string>
+    <string name="ai_no_isotope_data">Wala akong detalyadong listahan ng mga isotope para sa %1$s sa aking mabilisang data, ngunit makakahanap ka ng komprehensibong listahan sa Talahanayan ng mga Isotope!</string>
+    <string name="iso_half_life_colon">Half-life:</string>
+    <string name="ai_oxidation_states">Ang **%1$s** ay may ilang posibleng oxidation states.</string>
+    <string name="ai_radius_details">Narito ang mga detalye ng radius para sa **%1$s**:</string>
+    <string name="ai_thermal_properties">Mga thermal na katangian ng **%1$s**:</string>
+    <string name="ai_elec_mag_properties">Mga elektrikal at magnetikong katangian ng **%1$s**:</string>
+    <string name="ai_identifiers_for">Mga identifier para sa **%1$s**:</string>
+    <string name="ai_valence_alkali">Bilang isang alkali metal, mayroon itong **1 valence electron** sa outer shell nito.</string>
+    <string name="ai_valence_alkaline">Bilang isang alkaline earth metal, mayroon itong **2 valence electron**.</string>
+    <string name="ai_valence_halogen">Bilang isang halogen, mayroon itong **7 valence electron** at sabik na sabik na makakuha ng isa pa!</string>
+    <string name="ai_valence_noble_helium">Ang helium ay may **2 valence electron**, na kumukumpleto sa tanging shell nito.</string>
+    <string name="ai_valence_noble_other">Mayroon itong punong outer shell na may **8 valence electron**, na ginagawa itong napaka-stable.</string>
+    <string name="ai_series_noble_gas_label">Noble Gas</string>
+    <string name="ai_series_alkali_metal_label">Alkali Metal</string>
+    <string name="ai_series_alkaline_earth_label">Alkaline Earth Metal</string>
+    <string name="ai_series_halogen_label">Halogen</string>
+    <string name="ai_series_lanthanide_label">Lanthanide</string>
+    <string name="ai_series_actinide_label">Actinide</string>
+    <string name="ai_series_transition_metal_label">Transition Metal</string>
+    <string name="ai_series_metalloid_label">Metalloid</string>
+    <string name="ai_series_nonmetal_label">Nonmetal</string>
+    <string name="ai_phase_liquid">Liquid</string>
+    <string name="ai_phase_gas">Gas</string>
+    <string name="ai_phase_solid">Solid</string>
+    <string name="ai_quiz_not_active">Wala ako sa quiz mode ngayon.</string>
+    <string name="ai_quiz_no_start">Hindi ako makakapagsimula ng quiz ngayon.</string>
+    <string name="ai_formula_composition_offer"> Gusto mo bang i-break down ko ang elemental composition nito?</string>
     <string-array name="ai_facts">
         <item>Alam mo ba? Ang Oxygen ang pinakamaraming elemento sa crust ng Earth!</item>
         <item>Nakakatuwang katotohanan: Ang ginto ay hindi kailanman kinakalawang o nadedemolish. Mananatili itong makintab magpakailanman!</item>
@@ -695,7 +760,7 @@ Makakakuha ka ng %3$d buhay%4$s.</string>
     <string name="share_app_description">Kung nakakatulong sa iyo ang app, pakiusap ibahagi ito sa iyong mga kaibigan at iba pa!</string>
     <string name="sync_data">I-sync ang data:</string>
     <string name="young_bulk_shear_modulus">Young, bulk, at shear modulus:</string>
-<string name="intro_welcome_title">Maligayang pagdating sa Atomic</string>
+    <string name="intro_welcome_title">Maligayang pagdating sa Atomic</string>
     <string name="intro_welcome_description">Ang iyong komprehensibong sanggunian sa periodic table na may detalyadong impormasyon ng elemento, interactive na mga tool, at mga feature sa pag-aaral.</string>
     <string name="intro_flashcards_title">Matuto gamit ang Flashcards</string>
     <string name="intro_flashcards_description">Matutunan ang periodic table gamit ang interactive na flashcards. Subukan ang iyong kaalaman sa mga simbolo ng elemento, atomic mass, at chemical properties.</string>
@@ -709,4 +774,206 @@ Makakakuha ka ng %3$d buhay%4$s.</string>
     <string name="intro_image_description">Larawan ng pagpapakilala</string>
     <string name="electron_affinity_colon">Electron Affinity:</string>
     <string name="split_view">Elemento Split View</string>
+    <string name="abundance_human_body">Sa katawan ng tao</string>
+    <string name="abundance_meteorites">Sa mga meteorite</string>
+    <string name="account">Account</string>
+    <string name="additional_ai_messages">Tumaas na limitasyon sa mga mensahe ng AI:</string>
+    <string name="ai_abundance_relative">(kaugnay sa H=10¹²)</string>
+    <string name="ai_adv_header">Advanced na mga katangian ng %1$s:</string>
+    <string name="ai_all_covered">Marami na kaming tinalakay tungkol sa %1$s! Alam mo ba?</string>
+    <string name="ai_another_isotope"> Ang isa pang isotope ay %1$s.</string>
+    <string name="ai_beta_badge">Beta</string>
+    <string name="ai_chat_setting">Paganahin ang AI Chat Assistant</string>
+    <string name="ai_chat_setting_description">Payagan ang AI assistant na sagutin ang mga tanong tungkol sa mga elemento</string>
+    <string name="ai_check_isotope_table">Ang %1$s ay may iba\'t ibang isotopes. Maaari mong tingnan ang detalyadong talahanayan ng isotope para sa kumpletong listahan!</string>
+    <string name="ai_common_isotopes">Ang mga karaniwang isotope para sa %1$s ay kinabibilangan ng %2$s.</string>
+    <string name="ai_compare_all_same">
+• **%1$s:** Ang lahat ay %2$s%3$s.</string>
+    <string name="ai_compare_difference_value">May pagkakaiba na **%1$s%2$s** sa pagitan nila.</string>
+    <string name="ai_compare_mixed_item">Ang %1$s ay %2$s%3$s</string>
+    <string name="ai_compare_property_row">• %1$s: %2$s%3$s</string>
+    <string name="ai_compare_the_others">ang iba pa</string>
+    <string name="ai_comparison_all">lahat </string>
+    <string name="ai_comparison_and"> at </string>
+    <string name="ai_comparison_are"> ay </string>
+    <string name="ai_comparison_but">, ngunit </string>
+    <string name="ai_comparison_is"> ay </string>
+    <string name="ai_comparison_vs"> laban sa </string>
+    <string name="ai_comparison_while">, habang </string>
+    <string name="ai_concept_atomic_number">Ang **Atomic Number** ay ang bilang ng mga proton sa isang atom. Ito ang pangunahing paraan kung paano inaayos ang mga elemento sa periodic table.</string>
+    <string name="ai_concept_electron">Ang mga **Electron** ay mga particle na may negatibong charge na umiikot sa nucleus. Kasangkot sila sa bonding at kuryente.</string>
+    <string name="ai_concept_electronegativity">Sinusukat ng **Electronegativity** kung gaano kalakas ang paghila ng isang atom sa mga electron patungo sa sarili nito sa isang chemical bond. Ang Fluorine ang pinaka-electronegative!</string>
+    <string name="ai_concept_generic">Iyan ay isang pangunahing konsepto sa chemistry! Aling bahagi nito ang gusto mong mas palalimin ko? May alam ako tungkol sa mga proton, bonding, radioactivity, at marami pa.</string>
+    <string name="ai_concept_group">Ang isang **Group** ay isang vertical column. Ang mga elemento sa isang grupo ay karaniwang may magkatulad na katangiang kemikal at parehong bilang ng valence electrons.</string>
+    <string name="ai_concept_ionization">Ang **Ionization energy** ay ang enerhiyang kailangan para maalis ang isang electron mula sa isang atom. Karaniwan itong tumataas habang gumagalaw ka pakanan sa periodic table.</string>
+    <string name="ai_concept_isotope">Ang isang **isotope** ay isang variation ng isang elemento na may parehong bilang ng mga proton ngunit magkaibang bilang ng mga neutron. Naaapektuhan nito ang atomic mass nito!</string>
+    <string name="ai_concept_neutron">Ang mga **Neutron** ay mga neutral particle sa nucleus. Nagdaragdag sila ng mass at tumutulong na patatagin ang nucleus, lalo na sa mas mabibigat na elemento.</string>
+    <string name="ai_concept_orbital">Ang mga **Orbital** ay mga rehiyon sa espasyo sa paligid ng isang nucleus kung saan may mataas na posibilidad na makahanap ng electron. Mayroon silang mga hugis tulad ng s, p, d, at f.</string>
+    <string name="ai_concept_period">Ang isang **Period** ay isang horizontal row sa periodic table. Ang mga elemento sa parehong period ay may parehong bilang ng electron shells.</string>
+    <string name="ai_concept_proton">Ang mga **Proton** ay mga particle na may positibong charge sa nucleus. Ang bilang ng mga proton (Atomic Number) ang tumutukoy kung anong elemento ito!</string>
+    <string name="ai_concept_radioactivity">Ang **Radioactivity** ay ang proseso kung saan nawawalan ng enerhiya ang isang hindi matatag na atomic nucleus sa pamamagitan ng paglalabas ng radiation. Sikat ang mga elemento tulad ng Uranium para dito!</string>
+    <string name="ai_concept_shell">Ang mga electron ay naninirahan sa mga **shell** (mga antas ng enerhiya) sa paligid ng nucleus. Ang configuration ang tumutukoy sa posisyon ng elemento sa talahanayan.</string>
+    <string name="ai_concept_valence">Ang mga **Valence electron** ay ang mga electron sa pinakalabas na shell ng isang atom. Sila ang nagtatakda kung paano magre-react ang isang elemento sa iba.</string>
+    <string name="ai_config_is">Ang electron configuration nito ay %1$s.</string>
+    <string name="ai_connector_question_1">Para sagutin ang iyong tanong,</string>
+    <string name="ai_connector_question_2">Naiintindihan ko. Narito ang nahanap ko:</string>
+    <string name="ai_connector_question_3">Tungkol diyan,</string>
+    <string name="ai_connector_why_1">Iyan ay isang magandang follow-up!</string>
+    <string name="ai_connector_why_2">Magandang punto. Hayaan mong ipaliwanag ko pa.</string>
+    <string name="ai_connector_why_3">Pagpapalawak sa sinabi ko lang,</string>
+    <string name="ai_context_lost">Nawala ang konteksto</string>
+    <string name="ai_covered_all">Marami na kaming tinalakay tungkol sa **%1$s**!</string>
+    <string name="ai_difference_group">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
+    <string name="ai_difference_mass">• **%1$s**: Ang %2$s ay mas mabigat nang malaki.</string>
+    <string name="ai_difference_need_two">Kailangan ko ng dalawang elemento para maipaliwanag ang kanilang mga pagkakaiba!</string>
+    <string name="ai_difference_phase">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
+    <string name="ai_difference_similar">Ang %1$s at %2$s ay medyo magkatulad! Pareho silang %3$s %4$s na mga elemento sa %5$s series.</string>
+    <string name="ai_difference_type">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
+    <string name="ai_elec_mag_header">Mga katangiang Elektrikal at Magnetiko ng %1$s:</string>
+    <string name="ai_element">elemento</string>
+    <string name="ai_eqn_no_desc">Kasama sa app ang equation na ito bilang visual reference.</string>
+    <string name="ai_formula_consists_of">Binubuo ito ng:</string>
+    <string name="ai_formula_item">• %1$s × %2$s (%3$s)</string>
+    <string name="ai_formula_pro_plus">Ang pag-aanalisa ng mga chemical compound tulad ng **%1$s** ay isang **PRO+** feature. Bilang isang %2$s user, matutulungan lang kita sa mga indibidwal na elemento!</string>
+    <string name="ai_formula_recognize">Kinikilala ko ang **%1$s** bilang isang chemical compound na may molar mass na **%2$s**.</string>
+    <string name="ai_free_user">Libre</string>
+    <string name="ai_geo_color">%1$s: %2$s %3$s, %4$s %5$s.</string>
+    <string name="ai_geo_dens">%1$s: %2$s %3$s.</string>
+    <string name="ai_geo_hard">%1$s: %2$s %3$s.</string>
+    <string name="ai_geo_info">Ang %1$s ay isang %2$s sa %3$s group. Kulay: %4$s. Hardness: %5$s. Density: %6$s. Magnetism: %7$s.</string>
+    <string name="ai_group">Group</string>
+    <string name="ai_hard_header">Mga katangian ng hardness ng %1$s:</string>
+    <string name="ai_help_response">Sinanay ako nang mahigpit sa data na available sa loob ng app na ito! Matutulungan kita sa:
+
+🧪 **Detalyadong Elemento**: Mga katangian, hitsura, at mga katotohanan sa pagtuklas nang direkta mula sa aming JSON database.
+⚖️ **Paghahambing ng Data**: Ihambing ang density, mass, radius, at reactivity sa pagitan ng mga elemento.
+💥 **Reactivity**: Ginagamit ko ang data ng group at period ng app para ipaliwanag kung paano nagre-react ang mga elemento tulad ng Sodium sa Tubig.
+🧬 **Biological/Safety**: Toxicity at mga biological role na matatagpuan sa mga paglalarawan ng elemento.
+⚛️ **Isotopes at Abundance**: Partikular na data mula sa aming nakalaang mga talahanayan ng isotope at abundance.
+📉 **Periodic Trends**: Pagpapaliwanag ng mga pattern tulad ng Electronegativity batay sa istruktura ng talahanayan.
+🔢 **Molar Mass**: tumpak na mga kalkulasyon gamit ang mga atomic weight sa app.
+📝 **Mga Kahulugan**: Mga paliwanag para sa mga term sa chemistry na ginagamit sa buong app.
+
+Magtanong lang at hahanapin ko ang sagot sa mga record ng app! 🌟</string>
+    <string name="ai_id_header">Mga identifier para sa %1$s:</string>
+    <string name="ai_identity_result">Batay sa mga value sa app, ang elemento na may value na malapit sa **%1$s** para sa mga katangian nito ay **%2$s** (aktwal: %3$s).</string>
+    <string name="ai_ion_count">Ang %1$s ay may %2$d na (mga) value ng ionization energy na available sa app.</string>
+    <string name="ai_isotope_decay">(Decay: %1$s)</string>
+    <string name="ai_isotope_half_life"> Ito ay may half-life na %1$s at nagde-decay sa pamamagitan ng %2$s.</string>
+    <string name="ai_mech_header">%1$s para sa %2$s:</string>
+    <string name="ai_molar_mass_pro_plus">Ang pag-calculate ng molar mass para sa mga compound ay isang **PRO+** feature. Bilang isang %1$s user, maaari ka pa ring makakuha ng molar mass para sa mga indibidwal na elemento!</string>
+    <string name="ai_nfpa_flammable_0">Hindi masusunog</string>
+    <string name="ai_nfpa_flammable_1">Dapat painitin muna para masunog</string>
+    <string name="ai_nfpa_flammable_2">Nag-aapoy kapag katamtamang pinainit</string>
+    <string name="ai_nfpa_flammable_3">Nag-aapoy sa normal na temperatura</string>
+    <string name="ai_nfpa_flammable_4">Sobrang daling mag-apoy</string>
+    <string name="ai_nfpa_health_0">Normal na materyal</string>
+    <string name="ai_nfpa_health_1">Bahagyang mapanganib</string>
+    <string name="ai_nfpa_health_2">Mapanganib</string>
+    <string name="ai_nfpa_health_3">Matinding panganib</string>
+    <string name="ai_nfpa_health_4">Nakamamatay</string>
+    <string name="ai_no_data_right_now">Hindi ko iyan masuri sa ngayon.</string>
+    <string name="ai_oxidation_neg">• Negatibo: %1$s</string>
+    <string name="ai_oxidation_pos">• Positibo: %1$s</string>
+    <string name="ai_period">Period</string>
+    <string name="ai_ph_info">%1$s: ang acid sa ibaba ng pH %2$s ay %3$s, ang neutral range na %4$s ay %5$s, at sa itaas ng pH %6$s ito ay %7$s.</string>
+    <string name="ai_ph_info_short">%1$s: ang pH range na %2$s ay %3$s.</string>
+    <string name="ai_poi_info">%1$s: Poisson\'s ratio range na %2$s (%3$s).</string>
+    <string name="ai_pro_user">PRO</string>
+    <string name="ai_quick_ask_description">Magtanong sa Science AI ng kahit ano agad</string>
+    <string name="ai_radius_header">Mga detalye ng radius para sa %1$s:</string>
+    <string name="ai_rate_limit_reached">Naabot mo na ang iyong pang-araw-araw na limitasyon na %1$d na mga mensahe. Mag-upgrade sa PRO o PRO+ para sa higit pa!</string>
+    <string name="ai_reactivity_more">Ang **%1$s** ay karaniwang mas reactive kaysa sa **%2$s** batay sa posisyon nito sa periodic table.</string>
+    <string name="ai_reactivity_need_two">Kailangan ko ng hindi bababa sa dalawang elemento para maihambing ang kanilang reactivity!</string>
+    <string name="ai_reactivity_no_result">Hindi ko matukoy ang pinaka-reactive na elemento.</string>
+    <string name="ai_reactivity_result">Ang pinaka-reactive na %1$s ay **%2$s**.</string>
+    <string name="ai_reactivity_similar">Parehong ang **%1$s** at **%2$s** ay may magkatulad na antas ng reactivity.</string>
+    <string name="ai_safety_caution_flammable">Babala: Ang elementong ito ay sobrang daling mag-apoy!</string>
+    <string name="ai_safety_caution_health">Babala: Ang elementong ito ay lubhang mapanganib sa kalusugan!</string>
+    <string name="ai_safety_flammability">• **Flammability:** %1$d/4 (%2$s)</string>
+    <string name="ai_safety_header">Safety profile para sa %1$s (NFPA 704):</string>
+    <string name="ai_safety_health">• **Health:** %1$d/4 (%2$s)</string>
+    <string name="ai_safety_instability">• **Instability:** %1$d/4</string>
+    <string name="ai_safety_no_data">Wala akong partikular na mga rating ng panganib ng NFPA para sa %1$s, ngunit laging sundin ang karaniwang mga protocol sa kaligtasan sa laboratoryo.</string>
+    <string name="ai_safety_radioactive">Ang %1$s ay radioactive (%2$s), na siyang pangunahing alalahanin nito sa kaligtasan. Hawakan nang may matinding pag-iingat!</string>
+    <string name="ai_safety_special">• **Special:** %1$s</string>
+    <string name="ai_similarity_generic">Ang **%1$s** ay bahagi ng %2$s series. Ang iba pang mga elemento sa seryeng ito ay magkakaroon ng mga kaugnay na katangian!</string>
+    <string name="ai_similarity_no_element">Hindi ako sigurado kung aling elemento ang gusto mong hanapan ng mga pagkakatulad.</string>
+    <string name="ai_similarity_result_footer">.
+
+Nagbabahagi sila ng mga katulad na gawi sa kemikal dahil sa kanilang mga valence electron!</string>
+    <string name="ai_similarity_result_header">Tulad ng **%1$s**, ang mga elementong ito ay mga **%2$ss** din: 
+
+</string>
+    <string name="ai_structural_no_results">Wala akong nahanap sa grupo o period na iyon. Tandaan: mayroong 18 groups at 7 periods!</string>
+    <string name="ai_structural_result">Ang mga elemento sa **%1$s %2$s** ay: 
+</string>
+    <string name="ai_structural_specify_number">Mangyaring tukuyin ang isang group o period number!</string>
+    <string name="ai_suggestion_abundance">Dapat ba nating tingnan kung saan ito matatagpuan sa sansinukob?</string>
+    <string name="ai_suggestion_bio">Gusto mo bang malaman ang tungkol sa biological role nito?</string>
+    <string name="ai_suggestion_compare">Gusto mo ba itong ihambing sa isa pang elemento?</string>
+    <string name="ai_suggestion_iso">Maaari ko ring sabihin sa iyo ang tungkol sa mga isotope nito.</string>
+    <string name="ai_suggestion_safety">Mayroon din akong data sa kaligtasan para dito, kung interesado ka.</string>
+    <string name="ai_superlative_among">Sa mga %1$ss, %2$s</string>
+    <string name="ai_thermal_header">Mga katangiang thermal ng %1$s:</string>
+    <string name="all_ai_features">Lahat ng feature ng AI:</string>
+    <string name="analytics_desc">Tulungang mapabuti ang app sa pamamagitan ng pagbabahagi ng hindi nagpapakilalang data ng paggamit</string>
+    <string name="analytics_title">Usage Analytics</string>
+    <string name="app_version">v5.0.0m-Build.221</string>
+    <string name="back">Bumalik</string>
+    <string name="compare_elements">Ihambing ang mga Elemento</string>
+    <string name="comparison_title_format">%1$s | %2$s</string>
+    <string name="covalent_radius_colon">Covalent Radius:</string>
+    <string name="curie_point_colon">Curie Point:</string>
+    <string name="current_version">Kasalukuyang Bersyon</string>
+    <string name="dic">Diksyunaryo</string>
+    <string name="dictionary_text">Isang komprehensibong diksyunaryo ng mga terminong kemikal at pisikal</string>
+    <string name="electronegativity_allen_colon">Electronegativity (Allen):</string>
+    <string name="element_electrons">Mga Electron:</string>
+    <string name="element_of_the_day">Elemento ng Araw</string>
+    <string name="element_of_the_day_description">Nagpapakita ng ibang elemento bawat araw kasama ang simbolo, pangalan, at paglalarawan nito</string>
+    <string name="element_quick_nav_description">Mabilis na nabigasyon sa Periodic Table, Quiz, at mga tool ng AI</string>
+    <string name="exit_compare_mode">Lumabas sa Paghahambing</string>
+    <string name="feature_check">Kasama ang feature</string>
+    <string name="filter">I-filter</string>
+    <string name="gas">Ideal Gas Calculator</string>
+    <string name="ideal_calculated">Naka-disable</string>
+    <string name="ideal_gas_calculate_field">Kalkulahin:</string>
+    <string name="ideal_gas_calculator_title">Ideal Gas Calculator</string>
+    <string name="ideal_gas_card_title">Ideal Gas Law Calculator (PV=nRT):</string>
+    <string name="ideal_gas_moles">Moles (n):</string>
+    <string name="ideal_gas_moles_hint">Ipasok ang mga mole</string>
+    <string name="ideal_gas_pressure">Pressure (P):</string>
+    <string name="ideal_gas_pressure_hint">Ipasok ang pressure</string>
+    <string name="ideal_gas_result">Resulta:</string>
+    <string name="ideal_gas_temperature">Temperature (T):</string>
+    <string name="ideal_gas_temperature_hint">Ipasok ang temperatura</string>
+    <string name="ideal_gas_text">Kalkulahin ang mga katangian ng ideal gas gamit ang ideal gas law equation na PV=nRT. Piliin kung aling variable ang kakalkulahin at ipasok ang iba pang tatlong value.</string>
+    <string name="ideal_gas_volume">Volume (V):</string>
+    <string name="ideal_gas_volume_hint">Ipasok ang volume</string>
+    <string name="learning_games_nav">Flashcards</string>
+    <string name="molar_heat_capacity_colon">Molar Heat Capacity:</string>
+    <string name="molar_volume_colon">Molar Volume:</string>
+    <string name="neel_point_colon">Neel Point:</string>
+    <string name="next_sale_end">2024/09/15</string>
+    <string name="next_sale_start">2024/08/05</string>
+    <string name="price_not_available">Hindi available ang presyo</string>
+    <string name="pro_better_ai">Karagdagang Mga Tampok ng AI</string>
+    <string name="pro_better_ai_descr">I-unlock ang lahat ng feature ng AI agent, na may quiz, access sa pro data at marami pang iba</string>
+    <string name="read_more_widget">Magbasa pa</string>
+    <string name="refractive_index_colon">Refractive Index:</string>
+    <string name="requires_pro_plus_until_2026">Nangangailangan ng PRO+ hanggang Jan 1 2026</string>
+    <string name="science_daily_description">Random na mga katotohanan sa agham na inihahatid araw-araw</string>
+    <string name="select_element_to_compare">Pumili ng Elemento na Ihahambing</string>
+    <string name="space_group_name_colon">Pangalan ng Space Group:</string>
+    <string name="space_group_number_colon">Numero ng Space Group:</string>
+    <string name="thermal_conductivity_colon">Thermal Conductivity:</string>
+    <string name="thermal_expansion_colon">Thermal Expansion:</string>
+    <string name="unknown">Hindi alam</string>
+    <string name="unlimited_ai_messages">Walang limitasyong mga mensahe ng AI:</string>
+    <string name="van_der_waals_radius_colon">Van Der Waals Radius:</string>
+    <string name="view_all">Tingnan lahat</string>
+    <string name="web_client_id">315118082769-ivqq7fhga4pjja0t95iuansjs2vjdu9j.apps.googleusercontent.com</string>
+    <string name="widget_description_placeholder">Naglo-load ng impormasyon ng elemento...</string>
+    <string name="work_function_colon">Work Function:</string>
 </resources>

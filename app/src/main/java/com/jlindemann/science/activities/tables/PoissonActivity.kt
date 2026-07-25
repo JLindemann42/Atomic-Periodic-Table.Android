@@ -200,6 +200,16 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
 
     private fun showInfoPanel(title: String, start: Double, end: Double, type: String) {
         val slider = findViewById<com.google.android.material.slider.RangeSlider>(R.id.rs_poisson_detail)
+        
+        // Poisson values can be outside [0.0, 0.5] for auxetic materials or other cases.
+        // We must update the slider range before setting values to avoid IllegalStateException.
+        val minVal = Math.min(start, end).toFloat()
+        val maxVal = Math.max(start, end).toFloat()
+        
+        // Ensure values are within [valueFrom, valueTo]
+        slider.valueFrom = Math.min(0.0f, Math.floor(minVal.toDouble()).toFloat())
+        slider.valueTo = Math.max(0.5f, Math.ceil(maxVal.toDouble()).toFloat())
+
         slider.setValues(start.toFloat(), end.toFloat())
 
         findViewById<TextView>(R.id.detail_poisson_title).text = title

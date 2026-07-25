@@ -25,6 +25,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.animations.TitleBarAnimator
+import com.jlindemann.science.model.UnitCatalog
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.utils.UnifiedTitleBarController
 import com.jlindemann.science.preferences.ProVersion
@@ -32,89 +33,7 @@ import com.jlindemann.science.preferences.ThemePreference
 
 class UnitConversionActivity : BaseActivity() {
     private lateinit var titleBar: UnifiedTitleBarController
-    private val unitCategories: Map<String, List<UnitDefinition>> = mapOf(
-        "Length" to listOf(
-            UnitDefinition("Meter", 1.0),
-            UnitDefinition("Kilometer", 1000.0),
-            UnitDefinition("Centimeter", 0.01),
-            UnitDefinition("Millimeter", 0.001),
-            UnitDefinition("Inch", 0.0254),
-            UnitDefinition("Foot", 0.3048),
-            UnitDefinition("Yard", 0.9144),
-            UnitDefinition("Mile", 1609.344)
-        ),
-        "Mass" to listOf(
-            UnitDefinition("Kilogram", 1.0),
-            UnitDefinition("Gram", 0.001),
-            UnitDefinition("Milligram", 0.000001),
-            UnitDefinition("Pound", 0.45359237),
-            UnitDefinition("Ounce", 0.0283495231)
-        ),
-        "Volume" to listOf(
-            UnitDefinition("Liter", 1.0),
-            UnitDefinition("Milliliter", 0.001),
-            UnitDefinition("Cubic meter", 1000.0),
-            UnitDefinition("Gallon", 3.78541),
-            UnitDefinition("Pint", 0.473176)
-        ),
-        "Area" to listOf(
-            UnitDefinition("Square meter", 1.0),
-            UnitDefinition("Square kilometer", 1_000_000.0),
-            UnitDefinition("Square centimeter", 0.0001),
-            UnitDefinition("Square mile", 2_589_988.11),
-            UnitDefinition("Acre", 4046.85642)
-        ),
-        "Velocity" to listOf(
-            UnitDefinition("Meter/second", 1.0), UnitDefinition("Kilometer/hour", 0.277778),
-            UnitDefinition("Mile/hour", 0.44704), UnitDefinition("Foot/second", 0.3048)
-        ),
-        "Energy" to listOf(
-            UnitDefinition("Joule", 1.0),
-            UnitDefinition("Kilojoule", 1000.0),
-            UnitDefinition("Calorie", 4.184),
-            UnitDefinition("Kilocalorie", 4184.0),
-            UnitDefinition("Watt hour", 3600.0)
-        ),
-        "Frequency" to listOf(
-            UnitDefinition("Hertz", 1.0), UnitDefinition("Kilohertz", 1000.0),
-            UnitDefinition("Megahertz", 1_000_000.0), UnitDefinition("Gigahertz", 1_000_000_000.0)
-        ),
-        "Temperature" to listOf(
-            UnitDefinition("Celsius", 0.0),
-            UnitDefinition("Fahrenheit", 0.0),
-            UnitDefinition("Kelvin", 0.0)
-        ),
-        "Time" to listOf(
-            UnitDefinition("Second", 1.0),
-            UnitDefinition("Millisecond", 0.001),
-            UnitDefinition("Minute", 60.0),
-            UnitDefinition("Hour", 3600.0),
-            UnitDefinition("Day", 86400.0)
-        ),
-        "Force" to listOf(
-            UnitDefinition("Newton", 1.0), UnitDefinition("Kilonewton", 1000.0),
-            UnitDefinition("Dyne", 0.00001), UnitDefinition("Pound-force", 4.4482216),
-            UnitDefinition("Kilogram-force", 9.80665)
-        ),
-        "Power" to listOf(
-            UnitDefinition("Watt", 1.0), UnitDefinition("Kilowatt", 1000.0),
-            UnitDefinition("Megawatt", 1_000_000.0), UnitDefinition("Horsepower", 745.699872)
-        ),
-        "Voltage" to listOf(
-            UnitDefinition("Volt", 1.0),
-            UnitDefinition("Millivolt", 0.001),
-            UnitDefinition("Kilovolt", 1000.0)
-        ),
-        "Resistance" to listOf(
-            UnitDefinition("Ohm", 1.0), UnitDefinition("Milliohm", 0.001),
-            UnitDefinition("Kiloohm", 1000.0), UnitDefinition("Megaohm", 1_000_000.0)
-        ),
-        "Pressure" to listOf(
-            UnitDefinition("Pascal", 1.0), UnitDefinition("Kilopascal", 1000.0),
-            UnitDefinition("Bar", 100_000.0), UnitDefinition("Atmosphere", 101_325.0),
-            UnitDefinition("PSI", 6894.757)
-        )
-    )
+    private val unitCategories: Map<String, List<UnitDefinition>> = UnitCatalog.categories
 
     private lateinit var categorySpinner: Spinner
     private lateinit var fromUnitSpinner: Spinner
@@ -233,7 +152,7 @@ class UnitConversionActivity : BaseActivity() {
         val mostUsedPreference = MostUsedToolPreference(this)
         val mostUsedPrefValue = mostUsedPreference.getValue()
         val targetLabel = "uni"
-        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val regex = Regex("($targetLabel)=(\\d+\\.\\d+)")
         val match = regex.find(mostUsedPrefValue)
         if (match != null) {
             val value = match.groups[2]!!.value.toDouble()
@@ -278,7 +197,7 @@ class UnitConversionActivity : BaseActivity() {
     private fun setupSpinners() {
         val categories = unitCategories.keys.toList()
         val categoryAdapter = ArrayAdapter(this, R.layout.spinner_item_text, categories)
-        categoryAdapter.setDropDownViewResource(R.layout.spinner_item_text)
+        categoryAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         categorySpinner.adapter = categoryAdapter
 
         categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -292,7 +211,7 @@ class UnitConversionActivity : BaseActivity() {
                 val units = unitCategories[selectedCategory]?.map { it.name } ?: listOf()
                 val unitAdapter =
                     ArrayAdapter(this@UnitConversionActivity, R.layout.spinner_item_text, units)
-                unitAdapter.setDropDownViewResource(R.layout.spinner_item_text)
+                unitAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
                 fromUnitSpinner.adapter = unitAdapter
                 toUnitSpinner.adapter = unitAdapter
 
@@ -399,30 +318,8 @@ class UnitConversionActivity : BaseActivity() {
         formulaValue.text = formula
     }
 
-    private fun convertTemperature(from: String, to: String, value: Double): Pair<Double, String> {
-        val celsius = when (from) {
-            "Celsius" -> value
-            "Fahrenheit" -> (value - 32) * 5 / 9
-            "Kelvin" -> value - 273.15
-            else -> value
-        }
-        val result = when (to) {
-            "Celsius" -> celsius
-            "Fahrenheit" -> celsius * 9 / 5 + 32
-            "Kelvin" -> celsius + 273.15
-            else -> celsius
-        }
-        val formula = when {
-            from == "Celsius" && to == "Fahrenheit" -> "Multiply with 9/5 and add 32"
-            from == "Celsius" && to == "Kelvin" -> "Add 273.15"
-            from == "Fahrenheit" && to == "Celsius" -> "Subtract 32, divide with 5/9"
-            from == "Fahrenheit" && to == "Kelvin" -> "Subtract 32, multiply with 5/9, add 273.15"
-            from == "Kelvin" && to == "Celsius" -> "subtract 273.15"
-            from == "Kelvin" && to == "Fahrenheit" -> "subtract 273.15, multiply with 9/5, add 32"
-            else -> "no conversion"
-        }
-        return Pair(result, formula)
-    }
+    private fun convertTemperature(from: String, to: String, value: Double): Pair<Double, String> =
+        Pair(UnitCatalog.convertTemperature(from, to, value), UnitCatalog.temperatureFormula(from, to))
 
     private fun addFavorite() {
         val category = categorySpinner.selectedItem as? String ?: return

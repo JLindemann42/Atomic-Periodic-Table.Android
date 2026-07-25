@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Atomic</string>
     <string name="personalization_settings">个性化</string>
@@ -304,16 +304,18 @@ I：不溶"</string>
     <string name="dictionary">词典</string>
     <string name="dictionary_search">搜索词典项</string>
     <string name="element_info_title">元素信息</string>
-
-    <!-- AI Chat Panel -->
     <string name="ask_atomic">咨询 Atomic</string>
     <string name="ai_hint">问我任何问题...</string>
     <string name="ai_lang_switched">AI 语言已切换为：%1$s 🌐</string>
     <string name="ai_no_data">嗯，我没能找到相关信息。试着询问像“氧”或“金”这样的元素吧！</string>
+    <string name="ai_related_label">相关信息：</string>
+    <string name="ai_related_offer">我找到了本地相关信息。请问“显示相关”以查看。</string>
+    <string name="ai_related_offer_lang">我找到了本地相关信息，但不是您选择的语言。尝试更改语言或直接询问。</string>
     <string name="ai_greeting">你好！👋 我是你的化学伙伴。有任何关于元素的问题都可以问我！</string>
     <string name="ai_encouragement">好问题！🌟</string>
     <string name="ai_comparing_title">%1$s 的比较：</string>
     <string name="ai_higher_than">%1$s 的 %2$s 比 %3$s 高。</string>
+    <string name="ai_lower_than">%1$s 的 %2$s 比 %3$s 低。</string>
     <string name="ai_same_value">两者的 %1$s 相同！</string>
     <string name="ai_property_is">%1$s 的 %2$s 是 %3$s。</string>
     <string name="ai_recap_is">重申一下，%1$s 的 %2$s 是 %3$s。</string>
@@ -363,6 +365,16 @@ I：不溶"</string>
     <string name="ai_superlative_no_calculate">我目前无法计算出那个结果。</string>
     <string name="highest">最高的</string>
     <string name="lowest">最低的</string>
+    <string name="ai_rich_overview_basic_facts">基本事实</string>
+    <string name="ai_rich_overview_where_found">%1$s 存在于何处？</string>
+    <string name="ai_rich_overview_applications">应用与用途</string>
+    <string name="ai_rich_overview_etymology">起源与历史</string>
+    <string name="ai_rich_overview_biological">生物学作用</string>
+    <string name="ai_rich_overview_properties">性质</string>
+    <string name="ai_rich_overview_advanced">高级原子数据</string>
+    <string name="ai_rich_overview_safety">安全与危害</string>
+    <string name="ai_rich_overview_isotopes">值得注意的同位素</string>
+    <string name="ai_rich_overview_compounds">常见化合物</string>
     <string name="ai_element_overview_intro">%1$s %2$s (%3$s) 是一个迷人的元素！它的原子序数是 %4$s，属于 %5$s 族。</string>
     <string name="ai_element_overview_series"> 它是 %1$s 系列的一部分。</string>
     <string name="ai_element_overview_appearance"> 它通常表现为：%1$s。</string>
@@ -370,6 +382,44 @@ I：不溶"</string>
     <string name="ai_element_overview_electrons"> 它有 %1$s 个电子绕核运行。</string>
     <string name="ai_technical_mass"> 它的精确原子质量为 %1$s。</string>
     <string name="ai_technical_config"> 它的电子排布为 %1$s。</string>
+    <string name="ai_list_header">以下是 **%1$s** 元素：</string>
+    <string name="ai_no_list_data">我没能在数据库中找到符合这些条件的元素。</string>
+    <string name="ai_pro_tip_hint">专业提示：您还可以问我关于它的来源、生物学作用或反应性！</string>
+    <string name="ai_bio_role_header">关于它的生物学作用，我找到了以下关于 **%1$s** 的信息：</string>
+    <string name="ai_no_bio_data">我没有 %1$s 的详细生物学数据，但标准安全说明如下：</string>
+    <string name="ai_etymology_header">**%1$s** 这个名字有一个有趣的来源：</string>
+    <string name="ai_no_etymology_data">我不确定它名字的确切根源，但它是由 %2$s 在 %3$s 年发现的。</string>
+    <string name="ai_reaction_alkali_water">像 %1$s 这样的碱金属与水发生**剧烈**反应，产生氢气和强碱。甚至可能发生爆炸！</string>
+    <string name="ai_reaction_magnesium_water">%1$s 与冷水反应缓慢，但与水蒸气反应迅速。</string>
+    <string name="ai_reaction_alkaline_earth_water">%1$s 与水剧烈反应，产生氢气和其氢氧化物。</string>
+    <string name="ai_reaction_generic_water">我没有 %1$s 与水反应的具体数据，但许多金属随时间推移会形成氧化物或氢氧化物。</string>
+    <string name="ai_reaction_oxygen">大多数元素与氧反应生成氧化物。例如，像 %1$s 这样的金属通常会形成保护层或生锈。</string>
+    <string name="ai_reaction_acid">许多金属与酸反应释放出氢气。%1$s 的反应性取决于它在活动性序列中的位置。</string>
+    <string name="ai_reaction_complex">反应可能很复杂！通常，%1$s 的行为取决于它的族 (%2$s) 和电负性。</string>
+    <string name="ai_reaction_alkali_halogen">这些剧烈反应生成**盐**（离子化合物）。例如，%1$s 和 %2$s 可以结合生成一种独特的化合物！</string>
+    <string name="ai_reaction_noble_gas">%1$s 是一种稀有气体，极其稳定，几乎不与任何物质反应，因为它的最外层电子已满。</string>
+    <string name="ai_reaction_generic_elements">%1$s 和 %2$s 之间的反应取决于它们的电子排布。如果一个能提供电子而另一个能接受电子，它们可能会形成化合物！</string>
+    <string name="ai_personalized_greeting_interest">欢迎回来！准备好探索更多关于 %1$s 的信息了吗？我们可以再次查看 %2$s。</string>
+    <string name="ai_personalized_greeting_fav">嘿！我记得你最近在查看 %1$s。想看看更多细节吗？</string>
+    <string name="ai_usage_header">以下是关于 **%1$s** 的一些常见应用和事实：</string>
+    <string name="ai_no_usage_data">我没有 %1$s 的具体用途列表，但它是一个迷人的元素！您可以在详细描述中了解更多信息。</string>
+    <string name="ai_abundance_header">以下是来自应用数据库的 **%1$s** 丰度数据：</string>
+    <string name="ai_no_abundance_data">我没有 %1$s 的具体数值丰度数据，但描述中提到：%2$s。</string>
+    <string name="ai_physical_header">基于应用中存储的 **%1$s** 物理属性：</string>
+    <string name="ai_no_physical_data">我在快速访问数据中没有 %1$s 的详细物理属性，但您可以查看详细的属性面板！</string>
+    <string name="ai_isotope_header">根据应用的同位素表，以下是 **%1$s** 的主要同位素：</string>
+    <string name="ai_no_isotope_data">我的快速访问数据中没有 %1$s 的详细同位素列表，但您可以在同位素表中找到完整列表！</string>
+    <string name="iso_half_life_colon">半衰期：</string>
+    <string name="ai_oxidation_states">**%1$s** 有几种可能的氧化态。</string>
+    <string name="ai_radius_details">以下是 **%1$s** 的半径详情：</string>
+    <string name="ai_thermal_properties">**%1$s** 的热学性质：</string>
+    <string name="ai_elec_mag_properties">**%1$s** 的电磁性质：</string>
+    <string name="ai_identifiers_for">**%1$s** 的标识符：</string>
+    <string name="ai_valence_alkali">作为碱金属，它的最外层有 **1 个价电子**。</string>
+    <string name="ai_valence_alkaline">作为碱土金属，它有 **2 个价电子**。</string>
+    <string name="ai_valence_halogen">作为卤素，它有 **7 个价电子**，并且非常渴望再获得一个！</string>
+    <string name="ai_valence_noble_helium">氦有 **2 个价电子**，填满了它唯一的电子层。</string>
+    <string name="ai_valence_noble_other">它有一个完整的最外层，包含 **8 个价电子**，这使它非常稳定。</string>
     <string-array name="ai_facts">
         <item>你知道吗？氧是地壳中含量最丰富的元素！</item>
         <item>趣闻：黄金永远不会生锈或腐蚀。它永远闪闪发光！</item>
@@ -700,7 +750,7 @@ I：不溶"</string>
     <string name="share_app_description">如果您觉得这个应用有用，请与您的朋友和其他人分享！</string>
     <string name="sync_data">同步数据：</string>
     <string name="young_bulk_shear_modulus">杨氏模量、体积模量、剪切模量：</string>
-<string name="intro_welcome_title">欢迎使用 Atomic</string>
+    <string name="intro_welcome_title">欢迎使用 Atomic</string>
     <string name="intro_welcome_description">您的综合元素周期表参考，包含详细的元素信息、交互式工具和学习功能。</string>
     <string name="intro_flashcards_title">使用闪卡学习</string>
     <string name="intro_flashcards_description">通过交互式闪卡掌握元素周期表。测试您对元素符号、原子质量和化学性质的了解。</string>
@@ -714,4 +764,221 @@ I：不溶"</string>
     <string name="intro_image_description">介绍图片</string>
     <string name="electron_affinity_colon">电子亲和能:</string>
     <string name="split_view">元素拆分视图</string>
+    <string name="abundance_human_body">人体内</string>
+    <string name="abundance_meteorites">陨石中</string>
+    <string name="account">账户</string>
+    <string name="additional_ai_messages">增加的 AI 消息限制：</string>
+    <string name="ai_abundance_relative">（相对于 H=10¹²）</string>
+    <string name="ai_adv_header">%1$s 的高级属性：</string>
+    <string name="ai_all_covered">我们已经涵盖了很多关于 %1$s 的内容！你知道吗？</string>
+    <string name="ai_another_isotope"> 另一个同位素是 %1$s。</string>
+    <string name="ai_beta_badge">测试版</string>
+    <string name="ai_chat_setting">启用 AI 聊天助手</string>
+    <string name="ai_chat_setting_description">允许 AI 助手回答有关元素的问题</string>
+    <string name="ai_check_isotope_table">%1$s 有多种同位素。您可以查看详细的同位素表以获取完整列表！</string>
+    <string name="ai_common_isotopes">%1$s 的常见同位素包括 %2$s。</string>
+    <string name="ai_compare_all_same">
+• **%1$s：** 全部都是 %2$s%3$s。</string>
+    <string name="ai_compare_difference_value">它们之间存在 **%1$s%2$s** 的差异。</string>
+    <string name="ai_compare_mixed_item">%1$s 是 %2$s%3$s</string>
+    <string name="ai_compare_property_row">• %1$s：%2$s%3$s</string>
+    <string name="ai_compare_the_others">其他的</string>
+    <string name="ai_comparison_all">全部 </string>
+    <string name="ai_comparison_and"> 和 </string>
+    <string name="ai_comparison_are"> 是 </string>
+    <string name="ai_comparison_but">，但是 </string>
+    <string name="ai_comparison_is"> 是 </string>
+    <string name="ai_comparison_vs"> 对比 </string>
+    <string name="ai_comparison_while">，而 </string>
+    <string name="ai_concept_atomic_number">**原子序数**是原子中质子的数量。它是元素在元素周期表中排列的主要方式。</string>
+    <string name="ai_concept_electron">**电子**是绕原子核运行的带负电的粒子。它们参与化学键和导电。</string>
+    <string name="ai_concept_electronegativity">**电负性**衡量原子在化学键中吸引电子的能力。氟是最具电负性的元素！</string>
+    <string name="ai_concept_generic">这是化学中的一个核心概念！您想深入了解其中的哪一部分？我了解质子、化学键、放射性等等。</string>
+    <string name="ai_concept_group">**族**是垂直的一列。同一族的元素通常具有相似的化学性质和相同数量的价电子。</string>
+    <string name="ai_concept_ionization">**电离能**是从原子中移除一个电子所需的能量。它通常随着在元素周期表中向右移动而增加。</string>
+    <string name="ai_concept_isotope">**同位素**是具有相同质子数但不同中子数的元素变体。这会影响其原子量！</string>
+    <string name="ai_concept_neutron">**中子**是原子核中的中性粒子。它们增加质量并有助于稳定原子核，特别是在较重的元素中。</string>
+    <string name="ai_concept_orbital">**轨道**是原子核周围空间中存在电子概率较高的区域。它们的形状如 s、p、d 和 f。</string>
+    <string name="ai_concept_period">**周期**是元素周期表中的水平一行。同一周期的元素具有相同数量的电子层。</string>
+    <string name="ai_concept_proton">**质子**是原子核中带正电的粒子。质子的数量（原子序数）决定了它是哪种元素！</string>
+    <string name="ai_concept_radioactivity">**放射性**是不稳定的原子核通过发射辐射失去能量的过程。铀等元素以此闻名！</string>
+    <string name="ai_concept_shell">电子存在于原子核周围的**层**（能级）中。配置决定了元素在表中的位置。</string>
+    <string name="ai_concept_valence">**价电子**是原子最外层的电子。它们决定了一个元素如何与其他元素反应。</string>
+    <string name="ai_config_is">其电子排布为 %1$s。</string>
+    <string name="ai_connector_question_1">为了回答您的问题，</string>
+    <string name="ai_connector_question_2">我明白了。这是我找到的内容：</string>
+    <string name="ai_connector_question_3">关于那一点，</string>
+    <string name="ai_connector_why_1">这是一个很好的追问！</string>
+    <string name="ai_connector_why_2">好点子。让我进一步解释。</string>
+    <string name="ai_connector_why_3">就我刚才所说的进行扩展，</string>
+    <string name="ai_context_lost">上下文丢失</string>
+    <string name="ai_covered_all">我们已经涵盖了很多关于 **%1$s** 的内容！</string>
+    <string name="ai_difference_group">• **%1$s**：%2$s：%3$s，%4$s：%5$s</string>
+    <string name="ai_difference_mass">• **%1$s**：%2$s 明显更重。</string>
+    <string name="ai_difference_need_two">我需要两个元素来解释它们的差异！</string>
+    <string name="ai_difference_phase">• **%1$s**：%2$s：%3$s，%4$s：%5$s</string>
+    <string name="ai_difference_similar">%1$s 和 %2$s 非常相似！它们都是 %5$s 系列中的 %3$s %4$s 元素。</string>
+    <string name="ai_difference_type">• **%1$s**：%2$s：%3$s，%4$s：%5$s</string>
+    <string name="ai_elec_mag_header">%1$s 的电磁特性：</string>
+    <string name="ai_element">元素</string>
+    <string name="ai_eqn_no_desc">应用程序包含此方程式作为视觉参考。</string>
+    <string name="ai_formula_composition_offer"> 您想让我分析它的元素组成吗？</string>
+    <string name="ai_formula_consists_of">它由以下部分组成：</string>
+    <string name="ai_formula_item">• %1$s × %2$s (%3$s)</string>
+    <string name="ai_formula_pro_plus">分析像 **%1$s** 这样的化学化合物是 **PRO+** 功能。作为 %2$s 用户，我只能帮助您查询单个元素！</string>
+    <string name="ai_formula_recognize">我识别出 **%1$s** 是一个摩尔质量为 **%2$s** 的化合物。</string>
+    <string name="ai_free_user">免费</string>
+    <string name="ai_geo_color">%1$s：%2$s %3$s，%4$s %5$s。</string>
+    <string name="ai_geo_dens">%1$s：%2$s %3$s。</string>
+    <string name="ai_geo_hard">%1$s：%2$s %3$s。</string>
+    <string name="ai_geo_info">%1$s 是 %3$s 族中的 %2$s。颜色：%4$s。硬度：%5$s。密度：%6$s。磁性：%7$s。</string>
+    <string name="ai_group">族</string>
+    <string name="ai_hard_header">%1$s 的硬度特性：</string>
+    <string name="ai_help_response">我严格基于此应用程序中的数据进行训练！我可以帮助您：
+
+🧪 **详细元素**：直接来自我们 JSON 数据库的属性、外观和发现事实。
+⚖️ **数据对比**：比较元素之间的密度、质量、半径和反应性。
+💥 **反应性**：我使用应用程序的族和周期数据来解释像钠这样的元素如何与水反应。
+🧬 **生物/安全**：在元素描述中找到的毒性和生物作用。
+⚛️ **同位素与丰度**：来自我们专用同位素和丰度表的特定数据。
+📉 **周期趋势**：基于表格结构解释电负性等模式。
+🔢 **摩尔质量**：使用应用程序中的原子量进行精确计算。
+📝 **定义**：对整个应用程序中使用的化学术语的解释。
+
+只需提问，我就会在应用程序的记录中为您找到答案！ 🌟</string>
+    <string name="ai_id_header">%1$s 的标识符：</string>
+    <string name="ai_identity_result">根据应用程序中的数值，其属性接近 **%1$s** 的元素是 **%2$s**（实际：%3$s）。</string>
+    <string name="ai_ion_count">%1$s 在应用程序中有 %2$d 个电离能值可用。</string>
+    <string name="ai_isotope_decay">（衰变：%1$s）</string>
+    <string name="ai_isotope_half_life"> 它的半衰期为 %1$s，通过 %2$s 衰变。</string>
+    <string name="ai_mech_header">%2$s 的 %1$s：</string>
+    <string name="ai_molar_mass_pro_plus">计算化合物的摩尔质量是 **PRO+** 功能。作为 %1$s 用户，您仍然可以获取单个元素的摩尔质量！</string>
+    <string name="ai_nfpa_flammable_0">不会燃烧</string>
+    <string name="ai_nfpa_flammable_1">必须预热才能燃烧</string>
+    <string name="ai_nfpa_flammable_2">适度加热时点燃</string>
+    <string name="ai_nfpa_flammable_3">常温下点燃</string>
+    <string name="ai_nfpa_flammable_4">极易燃</string>
+    <string name="ai_nfpa_health_0">普通材料</string>
+    <string name="ai_nfpa_health_1">轻微危险</string>
+    <string name="ai_nfpa_health_2">危险</string>
+    <string name="ai_nfpa_health_3">极其危险</string>
+    <string name="ai_nfpa_health_4">致命</string>
+    <string name="ai_no_data_right_now">我目前无法检查。</string>
+    <string name="ai_oxidation_neg">• 负价：%1$s</string>
+    <string name="ai_oxidation_pos">• 正价：%1$s</string>
+    <string name="ai_period">周期</string>
+    <string name="ai_ph_info">%1$s：pH 低于 %2$s 时为酸性 %3$s，中性范围 %4$s 为 %5$s，pH 高于 %6$s 时为 %7$s。</string>
+    <string name="ai_ph_info_short">%1$s：pH 范围 %2$s 为 %3$s。</string>
+    <string name="ai_phase_gas">气态</string>
+    <string name="ai_phase_liquid">液态</string>
+    <string name="ai_phase_solid">固态</string>
+    <string name="ai_poi_info">%1$s：泊松比范围 %2$s (%3$s)。</string>
+    <string name="ai_pro_user">专业版</string>
+    <string name="ai_quick_ask_description">立即向科学 AI 提问任何内容</string>
+    <string name="ai_quiz_no_start">我目前无法开始测验。</string>
+    <string name="ai_quiz_not_active">我目前不在测验模式中。</string>
+    <string name="ai_radius_header">%1$s 的半径详情：</string>
+    <string name="ai_rate_limit_reached">您已达到每日 %1$d 条消息的限制。升级到 PRO 或 PRO+ 以获取更多！</string>
+    <string name="ai_reactivity_more">根据在元素周期表中的位置，**%1$s** 通常比 **%2$s** 更具反应性。</string>
+    <string name="ai_reactivity_need_two">我至少需要两个元素来比较它们的反应性！</string>
+    <string name="ai_reactivity_no_result">我无法确定最具反应性的元素。</string>
+    <string name="ai_reactivity_result">最具反应性的 %1$s 是 **%2$s**。</string>
+    <string name="ai_reactivity_similar">**%1$s** 和 **%2$s** 的反应性水平相似。</string>
+    <string name="ai_safety_caution_flammable">警告：此元素极易燃！</string>
+    <string name="ai_safety_caution_health">警告：此元素对健康具有高度危险性！</string>
+    <string name="ai_safety_flammability">• **易燃性：** %1$d/4 (%2$s)</string>
+    <string name="ai_safety_header">%1$s 的安全概况 (NFPA 704)：</string>
+    <string name="ai_safety_health">• **健康：** %1$d/4 (%2$s)</string>
+    <string name="ai_safety_instability">• **不稳定性：** %1$d/4</string>
+    <string name="ai_safety_no_data">我没有 %1$s 的特定 NFPA 危险评级，但请务必遵循标准实验室安全协议。</string>
+    <string name="ai_safety_radioactive">%1$s 具有放射性 (%2$s)，这是其主要的安全顾虑。请极其小心地处理！</string>
+    <string name="ai_safety_special">• **特殊：** %1$s</string>
+    <string name="ai_series_actinide_label">锕系元素</string>
+    <string name="ai_series_alkali_metal_label">碱金属</string>
+    <string name="ai_series_alkaline_earth_label">碱土金属</string>
+    <string name="ai_series_halogen_label">卤素</string>
+    <string name="ai_series_lanthanide_label">镧系元素</string>
+    <string name="ai_series_metalloid_label">类金属</string>
+    <string name="ai_series_noble_gas_label">稀有气体</string>
+    <string name="ai_series_nonmetal_label">非金属</string>
+    <string name="ai_series_transition_metal_label">过渡金属</string>
+    <string name="ai_similarity_generic">**%1$s** 是 %2$s 系列的一部分。该系列中的其他元素将具有相关的特性！</string>
+    <string name="ai_similarity_no_element">我不确定您想寻找哪个元素的相似性。</string>
+    <string name="ai_similarity_result_footer">。
+
+由于它们的价电子，它们共享相似的化学行为！</string>
+    <string name="ai_similarity_result_header">就像 **%1$s**，这些元素也是 **%2$ss**： 
+
+</string>
+    <string name="ai_structural_no_results">我在该族或周期中找不到任何内容。记住：共有 18 个族和 7 个周期！</string>
+    <string name="ai_structural_result">**%1$s %2$s** 中的元素是： 
+</string>
+    <string name="ai_structural_specify_number">请指定族或周期编号！</string>
+    <string name="ai_suggestion_abundance">我们要看看它在宇宙中的分布吗？</string>
+    <string name="ai_suggestion_bio">您想了解它的生物学作用吗？</string>
+    <string name="ai_suggestion_compare">您想将它与其他元素进行比较吗？</string>
+    <string name="ai_suggestion_iso">我也可以告诉您关于它的同位素。</string>
+    <string name="ai_suggestion_safety">如果您感兴趣，我也有它的安全数据。</string>
+    <string name="ai_superlative_among">在 %1$ss 中，%2$s</string>
+    <string name="ai_thermal_header">%1$s 的热性能：</string>
+    <string name="all_ai_features">所有 AI 功能：</string>
+    <string name="analytics_desc">通过共享匿名使用数据来帮助改进应用程序</string>
+    <string name="analytics_title">使用分析</string>
+    <string name="app_version">v5.0.0m-Build.221</string>
+    <string name="back">返回</string>
+    <string name="compare_elements">比较元素</string>
+    <string name="comparison_title_format">%1$s | %2$s</string>
+    <string name="covalent_radius_colon">共价半径：</string>
+    <string name="curie_point_colon">居里点：</string>
+    <string name="current_version">当前版本</string>
+    <string name="dic">词典</string>
+    <string name="dictionary_text">一份全面的化学和物理术语词典</string>
+    <string name="electronegativity_allen_colon">电负性 (Allen)：</string>
+    <string name="element_electrons">电子：</string>
+    <string name="element_of_the_day">每日元素</string>
+    <string name="element_of_the_day_description">每天显示不同的元素，包括其符号、名称和描述</string>
+    <string name="element_quick_nav_description">快速导航到元素周期表、测验和 AI 工具</string>
+    <string name="exit_compare_mode">退出比较</string>
+    <string name="feature_check">包含的功能</string>
+    <string name="filter">筛选</string>
+    <string name="gas">理想气体计算器</string>
+    <string name="ideal_calculated">已禁用</string>
+    <string name="ideal_gas_calculate_field">计算：</string>
+    <string name="ideal_gas_calculator_title">理想气体计算器</string>
+    <string name="ideal_gas_card_title">理想气体状态方程计算器 (PV=nRT)：</string>
+    <string name="ideal_gas_moles">摩尔数 (n)：</string>
+    <string name="ideal_gas_moles_hint">输入摩尔数</string>
+    <string name="ideal_gas_pressure">压力 (P)：</string>
+    <string name="ideal_gas_pressure_hint">输入压力</string>
+    <string name="ideal_gas_result">结果：</string>
+    <string name="ideal_gas_temperature">温度 (T)：</string>
+    <string name="ideal_gas_temperature_hint">输入温度</string>
+    <string name="ideal_gas_text">使用理想气体状态方程 PV=nRT 计算理想气体特性。选择要计算的变量并输入其他三个值。</string>
+    <string name="ideal_gas_volume">体积 (V)：</string>
+    <string name="ideal_gas_volume_hint">输入体积</string>
+    <string name="learning_games_nav">闪卡</string>
+    <string name="molar_heat_capacity_colon">摩尔热容：</string>
+    <string name="molar_volume_colon">摩尔体积：</string>
+    <string name="neel_point_colon">奈尔点：</string>
+    <string name="next_sale_end">2024/09/15</string>
+    <string name="next_sale_start">2024/08/05</string>
+    <string name="price_not_available">价格不可用</string>
+    <string name="pro_better_ai">额外的 AI 功能</string>
+    <string name="pro_better_ai_descr">解锁 AI 助手的所有功能，包括测验、访问专业数据等</string>
+    <string name="read_more_widget">阅读更多</string>
+    <string name="refractive_index_colon">折射率：</string>
+    <string name="requires_pro_plus_until_2026">在 2026 年 1 月 1 日之前需要 PRO+</string>
+    <string name="science_daily_description">每天提供随机的科学事实</string>
+    <string name="select_element_to_compare">选择要比较的元素</string>
+    <string name="space_group_name_colon">空间群名称：</string>
+    <string name="space_group_number_colon">空间群编号：</string>
+    <string name="thermal_conductivity_colon">导热系数：</string>
+    <string name="thermal_expansion_colon">热膨胀系数：</string>
+    <string name="unknown">未知</string>
+    <string name="unlimited_ai_messages">无限 AI 消息：</string>
+    <string name="van_der_waals_radius_colon">范德华半径：</string>
+    <string name="view_all">查看全部</string>
+    <string name="web_client_id">315118082769-ivqq7fhga4pjja0t95iuansjs2vjdu9j.apps.googleusercontent.com</string>
+    <string name="widget_description_placeholder">正在加载元素信息...</string>
+    <string name="work_function_colon">逸出功：</string>
 </resources>
