@@ -43,6 +43,8 @@ class QueryExecutor(
         Intent.FORMULA_MASS -> formulaMass(plan)
         Intent.NUCLIDE_COUNT -> nuclide(plan)
         Intent.ISOTOPE_COMPARISON -> isotopeComparison(plan)
+        Intent.COMPARATIVE -> comparative(plan)
+        Intent.NEIGHBOUR -> neighbour(plan)
         Intent.MOLE_CONVERSION -> moleConversion(plan)
         Intent.COMPARISON -> comparison(plan)
         Intent.SUPERLATIVE, Intent.FILTER_LIST -> elementList(plan)
@@ -69,13 +71,37 @@ class QueryExecutor(
         val quantity = value.asQuantity()?.let { q ->
             plan.targetUnit?.let { store.quantityIn(element, fieldId, it) ?: convert(q, it) } ?: q
         }
+        val ranking = quantity?.let { rankOf(element, fieldId, it) }
         return ExecutionResult.Property(
             element = element,
             fieldId = fieldId,
             quantity = quantity,
             display = render(value, quantity, plan.targetUnit),
-            citations = listOf(citation(spec.id, element))
+            citations = listOf(citation(spec.id, element)),
+            rank = ranking?.first,
+            rankedOutOf = ranking?.second ?: 0
         )
+    }
+
+    /**
+     * Where an element sits among all elements that have a value for a field, 1 being highest.
+     *
+     * A bare figure carries little meaning on its own — 19.3 g/cm³ says nothing unless you
+     * already know the range. Only computed for numeric fields where ordering is meaningful:
+     * ranking atomic numbers or CAS registry numbers would be noise.
+     */
+    private fun rankOf(
+        element: ElementRecord,
+        fieldId: String,
+        quantity: com.jlindemann.science.ai.data.Quantity
+    ): Pair<Int, Int>? {
+        val spec = FieldRegistry.byId[fieldId] ?: return null
+        if (spec.kind != com.jlindemann.science.ai.data.FieldKind.NUMERIC) return null
+        if (fieldId in UNRANKABLE_FIELDS) return null
+        val values = store.elements.mapNotNull { it.quantity(fieldId)?.mid }
+        if (values.size < MIN_FOR_RANK) return null
+        val rank = values.count { it > quantity.mid } + 1
+        return rank to values.size
     }
 
     // ---- Category ----------------------------------------------------------------------
@@ -104,6 +130,47 @@ class QueryExecutor(
             values = values,
             citations = listOf(citation(values.keys.first(), element))
         )
+    }
+
+    // ---- Comparatives and neighbours --------------------------------------------------------
+
+    private fun comparative(plan: QueryPlan): ExecutionResult? {
+        val elements = plan.elementKeys.mapNotNull { store.element(it) }
+        if (elements.size < 2) return null
+        val fieldId = plan.primaryField ?: return null
+        val first = store.quantityIn(elements[0], fieldId, plan.targetUnit)
+            ?: return ExecutionResult.NoData(fieldId, elements[0], store.coverageOf(fieldId))
+        val second = store.quantityIn(elements[1], fieldId, plan.targetUnit)
+            ?: return ExecutionResult.NoData(fieldId, elements[1], store.coverageOf(fieldId))
+
+        // The subject of the question is the element named first; "is gold denser than lead"
+        // holds when gold is on the winning side of the comparison the adjective describes.
+        val firstWins = if (plan.sortDescending) first.mid > second.mid else first.mid < second.mid
+        val winner = if (firstWins) elements[0] else elements[1]
+        val loser = if (firstWins) elements[1] else elements[0]
+        val winnerValue = if (firstWins) first else second
+        val loserValue = if (firstWins) second else first
+
+        return ExecutionResult.Comparative(
+            winner = winner,
+            loser = loser,
+            fieldId = fieldId,
+            winnerValue = winnerValue,
+            loserValue = loserValue,
+            claimHolds = if (plan.limit == 1) firstWins else null,
+            ratio = if (plan.limit == 3 && loserValue.mid != 0.0) {
+                winnerValue.mid / loserValue.mid
+            } else null,
+            citations = elements.map { citation(fieldId, it) }
+        )
+    }
+
+    private fun neighbour(plan: QueryPlan): ExecutionResult? {
+        val keys = plan.elementKeys
+        if (keys.size < 2) return null
+        val from = store.element(keys[0]) ?: return null
+        val to = store.element(keys[1]) ?: return null
+        return ExecutionResult.Neighbour(from, to, plan.limit > 0, listOf(citation("atomic_number", to)))
     }
 
     // ---- Calculations ---------------------------------------------------------------------
@@ -398,4 +465,16 @@ class QueryExecutor(
 
     private fun describeFilters(plan: QueryPlan): List<String> =
         plan.filters.map { it::class.simpleName ?: "filter" }
+
+    private companion object {
+        /** Fields where an ordering exists but means nothing to a reader. */
+        val UNRANKABLE_FIELDS = setOf(
+            "atomic_number", "protons", "electrons", "period", "group_number",
+            "space_group_number", "year_discovered", "valence_electrons",
+            "nfpa_health", "nfpa_flammability", "nfpa_instability", "common_neutrons"
+        )
+
+        /** Below this many recorded values a rank is more misleading than useful. */
+        const val MIN_FOR_RANK = 20
+    }
 }

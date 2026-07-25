@@ -129,6 +129,13 @@ object Lexicon {
         "多少", "几个", "数量"
     )
 
+    /** The word "element" itself, for questions about the table rather than about an element. */
+    val ELEMENT_WORDS = listOf(
+        "element", "elements", "grundamne", "grundamnen", "element", "elemente",
+        "elemento", "elementos", "elemenceptif", "elementi", "elemente",
+        "तत्व", "عنصر", "元素"
+    )
+
     /** Words asking for a median. */
     val MEDIAN = listOf("median", "mediane", "mediana", "medianen", "中位数")
 
@@ -402,6 +409,78 @@ object Lexicon {
         "mass number" to "Mass number",
         "atomic number" to "Atomic number",
         "atomic mass" to "Atomic mass"
+    )
+
+    /**
+     * Comparative adjectives and the field each implies, with the direction they point.
+     *
+     * "Is gold denser than lead" names no property explicitly; the adjective is the property.
+     * The boolean is true when the adjective means "greater value".
+     */
+    val COMPARATIVE_ADJECTIVES: Map<String, Pair<String, Boolean>> = mapOf(
+        "denser" to ("density" to true),
+        "more dense" to ("density" to true),
+        "less dense" to ("density" to false),
+        "lighter" to ("density" to false),
+        "heavier" to ("atomic_mass" to true),
+        "more massive" to ("atomic_mass" to true),
+        "harder" to ("mohs_hardness" to true),
+        "softer" to ("mohs_hardness" to false),
+        "hotter" to ("melting_point" to true),
+        "more electronegative" to ("electronegativity" to true),
+        "less electronegative" to ("electronegativity" to false),
+        "bigger" to ("atomic_radius" to true),
+        "larger" to ("atomic_radius" to true),
+        "smaller" to ("atomic_radius" to false),
+        "tatare" to ("density" to true),
+        "tyngre" to ("atomic_mass" to true),
+        "lattare" to ("density" to false),
+        "dichter" to ("density" to true),
+        "schwerer" to ("atomic_mass" to true),
+        "leichter" to ("density" to false),
+        "mas denso" to ("density" to true),
+        "mas pesado" to ("atomic_mass" to true),
+        "plus dense" to ("density" to true),
+        "plus lourd" to ("atomic_mass" to true),
+        "更重" to ("atomic_mass" to true),
+        "更密" to ("density" to true)
+    )
+
+    /** Openers marking a yes/no question. */
+    val YESNO_OPENERS = listOf(
+        "is ", "are ", "does ", "do ", "can ", "has ", "have ",
+        "ar ", "har ", "kan ", "ist ", "sind ", "hat ", "kann ",
+        "es ", "son ", "tiene ", "est ", "sont ", "e ", "sono ",
+        "是", "有", "能"
+    )
+
+    /** Phrases asking which of two named things wins on some measure. */
+    val WHICH_OF_TWO = listOf(
+        "which is", "which one is", "which has", "which of", "who is",
+        "vilken ar", "vilket ar", "welche ist", "welches ist",
+        "cual es", "quel est", "quale e", "qual e", "watter is", "alin ang",
+        "कौन सा", "کون سا", "哪个"
+    )
+
+    /** Phrases asking by how much two things differ. */
+    val BY_HOW_MUCH = listOf(
+        "how much", "how many times", "what factor", "ratio of", "difference between",
+        "hur mycket", "hur manga ganger", "wie viel", "um wie viel",
+        "cuanto", "combien", "quanto", "quanto mais", "hoeveel", "gaano",
+        "कितना", "کتنا", "多少倍", "相差"
+    )
+
+    /** Phrases asking for the element next to another in the table. */
+    val NEIGHBOUR_WORDS: Map<String, Int> = mapOf(
+        "comes after" to 1, "come after" to 1, "after" to 1, "next after" to 1,
+        "follows" to 1, "next element" to 1,
+        "comes before" to -1, "come before" to -1, "before" to -1, "precedes" to -1,
+        "kommer efter" to 1, "kommer fore" to -1,
+        "kommt nach" to 1, "kommt vor" to -1,
+        "despues de" to 1, "antes de" to -1,
+        "apres" to 1, "avant" to -1,
+        "dopo" to 1, "prima di" to -1,
+        "之后" to 1, "之前" to -1
     )
 
     /** Words that mark a query as a comparison between elements. */

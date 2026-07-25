@@ -137,6 +137,16 @@
 
     <!-- Grounded answers: sources, coverage and computed results -->
     <string name="ai_sources_header">Sources</string>
+    <string name="ai_rank_highest">That is the highest of the %1$d elements with a recorded %2$s.</string>
+    <string name="ai_rank_lowest">That is the lowest of the %1$d elements with a recorded %2$s.</string>
+    <string name="ai_rank_nth">That ranks **%1$d of %2$d** elements by %3$s.</string>
+    <string name="ai_comparative_yes">**Yes.** %1$s (%2$s) beats %3$s (%4$s) on %5$s.</string>
+    <string name="ai_comparative_no">**No** — it is the other way round. %1$s (%2$s) beats %3$s (%4$s) on %5$s.</string>
+    <string name="ai_comparative_winner">**%1$s.** Its %5$s is %2$s, against %4$s for %3$s.</string>
+    <string name="ai_comparative_ratio">%1$s has **%2$s times** the %5$s of %3$s — %4$s.</string>
+    <string name="ai_neighbour_after">**%1$s** (atomic number %2$d) comes immediately after %3$s.</string>
+    <string name="ai_neighbour_before">**%1$s** (atomic number %2$d) comes immediately before %3$s.</string>
+    <string name="ai_context_series">%1$s is %2$s, in period %3$d.</string>
     <string name="ai_aspects_not_compared">I can\'t compare %1$s from stored data — that isn\'t a recorded property. Ask about it for a single element and I can explain it.</string>
     <string name="ai_isotope_compare_header">%1$s vs %2$s</string>
     <string name="ai_isotope_compare_row">• **%1$s**: %2$s vs %3$s</string>

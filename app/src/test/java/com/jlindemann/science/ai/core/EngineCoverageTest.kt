@@ -98,9 +98,12 @@ class EngineCoverageTest {
             "compare gold and silver",
             "compare gold and silver density",
             "gold vs iron",
-            "which is denser gold or lead",
             "compare hydrogen helium and lithium"
         )) claims(query, Intent.COMPARISON, Intent.FILTER_LIST, Intent.SUPERLATIVE)
+
+        // "which is denser, X or Y" asks for a winner, not a table, so it takes the more
+        // direct COMPARATIVE route. See RichAnswerTest.
+        claims("which is denser gold or lead", Intent.COMPARATIVE)
     }
 
     @Test

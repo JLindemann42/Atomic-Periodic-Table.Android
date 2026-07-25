@@ -34,6 +34,8 @@ class AnswerComposer(
             is ExecutionResult.ElementList -> elementList(result, plan)
             is ExecutionResult.Aggregate -> aggregate(result)
             is ExecutionResult.Formula -> formula(result)
+            is ExecutionResult.Comparative -> comparative(result)
+            is ExecutionResult.Neighbour -> neighbour(result)
             is ExecutionResult.Nuclide -> nuclide(result)
             is ExecutionResult.IsotopeComparison -> isotopeComparison(result)
             is ExecutionResult.MoleConversion -> moleConversion(result)
@@ -51,16 +53,82 @@ class AnswerComposer(
 
     // ---- Per-result rendering -----------------------------------------------------------
 
+    /**
+     * A property answer, with enough context to mean something.
+     *
+     * A bare figure is not an answer to most people: "19.3 g/cm³" only lands if you already
+     * know the range it sits in. Adding where the value ranks, and what kind of element this is,
+     * turns a lookup into something a reader learns from.
+     */
     private fun property(result: ExecutionResult.Property): String {
         val name = displayName(result.element.key)
         val label = fieldLabel(result.fieldId)
-        val sentence = strings.get(R.string.ai_property_is, name, label, result.display)
-        val notes = ArrayList<String>(2)
+        val builder = StringBuilder(
+            strings.get(R.string.ai_property_is, name, label, result.display)
+        )
+
         result.quantity?.let { q ->
-            if (q.isRange) notes.add(strings.get(R.string.ai_value_is_range))
-            q.note?.let { notes.add(it) }
+            if (q.isRange) builder.append("\n").append(strings.get(R.string.ai_value_is_range))
+            q.note?.let { builder.append("\n").append(it) }
         }
-        return sentence + notes.joinToString("") { "\n$it" }
+
+        rankSentence(result)?.let { builder.append("\n").append(it) }
+        return builder.toString()
+    }
+
+    /** "That is the highest of 105 elements…", or where it ranks. Null when not rankable. */
+    private fun rankSentence(result: ExecutionResult.Property): String? {
+        val rank = result.rank ?: return null
+        if (result.rankedOutOf < 2) return null
+        val label = fieldLabel(result.fieldId).lowercase()
+        return when (rank) {
+            1 -> strings.get(R.string.ai_rank_highest, result.rankedOutOf, label)
+            result.rankedOutOf -> strings.get(R.string.ai_rank_lowest, result.rankedOutOf, label)
+            else -> strings.get(R.string.ai_rank_nth, rank, result.rankedOutOf, label)
+        }
+    }
+
+    private fun comparative(result: ExecutionResult.Comparative): String {
+        val winner = displayName(result.winner.key)
+        val loser = displayName(result.loser.key)
+        val label = fieldLabel(result.fieldId).lowercase()
+        val winnerValue = result.winnerValue.display
+        val loserValue = result.loserValue.display
+
+        val headline = when {
+            // A yes/no question gets a yes or a no, before any figures.
+            result.claimHolds == true ->
+                strings.get(R.string.ai_comparative_yes, winner, winnerValue, loser, loserValue, label)
+            result.claimHolds == false ->
+                strings.get(R.string.ai_comparative_no, winner, winnerValue, loser, loserValue, label)
+            else ->
+                strings.get(R.string.ai_comparative_winner, winner, winnerValue, loser, loserValue, label)
+        }
+
+        val ratio = result.ratio ?: return headline
+        return headline + "\n" + strings.get(
+            R.string.ai_comparative_ratio,
+            winner, format(ratio), loser, "$winnerValue vs $loserValue", label
+        )
+    }
+
+    private fun neighbour(result: ExecutionResult.Neighbour): String {
+        val target = displayName(result.to.key)
+        val from = displayName(result.from.key)
+        val sentence = strings.get(
+            if (result.forward) R.string.ai_neighbour_after else R.string.ai_neighbour_before,
+            target, result.to.atomicNumber, from
+        )
+        return sentence + "\n" + elementContext(result.to)
+    }
+
+    /** One line placing an element: what family it belongs to and which period. */
+    private fun elementContext(element: com.jlindemann.science.ai.data.ElementRecord): String {
+        val series = localized?.elements?.get(element.key)?.seriesName?.takeIf { it.isNotBlank() }
+            ?: element.series.name.lowercase().replace('_', ' ')
+        return strings.get(
+            R.string.ai_context_series, displayName(element.key), series, element.period
+        )
     }
 
     private fun comparison(result: ExecutionResult.Comparison): String {

@@ -67,6 +67,23 @@ class QueryPlanner(
             }
         }
 
+        // ---- "How many elements are there" ---------------------------------------------------
+        // A plain fact about the table itself. Without this it retrieves whichever dictionary
+        // entry happens to score highest, which is not an answer.
+        if (Lexicon.COUNT.any { normalized.contains(it) } &&
+            Lexicon.ELEMENT_WORDS.any { normalized.contains(it) } &&
+            entities.resolveAll(rawQuery, limit = 1).isEmpty() &&
+            OperatorExtractor.extract(rawQuery).subsetFilters.isEmpty()
+        ) {
+            return QueryPlan(
+                intent = Intent.AGGREGATE,
+                aggregation = Aggregation.COUNT,
+                confidence = 0.85,
+                rawQuery = rawQuery,
+                evidence = listOf("count of all elements")
+            )
+        }
+
         // ---- Calculations ------------------------------------------------------------------
         // Checked first: these questions name a formula or a nuclide, which the element and
         // field resolvers would otherwise pick apart into unrelated matches. "the molar mass of
@@ -108,6 +125,13 @@ class QueryPlanner(
 
         val allFilters = subsetFilters + comparatorFilters
         val targetUnit = operators.targetUnit ?: state.lastTargetUnit.takeIf { fieldIds.isNotEmpty() }
+
+        // ---- Direct comparative: "is gold denser than lead" --------------------------------
+        // A question with a one-word answer should get one, not a property table. Checked
+        // before the general comparison so the answer leads with yes/no or the winner.
+        if (elementKeys.size >= 2) {
+            comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let { return it }
+        }
 
         // ---- Aggregation: "average electronegativity of the halogens" ---------------------
         if (operators.aggregation != Aggregation.NONE && (allFilters.isNotEmpty() || elementKeys.size > 1)) {
@@ -186,6 +210,24 @@ class QueryPlanner(
         ) {
             elementKeys = listOf(state.focusElement!!, elementKeys.first())
             evidence.add("comparison against focus element")
+        }
+
+
+        // ---- Neighbour: "what comes after carbon" -------------------------------------------
+        elementKeys.firstOrNull()?.let { store.element(it) }?.let { subject ->
+            neighbourDirection(normalized)?.let { direction ->
+                store.byNumber(subject.atomicNumber + direction)?.let { target ->
+                    evidence.add("neighbour ${if (direction > 0) "after" else "before"}")
+                    return QueryPlan(
+                        intent = Intent.NEIGHBOUR,
+                        entities = listOf(EntityRef.Element(subject.key), EntityRef.Element(target.key)),
+                        limit = direction,
+                        confidence = 0.85,
+                        rawQuery = rawQuery,
+                        evidence = evidence
+                    )
+                }
+            }
         }
 
         // ---- Element versus alloy: "what is the difference between iron and steel" ----------
@@ -458,6 +500,60 @@ class QueryPlanner(
      */
     private fun unsupportedAspects(normalizedQuery: String): List<String> =
         UNCOMPARABLE_ASPECTS.filter { normalizedQuery.contains(it) }
+
+    /**
+     * Recognise a question about how two elements stand relative to one another.
+     *
+     * Covers three phrasings that all reduce to the same operation:
+     *  - "is gold denser than lead"          -> a claim to confirm or deny
+     *  - "which is heavier, gold or silver"  -> pick the winner
+     *  - "how much denser is gold than lead" -> the ratio
+     *
+     * The comparative adjective usually *is* the property, so it is consulted when no field was
+     * resolved explicitly — "denser" means density, "heavier" means atomic mass.
+     */
+    private fun comparativePlan(
+        rawQuery: String,
+        normalized: String,
+        elementKeys: List<String>,
+        fieldIds: List<String>
+    ): QueryPlan? {
+        val adjective = Lexicon.COMPARATIVE_ADJECTIVES.entries
+            .sortedByDescending { it.key.length }
+            .firstOrNull { com.jlindemann.science.ai.retrieval.TextMatching.containsWord(normalized, it.key) }
+
+        val fieldId = adjective?.value?.first ?: fieldIds.firstOrNull() ?: return null
+        val greaterWins = adjective?.value?.second ?: true
+
+        val isYesNo = Lexicon.YESNO_OPENERS.any { normalized.startsWith(it) }
+        val isWhich = Lexicon.WHICH_OF_TWO.any { normalized.contains(it) }
+        val byHowMuch = Lexicon.BY_HOW_MUCH.any { normalized.contains(it) }
+        // Without one of these framings it is an ordinary side-by-side comparison.
+        if (!isYesNo && !isWhich && !byHowMuch && adjective == null) return null
+
+        return QueryPlan(
+            intent = Intent.COMPARATIVE,
+            entities = elementKeys.take(2).map { EntityRef.Element(it) },
+            fieldIds = listOf(fieldId),
+            sortDescending = greaterWins,
+            // limit doubles as the question shape: 1 yes/no, 2 which-of, 3 by-how-much.
+            limit = when {
+                byHowMuch -> 3
+                isYesNo -> 1
+                else -> 2
+            },
+            confidence = 0.85,
+            rawQuery = rawQuery,
+            evidence = listOf("comparative $fieldId")
+        )
+    }
+
+    /** +1 for the element after, -1 for the one before, null when not a neighbour question. */
+    private fun neighbourDirection(normalizedQuery: String): Int? =
+        Lexicon.NEIGHBOUR_WORDS.entries
+            .sortedByDescending { it.key.length }
+            .firstOrNull { normalizedQuery.contains(it.key) }
+            ?.value
 
     /** The alloy a query names, longest name first so "stainless steel" beats "steel". */
     private fun alloyIn(normalizedQuery: String): com.jlindemann.science.ai.data.DatasetRow? =

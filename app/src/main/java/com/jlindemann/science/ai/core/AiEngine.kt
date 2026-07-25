@@ -110,6 +110,8 @@ class AiEngine(
         is ExecutionResult.Aggregate -> result.contributors.map { it.element.key }
         is ExecutionResult.Isotopes -> listOf(result.element.key)
         is ExecutionResult.Safety -> listOf(result.element.key)
+        is ExecutionResult.Comparative -> listOf(result.winner.key, result.loser.key)
+        is ExecutionResult.Neighbour -> listOf(result.to.key)
         is ExecutionResult.Nuclide -> listOf(result.element.key)
         is ExecutionResult.IsotopeComparison ->
             listOf(result.left.element.key, result.right.element.key).distinct()

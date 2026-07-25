@@ -28,12 +28,43 @@ sealed class ExecutionResult {
 
     abstract val citations: List<Citation>
 
-    /** A single field of a single element. */
+    /**
+     * A single field of a single element.
+     *
+     * @property rank where this value sits among all elements that have the field, 1 being the
+     *   highest. Null when the field is not rankable. Gives a bare number context: 19.3 g/cm³
+     *   means little on its own, "the 6th densest of 105" means something.
+     * @property rankedOutOf how many elements have a recorded value for the field
+     */
     data class Property(
         val element: ElementRecord,
         val fieldId: String,
         val quantity: Quantity?,
         val display: String,
+        override val citations: List<Citation>,
+        val rank: Int? = null,
+        val rankedOutOf: Int = 0
+    ) : ExecutionResult()
+
+    /** How two elements stand relative to one another on one property. */
+    data class Comparative(
+        val winner: ElementRecord,
+        val loser: ElementRecord,
+        val fieldId: String,
+        val winnerValue: Quantity,
+        val loserValue: Quantity,
+        /** Set for a yes/no question: whether the claim as asked is true. */
+        val claimHolds: Boolean?,
+        /** Set when the question asked by how much. */
+        val ratio: Double?,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /** The element adjacent to another in atomic-number order. */
+    data class Neighbour(
+        val from: ElementRecord,
+        val to: ElementRecord,
+        val forward: Boolean,
         override val citations: List<Citation>
     ) : ExecutionResult()
 

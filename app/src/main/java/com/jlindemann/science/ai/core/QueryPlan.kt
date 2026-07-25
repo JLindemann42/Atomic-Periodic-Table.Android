@@ -45,6 +45,15 @@ enum class Intent {
     /** Two nuclides set side by side, e.g. uranium-235 vs uranium-238. */
     ISOTOPE_COMPARISON,
 
+    /**
+     * A question with a direct answer about two elements: "is gold denser than lead",
+     * "which is heavier, gold or silver", "how much denser is gold than aluminium".
+     */
+    COMPARATIVE,
+
+    /** The element before or after another in atomic-number order. */
+    NEIGHBOUR,
+
     /** Conversion between moles and particle counts. */
     MOLE_CONVERSION,
 
