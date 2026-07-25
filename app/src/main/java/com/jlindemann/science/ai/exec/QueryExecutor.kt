@@ -40,6 +40,9 @@ class QueryExecutor(
         Intent.CATEGORY_LOOKUP -> category(plan)
         Intent.ISOTOPES -> isotopes(plan)
         Intent.SAFETY -> safety(plan)
+        Intent.FORMULA_MASS -> formulaMass(plan)
+        Intent.NUCLIDE_COUNT -> nuclide(plan)
+        Intent.MOLE_CONVERSION -> moleConversion(plan)
         Intent.COMPARISON -> comparison(plan)
         Intent.SUPERLATIVE, Intent.FILTER_LIST -> elementList(plan)
         Intent.AGGREGATE -> aggregate(plan)
@@ -99,6 +102,46 @@ class QueryExecutor(
             fieldIds = values.keys.toList(),
             values = values,
             citations = listOf(citation(values.keys.first(), element))
+        )
+    }
+
+    // ---- Calculations ---------------------------------------------------------------------
+
+    private fun formulaMass(plan: QueryPlan): ExecutionResult? {
+        val result = com.jlindemann.science.ai.data.ChemistryMath
+            .parseFormula(plan.rawQuery) { symbol -> store.bySymbol(symbol)?.quantity("atomic_mass")?.value }
+            ?: return null
+        return ExecutionResult.Formula(
+            result = result,
+            wantsComposition = "composition" in plan.fieldIds,
+            citations = result.parts.mapNotNull { part ->
+                store.bySymbol(part.symbol)?.let { citation("atomic_mass", it) }
+            }.take(3)
+        )
+    }
+
+    private fun nuclide(plan: QueryPlan): ExecutionResult? {
+        val element = plan.elementKeys.firstOrNull()?.let { store.element(it) } ?: return null
+        val massNumber = plan.limit
+        val neutrons = com.jlindemann.science.ai.data.ChemistryMath
+            .neutronsIn(massNumber, element.atomicNumber) ?: return null
+        return ExecutionResult.Nuclide(
+            element = element,
+            massNumber = massNumber,
+            protons = element.atomicNumber,
+            neutrons = neutrons,
+            citations = listOf(citation("atomic_number", element))
+        )
+    }
+
+    private fun moleConversion(plan: QueryPlan): ExecutionResult? {
+        val moles = Regex("""([\d.]+)\s*mol""")
+            .find(plan.rawQuery.lowercase())?.groupValues?.get(1)?.toDoubleOrNull() ?: return null
+        return ExecutionResult.MoleConversion(
+            moles = moles,
+            particles = com.jlindemann.science.ai.data.ChemistryMath.molesToParticles(moles),
+            substance = plan.elementKeys.firstOrNull()?.let { store.element(it) }?.let { displayName(it) },
+            toParticles = true
         )
     }
 

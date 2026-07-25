@@ -137,6 +137,15 @@
 
     <!-- Grounded answers: sources, coverage and computed results -->
     <string name="ai_sources_header">Sources</string>
+    <string name="ai_formula_mass">The molar mass of **%1$s** is **%2$s g/mol**.</string>
+    <string name="ai_composition_header">Composition of %1$s</string>
+    <string name="ai_composition_row">• **%1$s** ×%2$d — %3$s g/mol (%4$s%%)</string>
+    <string name="ai_nuclide_header">%1$s-%2$d</string>
+    <string name="ai_nuclide_body">• **Protons:** %1$d\n• **Neutrons:** %2$d\n• **Mass number:** %3$d</string>
+    <string name="ai_nuclide_explain">Neutrons = mass number − atomic number = %1$d − %2$d = **%3$d**.</string>
+    <string name="ai_moles_to_particles">**%1$s mol** contains **%2$s** particles.</string>
+    <string name="ai_moles_of">**%1$s mol** of %2$s contains **%3$s** atoms.</string>
+    <string name="ai_avogadro_note">Using Avogadro\'s number, 6.02214076 × 10²³ per mole.</string>
     <string name="ai_isotopes_header">Isotopes of %1$s</string>
     <string name="ai_isotopes_summary">%1$d known isotopes, %2$d of them stable.</string>
     <string name="ai_isotope_stable">• **%1$s** — stable</string>
@@ -145,6 +154,10 @@
     <string name="ai_safety_radioactive_note">This element is radioactive.</string>
     <string name="ai_safety_none_recorded">No NFPA hazard ratings are recorded for %1$s.</string>
     <string name="period_colon">Period:</string>
+    <string name="valence_electrons_colon">Valence electrons:</string>
+    <string name="synthetic_colon">Synthetic:</string>
+    <string name="ai_naturally_occurring">Naturally occurring</string>
+    <string name="ai_synthetic_only">Synthetic (does not occur naturally)</string>
     <string name="group_number_colon">Group:</string>
     <string name="ai_history_sign_in">Please sign in to view chat history</string>
     <string name="ai_history_pro_only">Chat history is a PRO feature</string>

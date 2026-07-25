@@ -91,6 +91,34 @@ sealed class ExecutionResult {
         override val citations: List<Citation>
     ) : ExecutionResult()
 
+    /**
+     * A parsed chemical formula with its molar mass and composition.
+     * @property wantsComposition whether the question asked for the percentage breakdown
+     */
+    data class Formula(
+        val result: com.jlindemann.science.ai.data.FormulaResult,
+        val wantsComposition: Boolean,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /** Nucleon counts for a specific nuclide. */
+    data class Nuclide(
+        val element: ElementRecord,
+        val massNumber: Int,
+        val protons: Int,
+        val neutrons: Int,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /** A mole/particle conversion. */
+    data class MoleConversion(
+        val moles: Double?,
+        val particles: Double,
+        val substance: String?,
+        val toParticles: Boolean,
+        override val citations: List<Citation> = emptyList()
+    ) : ExecutionResult()
+
     /** A row from one of the app's tables. */
     data class Dataset(
         val row: DatasetRow,

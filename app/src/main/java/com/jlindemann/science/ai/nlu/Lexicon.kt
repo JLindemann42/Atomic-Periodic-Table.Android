@@ -309,6 +309,101 @@ object Lexicon {
         "危险", "有毒", "安全", "易燃"
     )
 
+    /** Words asking for a formula's molar mass. */
+    val MOLAR_MASS_WORDS = listOf(
+        "molar mass", "molecular mass", "molecular weight", "formula mass", "formula weight",
+        "molmassa", "molmasse", "masa molar", "masse molaire", "massa molare",
+        "massa molar", "molere massa", "molar na masa", "मोलर द्रव्यमान", "مولر ماس", "摩尔质量"
+    )
+
+    /** Words asking for the percentage breakdown of a compound. */
+    val COMPOSITION_WORDS = listOf(
+        "percentage composition", "percent composition", "composition of", "mass percent",
+        "percentage of", "made up of", "sammansattning", "zusammensetzung",
+        "composicion", "composition", "composizione", "composicao", "samestelling",
+        "komposisyon", "संघटन", "ترکیب", "组成", "百分比组成"
+    )
+
+    /** Words asking about neutron counts. */
+    val NEUTRON_WORDS = listOf(
+        "neutron", "neutrons", "neutroner", "neutronen", "neutrones", "neutroni",
+        "neutrões", "neutrone", "न्यूट्रॉन", "نیوٹران", "中子"
+    )
+
+    /** Words asking about moles or particle counts. */
+    val MOLE_WORDS = listOf(
+        "mole", "moles", "mol", "avogadro", "atoms in", "particles",
+        "molekyler", "teilchen", "moles", "molecole", "मोल", "مول", "摩尔", "阿伏伽德罗"
+    )
+
+    /** Compounds users name in words rather than writing the formula. */
+    val COMMON_COMPOUNDS: Map<String, String> = mapOf(
+        "water" to "H2O", "vatten" to "H2O", "wasser" to "H2O", "agua" to "H2O",
+        "eau" to "H2O", "acqua" to "H2O", "水" to "H2O",
+        "carbon dioxide" to "CO2", "koldioxid" to "CO2", "kohlendioxid" to "CO2",
+        "table salt" to "NaCl", "salt" to "NaCl", "koksalt" to "NaCl",
+        "sulfuric acid" to "H2SO4", "svavelsyra" to "H2SO4", "schwefelsaure" to "H2SO4",
+        "ammonia" to "NH3", "ammoniak" to "NH3",
+        "methane" to "CH4", "metan" to "CH4",
+        "glucose" to "C6H12O6", "glukos" to "C6H12O6",
+        "hydrochloric acid" to "HCl", "saltsyra" to "HCl"
+    )
+
+    /** Openers marking a question as asking for an explanation rather than a value. */
+    val WHY_WORDS = listOf(
+        "why", "how come", "explain", "reason",
+        "varfor", "forklara", "warum", "wieso", "erklare",
+        "por que", "porque", "explica", "pourquoi", "explique",
+        "perche", "spiega", "por que", "explique", "hoekom", "verduidelik",
+        "bakit", "ipaliwanag", "क्यों", "समझाओ", "کیوں", "وضاحت", "为什么", "解释"
+    )
+
+    /** Frames marking a question as asking for a definition. */
+    val DEFINITION_FRAMES = listOf(
+        "what is a", "what is an", "what are", "what is the", "define", "definition of",
+        "vad ar en", "vad ar ett", "vad ar", "was ist ein", "was ist eine", "was ist",
+        "que es un", "que es una", "que es", "qu est ce qu", "cos e un", "cos e",
+        "o que e", "wat is n", "wat is", "ano ang", "क्या है", "کیا ہے", "什么是", "是什么"
+    )
+
+    /**
+     * Concepts a "why" question is really about, mapped to the dictionary entry that explains
+     * them. Without this the plain "Atomic radius" definition outranks the trend entry that
+     * actually answers "why does atomic radius increase down a group".
+     */
+    val EXPLANATION_TOPICS: Map<String, String> = mapOf(
+        "atomic radius" to "Periodic trend: atomic radius",
+        "atomic size" to "Periodic trend: atomic radius",
+        "ionization energy" to "Periodic trend: ionization energy",
+        "ionisation energy" to "Periodic trend: ionization energy",
+        "electronegativity" to "Periodic trend: electronegativity",
+        "electronegative" to "Periodic trend: electronegativity",
+        "reactive" to "Periodic trend: reactivity",
+        "reactivity" to "Periodic trend: reactivity",
+        "metallic character" to "Metallic character",
+        "alkali metal" to "Alkali metal",
+        "noble gas" to "Noble gas",
+        "inert" to "Noble gas",
+        "halogen" to "Halogen",
+        "transition metal" to "Transition metal",
+        "lanthanide" to "Lanthanide",
+        "actinide" to "Actinide",
+        "4s" to "Aufbau principle",
+        "3d" to "Aufbau principle",
+        "aufbau" to "Aufbau principle",
+        "hund" to "Hund's rule",
+        "pauli" to "Pauli exclusion principle",
+        "electron configuration unusual" to "Anomalous electron configuration",
+        "configuration unusual" to "Anomalous electron configuration",
+        "chromium" to "Anomalous electron configuration",
+        "synthetic" to "Synthetic element",
+        "valence electron" to "Valence electrons",
+        "oxidation state" to "Oxidation state",
+        "mass number" to "Mass number",
+        "atomic number" to "Atomic number",
+        "atomic mass" to "Atomic mass"
+    )
+
     /** Words that mark a query as a comparison between elements. */
     val COMPARE = listOf(
         "compare", "versus", "vs", "difference between", "denser than", "heavier than",
@@ -340,8 +435,25 @@ object Lexicon {
         "solide" to "solid", "solido" to "solid", "vast" to "solid", "固体" to "solid",
         "liquid" to "liquid", "flytande" to "liquid", "flussig" to "liquid",
         "liquido" to "liquid", "liquide" to "liquid", "vloeistof" to "liquid", "液体" to "liquid",
-        "gas" to "gas", "gaseous" to "gas", "gasformig" to "gas", "gasformigt" to "gas",
-        "gaseoso" to "gas", "gazeux" to "gas", "gassoso" to "gas", "气体" to "gas"
+        "gas" to "gas", "gases" to "gas", "gasses" to "gas", "gaseous" to "gas",
+        "gasformig" to "gas", "gasformigt" to "gas", "gaser" to "gas", "gase" to "gas",
+        "gaseoso" to "gas", "gazeux" to "gas", "gassoso" to "gas", "气体" to "gas",
+        "solids" to "solid", "liquids" to "liquid"
+    )
+
+    /** Phrases restricting a query to elements that occur in nature. */
+    val NATURAL_WORDS = listOf(
+        "naturally occurring", "natural", "occurs naturally", "found in nature", "non-synthetic",
+        "naturligt", "naturlig", "naturlich", "natural", "naturel", "naturale",
+        "natuurlik", "natural", "प्राकृतिक", "قدرتی", "天然"
+    )
+
+    /** Phrases restricting a query to elements made artificially. */
+    val SYNTHETIC_WORDS = listOf(
+        "synthetic", "man-made", "manmade", "artificial", "artificially",
+        "syntetisk", "konstgjord", "synthetisch", "kunstlich",
+        "sintetico", "artificial", "synthetique", "artificiel", "sintetico", "artificiale",
+        "sinteties", "sintetiko", "कृत्रिम", "مصنوعی", "人造", "合成"
     )
 
     val RADIOACTIVE_WORDS = listOf(

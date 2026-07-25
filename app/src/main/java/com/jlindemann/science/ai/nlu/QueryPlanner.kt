@@ -42,13 +42,35 @@ class QueryPlanner(
         // and let the handler that actually models the concept take it.
         val normalized = com.jlindemann.science.ai.retrieval.TextMatching.normalizeForLookup(rawQuery)
         if (Lexicon.UNBACKED_CONCEPTS.any { normalized.contains(it) }) {
+            // A question *about* one of these concepts wants it explained, and the dictionary
+            // can do that: "why are alkali metals so reactive". A question asking which element
+            // is the most reactive wants an element, and only the bespoke scoring rule can
+            // answer it — so a superlative disqualifies the explanation.
+            val superlative = Lexicon.MOST.any { normalized.contains(it) } ||
+                    Lexicon.LEAST.any { normalized.contains(it) }
+            if (!superlative) {
+                explanationPlan(rawQuery, normalized, hasElement = false)?.let { return it }
+            }
             return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
         }
+
+        // ---- Calculations ------------------------------------------------------------------
+        // Checked first: these questions name a formula or a nuclide, which the element and
+        // field resolvers would otherwise pick apart into unrelated matches. "the molar mass of
+        // H2SO4" used to retrieve the dictionary definition of molar mass instead of a number.
+        calculationPlan(rawQuery, normalized)?.let { return it }
+
 
         val operators = OperatorExtractor.extract(rawQuery)
         val elementMatches = entities.resolveAll(rawQuery, limit = 4)
         val fieldMatches = fields.resolveAll(rawQuery, limit = 3)
         val evidence = ArrayList<String>(6)
+
+        // ---- Explanations --------------------------------------------------------------------
+        // "Why does atomic radius increase down a group" and "what is a halogen" want prose, not
+        // a value or a list of matching elements. Both would otherwise be captured: the first by
+        // the plain field definition, the second by a subset list.
+        explanationPlan(rawQuery, normalized, elementMatches.isNotEmpty())?.let { return it }
 
         // Slot-emptiness inheritance: a follow-up supplies one slot and inherits the other.
         // This is what makes "and its density?" work in every language without pronoun lists.
@@ -264,6 +286,113 @@ class QueryPlanner(
 
         return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
     }
+
+    /**
+     * Route "why ..." and "what is a ..." to the concept that explains it.
+     *
+     * A definitional frame is ignored when an element is named, so "what is the atomic mass of
+     * gold" gives gold's value rather than the definition of atomic mass. A "why" question still
+     * takes the explanation even with an element present, because "why is chromium's electron
+     * configuration unusual" is asking about the rule, not about chromium's stored value.
+     */
+    private fun explanationPlan(rawQuery: String, normalized: String, hasElement: Boolean): QueryPlan? {
+        val isWhy = Lexicon.WHY_WORDS.any { normalized.startsWith("$it ") || normalized.contains(" $it ") }
+        val isDefinition = !hasElement && Lexicon.DEFINITION_FRAMES.any { normalized.startsWith(it) }
+        if (!isWhy && !isDefinition) return null
+
+        // Longest topic first, so "electron configuration unusual" beats "electron".
+        val topic = Lexicon.EXPLANATION_TOPICS.entries
+            .sortedByDescending { it.key.length }
+            .firstOrNull { normalized.contains(it.key) }
+            ?: return null
+
+        val row = datasets.row(DatasetIndex.DICTIONARY, topic.value) ?: return null
+        return QueryPlan(
+            intent = Intent.DATASET_LOOKUP,
+            entities = listOf(EntityRef.DatasetRow(DatasetIndex.DICTIONARY, row.id)),
+            confidence = 0.85,
+            rawQuery = rawQuery,
+            evidence = listOf(if (isWhy) "explains ${topic.value}" else "defines ${topic.value}")
+        )
+    }
+
+    /** A nuclide written as "uranium-238", "U-238" or "carbon 14". */
+    private val NUCLIDE = Regex("""([a-z]{1,13})\s*[-\s]\s*(\d{1,3})\b""")
+
+    /** A mole quantity, e.g. "2 moles of carbon". */
+    private val MOLES = Regex("""([\d.]+)\s*mol(?:e|es)?\b""")
+
+    /**
+     * A candidate chemical formula. Deliberately case-insensitive — users write "h2so4" far more
+     * often than "H2SO4" — with ChemistryMath deciding whether it actually parses.
+     */
+    private val FORMULA = Regex("""\b([A-Za-z][A-Za-z0-9()]{1,15})\b""")
+
+    /**
+     * Recognise the arithmetic questions: formula mass, composition, neutron counts and mole
+     * conversions. Returns null when the query is not one of those.
+     */
+    private fun calculationPlan(rawQuery: String, normalized: String): QueryPlan? {
+        // --- Moles to particles -------------------------------------------------------------
+        if (Lexicon.MOLE_WORDS.any { normalized.contains(it) }) {
+            MOLES.find(normalized)?.let { match ->
+                return QueryPlan(
+                    intent = Intent.MOLE_CONVERSION,
+                    rawQuery = rawQuery,
+                    confidence = 0.85,
+                    evidence = listOf("moles ${match.groupValues[1]}")
+                )
+            }
+        }
+
+        // --- Neutrons in a nuclide -----------------------------------------------------------
+        if (Lexicon.NEUTRON_WORDS.any { normalized.contains(it) }) {
+            NUCLIDE.find(normalized)?.let { match ->
+                val name = match.groupValues[1]
+                val mass = match.groupValues[2].toIntOrNull()
+                val element = store.element(name) ?: store.bySymbol(name)
+                if (element != null && mass != null) {
+                    return QueryPlan(
+                        intent = Intent.NUCLIDE_COUNT,
+                        entities = listOf(EntityRef.Element(element.key)),
+                        limit = mass,
+                        rawQuery = rawQuery,
+                        confidence = 0.9,
+                        evidence = listOf("nuclide $name-$mass")
+                    )
+                }
+            }
+        }
+
+        // --- Formula mass and composition ------------------------------------------------------
+        val wantsMass = Lexicon.MOLAR_MASS_WORDS.any { normalized.contains(it) }
+        val wantsComposition = Lexicon.COMPOSITION_WORDS.any { normalized.contains(it) }
+        if (!wantsMass && !wantsComposition) return null
+
+        // Prefer an explicit formula in the raw text, where capitalisation survives.
+        val candidate = FORMULA.findAll(rawQuery)
+            .map { it.value }
+            .filter { it.any { c -> c.isDigit() } || it.length > 2 }
+            .firstOrNull { candidate ->
+                com.jlindemann.science.ai.data.ChemistryMath
+                    .parseFormula(candidate) { symbol -> atomicMassOf(symbol) } != null
+            }
+            // "percentage composition of water" names a compound rather than writing it.
+            ?: Lexicon.COMMON_COMPOUNDS.entries
+                .firstOrNull { normalized.contains(it.key) }?.value
+            ?: return null
+
+        return QueryPlan(
+            intent = Intent.FORMULA_MASS,
+            fieldIds = if (wantsComposition) listOf("composition") else emptyList(),
+            rawQuery = candidate,
+            confidence = 0.9,
+            evidence = listOf(if (wantsComposition) "composition of $candidate" else "molar mass of $candidate")
+        )
+    }
+
+    private fun atomicMassOf(symbol: String): Double? =
+        store.bySymbol(symbol)?.quantity("atomic_mass")?.value
 
     /** The property family a query names, longest phrase first so "heat" cannot shadow a phrase. */
     private fun categoryIn(normalizedQuery: String): com.jlindemann.science.ai.data.FieldCategory? =

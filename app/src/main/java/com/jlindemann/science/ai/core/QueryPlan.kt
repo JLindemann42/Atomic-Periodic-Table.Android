@@ -36,6 +36,15 @@ enum class Intent {
     /** An element's NFPA 704 hazard ratings. */
     SAFETY,
 
+    /** Molar mass and percentage composition of a chemical formula. */
+    FORMULA_MASS,
+
+    /** Neutron count of a specific nuclide, e.g. uranium-238. */
+    NUCLIDE_COUNT,
+
+    /** Conversion between moles and particle counts. */
+    MOLE_CONVERSION,
+
     /** A row from one of the app's tables: a constant, equation, mineral, dictionary term. */
     DATASET_LOOKUP,
 
@@ -67,6 +76,9 @@ sealed class Filter {
     data class InGroup(val group: Int) : Filter()
     data class IsMetal(val metal: Boolean) : Filter()
 
+    /** Whether the element occurs in nature, as opposed to being made in a reactor. */
+    data class IsSynthetic(val synthetic: Boolean) : Filter()
+
     /**
      * Whether an element satisfies this condition.
      *
@@ -92,6 +104,7 @@ sealed class Filter {
         is InPeriod -> element.period == period
         is InGroup -> element.groupNumber == group
         is IsMetal -> element.series.isMetal == metal
+        is IsSynthetic -> element.synthetic == synthetic
     }
 }
 

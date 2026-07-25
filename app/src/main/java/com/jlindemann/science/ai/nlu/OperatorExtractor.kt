@@ -64,8 +64,15 @@ object OperatorExtractor {
 
         // ---- Subsets ----------------------------------------------------------------------
         val series = LinkedHashSet<SeriesId>()
-        for ((word, ids) in Lexicon.SERIES_WORDS) {
-            if (mentions(query, word)) series.addAll(ids)
+        // Family names are consumed here so their words cannot be read again below: "noble
+        // gases" names a group, and treating its "gases" as a phase filter as well would
+        // silently exclude oganesson, which is predicted to be solid.
+        var remaining = query
+        for ((word, ids) in Lexicon.SERIES_WORDS.entries.sortedByDescending { it.key.length }) {
+            if (mentions(remaining, word)) {
+                series.addAll(ids)
+                remaining = remaining.replace(word, " ")
+            }
         }
         if (series.isNotEmpty()) subsets.add(Filter.InSeries(series))
         else if (Lexicon.METAL_WORDS.any { mentions(query, it) }) subsets.add(Filter.IsMetal(true))
@@ -74,10 +81,16 @@ object OperatorExtractor {
             if (mentions(query, word)) { subsets.add(Filter.InBlock(block)); break }
         }
         for ((word, phase) in Lexicon.PHASE_WORDS) {
-            if (mentions(query, word)) { subsets.add(Filter.InPhase(phase)); break }
+            if (mentions(remaining, word)) { subsets.add(Filter.InPhase(phase)); break }
         }
         if (Lexicon.RADIOACTIVE_WORDS.any { mentions(query, it) }) {
             subsets.add(Filter.IsRadioactive(true))
+        }
+        // "synthetic" is checked first: "non-synthetic" contains both, and the natural reading
+        // of a query mentioning synthetic at all is the synthetic set unless negated.
+        when {
+            Lexicon.NATURAL_WORDS.any { mentions(query, it) } -> subsets.add(Filter.IsSynthetic(false))
+            Lexicon.SYNTHETIC_WORDS.any { mentions(query, it) } -> subsets.add(Filter.IsSynthetic(true))
         }
         periodOrGroup(query)?.let { subsets.add(it) }
 

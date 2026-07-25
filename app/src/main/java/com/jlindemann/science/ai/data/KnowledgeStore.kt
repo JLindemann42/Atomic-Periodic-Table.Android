@@ -28,6 +28,9 @@ data class ElementRecord(
     val isotopes: List<Isotope>,
     val nfpa: Nfpa?
 ) {
+    /** True when the element does not occur naturally in appreciable amounts. */
+    val synthetic: Boolean get() = FieldRegistry.isSynthetic(atomicNumber)
+
     fun value(fieldId: String): FieldValue = values[fieldId] ?: FieldValue.Missing
     fun quantity(fieldId: String): Quantity? = value(fieldId).asQuantity()
     val stableIsotopeCount: Int get() = isotopes.count { it.stable }
@@ -201,6 +204,18 @@ class KnowledgeStore private constructor(
                     )
                     coverage.merge("group_number", 1, Int::plus)
                 }
+                FieldRegistry.valenceElectrons(atomicNumber)?.let { valence ->
+                    values["valence_electrons"] = FieldValue.Num(
+                        Quantity(valence.toDouble(), display = valence.toString())
+                    )
+                    coverage.merge("valence_electrons", 1, Int::plus)
+                }
+                val synthetic = FieldRegistry.isSynthetic(atomicNumber)
+                values["synthetic"] = FieldValue.Enum(
+                    if (synthetic) "YES" else "NO",
+                    if (synthetic) "Synthetic" else "Naturally occurring"
+                )
+                coverage.merge("synthetic", 1, Int::plus)
 
                 val nfpa = Nfpa(
                     health = values["nfpa_health"]?.asQuantity()?.value?.toInt(),

@@ -176,6 +176,13 @@ class FieldResolver(private val strings: StringProvider) {
             "electron config" to "electron_configuration",
             "configuration" to "electron_configuration",
             "shells" to "electron_shells",
+            // Longer than the bare "electrons" label, so it wins and "how many valence electrons
+            // does sulfur have" no longer answers with the total electron count.
+            "valence electrons" to "valence_electrons",
+            "valence electron" to "valence_electrons",
+            "outer electrons" to "valence_electrons",
+            "outermost electrons" to "valence_electrons",
+            "valence" to "valence_electrons",
             "abundance" to "abundance_earth_crust",
             "in the crust" to "abundance_earth_crust",
             "in seawater" to "abundance_sea_water",

@@ -33,6 +33,9 @@ class AnswerComposer(
             is ExecutionResult.Comparison -> comparison(result)
             is ExecutionResult.ElementList -> elementList(result, plan)
             is ExecutionResult.Aggregate -> aggregate(result)
+            is ExecutionResult.Formula -> formula(result)
+            is ExecutionResult.Nuclide -> nuclide(result)
+            is ExecutionResult.MoleConversion -> moleConversion(result)
             is ExecutionResult.Isotopes -> isotopes(result)
             is ExecutionResult.Safety -> safety(result)
             is ExecutionResult.Dataset -> dataset(result)
@@ -157,6 +160,63 @@ class AnswerComposer(
             builder.append(" ").append(strings.get(R.string.ai_aggregate_missing_note, result.missing))
         }
         return builder.toString()
+    }
+
+    private fun formula(result: ExecutionResult.Formula): String {
+        val r = result.result
+        val builder = StringBuilder(
+            strings.get(R.string.ai_formula_mass, r.formula, format(r.molarMass))
+        )
+        if (result.wantsComposition) {
+            builder.append("\n\n### ").append(strings.get(R.string.ai_composition_header, r.formula))
+            for (part in r.parts) {
+                builder.append("\n").append(
+                    strings.get(
+                        R.string.ai_composition_row, part.symbol, part.count,
+                        format(part.massContribution), format(part.percent)
+                    )
+                )
+            }
+        }
+        return builder.toString()
+    }
+
+    private fun nuclide(result: ExecutionResult.Nuclide): String {
+        val name = displayName(result.element.key)
+        return "### " + strings.get(R.string.ai_nuclide_header, name, result.massNumber) +
+                "\n" + strings.get(
+            R.string.ai_nuclide_explain, result.massNumber, result.protons, result.neutrons
+        ) + "\n" + strings.get(
+            R.string.ai_nuclide_body, result.protons, result.neutrons, result.massNumber
+        )
+    }
+
+    private fun moleConversion(result: ExecutionResult.MoleConversion): String {
+        val moles = result.moles ?: return ""
+        val particles = scientific(result.particles)
+        val sentence = if (result.substance != null) {
+            strings.get(R.string.ai_moles_of, format(moles), result.substance, particles)
+        } else {
+            strings.get(R.string.ai_moles_to_particles, format(moles), particles)
+        }
+        return sentence + "\n" + strings.get(R.string.ai_avogadro_note)
+    }
+
+    /** Two significant decimals, trailing zeroes trimmed. */
+    private fun format(value: Double): String = UnitConverter.formatValue(value)
+
+    /** Renders a large count in scientific notation, e.g. 1.2 × 10²⁴. */
+    private fun scientific(value: Double): String {
+        if (value == 0.0) return "0"
+        val exponent = kotlin.math.floor(kotlin.math.log10(kotlin.math.abs(value))).toInt()
+        val mantissa = value / Math.pow(10.0, exponent.toDouble())
+        return "${format(mantissa)} × 10${superscript(exponent)}"
+    }
+
+    private fun superscript(n: Int): String {
+        val digits = "⁰¹²³⁴⁵⁶⁷⁸⁹"
+        val sign = if (n < 0) "⁻" else ""
+        return sign + kotlin.math.abs(n).toString().map { digits[it - '0'] }.joinToString("")
     }
 
     private fun isotopes(result: ExecutionResult.Isotopes): String {

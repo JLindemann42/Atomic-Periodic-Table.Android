@@ -88,6 +88,39 @@ object FieldRegistry {
     /** Sentinel keys for values computed rather than read. Never present in the JSON. */
     const val DERIVED_PERIOD = "__derived_period"
     const val DERIVED_GROUP = "__derived_group"
+    const val DERIVED_VALENCE = "__derived_valence"
+    const val DERIVED_SYNTHETIC = "__derived_synthetic"
+
+    /**
+     * Elements with no stable isotopes that do not occur naturally in appreciable amounts.
+     *
+     * Technetium (43) and promethium (61) are the two gaps below uranium; everything heavier
+     * than uranium (92) is synthetic. Neptunium and plutonium occur in trace amounts in uranium
+     * ore but are conventionally counted as synthetic, which is the convention used here.
+     *
+     * This matters for correctness, not just completeness: without it "the heaviest naturally
+     * occurring element" answers tennessine, which has only ever existed a few atoms at a time
+     * in an accelerator. The right answer is uranium.
+     */
+    fun isSynthetic(atomicNumber: Int): Boolean =
+        atomicNumber == 43 || atomicNumber == 61 || atomicNumber > 92
+
+    /**
+     * Valence electrons for a main-group element, or null where the concept does not apply
+     * cleanly — the d-block and f-block, where inner shells are still filling.
+     *
+     * Groups 1 and 2 give 1 and 2; groups 13 to 18 give 3 to 8. Helium is the exception: it sits
+     * in group 18 but has only 2 electrons in total.
+     */
+    fun valenceElectrons(atomicNumber: Int): Int? {
+        if (atomicNumber == 2) return 2
+        val group = groupOf(atomicNumber) ?: return null
+        return when (group) {
+            1, 2 -> group
+            in 13..18 -> group - 10
+            else -> null
+        }
+    }
 
     val ALL: List<FieldSpec> = buildList {
 
@@ -106,6 +139,8 @@ object FieldRegistry {
         // declared here so they can still be asked about, filtered on and cited.
         add(spec("period", DERIVED_PERIOD, FieldKind.NUMERIC, FieldCategory.IDENTITY, R.string.period_colon))
         add(spec("group_number", DERIVED_GROUP, FieldKind.NUMERIC, FieldCategory.IDENTITY, R.string.group_number_colon))
+        add(spec("valence_electrons", DERIVED_VALENCE, FieldKind.NUMERIC, FieldCategory.ATOMIC, R.string.valence_electrons_colon))
+        add(spec("synthetic", DERIVED_SYNTHETIC, FieldKind.ENUM, FieldCategory.IDENTITY, R.string.synthetic_colon))
         add(spec("phase", "element_phase", FieldKind.ENUM, FieldCategory.IDENTITY, R.string.phase_stp_colon, localized = true))
         add(spec("wikilink", "wikilink", FieldKind.LINK, FieldCategory.IDENTITY, R.string.description_colon))
 

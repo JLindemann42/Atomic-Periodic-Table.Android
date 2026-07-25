@@ -110,7 +110,9 @@ class AiEngine(
         is ExecutionResult.Aggregate -> result.contributors.map { it.element.key }
         is ExecutionResult.Isotopes -> listOf(result.element.key)
         is ExecutionResult.Safety -> listOf(result.element.key)
+        is ExecutionResult.Nuclide -> listOf(result.element.key)
         is ExecutionResult.NoData -> listOfNotNull(result.element?.key)
+        is ExecutionResult.Formula, is ExecutionResult.MoleConversion,
         is ExecutionResult.Dataset, is ExecutionResult.Empty -> emptyList()
     }
 }
