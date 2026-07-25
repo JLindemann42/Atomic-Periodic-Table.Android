@@ -46,10 +46,22 @@ class FieldResolver(private val strings: StringProvider) {
 
     fun resolve(query: String): FieldMatch? = resolveAll(query, 1).firstOrNull()
 
-    /** Whether an alias appears in the query as a whole phrase. */
+    /**
+     * Whether an alias appears in the query.
+     *
+     * Also accepts a short grammatical ending on the alias, because the shipped labels give the
+     * base form while users write the inflected one — Swedish "smältpunkten" for the label
+     * "Smältpunkt", German "Dichte" in "der Dichte des Goldes".
+     */
     private fun mentions(normalizedQuery: String, alias: String): Boolean {
-        if (alias.length < 3) return false
-        return TextMatching.containsToken(normalizedQuery, normalizedQuery, alias)
+        if (alias.length < minimumLength(alias)) return false
+        if (TextMatching.containsToken(normalizedQuery, normalizedQuery, alias)) return true
+        if (alias.length < 5 || alias.contains(' ')) return false
+        return TextMatching.splitQueryTokens(normalizedQuery).any { word ->
+            word.length > alias.length &&
+                    word.length - alias.length <= MAX_INFLECTION_SUFFIX &&
+                    word.startsWith(alias)
+        }
     }
 
     private fun buildAliases(): Map<String, String> {
@@ -57,7 +69,7 @@ class FieldResolver(private val strings: StringProvider) {
 
         fun add(alias: String, fieldId: String) {
             val key = TextMatching.normalizeForLookup(alias).trim()
-            if (key.length < 3) return
+            if (key.length < minimumLength(key)) return
             // First writer wins, so the localized label outranks the generic fallbacks.
             map.putIfAbsent(key, fieldId)
         }
@@ -72,6 +84,11 @@ class FieldResolver(private val strings: StringProvider) {
         // Layer 2 — colloquial phrasings the labels do not cover.
         for ((alias, fieldId) in COLLOQUIAL) add(alias, fieldId)
 
+        // Layer 2b — near-cognates for the most-asked fields. Several locales ship an
+        // incomplete strings.xml and fall back to the English label, so a user writing their
+        // own language would otherwise get nothing; Filipino, for instance, displays "Density".
+        for ((alias, fieldId) in COGNATES) add(alias, fieldId)
+
         // Layer 3 — the canonical ids themselves.
         for (spec in FieldRegistry.ALL) {
             add(spec.id.replace('_', ' '), spec.id)
@@ -82,6 +99,47 @@ class FieldResolver(private val strings: StringProvider) {
     }
 
     private companion object {
+        /** Longest grammatical ending accepted on a field label, e.g. "smältpunkt" + "en". */
+        const val MAX_INFLECTION_SUFFIX = 3
+
+        /**
+         * Shortest alias worth indexing, by script.
+         *
+         * Three characters is a sensible floor for alphabetic scripts, but a Han word is often
+         * exactly two characters — 密度 is "density" in full — so the Latin threshold would
+         * discard the entire Chinese label set.
+         */
+        fun minimumLength(alias: String): Int =
+            if (alias.any { Character.UnicodeScript.of(it.code) == Character.UnicodeScript.HAN }) 2 else 3
+
+        /**
+         * Cross-language spellings of the highest-traffic fields.
+         *
+         * Kept deliberately small: the localized labels already cover the formal name in every
+         * locale that ships a complete translation. This only backstops the fields users ask
+         * about most, in the languages whose spelling differs from English.
+         */
+        val COGNATES: List<Pair<String, String>> = listOf(
+            "densidad" to "density", "densidade" to "density", "densita" to "density",
+            "densite" to "density", "dichte" to "density", "densitet" to "density",
+            "digtheid" to "density", "घनत्व" to "density", "کثافت" to "density", "密度" to "density",
+            "masa atomica" to "atomic_mass", "atommassa" to "atomic_mass",
+            "atommasse" to "atomic_mass", "massa atomica" to "atomic_mass",
+            "punto de fusion" to "melting_point", "smaltpunkt" to "melting_point",
+            "schmelzpunkt" to "melting_point", "point de fusion" to "melting_point",
+            "ponto de fusao" to "melting_point", "punto di fusione" to "melting_point",
+            "smeltpunt" to "melting_point", "熔点" to "melting_point",
+            "punto de ebullicion" to "boiling_point", "kokpunkt" to "boiling_point",
+            "siedepunkt" to "boiling_point", "point d ebullition" to "boiling_point",
+            "kookpunt" to "boiling_point", "沸点" to "boiling_point",
+            "electronegatividad" to "electronegativity", "elektronegativitet" to "electronegativity",
+            "elektronegativitat" to "electronegativity", "electronegativite" to "electronegativity",
+            "elettronegativita" to "electronegativity", "电负性" to "electronegativity",
+            "numero atomico" to "atomic_number", "atomnummer" to "atomic_number",
+            "ordnungszahl" to "atomic_number", "numero atomique" to "atomic_number",
+            "原子序数" to "atomic_number"
+        )
+
         /**
          * English colloquialisms mapped to field ids. Other languages fall back to their
          * localized label from layer 1, which covers the formal name in every locale.
@@ -128,14 +186,26 @@ class FieldResolver(private val strings: StringProvider) {
             "who discovered" to "discovered_by",
             "when discovered" to "year_discovered",
             "what does it look like" to "appearance",
+            "look like" to "appearance",
+            "looks like" to "appearance",
+            "appearance" to "appearance",
             "colour" to "appearance",
             "color" to "appearance",
             "state of matter" to "phase",
+            "oxidation state" to "oxidation_states",
+            "oxidation number" to "oxidation_states",
+            "valency" to "oxidation_states",
+            "period" to "period",
+            "row" to "period",
+            "group number" to "group_number",
+            "column" to "group_number",
             "stiffness" to "young_modulus",
             "elasticity" to "young_modulus",
             "speed of sound" to "speed_of_sound_solid",
             "crystal" to "crystal_structure",
             "structure" to "crystal_structure",
+            // Longer aliases win, so this beats the bare "group" alias below.
+            "space group" to "space_group_name",
             "half life" to "common_neutrons",
             "cas" to "cas_number",
             "family" to "series",

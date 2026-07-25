@@ -85,6 +85,10 @@ data class FieldSpec(
  */
 object FieldRegistry {
 
+    /** Sentinel keys for values computed rather than read. Never present in the JSON. */
+    const val DERIVED_PERIOD = "__derived_period"
+    const val DERIVED_GROUP = "__derived_group"
+
     val ALL: List<FieldSpec> = buildList {
 
         // ---- Identity -------------------------------------------------------------------
@@ -97,6 +101,11 @@ object FieldRegistry {
         add(spec("discovered_by", "element_discovered_name", FieldKind.TEXT, FieldCategory.IDENTITY, R.string.discovered_by_colon))
         add(spec("series", "element_group", FieldKind.ENUM, FieldCategory.IDENTITY, R.string.group_label, localized = true))
         add(spec("block", "element_block", FieldKind.ENUM, FieldCategory.IDENTITY, R.string.block_colon))
+        // Period and group are computed from atomic number, not stored: the JSON has no
+        // element_period or element_group_number key on any of the 118 elements. They are
+        // declared here so they can still be asked about, filtered on and cited.
+        add(spec("period", DERIVED_PERIOD, FieldKind.NUMERIC, FieldCategory.IDENTITY, R.string.period_colon))
+        add(spec("group_number", DERIVED_GROUP, FieldKind.NUMERIC, FieldCategory.IDENTITY, R.string.group_number_colon))
         add(spec("phase", "element_phase", FieldKind.ENUM, FieldCategory.IDENTITY, R.string.phase_stp_colon, localized = true))
         add(spec("wikilink", "wikilink", FieldKind.LINK, FieldCategory.IDENTITY, R.string.description_colon))
 

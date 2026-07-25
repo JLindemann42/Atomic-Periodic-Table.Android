@@ -34,7 +34,7 @@ object TextMatching {
         val lowerQuery = query.lowercase()
 
         for (keyword in keywords) {
-            val regex = "\\b${Regex.escape(keyword)}\\b".toRegex()
+            val regex = wordBoundary(keyword)
             if (regex.containsMatchIn(lowerQuery)) return true
         }
 
@@ -63,12 +63,23 @@ object TextMatching {
         if (token.isBlank()) return false
         val asciiLike = token.all { it.code < 128 && (it.isLetterOrDigit() || it == ' ' || it == '-') }
         return if (asciiLike) {
-            val regex = "\\b${Regex.escape(token)}\\b".toRegex()
+            val regex = wordBoundary(token)
             regex.containsMatchIn(rawQuery) || regex.containsMatchIn(normalizedQuery)
         } else {
             rawQuery.contains(token) || normalizedQuery.contains(token)
         }
     }
+
+    /**
+     * A word-boundary matcher that understands non-ASCII letters.
+     *
+     * `\b` is defined over `[a-zA-Z0-9_]` unless the Unicode character class flag is set, so
+     * without `(?U)` every accented letter reads as a boundary: `\bsm\b` matches inside the
+     * Swedish "smältpunkten", and `\bf\b` inside "för". That made samarium and fluorine appear
+     * in a query that named neither, which then looked like a three-way comparison. Every
+     * language with accents was affected.
+     */
+    fun wordBoundary(token: String): Regex = "(?U)\\b${Regex.escape(token)}\\b".toRegex()
 
     /** Levenshtein edit distance. */
     fun levenshtein(s1: String, s2: String): Int {

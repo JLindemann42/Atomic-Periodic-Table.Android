@@ -84,8 +84,11 @@ def main():
     declared = registry_json_keys(registry_source)
     referenced = declared & (present | {"health", "flammability", "instability", "special"})
 
+    # __derived_* are sentinels for values computed from atomic number, not read from JSON.
     unbacked = sorted(k for k in declared
-                      if k.startswith(("element_", "iso_")) and k not in present)
+                      if k.startswith(("element_", "iso_"))
+                      and not k.startswith("__derived")
+                      and k not in present)
     uncovered = sorted(present_non_isotope - declared - IGNORED_JSON_KEYS)
 
     print("elements: %d   distinct non-isotope keys: %d   isotope keys: %d"

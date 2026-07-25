@@ -96,7 +96,41 @@ class EntityResolver(
         if (Tokenizer.isUnspacedScript(surface)) {
             return matchesUnspaced(surface, originalQuery)
         }
-        return TextMatching.containsToken(rawQuery, normalizedQuery, surface)
+        if (TextMatching.containsToken(rawQuery, normalizedQuery, surface)) return true
+        return matchesInflected(surface, words)
+    }
+
+    /**
+     * Match an element name carrying a grammatical ending.
+     *
+     * Several supported languages inflect nouns, so a word-boundary match alone misses the most
+     * natural phrasing: Swedish "guldets densitet", German "des Goldes", Italian "dell'oro".
+     * A short suffix on an otherwise exact name is accepted; names shorter than four characters
+     * are excluded so symbols and short names cannot over-match.
+     */
+    private fun matchesInflected(surface: String, words: List<String>): Boolean {
+        if (surface.length < 4) return false
+        if (words.any { word ->
+                word.length > surface.length &&
+                        word.length - surface.length <= MAX_INFLECTION_SUFFIX &&
+                        word.startsWith(surface)
+            }
+        ) return true
+
+        // Indic and Arabic-script nouns inflect by changing the final letter rather than adding
+        // to it: Urdu گold "سونا" becomes "سونے" in an oblique phrase. A single edit on a name of
+        // four or more characters is almost certainly the same word. Restricted to non-Latin
+        // scripts, where the suffix rule above cannot apply and where a near-miss like
+        // "iron"/"iran" is not a risk.
+        if (isLatin(surface)) return false
+        return words.any { word ->
+            kotlin.math.abs(word.length - surface.length) <= 1 &&
+                    TextMatching.levenshtein(word, surface) <= 1
+        }
+    }
+
+    private fun isLatin(text: String): Boolean = text.all {
+        !it.isLetter() || Character.UnicodeScript.of(it.code) == Character.UnicodeScript.LATIN
     }
 
     /**
@@ -110,14 +144,23 @@ class EntityResolver(
         while (index >= 0) {
             val before = trimmed.getOrNull(index - 1)
             val after = trimmed.getOrNull(index + surface.length)
-            val absorbed = (before != null && Tokenizer.isHan(before)) ||
-                    (after != null && Tokenizer.isHan(after))
+            val absorbed = isCompounding(before) || isCompounding(after)
             // Multi-character names are specific enough to match even inside a longer run.
             if (!absorbed || surface.length > 1) return true
             index = trimmed.indexOf(surface, index + 1)
         }
         return false
     }
+
+    /**
+     * Whether a neighbouring character could make this part of a longer word.
+     *
+     * Grammatical particles do not form compounds, so they act as boundaries: 金的密度 is
+     * "gold's density" and 金 is the element, whereas 金属 is "metal" and 金 is not. Without this
+     * distinction the guard against the second case also blocks the first.
+     */
+    private fun isCompounding(c: Char?): Boolean =
+        c != null && Tokenizer.isHan(c) && c !in HAN_PARTICLES
 
     private fun scoreOf(alias: ElementAlias): Double = when (alias.kind) {
         ElementAlias.Kind.NUMBER -> 1.0
@@ -160,6 +203,15 @@ class EntityResolver(
     }
 
     companion object {
+        /** Longest grammatical ending accepted on an element name, e.g. Swedish "guld" + "ets". */
+        private const val MAX_INFLECTION_SUFFIX = 3
+
+        /** Chinese function characters that separate words rather than joining them. */
+        private val HAN_PARTICLES = setOf(
+            '的', '是', '有', '和', '與', '与', '在', '中', '了', '嗎', '吗', '呢', '把', '被',
+            '為', '为', '之', '或', '及', '而', '就', '都', '也', '很', '多', '少', '個', '个'
+        )
+
         /**
          * Whether a short token is an ordinary word in the active language rather than a symbol.
          *

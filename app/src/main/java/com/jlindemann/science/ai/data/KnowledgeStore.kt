@@ -185,6 +185,23 @@ class KnowledgeStore private constructor(
                 }
 
                 val atomicNumber = values["atomic_number"]?.asQuantity()?.value?.toInt() ?: 0
+
+                // Period and group are computed, not stored, so they are filled in here rather
+                // than by the parse loop above.
+                val derivedPeriod = FieldRegistry.periodOf(atomicNumber)
+                if (derivedPeriod > 0) {
+                    values["period"] = FieldValue.Num(
+                        Quantity(derivedPeriod.toDouble(), display = derivedPeriod.toString())
+                    )
+                    coverage.merge("period", 1, Int::plus)
+                }
+                FieldRegistry.groupOf(atomicNumber)?.let { group ->
+                    values["group_number"] = FieldValue.Num(
+                        Quantity(group.toDouble(), display = group.toString())
+                    )
+                    coverage.merge("group_number", 1, Int::plus)
+                }
+
                 val nfpa = Nfpa(
                     health = values["nfpa_health"]?.asQuantity()?.value?.toInt(),
                     flammability = values["nfpa_flammability"]?.asQuantity()?.value?.toInt(),

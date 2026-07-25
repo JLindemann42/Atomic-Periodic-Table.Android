@@ -209,6 +209,67 @@ object Lexicon {
         "reativo", "reatividade", "reaktief", "reaktibo", "活泼", "反应性"
     )
 
+    /**
+     * Words selecting a whole family of properties rather than a single one.
+     *
+     * The legacy handler had branches that returned several related fields together — asking
+     * about "thermal properties" gave fusion heat, vaporization heat, specific heat and
+     * conductivity in one answer. These preserve that.
+     */
+    val CATEGORY_WORDS: Map<String, com.jlindemann.science.ai.data.FieldCategory> = mapOf(
+        "thermal" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
+        "thermodynamic" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
+        "heat" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
+        "termisk" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
+        "termodynamisk" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
+        "thermisch" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
+        "termico" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
+        "thermique" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
+        "热" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
+
+        "electromagnetic" to com.jlindemann.science.ai.data.FieldCategory.ELECTROMAGNETIC,
+        "magnetic properties" to com.jlindemann.science.ai.data.FieldCategory.ELECTROMAGNETIC,
+        "electrical properties" to com.jlindemann.science.ai.data.FieldCategory.ELECTROMAGNETIC,
+        "elektromagnetisk" to com.jlindemann.science.ai.data.FieldCategory.ELECTROMAGNETIC,
+        "elektromagnetisch" to com.jlindemann.science.ai.data.FieldCategory.ELECTROMAGNETIC,
+        "electromagnetico" to com.jlindemann.science.ai.data.FieldCategory.ELECTROMAGNETIC,
+        "电磁" to com.jlindemann.science.ai.data.FieldCategory.ELECTROMAGNETIC,
+
+        "mechanical" to com.jlindemann.science.ai.data.FieldCategory.MECHANICAL,
+        "elastic" to com.jlindemann.science.ai.data.FieldCategory.MECHANICAL,
+        "mekanisk" to com.jlindemann.science.ai.data.FieldCategory.MECHANICAL,
+        "mechanisch" to com.jlindemann.science.ai.data.FieldCategory.MECHANICAL,
+        "mecanico" to com.jlindemann.science.ai.data.FieldCategory.MECHANICAL,
+        "mecanique" to com.jlindemann.science.ai.data.FieldCategory.MECHANICAL,
+        "机械" to com.jlindemann.science.ai.data.FieldCategory.MECHANICAL,
+
+        "atomic properties" to com.jlindemann.science.ai.data.FieldCategory.ATOMIC,
+        "atomara" to com.jlindemann.science.ai.data.FieldCategory.ATOMIC,
+        "atomare" to com.jlindemann.science.ai.data.FieldCategory.ATOMIC,
+        "原子性质" to com.jlindemann.science.ai.data.FieldCategory.ATOMIC,
+
+        "crystal properties" to com.jlindemann.science.ai.data.FieldCategory.CRYSTAL,
+        "nuclear properties" to com.jlindemann.science.ai.data.FieldCategory.NUCLEAR,
+
+        "abundance" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "where is it found" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "where is" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "forekomst" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "vorkommen" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "abundancia" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "abondance" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "丰度" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE
+    )
+
+    /** Words that ask for a narrative overview, which the engine leaves to the personality layer. */
+    val OVERVIEW_WORDS = listOf(
+        "tell me about", "what is", "who is", "describe", "overview", "summary", "explain",
+        "berätta om", "beratta om", "vad ar", "erzahl mir", "was ist", "beschreibe",
+        "hablame de", "que es", "parle moi de", "qu est ce que", "parlami di", "cos e",
+        "fale sobre", "o que e", "vertel my van", "wat is", "sabihin mo sa akin",
+        "batao", "bataye", "介绍", "是什么"
+    )
+
     /** Words that mark a query as a comparison between elements. */
     val COMPARE = listOf(
         "compare", "versus", "vs", "difference between", "denser than", "heavier than",

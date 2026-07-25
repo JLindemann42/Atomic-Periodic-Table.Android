@@ -12,6 +12,12 @@ enum class Intent {
     /** One field of one element, optionally in a requested unit. */
     PROPERTY_LOOKUP,
 
+    /**
+     * A whole family of fields for one element — "the thermal properties of gold".
+     * Only fields the element actually has a value for are returned.
+     */
+    CATEGORY_LOOKUP,
+
     /** Two or more elements compared on one or more fields. */
     COMPARISON,
 

@@ -137,6 +137,8 @@
 
     <!-- Grounded answers: sources, coverage and computed results -->
     <string name="ai_sources_header">Sources</string>
+    <string name="period_colon">Period:</string>
+    <string name="group_number_colon">Group:</string>
     <string name="ai_history_sign_in">Please sign in to view chat history</string>
     <string name="ai_history_pro_only">Chat history is a PRO feature</string>
     <string name="ai_superlative_highest">highest</string>

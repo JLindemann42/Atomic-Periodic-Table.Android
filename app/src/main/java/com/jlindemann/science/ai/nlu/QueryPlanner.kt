@@ -167,23 +167,45 @@ class QueryPlanner(
             )
         }
 
-        // ---- Property lookup, claimed only when it adds something -------------------------
         val element = elementKeys.firstOrNull()?.let { store.element(it) }
+
+        // ---- Category lookup: a whole family of properties for one element -----------------
+        if (element != null) {
+            categoryIn(normalized)?.let { category ->
+                val populated = FieldRegistry.byCategory(category)
+                    .filter { !element.value(it.id).isMissing }
+                    .map { it.id }
+                if (populated.size >= 2) {
+                    evidence.add("category $category")
+                    return QueryPlan(
+                        intent = Intent.CATEGORY_LOOKUP,
+                        entities = listOf(EntityRef.Element(element.key)),
+                        fieldIds = populated,
+                        targetUnit = targetUnit,
+                        confidence = 0.8,
+                        rawQuery = rawQuery,
+                        evidence = evidence
+                    )
+                }
+            }
+        }
+
+        // ---- Property lookup ---------------------------------------------------------------
         val fieldId = fieldIds.firstOrNull()
         if (element != null && fieldId != null) {
-            val missing = element.value(fieldId).isMissing &&
+            // A bare "tell me about gold" is narrative, not a field lookup, and belongs to the
+            // personality layer. Only decline when no field was actually named, though —
+            // "what is the density of gold" also opens with "what is".
+            val overviewOnly = fieldMatches.isEmpty() &&
+                    Lexicon.OVERVIEW_WORDS.any { normalized.contains(it) }
+            if (!overviewOnly) {
+                if (element.value(fieldId).isMissing &&
                     store.quantityIn(element, fieldId, targetUnit) == null
-            val claims = when {
-                // Saying "no data" honestly is better than the sentinel or a keyword guess.
-                missing -> { evidence.add("no data for $fieldId"); true }
-                // A unit conversion or an ordinal slot is beyond the existing handlers.
-                targetUnit != null -> { evidence.add("unit request $targetUnit"); true }
-                operators.ordinal != null -> { evidence.add("ordinal ${operators.ordinal}"); true }
-                // An inherited slot means this is a follow-up the old router could not resolve.
-                evidence.any { it.startsWith("inherited") } -> true
-                else -> false
-            }
-            if (claims) {
+                ) {
+                    evidence.add("no data for $fieldId")
+                } else {
+                    evidence.add("property $fieldId")
+                }
                 return QueryPlan(
                     intent = Intent.PROPERTY_LOOKUP,
                     entities = listOf(EntityRef.Element(element.key)),
@@ -215,6 +237,13 @@ class QueryPlanner(
 
         return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
     }
+
+    /** The property family a query names, longest phrase first so "heat" cannot shadow a phrase. */
+    private fun categoryIn(normalizedQuery: String): com.jlindemann.science.ai.data.FieldCategory? =
+        Lexicon.CATEGORY_WORDS.entries
+            .sortedByDescending { it.key.length }
+            .firstOrNull { normalizedQuery.contains(it.key) }
+            ?.value
 
     /**
      * Some superlatives name the property implicitly: "densest" already means density.

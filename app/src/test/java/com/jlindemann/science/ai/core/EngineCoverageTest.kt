@@ -155,9 +155,11 @@ class EngineCoverageTest {
 
     @Test
     fun stillDefersOrdinaryLookupsAndSmallTalk() {
+        // "who discovered oxygen" is deliberately absent: it resolves to the discovered_by field
+        // and the engine now answers it, with a citation the old handler never produced.
         for (query in listOf(
             "tell me about gold", "what is gold", "hello", "give me a fact",
-            "quiz me", "what is the molar mass of h2o", "who discovered oxygen"
+            "quiz me", "what is the molar mass of h2o"
         )) {
             val plan = planner.plan(query, DialogueState())
             assertTrue(

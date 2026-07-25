@@ -37,6 +37,7 @@ class QueryExecutor(
 
     fun execute(plan: QueryPlan): ExecutionResult? = when (plan.intent) {
         Intent.PROPERTY_LOOKUP -> property(plan)
+        Intent.CATEGORY_LOOKUP -> category(plan)
         Intent.COMPARISON -> comparison(plan)
         Intent.SUPERLATIVE, Intent.FILTER_LIST -> elementList(plan)
         Intent.AGGREGATE -> aggregate(plan)
@@ -68,6 +69,34 @@ class QueryExecutor(
             quantity = quantity,
             display = render(value, quantity, plan.targetUnit),
             citations = listOf(citation(spec.id, element))
+        )
+    }
+
+    // ---- Category ----------------------------------------------------------------------
+
+    /**
+     * Every populated field of one family, for one element.
+     *
+     * Reuses the comparison result shape with a single element, so the composer renders it as a
+     * labelled list without needing a separate branch.
+     */
+    private fun category(plan: QueryPlan): ExecutionResult? {
+        val element = plan.elementKeys.firstOrNull()?.let { store.element(it) } ?: return null
+        val values = LinkedHashMap<String, List<ValuedElement>>()
+        for (fieldId in plan.fieldIds) {
+            val value = element.value(fieldId)
+            if (value.isMissing) continue
+            val quantity = store.quantityIn(element, fieldId, plan.targetUnit)
+            values[fieldId] = listOf(
+                ValuedElement(element, quantity, render(value, quantity, plan.targetUnit))
+            )
+        }
+        if (values.isEmpty()) return ExecutionResult.Empty(describeFilters(plan))
+        return ExecutionResult.Comparison(
+            elements = listOf(element),
+            fieldIds = values.keys.toList(),
+            values = values,
+            citations = listOf(citation(values.keys.first(), element))
         )
     }
 

@@ -7,6 +7,7 @@ import com.jlindemann.science.ai.compose.ChatActionCodec
 import com.jlindemann.science.ai.core.AiEngine
 import com.jlindemann.science.ai.core.AndroidStrings
 import com.jlindemann.science.ai.core.DialogueState
+import com.jlindemann.science.ai.core.Intent
 import com.jlindemann.science.ai.retrieval.RetrievalService
 import com.jlindemann.science.ai.retrieval.RetrievedRef
 import com.jlindemann.science.model.ChatMessage
@@ -1584,20 +1585,6 @@ class AIAgentManager(private val context: Context?) {
 
 
 
-    private fun getValenceInfo(element: JSONObject, name: String): String? {
-        val group = element.optString("element_group", "")
-        val ctx = localizedContext ?: context!!
-        return when {
-            group == "Alkali Metal" -> ctx.getString(R.string.ai_valence_alkali)
-            group == "Alkaline Earth Metal" -> ctx.getString(R.string.ai_valence_alkaline)
-            group == "Halogen" -> ctx.getString(R.string.ai_valence_halogen)
-            group == "Noble Gas" -> {
-                if (name.lowercase() == "helium") ctx.getString(R.string.ai_valence_noble_helium)
-                else ctx.getString(R.string.ai_valence_noble_other)
-            }
-            else -> null
-        }
-    }
 
     private fun isStructuralQuery(query: String): Boolean {
         val keywords = listOf(
@@ -2131,412 +2118,73 @@ class AIAgentManager(private val context: Context?) {
         return null
     }
     
+    /**
+     * Answer a question about a specific element.
+     *
+     * Field lookups - a single property, or a whole family of them - are handled by the
+     * structured engine, which resolves them from [com.jlindemann.science.ai.data.FieldRegistry]
+     * with typed values, unit awareness, citations and an honest answer when the value is
+     * absent. This used to be roughly thirty hand-written keyword branches mapping to JSON keys;
+     * the registry covers those and about fifty more fields, in every shipped language.
+     *
+     * What remains here is narrative rather than data: the overview, the "tell me more" pacing
+     * that avoids repeating what was already said, and the no-data reply.
+     */
     private fun handleElementContextQuery(query: String, elementKey: String): String {
         val ctx = localizedContext ?: context!!
         return try {
-            val element = elementData?.optJSONObject(elementKey.lowercase()) ?: return AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
+            val element = elementData?.optJSONObject(elementKey.lowercase())
+                ?: return AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
             val lowerQuery = query.lowercase()
             val elementName = element.optString("element", "Element")
-            
-            val response: String = when {
-                // Basic properties
-                hasKeyword(lowerQuery, listOf("atomic number", "proton", "number", "atomnummer", "atomnummeret", "ordnungszahl", "número atómico", "numéro atomique", "numbro")) || matchLabel(lowerQuery, R.string.atomic_number_label) -> {
-                    val prop = "atomic number"
-                    val label = ctx.getString(R.string.atomic_number_label).replace(":", "").trim()
-                    learningManager?.trackPropertyInterest(prop, isTechnical = false)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val atomicNum = element.optString("element_atomic_number", "")
-                    AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, atomicNum, isRepeat)
-                }
-                (hasKeyword(lowerQuery, listOf("mass", "weight", "massa", "vikt", "masse", "masa", "poids")) && !lowerQuery.contains("molar") && !lowerQuery.contains("mol")) || matchLabel(lowerQuery, R.string.atomic_mass_colon) -> {
-                    val prop = "atomic mass"
-                    val label = ctx.getString(R.string.atomic_mass_colon).replace(":", "").trim()
-                    learningManager?.trackPropertyInterest(prop, isTechnical = false)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val mass = element.optString("element_atomicmass", "")
-                    AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, mass, isRepeat)
-                }
-                hasKeyword(lowerQuery, listOf("symbol", "short", "förkortning", "symbole", "símbolo", "sign")) || lowerQuery.contains(ctx.getString(R.string.element_symbols).lowercase()) -> {
-                    val prop = "symbol"
-                    val label = ctx.getString(R.string.element_symbols).trim()
-                    learningManager?.trackPropertyInterest(prop, isTechnical = false)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val symbol = element.optString("short", "")
-                    AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, symbol, isRepeat)
-                }
-                
-                // Classification
-                hasKeyword(lowerQuery, listOf("type", "category", "class", "typ", "kategori", "klass", "art", "kategorie", "klasse", "tipo", "categoría", "clase", "catégorie")) -> {
-                    val prop = "category"
-                    learningManager?.trackPropertyInterest(prop, isTechnical = false)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val type = element.optString("element_type", "")
-                    val group = element.optString("element_group", "")
-                    val combined = if (group.isNotEmpty() && group != "---") "$type ($group)" else type
-                    AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, prop, combined, isRepeat)
-                }
-                hasKeyword(lowerQuery, listOf("group", "column", "grupp", "kolumn", "gruppe", "spalte", "grupo", "columna", "groupe", "colonne")) || matchLabel(lowerQuery, R.string.element_groups) -> {
-                    val prop = "group"
-                    val label = ctx.getString(R.string.element_groups).trim()
-                    learningManager?.trackPropertyInterest(prop, isTechnical = false)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val group = element.optString("element_group", "")
-                    val groupNum = element.optString("element_group_number", "")
-                    val value = if (groupNum.isNotEmpty() && groupNum != "---") "$group (Group $groupNum)" else group
-                    AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, value, isRepeat)
-                }
-                hasKeyword(lowerQuery, listOf("period", "row", "rad", "periode", "zeile", "periodo", "fila", "rangée")) || matchLabel(lowerQuery, R.string.element_number) -> {
-                    val prop = "period"
-                    learningManager?.trackPropertyInterest(prop, isTechnical = false)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val period = element.optString("element_period", "")
-                    AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, prop, period, isRepeat)
-                }
-                
-                // Appearance and physical properties
-                hasKeyword(lowerQuery, listOf("appear", "look", "color", "colour", "physical", "visual", "utseende", "färg", "aussehen", "farbe", "apariencia", "apparence", "couleur")) || matchLabel(lowerQuery, R.string.appearance_colon) -> {
-                    val prop = "appearance"
-                    val label = ctx.getString(R.string.appearance_colon).replace(":", "").trim()
-                    learningManager?.trackPropertyInterest(prop, isTechnical = false)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val appearance = element.optString("element_appearance", "")
-                    if (appearance.isNotEmpty()) {
-                        if (isRepeat) ctx.getString(R.string.ai_recap_is, elementName, label, appearance) 
-                        else "${AIPersonality.getEncouragement(ctx, activeLanguage)} ${ctx.getString(R.string.ai_appears_as, elementName, appearance)}"
-                    } else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                }
-                
-                // Electron configuration and structure
-                hasKeyword(lowerQuery, listOf("electron", "shell", "orbital", "config", "elektron", "schale", "électron", "couche", "órbita", "camada", "elettroni", "guscio", "elektronik", "shakti", "dianzi", "dianceng")) || matchLabel(lowerQuery, R.string.electron_configuration_colon) -> {
-                    val prop = "electron configuration"
-                    val label = ctx.getString(R.string.electron_configuration_colon).replace(":", "").trim()
-                    learningManager?.trackPropertyInterest(prop, isTechnical = true)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val config = element.optString("element_electron_config", "")
-                    val shells = element.optString("element_shells_electrons", "")
-                    val shellsLabel = ctx.getString(R.string.electron_shell_colon).replace(":", "").trim()
-                    
-                    if (hasKeyword(lowerQuery, listOf("valence", "valens", "outer", "yttersta", "valencia", "valence", "valenza", "valency"))) {
-                        val valenceInfo = getValenceInfo(element, elementName)
-                        if (valenceInfo != null) valenceInfo
-                        else AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, "valence electrons", shells.split(",").last().trim(), isRepeat)
-                    } else if (hasKeyword(lowerQuery, listOf("shell", "schale", "couche", "capa", "camada", "guscio", "skal")) && shells.isNotEmpty()) {
-                        AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, shellsLabel, shells, isRepeat)
-                    } else {
-                        AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, config, isRepeat)
-                    }
-                }
-                
-                // Temperature properties
-                hasKeyword(lowerQuery, listOf("boiling", "boil", "kokpunkt", "kokar", "siedepunkt", "kocht", "ebullición", "hierve", "ébullition", "bollitura", "ferve", " उबाल", "kwento", "fubao", "boiling point")) || matchLabel(lowerQuery, R.string.boiling_point_colon) -> {
-                    val prop = "boiling point"
-                    val label = ctx.getString(R.string.boiling_point_colon).replace(":", "").trim()
-                    learningManager?.trackPropertyInterest(prop, isTechnical = false)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val boiling = element.optString("element_boiling_celsius", "")
-                    AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, if (boiling.isNotEmpty()) "$boiling°C" else "", isRepeat)
-                }
-                hasKeyword(lowerQuery, listOf("melting", "melt", "smältpunkt", "smälter", "schmelzpunkt", "schmilzt", "fusión", "derrite", "fusion", "fond", "fusione", "derretimento", "pighalna", "tunaw", "ronghua", "melting point")) || matchLabel(lowerQuery, R.string.melting_point_colon) -> {
-                    val prop = "melting point"
-                    val label = ctx.getString(R.string.melting_point_colon).replace(":", "").trim()
-                    learningManager?.trackPropertyInterest(prop, isTechnical = false)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val melting = element.optString("element_melting_celsius", "")
-                    AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, if (melting.isNotEmpty()) "$melting°C" else "", isRepeat)
-                }
-                
-                // Density and volume
-                hasKeyword(lowerQuery, listOf("density", "dense", "densitet", "täthet", "dichte", "densidad", "densité")) || matchLabel(lowerQuery, R.string.density_colon) -> {
-                    val prop = "density"
-                    val label = ctx.getString(R.string.density_colon).replace(":", "").trim()
-                    learningManager?.trackPropertyInterest(prop, isTechnical = false)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val density = element.optString("element_density", "")
-                    val volume = element.optString("molar_volume", "")
-                    var resp = AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, density, isRepeat)
-                    if (volume.isNotEmpty() && volume != "---") {
-                        resp += "\n" + AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, ctx.getString(R.string.molar_volume_colon).replace(":",""), volume)
-                    }
-                    resp
-                }
-                
-                // Mechanical properties
-                hasKeyword(lowerQuery, listOf("modulus", "elastic", "stiff", "strong", "brittle", "malleable", "tough", "poisson", "ratio", "young", "shear", "bulk", "hårdhet", "elastisk", "modul", "rigidità", "elastico", "styrka", "duro", "elastico", "modulo", "tenacidade")) -> {
-                    val ym = element.optString("young_modulus", "")
-                    val sm = element.optString("shear_modulus", "")
-                    val bm = element.optString("bulk_modulus", "")
-                    val pr = element.optString("poisson_ratio", "")
-                    
-                    var mechInfo = ctx.getString(R.string.ai_mech_header, ctx.getString(R.string.element_elastic_modulus).replace(":", "").trim(), elementName)
-                    if (ym.isNotEmpty() && ym != "---") mechInfo += "\n• ${ctx.getString(R.string.element_young_modulus).replace(":","")}: $ym"
-                    if (sm.isNotEmpty() && sm != "---") mechInfo += "\n• ${ctx.getString(R.string.element_shear_modulus).replace(":","")}: $sm"
-                    if (bm.isNotEmpty() && bm != "---") mechInfo += "\n• ${ctx.getString(R.string.element_bulk_modulus).replace(":","")}: $bm"
-                    if (pr.isNotEmpty() && pr != "---") mechInfo += "\n• ${ctx.getString(R.string.element_poisson_ratio).replace(":","")}: $pr"
-                    
-                    if (mechInfo.length > 30) mechInfo else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                }
 
-                // Hardness
-                hasKeyword(lowerQuery, listOf("hardness", "hard", "soft", "mohs", "vickers", "brinell", "hårdhet", "hård", "mjuk", "härte", "hart", "weich", "dureté", "dur", "mou", "dureza", "duro", "blando", "durezza", "katigasan", "sakhti", "kathorta", "yingdu")) -> {
-                    val mohs = element.optString("mohs_hardness", "")
-                    val vick = element.optString("vickers_hardness", "")
-                    val brin = element.optString("brinell_hardness", "")
-                    
-                    var hardInfo = ctx.getString(R.string.ai_hard_header, elementName)
-                    if (mohs.isNotEmpty() && mohs != "---") hardInfo += "\n• ${ctx.getString(R.string.mohs_hardness_colon).replace(":","")}: $mohs"
-                    if (vick.isNotEmpty() && vick != "---") hardInfo += "\n• ${ctx.getString(R.string.vickers_hardness_colon).replace(":","")}: $vick"
-                    if (brin.isNotEmpty() && brin != "---") hardInfo += "\n• ${ctx.getString(R.string.brinell_hardness_colon).replace(":","")}: $brin"
-                    
-                    if (hardInfo.length > 30) hardInfo else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                }
+            val isMoreRequest = hasKeyword(
+                lowerQuery,
+                listOf(
+                    "additional", "extra", "further", "tell me more", "what else", "deep dive",
+                    "keep going", "next", "continue", "anything else", "more info", "mer info",
+                    "berätta mer", "plus", "mehr", "más", "mais", "altro", "karagdagan", "aur"
+                )
+            )
+            if (isMoreRequest) return provideNewInformation(element, elementName)
 
-                // Abundance
-                hasKeyword(lowerQuery, listOf("abundance", "common", "rare", "find", "found", "where", "ocean", "crust", "universe", "sun", "solar", "förekomst", "vanlig", "sällsynt", "vorkommen", "häufig", "selten", "abondance", "commun", "rare", "abundancia", "común", "raro")) -> {
-                    handleAbundanceQuery(elementKey)
-                }
-                
-                // Advanced Atomic
-                hasKeyword(lowerQuery, listOf("affinity", "work function", "refractive", "space group", "lattice")) -> {
-                    val ea = element.optString("electron_affinity", "")
-                    val wf = element.optString("work_function", "")
-                    val ri = element.optString("refractive_index", "")
-                    val sgN = element.optString("space_group_name", "")
-                    val sgNum = element.optString("space_group_number", "")
-                    
-                    var advInfo = ctx.getString(R.string.ai_adv_header, elementName)
-                    if (ea.isNotEmpty() && ea != "---") advInfo += "\n• ${ctx.getString(R.string.electron_affinity_colon).replace(":","")}: $ea"
-                    if (wf.isNotEmpty() && wf != "---") advInfo += "\n• ${ctx.getString(R.string.work_function_colon).replace(":","")}: $wf"
-                    if (ri.isNotEmpty() && ri != "---") advInfo += "\n• ${ctx.getString(R.string.refractive_index_colon).replace(":","")}: $ri"
-                    if (sgN.isNotEmpty() && sgN != "---") advInfo += "\n• ${ctx.getString(R.string.space_group_name_colon).replace(":","")}: $sgN (#$sgNum)"
-                    
-                    if (advInfo.length > 30) advInfo else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                }
+            structuredFieldAnswer(query, elementKey)?.let { return it }
 
-                // Ionization
-                hasKeyword(lowerQuery, listOf("ionization", "ionisation", "jonisering", "ionización")) -> {
-                    val ie1 = element.optString("element_ionization_energy1", "")
-                    if (ie1.isNotEmpty() && ie1 != "---") {
-                        val label = ctx.getString(R.string.table_ionization).replace(":","").trim()
-                        AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, ie1)
-                    } else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                }
-                
-                // Electrochemistry
-                hasKeyword(lowerQuery, listOf("ion", "charge", "valency", "jon", "laddning", "valens", "ladung", "ión", "carga", "valencia")) || matchLabel(lowerQuery, R.string.ion_charge_colon) -> {
-                    val prop = "oxidation state"
-                    val label = ctx.getString(R.string.ion_charge_colon).replace(":", "").trim()
-                    learningManager?.trackPropertyInterest(prop, isTechnical = true)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val charge = element.optString("element_ion_charge", "")
-                    AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, charge, isRepeat)
-                }
-                hasKeyword(lowerQuery, listOf("electronegativity", "negative", "elektronegativitet", "elektronegativität", "electronegatividad", "électronégativité")) || matchLabel(lowerQuery, R.string.electronegativity_colon) -> {
-                    val prop = "electronegativity"
-                    learningManager?.trackPropertyInterest(prop, isTechnical = true)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val electronegativity = element.optString("element_electronegativty", "")
-                    AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, prop, electronegativity, isRepeat)
-                }
-                
-                // Discovery and history
-                hasKeyword(lowerQuery, listOf("discover", "found", "who", "when", "year", "history", "upptäck", "hitta", "vem", "när", "år", "historia", "entdeckung", "gefunden", "wer", "wann", "jahr", "geschicte", "descubrimiento", "encontrado", "quién", "cuándo", "découverte", "trouvé", "qui", "quand")) || matchLabel(lowerQuery, R.string.year_discovered_colon) -> {
-                    val prop = "history"
-                    learningManager?.trackPropertyInterest(prop, isTechnical = false)
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val discoverer = element.optString("element_discovered_name", "")
-                    val year = element.optString("element_year", "")
-                    val discovery = when {
-                        discoverer.isNotEmpty() && year.isNotEmpty() -> 
-                            ctx.getString(R.string.ai_discovered_by, elementName, discoverer, year)
-                        year.isNotEmpty() -> 
-                            ctx.getString(R.string.ai_discovered_in, elementName, year)
-                        else -> ""
-                    }
-                    if (discovery.isNotEmpty()) {
-                        val intro = if (isRepeat) "Just to recap," else AIPersonality.getEncouragement(ctx, activeLanguage)
-                        "$intro $discovery"
-                    } else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                }
-                
-                // Radioactivity
-                hasKeyword(lowerQuery, listOf("radioactive", "radiation", "decay", "radioaktiv", "strålning", "sönderfall", "strahlung", "zerfall", "radiactivo", "radiación", "desintegración", "radioactif", "rayonnement", "désintégration")) || matchLabel(lowerQuery, R.string.radioactive_colon) -> {
-                    val radioactive = element.optString("radioactive", "")
-                    if (radioactive.isNotEmpty() && radioactive != "no") {
-                        ctx.getString(R.string.ai_radioactive_yes, elementName, radioactive)
-                    } else {
-                        ctx.getString(R.string.ai_radioactive_no, elementName)
-                    }
-                }
-                
-                // Phase and state
-                hasKeyword(lowerQuery, listOf("phase", "state", "solid", "liquid", "gas", "fas", "tillstånd", "fast", "flytande", "gasform", "zustand", "fest", "flüssig", "estado", "sólido", "líquido", "gaseoso", "état", "solide", "liquide", "gazeux")) || matchLabel(lowerQuery, R.string.phase_stp_colon) -> {
-                    val prop = "phase"
-                    val isRepeat = sharedProperties.contains(prop)
-                    sharedProperties.add(prop)
-                    val phase = element.optString("element_phase", "")
-                    AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, prop, phase, isRepeat)
-                }
+            val isOverview = hasKeyword(lowerQuery, overviewKeywords) ||
+                    lowerQuery.contains("tell me about") || lowerQuery.length < 3 ||
+                    !sharedProperties.contains("overview")
+            val isFull = hasKeyword(lowerQuery, fullRequestKeywords)
+            if (isOverview || isFull) return provideOverview(element, elementName, isFull)
 
-                // Abundance, Usage, and General Info (from description)
-                hasKeyword(lowerQuery, listOf("use", "used", "find", "found", "abundance", "rare", "common", "where", "application", "användning", "används", "förekomst", "sällsynt", "vanlig", "var", "verwendung", "vorkommen", "selten", "häufig", "wo", "uso", "abundancia", "raro", "común", "dónde", "utilisation", "abondance", "où")) -> {
-                    val description = element.optString("description", "")
-                    if (description.isNotEmpty()) {
-                        "${AIPersonality.getEncouragement(ctx, activeLanguage)} $description"
-                    } else {
-                        AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                    }
-                }
-
-                // Block
-                hasKeyword(lowerQuery, listOf("block")) || matchLabel(lowerQuery, R.string.block) -> {
-                    val block = element.optString("element_block", "")
-                    val blockLabel = ctx.getString(R.string.block).trim()
-                    AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, blockLabel, block)
-                }
-
-                // Oxidation States
-                hasKeyword(lowerQuery, listOf("oxidation", "valence", "outer", "bond")) || matchLabel(lowerQuery, R.string.oxidation_states_colon) -> {
-                    val pos = element.optString("oxidation_state_pos", "")
-                    val neg = element.optString("oxidation_state_neg", "")
-                    val group = element.optString("element_group", "")
-                    
-                    var valenceInfo = when {
-                        group == "Alkali Metal" -> ctx.getString(R.string.ai_valence_alkali)
-                        group == "Alkaline Earth Metal" -> ctx.getString(R.string.ai_valence_alkaline)
-                        group == "Halogen" -> ctx.getString(R.string.ai_valence_halogen)
-                        group == "Noble Gas" -> {
-                            if (elementName.lowercase() == "helium") ctx.getString(R.string.ai_valence_noble_helium)
-                            else ctx.getString(R.string.ai_valence_noble_other)
-                        }
-                        else -> ""
-                    }
-
-                    var stateInfo = if (valenceInfo.isNotEmpty()) "$valenceInfo\n\n" else ""
-                    stateInfo += ctx.getString(R.string.ai_oxidation_states, elementName)
-                    if (pos.isNotEmpty() && pos != "---") stateInfo += "\n" + ctx.getString(R.string.ai_oxidation_pos, pos)
-                    if (neg.isNotEmpty() && neg != "---") stateInfo += "\n" + ctx.getString(R.string.ai_oxidation_neg, neg)
-                    
-                    val config = element.optString("element_electron_config", "")
-                    if (config.isNotEmpty()) stateInfo += "\n\n" + ctx.getString(R.string.ai_config_is, config)
-                    
-                    stateInfo
-                }
-
-                // Isotopes
-                hasKeyword(lowerQuery, listOf("isotope", "half-life", "stable")) || matchLabel(lowerQuery, R.string.isotopes_colon) -> {
-                    handleIsotopeQuery(elementKey)
-                }
-
-                // Radius properties
-                hasKeyword(lowerQuery, listOf("radius", "size", "big", "small")) || matchLabel(lowerQuery, R.string.atomic_radius_empirical_colon) -> {
-                    val prop = "atomic radius"
-                    val valE = element.optString("element_atomic_radius_e", "")
-                    val valC = element.optString("element_covalent_radius", "")
-                    val valV = element.optString("element_van_der_waals", "")
-                    
-                    var radiusInfo = ctx.getString(R.string.ai_radius_details, elementName)
-                    if (valE.isNotEmpty() && valE != "---") radiusInfo += "\n• ${ctx.getString(R.string.atomic_radius_empirical_colon).replace(":","")}: $valE pm"
-                    if (valC.isNotEmpty() && valC != "---") radiusInfo += "\n• ${ctx.getString(R.string.covalent_radius_colon ?: R.string.element_more_title).replace(":","")}: $valC pm"
-                    if (valV.isNotEmpty() && valV != "---") radiusInfo += "\n• ${ctx.getString(R.string.van_der_waals_radius_colon ?: R.string.element_more_title).replace(":","")}: $valV pm"
-                    
-                    if (radiusInfo.length > 50) radiusInfo else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                }
-
-                // Thermal and Heat
-                hasKeyword(lowerQuery, listOf("heat", "thermal", "conductivity", "fusion", "vaporization", "specific", "värme", "värmekapacitet", "specifik värme", "smältvärme", "ångbildningsvärme", "ledningsförmåga", "wärme", "leitfähigkeit", "calor", "conductividad", "chaleur", "conductivité", "calore", "conducibilità", "conductividade")) || matchLabel(lowerQuery, R.string.thermal_conductivity_colon) -> {
-                    val sh = element.optString("element_specific_heat_capacity", "")
-                    val fh = element.optString("element_fusion_heat", "")
-                    val vh = element.optString("element_vaporization_heat", "")
-                    val tc = element.optString("element_thermal_conductivity", "")
-                    
-                    var heatInfo = ctx.getString(R.string.ai_thermal_properties, elementName)
-                    if (sh.isNotEmpty() && sh != "---") heatInfo += "\n• ${ctx.getString(R.string.specific_heat_capacity_colon).replace(":","")}: $sh J/(g·K)"
-                    if (fh.isNotEmpty() && fh != "---") heatInfo += "\n• ${ctx.getString(R.string.fusion_heat_colon).replace(":","")}: $fh kJ/mol"
-                    if (vh.isNotEmpty() && vh != "---") heatInfo += "\n• ${ctx.getString(R.string.vaporization_heat_colon).replace(":","")}: $vh kJ/mol"
-                    if (tc.isNotEmpty() && tc != "---") heatInfo += "\n• ${ctx.getString(R.string.thermal_conductivity_colon).replace(":","")}: $tc W/(m·K)"
-                    
-                    if (heatInfo.length > 40) heatInfo else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                }
-
-                // Electrical and Magnetic
-                hasKeyword(lowerQuery, listOf("conductor", "magnetic", "resistivity", "electricity", "superconducting", "supraledning", "supraledare", "supraledande", "magnetisk", "ledare", "ledningsförmåga", "resistivitet", "elektrisch", "elektrisch", "conducteur", "magnétique", "conductor", "magnético", "condutor", "magnético", "conduttore", "magnetico", "bidu", "chumbakiya", "dian", "ci")) || matchLabel(lowerQuery, R.string.electrical_resistivity_colon) -> {
-                    val et = element.optString("electrical_type", "")
-                    val mt = element.optString("magnetic_type", "")
-                    val sp = element.optString("superconducting_point", "")
-                    val res = element.optString("resistivity", "")
-                    
-                    var elecInfo = ctx.getString(R.string.ai_elec_mag_properties, elementName)
-                    if (et.isNotEmpty() && et != "---") elecInfo += "\n• ${ctx.getString(R.string.electrical_type_colon).replace(":","")}: $et"
-                    if (mt.isNotEmpty() && mt != "---") elecInfo += "\n• ${ctx.getString(R.string.magnetic_type_colon).replace(":","")}: $mt"
-                    if (sp.isNotEmpty() && sp != "---") elecInfo += "\n• ${ctx.getString(R.string.superconducting_point_colon).replace(":","")}: $sp K"
-                    if (res.isNotEmpty() && res != "---") elecInfo += "\n• ${ctx.getString(R.string.electrical_resistivity_colon).replace(":","")}: $res Ω·m"
-                    
-                    if (elecInfo.length > 50) elecInfo else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                }
-                
-                // Crystal Structure
-                hasKeyword(lowerQuery, listOf("crystal", "structure", "lattice", "kristall", "kristallstruktur", "structure cristalline", "estructura cristalina", "estrutura cristalina", "struttura cristallina", "kristal", "jingti", "daixu")) || matchLabel(lowerQuery, R.string.crystal_structure) -> {
-                    val structure = element.optString("element_crystal_structure", "")
-                    val label = ctx.getString(R.string.crystal_structure).trim()
-                    AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, structure)
-                }
-
-                // Identifiers
-                hasKeyword(lowerQuery, listOf("cas", "eg", "identification")) || matchLabel(lowerQuery, R.string.cas_number) -> {
-                    val cas = element.optString("cas_number", "")
-                    val eg = element.optString("eg_number", "")
-                    
-                    val title = ctx.getString(R.string.ai_identifiers_for, elementName)
-                    val casLabel = ctx.getString(R.string.cas_number).trim()
-                    val egLabel = ctx.getString(R.string.eg_number).trim()
-                    
-                    var idInfo = title
-                    if (cas.isNotEmpty() && cas != "---") idInfo += "\n• $casLabel: $cas"
-                    if (eg.isNotEmpty() && eg != "---") idInfo += "\n• $egLabel: $eg"
-                    
-                    if (idInfo.length > title.length + 5) idInfo else AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                }
-                
-                // Deep-dive or tell me more
-                hasKeyword(lowerQuery, listOf("additional", "extra", "further", "tell me more", "what else", "deep dive", "keep going", "next", "continue", "anything else", "more info", "mer info", "berätta mer", "plus", "mehr", "plus", "más", "mais", "altro", "karagdagan", "aur")) -> {
-                    provideNewInformation(element, elementName)
-                }
-
-                // Default overview or summary
-                else -> {
-                    val isOverview = hasKeyword(lowerQuery, overviewKeywords) || lowerQuery.contains("tell me about") || lowerQuery.length < 3 || !sharedProperties.contains("overview")
-                    val isFull = hasKeyword(lowerQuery, fullRequestKeywords)
-                    
-                    if (isOverview || isFull) {
-                        provideOverview(element, elementName, isFull)
-                    } else {
-                        // If user is just asking for "more" or something generic, give new info
-                        if (isAffirmative(lowerQuery) || hasKeyword(lowerQuery, listOf("more", "further", "additional", "mer", "vidare", "plus", "annat", "other", "mehr", "más", "mais", "altro"))) {
-                            provideNewInformation(element, elementName)
-                        } else {
-                            // Otherwise, tell them we don't have that specific data
-                            AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
-                        }
-                    }
-                }
+            if (isAffirmative(lowerQuery) || hasKeyword(
+                    lowerQuery,
+                    listOf("more", "further", "additional", "mer", "vidare", "plus", "annat",
+                        "other", "mehr", "más", "mais", "altro")
+                )
+            ) {
+                return provideNewInformation(element, elementName)
             }
-            response
+            AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
         } catch (e: Exception) {
             AIPersonality.getNoDataResponse(ctx, activeLanguage, query)
+        }
+    }
+
+    /**
+     * Ask the engine for a field or field-family answer about a known element.
+     * Returns null when the query is not a field lookup, so the caller falls back to narrative.
+     */
+    private fun structuredFieldAnswer(query: String, elementKey: String): String? {
+        val engine = engineFor(activeLanguage) ?: return null
+        dialogueState.focusElement = elementKey
+        dialogueState.activeLanguage = activeLanguage
+        val plan = engine.plan(query, dialogueState)
+        if (plan.intent != Intent.PROPERTY_LOOKUP && plan.intent != Intent.CATEGORY_LOOKUP) return null
+        return try {
+            engine.answer(query, dialogueState)?.text
+        } catch (e: Exception) {
+            Log.w(TAG, "structured field answer failed", e)
+            null
         }
     }
 
@@ -2909,11 +2557,6 @@ class AIAgentManager(private val context: Context?) {
         return false
     }
 
-    private fun matchLabel(query: String, resourceId: Int): Boolean {
-        val ctx = localizedContext ?: context ?: return false
-        val label = ctx.getString(resourceId).lowercase().replace(":", "").trim()
-        return query.contains(label)
-    }
 
     /**
      * Calculate Levenshtein distance between two strings to handle spelling mistakes

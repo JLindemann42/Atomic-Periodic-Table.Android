@@ -12,6 +12,8 @@ import java.io.File
  */
 class TestStrings(override val language: String = "en") : StringProvider {
 
+    private val byId: Map<Int, String> by lazy { load(language) }
+
     override fun get(id: Int, vararg args: Any): String {
         val template = byId[id] ?: return "str:$id"
         if (args.isEmpty()) return template
@@ -22,14 +24,27 @@ class TestStrings(override val language: String = "en") : StringProvider {
 
     companion object {
         /** True when the real strings could be loaded; lets tests skip rather than fail. */
-        val available: Boolean by lazy { byId.isNotEmpty() }
+        val available: Boolean by lazy { load("en").isNotEmpty() }
 
-        private val byId: Map<Int, String> by lazy { load() }
+        /**
+         * Resource folder per language. These qualifiers are not derivable from the code alone —
+         * the project uses region-qualified folders for several languages and a BCP-47 folder
+         * for Filipino.
+         */
+        private val FOLDERS = mapOf(
+            "en" to "values", "sv" to "values-sv-rSE", "de" to "values-de", "fr" to "values-fr",
+            "es" to "values-es-rES", "it" to "values-it-rIT", "pt" to "values-pt-rBR",
+            "hi" to "values-hi", "ur" to "values-ur-rPK", "zh" to "values-zh-rCN",
+            "af" to "values-af", "fil" to "values-b+fil"
+        )
 
-        private fun load(): Map<Int, String> {
+        fun folderFor(language: String): String = FOLDERS[language] ?: "values"
+
+        private fun load(language: String): Map<Int, String> {
+            val folder = folderFor(language)
             val xml = listOf(
-                File("src/main/res/values/strings.xml"),
-                File("app/src/main/res/values/strings.xml")
+                File("src/main/res/$folder/strings.xml"),
+                File("app/src/main/res/$folder/strings.xml")
             ).firstOrNull { it.isFile } ?: return emptyMap()
 
             val text = xml.readText(Charsets.UTF_8)

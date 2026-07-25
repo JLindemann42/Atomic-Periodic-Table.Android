@@ -58,6 +58,21 @@ class AnswerComposer(
     }
 
     private fun comparison(result: ExecutionResult.Comparison): String {
+        // A single element is a category lookup, not a comparison: render it as a labelled
+        // property list rather than "Comparing Gold:".
+        if (result.elements.size == 1) {
+            val element = result.elements.first()
+            val builder = StringBuilder("### ").append(displayName(element.key))
+            for (fieldId in result.fieldIds) {
+                val row = result.values[fieldId]?.firstOrNull() ?: continue
+                if (row.display.isBlank()) continue
+                builder.append("\n").append(
+                    strings.get(R.string.ai_list_row, fieldLabel(fieldId), row.display)
+                )
+            }
+            return builder.toString()
+        }
+
         val names = result.elements.joinToString(", ") { displayName(it.key) }
         val builder = StringBuilder(strings.get(R.string.ai_comparing_title, names))
         for (fieldId in result.fieldIds) {
