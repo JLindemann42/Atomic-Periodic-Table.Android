@@ -32,10 +32,18 @@ class EngineCoverageTest {
         KnowledgeStore.clear()
         store = KnowledgeStore.build(TestAssets.elementTable("en"))
         val datasets = DatasetIndex.build()
+        // Names from every shipped language, matching how the app builds the resolver: a user
+        // may write an element's name in their own language whatever the chat language is.
         val aliases = EntityResolver.buildAliases(
-            mapOf("en" to store.elements.associate {
-                it.key to Triple(it.key, it.symbol, it.atomicNumber.toString())
-            })
+            TestAssets.availableLanguages().associateWith { lang ->
+                TestAssets.elementTable(lang).rows.mapValues { (_, row) ->
+                    Triple(
+                        row["element"]?.toString().orEmpty(),
+                        row["short"]?.toString().orEmpty(),
+                        row["element_atomic_number"]?.toString().orEmpty()
+                    )
+                }
+            }
         )
         val strings = TestStrings()
         planner = QueryPlanner(store, datasets, EntityResolver(aliases, "en"), FieldResolver(strings), null)
@@ -201,6 +209,60 @@ class EngineCoverageTest {
                 Intent.UNKNOWN, plan.intent
             )
         }
+    }
+
+    /**
+     * Isotopes and safety are checked before field resolution, because "isotopes" and
+     * "half life" both resolve to a field label — answering with the common-neutron count
+     * instead of the isotope list, which is what happened before this intent existed.
+     */
+    @Test
+    fun claimsIsotopeAndSafetyQuestions() {
+        for (query in listOf(
+            "what are the isotopes of gold",
+            "half life of uranium",
+            "how many isotopes does tin have",
+            "vilka isotoper har guld"
+        )) claims(query, Intent.ISOTOPES)
+
+        for (query in listOf(
+            "is gold dangerous",
+            "what is the nfpa rating of chlorine",
+            "is mercury toxic",
+            "är kvicksilver farligt"
+        )) claims(query, Intent.SAFETY)
+    }
+
+    @Test
+    fun isotopeAnswersAreOrderedAndComplete() {
+        val plan = planner.plan("what are the isotopes of gold", DialogueState())
+        val result = executor.execute(plan) as ExecutionResult.Isotopes
+        assertEquals(40, result.total)
+        assertTrue("should show at most the plan limit", result.shown.size <= plan.limit)
+        // Stable first, then longest-lived.
+        val decaying = result.shown.filterNot { it.stable }.mapNotNull { it.halfLifeSeconds }
+        assertEquals(decaying.sortedDescending(), decaying)
+    }
+
+    @Test
+    fun safetyReportsRadioactivityEvenWithoutAnNfpaDiamond() {
+        val plan = planner.plan("is plutonium dangerous", DialogueState())
+        val result = executor.execute(plan)
+        assertTrue("plutonium is radioactive and that must be said", when (result) {
+            is ExecutionResult.Safety -> result.radioactive
+            else -> false
+        })
+    }
+
+    /** A possessive splits into a bare letter that matches an element symbol. */
+    @Test
+    fun possessivesDoNotResolveAsElementSymbols() {
+        val plan = planner.plan("what is gold's cas number", DialogueState())
+        assertEquals(
+            "the 's' in \"gold's\" must not resolve to sulfur",
+            listOf("gold"), plan.elementKeys
+        )
+        assertEquals(Intent.PROPERTY_LOOKUP, plan.intent)
     }
 
     @Test

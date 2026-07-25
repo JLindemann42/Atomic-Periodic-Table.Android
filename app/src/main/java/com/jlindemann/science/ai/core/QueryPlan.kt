@@ -30,6 +30,12 @@ enum class Intent {
     /** A statistic over a subset: "average electronegativity of the halogens". */
     AGGREGATE,
 
+    /** An element's isotopes: mass numbers, decay modes and half-lives. */
+    ISOTOPES,
+
+    /** An element's NFPA 704 hazard ratings. */
+    SAFETY,
+
     /** A row from one of the app's tables: a constant, equation, mineral, dictionary term. */
     DATASET_LOOKUP,
 

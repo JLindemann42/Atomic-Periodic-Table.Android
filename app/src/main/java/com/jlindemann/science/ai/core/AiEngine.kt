@@ -60,11 +60,56 @@ class AiEngine(
     /** Plan without executing. Exposed so tests can assert planning separately from rendering. */
     fun plan(query: String, state: DialogueState): QueryPlan = planner.plan(query, state)
 
+    /**
+     * Run an intent directly against a known element, bypassing query parsing.
+     *
+     * Used when the conversation already establishes what is being asked — a "yes" to a suggested
+     * follow-up, or one answer falling back to another — so there is no natural-language question
+     * to plan from.
+     */
+    fun answerFor(intent: Intent, elementKey: String): ComposedAnswer? {
+        val plan = QueryPlan(
+            intent = intent,
+            entities = listOf(EntityRef.Element(elementKey)),
+            fieldIds = if (intent == Intent.CATEGORY_LOOKUP) emptyList() else emptyList(),
+            limit = if (intent == Intent.ISOTOPES) DEFAULT_ISOTOPES else 1,
+            confidence = 1.0
+        )
+        val result = executor.execute(plan) ?: return null
+        return composer.compose(result, plan)
+    }
+
+    /** Every populated field of one family, for one element. */
+    fun categoryAnswerFor(
+        elementKey: String,
+        category: com.jlindemann.science.ai.data.FieldCategory
+    ): ComposedAnswer? {
+        val element = store.element(elementKey) ?: return null
+        val populated = com.jlindemann.science.ai.data.FieldRegistry.byCategory(category)
+            .filter { !element.value(it.id).isMissing }
+            .map { it.id }
+        if (populated.isEmpty()) return null
+        val plan = QueryPlan(
+            intent = Intent.CATEGORY_LOOKUP,
+            entities = listOf(EntityRef.Element(elementKey)),
+            fieldIds = populated,
+            confidence = 1.0
+        )
+        val result = executor.execute(plan) ?: return null
+        return composer.compose(result, plan)
+    }
+
+    private companion object {
+        const val DEFAULT_ISOTOPES = 8
+    }
+
     private fun resultKeys(result: ExecutionResult): List<String> = when (result) {
         is ExecutionResult.Property -> listOf(result.element.key)
         is ExecutionResult.Comparison -> result.elements.map { it.key }
         is ExecutionResult.ElementList -> result.results.map { it.element.key }
         is ExecutionResult.Aggregate -> result.contributors.map { it.element.key }
+        is ExecutionResult.Isotopes -> listOf(result.element.key)
+        is ExecutionResult.Safety -> listOf(result.element.key)
         is ExecutionResult.NoData -> listOfNotNull(result.element?.key)
         is ExecutionResult.Dataset, is ExecutionResult.Empty -> emptyList()
     }

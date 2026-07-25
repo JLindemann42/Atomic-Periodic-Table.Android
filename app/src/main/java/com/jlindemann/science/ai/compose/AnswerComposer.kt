@@ -33,6 +33,8 @@ class AnswerComposer(
             is ExecutionResult.Comparison -> comparison(result)
             is ExecutionResult.ElementList -> elementList(result, plan)
             is ExecutionResult.Aggregate -> aggregate(result)
+            is ExecutionResult.Isotopes -> isotopes(result)
+            is ExecutionResult.Safety -> safety(result)
             is ExecutionResult.Dataset -> dataset(result)
             is ExecutionResult.NoData -> noData(result)
             is ExecutionResult.Empty -> strings.get(R.string.ai_filter_none)
@@ -156,6 +158,80 @@ class AnswerComposer(
         }
         return builder.toString()
     }
+
+    private fun isotopes(result: ExecutionResult.Isotopes): String {
+        val builder = StringBuilder("### ")
+            .append(strings.get(R.string.ai_isotopes_header, displayName(result.element.key)))
+        builder.append("\n").append(
+            strings.get(R.string.ai_isotopes_summary, result.total, result.stableCount)
+        )
+        for (isotope in result.shown) {
+            builder.append("\n").append(
+                when {
+                    isotope.stable -> strings.get(R.string.ai_isotope_stable, isotope.name)
+                    isotope.decayType != null -> strings.get(
+                        R.string.ai_isotope_decays, isotope.name, isotope.decayType, isotope.halfLifeDisplay
+                    )
+                    else -> strings.get(
+                        R.string.ai_isotope_halflife_only, isotope.name, isotope.halfLifeDisplay
+                    )
+                }
+            )
+        }
+        val remaining = result.total - result.shown.size
+        if (remaining > 0) builder.append("\n").append(strings.get(R.string.ai_list_more, remaining))
+        return builder.toString()
+    }
+
+    private fun safety(result: ExecutionResult.Safety): String {
+        val builder = StringBuilder("### ")
+            .append(strings.get(R.string.ai_safety_header, displayName(result.element.key)))
+        val nfpa = result.nfpa
+        var anyRating = false
+        nfpa.health?.let {
+            anyRating = true
+            builder.append("\n").append(strings.get(R.string.ai_safety_health, it, healthLabel(it)))
+        }
+        nfpa.flammability?.let {
+            anyRating = true
+            builder.append("\n").append(
+                strings.get(R.string.ai_safety_flammability, it, flammabilityLabel(it))
+            )
+        }
+        nfpa.instability?.let {
+            anyRating = true
+            builder.append("\n").append(strings.get(R.string.ai_safety_instability, it))
+        }
+        if (!anyRating) {
+            builder.append("\n").append(
+                strings.get(R.string.ai_safety_none_recorded, displayName(result.element.key))
+            )
+        }
+        if (result.radioactive) {
+            builder.append("\n").append(strings.get(R.string.ai_safety_radioactive_note))
+        }
+        return builder.toString()
+    }
+
+    private fun healthLabel(rating: Int): String = strings.get(
+        when (rating.coerceIn(0, 4)) {
+            0 -> R.string.ai_nfpa_health_0
+            1 -> R.string.ai_nfpa_health_1
+            2 -> R.string.ai_nfpa_health_2
+            3 -> R.string.ai_nfpa_health_3
+            else -> R.string.ai_nfpa_health_4
+        }
+    )
+
+    private fun flammabilityLabel(rating: Int): String = strings.get(
+        when (rating.coerceIn(0, 4)) {
+            0 -> R.string.ai_nfpa_flammable_0
+            1 -> R.string.ai_nfpa_flammable_1
+            2 -> R.string.ai_nfpa_flammable_2
+            3 -> R.string.ai_nfpa_flammable_3
+            else -> R.string.ai_nfpa_flammable_4
+        }
+    )
 
     private fun dataset(result: ExecutionResult.Dataset): String =
         "**${result.row.title}**\n${result.row.detail}"

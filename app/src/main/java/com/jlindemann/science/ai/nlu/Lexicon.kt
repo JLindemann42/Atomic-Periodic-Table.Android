@@ -280,6 +280,35 @@ object Lexicon {
         "batao", "bataye", "介绍", "是什么"
     )
 
+    /** Words asking about an element's isotopes. */
+    val ISOTOPE_WORDS = listOf(
+        "isotope", "isotopes", "half life", "half-life", "halflife", "nuclide", "decay",
+        "isotop", "isotoper", "halveringstid", "sonderfall",
+        "isotope", "halbwertszeit", "zerfall",
+        "isotopo", "isotopos", "vida media", "desintegracion",
+        "isotope", "demi-vie", "desintegration",
+        "isotopi", "tempo di dimezzamento", "decadimento",
+        "isotopos", "meia-vida", "decaimento",
+        "isotoop", "halfleeftyd", "isotopo", "kalahating buhay",
+        "समस्थानिक", "अर्ध आयु", "آاइسوٹوپ", "نصف زندگی",
+        "同位素", "半衰期", "衰变"
+    )
+
+    /** Words asking whether an element is hazardous. */
+    val SAFETY_WORDS = listOf(
+        "safe", "safety", "danger", "dangerous", "hazard", "hazardous", "toxic", "toxicity",
+        "poisonous", "harmful", "nfpa", "flammable", "corrosive",
+        "saker", "sakerhet", "farlig", "fara", "giftig", "brandfarlig",
+        "sicher", "sicherheit", "gefahrlich", "gefahr", "giftig", "entzundlich",
+        "seguro", "seguridad", "peligroso", "peligro", "toxico", "inflamable",
+        "sur", "securite", "dangereux", "danger", "toxique", "inflammable",
+        "sicuro", "sicurezza", "pericoloso", "pericolo", "tossico", "infiammabile",
+        "seguro", "seguranca", "perigoso", "perigo", "toxico", "inflamavel",
+        "veilig", "gevaarlik", "giftig", "ligtas", "mapanganib", "nakakalason",
+        "खतरनाक", "जहरीला", "सुरक्षित", "خطرناک", "زہریلا", "محفوظ",
+        "危险", "有毒", "安全", "易燃"
+    )
+
     /** Words that mark a query as a comparison between elements. */
     val COMPARE = listOf(
         "compare", "versus", "vs", "difference between", "denser than", "heavier than",

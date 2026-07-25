@@ -89,6 +89,13 @@ class EntityResolver(
 
         if (alias.kind == ElementAlias.Kind.SYMBOL) {
             if (isCommonWordCollision(surface, normalizedQuery, words, activeLanguage)) return false
+            // Single-letter symbols collide with almost anything once punctuation is split off:
+            // "gold's cas number" yields a bare "s", which is sulfur, turning a plain lookup
+            // into a two-element comparison. They only count in a short query or when the user
+            // says they mean a symbol.
+            if (surface.length == 1 && words.size > 2 &&
+                !normalizedQuery.contains("symbol") && !normalizedQuery.contains("element")
+            ) return false
             // A blocklisted word containing the symbol, e.g. "poisson" for S.
             if (symbolBlocklist.any { it.contains(surface) && normalizedQuery.contains(it) }) return false
         }

@@ -69,6 +69,28 @@ sealed class ExecutionResult {
         override val citations: List<Citation>
     ) : ExecutionResult()
 
+    /**
+     * An element's isotopes.
+     *
+     * @property shown the isotopes rendered, longest-lived first
+     * @property total how many the element has in total, so a truncated list can say so
+     */
+    data class Isotopes(
+        val element: ElementRecord,
+        val shown: List<com.jlindemann.science.ai.data.Isotope>,
+        val total: Int,
+        val stableCount: Int,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /** An element's NFPA 704 hazard ratings. */
+    data class Safety(
+        val element: ElementRecord,
+        val nfpa: com.jlindemann.science.ai.data.Nfpa,
+        val radioactive: Boolean,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
     /** A row from one of the app's tables. */
     data class Dataset(
         val row: DatasetRow,

@@ -169,6 +169,33 @@ class QueryPlanner(
 
         val element = elementKeys.firstOrNull()?.let { store.element(it) }
 
+        // ---- Isotopes and safety: their own shapes, not single fields ----------------------
+        // Checked before field resolution because "isotopes" and "half life" both resolve to a
+        // field label, which would answer with the common-neutron count instead of the list.
+        if (element != null) {
+            if (Lexicon.ISOTOPE_WORDS.any { normalized.contains(it) }) {
+                evidence.add("isotopes")
+                return QueryPlan(
+                    intent = Intent.ISOTOPES,
+                    entities = listOf(EntityRef.Element(element.key)),
+                    limit = operators.topN ?: DEFAULT_ISOTOPE_LIMIT,
+                    confidence = 0.85,
+                    rawQuery = rawQuery,
+                    evidence = evidence
+                )
+            }
+            if (Lexicon.SAFETY_WORDS.any { normalized.contains(it) }) {
+                evidence.add("safety")
+                return QueryPlan(
+                    intent = Intent.SAFETY,
+                    entities = listOf(EntityRef.Element(element.key)),
+                    confidence = 0.85,
+                    rawQuery = rawQuery,
+                    evidence = evidence
+                )
+            }
+        }
+
         // ---- Category lookup: a whole family of properties for one element -----------------
         if (element != null) {
             categoryIn(normalized)?.let { category ->
@@ -258,6 +285,7 @@ class QueryPlanner(
         const val CONFIDENCE_THRESHOLD = 0.7
         const val DATASET_CONFIDENCE = 0.45
         const val DEFAULT_LIST_LIMIT = 10
+        const val DEFAULT_ISOTOPE_LIMIT = 8
 
         /** Fields shown when elements are compared without naming a property. */
         val DEFAULT_COMPARISON_FIELDS = listOf(

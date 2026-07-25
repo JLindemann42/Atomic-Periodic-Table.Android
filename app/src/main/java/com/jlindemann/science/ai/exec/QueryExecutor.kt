@@ -38,6 +38,8 @@ class QueryExecutor(
     fun execute(plan: QueryPlan): ExecutionResult? = when (plan.intent) {
         Intent.PROPERTY_LOOKUP -> property(plan)
         Intent.CATEGORY_LOOKUP -> category(plan)
+        Intent.ISOTOPES -> isotopes(plan)
+        Intent.SAFETY -> safety(plan)
         Intent.COMPARISON -> comparison(plan)
         Intent.SUPERLATIVE, Intent.FILTER_LIST -> elementList(plan)
         Intent.AGGREGATE -> aggregate(plan)
@@ -97,6 +99,48 @@ class QueryExecutor(
             fieldIds = values.keys.toList(),
             values = values,
             citations = listOf(citation(values.keys.first(), element))
+        )
+    }
+
+    // ---- Isotopes and safety ------------------------------------------------------------
+
+    /** Isotopes, longest-lived first, with stable ones ahead of everything that decays. */
+    private fun isotopes(plan: QueryPlan): ExecutionResult {
+        val element = plan.elementKeys.firstOrNull()?.let { store.element(it) }
+            ?: return ExecutionResult.Empty(emptyList())
+        val all = element.isotopes
+        if (all.isEmpty()) {
+            return ExecutionResult.NoData("isotopes", element, store.elements.count { it.isotopes.isNotEmpty() })
+        }
+        val ordered = all.sortedWith(
+            compareByDescending<com.jlindemann.science.ai.data.Isotope> { it.stable }
+                .thenByDescending { it.halfLifeSeconds ?: 0.0 }
+        )
+        return ExecutionResult.Isotopes(
+            element = element,
+            shown = ordered.take(plan.limit),
+            total = all.size,
+            stableCount = all.count { it.stable },
+            citations = listOf(citation("common_neutrons", element))
+        )
+    }
+
+    private fun safety(plan: QueryPlan): ExecutionResult {
+        val element = plan.elementKeys.firstOrNull()?.let { store.element(it) }
+            ?: return ExecutionResult.Empty(emptyList())
+        val nfpa = element.nfpa
+        if (nfpa == null) {
+            // Radioactivity is still a real hazard answer even with no NFPA diamond recorded.
+            if (element.radioactive) {
+                return ExecutionResult.Safety(
+                    element, com.jlindemann.science.ai.data.Nfpa(null, null, null, null),
+                    radioactive = true, citations = listOf(citation("radioactive", element))
+                )
+            }
+            return ExecutionResult.NoData("nfpa_health", element, store.coverageOf("nfpa_health"))
+        }
+        return ExecutionResult.Safety(
+            element, nfpa, element.radioactive, listOf(citation("nfpa_health", element))
         )
     }
 

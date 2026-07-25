@@ -137,6 +137,13 @@
 
     <!-- Grounded answers: sources, coverage and computed results -->
     <string name="ai_sources_header">Sources</string>
+    <string name="ai_isotopes_header">Isotopes of %1$s</string>
+    <string name="ai_isotopes_summary">%1$d known isotopes, %2$d of them stable.</string>
+    <string name="ai_isotope_stable">• **%1$s** — stable</string>
+    <string name="ai_isotope_decays">• **%1$s** — %2$s, half-life %3$s</string>
+    <string name="ai_isotope_halflife_only">• **%1$s** — half-life %2$s</string>
+    <string name="ai_safety_radioactive_note">This element is radioactive.</string>
+    <string name="ai_safety_none_recorded">No NFPA hazard ratings are recorded for %1$s.</string>
     <string name="period_colon">Period:</string>
     <string name="group_number_colon">Group:</string>
     <string name="ai_history_sign_in">Please sign in to view chat history</string>
