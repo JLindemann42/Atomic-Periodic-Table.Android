@@ -2236,10 +2236,10 @@ class AIAgentManager(private val context: Context?) {
     private fun hasKeyword(query: String, keywords: List<String>): Boolean {
         val lowerQuery = query.lowercase()
         
-        // Prioritize exact keyword matches with word boundaries
+        // Prioritize exact keyword matches with word boundaries. Uses the shared scanner rather
+        // than a regex `\b`, which is ASCII-only and would treat accented letters as boundaries.
         for (keyword in keywords) {
-            val regex = "\\b${Regex.escape(keyword)}\\b".toRegex()
-            if (regex.containsMatchIn(lowerQuery)) return true
+            if (TextMatching.containsWord(lowerQuery, keyword)) return true
         }
         
         // Split query into words and check each against keywords for fuzzy matching

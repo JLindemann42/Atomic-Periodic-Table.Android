@@ -196,7 +196,7 @@ object OperatorExtractor {
         if (phrase.isBlank()) return false
         // Multi-word and non-Latin phrases match by containment; single Latin words by boundary.
         return if (phrase.contains(' ') || phrase.any { it.code > 0x2000 }) query.contains(phrase)
-        else Regex("\\b${Regex.escape(phrase)}\\b").containsMatchIn(query)
+        else TextMatching.containsWord(query, phrase)
     }
 
     private fun longestMatch(query: String, phrases: List<String>): String? =

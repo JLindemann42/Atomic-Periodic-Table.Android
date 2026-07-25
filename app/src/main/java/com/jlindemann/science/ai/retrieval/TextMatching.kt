@@ -34,8 +34,7 @@ object TextMatching {
         val lowerQuery = query.lowercase()
 
         for (keyword in keywords) {
-            val regex = wordBoundary(keyword)
-            if (regex.containsMatchIn(lowerQuery)) return true
+            if (containsWord(lowerQuery, keyword)) return true
         }
 
         val words = lowerQuery.split(Regex("[^\\p{L}0-9]+")).filter { it.length > 3 }
@@ -63,23 +62,39 @@ object TextMatching {
         if (token.isBlank()) return false
         val asciiLike = token.all { it.code < 128 && (it.isLetterOrDigit() || it == ' ' || it == '-') }
         return if (asciiLike) {
-            val regex = wordBoundary(token)
-            regex.containsMatchIn(rawQuery) || regex.containsMatchIn(normalizedQuery)
+            containsWord(rawQuery, token) || containsWord(normalizedQuery, token)
         } else {
             rawQuery.contains(token) || normalizedQuery.contains(token)
         }
     }
 
     /**
-     * A word-boundary matcher that understands non-ASCII letters.
+     * Whether [needle] occurs in [haystack] delimited by non-word characters on both sides.
      *
-     * `\b` is defined over `[a-zA-Z0-9_]` unless the Unicode character class flag is set, so
-     * without `(?U)` every accented letter reads as a boundary: `\bsm\b` matches inside the
-     * Swedish "smältpunkten", and `\bf\b` inside "för". That made samarium and fluorine appear
-     * in a query that named neither, which then looked like a three-way comparison. Every
-     * language with accents was affected.
+     * Deliberately not a regex. `\b` is defined over `[a-zA-Z0-9_]` unless the Unicode character
+     * class flag is set, so a plain `\b` treats every accented letter as a boundary — `\bsm\b`
+     * matches inside the Swedish "smältpunkten" and `\bf\b` inside "för", which made samarium
+     * and fluorine appear in a query that named neither.
+     *
+     * The obvious fix, the inline `(?U)` flag, works on the JVM but **crashes on Android**: the
+     * platform uses ICU's regex engine, which rejects it outright. Unit tests run against the
+     * JVM and so passed while the app died. Scanning by hand is portable, allocation-free and
+     * correct for every script, which removes the class of problem rather than the instance.
      */
-    fun wordBoundary(token: String): Regex = "(?U)\\b${Regex.escape(token)}\\b".toRegex()
+    fun containsWord(haystack: String, needle: String): Boolean {
+        if (needle.isEmpty() || needle.length > haystack.length) return false
+        var index = haystack.indexOf(needle)
+        while (index >= 0) {
+            val before = haystack.getOrNull(index - 1)
+            val after = haystack.getOrNull(index + needle.length)
+            if (!isWordChar(before) && !isWordChar(after)) return true
+            index = haystack.indexOf(needle, index + 1)
+        }
+        return false
+    }
+
+    /** Unicode-aware: a letter or digit in any script, plus the underscore. */
+    private fun isWordChar(c: Char?): Boolean = c != null && (c.isLetterOrDigit() || c == '_')
 
     /** Levenshtein edit distance. */
     fun levenshtein(s1: String, s2: String): Int {

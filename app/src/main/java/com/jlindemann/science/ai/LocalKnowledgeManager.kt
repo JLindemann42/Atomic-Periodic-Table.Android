@@ -233,10 +233,11 @@ class LocalKnowledgeManager(private val context: Context?) {
     private fun scoreMatch(query: String, candidate: String): Int {
         if (candidate.isBlank()) return 0
         
-        // Use word boundaries for very short candidates to avoid matching "me" (electron mass) in "mer"
+        // Use word boundaries for very short candidates to avoid matching "me" (electron mass) in "mer".
+        // The shared scanner is Unicode-aware; a regex `\b` is ASCII-only and would treat every
+        // accented letter as a boundary.
         if (candidate.length <= 2) {
-            val regex = "\\b${Regex.escape(candidate)}\\b".toRegex()
-            return if (regex.containsMatchIn(query)) 100 else 0
+            return if (com.jlindemann.science.ai.retrieval.TextMatching.containsWord(query, candidate)) 100 else 0
         }
 
         return when {
