@@ -9,6 +9,7 @@ import com.jlindemann.science.ai.core.AndroidStrings
 import com.jlindemann.science.ai.core.DialogueState
 import com.jlindemann.science.ai.core.Intent
 import com.jlindemann.science.ai.retrieval.RetrievalService
+import com.jlindemann.science.ai.retrieval.TextMatching
 import com.jlindemann.science.ai.retrieval.RetrievedRef
 import com.jlindemann.science.model.ChatMessage
 import com.jlindemann.science.utils.ElementDataLoader
@@ -250,28 +251,20 @@ class AIAgentManager(private val context: Context?) {
             .ifBlank { "en" }
     }
 
-    private fun normalizeForLookup(text: String): String {
-        val nfd = Normalizer.normalize(text.lowercase(), Normalizer.Form.NFD)
-        return nfd.replace(Regex("\\p{M}"), "")
-    }
+    private fun normalizeForLookup(text: String): String = TextMatching.normalizeForLookup(text)
 
-    private fun splitQueryTokens(query: String): List<String> {
-        return query.split(Regex("[^\\p{L}0-9]+"))
-            .map { it.trim() }
-            .filter { it.isNotEmpty() }
-    }
+    private fun splitQueryTokens(query: String): List<String> = TextMatching.splitQueryTokens(query)
 
-    private fun containsElementToken(rawQuery: String, normalizedQuery: String, token: String): Boolean {
-        if (token.isBlank()) return false
-        val asciiLikeToken = token.all { it.code < 128 && (it.isLetterOrDigit() || it == ' ' || it == '-') }
-        return if (asciiLikeToken) {
-            val escaped = Regex.escape(token)
-            val regex = "\\b$escaped\\b".toRegex()
-            regex.containsMatchIn(rawQuery) || regex.containsMatchIn(normalizedQuery)
-        } else {
-            rawQuery.contains(token) || normalizedQuery.contains(token)
-        }
-    }
+    /**
+     * Delegates to the shared implementation, which uses a Unicode-aware word boundary.
+     *
+     * The copy that lived here used a plain `\b`, which Java defines over ASCII only, so every
+     * accented letter counted as a boundary: a two-letter symbol matched inside an ordinary word
+     * in any accented language — "sm" and "f" were both found in the Swedish "smältpunkten för".
+     * Every handler that resolves an element from the query was affected.
+     */
+    private fun containsElementToken(rawQuery: String, normalizedQuery: String, token: String): Boolean =
+        TextMatching.containsToken(rawQuery, normalizedQuery, token)
 
     private fun isCommonWordCollision(token: String, lowerQuery: String, queryWords: List<String>): Boolean {
         if (token.length > 2) return false
@@ -631,6 +624,10 @@ class AIAgentManager(private val context: Context?) {
                 // Reactivity has no field in the element data — it is scored from group and
                 // position — so the structured engine cannot express it and it is routed here.
                 isReactivityQuery(lowerQuery) -> responseParts.add(handleReactivityQuery(lowerQuery))
+                // Reactions and similarity are chemistry judgements rather than field lookups,
+                // so the engine declines them and they are answered here.
+                isReactionQuery(lowerQuery) -> responseParts.add(handleReactionQuery(lowerQuery))
+                isSimilarityQuery(lowerQuery) -> responseParts.add(handleSimilarityQuery(lowerQuery))
                 isMultiPropertyQuery(lowerQuery) -> {
                     val key = targetElementKey ?: inferElementFromContext(userMessage)
                     if (key != null) responseParts.add(handleMultiPropertyQuery(key, lowerQuery))
@@ -839,7 +836,6 @@ class AIAgentManager(private val context: Context?) {
             isSafetyQuery(lowerQuery) -> "safety"
             isBiologicalQuery(lowerQuery) -> "biological"
             isReactionQuery(lowerQuery) -> "reaction"
-            isStructuralQuery(lowerQuery) -> "structure"
             else -> currentTopic
         }
     }
@@ -1586,99 +1582,9 @@ class AIAgentManager(private val context: Context?) {
 
 
 
-    private fun isStructuralQuery(query: String): Boolean {
-        val keywords = listOf(
-            "group", "period", "row", "column", 
-            "grupp", "rad", "kolumn", "periode",
-            "gruppe", "spalte", "zeile",
-            "groupe", "rangée", "colonne",
-            "grupo", "fila", "columna",
-            "gruppo", "periodo", "colonna",
-            "समूह", "आवर्त", "पंक्ति", "स्तंभ",
-            "族", "周期", "zu", "zhouqi", "hang", "lie",
-            "gurooh", "dor", "ry", "kolom", "hanay", "hilera"
-        )
-        return keywords.any { query.contains(it) } && query.any { it.isDigit() }
-    }
 
-    private fun handleStructuralQuery(query: String): String {
-        val data = elementData ?: return "---"
-        val ctx = localizedContext ?: context!!
-        val numberMatch = Regex("(\\d+)").find(query) ?: return ctx.getString(R.string.ai_structural_specify_number)
-        val number = numberMatch.groupValues[1]
-        
-        val isGroup = query.contains("group") || query.contains("grupp") || query.contains("kolumn") || query.contains("gruppe") || query.contains("grupo") || query.contains("समूह") || query.contains("族") || query.contains("gurooh")
-        val isPeriod = query.contains("period") || query.contains("rad") || query.contains("periode") || query.contains("rangée") || query.contains("fila") || query.contains("आवर्त") || query.contains("周期") || query.contains("dor")
-        
-        val found = mutableListOf<String>()
-        val keys = data.keys()
-        while (keys.hasNext()) {
-            val key = keys.next()
-            val element = data.optJSONObject(key) ?: continue
-            
-            if (isGroup && element.optString("element_group_number") == number) {
-                found.add(element.optString("element", ""))
-            } else if (isPeriod && element.optString("element_period") == number) {
-                found.add(element.optString("element", ""))
-            }
-        }
 
-        return if (found.isNotEmpty()) {
-            val type = if (isGroup) ctx.getString(R.string.ai_group) else ctx.getString(R.string.ai_period)
-            ctx.getString(R.string.ai_structural_result, type, number) + found.sorted().joinToString(", ")
-        } else {
-            ctx.getString(R.string.ai_structural_no_results)
-        }
-    }
 
-    private fun isDifferenceQuery(query: String): Boolean {
-        val keywords = listOf(
-            "difference", "distinguish", "different", "contrast",
-            "skillnad", "skiljer", "differenz", "unterschied",
-            "différence", "distinguer", "diferencia", "distinguir",
-            "differenza", "distinguere", "differenz", "distinção", "distinguir",
-            "अंतर", "भेद", "فرق", "imtiyaz",
-            "区别", "不同", "qubie", "butong", "verskil", "pagkakaiba", "ibahin"
-        )
-        return keywords.any { query.contains(it) } && findMultipleElements(query).size >= 2
-    }
-
-    private fun handleDifferenceQuery(query: String): String {
-        val elements = findMultipleElements(query).take(2)
-        val ctx = localizedContext ?: context!!
-        if (elements.size < 2) return ctx.getString(R.string.ai_difference_need_two)
-        
-        val e1 = elements[0].optString("element", "")
-        val p1 = elements[0].optString("element_phase", "")
-        val t1 = elements[0].optString("element_type", "")
-        val g1 = elements[0].optString("element_group", "")
-        val n1 = elements[0].optInt("element_atomic_number", 0)
-
-        val e2 = elements[1].optString("element", "")
-        val p2 = elements[1].optString("element_phase", "")
-        val t2 = elements[1].optString("element_type", "")
-        val g2 = elements[1].optString("element_group", "")
-        val n2 = elements[1].optInt("element_atomic_number", 0)
-
-        val differences = mutableListOf<String>()
-        
-        if (p1 != p2) differences.add(ctx.getString(R.string.ai_difference_phase, ctx.getString(R.string.show_stp_phase).replace(":",""), e1, p1, e2, p2))
-        if (t1 != t2) differences.add(ctx.getString(R.string.ai_difference_type, ctx.getString(R.string.type_label).replace(":",""), e1, t1, e2, t2))
-        if (g1 != g2) differences.add(ctx.getString(R.string.ai_difference_group, ctx.getString(R.string.element_groups).replace(":",""), e1, g1, e2, g2))
-        
-        val massDiff = Math.abs(elements[0].optDouble("element_atomicmass", 0.0) - elements[1].optDouble("element_atomicmass", 0.0))
-        if (massDiff > 10.0) {
-            val heavier = if (n1 > n2) e1 else e2
-            differences.add(ctx.getString(R.string.ai_difference_mass, ctx.getString(R.string.atomic_weight).replace(":",""), heavier))
-        }
-
-        return if (differences.isNotEmpty()) {
-            val title = ctx.getString(R.string.ai_comparing_title, listOf(e1, e2).joinToString(ctx.getString(R.string.ai_comparison_vs)))
-            title + "\n\n" + differences.joinToString("\n")
-        } else {
-            ctx.getString(R.string.ai_difference_similar, e1, e2, p1, t1, g1)
-        }
-    }
 
     private fun isSimilarityQuery(query: String): Boolean {
         val keywords = listOf(

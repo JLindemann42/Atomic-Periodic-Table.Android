@@ -156,16 +156,41 @@ object OperatorExtractor {
         return null
     }
 
+    /**
+     * "period 6", "group 11", and the same in the other supported languages.
+     *
+     * Ported from the structural-query handler this replaced. The number may come after the word
+     * or before it, since Chinese writes 第6周期 with the number first.
+     */
     private fun periodOrGroup(query: String): Filter? {
-        Regex("""\bperiod\s+(\d)\b""").find(query)?.let {
-            return Filter.InPeriod(it.groupValues[1].toInt())
-        }
-        Regex("""\bgroup\s+(\d{1,2})\b""").find(query)?.let {
-            val g = it.groupValues[1].toInt()
-            if (g in 1..18) return Filter.InGroup(g)
+        numberNear(query, PERIOD_WORDS)?.let { if (it in 1..7) return Filter.InPeriod(it) }
+        numberNear(query, GROUP_WORDS)?.let { if (it in 1..18) return Filter.InGroup(it) }
+        return null
+    }
+
+    private fun numberNear(query: String, words: List<String>): Int? {
+        for (word in words) {
+            val at = query.indexOf(word)
+            if (at < 0) continue
+            Regex("""^\D{0,2}(\d{1,2})""").find(query.substring(at + word.length))
+                ?.let { return it.groupValues[1].toIntOrNull() }
+            Regex("""(\d{1,2})\D{0,2}$""").find(query.substring(0, at))
+                ?.let { return it.groupValues[1].toIntOrNull() }
         }
         return null
     }
+
+    /** Words naming a row of the table. "row" is a period; "column" is a group. */
+    private val PERIOD_WORDS = listOf(
+        "period", "periode", "periodo", "row", "rad", "rangee", "fila", "zeile",
+        "hang", "पंक्ति", "आवर्त", "周期", "dor"
+    )
+
+    private val GROUP_WORDS = listOf(
+        "group", "grupp", "gruppe", "groupe", "grupo", "gruppo", "column", "kolumn",
+        "spalte", "colonne", "columna", "colonna", "kolom", "hanay", "hilera",
+        "समूह", "族", "gurooh"
+    )
 
     private fun mentions(query: String, phrase: String): Boolean {
         if (phrase.isBlank()) return false

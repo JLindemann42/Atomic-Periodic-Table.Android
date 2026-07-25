@@ -153,6 +153,56 @@ class EngineCoverageTest {
         }
     }
 
+    /**
+     * "group 11" and "period 6" used to be served by a structural handler that was never wired
+     * into the router. The engine answers them now, in the languages that handler listed.
+     */
+    @Test
+    fun claimsGroupAndPeriodQueries() {
+        for (query in listOf(
+            "which elements are in group 11",
+            "what elements are in period 6",
+            "list the elements in group 17",
+            "vilka grundämnen finns i grupp 11",
+            "welche elemente sind in gruppe 11"
+        )) claims(query, Intent.FILTER_LIST, Intent.AGGREGATE)
+    }
+
+    @Test
+    fun groupAndPeriodFiltersSelectTheRightElements() {
+        val plan = planner.plan("which elements are in group 11", DialogueState())
+        val list = executor.execute(plan) as ExecutionResult.ElementList
+        val keys = list.results.map { it.element.key }
+        assertTrue("group 11 should contain copper, silver and gold, got $keys",
+            keys.containsAll(listOf("copper", "silver", "gold")))
+
+        val periodPlan = planner.plan("what elements are in period 2", DialogueState())
+        val periodList = executor.execute(periodPlan) as ExecutionResult.ElementList
+        assertEquals(8, periodList.matched)
+    }
+
+    /**
+     * Reactions and similarity are chemistry judgements with no backing field, so the engine must
+     * decline them. Reactions are the risky case: "sodium and chlorine react" names two elements
+     * and would otherwise be answered as a property comparison.
+     */
+    @Test
+    fun defersReactionAndSimilarityToTheirOwnHandlers() {
+        for (query in listOf(
+            "what happens when sodium and chlorine react",
+            "what happens if I mix sodium and water",
+            "which element is similar to gold",
+            "what is similar to carbon",
+            "vad händer när natrium och klor reagerar"
+        )) {
+            val plan = planner.plan(query, DialogueState())
+            assertEquals(
+                "'$query' has no backing field; the engine must defer",
+                Intent.UNKNOWN, plan.intent
+            )
+        }
+    }
+
     @Test
     fun stillDefersOrdinaryLookupsAndSmallTalk() {
         // "who discovered oxygen" is deliberately absent: it resolves to the discovered_by field

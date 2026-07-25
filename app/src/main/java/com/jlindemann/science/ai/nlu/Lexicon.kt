@@ -204,9 +204,19 @@ object Lexicon {
      * bespoke handlers answer. Reactivity is scored from group and position, not stored.
      */
     val UNBACKED_CONCEPTS = listOf(
+        // Reactivity is scored from group and position, not stored.
         "reactive", "reactivity", "reaktiv", "reaktivitet", "reaktivaste", "reaktivitat",
         "reactivo", "reactividad", "reactif", "reactivite", "reattivo", "reattivita",
-        "reativo", "reatividade", "reaktief", "reaktibo", "活泼", "反应性"
+        "reativo", "reatividade", "reaktief", "reaktibo", "活泼", "反应性",
+        // What happens when substances react is chemistry, not a field lookup. Without this,
+        // "sodium and chlorine react" names two elements and would be answered as a
+        // side-by-side property comparison instead.
+        "react", "reaction", "reagera", "reaktion", "reagieren", "reagir", "reaccionar",
+        "reagire", "reazione", "reaccion", "reaction", "प्रतिक्रिया", "अभिक्रिया",
+        "radd-e-amal", "反应", "fanying", "reaksyon",
+        // Similarity is a judgement over several properties, not a stored value.
+        "similar", "liknar", "liknande", "ahnlich", "similaire", "parecido", "simile",
+        "semelhante", "soortgelyk", "katulad", "समान", "相似"
     )
 
     /**
