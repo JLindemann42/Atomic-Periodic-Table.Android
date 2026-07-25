@@ -264,6 +264,7 @@ class SettingsActivity : BaseActivity() {
         LanguageOption("Portuguese (Brazil)", Locale("pt", "BR").getDisplayLanguage(Locale("pt", "BR")), Locale("pt", "BR")),
         LanguageOption("Chinese (Simplified)", Locale("zh", "CN").getDisplayLanguage(Locale("zh", "CN")), Locale("zh", "CN")),
         LanguageOption("Afrikaans", Locale("af").getDisplayLanguage(Locale("af")), Locale("af")),
+        LanguageOption("Bengali", Locale("bn").getDisplayLanguage(Locale("bn")), Locale("bn")),
         LanguageOption("Hindi", Locale("hi").getDisplayLanguage(Locale("hi")), Locale("hi")),
         LanguageOption("Filipino", Locale.forLanguageTag("fil").getDisplayLanguage(Locale.forLanguageTag("fil")), Locale.forLanguageTag("fil")),
         LanguageOption("Urdu (Pakistan)", Locale("ur", "PK").getDisplayLanguage(Locale("ur", "PK")), Locale("ur", "PK")),
