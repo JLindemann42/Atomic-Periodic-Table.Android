@@ -88,7 +88,11 @@ sealed class ExecutionResult {
         val matched: Int,
         val missing: Int,
         val descending: Boolean,
-        override val citations: List<Citation>
+        override val citations: List<Citation>,
+        /** How far down the ranking the shown rows start; non-zero for "the third densest". */
+        val rankOffset: Int = 0,
+        /** The next element down, so a single-element answer has something to be measured against. */
+        val runnerUp: ValuedElement? = null
     ) : ExecutionResult()
 
     /** A statistic computed over a set of elements. */

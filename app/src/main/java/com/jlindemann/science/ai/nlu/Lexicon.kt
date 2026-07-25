@@ -136,6 +136,41 @@ object Lexicon {
         "तत्व", "عنصر", "元素"
     )
 
+    /** Phrases introducing a range, paired with the word joining its two bounds. */
+    val BETWEEN_WORDS = listOf(
+        "between", "from", "in the range",
+        "mellan", "zwischen", "entre", "entre", "tra", "fra", "tussen", "sa pagitan",
+        "के बीच", "کے درمیان", "之间"
+    )
+
+    /** Words joining the two bounds of a range. */
+    val RANGE_JOINERS = listOf("and", "to", "och", "till", "und", "bis", "y", "a", "et", "e", "en", "至", "和")
+
+    /** Negations that invert a subset filter. */
+    val NEGATIONS = listOf(
+        "not ", "non-", "non ", "aren't", "arent", "isn't", "isnt", "except", "excluding",
+        "inte ", "icke-", "nicht ", "kein", "no ", "non ", "nao ", "nie ",
+        "hindi ", "नहीं", "نہیں", "不", "非"
+    )
+
+    /** Ordinal words selecting a rank other than the first. */
+    val RANK_ORDINALS: Map<String, Int> = mapOf(
+        "second" to 2, "2nd" to 2, "andra" to 2, "zweit" to 2, "segundo" to 2, "deuxieme" to 2,
+        "third" to 3, "3rd" to 3, "tredje" to 3, "dritt" to 3, "tercer" to 3, "troisieme" to 3,
+        "fourth" to 4, "4th" to 4, "fjarde" to 4, "viert" to 4, "cuarto" to 4,
+        "fifth" to 5, "5th" to 5, "femte" to 5, "funft" to 5, "quinto" to 5,
+        "sixth" to 6, "6th" to 6, "seventh" to 7, "7th" to 7,
+        "eighth" to 8, "8th" to 8, "ninth" to 9, "9th" to 9, "tenth" to 10, "10th" to 10
+    )
+
+    /** Phrases asking for elements sharing a group or period with a named element. */
+    val SAME_AS_WORDS = listOf(
+        "same group as", "same column as", "same family as", "same period as", "same row as",
+        "samma grupp som", "samma period som", "gleiche gruppe wie", "gleiche periode wie",
+        "mismo grupo que", "mismo periodo que", "meme groupe que", "meme periode que",
+        "stesso gruppo di", "mesmo grupo que", "同一族", "同一周期"
+    )
+
     /** Words asking for a median. */
     val MEDIAN = listOf("median", "mediane", "mediana", "medianen", "中位数")
 

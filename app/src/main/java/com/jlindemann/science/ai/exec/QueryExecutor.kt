@@ -349,13 +349,21 @@ class QueryExecutor(
         val sorted = if (plan.sortDescending) valued.sortedByDescending { it.quantity!!.mid }
         else valued.sortedBy { it.quantity!!.mid }
 
+        // "the third densest element" asks for one element, three down the ranking.
+        val offset = ((plan.fieldOrdinal ?: 1) - 1).coerceAtLeast(0)
+        val shown = sorted.drop(offset).take(plan.limit)
+        if (shown.isEmpty()) return ExecutionResult.Empty(describeFilters(plan))
+
         return ExecutionResult.ElementList(
-            results = sorted.take(plan.limit),
+            results = shown,
             fieldId = fieldId,
             matched = candidates.size,
             missing = missing,
             descending = plan.sortDescending,
-            citations = sorted.take(plan.limit).map { citation(fieldId, it.element) }
+            citations = shown.map { citation(fieldId, it.element) },
+            rankOffset = offset,
+            // The next element down gives a superlative something to be measured against.
+            runnerUp = if (plan.limit == 1) sorted.getOrNull(offset + 1) else null
         )
     }
 

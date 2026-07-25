@@ -22,12 +22,16 @@ data class Operators(
     val topN: Int? = null,
     val targetUnit: String? = null,
     val ordinal: Int? = null,
-    val isListQuestion: Boolean = false
+    val isListQuestion: Boolean = false,
+    /** A range, when the query said "between X and Y". */
+    val range: Pair<Quantity, Double>? = null,
+    /** Which place in the ranking was asked for: "the third densest" gives 3. */
+    val rankOrdinal: Int? = null
 ) {
     val hasOperatorEvidence: Boolean
         get() = comparators.isNotEmpty() || subsetFilters.isNotEmpty() ||
                 aggregation != Aggregation.NONE || superlativeDescending != null ||
-                topN != null || targetUnit != null
+                topN != null || targetUnit != null || range != null
 }
 
 /**
@@ -116,16 +120,72 @@ object OperatorExtractor {
             else -> null
         }
 
+        // ---- Negation ---------------------------------------------------------------------
+        // "which noble gases are not radioactive" must invert the filter, not drop it.
+        val negated = Lexicon.NEGATIONS.any { query.contains(it) }
+        val finalSubsets = if (negated) subsets.map { invert(it) } else subsets
+
         return Operators(
             comparators = comparators,
-            subsetFilters = subsets,
+            subsetFilters = finalSubsets,
             aggregation = aggregation,
             superlativeDescending = descending,
             topN = topN(query),
             targetUnit = targetUnit(query),
             ordinal = ordinal(query),
-            isListQuestion = Lexicon.WHICH.any { query.startsWith("$it ") || mentions(query, it) }
+            isListQuestion = Lexicon.WHICH.any { query.startsWith("$it ") || mentions(query, it) },
+            range = range(query),
+            rankOrdinal = rankOrdinal(query)
         )
+    }
+
+    /**
+     * Invert a filter for a negated question.
+     *
+     * Only the boolean-shaped filters can be meaningfully inverted. A negated series or phase
+     * would mean "every element that is not a halogen", which is almost never what is being
+     * asked, so those are left alone: in "which noble gases are not radioactive" the series
+     * names the set and only the radioactivity is negated.
+     */
+    private fun invert(filter: Filter): Filter = when (filter) {
+        is Filter.IsRadioactive -> Filter.IsRadioactive(!filter.radioactive)
+        is Filter.IsSynthetic -> Filter.IsSynthetic(!filter.synthetic)
+        is Filter.IsMetal -> Filter.IsMetal(!filter.metal)
+        else -> filter
+    }
+
+    /** "between 1000 and 2000 kelvin" — the two bounds and the unit they share. */
+    private fun range(query: String): Pair<Quantity, Double>? {
+        val opener = Lexicon.BETWEEN_WORDS.firstOrNull { mentions(query, it) } ?: return null
+        val tail = query.substringAfter(opener)
+        val joiner = Lexicon.RANGE_JOINERS
+            .filter { tail.contains(" $it ") }
+            .minByOrNull { tail.indexOf(" $it ") } ?: return null
+
+        val low = NUMBER_WITH_UNIT.find(tail.substringBefore(" $joiner "))
+        val highPart = tail.substringAfter(" $joiner ")
+        val high = NUMBER_WITH_UNIT.find(highPart)
+        val lowValue = low?.groupValues?.get(1)?.replace(',', '.')?.toDoubleOrNull() ?: return null
+        val highValue = high?.groupValues?.get(1)?.replace(',', '.')?.toDoubleOrNull() ?: return null
+
+        // The unit is usually written once, after the second bound.
+        val rawUnit = high.groupValues[2].takeIf { it.isNotBlank() }
+            ?: low.groupValues[2].takeIf { it.isNotBlank() }
+        val unit = rawUnit?.let { Lexicon.UNIT_WORDS[it.lowercase()] ?: UnitConverter.canonical(it) }
+        return Quantity(
+            value = minOf(lowValue, highValue), unit = unit, display = "$lowValue–$highValue"
+        ) to maxOf(lowValue, highValue)
+    }
+
+    /** "the third densest element" — which place in the ranking was asked for. */
+    private fun rankOrdinal(query: String): Int? {
+        val hasSuperlative = Lexicon.MOST.any { mentions(query, it) } ||
+                Lexicon.LEAST.any { mentions(query, it) }
+        if (!hasSuperlative) return null
+        return Lexicon.RANK_ORDINALS.entries
+            .sortedByDescending { it.key.length }
+            .firstOrNull { mentions(query, it.key) }
+            ?.value
     }
 
     /** The number following a phrase, with its unit if one is written. */

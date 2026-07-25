@@ -137,6 +137,13 @@
 
     <!-- Grounded answers: sources, coverage and computed results -->
     <string name="ai_sources_header">Sources</string>
+    <string name="ai_superlative_nth">The **%1$d**%2$s %3$s %4$s is **%5$s**, at %6$s.</string>
+    <string name="ai_runner_up">Next is %1$s at %2$s.</string>
+    <string name="ai_list_spread">Values run from %1$s down to %2$s.</string>
+    <string name="ai_ordinal_suffix_st">st</string>
+    <string name="ai_ordinal_suffix_nd">nd</string>
+    <string name="ai_ordinal_suffix_rd">rd</string>
+    <string name="ai_ordinal_suffix_th">th</string>
     <string name="ai_rank_highest">That is the highest of the %1$d elements with a recorded %2$s.</string>
     <string name="ai_rank_lowest">That is the lowest of the %1$d elements with a recorded %2$s.</string>
     <string name="ai_rank_nth">That ranks **%1$d of %2$d** elements by %3$s.</string>

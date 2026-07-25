@@ -119,12 +119,65 @@ class QueryPlanner(
             // A comparator needs a field to compare against; fall back to the sortable field.
             val fieldId = fieldIds.firstOrNull() ?: return@mapNotNull null
             com.jlindemann.science.ai.core.Filter.FieldCompare(fieldId, op, quantity)
+        }.toMutableList()
+
+        // A threshold can name an element instead of a number: "denser than iron" means denser
+        // than iron's density. Only when a single element is named — with two, the question is
+        // a direct comparison between them ("is gold denser than lead") and the elements are
+        // the subject rather than a bound.
+        if (comparatorFilters.isEmpty() && elementKeys.size == 1) {
+            elementThreshold(normalized, elementKeys, fieldIds)?.let {
+                comparatorFilters.add(it)
+                // The element supplied the threshold; it is not also a subject of the query.
+                elementKeys = emptyList()
+                // The adjective also names the property, so the results can be sorted and
+                // shown by it: "lighter than aluminium" is about density even though no field
+                // was written out.
+                if (fieldIds.isEmpty()) fieldIds = listOf(it.fieldId)
+                evidence.add("threshold from element")
+            }
+        }
+
+        // A range: "which elements melt between 1000 and 2000 kelvin".
+        operators.range?.let { (low, high) ->
+            val fieldId = fieldIds.firstOrNull()
+            if (fieldId != null) {
+                comparatorFilters.add(
+                    com.jlindemann.science.ai.core.Filter.FieldCompare(
+                        fieldId, com.jlindemann.science.ai.core.Op.BETWEEN, low, high
+                    )
+                )
+                evidence.add("range on $fieldId")
+            }
         }
         if (comparatorFilters.isNotEmpty()) evidence.add("comparator on ${fieldIds.firstOrNull()}")
         if (subsetFilters.isNotEmpty()) evidence.add("subset ${subsetFilters.size}")
 
         val allFilters = subsetFilters + comparatorFilters
         val targetUnit = operators.targetUnit ?: state.lastTargetUnit.takeIf { fieldIds.isNotEmpty() }
+
+        // ---- "in the same group as carbon" ---------------------------------------------------
+        // The named element supplies the group or period; it is the reference, not the answer.
+        if (Lexicon.SAME_AS_WORDS.any { normalized.contains(it) }) {
+            elementKeys.firstOrNull()?.let { store.element(it) }?.let { reference ->
+                val byPeriod = normalized.contains("period") || normalized.contains("row")
+                val filter = if (byPeriod) {
+                    com.jlindemann.science.ai.core.Filter.InPeriod(reference.period)
+                } else {
+                    reference.groupNumber?.let { com.jlindemann.science.ai.core.Filter.InGroup(it) }
+                        ?: com.jlindemann.science.ai.core.Filter.InSeries(setOf(reference.series))
+                }
+                evidence.add("same ${if (byPeriod) "period" else "group"} as ${reference.key}")
+                return QueryPlan(
+                    intent = Intent.FILTER_LIST,
+                    filters = listOf(filter),
+                    limit = DEFAULT_LIST_LIMIT,
+                    confidence = 0.85,
+                    rawQuery = rawQuery,
+                    evidence = evidence
+                )
+            }
+        }
 
         // ---- Direct comparative: "is gold denser than lead" --------------------------------
         // A question with a one-word answer should get one, not a property table. Checked
@@ -164,13 +217,18 @@ class QueryPlanner(
                 val isList = operators.topN != null || comparatorFilters.isNotEmpty() ||
                         (operators.isListQuestion && operators.superlativeDescending == null)
                 evidence.add(if (isList) "filtered list on $sortField" else "superlative on $sortField")
+                // "the third densest element" wants one element, the third down the ranking,
+                // not the top one. Carried as fieldOrdinal so the executor can skip past.
+                val rankOrdinal = operators.rankOrdinal
+                if (rankOrdinal != null) evidence.add("rank $rankOrdinal")
                 return QueryPlan(
-                    intent = if (isList) Intent.FILTER_LIST else Intent.SUPERLATIVE,
+                    intent = if (isList && rankOrdinal == null) Intent.FILTER_LIST else Intent.SUPERLATIVE,
                     fieldIds = listOf(sortField),
+                    fieldOrdinal = rankOrdinal,
                     filters = allFilters,
                     sortField = sortField,
                     sortDescending = operators.superlativeDescending ?: true,
-                    limit = operators.topN ?: if (isList) DEFAULT_LIST_LIMIT else 1,
+                    limit = if (rankOrdinal != null) 1 else operators.topN ?: if (isList) DEFAULT_LIST_LIMIT else 1,
                     targetUnit = targetUnit,
                     confidence = if (comparatorFilters.isNotEmpty()) 0.85 else 0.8,
                     rawQuery = rawQuery,
@@ -190,7 +248,10 @@ class QueryPlanner(
             return QueryPlan(
                 intent = Intent.FILTER_LIST,
                 fieldIds = listOfNotNull(displayField),
-                filters = subsetFilters,
+                // Every filter, not just the subset: "which metals are lighter than aluminium"
+                // is a subset question that also carries a threshold, and dropping it here
+                // would list all metals.
+                filters = allFilters,
                 sortField = displayField,
                 limit = DEFAULT_LIST_LIMIT,
                 confidence = 0.75,
@@ -545,6 +606,40 @@ class QueryPlanner(
             confidence = 0.85,
             rawQuery = rawQuery,
             evidence = listOf("comparative $fieldId")
+        )
+    }
+
+    /**
+     * A threshold expressed as another element: "denser than iron", "hotter than tungsten".
+     *
+     * Takes the named element's own value for the field as the bound, so the comparison is
+     * against a real figure rather than requiring the user to know it.
+     */
+    private fun elementThreshold(
+        normalized: String,
+        elementKeys: List<String>,
+        fieldIds: List<String>
+    ): com.jlindemann.science.ai.core.Filter.FieldCompare? {
+        val greater = Lexicon.GREATER.any { com.jlindemann.science.ai.retrieval.TextMatching.containsWord(normalized, it) }
+        val less = Lexicon.LESS.any { com.jlindemann.science.ai.retrieval.TextMatching.containsWord(normalized, it) }
+        val adjective = Lexicon.COMPARATIVE_ADJECTIVES.entries
+            .sortedByDescending { it.key.length }
+            .firstOrNull { com.jlindemann.science.ai.retrieval.TextMatching.containsWord(normalized, it.key) }
+        if (!greater && !less && adjective == null) return null
+
+        val fieldId = adjective?.value?.first ?: fieldIds.firstOrNull() ?: return null
+        val reference = elementKeys.firstNotNullOfOrNull { store.element(it) } ?: return null
+        val bound = reference.quantity(fieldId) ?: return null
+
+        val wantsGreater = when {
+            adjective != null -> adjective.value.second
+            greater -> true
+            else -> false
+        }
+        return com.jlindemann.science.ai.core.Filter.FieldCompare(
+            fieldId,
+            if (wantsGreater) com.jlindemann.science.ai.core.Op.GT else com.jlindemann.science.ai.core.Op.LT,
+            bound
         )
     }
 

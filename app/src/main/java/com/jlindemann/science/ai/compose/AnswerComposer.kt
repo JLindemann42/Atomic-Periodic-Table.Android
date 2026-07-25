@@ -190,13 +190,33 @@ class AnswerComposer(
             val direction = strings.get(
                 if (result.descending) R.string.ai_superlative_highest else R.string.ai_superlative_lowest
             )
-            val sentence = strings.get(
-                R.string.ai_superlative_result,
-                direction, fieldLabel(result.fieldId), displayName(top.element.key), top.display
-            )
-            val note = if (result.missing > 0)
-                "\n" + strings.get(R.string.ai_aggregate_missing_note, result.missing) else ""
-            return sentence + note
+            val sentence = if (result.rankOffset > 0) {
+                // "the third densest element" — say which place, or the answer looks wrong.
+                val place = result.rankOffset + 1
+                strings.get(
+                    R.string.ai_superlative_nth, place, ordinalSuffix(place),
+                    direction, fieldLabel(result.fieldId).lowercase(),
+                    displayName(top.element.key), top.display
+                )
+            } else {
+                strings.get(
+                    R.string.ai_superlative_result,
+                    direction, fieldLabel(result.fieldId), displayName(top.element.key), top.display
+                )
+            }
+            val builder = StringBuilder(sentence)
+            // The next one down turns a bare winner into a sense of the margin.
+            result.runnerUp?.let {
+                builder.append("\n").append(
+                    strings.get(R.string.ai_runner_up, displayName(it.element.key), it.display)
+                )
+            }
+            if (result.missing > 0) {
+                builder.append("\n").append(
+                    strings.get(R.string.ai_aggregate_missing_note, result.missing)
+                )
+            }
+            return builder.toString()
         }
 
         // Say plainly when the shown rows are only the top slice of a larger match set.
@@ -215,11 +235,32 @@ class AnswerComposer(
         }
         val remaining = result.matched - result.results.size
         if (remaining > 0) builder.append("\n").append(strings.get(R.string.ai_list_more, remaining))
+
+        // Give the list a shape: the span it covers is more informative than the rows alone.
+        if (result.fieldId != null && result.results.size > 2) {
+            val values = result.results.mapNotNull { it.display.takeIf { d -> d.isNotBlank() } }
+            if (values.size > 2) {
+                builder.append("\n\n").append(
+                    strings.get(R.string.ai_list_spread, values.first(), values.last())
+                )
+            }
+        }
         if (result.missing > 0 && result.fieldId != null) {
-            builder.append("\n\n").append(strings.get(R.string.ai_aggregate_missing_note, result.missing))
+            builder.append("\n").append(strings.get(R.string.ai_aggregate_missing_note, result.missing))
         }
         return builder.toString()
     }
+
+    /** English ordinal suffix: 1st, 2nd, 3rd, 4th, with the teens handled. */
+    private fun ordinalSuffix(n: Int): String = strings.get(
+        when {
+            n % 100 in 11..13 -> R.string.ai_ordinal_suffix_th
+            n % 10 == 1 -> R.string.ai_ordinal_suffix_st
+            n % 10 == 2 -> R.string.ai_ordinal_suffix_nd
+            n % 10 == 3 -> R.string.ai_ordinal_suffix_rd
+            else -> R.string.ai_ordinal_suffix_th
+        }
+    )
 
     private fun aggregate(result: ExecutionResult.Aggregate): String {
         if (result.aggregation == Aggregation.COUNT) {
