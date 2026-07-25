@@ -137,6 +137,18 @@
 
     <!-- Grounded answers: sources, coverage and computed results -->
     <string name="ai_sources_header">Sources</string>
+    <string name="ai_aspects_not_compared">I can\'t compare %1$s from stored data — that isn\'t a recorded property. Ask about it for a single element and I can explain it.</string>
+    <string name="ai_isotope_compare_header">%1$s vs %2$s</string>
+    <string name="ai_isotope_compare_row">• **%1$s**: %2$s vs %3$s</string>
+    <string name="ai_isotope_same_element">Both are isotopes of %1$s, so they have the same %2$d protons and differ only in neutrons.</string>
+    <string name="ai_isotope_neutron_diff">%1$s has %2$d neutrons, %3$s has %4$d — a difference of %5$d.</string>
+    <string name="ai_label_protons">Protons</string>
+    <string name="ai_label_neutrons">Neutrons</string>
+    <string name="ai_label_mass_number">Mass number</string>
+    <string name="ai_label_half_life">Half-life</string>
+    <string name="ai_label_decay">Decay mode</string>
+    <string name="ai_isotope_unlisted">not listed in the isotope table</string>
+    <string name="ai_stable_label">Stable</string>
     <string name="ai_formula_mass">The molar mass of **%1$s** is **%2$s g/mol**.</string>
     <string name="ai_composition_header">Composition of %1$s</string>
     <string name="ai_composition_row">• **%1$s** ×%2$d — %3$s g/mol (%4$s%%)</string>

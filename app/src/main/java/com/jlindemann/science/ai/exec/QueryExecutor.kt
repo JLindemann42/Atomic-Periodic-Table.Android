@@ -42,6 +42,7 @@ class QueryExecutor(
         Intent.SAFETY -> safety(plan)
         Intent.FORMULA_MASS -> formulaMass(plan)
         Intent.NUCLIDE_COUNT -> nuclide(plan)
+        Intent.ISOTOPE_COMPARISON -> isotopeComparison(plan)
         Intent.MOLE_CONVERSION -> moleConversion(plan)
         Intent.COMPARISON -> comparison(plan)
         Intent.SUPERLATIVE, Intent.FILTER_LIST -> elementList(plan)
@@ -131,6 +132,39 @@ class QueryExecutor(
             protons = element.atomicNumber,
             neutrons = neutrons,
             citations = listOf(citation("atomic_number", element))
+        )
+    }
+
+    private fun isotopeComparison(plan: QueryPlan): ExecutionResult? {
+        val refs = plan.entities.filterIsInstance<EntityRef.Nuclide>()
+        if (refs.size < 2) return null
+        val left = nuclideFacts(refs[0]) ?: return null
+        val right = nuclideFacts(refs[1]) ?: return null
+        return ExecutionResult.IsotopeComparison(
+            left, right,
+            listOf(citation("common_neutrons", left.element), citation("common_neutrons", right.element))
+                .distinctBy { it.source }
+        )
+    }
+
+    /**
+     * Everything known about one nuclide.
+     *
+     * Proton and neutron counts are always derivable from the element and the mass number; the
+     * decay mode and half-life come from the isotope table when that nuclide is listed there.
+     */
+    private fun nuclideFacts(ref: EntityRef.Nuclide): ExecutionResult.NuclideFacts? {
+        val element = store.element(ref.key) ?: return null
+        val neutrons = com.jlindemann.science.ai.data.ChemistryMath
+            .neutronsIn(ref.massNumber, element.atomicNumber) ?: return null
+        return ExecutionResult.NuclideFacts(
+            element = element,
+            massNumber = ref.massNumber,
+            protons = element.atomicNumber,
+            neutrons = neutrons,
+            isotope = element.isotopes.firstOrNull {
+                it.nucleons == ref.massNumber || it.massNumber == ref.massNumber
+            }
         )
     }
 
@@ -315,7 +349,9 @@ class QueryExecutor(
         val row = datasets.row(ref.dataset, ref.id) ?: return null
         return ExecutionResult.Dataset(
             row = row,
-            citations = listOf(Citation(row.title, ref.dataset, row.deepLink, mapOf("id" to row.id)))
+            citations = listOf(
+                Citation(row.title, ref.dataset, row.deepLink, mapOf("id" to row.id), fromTable = true)
+            )
         )
     }
 

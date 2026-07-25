@@ -51,7 +51,20 @@ class QueryPlanner(
             if (!superlative) {
                 explanationPlan(rawQuery, normalized, hasElement = false)?.let { return it }
             }
-            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+            // Mentioning one of these in passing does not block a comparison that also asks
+            // about real properties: "compare lithium, sodium and potassium on reactivity,
+            // density and applications" answers the parts it has fields for and says which
+            // parts it could not.
+            //
+            // A comparable field is required, not just several elements. Without that condition
+            // "compare the reactivity of sodium and gold" and "what happens when sodium and
+            // chlorine react" would both be answered as property tables, which is not what
+            // either is asking.
+            val comparableAspect = fields.resolveAll(rawQuery, limit = 3).isNotEmpty()
+            val severalElements = entities.resolveAll(rawQuery, limit = 3).size >= 2
+            if (!comparableAspect || !severalElements) {
+                return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+            }
         }
 
         // ---- Calculations ------------------------------------------------------------------
@@ -175,17 +188,38 @@ class QueryPlanner(
             evidence.add("comparison against focus element")
         }
 
-        // ---- Comparison: two or more elements named together ------------------------------
-        if (elementKeys.size >= 2) {
-            evidence.add("comparison of ${elementKeys.size} elements")
+        // ---- Element versus alloy: "what is the difference between iron and steel" ----------
+        // An alloy is not an element, so a side-by-side property table is not available and not
+        // what is being asked. The alloy's own entry explains how it differs from its base metal,
+        // which is the answer.
+        alloyIn(normalized)?.let { alloy ->
+            evidence.add("alloy ${alloy.id}")
             return QueryPlan(
-                intent = Intent.COMPARISON,
-                entities = elementKeys.map { EntityRef.Element(it) },
-                fieldIds = fieldIds.ifEmpty { DEFAULT_COMPARISON_FIELDS },
-                targetUnit = targetUnit,
+                intent = Intent.DATASET_LOOKUP,
+                entities = listOf(EntityRef.DatasetRow(DatasetIndex.ALLOY, alloy.id)),
                 confidence = 0.8,
                 rawQuery = rawQuery,
                 evidence = evidence
+            )
+        }
+
+        // ---- Comparison: two or more elements named together ------------------------------
+        if (elementKeys.size >= 2) {
+            // "in terms of reactivity, density and applications" names several aspects at once.
+            // Every aspect that maps to a field is compared; the rest are reported as not
+            // comparable from stored data rather than silently dropped.
+            val aspects = fields.resolveAll(rawQuery, limit = 6).map { it.spec.id }
+            val unsupported = unsupportedAspects(normalized)
+            evidence.add("comparison of ${elementKeys.size} elements")
+            if (aspects.size > 1) evidence.add("aspects ${aspects.size}")
+            return QueryPlan(
+                intent = Intent.COMPARISON,
+                entities = elementKeys.map { EntityRef.Element(it) },
+                fieldIds = aspects.ifEmpty { fieldIds.ifEmpty { DEFAULT_COMPARISON_FIELDS } },
+                targetUnit = targetUnit,
+                confidence = 0.8,
+                rawQuery = rawQuery,
+                evidence = evidence + unsupported.map { "no field for $it" }
             )
         }
 
@@ -345,6 +379,28 @@ class QueryPlanner(
             }
         }
 
+        // --- Two nuclides compared: "uranium-235 vs uranium-238" -------------------------------
+        val nuclides = NUCLIDE.findAll(normalized)
+            .mapNotNull { match ->
+                val element = store.element(match.groupValues[1]) ?: store.bySymbol(match.groupValues[1])
+                val mass = match.groupValues[2].toIntOrNull()
+                if (element != null && mass != null && mass >= element.atomicNumber) {
+                    EntityRef.Nuclide(element.key, mass)
+                } else null
+            }
+            .distinct()
+            .take(2)
+            .toList()
+        if (nuclides.size == 2) {
+            return QueryPlan(
+                intent = Intent.ISOTOPE_COMPARISON,
+                entities = nuclides,
+                rawQuery = rawQuery,
+                confidence = 0.9,
+                evidence = listOf("nuclide comparison")
+            )
+        }
+
         // --- Neutrons in a nuclide -----------------------------------------------------------
         if (Lexicon.NEUTRON_WORDS.any { normalized.contains(it) }) {
             NUCLIDE.find(normalized)?.let { match ->
@@ -394,6 +450,24 @@ class QueryPlanner(
     private fun atomicMassOf(symbol: String): Double? =
         store.bySymbol(symbol)?.quantity("atomic_mass")?.value
 
+    /**
+     * Aspects a multi-part comparison asked for that no stored field can supply.
+     *
+     * Naming them lets the answer say what it could not cover, instead of quietly answering a
+     * narrower question than the one asked.
+     */
+    private fun unsupportedAspects(normalizedQuery: String): List<String> =
+        UNCOMPARABLE_ASPECTS.filter { normalizedQuery.contains(it) }
+
+    /** The alloy a query names, longest name first so "stainless steel" beats "steel". */
+    private fun alloyIn(normalizedQuery: String): com.jlindemann.science.ai.data.DatasetRow? =
+        datasets.dataset(DatasetIndex.ALLOY)
+            .sortedByDescending { it.title.length }
+            .firstOrNull {
+                com.jlindemann.science.ai.retrieval.TextMatching
+                    .containsWord(normalizedQuery, it.title.lowercase())
+            }
+
     /** The property family a query names, longest phrase first so "heat" cannot shadow a phrase. */
     private fun categoryIn(normalizedQuery: String): com.jlindemann.science.ai.data.FieldCategory? =
         Lexicon.CATEGORY_WORDS.entries
@@ -415,6 +489,15 @@ class QueryPlanner(
         const val DATASET_CONFIDENCE = 0.45
         const val DEFAULT_LIST_LIMIT = 10
         const val DEFAULT_ISOTOPE_LIMIT = 8
+
+        /**
+         * Aspects users ask to compare that the element data does not hold. Reactivity is
+         * derived rather than stored, and applications and uses live in prose descriptions
+         * rather than in a comparable field.
+         */
+        val UNCOMPARABLE_ASPECTS = listOf(
+            "reactivity", "reactive", "application", "applications", "uses", "used for"
+        )
 
         /** Fields shown when elements are compared without naming a property. */
         val DEFAULT_COMPARISON_FIELDS = listOf(

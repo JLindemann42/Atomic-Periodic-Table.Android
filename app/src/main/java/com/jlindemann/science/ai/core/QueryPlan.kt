@@ -42,6 +42,9 @@ enum class Intent {
     /** Neutron count of a specific nuclide, e.g. uranium-238. */
     NUCLIDE_COUNT,
 
+    /** Two nuclides set side by side, e.g. uranium-235 vs uranium-238. */
+    ISOTOPE_COMPARISON,
+
     /** Conversion between moles and particle counts. */
     MOLE_CONVERSION,
 
@@ -62,6 +65,9 @@ enum class Aggregation { NONE, MIN, MAX, AVG, SUM, COUNT, MEDIAN, RANGE }
 sealed class EntityRef {
     data class Element(val key: ElementKey) : EntityRef()
     data class DatasetRow(val dataset: String, val id: String) : EntityRef()
+
+    /** A specific isotope, e.g. uranium-238. [massNumber] is the nucleon count. */
+    data class Nuclide(val key: ElementKey, val massNumber: Int) : EntityRef()
 }
 
 /** A condition an element must satisfy. */

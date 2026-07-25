@@ -53,6 +53,7 @@ class DatasetIndex(val rows: List<DatasetRow>) {
         const val ELECTRODE = "electrode"
         const val SOLUBILITY = "solubility"
         const val UNIT = "unit"
+        const val ALLOY = "alloy"
 
         /**
          * Build the index from the app's model objects.
@@ -168,6 +169,20 @@ class DatasetIndex(val rows: List<DatasetRow>) {
                                 pairs.joinToString(" ") { it.first },
                         detail = pairs.joinToString(" · ") { "${it.first} ${solubilityWord(it.second)}" },
                         deepLink = DeepLinkTarget.SOLUBILITY
+                    )
+                )
+            }
+
+            ArrayList<Alloy>().also { AlloyModel.getList(it) }.forEach { a ->
+                rows.add(
+                    DatasetRow(
+                        dataset = ALLOY, id = a.name, title = a.name,
+                        body = "${a.name} alloy ${a.base} ${a.composition} ${a.description}",
+                        detail = "${a.composition}. ${a.description}",
+                        // Alloys have no screen of their own; the base element is the nearest
+                        // place a reader can go for related data.
+                        deepLink = DeepLinkTarget.ELEMENT_INFO,
+                        link = a.wiki
                     )
                 )
             }

@@ -30,11 +30,12 @@ class AnswerComposer(
     fun compose(result: ExecutionResult, plan: QueryPlan): ComposedAnswer {
         val body = when (result) {
             is ExecutionResult.Property -> property(result)
-            is ExecutionResult.Comparison -> comparison(result)
+            is ExecutionResult.Comparison -> comparison(result) + uncoveredAspects(plan)
             is ExecutionResult.ElementList -> elementList(result, plan)
             is ExecutionResult.Aggregate -> aggregate(result)
             is ExecutionResult.Formula -> formula(result)
             is ExecutionResult.Nuclide -> nuclide(result)
+            is ExecutionResult.IsotopeComparison -> isotopeComparison(result)
             is ExecutionResult.MoleConversion -> moleConversion(result)
             is ExecutionResult.Isotopes -> isotopes(result)
             is ExecutionResult.Safety -> safety(result)
@@ -92,6 +93,24 @@ class AnswerComposer(
             }
         }
         return builder.toString()
+    }
+
+    /**
+     * Name the aspects a multi-part comparison asked for but could not cover.
+     *
+     * "Compare lithium, sodium and potassium on reactivity, density and applications" can only
+     * answer density from stored fields. Saying so is the difference between an incomplete
+     * answer and a misleading one.
+     */
+    private fun uncoveredAspects(plan: QueryPlan): String {
+        val named = plan.evidence
+            .filter { it.startsWith("no field for ") }
+            .map { it.removePrefix("no field for ") }
+            .distinct()
+        // Drop terms contained in another, so "application, applications" reads as one aspect.
+        val missing = named.filter { term -> named.none { it != term && it.contains(term) } }
+        if (missing.isEmpty()) return ""
+        return "\n\n" + strings.get(R.string.ai_aspects_not_compared, missing.joinToString(", "))
     }
 
     private fun elementList(result: ExecutionResult.ElementList, plan: QueryPlan): String {
@@ -190,6 +209,81 @@ class AnswerComposer(
             R.string.ai_nuclide_body, result.protons, result.neutrons, result.massNumber
         )
     }
+
+    private fun isotopeComparison(result: ExecutionResult.IsotopeComparison): String {
+        val left = result.left
+        val right = result.right
+        val leftName = nuclideName(left)
+        val rightName = nuclideName(right)
+
+        val builder = StringBuilder("### ")
+            .append(strings.get(R.string.ai_isotope_compare_header, leftName, rightName))
+
+        // The interesting fact for two isotopes of one element is that only the neutrons differ,
+        // so lead with that rather than repeating the shared proton count as a difference.
+        if (left.element.key == right.element.key) {
+            builder.append("\n").append(
+                strings.get(
+                    R.string.ai_isotope_same_element,
+                    displayName(left.element.key), left.protons
+                )
+            )
+            builder.append("\n").append(
+                strings.get(
+                    R.string.ai_isotope_neutron_diff, leftName, left.neutrons,
+                    rightName, right.neutrons, kotlin.math.abs(left.neutrons - right.neutrons)
+                )
+            )
+        } else {
+            builder.append("\n").append(
+                row(R.string.ai_label_protons, left.protons.toString(), right.protons.toString())
+            )
+        }
+
+        builder.append("\n").append(
+            row(R.string.ai_label_mass_number, left.massNumber.toString(), right.massNumber.toString())
+        )
+        builder.append("\n").append(
+            row(R.string.ai_label_neutrons, left.neutrons.toString(), right.neutrons.toString())
+        )
+        builder.append("\n").append(
+            row(R.string.ai_label_half_life, halfLife(left), halfLife(right))
+        )
+        val decayLeft = left.isotope?.decayType
+        val decayRight = right.isotope?.decayType
+        if (decayLeft != null || decayRight != null) {
+            builder.append("\n").append(
+                row(R.string.ai_label_decay, decayLeft ?: "—", decayRight ?: "—")
+            )
+        }
+        return builder.toString()
+    }
+
+    private fun row(labelRes: Int, left: String, right: String): String =
+        strings.get(R.string.ai_isotope_compare_row, strings.get(labelRes), left, right)
+
+    private fun nuclideName(facts: ExecutionResult.NuclideFacts): String =
+        "${displayName(facts.element.key)}-${facts.massNumber}"
+
+    /** The authored half-life, "stable", or an admission that the nuclide is not listed. */
+    private fun halfLife(facts: ExecutionResult.NuclideFacts): String {
+        val isotope = facts.isotope ?: return strings.get(R.string.ai_isotope_unlisted)
+        if (isotope.stable) return strings.get(R.string.ai_stable_label)
+        val display = isotope.halfLifeDisplay.ifBlank {
+            return strings.get(R.string.ai_isotope_unlisted)
+        }
+        return groupDigits(display)
+    }
+
+    /**
+     * Insert thin spaces into long digit runs, so a half-life reads as "703 800 000 years"
+     * rather than an unbroken nine-digit string. Uses spaces rather than a locale separator
+     * because the value is authored text being made legible, not a number being formatted.
+     */
+    private fun groupDigits(text: String): String =
+        Regex("""\d{5,}""").replace(text) { match ->
+            match.value.reversed().chunked(3).joinToString(" ").reversed()
+        }
 
     private fun moleConversion(result: ExecutionResult.MoleConversion): String {
         val moles = result.moles ?: return ""
@@ -314,7 +408,8 @@ class AnswerComposer(
     private fun citationBlock(citations: List<Citation>): String {
         if (citations.isEmpty()) return ""
         val lines = citations.distinctBy { it.label to it.source }.take(MAX_CITATIONS).map {
-            strings.get(R.string.ai_source_element_data, it.label, it.source)
+            if (it.fromTable) strings.get(R.string.ai_source_table, it.label, it.source)
+            else strings.get(R.string.ai_source_element_data, it.label, it.source)
         }
         return "\n\n### ${strings.get(R.string.ai_sources_header)}\n" + lines.joinToString("\n") { "• $it" }
     }

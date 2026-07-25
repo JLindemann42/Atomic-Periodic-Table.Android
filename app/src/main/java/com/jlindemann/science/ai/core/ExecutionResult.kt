@@ -9,7 +9,9 @@ data class Citation(
     val label: String,
     val source: String,
     val deepLink: com.jlindemann.science.ai.data.DeepLinkTarget,
-    val args: Map<String, String> = emptyMap()
+    val args: Map<String, String> = emptyMap(),
+    /** True when the source is one of the app's tables rather than the element data. */
+    val fromTable: Boolean = false
 )
 
 /** One element paired with the value that was asked about. */
@@ -98,6 +100,22 @@ sealed class ExecutionResult {
     data class Formula(
         val result: com.jlindemann.science.ai.data.FormulaResult,
         val wantsComposition: Boolean,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /** One nuclide with everything known about it, for side-by-side display. */
+    data class NuclideFacts(
+        val element: ElementRecord,
+        val massNumber: Int,
+        val protons: Int,
+        val neutrons: Int,
+        val isotope: com.jlindemann.science.ai.data.Isotope?
+    )
+
+    /** Two nuclides compared. */
+    data class IsotopeComparison(
+        val left: NuclideFacts,
+        val right: NuclideFacts,
         override val citations: List<Citation>
     ) : ExecutionResult()
 
