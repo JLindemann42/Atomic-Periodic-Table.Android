@@ -137,6 +137,7 @@
 
     <!-- Grounded answers: sources, coverage and computed results -->
     <string name="ai_sources_header">Sources</string>
+    <string name="symbol_colon">Symbol:</string>
     <string name="ai_superlative_nth">The **%1$d**%2$s %3$s %4$s is **%5$s**, at %6$s.</string>
     <string name="ai_runner_up">Next is %1$s at %2$s.</string>
     <string name="ai_list_spread">Values run from %1$s down to %2$s.</string>

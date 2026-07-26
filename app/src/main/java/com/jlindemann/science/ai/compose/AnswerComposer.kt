@@ -27,7 +27,23 @@ class AnswerComposer(
     private val strings: StringProvider
 ) {
 
-    fun compose(result: ExecutionResult, plan: QueryPlan): ComposedAnswer {
+    /**
+     * Render without the sources block.
+     *
+     * A compound answer composes each clause separately and then emits one merged Sources
+     * section, rather than repeating the heading after every part.
+     */
+    fun composeBody(result: ExecutionResult, plan: QueryPlan): ComposedAnswer =
+        compose(result, plan, includeCitations = false)
+
+    fun compose(result: ExecutionResult, plan: QueryPlan): ComposedAnswer =
+        compose(result, plan, includeCitations = true)
+
+    private fun compose(
+        result: ExecutionResult,
+        plan: QueryPlan,
+        includeCitations: Boolean
+    ): ComposedAnswer {
         val body = when (result) {
             is ExecutionResult.Property -> property(result)
             is ExecutionResult.Comparison -> comparison(result) + uncoveredAspects(plan)
@@ -46,10 +62,13 @@ class AnswerComposer(
             is ExecutionResult.Empty -> strings.get(R.string.ai_filter_none)
         }
         return ComposedAnswer(
-            text = body + citationBlock(result.citations),
+            text = if (includeCitations) body + citationBlock(result.citations) else body,
             actions = result.citations.map { it.toAction(strings) }.distinctBy { it.label }
         )
     }
+
+    /** The sources section on its own, for a caller assembling several parts. */
+    fun citationsFor(citations: List<Citation>): String = citationBlock(citations)
 
     // ---- Per-result rendering -----------------------------------------------------------
 

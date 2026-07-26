@@ -126,7 +126,7 @@ object FieldRegistry {
 
         // ---- Identity -------------------------------------------------------------------
         add(spec("name", "element", FieldKind.TEXT, FieldCategory.IDENTITY, R.string.english_name_colon, localized = true))
-        add(spec("symbol", "short", FieldKind.TEXT, FieldCategory.IDENTITY, R.string.element_symbols))
+        add(spec("symbol", "short", FieldKind.TEXT, FieldCategory.IDENTITY, R.string.symbol_colon))
         add(spec("atomic_number", "element_atomic_number", FieldKind.NUMERIC, FieldCategory.IDENTITY, R.string.atomic_number_label))
         add(spec("description", "description", FieldKind.TEXT, FieldCategory.IDENTITY, R.string.description_colon, localized = true))
         add(spec("appearance", "element_appearance", FieldKind.TEXT, FieldCategory.IDENTITY, R.string.appearance_colon, localized = true))

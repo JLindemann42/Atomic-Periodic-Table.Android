@@ -6,6 +6,7 @@ import com.jlindemann.science.ai.data.DatasetIndex
 import com.jlindemann.science.ai.data.KnowledgeStore
 import com.jlindemann.science.ai.data.LocalizedView
 import com.jlindemann.science.ai.exec.QueryExecutor
+import com.jlindemann.science.ai.nlu.ClauseSplitter
 import com.jlindemann.science.ai.nlu.FieldResolver
 import com.jlindemann.science.ai.nlu.QueryPlanner
 import com.jlindemann.science.ai.retrieval.EntityResolver
@@ -46,6 +47,12 @@ class AiEngine(
     fun answer(query: String, state: DialogueState): ComposedAnswer? {
         if (query.isBlank()) return null
 
+        // A question that asks two things is tried first. The whole query often plans to
+        // something — "the density of gold and how does it compare to lead" plans as a
+        // comparison — so checking single-clause first would answer half the question and
+        // never notice the other half.
+        compoundAnswer(query, state)?.let { return it }
+
         val plan = planner.plan(query, state)
         if (plan.intent == Intent.UNKNOWN || plan.confidence < planner.threshold) return null
 
@@ -55,6 +62,45 @@ class AiEngine(
 
         state.noteAnswer(plan, resultKeys(result))
         return composed
+    }
+
+    /**
+     * Answer a two-part question, or return null so it is planned as one.
+     *
+     * Each clause is planned in turn against a scratch state, so the second inherits the
+     * subject of the first — "…and how does **it** compare to lead" resolves through exactly
+     * the same slot-inheritance that makes a follow-up turn work.
+     *
+     * All or nothing: if either clause fails to plan, the whole attempt is abandoned and the
+     * query falls through to be handled whole. A partial compound answer would be worse than
+     * the single-clause answer it replaced.
+     */
+    private fun compoundAnswer(query: String, state: DialogueState): ComposedAnswer? {
+        val clauses = ClauseSplitter.split(query) ?: return null
+
+        val scratch = state.copyOf()
+        val answers = ArrayList<ComposedAnswer>(clauses.size)
+        val citations = ArrayList<Citation>(clauses.size * 2)
+        for (clause in clauses) {
+            val plan = planner.plan(clause, scratch)
+            if (plan.intent == Intent.UNKNOWN || plan.confidence < planner.threshold) return null
+            val result = executor.execute(plan) ?: return null
+            // Bodies only, so the merged answer carries one sources section rather than one
+            // after every clause.
+            val composed = composer.composeBody(result, plan)
+            if (composed.text.isBlank()) return null
+            scratch.noteAnswer(plan, resultKeys(result))
+            answers.add(composed)
+            citations.addAll(result.citations)
+        }
+        if (answers.size < 2) return null
+
+        state.adopt(scratch)
+        return ComposedAnswer(
+            text = answers.joinToString("\n\n") { it.text } +
+                    composer.citationsFor(citations.distinctBy { it.label to it.source }),
+            actions = answers.flatMap { it.actions }.distinctBy { it.label }
+        )
     }
 
     /** Plan without executing. Exposed so tests can assert planning separately from rendering. */

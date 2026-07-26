@@ -50,6 +50,34 @@ class DialogueState {
         }
     }
 
+    /**
+     * A detached copy, for speculative planning.
+     *
+     * Answering a compound question means planning each clause in turn, with the second
+     * inheriting from the first. If any clause fails the whole attempt is abandoned, so that
+     * work has to happen somewhere the real conversation state cannot be corrupted.
+     */
+    fun copyOf(): DialogueState = DialogueState().also { copy ->
+        copy.focusElement = focusElement
+        copy.recentElements.addAll(recentElements)
+        copy.lastFieldIds = lastFieldIds
+        copy.lastPlan = lastPlan
+        copy.lastResultKeys = lastResultKeys
+        copy.lastTargetUnit = lastTargetUnit
+        copy.activeLanguage = activeLanguage
+    }
+
+    /** Adopt another state's contents, once a speculative attempt has succeeded. */
+    fun adopt(other: DialogueState) {
+        focusElement = other.focusElement
+        recentElements.clear()
+        recentElements.addAll(other.recentElements)
+        lastFieldIds = other.lastFieldIds
+        lastPlan = other.lastPlan
+        lastResultKeys = other.lastResultKeys
+        lastTargetUnit = other.lastTargetUnit
+    }
+
     fun clear() {
         focusElement = null
         recentElements.clear()
