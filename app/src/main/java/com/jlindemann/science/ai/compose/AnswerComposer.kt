@@ -9,10 +9,22 @@ import com.jlindemann.science.ai.core.StringProvider
 import com.jlindemann.science.ai.data.FieldRegistry
 import com.jlindemann.science.ai.data.KnowledgeStore
 import com.jlindemann.science.ai.data.LocalizedView
+import com.jlindemann.science.ai.cards.CardSelector
+import com.jlindemann.science.ai.cards.ChatCardPolicy
+import com.jlindemann.science.ai.cards.NfpaLabeller
 import com.jlindemann.science.ai.data.UnitConverter
 
-/** Rendered answer text plus the actions it offers. */
-data class ComposedAnswer(val text: String, val actions: List<ChatAction>)
+/**
+ * Rendered answer text, the actions it offers, and the visual that goes with it.
+ *
+ * [card] is defaulted so every existing construction site compiles untouched, and null far more
+ * often than not — most answers have no visual worth adding.
+ */
+data class ComposedAnswer(
+    val text: String,
+    val actions: List<ChatAction>,
+    val card: com.jlindemann.science.ai.cards.ChatCard? = null
+)
 
 /**
  * Turns an [ExecutionResult] into the markdown the chat adapter can actually render.
@@ -24,7 +36,12 @@ data class ComposedAnswer(val text: String, val actions: List<ChatAction>)
 class AnswerComposer(
     private val store: KnowledgeStore,
     private val localized: LocalizedView?,
-    private val strings: StringProvider
+    private val strings: StringProvider,
+    /**
+     * Runtime switches for the visual cards — offline mode, Pro gating, minimum data thresholds.
+     * Defaulted so every existing construction site compiles untouched.
+     */
+    private val cardPolicy: ChatCardPolicy = ChatCardPolicy.DEFAULT
 ) {
 
     /**
@@ -57,14 +74,34 @@ class AnswerComposer(
             is ExecutionResult.MoleConversion -> moleConversion(result)
             is ExecutionResult.Isotopes -> isotopes(result)
             is ExecutionResult.Safety -> safety(result)
+            is ExecutionResult.EmissionSpectrum -> emissionSpectrum(result)
             is ExecutionResult.Dataset -> dataset(result)
             is ExecutionResult.NoData -> noData(result)
+            is ExecutionResult.Locked -> locked(result)
             is ExecutionResult.Empty -> strings.get(R.string.ai_filter_none)
         }
         return ComposedAnswer(
             text = if (includeCitations) body + citationBlock(result.citations) else body,
-            actions = result.citations.map { it.toAction(strings) }.distinctBy { it.label }
+            actions = (
+                result.citations.map { it.toAction(strings) } +
+                        // A locked answer offers the way out, using the same chip row as citations
+                        // rather than a second affordance nobody has seen before.
+                        listOfNotNull(upgradeAction(result))
+                ).distinctBy { it.label },
+            // Derived from the typed result, never from the query text — so the picture can only
+            // show what the prose above it has already asserted.
+            card = CardSelector.select(result, plan, store, strings, localized, cardPolicy)
         )
+    }
+
+    /** The "Get PRO" chip shown beside a withheld answer, or null when nothing was withheld. */
+    private fun upgradeAction(result: ExecutionResult): ChatAction? {
+        if (result !is ExecutionResult.Locked) return null
+        val label = strings.get(
+            if (result.tier == com.jlindemann.science.ai.data.Tier.PRO_PLUS) R.string.get_pro_plus_button
+            else R.string.get_pro_button
+        )
+        return ChatAction(label, com.jlindemann.science.ai.data.DeepLinkTarget.PRO_PAGE)
     }
 
     /** The sources section on its own, for a caller assembling several parts. */
@@ -127,7 +164,7 @@ class AnswerComposer(
         val ratio = result.ratio ?: return headline
         return headline + "\n" + strings.get(
             R.string.ai_comparative_ratio,
-            winner, format(ratio), loser, "$winnerValue vs $loserValue", label
+            winner, format(ratio), loser, "$winnerValue ${strings.get(R.string.ai_versus)} $loserValue", label
         )
     }
 
@@ -179,7 +216,41 @@ class AnswerComposer(
                 )
             }
         }
+        verdict(result)?.let { builder.append("\n\n").append(it) }
         return builder.toString()
+    }
+
+    /**
+     * Who came out ahead, for a two-element comparison.
+     *
+     * A table of five properties against two elements is data, not an answer — it leaves the reader
+     * to do the comparison the question asked for. Counting the fields where each element holds the
+     * higher value turns it back into an answer, without claiming that higher is *better*: the
+     * sentence says "has the higher value", which is the only thing the numbers support.
+     *
+     * Two elements only. With three or more, "leads on 2 of 5" hides more than it says, and the
+     * table really is the right shape for the answer.
+     */
+    private fun verdict(result: ExecutionResult.Comparison): String? {
+        if (result.elements.size != 2) return null
+        val wins = HashMap<String, Int>()
+        var decided = 0
+        for (fieldId in result.fieldIds) {
+            val rows = result.values[fieldId].orEmpty().filter { it.quantity != null }
+            if (rows.size != 2) continue
+            val top = rows.maxByOrNull { it.quantity!!.value } ?: continue
+            val bottom = rows.minByOrNull { it.quantity!!.value } ?: continue
+            if (top.quantity!!.value == bottom.quantity!!.value) continue
+            decided++
+            wins[top.element.key] = (wins[top.element.key] ?: 0) + 1
+        }
+        if (decided < MIN_FIELDS_TO_JUDGE) return null
+        val leader = wins.maxByOrNull { it.value } ?: return null
+        // An even split has no verdict worth stating.
+        if (wins.values.count { it == leader.value } > 1) return null
+        return strings.get(
+            R.string.ai_comparison_verdict, displayName(leader.key), leader.value, decided
+        )
     }
 
     /**
@@ -224,6 +295,22 @@ class AnswerComposer(
                 )
             }
             val builder = StringBuilder(sentence)
+
+            // Say what the winner won against. A plain property lookup already reports "the 6th
+            // densest of 105 elements with a recorded density"; a superlative was answering with a
+            // bare winner and no sense of the field it topped. Reuses the same two strings, so this
+            // costs no new translation in any of the fourteen locales.
+            val withAValue = result.matched - result.missing
+            if (withAValue >= MIN_POOL_TO_REPORT && result.rankOffset == 0) {
+                builder.append("\n").append(
+                    strings.get(
+                        if (result.descending) R.string.ai_rank_highest else R.string.ai_rank_lowest,
+                        withAValue,
+                        fieldLabel(result.fieldId).lowercase()
+                    )
+                )
+            }
+
             // The next one down turns a bare winner into a sense of the margin.
             result.runnerUp?.let {
                 builder.append("\n").append(
@@ -300,6 +387,28 @@ class AnswerComposer(
         val rendered = UnitConverter.formatValue(result.value) + (result.unit?.let { " $it" } ?: "")
         val builder = StringBuilder(strings.get(R.string.ai_aggregate_result, label, rendered))
 
+        // An average with no spread is the classic misleading statistic: the mean density of the
+        // transition metals is about 10 g/cm³, and nothing in that number hints that the set runs
+        // from scandium at 3 to osmium at 22.6. Both ends are already in `contributors`, so this
+        // costs a scan rather than another pass over the table. Sums are excluded — the endpoints of
+        // a total say nothing about it.
+        if (result.aggregation != Aggregation.SUM && result.contributors.size >= MIN_POOL_TO_REPORT) {
+            val ordered = result.contributors
+                .filter { it.quantity != null }
+                .sortedBy { it.quantity!!.value }
+            val low = ordered.firstOrNull()
+            val high = ordered.lastOrNull()
+            if (low != null && high != null && low.element.key != high.element.key) {
+                builder.append("\n").append(
+                    strings.get(
+                        R.string.ai_aggregate_spread,
+                        low.display, displayName(low.element.key),
+                        high.display, displayName(high.element.key)
+                    )
+                )
+            }
+        }
+
         // A partial statistic is always disclosed as partial.
         val total = result.contributors.size + result.missing
         builder.append("\n").append(strings.get(R.string.ai_aggregate_over, result.contributors.size, total))
@@ -314,7 +423,12 @@ class AnswerComposer(
         val builder = StringBuilder(
             strings.get(R.string.ai_formula_mass, r.formula, format(r.molarMass))
         )
-        if (result.wantsComposition) {
+        // The per-element breakdown *is* the calculation, so a compound shows it whether or not the
+        // word "composition" was used. Asked for the molar mass of Ca(NO3)2 the agent gave the total
+        // and nothing else, and the follow-up "show the calculation step by step" then retrieved the
+        // dictionary definition of stoichiometry. A single-element formula is excluded: one row
+        // restating the total is noise. Reuses the existing rows, so no locale gains a string.
+        if (result.wantsComposition || r.parts.size >= MIN_PARTS_TO_BREAK_DOWN) {
             builder.append("\n\n### ").append(strings.get(R.string.ai_composition_header, r.formula))
             for (part in r.parts) {
                 builder.append("\n").append(
@@ -416,6 +530,19 @@ class AnswerComposer(
     private fun moleConversion(result: ExecutionResult.MoleConversion): String {
         val moles = result.moles ?: return ""
         val particles = scientific(result.particles)
+
+        // Mass to moles is the question the other way round, and it is the one users actually ask —
+        // they have a mass on a balance. It answers with the mole count rather than a particle
+        // count, so the Avogadro note below would be answering something else.
+        result.grams?.let { grams ->
+            return strings.get(
+                R.string.ai_grams_to_moles,
+                format(grams),
+                result.substance.orEmpty(),
+                format(moles)
+            )
+        }
+
         val sentence = if (result.substance != null) {
             strings.get(R.string.ai_moles_of, format(moles), result.substance, particles)
         } else {
@@ -495,28 +622,69 @@ class AnswerComposer(
         return builder.toString()
     }
 
-    private fun healthLabel(rating: Int): String = strings.get(
-        when (rating.coerceIn(0, 4)) {
-            0 -> R.string.ai_nfpa_health_0
-            1 -> R.string.ai_nfpa_health_1
-            2 -> R.string.ai_nfpa_health_2
-            3 -> R.string.ai_nfpa_health_3
-            else -> R.string.ai_nfpa_health_4
-        }
-    )
+    /**
+     * The emission spectrum, which is a picture and a disclaimer.
+     *
+     * The sentence says what the card below it shows and, in the same breath, that the app holds no
+     * wavelengths — so the agent is never asked to name a line it does not have. Offline the card is
+     * dropped by [ChatCardPolicy], and the text says so rather than describing an image that is not
+     * going to appear, reusing the same wording the element screen shows in that situation.
+     */
+    private fun emissionSpectrum(result: ExecutionResult.EmissionSpectrum): String {
+        val name = displayName(result.element.key)
+        val body = strings.get(R.string.ai_emission_spectrum, name)
+        if (cardPolicy.allowNetworkCards) return body
+        return body + "\n" + strings.get(R.string.go_online_for_emission)
+    }
 
-    private fun flammabilityLabel(rating: Int): String = strings.get(
-        when (rating.coerceIn(0, 4)) {
-            0 -> R.string.ai_nfpa_flammable_0
-            1 -> R.string.ai_nfpa_flammable_1
-            2 -> R.string.ai_nfpa_flammable_2
-            3 -> R.string.ai_nfpa_flammable_3
-            else -> R.string.ai_nfpa_flammable_4
-        }
-    )
+    // Delegated rather than duplicated: NfpaLabeller owns the rating-to-wording mapping, because
+    // the hazard diamond card and the element screen need exactly the same table. It used to exist
+    // here and again, as hardcoded English, inside InfoExtension.
+    private fun healthLabel(rating: Int): String =
+        strings.get(NfpaLabeller.healthDescription(rating))
 
-    private fun dataset(result: ExecutionResult.Dataset): String =
-        "**${result.row.title}**\n${result.row.detail}"
+    private fun flammabilityLabel(rating: Int): String =
+        strings.get(NfpaLabeller.flammabilityDescription(rating))
+
+    /**
+     * A row from one of the app's reference tables.
+     *
+     * Those tables are English-only, which `DatasetIndex` documents and says the composer "flags
+     * rather than pretending otherwise". It did not flag it, so a Swedish user asking what an
+     * isotope is got an English definition with no indication why. Said once, and only when the
+     * conversation is not already in English.
+     */
+    private fun dataset(result: ExecutionResult.Dataset): String {
+        val body = "**${result.row.title}**\n${result.row.detail}"
+        if (strings.language == ENGLISH) return body
+        val note = runCatching { strings.get(R.string.ai_dataset_english_note) }.getOrNull()
+        return if (note == null || note.startsWith("str:")) body else "$body\n\n$note"
+    }
+
+    /**
+     * An answer withheld behind the paywall.
+     *
+     * Deliberately different from [noData]: this says the app *has* the value and is not showing it,
+     * rather than claiming not to know. Telling a user "I don't have that" about a figure their
+     * element screen visibly displays as a lock would be a lie, and a confusing one.
+     *
+     * The fields are named. Knowing *what* is behind the paywall is not the same as being told the
+     * value, and it is what makes the upsell concrete rather than a blank refusal.
+     */
+    private fun locked(result: ExecutionResult.Locked): String {
+        val labels = result.fieldIds.mapNotNull { FieldRegistry.byId[it] }
+            .joinToString(", ") { fieldLabel(it.id).lowercase() }
+            .ifBlank { null }
+        val tierName = strings.get(
+            if (result.tier == com.jlindemann.science.ai.data.Tier.PRO_PLUS) R.string.get_pro_plus
+            else R.string.get_pro
+        )
+        return if (labels == null) {
+            strings.get(R.string.ai_locked_generic, tierName)
+        } else {
+            strings.get(R.string.ai_locked_fields, labels, tierName)
+        }
+    }
 
     /**
      * The honest failure. Names the field, says it was checked, and reports how sparse it is —
@@ -528,7 +696,30 @@ class AnswerComposer(
         val sentence = if (name != null) strings.get(R.string.ai_no_property_data, name, label)
         else strings.get(R.string.ai_no_data_right_now)
         val coverage = strings.get(R.string.ai_coverage_note, label, result.coverage, store.size)
-        return "$sentence\n$coverage"
+        val builder = StringBuilder(sentence).append("\n").append(coverage)
+
+        // Say what *is* known. "Tungsten has no recorded Curie point" is honest and a dead end; the
+        // same answer plus the neighbouring properties that are recorded gives the reader somewhere
+        // to go, and costs nothing — those values are already loaded.
+        result.element?.let { element ->
+            val siblings = FieldRegistry.byId[result.fieldId]?.category?.let { category ->
+                FieldRegistry.ALL
+                    .filter { it.category == category && it.id != result.fieldId }
+                    .filter { element.value(it.id) != null }
+                    .take(MAX_ALTERNATIVES)
+                    .map { fieldLabel(it.id) }
+            }.orEmpty()
+            if (siblings.isNotEmpty()) {
+                builder.append("\n").append(
+                    strings.get(
+                        R.string.ai_no_data_alternatives,
+                        displayName(element.key),
+                        siblings.joinToString(", ")
+                    )
+                )
+            }
+        }
+        return builder.toString()
     }
 
     // ---- Citations ------------------------------------------------------------------------
@@ -549,7 +740,11 @@ class AnswerComposer(
 
     private fun fieldLabel(fieldId: String): String {
         val spec = FieldRegistry.byId[fieldId] ?: return fieldId.replace('_', ' ')
-        val label = runCatching { strings.get(spec.labelRes) }.getOrNull()
+        // The sentence form where one is defined: the shipped labels are table headings, and the
+        // abundance ones are prepositional phrases that read as nonsense inside a sentence.
+        val label = runCatching { strings.get(spec.sentenceLabel()) }.getOrNull()
+            ?.takeIf { !it.startsWith("str:") }
+            ?: runCatching { strings.get(spec.labelRes) }.getOrNull()
         return if (label == null || label.startsWith("str:")) fieldId.replace('_', ' ')
         else label.replace(":", "").replace("：", "").trim()
     }
@@ -557,5 +752,20 @@ class AnswerComposer(
     private companion object {
         const val MAX_CITATIONS = 4
         const val LIST_PREVIEW = 10
+
+        /** The one language the app's reference tables are written in. */
+        const val ENGLISH = "en"
+
+        /** Below this, naming the pool a superlative won against adds noise rather than context. */
+        const val MIN_POOL_TO_REPORT = 3
+
+        /** Below this many distinct elements a formula breakdown just repeats the total. */
+        const val MIN_PARTS_TO_BREAK_DOWN = 2
+
+        /** Below this many decided fields, a tally of wins says less than the table above it. */
+        const val MIN_FIELDS_TO_JUDGE = 2
+
+        /** Longest list of neighbouring properties offered beside a missing one. */
+        const val MAX_ALTERNATIVES = 4
     }
 }

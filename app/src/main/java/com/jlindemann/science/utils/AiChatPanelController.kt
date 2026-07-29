@@ -24,8 +24,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.chip.ChipGroup
 import com.jlindemann.science.R
+import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.activities.UserActivity
 import com.jlindemann.science.adapter.ChatHistoryAdapter
+import com.jlindemann.science.adapter.ChatCardBinder
 import com.jlindemann.science.adapter.ChatMessageAdapter
 import com.jlindemann.science.ai.AIAgentManager
 import com.jlindemann.science.ai.AIPersonality
@@ -35,6 +37,7 @@ import com.jlindemann.science.ai.compose.DeepLinkNavigator
 import com.jlindemann.science.auth.AuthManager
 import com.jlindemann.science.model.ChatMessage
 import com.jlindemann.science.model.ChatSession
+import com.jlindemann.science.preferences.ProPlusVersion
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -80,6 +83,7 @@ class AiChatPanelController(
     private lateinit var sendBtn: ImageButton
     private lateinit var loading: ProgressBar
     private lateinit var limitView: TextView
+    private var limitResetView: TextView? = null
     private lateinit var suggestions: ChipGroup
     private lateinit var inputContainer: View
     private lateinit var historyContainer: View
@@ -94,6 +98,11 @@ class AiChatPanelController(
     private var initJob: Job? = null
     private var isSetUp = false
 
+    private companion object {
+        /** The value ProPlusVersion stores for a PRO+ user; 1 means not subscribed. */
+        const val PRO_PLUS_UNLOCKED = 100
+    }
+
     // ---- Lifecycle -------------------------------------------------------------------------
 
     /** Resolve views, wire listeners and start loading the agent. Safe to call once. */
@@ -106,6 +115,8 @@ class AiChatPanelController(
         sendBtn = panelRoot.findViewById(R.id.ai_send_btn) ?: return
         loading = panelRoot.findViewById(R.id.ai_loading_indicator) ?: return
         limitView = panelRoot.findViewById(R.id.ai_message_limit_view) ?: return
+        // Optional: a host laying the panel out differently should lose the reset chip, not the panel.
+        limitResetView = panelRoot.findViewById(R.id.ai_message_limit_reset_view)
         suggestions = panelRoot.findViewById(R.id.ai_suggestions_group) ?: return
         inputContainer = panelRoot.findViewById(R.id.ai_input_container) ?: return
         historyContainer = panelRoot.findViewById(R.id.ai_history_container) ?: return
@@ -113,7 +124,26 @@ class AiChatPanelController(
         historyEmptyView = panelRoot.findViewById(R.id.history_empty_view) ?: return
         isSetUp = true
 
-        adapter = ChatMessageAdapter(messages) { action -> handleAction(action) }
+        // The binder reads a card's numbers back out of the agent's typed index at bind time, which
+        // is why a card only has to carry an element key rather than its whole dataset. Every source
+        // is a lambda for the same reason: this runs before `initialize()`, so anything read here and
+        // then held would be whatever existed before the agent loaded — which for the strings meant
+        // null, and for the abundance and hazard cards meant never binding.
+        val cardBinder = ChatCardBinder(
+            resolveElement = { key -> agent.elementRecord(key) },
+            strings = { agent.cardStrings() },
+            store = { agent.knowledgeStore() }
+        )
+        adapter = ChatMessageAdapter(
+            messages,
+            { action -> handleAction(action) },
+            cardBinder,
+            // The cards are a PRO+ feature, so PRO alone leaves them blurred. Re-read per bind, so a
+            // purchase unlocks the cards already on screen at the next rebind rather than needing
+            // the chat reopened.
+            isProPlusUser = { ProPlusVersion(activity).getValue() == PRO_PLUS_UNLOCKED },
+            onUpgrade = { goToPro() }
+        )
         recycler.layoutManager = LinearLayoutManager(activity).apply { stackFromEnd = true }
         recycler.adapter = adapter
 
@@ -264,6 +294,24 @@ class AiChatPanelController(
         }
     }
 
+    /**
+     * Send the user to the PRO page from a locked card.
+     *
+     * Closes the panel first: the PRO page opens in `MainActivity`, and leaving the chat sheet up
+     * over it would put the user behind a scrim they did not ask for. Falls back to launching the
+     * intent directly when the host is not a [BaseActivity], so this cannot crash a screen that
+     * embeds the panel differently.
+     */
+    private fun goToPro() {
+        close()
+        (activity as? BaseActivity)?.goToProPage() ?: activity.startActivity(
+            Intent(activity, com.jlindemann.science.activities.MainActivity::class.java).apply {
+                putExtra("show_pro", true)
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
+        )
+    }
+
     private fun handleAction(action: ChatAction) {
         DeepLinkNavigator.navigate(activity, action) { query -> send(query) }
     }
@@ -392,10 +440,16 @@ class AiChatPanelController(
         if (!isSetUp) return
         if (!agent.shouldShowMessageLimit()) {
             limitView.visibility = View.GONE
+            limitResetView?.visibility = View.GONE
             return
         }
         limitView.visibility = View.VISIBLE
         limitView.text = agent.getMessageLimitDisplay()
+        // Recomputed here rather than held: the panel outlives midnight, and this runs on every open
+        // and after every send, which is often enough that a stale time is never on screen for long.
+        val reset = agent.getMessageLimitResetDisplay()
+        limitResetView?.text = reset
+        limitResetView?.visibility = if (reset == null) View.GONE else View.VISIBLE
     }
 
     private fun startGradientPulsation(duration: Long, repeatCount: Int) {

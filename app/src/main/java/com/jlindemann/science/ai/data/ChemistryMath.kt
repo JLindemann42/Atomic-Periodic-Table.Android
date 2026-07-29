@@ -23,6 +23,17 @@ object ChemistryMath {
     /** Avogadro's number, particles per mole. */
     const val AVOGADRO = 6.02214076e23
 
+    /**
+     * A quantity in moles, in every spelling the twelve shipped languages use.
+     *
+     * Shared by the planner and the executor because they both have to read it and they must agree:
+     * when only the planner knew the Italian "2 moli" and the Chinese "2摩尔", the query was planned
+     * as a mole conversion and then executed to nothing, which the user sees as a shrug.
+     *
+     * The Han and Indic forms carry no word boundary after them, because those scripts write none.
+     */
+    val MOLE_QUANTITY = Regex("""([\d.]+)\s*(?:mol(?:e|es|i|s)?\b|मोल|مول|摩尔)""")
+
     /** `H2SO4`, `Fe2(SO4)3`, `CuSO4·5H2O` — element symbol, optional count, optional groups. */
     private val TOKEN = Regex("""([A-Z][a-z]?)(\d*)|\(|\)(\d*)|·(\d*)""")
 

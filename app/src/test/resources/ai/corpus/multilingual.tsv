@@ -1,0 +1,268 @@
+# Every question shape, in every shipped language.
+#
+# The localized files before this one were thin and uneven: Swedish had breadth, the other ten
+# languages had a handful of rows each, and whole shapes — aggregates, isotopes, nuclides, unit
+# requests, deferrals — went untested outside English. A defect in those languages could only be
+# found by a user.
+#
+# This file is deliberately the *same* twenty-two shapes in each language, so a gap shows up as a
+# row of failures across one language rather than as scattered noise, and so the shapes can be
+# compared against their English equivalents directly.
+#
+# Languages the author cannot verify to a native standard — af, fil, hi, ur, zh — are marked in
+# docs/TRANSLATION_REVIEW.md. Their rows are still worth having: a query that resolves nothing at
+# all is a defect regardless of how idiomatic the phrasing is.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+# ---- sv ----------------------------------------------------------------------------------------
+ml-sv-prop-density			sv	vad är densiteten för guld	PROPERTY_LOOKUP	density			
+ml-sv-prop-melt			sv	smältpunkt för järn	PROPERTY_LOOKUP	melting_point			
+ml-sv-prop-number			sv	atomnummer för silver	PROPERTY_LOOKUP	atomic_number			
+ml-sv-prop-symbol			sv	vad är symbolen för tenn	PROPERTY_LOOKUP	symbol			
+ml-sv-sup-melt			sv	vilket grundämne har högst smältpunkt	SUPERLATIVE	melting_point			
+ml-sv-sup-dense			sv	vilket är det tätaste grundämnet	SUPERLATIVE	density			
+ml-sv-filter-radio			sv	vilka grundämnen är radioaktiva	FILTER_LIST				
+ml-sv-filter-noble			sv	vilka är ädelgaserna	FILTER_LIST				
+ml-sv-compare			sv	jämför guld och silver	COMPARISON				
+ml-sv-comparative			sv	är guld tätare än bly	COMPARATIVE	density			
+ml-sv-agg-average			sv	vad är den genomsnittliga densiteten för övergångsmetallerna	AGGREGATE	density			
+ml-sv-agg-count			sv	hur många grundämnen finns det	AGGREGATE				
+ml-sv-isotopes			sv	vilka isotoper har kol	ISOTOPES				
+ml-sv-safety			sv	är arsenik farligt	SAFETY				
+ml-sv-formula			sv	vad är molmassan för H2O	FORMULA_MASS				
+ml-sv-category			sv	termiska egenskaper för koppar	CATEGORY_LOOKUP				
+ml-sv-defer-greet			sv	hej				y	
+ml-sv-defer-quiz			sv	ge mig en frågesport				y	
+ml-sv-defer-react			sv	vad händer när natrium reagerar med vatten				y	
+ml-sv-threshold			sv	vilka grundämnen smälter över 2000 kelvin	FILTER_LIST	melting_point			
+ml-sv-unit			sv	smältpunkt för volfram i celsius	PROPERTY_LOOKUP	melting_point			
+ml-sv-nuclide			sv	hur många neutroner har kol-14	NUCLIDE_COUNT				
+# ---- de ----------------------------------------------------------------------------------------
+ml-de-prop-density			de	was ist die dichte von gold	PROPERTY_LOOKUP	density			
+ml-de-prop-melt			de	schmelzpunkt von eisen	PROPERTY_LOOKUP	melting_point			
+ml-de-prop-number			de	ordnungszahl von silber	PROPERTY_LOOKUP	atomic_number			
+ml-de-prop-symbol			de	was ist das symbol von zinn	PROPERTY_LOOKUP	symbol			
+ml-de-sup-melt			de	welches element hat den höchsten schmelzpunkt	SUPERLATIVE	melting_point			
+ml-de-sup-dense			de	welches ist das dichteste element	SUPERLATIVE	density			
+ml-de-filter-radio			de	welche elemente sind radioaktiv	FILTER_LIST				
+ml-de-filter-noble			de	welche sind die edelgase	FILTER_LIST				
+ml-de-compare			de	vergleiche gold und silber	COMPARISON				
+ml-de-comparative			de	ist gold dichter als blei	COMPARATIVE	density			
+ml-de-agg-average			de	was ist die durchschnittliche dichte der übergangsmetalle	AGGREGATE	density			
+ml-de-agg-count			de	wie viele elemente gibt es	AGGREGATE				
+ml-de-isotopes			de	welche isotope hat kohlenstoff	ISOTOPES				
+ml-de-safety			de	ist arsen gefährlich	SAFETY				
+ml-de-formula			de	was ist die molare masse von H2O	FORMULA_MASS				
+ml-de-category			de	thermische eigenschaften von kupfer	CATEGORY_LOOKUP				
+ml-de-defer-greet			de	hallo				y	
+ml-de-defer-quiz			de	gib mir ein quiz				y	
+ml-de-defer-react			de	was passiert wenn natrium mit wasser reagiert				y	
+ml-de-threshold			de	welche elemente schmelzen über 2000 kelvin	FILTER_LIST	melting_point			
+ml-de-unit			de	schmelzpunkt von wolfram in celsius	PROPERTY_LOOKUP	melting_point			
+ml-de-nuclide			de	wie viele neutronen hat kohlenstoff-14	NUCLIDE_COUNT				
+# ---- fr ----------------------------------------------------------------------------------------
+ml-fr-prop-density			fr	quelle est la densité de l'or	PROPERTY_LOOKUP	density			
+ml-fr-prop-melt			fr	point de fusion du fer	PROPERTY_LOOKUP	melting_point			
+ml-fr-prop-number			fr	numéro atomique de l'argent	PROPERTY_LOOKUP	atomic_number			
+ml-fr-prop-symbol			fr	quel est le symbole de l'étain	PROPERTY_LOOKUP	symbol			
+ml-fr-sup-melt			fr	quel élément a le point de fusion le plus élevé	SUPERLATIVE	melting_point			
+ml-fr-sup-dense			fr	quel est l'élément le plus dense	SUPERLATIVE	density			
+ml-fr-filter-radio			fr	quels éléments sont radioactifs	FILTER_LIST				
+ml-fr-filter-noble			fr	quels sont les gaz nobles	FILTER_LIST				
+ml-fr-compare			fr	compare l'or et l'argent	COMPARISON				
+ml-fr-comparative			fr	l'or est-il plus dense que le plomb	COMPARATIVE	density			
+ml-fr-agg-average			fr	quelle est la densité moyenne des métaux de transition	AGGREGATE	density			
+ml-fr-agg-count			fr	combien d'éléments y a-t-il	AGGREGATE				
+ml-fr-isotopes			fr	quels sont les isotopes du carbone	ISOTOPES				
+ml-fr-safety			fr	l'arsenic est-il dangereux	SAFETY				
+ml-fr-formula			fr	quelle est la masse molaire de H2O	FORMULA_MASS				
+ml-fr-category			fr	propriétés thermiques du cuivre	CATEGORY_LOOKUP				
+ml-fr-defer-greet			fr	bonjour				y	
+ml-fr-defer-quiz			fr	propose-moi un quiz				y	
+ml-fr-defer-react			fr	que se passe-t-il quand le sodium réagit avec l'eau				y	
+ml-fr-threshold			fr	quels éléments fondent au-dessus de 2000 kelvin	FILTER_LIST	melting_point			
+ml-fr-unit			fr	point de fusion du tungstène en celsius	PROPERTY_LOOKUP	melting_point			
+ml-fr-nuclide			fr	combien de neutrons a le carbone-14	NUCLIDE_COUNT				
+# ---- es ----------------------------------------------------------------------------------------
+ml-es-prop-density			es	cuál es la densidad del oro	PROPERTY_LOOKUP	density			
+ml-es-prop-melt			es	punto de fusión del hierro	PROPERTY_LOOKUP	melting_point			
+ml-es-prop-number			es	número atómico de la plata	PROPERTY_LOOKUP	atomic_number			
+ml-es-prop-symbol			es	cuál es el símbolo del estaño	PROPERTY_LOOKUP	symbol			
+ml-es-sup-melt			es	qué elemento tiene el punto de fusión más alto	SUPERLATIVE	melting_point			
+ml-es-sup-dense			es	cuál es el elemento más denso	SUPERLATIVE	density			
+ml-es-filter-radio			es	qué elementos son radiactivos	FILTER_LIST				
+ml-es-filter-noble			es	cuáles son los gases nobles	FILTER_LIST				
+ml-es-compare			es	compara el oro y la plata	COMPARISON				
+ml-es-comparative			es	el oro es más denso que el plomo	COMPARATIVE	density			
+ml-es-agg-average			es	cuál es la densidad media de los metales de transición	AGGREGATE	density			
+ml-es-agg-count			es	cuántos elementos hay	AGGREGATE				
+ml-es-isotopes			es	cuáles son los isótopos del carbono	ISOTOPES				
+ml-es-safety			es	el arsénico es peligroso	SAFETY				
+ml-es-formula			es	cuál es la masa molar de H2O	FORMULA_MASS				
+ml-es-category			es	propiedades térmicas del cobre	CATEGORY_LOOKUP				
+ml-es-defer-greet			es	hola				y	
+ml-es-defer-quiz			es	hazme un cuestionario				y	
+ml-es-defer-react			es	qué pasa cuando el sodio reacciona con el agua				y	
+ml-es-threshold			es	qué elementos se funden por encima de 2000 kelvin	FILTER_LIST	melting_point			
+ml-es-unit			es	punto de fusión del tungsteno en celsius	PROPERTY_LOOKUP	melting_point			
+ml-es-nuclide			es	cuántos neutrones tiene el carbono-14	NUCLIDE_COUNT				
+# ---- it ----------------------------------------------------------------------------------------
+ml-it-prop-density			it	qual è la densità dell'oro	PROPERTY_LOOKUP	density			
+ml-it-prop-melt			it	punto di fusione del ferro	PROPERTY_LOOKUP	melting_point			
+ml-it-prop-number			it	numero atomico dell'argento	PROPERTY_LOOKUP	atomic_number			
+ml-it-prop-symbol			it	qual è il simbolo dello stagno	PROPERTY_LOOKUP	symbol			
+ml-it-sup-melt			it	quale elemento ha il punto di fusione più alto	SUPERLATIVE	melting_point			
+ml-it-sup-dense			it	qual è l'elemento più denso	SUPERLATIVE	density			
+ml-it-filter-radio			it	quali elementi sono radioattivi	FILTER_LIST				
+ml-it-filter-noble			it	quali sono i gas nobili	FILTER_LIST				
+ml-it-compare			it	confronta oro e argento	COMPARISON				
+ml-it-comparative			it	l'oro è più denso del piombo	COMPARATIVE	density			
+ml-it-agg-average			it	qual è la densità media dei metalli di transizione	AGGREGATE	density			
+ml-it-agg-count			it	quanti elementi ci sono	AGGREGATE				
+ml-it-isotopes			it	quali sono gli isotopi del carbonio	ISOTOPES				
+ml-it-safety			it	l'arsenico è pericoloso	SAFETY				
+ml-it-formula			it	qual è la massa molare di H2O	FORMULA_MASS				
+ml-it-category			it	proprietà termiche del rame	CATEGORY_LOOKUP				
+ml-it-defer-greet			it	ciao				y	
+ml-it-defer-quiz			it	fammi un quiz				y	
+ml-it-defer-react			it	cosa succede quando il sodio reagisce con l'acqua				y	
+ml-it-threshold			it	quali elementi fondono sopra 2000 kelvin	FILTER_LIST	melting_point			
+ml-it-unit			it	punto di fusione del tungsteno in celsius	PROPERTY_LOOKUP	melting_point			
+ml-it-nuclide			it	quanti neutroni ha il carbonio-14	NUCLIDE_COUNT				
+# ---- pt ----------------------------------------------------------------------------------------
+ml-pt-prop-density			pt	qual é a densidade do ouro	PROPERTY_LOOKUP	density			
+ml-pt-prop-melt			pt	ponto de fusão do ferro	PROPERTY_LOOKUP	melting_point			
+ml-pt-prop-number			pt	número atômico da prata	PROPERTY_LOOKUP	atomic_number			
+ml-pt-prop-symbol			pt	qual é o símbolo do estanho	PROPERTY_LOOKUP	symbol			
+ml-pt-sup-melt			pt	qual elemento tem o ponto de fusão mais alto	SUPERLATIVE	melting_point			
+ml-pt-sup-dense			pt	qual é o elemento mais denso	SUPERLATIVE	density			
+ml-pt-filter-radio			pt	quais elementos são radioativos	FILTER_LIST				
+ml-pt-filter-noble			pt	quais são os gases nobres	FILTER_LIST				
+ml-pt-compare			pt	compare ouro e prata	COMPARISON				
+ml-pt-comparative			pt	o ouro é mais denso que o chumbo	COMPARATIVE	density			
+ml-pt-agg-average			pt	qual é a densidade média dos metais de transição	AGGREGATE	density			
+ml-pt-agg-count			pt	quantos elementos existem	AGGREGATE				
+ml-pt-isotopes			pt	quais são os isótopos do carbono	ISOTOPES				
+ml-pt-safety			pt	o arsênio é perigoso	SAFETY				
+ml-pt-formula			pt	qual é a massa molar de H2O	FORMULA_MASS				
+ml-pt-category			pt	propriedades térmicas do cobre	CATEGORY_LOOKUP				
+ml-pt-defer-greet			pt	olá				y	
+ml-pt-defer-quiz			pt	faça um quiz				y	
+ml-pt-defer-react			pt	o que acontece quando o sódio reage com a água				y	
+ml-pt-threshold			pt	quais elementos fundem acima de 2000 kelvin	FILTER_LIST	melting_point			
+ml-pt-unit			pt	ponto de fusão do tungstênio em celsius	PROPERTY_LOOKUP	melting_point			
+ml-pt-nuclide			pt	quantos nêutrons tem o carbono-14	NUCLIDE_COUNT				
+# ---- af ----------------------------------------------------------------------------------------
+ml-af-prop-density			af	wat is die digtheid van goud	PROPERTY_LOOKUP	density			
+ml-af-prop-melt			af	smeltpunt van yster	PROPERTY_LOOKUP	melting_point			
+ml-af-prop-number			af	atoomgetal van silwer	PROPERTY_LOOKUP	atomic_number			
+ml-af-prop-symbol			af	wat is die simbool van tin	PROPERTY_LOOKUP	symbol			
+ml-af-sup-melt			af	watter element het die hoogste smeltpunt	SUPERLATIVE	melting_point			
+ml-af-sup-dense			af	watter element is die digste	SUPERLATIVE	density			
+ml-af-filter-radio			af	watter elemente is radioaktief	FILTER_LIST				
+ml-af-filter-noble			af	wat is die edelgasse	FILTER_LIST				
+ml-af-compare			af	vergelyk goud en silwer	COMPARISON				
+ml-af-comparative			af	is goud digter as lood	COMPARATIVE	density			
+ml-af-agg-average			af	wat is die gemiddelde digtheid van die oorgangsmetale	AGGREGATE	density			
+ml-af-agg-count			af	hoeveel elemente is daar	AGGREGATE				
+ml-af-isotopes			af	wat is die isotope van koolstof	ISOTOPES				
+ml-af-safety			af	is arseen gevaarlik	SAFETY				
+ml-af-formula			af	wat is die molêre massa van H2O	FORMULA_MASS				
+ml-af-category			af	termiese eienskappe van koper	CATEGORY_LOOKUP				
+ml-af-defer-greet			af	hallo				y	
+ml-af-defer-quiz			af	gee my n vasvra				y	
+ml-af-defer-react			af	wat gebeur wanneer natrium met water reageer				y	
+ml-af-threshold			af	watter elemente smelt bo 2000 kelvin	FILTER_LIST	melting_point			
+ml-af-unit			af	smeltpunt van wolfram in celsius	PROPERTY_LOOKUP	melting_point			
+ml-af-nuclide			af	hoeveel neutrone het koolstof-14	NUCLIDE_COUNT				
+# ---- fil ---------------------------------------------------------------------------------------
+ml-fil-prop-density			fil	ano ang densidad ng ginto	PROPERTY_LOOKUP	density			
+ml-fil-prop-melt			fil	melting point ng bakal	PROPERTY_LOOKUP	melting_point			
+ml-fil-prop-number			fil	atomic number ng pilak	PROPERTY_LOOKUP	atomic_number			
+ml-fil-prop-symbol			fil	ano ang simbolo ng lata	PROPERTY_LOOKUP	symbol			
+ml-fil-sup-melt			fil	aling elemento ang may pinakamataas na melting point	SUPERLATIVE	melting_point			
+ml-fil-sup-dense			fil	aling elemento ang pinakamadensidad	SUPERLATIVE	density			
+ml-fil-filter-radio			fil	aling mga elemento ang radioactive	FILTER_LIST				
+ml-fil-filter-noble			fil	ano ang mga noble gas	FILTER_LIST				
+ml-fil-compare			fil	ihambing ang ginto at pilak	COMPARISON				
+ml-fil-comparative			fil	mas madensidad ba ang ginto kaysa tingga	COMPARATIVE	density			
+ml-fil-agg-average			fil	ano ang karaniwang densidad ng transition metals	AGGREGATE	density			
+ml-fil-agg-count			fil	ilang elemento ang mayroon	AGGREGATE				
+ml-fil-isotopes			fil	ano ang mga isotope ng carbon	ISOTOPES				
+ml-fil-safety			fil	delikado ba ang arsenic	SAFETY				
+ml-fil-formula			fil	ano ang molar mass ng H2O	FORMULA_MASS				
+ml-fil-category			fil	thermal properties ng tanso	CATEGORY_LOOKUP				
+ml-fil-defer-greet			fil	kumusta				y	
+ml-fil-defer-quiz			fil	bigyan mo ako ng quiz				y	
+ml-fil-defer-react			fil	ano ang nangyayari kapag ang sodium ay tumugon sa tubig				y	
+ml-fil-threshold			fil	aling mga elemento ang natutunaw sa itaas ng 2000 kelvin	FILTER_LIST	melting_point			
+ml-fil-unit			fil	melting point ng tungsten sa celsius	PROPERTY_LOOKUP	melting_point			
+ml-fil-nuclide			fil	ilang neutron mayroon ang carbon-14	NUCLIDE_COUNT				
+# ---- hi ----------------------------------------------------------------------------------------
+ml-hi-prop-density			hi	सोने का घनत्व क्या है	PROPERTY_LOOKUP	density			
+ml-hi-prop-melt			hi	लोहे का गलनांक	PROPERTY_LOOKUP	melting_point			
+ml-hi-prop-number			hi	चांदी का परमाणु क्रमांक	PROPERTY_LOOKUP	atomic_number			
+ml-hi-prop-symbol			hi	टिन का प्रतीक क्या है	PROPERTY_LOOKUP	symbol			
+ml-hi-sup-melt			hi	किस तत्व का गलनांक सबसे अधिक है	SUPERLATIVE	melting_point			
+ml-hi-sup-dense			hi	सबसे घना तत्व कौन सा है	SUPERLATIVE	density			
+ml-hi-filter-radio			hi	कौन से तत्व रेडियोधर्मी हैं	FILTER_LIST				
+ml-hi-filter-noble			hi	उत्कृष्ट गैसें कौन सी हैं	FILTER_LIST				
+ml-hi-compare			hi	सोने और चांदी की तुलना करें	COMPARISON				
+ml-hi-comparative			hi	क्या सोना सीसे से घना है	COMPARATIVE	density			
+ml-hi-agg-average			hi	संक्रमण धातुओं का औसत घनत्व क्या है	AGGREGATE	density			
+ml-hi-agg-count			hi	कितने तत्व हैं	AGGREGATE				
+ml-hi-isotopes			hi	कार्बन के समस्थानिक कौन से हैं	ISOTOPES				
+ml-hi-safety			hi	क्या आर्सेनिक खतरनाक है	SAFETY				
+ml-hi-formula			hi	H2O का मोलर द्रव्यमान क्या है	FORMULA_MASS				
+ml-hi-category			hi	तांबे के तापीय गुण	CATEGORY_LOOKUP				
+ml-hi-defer-greet			hi	नमस्ते				y	
+ml-hi-defer-quiz			hi	मुझे एक प्रश्नोत्तरी दें				y	
+ml-hi-defer-react			hi	जब सोडियम पानी के साथ प्रतिक्रिया करता है तो क्या होता है				y	
+ml-hi-threshold			hi	कौन से तत्व 2000 केल्विन से ऊपर पिघलते हैं	FILTER_LIST	melting_point			
+ml-hi-unit			hi	सेल्सियस में टंगस्टन का गलनांक	PROPERTY_LOOKUP	melting_point			
+ml-hi-nuclide			hi	कार्बन-14 में कितने न्यूट्रॉन होते हैं	NUCLIDE_COUNT				
+# ---- ur ----------------------------------------------------------------------------------------
+ml-ur-prop-density			ur	سونے کی کثافت کیا ہے	PROPERTY_LOOKUP	density			
+ml-ur-prop-melt			ur	لوہے کا نقطہ پگھلاؤ	PROPERTY_LOOKUP	melting_point			
+ml-ur-prop-number			ur	چاندی کا جوہری عدد	PROPERTY_LOOKUP	atomic_number			
+ml-ur-prop-symbol			ur	ٹن کی علامت کیا ہے	PROPERTY_LOOKUP	symbol			
+ml-ur-sup-melt			ur	کس عنصر کا نقطہ پگھلاؤ سب سے زیادہ ہے	SUPERLATIVE	melting_point			
+ml-ur-sup-dense			ur	سب سے کثیف عنصر کون سا ہے	SUPERLATIVE	density			
+ml-ur-filter-radio			ur	کون سے عناصر تابکار ہیں	FILTER_LIST				
+ml-ur-filter-noble			ur	نیک گیسیں کون سی ہیں	FILTER_LIST				
+ml-ur-compare			ur	سونے اور چاندی کا موازنہ کریں	COMPARISON				
+ml-ur-comparative			ur	کیا سونا سیسے سے زیادہ کثیف ہے	COMPARATIVE	density			
+ml-ur-agg-average			ur	منتقلی دھاتوں کی اوسط کثافت کیا ہے	AGGREGATE	density			
+ml-ur-agg-count			ur	کتنے عناصر ہیں	AGGREGATE				
+ml-ur-isotopes			ur	کاربن کے آئسوٹوپ کون سے ہیں	ISOTOPES				
+ml-ur-safety			ur	کیا سنکھیا خطرناک ہے	SAFETY				
+ml-ur-formula			ur	H2O کا مولر ماس کیا ہے	FORMULA_MASS				
+ml-ur-category			ur	تانبے کی حرارتی خصوصیات	CATEGORY_LOOKUP				
+ml-ur-defer-greet			ur	سلام				y	
+ml-ur-defer-quiz			ur	مجھے ایک کوئز دیں				y	
+ml-ur-defer-react			ur	جب سوڈیم پانی سے رد عمل کرتا ہے تو کیا ہوتا ہے				y	
+ml-ur-threshold			ur	کون سے عناصر 2000 کیلون سے اوپر پگھلتے ہیں	FILTER_LIST	melting_point			
+ml-ur-unit			ur	سیلسیس میں ٹنگسٹن کا نقطہ پگھلاؤ	PROPERTY_LOOKUP	melting_point			
+ml-ur-nuclide			ur	کاربن-14 میں کتنے نیوٹران ہیں	NUCLIDE_COUNT				
+# ---- zh ----------------------------------------------------------------------------------------
+ml-zh-prop-density			zh	金的密度是多少	PROPERTY_LOOKUP	density			
+ml-zh-prop-melt			zh	铁的熔点	PROPERTY_LOOKUP	melting_point			
+ml-zh-prop-number			zh	银的原子序数	PROPERTY_LOOKUP	atomic_number			
+ml-zh-prop-symbol			zh	锡的符号是什么	PROPERTY_LOOKUP	symbol			
+ml-zh-sup-melt			zh	哪种元素的熔点最高	SUPERLATIVE	melting_point			
+ml-zh-sup-dense			zh	最致密的元素是哪个	SUPERLATIVE	density			
+ml-zh-filter-radio			zh	哪些元素有放射性	FILTER_LIST				
+ml-zh-filter-noble			zh	稀有气体有哪些	FILTER_LIST				
+ml-zh-compare			zh	比较金和银	COMPARISON				
+ml-zh-comparative			zh	金比铅更致密吗	COMPARATIVE	density			
+ml-zh-agg-average			zh	过渡金属的平均密度是多少	AGGREGATE	density			
+ml-zh-agg-count			zh	有多少种元素	AGGREGATE				
+ml-zh-isotopes			zh	碳的同位素有哪些	ISOTOPES				
+ml-zh-safety			zh	砷危险吗	SAFETY				
+ml-zh-formula			zh	H2O的摩尔质量是多少	FORMULA_MASS				
+ml-zh-category			zh	铜的热学性质	CATEGORY_LOOKUP				
+ml-zh-defer-greet			zh	你好				y	
+ml-zh-defer-quiz			zh	给我出个测验				y	
+ml-zh-defer-react			zh	钠与水反应会发生什么				y	
+ml-zh-threshold			zh	哪些元素在2000开尔文以上熔化	FILTER_LIST	melting_point			
+ml-zh-unit			zh	钨的熔点用摄氏度	PROPERTY_LOOKUP	melting_point			
+ml-zh-nuclide			zh	碳-14有多少个中子	NUCLIDE_COUNT				

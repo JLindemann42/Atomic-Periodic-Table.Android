@@ -1,0 +1,103 @@
+# Questions that need more than one hop.
+#
+# Everything in the other files exercises one mechanism at a time: a filter, or a superlative, or a
+# unit. These combine them — a subset *and* a threshold *and* an ordinal, a comparison whose operand
+# is itself derived, an aggregate over a negated set. That combination is the whole reason the plan
+# is a structure rather than a keyword branch, and it is the part with no coverage until now.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+# ---- Subset plus threshold ----------------------------------------------------------------------
+cpx-st-1			en	which transition metals melt above 2000 kelvin	FILTER_LIST	melting_point			
+cpx-st-2			en	which transition metals are denser than 15	FILTER_LIST	density			
+cpx-st-3			en	which noble gases boil below 100 kelvin	FILTER_LIST	boiling_point			
+cpx-st-4			en	which alkali metals melt below 100 celsius	FILTER_LIST	melting_point			
+cpx-st-5			en	which lanthanides are denser than 8	FILTER_LIST	density			
+cpx-st-6			en	which nonmetals have electronegativity above 3	FILTER_LIST	electronegativity			
+cpx-st-7			en	which halogens melt below 0 celsius	FILTER_LIST	melting_point			
+cpx-st-8			en	which actinides are denser than uranium	FILTER_LIST	density			threshold given as an element
+cpx-st-9			en	which transition metals are lighter than titanium	FILTER_LIST	density			
+cpx-st-10			en	which metalloids melt above 1000 kelvin	FILTER_LIST	melting_point			
+# ---- Subset plus superlative --------------------------------------------------------------------
+cpx-ss-1			en	what is the densest transition metal	SUPERLATIVE	density			
+cpx-ss-2			en	which halogen has the highest boiling point	SUPERLATIVE	boiling_point			
+cpx-ss-3			en	the least dense alkali metal	SUPERLATIVE	density			
+cpx-ss-4			en	which lanthanide has the highest melting point	SUPERLATIVE	melting_point			
+cpx-ss-5			en	the most electronegative nonmetal	SUPERLATIVE	electronegativity			
+cpx-ss-6			en	which noble gas has the highest atomic mass	SUPERLATIVE	atomic_mass			
+cpx-ss-7			en	the hardest transition metal	SUPERLATIVE	mohs_hardness			
+cpx-ss-8			en	which actinide has the highest density	SUPERLATIVE	density			
+# ---- Ordinal inside a subset --------------------------------------------------------------------
+cpx-ord-1			en	what is the second densest transition metal	SUPERLATIVE	density			
+cpx-ord-2			en	the third heaviest noble gas	SUPERLATIVE	atomic_mass			
+cpx-ord-3			en	the second most electronegative halogen	SUPERLATIVE	electronegativity			
+cpx-ord-4			en	which is the fourth densest element	SUPERLATIVE	density			
+# ---- Ranges, and ranges inside a subset ---------------------------------------------------------
+cpx-rng-1			en	which elements melt between 1000 and 2000 kelvin	FILTER_LIST	melting_point			
+cpx-rng-2			en	which transition metals melt between 1500 and 2500 kelvin	FILTER_LIST	melting_point			
+cpx-rng-3			en	elements with atomic mass between 100 and 150	FILTER_LIST	atomic_mass			
+cpx-rng-4			en	which elements have density between 19 and 23	FILTER_LIST	density			
+# ---- Negation, alone and combined ---------------------------------------------------------------
+cpx-neg-1			en	which noble gases are not radioactive	FILTER_LIST				
+cpx-neg-2			en	which transition metals are not radioactive	FILTER_LIST				
+cpx-neg-3			en	which elements are not metals	FILTER_LIST				
+cpx-neg-4			en	which halogens are not gases	FILTER_LIST				
+cpx-neg-5			en	which elements do not occur naturally	FILTER_LIST				
+# ---- Aggregates over a constrained set -----------------------------------------------------------
+cpx-agg-1			en	what is the average density of the transition metals	AGGREGATE	density			
+cpx-agg-2			en	the median melting point of the lanthanides	AGGREGATE	melting_point			
+cpx-agg-3			en	how many transition metals are radioactive	AGGREGATE				
+cpx-agg-4			en	how many elements melt above 3000 kelvin	AGGREGATE				
+cpx-agg-5			en	what is the average atomic mass of the noble gases	AGGREGATE	atomic_mass			
+cpx-agg-6			en	how many halogens are gases at room temperature	AGGREGATE				
+cpx-agg-7			en	the average electronegativity of the nonmetals	AGGREGATE	electronegativity			
+cpx-agg-8			en	how many elements are in period 4	AGGREGATE				
+# ---- Derived fields, which exist in no JSON key ---------------------------------------------------
+cpx-drv-1			en	which elements are in period 3	FILTER_LIST				period is derived from atomic number
+cpx-drv-2			en	which elements are in group 17	FILTER_LIST				
+cpx-drv-3			en	how many valence electrons does chlorine have	PROPERTY_LOOKUP	valence_electrons			
+cpx-drv-4			en	which elements are synthetic	FILTER_LIST				
+cpx-drv-5			en	what is the heaviest naturally occurring element	SUPERLATIVE	atomic_mass			must exclude synthetics
+cpx-drv-6			en	which elements in group 1 are radioactive	FILTER_LIST				
+cpx-drv-7			en	what period is uranium in	PROPERTY_LOOKUP	period			
+# ---- Cross-referencing one element against a set --------------------------------------------------
+cpx-xref-1			en	which elements are in the same group as carbon	FILTER_LIST				
+cpx-xref-2			en	which elements are in the same period as iron	FILTER_LIST				
+cpx-xref-3			en	which elements are denser than gold	FILTER_LIST	density			
+cpx-xref-4			en	which elements melt at a higher temperature than tungsten	FILTER_LIST	melting_point			
+cpx-xref-5			en	which metals are lighter than aluminium	FILTER_LIST	density			
+# ---- Comparisons with more than two operands ------------------------------------------------------
+cpx-cmp-1			en	compare gold silver and copper on density and melting point	COMPARISON	density,melting_point			
+cpx-cmp-2			en	compare iron cobalt and nickel on atomic mass	COMPARISON	atomic_mass			
+cpx-cmp-3			en	compare the halogens on electronegativity	FILTER_LIST	electronegativity			no elements named: the family ranked by the field is the answer
+cpx-cmp-4			en	how much denser is osmium than aluminium	COMPARATIVE	density			
+cpx-cmp-5			en	how many times heavier is uranium than carbon	COMPARATIVE	atomic_mass			
+cpx-cmp-6			en	is tungsten harder than iron	COMPARATIVE	mohs_hardness			
+# ---- Units inside a computed question --------------------------------------------------------------
+cpx-unit-1			en	which elements melt above 2000 celsius	FILTER_LIST	melting_point			
+cpx-unit-2			en	what is the melting point of tungsten in fahrenheit	PROPERTY_LOOKUP	melting_point			
+cpx-unit-3			en	which transition metals melt above 3000 fahrenheit	FILTER_LIST	melting_point			
+cpx-unit-4			en	the average melting point of the alkali metals in celsius	AGGREGATE	melting_point			
+# ---- Banked fields addressed by slot ----------------------------------------------------------------
+cpx-bank-1			en	what is the third ionization energy of aluminium	PROPERTY_LOOKUP	ionization_energy	IONIZATION_SERIES		
+cpx-bank-2			en	the second ionization energy of magnesium	PROPERTY_LOOKUP	ionization_energy	IONIZATION_SERIES		
+cpx-bank-3			en	first ionization energy of caesium in ev	PROPERTY_LOOKUP	ionization_energy	none		only 2 steps recorded; the >=3 card guard must suppress it
+# ---- Chemistry that combines a calculation with a lookup ---------------------------------------------
+cpx-chem-1			en	what is the molar mass of Ca(OH)2	FORMULA_MASS				
+cpx-chem-2			en	what is the percentage composition of Fe2O3	FORMULA_MASS				
+cpx-chem-3			en	how many atoms are in 2.5 moles of iron	MOLE_CONVERSION				
+cpx-chem-4			en	how many neutrons does plutonium 244 have	NUCLIDE_COUNT				
+cpx-chem-5			en	compare uranium-235 and uranium-238	ISOTOPE_COMPARISON				
+# ---- Honest limits: understood, but the data is absent -----------------------------------------------
+cpx-lim-1			en	which elements have a recorded curie point	FILTER_LIST	curie_point			sparse field; the answer must say how sparse
+cpx-lim-2			en	what is the superconducting point of gold	PROPERTY_LOOKUP	superconducting_point			no value
+cpx-lim-3			en	the average poisson ratio of the noble gases	AGGREGATE	poisson_ratio			almost nothing to average
+# ---- Complex, in other languages ----------------------------------------------------------------------
+cpx-sv-1			sv	vilka övergångsmetaller smälter över 2000 kelvin	FILTER_LIST	melting_point			
+cpx-sv-2			sv	vilken är den tätaste övergångsmetallen	SUPERLATIVE	density			
+cpx-sv-3			sv	vad är genomsnittlig densitet för övergångsmetallerna	AGGREGATE	density			
+cpx-sv-4			sv	vilka grundämnen är tätare än guld	FILTER_LIST	density			
+cpx-sv-5			sv	hur mycket tätare är osmium än aluminium	COMPARATIVE	density			
+cpx-de-1			de	welche übergangsmetalle schmelzen über 2000 kelvin	FILTER_LIST	melting_point			
+cpx-de-2			de	welches ist das dichteste übergangsmetall	SUPERLATIVE	density			
+cpx-de-3			de	wie viele elemente sind radioaktiv	AGGREGATE				
+cpx-fr-1			fr	quels éléments sont plus denses que l'or	FILTER_LIST	density			
+cpx-es-1			es	qué elementos son más densos que el oro	FILTER_LIST	density			

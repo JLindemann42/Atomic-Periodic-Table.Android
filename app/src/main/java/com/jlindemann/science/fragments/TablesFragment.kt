@@ -76,7 +76,8 @@ class TablesFragment : BaseFragment(), TableAdapter.OnTableItemClickListener {
             TableItem("nuc", R.string.table_nuclide, R.string.table_nuclide_text, proPrefValue != 100, 7),
             TableItem("con", R.string.constants_tite, R.string.table_constants_text, proPrefValue != 100, 8),
             TableItem("geo", R.string.table_geology, R.string.table_geology_text, proPrefValue != 100, 9),
-            TableItem("emi", R.string.emission_title, R.string.emission_text, proPrefValue != 100, 10)
+            TableItem("emi", R.string.emission_title, R.string.emission_text, proPrefValue != 100, 10),
+            TableItem("alo", R.string.table_alloy, R.string.table_alloy_text, proPrefValue != 100, 11)
         )
 
         val savedOrder = tableOrderPreference.getOrder()
@@ -120,6 +121,7 @@ class TablesFragment : BaseFragment(), TableAdapter.OnTableItemClickListener {
             "con" -> ConstantsActivity::class.java
             "geo" -> GeologyActivity::class.java
             "emi" -> EmissionActivity::class.java
+            "alo" -> AlloyActivity::class.java
             else -> return
         }
         startActivity(Intent(requireContext(), activityClass))
@@ -138,7 +140,8 @@ class TablesFragment : BaseFragment(), TableAdapter.OnTableItemClickListener {
             root.findViewById(R.id.most_1), root.findViewById(R.id.most_2), root.findViewById(R.id.most_3),
             root.findViewById(R.id.most_4), root.findViewById(R.id.most_5), root.findViewById(R.id.most_6),
             root.findViewById(R.id.most_7), root.findViewById(R.id.most_8), root.findViewById(R.id.most_9),
-            root.findViewById(R.id.most_10), root.findViewById(R.id.most_11)
+            root.findViewById(R.id.most_10), root.findViewById(R.id.most_11),
+            root.findViewById(R.id.most_12)
         )
 
         sortedValues.forEachIndexed { index, pair ->
@@ -156,6 +159,7 @@ class TablesFragment : BaseFragment(), TableAdapter.OnTableItemClickListener {
                     "ele" -> getString(R.string.ele)
                     "iso" -> getString(R.string.iso)
                     "emi" -> getString(R.string.emi)
+                    "alo" -> getString(R.string.alo)
                     else -> ""
                 }
 
@@ -163,7 +167,7 @@ class TablesFragment : BaseFragment(), TableAdapter.OnTableItemClickListener {
                     chip.text = text
                     chip.visibility = View.VISIBLE
                     chip.setOnClickListener {
-                        if (proPrefValue != 100 && listOf("poi", "nuc", "con", "geo", "emi").contains(pair.first)) {
+                        if (proPrefValue != 100 && listOf("poi", "nuc", "con", "geo", "emi", "alo").contains(pair.first)) {
                             (requireActivity() as? BaseActivity)?.goToProPage()
                         } else {
                             val activityClass = when (pair.first) {
@@ -178,6 +182,7 @@ class TablesFragment : BaseFragment(), TableAdapter.OnTableItemClickListener {
                                 "con" -> ConstantsActivity::class.java
                                 "geo" -> GeologyActivity::class.java
                                 "emi" -> EmissionActivity::class.java
+                                "alo" -> AlloyActivity::class.java
                                 else -> null
                             }
                             activityClass?.let { startActivity(Intent(requireContext(), it)) }

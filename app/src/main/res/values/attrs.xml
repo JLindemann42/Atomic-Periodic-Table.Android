@@ -26,4 +26,17 @@
         <attr name="appWidgetBackgroundColor" format="color" />
         <attr name="appWidgetTextColor" format="color" />
     </declare-styleable>
+
+    <!--
+      Lets a layout embed the crystal model without its two screen-oriented behaviours. Both default
+      to true, so d_grid.xml — the element screen — needs no change at all.
+    -->
+    <declare-styleable name="CrystalStructureView">
+        <!-- Turn the model on its own. Off inside a list, where a permanent animator invalidates
+             every frame for every pooled row. -->
+        <attr name="autoRotate" format="boolean" />
+        <!-- Drag to rotate. Off inside a scrolling container, which would otherwise never see the
+             gesture. -->
+        <attr name="interactive" format="boolean" />
+    </declare-styleable>
 </resources>

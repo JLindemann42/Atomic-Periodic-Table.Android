@@ -18,11 +18,33 @@ enum class Dimension {
     AREA, DIMENSIONLESS
 }
 
+/**
+ * What a user must own to see a field's value.
+ *
+ * The element screens already gate these; the agent has to gate the same set or it becomes a way
+ * around the paywall — "what is the Young's modulus of gold" would answer in full what the Mechanical
+ * section shows as a lock. Declared alongside the field rather than as a list somewhere else, so the
+ * entitlement travels with the thing it protects and a new field cannot quietly default to free
+ * without someone writing it down.
+ */
+enum class Tier {
+    FREE,
+
+    /** Behind the PRO subscription, matching `InfoExtension`'s `proPrefValue == 100` blocks. */
+    PRO,
+
+    /** Behind PRO+, matching the compound-analysis gate in the legacy handlers. */
+    PRO_PLUS
+}
+
 /** Where a citation for this field should send the user. */
 enum class DeepLinkTarget {
     ELEMENT_INFO, NUCLIDE, EMISSION, CONSTANTS, DICTIONARY, EQUATIONS, POISSON, GEOLOGY,
     SOLUBILITY, ION, ELECTRODE, PH, MOLAR_MASS_CALC, UNIT_CONVERTER, IDEAL_GAS,
-    REACTION_BALANCER, LEARNING_GAMES, FLASHCARDS, RESEND_QUERY
+    REACTION_BALANCER, LEARNING_GAMES, FLASHCARDS, RESEND_QUERY,
+
+    /** The PRO page, for an answer withheld behind the paywall. */
+    PRO_PAGE
 }
 
 /**
@@ -50,8 +72,23 @@ data class FieldSpec(
     val localized: Boolean = false,
     val higherIsMore: Boolean = true,
     val ordinalRange: IntRange? = null,
-    val enumValues: List<String> = emptyList()
+    val enumValues: List<String> = emptyList(),
+    /**
+     * A label that reads correctly inside a sentence, when [labelRes] does not.
+     *
+     * Reusing the element screens' labels gives free aliases in every locale and is excellent for
+     * *parsing*. It is wrong for *rendering*: those labels are table headings, and the abundance
+     * ones are prepositional phrases. Dropping "I jordskorpan" into the property template produced
+     * "Titan:s I jordskorpan är 4500" — two defects in one sentence. Null means [labelRes] already
+     * reads as a noun phrase.
+     */
+    @StringRes val sentenceLabelRes: Int? = null,
+    /** What the user must own to be told this value. See [Tier]. */
+    val tier: Tier = Tier.FREE
 ) {
+    /** The label to use inside a sentence, which is [sentenceLabelRes] when one is defined. */
+    @StringRes fun sentenceLabel(): Int = sentenceLabelRes ?: labelRes
+
     /** The JSON key for a 1-based slot of a banked field, or the primary key when not banked. */
     fun jsonKeyForOrdinal(ordinal: Int?): String {
         val range = ordinalRange ?: return jsonKeys.first()
@@ -157,7 +194,7 @@ object FieldRegistry {
         add(spec("atomic_radius_empirical", "element_atomic_radius_e", FieldKind.NUMERIC, FieldCategory.ATOMIC, R.string.atomic_radius_empirical_colon, Dimension.LENGTH, "pm"))
         add(spec("covalent_radius", "element_covalent_radius", FieldKind.NUMERIC, FieldCategory.ATOMIC, R.string.covalent_radius_colon, Dimension.LENGTH, "pm"))
         add(spec("van_der_waals_radius", "element_van_der_waals", FieldKind.NUMERIC, FieldCategory.ATOMIC, R.string.van_der_waals_radius_colon, Dimension.LENGTH, "pm"))
-        add(spec("electron_affinity", "electron_affinity", FieldKind.NUMERIC, FieldCategory.ATOMIC, R.string.electron_affinity_colon, Dimension.ENERGY_PER_MOL, "kJ/mol"))
+        add(spec("electron_affinity", "electron_affinity", FieldKind.NUMERIC, FieldCategory.ATOMIC, R.string.electron_affinity_colon, Dimension.ENERGY_PER_MOL, "kJ/mol", tier = Tier.PRO))
         add(spec("work_function", "work_function", FieldKind.NUMERIC, FieldCategory.ATOMIC, R.string.work_function_colon, Dimension.ENERGY, "eV"))
         add(spec("molar_volume", "molar_volume", FieldKind.NUMERIC, FieldCategory.ATOMIC, R.string.molar_volume_colon, Dimension.VOLUME_PER_MOL, "cm³/mol"))
         add(spec("ion_charge", "element_ion_charge", FieldKind.TEXT, FieldCategory.ATOMIC, R.string.ion_charge_colon))
@@ -189,27 +226,27 @@ object FieldRegistry {
         add(spec("resistivity", "resistivity", FieldKind.NUMERIC, FieldCategory.ELECTROMAGNETIC, R.string.electrical_resistivity_colon, Dimension.RESISTIVITY, "nΩm"))
         add(spec("magnetic_type", "magnetic_type", FieldKind.ENUM, FieldCategory.ELECTROMAGNETIC, R.string.magnetic_type_colon, localized = true))
         add(spec("superconducting_point", "superconducting_point", FieldKind.NUMERIC, FieldCategory.ELECTROMAGNETIC, R.string.superconducting_point_colon, Dimension.TEMPERATURE, "K", allowsRange = true))
-        add(spec("curie_point", "curie_point", FieldKind.NUMERIC, FieldCategory.ELECTROMAGNETIC, R.string.curie_point_colon, Dimension.TEMPERATURE, "K"))
-        add(spec("neel_point", "neel_point", FieldKind.NUMERIC, FieldCategory.ELECTROMAGNETIC, R.string.neel_point_colon, Dimension.TEMPERATURE, "K"))
-        add(spec("refractive_index", "refractive_index", FieldKind.NUMERIC, FieldCategory.ELECTROMAGNETIC, R.string.refractive_index_colon, Dimension.DIMENSIONLESS, allowsRange = true))
+        add(spec("curie_point", "curie_point", FieldKind.NUMERIC, FieldCategory.ELECTROMAGNETIC, R.string.curie_point_colon, Dimension.TEMPERATURE, "K", tier = Tier.PRO))
+        add(spec("neel_point", "neel_point", FieldKind.NUMERIC, FieldCategory.ELECTROMAGNETIC, R.string.neel_point_colon, Dimension.TEMPERATURE, "K", tier = Tier.PRO))
+        add(spec("refractive_index", "refractive_index", FieldKind.NUMERIC, FieldCategory.ELECTROMAGNETIC, R.string.refractive_index_colon, Dimension.DIMENSIONLESS, allowsRange = true, tier = Tier.PRO))
 
         // ---- Crystal --------------------------------------------------------------------
         add(spec("crystal_structure", "crystal_structure", FieldKind.ENUM, FieldCategory.CRYSTAL, R.string.crystal_structure))
         add(spec("lattice_constants", "lattice_constants", FieldKind.STRUCT, FieldCategory.CRYSTAL, R.string.crystal_structure, Dimension.LENGTH, "Å"))
-        add(spec("space_group_name", "space_group_name", FieldKind.TEXT, FieldCategory.CRYSTAL, R.string.space_group_name_colon))
-        add(spec("space_group_number", "space_group_number", FieldKind.NUMERIC, FieldCategory.CRYSTAL, R.string.space_group_number_colon))
+        add(spec("space_group_name", "space_group_name", FieldKind.TEXT, FieldCategory.CRYSTAL, R.string.space_group_name_colon, tier = Tier.PRO))
+        add(spec("space_group_number", "space_group_number", FieldKind.NUMERIC, FieldCategory.CRYSTAL, R.string.space_group_number_colon, tier = Tier.PRO))
 
         // ---- Mechanical -----------------------------------------------------------------
-        add(spec("young_modulus", "young_modulus", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_young_modulus, Dimension.PRESSURE, "GPa", allowsRange = true))
-        add(spec("bulk_modulus", "bulk_modulus", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_bulk_modulus, Dimension.PRESSURE, "GPa", allowsRange = true))
-        add(spec("shear_modulus", "shear_modulus", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_shear_modulus, Dimension.PRESSURE, "GPa", allowsRange = true))
-        add(spec("poisson_ratio", "poisson_ratio", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_poisson_ratio, Dimension.DIMENSIONLESS, allowsRange = true, deepLink = DeepLinkTarget.POISSON))
-        add(spec("mohs_hardness", "mohs_hardness", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.mohs_hardness_colon, Dimension.DIMENSIONLESS, allowsRange = true))
-        add(spec("vickers_hardness", "vickers_hardness", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.vickers_hardness_colon, Dimension.PRESSURE, "MPa", allowsRange = true))
-        add(spec("brinell_hardness", "brinell_hardness", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.brinell_hardness_colon, Dimension.PRESSURE, "MPa", allowsRange = true))
-        add(spec("speed_of_sound_solid", "speed_of_sound_solid", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_speed_sound, Dimension.VELOCITY, "m/s", allowsRange = true))
-        add(spec("speed_of_sound_liquid", "speed_of_sound_liquid", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_speed_sound, Dimension.VELOCITY, "m/s", allowsRange = true))
-        add(spec("speed_of_sound_gas", "speed_of_sound_gas", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_speed_sound, Dimension.VELOCITY, "m/s", allowsRange = true))
+        add(spec("young_modulus", "young_modulus", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_young_modulus, Dimension.PRESSURE, "GPa", allowsRange = true, tier = Tier.PRO))
+        add(spec("bulk_modulus", "bulk_modulus", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_bulk_modulus, Dimension.PRESSURE, "GPa", allowsRange = true, tier = Tier.PRO))
+        add(spec("shear_modulus", "shear_modulus", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_shear_modulus, Dimension.PRESSURE, "GPa", allowsRange = true, tier = Tier.PRO))
+        add(spec("poisson_ratio", "poisson_ratio", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_poisson_ratio, Dimension.DIMENSIONLESS, allowsRange = true, deepLink = DeepLinkTarget.POISSON, tier = Tier.PRO))
+        add(spec("mohs_hardness", "mohs_hardness", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.mohs_hardness_colon, Dimension.DIMENSIONLESS, allowsRange = true, tier = Tier.PRO))
+        add(spec("vickers_hardness", "vickers_hardness", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.vickers_hardness_colon, Dimension.PRESSURE, "MPa", allowsRange = true, tier = Tier.PRO))
+        add(spec("brinell_hardness", "brinell_hardness", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.brinell_hardness_colon, Dimension.PRESSURE, "MPa", allowsRange = true, tier = Tier.PRO))
+        add(spec("speed_of_sound_solid", "speed_of_sound_solid", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_speed_sound, Dimension.VELOCITY, "m/s", allowsRange = true, tier = Tier.PRO))
+        add(spec("speed_of_sound_liquid", "speed_of_sound_liquid", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_speed_sound, Dimension.VELOCITY, "m/s", allowsRange = true, tier = Tier.PRO))
+        add(spec("speed_of_sound_gas", "speed_of_sound_gas", FieldKind.NUMERIC, FieldCategory.MECHANICAL, R.string.element_speed_sound, Dimension.VELOCITY, "m/s", allowsRange = true, tier = Tier.PRO))
 
         // ---- Nuclear --------------------------------------------------------------------
         add(spec("radioactive", "radioactive", FieldKind.ENUM, FieldCategory.NUCLEAR, R.string.radioactive_colon))
@@ -217,21 +254,27 @@ object FieldRegistry {
         add(spec("common_neutrons", "element_neutron_common", FieldKind.NUMERIC, FieldCategory.NUCLEAR, R.string.isotopes_colon, deepLink = DeepLinkTarget.NUCLIDE))
 
         // ---- Abundance ------------------------------------------------------------------
-        add(abundance("abundance_earth_crust", "earth_crust", R.string.abundance_earth_crust))
-        add(abundance("abundance_earth_soils", "earth_soils", R.string.abundance_earth_soils))
-        add(abundance("abundance_urban_soils", "urban_soils", R.string.abundance_urban_soil))
-        add(abundance("abundance_sea_water", "sea_water", R.string.abundance_sea_water))
-        add(abundance("abundance_crustal_rocks", "crustal_rocks", R.string.abundance_crustal_rocks))
-        add(abundance("abundance_sun", "sun", R.string.abundance_sun))
-        add(abundance("abundance_solar_system", "solar_system", R.string.abundance_solar_system))
-        add(abundance("abundance_meteorites", "meteorites", R.string.abundance_meteorites))
-        add(abundance("abundance_human_body", "human_body", R.string.abundance_human_body))
+        // Every abundance label is a table heading phrased as a prepositional phrase — "In the
+        // Earth's crust", "I jordskorpan" — so each carries a sentence form as well.
+        add(abundance("abundance_earth_crust", "earth_crust", R.string.abundance_earth_crust, R.string.ai_field_abundance_earth_crust))
+        add(abundance("abundance_earth_soils", "earth_soils", R.string.abundance_earth_soils, R.string.ai_field_abundance_earth_soils))
+        add(abundance("abundance_urban_soils", "urban_soils", R.string.abundance_urban_soil, R.string.ai_field_abundance_urban_soils))
+        add(abundance("abundance_sea_water", "sea_water", R.string.abundance_sea_water, R.string.ai_field_abundance_sea_water))
+        add(abundance("abundance_crustal_rocks", "crustal_rocks", R.string.abundance_crustal_rocks, R.string.ai_field_abundance_crustal_rocks))
+        add(abundance("abundance_sun", "sun", R.string.abundance_sun, R.string.ai_field_abundance_sun))
+        add(abundance("abundance_solar_system", "solar_system", R.string.abundance_solar_system, R.string.ai_field_abundance_solar_system))
+        add(abundance("abundance_meteorites", "meteorites", R.string.abundance_meteorites, R.string.ai_field_abundance_meteorites))
+        add(abundance("abundance_human_body", "human_body", R.string.abundance_human_body, R.string.ai_field_abundance_human_body))
 
         // ---- Safety (NFPA 704) ----------------------------------------------------------
-        add(spec("nfpa_health", "health", FieldKind.NUMERIC, FieldCategory.SAFETY, R.string.ai_safety_health))
-        add(spec("nfpa_flammability", "flammability", FieldKind.NUMERIC, FieldCategory.SAFETY, R.string.ai_safety_flammability))
-        add(spec("nfpa_instability", "instability", FieldKind.NUMERIC, FieldCategory.SAFETY, R.string.ai_safety_instability))
-        add(spec("nfpa_special", "special", FieldKind.TEXT, FieldCategory.SAFETY, R.string.ai_safety_health))
+        // Labels, not sentence templates. These four used to point at `ai_safety_health` and its
+        // siblings — "• **Health:** %1$d/4 (%2$s)" — which a label lookup resolves with no
+        // arguments, so the placeholders reached the screen verbatim. `nfpa_special` pointed at the
+        // *health* template on top of that, so it was mislabelled as well as malformed.
+        add(spec("nfpa_health", "health", FieldKind.NUMERIC, FieldCategory.SAFETY, R.string.ai_field_nfpa_health, tier = Tier.PRO))
+        add(spec("nfpa_flammability", "flammability", FieldKind.NUMERIC, FieldCategory.SAFETY, R.string.ai_field_nfpa_flammability, tier = Tier.PRO))
+        add(spec("nfpa_instability", "instability", FieldKind.NUMERIC, FieldCategory.SAFETY, R.string.ai_field_nfpa_instability, tier = Tier.PRO))
+        add(spec("nfpa_special", "special", FieldKind.TEXT, FieldCategory.SAFETY, R.string.ai_field_nfpa_special, tier = Tier.PRO))
 
         // ---- Identifiers ----------------------------------------------------------------
         add(spec("cas_number", "cas_number", FieldKind.ID, FieldCategory.IDS, R.string.cas_number_colon))
@@ -308,10 +351,12 @@ object FieldRegistry {
         deepLink: DeepLinkTarget = DeepLinkTarget.ELEMENT_INFO,
         allowsRange: Boolean = false,
         localized: Boolean = false,
-        higherIsMore: Boolean = true
+        higherIsMore: Boolean = true,
+        /** What the user must own to be told this value; see [Tier]. */
+        tier: Tier = Tier.FREE
     ) = FieldSpec(
         id, listOf(jsonKey), kind, category, labelRes, dimension, canonicalUnit,
-        deepLink, allowsRange, localized, higherIsMore
+        deepLink, allowsRange, localized, higherIsMore, tier = tier
     )
 
     /** Temperature fields that ship all three scales, so a unit request needs no conversion. */
@@ -321,9 +366,14 @@ object FieldRegistry {
             Dimension.TEMPERATURE, "K"
         )
 
-    private fun abundance(id: String, jsonKey: String, @StringRes labelRes: Int) =
+    private fun abundance(
+        id: String,
+        jsonKey: String,
+        @StringRes labelRes: Int,
+        @StringRes sentenceLabelRes: Int? = null
+    ) =
         FieldSpec(
             id, listOf(jsonKey), FieldKind.NUMERIC, FieldCategory.ABUNDANCE, labelRes,
-            Dimension.CONCENTRATION, "mg/kg"
+            Dimension.CONCENTRATION, "mg/kg", sentenceLabelRes = sentenceLabelRes
         )
 }

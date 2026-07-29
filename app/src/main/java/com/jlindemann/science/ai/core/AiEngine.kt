@@ -32,12 +32,23 @@ class AiEngine(
     private val localized: LocalizedView?,
     private val strings: StringProvider,
     entities: EntityResolver,
-    retriever: HybridRetriever?
+    retriever: HybridRetriever?,
+    /**
+     * What the user may be told. Defaulted to full access so tests and any existing construction
+     * site are unaffected; the app supplies the real entitlements.
+     */
+    private val entitlements: Entitlements = Entitlements.FULL,
+    /**
+     * Which visuals may be attached. The app passes the user's offline setting through here, so the
+     * chat withholds the emission spectrum image exactly where the element screen already does.
+     */
+    private val cardPolicy: com.jlindemann.science.ai.cards.ChatCardPolicy =
+        com.jlindemann.science.ai.cards.ChatCardPolicy.DEFAULT
 ) {
 
     private val planner = QueryPlanner(store, datasets, entities, FieldResolver(strings), retriever)
-    private val executor = QueryExecutor(store, datasets, localized, strings)
-    private val composer = AnswerComposer(store, localized, strings)
+    private val executor = QueryExecutor(store, datasets, localized, strings, entitlements)
+    private val composer = AnswerComposer(store, localized, strings, cardPolicy)
 
     /**
      * Answer a question, or return null to defer.
@@ -99,7 +110,10 @@ class AiEngine(
         return ComposedAnswer(
             text = answers.joinToString("\n\n") { it.text } +
                     composer.citationsFor(citations.distinctBy { it.label to it.source }),
-            actions = answers.flatMap { it.actions }.distinctBy { it.label }
+            actions = answers.flatMap { it.actions }.distinctBy { it.label },
+            // One card per message. Two visuals in a single bubble is clutter, and it would make the
+            // adapter's view-type scheme combinatorial for no gain.
+            card = answers.firstNotNullOfOrNull { it.card }
         )
     }
 
@@ -156,12 +170,16 @@ class AiEngine(
         is ExecutionResult.Aggregate -> result.contributors.map { it.element.key }
         is ExecutionResult.Isotopes -> listOf(result.element.key)
         is ExecutionResult.Safety -> listOf(result.element.key)
+        is ExecutionResult.EmissionSpectrum -> listOf(result.element.key)
         is ExecutionResult.Comparative -> listOf(result.winner.key, result.loser.key)
         is ExecutionResult.Neighbour -> listOf(result.to.key)
         is ExecutionResult.Nuclide -> listOf(result.element.key)
         is ExecutionResult.IsotopeComparison ->
             listOf(result.left.element.key, result.right.element.key).distinct()
         is ExecutionResult.NoData -> listOfNotNull(result.element?.key)
+        // A withheld answer still establishes what the conversation is about, so a follow-up such
+        // as "and its density?" resolves against the element the user just asked about.
+        is ExecutionResult.Locked -> listOfNotNull(result.element?.key)
         is ExecutionResult.Formula, is ExecutionResult.MoleConversion,
         is ExecutionResult.Dataset, is ExecutionResult.Empty -> emptyList()
     }

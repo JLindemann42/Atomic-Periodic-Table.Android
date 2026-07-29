@@ -1,0 +1,131 @@
+# Queries the grounded engine must decline so the personality layer can answer them.
+#
+# This is the file the old suite could not honestly assert. Every engine test builds the planner
+# with `retriever = null`, so the dataset-retrieval fallback never fires and "quiz me" appears to
+# be declined while the shipped app answers it with the electron mass. The corpus harness wires a
+# real HybridRetriever, so a green row here means the app actually declines.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+def-greet-01			en	hi				y	
+def-greet-02			en	hello				y	
+def-greet-03			en	hey there				y	
+def-greet-04			en	good morning				y	
+def-greet-05			sv	hej				y	
+def-greet-06			sv	hejsan				y	
+def-greet-07			sv	god morgon				y	
+def-greet-08			de	hallo				y	
+def-greet-09			de	guten morgen				y	
+def-greet-10			fr	bonjour				y	
+def-greet-11			es	hola				y	
+def-greet-12			it	ciao				y	
+def-greet-13			pt	olá				y	
+def-greet-14			af	hallo				y	
+def-greet-15			fil	kumusta				y	
+def-greet-16			hi	नमस्ते				y	
+def-greet-17			ur	سلام				y	
+def-greet-18			zh	你好				y	
+def-thanks-01			en	thanks				y	
+def-thanks-02			en	thank you				y	
+def-thanks-03			en	thanks a lot				y	
+def-thanks-04			sv	tack				y	
+def-thanks-05			sv	tack så mycket				y	
+def-thanks-06			de	danke				y	
+def-thanks-07			fr	merci				y	
+def-thanks-08			es	gracias				y	
+def-thanks-09			zh	谢谢				y	
+def-bye-01			en	bye				y	
+def-bye-02			en	goodbye				y	
+def-bye-03			sv	hej då				y	
+def-quiz-01			en	quiz me				y	answered from the constants table before the deferral guard
+def-quiz-02			en	quiz				y	
+def-quiz-03			en	quiz me again				y	
+def-quiz-04			en	test me				y	
+def-quiz-05			en	ask me a question				y	
+def-quiz-06			en	give me a quiz question				y	
+def-quiz-07			sv	fråga mig				y	
+def-quiz-08			sv	frågesport				y	
+def-quiz-09			sv	testa mig				y	
+def-quiz-10			sv	ge mig en fråga				y	
+def-quiz-11			de	quiz mich				y	
+def-quiz-12			de	teste mich				y	
+def-quiz-13			fr	interroge moi				y	
+def-quiz-14			es	hazme una pregunta				y	
+def-quiz-15			zh	测验我				y	
+def-game-01			en	let's play a game				y	
+def-game-02			en	play a game				y	
+def-game-03			sv	kan vi spela ett spel				y	
+def-game-04			de	spielen wir ein spiel				y	
+def-fact-01			en	tell me a fun fact				y	
+def-fact-02			en	give me a fact				y	
+def-fact-03			en	tell me something interesting				y	
+def-fact-04			en	surprise me				y	
+def-fact-05			sv	berätta en kul fakta				y	
+def-fact-06			sv	berätta något intressant				y	
+def-fact-07			de	erzähl mir einen fakt				y	
+def-joke-01			en	tell me a joke				y	
+def-joke-02			sv	berätta ett skämt				y	
+def-joke-03			de	erzähl mir einen witz				y	
+def-affirm-01			en	yes				y	conversational state, not a query
+def-affirm-02			en	yeah				y	
+def-affirm-03			en	sure				y	
+def-affirm-04			en	ok				y	
+def-affirm-05			sv	ja				y	
+def-affirm-06			sv	javisst				y	
+def-affirm-07			de	ja				y	
+def-affirm-08			fr	oui				y	
+def-negate-01			en	no				y	
+def-negate-02			sv	nej				y	
+def-negate-03			de	nein				y	
+def-react-01			en	what is the most reactive element				y	reactivity is scored from group and position, not stored
+def-react-02			en	which element is least reactive				y	
+def-react-03			en	how reactive is sodium				y	
+def-react-04			en	is caesium reactive				y	
+def-react-05			sv	vilket grundämne är mest reaktivt				y	
+def-react-06			sv	hur reaktivt är natrium				y	
+def-react-07			de	welches element ist am reaktivsten				y	
+def-react-08			es	cuál es el elemento más reactivo				y	
+def-reaction-01			en	what happens when sodium and chlorine react				y	chemistry, not a two-element property comparison
+def-reaction-02			en	how do hydrogen and oxygen react				y	
+def-reaction-03			en	does iron react with water				y	
+def-reaction-04			sv	vad händer när natrium och klor reagerar				y	
+def-reaction-05			de	wie reagieren wasserstoff und sauerstoff				y	
+def-similar-01			en	which element is similar to carbon				y	similarity is a judgement over several properties
+def-similar-02			en	what elements are like sodium				y	
+def-similar-03			sv	vilket grundämne liknar kol				y	
+def-similar-04			de	welches element ist ähnlich wie kohlenstoff				y	
+def-overview-01			en	tell me about gold				y	narrative, belongs to the personality layer
+def-overview-02			en	what is gold				y	
+def-overview-03			en	gold				y	
+def-overview-04			en	tell me about iron				y	
+def-overview-05			sv	berätta om guld				y	
+def-overview-06			sv	vad är guld				y	
+def-overview-07			de	erzähl mir über gold				y	
+def-overview-08			fr	parle moi de l'or				y	
+def-usage-01			en	what is titanium used for				y	usage is narrative; must never inherit a stale field
+def-usage-02			en	what are the uses of copper				y	
+def-usage-03			en	what are the applications of tungsten				y	
+def-usage-04			en	how is helium used				y	
+def-usage-05			sv	vad används titan till				y	
+def-usage-06			sv	användning av titan				y	
+def-usage-07			sv	vad har koppar för användning				y	
+def-usage-08			de	wofür wird titan verwendet				y	
+def-usage-09			de	verwendung von kupfer				y	
+def-usage-10			fr	à quoi sert le titane				y	
+def-usage-11			es	para qué se usa el titanio				y	
+def-usage-12			pt	para que serve o titânio				y	
+def-bio-01			en	what is the biological role of iron				y	narrative table
+def-bio-02			en	is zinc important for the body				y	
+def-bio-03			sv	vilken biologisk roll har järn				y	
+def-etym-01			en	where does the name gold come from				y	etymology is narrative
+def-etym-02			en	why is it called tungsten				y	
+def-etym-03			sv	varifrån kommer namnet guld				y	
+def-help-01			en	what can you do				y	
+def-help-02			en	help				y	
+def-help-03			sv	vad kan du göra				y	
+def-help-04			sv	hjälp				y	
+def-offtopic-01			en	what is the weather today				y	
+def-offtopic-02			en	who won the world cup				y	
+def-offtopic-03			en	write me a poem				y	
+def-offtopic-04			sv	vad är vädret idag				y	
+def-nonsense-01			en	asdfghjkl				y	
+def-nonsense-02			en	?????				y	
+def-nonsense-03			en	42				y	

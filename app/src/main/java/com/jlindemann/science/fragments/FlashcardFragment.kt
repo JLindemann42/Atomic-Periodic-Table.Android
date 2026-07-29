@@ -42,6 +42,10 @@ import com.jlindemann.science.sync.ProgressSyncManager
 import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.util.XpManager
 import com.jlindemann.science.utils.UnifiedTitleBarController
+import com.jlindemann.science.utils.ExamManager
+import com.jlindemann.science.utils.FlashcardCatalog
+import com.jlindemann.science.utils.FlashcardCatalog.CategorySpec
+import com.jlindemann.science.utils.FlashcardCatalog.ExamSpec
 import com.jlindemann.science.utils.StreakManager
 import java.util.concurrent.TimeUnit
 
@@ -130,58 +134,9 @@ class FlashcardFragment : BaseFragment() {
         }
     }
 
-    private data class CategorySpec(val key: String, val labelRes: Int, val isPro: Boolean = false)
-    private data class LevelBoxSpec(val range: IntRange, val categories: List<CategorySpec>)
-
     private val createdCategoryRows = mutableListOf<Pair<View, String>>()
+    private val createdExamRows = mutableListOf<Pair<View, ExamSpec>>()
     private val REWARD_LEVELS = listOf(10, 15, 20)
-
-    private val levelBoxesSpec = listOf(
-        LevelBoxSpec(0..4, listOf(
-            CategorySpec("element_symbols", R.string.element_symbols),
-            CategorySpec("element_names", R.string.element_names),
-            CategorySpec("element_classifications", R.string.element_groups),
-            CategorySpec("discovered_by", R.string.discovered_by, isPro = true),
-            CategorySpec("discovery_year", R.string.discovery_year, isPro = true)
-        )),
-        LevelBoxSpec(5..9, listOf(
-            CategorySpec("appearance", R.string.appearance),
-            CategorySpec("atomic_number", R.string.atomic_number),
-            CategorySpec("electrical_type", R.string.electrical_type, isPro = true),
-            CategorySpec("radioactive", R.string.radioactive, isPro = true)
-        )),
-        LevelBoxSpec(10..14, listOf(
-            CategorySpec("atomic_mass", R.string.atomic_mass),
-            CategorySpec("density", R.string.density),
-            CategorySpec("electronegativity", R.string.electronegativity, isPro = true),
-            CategorySpec("block", R.string.block, isPro = true)
-        )),
-        LevelBoxSpec(15..19, listOf(
-            CategorySpec("magnetic_type", R.string.magnetic_type),
-            CategorySpec("phase_stp", R.string.phase_stp),
-            CategorySpec("crystal_structure", R.string.crystal_structure, isPro = true),
-            CategorySpec("superconducting_point", R.string.superconducting_point, isPro = true)
-        )),
-        LevelBoxSpec(20..24, listOf(
-            CategorySpec("neutron_cross_sectional", R.string.neutron_cross_sectional),
-            CategorySpec("specific_heat_capacity", R.string.specific_heat_capacity),
-            CategorySpec("mohs_hardness", R.string.mohs_hardness, isPro = true),
-            CategorySpec("vickers_hardness", R.string.vickers_hardness, isPro = true),
-            CategorySpec("brinell_hardness", R.string.brinell_hardness, isPro = true)
-        )),
-        LevelBoxSpec(25..29, listOf(
-            CategorySpec("element_boiling_celsius", R.string.boiling_point_celsius),
-            CategorySpec("element_boiling_fahrenheit", R.string.boiling_point_fahrenheit),
-            CategorySpec("element_boiling_kelvin", R.string.boiling_point_kelvin),
-            CategorySpec("element_melting_celsius", R.string.melting_point_celsius, isPro = true),
-            CategorySpec("element_melting_fahrenheit", R.string.melting_point_fahrenheit, isPro = true),
-            CategorySpec("element_melting_kelvin", R.string.melting_point_kelvin, isPro = true)
-        )),
-        LevelBoxSpec(30..34, listOf(
-            CategorySpec("earth_crust", R.string.abundance_earth_crust),
-            CategorySpec("earth_soils", R.string.abundance_earth_soils, isPro = true)
-        ))
-    )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_flashcards, container, false)
@@ -318,10 +273,11 @@ class FlashcardFragment : BaseFragment() {
         val container = view.findViewById<LinearLayout>(R.id.boxes_container)
         container.removeAllViews()
         createdCategoryRows.clear()
+        createdExamRows.clear()
 
         val inflater = LayoutInflater.from(requireContext())
         val isProUser = checkProPlusStatus()
-        for (boxSpec in levelBoxesSpec) {
+        for (boxSpec in FlashcardCatalog.levelBoxes) {
             val boxView = inflater.inflate(R.layout.level_box, container, false)
             val titleView = boxView.findViewById<TextView>(R.id.level_box_title)
             val categoriesContainer = boxView.findViewById<LinearLayout>(R.id.level_categories_container)
@@ -387,8 +343,74 @@ class FlashcardFragment : BaseFragment() {
                 rewardsContainer.visibility = View.GONE
             }
             container.addView(boxView)
+
+            FlashcardCatalog.examAfterBox(boxSpec.range)?.let { exam ->
+                container.addView(buildExamBox(inflater, container, exam))
+            }
         }
         updateCategoryBoxes(view)
+    }
+
+    private fun buildExamBox(inflater: LayoutInflater, container: ViewGroup, exam: ExamSpec): View {
+        val examView = inflater.inflate(R.layout.exam_box, container, false)
+        examView.tag = exam
+
+        examView.findViewById<TextView>(R.id.exam_subtitle).text =
+            getString(R.string.exam_test_subtitle, 0, FlashcardCatalog.topLevelForExam(exam))
+        examView.findViewById<TextView>(R.id.exam_pro_badge).visibility =
+            if (exam.isPro) View.VISIBLE else View.GONE
+
+        val startRow = examView.findViewById<View>(R.id.exam_start_row)
+        startRow.setOnClickListener {
+            if (exam.isPro && !checkProPlusStatus()) {
+                (requireActivity() as? BaseActivity)?.goToProPage()
+                return@setOnClickListener
+            }
+            if (!startRow.isEnabled) return@setOnClickListener
+
+            val intent = Intent(requireContext(), LearningGamesActivity::class.java)
+            intent.putExtra("difficulty", getSelectedDifficulty())
+            intent.putExtra("category", exam.key)
+            startActivity(intent)
+        }
+
+        createdExamRows.add(examView to exam)
+        return examView
+    }
+
+    private fun updateExamBoxes() {
+        val userLevel = XpManager.getLevel(XpManager.getXp(requireContext()))
+        val isProUser = checkProPlusStatus()
+        val hasLives = LivesManager.getLives(requireContext()) > 0
+
+        for ((examView, exam) in createdExamRows) {
+            val levelReached = userLevel >= exam.unlockLevel
+            val proSatisfied = !exam.isPro || isProUser
+            val playable = levelReached && proSatisfied && hasLives
+
+            val label = examView.findViewById<TextView>(R.id.exam_start_label)
+            val startRow = examView.findViewById<View>(R.id.exam_start_row)
+            val score = examView.findViewById<TextView>(R.id.exam_score)
+
+            examView.alpha = if (levelReached) 1f else 0.5f
+            startRow.isEnabled = playable
+            startRow.alpha = if (playable) 1f else 0.5f
+
+            label.text = when {
+                !levelReached -> getString(R.string.exam_locked, exam.unlockLevel)
+                !proSatisfied -> getString(R.string.exam_pro_locked)
+                else -> getString(R.string.exam_start)
+            }
+            val lockIcon = if (levelReached && proSatisfied) 0 else R.drawable.ic_lock
+            label.setCompoundDrawablesWithIntrinsicBounds(lockIcon, 0, 0, 0)
+
+            val best = ExamManager.getBestScorePercent(requireContext(), exam.key)
+            score.text = when {
+                best < 0 -> getString(R.string.exam_not_taken)
+                ExamManager.isPassed(requireContext(), exam.key) -> getString(R.string.exam_passed, best)
+                else -> getString(R.string.exam_best_score, best)
+            }
+        }
     }
 
     private fun isRewardClaimed(level: Int): Boolean {
@@ -406,7 +428,7 @@ class FlashcardFragment : BaseFragment() {
         if (userLevel < level) return
         XpManager.addXpBonusMultiplier(requireContext(), 0.05f)
         setRewardClaimed(level)
-        Toast.makeText(requireContext(), "5% XP bonus unlocked at level $level!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), getString(R.string.xp_bonus_unlocked, level), Toast.LENGTH_SHORT).show()
         updateXpAndLevelStats(requireView())
     }
 
@@ -471,9 +493,9 @@ class FlashcardFragment : BaseFragment() {
         val currentLevel = XpManager.getLevel(xp)
         if (lastLevel != -1 && currentLevel > lastLevel) {
             AlertDialog.Builder(requireContext())
-                .setTitle("Level Up!")
-                .setMessage("Congratulations, you've reached level $currentLevel!")
-                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                .setTitle(R.string.level_up_title)
+                .setMessage(getString(R.string.level_up_message, currentLevel))
+                .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
                 .show()
         }
         lastLevel = currentLevel
@@ -539,6 +561,8 @@ class FlashcardFragment : BaseFragment() {
                 }
             }
         }
+
+        updateExamBoxes()
     }
 
     private fun checkProPlusStatus() = ProPlusVersion(requireContext()).getValue() == 100
@@ -586,7 +610,7 @@ class FlashcardFragment : BaseFragment() {
             view.isEnabled && (cat?.isPro == false || checkProPlusStatus())
         }
         if (unlocked.isEmpty()) {
-            Toast.makeText(requireContext(), "No unlocked games available!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.no_unlocked_games), Toast.LENGTH_SHORT).show()
             return
         }
         val (_, category) = unlocked.random()
@@ -621,8 +645,9 @@ class FlashcardFragment : BaseFragment() {
         val refillAmount = LivesManager.getRefillAmount(requireContext())
         val minutes = TimeUnit.MILLISECONDS.toMinutes(millis) % 60
         val seconds = TimeUnit.MILLISECONDS.toSeconds(millis) % 60
+        val gained = resources.getQuantityString(R.plurals.next_life_gain, refillAmount, refillAmount)
         popupView.findViewById<TextView>(R.id.lives_info_text).text = if (lives >= maxLives) getString(R.string.you_have_full_lives)
-        else getString(R.string.next_life_in, minutes, seconds, refillAmount, if (refillAmount > 1) "s" else "")
+        else getString(R.string.next_life_in_detail, minutes, seconds, gained)
     }
 
     private fun updateLoginUiState() {
@@ -696,13 +721,16 @@ class FlashcardFragment : BaseFragment() {
             val gameFinished = intent.getBooleanExtra("game_finished", false)
             val totalQuestions = intent.getIntExtra("total_questions", results.size)
             val difficulty = intent.getStringExtra("difficulty") ?: "easy"
+            val totalXp = intent.getIntExtra("total_xp", 0)
+            val category = intent.getStringExtra("category") ?: "element_symbols"
 
             if (resultDialog?.isVisible == true) return
-            resultDialog = ResultDialogFragment.newInstance(results, gameFinished, totalQuestions, difficulty)
+            resultDialog = ResultDialogFragment.newInstance(results, gameFinished, totalQuestions, difficulty, totalXp, category)
             resultDialog?.show(childFragmentManager, "GameResultsPopup")
-            
+
             view?.let {
                 updateXpAndLevelStats(it)
+                updateCategoryBoxes(it)
                 if (gameFinished) {
                     incrementCompletedQuizzes()
                 }

@@ -339,6 +339,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         Anim.fadeIn(popupView, 300)
         setBackInterceptionEnabled(true)
         findViewById<Button>(R.id.popup_action_button)?.setOnClickListener {
+            Anim.fadeOutAnim(popupView, 300)
             goToProPage()
             setBackInterceptionEnabled(false)
         }

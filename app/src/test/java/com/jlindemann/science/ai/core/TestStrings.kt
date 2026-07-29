@@ -10,15 +10,36 @@ import java.io.File
  * so composed answers can be asserted against the strings users actually see — without needing a
  * Context or Robolectric.
  */
-class TestStrings(override val language: String = "en") : StringProvider {
+class TestStrings(
+    override val language: String = "en",
+    /**
+     * Whether a key missing from this language falls back to English, which is what Android's
+     * resource resolution actually does.
+     *
+     * Off by default, and that default is load-bearing in two opposite directions:
+     *  - **Strict (false)** returns the `str:<id>` sentinel, which makes a missing translation
+     *    visible. `StringCoverageTest` needs exactly this.
+     *  - **Fallback (true)** reproduces production, where a key absent from `values-sv-rSE` is
+     *    served from `values/` and lands in the middle of an otherwise Swedish sentence. Anything
+     *    asserting *routing* in another language needs this, or every Swedish row fails on the
+     *    sentinel before its real expectation is ever evaluated.
+     */
+    private val fallBackToEnglish: Boolean = false
+) : StringProvider {
 
     private val byId: Map<Int, String> by lazy { load(language) }
+    private val fallback: Map<Int, String> by lazy {
+        if (fallBackToEnglish && language != "en") load("en") else emptyMap()
+    }
 
     override fun get(id: Int, vararg args: Any): String {
-        val template = byId[id] ?: return "str:$id"
+        val template = byId[id] ?: fallback[id] ?: return "str:$id"
         if (args.isEmpty()) return template
         return runCatching { String.format(template, *args) }.getOrDefault(template)
     }
+
+    /** True when this language has its own value for the key, rather than borrowing English. */
+    fun hasOwn(id: Int): Boolean = byId.containsKey(id)
 
     override fun array(id: Int): List<String> = emptyList()
 
@@ -40,19 +61,36 @@ class TestStrings(override val language: String = "en") : StringProvider {
 
         fun folderFor(language: String): String = FOLDERS[language] ?: "values"
 
-        private fun load(language: String): Map<Int, String> {
+        /**
+         * The folders Android consults for a language, most specific first.
+         *
+         * A region folder resolves upward to its base-language folder before reaching English, so
+         * `values-es-rES` then `values-es`. Reading only the region folder made this harness
+         * disagree with the device: Spanish and Urdu deliberately hold their shared strings in
+         * `values-es` / `values-ur` so unregioned variants (es-CO, plain ur) resolve at all, and a
+         * key promoted there looked "missing" here while working fine in the app.
+         */
+        private fun foldersFor(language: String): List<String> {
             val folder = folderFor(language)
-            val xml = listOf(
-                File("src/main/res/$folder/strings.xml"),
-                File("app/src/main/res/$folder/strings.xml")
-            ).firstOrNull { it.isFile } ?: return emptyMap()
+            val base = folder.substringBefore("-r").takeIf { it != folder }
+            return listOfNotNull(folder, base)
+        }
 
-            val text = xml.readText(Charsets.UTF_8)
+        private fun load(language: String): Map<Int, String> {
             val byName = HashMap<String, String>(1200)
             val pattern = Regex("""<string name="([^"]+)"[^>]*>(.*?)</string>""", RegexOption.DOT_MATCHES_ALL)
-            for (match in pattern.findAll(text)) {
-                byName[match.groupValues[1]] = unescape(match.groupValues[2])
+
+            // Least specific first, so a region override wins over the base language.
+            for (folder in foldersFor(language).reversed()) {
+                val xml = listOf(
+                    File("src/main/res/$folder/strings.xml"),
+                    File("app/src/main/res/$folder/strings.xml")
+                ).firstOrNull { it.isFile } ?: continue
+                for (match in pattern.findAll(xml.readText(Charsets.UTF_8))) {
+                    byName[match.groupValues[1]] = unescape(match.groupValues[2])
+                }
             }
+            if (byName.isEmpty()) return emptyMap()
 
             val result = HashMap<Int, String>(byName.size)
             for (field in R.string::class.java.fields) {

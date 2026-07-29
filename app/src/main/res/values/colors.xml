@@ -61,4 +61,13 @@
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
 
+    <!-- Widget palette.
+         Widgets are inflated as RemoteViews outside the app process, where theme
+         attributes (?attr/...) cannot be resolved inside vector drawables, so widget
+         icons and text must use plain colour resources. These mirror the light
+         AppTheme container colours the widget backgrounds already use. -->
+    <color name="widget_on_secondary_container">#151B2C</color>
+    <color name="widget_on_primary_container">#00184A</color>
+    <color name="widget_on_tertiary_container">#2B122C</color>
+
 </resources>

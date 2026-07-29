@@ -32,15 +32,60 @@ class QueryExecutor(
     private val store: KnowledgeStore,
     private val datasets: DatasetIndex,
     private val localized: LocalizedView?,
-    private val strings: StringProvider
+    private val strings: StringProvider,
+    /**
+     * What the user may be told. Defaulted to full access so existing callers and tests are
+     * unaffected; the app supplies the real entitlements.
+     */
+    private val entitlements: com.jlindemann.science.ai.core.Entitlements =
+        com.jlindemann.science.ai.core.Entitlements.FULL
 ) {
 
-    fun execute(plan: QueryPlan): ExecutionResult? = when (plan.intent) {
+    /**
+     * Refuse a plan whose answer is behind a paywall, before any value is read.
+     *
+     * Enforced here rather than in the composer because a gated field leaks in more shapes than a
+     * sentence: "which element has the highest Young's modulus" is a ranking over the whole gated
+     * column, and an average over it is the column summarised. Returning [ExecutionResult.Locked]
+     * from one place covers every intent at once.
+     *
+     * A category lookup is the deliberate exception — see [category], which drops the gated fields
+     * and answers with the free ones rather than locking the whole family.
+     */
+    private fun gate(plan: QueryPlan): ExecutionResult? {
+        if (plan.intent == Intent.CATEGORY_LOOKUP) return null
+        val fields = plan.fieldIds + listOfNotNull(plan.sortField)
+        val tier = entitlements.blockingTier(fields) ?: return null
+        return ExecutionResult.Locked(
+            tier = tier,
+            fieldIds = fields.filterNot { entitlements.allowsField(it) }.distinct(),
+            element = plan.elementKeys.firstOrNull()?.let { store.element(it) }
+        )
+    }
+
+    fun execute(plan: QueryPlan): ExecutionResult? = gate(plan) ?: when (plan.intent) {
         Intent.PROPERTY_LOOKUP -> property(plan)
         Intent.CATEGORY_LOOKUP -> category(plan)
         Intent.ISOTOPES -> isotopes(plan)
-        Intent.SAFETY -> safety(plan)
-        Intent.FORMULA_MASS -> formulaMass(plan)
+        Intent.SAFETY ->
+            if (!entitlements.allows(com.jlindemann.science.ai.data.Tier.PRO)) {
+                // The hazard ratings are behind PRO on the element screen; reading them aloud here
+                // would be the same data by another route.
+                ExecutionResult.Locked(
+                    tier = com.jlindemann.science.ai.data.Tier.PRO,
+                    fieldIds = listOf("nfpa_health", "nfpa_flammability", "nfpa_instability"),
+                    element = plan.elementKeys.firstOrNull()?.let { store.element(it) }
+                )
+            } else safety(plan)
+        Intent.EMISSION_SPECTRUM -> emissionSpectrum(plan)
+        Intent.FORMULA_MASS ->
+            if (!entitlements.allows(com.jlindemann.science.ai.data.Tier.PRO_PLUS)) {
+                ExecutionResult.Locked(
+                    tier = com.jlindemann.science.ai.data.Tier.PRO_PLUS,
+                    fieldIds = emptyList(),
+                    element = null
+                )
+            } else formulaMass(plan)
         Intent.NUCLIDE_COUNT -> nuclide(plan)
         Intent.ISOTOPE_COMPARISON -> isotopeComparison(plan)
         Intent.COMPARATIVE -> comparative(plan)
@@ -76,7 +121,7 @@ class QueryExecutor(
             element = element,
             fieldId = fieldId,
             quantity = quantity,
-            display = render(value, quantity, plan.targetUnit),
+            display = render(value, quantity, plan.targetUnit, element, fieldId),
             citations = listOf(citation(spec.id, element)),
             rank = ranking?.first,
             rankedOutOf = ranking?.second ?: 0
@@ -115,15 +160,28 @@ class QueryExecutor(
     private fun category(plan: QueryPlan): ExecutionResult? {
         val element = plan.elementKeys.firstOrNull()?.let { store.element(it) } ?: return null
         val values = LinkedHashMap<String, List<ValuedElement>>()
+        var withheld = 0
         for (fieldId in plan.fieldIds) {
+            // A family is answered with whatever the user is entitled to rather than locked whole:
+            // "the mechanical properties of gold" holds both free and PRO fields, and withholding
+            // the free ones because a gated one shares the family would be gating more than the app
+            // does. The count is carried so the answer can say something was held back.
+            if (!entitlements.allowsField(fieldId)) { withheld++; continue }
             val value = element.value(fieldId)
             if (value.isMissing) continue
             val quantity = store.quantityIn(element, fieldId, plan.targetUnit)
             values[fieldId] = listOf(
-                ValuedElement(element, quantity, render(value, quantity, plan.targetUnit))
+                ValuedElement(element, quantity, render(value, quantity, plan.targetUnit, element, fieldId))
             )
         }
-        if (values.isEmpty()) return ExecutionResult.Empty(describeFilters(plan))
+        if (values.isEmpty()) {
+            // Everything in this family was gated, so there is nothing free left to say.
+            val tier = entitlements.blockingTier(plan.fieldIds)
+            if (withheld > 0 && tier != null) {
+                return ExecutionResult.Locked(tier, plan.fieldIds.filterNot { entitlements.allowsField(it) }, element)
+            }
+            return ExecutionResult.Empty(describeFilters(plan))
+        }
         return ExecutionResult.Comparison(
             elements = listOf(element),
             fieldIds = values.keys.toList(),
@@ -236,8 +294,30 @@ class QueryExecutor(
     }
 
     private fun moleConversion(plan: QueryPlan): ExecutionResult? {
-        val moles = Regex("""([\d.]+)\s*mol""")
-            .find(plan.rawQuery.lowercase())?.groupValues?.get(1)?.toDoubleOrNull() ?: return null
+        val lowered = plan.rawQuery.lowercase()
+        val element = plan.elementKeys.firstOrNull()?.let { store.element(it) }
+        // The same pattern the planner matched on. Its own English-only copy meant an Italian,
+        // Portuguese, Hindi, Urdu or Chinese mole question was planned correctly and then executed
+        // to nothing at all.
+        val moles = com.jlindemann.science.ai.data.ChemistryMath.MOLE_QUANTITY
+            .find(lowered)?.groupValues?.get(1)?.toDoubleOrNull()
+        if (moles == null) {
+            // Mass to moles, which needs the substance's molar mass and so cannot be answered
+            // without knowing what the substance is.
+            val grams = Regex("""([\d.]+)\s*(?:g|gram|grams|gm|gramm|gramme|grammes)\b""")
+                .find(lowered)?.groupValues?.get(1)?.toDoubleOrNull() ?: return null
+            val molarMass = element?.quantity("atomic_mass")?.value ?: return null
+            val converted = com.jlindemann.science.ai.data.ChemistryMath
+                .massToMoles(grams, molarMass) ?: return null
+            return ExecutionResult.MoleConversion(
+                moles = converted,
+                particles = com.jlindemann.science.ai.data.ChemistryMath.molesToParticles(converted),
+                substance = element.let { displayName(it) },
+                toParticles = false,
+                grams = grams,
+                citations = listOfNotNull(citation("atomic_mass", element))
+            )
+        }
         return ExecutionResult.MoleConversion(
             moles = moles,
             particles = com.jlindemann.science.ai.data.ChemistryMath.molesToParticles(moles),
@@ -288,6 +368,33 @@ class QueryExecutor(
         )
     }
 
+    /**
+     * The spectrum an element emits.
+     *
+     * Nothing is read from the element's fields, because there is nothing to read: the app ships a
+     * rendered image per element and no spectral data. The citation points at the Emission Spectrum
+     * table, which is where the same image lives in the rest of the app.
+     */
+    private fun emissionSpectrum(plan: QueryPlan): ExecutionResult {
+        val element = plan.elementKeys.firstOrNull()?.let { store.element(it) }
+            ?: return ExecutionResult.Empty(emptyList())
+        val label = runCatching { strings.get(com.jlindemann.science.R.string.emission_spectrum_colon) }
+            .getOrNull()?.replace(":", "")?.trim()?.takeIf { it.isNotBlank() && !it.startsWith("str:") }
+            ?: "Emission spectrum"
+        return ExecutionResult.EmissionSpectrum(
+            element = element,
+            citations = listOf(
+                Citation(
+                    label = label,
+                    source = displayName(element),
+                    deepLink = com.jlindemann.science.ai.data.DeepLinkTarget.EMISSION,
+                    args = mapOf("id" to element.symbol),
+                    fromTable = true
+                )
+            )
+        )
+    }
+
     // ---- Comparison --------------------------------------------------------------------
 
     private fun comparison(plan: QueryPlan): ExecutionResult? {
@@ -298,7 +405,11 @@ class QueryExecutor(
         for (fieldId in plan.fieldIds) {
             values[fieldId] = elements.map { element ->
                 val quantity = store.quantityIn(element, fieldId, plan.targetUnit)
-                ValuedElement(element, quantity, render(element.value(fieldId), quantity, plan.targetUnit))
+                ValuedElement(
+                    element,
+                    quantity,
+                    render(element.value(fieldId), quantity, plan.targetUnit, element, fieldId)
+                )
             }
         }
         return ExecutionResult.Comparison(
@@ -444,17 +555,38 @@ class QueryExecutor(
     private fun render(
         value: com.jlindemann.science.ai.data.FieldValue,
         quantity: Quantity?,
-        targetUnit: String?
+        targetUnit: String?,
+        element: com.jlindemann.science.ai.data.ElementRecord? = null,
+        fieldId: String? = null
     ): String = when {
         targetUnit != null && quantity != null ->
             UnitConverter.formatValue(quantity.value) + (quantity.unit?.let { " $it" } ?: "")
         quantity != null -> quantity.display
+        // A prose field is served from the active language's table when it has one. The numeric
+        // index is parsed from English, which is right for measured values and wrong for these.
+        element != null && fieldId != null && translated(element, fieldId) != null ->
+            translated(element, fieldId)!!
         value is com.jlindemann.science.ai.data.FieldValue.Text -> value.raw
         value is com.jlindemann.science.ai.data.FieldValue.Enum -> value.localized
         value is com.jlindemann.science.ai.data.FieldValue.Trace -> strings.get(com.jlindemann.science.R.string.ai_abundance_relative)
         value is com.jlindemann.science.ai.data.FieldValue.Struct ->
             value.parts.entries.joinToString(", ") { "${it.key}: ${it.value.display}" }
         else -> ""
+    }
+
+    /**
+     * The active language's value for a field marked [FieldSpec.localized], or null.
+     *
+     * Null covers three cases that all mean "use the English table": the field is not one of the
+     * seven that differ between languages, the active language is English, or this language's file
+     * left the value untranslated.
+     */
+    private fun translated(
+        element: com.jlindemann.science.ai.data.ElementRecord,
+        fieldId: String
+    ): String? {
+        if (com.jlindemann.science.ai.data.FieldRegistry.byId[fieldId]?.localized != true) return null
+        return localized?.text(element.key, fieldId)
     }
 
     private fun convert(quantity: Quantity, targetUnit: String): Quantity =

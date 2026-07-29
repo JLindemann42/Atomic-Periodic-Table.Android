@@ -1,0 +1,30 @@
+# Whole-family questions. Several old keyword branches returned a family of fields at once, so a
+# single-field answer here would be a regression.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+cat-thermo-1			en	tell me about the thermal properties of gold	CATEGORY_LOOKUP				
+cat-thermo-2			en	what are the thermal properties of iron	CATEGORY_LOOKUP				
+cat-thermo-3			en	thermodynamic properties of copper	CATEGORY_LOOKUP				
+cat-em-1			en	what are the electromagnetic properties of gold	CATEGORY_LOOKUP				
+cat-em-2			en	electrical properties of copper	CATEGORY_LOOKUP				
+cat-em-3			en	magnetic properties of iron	CATEGORY_LOOKUP				
+cat-mech-1			en	what are the mechanical properties of gold	CATEGORY_LOOKUP				
+cat-mech-2			en	elastic properties of tungsten	CATEGORY_LOOKUP				
+cat-mech-3			en	how hard is gold	PROPERTY_LOOKUP	mohs_hardness			asks for one number, not the mechanical-properties family
+cat-atomic-1			en	what are the atomic properties of gold	CATEGORY_LOOKUP		ELECTRON_SHELL		
+cat-atomic-2			en	atomic properties of carbon	CATEGORY_LOOKUP		ELECTRON_SHELL		
+cat-abund-1			en	where is gold found	CATEGORY_LOOKUP		ABUNDANCE		
+cat-abund-2			en	what is the abundance of gold	CATEGORY_LOOKUP		ABUNDANCE		
+cat-abund-3			en	where does iron occur	CATEGORY_LOOKUP		ABUNDANCE		
+cat-abund-4			en	how common is aluminium	CATEGORY_LOOKUP		ABUNDANCE		
+cat-crystal-1			en	what are the crystal properties of gold	CATEGORY_LOOKUP		CRYSTAL_STRUCTURE		
+cat-crystal-2			en	crystallographic data for iron	CATEGORY_LOOKUP		CRYSTAL_STRUCTURE		
+cat-nuclear-1			en	what are the nuclear properties of uranium	CATEGORY_LOOKUP				
+cat-ident-1			en	identity of gold	CATEGORY_LOOKUP				
+cat-thermo-sv-1			sv	vilka termiska egenskaper har guld	CATEGORY_LOOKUP				
+cat-abund-sv-1			sv	var finns guld	CATEGORY_LOOKUP		ABUNDANCE		
+cat-abund-sv-2			sv	var finns titan	CATEGORY_LOOKUP		ABUNDANCE		
+cat-mech-sv-1			sv	vilka mekaniska egenskaper har volfram	CATEGORY_LOOKUP				
+cat-abund-de-1			de	wo kommt gold vor	CATEGORY_LOOKUP		ABUNDANCE		
+cat-thermo-de-1			de	thermische eigenschaften von eisen	CATEGORY_LOOKUP				
+cat-abund-fr-1			fr	où trouve-t-on l'or	CATEGORY_LOOKUP		ABUNDANCE		
+cat-mech-es-1			es	propiedades mecánicas del oro	CATEGORY_LOOKUP				

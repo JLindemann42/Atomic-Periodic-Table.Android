@@ -29,6 +29,68 @@ class AIAgentManager(private val context: Context?) {
         private const val PREFS_NAME = "ai_agent_settings"
         private const val PREF_LANGUAGE = "ai_agent_language"
         private const val DEFAULT_LANGUAGE = "en"
+
+        /**
+         * Ways of asking what the assistant can do, in the twelve languages the app ships.
+         *
+         * See [isHelpQuery]. Kept here rather than rebuilt on every call, because this list is
+         * consulted for the first branch of the response chain on every single message.
+         */
+        private val HELP_PHRASES = listOf(
+            // en
+            "what can you do", "what do you do", "what are you able", "how can you help",
+            "what can i ask", "what can you help", "help me", "how to use", "how do i use",
+            "commands", "options", "features", "capabilities", "what features",
+            // sv
+            "vad kan du göra", "vad kan du gora", "vad kan du hjälpa", "vad kan du hjalpa",
+            "vad kan jag fråga", "vilka funktioner", "hur använder jag", "hur anvander jag",
+            "hjälp mig", "hjalp mig", "funktioner",
+            // de
+            "was kannst du", "wobei kannst du", "wie kannst du helfen", "wie benutze ich",
+            "welche funktionen", "hilf mir", "funktionen",
+            // es
+            "qué puedes hacer", "que puedes hacer", "en qué puedes ayudar", "en que puedes ayudar",
+            "cómo se usa", "como se usa", "qué funciones", "que funciones", "ayúdame", "ayudame",
+            // fr
+            "que peux-tu faire", "que peux tu faire", "que sais-tu faire", "comment puis-je utiliser",
+            "quelles fonctionnalités", "quelles fonctionnalites", "aide-moi", "aide moi",
+            // it
+            "cosa sai fare", "cosa puoi fare", "come si usa", "quali funzioni", "aiutami",
+            // pt
+            "o que você pode fazer", "o que voce pode fazer", "o que sabe fazer",
+            "como usar", "quais funções", "quais funcoes", "me ajude",
+            // af
+            "wat kan jy doen", "hoe gebruik ek", "watter funksies", "help my",
+            // fil
+            "ano ang kaya mong gawin", "ano ang magagawa mo", "paano gamitin",
+            "anong mga tampok", "tulungan mo ako",
+            // hi
+            "तुम क्या कर सकते हो", "आप क्या कर सकते हैं", "क्या कर सकते हो",
+            "कैसे उपयोग करें", "कौन सी सुविधाएं", "मेरी मदद", "मदद", "सहायता",
+            // ur
+            "تم کیا کر سکتے ہو", "آپ کیا کر سکتے ہیں", "کیا کر سکتے ہو",
+            "کیسے استعمال", "کون سی خصوصیات", "میری مدد", "مدد",
+            // zh
+            "你能做什么", "你会做什么", "你可以做什么", "怎么使用", "有哪些功能", "帮助我", "帮助",
+            // romanised fallbacks, for users typing without their own keyboard
+            "bangzhu", "madad", "hulp"
+        )
+
+        /**
+         * English function words, used to spot an untranslated sentence inside a description that
+         * is supposed to be in another language.
+         *
+         * Function words rather than content words on purpose: "Titanium" inside a Swedish sentence
+         * is normal, since element names are often shared. "which has a metallic appearance" is not.
+         */
+        private val ENGLISH_FUNCTION_WORDS = Regex(
+            "\\b(the|and|which|with|has|have|is|are|was|were|been|of|from|that|its|it|only|" +
+                    "also|most|used|found|other|than|but|such|these|those|there|their|when|" +
+                    "while|into|about)\\b"
+        )
+
+        /** How many English function words make a sentence an English clause rather than a term. */
+        private const val ENGLISH_CLAUSE_THRESHOLD = 4
     }
 
     private var elementData: JSONObject? = null
@@ -52,6 +114,8 @@ class AIAgentManager(private val context: Context?) {
     private val dialogueState = DialogueState()
     private var cachedEngine: AiEngine? = null
     private var cachedEngineLanguage: String? = null
+    /** Held so a change to offline mode rebuilds the engine, like a change of language does. */
+    private var cachedEnginePolicy: com.jlindemann.science.ai.cards.ChatCardPolicy? = null
 
     // Multi-language keywords for rich section extraction
     private val sectionKeywords = mapOf(
@@ -177,17 +241,46 @@ class AIAgentManager(private val context: Context?) {
         return limiter.isPro() || limiter.isProPlus()
     }
 
-    fun shouldShowMessageLimit(): Boolean {
-        val limiter = rateLimiter ?: return false
-        return !limiter.isProPlus()
-    }
+    /**
+     * Whether the badge has anything to say. It does for everyone with a limiter: a PRO+ user reads
+     * "Unlimited" rather than the badge disappearing, which said nothing about why.
+     */
+    fun shouldShowMessageLimit(): Boolean = rateLimiter != null
 
     fun getMessageLimitDisplay(): String {
         val limiter = rateLimiter ?: return "0/0"
         val total = limiter.getDailyLimit()
-        if (total == Int.MAX_VALUE) return "∞/∞"
+        if (total == Int.MAX_VALUE) {
+            val ctx = localizedContext ?: context ?: return "∞"
+            return runCatching { ctx.getString(R.string.ai_limit_unlimited) }.getOrDefault("∞")
+        }
         val left = limiter.getRemainingMessages().coerceAtLeast(0)
         return "$left/$total"
+    }
+
+    /**
+     * The clock time the daily allowance comes back, in the user's own format.
+     *
+     * `DateFormat.getTimeFormat` follows the device's 12/24-hour setting, which a hardcoded pattern
+     * would not; the localized context supplies the language, so this reads the same way as the
+     * sentence it sits inside. Null when there is no limiter to ask.
+     */
+    fun getLimitResetTime(): String? {
+        val limiter = rateLimiter ?: return null
+        val ctx = localizedContext ?: context ?: return null
+        return runCatching {
+            android.text.format.DateFormat.getTimeFormat(ctx).format(java.util.Date(limiter.resetTimeMillis()))
+        }.getOrNull()
+    }
+
+    /** The reset badge's text, or null when there is nothing to say — a PRO+ user has no limit. */
+    fun getMessageLimitResetDisplay(): String? {
+        // Checked on the limiter rather than through shouldShowMessageLimit(), which is now true for
+        // everyone: a count that never runs out has no reset time to announce.
+        if (rateLimiter?.isProPlus() != false) return null
+        val time = getLimitResetTime() ?: return null
+        val ctx = localizedContext ?: context ?: return null
+        return ctx.getString(R.string.ai_limit_reset_badge, time)
     }
 
     suspend fun refreshLanguage() {
@@ -505,6 +598,9 @@ class AIAgentManager(private val context: Context?) {
         userMessage: String,
         contextElement: String? = null,
     ): ChatMessage {
+        // Cleared per turn: this carries an engine answer's chips and card into a legacy reply, and
+        // must never survive into the next message.
+        pendingEngineExtras = null
         return withContext(Dispatchers.Default) {
             val ctx = context ?: return@withContext ChatMessage(
                 id = UUID.randomUUID().toString(),
@@ -530,9 +626,16 @@ class AIAgentManager(private val context: Context?) {
 
             // Check Rate Limit
             if (rateLimiter?.canSendMessage() == false) {
+                // "You have used all 16 messages today" is a dead end on its own — the one thing the
+                // user needs next is when they can carry on, and the answer is rarely 24 hours away.
+                val reset = getLimitResetTime()
+                    ?.let { "\n" + localizedCtx.getString(R.string.ai_rate_limit_resets, it) }
+                    .orEmpty()
                 return@withContext ChatMessage(
                     id = UUID.randomUUID().toString(),
-                    text = localizedCtx.getString(R.string.ai_rate_limit_reached, rateLimiter?.getDailyLimit() ?: 0),
+                    text = localizedCtx.getString(
+                        R.string.ai_rate_limit_reached, rateLimiter?.getDailyLimit() ?: 0
+                    ) + reset,
                     isFromUser = false,
                     timestamp = System.currentTimeMillis()
                 )
@@ -619,6 +722,12 @@ class AIAgentManager(private val context: Context?) {
 
             when {
                 userMessage.isBlank() -> responseParts.add(AIPersonality.getNoDataResponse(ctx, activeLanguage, userMessage))
+                // "What can you do" is asked *of the assistant*, not about chemistry, so nothing
+                // further down this chain can answer it and several branches will claim it by
+                // accident — "vad kan du göra" and "wat kan jy doen" both carry words the property
+                // and concept matchers look for. Checked first, where an unambiguous question
+                // about the app itself belongs.
+                isHelpQuery(lowerQuery) -> responseParts.add(handleHelpQuery())
                 isQuizQuery(lowerQuery) -> responseParts.add(handleQuizQuery(lowerQuery))
                 isTrendsQuery(lowerQuery) -> responseParts.add(handleTrendsQuery(lowerQuery))
                 isMolarMassQuery(lowerQuery) -> responseParts.add(handleMolarMassQuery(userMessage))
@@ -653,6 +762,14 @@ class AIAgentManager(private val context: Context?) {
                     responseParts.add(handleFormulaQuery("$lastFormulaTarget composition"))
                     lastFormulaTarget = null
                 }
+                // Continuing a quiz needs no element in hand: the offer was "another question?",
+                // not "more about this element". Checked before the element-bound branch below,
+                // which would otherwise never be reached for a quiz and, when no element was in
+                // focus, dropped through to a generic overview.
+                isAffirmative && lastSuggestionType == "quiz" -> {
+                    lastSuggestionType = null
+                    responseParts.add(handleQuizQuery("quiz"))
+                }
                 isAffirmative && targetElementKey != null && lastSuggestionType != null -> {
                     val response = when (lastSuggestionType) {
                         "bio" -> handleBiologicalQuery(targetElementKey)
@@ -672,7 +789,6 @@ class AIAgentManager(private val context: Context?) {
                 }
                 isPropertyOnlyQuery(lowerQuery) && targetElementKey != null -> responseParts.add(handleElementContextQuery(userMessage, targetElementKey))
                 isConceptQuery(lowerQuery) -> responseParts.add(handleConceptQuery(lowerQuery))
-                isHelpQuery(lowerQuery) -> responseParts.add(handleHelpQuery())
                 isFormulaQuery(userMessage) -> responseParts.add(handleFormulaQuery(userMessage))
                 isIdentityQuery(lowerQuery) -> responseParts.add(handleIdentityQuery(lowerQuery))
                 targetElementKey != null -> {
@@ -705,7 +821,15 @@ class AIAgentManager(private val context: Context?) {
             }
 
             // 5. Proactively suggest a follow-up sometimes
-            if (responseParts.size == 1 && (0..3).random() == 0 && targetElementKey != null) {
+            //
+            // Only when nothing has offered one already. `provideOverview` always appends its own
+            // suggestion, so an overview answer used to get two — the same
+            // "I have safety data for that too, if you are interested" printed twice in a row.
+            // `lastSuggestionType` is set by `suggestFollowUp`, which makes it the reliable signal
+            // that this turn has already made an offer.
+            if (responseParts.size == 1 && lastSuggestionType == null &&
+                (0..3).random() == 0 && targetElementKey != null
+            ) {
                 suggestFollowUp(targetElementKey)?.let { responseParts.add(it) }
             }
 
@@ -727,7 +851,11 @@ class AIAgentManager(private val context: Context?) {
                 id = UUID.randomUUID().toString(),
                 text = responseParts.distinct().joinToString("\n\n"),
                 isFromUser = false,
-                timestamp = System.currentTimeMillis()
+                timestamp = System.currentTimeMillis(),
+                // A legacy reply that folded in an engine answer keeps that answer's chips and card
+                // rather than silently dropping them on the way through the string list.
+                actions = pendingEngineExtras?.actions?.let { ChatActionCodec.encode(it) },
+                cards = com.jlindemann.science.ai.cards.ChatCardCodec.encode(pendingEngineExtras?.card)
             )
         }
     }
@@ -764,13 +892,17 @@ class AIAgentManager(private val context: Context?) {
             text = answer.text,
             isFromUser = false,
             timestamp = System.currentTimeMillis(),
-            actions = ChatActionCodec.encode(answer.actions)
+            actions = ChatActionCodec.encode(answer.actions),
+            cards = com.jlindemann.science.ai.cards.ChatCardCodec.encode(answer.card)
         )
     }
 
-    /** The engine for a language, rebuilt only when the active language changes. */
+    /** The engine for a language, rebuilt when the language or the offline setting changes. */
     private fun engineFor(language: String): AiEngine? {
-        cachedEngine?.let { if (cachedEngineLanguage == language) return it }
+        val policy = currentCardPolicy()
+        cachedEngine?.let {
+            if (cachedEngineLanguage == language && cachedEnginePolicy == policy) return it
+        }
         val service = retrievalService ?: return null
         val ctx = localizedContext ?: context ?: return null
         val engine = AiEngine(
@@ -779,11 +911,32 @@ class AIAgentManager(private val context: Context?) {
             localized = service.localized(language),
             strings = AndroidStrings(ctx, language),
             entities = service.resolver(language),
-            retriever = service.retriever(language)
+            retriever = service.retriever(language),
+            // The agent honours the same paywall as the rest of the app: a field the element screen
+            // shows as a lock is not read aloud here either.
+            entitlements = currentEntitlements(),
+            cardPolicy = policy
         )
         cachedEngine = engine
         cachedEngineLanguage = language
+        cachedEnginePolicy = policy
         return engine
+    }
+
+    /**
+     * Which visuals the agent may attach.
+     *
+     * Offline mode is a user setting, not a connectivity check — the same one that hides the
+     * spectrum image on the element screen. The emission card is the only one that loads anything
+     * over the network, and Picasso fails silently, so honouring it here is the difference between
+     * a spoken explanation and an empty grey box.
+     */
+    private fun currentCardPolicy(): com.jlindemann.science.ai.cards.ChatCardPolicy {
+        val offline = context?.let {
+            runCatching { com.jlindemann.science.preferences.offlinePreference(it).getValue() }
+                .getOrDefault(0)
+        } ?: 0
+        return com.jlindemann.science.ai.cards.ChatCardPolicy(allowNetworkCards = offline != 1)
     }
 
     /**
@@ -1071,6 +1224,11 @@ class AIAgentManager(private val context: Context?) {
             ctx.getString(R.string.ai_quiz_wrong, answer.replaceFirstChar { it.uppercase() })
         }
         currentQuizAnswer = null
+        // Both the correct and the wrong message end by asking whether the user wants another
+        // question, so a "yes" that follows is about the quiz. Without recording that, the
+        // affirmative branch fell through to a full element overview — the user answered a quiz
+        // question correctly, said "Ja", and got a wall of arsenic facts.
+        lastSuggestionType = "quiz"
         return response
     }
 
@@ -1513,6 +1671,30 @@ class AIAgentManager(private val context: Context?) {
                 query.contains("什么") || query.contains("shenme") || query.contains("kya") || query.contains("kaise") || query.contains("ano") || query.contains("paano"))
     }
 
+    /**
+     * Drop description sentences that are still in English when the conversation is not.
+     *
+     * 84 of the 118 Swedish element descriptions are only half translated — a Swedish sentence
+     * followed by an English one. The narrative handlers pick sentences out of that by keyword, and
+     * the keyword lists are largely English, so they *preferentially selected the untranslated
+     * half*. That is where "Det har various allotropes, but only the gray form, which has a
+     * metallic appearance, is important to industry" came from.
+     *
+     * Lexical rather than a language-detection library: counting English function words is enough
+     * to tell a borrowed technical term from a whole English clause, and it needs no dependency.
+     * If every sentence looks English the original list is returned unchanged — a partial answer in
+     * the wrong language still beats no answer at all.
+     */
+    private fun sentencesInActiveLanguage(sentences: List<String>): List<String> {
+        if (activeLanguage == "en") return sentences
+        val translated = sentences.filterNot { looksEnglish(it) }
+        return if (translated.isNotEmpty()) translated else sentences
+    }
+
+    /** Whether a sentence carries enough English function words to be an English clause. */
+    private fun looksEnglish(sentence: String): Boolean =
+        ENGLISH_FUNCTION_WORDS.findAll(sentence.lowercase()).count() >= ENGLISH_CLAUSE_THRESHOLD
+
     private fun handleUsageQuery(elementKey: String): String {
         val element = elementData?.optJSONObject(elementKey.lowercase()) ?: return AIPersonality.getNoDataResponse(context!!, activeLanguage, "")
         val elementName = element.optString("element", "---")
@@ -1520,7 +1702,7 @@ class AIAgentManager(private val context: Context?) {
         val ctx = localizedContext ?: context!!
         
         // Find sentences about usages
-        val sentences = desc.split(".", "!", "?")
+        val sentences = sentencesInActiveLanguage(desc.split(".", "!", "?"))
         val usageSentences = sentences.filter { s ->
             s.contains("use", ignoreCase = true) || s.contains("industry", ignoreCase = true) || s.contains("medicine", ignoreCase = true) || s.contains("application", ignoreCase = true) || s.contains("important", ignoreCase = true) || s.contains("användning", ignoreCase = true) || s.contains("viktig", ignoreCase = true)
         }
@@ -1603,7 +1785,7 @@ class AIAgentManager(private val context: Context?) {
         val ctx = localizedContext ?: context!!
         
         // Use heuristics to find biological info in description
-        val sentences = desc.split(".", "!", "?")
+        val sentences = sentencesInActiveLanguage(desc.split(".", "!", "?"))
         val bioSentences = sentences.filter { s ->
             isBiologicalQuery(s.lowercase()) || s.contains("living", ignoreCase = true) || s.contains("organism", ignoreCase = true) || s.contains("role", ignoreCase = true) || s.contains("body", ignoreCase = true)
         }
@@ -1641,7 +1823,7 @@ class AIAgentManager(private val context: Context?) {
         val desc = element.optString("description", "")
         
         // Find sentences about naming
-        val sentences = desc.split(".", "!", "?")
+        val sentences = sentencesInActiveLanguage(desc.split(".", "!", "?"))
         val namingSentences = sentences.filter { s ->
             s.contains("name", ignoreCase = true) || s.contains("greek", ignoreCase = true) || s.contains("latin", ignoreCase = true) || s.contains("word", ignoreCase = true) || s.contains("from", ignoreCase = true) || s.contains("namn", ignoreCase = true) || s.contains("grek", ignoreCase = true) || s.contains("latin", ignoreCase = true) || s.contains("ord", ignoreCase = true)
         }
@@ -1704,16 +1886,18 @@ class AIAgentManager(private val context: Context?) {
         }
     }
 
-    private fun isHelpQuery(query: String): Boolean {
-        val keywords = listOf(
-            "help", "what can you do", "commands", "how to use", "options", 
-            "hjälp", "vad kan du göra", "hilfe", "was kannst du tun",
-            "aide", "que peux-tu faire", "ayuda", "qué puedes hacer",
-            "मदद", "सहायता", "तुम क्या कर सकते हो",
-            "帮助", "你能做什么", "bangzhu", "madad", "hulp"
-        )
-        return keywords.any { query.contains(it) }
-    }
+    /**
+     * Whether the user is asking what the assistant can do.
+     *
+     * Deliberately long. Only one phrasing per language was listed, and five of the twelve had none
+     * at all, so "vilka funktioner har du", "cosa sai fare" and "ano ang kaya mong gawin" fell
+     * through to whichever chemistry branch happened to match a word — a question about the app
+     * answered with a property of an element.
+     *
+     * Matched against the lowercased query, not the diacritic-folded one, so accented forms are
+     * written here as users type them.
+     */
+    private fun isHelpQuery(query: String): Boolean = HELP_PHRASES.any { query.contains(it) }
 
     private fun handleHelpQuery(): String {
         val ctx = localizedContext ?: context!!
@@ -1868,14 +2052,59 @@ class AIAgentManager(private val context: Context?) {
      * Used where there is no question to parse — a "yes" to a suggested follow-up, or one answer
      * falling back to another.
      */
+    /**
+     * The engine answer most recently folded into a legacy response, if any.
+     *
+     * The legacy router assembles its reply as a list of plain strings, so an engine answer used
+     * inside it — "yes" to a suggested follow-up, for instance — used to lose its source chips
+     * entirely, and would now lose its card too. Holding the whole [ComposedAnswer] here lets the
+     * final message carry them. Reset at the start of every turn so it can never leak forward.
+     */
+    private var pendingEngineExtras: com.jlindemann.science.ai.compose.ComposedAnswer? = null
+
     private fun engineAnswer(intent: Intent, elementKey: String): String? =
-        runCatching { engineFor(activeLanguage)?.answerFor(intent, elementKey)?.text }
+        runCatching { engineFor(activeLanguage)?.answerFor(intent, elementKey) }
             .getOrNull()
+            ?.also { pendingEngineExtras = it }
+            ?.text
 
     /** Every populated field of one family, for an element already in context. */
     private fun engineCategoryAnswer(elementKey: String, category: FieldCategory): String? =
-        runCatching { engineFor(activeLanguage)?.categoryAnswerFor(elementKey, category)?.text }
+        runCatching { engineFor(activeLanguage)?.categoryAnswerFor(elementKey, category) }
             .getOrNull()
+            ?.also { pendingEngineExtras = it }
+            ?.text
+
+    /**
+     * What this user may be told, read from the same preferences the element screens use.
+     *
+     * Re-read whenever the engine is built rather than captured once, and the engine cache is
+     * invalidated on purchase, so an upgrade takes effect without restarting the app.
+     */
+    private fun currentEntitlements(): com.jlindemann.science.ai.core.Entitlements {
+        val limiter = rateLimiter
+        return com.jlindemann.science.ai.core.Entitlements(
+            isPro = limiter?.isPro() ?: false,
+            isProPlus = limiter?.isProPlus() ?: false
+        )
+    }
+
+    /** Drop the cached engine so the next answer picks up a changed entitlement. */
+    fun onEntitlementsChanged() {
+        cachedEngine = null
+        cachedEngineLanguage = null
+    }
+
+    /** An element as the typed index holds it, for a card binder that needs its numbers. */
+    fun elementRecord(key: String): com.jlindemann.science.ai.data.ElementRecord? =
+        runCatching { retrievalService?.store?.element(key) }.getOrNull()
+
+    /** The typed index itself, for a card that ranks an element against all the others. */
+    fun knowledgeStore(): com.jlindemann.science.ai.data.KnowledgeStore? = retrievalService?.store
+
+    /** Strings in the language the conversation is currently in, for labelling a card. */
+    fun cardStrings(): com.jlindemann.science.ai.core.StringProvider? =
+        localizedContext?.let { com.jlindemann.science.ai.core.AndroidStrings(it, activeLanguage) }
 
     /**
      * Ask the engine for a field or field-family answer about a known element.
@@ -1916,7 +2145,7 @@ class AIAgentManager(private val context: Context?) {
         sections.add(R.string.ai_rich_overview_basic_facts to basicFacts.toString())
 
         // 2. Extra Sections Pool
-        val sentences = description.split(Regex("(?<=[.!?])\\s+"))
+        val sentences = sentencesInActiveLanguage(description.split(Regex("(?<=[.!?])\\s+")))
         val extraPool = mutableListOf<Pair<Int, String>>()
         
         // --- Where Found / Abundance ---

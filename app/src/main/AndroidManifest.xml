@@ -434,6 +434,16 @@
                 <action android:name="package.OtherActivity" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.tables.AlloyActivity"
+            android:label="ALLOYACTIVITY"
+            android:exported="true"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

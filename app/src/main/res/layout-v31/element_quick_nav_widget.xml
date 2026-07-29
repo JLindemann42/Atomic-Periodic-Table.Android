@@ -1,117 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Two rows of two tiles, each row and each tile weighted so the grid always
+     fills the whole widget box no matter what size the launcher hands us.
+     (GridLayout row/column weights are not honoured reliably in RemoteViews:
+     the columns collapse to their content and get centred.) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:columnCount="2"
-    android:rowCount="2"
-    android:padding="12dp">
+    android:orientation="vertical">
 
-    <!-- Periodic Table -->
     <LinearLayout
-        android:id="@+id/nav_table"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_rowWeight="1"
-        android:layout_columnWeight="1"
-        android:layout_margin="6dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/bg_nav_tile"
-        android:backgroundTint="@android:color/system_accent2_100">
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_grid"
-            android:contentDescription="@null" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Table"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/system_accent2_800"
-            android:layout_marginTop="8dp" />
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <!-- Periodic Table -->
+        <LinearLayout
+            android:id="@+id/nav_table"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/widget_tile_gap"
+            android:layout_marginBottom="@dimen/widget_tile_gap"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="4dp"
+            android:background="@drawable/bg_nav_tile"
+            android:backgroundTint="@android:color/system_accent2_100">
+
+            <ImageView
+                android:layout_width="@dimen/widget_tile_icon"
+                android:layout_height="@dimen/widget_tile_icon"
+                android:src="@drawable/ic_widget_grid"
+                android:tint="@android:color/system_accent2_800"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/widget_nav_table"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/system_accent2_800"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="6dp" />
+        </LinearLayout>
+
+        <!-- Quiz -->
+        <LinearLayout
+            android:id="@+id/nav_quiz"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/widget_tile_gap"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="4dp"
+            android:background="@drawable/bg_nav_tile"
+            android:backgroundTint="@android:color/system_accent2_100">
+
+            <ImageView
+                android:layout_width="@dimen/widget_tile_icon"
+                android:layout_height="@dimen/widget_tile_icon"
+                android:src="@drawable/ic_widget_quiz"
+                android:tint="@android:color/system_accent2_800"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/widget_nav_quiz"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/system_accent2_800"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="6dp" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <!-- Quiz -->
     <LinearLayout
-        android:id="@+id/nav_quiz"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_rowWeight="1"
-        android:layout_columnWeight="1"
-        android:layout_margin="6dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/bg_nav_tile"
-        android:backgroundTint="@android:color/system_accent2_100">
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_flashcards"
-            android:contentDescription="@null" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quiz"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/system_accent2_800"
-            android:layout_marginTop="8dp" />
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <!-- AI -->
+        <LinearLayout
+            android:id="@+id/nav_ai"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="@dimen/widget_tile_gap"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="4dp"
+            android:background="@drawable/bg_nav_tile"
+            android:backgroundTint="@android:color/system_accent2_100">
+
+            <ImageView
+                android:layout_width="@dimen/widget_tile_icon"
+                android:layout_height="@dimen/widget_tile_icon"
+                android:src="@drawable/ic_widget_ai"
+                android:tint="@android:color/system_accent2_800"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/widget_nav_ai"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/system_accent2_800"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="6dp" />
+        </LinearLayout>
+
+        <!-- Molar Mass -->
+        <LinearLayout
+            android:id="@+id/nav_molar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="4dp"
+            android:background="@drawable/bg_nav_tile"
+            android:backgroundTint="@android:color/system_accent2_100">
+
+            <ImageView
+                android:layout_width="@dimen/widget_tile_icon"
+                android:layout_height="@dimen/widget_tile_icon"
+                android:src="@drawable/ic_widget_calculator"
+                android:tint="@android:color/system_accent2_800"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/widget_nav_molar"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/system_accent2_800"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginTop="6dp" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <!-- AI -->
-    <LinearLayout
-        android:id="@+id/nav_ai"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_rowWeight="1"
-        android:layout_columnWeight="1"
-        android:layout_margin="6dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/bg_nav_tile"
-        android:backgroundTint="@android:color/system_accent2_100">
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_ai_mascot"
-            android:contentDescription="@null" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="AI"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/system_accent2_800"
-            android:layout_marginTop="8dp" />
-    </LinearLayout>
-
-    <!-- Molar Mass -->
-    <LinearLayout
-        android:id="@+id/nav_molar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_rowWeight="1"
-        android:layout_columnWeight="1"
-        android:layout_margin="6dp"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:background="@drawable/bg_nav_tile"
-        android:backgroundTint="@android:color/system_accent2_100">
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_calculator"
-            android:contentDescription="@null" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Molar"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/system_accent2_800"
-            android:layout_marginTop="8dp" />
-    </LinearLayout>
-
-</GridLayout>
+</LinearLayout>

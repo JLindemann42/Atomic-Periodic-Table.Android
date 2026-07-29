@@ -13,7 +13,8 @@
     <ImageView
         android:layout_width="28dp"
         android:layout_height="28dp"
-        android:src="@drawable/ic_ai_mascot"
+        android:src="@drawable/ic_widget_ai"
+        android:tint="@android:color/system_accent1_800"
         android:contentDescription="@null"
         android:layout_marginEnd="16dp" />
 
@@ -21,15 +22,19 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Ask Science AI..."
+        android:text="@string/ask_atomic"
         android:textSize="18sp"
         android:textColor="@android:color/system_accent1_800"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:alpha="0.8" />
 
     <ImageView
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_search"
-        android:contentDescription="@null" />
+        android:src="@drawable/ic_widget_search"
+        android:tint="@android:color/system_accent1_800"
+        android:contentDescription="@null"
+        android:layout_marginStart="12dp" />
 
 </LinearLayout>

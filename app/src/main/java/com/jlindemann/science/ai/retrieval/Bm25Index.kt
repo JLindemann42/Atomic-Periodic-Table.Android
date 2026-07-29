@@ -5,7 +5,12 @@ import kotlin.math.ln
 /** A document in the retrieval corpus. [id] is prefixed by kind, e.g. `element:gold`. */
 data class Document(val id: String, val title: String, val body: String)
 
-/** A scored search result. [score] is the raw BM25 score; compare only within one result set. */
+/**
+ * A scored search result.
+ *
+ * Whether [score] is a raw BM25 sum or a value normalised against the top hit depends on which
+ * search method produced it — see [Bm25Index.searchNormalized], whose scores are ordinal only.
+ */
 data class SearchHit(val id: String, val title: String, val score: Double)
 
 /**
@@ -82,8 +87,15 @@ class Bm25Index(
     }
 
     /**
-     * Search and normalise scores into 0..1 relative to the top hit, so callers can apply a
-     * threshold without depending on absolute BM25 magnitudes.
+     * Search and normalise scores into 0..1 relative to the top hit.
+     *
+     * **These scores are ordinal, not absolute.** Dividing by the top hit means the best result
+     * always scores exactly 1.0 — whether it was an excellent match or the least bad of a corpus
+     * that contains nothing relevant. A threshold applied to this number therefore answers nothing
+     * about match quality, which is why raising the planner's dataset threshold from 0.45 to 0.55
+     * had no measurable effect: every candidate arrived at exactly the same value.
+     *
+     * Use [search] if you need magnitudes that can be compared across queries.
      */
     fun searchNormalized(query: String, limit: Int = 5, prefixFilter: String? = null): List<SearchHit> {
         val hits = search(query, limit, prefixFilter)
@@ -99,6 +111,45 @@ class Bm25Index(
     private fun inverseDocumentFrequency(documentFrequency: Int): Double =
         ln(1.0 + (size - documentFrequency + 0.5) / (documentFrequency + 0.5))
 
+    /**
+     * Whether the query contains a content word the corpus has never seen.
+     *
+     * Tokenised here rather than by the caller, because the answer is only meaningful against the
+     * same vocabulary the postings were built from: [Tokenizer] stems, and a query split any other
+     * way produces terms that are "absent" for reasons that have nothing to do with the subject.
+     *
+     * @param minimumLength below this a token is a function word, which is absent or present for
+     *   reasons unrelated to the topic.
+     */
+    fun mentionsUnknownTerm(query: String, minimumLength: Int = 4): Boolean =
+        Tokenizer.tokenize(query, language).any { term ->
+            term.length >= minimumLength &&
+                    term.none { it.isDigit() } &&
+                    documentFrequency(term) == 0
+        }
+
+    /**
+     * Whether a query and a document title have any content word in common.
+     *
+     * The companion to [mentionsUnknownTerm], and the half that makes it usable. An unknown word on
+     * its own does not mean the query is off-topic — real questions are full of ordinary verbs
+     * ("define", "convert", "tell") that never appear in a corpus of element data. What separates
+     * "define molar mass" from "write me a poem" is that the first shares words with the row it
+     * retrieved and the second shares nothing with the electron mass.
+     */
+    fun sharesTermWithTitle(query: String, title: String): Boolean {
+        val titleTerms = Tokenizer.tokenize(title, language).toHashSet()
+        return Tokenizer.tokenize(query, language).any {
+            it.length >= MIN_SHARED_TERM && it in titleTerms
+        }
+    }
+
+    private companion object {
+        /** Below this a shared token is a coincidence of grammar rather than of subject. */
+        const val MIN_SHARED_TERM = 3
+    }
+
     /** Document frequency of a term, exposed for diagnostics and tests. */
     fun documentFrequency(term: String): Int = postings[term]?.size ?: 0
+
 }

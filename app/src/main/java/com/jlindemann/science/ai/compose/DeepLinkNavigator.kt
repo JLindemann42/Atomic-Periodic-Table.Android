@@ -41,6 +41,18 @@ object DeepLinkNavigator {
             return
         }
 
+        if (action.target == DeepLinkTarget.PRO_PAGE) {
+            // Same destination the element screen's locked rows use, so an upgrade prompt from the
+            // chat lands exactly where one from a locked property row does.
+            activity.startActivity(
+                Intent(activity, com.jlindemann.science.activities.MainActivity::class.java).apply {
+                    putExtra("show_pro", true)
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+                }
+            )
+            return
+        }
+
         if (action.target == DeepLinkTarget.ELEMENT_INFO) {
             // ElementInfoActivity reads no intent extras; the selected element is passed through
             // ElementSendAndLoad, matching how the periodic table and the widgets open it.
@@ -78,6 +90,6 @@ object DeepLinkNavigator {
         DeepLinkTarget.REACTION_BALANCER -> ChemicalReactionsActivity::class.java
         DeepLinkTarget.LEARNING_GAMES -> LearningGamesActivity::class.java
         DeepLinkTarget.FLASHCARDS -> FlashCardActivity::class.java
-        DeepLinkTarget.ELEMENT_INFO, DeepLinkTarget.RESEND_QUERY -> null
+        DeepLinkTarget.ELEMENT_INFO, DeepLinkTarget.RESEND_QUERY, DeepLinkTarget.PRO_PAGE -> null
     }
 }

@@ -129,6 +129,19 @@ sealed class ExecutionResult {
     ) : ExecutionResult()
 
     /**
+     * An element's emission spectrum.
+     *
+     * Carries only the element, because that is genuinely all the app has: the spectrum exists as a
+     * rendered image per element and there are no wavelengths, intensities or line names anywhere in
+     * the data. Modelling it as a result of its own — rather than as a field with no value — is what
+     * lets the answer show the picture while saying plainly that it cannot name a line.
+     */
+    data class EmissionSpectrum(
+        val element: ElementRecord,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /**
      * A parsed chemical formula with its molar mass and composition.
      * @property wantsComposition whether the question asked for the percentage breakdown
      */
@@ -169,6 +182,14 @@ sealed class ExecutionResult {
         val particles: Double,
         val substance: String?,
         val toParticles: Boolean,
+        /**
+         * The mass the question supplied, when it asked the other way round.
+         *
+         * Null for "how many atoms are in 2.5 moles of iron"; set for "if I have 12 grams of
+         * carbon-12, how many moles is that". Defaulted so existing construction sites are
+         * untouched.
+         */
+        val grams: Double? = null,
         override val citations: List<Citation> = emptyList()
     ) : ExecutionResult()
 
@@ -188,6 +209,26 @@ sealed class ExecutionResult {
         val fieldId: String,
         val element: ElementRecord?,
         val coverage: Int,
+        override val citations: List<Citation> = emptyList()
+    ) : ExecutionResult()
+
+    /**
+     * The question was understood, but its answer is behind PRO or PRO+.
+     *
+     * A distinct case rather than a variant of [NoData], because the two say opposite things: NoData
+     * means the app does not have the value, Locked means it has it and is not showing it. Conflating
+     * them would have the agent claim ignorance of data the element screen visibly holds.
+     *
+     * Produced by the executor rather than the composer, so the value never reaches a rendering
+     * layer at all — a filtered list or an aggregate over a gated field would otherwise leak it in
+     * aggregate even if the sentence never named it.
+     *
+     * @property fieldIds the gated fields that caused this
+     */
+    data class Locked(
+        val tier: com.jlindemann.science.ai.data.Tier,
+        val fieldIds: List<String>,
+        val element: ElementRecord?,
         override val citations: List<Citation> = emptyList()
     ) : ExecutionResult()
 

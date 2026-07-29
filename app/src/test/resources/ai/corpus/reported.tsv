@@ -1,0 +1,47 @@
+# Conversations reported from the shipped app, second round.
+#
+# Like regressions.tsv this is a tripwire rather than a scoreboard: every row is a turn a user
+# actually saw go wrong. The dominant failure was not a missing answer but a *confident wrong* one —
+# a mechanism question mentions a real field in passing, the planner resolves it, and the reply is a
+# cited number answering something nobody asked.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+# ---- Mechanism questions must never be answered from a property ---------------------------------
+rep-mech-1	rep-radius	1	en	compare the atomic radius of potassium and calcium	COMPARISON	atomic_radius			
+rep-mech-2	rep-radius	2	en	why does radius decrease left to right, despite adding electrons				y	answered "Potassium's Electrons is 19"
+rep-mech-3	rep-eneg	1	en	which is more electronegative, oxygen or nitrogen	COMPARATIVE	electronegativity			
+rep-mech-4	rep-eneg	2	en	why does that trend hold going across period 2				y	answered "Helium's Period is 1"
+rep-mech-5	rep-mag	1	en	magnetic properties of iron	CATEGORY_LOOKUP				
+rep-mech-6	rep-mag	2	en	how does that change above curie temperature				y	answered with the thermal-energy equation
+rep-mech-7	rep-mag	3	en	what is the weather today				y	answered "Iron's Electrical Type is Conductor" by inheritance
+rep-mech-8	rep-vdw	1	en	which noble gas has the highest boiling point	SUPERLATIVE	boiling_point			
+rep-mech-9	rep-vdw	2	en	how does that relate to van der waals forces scaling with atomic mass				y	answered with xenon's atomic mass
+rep-mech-10			en	what happens when you inhale chlorine gas				y	listed all eleven gaseous elements
+rep-mech-11			en	what happens when sodium is dropped in water				y	
+rep-mech-12			en	is it safe to mix bleach and ammonia				y	answered with the brass alloy entry
+rep-mech-13			sv	varför minskar atomradien från vänster till höger	DATASET_LOOKUP				a why-question whose topic is genuinely its subject gets the dictionary entry
+rep-mech-14			de	wie ändert sich das oberhalb der curie-temperatur				y	
+# ---- A comparison cue keeps its grounded answer, and must not be swept up by the above -----------
+rep-mech-15			en	what is the density of gold and how does it compare to lead	COMPOUND				
+rep-mech-16			en	how does gold compare to lead on density	*				
+# ---- Etymology is narrative, and "come from" is not an abundance question ------------------------
+rep-etym-1	rep-tin	1	en	what is the symbol of tin	PROPERTY_LOOKUP	symbol			
+rep-etym-2	rep-tin	2	en	where does that symbol come from etymologically				y	answered with tin's nine abundance reservoirs
+rep-etym-3			en	where does the name gold come from				y	
+rep-etym-4			sv	varifrån kommer namnet guld				y	
+# ---- Numbers that are not atomic numbers ---------------------------------------------------------
+rep-num-1			en	is iron-54 stable	*				a mass number read as an atomic number gave "Yes, Xenon (54) beats Iron (26)"
+rep-num-2			en	if i have 12 grams of carbon-12 how many moles is that	MOLE_CONVERSION				
+rep-num-3			en	tell me about element 119				y	answered with the electron mass
+rep-num-4			en	what is element 150				y	
+rep-num-5			en	what is the atomic mass of element 26	PROPERTY_LOOKUP	atomic_mass			in range, so it must still resolve
+rep-num-6			en	melting point of element 26	PROPERTY_LOOKUP	melting_point			
+# ---- A bare family name is a request for the family ----------------------------------------------
+rep-list-1	rep-noble	1	en	which noble gas has the highest boiling point	SUPERLATIVE	boiling_point			
+rep-list-2	rep-noble	2	en	noble gases	FILTER_LIST				
+rep-list-3			en	the halogens	FILTER_LIST				
+rep-list-4			sv	ädelgaserna	FILTER_LIST				
+# ---- Multi-nuclide comparison must not silently drop the third ------------------------------------
+rep-iso-1			en	what is the difference between carbon-12, carbon-13, and carbon-14	ISOTOPE_COMPARISON				
+rep-weather-1	rep-w	1	en	magnetic properties of iron	CATEGORY_LOOKUP				
+rep-weather-2	rep-w	2	en	what's the weather today				y	the apostrophe form, which is what the user actually typed
+rep-calc-1			en	what is the molar mass of Ca(NO3)2	FORMULA_MASS				the answer must contain the per-element breakdown

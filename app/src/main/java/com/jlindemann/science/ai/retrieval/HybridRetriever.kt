@@ -46,6 +46,26 @@ class HybridRetriever(
     private val localized: LocalizedView?
 ) {
 
+    /**
+     * Whether the query names something the corpus has never heard of.
+     *
+     * Deliberately the weakest possible question to ask of the index — not "is this a good match"
+     * but "has this word ever been written about the periodic table". That is the one thing lexical
+     * statistics answer reliably, and it is enough for the two narrow decisions it serves: whether a
+     * short follow-up is continuing the thread, and whether a dataset match is worth trusting.
+     */
+    fun mentionsUnknownTopic(query: String): Boolean = index.mentionsUnknownTerm(query)
+
+    /**
+     * Whether a retrieved hit is plausibly about what was asked.
+     *
+     * BM25 ranks; it never abstains. This is the abstention test: an off-topic query retrieves a row
+     * whose title has nothing in common with it, which is exactly what "write me a poem" -> "Electron
+     * mass" looks like.
+     */
+    fun looksRelevant(query: String, hit: RetrievedHit): Boolean =
+        index.sharesTermWithTitle(query, hit.title)
+
     /** Search across elements and datasets, best first. */
     fun search(query: String, limit: Int = 5): List<RetrievedHit> {
         val fused = LinkedHashMap<String, RetrievedHit>()
@@ -138,12 +158,39 @@ class HybridRetriever(
                     Document(
                         id = "${row.dataset}:${row.id}",
                         title = row.title,
-                        body = row.body
+                        // Rows titled with a chemical symbol carry the element's *name* too.
+                        // The solubility table is indexed by ion — "Na^+", "Ag^+" — and the
+                        // electrode table by symbol, so "solubility of sodium chloride" and
+                        // "standard electrode potential of zinc" shared no word with the row that
+                        // answers them and retrieved a dictionary definition instead. Users write
+                        // the name; the table is keyed by the symbol.
+                        body = row.body + elementGloss(row, store, localized)
                     )
                 )
             }
 
             return documents
         }
+
+        /**
+         * The element name behind a row titled with a chemical symbol, or the empty string.
+         *
+         * Charge and stoichiometry are stripped first, so "Na^+", "Ag^+" and "Fe^3+" all reach the
+         * symbol the store knows. Returns both the English key and the localized name, because the
+         * user may write either.
+         */
+        private fun elementGloss(
+            row: com.jlindemann.science.ai.data.DatasetRow,
+            store: KnowledgeStore,
+            localized: LocalizedView?
+        ): String {
+            val symbol = SYMBOL_HEAD.find(row.title.trim())?.groupValues?.get(1) ?: return ""
+            val element = store.bySymbol(symbol) ?: return ""
+            val name = localized?.elements?.get(element.key)?.name.orEmpty()
+            return " ${element.key} $name"
+        }
+
+        /** A leading chemical symbol, before any charge or subscript. */
+        private val SYMBOL_HEAD = Regex("""^([A-Z][a-z]?)(?:\^|\d|\s*$|\s)""")
     }
 }

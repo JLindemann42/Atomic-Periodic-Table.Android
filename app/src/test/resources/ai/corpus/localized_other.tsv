@@ -1,0 +1,125 @@
+# The other eleven shipped locales.
+#
+# What makes these work without new translation is that FieldSpec.labelRes reuses the labels the
+# element screens already ship, so every locale gets property aliases for free. Where a locale's
+# strings.xml is incomplete, the formal field name and the hand-written cognate list are the
+# backstop — these rows are what tells us which of the two is actually carrying a language.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+de-dens-1			de	was ist die dichte von gold	PROPERTY_LOOKUP	density			
+de-dens-2			de	wie dicht ist blei	PROPERTY_LOOKUP	density			
+de-dens-3			de	dichte von eisen	PROPERTY_LOOKUP	density			
+de-melt-1			de	was ist der schmelzpunkt von gold	PROPERTY_LOOKUP	melting_point			
+de-melt-2			de	bei welcher temperatur schmilzt wolfram	PROPERTY_LOOKUP	melting_point			
+de-boil-1			de	was ist der siedepunkt von stickstoff	PROPERTY_LOOKUP	boiling_point			
+de-z-1			de	was ist die ordnungszahl von gold	PROPERTY_LOOKUP	atomic_number			
+de-mass-1			de	was ist die atommasse von gold	PROPERTY_LOOKUP	atomic_mass			
+de-eneg-1			de	was ist die elektronegativität von fluor	PROPERTY_LOOKUP	electronegativity			
+de-config-1			de	elektronenkonfiguration von eisen	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+de-crystal-1			de	welche kristallstruktur hat gold	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		
+de-cond-1			de	wärmeleitfähigkeit von kupfer	PROPERTY_LOOKUP	thermal_conductivity			
+de-phase-1			de	welchen zustand hat quecksilber	PROPERTY_LOOKUP	phase			
+de-disc-1			de	wer hat radium entdeckt	PROPERTY_LOOKUP	discovered_by			
+de-year-1			de	wann wurde helium entdeckt	PROPERTY_LOOKUP	year_discovered			
+de-sup-1			de	welches element ist am dichtesten	SUPERLATIVE	density			
+de-sup-2			de	welches element hat den höchsten schmelzpunkt	SUPERLATIVE	melting_point			
+de-fil-1			de	welche elemente sind radioaktiv	FILTER_LIST				
+de-fil-2			de	welche sind die edelgase	FILTER_LIST				
+de-fil-3			de	welche elemente sind dichter als eisen	FILTER_LIST	density			
+de-agg-1			de	wie viele elemente gibt es	AGGREGATE				
+de-cmp-1			de	vergleiche gold und silber	COMPARISON				
+de-cmp-2			de	ist gold dichter als blei	COMPARATIVE	density			
+de-iso-1			de	welche isotope hat kohlenstoff	ISOTOPES		ISOTOPE_DECAY		
+de-saf-1			de	ist arsen gefährlich	SAFETY		NFPA_DIAMOND		
+de-calc-1			de	was ist die molmasse von H2SO4	FORMULA_MASS				
+de-abund-1			de	wie viel gold ist in der erdkruste	PROPERTY_LOOKUP				abundance_earth_crust is unpopulated for gold
+fr-dens-1			fr	quelle est la densité de l'or	PROPERTY_LOOKUP	density			
+fr-dens-2			fr	densité du plomb	PROPERTY_LOOKUP	density			
+fr-melt-1			fr	quel est le point de fusion de l'or	PROPERTY_LOOKUP	melting_point			
+fr-boil-1			fr	quel est le point d'ébullition de l'azote	PROPERTY_LOOKUP	boiling_point			
+fr-z-1			fr	quel est le numéro atomique de l'or	PROPERTY_LOOKUP	atomic_number			
+fr-mass-1			fr	quelle est la masse atomique du fer	PROPERTY_LOOKUP	atomic_mass			
+fr-eneg-1			fr	quelle est l'électronégativité du fluor	PROPERTY_LOOKUP	electronegativity			
+fr-config-1			fr	configuration électronique du fer	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+fr-crystal-1			fr	quelle est la structure cristalline de l'or	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		
+fr-sup-1			fr	quel élément est le plus dense	SUPERLATIVE	density			
+fr-fil-1			fr	quels éléments sont radioactifs	FILTER_LIST				
+fr-agg-1			fr	combien d'éléments y a-t-il	AGGREGATE				
+fr-cmp-1			fr	compare l'or et l'argent	COMPARISON				
+fr-iso-1			fr	quels sont les isotopes du carbone	ISOTOPES		ISOTOPE_DECAY		
+fr-saf-1			fr	l'arsenic est-il dangereux	SAFETY		NFPA_DIAMOND		
+fr-disc-1			fr	qui a découvert le radium	PROPERTY_LOOKUP	discovered_by			
+es-dens-1			es	cuál es la densidad del oro	PROPERTY_LOOKUP	density			
+es-dens-2			es	densidad del plomo	PROPERTY_LOOKUP	density			
+es-melt-1			es	cuál es el punto de fusión del oro	PROPERTY_LOOKUP	melting_point			
+es-boil-1			es	cuál es el punto de ebullición del nitrógeno	PROPERTY_LOOKUP	boiling_point			
+es-z-1			es	cuál es el número atómico del oro	PROPERTY_LOOKUP	atomic_number			
+es-mass-1			es	cuál es la masa atómica del hierro	PROPERTY_LOOKUP	atomic_mass			
+es-eneg-1			es	cuál es la electronegatividad del flúor	PROPERTY_LOOKUP	electronegativity			
+es-config-1			es	configuración electrónica del hierro	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+es-crystal-1			es	cuál es la estructura cristalina del oro	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		
+es-sup-1			es	cuál es el elemento más denso	SUPERLATIVE	density			
+es-fil-1			es	qué elementos son radiactivos	FILTER_LIST				
+es-agg-1			es	cuántos elementos hay	AGGREGATE				
+es-cmp-1			es	compara el oro y la plata	COMPARISON				
+es-iso-1			es	cuáles son los isótopos del carbono	ISOTOPES		ISOTOPE_DECAY		
+es-saf-1			es	el arsénico es peligroso	SAFETY		NFPA_DIAMOND		
+es-disc-1			es	quién descubrió el radio	PROPERTY_LOOKUP	discovered_by			
+it-dens-1			it	qual è la densità dell'oro	PROPERTY_LOOKUP	density			
+it-melt-1			it	qual è il punto di fusione dell'oro	PROPERTY_LOOKUP	melting_point			
+it-boil-1			it	qual è il punto di ebollizione dell'azoto	PROPERTY_LOOKUP	boiling_point			
+it-z-1			it	qual è il numero atomico dell'oro	PROPERTY_LOOKUP	atomic_number			
+it-mass-1			it	qual è la massa atomica del ferro	PROPERTY_LOOKUP	atomic_mass			
+it-eneg-1			it	qual è l'elettronegatività del fluoro	PROPERTY_LOOKUP	electronegativity			
+it-sup-1			it	quale elemento è il più denso	SUPERLATIVE	density			
+it-fil-1			it	quali elementi sono radioattivi	FILTER_LIST				
+it-cmp-1			it	confronta oro e argento	COMPARISON				
+it-iso-1			it	quali sono gli isotopi del carbonio	ISOTOPES		ISOTOPE_DECAY		
+it-saf-1			it	l'arsenico è pericoloso	SAFETY		NFPA_DIAMOND		
+pt-dens-1			pt	qual é a densidade do ouro	PROPERTY_LOOKUP	density			
+pt-melt-1			pt	qual é o ponto de fusão do ouro	PROPERTY_LOOKUP	melting_point			
+pt-boil-1			pt	qual é o ponto de ebulição do nitrogênio	PROPERTY_LOOKUP	boiling_point			
+pt-z-1			pt	qual é o número atômico do ouro	PROPERTY_LOOKUP	atomic_number			
+pt-mass-1			pt	qual é a massa atômica do ferro	PROPERTY_LOOKUP	atomic_mass			
+pt-sup-1			pt	qual elemento é o mais denso	SUPERLATIVE	density			
+pt-fil-1			pt	quais elementos são radioativos	FILTER_LIST				
+pt-cmp-1			pt	compare ouro e prata	COMPARISON				
+pt-iso-1			pt	quais são os isótopos do carbono	ISOTOPES		ISOTOPE_DECAY		
+pt-saf-1			pt	o arsênio é perigoso	SAFETY		NFPA_DIAMOND		
+af-dens-1			af	wat is die digtheid van goud	PROPERTY_LOOKUP	density			
+af-melt-1			af	wat is die smeltpunt van goud	PROPERTY_LOOKUP	melting_point			
+af-z-1			af	wat is die atoomgetal van goud	PROPERTY_LOOKUP	atomic_number			
+af-mass-1			af	wat is die atoommassa van yster	PROPERTY_LOOKUP	atomic_mass			
+af-sup-1			af	watter element is die digste	SUPERLATIVE	density			
+af-fil-1			af	watter elemente is radioaktief	FILTER_LIST				
+af-iso-1			af	watter isotope het koolstof	ISOTOPES		ISOTOPE_DECAY		
+fil-dens-1			fil	ano ang densidad ng ginto	PROPERTY_LOOKUP	density			
+fil-melt-1			fil	ano ang melting point ng ginto	PROPERTY_LOOKUP	melting_point			
+fil-z-1			fil	ano ang atomic number ng ginto	PROPERTY_LOOKUP	atomic_number			
+fil-mass-1			fil	ano ang atomic mass ng bakal	PROPERTY_LOOKUP	atomic_mass			
+fil-sup-1			fil	aling elemento ang pinakadensidad	SUPERLATIVE	density			
+fil-fil-1			fil	aling mga elemento ang radioactive	FILTER_LIST				
+hi-dens-1			hi	सोने का घनत्व क्या है	PROPERTY_LOOKUP	density			
+hi-melt-1			hi	सोने का गलनांक क्या है	PROPERTY_LOOKUP	melting_point			
+hi-z-1			hi	सोने की परमाणु संख्या क्या है	PROPERTY_LOOKUP	atomic_number			
+hi-mass-1			hi	लोहे का परमाणु द्रव्यमान क्या है	PROPERTY_LOOKUP	atomic_mass			
+hi-sup-1			hi	कौन सा तत्व सबसे घना है	SUPERLATIVE	density			
+hi-fil-1			hi	कौन से तत्व रेडियोधर्मी हैं	FILTER_LIST				
+hi-iso-1			hi	कार्बन के समस्थानिक कौन से हैं	ISOTOPES		ISOTOPE_DECAY		
+ur-dens-1			ur	سونے کی کثافت کیا ہے	PROPERTY_LOOKUP	density			
+ur-melt-1			ur	سونے کا نقطہ پگھلاؤ کیا ہے	PROPERTY_LOOKUP	melting_point			
+ur-z-1			ur	سونے کا جوہری نمبر کیا ہے	PROPERTY_LOOKUP	atomic_number			
+ur-mass-1			ur	لوہے کا جوہری وزن کیا ہے	PROPERTY_LOOKUP	atomic_mass			
+ur-sup-1			ur	کون سا عنصر سب سے زیادہ کثیف ہے	SUPERLATIVE	density			
+zh-dens-1			zh	金的密度是多少	PROPERTY_LOOKUP	density			
+zh-dens-2			zh	铅的密度	PROPERTY_LOOKUP	density			
+zh-melt-1			zh	金的熔点是多少	PROPERTY_LOOKUP	melting_point			
+zh-boil-1			zh	氮的沸点是多少	PROPERTY_LOOKUP	boiling_point			
+zh-z-1			zh	金的原子序数是多少	PROPERTY_LOOKUP	atomic_number			
+zh-mass-1			zh	铁的原子质量是多少	PROPERTY_LOOKUP	atomic_mass			
+zh-eneg-1			zh	氟的电负性是多少	PROPERTY_LOOKUP	electronegativity			
+zh-sup-1			zh	哪个元素密度最大	SUPERLATIVE	density			
+zh-fil-1			zh	哪些元素有放射性	FILTER_LIST				
+zh-agg-1			zh	有多少种元素	AGGREGATE				
+zh-cmp-1			zh	比较金和银	COMPARISON				
+zh-iso-1			zh	碳有哪些同位素	ISOTOPES		ISOTOPE_DECAY		
+zh-saf-1			zh	砷危险吗	SAFETY		NFPA_DIAMOND		

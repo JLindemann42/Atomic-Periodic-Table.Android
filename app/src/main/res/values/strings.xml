@@ -101,6 +101,15 @@
     <string name="science_daily_description" translatable="false">Random science facts delivered daily</string>
     <string name="ai_quick_ask_description" translatable="false">Ask Science AI anything instantly</string>
     <string name="element_quick_nav_description" translatable="false">Quick navigation to Periodic Table, Quiz, and AI tools</string>
+
+    <!-- Widget labels. Kept short: they sit under an icon on a small tile. -->
+    <string name="widget_nav_table">Table</string>
+    <string name="widget_nav_quiz">Quiz</string>
+    <string name="widget_nav_ai">AI</string>
+    <string name="widget_nav_molar">Molar</string>
+    <string name="science_daily_title">Science Daily Fact</string>
+    <string name="widget_ask_science_ai">Ask Science AI</string>
+    <string name="widget_fact_placeholder" translatable="false">Did you know? Oxygen is the most abundant element in Earth\'s crust!</string>
     <string name="ai_rich_overview_basic_facts">Basic Facts</string>
     <string name="ai_rich_overview_where_found">Where is %1$s found?</string>
     <string name="ai_rich_overview_applications">Applications &amp; Uses</string>
@@ -134,6 +143,71 @@
     <string name="ai_property_is">%1$s\'s %2$s is %3$s.</string>
     <string name="ai_recap_is">Just to recap, %1$s\'s %2$s is %3$s.</string>
     <string name="ai_no_property_data">I\'m sorry, I don\'t have the data for %1$s\'s %2$s right now.</string>
+
+    <!--
+      Sentence forms of field labels whose table heading does not read as a noun phrase.
+      The element screens' labels give the agent free aliases in every locale, which is ideal for
+      parsing but wrong for rendering: "In the Earth's crust" is a column header, and dropping it
+      into the property template produced "Titanium's In the Earth's crust is 4500".
+    -->
+    <string name="ai_field_abundance_earth_crust">crustal abundance</string>
+    <string name="ai_field_abundance_earth_soils">abundance in soil</string>
+    <string name="ai_field_abundance_urban_soils">abundance in urban soil</string>
+    <string name="ai_field_abundance_sea_water">abundance in sea water</string>
+    <string name="ai_field_abundance_crustal_rocks">abundance in crustal rock</string>
+    <string name="ai_field_abundance_sun">abundance in the Sun</string>
+    <string name="ai_field_abundance_solar_system">abundance in the solar system</string>
+    <string name="ai_field_abundance_meteorites">abundance in meteorites</string>
+    <string name="ai_field_abundance_human_body">abundance in the human body</string>
+
+    <!--
+      Names for the four NFPA fields.
+
+      These exist because the fields had no label of their own and borrowed `ai_safety_health` and
+      friends, which are *sentence* templates: "• **Health:** %1$d/4 (%2$s)". A label is resolved
+      with no arguments, so a user asking for an element's safety properties was shown the raw
+      template — the "%2" and the stray slash were on screen, in every language.
+    -->
+    <string name="ai_field_nfpa_health">health rating</string>
+    <string name="ai_field_nfpa_flammability">flammability rating</string>
+    <string name="ai_field_nfpa_instability">instability rating</string>
+    <string name="ai_field_nfpa_special">special hazard</string>
+
+    <!-- Joins the two sides of a comparative. Was a hardcoded English literal in the composer. -->
+    <string name="ai_versus">vs</string>
+    <!--
+      Said when an answer comes from one of the app's reference tables, which are English-only.
+      DatasetIndex documents that the composer flags this rather than pretending otherwise; it did
+      not, so a Swedish user got an English definition with no explanation of why.
+    -->
+    <string name="ai_dataset_english_note">*This reference entry is only available in English.*</string>
+
+    <!--
+      NFPA 704 instability and special-hazard wording. The health and flammability scales were
+      already localized; these two existed only as hardcoded English literals inside InfoExtension,
+      in an app that ships twelve languages.
+    -->
+    <string name="ai_nfpa_instability_0">Stable</string>
+    <string name="ai_nfpa_instability_1">Unstable if heated</string>
+    <string name="ai_nfpa_instability_2">Violent chemical change possible</string>
+    <string name="ai_nfpa_instability_3">May detonate with a strong initiator</string>
+    <string name="ai_nfpa_instability_4">May detonate readily</string>
+    <string name="ai_nfpa_special_sa">Simple asphyxiant</string>
+    <string name="ai_nfpa_special_w">Reacts with water</string>
+    <string name="ai_nfpa_special_ox">Oxidiser</string>
+    <string name="ai_nfpa_special_none">No special hazard recorded</string>
+    <string name="ai_nfpa_unrated">Not rated</string>
+
+    <!-- Shown over a chat answer's visual card when the user is not on PRO. -->
+    <string name="ai_card_pro_locked">Unlock visual answers</string>
+
+    <!--
+      Said when an answer is withheld behind the paywall. Deliberately distinct from
+      ai_no_property_data: the app *has* this value and is not showing it, so claiming not to know it
+      would be a lie about something the element screen visibly displays as a lock.
+    -->
+    <string name="ai_locked_fields">%1$s is part of %2$s. Upgrade to see it here, and on every element page.</string>
+    <string name="ai_locked_generic">That answer is part of %1$s. Upgrade to unlock it.</string>
 
     <!-- Grounded answers: sources, coverage and computed results -->
     <string name="ai_sources_header">Sources</string>
@@ -182,6 +256,7 @@
     <string name="ai_isotope_decays">• **%1$s** — %2$s, half-life %3$s</string>
     <string name="ai_isotope_halflife_only">• **%1$s** — half-life %2$s</string>
     <string name="ai_safety_radioactive_note">This element is radioactive.</string>
+    <string name="ai_emission_spectrum">Here is the emission spectrum of %1$s: the light its atoms give off when excited electrons drop back down. The app stores it as an image, so I can show the pattern but cannot name individual lines.</string>
     <string name="ai_safety_none_recorded">No NFPA hazard ratings are recorded for %1$s.</string>
     <string name="period_colon">Period:</string>
     <string name="valence_electrons_colon">Valence electrons:</string>
@@ -458,6 +533,8 @@
     <string name="table_constants_text" >A table that contains common constants for calculations including math, physics, standard water flows etc</string>
     <string name="table_geology" >Geology Table</string>
     <string name="table_geology_text" >A table that contains information about minerals, rocks and soils</string>
+    <string name="table_alloy" >Alloy Table</string>
+    <string name="table_alloy_text" >A table of common alloys, what they are made of and why they are used instead of the pure metal</string>
     <string name="nuclide_table_title" >Nuclide Table</string>
     <string name="decay_info_fab" >Info of different decay types</string>
 
@@ -473,6 +550,23 @@
     <string name="chip_rocks">Rocks</string>
     <string name="chip_soils">Soils</string>
     <string name="chip_minerals">Minerals</string>
+
+    <!-- Activity Alloy -->
+    <string name="activity_alloy_title" >Alloys</string>
+    <string name="alloy_clear_filter" >Clear Filter</string>
+    <string name="alloy_base_iron" >Iron</string>
+    <string name="alloy_base_copper" >Copper</string>
+    <string name="alloy_base_aluminium" >Aluminium</string>
+    <string name="alloy_base_nickel" >Nickel</string>
+    <string name="alloy_base_tin" >Tin</string>
+    <string name="alloy_base_silver" >Silver</string>
+    <string name="alloy_base_gold" >Gold</string>
+    <string name="alloy_base_titanium" >Titanium</string>
+    <string name="alloy_base_mercury" >Mercury</string>
+    <!-- Quoted so the trailing space survives; aapt strips unquoted trailing whitespace. -->
+    <string name="base_label" >"Base metal: "</string>
+    <string name="composition_label" >"Composition: "</string>
+    <string name="open_base_element" >Open base element</string>
 
     <!-- Activity Unit-->
     <string name="activity_unit_title">Table Units</string>
@@ -542,6 +636,9 @@
     <string name="unknown">Unknown</string>
     <string name="ai_context_lost">Context lost</string>
     <string name="ai_rate_limit_reached">You\'ve reached your daily limit of %1$d messages. Upgrade to PRO or PRO+ for more!</string>
+    <string name="ai_limit_unlimited">Unlimited</string>
+    <string name="ai_rate_limit_resets">Your daily messages come back at %1$s.</string>
+    <string name="ai_limit_reset_badge">Resets %1$s</string>
     <string name="ai_formula_recognize">I recognize **%1$s** as a chemical compound with a molar mass of **%2$s**.</string>
     <string name="ai_formula_consists_of">It consists of:</string>
     <string name="ai_formula_item">• %1$s × %2$s (%3$s)</string>
@@ -682,6 +779,7 @@
     <string name="ele" >Electrochemical Series</string>
     <string name="iso" >Isotopes</string>
     <string name="emi" >Emission Spectrum Table</string>
+    <string name="alo" >Alloy Table</string>
 
     <string name="requires_pro" >Requires PRO-Version</string>
     <string name="requires_pro_plus_until_2026" >Requires PRO+ until 1 jan 2026</string>
@@ -818,8 +916,12 @@
     <string name="question_melting_point_kelvin">What is the melting point (Kelvin) of %s?</string>
     <string name="question_melting_point_celsius">What is the melting point (°C) of %s?</string>
     <string name="question_melting_point_fahrenheit">What is the melting point (°F) of %s?</string>
-    <string name="question_earth_crust_abundance">What is the abundance of %s in the earths crust? mg/kg (ppm)</string>
-    <string name="question_earth_soils_abundance">What is the abundance of %s in the earths soils? mg/kg (ppm)</string>
+    <string name="question_earth_crust_abundance">What is the abundance of %s in the earth\'s crust? mg/kg (ppm)</string>
+    <string name="question_earth_soils_abundance">What is the abundance of %s in the earth\'s soils? mg/kg (ppm)</string>
+    <string name="question_nfpa_health">What is the NFPA 704 health hazard of %s?</string>
+    <string name="question_nfpa_flammability">What is the NFPA 704 flammability of %s?</string>
+    <string name="question_nfpa_instability">What is the NFPA 704 instability of %s?</string>
+    <string name="question_nfpa_diamond">What is the NFPA 704 hazard diamond of %s? (health / flammability / instability)</string>
     <string name="easy" >Easy</string>
     <string name="medium" >Medium</string>
     <string name="hard" >Hard</string>
@@ -851,6 +953,120 @@
     <string name="brinell_hardness" >Brinell Hardness</string>
     <string name="level_25_29">Level 25</string>
     <string name="level_30_34">Level 30</string>
+    <!-- Superlative games: one wording per field, since the table-heading labels do not read
+         correctly when substituted into a generic sentence frame. -->
+    <string name="game_highest">Which Is Highest?</string>
+    <string name="game_lowest">Which Is Lowest?</string>
+    <string name="game_extremes_advanced">Advanced Extremes</string>
+    <string name="question_highest_atomic_mass">Which of these has the highest atomic mass?</string>
+    <string name="question_lowest_atomic_mass">Which of these has the lowest atomic mass?</string>
+    <string name="question_highest_density">Which of these has the highest density?</string>
+    <string name="question_lowest_density">Which of these has the lowest density?</string>
+    <string name="question_highest_melting_point">Which of these has the highest melting point?</string>
+    <string name="question_lowest_melting_point">Which of these has the lowest melting point?</string>
+    <string name="question_highest_boiling_point">Which of these has the highest boiling point?</string>
+    <string name="question_lowest_boiling_point">Which of these has the lowest boiling point?</string>
+    <string name="question_highest_electronegativity">Which of these has the highest electronegativity?</string>
+    <string name="question_lowest_electronegativity">Which of these has the lowest electronegativity?</string>
+    <string name="question_highest_fusion_heat">Which of these has the highest heat of fusion?</string>
+    <string name="question_lowest_fusion_heat">Which of these has the lowest heat of fusion?</string>
+    <string name="question_highest_vaporization_heat">Which of these has the highest heat of vaporization?</string>
+    <string name="question_lowest_vaporization_heat">Which of these has the lowest heat of vaporization?</string>
+    <string name="question_highest_thermal_conductivity">Which of these has the highest thermal conductivity?</string>
+    <string name="question_lowest_thermal_conductivity">Which of these has the lowest thermal conductivity?</string>
+    <string name="question_largest_molar_volume">Which of these has the largest molar volume?</string>
+    <string name="question_smallest_molar_volume">Which of these has the smallest molar volume?</string>
+    <string name="question_largest_atomic_radius">Which of these has the largest atomic radius?</string>
+    <string name="question_smallest_atomic_radius">Which of these has the smallest atomic radius?</string>
+    <string name="question_highest_mohs_hardness">Which of these has the highest Mohs hardness?</string>
+    <string name="question_lowest_mohs_hardness">Which of these has the lowest Mohs hardness?</string>
+    <string name="question_highest_vickers_hardness">Which of these has the highest Vickers hardness?</string>
+    <string name="question_lowest_vickers_hardness">Which of these has the lowest Vickers hardness?</string>
+    <string name="question_highest_brinell_hardness">Which of these has the highest Brinell hardness?</string>
+    <string name="question_lowest_brinell_hardness">Which of these has the lowest Brinell hardness?</string>
+    <string name="question_highest_young_modulus">Which of these has the highest Young\'s modulus?</string>
+    <string name="question_lowest_young_modulus">Which of these has the lowest Young\'s modulus?</string>
+    <string name="question_highest_bulk_modulus">Which of these has the highest bulk modulus?</string>
+    <string name="question_lowest_bulk_modulus">Which of these has the lowest bulk modulus?</string>
+    <string name="question_highest_shear_modulus">Which of these has the highest shear modulus?</string>
+    <string name="question_lowest_shear_modulus">Which of these has the lowest shear modulus?</string>
+    <string name="question_highest_speed_of_sound">In which of these does sound travel fastest?</string>
+    <string name="question_lowest_speed_of_sound">In which of these does sound travel slowest?</string>
+    <!-- Comparison, family and periodic-position games -->
+    <string name="game_compare_pair">Head To Head</string>
+    <string name="game_odd_one_out">Odd One Out</string>
+    <string name="game_period">Periods</string>
+    <string name="game_group">Groups</string>
+    <string name="game_valence_electrons">Valence Electrons</string>
+    <!-- The series names are standalone nouns, so a frame reads correctly here. -->
+    <string name="question_not_a_series">Which of these is NOT a %1$s?</string>
+    <string name="question_period_of">Which period is %1$s in?</string>
+    <string name="question_group_of">Which group is %1$s in?</string>
+    <string name="question_valence_electrons">How many valence electrons does %1$s have?</string>
+    <!-- Isotope and compound games -->
+    <string name="game_isotope_neutrons">Neutron Count</string>
+    <string name="game_isotope_stability">Stable Isotopes</string>
+    <string name="game_isotope_half_life">Half-Life</string>
+    <string name="game_isotope_decay">Decay Modes</string>
+    <string name="game_molar_mass">Molar Mass</string>
+    <string name="question_isotope_neutrons">How many neutrons does %1$s have?</string>
+    <string name="question_isotope_stable">Which of these isotopes is stable?</string>
+    <string name="question_isotope_longest_half_life">Which of these isotopes has the longest half-life?</string>
+    <string name="question_isotope_shortest_half_life">Which of these isotopes has the shortest half-life?</string>
+    <string name="question_isotope_decay">How does %1$s decay?</string>
+    <string name="question_molar_mass">What is the molar mass of %1$s?</string>
+    <string name="molar_mass_value">%1$s g/mol</string>
+    <string name="decay_alpha">Alpha decay (α)</string>
+    <string name="decay_beta_minus">Beta-minus decay (β−)</string>
+    <string name="decay_beta_plus">Beta-plus decay (β+)</string>
+    <string name="decay_electron_capture">Electron capture</string>
+    <string name="decay_proton_emission">Proton emission</string>
+    <string name="decay_neutron_emission">Neutron emission</string>
+    <string name="decay_spontaneous_fission">Spontaneous fission</string>
+    <string name="quiz_loading">Preparing questions…</string>
+    <string name="quiz_no_questions">Could not build questions for this game. Please try another one.</string>
+
+    <string name="hazard_health">Health Hazard</string>
+    <string name="hazard_flammability">Flammability</string>
+    <string name="hazard_instability">Instability</string>
+    <string name="hazard_diamond">Hazard Diamond</string>
+    <string name="hazard_diamond_answer" translatable="false">H%1$s / F%2$s / I%3$s</string>
+    <string name="exam_test_title">Exam Test</string>
+    <string name="exam_test_subtitle">Everything from level %1$d to %2$d, mixed together</string>
+    <string name="exam_start">Start exam</string>
+    <string name="exam_locked">Reach level %1$d to unlock</string>
+    <string name="exam_pro_locked">Get PRO+ to take this exam</string>
+    <string name="exam_best_score">Best score: %1$d%%</string>
+    <string name="exam_passed">Passed · best score %1$d%%</string>
+    <string name="exam_not_taken">Not attempted yet</string>
+    <string name="exam_results">Exam Results</string>
+    <string name="exam_finished_xp">Exam completed: +%1$d XP</string>
+
+    <!-- Flashcard dialogs, toasts and in-game feedback -->
+    <string name="level_up_title">Level Up!</string>
+    <string name="level_up_message">Congratulations, you\'ve reached level %1$d!</string>
+    <string name="xp_bonus_unlocked">5%% XP bonus unlocked at level %1$d!</string>
+    <string name="no_unlocked_games">No unlocked games available!</string>
+    <string name="leave_game_title">Leave Game?</string>
+    <string name="leave_game_message">Are you sure you want to leave the game? You will lose %1$d lives.</string>
+    <string name="leave_game_confirm">Leave</string>
+    <string name="leave_game_stay">Stay</string>
+    <string name="answer_timeout">Timeout</string>
+    <string name="answer_yes">Yes</string>
+    <string name="answer_no">No</string>
+    <string name="result_xp_gained">+%1$dxp</string>
+    <string name="question_xp_detail">XP for this question: +%1$d</string>
+    <string name="total_xp_with_multiplier">Total XP: %1$d (%2$s ×%3$s)</string>
+    <!-- Replaces next_life_in, whose "life%4$s" trick only ever pluralised English. -->
+    <string name="next_life_in_detail">Next life in %1$d minutes and %2$d seconds.\n%3$s</string>
+    <plurals name="lives_lost_result">
+        <item quantity="one">Lost %d life</item>
+        <item quantity="other">Lost %d lives</item>
+    </plurals>
+    <plurals name="next_life_gain">
+        <item quantity="one">You will gain %d life.</item>
+        <item quantity="other">You will gain %d lives.</item>
+    </plurals>
     <string name="boiling_point_celsius">Boiling Point (°C):</string>
     <string name="boiling_point_fahrenheit">Boiling Point (°F):</string>
     <string name="boiling_point_kelvin">Boiling Point (Kelvin):</string>
@@ -958,7 +1174,6 @@
     <string name="xp_bonus">+%d%% bonus xp</string>
     <string name="progress_xp" translatable="false">%1$d/%2$d</string>
     <string name="you_have_full_lives">You have full lives!</string>
-    <string name="next_life_in">Next life in %1$d minutes and %2$d seconds.\nYou will gain %3$d life%4$s.</string>
 
     <!-- UserActivity strings -->
     <string name="non_pro">NON-PRO</string>
@@ -1194,4 +1409,8 @@
     <!-- AI Settings -->
     <string name="ai_chat_setting">Enable AI Chat Assistant</string>
     <string name="ai_chat_setting_description">Allow AI assistant to answer questions about elements</string>
+    <string name="ai_aggregate_spread">Ranges from %1$s (%2$s) to %3$s (%4$s).</string>
+    <string name="ai_grams_to_moles">**%1$s g** of %2$s is **%3$s mol**.</string>
+    <string name="ai_comparison_verdict">%1$s has the higher value on %2$d of the %3$d properties compared.</string>
+    <string name="ai_no_data_alternatives">Recorded for %1$s: %2$s.</string>
 </resources>

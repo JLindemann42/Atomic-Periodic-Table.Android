@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/widget_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,8 +12,8 @@
     <ImageView
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_ai_mascot"
-        app:tint="?attr/colorOnPrimaryContainer"
+        android:src="@drawable/ic_widget_ai"
+        android:tint="@color/widget_on_primary_container"
         android:contentDescription="@null"
         android:layout_marginEnd="12dp" />
 
@@ -24,14 +23,17 @@
         android:layout_weight="1"
         android:text="@string/ask_atomic"
         android:textSize="16sp"
-        android:textColor="?attr/colorOnPrimaryContainer"
-        android:alpha="0.7" />
+        android:textColor="@color/widget_on_primary_container"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:alpha="0.75" />
 
     <ImageView
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_search"
-        app:tint="?attr/colorOnPrimaryContainer"
-        android:contentDescription="@null" />
+        android:src="@drawable/ic_widget_search"
+        android:tint="@color/widget_on_primary_container"
+        android:contentDescription="@null"
+        android:layout_marginStart="12dp" />
 
 </LinearLayout>

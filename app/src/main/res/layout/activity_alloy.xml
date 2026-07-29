@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator_layout_alloy"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/view_alloy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/alloy_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="112dp"
+            android:paddingBottom="80dp"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical" />
+
+        <include
+            android:id="@+id/unified_titlebar_include"
+            layout="@layout/view_unified_titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/empty_search_box_alloy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:visibility="gone"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/empty_alloy_search_image"
+                android:layout_width="164dp"
+                android:layout_height="164dp"
+                app:srcCompat="@drawable/graphic_light_search" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:text="@string/no_results"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="16sp"
+                android:text="@string/try_another_search"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/background_alloy"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.0"
+            android:background="?attr/colorOnSurface"
+            android:elevation="10dp"
+            android:visibility="gone"
+            android:clickable="true"
+            android:focusable="true" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Alloy Detail Bottom Sheet -->
+    <include
+        layout="@layout/alloy_panel"
+        android:id="@+id/alloy_details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:behavior_skipCollapsed="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

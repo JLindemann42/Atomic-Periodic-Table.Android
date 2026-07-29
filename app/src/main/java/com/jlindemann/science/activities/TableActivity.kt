@@ -97,7 +97,8 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
             TableItem("nuc", R.string.table_nuclide, R.string.table_nuclide_text, proPrefValue == 1, 7),
             TableItem("con", R.string.constants_tite, R.string.table_constants_text, proPrefValue == 1, 8),
             TableItem("geo", R.string.table_geology, R.string.table_geology_text, proPrefValue == 1, 9),
-            TableItem("emi", R.string.emission_title, R.string.emission_text, proPrefValue == 1, 10)
+            TableItem("emi", R.string.emission_title, R.string.emission_text, proPrefValue == 1, 10),
+            TableItem("alo", R.string.table_alloy, R.string.table_alloy_text, proPrefValue == 1, 11)
         )
 
         val savedOrder = tableOrderPref.getOrder()
@@ -162,6 +163,7 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
             "con" -> ConstantsActivity::class.java
             "geo" -> GeologyActivity::class.java
             "emi" -> EmissionActivity::class.java
+            "alo" -> AlloyActivity::class.java
             else -> return
         }
 
@@ -250,11 +252,12 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
                     "ele" -> getString(R.string.ele)
                     "iso" -> getString(R.string.iso)
                     "emi" -> getString(R.string.emi)
+                    "alo" -> getString(R.string.alo)
                     else -> ""
                 }
 
                 textView.setOnClickListener {
-                    if (proPrefValue != 100 && listOf("poi", "nuc", "con", "geo", "emi").contains(pair.first)) {
+                    if (proPrefValue != 100 && listOf("poi", "nuc", "con", "geo", "emi", "alo").contains(pair.first)) {
                         goToProPage()
                     } else {
                         val activityClass = when (pair.first) {
@@ -269,6 +272,7 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
                             "con" -> ConstantsActivity::class.java
                             "geo" -> GeologyActivity::class.java
                             "emi" -> EmissionActivity::class.java
+                            "alo" -> AlloyActivity::class.java
                             else -> null
                         }
                         activityClass?.let {

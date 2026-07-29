@@ -1,0 +1,169 @@
+# Single-field lookups: every queryable field in FieldRegistry, in several phrasings each for the
+# fields users actually ask about, and at least once for the rest.
+#
+# Elements are chosen to have a recorded value where one exists. Where the app genuinely has no
+# value the row still belongs here: the field must resolve, and the answer must say plainly that
+# there is no value rather than print the "---" sentinel.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+prop-symbol-1			en	what is the symbol for gold	PROPERTY_LOOKUP	symbol			
+prop-symbol-2			en	what's tungsten's chemical symbol	PROPERTY_LOOKUP	symbol			
+prop-symbol-3			en	give me the symbol of potassium	PROPERTY_LOOKUP	symbol			
+prop-z-1			en	what is the atomic number of gold	PROPERTY_LOOKUP	atomic_number			
+prop-z-2			en	how many protons does carbon have	PROPERTY_LOOKUP	protons			
+prop-z-3			en	atomic number of uranium	PROPERTY_LOOKUP	atomic_number			
+prop-z-4			en	what is iron's atomic number	PROPERTY_LOOKUP	atomic_number			
+prop-electrons-1			en	how many electrons does neon have	PROPERTY_LOOKUP	electrons			
+prop-electrons-2			en	number of electrons in sodium	PROPERTY_LOOKUP	electrons			
+prop-mass-1			en	what is the atomic mass of gold	PROPERTY_LOOKUP	atomic_mass			
+prop-mass-2			en	how heavy is a uranium atom	PROPERTY_LOOKUP	atomic_mass			
+prop-mass-3			en	atomic weight of chlorine	PROPERTY_LOOKUP	atomic_mass			
+prop-density-1			en	what is the density of gold	PROPERTY_LOOKUP	density			
+prop-density-2			en	how dense is osmium	PROPERTY_LOOKUP	density			
+prop-density-3			en	density of lead	PROPERTY_LOOKUP	density			
+prop-density-4			en	what's the density of aluminium	PROPERTY_LOOKUP	density			
+prop-melt-1			en	what is the melting point of gold	PROPERTY_LOOKUP	melting_point			
+prop-melt-2			en	at what temperature does tungsten melt	PROPERTY_LOOKUP	melting_point			
+prop-melt-3			en	melting point of iron in celsius	PROPERTY_LOOKUP	melting_point			unit request on a multi-scale field
+prop-melt-4			en	what is the melting point of copper in fahrenheit	PROPERTY_LOOKUP	melting_point			
+prop-melt-5			en	melting point of mercury in kelvin	PROPERTY_LOOKUP	melting_point			
+prop-boil-1			en	what is the boiling point of gold	PROPERTY_LOOKUP	boiling_point			
+prop-boil-2			en	at what temperature does water's oxygen boil	PROPERTY_LOOKUP	boiling_point			
+prop-boil-3			en	boiling point of nitrogen in celsius	PROPERTY_LOOKUP	boiling_point			
+prop-eneg-1			en	what is the electronegativity of gold	PROPERTY_LOOKUP	electronegativity			
+prop-eneg-2			en	how electronegative is fluorine	PROPERTY_LOOKUP	electronegativity			
+prop-eneg-3			en	pauling electronegativity of oxygen	PROPERTY_LOOKUP	electronegativity			
+prop-eneg-4			en	what is the allen electronegativity of carbon	PROPERTY_LOOKUP	electronegativity_allen			
+prop-config-1			en	what is the electron configuration of gold	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+prop-config-2			en	electron configuration of iron	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+prop-config-3			en	how are chromium's electrons arranged	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+prop-shells-1			en	what are the electron shells of gold	PROPERTY_LOOKUP	electron_shells	ELECTRON_SHELL		
+prop-shells-2			en	electron shells of calcium	PROPERTY_LOOKUP	electron_shells	ELECTRON_SHELL		
+prop-valence-1			en	how many valence electrons does carbon have	PROPERTY_LOOKUP	valence_electrons			
+prop-valence-2			en	valence electrons of chlorine	PROPERTY_LOOKUP	valence_electrons			
+prop-radius-1			en	what is the atomic radius of gold	PROPERTY_LOOKUP	atomic_radius			
+prop-radius-2			en	atomic radius of caesium	PROPERTY_LOOKUP	atomic_radius			
+prop-radius-3			en	what is the empirical atomic radius of iron	PROPERTY_LOOKUP	atomic_radius_empirical			
+prop-radius-4			en	covalent radius of carbon	PROPERTY_LOOKUP	covalent_radius			
+prop-radius-5			en	what is the van der waals radius of argon	PROPERTY_LOOKUP	van_der_waals_radius			
+prop-affinity-1			en	what is the electron affinity of gold	PROPERTY_LOOKUP	electron_affinity			
+prop-affinity-2			en	electron affinity of chlorine	PROPERTY_LOOKUP	electron_affinity			
+prop-workfn-1			en	what is the work function of gold	PROPERTY_LOOKUP	work_function			
+prop-workfn-2			en	work function of caesium	PROPERTY_LOOKUP	work_function			
+prop-molvol-1			en	what is the molar volume of gold	PROPERTY_LOOKUP	molar_volume			
+prop-ioncharge-1			en	what is the ion charge of gold	PROPERTY_LOOKUP	ion_charge			
+prop-oxid-1			en	what are the oxidation states of gold	PROPERTY_LOOKUP	oxidation_states			
+prop-oxid-2			en	oxidation states of manganese	PROPERTY_LOOKUP	oxidation_states			
+prop-oxid-3			en	what negative oxidation states does sulfur have	PROPERTY_LOOKUP	oxidation_states_negative			
+prop-ion-1			en	what is the first ionization energy of gold	PROPERTY_LOOKUP	ionization_energy	IONIZATION_SERIES		
+prop-ion-2			en	ionization energy of helium	PROPERTY_LOOKUP	ionization_energy			helium has only two ionization steps, too few to chart
+prop-ion-3			en	what is the second ionization energy of magnesium	PROPERTY_LOOKUP	ionization_energy	IONIZATION_SERIES		banked field addressed by ordinal
+prop-ion-4			en	third ionization energy of aluminium	PROPERTY_LOOKUP	ionization_energy	IONIZATION_SERIES		
+prop-ion-5			en	first ionization energy of sodium in ev	PROPERTY_LOOKUP	ionization_energy	IONIZATION_SERIES		
+prop-fusion-1			en	what is the heat of fusion of gold	PROPERTY_LOOKUP	fusion_heat			
+prop-fusion-2			en	fusion heat of iron	PROPERTY_LOOKUP	fusion_heat			
+prop-vapor-1			en	what is the heat of vaporization of gold	PROPERTY_LOOKUP	vaporization_heat			
+prop-vapor-2			en	vaporization heat of water's hydrogen	PROPERTY_LOOKUP	vaporization_heat			
+prop-specheat-1			en	what is the specific heat capacity of gold	PROPERTY_LOOKUP	specific_heat_capacity			
+prop-specheat-2			en	specific heat of aluminium	PROPERTY_LOOKUP	specific_heat_capacity			
+prop-molheat-1			en	what is the molar heat capacity of gold	PROPERTY_LOOKUP	molar_heat_capacity			
+prop-thermcond-1			en	what is the thermal conductivity of gold	PROPERTY_LOOKUP	thermal_conductivity			
+prop-thermcond-2			en	how well does copper conduct heat	PROPERTY_LOOKUP	thermal_conductivity			
+prop-thermexp-1			en	what is the thermal expansion of gold	PROPERTY_LOOKUP	thermal_expansion			
+prop-debye-1			en	what is the debye temperature of gold	PROPERTY_LOOKUP	debye_temperature			
+prop-electype-1			en	what is the electrical type of gold	PROPERTY_LOOKUP	electrical_type			
+prop-electype-2			en	is silicon a conductor or a semiconductor	PROPERTY_LOOKUP	electrical_type			
+prop-resist-1			en	what is the resistivity of gold	PROPERTY_LOOKUP	resistivity			
+prop-resist-2			en	electrical resistivity of copper	PROPERTY_LOOKUP	resistivity			
+prop-magtype-1			en	what is the magnetic type of iron	PROPERTY_LOOKUP	magnetic_type			
+prop-magtype-2			en	is copper magnetic	PROPERTY_LOOKUP	magnetic_type			
+prop-supercon-1			en	what is the superconducting point of niobium	PROPERTY_LOOKUP	superconducting_point			
+prop-curie-1			en	what is the curie point of iron	PROPERTY_LOOKUP	curie_point			
+prop-neel-1			en	what is the neel point of chromium	PROPERTY_LOOKUP	neel_point			
+prop-refract-1			en	what is the refractive index of diamond's carbon	PROPERTY_LOOKUP	refractive_index			
+prop-crystal-1			en	what is the crystal structure of gold	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		
+prop-crystal-2			en	crystal structure of iron	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		
+prop-crystal-3			en	what lattice does tungsten have	PROPERTY_LOOKUP	crystal_structure	none		tungsten has no crystal_structure in the data, so the card has nothing to draw
+prop-lattice-1			en	what are the lattice constants of gold	PROPERTY_LOOKUP	lattice_constants	CRYSTAL_STRUCTURE		
+prop-spacegrp-1			en	what is the space group of gold	PROPERTY_LOOKUP	space_group_name	CRYSTAL_STRUCTURE		
+prop-spacegrp-2			en	space group number of iron	PROPERTY_LOOKUP	space_group_number	CRYSTAL_STRUCTURE		
+prop-young-1			en	what is the young modulus of gold	PROPERTY_LOOKUP	young_modulus			
+prop-young-2			en	youngs modulus of steel's iron	PROPERTY_LOOKUP	young_modulus			
+prop-bulk-1			en	what is the bulk modulus of gold	PROPERTY_LOOKUP	bulk_modulus			
+prop-shear-1			en	what is the shear modulus of gold	PROPERTY_LOOKUP	shear_modulus			
+prop-poisson-1			en	what is the poisson ratio of gold	PROPERTY_LOOKUP	poisson_ratio	POISSON_BAND		
+prop-poisson-2			en	poisson ratio of iron	PROPERTY_LOOKUP	poisson_ratio	POISSON_BAND		
+prop-poisson-3			en	what is beryllium's poisson ratio	PROPERTY_LOOKUP	poisson_ratio	POISSON_BAND		
+prop-mohs-1			en	what is the mohs hardness of gold	PROPERTY_LOOKUP	mohs_hardness			
+prop-mohs-2			en	how hard is diamond's carbon on the mohs scale	PROPERTY_LOOKUP	mohs_hardness			
+prop-vickers-1			en	what is the vickers hardness of gold	PROPERTY_LOOKUP	vickers_hardness			
+prop-brinell-1			en	what is the brinell hardness of iron	PROPERTY_LOOKUP	brinell_hardness			
+prop-sound-1			en	what is the speed of sound in gold	PROPERTY_LOOKUP	speed_of_sound_solid			
+prop-sound-2			en	speed of sound in solid iron	PROPERTY_LOOKUP	speed_of_sound_solid			
+prop-sound-3			en	speed of sound in liquid mercury	PROPERTY_LOOKUP	speed_of_sound_liquid			
+prop-sound-4			en	speed of sound in helium gas	PROPERTY_LOOKUP	speed_of_sound_gas			
+prop-radio-1			en	is gold radioactive	PROPERTY_LOOKUP	radioactive			
+prop-radio-2			en	is uranium radioactive	PROPERTY_LOOKUP	radioactive			
+prop-radio-3			en	is radium radioactive	PROPERTY_LOOKUP	radioactive			
+prop-neutcross-1			en	what is the neutron cross section of boron	PROPERTY_LOOKUP	neutron_cross_section			
+prop-commonneut-1			en	how many neutrons does gold usually have	PROPERTY_LOOKUP	common_neutrons			
+prop-commonneut-2			en	common neutron count of carbon	PROPERTY_LOOKUP	common_neutrons			
+prop-phase-1			en	what phase is gold at room temperature	PROPERTY_LOOKUP	phase			
+prop-phase-2			en	is bromine a liquid	PROPERTY_LOOKUP	phase			
+prop-phase-3			en	what state of matter is mercury	PROPERTY_LOOKUP	phase			
+prop-appear-1			en	what does gold look like	PROPERTY_LOOKUP	appearance			
+prop-appear-2			en	what colour is copper	PROPERTY_LOOKUP	appearance			
+prop-appear-3			en	appearance of sulfur	PROPERTY_LOOKUP	appearance			
+prop-block-1			en	what block is gold in	PROPERTY_LOOKUP	block			
+prop-block-2			en	is iron a d block element	PROPERTY_LOOKUP	block			
+prop-series-1			en	what series is gold in	PROPERTY_LOOKUP	series			
+prop-series-2			en	what group of elements does argon belong to	PROPERTY_LOOKUP	series			
+prop-period-1			en	what period is gold in	PROPERTY_LOOKUP	period			
+prop-period-2			en	which period is potassium in	PROPERTY_LOOKUP	period			
+prop-group-1			en	what group is gold in	PROPERTY_LOOKUP	group_number			
+prop-group-2			en	which group number is chlorine	PROPERTY_LOOKUP	group_number			
+prop-synth-1			en	is technetium synthetic	PROPERTY_LOOKUP	synthetic			
+prop-synth-2			en	is plutonium man made	PROPERTY_LOOKUP	synthetic			
+prop-year-1			en	when was gold discovered	PROPERTY_LOOKUP	year_discovered			
+prop-year-2			en	what year was radium discovered	PROPERTY_LOOKUP	year_discovered			
+prop-year-3			en	when was helium found	PROPERTY_LOOKUP	year_discovered			
+prop-disc-1			en	who discovered radium	PROPERTY_LOOKUP	discovered_by			
+prop-disc-2			en	who discovered oxygen	PROPERTY_LOOKUP	discovered_by			
+prop-disc-3			en	who found helium	PROPERTY_LOOKUP	discovered_by			
+prop-cas-1			en	what is the cas number of gold	PROPERTY_LOOKUP	cas_number			
+prop-eg-1			en	what is the eg number of gold	PROPERTY_LOOKUP	eg_number			
+prop-abund-1			en	how abundant is gold in the earth's crust	PROPERTY_LOOKUP				abundance_earth_crust is unpopulated for gold
+prop-abund-2			en	abundance of oxygen in the earth's crust	PROPERTY_LOOKUP				abundance_earth_crust is unpopulated for oxygen
+prop-abund-3			en	how much gold is in sea water	PROPERTY_LOOKUP	abundance_sea_water	ABUNDANCE		
+prop-abund-4			en	abundance of iron in earth soils	PROPERTY_LOOKUP	abundance_earth_soils	ABUNDANCE		
+prop-abund-5			en	how much lead is in urban soils	PROPERTY_LOOKUP	abundance_urban_soils	ABUNDANCE		
+prop-abund-6			en	abundance of silicon in crustal rocks	PROPERTY_LOOKUP	abundance_crustal_rocks	ABUNDANCE		
+prop-abund-7			en	how abundant is helium in the sun	PROPERTY_LOOKUP	abundance_sun	ABUNDANCE		
+prop-abund-8			en	abundance of carbon in the solar system	PROPERTY_LOOKUP	abundance_solar_system	ABUNDANCE		
+prop-abund-9			en	how much nickel is in meteorites	PROPERTY_LOOKUP	abundance_meteorites	ABUNDANCE		
+prop-abund-10			en	how much iron is in the human body	PROPERTY_LOOKUP	abundance_human_body	ABUNDANCE		
+prop-abund-11			en	how much calcium is in the human body	PROPERTY_LOOKUP	abundance_human_body	ABUNDANCE		
+# ---- Follow-ups that legitimately inherit a slot -------------------------------------------------
+prop-inherit-1	inh-1	1	en	what is the density of gold	PROPERTY_LOOKUP	density			
+prop-inherit-2	inh-1	2	en	and its melting point	PROPERTY_LOOKUP	melting_point			element inherited from focus
+prop-inherit-3	inh-1	3	en	what about iron	PROPERTY_LOOKUP	melting_point			field inherited; a bare element name is a real follow-up
+prop-inherit-4	inh-2	1	en	melting point of iron in celsius	PROPERTY_LOOKUP	melting_point			
+prop-inherit-5	inh-2	2	en	and copper	PROPERTY_LOOKUP	melting_point			unit and field both carry over
+prop-inherit-6	inh-3	1	en	what is the atomic radius of sodium	PROPERTY_LOOKUP	atomic_radius			
+prop-inherit-7	inh-3	2	en	and potassium	PROPERTY_LOOKUP	atomic_radius			
+# ---- Units and conversions ----------------------------------------------------------------------
+prop-unit-1			en	density of gold in kg/m3	PROPERTY_LOOKUP	density			
+prop-unit-2			en	what is the melting point of iron in degrees celsius	PROPERTY_LOOKUP	melting_point			
+prop-unit-3			en	atomic radius of gold in picometres	PROPERTY_LOOKUP	atomic_radius			
+prop-unit-4			en	thermal conductivity of copper in w/(m·k)	PROPERTY_LOOKUP	thermal_conductivity			
+# ---- Symbols and numbers as the subject ---------------------------------------------------------
+prop-bysym-1			en	what is the density of Au	PROPERTY_LOOKUP	density			element named by symbol
+prop-bysym-2			en	melting point of Fe	PROPERTY_LOOKUP	melting_point			
+prop-bysym-3			en	atomic mass of W	PROPERTY_LOOKUP	atomic_mass			
+prop-bynum-1			en	what is the density of element 79	PROPERTY_LOOKUP	density			element named by atomic number
+prop-bynum-2			en	what is element 26's melting point	PROPERTY_LOOKUP	melting_point			
+# ---- Honest absence ------------------------------------------------------------------------------
+prop-nodata-1			en	what is the mohs hardness of helium	PROPERTY_LOOKUP	mohs_hardness			no value: must say so, never print "---"
+prop-nodata-2			en	what is the curie point of gold	PROPERTY_LOOKUP	curie_point			no value
+prop-nodata-3			en	what is the superconducting point of gold	PROPERTY_LOOKUP	superconducting_point			no value
+prop-nodata-4			en	who discovered iron	PROPERTY_LOOKUP	discovered_by			ancient element, no recorded discoverer
+prop-nodata-5			en	what is the poisson ratio of neon	PROPERTY_LOOKUP	poisson_ratio	none		no value, so no card either

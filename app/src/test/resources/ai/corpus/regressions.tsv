@@ -1,0 +1,48 @@
+# Queries a user actually hit, with the answer each must now give.
+#
+# Unlike the other corpus files this one is a tripwire, not a scoreboard: every row here is a
+# reported defect, so any regression should fail loudly. Each row names the wrong answer it used
+# to produce, so the note is enough to understand what broke without going back to the report.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+reg-usage-sv-1	usage-sv	1	sv	Var finns Titan?	CATEGORY_LOOKUP		ABUNDANCE		sets up the stale-field inheritance: this turn leaves abundance in lastFieldIds
+reg-usage-sv-2	usage-sv	2	sv	Användning av Titan				y	was answered "Titan:s I jordskorpan är 4500" — a usage question inheriting the previous turn's abundance field
+reg-usage-sv-3	usage-sv2	1	sv	Vad är atomnummer för Titan	PROPERTY_LOOKUP	atomic_number			leaves atomic_number in lastFieldIds
+reg-usage-sv-4	usage-sv2	2	sv	Vad används titan till				y	was answered "Titan:s Atomnummer är 22" — usage question inheriting atomic_number
+reg-usage-en-1	usage-en	1	en	what is the density of titanium	PROPERTY_LOOKUP	density			leaves density in lastFieldIds
+reg-usage-en-2	usage-en	2	en	what is titanium used for				y	usage is narrative; must not inherit density
+reg-usage-en-3	usage-en2	1	en	what is the atomic mass of copper	PROPERTY_LOOKUP	atomic_mass			
+reg-usage-en-4	usage-en2	2	en	what are the applications of copper				y	applications are narrative; must not inherit atomic_mass
+reg-disc-sv-1	disc-sv	1	sv	Vad är densitet för Järn	PROPERTY_LOOKUP	density			leaves density in lastFieldIds
+reg-disc-sv-2	disc-sv	2	sv	Vem upptäckte järn	PROPERTY_LOOKUP	discovered_by			was answered with iron's density and rank — no Swedish alias for discovered_by
+reg-disc-en-1			en	who discovered iron	PROPERTY_LOOKUP	discovered_by			iron has no recorded discoverer, so an honest NoData is correct — but the field must resolve
+reg-disc-en-2			en	who discovered gold	PROPERTY_LOOKUP	discovered_by			same: resolve the field, then say plainly there is no value
+reg-disc-en-3			en	who discovered radium	PROPERTY_LOOKUP	discovered_by			a recorded discoverer, so this one must produce a real value
+reg-disc-sv-3			sv	vem upptäckte radium	PROPERTY_LOOKUP	discovered_by			
+reg-disc-de-1			de	wer hat radium entdeckt	PROPERTY_LOOKUP	discovered_by			
+reg-noble-sv-1			sv	Vilka är ädelgaserna?	FILTER_LIST				was answered with a single-element Argon dump: "ädelgaserna" is inflected, so it missed the "adelgas" subset word
+reg-noble-sv-2			sv	Lista ädelgaserna	FILTER_LIST				
+reg-noble-sv-3			sv	Vilka är halogenerna	FILTER_LIST				same inflection problem for halogens
+reg-noble-sv-4			sv	Vilka är alkalimetallerna	FILTER_LIST				same inflection problem, definite plural
+reg-noble-de-1			de	Welche sind die Edelgase	FILTER_LIST				
+reg-noble-en-1			en	which are the noble gases	FILTER_LIST				the English form already worked; this is the guard that it keeps working
+reg-compound-sv-1			sv	Berätta om syre och sen densitet av väte?	COMPOUND				was answered as a density comparison of both — the splitter would not split on "och sen"
+reg-compound-en-1			en	Tell me about hydrogen. Furthermore, what is the density of iron	COMPOUND				same defect via a sentence boundary and a discourse marker
+reg-compound-sv-2			sv	Berätta om guld och sedan smältpunkten för silver	COMPOUND				
+reg-compound-en-2			en	tell me about gold. also, what is the boiling point of lead	COMPOUND				
+reg-compound-en-3			en	what is the density of gold and how does it compare to lead	COMPOUND				already worked; guard that the fix does not break it
+reg-quiz-en-1			en	Quiz me				y	was answered "Electron mass 9.10938188e-31 kg" from the constants table
+reg-quiz-en-2			en	quiz				y	
+reg-quiz-en-3			en	test me				y	
+reg-quiz-sv-1			sv	Fråga mig				y	
+reg-quiz-sv-2			sv	Frågesport				y	
+reg-quiz-de-1			de	Quiz mich				y	
+reg-greet-sv-1			sv	Hej				y	greetings belong to the personality layer, never to retrieval
+reg-greet-en-1			en	hello				y	
+reg-greet-en-2			en	thanks				y	
+reg-greet-sv-2			sv	Tack				y	
+reg-fact-en-1			en	tell me a fun fact				y	
+reg-fact-sv-1			sv	Berätta en kul fakta				y	
+reg-concept-en-1			en	what is mass number	DATASET_LOOKUP				answered with a vague deflection; the dictionary has this term
+reg-concept-sv-1			sv	Vad är masstal	DATASET_LOOKUP				same, in Swedish
+reg-affirm-en-1			en	yes				y	a bare affirmative is conversational state, never a retrieval hit
+reg-affirm-sv-1			sv	Ja				y	after a quiz this must continue the quiz, not dump an element overview

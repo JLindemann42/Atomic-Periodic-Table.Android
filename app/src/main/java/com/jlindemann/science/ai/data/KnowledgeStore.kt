@@ -50,6 +50,30 @@ data class LocalizedElement(
 /** A language's display overlay on top of the shared numeric index. */
 class LocalizedView(val language: String, val elements: Map<ElementKey, LocalizedElement>) {
     fun name(key: ElementKey): String? = elements[key]?.name
+
+    /**
+     * A translated value for one of the seven overlaid fields, or null when this language has none.
+     *
+     * The numeric index is parsed once from English, which is correct for every measured value but
+     * wrong for the handful of fields that are prose. Without this, a Swedish question about gold's
+     * phase or appearance was answered `Solid` and `Metallic Yellow` — in English — even though
+     * `elements_sv.json` holds a translation. `FieldSpec.localized` marks exactly these fields and
+     * was declared but never consulted anywhere; this is what it reads.
+     */
+    fun text(key: ElementKey, fieldId: String): String? {
+        val element = elements[key] ?: return null
+        val value = when (fieldId) {
+            "name" -> element.name
+            "description" -> element.description
+            "series" -> element.seriesName
+            "appearance" -> element.appearance
+            "phase" -> element.phase
+            "electrical_type" -> element.electricalType
+            "magnetic_type" -> element.magneticType
+            else -> null
+        }
+        return value?.takeIf { it.isNotBlank() && !ValueParser.isNullToken(it) }
+    }
 }
 
 /**

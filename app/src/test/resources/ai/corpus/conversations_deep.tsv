@@ -1,0 +1,248 @@
+# Three six-turn threads per language, replayed against one DialogueState each.
+#
+# `conversations_multi.tsv` has two threads per language and stops at four or five turns. Drift is
+# cumulative — a rule that holds for one follow-up can still be wrong by the fifth — so these run
+# longer and cross more intent boundaries than that file does.
+#
+# Thread C — property drilldown, then a switch of subject, then a comparison of both, then safety.
+#   The hard turns are 3 (a bare "what about copper" must keep the *field* and change the element)
+#   and 5 (a plural anaphor must widen back to both elements, not narrow to one).
+#
+# Thread D — subset, then its size, then its extreme member, then three questions about that
+#   member. The hard turn is 4: the superlative's winner has to become the new focus element, or
+#   "what is its density" answers about whatever was in focus before the list.
+#
+# Thread E — lookups interrupted mid-thread by a greeting the engine must decline, and then
+#   resumed. A deferral that resets the dialogue state is invisible until the turn after it, which
+#   is why the interruption is at turn 4 and not at the end.
+#
+# Element names are taken verbatim from the shipped elements_<lang>.json.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+# ---- en (control) --------------------------------------------------------------------------------
+cd-en-c1	cd-en-c	1	en	what is the melting point of iron	PROPERTY_LOOKUP	melting_point			
+cd-en-c2	cd-en-c	2	en	and its boiling point	PROPERTY_LOOKUP	boiling_point			
+cd-en-c3	cd-en-c	3	en	what about copper	PROPERTY_LOOKUP	boiling_point			
+cd-en-c4	cd-en-c	4	en	compare the two	COMPARISON				
+cd-en-c5	cd-en-c	5	en	and their densities	COMPARISON	density			
+cd-en-c6	cd-en-c	6	en	is copper dangerous	SAFETY				
+cd-en-d1	cd-en-d	1	en	which elements are noble gases	FILTER_LIST				
+cd-en-d2	cd-en-d	2	en	how many are there	AGGREGATE				
+cd-en-d3	cd-en-d	3	en	which is the heaviest	SUPERLATIVE	atomic_mass			
+cd-en-d4	cd-en-d	4	en	what is its density	PROPERTY_LOOKUP	density			
+cd-en-d5	cd-en-d	5	en	who discovered it	PROPERTY_LOOKUP	discovered_by			
+cd-en-d6	cd-en-d	6	en	what are its isotopes	ISOTOPES				
+cd-en-e1	cd-en-e	1	en	what is the atomic number of gold	PROPERTY_LOOKUP	atomic_number			
+cd-en-e2	cd-en-e	2	en	and its symbol	PROPERTY_LOOKUP	symbol			
+cd-en-e3	cd-en-e	3	en	what group is it in	PROPERTY_LOOKUP	group_number			
+cd-en-e4	cd-en-e	4	en	hello				y	
+cd-en-e5	cd-en-e	5	en	what is its density	PROPERTY_LOOKUP	density			
+cd-en-e6	cd-en-e	6	en	is it heavier than silver	COMPARATIVE	atomic_mass			
+# ---- sv ------------------------------------------------------------------------------------------
+cd-sv-c1	cd-sv-c	1	sv	vad är smältpunkten för järn	PROPERTY_LOOKUP	melting_point			
+cd-sv-c2	cd-sv-c	2	sv	och dess kokpunkt	PROPERTY_LOOKUP	boiling_point			
+cd-sv-c3	cd-sv-c	3	sv	hur är det med koppar	PROPERTY_LOOKUP	boiling_point			
+cd-sv-c4	cd-sv-c	4	sv	jämför de två	COMPARISON				
+cd-sv-c5	cd-sv-c	5	sv	och deras densiteter	COMPARISON	density			
+cd-sv-c6	cd-sv-c	6	sv	är koppar farligt	SAFETY				
+cd-sv-d1	cd-sv-d	1	sv	vilka grundämnen är ädelgaser	FILTER_LIST				
+cd-sv-d2	cd-sv-d	2	sv	hur många finns det	AGGREGATE				
+cd-sv-d3	cd-sv-d	3	sv	vilken är tyngst	SUPERLATIVE	atomic_mass			
+cd-sv-d4	cd-sv-d	4	sv	vad är dess densitet	PROPERTY_LOOKUP	density			
+cd-sv-d5	cd-sv-d	5	sv	vem upptäckte det	PROPERTY_LOOKUP	discovered_by			
+cd-sv-d6	cd-sv-d	6	sv	vilka är dess isotoper	ISOTOPES				
+cd-sv-e1	cd-sv-e	1	sv	vad är atomnumret för guld	PROPERTY_LOOKUP	atomic_number			
+cd-sv-e2	cd-sv-e	2	sv	och dess symbol	PROPERTY_LOOKUP	symbol			
+cd-sv-e3	cd-sv-e	3	sv	vilken grupp tillhör det	PROPERTY_LOOKUP	group_number			
+cd-sv-e4	cd-sv-e	4	sv	hej				y	
+cd-sv-e5	cd-sv-e	5	sv	vad är dess densitet	PROPERTY_LOOKUP	density			
+cd-sv-e6	cd-sv-e	6	sv	är det tyngre än silver	COMPARATIVE	atomic_mass			
+# ---- de ------------------------------------------------------------------------------------------
+cd-de-c1	cd-de-c	1	de	was ist der schmelzpunkt von eisen	PROPERTY_LOOKUP	melting_point			
+cd-de-c2	cd-de-c	2	de	und sein siedepunkt	PROPERTY_LOOKUP	boiling_point			
+cd-de-c3	cd-de-c	3	de	und was ist mit kupfer	PROPERTY_LOOKUP	boiling_point			
+cd-de-c4	cd-de-c	4	de	vergleiche die beiden	COMPARISON				
+cd-de-c5	cd-de-c	5	de	und ihre dichten	COMPARISON	density			
+cd-de-c6	cd-de-c	6	de	ist kupfer gefährlich	SAFETY				
+cd-de-d1	cd-de-d	1	de	welche elemente sind edelgase	FILTER_LIST				
+cd-de-d2	cd-de-d	2	de	wie viele gibt es	AGGREGATE				
+cd-de-d3	cd-de-d	3	de	welches ist das schwerste	SUPERLATIVE	atomic_mass			
+cd-de-d4	cd-de-d	4	de	was ist seine dichte	PROPERTY_LOOKUP	density			
+cd-de-d5	cd-de-d	5	de	wer hat es entdeckt	PROPERTY_LOOKUP	discovered_by			
+cd-de-d6	cd-de-d	6	de	welche isotope hat es	ISOTOPES				
+cd-de-e1	cd-de-e	1	de	was ist die ordnungszahl von gold	PROPERTY_LOOKUP	atomic_number			
+cd-de-e2	cd-de-e	2	de	und sein symbol	PROPERTY_LOOKUP	symbol			
+cd-de-e3	cd-de-e	3	de	in welcher gruppe ist es	PROPERTY_LOOKUP	group_number			
+cd-de-e4	cd-de-e	4	de	hallo				y	
+cd-de-e5	cd-de-e	5	de	was ist seine dichte	PROPERTY_LOOKUP	density			
+cd-de-e6	cd-de-e	6	de	ist es schwerer als silber	COMPARATIVE	atomic_mass			
+# ---- es ------------------------------------------------------------------------------------------
+cd-es-c1	cd-es-c	1	es	cuál es el punto de fusión del hierro	PROPERTY_LOOKUP	melting_point			
+cd-es-c2	cd-es-c	2	es	y su punto de ebullición	PROPERTY_LOOKUP	boiling_point			
+cd-es-c3	cd-es-c	3	es	y el cobre	PROPERTY_LOOKUP	boiling_point			
+cd-es-c4	cd-es-c	4	es	compara los dos	COMPARISON				
+cd-es-c5	cd-es-c	5	es	y sus densidades	COMPARISON	density			
+cd-es-c6	cd-es-c	6	es	es peligroso el cobre	SAFETY				
+cd-es-d1	cd-es-d	1	es	qué elementos son gases nobles	FILTER_LIST				
+cd-es-d2	cd-es-d	2	es	cuántos hay	AGGREGATE				
+cd-es-d3	cd-es-d	3	es	cuál es el más pesado	SUPERLATIVE	atomic_mass			
+cd-es-d4	cd-es-d	4	es	cuál es su densidad	PROPERTY_LOOKUP	density			
+cd-es-d5	cd-es-d	5	es	quién lo descubrió	PROPERTY_LOOKUP	discovered_by			
+cd-es-d6	cd-es-d	6	es	cuáles son sus isótopos	ISOTOPES				
+cd-es-e1	cd-es-e	1	es	cuál es el número atómico del oro	PROPERTY_LOOKUP	atomic_number			
+cd-es-e2	cd-es-e	2	es	y su símbolo	PROPERTY_LOOKUP	symbol			
+cd-es-e3	cd-es-e	3	es	en qué grupo está	PROPERTY_LOOKUP	group_number			
+cd-es-e4	cd-es-e	4	es	hola				y	
+cd-es-e5	cd-es-e	5	es	cuál es su densidad	PROPERTY_LOOKUP	density			
+cd-es-e6	cd-es-e	6	es	es más pesado que la plata	COMPARATIVE	atomic_mass			
+# ---- fr ------------------------------------------------------------------------------------------
+cd-fr-c1	cd-fr-c	1	fr	quel est le point de fusion du fer	PROPERTY_LOOKUP	melting_point			
+cd-fr-c2	cd-fr-c	2	fr	et son point d'ébullition	PROPERTY_LOOKUP	boiling_point			
+cd-fr-c3	cd-fr-c	3	fr	et le cuivre	PROPERTY_LOOKUP	boiling_point			
+cd-fr-c4	cd-fr-c	4	fr	compare les deux	COMPARISON				
+cd-fr-c5	cd-fr-c	5	fr	et leurs densités	COMPARISON	density			
+cd-fr-c6	cd-fr-c	6	fr	le cuivre est-il dangereux	SAFETY				
+cd-fr-d1	cd-fr-d	1	fr	quels éléments sont des gaz nobles	FILTER_LIST				
+cd-fr-d2	cd-fr-d	2	fr	combien y en a-t-il	AGGREGATE				
+cd-fr-d3	cd-fr-d	3	fr	lequel est le plus lourd	SUPERLATIVE	atomic_mass			
+cd-fr-d4	cd-fr-d	4	fr	quelle est sa densité	PROPERTY_LOOKUP	density			
+cd-fr-d5	cd-fr-d	5	fr	qui l'a découvert	PROPERTY_LOOKUP	discovered_by			
+cd-fr-d6	cd-fr-d	6	fr	quels sont ses isotopes	ISOTOPES				
+cd-fr-e1	cd-fr-e	1	fr	quel est le numéro atomique de l'or	PROPERTY_LOOKUP	atomic_number			
+cd-fr-e2	cd-fr-e	2	fr	et son symbole	PROPERTY_LOOKUP	symbol			
+cd-fr-e3	cd-fr-e	3	fr	dans quel groupe est-il	PROPERTY_LOOKUP	group_number			
+cd-fr-e4	cd-fr-e	4	fr	bonjour				y	
+cd-fr-e5	cd-fr-e	5	fr	quelle est sa densité	PROPERTY_LOOKUP	density			
+cd-fr-e6	cd-fr-e	6	fr	est-il plus lourd que l'argent	COMPARATIVE	atomic_mass			
+# ---- it ------------------------------------------------------------------------------------------
+cd-it-c1	cd-it-c	1	it	qual è il punto di fusione del ferro	PROPERTY_LOOKUP	melting_point			
+cd-it-c2	cd-it-c	2	it	e il suo punto di ebollizione	PROPERTY_LOOKUP	boiling_point			
+cd-it-c3	cd-it-c	3	it	e il rame	PROPERTY_LOOKUP	boiling_point			
+cd-it-c4	cd-it-c	4	it	confronta i due	COMPARISON				
+cd-it-c5	cd-it-c	5	it	e le loro densità	COMPARISON	density			
+cd-it-c6	cd-it-c	6	it	il rame è pericoloso	SAFETY				
+cd-it-d1	cd-it-d	1	it	quali elementi sono gas nobili	FILTER_LIST				
+cd-it-d2	cd-it-d	2	it	quanti ce ne sono	AGGREGATE				
+cd-it-d3	cd-it-d	3	it	quale è il più pesante	SUPERLATIVE	atomic_mass			
+cd-it-d4	cd-it-d	4	it	qual è la sua densità	PROPERTY_LOOKUP	density			
+cd-it-d5	cd-it-d	5	it	chi lo ha scoperto	PROPERTY_LOOKUP	discovered_by			
+cd-it-d6	cd-it-d	6	it	quali sono i suoi isotopi	ISOTOPES				
+cd-it-e1	cd-it-e	1	it	qual è il numero atomico dell'oro	PROPERTY_LOOKUP	atomic_number			
+cd-it-e2	cd-it-e	2	it	e il suo simbolo	PROPERTY_LOOKUP	symbol			
+cd-it-e3	cd-it-e	3	it	in quale gruppo è	PROPERTY_LOOKUP	group_number			
+cd-it-e4	cd-it-e	4	it	ciao				y	
+cd-it-e5	cd-it-e	5	it	qual è la sua densità	PROPERTY_LOOKUP	density			
+cd-it-e6	cd-it-e	6	it	è più pesante dell'argento	COMPARATIVE	atomic_mass			
+# ---- pt ------------------------------------------------------------------------------------------
+cd-pt-c1	cd-pt-c	1	pt	qual é o ponto de fusão do ferro	PROPERTY_LOOKUP	melting_point			
+cd-pt-c2	cd-pt-c	2	pt	e o seu ponto de ebulição	PROPERTY_LOOKUP	boiling_point			
+cd-pt-c3	cd-pt-c	3	pt	e o cobre	PROPERTY_LOOKUP	boiling_point			
+cd-pt-c4	cd-pt-c	4	pt	compare os dois	COMPARISON				
+cd-pt-c5	cd-pt-c	5	pt	e as suas densidades	COMPARISON	density			
+cd-pt-c6	cd-pt-c	6	pt	o cobre é perigoso	SAFETY				
+cd-pt-d1	cd-pt-d	1	pt	quais elementos são gases nobres	FILTER_LIST				
+cd-pt-d2	cd-pt-d	2	pt	quantos existem	AGGREGATE				
+cd-pt-d3	cd-pt-d	3	pt	qual é o mais pesado	SUPERLATIVE	atomic_mass			
+cd-pt-d4	cd-pt-d	4	pt	qual é a sua densidade	PROPERTY_LOOKUP	density			
+cd-pt-d5	cd-pt-d	5	pt	quem o descobriu	PROPERTY_LOOKUP	discovered_by			
+cd-pt-d6	cd-pt-d	6	pt	quais são os seus isótopos	ISOTOPES				
+cd-pt-e1	cd-pt-e	1	pt	qual é o número atômico do ouro	PROPERTY_LOOKUP	atomic_number			
+cd-pt-e2	cd-pt-e	2	pt	e o seu símbolo	PROPERTY_LOOKUP	symbol			
+cd-pt-e3	cd-pt-e	3	pt	em que grupo está	PROPERTY_LOOKUP	group_number			
+cd-pt-e4	cd-pt-e	4	pt	olá				y	
+cd-pt-e5	cd-pt-e	5	pt	qual é a sua densidade	PROPERTY_LOOKUP	density			
+cd-pt-e6	cd-pt-e	6	pt	é mais pesado que a prata	COMPARATIVE	atomic_mass			
+# ---- af ------------------------------------------------------------------------------------------
+cd-af-c1	cd-af-c	1	af	wat is die smeltpunt van yster	PROPERTY_LOOKUP	melting_point			
+cd-af-c2	cd-af-c	2	af	en sy kookpunt	PROPERTY_LOOKUP	boiling_point			
+cd-af-c3	cd-af-c	3	af	en koper	PROPERTY_LOOKUP	boiling_point			
+cd-af-c4	cd-af-c	4	af	vergelyk die twee	COMPARISON				
+cd-af-c5	cd-af-c	5	af	en hulle digthede	COMPARISON	density			
+cd-af-c6	cd-af-c	6	af	is koper gevaarlik	SAFETY				
+cd-af-d1	cd-af-d	1	af	watter elemente is edelgasse	FILTER_LIST				
+cd-af-d2	cd-af-d	2	af	hoeveel is daar	AGGREGATE				
+cd-af-d3	cd-af-d	3	af	watter is die swaarste	SUPERLATIVE	atomic_mass			
+cd-af-d4	cd-af-d	4	af	wat is sy digtheid	PROPERTY_LOOKUP	density			
+cd-af-d5	cd-af-d	5	af	wie het dit ontdek	PROPERTY_LOOKUP	discovered_by			
+cd-af-d6	cd-af-d	6	af	wat is sy isotope	ISOTOPES				
+cd-af-e1	cd-af-e	1	af	wat is die atoomgetal van goud	PROPERTY_LOOKUP	atomic_number			
+cd-af-e2	cd-af-e	2	af	en sy simbool	PROPERTY_LOOKUP	symbol			
+cd-af-e3	cd-af-e	3	af	in watter groep is dit	PROPERTY_LOOKUP	group_number			
+cd-af-e4	cd-af-e	4	af	hallo				y	
+cd-af-e5	cd-af-e	5	af	wat is sy digtheid	PROPERTY_LOOKUP	density			
+cd-af-e6	cd-af-e	6	af	is dit swaarder as silwer	COMPARATIVE	atomic_mass			
+# ---- fil -----------------------------------------------------------------------------------------
+cd-fil-c1	cd-fil-c	1	fil	ano ang melting point ng bakal	PROPERTY_LOOKUP	melting_point			
+cd-fil-c2	cd-fil-c	2	fil	at ang boiling point nito	PROPERTY_LOOKUP	boiling_point			
+cd-fil-c3	cd-fil-c	3	fil	paano naman ang tanso	PROPERTY_LOOKUP	boiling_point			
+cd-fil-c4	cd-fil-c	4	fil	ihambing ang dalawa	COMPARISON				
+cd-fil-c5	cd-fil-c	5	fil	at ang kanilang densidad	COMPARISON	density			
+cd-fil-c6	cd-fil-c	6	fil	mapanganib ba ang tanso	SAFETY				
+cd-fil-d1	cd-fil-d	1	fil	aling mga elemento ang noble gas	FILTER_LIST				
+cd-fil-d2	cd-fil-d	2	fil	ilan ang mayroon	AGGREGATE				
+cd-fil-d3	cd-fil-d	3	fil	alin ang pinakamabigat	SUPERLATIVE	atomic_mass			
+cd-fil-d4	cd-fil-d	4	fil	ano ang densidad nito	PROPERTY_LOOKUP	density			
+cd-fil-d5	cd-fil-d	5	fil	sino ang nakatuklas nito	PROPERTY_LOOKUP	discovered_by			
+cd-fil-d6	cd-fil-d	6	fil	ano ang mga isotope nito	ISOTOPES				
+cd-fil-e1	cd-fil-e	1	fil	ano ang atomic number ng ginto	PROPERTY_LOOKUP	atomic_number			
+cd-fil-e2	cd-fil-e	2	fil	at ang simbolo nito	PROPERTY_LOOKUP	symbol			
+cd-fil-e3	cd-fil-e	3	fil	anong grupo ito	PROPERTY_LOOKUP	group_number			
+cd-fil-e4	cd-fil-e	4	fil	kumusta				y	
+cd-fil-e5	cd-fil-e	5	fil	ano ang densidad nito	PROPERTY_LOOKUP	density			
+cd-fil-e6	cd-fil-e	6	fil	mas mabigat ba ito kaysa sa pilak	COMPARATIVE	atomic_mass			
+# ---- hi ------------------------------------------------------------------------------------------
+cd-hi-c1	cd-hi-c	1	hi	लोहे का गलनांक क्या है	PROPERTY_LOOKUP	melting_point			
+cd-hi-c2	cd-hi-c	2	hi	और इसका क्वथनांक	PROPERTY_LOOKUP	boiling_point			
+cd-hi-c3	cd-hi-c	3	hi	और तांबा	PROPERTY_LOOKUP	boiling_point			
+cd-hi-c4	cd-hi-c	4	hi	दोनों की तुलना करें	COMPARISON				
+cd-hi-c5	cd-hi-c	5	hi	और उनके घनत्व	COMPARISON	density			
+cd-hi-c6	cd-hi-c	6	hi	क्या तांबा खतरनाक है	SAFETY				
+cd-hi-d1	cd-hi-d	1	hi	कौन से तत्व उत्कृष्ट गैसें हैं	FILTER_LIST				
+cd-hi-d2	cd-hi-d	2	hi	कितने हैं	AGGREGATE				
+cd-hi-d3	cd-hi-d	3	hi	सबसे भारी कौन सा है	SUPERLATIVE	atomic_mass			
+cd-hi-d4	cd-hi-d	4	hi	इसका घनत्व क्या है	PROPERTY_LOOKUP	density			
+cd-hi-d5	cd-hi-d	5	hi	इसकी खोज किसने की	PROPERTY_LOOKUP	discovered_by			
+cd-hi-d6	cd-hi-d	6	hi	इसके समस्थानिक क्या हैं	ISOTOPES				
+cd-hi-e1	cd-hi-e	1	hi	सोने की परमाणु संख्या क्या है	PROPERTY_LOOKUP	atomic_number			
+cd-hi-e2	cd-hi-e	2	hi	और इसका प्रतीक	PROPERTY_LOOKUP	symbol			
+cd-hi-e3	cd-hi-e	3	hi	यह किस समूह में है	PROPERTY_LOOKUP	group_number			
+cd-hi-e4	cd-hi-e	4	hi	नमस्ते				y	
+cd-hi-e5	cd-hi-e	5	hi	इसका घनत्व क्या है	PROPERTY_LOOKUP	density			
+cd-hi-e6	cd-hi-e	6	hi	क्या यह चांदी से भारी है	COMPARATIVE	atomic_mass			
+# ---- ur ------------------------------------------------------------------------------------------
+cd-ur-c1	cd-ur-c	1	ur	آئرن کا نقطہ پگھلاؤ کیا ہے	PROPERTY_LOOKUP	melting_point			
+cd-ur-c2	cd-ur-c	2	ur	اور اس کا نقطہ ابال	PROPERTY_LOOKUP	boiling_point			
+cd-ur-c3	cd-ur-c	3	ur	اور تانبا	PROPERTY_LOOKUP	boiling_point			
+cd-ur-c4	cd-ur-c	4	ur	دونوں کا موازنہ کریں	COMPARISON				
+cd-ur-c5	cd-ur-c	5	ur	اور ان کی کثافت	COMPARISON	density			
+cd-ur-c6	cd-ur-c	6	ur	کیا تانبا خطرناک ہے	SAFETY				
+cd-ur-d1	cd-ur-d	1	ur	کون سے عناصر نیک گیسیں ہیں	FILTER_LIST				
+cd-ur-d2	cd-ur-d	2	ur	کتنے ہیں	AGGREGATE				
+cd-ur-d3	cd-ur-d	3	ur	سب سے بھاری کون سا ہے	SUPERLATIVE	atomic_mass			
+cd-ur-d4	cd-ur-d	4	ur	اس کی کثافت کیا ہے	PROPERTY_LOOKUP	density			
+cd-ur-d5	cd-ur-d	5	ur	اسے کس نے دریافت کیا	PROPERTY_LOOKUP	discovered_by			
+cd-ur-d6	cd-ur-d	6	ur	اس کے آئسوٹوپ کیا ہیں	ISOTOPES				
+cd-ur-e1	cd-ur-e	1	ur	سونے کا جوہری عدد کیا ہے	PROPERTY_LOOKUP	atomic_number			
+cd-ur-e2	cd-ur-e	2	ur	اور اس کی علامت	PROPERTY_LOOKUP	symbol			
+cd-ur-e3	cd-ur-e	3	ur	یہ کس گروپ میں ہے	PROPERTY_LOOKUP	group_number			
+cd-ur-e4	cd-ur-e	4	ur	سلام				y	
+cd-ur-e5	cd-ur-e	5	ur	اس کی کثافت کیا ہے	PROPERTY_LOOKUP	density			
+cd-ur-e6	cd-ur-e	6	ur	کیا یہ چاندی سے بھاری ہے	COMPARATIVE	atomic_mass			
+# ---- zh ------------------------------------------------------------------------------------------
+cd-zh-c1	cd-zh-c	1	zh	铁的熔点是多少	PROPERTY_LOOKUP	melting_point			
+cd-zh-c2	cd-zh-c	2	zh	它的沸点呢	PROPERTY_LOOKUP	boiling_point			
+cd-zh-c3	cd-zh-c	3	zh	铜呢	PROPERTY_LOOKUP	boiling_point			
+cd-zh-c4	cd-zh-c	4	zh	比较这两个	COMPARISON				
+cd-zh-c5	cd-zh-c	5	zh	它们的密度呢	COMPARISON	density			
+cd-zh-c6	cd-zh-c	6	zh	铜危险吗	SAFETY				
+cd-zh-d1	cd-zh-d	1	zh	哪些元素是惰性气体	FILTER_LIST				
+cd-zh-d2	cd-zh-d	2	zh	有多少个	AGGREGATE				
+cd-zh-d3	cd-zh-d	3	zh	哪个最重	SUPERLATIVE	atomic_mass			
+cd-zh-d4	cd-zh-d	4	zh	它的密度是多少	PROPERTY_LOOKUP	density			
+cd-zh-d5	cd-zh-d	5	zh	谁发现的	PROPERTY_LOOKUP	discovered_by			
+cd-zh-d6	cd-zh-d	6	zh	它有哪些同位素	ISOTOPES				
+cd-zh-e1	cd-zh-e	1	zh	金的原子序数是多少	PROPERTY_LOOKUP	atomic_number			
+cd-zh-e2	cd-zh-e	2	zh	它的符号呢	PROPERTY_LOOKUP	symbol			
+cd-zh-e3	cd-zh-e	3	zh	它在哪一族	PROPERTY_LOOKUP	group_number			
+cd-zh-e4	cd-zh-e	4	zh	你好				y	
+cd-zh-e5	cd-zh-e	5	zh	它的密度是多少	PROPERTY_LOOKUP	density			
+cd-zh-e6	cd-zh-e	6	zh	它比银重吗	COMPARATIVE	atomic_mass			

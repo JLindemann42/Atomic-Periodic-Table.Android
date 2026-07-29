@@ -36,6 +36,14 @@ enum class Intent {
     /** An element's NFPA 704 hazard ratings. */
     SAFETY,
 
+    /**
+     * An element's emission spectrum.
+     *
+     * Not a field lookup: the app holds the spectrum only as a rendered image per element, so the
+     * answer is the picture plus what can honestly be said around it.
+     */
+    EMISSION_SPECTRUM,
+
     /** Molar mass and percentage composition of a chemical formula. */
     FORMULA_MASS,
 

@@ -43,6 +43,7 @@
                 <com.google.android.material.chip.Chip android:id="@+id/most_9" style="@style/MostUsedPill" android:visibility="gone" />
                 <com.google.android.material.chip.Chip android:id="@+id/most_10" style="@style/MostUsedPill" android:visibility="gone" />
                 <com.google.android.material.chip.Chip android:id="@+id/most_11" style="@style/MostUsedPill" android:visibility="gone" />
+                <com.google.android.material.chip.Chip android:id="@+id/most_12" style="@style/MostUsedPill" android:visibility="gone" />
 
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>

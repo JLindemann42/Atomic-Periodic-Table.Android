@@ -1,0 +1,45 @@
+# Questions that ask two things, and — just as important — the ones that must NOT be split.
+#
+# The hard part is never finding "and". It joins two clauses in "the density of gold and how does
+# it compare to lead", but it joins two elements in "compare gold and silver", two bounds in
+# "between 1000 and 2000 kelvin", and two aspects in "reactivity, density and applications".
+# Splitting any of those breaks a question that already works.
+#
+# COMPOUND = must split and be answered. NOSPLIT = must stay whole.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+cpd-and-1			en	what is the density of gold and how does it compare to lead	COMPOUND				
+cpd-and-2			en	what is the atomic number of iron and what is its melting point	COMPOUND				
+cpd-and-3			en	what is the density of gold and what is the density of silver	COMPOUND				
+cpd-and-4			en	how dense is osmium and which element is denser	COMPOUND				
+cpd-and-5			en	what is the symbol for tungsten and what is its melting point	COMPOUND				
+cpd-also-1			en	what is the density of gold also what is its melting point	COMPOUND				
+cpd-plus-1			en	what is the melting point of iron plus what is its boiling point	COMPOUND				
+cpd-sentence-1			en	Tell me about hydrogen. Furthermore, what is the density of iron	COMPOUND				sentence boundary plus a discourse marker
+cpd-sentence-2			en	tell me about gold. also, what is the boiling point of lead	COMPOUND				
+cpd-sentence-3			en	what is the density of gold? and what about silver	COMPOUND				
+cpd-sentence-4			en	I want to know about carbon. Additionally, how dense is silicon	COMPOUND				
+cpd-marker-1			en	what is the density of gold and additionally the density of silver	COMPOUND				
+cpd-sv-1			sv	Berätta om syre och sen densitet av väte?	COMPOUND				"och sen" is a discourse marker, not an element conjunction
+cpd-sv-2			sv	Berätta om guld och sedan smältpunkten för silver	COMPOUND				
+cpd-sv-3			sv	vad är densiteten för guld och vad är smältpunkten	COMPOUND				
+cpd-sv-4			sv	vad är atomnummer för järn och dessutom dess densitet	COMPOUND				
+cpd-de-1			de	was ist die dichte von gold und wie ist der schmelzpunkt	COMPOUND				
+cpd-de-2			de	erzähl mir über wasserstoff. außerdem, wie dicht ist eisen	COMPOUND				
+cpd-fr-1			fr	quelle est la densité de l'or et quel est son point de fusion	COMPOUND				
+cpd-es-1			es	cuál es la densidad del oro y cuál es su punto de fusión	COMPOUND				
+# ---- Must NOT split ------------------------------------------------------------------------------
+cpd-no-1			en	compare gold and silver	NOSPLIT				"and" joins two elements
+cpd-no-2			en	compare gold silver and copper	NOSPLIT				
+cpd-no-3			en	which elements melt between 1000 and 2000 kelvin	NOSPLIT				"and" joins two bounds
+cpd-no-4			en	elements with density between 5 and 10	NOSPLIT				
+cpd-no-5			en	compare lithium sodium and potassium on reactivity density and applications	NOSPLIT				"and" joins two aspects
+cpd-no-6			en	what is the difference between gold and silver	NOSPLIT				
+cpd-no-7			en	compare iron and copper on thermal conductivity	NOSPLIT				
+cpd-no-8			en	what happens when sodium and chlorine react	NOSPLIT				one chemistry question, not two
+cpd-no-9			en	protons and neutrons in helium 4	NOSPLIT				
+cpd-no-10			en	what is the density of gold	NOSPLIT				no conjunction at all
+cpd-no-11			en	compare hydrogen and oxygen	NOSPLIT				
+cpd-no-12			sv	jämför guld och silver	NOSPLIT				
+cpd-no-13			sv	vilka grundämnen smälter mellan 1000 och 2000 kelvin	NOSPLIT				
+cpd-no-14			de	vergleiche gold und silber	NOSPLIT				
+cpd-no-15			en	oxidation states of manganese	NOSPLIT				

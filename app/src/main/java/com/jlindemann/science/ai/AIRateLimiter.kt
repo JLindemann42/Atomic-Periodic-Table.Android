@@ -18,7 +18,7 @@ class AIRateLimiter(private val context: Context) {
     fun canSendMessage(): Boolean {
         if (isProPlus()) return true
         
-        val limit = if (isPro()) 200 else 30
+        val limit = if (isPro()) 64 else 16
         val count = getTodayMessageCount()
         
         return count < limit
@@ -33,7 +33,7 @@ class AIRateLimiter(private val context: Context) {
     fun getRemainingMessages(): Int {
         if (isProPlus()) return Int.MAX_VALUE
         
-        val limit = if (isPro()) 200 else 30
+        val limit = if (isPro()) 64 else 16
         val count = getTodayMessageCount()
         
         return (limit - count).coerceAtLeast(0)
@@ -41,11 +41,27 @@ class AIRateLimiter(private val context: Context) {
 
     fun getDailyLimit(): Int {
         if (isProPlus()) return Int.MAX_VALUE
-        return if (isPro()) 200 else 30
+        return if (isPro()) 64 else 16
     }
 
     fun isPro(): Boolean = proPref.getValue() == 100
     fun isProPlus(): Boolean = proPlusPref.getValue() == 100
+
+    /**
+     * When the count rolls over, as a wall-clock timestamp.
+     *
+     * The counter is keyed by calendar day in the device's own time zone — see [getTodayKey] — so
+     * the reset is the next local midnight, and this derives it from the same Calendar rather than
+     * assuming 24 hours from now. That distinction is the whole point of telling the user: someone
+     * who runs out at 23:50 gets their messages back in ten minutes, not tomorrow evening.
+     */
+    fun resetTimeMillis(): Long = Calendar.getInstance().apply {
+        add(Calendar.DAY_OF_YEAR, 1)
+        set(Calendar.HOUR_OF_DAY, 0)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }.timeInMillis
 
     private fun getTodayMessageCount(): Int {
         return prefs.getInt(getTodayKey(), 0)

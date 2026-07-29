@@ -613,8 +613,6 @@
     <string name="melting_point_colon">गलनांक:</string>
     <string name="most_advanced">सबसे उन्नत</string>
     <string name="new_label">नया</string>
-    <string name="next_life_in">%1$d मिनट और %2$d सेकंड में अगला जीवन।
-आपको %3$d जीवन%4$s मिलेगा।</string>
     <string name="no_image">कोई छवि नहीं</string>
     <string name="non_pro">NON-PRO</string>
     <string name="option_placeholder">Option %d</string>
@@ -766,14 +764,14 @@
     <string name="account">खाता</string>
     <string name="additional_ai_messages">बढ़ी हुई AI संदेश सीमा:</string>
     <string name="ai_abundance_relative">(H=10¹² के सापेक्ष)</string>
-    <string name="ai_adv_header">%1 के उन्नत गुण:</string>
-    <string name="ai_all_covered">हमने %1 के बारे में बहुत कुछ कवर किया है! क्या आप जानते हैं?</string>
-    <string name="ai_another_isotope"> एक अन्य आइसोटोप %1 है।</string>
+    <string name="ai_adv_header">%1$s के उन्नत गुण:</string>
+    <string name="ai_all_covered">हमने %1$s के बारे में बहुत कुछ कवर किया है! क्या आप जानते हैं?</string>
+    <string name="ai_another_isotope"> एक अन्य आइसोटोप %1$s है।</string>
     <string name="ai_beta_badge">बीटा</string>
     <string name="ai_chat_setting">AI चैट सहायक सक्षम करें</string>
     <string name="ai_chat_setting_description">तत्वों के बारे में प्रश्नों के उत्तर देने के लिए AI सहायक को अनुमति दें</string>
-    <string name="ai_check_isotope_table">%1 के विभिन्न आइसोटोप हैं। आप पूरी सूची के लिए विस्तृत आइसोटोप तालिका देख सकते हैं!</string>
-    <string name="ai_common_isotopes">%1 के सामान्य आइसोटोप में %2 शामिल हैं।</string>
+    <string name="ai_check_isotope_table">%1$s के विभिन्न आइसोटोप हैं। आप पूरी सूची के लिए विस्तृत आइसोटोप तालिका देख सकते हैं!</string>
+    <string name="ai_common_isotopes">%1$s के सामान्य आइसोटोप में %2$s शामिल हैं।</string>
     <string name="ai_concept_atomic_number">**परमाणु क्रमांक** एक परमाणु में प्रोटॉन की संख्या है। यह मुख्य तरीका है जिससे तत्वों को आवर्त सारणी में व्यवस्थित किया जाता है।</string>
     <string name="ai_concept_electron">**इलेक्ट्रॉन** नकारात्मक रूप से चार्ज किए गए कण होते हैं जो नाभिक की परिक्रमा करते हैं। वे बॉन्डिंग और बिजली में शामिल होते हैं।</string>
     <string name="ai_concept_electronegativity">**इलेक्ट्रोनगेटिविटी** मापती है कि एक परमाणु रासायनिक बंधन में इलेक्ट्रॉनों को अपनी ओर कितनी मजबूती से खींचता है। फ्लोरीन सबसे अधिक इलेक्ट्रोनगेटिव है!</string>
@@ -788,7 +786,7 @@
     <string name="ai_concept_radioactivity">**रैडियोधर्मिता** वह प्रक्रिया है जिसके द्वारा एक अस्थिर परमाणु नाभिक विकिरण उत्सर्जित करके ऊर्जा खो देता है। यूरेनियम जैसे तत्व इसके लिए प्रसिद्ध हैं!</string>
     <string name="ai_concept_shell">इलेक्ट्रॉन नाभिक के चारों ओर **कोश** (ऊर्जा स्तर) में रहते हैं। विन्यास तालिका में तत्व की स्थिति निर्धारित करता है।</string>
     <string name="ai_concept_valence">**संयोजी इलेक्ट्रॉन** परमाणु के सबसे बाहरी कोश के इलेक्ट्रॉन होते हैं। वे निर्धारित करते हैं कि एक तत्व दूसरों के साथ कैसे प्रतिक्रिया करता है।</string>
-    <string name="ai_config_is">इसका इलेक्ट्रॉन विन्यास %1 है।</string>
+    <string name="ai_config_is">इसका इलेक्ट्रॉन विन्यास %1$s है।</string>
     <string name="ai_connector_question_1">आपके प्रश्न का उत्तर देने के लिए,</string>
     <string name="ai_connector_question_2">मैं समझ गया। यहाँ मुझे क्या मिला:</string>
     <string name="ai_connector_question_3">उस संबंध में,</string>
@@ -796,7 +794,7 @@
     <string name="ai_connector_why_2">अच्छा बिंदु। मुझे और विस्तार से समझाने दें।</string>
     <string name="ai_connector_why_3">जो मैंने अभी कहा उस पर विस्तार करते हुए,</string>
     <string name="ai_context_lost">संदर्भ खो गया</string>
-    <string name="ai_covered_all">हमने **%1** के बारे में बहुत कुछ कवर किया है!</string>
+    <string name="ai_covered_all">हमने **%1$s** के बारे में बहुत कुछ कवर किया है!</string>
     <string name="ai_difference_need_two">मुझे उनके अंतर को समझाने के लिए दो तत्वों की आवश्यकता है!</string>
     <string name="ai_difference_phase">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
     <string name="ai_difference_type">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
@@ -860,6 +858,9 @@
     <string name="ai_quiz_not_active">मैं अभी क्विज़ मोड में नहीं हूँ।</string>
     <string name="ai_radius_header">%1$s के लिए त्रिज्या विवरण:</string>
     <string name="ai_rate_limit_reached">आप अपनी %1$d संदेशों की दैनिक सीमा तक पहुँच गए हैं। अधिक के लिए PRO या PRO+ में अपग्रेड करें!</string>
+    <string name="ai_limit_unlimited">असीमित</string>
+    <string name="ai_rate_limit_resets">आपके दैनिक संदेश %1$s पर वापस आ जाएंगे।</string>
+    <string name="ai_limit_reset_badge">%1$s पर रीसेट</string>
     <string name="ai_reactivity_more">आवर्त सारणी में इसकी स्थिति के आधार पर **%1$s** आमतौर पर **%2$s** की तुलना में अधिक प्रतिक्रियाशील है।</string>
     <string name="ai_reactivity_need_two">मुझे उनकी प्रतिक्रियाशीलता की तुलना करने के लिए कम से कम दो तत्वों की आवश्यकता है!</string>
     <string name="ai_reactivity_no_result">मैं सबसे प्रतिक्रियाशील तत्व का निर्धारण नहीं कर सका।</string>
@@ -967,4 +968,231 @@
     <string name="ai_elec_mag_header">Electrical &amp; Magnetic properties of %1$s:</string>
     <string name="ai_free_user">मुफ़्त</string>
     <string name="ai_help_response">मुझे इस ऐप के भीतर उपलब्ध डेटा पर कड़ाई से प्रशिक्षित किया गया है! मैं आपकी मदद कर सकता हूँ:\n\n🧪 **विस्तृत तत्व**: हमारे JSON डेटाबेस से सीधे गुण, दिखावट और खोज तथ्य।\n⚖️ **डेटा तुलना**: तत्वों के बीच घनत्व, द्रव्यमान, त्रिज्या और प्रतिक्रियाशीलता की तुलना करें।\n💥 **प्रतिक्रियाशीलता**: मैं यह समझाने के लिए ऐप के समूह और आवर्त डेटा का उपयोग करता हूँ कि सोडियम जैसे तत्व पानी के साथ कैसे प्रतिक्रिया करते हैं।\n🧬 **जैविक/सुरक्षा**: तत्व विवरण में पाई गई विषाक्तता और जैविक भूमिकाएँ।\n⚛️ **आइसोटोप और प्रचुरता**: हमारे समर्पित आइसोटोप और प्रचुरता तालिकाओं से विशिष्ट डेटा।\n📉 **आवर्त प्रवृत्तियाँ**: तालिका की संरचना के आधार पर इलेक्ट्रोनगेटिविटी जैसे पैटर्न की व्याख्या करना।\n🔢 **मोलर द्रव्यमान**: ऐप में परमाणु भार का उपयोग करके सटीक गणना।\n📝 **परिभाषाएं**: पूरे ऐप में उपयोग किए जाने वाले रसायन विज्ञान के शब्दों के लिए स्पष्टीकरण।\n\nबस पूछें और मुझे ऐप के रिकॉर्ड में उत्तर मिल जाएगा! 🌟</string>
+
+    <!-- REVIEW: machine-assisted Hindi. Placeholders and markdown are verified; the wording has not been checked by a native speaker. See docs/TRANSLATION_REVIEW.md. -->
+    <string name="ai_aggregate_average">औसत %1$s</string>
+    <string name="ai_aggregate_median">माध्यिका %1$s</string>
+    <string name="ai_aggregate_missing_note">%1$d मेल खाते हैं लेकिन उनका कोई दर्ज मान नहीं है, इसलिए उन्हें छोड़ दिया गया है।</string>
+    <string name="ai_aggregate_over">%2$d मेल खाते तत्वों में से %1$d पर गणना की गई।</string>
+    <string name="ai_aggregate_result">**%1$s**: %2$s</string>
+    <string name="ai_aggregate_sum">कुल %1$s</string>
+    <string name="ai_aspects_not_compared">मैं संग्रहीत डेटा से %1$s की तुलना नहीं कर सकता — यह कोई दर्ज गुण नहीं है। किसी एक तत्व के लिए पूछें और मैं समझा सकता हूँ।</string>
+    <string name="ai_avogadro_note">आवोगाद्रो संख्या का उपयोग करते हुए, प्रति मोल 6.02214076 × 10²³।</string>
+    <string name="ai_comparative_no">**नहीं** — यह उल्टा है। %5$s में %1$s (%2$s) %3$s (%4$s) से आगे है।</string>
+    <string name="ai_comparative_ratio">%1$s का %5$s %3$s का **%2$s गुना** है — %4$s।</string>
+    <string name="ai_comparative_winner">**%1$s.** इसका %5$s %2$s है, जबकि %3$s का %4$s है।</string>
+    <string name="ai_comparative_yes">**हाँ।** %5$s में %1$s (%2$s) %3$s (%4$s) से आगे है।</string>
+    <string name="ai_composition_header">%1$s की संरचना</string>
+    <string name="ai_composition_row">• **%1$s** ×%2$d — %3$s g/mol (%4$s%%)</string>
+    <string name="ai_context_series">%1$s %2$s है, आवर्त %3$d में।</string>
+    <string name="ai_converted_from">दर्ज मान %1$s से परिवर्तित।</string>
+    <string name="ai_count_result">**%1$d** तत्व मेल खाते हैं।</string>
+    <string name="ai_coverage_note">%3$d तत्वों में से %2$d के लिए %1$s दर्ज है।</string>
+    <string name="ai_dataset_english_note">*यह संदर्भ प्रविष्टि केवल अंग्रेज़ी में उपलब्ध है।*</string>
+    <string name="ai_field_abundance_crustal_rocks">भूपर्पटी की चट्टानों में बहुलता</string>
+    <string name="ai_field_abundance_earth_crust">भूपर्पटी में बहुलता</string>
+    <string name="ai_field_abundance_earth_soils">मिट्टी में बहुलता</string>
+    <string name="ai_field_abundance_human_body">मानव शरीर में बहुलता</string>
+    <string name="ai_field_nfpa_health">स्वास्थ्य रेटिंग</string>
+    <string name="ai_field_nfpa_flammability">ज्वलनशीलता रेटिंग</string>
+    <string name="ai_field_nfpa_instability">अस्थिरता रेटिंग</string>
+    <string name="ai_field_nfpa_special">विशेष खतरा</string>
+    <string name="ai_field_abundance_meteorites">उल्कापिंडों में बहुलता</string>
+    <string name="ai_field_abundance_sea_water">समुद्री जल में बहुलता</string>
+    <string name="ai_field_abundance_solar_system">सौर मंडल में बहुलता</string>
+    <string name="ai_field_abundance_sun">सूर्य में बहुलता</string>
+    <string name="ai_field_abundance_urban_soils">शहरी मिट्टी में बहुलता</string>
+    <string name="ai_filter_matched">%1$d तत्व मेल खाते हैं:</string>
+    <string name="ai_filter_none">उन शर्तों से कोई तत्व मेल नहीं खाता।</string>
+    <string name="ai_filter_top">%2$d मेल खाते तत्वों में से शीर्ष %1$d:</string>
+    <string name="ai_formula_mass">**%1$s** का मोलर द्रव्यमान **%2$s g/mol** है।</string>
+    <string name="ai_history_pro_only">चैट इतिहास एक PRO सुविधा है</string>
+    <string name="ai_history_sign_in">चैट इतिहास देखने के लिए साइन इन करें</string>
+    <string name="ai_isotope_compare_header">%1$s बनाम %2$s</string>
+    <string name="ai_isotope_compare_row">• **%1$s**: %2$s बनाम %3$s</string>
+    <string name="ai_isotope_decays">• **%1$s** — %2$s, अर्ध आयु %3$s</string>
+    <string name="ai_isotope_halflife_only">• **%1$s** — अर्ध आयु %2$s</string>
+    <string name="ai_isotope_neutron_diff">%1$s में %2$d न्यूट्रॉन हैं, %3$s में %4$d — %5$d का अंतर।</string>
+    <string name="ai_isotope_same_element">दोनों %1$s के समस्थानिक हैं, इसलिए उनमें समान %2$d प्रोटॉन हैं और केवल न्यूट्रॉन में अंतर है।</string>
+    <string name="ai_isotope_stable">• **%1$s** — स्थायी</string>
+    <string name="ai_isotope_unlisted">समस्थानिक तालिका में सूचीबद्ध नहीं</string>
+    <string name="ai_isotopes_header">%1$s के समस्थानिक</string>
+    <string name="ai_isotopes_summary">%1$d ज्ञात समस्थानिक, जिनमें %2$d स्थायी हैं।</string>
+    <string name="ai_label_decay">क्षय विधि</string>
+    <string name="ai_label_half_life">अर्ध आयु</string>
+    <string name="ai_label_mass_number">द्रव्यमान संख्या</string>
+    <string name="ai_label_neutrons">न्यूट्रॉन</string>
+    <string name="ai_label_protons">प्रोटॉन</string>
+    <string name="ai_list_more">…और %1$d अन्य।</string>
+    <string name="ai_list_row">• **%1$s** — %2$s</string>
+    <string name="ai_list_row_plain">• **%1$s**</string>
+    <string name="ai_list_spread">मान %1$s से %2$s तक हैं।</string>
+    <string name="ai_moles_of">%2$s का **%1$s मोल** में **%3$s** परमाणु होते हैं।</string>
+    <string name="ai_moles_to_particles">**%1$s मोल** में **%2$s** कण होते हैं।</string>
+    <string name="ai_naturally_occurring">प्राकृतिक रूप से पाया जाता है</string>
+    <string name="ai_neighbour_after">**%1$s** (परमाणु संख्या %2$d) %3$s के तुरंत बाद आता है।</string>
+    <string name="ai_neighbour_before">**%1$s** (परमाणु संख्या %2$d) %3$s के तुरंत पहले आता है।</string>
+    <string name="ai_nuclide_body">• **प्रोटॉन:** %1$d\n• **न्यूट्रॉन:** %2$d\n• **द्रव्यमान संख्या:** %3$d</string>
+    <string name="ai_nuclide_explain">न्यूट्रॉन = द्रव्यमान संख्या − परमाणु संख्या = %1$d − %2$d = **%3$d**।</string>
+    <string name="ai_nuclide_header">%1$s-%2$d</string>
+    <string name="ai_open_in_app">%1$s खोलें</string>
+    <string name="ai_ordinal_suffix_nd"></string>
+    <string name="ai_ordinal_suffix_rd"></string>
+    <string name="ai_ordinal_suffix_st"></string>
+    <string name="ai_ordinal_suffix_th"></string>
+    <string name="ai_rank_highest">यह %2$s दर्ज वाले %1$d तत्वों में सबसे अधिक है।</string>
+    <string name="ai_rank_lowest">यह %2$s दर्ज वाले %1$d तत्वों में सबसे कम है।</string>
+    <string name="ai_rank_nth">%3$s के अनुसार यह %2$d तत्वों में **%1$d** स्थान पर है।</string>
+    <string name="ai_runner_up">इसके बाद %1$s है, %2$s पर।</string>
+    <string name="ai_safety_none_recorded">%1$s के लिए कोई NFPA खतरा रेटिंग दर्ज नहीं है।</string>
+    <string name="ai_safety_radioactive_note">यह तत्व रेडियोधर्मी है।</string>
+    <string name="ai_emission_spectrum">यह %1$s का उत्सर्जन स्पेक्ट्रम है: वह प्रकाश जो इसके परमाणु तब छोड़ते हैं जब उत्तेजित इलेक्ट्रॉन वापस नीचे गिरते हैं। ऐप इसे एक छवि के रूप में रखता है, इसलिए मैं पैटर्न दिखा सकता हूँ पर अलग-अलग रेखाओं के नाम नहीं बता सकता।</string>
+    <string name="ai_source_element_data">%1$s — तत्व डेटा (%2$s)</string>
+    <string name="ai_source_table">%1$s — %2$s तालिका</string>
+    <string name="ai_sources_header">स्रोत</string>
+    <string name="ai_stable_label">स्थायी</string>
+    <string name="ai_superlative_highest">सर्वाधिक</string>
+    <string name="ai_superlative_lowest">न्यूनतम</string>
+    <string name="ai_superlative_nth">**%1$d**%2$s %3$s %4$s **%5$s** है, %6$s पर।</string>
+    <string name="ai_synthetic_only">संश्लेषित (प्राकृतिक रूप से नहीं पाया जाता)</string>
+    <string name="ai_value_is_range">यह एक परिसर है; क्रम निर्धारण इसके मध्यबिंदु का उपयोग करता है।</string>
+    <string name="ai_versus">बनाम</string>
+
+
+    <!-- Agent strings: added so answers are not half-English. -->
+    <string name="ai_nfpa_instability_0">स्थायी</string>
+    <string name="ai_nfpa_instability_1">गर्म करने पर अस्थिर</string>
+    <string name="ai_nfpa_instability_2">तीव्र रासायनिक परिवर्तन संभव</string>
+    <string name="ai_nfpa_instability_3">प्रबल प्रारंभक से विस्फोट हो सकता है</string>
+    <string name="ai_nfpa_instability_4">आसानी से विस्फोट हो सकता है</string>
+    <string name="ai_nfpa_special_none">कोई विशेष खतरा दर्ज नहीं</string>
+    <string name="ai_nfpa_special_ox">ऑक्सीकारक</string>
+    <string name="ai_nfpa_special_sa">साधारण दमघोंटू</string>
+    <string name="ai_nfpa_special_w">जल से अभिक्रिया करता है</string>
+    <string name="ai_nfpa_unrated">अवर्गीकृत</string>
+
+
+    <!-- Agent strings: added so answers are not half-English. -->
+    <string name="ai_card_pro_locked">दृश्य उत्तर अनलॉक करें</string>
+
+
+    <!-- Agent strings: added so answers are not half-English. -->
+    <string name="ai_locked_fields">%1$s %2$s का हिस्सा है। इसे यहाँ और हर तत्व पृष्ठ पर देखने के लिए अपग्रेड करें।</string>
+    <string name="ai_locked_generic">वह उत्तर %1$s का हिस्सा है। इसे अनलॉक करने के लिए अपग्रेड करें।</string>
+
+    <string name="ai_aggregate_spread">%1$s (%2$s) से %3$s (%4$s) तक।</string>
+    <string name="ai_grams_to_moles">%2$s का **%1$s g** = **%3$s mol**।</string>
+    <string name="ai_comparison_verdict">तुलना की गई %3$d विशेषताओं में से %2$d में %1$s का मान अधिक है।</string>
+    <string name="ai_no_data_alternatives">%1$s के लिए दर्ज: %2$s।</string>
+
+    <!-- Flashcards: hazard games, exam tests and in-game feedback -->
+    <string name="hazard_health">स्वास्थ्य ख़तरा</string>
+    <string name="hazard_flammability">ज्वलनशीलता</string>
+    <string name="hazard_instability">अस्थिरता</string>
+    <string name="hazard_diamond">ख़तरा डायमंड</string>
+    <string name="question_nfpa_health">%s का NFPA 704 स्वास्थ्य ख़तरा क्या है?</string>
+    <string name="question_nfpa_flammability">%s की NFPA 704 ज्वलनशीलता क्या है?</string>
+    <string name="question_nfpa_instability">%s की NFPA 704 अस्थिरता क्या है?</string>
+    <string name="question_nfpa_diamond">%s का NFPA 704 ख़तरा डायमंड क्या है? (स्वास्थ्य / ज्वलनशीलता / अस्थिरता)</string>
+    <string name="exam_test_title">परीक्षा</string>
+    <string name="exam_test_subtitle">स्तर %1$d से %2$d तक सब कुछ, मिलाकर</string>
+    <string name="exam_start">परीक्षा शुरू करें</string>
+    <string name="exam_locked">अनलॉक करने के लिए स्तर %1$d तक पहुँचें</string>
+    <string name="exam_pro_locked">इस परीक्षा के लिए PRO+ चाहिए</string>
+    <string name="exam_best_score">सर्वश्रेष्ठ स्कोर: %1$d%%</string>
+    <string name="exam_passed">उत्तीर्ण · सर्वश्रेष्ठ स्कोर %1$d%%</string>
+    <string name="exam_not_taken">अभी तक प्रयास नहीं किया</string>
+    <string name="exam_results">परीक्षा परिणाम</string>
+    <string name="exam_finished_xp">परीक्षा पूरी: +%1$d XP</string>
+    <string name="level_up_title">स्तर बढ़ा!</string>
+    <string name="level_up_message">बधाई हो, आप स्तर %1$d पर पहुँच गए!</string>
+    <string name="xp_bonus_unlocked">स्तर %1$d पर 5%% XP बोनस अनलॉक हुआ!</string>
+    <string name="no_unlocked_games">कोई अनलॉक किया गया गेम उपलब्ध नहीं!</string>
+    <string name="leave_game_title">गेम छोड़ें?</string>
+    <string name="leave_game_message">क्या आप वाकई गेम छोड़ना चाहते हैं? आप %1$d जीवन खो देंगे।</string>
+    <string name="leave_game_confirm">छोड़ें</string>
+    <string name="leave_game_stay">रुकें</string>
+    <string name="answer_timeout">समय समाप्त</string>
+    <string name="answer_yes">हाँ</string>
+    <string name="answer_no">नहीं</string>
+    <string name="question_xp_detail">इस प्रश्न के लिए XP: +%1$d</string>
+    <string name="total_xp_with_multiplier">कुल XP: %1$d (%2$s ×%3$s)</string>
+    <string name="next_life_in_detail">अगला जीवन %1$d मिनट और %2$d सेकंड में।\n%3$s</string>
+    <plurals name="lives_lost_result">
+        <item quantity="one">%d जीवन खोया</item>
+        <item quantity="other">%d जीवन खोए</item>
+    </plurals>
+    <plurals name="next_life_gain">
+        <item quantity="one">आपको %d जीवन मिलेगा।</item>
+        <item quantity="other">आपको %d जीवन मिलेंगे।</item>
+    </plurals>
+
+    <!-- Comparison, position, isotope and compound games -->
+    <string name="decay_alpha">अल्फा क्षय (α)</string>
+    <string name="decay_beta_minus">बीटा-माइनस क्षय (β−)</string>
+    <string name="decay_beta_plus">बीटा-प्लस क्षय (β+)</string>
+    <string name="decay_electron_capture">इलेक्ट्रॉन ग्रहण</string>
+    <string name="decay_neutron_emission">न्यूट्रॉन उत्सर्जन</string>
+    <string name="decay_proton_emission">प्रोटॉन उत्सर्जन</string>
+    <string name="decay_spontaneous_fission">स्वतःस्फूर्त विखंडन</string>
+    <string name="game_compare_pair">आमने-सामने</string>
+    <string name="game_extremes_advanced">उन्नत चरम मान</string>
+    <string name="game_group">समूह</string>
+    <string name="game_highest">सबसे अधिक कौन?</string>
+    <string name="game_isotope_decay">क्षय के प्रकार</string>
+    <string name="game_isotope_half_life">अर्ध-आयु</string>
+    <string name="game_isotope_neutrons">न्यूट्रॉन संख्या</string>
+    <string name="game_isotope_stability">स्थिर समस्थानिक</string>
+    <string name="game_lowest">सबसे कम कौन?</string>
+    <string name="game_molar_mass">मोलर द्रव्यमान</string>
+    <string name="game_odd_one_out">कौन अलग है?</string>
+    <string name="game_period">आवर्त</string>
+    <string name="game_valence_electrons">संयोजी इलेक्ट्रॉन</string>
+    <string name="molar_mass_value">%1$s g/mol</string>
+    <string name="question_group_of">%1$s किस समूह में है?</string>
+    <string name="question_highest_atomic_mass">इनमें से किसका परमाणु द्रव्यमान सबसे अधिक है?</string>
+    <string name="question_highest_boiling_point">इनमें से किसका क्वथनांक सबसे अधिक है?</string>
+    <string name="question_highest_brinell_hardness">इनमें से किसका ब्रिनेल कठोरता सबसे अधिक है?</string>
+    <string name="question_highest_bulk_modulus">इनमें से किसका आयतन मापांक सबसे अधिक है?</string>
+    <string name="question_highest_density">इनमें से किसका घनत्व सबसे अधिक है?</string>
+    <string name="question_highest_electronegativity">इनमें से किसका विद्युत ऋणात्मकता सबसे अधिक है?</string>
+    <string name="question_highest_fusion_heat">इनमें से किसका संलयन ऊष्मा सबसे अधिक है?</string>
+    <string name="question_highest_melting_point">इनमें से किसका गलनांक सबसे अधिक है?</string>
+    <string name="question_highest_mohs_hardness">इनमें से किसका मोह्स कठोरता सबसे अधिक है?</string>
+    <string name="question_highest_shear_modulus">इनमें से किसका अपरूपण मापांक सबसे अधिक है?</string>
+    <string name="question_highest_speed_of_sound">इनमें से किसमें ध्वनि सबसे तेज़ चलती है?</string>
+    <string name="question_highest_thermal_conductivity">इनमें से किसका ऊष्मीय चालकता सबसे अधिक है?</string>
+    <string name="question_highest_vaporization_heat">इनमें से किसका वाष्पीकरण ऊष्मा सबसे अधिक है?</string>
+    <string name="question_highest_vickers_hardness">इनमें से किसका विकर्स कठोरता सबसे अधिक है?</string>
+    <string name="question_highest_young_modulus">इनमें से किसका यंग मापांक सबसे अधिक है?</string>
+    <string name="question_isotope_decay">%1$s का क्षय कैसे होता है?</string>
+    <string name="question_isotope_longest_half_life">इनमें से किस समस्थानिक की अर्ध-आयु सबसे लंबी है?</string>
+    <string name="question_isotope_neutrons">%1$s में कितने न्यूट्रॉन हैं?</string>
+    <string name="question_isotope_shortest_half_life">इनमें से किस समस्थानिक की अर्ध-आयु सबसे छोटी है?</string>
+    <string name="question_isotope_stable">इनमें से कौन सा समस्थानिक स्थिर है?</string>
+    <string name="question_largest_atomic_radius">इनमें से किसका परमाणु त्रिज्या सबसे अधिक है?</string>
+    <string name="question_largest_molar_volume">इनमें से किसका मोलर आयतन सबसे अधिक है?</string>
+    <string name="question_lowest_atomic_mass">इनमें से किसका परमाणु द्रव्यमान सबसे कम है?</string>
+    <string name="question_lowest_boiling_point">इनमें से किसका क्वथनांक सबसे कम है?</string>
+    <string name="question_lowest_brinell_hardness">इनमें से किसका ब्रिनेल कठोरता सबसे कम है?</string>
+    <string name="question_lowest_bulk_modulus">इनमें से किसका आयतन मापांक सबसे कम है?</string>
+    <string name="question_lowest_density">इनमें से किसका घनत्व सबसे कम है?</string>
+    <string name="question_lowest_electronegativity">इनमें से किसका विद्युत ऋणात्मकता सबसे कम है?</string>
+    <string name="question_lowest_fusion_heat">इनमें से किसका संलयन ऊष्मा सबसे कम है?</string>
+    <string name="question_lowest_melting_point">इनमें से किसका गलनांक सबसे कम है?</string>
+    <string name="question_lowest_mohs_hardness">इनमें से किसका मोह्स कठोरता सबसे कम है?</string>
+    <string name="question_lowest_shear_modulus">इनमें से किसका अपरूपण मापांक सबसे कम है?</string>
+    <string name="question_lowest_speed_of_sound">इनमें से किसमें ध्वनि सबसे धीमी चलती है?</string>
+    <string name="question_lowest_thermal_conductivity">इनमें से किसका ऊष्मीय चालकता सबसे कम है?</string>
+    <string name="question_lowest_vaporization_heat">इनमें से किसका वाष्पीकरण ऊष्मा सबसे कम है?</string>
+    <string name="question_lowest_vickers_hardness">इनमें से किसका विकर्स कठोरता सबसे कम है?</string>
+    <string name="question_lowest_young_modulus">इनमें से किसका यंग मापांक सबसे कम है?</string>
+    <string name="question_molar_mass">%1$s का मोलर द्रव्यमान क्या है?</string>
+    <string name="question_not_a_series">इनमें से कौन %1$s नहीं है?</string>
+    <string name="question_period_of">%1$s किस आवर्त में है?</string>
+    <string name="question_smallest_atomic_radius">इनमें से किसका परमाणु त्रिज्या सबसे कम है?</string>
+    <string name="question_smallest_molar_volume">इनमें से किसका मोलर आयतन सबसे कम है?</string>
+    <string name="question_valence_electrons">%1$s में कितने संयोजी इलेक्ट्रॉन हैं?</string>
+    <string name="quiz_loading">प्रश्न तैयार किए जा रहे हैं…</string>
+    <string name="quiz_no_questions">इस गेम के लिए प्रश्न नहीं बनाए जा सके। कृपया कोई और चुनें।</string>
 </resources>

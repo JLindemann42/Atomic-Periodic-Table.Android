@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
 import com.jlindemann.science.R
+import com.jlindemann.science.utils.FlashcardCatalog
+import java.util.Locale
 import kotlin.math.roundToInt
 
 class ResultDialogFragment : DialogFragment() {
@@ -63,7 +65,8 @@ class ResultDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<TextView>(R.id.tv_popup_title).text = getString(R.string.game_results)
+        view.findViewById<TextView>(R.id.tv_popup_title).text =
+            getString(if (FlashcardCatalog.isExam(category)) R.string.exam_results else R.string.game_results)
 
         val correctAnswers = results.count { it.wasCorrect }
         view.findViewById<TextView>(R.id.tv_score_summary).text = getString(R.string.score_summary, correctAnswers, totalQuestions)
@@ -78,7 +81,7 @@ class ResultDialogFragment : DialogFragment() {
             val allCorrect = finishedGame && correctAnswers == totalQuestions
             val xpGameWin = if (finishedGame) (25 * xpMultiplier).roundToInt() else 0
             val xpPerfect = if (allCorrect) (20 * xpMultiplier).roundToInt() else 0
-            displayTotalXp = xpElements + xpGameWin + xpPerfect
+            displayTotalXp = xpElements + xpGameWin + xpPerfect + examBonusXp(finishedGame, xpMultiplier)
         }
         showXpBreakdown(view, results, totalQuestions, allAnswersCompleted, difficulty, displayTotalXp)
 
@@ -112,7 +115,7 @@ class ResultDialogFragment : DialogFragment() {
             }
             val perQXp = (result.baseXp * getXpMultiplier(difficulty)).roundToInt()
             val xpBreak = TextView(context).apply {
-                text = if (result.wasCorrect) "XP for this question: +$perQXp" else ""
+                text = if (result.wasCorrect) getString(R.string.question_xp_detail, perQXp) else ""
                 textSize = 12f
             }
             val status = TextView(context).apply {
@@ -144,6 +147,16 @@ class ResultDialogFragment : DialogFragment() {
         }
     }
 
+    private fun difficultyLabelRes(): Int = when (difficulty) {
+        "medium" -> R.string.medium
+        "hard" -> R.string.hard
+        else -> R.string.easy
+    }
+
+    private fun examBonusXp(finishedGame: Boolean, xpMultiplier: Double): Int =
+        if (finishedGame && FlashcardCatalog.isExam(category))
+            (FlashcardCatalog.EXAM_COMPLETION_XP * xpMultiplier).roundToInt() else 0
+
     private fun getLivesLost(difficulty: String): Int {
         return when (difficulty) {
             "hard" -> 2
@@ -164,8 +177,12 @@ class ResultDialogFragment : DialogFragment() {
         val finishedGame = allAnswersCompleted
         val allCorrect = finishedGame && correctAnswers == totalQuestions
 
-        view.findViewById<TextView>(R.id.tv_total_xp).text =
-            "Total XP: $totalXp  (${difficulty.replaceFirstChar { it.uppercase() }} x${xpMultiplier})"
+        view.findViewById<TextView>(R.id.tv_total_xp).text = getString(
+            R.string.total_xp_with_multiplier,
+            totalXp,
+            getString(difficultyLabelRes()),
+            String.format(Locale.getDefault(), "%.1f", xpMultiplier)
+        )
 
         val breakdownList = view.findViewById<LinearLayout>(R.id.xp_breakdown_list)
         breakdownList.removeAllViews()
@@ -194,6 +211,15 @@ class ResultDialogFragment : DialogFragment() {
                 textSize = 15f
             }
             breakdownList.addView(perfectRow)
+        }
+
+        val xpExam = examBonusXp(finishedGame, xpMultiplier)
+        if (xpExam > 0) {
+            val examRow = TextView(context).apply {
+                text = getString(R.string.exam_finished_xp, xpExam)
+                textSize = 15f
+            }
+            breakdownList.addView(examRow)
         }
 
         val livesLostPerWrong = getLivesLost(difficulty)

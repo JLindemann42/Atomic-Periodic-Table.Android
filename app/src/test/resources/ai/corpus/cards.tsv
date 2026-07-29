@@ -1,0 +1,57 @@
+# Which questions earn a visual card, and — the more important half — which must not.
+#
+# A card is derived from the typed ExecutionResult, never from the query text. That is what keeps
+# the card and the prose in agreement: a card can only show what the answer already asserted, and
+# if the engine defers there is no card at all. A wrong card is worse than no card, so every
+# positive row here has a matching negative somewhere.
+#
+# expect_card is authored now and enforced once the card layer lands.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+card-shell-1			en	what is the electron configuration of iron	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+card-shell-2			en	what are the electron shells of calcium	PROPERTY_LOOKUP	electron_shells	ELECTRON_SHELL		
+card-shell-3			en	electron configuration of gold	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+card-shell-4			sv	vad är elektronkonfigurationen för järn	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+card-shell-5			de	elektronenkonfiguration von eisen	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+card-crystal-1			en	what is the crystal structure of gold	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		
+card-crystal-2			en	crystal structure of iron	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		bcc
+card-crystal-3			en	crystal structure of magnesium	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		hcp
+card-crystal-4			en	what are the lattice constants of gold	PROPERTY_LOOKUP	lattice_constants	CRYSTAL_STRUCTURE		
+card-crystal-5			en	space group of tungsten	PROPERTY_LOOKUP	space_group_name			tungsten's crystal_structure is null in the data, so refusing to draw is correct
+card-crystal-6			sv	vilken kristallstruktur har guld	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		
+card-poisson-1			en	what is the poisson ratio of gold	PROPERTY_LOOKUP	poisson_ratio	POISSON_BAND		
+card-poisson-2			en	poisson ratio of beryllium	PROPERTY_LOOKUP	poisson_ratio	POISSON_BAND		an unusually low ratio, so the band is the point
+card-poisson-3			sv	vad är poissons tal för guld	PROPERTY_LOOKUP	poisson_ratio	POISSON_BAND		
+card-nfpa-1			en	is arsenic dangerous	SAFETY		NFPA_DIAMOND		
+card-nfpa-2			en	how flammable is hydrogen	SAFETY				hydrogen has no NFPA ratings recorded
+card-nfpa-3			sv	är arsenik farligt	SAFETY		NFPA_DIAMOND		
+card-ion-1			en	what is the first ionization energy of sodium	PROPERTY_LOOKUP	ionization_energy	IONIZATION_SERIES		shell closure right after step 1
+card-ion-2			en	ionization energy of magnesium	PROPERTY_LOOKUP	ionization_energy	IONIZATION_SERIES		closure after step 2
+card-ion-3			en	ionization energy of neon	PROPERTY_LOOKUP	ionization_energy	IONIZATION_SERIES		closure after step 8
+card-ion-4			en	ionization energy of iron	PROPERTY_LOOKUP	ionization_energy	IONIZATION_SERIES		26 recorded steps
+card-iso-1			en	what are the isotopes of carbon	ISOTOPES		ISOTOPE_DECAY		
+card-iso-2			en	isotopes of uranium	ISOTOPES		ISOTOPE_DECAY		
+card-iso-3			en	isotopes of tin	ISOTOPES		ISOTOPE_DECAY		ten stable isotopes, the widest stable band in the table
+card-iso-4			sv	vilka isotoper har kol	ISOTOPES		ISOTOPE_DECAY		
+card-abund-1			en	how abundant is gold in the earth's crust	*		ABUNDANCE		no reservoir field resolves, so this reads as the whole-family question
+card-abund-2			en	how much gold is in sea water	PROPERTY_LOOKUP	abundance_sea_water	ABUNDANCE		
+card-abund-3			en	where is iron found	CATEGORY_LOOKUP		ABUNDANCE		
+card-abund-4			sv	var finns guld	CATEGORY_LOOKUP		ABUNDANCE		
+# ---- Must produce NO card ------------------------------------------------------------------------
+card-none-1			en	what is the density of gold	PROPERTY_LOOKUP	density	none		a scalar with no visual to add
+card-none-2			en	what is the melting point of iron	PROPERTY_LOOKUP	melting_point	none		
+card-none-3			en	what is the symbol for gold	PROPERTY_LOOKUP	symbol	none		
+card-none-4			en	what is the densest element	SUPERLATIVE	density	none		a ranked list is not an element card
+card-none-5			en	compare gold and silver	COMPARISON		none		two elements: a single-element card would misattribute
+card-none-6			en	compare the density of gold and lead	COMPARISON	density	none		
+card-none-7			en	is gold denser than lead	COMPARATIVE	density	none		
+card-none-8			en	how many elements are there	AGGREGATE		none		
+card-none-9			en	what is the average electronegativity of the halogens	AGGREGATE	electronegativity	none		
+card-none-10			en	what is the molar mass of H2SO4	FORMULA_MASS		none		
+card-none-11			en	how many neutrons does uranium 238 have	NUCLIDE_COUNT		none		
+card-none-12			en	uranium-235 vs uranium-238	ISOTOPE_COMPARISON		none		two nuclides, not one element
+card-none-13			en	what is avogadro's number	DATASET_LOOKUP		none		
+card-none-14			en	what element comes after gold	NEIGHBOUR		none		
+card-none-15			en	what is the poisson ratio of neon	PROPERTY_LOOKUP	poisson_ratio	none		no value, so no band to draw
+card-none-16			en	what is the mohs hardness of helium	PROPERTY_LOOKUP	mohs_hardness	none		
+card-none-17			en	what is the crystal structure of gallium	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		an unrecognised lattice must not silently draw a cubic cell — gallium is orthorhombic, which is a lattice the app can draw
+card-none-18			en	what are the isotopes of protactinium	ISOTOPES		ISOTOPE_DECAY		too few isotopes for a chart to say anything — protactinium has enough isotopes to chart

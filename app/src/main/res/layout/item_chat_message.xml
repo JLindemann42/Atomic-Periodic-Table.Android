@@ -52,7 +52,7 @@
         android:visibility="gone"
         android:contentDescription="Atomic Assistant"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/aiMessageRoot"
+        app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
 
     <!-- AI Message Container (Left-aligned) -->
@@ -61,11 +61,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="0dp"
+        android:layout_marginTop="24dp"
         android:visibility="gone"
         android:clipChildren="false"
         android:clipToPadding="false"
-        app:layout_constraintStart_toEndOf="@id/aiMascotIcon"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/aiMascotIcon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
@@ -79,15 +80,11 @@
             android:background="@drawable/ai_message_border_glow"
             android:alpha="0" />
 
-        <androidx.cardview.widget.CardView
+        <FrameLayout
             android:id="@+id/aiMessageContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_gravity="start"
-            app:cardCornerRadius="16dp"
-            app:cardBackgroundColor="?attr/colorSecondaryContainer"
-            app:cardElevation="2dp">
+            android:layout_gravity="start">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -98,11 +95,95 @@
                     android:id="@+id/aiMessageText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="16dp"
+                    android:paddingHorizontal="4dp"
                     android:paddingVertical="12dp"
                     android:textColor="?attr/colorOnSecondaryContainer"
                     android:textSize="14sp"
+                    android:focusable="true"
+                    android:textIsSelectable="true"
                     tools:text="Oxygen is a chemical element with symbol O and atomic number 8." />
+
+                <!--
+                  Where a visual card is inflated, between the answer text and its sources.
+
+                  A host rather than the card itself: the card is inflated once when the ViewHolder
+                  is created, chosen by view type, so scrolling never re-inflates it.
+                -->
+                <FrameLayout
+                    android:id="@+id/aiMessageCardContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="gone">
+
+                    <FrameLayout
+                        android:id="@+id/aiMessageCardHost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <!--
+                      Shown over a locked card. It sits above the host rather than replacing it, so
+                      the blurred shape stays visible underneath: the upsell is then about something
+                      the user can see, not an empty rectangle.
+                    -->
+                    <FrameLayout
+                        android:id="@+id/aiCardProOverlay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:visibility="gone">
+
+                        <!-- Only drawn below API 31, where no view-level blur exists. -->
+                        <View
+                            android:id="@+id/aiCardProScrim"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?attr/colorSecondaryContainer"
+                            android:visibility="gone" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:contentDescription="@string/get_pro_title"
+                                android:src="@drawable/ic_lock"
+                                app:tint="?attr/colorOnSecondaryContainer" />
+
+                            <TextView
+                                android:id="@+id/aiCardProText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:gravity="center"
+                                android:text="@string/ai_card_pro_locked"
+                                android:textColor="?attr/colorOnSecondaryContainer"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/aiCardProButton"
+                                style="@style/Widget.MaterialComponents.Button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:minHeight="0dp"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="6dp"
+                                android:text="@string/get_pro_plus_button"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                </FrameLayout>
 
                 <!-- Tappable sources for a grounded answer. The message renderer supports no
                      links, so a citation is surfaced as a chip instead of an inline URL. -->
@@ -119,7 +200,7 @@
 
             </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+        </FrameLayout>
     </FrameLayout>
 
     <androidx.constraintlayout.widget.Guideline
@@ -127,6 +208,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.9"  />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

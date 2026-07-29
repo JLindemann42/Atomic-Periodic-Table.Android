@@ -1,0 +1,362 @@
+# The *computational* question shapes, in every shipped language.
+#
+# The two multilingual files before this one cover lookups, one-step filters and simple
+# comparisons. Everything that turns a question into a computation over the table — a threshold, a
+# range, a negation, a rank, a superlative inside a subset, a median, a mole conversion, a nuclide
+# comparison, a neighbour, a compound question — was tested in English only, and English is the one
+# language where the operator word is never inflected and never collides with an article.
+#
+# Twenty-eight shapes, in the same order, in each of the twelve languages. Every shape is one the
+# English corpus already proves works, so a failure here is a localization gap by construction.
+#
+# Element names, including "Plurin", "Osmyo" and "آزمیم", are taken verbatim from the shipped
+# elements_<lang>.json.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+# ---- en (control) --------------------------------------------------------------------------------
+mo-en-thr-c			en	which elements melt above 2000 celsius	FILTER_LIST	melting_point			
+mo-en-thr-lt			en	which elements boil below 100 kelvin	FILTER_LIST	boiling_point			
+mo-en-range			en	which elements have a density between 5 and 10	FILTER_LIST	density			
+mo-en-thr-elem			en	which elements are denser than gold	FILTER_LIST	density			
+mo-en-neg			en	which noble gases are not radioactive	FILTER_LIST				
+mo-en-sub-sup			en	which halogen has the highest boiling point	SUPERLATIVE	boiling_point			
+mo-en-sub-sup2			en	which transition metal has the highest melting point	SUPERLATIVE	melting_point			
+mo-en-rank			en	what is the second densest element	SUPERLATIVE	density			
+mo-en-least			en	what is the least dense element	SUPERLATIVE	density			
+mo-en-group			en	which elements are in group 17	FILTER_LIST				
+mo-en-period			en	which elements are in period 3	FILTER_LIST				
+mo-en-same-group			en	which elements are in the same group as carbon	FILTER_LIST				
+mo-en-synthetic			en	which elements are synthetic	FILTER_LIST				
+mo-en-natural			en	what is the heaviest naturally occurring element	SUPERLATIVE	atomic_mass			
+mo-en-count-cond			en	how many elements are radioactive	AGGREGATE				
+mo-en-count-period			en	how many elements are in period 4	AGGREGATE				
+mo-en-avg-sub			en	what is the average melting point of the alkali metals	AGGREGATE	melting_point			
+mo-en-median			en	what is the median atomic mass of the lanthanides	AGGREGATE	atomic_mass			
+mo-en-formula-pct			en	what is the percentage composition of Fe2O3	FORMULA_MASS				
+mo-en-mole			en	how many atoms are in 2 moles of carbon	MOLE_CONVERSION				
+mo-en-iso-cmp			en	compare uranium-235 and uranium-238	ISOTOPE_COMPARISON				
+mo-en-iso-count			en	how many isotopes does tin have	ISOTOPES				
+mo-en-after			en	which element comes after gold	NEIGHBOUR				
+mo-en-before			en	which element comes before iron	NEIGHBOUR				
+mo-en-cat-mech			en	the mechanical properties of tungsten	CATEGORY_LOOKUP				
+mo-en-ion-ord			en	what is the first ionization energy of sodium	PROPERTY_LOOKUP	ionization_energy			
+mo-en-compound			en	what is the atomic number of iron and what is its melting point	COMPOUND				
+mo-en-ratio			en	how much denser is osmium than aluminium	COMPARATIVE	density			
+# ---- sv ------------------------------------------------------------------------------------------
+mo-sv-thr-c			sv	vilka grundämnen smälter över 2000 celsius	FILTER_LIST	melting_point			
+mo-sv-thr-lt			sv	vilka grundämnen kokar under 100 kelvin	FILTER_LIST	boiling_point			
+mo-sv-range			sv	vilka grundämnen har en densitet mellan 5 och 10	FILTER_LIST	density			
+mo-sv-thr-elem			sv	vilka grundämnen är tätare än guld	FILTER_LIST	density			
+mo-sv-neg			sv	vilka ädelgaser är inte radioaktiva	FILTER_LIST				
+mo-sv-sub-sup			sv	vilken halogen har högst kokpunkt	SUPERLATIVE	boiling_point			
+mo-sv-sub-sup2			sv	vilken övergångsmetall har högst smältpunkt	SUPERLATIVE	melting_point			
+mo-sv-rank			sv	vilket är det näst tätaste grundämnet	SUPERLATIVE	density			
+mo-sv-least			sv	vilket är det minst täta grundämnet	SUPERLATIVE	density			
+mo-sv-group			sv	vilka grundämnen finns i grupp 17	FILTER_LIST				
+mo-sv-period			sv	vilka grundämnen finns i period 3	FILTER_LIST				
+mo-sv-same-group			sv	vilka grundämnen finns i samma grupp som kol	FILTER_LIST				
+mo-sv-synthetic			sv	vilka grundämnen är syntetiska	FILTER_LIST				
+mo-sv-natural			sv	vilket är det tyngsta naturligt förekommande grundämnet	SUPERLATIVE	atomic_mass			
+mo-sv-count-cond			sv	hur många grundämnen är radioaktiva	AGGREGATE				
+mo-sv-count-period			sv	hur många grundämnen finns i period 4	AGGREGATE				
+mo-sv-avg-sub			sv	vad är den genomsnittliga smältpunkten för alkalimetallerna	AGGREGATE	melting_point			
+mo-sv-median			sv	vad är medianatommassan för lantaniderna	AGGREGATE	atomic_mass			
+mo-sv-formula-pct			sv	vad är den procentuella sammansättningen av Fe2O3	FORMULA_MASS				
+mo-sv-mole			sv	hur många atomer finns i 2 mol kol	MOLE_CONVERSION				
+mo-sv-iso-cmp			sv	jämför uran-235 och uran-238	ISOTOPE_COMPARISON				
+mo-sv-iso-count			sv	hur många isotoper har tenn	ISOTOPES				
+mo-sv-after			sv	vilket grundämne kommer efter guld	NEIGHBOUR				
+mo-sv-before			sv	vilket grundämne kommer före järn	NEIGHBOUR				
+mo-sv-cat-mech			sv	de mekaniska egenskaperna för volfram	CATEGORY_LOOKUP				
+mo-sv-ion-ord			sv	vad är den första joniseringsenergin för natrium	PROPERTY_LOOKUP	ionization_energy			
+mo-sv-compound			sv	vad är atomnumret för järn och vad är dess smältpunkt	COMPOUND				
+mo-sv-ratio			sv	hur mycket tätare är osmium än aluminium	COMPARATIVE	density			
+# ---- de ------------------------------------------------------------------------------------------
+mo-de-thr-c			de	welche elemente schmelzen über 2000 celsius	FILTER_LIST	melting_point			
+mo-de-thr-lt			de	welche elemente sieden unter 100 kelvin	FILTER_LIST	boiling_point			
+mo-de-range			de	welche elemente haben eine dichte zwischen 5 und 10	FILTER_LIST	density			
+mo-de-thr-elem			de	welche elemente sind dichter als gold	FILTER_LIST	density			
+mo-de-neg			de	welche edelgase sind nicht radioaktiv	FILTER_LIST				
+mo-de-sub-sup			de	welches halogen hat den höchsten siedepunkt	SUPERLATIVE	boiling_point			
+mo-de-sub-sup2			de	welches übergangsmetall hat den höchsten schmelzpunkt	SUPERLATIVE	melting_point			
+mo-de-rank			de	welches ist das zweitdichteste element	SUPERLATIVE	density			
+mo-de-least			de	welches element hat die niedrigste dichte	SUPERLATIVE	density			
+mo-de-group			de	welche elemente sind in gruppe 17	FILTER_LIST				
+mo-de-period			de	welche elemente sind in periode 3	FILTER_LIST				
+mo-de-same-group			de	welche elemente sind in der gleichen gruppe wie kohlenstoff	FILTER_LIST				
+mo-de-synthetic			de	welche elemente sind synthetisch	FILTER_LIST				
+mo-de-natural			de	was ist das schwerste natürlich vorkommende element	SUPERLATIVE	atomic_mass			
+mo-de-count-cond			de	wie viele elemente sind radioaktiv	AGGREGATE				
+mo-de-count-period			de	wie viele elemente sind in periode 4	AGGREGATE				
+mo-de-avg-sub			de	was ist der durchschnittliche schmelzpunkt der alkalimetalle	AGGREGATE	melting_point			
+mo-de-median			de	was ist die mediane atommasse der lanthanoide	AGGREGATE	atomic_mass			
+mo-de-formula-pct			de	was ist die prozentuale zusammensetzung von Fe2O3	FORMULA_MASS				
+mo-de-mole			de	wie viele atome sind in 2 mol kohlenstoff	MOLE_CONVERSION				
+mo-de-iso-cmp			de	vergleiche uran-235 und uran-238	ISOTOPE_COMPARISON				
+mo-de-iso-count			de	wie viele isotope hat zinn	ISOTOPES				
+mo-de-after			de	welches element kommt nach gold	NEIGHBOUR				
+mo-de-before			de	welches element kommt vor eisen	NEIGHBOUR				
+mo-de-cat-mech			de	die mechanischen eigenschaften von wolfram	CATEGORY_LOOKUP				
+mo-de-ion-ord			de	was ist die erste ionisierungsenergie von natrium	PROPERTY_LOOKUP	ionization_energy			
+mo-de-compound			de	was ist die ordnungszahl von eisen und was ist sein schmelzpunkt	COMPOUND				
+mo-de-ratio			de	wie viel dichter ist osmium als aluminium	COMPARATIVE	density			
+# ---- es ------------------------------------------------------------------------------------------
+mo-es-thr-c			es	qué elementos se funden por encima de 2000 celsius	FILTER_LIST	melting_point			
+mo-es-thr-lt			es	qué elementos hierven por debajo de 100 kelvin	FILTER_LIST	boiling_point			
+mo-es-range			es	qué elementos tienen una densidad entre 5 y 10	FILTER_LIST	density			
+mo-es-thr-elem			es	qué elementos son más densos que el oro	FILTER_LIST	density			
+mo-es-neg			es	qué gases nobles no son radiactivos	FILTER_LIST				
+mo-es-sub-sup			es	qué halógeno tiene el punto de ebullición más alto	SUPERLATIVE	boiling_point			
+mo-es-sub-sup2			es	qué metal de transición tiene el punto de fusión más alto	SUPERLATIVE	melting_point			
+mo-es-rank			es	cuál es el segundo elemento más denso	SUPERLATIVE	density			
+mo-es-least			es	cuál es el elemento menos denso	SUPERLATIVE	density			
+mo-es-group			es	qué elementos están en el grupo 17	FILTER_LIST				
+mo-es-period			es	qué elementos están en el periodo 3	FILTER_LIST				
+mo-es-same-group			es	qué elementos están en el mismo grupo que el carbono	FILTER_LIST				
+mo-es-synthetic			es	qué elementos son sintéticos	FILTER_LIST				
+mo-es-natural			es	cuál es el elemento natural más pesado	SUPERLATIVE	atomic_mass			
+mo-es-count-cond			es	cuántos elementos son radiactivos	AGGREGATE				
+mo-es-count-period			es	cuántos elementos hay en el periodo 4	AGGREGATE				
+mo-es-avg-sub			es	cuál es el punto de fusión promedio de los metales alcalinos	AGGREGATE	melting_point			
+mo-es-median			es	cuál es la masa atómica mediana de los lantánidos	AGGREGATE	atomic_mass			
+mo-es-formula-pct			es	cuál es la composición porcentual de Fe2O3	FORMULA_MASS				
+mo-es-mole			es	cuántos átomos hay en 2 moles de carbono	MOLE_CONVERSION				
+mo-es-iso-cmp			es	compara uranio-235 y uranio-238	ISOTOPE_COMPARISON				
+mo-es-iso-count			es	cuántos isótopos tiene el estaño	ISOTOPES				
+mo-es-after			es	qué elemento viene después del oro	NEIGHBOUR				
+mo-es-before			es	qué elemento viene antes del hierro	NEIGHBOUR				
+mo-es-cat-mech			es	las propiedades mecánicas del wolframio	CATEGORY_LOOKUP				
+mo-es-ion-ord			es	cuál es la primera energía de ionización del sodio	PROPERTY_LOOKUP	ionization_energy			
+mo-es-compound			es	cuál es el número atómico del hierro y cuál es su punto de fusión	COMPOUND				
+mo-es-ratio			es	cuánto más denso es el osmio que el aluminio	COMPARATIVE	density			
+# ---- fr ------------------------------------------------------------------------------------------
+mo-fr-thr-c			fr	quels éléments fondent au-dessus de 2000 celsius	FILTER_LIST	melting_point			
+mo-fr-thr-lt			fr	quels éléments bouillent en dessous de 100 kelvin	FILTER_LIST	boiling_point			
+mo-fr-range			fr	quels éléments ont une densité entre 5 et 10	FILTER_LIST	density			
+mo-fr-thr-elem			fr	quels éléments sont plus denses que l'or	FILTER_LIST	density			
+mo-fr-neg			fr	quels gaz nobles ne sont pas radioactifs	FILTER_LIST				
+mo-fr-sub-sup			fr	quel halogène a le point d'ébullition le plus élevé	SUPERLATIVE	boiling_point			
+mo-fr-sub-sup2			fr	quel métal de transition a le point de fusion le plus élevé	SUPERLATIVE	melting_point			
+mo-fr-rank			fr	quel est le deuxième élément le plus dense	SUPERLATIVE	density			
+mo-fr-least			fr	quel est l'élément le moins dense	SUPERLATIVE	density			
+mo-fr-group			fr	quels éléments sont dans le groupe 17	FILTER_LIST				
+mo-fr-period			fr	quels éléments sont dans la période 3	FILTER_LIST				
+mo-fr-same-group			fr	quels éléments sont dans le même groupe que le carbone	FILTER_LIST				
+mo-fr-synthetic			fr	quels éléments sont synthétiques	FILTER_LIST				
+mo-fr-natural			fr	quel est l'élément naturel le plus lourd	SUPERLATIVE	atomic_mass			
+mo-fr-count-cond			fr	combien d'éléments sont radioactifs	AGGREGATE				
+mo-fr-count-period			fr	combien d'éléments sont dans la période 4	AGGREGATE				
+mo-fr-avg-sub			fr	quel est le point de fusion moyen des métaux alcalins	AGGREGATE	melting_point			
+mo-fr-median			fr	quelle est la masse atomique médiane des lanthanides	AGGREGATE	atomic_mass			
+mo-fr-formula-pct			fr	quelle est la composition en pourcentage de Fe2O3	FORMULA_MASS				
+mo-fr-mole			fr	combien d'atomes y a-t-il dans 2 moles de carbone	MOLE_CONVERSION				
+mo-fr-iso-cmp			fr	compare uranium-235 et uranium-238	ISOTOPE_COMPARISON				
+mo-fr-iso-count			fr	combien d'isotopes a l'étain	ISOTOPES				
+mo-fr-after			fr	quel élément vient après l'or	NEIGHBOUR				
+mo-fr-before			fr	quel élément vient avant le fer	NEIGHBOUR				
+mo-fr-cat-mech			fr	les propriétés mécaniques du tungstène	CATEGORY_LOOKUP				
+mo-fr-ion-ord			fr	quelle est la première énergie d'ionisation du sodium	PROPERTY_LOOKUP	ionization_energy			
+mo-fr-compound			fr	quel est le numéro atomique du fer et quel est son point de fusion	COMPOUND				
+mo-fr-ratio			fr	combien de fois l'osmium est plus dense que l'aluminium	COMPARATIVE	density			
+# ---- it ------------------------------------------------------------------------------------------
+mo-it-thr-c			it	quali elementi fondono sopra 2000 celsius	FILTER_LIST	melting_point			
+mo-it-thr-lt			it	quali elementi bollono sotto 100 kelvin	FILTER_LIST	boiling_point			
+mo-it-range			it	quali elementi hanno una densità tra 5 e 10	FILTER_LIST	density			
+mo-it-thr-elem			it	quali elementi sono più densi dell'oro	FILTER_LIST	density			
+mo-it-neg			it	quali gas nobili non sono radioattivi	FILTER_LIST				
+mo-it-sub-sup			it	quale alogeno ha il punto di ebollizione più alto	SUPERLATIVE	boiling_point			
+mo-it-sub-sup2			it	quale metallo di transizione ha il punto di fusione più alto	SUPERLATIVE	melting_point			
+mo-it-rank			it	qual è il secondo elemento più denso	SUPERLATIVE	density			
+mo-it-least			it	qual è l'elemento meno denso	SUPERLATIVE	density			
+mo-it-group			it	quali elementi sono nel gruppo 17	FILTER_LIST				
+mo-it-period			it	quali elementi sono nel periodo 3	FILTER_LIST				
+mo-it-same-group			it	quali elementi sono nello stesso gruppo del carbonio	FILTER_LIST				
+mo-it-synthetic			it	quali elementi sono sintetici	FILTER_LIST				
+mo-it-natural			it	qual è l'elemento naturale più pesante	SUPERLATIVE	atomic_mass			
+mo-it-count-cond			it	quanti elementi sono radioattivi	AGGREGATE				
+mo-it-count-period			it	quanti elementi ci sono nel periodo 4	AGGREGATE				
+mo-it-avg-sub			it	qual è il punto di fusione medio dei metalli alcalini	AGGREGATE	melting_point			
+mo-it-median			it	qual è la massa atomica mediana dei lantanidi	AGGREGATE	atomic_mass			
+mo-it-formula-pct			it	qual è la composizione percentuale di Fe2O3	FORMULA_MASS				
+mo-it-mole			it	quanti atomi ci sono in 2 moli di carbonio	MOLE_CONVERSION				
+mo-it-iso-cmp			it	confronta uranio-235 e uranio-238	ISOTOPE_COMPARISON				
+mo-it-iso-count			it	quanti isotopi ha lo stagno	ISOTOPES				
+mo-it-after			it	quale elemento viene dopo l'oro	NEIGHBOUR				
+mo-it-before			it	quale elemento viene prima del ferro	NEIGHBOUR				
+mo-it-cat-mech			it	le proprietà meccaniche del tungsteno	CATEGORY_LOOKUP				
+mo-it-ion-ord			it	qual è la prima energia di ionizzazione del sodio	PROPERTY_LOOKUP	ionization_energy			
+mo-it-compound			it	qual è il numero atomico del ferro e qual è il suo punto di fusione	COMPOUND				
+mo-it-ratio			it	quanto è più denso l'osmio dell'alluminio	COMPARATIVE	density			
+# ---- pt ------------------------------------------------------------------------------------------
+mo-pt-thr-c			pt	quais elementos fundem acima de 2000 celsius	FILTER_LIST	melting_point			
+mo-pt-thr-lt			pt	quais elementos fervem abaixo de 100 kelvin	FILTER_LIST	boiling_point			
+mo-pt-range			pt	quais elementos têm densidade entre 5 e 10	FILTER_LIST	density			
+mo-pt-thr-elem			pt	quais elementos são mais densos que o ouro	FILTER_LIST	density			
+mo-pt-neg			pt	quais gases nobres não são radioativos	FILTER_LIST				
+mo-pt-sub-sup			pt	qual halogênio tem o ponto de ebulição mais alto	SUPERLATIVE	boiling_point			
+mo-pt-sub-sup2			pt	qual metal de transição tem o ponto de fusão mais alto	SUPERLATIVE	melting_point			
+mo-pt-rank			pt	qual é o segundo elemento mais denso	SUPERLATIVE	density			
+mo-pt-least			pt	qual é o elemento menos denso	SUPERLATIVE	density			
+mo-pt-group			pt	quais elementos estão no grupo 17	FILTER_LIST				
+mo-pt-period			pt	quais elementos estão no período 3	FILTER_LIST				
+mo-pt-same-group			pt	quais elementos estão no mesmo grupo que o carbono	FILTER_LIST				
+mo-pt-synthetic			pt	quais elementos são sintéticos	FILTER_LIST				
+mo-pt-natural			pt	qual é o elemento natural mais pesado	SUPERLATIVE	atomic_mass			
+mo-pt-count-cond			pt	quantos elementos são radioativos	AGGREGATE				
+mo-pt-count-period			pt	quantos elementos estão no período 4	AGGREGATE				
+mo-pt-avg-sub			pt	qual é o ponto de fusão médio dos metais alcalinos	AGGREGATE	melting_point			
+mo-pt-median			pt	qual é a massa atômica mediana dos lantanídeos	AGGREGATE	atomic_mass			
+mo-pt-formula-pct			pt	qual é a composição percentual de Fe2O3	FORMULA_MASS				
+mo-pt-mole			pt	quantos átomos há em 2 mols de carbono	MOLE_CONVERSION				
+mo-pt-iso-cmp			pt	compare urânio-235 e urânio-238	ISOTOPE_COMPARISON				
+mo-pt-iso-count			pt	quantos isótopos o estanho tem	ISOTOPES				
+mo-pt-after			pt	qual elemento vem depois do ouro	NEIGHBOUR				
+mo-pt-before			pt	qual elemento vem antes do ferro	NEIGHBOUR				
+mo-pt-cat-mech			pt	as propriedades mecânicas do tungstênio	CATEGORY_LOOKUP				
+mo-pt-ion-ord			pt	qual é a primeira energia de ionização do sódio	PROPERTY_LOOKUP	ionization_energy			
+mo-pt-compound			pt	qual é o número atômico do ferro e qual é o seu ponto de fusão	COMPOUND				
+mo-pt-ratio			pt	quanto mais denso é o ósmio que o alumínio	COMPARATIVE	density			
+# ---- af ------------------------------------------------------------------------------------------
+mo-af-thr-c			af	watter elemente smelt bo 2000 celsius	FILTER_LIST	melting_point			
+mo-af-thr-lt			af	watter elemente kook onder 100 kelvin	FILTER_LIST	boiling_point			
+mo-af-range			af	watter elemente het 'n digtheid tussen 5 en 10	FILTER_LIST	density			
+mo-af-thr-elem			af	watter elemente is digter as goud	FILTER_LIST	density			
+mo-af-neg			af	watter edelgasse is nie radioaktief nie	FILTER_LIST				
+mo-af-sub-sup			af	watter halogeen het die hoogste kookpunt	SUPERLATIVE	boiling_point			
+mo-af-sub-sup2			af	watter oorgangsmetaal het die hoogste smeltpunt	SUPERLATIVE	melting_point			
+mo-af-rank			af	wat is die tweede digste element	SUPERLATIVE	density			
+mo-af-least			af	watter element het die laagste digtheid	SUPERLATIVE	density			
+mo-af-group			af	watter elemente is in groep 17	FILTER_LIST				
+mo-af-period			af	watter elemente is in periode 3	FILTER_LIST				
+mo-af-same-group			af	watter elemente is in dieselfde groep as koolstof	FILTER_LIST				
+mo-af-synthetic			af	watter elemente is sinteties	FILTER_LIST				
+mo-af-natural			af	wat is die swaarste natuurlike element	SUPERLATIVE	atomic_mass			
+mo-af-count-cond			af	hoeveel elemente is radioaktief	AGGREGATE				
+mo-af-count-period			af	hoeveel elemente is in periode 4	AGGREGATE				
+mo-af-avg-sub			af	wat is die gemiddelde smeltpunt van die alkalimetale	AGGREGATE	melting_point			
+mo-af-median			af	wat is die mediaan atoommassa van die lantaniede	AGGREGATE	atomic_mass			
+mo-af-formula-pct			af	wat is die persentasie samestelling van Fe2O3	FORMULA_MASS				
+mo-af-mole			af	hoeveel atome is in 2 mol koolstof	MOLE_CONVERSION				
+mo-af-iso-cmp			af	vergelyk uranium-235 en uranium-238	ISOTOPE_COMPARISON				
+mo-af-iso-count			af	hoeveel isotope het tin	ISOTOPES				
+mo-af-after			af	watter element kom na goud	NEIGHBOUR				
+mo-af-before			af	watter element kom voor yster	NEIGHBOUR				
+mo-af-cat-mech			af	die meganiese eienskappe van wolfram	CATEGORY_LOOKUP				
+mo-af-ion-ord			af	wat is die eerste ionisasie-energie van natrium	PROPERTY_LOOKUP	ionization_energy			
+mo-af-compound			af	wat is die atoomgetal van yster en wat is sy smeltpunt	COMPOUND				
+mo-af-ratio			af	hoeveel digter is osmium as aluminium	COMPARATIVE	density			
+# ---- fil -----------------------------------------------------------------------------------------
+mo-fil-thr-c			fil	aling mga elemento ang natutunaw sa itaas ng 2000 celsius	FILTER_LIST	melting_point			
+mo-fil-thr-lt			fil	aling mga elemento ang kumukulo sa ibaba ng 100 kelvin	FILTER_LIST	boiling_point			
+mo-fil-range			fil	aling mga elemento ang may densidad sa pagitan ng 5 at 10	FILTER_LIST	density			
+mo-fil-thr-elem			fil	aling mga elemento ang mas madensidad kaysa sa ginto	FILTER_LIST	density			
+mo-fil-neg			fil	aling mga noble gas ang hindi radyoaktibo	FILTER_LIST				
+mo-fil-sub-sup			fil	aling halogen ang may pinakamataas na boiling point	SUPERLATIVE	boiling_point			
+mo-fil-sub-sup2			fil	aling transition metal ang may pinakamataas na melting point	SUPERLATIVE	melting_point			
+mo-fil-rank			fil	ano ang pangalawang pinakamadensidad na elemento	SUPERLATIVE	density			
+mo-fil-least			fil	aling elemento ang may pinakamababang densidad	SUPERLATIVE	density			
+mo-fil-group			fil	aling mga elemento ang nasa grupo 17	FILTER_LIST				
+mo-fil-period			fil	aling mga elemento ang nasa periodo 3	FILTER_LIST				
+mo-fil-same-group			fil	aling mga elemento ang nasa parehong grupo ng karbon	FILTER_LIST				
+mo-fil-synthetic			fil	aling mga elemento ang sintetiko	FILTER_LIST				
+mo-fil-natural			fil	ano ang pinakamabigat na natural na elemento	SUPERLATIVE	atomic_mass			
+mo-fil-count-cond			fil	ilang elemento ang radyoaktibo	AGGREGATE				
+mo-fil-count-period			fil	ilang elemento ang nasa periodo 4	AGGREGATE				
+mo-fil-avg-sub			fil	ano ang average na melting point ng mga alkali metal	AGGREGATE	melting_point			
+mo-fil-median			fil	ano ang median na atomic mass ng mga lanthanide	AGGREGATE	atomic_mass			
+mo-fil-formula-pct			fil	ano ang porsyentong komposisyon ng Fe2O3	FORMULA_MASS				
+mo-fil-mole			fil	ilang atomo ang nasa 2 mol ng karbon	MOLE_CONVERSION				
+mo-fil-iso-cmp			fil	ihambing ang uranyo-235 at uranyo-238	ISOTOPE_COMPARISON				
+mo-fil-iso-count			fil	ilang isotope mayroon ang lata	ISOTOPES				
+mo-fil-after			fil	aling elemento ang kasunod ng ginto	NEIGHBOUR				
+mo-fil-before			fil	aling elemento ang nauna sa bakal	NEIGHBOUR				
+mo-fil-cat-mech			fil	ang mekanikal na katangian ng tungsteno	CATEGORY_LOOKUP				
+mo-fil-ion-ord			fil	ano ang unang ionization energy ng sodyo	PROPERTY_LOOKUP	ionization_energy			
+mo-fil-compound			fil	ano ang atomic number ng bakal at ano ang melting point nito	COMPOUND				
+mo-fil-ratio			fil	gaano kadensidad ang osmyo kumpara sa aluminyo	COMPARATIVE	density			
+# ---- hi ------------------------------------------------------------------------------------------
+mo-hi-thr-c			hi	कौन से तत्व 2000 सेल्सियस से ऊपर पिघलते हैं	FILTER_LIST	melting_point			
+mo-hi-thr-lt			hi	कौन से तत्व 100 केल्विन से नीचे उबलते हैं	FILTER_LIST	boiling_point			
+mo-hi-range			hi	किन तत्वों का घनत्व 5 और 10 के बीच है	FILTER_LIST	density			
+mo-hi-thr-elem			hi	कौन से तत्व सोने से अधिक घने हैं	FILTER_LIST	density			
+mo-hi-neg			hi	कौन सी उत्कृष्ट गैसें रेडियोधर्मी नहीं हैं	FILTER_LIST				
+mo-hi-sub-sup			hi	किस हैलोजन का क्वथनांक सबसे अधिक है	SUPERLATIVE	boiling_point			
+mo-hi-sub-sup2			hi	किस संक्रमण धातु का गलनांक सबसे अधिक है	SUPERLATIVE	melting_point			
+mo-hi-rank			hi	दूसरा सबसे घना तत्व कौन सा है	SUPERLATIVE	density			
+mo-hi-least			hi	सबसे कम घना तत्व कौन सा है	SUPERLATIVE	density			
+mo-hi-group			hi	कौन से तत्व समूह 17 में हैं	FILTER_LIST				
+mo-hi-period			hi	कौन से तत्व आवर्त 3 में हैं	FILTER_LIST				
+mo-hi-same-group			hi	कौन से तत्व कार्बन के समान समूह में हैं	FILTER_LIST				
+mo-hi-synthetic			hi	कौन से तत्व कृत्रिम हैं	FILTER_LIST				
+mo-hi-natural			hi	सबसे भारी प्राकृतिक तत्व कौन सा है	SUPERLATIVE	atomic_mass			
+mo-hi-count-cond			hi	कितने तत्व रेडियोधर्मी हैं	AGGREGATE				
+mo-hi-count-period			hi	आवर्त 4 में कितने तत्व हैं	AGGREGATE				
+mo-hi-avg-sub			hi	क्षार धातुओं का औसत गलनांक क्या है	AGGREGATE	melting_point			
+mo-hi-median			hi	लैंथेनाइड का माध्यिका परमाणु द्रव्यमान क्या है	AGGREGATE	atomic_mass			
+mo-hi-formula-pct			hi	Fe2O3 का प्रतिशत संघटन क्या है	FORMULA_MASS				
+mo-hi-mole			hi	2 मोल कार्बन में कितने परमाणु हैं	MOLE_CONVERSION				
+mo-hi-iso-cmp			hi	यूरेनियम-235 और यूरेनियम-238 की तुलना करें	ISOTOPE_COMPARISON				
+mo-hi-iso-count			hi	टिन के कितने समस्थानिक हैं	ISOTOPES				
+mo-hi-after			hi	सोने के बाद कौन सा तत्व आता है	NEIGHBOUR				
+mo-hi-before			hi	लोहे से पहले कौन सा तत्व आता है	NEIGHBOUR				
+mo-hi-cat-mech			hi	टंगस्टन के यांत्रिक गुण	CATEGORY_LOOKUP				
+mo-hi-ion-ord			hi	सोडियम की पहली आयनन ऊर्जा क्या है	PROPERTY_LOOKUP	ionization_energy			
+mo-hi-compound			hi	लोहे की परमाणु संख्या क्या है और इसका गलनांक क्या है	COMPOUND				
+mo-hi-ratio			hi	ऑस्मियम एल्युमिनियम से कितना अधिक घना है	COMPARATIVE	density			
+# ---- ur ------------------------------------------------------------------------------------------
+mo-ur-thr-c			ur	کون سے عناصر 2000 سیلسیس سے اوپر پگھلتے ہیں	FILTER_LIST	melting_point			
+mo-ur-thr-lt			ur	کون سے عناصر 100 کیلون سے نیچے ابلتے ہیں	FILTER_LIST	boiling_point			
+mo-ur-range			ur	کن عناصر کی کثافت 5 اور 10 کے درمیان ہے	FILTER_LIST	density			
+mo-ur-thr-elem			ur	کون سے عناصر سونے سے زیادہ کثیف ہیں	FILTER_LIST	density			
+mo-ur-neg			ur	کون سی نیک گیسیں تابکار نہیں ہیں	FILTER_LIST				
+mo-ur-sub-sup			ur	کس ہیلوجن کا نقطہ ابال سب سے زیادہ ہے	SUPERLATIVE	boiling_point			
+mo-ur-sub-sup2			ur	کس منتقلی دھات کا نقطہ پگھلاؤ سب سے زیادہ ہے	SUPERLATIVE	melting_point			
+mo-ur-rank			ur	دوسرا سب سے کثیف عنصر کون سا ہے	SUPERLATIVE	density			
+mo-ur-least			ur	سب سے کم کثیف عنصر کون سا ہے	SUPERLATIVE	density			
+mo-ur-group			ur	کون سے عناصر گروپ 17 میں ہیں	FILTER_LIST				
+mo-ur-period			ur	کون سے عناصر دور 3 میں ہیں	FILTER_LIST				
+mo-ur-same-group			ur	کون سے عناصر کاربن کے ہی گروپ میں ہیں	FILTER_LIST				
+mo-ur-synthetic			ur	کون سے عناصر مصنوعی ہیں	FILTER_LIST				
+mo-ur-natural			ur	سب سے بھاری قدرتی عنصر کون سا ہے	SUPERLATIVE	atomic_mass			
+mo-ur-count-cond			ur	کتنے عناصر تابکار ہیں	AGGREGATE				
+mo-ur-count-period			ur	دور 4 میں کتنے عناصر ہیں	AGGREGATE				
+mo-ur-avg-sub			ur	الکلی دھاتوں کا اوسط نقطہ پگھلاؤ کیا ہے	AGGREGATE	melting_point			
+mo-ur-median			ur	لینتھانائیڈ کا وسطی جوہری وزن کیا ہے	AGGREGATE	atomic_mass			
+mo-ur-formula-pct			ur	Fe2O3 کی فیصد ترکیب کیا ہے	FORMULA_MASS				
+mo-ur-mole			ur	2 مول کاربن میں کتنے ایٹم ہیں	MOLE_CONVERSION				
+mo-ur-iso-cmp			ur	یورینیم-235 اور یورینیم-238 کا موازنہ کریں	ISOTOPE_COMPARISON				
+mo-ur-iso-count			ur	ٹن کے کتنے آئسوٹوپ ہیں	ISOTOPES				
+mo-ur-after			ur	سونے کے بعد کون سا عنصر آتا ہے	NEIGHBOUR				
+mo-ur-before			ur	آئرن سے پہلے کون سا عنصر آتا ہے	NEIGHBOUR				
+mo-ur-cat-mech			ur	ٹنگسٹن کی میکانکی خصوصیات	CATEGORY_LOOKUP				
+mo-ur-ion-ord			ur	سوڈیم کی پہلی آئنائزیشن انرجی کیا ہے	PROPERTY_LOOKUP	ionization_energy			
+mo-ur-compound			ur	آئرن کا جوہری عدد کیا ہے اور اس کا نقطہ پگھلاؤ کیا ہے	COMPOUND				
+mo-ur-ratio			ur	آزمیم ایلومینیم سے کتنا زیادہ کثیف ہے	COMPARATIVE	density			
+# ---- zh ------------------------------------------------------------------------------------------
+mo-zh-thr-c			zh	哪些元素的熔点高于2000摄氏度	FILTER_LIST	melting_point			
+mo-zh-thr-lt			zh	哪些元素的沸点低于100开尔文	FILTER_LIST	boiling_point			
+mo-zh-range			zh	哪些元素的密度在5到10之间	FILTER_LIST	density			
+mo-zh-thr-elem			zh	哪些元素比金更致密	FILTER_LIST	density			
+mo-zh-neg			zh	哪些惰性气体不是放射性的	FILTER_LIST				
+mo-zh-sub-sup			zh	哪种卤素的沸点最高	SUPERLATIVE	boiling_point			
+mo-zh-sub-sup2			zh	哪种过渡金属的熔点最高	SUPERLATIVE	melting_point			
+mo-zh-rank			zh	密度第二大的元素是什么	SUPERLATIVE	density			
+mo-zh-least			zh	密度最低的元素是什么	SUPERLATIVE	density			
+mo-zh-group			zh	哪些元素在第17族	FILTER_LIST				
+mo-zh-period			zh	哪些元素在第3周期	FILTER_LIST				
+mo-zh-same-group			zh	哪些元素和碳在同一族	FILTER_LIST				
+mo-zh-synthetic			zh	哪些元素是人造的	FILTER_LIST				
+mo-zh-natural			zh	最重的天然元素是什么	SUPERLATIVE	atomic_mass			
+mo-zh-count-cond			zh	有多少种元素是放射性的	AGGREGATE				
+mo-zh-count-period			zh	第4周期有多少种元素	AGGREGATE				
+mo-zh-avg-sub			zh	碱金属的平均熔点是多少	AGGREGATE	melting_point			
+mo-zh-median			zh	镧系元素的中位原子量是多少	AGGREGATE	atomic_mass			
+mo-zh-formula-pct			zh	Fe2O3的百分比组成是什么	FORMULA_MASS				
+mo-zh-mole			zh	2摩尔碳中有多少个原子	MOLE_CONVERSION				
+mo-zh-iso-cmp			zh	比较铀-235和铀-238	ISOTOPE_COMPARISON				
+mo-zh-iso-count			zh	锡有多少种同位素	ISOTOPES				
+mo-zh-after			zh	金之后是哪个元素	NEIGHBOUR				
+mo-zh-before			zh	铁之前是哪个元素	NEIGHBOUR				
+mo-zh-cat-mech			zh	钨的机械性质	CATEGORY_LOOKUP				
+mo-zh-ion-ord			zh	钠的第一电离能是多少	PROPERTY_LOOKUP	ionization_energy			
+mo-zh-compound			zh	铁的原子序数是多少以及它的熔点是多少	COMPOUND				
+mo-zh-ratio			zh	锇比铝致密多少	COMPARATIVE	density			
