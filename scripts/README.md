@@ -95,20 +95,31 @@ This creates `untranslated_strings.csv` in the repository root.
 - All scripts can be run from any directory
 - Output is color-coded for easy reading (when terminal supports it)
 
-## On-device RAG asset generation (new)
+## Element data scripts
 
-This repo now contains helper scripts to prepare a small retrieval-augmented dataset for on-device use (element KB + model-backed table data -> embeddings -> Android assets).
+`populate_element_data.py` fills `"---"` placeholders in the element JSON files
+from IUPAC, NIST, CRC Handbook and WebElements values. `check_field_registry.py`
+cross-checks the element JSON against the AI engine's `FieldRegistry`.
+`fix_string_escaping.py` repairs escaping damage in `strings.xml` after a bulk
+translation pass.
 
-Files added:
-- prepare_corpus.py  (extracts passages from app/src/main/assets/elements_*.json and selected app model tables such as constants, dictionary, equations, indicators, Poisson ratios and ionization counts)
-- build_embeddings.py (computes sentence-transformer embeddings and writes data/embeddings.json, embeddings_meta.json and data/passages.jsonl)
-- requirements.txt (python deps)
-- convert_to_tflite.md (notes on converting generator/embedder to TFLite)
+## Historical batch scripts
 
-Quick usage:
-1. Create a venv and install deps: `pip install -r scripts/requirements.txt`
-2. `python scripts/prepare_corpus.py`
-3. `python scripts/build_embeddings.py`
-4. Copy `data/embeddings.json`, `data/embeddings_meta.json`, and `data/passages.jsonl` into `app/src/main/assets/data/`
+Most of the remaining files here are one-off passes from a 2025 translation
+campaign (`push_toward_60.py`, `mega_batch_update.py`, `continue_all_languages.py`
+and similar). They are kept because they encode the translations that were
+actually applied, but they overlap heavily and are not a maintained toolkit. For
+new work, use `extract_missing.py` to export, translate externally, apply, and
+verify.
 
-See scripts/README (this section) and scripts/convert_to_tflite.md for conversion steps and Android integration notes.
+## Full documentation
+
+See [docs/data-pipeline](../docs/data-pipeline) for the complete guide.
+
+> **Removed:** an earlier version of this README documented an "on-device RAG
+> asset generation" pipeline (`prepare_corpus.py`, `build_embeddings.py`,
+> `requirements.txt`, `convert_to_tflite.md`). Those scripts were never present
+> in this repository, and the embedding approach they described was abandoned —
+> the AI agent uses BM25 lexical retrieval built at runtime, with no shipped
+> model or embedding artifacts. See
+> [docs/ai/retrieval.md](../docs/ai/retrieval.md).
