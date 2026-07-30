@@ -1,3 +1,9 @@
+---
+title: The corpus
+parent: AI Agent
+nav_order: 7
+---
+
 # The AI agent training corpus
 
 1,595 questions under `app/src/test/resources/ai/corpus/`, run against the real agent stack by
@@ -366,7 +372,7 @@ Swedish, German and Afrikaans are effectively clean. **Urdu is the outlier and t
 target**: more than half its remaining failures are single shapes that resolve nothing at all, which
 usually means an alias table has no entry in that script rather than that a rule is wrong. Verifying
 the phrasing needs a reader of the language — the queries themselves are machine-assisted and are
-listed in `docs/TRANSLATION_REVIEW.md`. A query that resolves *nothing* is still a defect worth
+listed in [Translation review](translation-review). A query that resolves *nothing* is still a defect worth
 recording regardless of how idiomatic it is, which is why those rows are in the corpus.
 
 ## Urdu, Hindi and Chinese

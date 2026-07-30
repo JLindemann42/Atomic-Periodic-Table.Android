@@ -1,3 +1,9 @@
+---
+title: Translation review
+parent: AI Agent
+nav_order: 8
+---
+
 # Translation review worklist
 
 All 14 shipped locales now resolve every one of the 330 `ai_*` agent strings.

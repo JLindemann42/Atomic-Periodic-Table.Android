@@ -1,3 +1,9 @@
+---
+title: Architecture reference
+parent: AI Agent
+nav_order: 2
+---
+
 # AI Agent — Technical Documentation
 
 The AI Agent is a fully on-device chemistry assistant built into the Atomic Periodic Table app.  

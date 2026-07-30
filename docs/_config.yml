@@ -1,0 +1,64 @@
+title: Atomic — Periodic Table
+description: >-
+  Documentation for Atomic, an offline Android chemistry reference app with an
+  on-device natural-language assistant, 118 elements in 12 languages, reference
+  tables, calculators and a spaced-learning quiz engine.
+
+remote_theme: just-the-docs/just-the-docs
+
+url: https://jlindemann42.github.io
+baseurl: /Atomic-Periodic-Table.Android
+
+# Pages render as /section/page/ rather than /section/page.html, so the
+# extensionless relative links used throughout the site resolve correctly.
+permalink: pretty
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+
+# just-the-docs configuration
+search_enabled: true
+search:
+  heading_level: 3
+  previews: 3
+  preview_words_before: 5
+  preview_words_after: 10
+  tokenizer_separator: /[\s/]+/
+  rel_url: true
+  button: false
+
+heading_anchors: true
+color_scheme: dark
+
+aux_links:
+  "View on GitHub":
+    - "https://github.com/JLindemann42/Atomic-Periodic-Table.Android"
+aux_links_new_tab: true
+
+nav_external_links:
+  - title: Google Play
+    url: https://play.google.com/store/apps/details?id=com.jlindemann.science
+
+back_to_top: true
+back_to_top_text: "Back to top"
+
+footer_content: >-
+  Documentation for the Atomic — Periodic Table Android app.
+  Element data is compiled from IUPAC, NIST, CRC Handbook and WebElements.
+
+last_edit_timestamp: true
+last_edit_time_format: "%b %e %Y"
+
+gh_edit_link: true
+gh_edit_link_text: "Edit this page on GitHub"
+gh_edit_repository: "https://github.com/JLindemann42/Atomic-Periodic-Table.Android"
+gh_edit_branch: "master"
+gh_edit_source: docs
+gh_edit_view_mode: "tree"
+
+# Exclude files that are not part of the site
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
