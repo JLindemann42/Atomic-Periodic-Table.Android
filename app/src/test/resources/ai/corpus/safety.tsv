@@ -1,0 +1,29 @@
+# NFPA 704 hazard ratings and radioactivity. The agent already answers these as free text, so the
+# diamond card is a rendering of information the user is being given either way.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+saf-1			en	is arsenic dangerous	SAFETY		NFPA_DIAMOND		
+saf-2			en	is mercury toxic	SAFETY		NFPA_DIAMOND		
+saf-3			en	how hazardous is chlorine	SAFETY				chlorine has no NFPA ratings recorded
+saf-4			en	what are the hazards of fluorine	SAFETY		NFPA_DIAMOND		
+saf-5			en	safety information for sodium	SAFETY		NFPA_DIAMOND		
+saf-6			en	is lead safe to handle	SAFETY		NFPA_DIAMOND		
+saf-7			en	nfpa rating of hydrogen	SAFETY				hydrogen has no NFPA ratings recorded
+saf-8			en	how flammable is hydrogen	SAFETY				hydrogen has no NFPA ratings recorded
+saf-9			en	health hazard of cadmium	SAFETY		NFPA_DIAMOND		
+saf-10			en	is beryllium poisonous	SAFETY		NFPA_DIAMOND		
+saf-11			en	is phosphorus dangerous	SAFETY		NFPA_DIAMOND		
+saf-12			en	what are the risks of handling caesium	SAFETY		NFPA_DIAMOND		
+saf-13			en	is helium dangerous	SAFETY				an inert gas: an honest low-hazard answer, not a refusal — helium has no NFPA ratings recorded
+saf-14			en	is uranium dangerous	SAFETY		NFPA_DIAMOND		
+saf-15			en	is plutonium dangerous	SAFETY		NFPA_DIAMOND		
+saf-sv-1			sv	är arsenik farligt	SAFETY		NFPA_DIAMOND		
+saf-sv-2			sv	är kvicksilver giftigt	SAFETY		NFPA_DIAMOND		
+saf-sv-3			sv	är titan farligt	SAFETY		NFPA_DIAMOND		
+saf-sv-4			sv	vilka risker har klor	SAFETY				chlorine has no NFPA ratings recorded
+saf-de-1			de	ist arsen gefährlich	SAFETY		NFPA_DIAMOND		
+saf-de-2			de	ist quecksilber giftig	SAFETY		NFPA_DIAMOND		
+saf-fr-1			fr	l'arsenic est-il dangereux	SAFETY		NFPA_DIAMOND		
+saf-es-1			es	el arsénico es peligroso	SAFETY		NFPA_DIAMOND		
+saf-it-1			it	l'arsenico è pericoloso	SAFETY		NFPA_DIAMOND		
+saf-pt-1			pt	o arsênio é perigoso	SAFETY		NFPA_DIAMOND		
+saf-zh-1			zh	砷危险吗	SAFETY		NFPA_DIAMOND		

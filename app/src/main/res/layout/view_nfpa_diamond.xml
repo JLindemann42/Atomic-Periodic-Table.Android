@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The NFPA 704 diamond, extracted so the element screen and the chat card share one copy.
+
+  It is a rotated square holding four counter-rotated quadrants; two independently maintained
+  versions of that would drift. The ids are unchanged, so NfpaDiamondBinder resolves them the same
+  way whichever parent included it.
+-->
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp"
+            android:layout_gravity="center"
+            android:rotation="45">
+
+            <FrameLayout
+                android:id="@+id/fire_hazard_box"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:background="@drawable/toast_card"
+                android:backgroundTint="?attr/colorError">
+
+                <TextView
+                    android:id="@+id/fire_hazard_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:rotation="-45"
+                    android:text="@string/not_available"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="12sp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/reactivity_hazard_box"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="28dp"
+                android:background="@drawable/toast_card"
+                android:backgroundTint="?attr/colorTertiary">
+
+                <TextView
+                    android:id="@+id/reactivity_hazard_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:rotation="-45"
+                    android:text="@string/not_available"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="12sp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/health_hazard_box"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/toast_card"
+                android:backgroundTint="?attr/colorPrimary">
+
+                <TextView
+                    android:id="@+id/health_hazard_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:rotation="-45"
+                    android:text="@string/not_available"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnPrimary"
+                    android:textSize="12sp" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="28dp"
+                android:background="@drawable/toast_card"
+                android:backgroundTint="?attr/colorSurfaceVariant">
+
+                <TextView
+                    android:id="@+id/specific_hazard_txt"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:rotation="-45"
+                    android:text="@string/not_available"
+                    android:textAlignment="center"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="12sp" />
+            </FrameLayout>
+        </FrameLayout>
+    </FrameLayout>

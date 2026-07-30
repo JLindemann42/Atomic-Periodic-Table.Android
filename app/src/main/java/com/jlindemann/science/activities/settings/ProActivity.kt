@@ -2,14 +2,17 @@ package com.jlindemann.science.activities.settings
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.android.billingclient.api.ProductDetails
+import com.google.android.material.button.MaterialButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.billing.BillingManager
@@ -69,15 +72,14 @@ class ProActivity : BaseActivity(), BillingManager.Listener {
             }
         }
 
-        findViewById<ImageButton>(R.id.back_btn_pro).setOnClickListener {
-            this.onBackPressed()
-        }
-
         // NEW: Handle click on "product_text"
         findViewById<TextView>(R.id.product_text)?.setOnClickListener {
             checkAndSetPreferences()
             showUserProductsToast()
         }
+
+        findViewById<View>(R.id.back_btn_pro).visibility = View.VISIBLE
+        findViewById<View>(R.id.back_btn_pro).setOnClickListener { onBackPressedDispatcher.onBackPressed() }
     }
 
     override fun onDestroy() {
@@ -268,20 +270,12 @@ class ProActivity : BaseActivity(), BillingManager.Listener {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val titleBarHeight = resources.getDimensionPixelSize(R.dimen.title_bar)
-        val navBarHeight = resources.getDimensionPixelSize(R.dimen.nav_bar)
-        val titleFrame = findViewById<FrameLayout>(R.id.common_title_back_pro)
-        val purchaseBox = findViewById<FrameLayout>(R.id.pro_purschase_box)
-        val proLinear = findViewById<LinearLayout>(R.id.pro_linear)
+        val params = findViewById<View>(R.id.pro_header_container).layoutParams as ViewGroup.LayoutParams
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        findViewById<View>(R.id.pro_header_container).layoutParams = params
 
-        val titleParams = titleFrame.layoutParams as ViewGroup.LayoutParams
-        titleParams.height = top + titleBarHeight
-        titleFrame.layoutParams = titleParams
-
-        proLinear.setPadding(0, top, 0, 0)
-
-        val purchaseParams = purchaseBox.layoutParams as ViewGroup.LayoutParams
-        purchaseParams.height = bottom + navBarHeight
-        purchaseBox.layoutParams = purchaseParams
+        val params2 = findViewById<LinearLayout>(R.id.pro_linear).layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin = 0 // Padding is enough
+        findViewById<LinearLayout>(R.id.pro_linear).layoutParams = params2
     }
 }

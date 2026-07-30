@@ -1,0 +1,119 @@
+# Whole conversations, in every shipped language.
+#
+# Follow-up inheritance is where a localized agent breaks in the way users actually notice: the
+# first answer is right, and then the thread quietly drifts to the wrong element or the wrong field.
+# Two threads per language, replayed against one DialogueState each.
+#
+# Thread A widens: one property, then a second element, then a comparison of the two.
+# Thread B narrows: a filtered list, its size, its extreme member, and then that member's detail.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+# ---- sv ----------------------------------------------------------------------------------------
+mc-sv-a1	mc-sv-a	1	sv	vad är densiteten för guld	PROPERTY_LOOKUP	density			
+mc-sv-a2	mc-sv-a	2	sv	och silver	PROPERTY_LOOKUP	density			
+mc-sv-a3	mc-sv-a	3	sv	vilket är tätast	COMPARATIVE	density			
+mc-sv-a4	mc-sv-a	4	sv	och deras smältpunkter	COMPARISON	melting_point			
+mc-sv-b1	mc-sv-b	1	sv	vilka grundämnen är radioaktiva	FILTER_LIST				
+mc-sv-b2	mc-sv-b	2	sv	hur många är de	AGGREGATE				
+mc-sv-b3	mc-sv-b	3	sv	vilket är tyngst	SUPERLATIVE	atomic_mass			
+mc-sv-b4	mc-sv-b	4	sv	är det farligt	SAFETY				
+mc-sv-b5	mc-sv-b	5	sv	vilka isotoper har det	ISOTOPES				
+# ---- de ----------------------------------------------------------------------------------------
+mc-de-a1	mc-de-a	1	de	was ist die dichte von gold	PROPERTY_LOOKUP	density			
+mc-de-a2	mc-de-a	2	de	und silber	PROPERTY_LOOKUP	density			
+mc-de-a3	mc-de-a	3	de	welches ist dichter	COMPARATIVE	density			
+mc-de-a4	mc-de-a	4	de	und ihre schmelzpunkte	COMPARISON	melting_point			
+mc-de-b1	mc-de-b	1	de	welche elemente sind radioaktiv	FILTER_LIST				
+mc-de-b2	mc-de-b	2	de	wie viele sind es	AGGREGATE				
+mc-de-b3	mc-de-b	3	de	welches ist das schwerste	SUPERLATIVE	atomic_mass			
+mc-de-b4	mc-de-b	4	de	ist es gefährlich	SAFETY				
+mc-de-b5	mc-de-b	5	de	welche isotope hat es	ISOTOPES				
+# ---- fr ----------------------------------------------------------------------------------------
+mc-fr-a1	mc-fr-a	1	fr	quelle est la densité de l'or	PROPERTY_LOOKUP	density			
+mc-fr-a2	mc-fr-a	2	fr	et l'argent	PROPERTY_LOOKUP	density			
+mc-fr-a3	mc-fr-a	3	fr	lequel est plus dense	COMPARATIVE	density			
+mc-fr-a4	mc-fr-a	4	fr	et leurs points de fusion	COMPARISON	melting_point			
+mc-fr-b1	mc-fr-b	1	fr	quels éléments sont radioactifs	FILTER_LIST				
+mc-fr-b2	mc-fr-b	2	fr	combien y en a-t-il	AGGREGATE				
+mc-fr-b3	mc-fr-b	3	fr	lequel est le plus lourd	SUPERLATIVE	atomic_mass			
+mc-fr-b4	mc-fr-b	4	fr	est-il dangereux	SAFETY				
+mc-fr-b5	mc-fr-b	5	fr	quels sont ses isotopes	ISOTOPES				
+# ---- es ----------------------------------------------------------------------------------------
+mc-es-a1	mc-es-a	1	es	cuál es la densidad del oro	PROPERTY_LOOKUP	density			
+mc-es-a2	mc-es-a	2	es	y la plata	PROPERTY_LOOKUP	density			
+mc-es-a3	mc-es-a	3	es	cuál es más denso	COMPARATIVE	density			
+mc-es-a4	mc-es-a	4	es	y sus puntos de fusión	COMPARISON	melting_point			
+mc-es-b1	mc-es-b	1	es	qué elementos son radiactivos	FILTER_LIST				
+mc-es-b2	mc-es-b	2	es	cuántos hay	AGGREGATE				
+mc-es-b3	mc-es-b	3	es	cuál es el más pesado	SUPERLATIVE	atomic_mass			
+mc-es-b4	mc-es-b	4	es	es peligroso	SAFETY				
+mc-es-b5	mc-es-b	5	es	cuáles son sus isótopos	ISOTOPES				
+# ---- it ----------------------------------------------------------------------------------------
+mc-it-a1	mc-it-a	1	it	qual è la densità dell'oro	PROPERTY_LOOKUP	density			
+mc-it-a2	mc-it-a	2	it	e l'argento	PROPERTY_LOOKUP	density			
+mc-it-a3	mc-it-a	3	it	quale è più denso	COMPARATIVE	density			
+mc-it-a4	mc-it-a	4	it	e i loro punti di fusione	COMPARISON	melting_point			
+mc-it-b1	mc-it-b	1	it	quali elementi sono radioattivi	FILTER_LIST				
+mc-it-b2	mc-it-b	2	it	quanti sono	AGGREGATE				
+mc-it-b3	mc-it-b	3	it	qual è il più pesante	SUPERLATIVE	atomic_mass			
+mc-it-b4	mc-it-b	4	it	è pericoloso	SAFETY				
+mc-it-b5	mc-it-b	5	it	quali sono i suoi isotopi	ISOTOPES				
+# ---- pt ----------------------------------------------------------------------------------------
+mc-pt-a1	mc-pt-a	1	pt	qual é a densidade do ouro	PROPERTY_LOOKUP	density			
+mc-pt-a2	mc-pt-a	2	pt	e a prata	PROPERTY_LOOKUP	density			
+mc-pt-a3	mc-pt-a	3	pt	qual é mais denso	COMPARATIVE	density			
+mc-pt-a4	mc-pt-a	4	pt	e seus pontos de fusão	COMPARISON	melting_point			
+mc-pt-b1	mc-pt-b	1	pt	quais elementos são radioativos	FILTER_LIST				
+mc-pt-b2	mc-pt-b	2	pt	quantos são	AGGREGATE				
+mc-pt-b3	mc-pt-b	3	pt	qual é o mais pesado	SUPERLATIVE	atomic_mass			
+mc-pt-b4	mc-pt-b	4	pt	é perigoso	SAFETY				
+mc-pt-b5	mc-pt-b	5	pt	quais são seus isótopos	ISOTOPES				
+# ---- af ----------------------------------------------------------------------------------------
+mc-af-a1	mc-af-a	1	af	wat is die digtheid van goud	PROPERTY_LOOKUP	density			
+mc-af-a2	mc-af-a	2	af	en silwer	PROPERTY_LOOKUP	density			
+mc-af-a3	mc-af-a	3	af	watter een is digter	COMPARATIVE	density			
+mc-af-a4	mc-af-a	4	af	en hul smeltpunte	COMPARISON	melting_point			
+mc-af-b1	mc-af-b	1	af	watter elemente is radioaktief	FILTER_LIST				
+mc-af-b2	mc-af-b	2	af	hoeveel is daar	AGGREGATE				
+mc-af-b3	mc-af-b	3	af	watter een is die swaarste	SUPERLATIVE	atomic_mass			
+mc-af-b4	mc-af-b	4	af	is dit gevaarlik	SAFETY				
+mc-af-b5	mc-af-b	5	af	wat is sy isotope	ISOTOPES				
+# ---- fil ---------------------------------------------------------------------------------------
+mc-fil-a1	mc-fil-a	1	fil	ano ang densidad ng ginto	PROPERTY_LOOKUP	density			
+mc-fil-a2	mc-fil-a	2	fil	at ang pilak	PROPERTY_LOOKUP	density			
+mc-fil-a3	mc-fil-a	3	fil	alin ang mas madensidad	COMPARATIVE	density			
+mc-fil-a4	mc-fil-a	4	fil	at ang kanilang melting point	COMPARISON	melting_point			
+mc-fil-b1	mc-fil-b	1	fil	aling mga elemento ang radioactive	FILTER_LIST				
+mc-fil-b2	mc-fil-b	2	fil	ilan ang mga iyon	AGGREGATE				
+mc-fil-b3	mc-fil-b	3	fil	alin ang pinakamabigat	SUPERLATIVE	atomic_mass			
+mc-fil-b4	mc-fil-b	4	fil	delikado ba ito	SAFETY				
+mc-fil-b5	mc-fil-b	5	fil	ano ang mga isotope nito	ISOTOPES				
+# ---- hi ----------------------------------------------------------------------------------------
+mc-hi-a1	mc-hi-a	1	hi	सोने का घनत्व क्या है	PROPERTY_LOOKUP	density			
+mc-hi-a2	mc-hi-a	2	hi	और चांदी	PROPERTY_LOOKUP	density			
+mc-hi-a3	mc-hi-a	3	hi	कौन सा अधिक घना है	COMPARATIVE	density			
+mc-hi-a4	mc-hi-a	4	hi	और उनके गलनांक	COMPARISON	melting_point			
+mc-hi-b1	mc-hi-b	1	hi	कौन से तत्व रेडियोधर्मी हैं	FILTER_LIST				
+mc-hi-b2	mc-hi-b	2	hi	कितने हैं	AGGREGATE				
+mc-hi-b3	mc-hi-b	3	hi	सबसे भारी कौन सा है	SUPERLATIVE	atomic_mass			
+mc-hi-b4	mc-hi-b	4	hi	क्या यह खतरनाक है	SAFETY				
+mc-hi-b5	mc-hi-b	5	hi	इसके समस्थानिक कौन से हैं	ISOTOPES				
+# ---- ur ----------------------------------------------------------------------------------------
+mc-ur-a1	mc-ur-a	1	ur	سونے کی کثافت کیا ہے	PROPERTY_LOOKUP	density			
+mc-ur-a2	mc-ur-a	2	ur	اور چاندی	PROPERTY_LOOKUP	density			
+mc-ur-a3	mc-ur-a	3	ur	کون سا زیادہ کثیف ہے	COMPARATIVE	density			
+mc-ur-a4	mc-ur-a	4	ur	اور ان کے نقطہ پگھلاؤ	COMPARISON	melting_point			
+mc-ur-b1	mc-ur-b	1	ur	کون سے عناصر تابکار ہیں	FILTER_LIST				
+mc-ur-b2	mc-ur-b	2	ur	کتنے ہیں	AGGREGATE				
+mc-ur-b3	mc-ur-b	3	ur	سب سے بھاری کون سا ہے	SUPERLATIVE	atomic_mass			
+mc-ur-b4	mc-ur-b	4	ur	کیا یہ خطرناک ہے	SAFETY				
+mc-ur-b5	mc-ur-b	5	ur	اس کے آئسوٹوپ کون سے ہیں	ISOTOPES				
+# ---- zh ----------------------------------------------------------------------------------------
+mc-zh-a1	mc-zh-a	1	zh	金的密度是多少	PROPERTY_LOOKUP	density			
+mc-zh-a2	mc-zh-a	2	zh	银呢	PROPERTY_LOOKUP	density			
+mc-zh-a3	mc-zh-a	3	zh	哪个更致密	COMPARATIVE	density			
+mc-zh-a4	mc-zh-a	4	zh	它们的熔点呢	COMPARISON	melting_point			
+mc-zh-b1	mc-zh-b	1	zh	哪些元素有放射性	FILTER_LIST				
+mc-zh-b2	mc-zh-b	2	zh	有多少个	AGGREGATE				
+mc-zh-b3	mc-zh-b	3	zh	最重的是哪个	SUPERLATIVE	atomic_mass			
+mc-zh-b4	mc-zh-b	4	zh	它危险吗	SAFETY				
+mc-zh-b5	mc-zh-b	5	zh	它有哪些同位素	ISOTOPES				

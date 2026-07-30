@@ -1,6 +1,42 @@
 <resources>
+    <attr name="colorOnPrimary" format="color|reference" />
+    <attr name="colorSurface" format="color|reference" />
+    <attr name="colorOnSurface" format="color|reference" />
+    <attr name="colorSurfaceVariant" format="color|reference" />
+    <attr name="colorOnSurfaceVariant" format="color|reference" />
+    <attr name="colorOutline" format="color|reference" />
+    <attr name="colorOutlineVariant" format="color|reference" />
+    <attr name="colorOnSecondaryContainer" format="color|reference" />
+    <attr name="colorTertiary" format="color|reference" />
+    <attr name="colorOnTertiary" format="color|reference" />
+    <attr name="colorOnBackground" format="color|reference" />
+    <attr name="colorOnPrimaryContainer" format="color|reference" />
+    <attr name="colorPrimaryContainer" format="color|reference" />
+    <attr name="colorSecondary" format="color|reference" />
+    <attr name="colorOnSecondary" format="color|reference" />
+    <attr name="colorSecondaryContainer" format="color|reference" />
+    <attr name="colorTertiaryContainer" format="color|reference" />
+    <attr name="colorOnTertiaryContainer" format="color|reference" />
+    <attr name="colorContainer" format="color|reference" />
+    <attr name="chipSurfaceColor" format="color|reference" />
+    <attr name="actionMenuTextColor" format="color|reference" />
+    <attr name="rippleColor" format="color|reference" />
+    <attr name="backgroundColor" format="color|reference" />
     <declare-styleable name="AppWidgetAttrs">
         <attr name="appWidgetBackgroundColor" format="color" />
         <attr name="appWidgetTextColor" format="color" />
+    </declare-styleable>
+
+    <!--
+      Lets a layout embed the crystal model without its two screen-oriented behaviours. Both default
+      to true, so d_grid.xml — the element screen — needs no change at all.
+    -->
+    <declare-styleable name="CrystalStructureView">
+        <!-- Turn the model on its own. Off inside a list, where a permanent animator invalidates
+             every frame for every pooled row. -->
+        <attr name="autoRotate" format="boolean" />
+        <!-- Drag to rotate. Off inside a scrolling container, which would otherwise never see the
+             gesture. -->
+        <attr name="interactive" format="boolean" />
     </declare-styleable>
 </resources>

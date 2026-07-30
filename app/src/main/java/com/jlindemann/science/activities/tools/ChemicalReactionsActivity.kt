@@ -22,6 +22,7 @@ import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ElementDataLoader
 import com.jlindemann.science.utils.ToastUtil
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import org.json.JSONArray
 import java.io.IOException
 import java.util.*
@@ -30,6 +31,7 @@ import kotlin.collections.HashMap
 
 class ChemicalReactionsActivity : BaseActivity() {
 
+    private lateinit var titleBar: UnifiedTitleBarController
     private lateinit var includedElementsAdapter: IncludedElementsAdapter
     private var isFormatting: Boolean = false
 
@@ -53,27 +55,32 @@ class ChemicalReactionsActivity : BaseActivity() {
         setContentView(R.layout.activity_chemical_reactions)
         findViewById<FrameLayout>(R.id.view_rec).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        findViewById<ImageButton>(R.id.back_btn_rec).setOnClickListener {
-            this.onBackPressed()
-        }
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.balancer_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
 
         //Title Controller
-        findViewById<FrameLayout>(R.id.common_title_back_rec_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.reaction_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_rec).elevation = resources.getDimension(R.dimen.zero_elevation)
         findViewById<ScrollView>(R.id.reaction_scroll).viewTreeObserver
             .addOnScrollChangedListener {
-                val scrollY = findViewById<ScrollView>(R.id.reaction_scroll).scrollY.toFloat()
-                if (scrollY > 150f) {
-                    findViewById<FrameLayout>(R.id.common_title_back_rec_color).visibility = View.VISIBLE
-                    findViewById<TextView>(R.id.reaction_title).visibility = View.VISIBLE
+                val scrollY = findViewById<ScrollView>(R.id.reaction_scroll).scrollY
+                if (scrollY > 150) {
+                    titleSurface.visibility = View.VISIBLE
+                    titleBar.titleView.visibility = View.VISIBLE
                     findViewById<TextView>(R.id.reaction_title_downstate).visibility = View.INVISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_rec).elevation = resources.getDimension(R.dimen.one_elevation)
+                    titleBar.container.elevation = resources.getDimension(R.dimen.one_elevation)
                 } else {
-                    findViewById<FrameLayout>(R.id.common_title_back_rec_color).visibility = View.INVISIBLE
-                    findViewById<TextView>(R.id.reaction_title).visibility = View.INVISIBLE
+                    titleSurface.visibility = View.INVISIBLE
+                    titleBar.titleView.visibility = View.INVISIBLE
                     findViewById<TextView>(R.id.reaction_title_downstate).visibility = View.VISIBLE
-                    findViewById<FrameLayout>(R.id.common_title_back_rec).elevation = resources.getDimension(R.dimen.zero_elevation)
+                    titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
                 }
             }
 
@@ -297,9 +304,9 @@ class ChemicalReactionsActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_rec).layoutParams as ViewGroup.LayoutParams
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_rec).layoutParams = params
+        titleBar.container.layoutParams = params
 
         val params2 = findViewById<TextView>(R.id.reaction_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)

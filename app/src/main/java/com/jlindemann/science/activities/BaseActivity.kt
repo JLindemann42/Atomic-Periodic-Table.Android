@@ -1,6 +1,7 @@
 package com.jlindemann.science.activities
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Insets
 import android.os.Build
@@ -22,6 +23,7 @@ import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.utils.Pasteur
 import com.jlindemann.science.utils.LocaleUtil
 import com.jlindemann.science.utils.AnalyticsHelper
+import androidx.core.view.WindowInsetsCompat
 import java.util.*
 
 abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListener {
@@ -91,14 +93,19 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
     open fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) = Unit
 
     override fun onApplyWindowInsets(v: View, insets: WindowInsets): WindowInsets {
-        Pasteur.info(TAG, "height: ${insets.systemWindowInsetBottom}")
+        val insetsCompat = WindowInsetsCompat.toWindowInsetsCompat(insets)
+        val systemBars = insetsCompat.getInsets(WindowInsetsCompat.Type.systemBars())
+        val ime = insetsCompat.getInsets(WindowInsetsCompat.Type.ime())
+        
+        // Report system bars + IME height to subclasses
         onApplySystemInsets(
-            insets.systemWindowInsetTop,
-            insets.systemWindowInsetBottom,
-            insets.systemWindowInsetLeft,
-            insets.systemWindowInsetRight
+            systemBars.top,
+            ime.bottom.coerceAtLeast(systemBars.bottom),
+            systemBars.left,
+            systemBars.right
         )
-        return insets.consumeSystemWindowInsets()
+        // Return original insets to allow children to handle them (e.g. for smooth animations)
+        return insets
     }
 
     private fun checkAchievements() {
@@ -116,15 +123,45 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
     open fun updateLivesCount() {
         val lives = LivesManager.getLives(this)
         val maxLives = LivesManager.getMaxLives(this)
-        val livesDisplay = if (maxLives == Int.MAX_VALUE) "∞" else lives.toString()
+        val isUnlimited = maxLives == Int.MAX_VALUE || lives == Int.MAX_VALUE
+        val livesDisplay = if (isUnlimited) "∞" else lives.toString()
 
         // Try both possible IDs (XML may differ between screens)
         val livesCountView = findViewById<TextView?>(R.id.tv_lives_count)
         livesCountView?.text = livesDisplay
 
         val livesLabelView = findViewById<TextView?>(R.id.tv_lives)
-        livesLabelView?.text = getString(R.string.lives_label, livesDisplay)
+        val label = if (isUnlimited) getString(R.string.lives_unlimited) else getString(R.string.lives_label, livesDisplay)
+        livesLabelView?.text = label
     }
 
 
+    fun getColorFromAttr(attr: Int): Int {
+        val typedValue = android.util.TypedValue()
+        theme.resolveAttribute(attr, typedValue, true)
+        return if (typedValue.resourceId != 0) {
+            androidx.core.content.ContextCompat.getColor(this, typedValue.resourceId)
+        } else {
+            typedValue.data
+        }
+    }
+
+    fun getColorStateListFromAttr(attr: Int): android.content.res.ColorStateList? {
+        val typedValue = android.util.TypedValue()
+        theme.resolveAttribute(attr, typedValue, true)
+        return if (typedValue.resourceId != 0) {
+            androidx.core.content.ContextCompat.getColorStateList(this, typedValue.resourceId)
+        } else {
+            android.content.res.ColorStateList.valueOf(typedValue.data)
+        }
+    }
+
+    //Navigates to the Pro page (ProFragment within MainActivity).
+    fun goToProPage() {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra("show_pro", true)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        }
+        startActivity(intent)
+    }
 }

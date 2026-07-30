@@ -1,0 +1,29 @@
+# Formula masses, composition and mole conversions. These are checked before entity and field
+# resolution, because a formula would otherwise be picked apart into unrelated element matches —
+# "the molar mass of H2SO4" used to retrieve the dictionary definition of molar mass.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+calc-mass-1			en	what is the molar mass of H2SO4	FORMULA_MASS				
+calc-mass-2			en	molar mass of water H2O	FORMULA_MASS				
+calc-mass-3			en	what is the molecular weight of CO2	FORMULA_MASS				
+calc-mass-4			en	molar mass of NaCl	FORMULA_MASS				
+calc-mass-5			en	what is the molar mass of h2so4	FORMULA_MASS				lower case is the common way users type a formula
+calc-mass-6			en	molar mass of C6H12O6	FORMULA_MASS				
+calc-mass-7			en	what is the molar mass of Ca(OH)2	FORMULA_MASS				parenthesised group
+calc-mass-8			en	molecular mass of CH4	FORMULA_MASS				
+calc-mass-9			en	molar mass of Fe2O3	FORMULA_MASS				
+calc-mass-10			en	what is the molar mass of KMnO4	FORMULA_MASS				
+calc-comp-1			en	what is the percentage composition of H2SO4	FORMULA_MASS				
+calc-comp-2			en	percent composition of water H2O	FORMULA_MASS				
+calc-comp-3			en	what percentage of CO2 is carbon	FORMULA_MASS				
+calc-comp-4			en	mass percent of oxygen in Fe2O3	FORMULA_MASS				
+calc-mole-1			en	how many atoms are in 2 moles of carbon	MOLE_CONVERSION				
+calc-mole-2			en	how many particles in 1 mole	MOLE_CONVERSION				
+calc-mole-3			en	convert 0.5 moles to atoms	MOLE_CONVERSION				
+calc-mole-4			en	how many molecules in 3 moles of water	MOLE_CONVERSION				
+calc-sv-1			sv	vad är molmassan för H2SO4	FORMULA_MASS				
+calc-sv-2			sv	molmassa för vatten H2O	FORMULA_MASS				
+calc-sv-3			sv	hur många atomer finns i 2 mol kol	MOLE_CONVERSION				
+calc-de-1			de	was ist die molmasse von H2SO4	FORMULA_MASS				
+calc-fr-1			fr	quelle est la masse molaire de H2SO4	FORMULA_MASS				
+calc-es-1			es	cuál es la masa molar de H2SO4	FORMULA_MASS				
+calc-zh-1			zh	H2SO4的摩尔质量是多少	FORMULA_MASS				

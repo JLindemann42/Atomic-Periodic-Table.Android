@@ -1,0 +1,81 @@
+# Superlatives, filtered lists, thresholds and ranges — questions that need a scan across all 118
+# elements. The keyword router could not express any of these shapes at all.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+sup-dense-1			en	what is the densest element	SUPERLATIVE	density			
+sup-dense-2			en	which element is the most dense	SUPERLATIVE	density			
+sup-dense-3			en	what is the heaviest element by density	SUPERLATIVE	density			
+sup-dense-4			en	least dense element	SUPERLATIVE	density			
+sup-dense-5			en	which element has the lowest density	SUPERLATIVE	density			
+sup-melt-1			en	which element has the highest melting point	SUPERLATIVE	melting_point			
+sup-melt-2			en	what element melts at the lowest temperature	SUPERLATIVE	melting_point			
+sup-boil-1			en	which element has the highest boiling point	SUPERLATIVE	boiling_point			
+sup-eneg-1			en	which element is the most electronegative	SUPERLATIVE	electronegativity			
+sup-eneg-2			en	least electronegative element	SUPERLATIVE	electronegativity			
+sup-mass-1			en	which element has the largest atomic mass	SUPERLATIVE	atomic_mass			
+sup-radius-1			en	which element has the largest atomic radius	SUPERLATIVE	atomic_radius			
+sup-radius-2			en	smallest atomic radius	SUPERLATIVE	atomic_radius			
+sup-hard-1			en	which element is the hardest on the mohs scale	SUPERLATIVE	mohs_hardness			
+sup-cond-1			en	which element conducts heat best	SUPERLATIVE	thermal_conductivity			
+sup-resist-1			en	which element has the highest resistivity	SUPERLATIVE	resistivity			
+sup-young-1			en	which element has the highest young modulus	SUPERLATIVE	young_modulus			
+sup-abund-1			en	what is the most abundant element in the earth's crust	SUPERLATIVE	abundance_earth_crust			
+sup-abund-2			en	most abundant element in sea water	SUPERLATIVE	abundance_sea_water			
+sup-nth-1			en	what is the second densest element	SUPERLATIVE	density			ordinal rank, not the first
+sup-nth-2			en	third highest melting point	SUPERLATIVE	melting_point			
+sup-nth-3			en	what is the fifth most electronegative element	SUPERLATIVE	electronegativity			
+sup-subset-1			en	what is the densest nonmetal	SUPERLATIVE	density			superlative inside a subset
+sup-subset-2			en	which transition metal has the highest melting point	SUPERLATIVE	melting_point			
+sup-subset-3			en	densest noble gas	SUPERLATIVE	density			
+sup-subset-4			en	which halogen is the most electronegative	SUPERLATIVE	electronegativity			
+sup-subset-5			en	heaviest alkali metal by atomic mass	SUPERLATIVE	atomic_mass			
+sup-subset-6			en	which lanthanide has the highest density	SUPERLATIVE	density			
+sup-subset-7			en	densest actinide	SUPERLATIVE	density			
+sup-subset-8			en	which metalloid has the highest melting point	SUPERLATIVE	melting_point			
+sup-natural-1			en	what is the heaviest naturally occurring element	SUPERLATIVE	atomic_mass			must exclude synthetics; the answer is uranium, not tennessine
+sup-natural-2			en	densest natural element	SUPERLATIVE	density			
+fil-list-1			en	which elements are radioactive	FILTER_LIST				
+fil-list-2			en	list the noble gases	FILTER_LIST				
+fil-list-3			en	which are the halogens	FILTER_LIST				
+fil-list-4			en	list all alkali metals	FILTER_LIST				
+fil-list-5			en	show me the transition metals	FILTER_LIST				
+fil-list-6			en	which elements are metalloids	FILTER_LIST				
+fil-list-7			en	list the lanthanides	FILTER_LIST				
+fil-list-8			en	which elements are actinides	FILTER_LIST				
+fil-list-9			en	list the alkaline earth metals	FILTER_LIST				
+fil-list-10			en	which elements are nonmetals	FILTER_LIST				
+fil-list-11			en	which elements are synthetic	FILTER_LIST				
+fil-list-12			en	which elements are gases at room temperature	FILTER_LIST				
+fil-list-13			en	list the elements in period 3	FILTER_LIST				
+fil-list-14			en	which elements are in group 17	FILTER_LIST				
+fil-list-15			en	list the s block elements	FILTER_LIST				
+fil-thresh-1			en	which elements are denser than 20	FILTER_LIST	density			
+fil-thresh-2			en	which elements melt above 2000 kelvin	FILTER_LIST	melting_point			
+fil-thresh-3			en	which elements boil below 100 celsius	FILTER_LIST	boiling_point			
+fil-thresh-4			en	elements with electronegativity greater than 3	FILTER_LIST	electronegativity			
+fil-thresh-5			en	which transition metals melt above 2000 celsius	FILTER_LIST	melting_point			subset plus threshold
+fil-elemthresh-1			en	which elements are denser than iron	FILTER_LIST	density			the threshold is another element's value
+fil-elemthresh-2			en	which metals are lighter than aluminium	FILTER_LIST	density			
+fil-elemthresh-3			en	which elements melt at a higher temperature than iron	FILTER_LIST	melting_point			
+fil-elemthresh-4			en	which transition metals are denser than iron	FILTER_LIST	density			
+fil-range-1			en	which elements melt between 1000 and 2000 kelvin	FILTER_LIST	melting_point			
+fil-range-2			en	elements with density between 5 and 10	FILTER_LIST	density			
+fil-range-3			en	which elements have atomic mass between 50 and 60	FILTER_LIST	atomic_mass			
+fil-negate-1			en	which noble gases are not radioactive	FILTER_LIST				negation must invert the filter, not drop it
+fil-negate-2			en	which elements are not metals	FILTER_LIST				
+fil-negate-3			en	which transition metals are not radioactive	FILTER_LIST				
+fil-same-1			en	which elements are in the same group as carbon	FILTER_LIST				
+fil-same-2			en	elements in the same period as iron	FILTER_LIST				
+fil-same-3			en	what is in the same group as chlorine	FILTER_LIST				
+nei-1			en	what element comes after gold	NEIGHBOUR				
+nei-2			en	which element is before iron	NEIGHBOUR				
+nei-3			en	what is the next element after carbon	NEIGHBOUR				
+sup-sv-1			sv	vilket grundämne är tätast	SUPERLATIVE	density			
+sup-sv-2			sv	vilket grundämne har högsta smältpunkten	SUPERLATIVE	melting_point			
+sup-sv-3			sv	tätaste ickemetallen	SUPERLATIVE	density			
+fil-sv-1			sv	vilka grundämnen är radioaktiva	FILTER_LIST				
+fil-sv-2			sv	vilka grundämnen är tätare än järn	FILTER_LIST	density			
+sup-de-1			de	welches element ist am dichtesten	SUPERLATIVE	density			
+fil-de-1			de	welche elemente sind radioaktiv	FILTER_LIST				
+sup-fr-1			fr	quel élément est le plus dense	SUPERLATIVE	density			
+sup-es-1			es	cuál es el elemento más denso	SUPERLATIVE	density			
+sup-zh-1			zh	哪个元素密度最大	SUPERLATIVE	density			

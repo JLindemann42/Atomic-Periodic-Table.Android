@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -17,7 +16,10 @@ import android.widget.*
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartIntentSenderForResult
-import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.chip.Chip
+import com.google.android.material.card.MaterialCardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -41,18 +43,17 @@ import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.sync.ProgressSyncManager
-import java.net.HttpURLConnection
-import java.net.URL
-import java.util.concurrent.Executors
+import com.jlindemann.science.utils.UnifiedTitleBarController
 
 class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListener {
     private val TAG = "UserActivity"
 
+    private lateinit var titleBar: UnifiedTitleBarController
     private var achievementsList = ArrayList<Achievement>()
     private lateinit var recyclerView: RecyclerView
     private var mAdapter: AchievementAdapter? = null
 
-    private lateinit var btnSignOut: TextView
+    private lateinit var btnSignOut: MaterialButton
     private lateinit var tvUserInfo: TextView
     private lateinit var tvSyncStatus: TextView
     private lateinit var userImg: ImageView
@@ -62,8 +63,8 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
 
     // Legacy sign-in launcher (fallback)
     private val signInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(result.data)
         try {
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             val account = task.getResult(ApiException::class.java)
             val idToken = account?.idToken
             if (idToken != null) {
@@ -86,7 +87,15 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             }
         } catch (e: ApiException) {
             tvSyncStatus.text = getString(R.string.sign_in_failed)
-            Log.w(TAG, "Google sign-in failed", e)
+            if (e.statusCode == 10) {
+                Log.e(TAG, "Google Sign-In failed with DEVELOPER_ERROR (10). This usually means the SHA-1 of your signing certificate is not registered in the Firebase/Google Cloud Console, or the package name is incorrect.", e)
+            } else {
+                Log.w(TAG, "Google sign-in failed with code ${e.statusCode}", e)
+            }
+            Toast.makeText(this, R.string.sign_in_failed, Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            tvSyncStatus.text = getString(R.string.sign_in_failed)
+            Log.e(TAG, "Google sign-in unexpected error", e)
             Toast.makeText(this, R.string.sign_in_failed, Toast.LENGTH_SHORT).show()
         }
     }
@@ -155,7 +164,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
 
         // insert status text under pro_badge if possible
         try {
-            val proBadge = findViewById<TextView>(R.id.pro_badge)
+            val proBadge = findViewById<Chip>(R.id.pro_badge)
             val parent = proBadge.parent as? ViewGroup
             parent?.let {
                 val index = it.indexOfChild(proBadge)
@@ -182,10 +191,21 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         setupRecyclerView()
 
-        findViewById<FrameLayout>(R.id.view_user).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view_user).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        setupTitleController()
-        setupBackButton()
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.user_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
+        setupTitleController(titleSurface)
         setupStats()
         rateSetup()
         shareSetup()
@@ -193,9 +213,9 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         // PRO badge text
         val proPref = ProVersion(this).getValue()
         val proPlusPref = ProPlusVersion(this).getValue()
-        if (proPref == 1) findViewById<TextView>(R.id.pro_badge).text = getString(R.string.non_pro)
-        if (proPref == 100) findViewById<TextView>(R.id.pro_badge).text = getString(R.string.pro_user)
-        if (proPlusPref == 100) findViewById<TextView>(R.id.pro_badge).text = getString(R.string.pro_plus_user)
+        if (proPref == 1) findViewById<Chip>(R.id.pro_badge).text = getString(R.string.non_pro)
+        if (proPref == 100) findViewById<Chip>(R.id.pro_badge).text = getString(R.string.pro_user)
+        if (proPlusPref == 100) findViewById<Chip>(R.id.pro_badge).text = getString(R.string.pro_plus_user)
 
         // Replace user title views with user's name (they will be updated from updateUi)
         // initialize with a default placeholder
@@ -230,7 +250,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             Log.w(TAG, "OneTap initialization failed, legacy fallback will be used", t)
         }
 
-        findViewById<TextView>(R.id.login_button).setOnClickListener {
+        findViewById<MaterialButton>(R.id.login_button).setOnClickListener {
             // Try One Tap
             var oneTapStarted = false
             try {
@@ -328,9 +348,9 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
 
     private fun setUserTitleViews(name: String) {
         val downState = findViewById<TextView>(R.id.user_title_downstate)
-        val upState = findViewById<TextView>(R.id.user_title)
+        val upState = titleBar.titleView
         downState?.text = name
-        upState?.text = name
+        upState.text = name
     }
 
     private fun updateUi() {
@@ -339,10 +359,11 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             val displayName = user.displayName ?: user.email ?: "User Page"
             setUserTitleViews(displayName)
             btnSignOut.visibility = View.VISIBLE
-            findViewById<TextView>(R.id.login_button).visibility = View.GONE
+            findViewById<MaterialButton>(R.id.login_button).visibility = View.GONE
             val photo = user.photoUrl
             if (photo != null) {
-                loadImageFromUrlIntoImageView(photo.toString(), userImg)
+                userImg.imageTintList = null
+                com.bumptech.glide.Glide.with(this).load(photo).circleCrop().into(userImg)
             } else {
                 userImg.setImageResource(R.drawable.ic_account)
             }
@@ -358,6 +379,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         tvSyncStatus.text = ""
         btnSignOut.visibility = View.GONE
         userImg.setImageResource(R.drawable.ic_account)
+        userImg.imageTintList = getColorStateListFromAttr(R.attr.colorOnSurfaceVariant)
         setUserTitleViews("User Page")
     }
 
@@ -373,7 +395,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             tvSyncStatus.text = getString(R.string.sign_in_failed)
             return
         }
-        findViewById<TextView>(R.id.login_button).visibility = View.GONE
+        findViewById<MaterialButton>(R.id.login_button).visibility = View.GONE
         tvUserInfo.text = "Logged in"
 
         // Check Pro/Pro+ status and only run sync if user has Pro or Pro+
@@ -390,7 +412,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
 
         // perform sync for Pro/Pro+ users
         tvSyncStatus.text = getString(R.string.syncing_progress)
-        ProgressSyncManager.mergeAndUploadLocalProgress(this, uid) { success ->
+        ProgressSyncManager.mergeAndUploadLocalProgress(this, uid) { success: Boolean ->
             runOnUiThread {
                 tvSyncStatus.text = if (success) getString(R.string.sync_complete) else getString(R.string.sync_failed)
                 // Always refresh the achievements/statistics view after a sync attempt
@@ -400,50 +422,24 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         }
     }
 
-    private fun loadImageFromUrlIntoImageView(urlString: String, imageView: ImageView) {
-        val executor = Executors.newSingleThreadExecutor()
-        executor.execute {
-            try {
-                val url = URL(urlString)
-                val conn = url.openConnection() as HttpURLConnection
-                conn.doInput = true
-                conn.connectTimeout = 5000
-                conn.readTimeout = 5000
-                conn.connect()
-                val input = conn.inputStream
-                val bmp = BitmapFactory.decodeStream(input)
-                runOnUiThread {
-                    if (bmp != null) imageView.setImageBitmap(bmp)
-                }
-                input.close()
-            } catch (t: Throwable) {
-                Log.w(TAG, "Failed to load profile image", t)
-            }
-        }
-    }
-
-    private fun setupTitleController() {
-        findViewById<FrameLayout>(R.id.common_title_user_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.user_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_user).elevation = resources.getDimension(R.dimen.zero_elevation)
+    private fun setupTitleController(titleSurface: View) {
         findViewById<ScrollView>(R.id.user_scroll).viewTreeObserver.addOnScrollChangedListener {
-            if (findViewById<ScrollView>(R.id.user_scroll).scrollY > 150) {
-                findViewById<FrameLayout>(R.id.common_title_user_color).visibility = View.VISIBLE
-                findViewById<TextView>(R.id.user_title).visibility = View.VISIBLE
-                findViewById<ImageView>(R.id.user_img).visibility = View.VISIBLE
-                findViewById<FrameLayout>(R.id.common_title_back_user).elevation = resources.getDimension(R.dimen.one_elevation)
+            val scrollY = findViewById<ScrollView>(R.id.user_scroll).scrollY
+            if (scrollY > 150) {
+                titleSurface.visibility = View.VISIBLE
+                titleBar.titleView.visibility = View.VISIBLE
+                findViewById<TextView>(R.id.user_title_downstate).visibility = View.INVISIBLE
+                titleBar.container.elevation = resources.getDimension(R.dimen.one_elevation)
             } else {
-                findViewById<FrameLayout>(R.id.common_title_user_color).visibility = View.INVISIBLE
-                findViewById<TextView>(R.id.user_title).visibility = View.INVISIBLE
-                findViewById<FrameLayout>(R.id.common_title_back_user).elevation = resources.getDimension(R.dimen.zero_elevation)
+                titleSurface.visibility = View.INVISIBLE
+                titleBar.titleView.visibility = View.INVISIBLE
+                findViewById<TextView>(R.id.user_title_downstate).visibility = View.VISIBLE
+                titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
             }
         }
     }
 
     private fun setupBackButton() {
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
-            onBackPressed()
-        }
     }
 
     private fun setupRecyclerView() {
@@ -510,13 +506,13 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_user).layoutParams as ViewGroup.LayoutParams
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_user).layoutParams = params
+        titleBar.container.layoutParams = params
 
-        val params2 = findViewById<CardView>(R.id.user_img_container).layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
-        findViewById<CardView>(R.id.user_img_container).layoutParams = params2
+        val params2 = findViewById<MaterialCardView>(R.id.user_img_container).layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin = top
+        findViewById<MaterialCardView>(R.id.user_img_container).layoutParams = params2
     }
 
     override fun achievementClickListener(item: Achievement, position: Int) {

@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="6dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/zinc_number"
@@ -79,7 +79,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/cadmium_number"
@@ -136,7 +136,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/mercury_number"
@@ -192,8 +192,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/copernicium_number"
@@ -248,8 +247,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/terbium_number"
@@ -305,8 +303,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/berkelium_number"

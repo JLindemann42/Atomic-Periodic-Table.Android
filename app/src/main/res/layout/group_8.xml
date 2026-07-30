@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="6dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/iron_number"
@@ -81,7 +81,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/ruthenium_number"
@@ -139,7 +139,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/osmium_number"
@@ -197,7 +197,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/hassium_number"
@@ -254,7 +254,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/promethium_number"
@@ -312,7 +312,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/neptunium_number"

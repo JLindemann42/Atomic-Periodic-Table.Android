@@ -1200,6 +1200,174 @@
                 android:textSize="14sp"
                 android:textStyle="normal"
                 android:alpha="0.7"
+                android:text="@string/additional_ai_messages"/>
+
+            <!-- FREE -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorAccent"/>
+
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.26"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="@string/unlimited_ai_messages"/>
+
+            <!-- FREE -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.26"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
+                android:text="@string/all_ai_features"/>
+
+            <!-- FREE -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_cancel"
+                app:tint="?attr/colorError"/>
+
+            <!-- PRO+ -->
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_check"
+                app:tint="?attr/colorPrimary"/>
+        </LinearLayout>
+
+        <!-- Divider -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:alpha="0.26"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+
+                android:gravity="center_vertical"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                android:alpha="0.7"
                 android:text="@string/flashcards_unlimited_lives"/>
 
             <!-- FREE -->

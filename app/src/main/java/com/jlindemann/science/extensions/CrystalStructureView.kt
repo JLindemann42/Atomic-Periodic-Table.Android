@@ -6,11 +6,12 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import com.jlindemann.science.R
 import kotlin.math.min
 
 class CrystalStructureView @JvmOverloads constructor(
-    context: Context, attrs: AttributeSet? = null
-) : View(context, attrs) {
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
 
     var crystalSystem: String = "Cubic"
         set(value) {
@@ -19,22 +20,46 @@ class CrystalStructureView @JvmOverloads constructor(
             invalidate()
         }
 
+    /**
+     * Whether the model turns on its own.
+     *
+     * True keeps the element screen exactly as it was. False is for an embedded preview: inside a
+     * RecyclerView an always-running animator invalidates every frame for every pooled row,
+     * including rows scrolled off screen.
+     */
+    var autoRotate: Boolean = true
+        set(value) {
+            field = value
+            if (value && isAttachedToWindow) startRotation() else stopRotation()
+        }
+
+    /**
+     * Whether dragging rotates the model.
+     *
+     * False inside a scrolling container. [onTouchEvent] used to return true unconditionally, which
+     * claims ACTION_DOWN and stops the parent ever seeing the gesture — a chat list would become
+     * unscrollable anywhere this view sat under the user's thumb.
+     */
+    var interactive: Boolean = true
+
+    init {
+        attrs?.let {
+            val styled = context.obtainStyledAttributes(it, R.styleable.CrystalStructureView, defStyleAttr, 0)
+            autoRotate = styled.getBoolean(R.styleable.CrystalStructureView_autoRotate, true)
+            interactive = styled.getBoolean(R.styleable.CrystalStructureView_interactive, true)
+            styled.recycle()
+        }
+    }
+
     private var resolvedSystem: String = "Cubic"
 
     private fun resolveCrystalSystem() {
-        val key = when {
-            crystalSystem.contains("Hexagonal", ignoreCase = true) -> "Hexagonal"
-            crystalSystem.equals("Body-centered cubic (bcc)", ignoreCase = true) -> "Body-centered cubic (bcc)"
-            crystalSystem.equals("Face-centered cubic (fcc)", ignoreCase = true) -> "Face-centered cubic (fcc)"
-            crystalSystem.equals("Rhombohedral", ignoreCase = true) -> "Rhombohedral"
-            crystalSystem.equals("Trigonal", ignoreCase = true) -> "Trigonal"
-            crystalSystem.equals("Tetragonal", ignoreCase = true) -> "Tetragonal"
-            crystalSystem.equals("Orthorhombic", ignoreCase = true) -> "Orthorhombic"
-            crystalSystem.equals("Monoclinic", ignoreCase = true) -> "Monoclinic"
-            crystalSystem.equals("Triclinic", ignoreCase = true) -> "Triclinic"
-            else -> "Cubic"
-        }
-        resolvedSystem = if (CrystalStructures.data.containsKey(key)) key else "Cubic"
+        // Delegated so the recognition rule has one home. The fallback stays here and only here:
+        // on this screen an unrecognised lattice drawn as a cube is a guess beside a text label
+        // that states the truth, whereas in a chat card the picture *is* the answer, so the card
+        // layer uses the nullable result and shows nothing rather than fabricating a cell.
+        resolvedSystem = com.jlindemann.science.ai.cards.CrystalSystemResolver.resolve(crystalSystem)
+            ?: "Cubic"
     }
 
     private var yaw = 0.3f
@@ -80,7 +105,7 @@ class CrystalStructureView @JvmOverloads constructor(
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        startRotation()
+        if (autoRotate) startRotation()
     }
 
     override fun onDetachedFromWindow() {
@@ -114,8 +139,13 @@ class CrystalStructureView @JvmOverloads constructor(
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        // Decline the gesture outright when not interactive, so the parent can scroll. Returning
+        // true for ACTION_DOWN is what made a chat row unscrollable over this view.
+        if (!interactive) return false
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
+                // Claim the gesture only once it is genuinely a drag on this view.
+                parent?.requestDisallowInterceptTouchEvent(true)
                 lastX = event.x
                 lastY = event.y
                 dragging = true
@@ -133,8 +163,9 @@ class CrystalStructureView @JvmOverloads constructor(
                 }
             }
             MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                parent?.requestDisallowInterceptTouchEvent(false)
                 dragging = false
-                startRotation() // Resume auto-rotation after drag
+                if (autoRotate) startRotation()
             }
         }
         return true

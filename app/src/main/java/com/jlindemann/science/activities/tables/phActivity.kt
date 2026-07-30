@@ -13,17 +13,22 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.marginTop
+import com.google.android.material.button.MaterialButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.model.*
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ThemePreference
 import kotlin.collections.ArrayList
 
 
 class phActivity : BaseActivity()  {
+    private lateinit var titleBar: UnifiedTitleBarController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val themePreference = ThemePreference(this)
@@ -40,8 +45,36 @@ class phActivity : BaseActivity()  {
         setContentView(R.layout.activity_ph) //REMEMBER: Never move any function calls above this
 
         indicatorListener()
-        findViewById<FrameLayout>(R.id.view_ph).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        //Title Controller
+        findViewById<ConstraintLayout>(R.id.view_ph).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.activity_ph_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
+        // Title Controller
+        findViewById<ScrollView>(R.id.ph_scroll).viewTreeObserver
+            .addOnScrollChangedListener {
+                val scrollY = findViewById<ScrollView>(R.id.ph_scroll).scrollY
+                if (scrollY > 150) {
+                    titleSurface.visibility = View.VISIBLE
+                    titleBar.titleView.visibility = View.VISIBLE
+                    findViewById<TextView>(R.id.ph_title_downstate).visibility = View.INVISIBLE
+                    titleBar.container.elevation = resources.getDimension(R.dimen.one_elevation)
+                } else {
+                    titleSurface.visibility = View.INVISIBLE
+                    titleBar.titleView.visibility = View.INVISIBLE
+                    findViewById<TextView>(R.id.ph_title_downstate).visibility = View.VISIBLE
+                    titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+                }
+            }
 
         //Add value to most used:
         val mostUsedPreference = MostUsedPreference(this)
@@ -56,9 +89,6 @@ class phActivity : BaseActivity()  {
         }
 
         //Set-up for back button
-        findViewById<ImageButton>(R.id.back_btn_ph).setOnClickListener {
-            this.onBackPressed()
-        }
     }
 
     private fun indicatorListener() {
@@ -68,44 +98,20 @@ class phActivity : BaseActivity()  {
         val neutralText = "[H+]=[OH-] pH="
         val alkalineText = "[H+]<[OH-] pH>"
 
-        val item = indicatorList[0]
-        findViewById<TextView>(R.id.acid_info).text = acidText + item.acid
-        findViewById<TextView>(R.id.neutral_info).text = neutralText + item.neutral
-        findViewById<TextView>(R.id.alkaline_info).text = alkalineText + item.alkali
-        updatePhColor(item)
-        updateButtonColor("bromothymol_blue_btn")
+        val updateUi = { item: Indicator ->
+            findViewById<TextView>(R.id.acid_info).text = acidText + item.acid
+            findViewById<TextView>(R.id.neutral_info).text = neutralText + item.neutral
+            findViewById<TextView>(R.id.alkaline_info).text = alkalineText + item.alkali
+            updatePhColor(item)
+        }
 
-        findViewById<Button>(R.id.bromothymol_blue_btn).setOnClickListener {
-            findViewById<TextView>(R.id.acid_info).text = acidText + item.acid
-            findViewById<TextView>(R.id.neutral_info).text = neutralText + item.neutral
-            findViewById<TextView>(R.id.alkaline_info).text = alkalineText + item.alkali
-            updatePhColor(item)
-            updateButtonColor("bromothymol_blue_btn")
-        }
-        findViewById<Button>(R.id.methyl_orange_btn).setOnClickListener {
-            val item = indicatorList[1]
-            findViewById<TextView>(R.id.acid_info).text = acidText + item.acid
-            findViewById<TextView>(R.id.neutral_info).text = neutralText + item.neutral
-            findViewById<TextView>(R.id.alkaline_info).text = alkalineText + item.alkali
-            updatePhColor(item)
-            updateButtonColor("methyl_orange_btn")
-        }
-        findViewById<Button>(R.id.congo_red_btn).setOnClickListener {
-            val item = indicatorList[2]
-            findViewById<TextView>(R.id.acid_info).text = acidText + item.acid
-            findViewById<TextView>(R.id.neutral_info).text = neutralText + item.neutral
-            findViewById<TextView>(R.id.alkaline_info).text = alkalineText + item.alkali
-            updatePhColor(item)
-            updateButtonColor("congo_red_btn")
-        }
-        findViewById<Button>(R.id.phenolphthalein_btn).setOnClickListener {
-            val item = indicatorList[3]
-            findViewById<TextView>(R.id.acid_info).text = acidText + item.acid
-            findViewById<TextView>(R.id.neutral_info).text = neutralText + item.neutral
-            findViewById<TextView>(R.id.alkaline_info).text = alkalineText + item.alkali
-            updatePhColor(item)
-            updateButtonColor("phenolphthalein_btn")
-        }
+        // Initialize with first indicator
+        updateUi(indicatorList[0])
+
+        findViewById<com.google.android.material.chip.Chip>(R.id.bromothymol_blue_btn).setOnClickListener { updateUi(indicatorList[0]) }
+        findViewById<com.google.android.material.chip.Chip>(R.id.methyl_orange_btn).setOnClickListener { updateUi(indicatorList[1]) }
+        findViewById<com.google.android.material.chip.Chip>(R.id.congo_red_btn).setOnClickListener { updateUi(indicatorList[2]) }
+        findViewById<com.google.android.material.chip.Chip>(R.id.phenolphthalein_btn).setOnClickListener { updateUi(indicatorList[3]) }
     }
 
     private fun updatePhColor(item: Indicator) {
@@ -118,28 +124,14 @@ class phActivity : BaseActivity()  {
         findViewById<ImageView>(R.id.right).setColorFilter(ContextCompat.getColor(this, rightColor), android.graphics.PorterDuff.Mode.SRC_IN)
     }
 
-    private fun updateButtonColor(btn: String) {
-        findViewById<Button>(R.id.methyl_orange_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.bromothymol_blue_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.congo_red_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.phenolphthalein_btn).background = getDrawable(R.drawable.chip)
-
-        val delay = Handler()
-        delay.postDelayed({
-            val resIDB = resources.getIdentifier(btn, "id", packageName)
-            val button = findViewById<Button>(resIDB)
-            button.background = getDrawable(R.drawable.chip_active)
-        }, 1)
-    }
-
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val paramsTitle = findViewById<FrameLayout>(R.id.common_title_back_ph).layoutParams as ViewGroup.LayoutParams
-        paramsTitle.height = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
-        findViewById<FrameLayout>(R.id.common_title_back_ph).layoutParams = paramsTitle
+        val paramsTitle = titleBar.container.layoutParams as ViewGroup.LayoutParams
+        paramsTitle.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        titleBar.container.layoutParams = paramsTitle
 
-        val pScroll = findViewById<ScrollView>(R.id.ph_scroll).layoutParams as ViewGroup.MarginLayoutParams
-        pScroll.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
-        findViewById<ScrollView>(R.id.ph_scroll).layoutParams = pScroll
+        val params2 = findViewById<TextView>(R.id.ph_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
+        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        findViewById<TextView>(R.id.ph_title_downstate).layoutParams = params2
     }
 }
 

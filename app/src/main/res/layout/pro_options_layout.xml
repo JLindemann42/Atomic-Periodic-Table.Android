@@ -4,133 +4,112 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="8dp"
-    android:paddingEnd="12dp"
-    android:paddingStart="12dp"
-    android:paddingBottom="16dp"
+    android:padding="8dp"
     android:gravity="center">
 
-    <!-- PRO Version Card with gradient and surface alpha control -->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/pro_bg"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
-        android:layout_marginEnd="2dp"
+        android:layout_margin="4dp"
+        app:cardElevation="0dp"
         app:cardBackgroundColor="?attr/colorSurfaceVariant"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="2dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true">
-
-
-            <!-- Content overlays -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="12dp">
-
-                <TextView
-                    android:id="@+id/pro_badge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/all_core_features"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    android:background="@drawable/badge_bg"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="4dp"
-                    android:layout_gravity="end"
-                    android:layout_marginBottom="8dp"/>
-
-                <TextView
-                    android:id="@+id/pro_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pro_version"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:textColor="?attr/colorOnSecondaryContainer"/>
-
-                <TextView
-                    android:id="@+id/pro_subtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/unlock_advanced_data_and_extra_atomic_content"
-                    android:textSize="14sp"
-                    android:layout_marginTop="4dp"
-                    android:textColor="?attr/colorOnSecondaryContainer"/>
-
-                <TextView
-                    android:id="@+id/pro_price"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="---"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="9dp"
-                    android:textColor="?attr/colorOnSecondaryContainer"/>
-
-                <TextView
-                    android:id="@+id/pro_buy_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_gravity="start"
-                    android:layout_marginTop="4dp"
-                    android:background="@drawable/toast_card"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:clickable="true"
-                    android:elevation="2dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/c_ripple"
-                    android:gravity="center"
-                    android:padding="4dp"
-                    android:text="@string/get_pro"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="16sp"
-                    android:textStyle="normal" />
-
-            </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- PRO+ Version Card -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/pro_plus_bg"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="match_parent"
-        android:layout_marginStart="2dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="2dp"
-        app:cardBackgroundColor="?attr/colorSurfaceVariant"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:background="@drawable/pro_gradient_border"
-            android:layout_height="match_parent">
-
+        app:strokeWidth="0dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.MediumComponent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/pro_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/all_core_features"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorSecondaryContainer"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:layout_gravity="end"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:id="@+id/pro_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pro_version"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="?attr/colorOnSurface"/>
+
+            <TextView
+                android:id="@+id/pro_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/unlock_advanced_data_and_extra_atomic_content"
+                android:textSize="13sp"
+                android:layout_marginTop="8dp"
+                android:textColor="?attr/colorOnSurfaceVariant"/>
+
+            <TextView
+                android:id="@+id/pro_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="---"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginTop="16dp"
+                android:textColor="?attr/colorPrimary"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/pro_buy_btn"
+                style="@style/Widget.Material3.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/get_pro"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/pro_plus_bg"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:layout_margin="4dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="?attr/colorPrimaryContainer"
+        app:strokeWidth="0dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.MediumComponent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
 
             <TextView
                 android:id="@+id/pro_plus_badge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/most_advanced"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-                android:background="@drawable/badge_bg_advanced"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorAccent"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="4dp"
                 android:layout_gravity="end"
-                android:layout_marginBottom="8dp"/>
+                android:layout_marginBottom="12dp"/>
 
             <TextView
                 android:id="@+id/pro_plus_title"
@@ -139,16 +118,17 @@
                 android:text="@string/pro_plus_version"
                 android:textStyle="bold"
                 android:textSize="20sp"
-                android:textColor="?attr/colorOnSecondaryContainer"/>
+                android:textColor="?attr/colorOnPrimaryContainer"/>
 
             <TextView
                 android:id="@+id/pro_plus_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/unlock_advanced_data_and_additional_flashcards"
-                android:textSize="14sp"
-                android:layout_marginTop="4dp"
-                android:textColor="?attr/colorOnSecondaryContainer"/>
+                android:textSize="13sp"
+                android:layout_marginTop="8dp"
+                android:textColor="?attr/colorOnPrimaryContainer"
+                android:alpha="0.8"/>
 
             <TextView
                 android:id="@+id/pro_plus_price"
@@ -157,30 +137,18 @@
                 android:text="---"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:layout_marginTop="9dp"
-                android:textColor="?attr/colorOnSecondaryContainer"/>
+                android:layout_marginTop="16dp"
+                android:textColor="?attr/colorPrimary"/>
 
-            <TextView
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/pro_plus_buy_btn"
+                style="@style/Widget.Material3.Button"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:background="@drawable/toast_card"
-                android:backgroundTint="?attr/colorPrimary"
-                android:clickable="true"
-                android:elevation="2dp"
-                android:focusable="true"
-                android:foreground="@drawable/c_ripple"
-                android:gravity="center"
-                android:padding="4dp"
-
-                android:layout_marginTop="4dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 android:text="@string/get_pro_plus_button"
-                android:textColor="?attr/colorOnPrimary"
-                android:textSize="16sp"
-                android:textStyle="normal" />
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
 
         </LinearLayout>
-        </FrameLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

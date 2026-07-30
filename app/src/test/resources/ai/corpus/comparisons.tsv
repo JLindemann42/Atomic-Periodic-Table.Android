@@ -1,0 +1,41 @@
+# Two or more elements set side by side, and the direct-answer forms: yes/no, which-of-two, and
+# by-how-much. A comparison table where the user asked a yes/no question is a wrong answer.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+cmp-2-1			en	compare gold and silver	COMPARISON				
+cmp-2-2			en	compare the density of gold and lead	COMPARISON	density			
+cmp-2-3			en	gold vs silver	COMPARISON				
+cmp-2-4			en	what is the difference between gold and silver	COMPARISON				
+cmp-2-5			en	compare iron and copper on thermal conductivity	COMPARISON	thermal_conductivity			
+cmp-2-6			en	compare the melting points of tungsten and iron	COMPARISON	melting_point			
+cmp-2-7			en	compare gold and lead by atomic mass	COMPARISON	atomic_mass			
+cmp-3-1			en	compare lithium sodium and potassium	COMPARISON				
+cmp-3-2			en	compare gold silver and copper on density	COMPARISON	density			
+cmp-3-3			en	compare iron cobalt and nickel	COMPARISON				
+cmp-multi-1			en	compare gold and silver on density and melting point	COMPARISON	density,melting_point			
+cmp-multi-2			en	compare iron and copper on density thermal conductivity and resistivity	COMPARISON	density,thermal_conductivity,resistivity			
+cmp-yesno-1			en	is gold denser than lead	COMPARATIVE	density			a yes/no question wants yes or no, not a table
+cmp-yesno-2			en	is lead denser than gold	COMPARATIVE	density			the claim is false; the answer must say so
+cmp-yesno-3			en	does tungsten melt at a higher temperature than iron	COMPARATIVE	melting_point			
+cmp-yesno-4			en	is fluorine more electronegative than oxygen	COMPARATIVE	electronegativity			
+cmp-yesno-5			en	is aluminium lighter than iron	COMPARATIVE	density			
+cmp-which-1			en	which is denser gold or lead	COMPARATIVE	density			
+cmp-which-2			en	which is heavier uranium or lead	COMPARATIVE	atomic_mass			
+cmp-which-3			en	which melts first iron or copper	COMPARATIVE	melting_point			
+cmp-which-4			en	which conducts heat better copper or aluminium	COMPARATIVE	thermal_conductivity			
+cmp-ratio-1			en	how much denser is gold than aluminium	COMPARATIVE	density			
+cmp-ratio-2			en	how many times denser is osmium than water's hydrogen	COMPARATIVE	density			
+cmp-ratio-3			en	by how much does tungsten's melting point exceed iron's	COMPARATIVE	melting_point			
+cmp-uncov-1			en	compare lithium sodium and potassium on reactivity density and applications	COMPARISON	density			density is comparable; the other two aspects must be reported as not comparable
+cmp-uncov-2			en	compare gold and silver on price and density	COMPARISON	density			
+cmp-sv-1			sv	jämför guld och silver	COMPARISON				
+cmp-sv-2			sv	jämför densiteten för guld och bly	COMPARISON	density			
+cmp-sv-3			sv	är guld tätare än bly	COMPARATIVE	density			
+cmp-sv-4			sv	vilket är tätare guld eller bly	COMPARATIVE	density			
+cmp-sv-5			sv	vad är skillnaden mellan guld och silver	COMPARISON				
+cmp-de-1			de	vergleiche gold und silber	COMPARISON				
+cmp-de-2			de	ist gold dichter als blei	COMPARATIVE	density			
+cmp-fr-1			fr	compare l'or et l'argent	COMPARISON				
+cmp-es-1			es	compara el oro y la plata	COMPARISON				
+cmp-it-1			it	confronta oro e argento	COMPARISON				
+cmp-pt-1			pt	compare ouro e prata	COMPARISON				
+cmp-zh-1			zh	比较金和银	COMPARISON				

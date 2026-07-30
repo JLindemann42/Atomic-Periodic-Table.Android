@@ -2,187 +2,95 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_unit_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor">
 
-    <FrameLayout
-        android:id="@+id/view_unit"
+    <ScrollView
+        android:id="@+id/unit_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent">
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
 
-        <ScrollView
-            android:id="@+id/unit_scroll"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/unit_title_downstate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:paddingTop="80dp"
+                android:paddingBottom="24dp"
+                android:text="@string/activity_unit_title"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:letterSpacing="-0.02" />
 
-                <TextView
-                    android:id="@+id/unit_title_downstate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:elevation="1dp"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="28dp"
-                    android:text="@string/activity_unit_title"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textSize="32sp"
-                    android:textStyle="normal" />
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Science.Expressive.SectionCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <LinearLayout
-                    android:id="@+id/temp_box"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="@dimen/margin_space"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorSurfaceVariant"
-                    android:elevation="2dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <TextView
-                        android:id="@+id/temp_header"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin"
                         android:text="@string/unit_temperature"
-                        android:textColor="?attr/colorOnSurface"
+                        android:textColor="?attr/colorPrimary"
                         android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:layout_marginBottom="16dp" />
 
-                    <LinearLayout
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/temp_unit_group"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin"
-                        android:layout_marginEnd="@dimen/margin"
-                        android:layout_marginBottom="@dimen/margin"
-                        android:orientation="horizontal">
-
-                        <Button
+                        app:singleSelection="true"
+                        app:selectionRequired="true">
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/kelvin_btn"
-                            style="@style/Widget.AppCompat.Button"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
                             android:layout_width="0dp"
-                            android:layout_height="36dp"
-                            android:layout_marginEnd="8dp"
                             android:layout_weight="1"
-                            android:background="@drawable/chip_outline"
-                            android:clickable="true"
-                            android:elevation="2dp"
-                            android:focusable="true"
-                            android:foreground="@drawable/chip_ripple"
-                            android:text="@string/kelvin"
-                            android:textAllCaps="false"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-
-                        <Button
+                            android:layout_height="wrap_content"
+                            android:text="@string/kelvin" />
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/celsius_btn"
-                            style="@style/Widget.AppCompat.Button"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
                             android:layout_width="0dp"
-                            android:layout_height="36dp"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginEnd="4dp"
                             android:layout_weight="1"
-                            android:background="@drawable/chip_outline"
-                            android:clickable="true"
-                            android:elevation="2dp"
-                            android:focusable="true"
-                            android:foreground="@drawable/chip_ripple"
-                            android:text="@string/celsius"
-                            android:textAllCaps="false"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-
-                        <Button
+                            android:layout_height="wrap_content"
+                            android:text="@string/celsius" />
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/fahrenheit_btn"
-                            style="@style/Widget.AppCompat.Button"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
                             android:layout_width="0dp"
-                            android:layout_height="36dp"
-                            android:layout_marginStart="8dp"
                             android:layout_weight="1"
-                            android:background="@drawable/chip_outline"
-                            android:clickable="true"
-                            android:elevation="2dp"
-                            android:focusable="true"
-                            android:foreground="@drawable/chip_ripple"
-                            android:text="@string/fahrenheit"
-                            android:textAllCaps="false"
-                            android:textColor="?attr/actionMenuTextColor"
-                            android:textSize="14sp" />
-                    </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:text="@string/fahrenheit" />
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
 
                 </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
+            </com.google.android.material.card.MaterialCardView>
 
-        <FrameLayout
-            android:id="@+id/common_title_back_unit"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/title_bar"
-            android:background="?attr/colorSurface"
-            android:elevation="@dimen/title_bar_elevation"
-            android:gravity="center|center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent">
+        </LinearLayout>
+    </ScrollView>
 
-            <FrameLayout
-                android:id="@+id/common_title_back_unit_color"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:alpha="0.11"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_gravity="bottom"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:id="@+id/title_box_unit"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/title_bar">
-
-                    <ImageButton
-                        android:id="@+id/back_btn_unit"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_gravity="center_vertical"
-                        android:rotation="180"
-                        app:tint="?attr/colorOnSecondaryContainer"
-                        android:src="@drawable/ic_arrow_back_whit" />
-
-                    <TextView
-                        android:id="@+id/unit_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="@dimen/title_bar"
-                        android:layout_marginStart="70dp"
-                        android:alpha="0.9"
-                        android:gravity="center"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/activity_unit_title"
-                        android:textAlignment="center"
-                        android:textColor="?attr/colorOnSecondaryContainer"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                </FrameLayout>
-
-            </LinearLayout>
-        </FrameLayout>
-
-    </FrameLayout>
+    <include
+        android:id="@+id/unified_titlebar_include"
+        layout="@layout/view_unified_titlebar"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

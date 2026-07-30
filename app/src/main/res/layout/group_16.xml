@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="6dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/oxygen_number"
@@ -79,7 +79,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/sulfur_number"
@@ -136,7 +136,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/selenium_number"
@@ -193,7 +193,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/tellurium_number"
@@ -250,7 +250,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/polonium_number"
@@ -307,7 +307,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/livermorium_number"
@@ -363,7 +363,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/thulium_number"
@@ -420,7 +420,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/mendelevium_number"

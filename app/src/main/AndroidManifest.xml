@@ -33,6 +33,36 @@
                 android:resource="@xml/element_of_the_day_widget_info" />
         </receiver>
 
+        <receiver android:name=".ScienceDailyWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/science_daily_widget_info" />
+        </receiver>
+
+        <receiver android:name=".AIQuickAskWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/ai_quick_ask_widget_info" />
+        </receiver>
+
+        <receiver android:name=".ElementQuickNavWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/element_quick_nav_widget_info" />
+        </receiver>
+
         <receiver android:name=".activities.tools.StreakReminderReceiver"
             android:exported="false">
             <intent-filter>
@@ -75,7 +105,7 @@
             android:name=".activities.ElementInfoActivity"
             android:label="ELEMENTINFOACTIVITY"
             android:exported="true"
-             
+            android:windowSoftInputMode="adjustNothing"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
@@ -398,6 +428,16 @@
             android:label="activity_constants"
             android:exported="true"
 
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activities.tables.AlloyActivity"
+            android:label="ALLOYACTIVITY"
+            android:exported="true"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>

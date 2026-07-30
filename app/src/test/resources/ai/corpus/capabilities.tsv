@@ -1,0 +1,63 @@
+# "What can you do", in every shipped language.
+#
+# A question about the *assistant* rather than about chemistry. The grounded engine must decline
+# every one of these, because the answer is the feature overview held by the personality layer —
+# and if the engine claims one, the user gets a property of an element instead of an answer.
+#
+# This file is a tripwire, not a scoreboard: each row is a phrasing a user would reasonably type,
+# and there is no partial credit for declining nine of them.
+#
+# Five languages had no capability phrasing at all before this file existed, and the seven that did
+# had exactly one each, so anything but the single listed wording fell through to whichever
+# chemistry branch happened to share a word with it.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+# ---- en ------------------------------------------------------------------------------------------
+cap-en-1			en	what can you do				y	
+cap-en-2			en	what features do you have				y	
+cap-en-3			en	how do i use this				y	
+cap-en-4			en	what can i ask you				y	
+# ---- sv ------------------------------------------------------------------------------------------
+cap-sv-1			sv	vad kan du göra				y	
+cap-sv-2			sv	vilka funktioner har du				y	
+cap-sv-3			sv	hur använder jag det här				y	
+cap-sv-4			sv	vad kan du hjälpa mig med				y	
+# ---- de ------------------------------------------------------------------------------------------
+cap-de-1			de	was kannst du machen				y	
+cap-de-2			de	welche funktionen hast du				y	
+cap-de-3			de	wie benutze ich das				y	
+# ---- es ------------------------------------------------------------------------------------------
+cap-es-1			es	qué puedes hacer				y	
+cap-es-2			es	qué funciones tienes				y	
+cap-es-3			es	en qué puedes ayudarme				y	
+# ---- fr ------------------------------------------------------------------------------------------
+cap-fr-1			fr	que peux-tu faire				y	
+cap-fr-2			fr	quelles fonctionnalités as-tu				y	
+cap-fr-3			fr	que sais-tu faire				y	
+# ---- it ------------------------------------------------------------------------------------------
+cap-it-1			it	cosa sai fare				y	
+cap-it-2			it	quali funzioni hai				y	
+cap-it-3			it	come si usa				y	
+# ---- pt ------------------------------------------------------------------------------------------
+cap-pt-1			pt	o que você pode fazer				y	
+cap-pt-2			pt	quais funções você tem				y	
+cap-pt-3			pt	como usar isto				y	
+# ---- af ------------------------------------------------------------------------------------------
+cap-af-1			af	wat kan jy doen				y	
+cap-af-2			af	watter funksies het jy				y	
+cap-af-3			af	hoe gebruik ek dit				y	
+# ---- fil -----------------------------------------------------------------------------------------
+cap-fil-1			fil	ano ang kaya mong gawin				y	
+cap-fil-2			fil	ano ang magagawa mo				y	
+cap-fil-3			fil	paano gamitin ito				y	
+# ---- hi ------------------------------------------------------------------------------------------
+cap-hi-1			hi	आप क्या कर सकते हैं				y	
+cap-hi-2			hi	कौन सी सुविधाएं हैं				y	
+cap-hi-3			hi	इसे कैसे उपयोग करें				y	
+# ---- ur ------------------------------------------------------------------------------------------
+cap-ur-1			ur	آپ کیا کر سکتے ہیں				y	
+cap-ur-2			ur	کون سی خصوصیات ہیں				y	
+cap-ur-3			ur	اسے کیسے استعمال کریں				y	
+# ---- zh ------------------------------------------------------------------------------------------
+cap-zh-1			zh	你能做什么				y	
+cap-zh-2			zh	有哪些功能				y	
+cap-zh-3			zh	怎么使用				y	

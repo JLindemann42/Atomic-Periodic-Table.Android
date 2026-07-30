@@ -1,0 +1,79 @@
+# Everyday threads: a few turns, one subject, the shapes people actually type.
+#
+# The existing followups.tsv covers the inheritance *rule* in isolation — one setup turn and one
+# follow-up. These are whole short conversations, which is a different test: state has to survive
+# several hops, and a thread that drifts one field at a time is where a stale slot does the most
+# damage before anyone notices.
+#
+# Turns are replayed against a single DialogueState in turn order.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+cs-gold-1	cs-gold	1	en	what is the density of gold	PROPERTY_LOOKUP	density			
+cs-gold-2	cs-gold	2	en	and its melting point	PROPERTY_LOOKUP	melting_point			
+cs-gold-3	cs-gold	3	en	and silver	PROPERTY_LOOKUP	melting_point			bare element, field carries over
+cs-gold-4	cs-gold	4	en	which of those is denser	COMPARATIVE	density			the eventual question: needs both elements from the thread
+cs-iron-1	cs-iron	1	en	tell me the atomic number of iron	PROPERTY_LOOKUP	atomic_number			
+cs-iron-2	cs-iron	2	en	how many neutrons does it usually have	PROPERTY_LOOKUP	common_neutrons			"it" resolves to the focus element
+cs-iron-3	cs-iron	3	en	what about its electron configuration	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+cs-iron-4	cs-iron	4	en	is it radioactive	PROPERTY_LOOKUP	radioactive			
+cs-temp-1	cs-temp	1	en	melting point of copper in celsius	PROPERTY_LOOKUP	melting_point			
+cs-temp-2	cs-temp	2	en	and in fahrenheit	PROPERTY_LOOKUP	melting_point			unit changes, element and field hold
+cs-temp-3	cs-temp	3	en	what about iron	PROPERTY_LOOKUP	melting_point			element changes, unit should hold
+cs-temp-4	cs-temp	4	en	and its boiling point	PROPERTY_LOOKUP	boiling_point			
+cs-noble-1	cs-noble	1	en	list the noble gases	FILTER_LIST				
+cs-noble-2	cs-noble	2	en	how many are there	AGGREGATE				
+cs-noble-3	cs-noble	3	en	which one is densest	SUPERLATIVE	density			the subset should still be in play
+cs-carbon-1	cs-carbon	1	en	what are the isotopes of carbon	ISOTOPES		ISOTOPE_DECAY		
+cs-carbon-2	cs-carbon	2	en	what is its atomic mass	PROPERTY_LOOKUP	atomic_mass			back to a plain field after a list answer
+cs-carbon-3	cs-carbon	3	en	and its electronegativity	PROPERTY_LOOKUP	electronegativity			
+cs-uranium-1	cs-uranium	1	en	is uranium radioactive	PROPERTY_LOOKUP	radioactive			
+cs-uranium-2	cs-uranium	2	en	what are its isotopes	ISOTOPES		ISOTOPE_DECAY		
+cs-uranium-3	cs-uranium	3	en	how many neutrons does uranium 238 have	NUCLIDE_COUNT				a specific nuclide inside the same thread
+cs-dense-1	cs-dense	1	en	what is the densest element	SUPERLATIVE	density			
+cs-dense-2	cs-dense	2	en	and the second densest	SUPERLATIVE	density			
+cs-dense-3	cs-dense	3	en	what is its melting point	PROPERTY_LOOKUP	melting_point			the focus is now the element the list named
+cs-water-1	cs-water	1	en	what is the atomic mass of hydrogen	PROPERTY_LOOKUP	atomic_mass			
+cs-water-2	cs-water	2	en	and oxygen	PROPERTY_LOOKUP	atomic_mass			
+cs-water-3	cs-water	3	en	what is the molar mass of H2O	FORMULA_MASS				a calculation after two lookups
+cs-metal-1	cs-metal	1	en	what is the melting point of tungsten	PROPERTY_LOOKUP	melting_point			
+cs-metal-2	cs-metal	2	en	is that the highest	SUPERLATIVE	melting_point			the eventual question the thread was building to
+cs-crystal-1	cs-crystal	1	en	what is the crystal structure of iron	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		
+cs-crystal-2	cs-crystal	2	en	and copper	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		
+cs-crystal-3	cs-crystal	3	en	what is its density	PROPERTY_LOOKUP	density			
+cs-abund-1	cs-abund	1	en	how much gold is in sea water	PROPERTY_LOOKUP	abundance_sea_water	ABUNDANCE		
+cs-abund-2	cs-abund	2	en	and silver	PROPERTY_LOOKUP	abundance_sea_water	ABUNDANCE		
+cs-halogen-1	cs-halogen	1	en	which are the halogens	FILTER_LIST				
+cs-halogen-2	cs-halogen	2	en	what is the most electronegative	SUPERLATIVE	electronegativity			
+cs-halogen-3	cs-halogen	3	en	what is its atomic number	PROPERTY_LOOKUP	atomic_number			
+cs-lead-1	cs-lead	1	en	what is the symbol for lead	PROPERTY_LOOKUP	symbol			
+cs-lead-2	cs-lead	2	en	what is its density	PROPERTY_LOOKUP	density			
+cs-lead-3	cs-lead	3	en	is gold denser	COMPARATIVE	density			second element named, first inherited
+cs-neigh-1	cs-neigh	1	en	what element comes after carbon	NEIGHBOUR				
+cs-neigh-2	cs-neigh	2	en	what is its atomic mass	PROPERTY_LOOKUP	atomic_mass			focus should be the element that was named, not carbon
+# ---- Simple threads that must NOT inherit -------------------------------------------------------
+cs-stop-1	cs-stop	1	en	what is the density of titanium	PROPERTY_LOOKUP	density			
+cs-stop-2	cs-stop	2	en	what is titanium used for				y	narrative; must not answer with density
+cs-stop-3	cs-stop	3	en	what is its melting point	PROPERTY_LOOKUP	melting_point			the thread recovers afterwards
+cs-stop-4	cs-stop2	1	en	what is the atomic mass of carbon	PROPERTY_LOOKUP	atomic_mass			
+cs-stop-5	cs-stop2	2	en	tell me a fun fact				y	small talk mid-thread
+cs-stop-6	cs-stop2	3	en	and its density	PROPERTY_LOOKUP	density			the element survives the interruption
+cs-stop-7	cs-stop3	1	en	what is the boiling point of nitrogen	PROPERTY_LOOKUP	boiling_point			
+cs-stop-8	cs-stop3	2	en	thanks				y	
+cs-stop-9	cs-stop3	3	en	what about oxygen	PROPERTY_LOOKUP	boiling_point			
+# ---- Swedish everyday threads ---------------------------------------------------------------------
+cs-sv-1	cs-sv-guld	1	sv	vad är guldets densitet	PROPERTY_LOOKUP	density			
+cs-sv-2	cs-sv-guld	2	sv	och dess smältpunkt	PROPERTY_LOOKUP	melting_point			
+cs-sv-3	cs-sv-guld	3	sv	och silver	PROPERTY_LOOKUP	melting_point			
+cs-sv-4	cs-sv-jarn	1	sv	vad är atomnummer för järn	PROPERTY_LOOKUP	atomic_number			
+cs-sv-5	cs-sv-jarn	2	sv	och dess densitet	PROPERTY_LOOKUP	density			
+cs-sv-6	cs-sv-jarn	3	sv	är guld tätare	COMPARATIVE	density			
+cs-sv-7	cs-sv-kol	1	sv	vilka isotoper har kol	ISOTOPES		ISOTOPE_DECAY		
+cs-sv-8	cs-sv-kol	2	sv	vad är dess atommassa	PROPERTY_LOOKUP	atomic_mass			
+cs-sv-9	cs-sv-stop	1	sv	vad är densiteten för titan	PROPERTY_LOOKUP	density			
+cs-sv-10	cs-sv-stop	2	sv	vad används titan till				y	the reported bug, now inside a thread
+cs-sv-11	cs-sv-stop	3	sv	och dess smältpunkt	PROPERTY_LOOKUP	melting_point			
+# ---- German and French everyday threads -----------------------------------------------------------
+cs-de-1	cs-de-gold	1	de	was ist die dichte von gold	PROPERTY_LOOKUP	density			
+cs-de-2	cs-de-gold	2	de	und sein schmelzpunkt	PROPERTY_LOOKUP	melting_point			
+cs-de-3	cs-de-gold	3	de	und silber	PROPERTY_LOOKUP	melting_point			
+cs-fr-1	cs-fr-or	1	fr	quelle est la densité de l'or	PROPERTY_LOOKUP	density			
+cs-fr-2	cs-fr-or	2	fr	et son point de fusion	PROPERTY_LOOKUP	melting_point			

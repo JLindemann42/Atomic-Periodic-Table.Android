@@ -3,6 +3,7 @@ package com.jlindemann.science.activities
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -22,7 +23,7 @@ import com.jlindemann.science.activities.settings.LicensesActivity
 import com.jlindemann.science.activities.settings.OrderActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
 import com.jlindemann.science.activities.settings.UnitActivity
-import com.jlindemann.science.activities.tools.TitleBarAnimator
+import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.hideNavPreference
 import com.jlindemann.science.preferences.offlinePreference
@@ -49,6 +50,7 @@ class SettingsActivity : BaseActivity() {
 
     // Optional OnBackInvokedCallback for newer platforms (registered only when interception is needed)
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
+    private lateinit var titleBar: UnifiedTitleBarController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,23 +90,32 @@ class SettingsActivity : BaseActivity() {
         initOfflineSwitches()
         initNavSwitches()
         initAnalyticsSwitch()
+        mediaListeners()
 
-        findViewById<RelativeLayout>(R.id.offline_settings).setOnClickListener {
+        findViewById<View>(R.id.offline_settings).setOnClickListener {
             findViewById<SwitchCompat>(R.id.offline_internet_switch).toggle()
         }
-        findViewById<RelativeLayout>(R.id.nav_bar_settings).setOnClickListener {
+        findViewById<View>(R.id.nav_bar_settings)?.setOnClickListener {
             findViewById<SwitchCompat>(R.id.nav_bar_switch).toggle()
         }
-        findViewById<RelativeLayout>(R.id.analytics_settings).setOnClickListener {
+        findViewById<View>(R.id.analytics_settings).setOnClickListener {
             findViewById<SwitchCompat>(R.id.analytics_switch).toggle()
         }
 
-        findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
-        // Title Controller with animated visibility
-        findViewById<FrameLayout>(R.id.common_title_settings_color).visibility = View.VISIBLE
-        findViewById<TextView>(R.id.element_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_set).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        // Unified title bar
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.settings)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
         findViewById<ScrollView>(R.id.scroll_settings).viewTreeObserver
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
                 private var isTitleVisible = false // Track animation state
@@ -113,24 +124,23 @@ class SettingsActivity : BaseActivity() {
                     val scrollY = findViewById<ScrollView>(R.id.scroll_settings).scrollY
                     val threshold = 158
 
-                    val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_settings_color)
-                    val titleText = findViewById<TextView>(R.id.element_title)
+                    val titleText = titleBar.titleView
                     val titleDownstateText = findViewById<TextView>(R.id.element_title_downstate)
-                    val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_set)
+                    val titleBackground = titleBar.container
 
                     if (scrollY > threshold) {
                         if (!isTitleVisible) {
-                            TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
+                            TitleBarAnimator.animateVisibility(titleSurface, true)
                             TitleBarAnimator.animateVisibility(titleText, true)
-                            TitleBarAnimator.animateVisibility(titleDownstateText, false)
-                            titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
+                            titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, false) }
+                            titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
                             isTitleVisible = true
                         }
                     } else {
                         if (isTitleVisible) {
-                            TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
+                            TitleBarAnimator.animateVisibility(titleSurface, false)
                             TitleBarAnimator.animateVisibility(titleText, false)
-                            TitleBarAnimator.animateVisibility(titleDownstateText, true)
+                            titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, true) }
                             titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
                             isTitleVisible = false
                         }
@@ -138,35 +148,34 @@ class SettingsActivity : BaseActivity() {
                 }
             })
 
-        findViewById<RelativeLayout>(R.id.about_settings).setOnClickListener {
+
+
+        findViewById<View>(R.id.about_settings).setOnClickListener {
             val intent = Intent(this, AboutActivity::class.java)
             startActivity(intent)
         }
-        findViewById<ImageButton>(R.id.back_btn_set).setOnClickListener {
-            this.onBackPressed()
-        }
-        findViewById<RelativeLayout>(R.id.submit_settings).setOnClickListener {
+        findViewById<View>(R.id.submit_settings).setOnClickListener {
             val intent = Intent(this, SubmitActivity::class.java)
             startActivity(intent)
         }
-        findViewById<RelativeLayout>(R.id.licenses_settings).setOnClickListener {
+        findViewById<View>(R.id.licenses_settings).setOnClickListener {
             val intent = Intent(this, LicensesActivity::class.java)
             startActivity(intent)
         }
-        findViewById<RelativeLayout>(R.id.credits_settings).setOnClickListener {
+        findViewById<View>(R.id.credits_settings).setOnClickListener {
             val intent = Intent(this, CreditsActivity::class.java)
             startActivity(intent)
         }
-        findViewById<RelativeLayout>(R.id.unit_settings).setOnClickListener {
+        findViewById<View>(R.id.unit_settings).setOnClickListener {
             val intent = Intent(this, UnitActivity::class.java)
             startActivity(intent)
         }
-        findViewById<RelativeLayout>(R.id.git_settings).setOnClickListener{
+        findViewById<View>(R.id.git_settings).setOnClickListener{
             val packageManager = packageManager
             val blogURL = "https://github.com/JLindemann42/Atomic-Periodic-Table.Android"
             TabUtil.openCustomTab(blogURL, packageManager, this)
         }
-        findViewById<RelativeLayout>(R.id.win_settings).setOnClickListener{
+        findViewById<View>(R.id.win_settings)?.setOnClickListener{
             val packageManager = packageManager
             val winURL = "https://apps.microsoft.com/detail/9NBT1TCW2CNT"
             TabUtil.openCustomTab(winURL, packageManager, this)
@@ -201,7 +210,7 @@ class SettingsActivity : BaseActivity() {
         onBackPressedDispatcher.addCallback(this, backCallback!!)
 
         // --- Language selection setup ---
-        findViewById<RelativeLayout>(R.id.language_setting).setOnClickListener {
+        findViewById<View>(R.id.language_setting).setOnClickListener {
             showLanguageSelectionDialog()
         }
         updateLanguageContentText()
@@ -285,7 +294,7 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun setupLanguageListener() {
-        findViewById<RelativeLayout>(R.id.language_setting).setOnClickListener {
+        findViewById<View>(R.id.language_setting).setOnClickListener {
             showLanguageSelectionDialog()
         }
     }
@@ -331,12 +340,6 @@ class SettingsActivity : BaseActivity() {
 
         dialog.show()
     }
-    private fun getColorFromAttr(attr: Int): Int {
-        val typedValue = android.util.TypedValue()
-        theme.resolveAttribute(attr, typedValue, true)
-        return typedValue.data
-    }
-
     private fun updateLanguageContentText() {
         val langOption = when (val pref = getCurrentLanguagePreference()) {
             null -> getSystemLanguageOption()
@@ -369,22 +372,29 @@ class SettingsActivity : BaseActivity() {
         com.jlindemann.science.utils.ElementDataLoader.clearCache()
     }
 
-    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_set).layoutParams as ViewGroup.LayoutParams
-        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_set).layoutParams = params
+    private fun mediaListeners() {
+        val openUrl = { url: String -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
+        findViewById<View>(R.id.bluesky_btn)?.setOnClickListener { openUrl(getString(R.string.bluesky)) }
+        findViewById<View>(R.id.facebook_btn)?.setOnClickListener { openUrl(getString(R.string.facebook)) }
+        findViewById<View>(R.id.instagram_btn)?.setOnClickListener { openUrl(getString(R.string.instagram)) }
+        findViewById<View>(R.id.blog_btn)?.setOnClickListener { openUrl(getString(R.string.homepage)) }
+    }
 
-        val titleParam = findViewById<FrameLayout>(R.id.title_box_settings).layoutParams as ViewGroup.MarginLayoutParams
-        titleParam.rightMargin = right
-        titleParam.leftMargin = left
-        findViewById<FrameLayout>(R.id.title_box_settings).layoutParams = titleParam
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
+        params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        titleBar.container.layoutParams = params
+        titleBar.container.setPadding(0, 0, 0, 0)
+
 
         val params2 = findViewById<TextView>(R.id.element_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<TextView>(R.id.element_title_downstate).layoutParams = params2
 
         findViewById<LinearLayout>(R.id.personalization_box).setPadding(left, 0, right, 0)
         findViewById<LinearLayout>(R.id.advanced_box).setPadding(left, 0, right, 0)
+
+        findViewById<ScrollView>(R.id.scroll_settings).setPadding(0, 0, 0, bottom)
     }
 
     // Handle back logic: closes theme panel if visible and returns true to indicate consumed.
@@ -438,7 +448,7 @@ class SettingsActivity : BaseActivity() {
         findViewById<SwitchCompat>(R.id.analytics_switch).setOnCheckedChangeListener { _, isChecked ->
             analyticsPreferences.setValue(isChecked)
             AnalyticsHelper.updateAnalyticsCollection(this)
-            
+
             // Log analytics toggle event
             if (isChecked) {
                 AnalyticsHelper.logEvent(this, "analytics_enabled", null)
@@ -447,15 +457,15 @@ class SettingsActivity : BaseActivity() {
     }
 
     private fun openPages() {
-        findViewById<RelativeLayout>(R.id.favorite_settings).setOnClickListener {
+        findViewById<View>(R.id.favorite_settings).setOnClickListener {
             val intent = Intent(this, FavoritePageActivity::class.java)
             startActivity(intent)
         }
-        findViewById<RelativeLayout>(R.id.order_settings).setOnClickListener {
+        findViewById<View>(R.id.order_settings)?.setOnClickListener {
             val intent = Intent(this, OrderActivity::class.java)
             startActivity(intent)
         }
-        findViewById<RelativeLayout>(R.id.experimental_settings).setOnClickListener {
+        findViewById<View>(R.id.experimental_settings)?.setOnClickListener {
             val intent = Intent(this, ExperimentalActivity::class.java)
             startActivity(intent)
         }
@@ -564,7 +574,7 @@ class SettingsActivity : BaseActivity() {
                 overridePendingTransition(0, 0)
             }, 302)
         }
-        findViewById<RelativeLayout>(R.id.themes_settings).setOnClickListener {
+        findViewById<View>(R.id.themes_settings).setOnClickListener {
             Utils.fadeInAnim(themePanel, 300)
             // theme opened -> enable interception (back should close theme panel)
             setBackInterceptionEnabled(true)

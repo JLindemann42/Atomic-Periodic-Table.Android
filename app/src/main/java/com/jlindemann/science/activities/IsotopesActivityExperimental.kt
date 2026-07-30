@@ -22,18 +22,20 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.WindowCompat
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.tools.TitleBarAnimator
 import com.jlindemann.science.adapter.IsotopeAdapter
 import com.jlindemann.science.animations.Anim
+import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.*
 import com.jlindemann.science.utils.ElementDataLoader
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
-import com.sothree.slidinguppanel.SlidingUpPanelLayout
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -45,6 +47,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     private var elementList = ArrayList<Element>()
     var mAdapter = IsotopeAdapter(elementList, this, this)
     private var headerView: View? = null
+    private var bottomSheetBehavior: BottomSheetBehavior<View>? = null
     private var lastTopInset = 0
 
     // Unified back handling fields
@@ -53,6 +56,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     private val uiHandler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
@@ -91,7 +95,40 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         setBackInterceptionEnabled(false)
 
         val recyclerView = findViewById<RecyclerView>(R.id.r_view)
-        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+        
+        // Setup BottomSheet
+        val bottomSheet = findViewById<View>(R.id.slid_panel)
+        // Set background to null to avoid default white background/shadow behavior if any
+        bottomSheet.background = null
+        
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet)
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehavior?.skipCollapsed = true
+        
+        bottomSheetBehavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                val background = findViewById<TextView>(R.id.background_i2)
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    background.visibility = View.GONE
+                    background.alpha = 0f
+                } else {
+                    background.visibility = View.VISIBLE
+                    if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+                        background.alpha = 0.6f
+                    }
+                }
+                // Update back interception state whenever panel state changes
+                setBackInterceptionEnabled(anyOverlayOpen())
+            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                val background = findViewById<TextView>(R.id.background_i2)
+                background.visibility = View.VISIBLE
+                // slideOffset is 0.0 when hidden/collapsed, 1.0 when expanded
+                // We use coerceAtLeast(0f) because slideOffset can be negative when hideable is true
+                background.alpha = slideOffset.coerceAtLeast(0f) * 0.6f
+            }
+        })
+
         recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         
         ElementModel.getList(elementList, this)
@@ -110,27 +147,13 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             override fun afterTextChanged(s: Editable) { filter(s.toString(), elementList, recyclerView) }
         })
 
-        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).addPanelSlideListener(object : SlidingUpPanelLayout.PanelSlideListener {
-            override fun onPanelSlide(panel: View?, slideOffset: Float) { }
-            override fun onPanelStateChanged(panel: View?, previousState: SlidingUpPanelLayout.PanelState, newState: SlidingUpPanelLayout.PanelState) {
-                if (findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState === SlidingUpPanelLayout.PanelState.COLLAPSED) {
-                    Utils.fadeOutAnim(findViewById<TextView>(R.id.background_i2), 300)
-                    Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.slid_panel), 300)
-                }
-                // Update back interception state whenever panel state changes
-                setBackInterceptionEnabled(anyOverlayOpen())
-            }
-        })
-
         findViewById<TextView>(R.id.background_i2).setOnClickListener{
             if (findViewById<ConstraintLayout>(R.id.panel_info).visibility == View.VISIBLE) {
                 Utils.fadeOutAnim(findViewById<ConstraintLayout>(R.id.panel_info), 300)
                 Utils.fadeOutAnim(findViewById<TextView>(R.id.background_i2), 300)
             }
             else {
-                Utils.fadeOutAnim(findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i), 300)
-                Utils.fadeOutAnim(findViewById<TextView>(R.id.background_i2), 300)
-                findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
+                bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
             }
             // Update back interception state after click closes overlays
             setBackInterceptionEnabled(anyOverlayOpen())
@@ -148,15 +171,14 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
         }
 
-        findViewById<FrameLayout>(R.id.view1).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
         clickSearch()
         searchFilter(elementList, recyclerView)
         sentIsotope()
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener { this.onBackPressed() }
+        findViewById<MaterialButton>(R.id.back_btn).setOnClickListener { this.onBackPressed() }
     }
 
     private fun searchFilter(list: ArrayList<Element>, recyclerView: RecyclerView) {
-        findViewById<FloatingActionButton>(R.id.filter_btn2).setOnClickListener {
+        findViewById<MaterialButton>(R.id.filter_btn2).setOnClickListener {
             Utils.fadeInAnim(findViewById<ConstraintLayout>(R.id.iso_filter_box), 150)
             Utils.fadeInAnim(findViewById<TextView>(R.id.filter_background), 150)
             // show overlay -> enable back interception
@@ -204,7 +226,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     }
 
     private fun clickSearch() {
-        findViewById<ImageButton>(R.id.search_btn).setOnClickListener {
+        findViewById<MaterialButton>(R.id.search_btn).setOnClickListener {
             Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_iso), 300)
             Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box), 300)
 
@@ -215,7 +237,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
             // Search bar shown -> enable back interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<ImageButton>(R.id.close_iso_search).setOnClickListener {
+        findViewById<MaterialButton>(R.id.close_iso_search).setOnClickListener {
             Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_iso), 300)
             Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 300)
 
@@ -262,11 +284,9 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     override fun elementClickListener(item: Element, position: Int) {
         val elementSendAndLoad = ElementSendAndLoad(this)
         elementSendAndLoad.setValue(item.elementKey)
-        drawCard(elementList)
+        drawCard()
 
-        Utils.fadeInAnimBack(findViewById<TextView>(R.id.background_i2), 300)
-        Utils.fadeInAnim(findViewById<FrameLayout>(R.id.slid_panel), 300)
-        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
 
         // Panel expanded -> enable back interception
         setBackInterceptionEnabled(true)
@@ -275,10 +295,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
     private fun sentIsotope() {
         val isoSent = sendIso(this)
         if (isoSent.getValue() == "true") {
-            drawCard(elementList)
-            Utils.fadeInAnimBack(findViewById<TextView>(R.id.background_i2), 300)
-            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.slid_panel), 300)
-            findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState = SlidingUpPanelLayout.PanelState.EXPANDED
+            drawCard()
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
             isoSent.setValue("false")
 
             // Panel expanded -> enable back interception
@@ -293,68 +311,65 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         }
     }
 
-    private fun drawCard(list: ArrayList<Element>) {
-        ElementModel.getList(list, this)
-        for (item in list) {
-            try {
-                val elementSendLoad = ElementSendAndLoad(this)
-                val nameVal = elementSendLoad.getValue()
-                if (item.elementKey == nameVal?.lowercase()) {
-                    val jsonObject = ElementDataLoader.loadElementData(this, nameVal ?: "hydrogen")
-                    if (jsonObject != null) {
-                        findViewById<LinearLayout>(R.id.frame_iso).removeAllViews()
+    private fun drawCard() {
+        val nameVal = ElementSendAndLoad(this).getValue() ?: "hydrogen"
+        val item = elementList.find { it.elementKey == nameVal.lowercase() }
+        if (item == null) return
 
-                        val aLayout = findViewById<LinearLayout>(R.id.frame_iso)
-                        val inflater = layoutInflater
-                        val fLayout: View = inflater.inflate(R.layout.row_iso_panel_title_item, aLayout, false)
+        try {
+            val jsonObject = ElementDataLoader.loadElementData(this, nameVal)
+            if (jsonObject != null) {
+                val aLayout = findViewById<LinearLayout>(R.id.frame_iso) ?: return
+                aLayout.removeAllViews()
 
-                        val iTitle = fLayout.findViewById(R.id.iso_title) as TextView
-                        val iExt = " Isotopes"
-                        iTitle.text = "${nameVal.replaceFirstChar { it.uppercase() }}$iExt"
+                val inflater = layoutInflater
+                val fLayout: View = inflater.inflate(R.layout.row_iso_panel_title_item, aLayout, false)
 
-                        aLayout.addView(fLayout)
+                val iTitle = fLayout.findViewById(R.id.iso_title) as TextView
+                val iExt = " Isotopes"
+                iTitle.text = "${nameVal.replaceFirstChar { it.uppercase() }}$iExt"
 
-                        for (i in 1..item.isotopes) {
-                            val mainLayout = findViewById<LinearLayout>(R.id.frame_iso)
-                        val inflater = layoutInflater
-                        val myLayout: View = inflater.inflate(R.layout.row_iso_panel_item, mainLayout, false)
-                        val name = "iso_"
-                        val z = "iso_Z_"
-                        val n = "iso_N_"
-                        val a = "iso_A_"
-                        val half = "iso_half_"
-                        val mass = "iso_mass_"
-                        val halfText = "Half-Time: "
-                        val massText = "Mass: "
+                aLayout.addView(fLayout)
 
-                        val isoName = jsonObject.optString("$name$i", "---")
-                        val isoZ = jsonObject.optString("$z$i", "---")
-                        val isoN = jsonObject.optString("$n$i", "---")
-                        val isoA = jsonObject.optString("$a$i", "---")
-                        val isoHalf = jsonObject.optString("$half$i", "---")
-                        val isoMass = jsonObject.optString("$mass$i", "---")
+                for (i in 1..item.isotopes) {
+                    val myLayout: View = inflater.inflate(R.layout.row_iso_panel_item, aLayout, false)
+                    val name = "iso_"
+                    val z = "iso_Z_"
+                    val n = "iso_N_"
+                    val a = "iso_A_"
+                    val half = "iso_half_"
+                    val mass = "iso_mass_"
+                    val halfText = "Half-Time: "
+                    val massText = "Mass: "
 
-                        val iName = myLayout.findViewById(R.id.i_name) as TextView
-                        val iZ = myLayout.findViewById(R.id.i_z) as TextView
-                        val iN = myLayout.findViewById(R.id.i_n) as TextView
-                        val iA = myLayout.findViewById(R.id.i_a) as TextView
-                        val iHalf = myLayout.findViewById(R.id.i_half) as TextView
-                        val iMass = myLayout.findViewById(R.id.i_mass) as TextView
+                    val isoName = jsonObject.optString("$name$i", "")
+                    if (isoName.isEmpty() || isoName == "---") continue
 
-                        iName.text = isoName
-                        iZ.text = isoZ
-                        iN.text = isoN
-                        iA.text = isoA
-                        iHalf.text = "$halfText$isoHalf"
-                        iMass.text = "$massText$isoMass"
+                    val isoZ = jsonObject.optString("$z$i", "---")
+                    val isoN = jsonObject.optString("$n$i", "---")
+                    val isoA = jsonObject.optString("$a$i", "---")
+                    val isoHalf = jsonObject.optString("$half$i", "---")
+                    val isoMass = jsonObject.optString("$mass$i", "---")
 
-                        mainLayout.addView(myLayout)
-                    }
-                        }
-                    }
+                    val iName = myLayout.findViewById(R.id.i_name) as TextView
+                    val iZ = myLayout.findViewById(R.id.i_z) as TextView
+                    val iN = myLayout.findViewById(R.id.i_n) as TextView
+                    val iA = myLayout.findViewById(R.id.i_a) as TextView
+                    val iHalf = myLayout.findViewById(R.id.i_half) as TextView
+                    val iMass = myLayout.findViewById(R.id.i_mass) as TextView
 
+                    iName.text = isoName
+                    iZ.text = isoZ
+                    iN.text = isoN
+                    iA.text = isoA
+                    iHalf.text = "$halfText$isoHalf"
+                    iMass.text = "$massText$isoMass"
+
+                    aLayout.addView(myLayout)
+                }
             }
-            catch (e: IOException) { ToastUtil.showToast(this, "Couldn't load Data") }
+        } catch (e: Exception) {
+            ToastUtil.showToast(this, "Couldn't load Data")
         }
     }
 
@@ -364,17 +379,12 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<FrameLayout>(R.id.common_title_back_iso).layoutParams = params2
 
-        val params3 = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).layoutParams as ViewGroup.MarginLayoutParams
-        params3.topMargin = top + resources.getDimensionPixelSize(R.dimen.panel_margin)
-        findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).layoutParams = params3
-
-        val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_iso).layoutParams as ViewGroup.MarginLayoutParams
-        searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
-        findViewById<LinearLayout>(R.id.empty_search_box_iso).layoutParams = searchEmptyImgPrm
-
         headerView?.let {
             applyHeaderInsets(it, top)
         }
+
+        // Draw under nav bar
+        findViewById<View>(R.id.frame_iso)?.setPadding(0, 0, 0, bottom + resources.getDimensionPixelSize(R.dimen.default_padding))
     }
 
     private fun applyHeaderInsets(view: View, top: Int) {
@@ -399,6 +409,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
 
                 val threshold = 150
                 val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_isotope_color)
+                val colorBackground = findViewById<FrameLayout>(R.id.common_title_back_isotope_color)
                 val titleText = findViewById<TextView>(R.id.element_title)
                 val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_iso)
 
@@ -407,6 +418,7 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
 
                 if (totalScrollY > threshold) {
                     if (!isTitleVisible) {
+                        TitleBarAnimator.animateVisibility(colorBackground, true)
                         TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
                         TitleBarAnimator.animateVisibility(titleText, true)
                         titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, false) }
@@ -415,6 +427,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
                     }
                 } else {
                     if (isTitleVisible) {
+                        colorBackground.visibility = View.INVISIBLE
+                        TitleBarAnimator.animateVisibility(colorBackground, false)
                         TitleBarAnimator.animateVisibility(titleColorBackground, false)
                         TitleBarAnimator.animateVisibility(titleText, false)
                         titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, true) }
@@ -428,20 +442,19 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
 
     // Basic handler for in-activity overlays
     private fun anyOverlayOpen(): Boolean {
-        val panelExpanded = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i).panelState == SlidingUpPanelLayout.PanelState.EXPANDED
+        val panelExpanded = bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN
         val backgroundVisible = findViewById<TextView>(R.id.background_i2).visibility == View.VISIBLE
         val filterVisible = findViewById<TextView>(R.id.filter_background).visibility == View.VISIBLE
-        val searchBarVisible = findViewById<FrameLayout>(R.id.search_bar_iso).visibility == View.VISIBLE
+        val searchBarVisible = findViewById<ConstraintLayout>(R.id.search_bar_iso).visibility == View.VISIBLE
         val panelInfoVisible = findViewById<ConstraintLayout>(R.id.panel_info).visibility == View.VISIBLE
         return panelExpanded || backgroundVisible || filterVisible || searchBarVisible || panelInfoVisible
     }
 
     // Close overlays if visible; return true when consumed.
     private fun handleBackPress(): Boolean {
-        val slidingLayout = findViewById<SlidingUpPanelLayout>(R.id.sliding_layout_i)
         val background = findViewById<TextView>(R.id.background_i2)
         val filterBackground = findViewById<TextView>(R.id.filter_background)
-        val searchBar = findViewById<FrameLayout>(R.id.search_bar_iso)
+        val searchBar = findViewById<ConstraintLayout>(R.id.search_bar_iso)
         val panelInfo = findViewById<ConstraintLayout>(R.id.panel_info)
 
         // If panel info is visible, hide it
@@ -453,10 +466,8 @@ class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementCli
         }
 
         // If sliding panel expanded, collapse
-        if (slidingLayout.panelState == SlidingUpPanelLayout.PanelState.EXPANDED) {
-            slidingLayout.panelState = SlidingUpPanelLayout.PanelState.COLLAPSED
-            Utils.fadeOutAnim(background, 300)
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.slid_panel), 300)
+        if (bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN) {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
             setBackInterceptionEnabled(anyOverlayOpen())
             return true
         }

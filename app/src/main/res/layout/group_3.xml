@@ -12,16 +12,14 @@
         android:layout_margin="2dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="2dp"
-        android:elevation="0dp">
+        android:layout_marginEnd="2dp">
 
         <TextView
             android:id="@+id/scandium_btn"
             android:layout_width="80dp"
             android:layout_height="78dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-            android:elevation="6dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/scandium_number"
@@ -30,7 +28,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="21"
             android:textAlignment="gravity"
@@ -41,7 +38,6 @@
             android:id="@+id/scandium_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="Sc"
             android:textColor="?attr/actionMenuTextColor"
@@ -53,7 +49,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Scandium"
             android:textColor="?attr/actionMenuTextColor"
@@ -68,17 +63,14 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
-        android:elevation="0dp">
+        android:layout_marginEnd="6dp">
 
         <TextView
             android:id="@+id/yttrium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/yttrium_number"
@@ -87,7 +79,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="39"
             android:textAlignment="gravity"
@@ -98,7 +89,6 @@
             android:id="@+id/yttrium_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="Y"
             android:textColor="?attr/actionMenuTextColor"
@@ -110,7 +100,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Yttrium"
             android:textColor="?attr/actionMenuTextColor"
@@ -122,7 +111,6 @@
         android:layout_width="92dp"
         android:layout_height="92dp"
         android:layout_margin="2dp"
-        android:elevation="0dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
@@ -133,7 +121,6 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:elevation="0dp"
             android:background="@drawable/element_nodetail"
             android:backgroundTint="?attr/colorSecondaryContainer" />
 
@@ -142,7 +129,6 @@
             android:id="@+id/calcium_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="57-71"
             android:textColor="?attr/colorOnSecondaryContainer"
@@ -154,7 +140,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Lanthanoids"
             android:textColor="?attr/colorOnSecondaryContainer"
@@ -176,7 +161,6 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:elevation="0dp"
             android:background="@drawable/element_nodetail"
             android:backgroundTint="?attr/colorSecondaryContainer" />
 
@@ -184,7 +168,6 @@
             android:id="@+id/actinoids_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="89-103"
             android:textColor="?attr/colorOnSecondaryContainer"
@@ -196,7 +179,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Actinoids"
             android:textColor="?attr/colorOnSecondaryContainer"

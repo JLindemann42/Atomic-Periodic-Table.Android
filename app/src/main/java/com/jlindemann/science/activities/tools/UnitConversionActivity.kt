@@ -22,104 +22,26 @@ import android.animation.AnimatorListenerAdapter
 import android.content.Intent
 import android.view.ViewPropertyAnimator
 import androidx.appcompat.widget.AppCompatButton
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.jlindemann.science.activities.BaseActivity
-import com.jlindemann.science.activities.settings.ProActivity
+import com.jlindemann.science.animations.TitleBarAnimator
+import com.jlindemann.science.model.UnitCatalog
 import com.jlindemann.science.preferences.MostUsedToolPreference
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 
 class UnitConversionActivity : BaseActivity() {
-    private val unitCategories: Map<String, List<UnitDefinition>> = mapOf(
-        "Length" to listOf(
-            UnitDefinition("Meter", 1.0),
-            UnitDefinition("Kilometer", 1000.0),
-            UnitDefinition("Centimeter", 0.01),
-            UnitDefinition("Millimeter", 0.001),
-            UnitDefinition("Inch", 0.0254),
-            UnitDefinition("Foot", 0.3048),
-            UnitDefinition("Yard", 0.9144),
-            UnitDefinition("Mile", 1609.344)
-        ),
-        "Mass" to listOf(
-            UnitDefinition("Kilogram", 1.0),
-            UnitDefinition("Gram", 0.001),
-            UnitDefinition("Milligram", 0.000001),
-            UnitDefinition("Pound", 0.45359237),
-            UnitDefinition("Ounce", 0.0283495231)
-        ),
-        "Volume" to listOf(
-            UnitDefinition("Liter", 1.0),
-            UnitDefinition("Milliliter", 0.001),
-            UnitDefinition("Cubic meter", 1000.0),
-            UnitDefinition("Gallon", 3.78541),
-            UnitDefinition("Pint", 0.473176)
-        ),
-        "Area" to listOf(
-            UnitDefinition("Square meter", 1.0),
-            UnitDefinition("Square kilometer", 1_000_000.0),
-            UnitDefinition("Square centimeter", 0.0001),
-            UnitDefinition("Square mile", 2_589_988.11),
-            UnitDefinition("Acre", 4046.85642)
-        ),
-        "Velocity" to listOf(
-            UnitDefinition("Meter/second", 1.0), UnitDefinition("Kilometer/hour", 0.277778),
-            UnitDefinition("Mile/hour", 0.44704), UnitDefinition("Foot/second", 0.3048)
-        ),
-        "Energy" to listOf(
-            UnitDefinition("Joule", 1.0),
-            UnitDefinition("Kilojoule", 1000.0),
-            UnitDefinition("Calorie", 4.184),
-            UnitDefinition("Kilocalorie", 4184.0),
-            UnitDefinition("Watt hour", 3600.0)
-        ),
-        "Frequency" to listOf(
-            UnitDefinition("Hertz", 1.0), UnitDefinition("Kilohertz", 1000.0),
-            UnitDefinition("Megahertz", 1_000_000.0), UnitDefinition("Gigahertz", 1_000_000_000.0)
-        ),
-        "Temperature" to listOf(
-            UnitDefinition("Celsius", 0.0),
-            UnitDefinition("Fahrenheit", 0.0),
-            UnitDefinition("Kelvin", 0.0)
-        ),
-        "Time" to listOf(
-            UnitDefinition("Second", 1.0),
-            UnitDefinition("Millisecond", 0.001),
-            UnitDefinition("Minute", 60.0),
-            UnitDefinition("Hour", 3600.0),
-            UnitDefinition("Day", 86400.0)
-        ),
-        "Force" to listOf(
-            UnitDefinition("Newton", 1.0), UnitDefinition("Kilonewton", 1000.0),
-            UnitDefinition("Dyne", 0.00001), UnitDefinition("Pound-force", 4.4482216),
-            UnitDefinition("Kilogram-force", 9.80665)
-        ),
-        "Power" to listOf(
-            UnitDefinition("Watt", 1.0), UnitDefinition("Kilowatt", 1000.0),
-            UnitDefinition("Megawatt", 1_000_000.0), UnitDefinition("Horsepower", 745.699872)
-        ),
-        "Voltage" to listOf(
-            UnitDefinition("Volt", 1.0),
-            UnitDefinition("Millivolt", 0.001),
-            UnitDefinition("Kilovolt", 1000.0)
-        ),
-        "Resistance" to listOf(
-            UnitDefinition("Ohm", 1.0), UnitDefinition("Milliohm", 0.001),
-            UnitDefinition("Kiloohm", 1000.0), UnitDefinition("Megaohm", 1_000_000.0)
-        ),
-        "Pressure" to listOf(
-            UnitDefinition("Pascal", 1.0), UnitDefinition("Kilopascal", 1000.0),
-            UnitDefinition("Bar", 100_000.0), UnitDefinition("Atmosphere", 101_325.0),
-            UnitDefinition("PSI", 6894.757)
-        )
-    )
+    private lateinit var titleBar: UnifiedTitleBarController
+    private val unitCategories: Map<String, List<UnitDefinition>> = UnitCatalog.categories
 
     private lateinit var categorySpinner: Spinner
     private lateinit var fromUnitSpinner: Spinner
     private lateinit var toUnitSpinner: Spinner
-    private lateinit var inputValue: EditText
-    private lateinit var outputValue: EditText
+    private lateinit var inputValue: com.google.android.material.textfield.TextInputEditText
+    private lateinit var outputValue: com.google.android.material.textfield.TextInputEditText
     private lateinit var formulaValue: TextView
-    private lateinit var addFavoriteButton: Button
+    private lateinit var addFavoriteButton: com.google.android.material.button.MaterialButton
     private lateinit var favoritesList: RecyclerView
 
     private val favorites = mutableListOf<UnitConversionFavorite>()
@@ -154,38 +76,38 @@ class UnitConversionActivity : BaseActivity() {
             setTheme(R.style.AppThemeDark)
         }
         setContentView(R.layout.activity_unit_converter)
-        findViewById<FrameLayout>(R.id.view_unit).systemUiVisibility =
+        findViewById<ConstraintLayout>(R.id.view_unit).systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.unit_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation =
-            (resources.getDimension(R.dimen.zero_elevation))
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.unit_converter_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
         findViewById<ScrollView>(R.id.unit_scroll).viewTreeObserver
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
                 override fun onScrollChanged() {
-                    if (findViewById<ScrollView>(R.id.unit_scroll).scrollY > 150f) {
-                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility =
-                            View.VISIBLE
-                        findViewById<TextView>(R.id.unit_title).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.unit_title_downstate).visibility =
-                            View.INVISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation =
-                            (resources.getDimension(R.dimen.one_elevation))
+                    val scrollY = findViewById<ScrollView>(R.id.unit_scroll).scrollY
+                    if (scrollY > 150) {
+                        titleSurface.visibility = View.VISIBLE
+                        titleBar.titleView.visibility = View.VISIBLE
+                        findViewById<TextView>(R.id.unit_title_downstate).visibility = View.INVISIBLE
+                        titleBar.container.elevation = (resources.getDimension(R.dimen.one_elevation))
                     } else {
-                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility =
-                            View.INVISIBLE
-                        findViewById<TextView>(R.id.unit_title).visibility = View.INVISIBLE
+                        titleSurface.visibility = View.INVISIBLE
+                        titleBar.titleView.visibility = View.INVISIBLE
                         findViewById<TextView>(R.id.unit_title_downstate).visibility = View.VISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation =
-                            (resources.getDimension(R.dimen.zero_elevation))
+                        titleBar.container.elevation = (resources.getDimension(R.dimen.zero_elevation))
                     }
                 }
             })
-
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
-            this.onBackPressed()
-        }
 
         // Setup unified back handling: register a lifecycle-aware OnBackPressedCallback (disabled by default).
         backCallback = object : OnBackPressedCallback(false) {
@@ -212,26 +134,25 @@ class UnitConversionActivity : BaseActivity() {
         if (proPrefValue == 1) {
             findViewById<RecyclerView>(R.id.favorites_list).visibility = View.INVISIBLE
             findViewById<TextView>(R.id.no_pro_text).visibility = View.VISIBLE
-            findViewById<TextView>(R.id.pro_button_cal).visibility = View.VISIBLE
-            findViewById<AppCompatButton>(R.id.add_favorite_button).visibility = View.GONE
+            findViewById<View>(R.id.pro_button_cal).visibility = View.VISIBLE
+            findViewById<View>(R.id.add_favorite_button).visibility = View.GONE
         }
         if (proPrefValue == 100) {
             findViewById<RecyclerView>(R.id.favorites_list).visibility = View.VISIBLE
             findViewById<TextView>(R.id.no_pro_text).visibility = View.GONE
-            findViewById<TextView>(R.id.pro_button_cal).visibility = View.GONE
-            findViewById<AppCompatButton>(R.id.add_favorite_button).visibility = View.VISIBLE
+            findViewById<View>(R.id.pro_button_cal).visibility = View.GONE
+            findViewById<View>(R.id.add_favorite_button).visibility = View.VISIBLE
         }
 
-        findViewById<TextView>(R.id.pro_button_cal).setOnClickListener {
-            val intent = Intent(this, ProActivity::class.java)
-            startActivity(intent)
+        findViewById<View>(R.id.pro_button_cal).setOnClickListener {
+            goToProPage()
         }
 
         //Add value to most used:
         val mostUsedPreference = MostUsedToolPreference(this)
         val mostUsedPrefValue = mostUsedPreference.getValue()
         val targetLabel = "uni"
-        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val regex = Regex("($targetLabel)=(\\d+\\.\\d+)")
         val match = regex.find(mostUsedPrefValue)
         if (match != null) {
             val value = match.groups[2]!!.value.toDouble()
@@ -270,52 +191,13 @@ class UnitConversionActivity : BaseActivity() {
         loadFavorites()
         updateFavoriteButtonState()
 
-        findViewById<ScrollView>(R.id.unit_scroll).viewTreeObserver
-            .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
-                private var isTitleVisible = false
-
-                override fun onScrollChanged() {
-                    val scrollY = findViewById<ScrollView>(R.id.unit_scroll).scrollY
-                    val threshold = 150f
-
-                    val titleColorBackground =
-                        findViewById<FrameLayout>(R.id.common_title_back_unit_color)
-                    val titleText = findViewById<TextView>(R.id.unit_title)
-                    val titleDownstateText = findViewById<TextView>(R.id.unit_title_downstate)
-                    val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_unit)
-
-                    if (scrollY > threshold) {
-                        if (!isTitleVisible) {
-                            TitleBarAnimator.animateVisibility(
-                                titleColorBackground,
-                                true,
-                                visibleAlpha = 0.11f
-                            )
-                            TitleBarAnimator.animateVisibility(titleText, true)
-                            TitleBarAnimator.animateVisibility(titleDownstateText, false)
-                            titleBackground.elevation =
-                                resources.getDimension(R.dimen.one_elevation)
-                            isTitleVisible = true
-                        }
-                    } else {
-                        if (isTitleVisible) {
-                            TitleBarAnimator.animateVisibility(titleColorBackground, false)
-                            TitleBarAnimator.animateVisibility(titleText, false)
-                            TitleBarAnimator.animateVisibility(titleDownstateText, true)
-                            titleBackground.elevation =
-                                resources.getDimension(R.dimen.zero_elevation)
-                            isTitleVisible = false
-                        }
-                    }
-                }
-            })
 
     }
 
     private fun setupSpinners() {
         val categories = unitCategories.keys.toList()
         val categoryAdapter = ArrayAdapter(this, R.layout.spinner_item_text, categories)
-        categoryAdapter.setDropDownViewResource(R.layout.spinner_item_text)
+        categoryAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         categorySpinner.adapter = categoryAdapter
 
         categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -329,7 +211,7 @@ class UnitConversionActivity : BaseActivity() {
                 val units = unitCategories[selectedCategory]?.map { it.name } ?: listOf()
                 val unitAdapter =
                     ArrayAdapter(this@UnitConversionActivity, R.layout.spinner_item_text, units)
-                unitAdapter.setDropDownViewResource(R.layout.spinner_item_text)
+                unitAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
                 fromUnitSpinner.adapter = unitAdapter
                 toUnitSpinner.adapter = unitAdapter
 
@@ -436,30 +318,8 @@ class UnitConversionActivity : BaseActivity() {
         formulaValue.text = formula
     }
 
-    private fun convertTemperature(from: String, to: String, value: Double): Pair<Double, String> {
-        val celsius = when (from) {
-            "Celsius" -> value
-            "Fahrenheit" -> (value - 32) * 5 / 9
-            "Kelvin" -> value - 273.15
-            else -> value
-        }
-        val result = when (to) {
-            "Celsius" -> celsius
-            "Fahrenheit" -> celsius * 9 / 5 + 32
-            "Kelvin" -> celsius + 273.15
-            else -> celsius
-        }
-        val formula = when {
-            from == "Celsius" && to == "Fahrenheit" -> "Multiply with 9/5 and add 32"
-            from == "Celsius" && to == "Kelvin" -> "Add 273.15"
-            from == "Fahrenheit" && to == "Celsius" -> "Subtract 32, divide with 5/9"
-            from == "Fahrenheit" && to == "Kelvin" -> "Subtract 32, multiply with 5/9, add 273.15"
-            from == "Kelvin" && to == "Celsius" -> "subtract 273.15"
-            from == "Kelvin" && to == "Fahrenheit" -> "subtract 273.15, multiply with 9/5, add 32"
-            else -> "no conversion"
-        }
-        return Pair(result, formula)
-    }
+    private fun convertTemperature(from: String, to: String, value: Double): Pair<Double, String> =
+        Pair(UnitCatalog.convertTemperature(from, to, value), UnitCatalog.temperatureFormula(from, to))
 
     private fun addFavorite() {
         val category = categorySpinner.selectedItem as? String ?: return
@@ -528,9 +388,9 @@ class UnitConversionActivity : BaseActivity() {
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         val params =
-            findViewById<FrameLayout>(R.id.common_title_back_unit).layoutParams as ViewGroup.LayoutParams
+            titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_unit).layoutParams = params
+        titleBar.container.layoutParams = params
 
         val params2 =
             findViewById<TextView>(R.id.unit_title_downstate).layoutParams as ViewGroup.MarginLayoutParams

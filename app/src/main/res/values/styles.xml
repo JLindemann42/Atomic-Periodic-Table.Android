@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">#0856CF</item>
         <item name="colorOnPrimary">#ffffff</item>
         <item name="colorPrimaryContainer">#D9E2FF</item>
@@ -23,6 +23,7 @@
         <item name="colorSurfaceVariant">#E2E2EC</item>
         <item name="colorOnSurfaceVariant">#44464E</item>
         <item name="colorOutline">#75767F</item>
+        <item name="colorOutlineVariant">#C5C6D0</item>
 
         <item name="backgroundColor">#FEFBFF</item>
         <item name="colorOnBackground">#1B1B1E</item>
@@ -35,11 +36,11 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="actionMenuTextColor">@color/colorLightText</item>>
+        <item name="actionMenuTextColor">@color/colorLightText</item>
         <item name="rippleColor">@color/colorLightRipple</item>
     </style>
 
-    <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeDark" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">#b0c5ff</item>
         <item name="colorOnPrimary">#002B76</item>
         <item name="colorPrimaryContainer">#003FA4</item>
@@ -61,11 +62,15 @@
         <item name="colorSurfaceVariant">#44464E</item>
         <item name="colorOnSurfaceVariant">#C5C6D0</item>
         <item name="colorOutline">#8F909A</item>
+        <item name="colorOutlineVariant">#44464E</item>
 
         <item name="colorPrimaryDark">#1B1B1E</item>
         <item name="colorContainer">#B0C5FF</item>
-        <item name="colorAccent">#0856CF</item>
+        <item name="colorAccent">#b0c5ff</item>
         <item name="chipSurfaceColor">#1B1B1E</item>
+
+        <item name="backgroundColor">#1B1B1E</item>
+        <item name="colorOnBackground">#E4E2E6</item>
 
         <item name="android:windowLightStatusBar">false</item>
         <item name="actionMenuTextColor">@color/colorDarkText</item>
@@ -76,7 +81,7 @@
 
     <style name="ToggleStyle"></style>
 
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="SplashTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/background</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:navigationBarColor">@color/colorLightPrimaryDark</item>
@@ -123,6 +128,65 @@
         <item name="android:contentDescription">@null</item>
     </style>
 
+    <style name="App.CustomActiveIndicator" parent="">
+        <item name="android:color">?attr/colorSecondaryContainer</item>
+    </style>
+
+    <style name="Widget.Science.Expressive.SectionCard" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardElevation">0dp</item>
+        <item name="cardBackgroundColor">?attr/colorSurfaceVariant</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Material3.Corner.Large</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+    </style>
+
+    <style name="Widget.Science.Expressive.SectionHeader" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">24dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="ShapeAppearance.Science.Expressive.Medium" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">24dp</item>
+    </style>
+
+    <style name="ShapeAppearance.Science.Expressive.ExtraLarge" parent="ShapeAppearance.Material3.LargeComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">32dp</item>
+    </style>
+
+    <style name="MostUsedPill" parent="Widget.Material3.Chip.Assist">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Material3.LargeComponent</item>
+    </style>
+
+    <style name="Widget.Science.AI.SuggestionChip" parent="Widget.Material3.Chip.Assist">
+        <item name="chipBackgroundColor">?attr/colorTertiaryContainer</item>
+        <item name="android:textColor">?attr/colorOnTertiaryContainer</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Material3.Corner.Large</item>
+        <item name="chipStrokeWidth">1dp</item>
+    </style>
+
+    <style name="Widget_Material3_Chip_Suggestion_Outlined" parent="Widget.Material3.Chip.Suggestion">
+        <item name="chipBackgroundColor">@android:color/transparent</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="chipStrokeColor">?attr/colorOutline</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Material3.Corner.Large</item>
+    </style>
+
     <declare-styleable name="ShadowView">
         <attr name="shadowDx" format="dimension" />
         <attr name="shadowDy" format="dimension" />
@@ -130,4 +194,39 @@
         <attr name="shadowAlpha" format="integer" />
     </declare-styleable>
 
+    <style name="IonDetailText" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:textIsSelectable">true</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Widget.Science.Expressive.PropertyRow" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+
+    <style name="ShapeAppearance.Science.BottomRounded" parent="ShapeAppearance.Material3.Corner.Small">
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomLeft">16dp</item>
+        <item name="cornerSizeBottomRight">16dp</item>
+    </style>
+
+    <style name="Widget.Science.Solubility.Cell" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/bg_solubility_cell</item>
+        <item name="android:elevation">0dp</item>
+    </style>
 </resources>

@@ -1,0 +1,40 @@
+# Multi-turn sessions. Rows sharing a session replay in turn order against one DialogueState.
+#
+# Slot-emptiness inheritance is what makes "and its density?" work in every language with no pronoun
+# lists. The failure mode it causes is just as important: a *new* question that happens to resolve
+# no field must not silently inherit the last one. That is what produced "Titan:s Atomnummer är 22"
+# in answer to "what is titanium used for".
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+fu-ok-1	fu-a	1	en	what is the density of gold	PROPERTY_LOOKUP	density			
+fu-ok-2	fu-a	2	en	and its melting point	PROPERTY_LOOKUP	melting_point			element inherited
+fu-ok-3	fu-a	3	en	and its boiling point	PROPERTY_LOOKUP	boiling_point			
+fu-ok-4	fu-a	4	en	what about silver	PROPERTY_LOOKUP	boiling_point			field inherited by a bare element
+fu-ok-5	fu-b	1	en	what is the atomic mass of iron	PROPERTY_LOOKUP	atomic_mass			
+fu-ok-6	fu-b	2	en	and copper	PROPERTY_LOOKUP	atomic_mass			
+fu-ok-7	fu-b	3	en	and nickel	PROPERTY_LOOKUP	atomic_mass			
+fu-ok-8	fu-c	1	sv	vad är guldets densitet	PROPERTY_LOOKUP	density			
+fu-ok-9	fu-c	2	sv	och dess smältpunkt	PROPERTY_LOOKUP	melting_point			the same rule works in Swedish with no Swedish-specific data
+fu-ok-10	fu-c	3	sv	och silver	PROPERTY_LOOKUP	melting_point			
+fu-ok-11	fu-d	1	de	was ist die dichte von gold	PROPERTY_LOOKUP	density			
+fu-ok-12	fu-d	2	de	und sein schmelzpunkt	PROPERTY_LOOKUP	melting_point			
+fu-ok-13	fu-e	1	en	melting point of iron in celsius	PROPERTY_LOOKUP	melting_point			
+fu-ok-14	fu-e	2	en	and in fahrenheit	PROPERTY_LOOKUP	melting_point			unit changes, field and element carry over
+fu-ok-15	fu-f	1	en	what is the densest element	SUPERLATIVE	density			
+fu-ok-16	fu-f	2	en	and the second densest	SUPERLATIVE	density			
+# ---- Must NOT inherit ---------------------------------------------------------------------------
+fu-no-1	fx-a	1	en	what is the atomic number of titanium	PROPERTY_LOOKUP	atomic_number			
+fu-no-2	fx-a	2	en	what is titanium used for				y	usage is a new, narrative question
+fu-no-3	fx-b	1	en	what is the density of iron	PROPERTY_LOOKUP	density			
+fu-no-4	fx-b	2	en	who discovered iron	PROPERTY_LOOKUP	discovered_by			resolves its own field; must not inherit density
+fu-no-5	fx-c	1	sv	var finns titan	CATEGORY_LOOKUP		ABUNDANCE		
+fu-no-6	fx-c	2	sv	användning av titan				y	must not inherit the abundance fields
+fu-no-7	fx-d	1	en	what is the melting point of copper	PROPERTY_LOOKUP	melting_point			
+fu-no-8	fx-d	2	en	tell me about copper				y	an overview request is narrative, not the inherited field
+fu-no-9	fx-e	1	en	what is the density of gold	PROPERTY_LOOKUP	density			
+fu-no-10	fx-e	2	en	quiz me				y	conversational; must not inherit anything
+fu-no-11	fx-f	1	en	what is the atomic mass of carbon	PROPERTY_LOOKUP	atomic_mass			
+fu-no-12	fx-f	2	en	what is the biological role of carbon				y	
+fu-no-13	fx-g	1	sv	vad är densitet för järn	PROPERTY_LOOKUP	density			
+fu-no-14	fx-g	2	sv	vem upptäckte järn	PROPERTY_LOOKUP	discovered_by			
+fu-no-15	fx-h	1	en	what is the density of gold	PROPERTY_LOOKUP	density			
+fu-no-16	fx-h	2	en	hello				y	

@@ -1,6 +1,7 @@
 package com.jlindemann.science.activities.tools
 
-import GameResultItem
+import com.jlindemann.science.utils.GameResultItem
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
@@ -16,15 +17,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.google.android.material.card.MaterialCardView
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.activities.tools.FlashCardActivity
 import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
+import com.jlindemann.science.ai.cards.NfpaLabeller
+import com.jlindemann.science.ai.core.AndroidStrings
+import com.jlindemann.science.ai.data.AssetElementSource
+import com.jlindemann.science.ai.data.KnowledgeStore
+import com.jlindemann.science.quiz.GeneratorContext
+import com.jlindemann.science.quiz.QuestionGenerators
 import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.util.XpManager
+import com.jlindemann.science.utils.ExamManager
+import com.jlindemann.science.utils.FlashcardCatalog
 import com.jlindemann.science.utils.StreakManager
 import com.jlindemann.science.views.AnimatedEffectView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import kotlin.math.roundToInt
 
@@ -40,10 +56,19 @@ class LearningGamesActivity : BaseActivity() {
     private var hasLeftGame = false
     private var leaveDialogShowing = false
     private var quizCompleted = false
+    private lateinit var titleBar: UnifiedTitleBarController
     private lateinit var category: String
+    private var exam: FlashcardCatalog.ExamSpec? = null
 
     private val handler = Handler(Looper.getMainLooper())
     private var pendingNextQuestionRunnable: Runnable? = null
+
+    /** Lives forfeited for walking out mid-game. Shared with the warning dialog so they agree. */
+    private val LEAVE_PENALTY_LIVES = 5
+
+    // This project has no lifecycle-runtime-ktx, so no lifecycleScope; MainActivity uses the same
+    // hand-rolled scope.
+    private val quizScope = CoroutineScope(Dispatchers.Main)
 
     // Results tracking
     private val gameResults = mutableListOf<GameResultItem>()
@@ -73,29 +98,52 @@ class LearningGamesActivity : BaseActivity() {
         if (themePrefValue == 1) setTheme(R.style.AppThemeDark)
 
         setContentView(R.layout.activity_learninggames)
-        findViewById<FrameLayout>(R.id.view_learn).systemUiVisibility =
+        findViewById<ConstraintLayout>(R.id.view_learn).systemUiVisibility =
             View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         difficulty = intent.getStringExtra("difficulty") ?: "easy"
         category = intent.getStringExtra("category") ?: "element_symbols"
 
-        totalQuestions = when (difficulty) {
+        exam = FlashcardCatalog.examFor(category)
+
+        totalQuestions = exam?.let {
+            FlashcardCatalog.examQuestionCount(it, difficulty)
+        } ?: when (difficulty) {
             "easy" -> 8
             "medium" -> 16
             "hard" -> 24
             else -> 8
         }
 
-        questions = generateQuestions(category, totalQuestions)
-        if (questions.isEmpty()) {
-
-            return
-        }
-
-        setupQuestionUI()
         updateLivesCount()
         setupAnswerListeners()
-        setupBackButton()
+
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(if (exam != null) R.string.exam_test_title else R.string.flashcards_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { showExitConfirmationDialog() }
+
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
+        //Title Controller
+        findViewById<ScrollView>(R.id.quiz_scroll).viewTreeObserver
+            .addOnScrollChangedListener {
+                val scrollY = findViewById<ScrollView>(R.id.quiz_scroll).scrollY
+                if (scrollY > 150) {
+                    titleSurface.visibility = View.VISIBLE
+                    titleBar.titleView.visibility = View.VISIBLE
+                    titleBar.container.elevation = resources.getDimension(R.dimen.one_elevation)
+                } else {
+                    titleSurface.visibility = View.INVISIBLE
+                    titleBar.titleView.visibility = View.INVISIBLE
+                    titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+                }
+            }
 
         // Register lifecycle-aware OnBackPressedCallback.
         backCallback = object : OnBackPressedCallback(true) {
@@ -121,14 +169,63 @@ class LearningGamesActivity : BaseActivity() {
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
         )
+
+        startQuestionGeneration()
+    }
+
+    /**
+     * Builds the questions off the main thread, then reveals the quiz.
+     *
+     * Comparison games read [KnowledgeStore], whose cold build is a ~1 MB JSON parse plus a typed
+     * parse of 118 records. Doing that inline in onCreate stalled the screen on first entry.
+     */
+    private fun startQuestionGeneration() {
+        showLoading(true)
+        quizScope.launch {
+            val generated = withContext(Dispatchers.IO) { generateQuestions(category, totalQuestions) }
+            if (isFinishing || isDestroyed) return@launch
+
+            if (generated.isEmpty()) {
+                // Previously this returned from onCreate and left a dead, blank screen.
+                showLoading(false)
+                Toast.makeText(this@LearningGamesActivity, R.string.quiz_no_questions, Toast.LENGTH_LONG).show()
+                finish()
+                return@launch
+            }
+
+            questions = generated
+            // A sparse category can yield fewer questions than asked for; the results screen
+            // counts against what was actually asked.
+            totalQuestions = generated.size
+            showLoading(false)
+            setupQuestionUI()
+        }
+    }
+
+    private fun showLoading(loading: Boolean) {
+        findViewById<View>(R.id.quiz_loading).visibility = if (loading) View.VISIBLE else View.GONE
+        findViewById<View>(R.id.quiz_scroll).visibility = if (loading) View.INVISIBLE else View.VISIBLE
+    }
+
+    /** The typed data layer the generator-backed games rank over. Null if the assets fail to load. */
+    private val generatorContext: GeneratorContext? by lazy {
+        val source = AssetElementSource(assets)
+        val store = KnowledgeStore.get(source) ?: return@lazy null
+        val language = com.jlindemann.science.utils.ElementDataLoader.getAppLanguage(this)
+        GeneratorContext(
+            store,
+            KnowledgeStore.overlay(source, language),
+            AndroidStrings(this, language),
+            difficulty
+        )
     }
 
     private fun setupAnswerListeners() {
         val answerCards = listOf(
-            findViewById<LinearLayout>(R.id.answer_1),
-            findViewById<LinearLayout>(R.id.answer_2),
-            findViewById<LinearLayout>(R.id.answer_3),
-            findViewById<LinearLayout>(R.id.answer_4)
+            findViewById<MaterialCardView>(R.id.answer_1),
+            findViewById<MaterialCardView>(R.id.answer_2),
+            findViewById<MaterialCardView>(R.id.answer_3),
+            findViewById<MaterialCardView>(R.id.answer_4)
         )
         answerCards.forEachIndexed { index, card ->
             card.setOnClickListener {
@@ -147,11 +244,6 @@ class LearningGamesActivity : BaseActivity() {
         }
     }
 
-    private fun setupBackButton() {
-        findViewById<ImageButton>(R.id.back_btn_learn).setOnClickListener {
-            showExitConfirmationDialog()
-        }
-    }
 
     override fun onBackPressed() {
         showExitConfirmationDialog()
@@ -159,19 +251,25 @@ class LearningGamesActivity : BaseActivity() {
 
     private fun showExitConfirmationDialog() {
         if (leaveDialogShowing || hasLeftGame) return
+        // Nothing has been played while questions are still generating, so leaving costs nothing —
+        // and finishWithResults would read the uninitialised `questions`.
+        if (!this::questions.isInitialized) {
+            finish()
+            return
+        }
         leaveDialogShowing = true
 
         setBackInterceptionEnabled(true)
 
         val dialog = AlertDialog.Builder(this)
-            .setTitle("Leave Game?")
-            .setMessage("Are you sure you want to leave the game? You will lose 5 lives.")
-            .setPositiveButton("Leave") { _, _ ->
+            .setTitle(R.string.leave_game_title)
+            .setMessage(getString(R.string.leave_game_message, LEAVE_PENALTY_LIVES))
+            .setPositiveButton(R.string.leave_game_confirm) { _, _ ->
                 leaveDialogShowing = false
                 setBackInterceptionEnabled(anyOverlayOpen() || !hasLeftGame)
                 leaveGameAndLoseLives()
             }
-            .setNegativeButton("Stay") { dialogInterface, _ ->
+            .setNegativeButton(R.string.leave_game_stay) { dialogInterface, _ ->
                 leaveDialogShowing = false
                 dialogInterface.dismiss()
                 setBackInterceptionEnabled(anyOverlayOpen() || !hasLeftGame)
@@ -191,7 +289,7 @@ class LearningGamesActivity : BaseActivity() {
         if (!hasLeftGame) {
             hasLeftGame = true
             quizCompleted = false
-            LivesManager.loseLives(this, 5)
+            LivesManager.loseLives(this, LEAVE_PENALTY_LIVES)
             updateLivesCount()
             cleanupPending()
             finishWithResults(forceNotFinished = true)
@@ -251,18 +349,11 @@ class LearningGamesActivity : BaseActivity() {
             findViewById<TextView>(answerIds[i]).text = alt
         }
 
-        if (category == "radioactive") {
-            findViewById<LinearLayout>(R.id.answer_3).visibility = View.GONE
-            findViewById<LinearLayout>(R.id.answer_4).visibility = View.GONE
-        } else if (category == "electrical_type") {
-            findViewById<LinearLayout>(R.id.answer_4).visibility = View.GONE
-        }
-        else if (category == "phase_stp") {
-            findViewById<LinearLayout>(R.id.answer_4).visibility = View.GONE
-        }
-        else {
-            findViewById<LinearLayout>(R.id.answer_3).visibility = View.VISIBLE
-            findViewById<LinearLayout>(R.id.answer_4).visibility = View.VISIBLE
+        // Only show as many cards as the question has alternatives. An exam mixes categories, so
+        // the count varies from question to question and cannot be derived from the category.
+        listOf(R.id.answer_1, R.id.answer_2, R.id.answer_3, R.id.answer_4).forEachIndexed { i, id ->
+            findViewById<MaterialCardView>(id).visibility =
+                if (i < q.alternatives.size) View.VISIBLE else View.GONE
         }
 
         grid.animate().alpha(1f).setDuration(300).start()
@@ -272,10 +363,10 @@ class LearningGamesActivity : BaseActivity() {
 
     private fun setAnswerEnabled(enabled: Boolean) {
         listOf(
-            findViewById<LinearLayout>(R.id.answer_1),
-            findViewById<LinearLayout>(R.id.answer_2),
-            findViewById<LinearLayout>(R.id.answer_3),
-            findViewById<LinearLayout>(R.id.answer_4)
+            findViewById<MaterialCardView>(R.id.answer_1),
+            findViewById<MaterialCardView>(R.id.answer_2),
+            findViewById<MaterialCardView>(R.id.answer_3),
+            findViewById<MaterialCardView>(R.id.answer_4)
         ).forEach {
             it.isEnabled = enabled
         }
@@ -320,6 +411,10 @@ class LearningGamesActivity : BaseActivity() {
         "element_melting_fahrenheit" -> 80
         "earth_crust" -> 120
         "earth_soils" -> 120
+        "nfpa_health" -> 100
+        "nfpa_flammability" -> 100
+        "nfpa_instability" -> 110
+        "nfpa_diamond" -> 150
         else -> 5
     }
 
@@ -341,7 +436,7 @@ class LearningGamesActivity : BaseActivity() {
         gameResults.add(
             GameResultItem(
                 question = q.question,
-                pickedAnswer = if (selectedAnswer == "__TIMEOUT__") "Timeout" else selectedAnswer,
+                pickedAnswer = if (selectedAnswer == "__TIMEOUT__") getString(R.string.answer_timeout) else selectedAnswer,
                 correctAnswer = q.correctAnswer,
                 wasCorrect = correct,
                 baseXp = q.baseXp
@@ -419,13 +514,13 @@ class LearningGamesActivity : BaseActivity() {
         }
     }
 
-    private fun getDifficultyLabel(): String {
-        return when (difficulty) {
-            "medium" -> "Medium"
-            "hard" -> "Hard"
-            else -> "Easy"
+    private fun getDifficultyLabel(): String = getString(
+        when (difficulty) {
+            "medium" -> R.string.medium
+            "hard" -> R.string.hard
+            else -> R.string.easy
         }
-    }
+    )
 
     private fun finishWithResults(forceNotFinished: Boolean = false) {
         cleanupPending()
@@ -435,7 +530,9 @@ class LearningGamesActivity : BaseActivity() {
         val xpElements = gameResults.filter { it.wasCorrect }.sumOf { (it.baseXp * xpMultiplier).roundToInt() }
         val xpGameWin = if (finishedGame) (25 * xpMultiplier).roundToInt() else 0
         val xpPerfect = if (finishedGame && gameResults.all { it.wasCorrect }) (20 * xpMultiplier).roundToInt() else 0
-        val totalXp = xpElements + xpGameWin + xpPerfect
+        val xpExam = if (finishedGame && exam != null)
+            (FlashcardCatalog.EXAM_COMPLETION_XP * xpMultiplier).roundToInt() else 0
+        val totalXp = xpElements + xpGameWin + xpPerfect + xpExam
 
         updateFlashcardAchievements(finishedGame, finishedGame && gameResults.all { it.wasCorrect })
 
@@ -444,12 +541,17 @@ class LearningGamesActivity : BaseActivity() {
             if (gameResults.all { it.wasCorrect }) {
                 XpManager.addGameXp(this, xpPerfect)
             }
+            // Only a finished exam counts; running out of lives partway cannot set a best score.
+            exam?.let {
+                XpManager.addGameXp(this, xpExam)
+                ExamManager.recordResult(this, it.key, gameResults.count { r -> r.wasCorrect }, questions.size)
+            }
         }
 
         // Record a play for streak tracking (this will schedule reminders when streak >= 3)
         StreakManager.recordPlay(this)
 
-        val intent = Intent(this, FlashCardActivity::class.java)
+        val intent = Intent(this, com.jlindemann.science.activities.MainActivity::class.java)
         intent.putParcelableArrayListExtra("game_results", ArrayList(gameResults))
         intent.putExtra("game_finished", finishedGame)
         intent.putExtra("total_questions", totalQuestions)
@@ -458,6 +560,7 @@ class LearningGamesActivity : BaseActivity() {
         intent.putExtra("xp_multiplier", xpMultiplier)
         intent.putExtra("total_xp", totalXp)
         intent.putExtra("category", category)
+        intent.putExtra("show_flashcard_results", true)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)
         finish()
@@ -471,15 +574,16 @@ class LearningGamesActivity : BaseActivity() {
 
         val livesLost = getLivesLost()
 
+        val livesLostText = resources.getQuantityString(R.plurals.lives_lost_result, livesLost, livesLost)
         if (selectedAnswer == "__TIMEOUT__") {
             resultText.text = getString(R.string.time_up)
-            resultSubtext.text = if (livesLost == 1) "Lost 1 life" else "Lost $livesLost lives"
+            resultSubtext.text = livesLostText
         } else if (correct) {
             resultText.text = getString(R.string.correct)
-            resultSubtext.text = if (xpGained > 0) "+${xpGained}xp" else ""
+            resultSubtext.text = if (xpGained > 0) getString(R.string.result_xp_gained, xpGained) else ""
         } else {
             resultText.text = getString(R.string.wrong)
-            resultSubtext.text = if (livesLost == 1) "Lost 1 life" else "Lost $livesLost lives"
+            resultSubtext.text = livesLostText
         }
 
         setBackInterceptionEnabled(true)
@@ -503,14 +607,54 @@ class LearningGamesActivity : BaseActivity() {
             .joinToString(" ") { it.replaceFirstChar { c -> c.uppercase() } }
     }
 
-    private fun generateQuestions(category: String, count: Int): List<Question> {
+    // Built once per game. An exam asks generateQuestions() once per question, and rebuilding 118
+    // ElementData rows each time would be wasteful.
+    private val elementPool: List<ElementData> by lazy {
         val language = com.jlindemann.science.utils.ElementDataLoader.getAppLanguage(this)
-        // Try to load elements in the user's language, fallback to English if not available
-        var elements = loadElementsFromAsset("elements_$language.json")
-        if (elements.isEmpty() && language != "en") {
-            elements = loadElementsFromAsset("elements_en.json")
+        // Shared loader handles the English fallback and caches the ~1 MB parse.
+        loadElementsForLanguage(language).filter { it.element.isNotBlank() }
+    }
+
+    /**
+     * An exam walks a shuffled rotation of every category it covers, so all of them get asked
+     * rather than the mix landing on the same few by chance.
+     */
+    private fun generateExamQuestions(exam: FlashcardCatalog.ExamSpec, count: Int): List<Question> {
+        val pool = FlashcardCatalog.categoriesForExam(exam).map { it.key }
+        if (pool.isEmpty()) return emptyList()
+
+        val questions = mutableListOf<Question>()
+        val asked = mutableSetOf<String>()
+        var order = pool.shuffled()
+        var next = 0
+        var attemptsLeft = count * 8
+
+        while (questions.size < count && attemptsLeft > 0) {
+            attemptsLeft--
+            if (next >= order.size) {
+                order = pool.shuffled()
+                next = 0
+            }
+            val question = generateQuestions(order[next++], 1).firstOrNull() ?: continue
+            if (!asked.add(question.question)) continue
+            questions.add(question)
         }
-        elements = elements.filter { it.element.isNotBlank() }
+        return questions
+    }
+
+    private fun generateQuestions(category: String, count: Int): List<Question> {
+        FlashcardCatalog.examFor(category)?.let { return generateExamQuestions(it, count) }
+
+        // Categories with a registered generator take that path; everything else falls through to
+        // the field-lookup `when` below.
+        QuestionGenerators.forCategory(category)?.let { generator ->
+            val ctx = generatorContext ?: return emptyList()
+            return generator.generate(ctx, count).map {
+                Question(it.question, it.correctAnswer, it.alternatives, it.baseXp)
+            }
+        }
+
+        val elements = elementPool
 
         val questions = mutableListOf<Question>()
         val usedElements = mutableSetOf<String>()
@@ -586,8 +730,9 @@ class LearningGamesActivity : BaseActivity() {
                 "radioactive" -> {
                     val question = getString(R.string.question_radioactive, normalizeLabel(element.element))
                     val isRadioactive = element.radioactive.trim().lowercase() == "yes"
-                    val correct = if (isRadioactive) "Yes" else "No"
-                    val options = listOf("Yes", "No")
+                    // The data is always English "yes"/"no"; only the displayed answer is localized.
+                    val correct = getString(if (isRadioactive) R.string.answer_yes else R.string.answer_no)
+                    val options = listOf(getString(R.string.answer_yes), getString(R.string.answer_no))
                     Triple(question, correct, options)
                 }
                 "atomic_mass" -> {
@@ -716,6 +861,30 @@ class LearningGamesActivity : BaseActivity() {
                     val wrongs = wrongAnswersFor({ it.earth_soils }, correct)
                     Triple(question, correct, (wrongs + correct).distinct().shuffled())
                 }
+                "nfpa_health" -> {
+                    val question = getString(R.string.question_nfpa_health, normalizeLabel(element.element))
+                    val correct = normalizeLabel(healthLabel(element.health))
+                    val wrongs = wrongAnswersFor({ healthLabel(it.health) }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "nfpa_flammability" -> {
+                    val question = getString(R.string.question_nfpa_flammability, normalizeLabel(element.element))
+                    val correct = normalizeLabel(flammabilityLabel(element.flammability))
+                    val wrongs = wrongAnswersFor({ flammabilityLabel(it.flammability) }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "nfpa_instability" -> {
+                    val question = getString(R.string.question_nfpa_instability, normalizeLabel(element.element))
+                    val correct = normalizeLabel(instabilityLabel(element.instability))
+                    val wrongs = wrongAnswersFor({ instabilityLabel(it.instability) }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
+                "nfpa_diamond" -> {
+                    val question = getString(R.string.question_nfpa_diamond, normalizeLabel(element.element))
+                    val correct = normalizeLabel(diamondLabel(element))
+                    val wrongs = wrongAnswersFor({ diamondLabel(it) }, correct)
+                    Triple(question, correct, (wrongs + correct).distinct().shuffled())
+                }
                 "mixed_questions" -> {
                     val categories = listOf(
                         "element_symbols", "element_names", "element_classifications", "discovered_by", "discovery_year",
@@ -756,6 +925,28 @@ class LearningGamesActivity : BaseActivity() {
         return questions
     }
 
+    // NFPA 704 ratings arrive as "0".."4", or blank for the elements that carry no rating. A blank
+    // label makes the generator skip that element rather than inventing a hazard for it.
+    private fun healthLabel(raw: String): String =
+        raw.trim().toIntOrNull()?.let { getString(NfpaLabeller.healthDescription(it)) } ?: ""
+
+    private fun flammabilityLabel(raw: String): String =
+        raw.trim().toIntOrNull()?.let { getString(NfpaLabeller.flammabilityDescription(it)) } ?: ""
+
+    private fun instabilityLabel(raw: String): String =
+        raw.trim().toIntOrNull()?.let { getString(NfpaLabeller.instabilityDescription(it)) } ?: ""
+
+    /** The full diamond, only asked when all three axes are known. */
+    private fun diamondLabel(element: ElementData): String {
+        val health = element.health.trim().toIntOrNull() ?: return ""
+        val flammability = element.flammability.trim().toIntOrNull() ?: return ""
+        val instability = element.instability.trim().toIntOrNull() ?: return ""
+        return getString(
+            R.string.hazard_diamond_answer,
+            health.toString(), flammability.toString(), instability.toString()
+        )
+    }
+
     data class ElementData(
         val element: String,
         val short: String,
@@ -787,15 +978,18 @@ class LearningGamesActivity : BaseActivity() {
         val melting_celsius: String,
         val melting_fahrenheit: String,
         val earth_crust: String,
-        val earth_soils: String
+        val earth_soils: String,
+        val health: String,
+        val flammability: String,
+        val instability: String
     )
 
-    private fun loadElementsFromAsset(filename: String): List<ElementData> {
+    private fun loadElementsForLanguage(language: String): List<ElementData> {
         return try {
-            val json = assets.open(filename).bufferedReader().use { it.readText() }
-            val jsonObject = org.json.JSONObject(json)
+            val jsonObject = com.jlindemann.science.utils.ElementDataLoader
+                .getAllElements(assets, language) ?: return emptyList()
             val elementsList = mutableListOf<ElementData>()
-            
+
             // Iterate over all keys (element names) in the JSON object
             val keys = jsonObject.keys()
             while (keys.hasNext()) {
@@ -833,7 +1027,10 @@ class LearningGamesActivity : BaseActivity() {
                     melting_celsius = obj.optString("element_melting_celsius"),
                     melting_fahrenheit = obj.optString("element_melting_fahrenheit"),
                     earth_crust = obj.optString("earth_crust"),
-                    earth_soils = obj.optString("earth_soils")
+                    earth_soils = obj.optString("earth_soils"),
+                    health = obj.optString("health"),
+                    flammability = obj.optString("flammability"),
+                    instability = obj.optString("instability")
                 ))
             }
             
@@ -846,16 +1043,16 @@ class LearningGamesActivity : BaseActivity() {
 
     override fun updateLivesCount() {
         val proPlusPref = com.jlindemann.science.preferences.ProPlusVersion(this)
-        val isInfinite = proPlusPref.getValue() == 100
+        val isInfinite = proPlusPref.getValue() == 100 || LivesManager.getLives(this) == Int.MAX_VALUE
         val livesTextView = findViewById<TextView>(R.id.tv_lives_count)
         val livesLabelView = findViewById<TextView>(R.id.tv_lives)
         if (isInfinite) {
-            livesTextView.text = "∞"
-            livesLabelView.text = getString(R.string.lives_unlimited)
+            livesTextView?.text = "∞"
+            livesLabelView?.text = getString(R.string.lives_unlimited)
         } else {
             val lives = LivesManager.getLives(this)
-            livesTextView.text = lives.toString()
-            livesLabelView.text = getString(R.string.lives_label, lives.toString())
+            livesTextView?.text = lives.toString()
+            livesLabelView?.text = getString(R.string.lives_label, lives.toString())
         }
     }
 
@@ -887,9 +1084,9 @@ class LearningGamesActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_learn).layoutParams as ViewGroup.LayoutParams
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_learn).layoutParams = params
+        titleBar.container.layoutParams = params
 
         val params2 = findViewById<TextView>(R.id.tv_question_number).layoutParams as ViewGroup.MarginLayoutParams
         params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) +
@@ -1014,7 +1211,7 @@ class LearningGamesActivity : BaseActivity() {
 
         updateLivesCount()
         try {
-            if (!hasLeftGame && currentQuestionIndex < questions.size) {
+            if (!hasLeftGame && this::questions.isInitialized && currentQuestionIndex < questions.size) {
                 setupQuestionUI()
             }
         } catch (_: Exception) { }
@@ -1022,6 +1219,7 @@ class LearningGamesActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        quizScope.cancel()
         cleanupPending()
         backCallback?.remove()
         backCallback = null

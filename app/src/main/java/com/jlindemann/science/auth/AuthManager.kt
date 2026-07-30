@@ -48,6 +48,6 @@ object AuthManager {
             .requestIdToken(webClientId)
             .requestEmail()
             .build()
-        return GoogleSignIn.getClient(activity, gso)
+        return GoogleSignIn.getClient(activity.applicationContext, gso)
     }
 }

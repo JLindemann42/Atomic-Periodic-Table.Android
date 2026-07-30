@@ -1,103 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/toast"
-    android:backgroundTint="?attr/colorSurface"
-    android:elevation="8dp">
+    app:cardElevation="8dp"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:strokeWidth="0dp"
+    app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.LargeComponent">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingVertical="8dp">
 
-        <FrameLayout
+        <TextView
+            android:id="@+id/alphabet_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/half_up_toast"
-                android:backgroundTint="?attr/colorPrimary"
-                android:alpha="0.11"/>
-
-            <TextView
-                android:id="@+id/alphabet_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:clickable="true"
-                android:drawableStart="@drawable/ic_alphab"
-                android:drawablePadding="9dp"
-                android:drawableTint="?attr/colorOnSecondaryContainer"
-                android:focusable="true"
-                android:foreground="@drawable/d_ripple"
-                android:gravity="center_vertical"
-                android:padding="9dp"
-                android:paddingEnd="36dp"
-                android:text="@string/alphabetical"
-                android:textColor="?attr/colorOnSecondaryContainer" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.11"/>
+            android:layout_height="48dp"
+            android:clickable="true"
+            android:drawableStart="@drawable/ic_alphab"
+            android:drawablePadding="12dp"
+            app:drawableTint="?attr/colorOnSurfaceVariant"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            android:text="@string/alphabetical"
+            android:textColor="?attr/colorOnSurfaceVariant" />
 
         <TextView
             android:id="@+id/elmt_numb_btn2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:clickable="true"
             android:drawableStart="@drawable/overview_icon"
-            android:drawablePadding="9dp"
-            android:drawableTint="?attr/colorOnSecondaryContainer"
+            android:drawablePadding="12dp"
+            app:drawableTint="?attr/colorOnSurfaceVariant"
             android:focusable="true"
-            android:foreground="@drawable/d_ripple"
+            android:foreground="?attr/selectableItemBackground"
             android:gravity="center_vertical"
-            android:padding="9dp"
-            android:paddingEnd="36dp"
+            android:paddingHorizontal="16dp"
             android:text="@string/element_number"
-            android:textColor="?attr/colorOnSecondaryContainer" />
-
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/half_down_toast"
-            android:backgroundTint="?attr/colorPrimary"
-            android:alpha="0.11"/>
+            android:textColor="?attr/colorOnSurfaceVariant" />
 
         <TextView
             android:id="@+id/electro_btn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="18dp"
+            android:layout_height="48dp"
             android:clickable="true"
             android:drawableStart="@drawable/fav_electronegativity"
-            android:drawablePadding="9dp"
-            android:drawableTint="?attr/colorOnSecondaryContainer"
+            android:drawablePadding="12dp"
+            app:drawableTint="?attr/colorOnSurfaceVariant"
             android:focusable="true"
-            android:foreground="@drawable/d_ripple"
+            android:foreground="?attr/selectableItemBackground"
             android:gravity="center_vertical"
-            android:padding="9dp"
-            android:paddingEnd="36dp"
-            android:text="electronegativity"
-            android:textColor="?attr/colorOnSecondaryContainer" />
-
-        </FrameLayout>
+            android:paddingHorizontal="16dp"
+            android:text="Electronegativity"
+            android:textColor="?attr/colorOnSurfaceVariant" />
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

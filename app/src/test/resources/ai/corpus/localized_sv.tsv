@@ -1,0 +1,130 @@
+# Swedish across every question shape, including inflected forms.
+#
+# Swedish is the locale the bug reports came from and the one with the widest string gap — 97 of 320
+# agent strings had no translation, so answers fell back to English mid-sentence. It also inflects
+# heavily: "guldets densitet", "smältpunkten", "ädelgaserna" all carry suffixes the matchers have to
+# tolerate, and the definite plural "-erna" is what made "Vilka är ädelgaserna?" miss entirely.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+sv-dens-1			sv	vad är guldets densitet	PROPERTY_LOOKUP	density			genitive on the element name
+sv-dens-2			sv	vad är densiteten för guld	PROPERTY_LOOKUP	density			definite form of the property
+sv-dens-3			sv	hur tätt är guld	PROPERTY_LOOKUP	density			
+sv-dens-4			sv	densitet för bly	PROPERTY_LOOKUP	density			
+sv-dens-5			sv	vad är järnets densitet	PROPERTY_LOOKUP	density			
+sv-dens-6			sv	hur tät är osmium	PROPERTY_LOOKUP	density			
+sv-melt-1			sv	vad är smältpunkten för guld	PROPERTY_LOOKUP	melting_point			
+sv-melt-2			sv	vad är guldets smältpunkt	PROPERTY_LOOKUP	melting_point			
+sv-melt-3			sv	vid vilken temperatur smälter volfram	PROPERTY_LOOKUP	melting_point			
+sv-melt-4			sv	smältpunkt för järn i celsius	PROPERTY_LOOKUP	melting_point			
+sv-melt-5			sv	smältpunkten för koppar	PROPERTY_LOOKUP	melting_point			
+sv-boil-1			sv	vad är kokpunkten för guld	PROPERTY_LOOKUP	boiling_point			
+sv-boil-2			sv	kokpunkt för kväve	PROPERTY_LOOKUP	boiling_point			
+sv-boil-3			sv	vid vilken temperatur kokar syre	PROPERTY_LOOKUP	boiling_point			
+sv-z-1			sv	vad är atomnummer för guld	PROPERTY_LOOKUP	atomic_number			
+sv-z-2			sv	vad är guldets atomnummer	PROPERTY_LOOKUP	atomic_number			
+sv-z-3			sv	atomnummer för titan	PROPERTY_LOOKUP	atomic_number			
+sv-z-4			sv	hur många protoner har kol	PROPERTY_LOOKUP	protons			
+sv-z-5			sv	hur många elektroner har neon	PROPERTY_LOOKUP	electrons			
+sv-mass-1			sv	vad är atommassan för guld	PROPERTY_LOOKUP	atomic_mass			
+sv-mass-2			sv	atommassa för klor	PROPERTY_LOOKUP	atomic_mass			
+sv-mass-3			sv	vad väger en uranatom	PROPERTY_LOOKUP	atomic_mass			
+sv-sym-1			sv	vad är symbolen för guld	PROPERTY_LOOKUP	symbol			
+sv-sym-2			sv	vilken kemisk symbol har volfram	PROPERTY_LOOKUP	symbol			
+sv-eneg-1			sv	vad är elektronegativiteten för guld	PROPERTY_LOOKUP	electronegativity			
+sv-eneg-2			sv	elektronegativitet för fluor	PROPERTY_LOOKUP	electronegativity			
+sv-config-1			sv	vad är elektronkonfigurationen för guld	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+sv-config-2			sv	elektronkonfiguration för järn	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+sv-config-3			sv	hur är kalciums elektroner ordnade	PROPERTY_LOOKUP	electron_configuration	ELECTRON_SHELL		
+sv-shell-1			sv	vilka elektronskal har guld	PROPERTY_LOOKUP	electron_shells	ELECTRON_SHELL		
+sv-radius-1			sv	vad är atomradien för guld	PROPERTY_LOOKUP	atomic_radius			
+sv-radius-2			sv	atomradie för cesium	PROPERTY_LOOKUP	atomic_radius			
+sv-ion-1			sv	vad är joniseringsenergin för guld	PROPERTY_LOOKUP	ionization_energy	IONIZATION_SERIES		
+sv-ion-2			sv	första joniseringsenergin för natrium	PROPERTY_LOOKUP	ionization_energy	IONIZATION_SERIES		
+sv-cond-1			sv	vad är värmeledningsförmågan för guld	PROPERTY_LOOKUP	thermal_conductivity			
+sv-cond-2			sv	hur bra leder koppar värme	PROPERTY_LOOKUP	thermal_conductivity			
+sv-resist-1			sv	vad är resistiviteten för guld	PROPERTY_LOOKUP	resistivity			
+sv-crystal-1			sv	vilken kristallstruktur har guld	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		
+sv-crystal-2			sv	kristallstruktur för järn	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		
+sv-poisson-1			sv	vad är poissons tal för guld	PROPERTY_LOOKUP	poisson_ratio	POISSON_BAND		
+sv-hard-1			sv	vad är hårdheten för guld enligt mohs	PROPERTY_LOOKUP	mohs_hardness			
+sv-oxid-1			sv	vilka oxidationstal har mangan	PROPERTY_LOOKUP	oxidation_states			
+sv-phase-1			sv	vilken fas har guld	PROPERTY_LOOKUP	phase			an enum whose Swedish value exists in the asset
+sv-phase-2			sv	vilket tillstånd har kvicksilver	PROPERTY_LOOKUP	phase			
+sv-appear-1			sv	hur ser guld ut	PROPERTY_LOOKUP	appearance			a localized text field
+sv-appear-2			sv	vilken färg har koppar	PROPERTY_LOOKUP	appearance			
+sv-electype-1			sv	vilken elektrisk typ har guld	PROPERTY_LOOKUP	electrical_type			
+sv-magtype-1			sv	vilken magnetisk typ har järn	PROPERTY_LOOKUP	magnetic_type			
+sv-radio-1			sv	är guld radioaktivt	PROPERTY_LOOKUP	radioactive			
+sv-radio-2			sv	är uran radioaktivt	PROPERTY_LOOKUP	radioactive			
+sv-block-1			sv	vilket block tillhör guld	PROPERTY_LOOKUP	block			
+sv-period-1			sv	vilken period är guld i	PROPERTY_LOOKUP	period			
+sv-group-1			sv	vilken grupp tillhör klor	PROPERTY_LOOKUP	group_number			
+sv-series-1			sv	vilken grundämnesgrupp tillhör argon	PROPERTY_LOOKUP	series			
+sv-year-1			sv	när upptäcktes radium	PROPERTY_LOOKUP	year_discovered			
+sv-year-2			sv	vilket år upptäcktes helium	PROPERTY_LOOKUP	year_discovered			
+sv-disc-1			sv	vem upptäckte radium	PROPERTY_LOOKUP	discovered_by			
+sv-disc-2			sv	vem upptäckte syre	PROPERTY_LOOKUP	discovered_by			
+sv-disc-3			sv	vem upptäckte järn	PROPERTY_LOOKUP	discovered_by			no recorded discoverer; the answer must say so in Swedish
+sv-cas-1			sv	vad är cas-nummer för guld	PROPERTY_LOOKUP	cas_number			
+sv-abund-1			sv	hur mycket guld finns i jordskorpan	PROPERTY_LOOKUP				the label is a prepositional phrase, so it must not be dropped into a genitive sentence — abundance_earth_crust is unpopulated for gold
+sv-abund-2			sv	hur mycket guld finns i havsvatten	PROPERTY_LOOKUP	abundance_sea_water	ABUNDANCE		
+sv-abund-3			sv	hur mycket järn finns i människokroppen	PROPERTY_LOOKUP	abundance_human_body	ABUNDANCE		
+sv-abund-4			sv	förekomst av syre i jordskorpan	PROPERTY_LOOKUP				abundance_earth_crust is unpopulated for oxygen
+sv-sup-1			sv	vilket grundämne är tätast	SUPERLATIVE	density			
+sv-sup-2			sv	vilket grundämne har högsta smältpunkten	SUPERLATIVE	melting_point			
+sv-sup-3			sv	vilket grundämne har lägsta densiteten	SUPERLATIVE	density			
+sv-sup-4			sv	vilket grundämne är mest elektronegativt	SUPERLATIVE	electronegativity			
+sv-sup-5			sv	tätaste ickemetallen	SUPERLATIVE	density			
+sv-sup-6			sv	vilken övergångsmetall har högsta smältpunkten	SUPERLATIVE	melting_point			
+sv-sup-7			sv	andra tätaste grundämnet	SUPERLATIVE	density			
+sv-sup-8			sv	tyngsta naturligt förekommande grundämnet	SUPERLATIVE	atomic_mass			
+sv-fil-1			sv	vilka grundämnen är radioaktiva	FILTER_LIST				
+sv-fil-2			sv	vilka är ädelgaserna	FILTER_LIST				definite plural: the form that used to miss
+sv-fil-3			sv	lista ädelgaserna	FILTER_LIST				
+sv-fil-4			sv	vilka är halogenerna	FILTER_LIST				
+sv-fil-5			sv	vilka är alkalimetallerna	FILTER_LIST				
+sv-fil-6			sv	vilka är övergångsmetallerna	FILTER_LIST				
+sv-fil-7			sv	vilka är lantaniderna	FILTER_LIST				
+sv-fil-8			sv	vilka grundämnen är tätare än järn	FILTER_LIST	density			
+sv-fil-9			sv	vilka grundämnen smälter över 2000 kelvin	FILTER_LIST	melting_point			
+sv-fil-10			sv	vilka grundämnen smälter mellan 1000 och 2000 kelvin	FILTER_LIST	melting_point			
+sv-fil-11			sv	vilka grundämnen är i samma grupp som kol	FILTER_LIST				
+sv-fil-12			sv	vilka ädelgaser är inte radioaktiva	FILTER_LIST				
+sv-agg-1			sv	hur många grundämnen finns det	AGGREGATE				
+sv-agg-2			sv	hur många ädelgaser finns det	AGGREGATE				
+sv-agg-3			sv	vad är genomsnittlig elektronegativitet för halogenerna	AGGREGATE	electronegativity			
+sv-agg-4			sv	mediandensitet för övergångsmetallerna	AGGREGATE	density			
+sv-cmp-1			sv	jämför guld och silver	COMPARISON				
+sv-cmp-2			sv	jämför densiteten för guld och bly	COMPARISON	density			
+sv-cmp-3			sv	är guld tätare än bly	COMPARATIVE	density			
+sv-cmp-4			sv	vilket är tätare guld eller bly	COMPARATIVE	density			
+sv-cmp-5			sv	hur mycket tätare är guld än aluminium	COMPARATIVE	density			
+sv-cmp-6			sv	vad är skillnaden mellan guld och silver	COMPARISON				
+sv-iso-1			sv	vilka isotoper har kol	ISOTOPES		ISOTOPE_DECAY		
+sv-iso-2			sv	isotoper av uran	ISOTOPES		ISOTOPE_DECAY		
+sv-iso-3			sv	vad är halveringstiden för kol 14	ISOTOPES		ISOTOPE_DECAY		
+sv-iso-4			sv	har guld en stabil isotop	ISOTOPES		ISOTOPE_DECAY		
+sv-nuc-1			sv	hur många neutroner har uran 238	NUCLIDE_COUNT				
+sv-nuc-2			sv	neutroner i kol 14	NUCLIDE_COUNT				
+sv-saf-1			sv	är arsenik farligt	SAFETY		NFPA_DIAMOND		
+sv-saf-2			sv	är kvicksilver giftigt	SAFETY		NFPA_DIAMOND		
+sv-saf-3			sv	vilka risker har klor	SAFETY				chlorine has no NFPA ratings recorded
+sv-calc-1			sv	vad är molmassan för H2SO4	FORMULA_MASS				
+sv-calc-2			sv	molmassa för vatten H2O	FORMULA_MASS				
+sv-calc-3			sv	hur många atomer finns i 2 mol kol	MOLE_CONVERSION				
+sv-cat-1			sv	vilka termiska egenskaper har guld	CATEGORY_LOOKUP				
+sv-cat-2			sv	var finns guld	CATEGORY_LOOKUP		ABUNDANCE		
+sv-cat-3			sv	vilka mekaniska egenskaper har volfram	CATEGORY_LOOKUP				
+sv-nei-1			sv	vilket grundämne kommer efter guld	NEIGHBOUR				
+sv-nei-2			sv	vilket grundämne kommer före järn	NEIGHBOUR				
+sv-dict-1			sv	vad är elektronegativitet	DATASET_LOOKUP				dictionary table
+sv-dict-2			sv	vad är en isotop	DATASET_LOOKUP				dictionary table
+sv-dict-3			sv	vad är masstal	DATASET_LOOKUP				dictionary table
+sv-dict-4			sv	varför ökar atomradien nedåt i en grupp	DATASET_LOOKUP				dictionary explanation
+sv-elem-1			sv	vad är väte för grundämne	PROPERTY_LOOKUP	series			short element name, 4 characters
+sv-elem-2			sv	vad är syrets densitet	PROPERTY_LOOKUP	density			short name plus genitive
+sv-elem-3			sv	vad är kvävets atommassa	PROPERTY_LOOKUP	atomic_mass			
+sv-elem-4			sv	vad är kislets smältpunkt	PROPERTY_LOOKUP	melting_point			
+sv-elem-5			sv	vad är tennets densitet	PROPERTY_LOOKUP	density			
+sv-elem-6			sv	vad är blyets smältpunkt	PROPERTY_LOOKUP	melting_point			
+sv-elem-7			sv	vad är kvicksilvrets kokpunkt	PROPERTY_LOOKUP	boiling_point			
+sv-elem-8			sv	vad är volframets smältpunkt	PROPERTY_LOOKUP	melting_point			

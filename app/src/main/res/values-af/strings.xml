@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Atomic</string>
     <string name="personalization_settings">Personalisering</string>
@@ -277,6 +277,134 @@
     <string name="dictionary">Woordeboek</string>
     <string name="dictionary_search">Soek na Woordeboekitem</string>
     <string name="element_info_title">Element Inligting</string>
+    <string name="ask_atomic">Vra Atomic</string>
+    <string name="ai_hint">Vra my enigiets...</string>
+    <string name="ai_lang_switched">AI-taal verander na: %1$s 🌐</string>
+    <string name="ai_no_data">Hmm, ek kon nie inligting daaroor vind nie. Probeer vra oor \'n element soos \'suurstof\' of \'goud\'!</string>
+    <string name="ai_related_label">Verwante inligting:</string>
+    <string name="ai_related_offer">Ek het plaaslike verwante inligting gevind. Vra \'wys verwante\' om dit te sien.</string>
+    <string name="ai_related_offer_lang">Ek het plaaslike verwante inligting gevind maar nie in die gekose taal nie. Probeer om die taal te verander of vra in elk geval.</string>
+    <string name="ai_greeting">Haai daar! 👋 Ek is jou chemie-buddy. Vra my enigiets oor elemente!</string>
+    <string name="ai_encouragement">Goeie vraag! 🌟</string>
+    <string name="ai_comparing_title">Vergelyk %1$s:</string>
+    <string name="ai_higher_than">%1$s het \'n hoër %2$s as %3$s.</string>
+    <string name="ai_lower_than">%1$s het \'n laer %2$s as %3$s.</string>
+    <string name="ai_same_value">Albei het dieselfde %1$s!</string>
+    <string name="ai_property_is">%1$s se %2$s is %3$s.</string>
+    <string name="ai_recap_is">Net om te herhaal, %1$s se %2$s is %3$s.</string>
+    <string name="ai_no_property_data">Jammer, ek het nie tans die data vir %1$s se %2$s nie.</string>
+    <string name="ai_appears_as">%1$s lyk soos: %2$s</string>
+    <string name="ai_discovered_by">%1$s is ontdek deur %2$s in %3$s.</string>
+    <string name="ai_discovered_in">%1$s is ontdek in %2$s.</string>
+    <string name="ai_radioactive_yes">%1$s is radioaktief: %2$s</string>
+    <string name="ai_radioactive_no">%1$s word algemeen as stabiel beskou en nie radioaktief nie.</string>
+    <string name="ai_molar_mass_of">Die molêre massa van %1$s is %2$s.</string>
+    <string name="ai_quiz_correct">✨ **Korrek!** Wel gedaan. Die antwoord was inderdaad **%1$s**. Gereed vir nog \'n vraag?</string>
+    <string name="ai_quiz_wrong">Nie heeltemal nie! Die antwoord was **%1$s**. Wil jy nog een probeer? Sê net \'quiz\'!</string>
+    <string name="ai_quiz_start">Ek dink aan \'n element. Sy simbool is **%1$s**. Wat is sy naam?</string>
+    <string name="ai_quiz_atomic">Watter element het die atoomgetal **%1$s**?</string>
+    <string name="ai_quiz_history">Hierdie element is ontdek deur **%1$s** in **%2$s**. Kan jy raai watter een dit is?</string>
+    <string name="ai_superlative_result">Die element met die %1$s %2$s is **%3$s**, met \'n waarde van %4$s.</string>
+    <string name="ai_trend_electronegativity">Elektronegatiwiteit neem gewoonlik toe van links na regs oor \'n periode en neem af afwaarts in \'n groep. Fluoor is die kampioen hier!</string>
+    <string name="ai_trend_radius">Atoomradius neem af oor \'n periode (links na regs) omdat die kern elektrone stywer trek, en neem toe afwaarts in \'n groep namate meer skille bygevoeg word.</string>
+    <string name="ai_trend_ionization">Ionisasie-energie neem toe oor \'n periode en neem af afwaarts in \'n groep. Dit word moeiliker om \'n elektron weg te trek namate jy na regs beweeg!</string>
+    <string name="ai_trend_metallic">Metaalkarakter neem af oor \'n periode en neem toe afwaarts in \'n groep. Die mees metaalagtige elemente is links onder (soos Fransium).</string>
+    <string name="ai_trend_general">Periodieke tendense is patrone in die eienskappe van elemente! Oor watter tendens is jy nuuskierig: Atoomradius, Elektronegatiwiteit, of Ionisasie-energie?</string>
+    <string name="ai_formula_h2o">H2O is water! Dit is gemaak van twee Waterstofatome en een Suurstofatoom.</string>
+    <string name="ai_formula_co2">CO2 is Koolstofdioksied. Dit is saamgestel uit een Koolstofatoom and twee Suurstofatome.</string>
+    <string name="ai_formula_nacl">NaCl is Natriumchloried, beter bekend as tafelsout! Dit kombineer Natrium en Chloor.</string>
+    <string name="ai_formula_o2">O2 is die suurstof wat ons inasem! Dit is twee suurstofatome wat aanmekaar gebind is.</string>
+    <string name="ai_formula_ch4">CH4 is Metaan, die eenvoudigste alkaan en \'n kragtige kweekhuisgas. Dit is een Koolstof en vier Waterstowwe.</string>
+    <string name="ai_formula_nh3">NH3 is Ammoniak, wat dikwels in skoonmaakmiddels gebruik word. Dit is een Stikstof en drie Waterstowwe.</string>
+    <string name="ai_formula_c6h12o6">C6H12O6 is Glukose, \'n eenvoudige suiker wat energie aan lewende dinge verskaf. Dit het 6 Koolstowwe, 12 Waterstowwe, en 6 Suurstowwe.</string>
+    <string name="ai_formula_h2so4">H2SO4 is Swawelsuur, \'n baie sterk en belangrike industriële suur. Dit bevat Waterstof, Swawel en Suurstof.</string>
+    <string name="ai_formula_hcl">HCl is Soutsuur, wat eintlik in jou maag gevind word om met vertering te help!</string>
+    <string name="ai_formula_generic">Ek herken dat dit soos \'n chemiese formule lyk, maar ek leer nog oor molekules! Vra my oor die individuele elemente.</string>
+    <string name="ai_series_alkali">Alkalimetale is in Groep 1. Hulle is baie reaktief en het een elektron in hul buitenste skil. Voorbeelde sluit in Litium, Natrium en Kalium.</string>
+    <string name="ai_series_halogen">Halogene is in Groep 17. Hulle is hoogs reaktiewe nie-metale. Fluoor en Chloor is die bekendstes!</string>
+    <string name="ai_series_noble_gas">Edelgasse is in Groep 18. Hulle is baie stabiel en reageer selde met ander elemente omdat hul buitenste skille vol is.</string>
+    <string name="ai_series_lanthanide">Lantanoiede is die 15 elemente met atoomgetalle 57 tot 71. Hulle word ook \'seldsame aardelemente\' genoem.</string>
+    <string name="ai_series_actinide">Aktinoiede is die 15 elemente met atoomgetalle 89 tot 103. Hulle is almal radioaktief!</string>
+    <string name="ai_series_transition">Oorgangsmetale is die elemente in groepe 3-12. Hulle is goeie geleiers en vorm dikwels kleurvolle verbindings.</string>
+    <string name="ai_series_metalloid">Metalloïede het eienskappe van beide metale en nie-metale. Hulle word langs die \'trap\' van die periodieke tabel gevind.</string>
+    <string name="ai_series_generic">Ek is bekend met daardie reeks! Hulle het unieke chemiese eienskappe. Van watter spesifieke element in daardie reeks wil jy graag weet?</string>
+    <string name="ai_block_s">Die s-blok bestaan uit die eerste twee groepe: alkalimetale, aardalkalimetale, plus waterstof en helium.</string>
+    <string name="ai_block_p">Die p-blok bevat groepe 13 tot 18, insluitend alle nie-metale (behalwe H en He), metalloïede en post-oorgangsmetale.</string>
+    <string name="ai_block_d">Die d-blok bevat die oorgangsmetale van groepe 3 tot 12.</string>
+    <string name="ai_block_f">Die f-blok bevat die lantanoiede- en aktinoiede-reekse, wat gewoonlik onder die hooftabel gewys word.</string>
+    <string name="ai_block_generic">Ek is nie seker watter blok jy bedoel nie. Ek weet van s, p, d en f blokke!</string>
+    <string name="ai_molar_mass_generic">Ek kan help met molêre massas! Probeer vra "Wat is die molêre massa van H2O?"</string>
+    <string name="ai_superlative_generic">Dit is \'n goeie vraag! Ek kan die mees digte, swaarste of mees elektronegatiewe elemente vind. Watter een wil jy weet?</string>
+    <string name="ai_superlative_no_calculate">Ek kon dit nie nou bereken nie.</string>
+    <string name="highest">hoogste</string>
+    <string name="lowest">laagste</string>
+    <string name="ai_rich_overview_basic_facts">Basiese Feite</string>
+    <string name="ai_rich_overview_where_found">Waar word %1$s gevind?</string>
+    <string name="ai_rich_overview_applications">Toepassings en Gebruike</string>
+    <string name="ai_rich_overview_etymology">Oorsprong en Geskiedenis</string>
+    <string name="ai_rich_overview_biological">Biologiese Rol</string>
+    <string name="ai_rich_overview_properties">Eienskappe</string>
+    <string name="ai_rich_overview_advanced">Gevorderde Atoomdata</string>
+    <string name="ai_rich_overview_safety">Veiligheid en Gevare</string>
+    <string name="ai_rich_overview_isotopes">Bekende Isotope</string>
+    <string name="ai_rich_overview_compounds">Algemene Verbindings</string>
+    <string name="ai_element_overview_intro">%1$s %2$s (%3$s) is \'n fassinerende element! Dit is atoomgetal %4$s en behoort aan die %5$s groep.</string>
+    <string name="ai_element_overview_series"> Dit is deel van die %1$s-reeks.</string>
+    <string name="ai_element_overview_appearance"> Dit verskyn gewoonlik as: %1$s.</string>
+    <string name="ai_element_overview_isotopes"> \'n Atoom van %1$s bevat %2$s protone, %3$s elektrone, en gewoonlik %4$s neutrone.</string>
+    <string name="ai_element_overview_electrons"> Dit het %1$s elektrone wat om sy kern wentel.</string>
+    <string name="ai_technical_mass"> Sy presiese atoommassa is %1$s.</string>
+    <string name="ai_technical_config"> Dit het \'n elektronkonfigurasie van %1$s.</string>
+    <string name="ai_list_header">Hier is die **%1$s** elemente:</string>
+    <string name="ai_no_list_data">Ek kon geen elemente in ons databasis vind wat aan daardie kriteria voldoen nie.</string>
+    <string name="ai_pro_tip_hint">Pro-wenk: Jy kan my ook vra oor sy oorsprong, biologiese rol, of reaktiwiteit!</string>
+    <string name="ai_bio_role_header">Wat sy biologiese rol betref, hier is wat ek oor **%1$s** gevind het:</string>
+    <string name="ai_no_bio_data">Ek het nie gedetailleerde biologiese data vir %1$s nie, maar standaard veiligheid sê:</string>
+    <string name="ai_etymology_header">Die naam **%1$s** het \'n interessante oorsprong:</string>
+    <string name="ai_no_etymology_data">Ek is nie presies seker oor die wortel van sy naam nie, maar dit is ontdek deur %2$s in %3$s.</string>
+    <string name="ai_reaction_alkali_water">Alkalimetale soos %1$s reageer **heftig** met water, wat waterstofgas en \'n sterk basis produseer. Dit kan selfs ontplof!</string>
+    <string name="ai_reaction_magnesium_water">%1$s reageer stadig met koue water maar vinnig met stoom.</string>
+    <string name="ai_reaction_alkaline_earth_water">%1$s reageer kragtig met water om waterstofgas en sy hidroksied te vorm.</string>
+    <string name="ai_reaction_generic_water">Ek het nie spesifieke data vir %1$s se reaksie met water nie, maar baie metale vorm oksiede of hidroksiede oor tyd.</string>
+    <string name="ai_reaction_oxygen">Die meeste elemente reageer met suurstof om oksiede te vorm. Byvoorbeeld, metale soos %1$s vorm dikwels \'n beskermende laag of roes.</string>
+    <string name="ai_reaction_acid">Baie metale reageer met sure om waterstofgas vry te stel. %1$s se reaktiwiteit hang af van sy posisie in die aktiwiteitsreeks.</string>
+    <string name="ai_reaction_complex">Reaksies kan kompleks wees! In die algemeen hang die gedrag van %1$s af van sy groep (%2$s) en elektronegatiwiteit.</string>
+    <string name="ai_reaction_alkali_halogen">Hierdie reageer heftig om \'n **sout** (\'n ioniese verbinding) te vorm. Byvoorbeeld, %1$s en %2$s kan kombineer om \'n unieke verbinding te maak!</string>
+    <string name="ai_reaction_noble_gas">%1$s is \'n edelgas en is uiters stabiel, en reageer selde met enigiets omdat dit \'n vol buitenste skil het.</string>
+    <string name="ai_reaction_generic_elements">Die reaksie tussen %1$s en %2$s hang af van hul elektronkonfigurasies. Hulle kan \'n verbinding vorm as een kan skenk en die ander elektrone kan aanvaar!</string>
+    <string name="ai_personalized_greeting_interest">Welkom terug! Gereed om meer oor %1$s te verken? Ons kan weer na %2$s kyk.</string>
+    <string name="ai_personalized_greeting_fav">Haai! Ek onthou jy het onlangs na %1$s gekyk. Wil jy meer besonderhede sien?</string>
+    <string name="ai_usage_header">Hier is \'n paar algemene toepassings en feite oor **%1$s**:</string>
+    <string name="ai_no_usage_data">Ek het nie \'n spesifieke lys van gebruike vir %1$s nie, maar dit is \'n fassinerende element! Jy kan meer lees in die gedetailleerde beskrywing.</string>
+    <string name="ai_abundance_header">Hier is die oorvloedsdata vir **%1$s** uit die toepassing se databasis:</string>
+    <string name="ai_no_abundance_data">Ek het nie spesifieke numeriese oorvloedswaardes vir %1$s nie, maar die beskrywing sê: %2$s.</string>
+    <string name="ai_physical_header">Gebaseer op die fisiese eienskappe wat in die toepassing gestoor is vir **%1$s**:</string>
+    <string name="ai_no_physical_data">Ek het nie gedetailleerde fisiese eienskappe vir %1$s in die vinnige-toegang data nie, maar jy kan die gedetailleerde eienskappepanele nagaan!</string>
+    <string name="ai_isotope_header">Volgens die toepassing se isotooptabel, hier is die sleutelisotope vir **%1$s**:</string>
+    <string name="ai_no_isotope_data">Ek het nie \'n gedetailleerde lys van isotope vir %1$s in my vinnige-toegang data nie, maar jy kan \'n omvattende lys in die Isotooptabel vind!</string>
+    <string name="iso_half_life_colon">Halfleeftyd:</string>
+    <string name="ai_oxidation_states">**%1$s** het verskeie moontlike oksidasietoestande.</string>
+    <string name="ai_radius_details">Hier is die radiusbesonderhede vir **%1$s**:</string>
+    <string name="ai_thermal_properties">Termiese eienskappe van **%1$s**:</string>
+    <string name="ai_elec_mag_properties">Elektriese en magnetiese eienskappe van **%1$s**:</string>
+    <string name="ai_identifiers_for">Identifiseerders vir **%1$s**:</string>
+    <string name="ai_valence_alkali">As \'n alkalimetaal het dit **1 valenselektron** in sy buitenste skil.</string>
+    <string name="ai_valence_alkaline">As \'n aardalkalimetaal het dit **2 valenselektrone**.</string>
+    <string name="ai_valence_halogen">As \'n halogeen het dit **7 valenselektrone** en is baie gretig om nog een by te kry!</string>
+    <string name="ai_valence_noble_helium">Helium het **2 valenselektrone**, wat sy enigste skil voltooi.</string>
+    <string name="ai_valence_noble_other">Dit het \'n vol buitenste skil met **8 valenselektrone**, wat dit baie stabiel maak.</string>
+    <string-array name="ai_facts">
+        <item>Het jy geweet? Suurstof is die mees oorvloedige element in die aardkors!</item>
+        <item>Prettige feit: Goud roes of korrodeer nooit nie. Dit bly vir ewig blink!</item>
+        <item>Hier is iets koel: Waterstof is die mees oorvloedige element in die heelal! 🌌</item>
+        <item>Verbasend: Koolstof is die basis vir alle bekende lewe op aarde!</item>
+        <item>Interessant: Helium is die enigste element wat nie onder normale druk stol nie!</item>
+        <item>Prettige feit: Kwik is die enigste metaal wat vloeibaar is by kamertemperatuur! 💧</item>
+        <item>Het jy geweet? Die element frankium is so radioaktief dat dit onmiddellik sal verdamp!</item>
+        <item>Koel: Diamant en grafiet is albei gemaak van suiwer koolstof, maar het heeltemal verskillende eienskappe!</item>
+        <item>Verbasend: \'n Enkele ons goud kan in \'n plaat van 300 vierkante voet geslaan word!</item>
+        <item>Interessant: Neon vorm eintlik geen chemiese verbindings onder normale toestande nie!</item>
+    </string-array>
     <string name="submit_data_issue">Dien Data-probleem in</string>
     <string name="unit_converter_title">Eenheidsomskakelaar</string>
     <string name="unit_enter_value">Waarde</string>
@@ -482,8 +610,6 @@
     <string name="melting_point_colon">Smeltpunt:</string>
     <string name="most_advanced">Mees Gevorderd</string>
     <string name="new_label">Nuut</string>
-    <string name="next_life_in">Volgende lewe in %1$d minute en %2$d sekondes.
-Jy sal %3$d lewe%4$s kry.</string>
     <string name="no_image">Geen beeld</string>
     <string name="non_pro">NIE-PRO</string>
     <string name="option_placeholder">Option %d</string>
@@ -616,7 +742,7 @@ Jy sal %3$d lewe%4$s kry.</string>
     <string name="share_app_description">As jy die toep nuttig vind, deel dit asseblief met jou vriende en ander!</string>
     <string name="sync_data">Sinchroniseer data:</string>
     <string name="young_bulk_shear_modulus">Young-, bulk-, skuifmodulus:</string>
-<string name="intro_welcome_title">Welkom by Atomic</string>
+    <string name="intro_welcome_title">Welkom by Atomic</string>
     <string name="intro_welcome_description">Jou omvattende periodieke tabel-verwysing met gedetailleerde elementinligting, interaktiewe gereedskap en leerfunksies.</string>
     <string name="intro_flashcards_title">Leer met Flitskaarte</string>
     <string name="intro_flashcards_description">Bemeester die periodieke tabel met interaktiewe flitskaarte. Toets jou kennis van elementsimbole, atoommassas en chemiese eienskappe.</string>
@@ -629,4 +755,457 @@ Jy sal %3$d lewe%4$s kry.</string>
     <string name="intro_finish">Begin</string>
     <string name="intro_image_description">Inleidingsbeeld</string>
     <string name="electron_affinity_colon">Elektronaffiniteit:</string>
-    </resources>
+    <string name="abundance_human_body">In menslike liggaam</string>
+    <string name="abundance_meteorites">In meteoriete</string>
+    <string name="account">Rekening</string>
+    <string name="additional_ai_messages">Verhoogde KI-boodskappelimiet:</string>
+    <string name="ai_abundance_relative">(relatief tot H=10¹²)</string>
+    <string name="ai_unit_mg_per_kg">mg/kg (ppm)</string>
+    <string name="ai_unit_ug_per_l">µg/l</string>
+    <string name="ai_unit_atoms_per_si">atome per 10⁶ silikonatome</string>
+    <string name="ai_value_trace">spoorhoeveelheid</string>
+    <string name="ai_abundance_caption">Logaritmiese skaal. Die eenhede verskil per reservoir en kan nie na mekaar omgeskakel word nie.</string>
+    <string name="ai_adv_header">Gevorderde eienskappe van %1$s:</string>
+    <string name="ai_all_covered">Ons het baie oor %1$s gedek! Het jy geweet?</string>
+    <string name="ai_another_isotope"> \'n Ander isotoop is %1$s.</string>
+    <string name="ai_beta_badge">Beta</string>
+    <string name="ai_chat_setting">Aktiveer KI-kletsassistent</string>
+    <string name="ai_chat_setting_description">Laat KI-assistent toe om vrae oor elemente te beantwoord</string>
+    <string name="ai_check_isotope_table">%1$s het verskeie isotope. Jy kan die gedetailleerde isotopentabel nagaan vir \'n volledige lys!</string>
+    <string name="ai_common_isotopes">Algemene isotope vir %1$s sluit in %2$s.</string>
+    <string name="ai_compare_all_same">
+• **%1$s:** Almal is %2$s%3$s.</string>
+    <string name="ai_compare_difference_value">Daar is \'n verskil van **%1$s%2$s** tussen hulle.</string>
+    <string name="ai_compare_mixed_item">%1$s is %2$s%3$s</string>
+    <string name="ai_compare_property_row">• %1$s: %2$s%3$s</string>
+    <string name="ai_compare_the_others">die ander</string>
+    <string name="ai_comparison_all">almal </string>
+    <string name="ai_comparison_and"> en </string>
+    <string name="ai_comparison_are"> is </string>
+    <string name="ai_comparison_but">, maar </string>
+    <string name="ai_comparison_is"> is </string>
+    <string name="ai_comparison_vs"> teen </string>
+    <string name="ai_comparison_while">, terwyl </string>
+    <string name="ai_concept_atomic_number">Die **Atoomgetal** is die aantal protone in \'n atoom. Dit is die primêre manier waarop elemente in die periodieke tabel georden word.</string>
+    <string name="ai_concept_electron">**Elektrone** is negatief gelaaide deeltjies wat om die kern wentel. Hulle is betrokke by binding en elektrisiteit.</string>
+    <string name="ai_concept_electronegativity">**Elektronegatiwiteit** meet hoe sterk \'n atoom elektrone na homself trek in \'n chemiese binding. Fluoor is die mees elektronegatiewe!</string>
+    <string name="ai_concept_generic">Dit is \'n kernkonsep in chemie! In watter deel daarvan wil jy hê ek moet dieper delf? Ek weet van protone, binding, radioaktiwiteit, en meer.</string>
+    <string name="ai_concept_group">\'n **Groep** is \'n vertikale kolom. Elemente in \'n groep het gewoonlik soortgelyke chemiese eienskappe en dieselfde aantal valenselektrone.</string>
+    <string name="ai_concept_ionization">**Ionisasie-energie** is die energie wat nodig is om \'n elektron van \'n atoom te verwyder. Dit neem gewoonlik toe as jy regs beweeg oor die periodieke tabel.</string>
+    <string name="ai_concept_isotope">\'n **Isotoop** is \'n variasie van \'n element met dieselfde aantal protone maar \'n verskillende aantal neutrone. Dit beïnvloed sy atoommassa!</string>
+    <string name="ai_concept_neutron">**Neutrone** is neutrale deeltjies in die kern. Hulle voeg massa by en help om die kern te stabiliseer, veral in swaarder elemente.</string>
+    <string name="ai_concept_orbital">**Orbitale** is streke in die ruimte rondom \'n kern waar daar \'n hoë waarskynlikheid is om \'n elektron te vind. Hulle het vorms soos s, p, d, en f.</string>
+    <string name="ai_concept_period">\'n **Periode** is \'n horisontale ry in die periodieke tabel. Elemente in dieselfde periode het dieselfde aantal elektronskille.</string>
+    <string name="ai_concept_proton">**Protone** is positief gelaaide deeltjies in die kern. Die aantal protone (Atoomgetal) definieer watter element dit is!</string>
+    <string name="ai_concept_radioactivity">**Radioaktiwiteit** is die proses waardeur \'n onstabile atoomkern energie verloor deur straling uit te straal. Elemente soos Uraan is bekend hiervoor!</string>
+    <string name="ai_concept_shell">Elektrone woon in **skille** (enervievlakke) rondom die kern. Die konfigurasie bepaal die element se posisie in die tabel.</string>
+    <string name="ai_concept_valence">**Valenselektrone** is die elektrone in die buitenste skil van \'n atoom. Hulle bepaal hoe \'n element met ander reageer.</string>
+    <string name="ai_config_is">Sy elektronkonfigurasie is %1$s.</string>
+    <string name="ai_connector_question_1">Om jou vraag te beantwoord,</string>
+    <string name="ai_connector_question_2">Ek sien. Hier is wat ek gevind het:</string>
+    <string name="ai_connector_question_3">Wat dit betref,</string>
+    <string name="ai_connector_why_1">Dit is \'n uitstekende opvolgvraag!</string>
+    <string name="ai_connector_why_2">Goeie punt. Laat ek verder verduidelik.</string>
+    <string name="ai_connector_why_3">Om uit te brei op wat ek pas gesê het,</string>
+    <string name="ai_context_lost">Konteks verloor</string>
+    <string name="ai_covered_all">Ons het baie oor **%1$s** gedek!</string>
+    <string name="ai_difference_group">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
+    <string name="ai_difference_mass">• **%1$s**: %2$s is aansienlik swaarder.</string>
+    <string name="ai_difference_need_two">Ek het twee elemente nodig om hul verskille te verduidelik!</string>
+    <string name="ai_difference_phase">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
+    <string name="ai_difference_similar">%1$s en %2$s is baie soortgelyk! Hulle is albei %3$s %4$s elemente in die %5$s reeks.</string>
+    <string name="ai_difference_type">• **%1$s**: %2$s: %3$s, %4$s: %5$s</string>
+    <string name="ai_elec_mag_header">Elektriese en Magnetiese eienskappe van %1$s:</string>
+    <string name="ai_element">element</string>
+    <string name="ai_eqn_no_desc">Die toepassing sluit hierdie vergelyking as \'n visuele verwysing in.</string>
+    <string name="ai_formula_composition_offer"> Sal jy wil hê ek moet sy elementêre samestelling uiteensit?</string>
+    <string name="ai_formula_consists_of">Dit bestaan uit:</string>
+    <string name="ai_formula_item">• %1$s × %2$s (%3$s)</string>
+    <string name="ai_formula_pro_plus">Die ontleding van chemiese verbindings soos **%1$s** is \'n **PRO+** funksie. As \'n %2$s gebruiker kan ek jou net help met individuele elemente!</string>
+    <string name="ai_formula_recognize">Ek herken **%1$s** as \'n chemiese verbinding met \'n molêre massa van **%2$s**.</string>
+    <string name="ai_free_user">Gratis</string>
+    <string name="ai_geo_color">%1$s: %2$s %3$s, %4$s %5$s.</string>
+    <string name="ai_geo_dens">%1$s: %2$s %3$s.</string>
+    <string name="ai_geo_hard">%1$s: %2$s %3$s.</string>
+    <string name="ai_geo_info">%1$s is \'n %2$s in die %3$s groep. Kleur: %4$s. Hardheid: %5$s. Digtheid: %6$s. Magnetisme: %7$s.</string>
+    <string name="ai_group">Groep</string>
+    <string name="ai_hard_header">Hardheidseienskappe van %1$s:</string>
+    <string name="ai_help_response">Ek is streng opgelei op die data wat beskikbaar is binne hierdie toepassing! Ek kan jou help met:
+
+🧪 **Gedetailleerde Elemente**: Eienskappe, voorkoms en ontdekkingsfeite direk vanaf ons JSON-databasis.
+⚖️ **Datagebruik**: Vergelyk digtheid, massa, radius en reaktiwiteit tussen elemente.
+💥 **Reaktiwiteit**: Ek gebruik die toepassing se groep- en periodedata om te verduidelik hoe elemente soos Natrium met Water reageer.
+🧬 **Biologies/Veiligheid**: Toksisiteit en biologiese rolle gevind in die elementbeskrywings.
+⚛️ **Isotope en Volopheid**: Spesifieke data uit ons toegewyde isotoop- en volopheidstabelle.
+📉 **Periodieke Tendense**: Verduidelik patrone soos Elektronegatiwiteit gebaseer op die tabel se struktuur.
+🔢 **Molêre Massa**: Akkurate berekeninge met behulp van die atoomgewigte in die toepassing.
+📝 **Definisies**: Verduidelikings vir chemieterme wat regdeur die toepassing gebruik word.
+
+Vra net en ek sal die antwoord in die toepassing se rekords vind! 🌟</string>
+    <string name="ai_id_header">Identifiseerders vir %1$s:</string>
+    <string name="ai_identity_result">Gebaseer op die waardes in die toepassing, is die element met \'n waarde naby aan **%1$s** vir sy eienskappe **%2$s** (werklik: %3$s).</string>
+    <string name="ai_ion_count">%1$s het %2$d ionisasie-energiewaarde(s) beskikbaar in die toepassing.</string>
+    <string name="ai_isotope_decay">(Verval: %1$s)</string>
+    <string name="ai_isotope_half_life"> Dit het \'n halfleeftyd van %1$s en verval via %2$s.</string>
+    <string name="ai_mech_header">%1$s vir %2$s:</string>
+    <string name="ai_molar_mass_pro_plus">Die berekening van molêre massa vir verbindings is \'n **PRO+** funksie. As \'n %1$s gebruiker kan jy steeds molêre massa vir individuele elemente kry!</string>
+    <string name="ai_nfpa_flammable_0">Sal nie brand nie</string>
+    <string name="ai_nfpa_flammable_1">Moet voorverhit word om te brand</string>
+    <string name="ai_nfpa_flammable_2">Ontsteek wanneer matig verhit</string>
+    <string name="ai_nfpa_flammable_3">Ontsteek by normale temperature</string>
+    <string name="ai_nfpa_flammable_4">Uiters vlambaar</string>
+    <string name="ai_nfpa_health_0">Normale materiaal</string>
+    <string name="ai_nfpa_health_1">Effens gevaarlik</string>
+    <string name="ai_nfpa_health_2">Gevaarlik</string>
+    <string name="ai_nfpa_health_3">Uiterste gevaar</string>
+    <string name="ai_nfpa_health_4">Dodelik</string>
+    <string name="ai_no_data_right_now">Ek kan dit nie nou nagaan nie.</string>
+    <string name="ai_oxidation_neg">• Negatief: %1$s</string>
+    <string name="ai_oxidation_pos">• Positief: %1$s</string>
+    <string name="ai_period">Periode</string>
+    <string name="ai_ph_info">%1$s: suur onder pH %2$s is %3$s, neutrale reeks %4$s is %5$s, en bo pH %6$s is dit %7$s.</string>
+    <string name="ai_ph_info_short">%1$s: pH-reeks %2$s is %3$s.</string>
+    <string name="ai_phase_gas">Gas</string>
+    <string name="ai_phase_liquid">Vloeistof</string>
+    <string name="ai_phase_solid">Vaste stof</string>
+    <string name="ai_poi_info">%1$s: Poisson se verhoudingsreeks %2$s (%3$s).</string>
+    <string name="ai_pro_user">PRO</string>
+    <string name="ai_quick_ask_description">Vra Wetenskap-KI enigiets onmiddellik</string>
+    <string name="ai_quiz_no_start">Ek kan nie nou \'n vasvra begin nie.</string>
+    <string name="ai_quiz_not_active">Ek is nie nou in vasvra-modus nie.</string>
+    <string name="ai_radius_header">Radiusbesonderhede vir %1$s:</string>
+    <string name="ai_rate_limit_reached">Jy het jou daaglikse limiet van %1$d boodskappe bereik. Gradeer op na PRO of PRO+ vir meer!</string>
+    <string name="ai_limit_unlimited">Onbeperk</string>
+    <string name="ai_rate_limit_resets">Jou daaglikse boodskappe kom om %1$s terug.</string>
+    <string name="ai_limit_reset_badge">Herstel %1$s</string>
+    <string name="ai_reactivity_more">**%1$s** is oor die algemeen meer reaktief as **%2$s** gebaseer op sy posisie in die periodieke tabel.</string>
+    <string name="ai_reactivity_need_two">Ek het ten minste twee elemente nodig om hul reaktiwiteit te vergelyk!</string>
+    <string name="ai_reactivity_no_result">Ek kon nie die mees reaktiewe element bepaal nie.</string>
+    <string name="ai_reactivity_result">Die mees reaktiewe %1$s is **%2$s**.</string>
+    <string name="ai_reactivity_similar">Albei **%1$s** en **%2$s** het soortgelyke reaktiwiteitsvlakke.</string>
+    <string name="ai_safety_caution_flammable">Waarskuwing: Hierdie element is uiters vlambaar!</string>
+    <string name="ai_safety_caution_health">Waarskuwing: Hierdie element is hoogs gevaarlik vir die gesondheid!</string>
+    <string name="ai_safety_flammability">• **Vlambaarheid:** %1$d/4 (%2$s)</string>
+    <string name="ai_safety_header">Veiligheidsprofiel vir %1$s (NFPA 704):</string>
+    <string name="ai_safety_health">• **Gesondheid:** %1$d/4 (%2$s)</string>
+    <string name="ai_safety_instability">• **Onstabiliteit:** %1$d/4</string>
+    <string name="ai_safety_no_data">Ek het nie spesifieke NFPA-gevaargraderings vir %1$s nie, maar volg altyd standaard laboratoriumveiligheidsprotokolle.</string>
+    <string name="ai_safety_radioactive">%1$s is radioaktief (%2$s), wat sy primêre veiligheidskwessie is. Hanteer met uiterste versigtigheid!</string>
+    <string name="ai_safety_special">• **Spesiaal:** %1$s</string>
+    <string name="ai_series_actinide_label">Aktinied</string>
+    <string name="ai_series_alkali_metal_label">Alkalimetaal</string>
+    <string name="ai_series_alkaline_earth_label">Alkaliese Erdmetaal</string>
+    <string name="ai_series_halogen_label">Halogeen</string>
+    <string name="ai_series_lanthanide_label">Lantanied</string>
+    <string name="ai_series_metalloid_label">Metalloïed</string>
+    <string name="ai_series_noble_gas_label">Edelgas</string>
+    <string name="ai_series_nonmetal_label">Niemetaal</string>
+    <string name="ai_series_transition_metal_label">Oorgangsmetaal</string>
+    <string name="ai_similarity_generic">**%1$s** is deel van die %2$s reeks. Ander elemente in hierdie reeks sal verwante eienskappe hê!</string>
+    <string name="ai_similarity_no_element">Ek is nie seker vir walthere element jy ooreenkomste wil vind nie.</string>
+    <string name="ai_similarity_result_footer">.
+
+Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</string>
+    <string name="ai_similarity_result_header">Soos **%1$s**, is hierdie elemente ook **%2$ss**: 
+
+</string>
+    <string name="ai_structural_no_results">Ek kon niks in daardie groep of periode vind nie. Onthou: daar is 18 groepe en 7 periodes!</string>
+    <string name="ai_structural_result">Die elemente in **%1$s %2$s** is: 
+</string>
+    <string name="ai_structural_specify_number">Spesifiseer asseblief \'n groep- of periodenommer!</string>
+    <string name="ai_suggestion_abundance">Moet ons kyk waar dit in die heelal gevind word?</string>
+    <string name="ai_suggestion_bio">Wil jy weet van sy biologiese rol?</string>
+    <string name="ai_suggestion_compare">Wil jy dit met \'n ander element vergelyk?</string>
+    <string name="ai_suggestion_iso">Ek kan jou ook vertel van sy isotope.</string>
+    <string name="ai_suggestion_safety">Ek het ook veiligheidsdata daarvoor, as jy belangstel.</string>
+    <string name="ai_superlative_among">Onder die %1$ss, %2$s</string>
+    <string name="ai_thermal_header">Termiese eienskappe van %1$s:</string>
+    <string name="all_ai_features">Alle KI-funksies:</string>
+    <string name="analytics_desc">Help om die toepassing te verbeter deur anonieme gebruiksdata te deel</string>
+    <string name="analytics_title">Gebruiksanalise</string>
+    <string name="app_version">v5.0.0m-Build.221</string>
+    <string name="back">Terug</string>
+    <string name="compare_elements">Vergelyk Elemente</string>
+    <string name="comparison_title_format">%1$s | %2$s</string>
+    <string name="covalent_radius_colon">Kovalente Radius:</string>
+    <string name="curie_point_colon">Curiepunt:</string>
+    <string name="current_version">Huidige Weergawe</string>
+    <string name="dic">Woordeboek</string>
+    <string name="dictionary_text">\'n Omvattende woordeboek van chemiese en fisiese terme</string>
+    <string name="electronegativity_allen_colon">Elektronegatiwiteit (Allen):</string>
+    <string name="element_electrons">Elektrone:</string>
+    <string name="element_of_the_day">Element van die Dag</string>
+    <string name="element_of_the_day_description">Vertoon elke dag \'n ander element met sy simbool, naam en beskrywing</string>
+    <string name="element_quick_nav_description">Vinnige navigasie na Periodieke Tabel, Vasvra en KI-gereedskap</string>
+    <string name="exit_compare_mode">Verlaat Vergelyking</string>
+    <string name="feature_check">Funksie ingesluit</string>
+    <string name="filter">Filter</string>
+    <string name="gas">Ideale Gaskalkulator</string>
+    <string name="ideal_calculated">Gedeaktiveer</string>
+    <string name="ideal_gas_calculate_field">Bereken:</string>
+    <string name="ideal_gas_calculator_title">Ideale Gaskalkulator</string>
+    <string name="ideal_gas_card_title">Ideale Gaswet Kalkulator (PV=nRT):</string>
+    <string name="ideal_gas_moles">Mol (n):</string>
+    <string name="ideal_gas_moles_hint">Voer mol in</string>
+    <string name="ideal_gas_pressure">Druk (P):</string>
+    <string name="ideal_gas_pressure_hint">Voer druk in</string>
+    <string name="ideal_gas_result">Resultaat:</string>
+    <string name="ideal_gas_temperature">Temperatuur (T):</string>
+    <string name="ideal_gas_temperature_hint">Voer temperatuur in</string>
+    <string name="ideal_gas_text">Bereken ideale gaseienskappe deur die ideale gaswetvergelyking PV=nRT te gebruik. Kies watter veranderlike om te bereken en voer die ander drie waardes in.</string>
+    <string name="ideal_gas_volume">Volume (V):</string>
+    <string name="ideal_gas_volume_hint">Voer volume in</string>
+    <string name="learning_games_nav">Flashcards</string>
+    <string name="molar_heat_capacity_colon">Molêre Hittekapasiteit:</string>
+    <string name="molar_volume_colon">Molêre Volume:</string>
+    <string name="neel_point_colon">Néelpunt:</string>
+    <string name="next_sale_end">2024/09/15</string>
+    <string name="next_sale_start">2024/08/05</string>
+    <string name="price_not_available">Prys nie beskikbaar nie</string>
+    <string name="pro_better_ai">Addisionele KI-funksies</string>
+    <string name="pro_better_ai_descr">Ontsluit alle funksies van die KI-agent, met vasvra, toegang tot pro-data en nog baie meer</string>
+    <string name="read_more_widget">Lees meer</string>
+    <string name="refractive_index_colon">Brekingsindeks:</string>
+    <string name="requires_pro_plus_until_2026">Vereis PRO+ tot 1 Jan 2026</string>
+    <string name="science_daily_description">Ewekansige wetenskaplike feite daagliks gelewer</string>
+    <string name="select_element_to_compare">Kies Element om te Vergelyk</string>
+    <string name="space_group_name_colon">Ruimtegroep Naam:</string>
+    <string name="space_group_number_colon">Ruimtegroep Nommer:</string>
+    <string name="thermal_conductivity_colon">Termiese Geleidingsvermoë:</string>
+    <string name="thermal_expansion_colon">Termiese Uitsetting:</string>
+    <string name="unknown">Onbekend</string>
+    <string name="unlimited_ai_messages">Onbeperkte KI-boodskappe:</string>
+    <string name="van_der_waals_radius_colon">Van der Waals Radius:</string>
+    <string name="view_all">Sien alles</string>
+    <string name="web_client_id">315118082769-ivqq7fhga4pjja0t95iuansjs2vjdu9j.apps.googleusercontent.com</string>
+    <string name="widget_description_placeholder">Laai element-inligting...</string>
+    <string name="work_function_colon">Werkfunksie:</string>
+    <string name="split_view">Elementverdeelde aansig</string>
+
+    <!-- REVIEW: machine-assisted Afrikaans. Placeholders and markdown are verified; the wording has not been checked by a native speaker. See docs/TRANSLATION_REVIEW.md. -->
+    <string name="ai_aggregate_average">Gemiddelde %1$s</string>
+    <string name="ai_aggregate_median">Mediaan %1$s</string>
+    <string name="ai_aggregate_missing_note">%1$d het gepas maar het geen aangeteken waarde nie, en word dus uitgesluit.</string>
+    <string name="ai_aggregate_over">Bereken oor %1$d van %2$d passende elemente.</string>
+    <string name="ai_aggregate_result">**%1$s**: %2$s</string>
+    <string name="ai_aggregate_sum">Totale %1$s</string>
+    <string name="ai_aspects_not_compared">Ek kan nie %1$s uit gestoorde data vergelyk nie — dit is nie \'n aangetekende eienskap nie. Vra daaroor vir \'n enkele element en ek kan dit verduidelik.</string>
+    <string name="ai_avogadro_note">Met Avogadro se getal, 6,02214076 × 10²³ per mol.</string>
+    <string name="ai_comparative_no">**Nee** — dit is omgekeerd. %1$s (%2$s) klop %3$s (%4$s) op %5$s.</string>
+    <string name="ai_comparative_ratio">%1$s het **%2$s keer** die %5$s van %3$s — %4$s.</string>
+    <string name="ai_comparative_winner">**%1$s.** Sy %5$s is %2$s, teenoor %4$s vir %3$s.</string>
+    <string name="ai_comparative_yes">**Ja.** %1$s (%2$s) klop %3$s (%4$s) op %5$s.</string>
+    <string name="ai_composition_header">Samestelling van %1$s</string>
+    <string name="ai_composition_row">• **%1$s** ×%2$d — %3$s g/mol (%4$s%%)</string>
+    <string name="ai_context_series">%1$s is %2$s, in periode %3$d.</string>
+    <string name="ai_converted_from">Omgeskakel vanaf die aangetekende waarde %1$s.</string>
+    <string name="ai_count_result">**%1$d** elemente pas.</string>
+    <string name="ai_coverage_note">%1$s is aangeteken vir %2$d van %3$d elemente.</string>
+    <string name="ai_dataset_english_note">*Hierdie verwysingsinskrywing is slegs in Engels beskikbaar.*</string>
+    <string name="ai_field_abundance_crustal_rocks">voorkoms in korsgesteentes</string>
+    <string name="ai_field_abundance_earth_crust">voorkoms in die aardkors</string>
+    <string name="ai_field_abundance_earth_soils">voorkoms in grond</string>
+    <string name="ai_field_abundance_human_body">voorkoms in die menslike liggaam</string>
+    <string name="ai_field_nfpa_health">gesondheidsgradering</string>
+    <string name="ai_field_nfpa_flammability">ontvlambaarheidsgradering</string>
+    <string name="ai_field_nfpa_instability">onstabiliteitsgradering</string>
+    <string name="ai_field_nfpa_special">spesiale gevaar</string>
+    <string name="ai_field_abundance_meteorites">voorkoms in meteoriete</string>
+    <string name="ai_field_abundance_sea_water">voorkoms in seewater</string>
+    <string name="ai_field_abundance_solar_system">voorkoms in die sonnestelsel</string>
+    <string name="ai_field_abundance_sun">voorkoms in die Son</string>
+    <string name="ai_field_abundance_urban_soils">voorkoms in stedelike grond</string>
+    <string name="ai_filter_matched">%1$d elemente pas:</string>
+    <string name="ai_filter_none">Geen elemente pas by daardie voorwaardes nie.</string>
+    <string name="ai_filter_top">Top %1$d van %2$d passende elemente:</string>
+    <string name="ai_formula_mass">Die molêre massa van **%1$s** is **%2$s g/mol**.</string>
+    <string name="ai_history_pro_only">Geselsgeskiedenis is \'n PRO-kenmerk</string>
+    <string name="ai_history_sign_in">Meld aan om geselsgeskiedenis te sien</string>
+    <string name="ai_isotope_compare_header">%1$s teenoor %2$s</string>
+    <string name="ai_isotope_compare_row">• **%1$s**: %2$s teenoor %3$s</string>
+    <string name="ai_isotope_decays">• **%1$s** — %2$s, halfleeftyd %3$s</string>
+    <string name="ai_isotope_halflife_only">• **%1$s** — halfleeftyd %2$s</string>
+    <string name="ai_isotope_neutron_diff">%1$s het %2$d neutrone, %3$s het %4$d — \'n verskil van %5$d.</string>
+    <string name="ai_isotope_same_element">Albei is isotope van %1$s, dus het hulle dieselfde %2$d protone en verskil net in neutrone.</string>
+    <string name="ai_isotope_stable">• **%1$s** — stabiel</string>
+    <string name="ai_isotope_unlisted">nie in die isotooptabel gelys nie</string>
+    <string name="ai_isotopes_header">Isotope van %1$s</string>
+    <string name="ai_isotopes_summary">%1$d bekende isotope, %2$d daarvan stabiel.</string>
+    <string name="ai_label_decay">Vervalwyse</string>
+    <string name="ai_label_half_life">Halfleeftyd</string>
+    <string name="ai_label_mass_number">Massagetal</string>
+    <string name="ai_label_neutrons">Neutrone</string>
+    <string name="ai_label_protons">Protone</string>
+    <string name="ai_list_more">…en %1$d meer.</string>
+    <string name="ai_list_row">• **%1$s** — %2$s</string>
+    <string name="ai_list_row_plain">• **%1$s**</string>
+    <string name="ai_list_spread">Waardes strek van %1$s tot %2$s.</string>
+    <string name="ai_moles_of">**%1$s mol** van %2$s bevat **%3$s** atome.</string>
+    <string name="ai_moles_to_particles">**%1$s mol** bevat **%2$s** partikels.</string>
+    <string name="ai_naturally_occurring">Kom natuurlik voor</string>
+    <string name="ai_neighbour_after">**%1$s** (atoomgetal %2$d) kom onmiddellik na %3$s.</string>
+    <string name="ai_neighbour_before">**%1$s** (atoomgetal %2$d) kom onmiddellik voor %3$s.</string>
+    <string name="ai_nuclide_body">• **Protone:** %1$d\n• **Neutrone:** %2$d\n• **Massagetal:** %3$d</string>
+    <string name="ai_nuclide_explain">Neutrone = massagetal − atoomgetal = %1$d − %2$d = **%3$d**.</string>
+    <string name="ai_nuclide_header">%1$s-%2$d</string>
+    <string name="ai_open_in_app">Open %1$s</string>
+    <string name="ai_ordinal_suffix_nd">de</string>
+    <string name="ai_ordinal_suffix_rd">de</string>
+    <string name="ai_ordinal_suffix_st">ste</string>
+    <string name="ai_ordinal_suffix_th">de</string>
+    <string name="ai_rank_highest">Dit is die hoogste van die %1$d elemente met \'n aangetekende %2$s.</string>
+    <string name="ai_rank_lowest">Dit is die laagste van die %1$d elemente met \'n aangetekende %2$s.</string>
+    <string name="ai_rank_nth">Dit plaas dit **%1$d van %2$d** elemente volgens %3$s.</string>
+    <string name="ai_runner_up">Volgende is %1$s teen %2$s.</string>
+    <string name="ai_safety_none_recorded">Geen NFPA-gevaargraderings is vir %1$s aangeteken nie.</string>
+    <string name="ai_safety_radioactive_note">Hierdie element is radioaktief.</string>
+    <string name="ai_emission_spectrum">Hier is die emissiespektrum van %1$s: die lig wat sy atome uitstraal wanneer opgewekte elektrone terugval. Die program stoor dit as \'n prent, so ek kan die patroon wys maar nie individuele lyne benoem nie.</string>
+    <string name="ai_source_element_data">%1$s — elementdata (%2$s)</string>
+    <string name="ai_source_table">%1$s — %2$s-tabel</string>
+    <string name="ai_sources_header">Bronne</string>
+    <string name="ai_stable_label">Stabiel</string>
+    <string name="ai_superlative_highest">hoogste</string>
+    <string name="ai_superlative_lowest">laagste</string>
+    <string name="ai_superlative_nth">Die **%1$d**%2$s %3$s %4$s is **%5$s**, teen %6$s.</string>
+    <string name="ai_synthetic_only">Sinteties (kom nie natuurlik voor nie)</string>
+    <string name="ai_value_is_range">Dit is \'n reeks; die rangorde gebruik die middelpunt.</string>
+    <string name="ai_versus">teenoor</string>
+
+
+    <!-- Agent strings: added so answers are not half-English. -->
+    <string name="ai_nfpa_instability_0">Stabiel</string>
+    <string name="ai_nfpa_instability_1">Onstabiel indien verhit</string>
+    <string name="ai_nfpa_instability_2">Gewelddadige chemiese verandering moontlik</string>
+    <string name="ai_nfpa_instability_3">Kan detoneer met \'n sterk aanstigter</string>
+    <string name="ai_nfpa_instability_4">Kan maklik detoneer</string>
+    <string name="ai_nfpa_special_none">Geen spesiale gevaar aangeteken nie</string>
+    <string name="ai_nfpa_special_ox">Oksideermiddel</string>
+    <string name="ai_nfpa_special_sa">Eenvoudige versmoringsmiddel</string>
+    <string name="ai_nfpa_special_w">Reageer met water</string>
+    <string name="ai_nfpa_unrated">Nie gegradeer nie</string>
+
+
+    <!-- Agent strings: added so answers are not half-English. -->
+    <string name="ai_card_pro_locked">Ontsluit visuele antwoorde</string>
+
+
+    <!-- Agent strings: added so answers are not half-English. -->
+    <string name="ai_locked_fields">%1$s is deel van %2$s. Gradeer op om dit hier en op elke elementbladsy te sien.</string>
+    <string name="ai_locked_generic">Daardie antwoord is deel van %1$s. Gradeer op om dit te ontsluit.</string>
+
+    <string name="ai_aggregate_spread">Wissel van %1$s (%2$s) tot %3$s (%4$s).</string>
+    <string name="ai_grams_to_moles">**%1$s g** %2$s is **%3$s mol**.</string>
+    <string name="ai_comparison_verdict">%1$s het die hoër waarde by %2$d van die %3$d vergelykte eienskappe.</string>
+    <string name="ai_no_data_alternatives">Aangeteken vir %1$s: %2$s.</string>
+
+    <!-- Flashcards: hazard games, exam tests and in-game feedback -->
+    <string name="hazard_health">Gesondheidsgevaar</string>
+    <string name="hazard_flammability">Ontvlambaarheid</string>
+    <string name="hazard_instability">Onstabiliteit</string>
+    <string name="hazard_diamond">Gevaarruit</string>
+    <string name="question_nfpa_health">Wat is die NFPA 704-gesondheidsgevaar van %s?</string>
+    <string name="question_nfpa_flammability">Wat is die NFPA 704-ontvlambaarheid van %s?</string>
+    <string name="question_nfpa_instability">Wat is die NFPA 704-onstabiliteit van %s?</string>
+    <string name="question_nfpa_diamond">Wat is die NFPA 704-gevaarruit van %s? (gesondheid / ontvlambaarheid / onstabiliteit)</string>
+    <string name="exam_test_title">Eksamen</string>
+    <string name="exam_test_subtitle">Alles van vlak %1$d tot %2$d, gemeng</string>
+    <string name="exam_start">Begin eksamen</string>
+    <string name="exam_locked">Bereik vlak %1$d om te ontsluit</string>
+    <string name="exam_pro_locked">Hierdie eksamen vereis PRO+</string>
+    <string name="exam_best_score">Beste telling: %1$d%%</string>
+    <string name="exam_passed">Geslaag · beste telling %1$d%%</string>
+    <string name="exam_not_taken">Nog nie probeer nie</string>
+    <string name="exam_results">Eksamenuitslae</string>
+    <string name="exam_finished_xp">Eksamen voltooi: +%1$d XP</string>
+    <string name="level_up_title">Vlak op!</string>
+    <string name="level_up_message">Geluk, jy het vlak %1$d bereik!</string>
+    <string name="xp_bonus_unlocked">5%% XP-bonus ontsluit op vlak %1$d!</string>
+    <string name="no_unlocked_games">Geen ontsluite speletjies beskikbaar nie!</string>
+    <string name="leave_game_title">Verlaat speletjie?</string>
+    <string name="leave_game_message">Is jy seker jy wil die speletjie verlaat? Jy sal %1$d lewens verloor.</string>
+    <string name="leave_game_confirm">Verlaat</string>
+    <string name="leave_game_stay">Bly</string>
+    <string name="answer_timeout">Tyd is op</string>
+    <string name="answer_yes">Ja</string>
+    <string name="answer_no">Nee</string>
+    <string name="question_xp_detail">XP vir hierdie vraag: +%1$d</string>
+    <string name="total_xp_with_multiplier">Totale XP: %1$d (%2$s ×%3$s)</string>
+    <string name="next_life_in_detail">Volgende lewe oor %1$d minute en %2$d sekondes.\n%3$s</string>
+    <plurals name="lives_lost_result">
+        <item quantity="one">%d lewe verloor</item>
+        <item quantity="other">%d lewens verloor</item>
+    </plurals>
+    <plurals name="next_life_gain">
+        <item quantity="one">Jy sal %d lewe kry.</item>
+        <item quantity="other">Jy sal %d lewens kry.</item>
+    </plurals>
+
+    <!-- Comparison, position, isotope and compound games -->
+    <string name="decay_alpha">Alfaverval (α)</string>
+    <string name="decay_beta_minus">Beta-minus-verval (β−)</string>
+    <string name="decay_beta_plus">Beta-plus-verval (β+)</string>
+    <string name="decay_electron_capture">Elektronvangs</string>
+    <string name="decay_neutron_emission">Neutronvrystelling</string>
+    <string name="decay_proton_emission">Protonvrystelling</string>
+    <string name="decay_spontaneous_fission">Spontane splyting</string>
+    <string name="game_compare_pair">Kop teen kop</string>
+    <string name="game_extremes_advanced">Gevorderde uiterstes</string>
+    <string name="game_group">Groepe</string>
+    <string name="game_highest">Watter een is hoogste?</string>
+    <string name="game_isotope_decay">Vervalwyses</string>
+    <string name="game_isotope_half_life">Halfleeftyd</string>
+    <string name="game_isotope_neutrons">Neutrongetal</string>
+    <string name="game_isotope_stability">Stabiele isotope</string>
+    <string name="game_lowest">Watter een is laagste?</string>
+    <string name="game_molar_mass">Molêre massa</string>
+    <string name="game_odd_one_out">Wie hoort nie tuis nie?</string>
+    <string name="game_period">Periodes</string>
+    <string name="game_valence_electrons">Valenselektrone</string>
+    <string name="molar_mass_value">%1$s g/mol</string>
+    <string name="question_group_of">In watter groep is %1$s?</string>
+    <string name="question_highest_atomic_mass">Watter een van hierdie het die hoogste atoommassa?</string>
+    <string name="question_highest_boiling_point">Watter een van hierdie het die hoogste kookpunt?</string>
+    <string name="question_highest_brinell_hardness">Watter een van hierdie het die hoogste Brinell-hardheid?</string>
+    <string name="question_highest_bulk_modulus">Watter een van hierdie het die hoogste bulkmodulus?</string>
+    <string name="question_highest_density">Watter een van hierdie het die hoogste digtheid?</string>
+    <string name="question_highest_electronegativity">Watter een van hierdie het die hoogste elektronegatiwiteit?</string>
+    <string name="question_highest_fusion_heat">Watter een van hierdie het die hoogste smeltingswarmte?</string>
+    <string name="question_highest_melting_point">Watter een van hierdie het die hoogste smeltpunt?</string>
+    <string name="question_highest_mohs_hardness">Watter een van hierdie het die hoogste Mohs-hardheid?</string>
+    <string name="question_highest_shear_modulus">Watter een van hierdie het die hoogste skuifmodulus?</string>
+    <string name="question_highest_speed_of_sound">In watter een van hierdie beweeg klank die vinnigste?</string>
+    <string name="question_highest_thermal_conductivity">Watter een van hierdie het die hoogste termiese geleidingsvermoë?</string>
+    <string name="question_highest_vaporization_heat">Watter een van hierdie het die hoogste verdampingswarmte?</string>
+    <string name="question_highest_vickers_hardness">Watter een van hierdie het die hoogste Vickers-hardheid?</string>
+    <string name="question_highest_young_modulus">Watter een van hierdie het die hoogste Young-modulus?</string>
+    <string name="question_isotope_decay">Hoe verval %1$s?</string>
+    <string name="question_isotope_longest_half_life">Watter een van hierdie isotope het die langste halfleeftyd?</string>
+    <string name="question_isotope_neutrons">Hoeveel neutrone het %1$s?</string>
+    <string name="question_isotope_shortest_half_life">Watter een van hierdie isotope het die kortste halfleeftyd?</string>
+    <string name="question_isotope_stable">Watter een van hierdie isotope is stabiel?</string>
+    <string name="question_largest_atomic_radius">Watter een van hierdie het die grootste atoomradius?</string>
+    <string name="question_largest_molar_volume">Watter een van hierdie het die grootste molêre volume?</string>
+    <string name="question_lowest_atomic_mass">Watter een van hierdie het die laagste atoommassa?</string>
+    <string name="question_lowest_boiling_point">Watter een van hierdie het die laagste kookpunt?</string>
+    <string name="question_lowest_brinell_hardness">Watter een van hierdie het die laagste Brinell-hardheid?</string>
+    <string name="question_lowest_bulk_modulus">Watter een van hierdie het die laagste bulkmodulus?</string>
+    <string name="question_lowest_density">Watter een van hierdie het die laagste digtheid?</string>
+    <string name="question_lowest_electronegativity">Watter een van hierdie het die laagste elektronegatiwiteit?</string>
+    <string name="question_lowest_fusion_heat">Watter een van hierdie het die laagste smeltingswarmte?</string>
+    <string name="question_lowest_melting_point">Watter een van hierdie het die laagste smeltpunt?</string>
+    <string name="question_lowest_mohs_hardness">Watter een van hierdie het die laagste Mohs-hardheid?</string>
+    <string name="question_lowest_shear_modulus">Watter een van hierdie het die laagste skuifmodulus?</string>
+    <string name="question_lowest_speed_of_sound">In watter een van hierdie beweeg klank die stadigste?</string>
+    <string name="question_lowest_thermal_conductivity">Watter een van hierdie het die laagste termiese geleidingsvermoë?</string>
+    <string name="question_lowest_vaporization_heat">Watter een van hierdie het die laagste verdampingswarmte?</string>
+    <string name="question_lowest_vickers_hardness">Watter een van hierdie het die laagste Vickers-hardheid?</string>
+    <string name="question_lowest_young_modulus">Watter een van hierdie het die laagste Young-modulus?</string>
+    <string name="question_molar_mass">Wat is die molêre massa van %1$s?</string>
+    <string name="question_not_a_series">Watter een van hierdie is NIE ’n %1$s nie?</string>
+    <string name="question_period_of">In watter periode is %1$s?</string>
+    <string name="question_smallest_atomic_radius">Watter een van hierdie het die kleinste atoomradius?</string>
+    <string name="question_smallest_molar_volume">Watter een van hierdie het die kleinste molêre volume?</string>
+    <string name="question_valence_electrons">Hoeveel valenselektrone het %1$s?</string>
+    <string name="quiz_loading">Vrae word voorberei…</string>
+    <string name="quiz_no_questions">Kon nie vrae vir hierdie speletjie skep nie. Probeer ’n ander een.</string>
+</resources>

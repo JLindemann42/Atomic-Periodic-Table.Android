@@ -5,6 +5,7 @@ import android.content.res.AssetManager
 import org.json.JSONObject
 import java.io.IOException
 import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Utility class for loading element data from consolidated JSON files with language support.
@@ -13,8 +14,10 @@ import java.util.*
 object ElementDataLoader {
     private const val DEFAULT_LANGUAGE = "en"
     
-    // Cache for loaded language files
-    private val languageCache = mutableMapOf<String, JSONObject>()
+    // Cache for loaded language files.
+    // Concurrent because it is written from both the IO dispatcher (AI agent init) and the
+    // main thread (element pages); an unsynchronized HashMap can corrupt or spin under that.
+    private val languageCache = ConcurrentHashMap<String, JSONObject>()
     
     /**
      * Load element data for a specific element with language support
@@ -86,6 +89,30 @@ object ElementDataLoader {
         return jsonObject
     }
     
+    /**
+     * Load the whole element table for a language, falling back to English.
+     *
+     * This is the single shared entry point for callers that need every element rather than one
+     * (the AI agent's knowledge index, the quiz generator). The result is the cached JSONObject,
+     * so callers must treat it as read-only.
+     *
+     * @return the full elements object, or null if neither the requested language nor English loads
+     */
+    fun getAllElements(assets: AssetManager, language: String): JSONObject? {
+        return try {
+            getLanguageData(assets, language)
+        } catch (e: IOException) {
+            if (language == DEFAULT_LANGUAGE) return null
+            Pasteur.info("ElementDataLoader", "Language '$language' unavailable, falling back to English")
+            try {
+                getLanguageData(assets, DEFAULT_LANGUAGE)
+            } catch (e: IOException) {
+                Pasteur.error("ElementDataLoader", "Error loading English element data: ${e.message}")
+                null
+            }
+        }
+    }
+
     /**
      * Get the app language code (2-letter ISO 639-1)
      * Uses Android's configuration locale to match the locale used for string resources

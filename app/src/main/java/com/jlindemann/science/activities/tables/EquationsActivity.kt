@@ -23,6 +23,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.EquationsAdapter
@@ -43,6 +44,8 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
     private var backCallback: OnBackPressedCallback? = null
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
     private val uiHandler = Handler(Looper.getMainLooper())
+    
+    private var bottomSheetBehavior: BottomSheetBehavior<View>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,15 +96,46 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
             mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
         }
 
+        setupBottomSheet()
         recyclerView()
         clickSearch()
 
-        findViewById<FloatingActionButton>(R.id.e_back_btn).setOnClickListener { hideInfoPanel() }
-        findViewById<TextView>(R.id.l_background_e).setOnClickListener { hideInfoPanel() }
-
-        findViewById<FrameLayout>(R.id.view_equ).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        findViewById<ImageButton>(R.id.back_btn_equ).setOnClickListener {
+        findViewById<ConstraintLayout>(R.id.view_equ).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<View>(R.id.back_btn_equ).setOnClickListener {
             this.onBackPressed()
+        }
+    }
+
+    private fun setupBottomSheet() {
+        val equationPanelRoot = findViewById<View>(R.id.e_inc) ?: return
+        val background = findViewById<TextView>(R.id.l_background_e) ?: return
+        
+        bottomSheetBehavior = BottomSheetBehavior.from(equationPanelRoot)
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehavior?.skipCollapsed = true
+        
+        bottomSheetBehavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    background.visibility = View.GONE
+                    background.alpha = 0f
+                } else {
+                    background.visibility = View.VISIBLE
+                }
+                setBackInterceptionEnabled(anyOverlayOpen())
+            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                background.visibility = View.VISIBLE
+                background.alpha = slideOffset.coerceAtLeast(0f) * 0.6f
+            }
+        })
+        
+        background.setOnClickListener {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        }
+
+        equationPanelRoot.findViewById<View>(R.id.drag_frame_equation)?.setOnClickListener {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
     }
 
@@ -119,6 +153,9 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
         val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_equ).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
         findViewById<LinearLayout>(R.id.empty_search_box_equ).layoutParams = searchEmptyImgPrm
+        
+        // Handle Equation Panel insets
+        findViewById<View>(R.id.scroll_equation)?.setPadding(0, 0, 0, bottom + resources.getDimensionPixelSize(R.dimen.default_padding))
     }
 
     private fun recyclerView() {
@@ -185,9 +222,9 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
     }
 
     private fun clickSearch() {
-        findViewById<ImageButton>(R.id.search_btn_equ).setOnClickListener {
-            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_equ), 150)
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box_equ), 1)
+        findViewById<View>(R.id.search_btn_equ).setOnClickListener {
+            Utils.fadeInAnim(findViewById<View>(R.id.search_bar_equ), 150)
+            Utils.fadeOutAnim(findViewById<View>(R.id.title_box_equ), 1)
 
             findViewById<EditText>(R.id.edit_equ).requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -196,12 +233,12 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
             // Search bar shown -> enable back interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<ImageButton>(R.id.close_equ_search).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_equ), 1)
+        findViewById<View>(R.id.close_equ_search).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<View>(R.id.search_bar_equ), 1)
 
             val delayClose = Handler()
             delayClose.postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box_equ), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box_equ), 150)
             }, 151)
 
             val view = this.currentFocus
@@ -220,10 +257,6 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
     }
 
     private fun showInfoPanel(title: Int, text: String) {
-        Anim.fadeIn(findViewById<ConstraintLayout>(R.id.e_inc), 150)
-        // show background too so user can tap to dismiss
-        Anim.fadeIn(findViewById<TextView>(R.id.l_background_e), 150)
-
         findViewById<ImageView>(R.id.e_title).setImageResource(title)
         val themePreference = ThemePreference(this)
         val themePrefValue = themePreference.getValue()
@@ -233,18 +266,22 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
         if (themePrefValue == 100) {
             when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
                 Configuration.UI_MODE_NIGHT_YES -> { findViewById<ImageView>(R.id.e_title).colorFilter = ColorMatrixColorFilter(NEGATIVE) }
+                else -> { findViewById<ImageView>(R.id.e_title).colorFilter = null }
             }
+        } else if (themePrefValue == 0) {
+            findViewById<ImageView>(R.id.e_title).colorFilter = null
         }
+        
         findViewById<TextView>(R.id.e_text).text = text
+        
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
 
         // Info panel shown -> enable back interception
         setBackInterceptionEnabled(true)
     }
 
     private fun hideInfoPanel() {
-        Anim.fadeOutAnim(findViewById<ConstraintLayout>(R.id.e_inc), 150)
-        Anim.fadeOutAnim(findViewById<TextView>(R.id.l_background_e), 150)
-
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         // After hiding, update interception state
         setBackInterceptionEnabled(anyOverlayOpen())
     }
@@ -258,22 +295,19 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
 
     // Basic handler for in-activity overlays
     private fun anyOverlayOpen(): Boolean {
-        val infoVisible = findViewById<ConstraintLayout>(R.id.e_inc).visibility == View.VISIBLE
+        val panelExpanded = bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN
         val backgroundVisible = findViewById<TextView>(R.id.l_background_e).visibility == View.VISIBLE
-        val searchBarVisible = findViewById<FrameLayout>(R.id.search_bar_equ).visibility == View.VISIBLE
-        return infoVisible || backgroundVisible || searchBarVisible
+        val searchBarVisible = findViewById<View>(R.id.search_bar_equ).visibility == View.VISIBLE
+        return panelExpanded || backgroundVisible || searchBarVisible
     }
 
     // Close overlays if visible; return true when consumed.
     private fun handleBackPress(): Boolean {
-        val infoPanel = findViewById<ConstraintLayout>(R.id.e_inc)
-        val background = findViewById<TextView>(R.id.l_background_e)
-        val searchBar = findViewById<FrameLayout>(R.id.search_bar_equ)
+        val searchBar = findViewById<View>(R.id.search_bar_equ)
 
         // If info panel visible, hide it
-        if (infoPanel.visibility == View.VISIBLE) {
-            hideInfoPanel()
-            setBackInterceptionEnabled(anyOverlayOpen())
+        if (bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN) {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
             return true
         }
 
@@ -282,7 +316,7 @@ class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListen
             Utils.fadeOutAnim(searchBar, 1)
             // restore title box after a short delay to match original timing
             Handler(Looper.getMainLooper()).postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box_equ), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box_equ), 150)
             }, 151)
 
             val view = this.currentFocus

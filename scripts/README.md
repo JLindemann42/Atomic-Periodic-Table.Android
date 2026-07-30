@@ -94,3 +94,32 @@ This creates `untranslated_strings.csv` in the repository root.
 - Scripts automatically detect the repository root
 - All scripts can be run from any directory
 - Output is color-coded for easy reading (when terminal supports it)
+
+## Element data scripts
+
+`populate_element_data.py` fills `"---"` placeholders in the element JSON files
+from IUPAC, NIST, CRC Handbook and WebElements values. `check_field_registry.py`
+cross-checks the element JSON against the AI engine's `FieldRegistry`.
+`fix_string_escaping.py` repairs escaping damage in `strings.xml` after a bulk
+translation pass.
+
+## Historical batch scripts
+
+Most of the remaining files here are one-off passes from a 2025 translation
+campaign (`push_toward_60.py`, `mega_batch_update.py`, `continue_all_languages.py`
+and similar). They are kept because they encode the translations that were
+actually applied, but they overlap heavily and are not a maintained toolkit. For
+new work, use `extract_missing.py` to export, translate externally, apply, and
+verify.
+
+## Full documentation
+
+See [docs/data-pipeline](../docs/data-pipeline) for the complete guide.
+
+> **Removed:** an earlier version of this README documented an "on-device RAG
+> asset generation" pipeline (`prepare_corpus.py`, `build_embeddings.py`,
+> `requirements.txt`, `convert_to_tflite.md`). Those scripts were never present
+> in this repository, and the embedding approach they described was abandoned —
+> the AI agent uses BM25 lexical retrieval built at runtime, with no shipped
+> model or embedding artifacts. See
+> [docs/ai/retrieval.md](../docs/ai/retrieval.md).

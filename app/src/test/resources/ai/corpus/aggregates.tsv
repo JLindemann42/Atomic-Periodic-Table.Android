@@ -1,0 +1,33 @@
+# Statistics over a set. An aggregate must disclose how many of the matched elements actually had
+# a value, or the number implies a completeness the data does not have.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+agg-count-1			en	how many elements are there	AGGREGATE				
+agg-count-2			en	how many elements are in the periodic table	AGGREGATE				
+agg-count-3			en	how many noble gases are there	AGGREGATE				
+agg-count-4			en	how many halogens are there	AGGREGATE				
+agg-count-5			en	how many transition metals are there	AGGREGATE				
+agg-count-6			en	how many elements are radioactive	AGGREGATE				
+agg-count-7			en	how many elements are synthetic	AGGREGATE				
+agg-count-8			en	how many lanthanides are there	AGGREGATE				
+agg-count-9			en	how many alkali metals are there	AGGREGATE				
+agg-count-10			en	how many elements are gases	AGGREGATE				
+agg-avg-1			en	what is the average electronegativity of the halogens	AGGREGATE	electronegativity			
+agg-avg-2			en	average density of the transition metals	AGGREGATE	density			
+agg-avg-3			en	what is the mean atomic mass of the noble gases	AGGREGATE	atomic_mass			
+agg-avg-4			en	average melting point of the alkali metals	AGGREGATE	melting_point			
+agg-avg-5			en	what is the average density of all elements	AGGREGATE	density			
+agg-median-1			en	what is the median density of the transition metals	AGGREGATE	density			
+agg-median-2			en	median atomic mass of the lanthanides	AGGREGATE	atomic_mass			
+agg-median-3			en	median melting point of the halogens	AGGREGATE	melting_point			
+agg-sum-1			en	what is the total atomic mass of the noble gases	AGGREGATE	atomic_mass			
+agg-sum-2			en	sum of the atomic masses of the halogens	AGGREGATE	atomic_mass			
+agg-max-1			en	what is the highest density among the halogens	SUPERLATIVE	density			superlative names the element as well as the value, so it answers more than MAX would
+agg-min-1			en	what is the lowest melting point among the noble gases	SUPERLATIVE	melting_point			see agg-max-1: the winner is more useful than the bare minimum
+agg-sv-1			sv	hur många grundämnen finns det	AGGREGATE				
+agg-sv-2			sv	vad är genomsnittlig densitet för övergångsmetaller	AGGREGATE	density			
+agg-sv-3			sv	hur många ädelgaser finns det	AGGREGATE				
+agg-de-1			de	wie viele elemente gibt es	AGGREGATE				
+agg-de-2			de	durchschnittliche dichte der übergangsmetalle	AGGREGATE	density			
+agg-fr-1			fr	combien d'éléments y a-t-il	AGGREGATE				
+agg-es-1			es	cuántos elementos hay	AGGREGATE				
+agg-zh-1			zh	有多少种元素	AGGREGATE				

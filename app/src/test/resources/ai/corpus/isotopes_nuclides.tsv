@@ -1,0 +1,36 @@
+# Isotopes, nuclides and half-lives. "isotopes" and "half life" both resolve to a field label, so
+# these must be recognised as their own result shapes before field resolution runs — otherwise the
+# answer is the common-neutron count instead of the list.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+iso-list-1			en	what are the isotopes of carbon	ISOTOPES		ISOTOPE_DECAY		
+iso-list-2			en	isotopes of uranium	ISOTOPES		ISOTOPE_DECAY		
+iso-list-3			en	tell me about hydrogen's isotopes	ISOTOPES		ISOTOPE_DECAY		
+iso-list-4			en	how many isotopes does tin have	ISOTOPES		ISOTOPE_DECAY		
+iso-list-5			en	list the isotopes of iron	ISOTOPES		ISOTOPE_DECAY		
+iso-list-6			en	what isotopes does gold have	ISOTOPES		ISOTOPE_DECAY		
+iso-list-7			en	isotopes of caesium	ISOTOPES		ISOTOPE_DECAY		
+iso-list-8			en	which isotopes of lead are stable	ISOTOPES		ISOTOPE_DECAY		
+iso-half-1			en	what is the half life of carbon 14	ISOTOPES		ISOTOPE_DECAY		
+iso-half-2			en	half life of uranium 238	ISOTOPES		ISOTOPE_DECAY		
+iso-half-3			en	how long does plutonium 239 last	ISOTOPES		ISOTOPE_DECAY		
+iso-stable-1			en	does gold have a stable isotope	ISOTOPES		ISOTOPE_DECAY		
+iso-stable-2			en	how many stable isotopes does tin have	ISOTOPES		ISOTOPE_DECAY		
+nuc-count-1			en	how many neutrons does uranium 238 have	NUCLIDE_COUNT				
+nuc-count-2			en	neutrons in carbon 14	NUCLIDE_COUNT				
+nuc-count-3			en	how many neutrons in U-235	NUCLIDE_COUNT				
+nuc-count-4			en	protons and neutrons in helium 4	NUCLIDE_COUNT				
+nuc-count-5			en	how many neutrons does iron 56 have	NUCLIDE_COUNT				
+nuc-cmp-1			en	uranium-235 vs uranium-238	ISOTOPE_COMPARISON				
+nuc-cmp-2			en	compare U-235 and U-238	ISOTOPE_COMPARISON				
+nuc-cmp-3			en	carbon-14 vs nitrogen-14	ISOTOPE_COMPARISON				
+nuc-cmp-4			en	difference between carbon 12 and carbon 14	ISOTOPE_COMPARISON				
+nuc-cmp-5			en	compare hydrogen-1 and hydrogen-2	ISOTOPE_COMPARISON				
+iso-sv-1			sv	vilka isotoper har kol	ISOTOPES		ISOTOPE_DECAY		
+iso-sv-2			sv	isotoper av uran	ISOTOPES		ISOTOPE_DECAY		
+iso-sv-3			sv	vad är halveringstiden för kol 14	ISOTOPES		ISOTOPE_DECAY		
+nuc-sv-1			sv	hur många neutroner har uran 238	NUCLIDE_COUNT				
+iso-de-1			de	welche isotope hat kohlenstoff	ISOTOPES		ISOTOPE_DECAY		
+nuc-de-1			de	wie viele neutronen hat uran 238	NUCLIDE_COUNT				
+iso-fr-1			fr	quels sont les isotopes du carbone	ISOTOPES		ISOTOPE_DECAY		
+iso-es-1			es	cuáles son los isótopos del carbono	ISOTOPES		ISOTOPE_DECAY		
+iso-zh-1			zh	碳有哪些同位素	ISOTOPES		ISOTOPE_DECAY		

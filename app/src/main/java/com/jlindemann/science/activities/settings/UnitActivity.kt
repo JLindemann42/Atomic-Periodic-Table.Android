@@ -6,19 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.ScrollView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.preferences.DegreePreference
 import com.jlindemann.science.preferences.TemperatureUnits
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.UnifiedTitleBarController
 
 
 class UnitActivity : BaseActivity()  {
+    private lateinit var titleBar: UnifiedTitleBarController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val themePreference = ThemePreference(this)
@@ -33,84 +35,70 @@ class UnitActivity : BaseActivity()  {
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
 
         setContentView(R.layout.activity_unit) //REMEMBER: Never move any function calls above this
-        findViewById<FrameLayout>(R.id.view_unit).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view_unit_root).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.activity_unit_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
 
         //Title Controller
-        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.unit_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation = (resources.getDimension(R.dimen.zero_elevation))
         findViewById<ScrollView>(R.id.unit_scroll).getViewTreeObserver()
             .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
                 var y = 300f
                 override fun onScrollChanged() {
                     if (findViewById<ScrollView>(R.id.unit_scroll).getScrollY() > 150) {
-                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.unit_title).visibility = View.VISIBLE
+                        titleSurface.visibility = View.VISIBLE
+                        titleBar.titleView.visibility = View.VISIBLE
                         findViewById<TextView>(R.id.unit_title_downstate).visibility = View.INVISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation = (resources.getDimension(R.dimen.one_elevation))
+                        titleBar.container.elevation = (resources.getDimension(R.dimen.one_elevation))
                     } else {
-                        findViewById<FrameLayout>(R.id.common_title_back_unit_color).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.unit_title).visibility = View.INVISIBLE
+                        titleSurface.visibility = View.INVISIBLE
+                        titleBar.titleView.visibility = View.INVISIBLE
                         findViewById<TextView>(R.id.unit_title_downstate).visibility = View.VISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_unit).elevation = (resources.getDimension(R.dimen.zero_elevation))
+                        titleBar.container.elevation = (resources.getDimension(R.dimen.zero_elevation))
                     }
                     y = findViewById<ScrollView>(R.id.unit_scroll).getScrollY().toFloat()
                 }
             })
         tempUnits()
-        findViewById<ImageButton>(R.id.back_btn_unit).setOnClickListener {
-            this.onBackPressed()
-        }
     }
 
     private fun tempUnits() {
         val tempPreference = TemperatureUnits(this)
         val tempPrefValue = tempPreference.getValue()
-        if (tempPrefValue == "kelvin") {
-            findViewById<Button>(R.id.kelvin_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_active)
-            findViewById<Button>(R.id.celsius_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_outline)
-            findViewById<Button>(R.id.fahrenheit_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_outline)
+        val tempUnitGroup = findViewById<com.google.android.material.button.MaterialButtonToggleGroup>(R.id.temp_unit_group)
+
+        when (tempPrefValue) {
+            "kelvin" -> tempUnitGroup.check(R.id.kelvin_btn)
+            "celsius" -> tempUnitGroup.check(R.id.celsius_btn)
+            "fahrenheit" -> tempUnitGroup.check(R.id.fahrenheit_btn)
         }
-        if (tempPrefValue == "celsius") {
-            findViewById<Button>(R.id.kelvin_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_outline)
-            findViewById<Button>(R.id.celsius_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_active)
-            findViewById<Button>(R.id.fahrenheit_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_outline)
-        }
-        if (tempPrefValue == "fahrenheit") {
-            findViewById<Button>(R.id.kelvin_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_outline)
-            findViewById<Button>(R.id.celsius_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_outline)
-            findViewById<Button>(R.id.fahrenheit_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_active)
-        }
-        findViewById<Button>(R.id.kelvin_btn).setOnClickListener {
-            tempPreference.setValue("kelvin")
-            findViewById<Button>(R.id.kelvin_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_active)
-            findViewById<Button>(R.id.celsius_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_outline)
-            findViewById<Button>(R.id.fahrenheit_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_outline)
-        }
-        findViewById<Button>(R.id.celsius_btn).setOnClickListener {
-            tempPreference.setValue("celsius")
-            findViewById<Button>(R.id.kelvin_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_outline)
-            findViewById<Button>(R.id.celsius_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_active)
-            findViewById<Button>(R.id.fahrenheit_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_outline)
-        }
-        findViewById<Button>(R.id.fahrenheit_btn).setOnClickListener {
-            tempPreference.setValue("fahrenheit")
-            findViewById<Button>(R.id.kelvin_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_outline)
-            findViewById<Button>(R.id.celsius_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_outline)
-            findViewById<Button>(R.id.fahrenheit_btn).background = ContextCompat.getDrawable(this, R.drawable.chip_active)
+
+        tempUnitGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (isChecked) {
+                when (checkedId) {
+                    R.id.kelvin_btn -> tempPreference.setValue("kelvin")
+                    R.id.celsius_btn -> tempPreference.setValue("celsius")
+                    R.id.fahrenheit_btn -> tempPreference.setValue("fahrenheit")
+                }
+            }
         }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val paramsTitle = findViewById<FrameLayout>(R.id.common_title_back_unit).layoutParams as ViewGroup.LayoutParams
+        val paramsTitle = titleBar.container.layoutParams as ViewGroup.LayoutParams
         paramsTitle.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_unit).layoutParams = paramsTitle
+        titleBar.container.layoutParams = paramsTitle
 
         val paramsLin = findViewById<TextView>(R.id.unit_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
-        paramsLin.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        paramsLin.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<TextView>(R.id.unit_title_downstate).layoutParams = paramsLin
     }
 }
-
-
-

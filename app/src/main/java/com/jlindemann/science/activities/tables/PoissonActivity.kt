@@ -23,6 +23,7 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.PoissonAdapter
@@ -32,6 +33,7 @@ import com.jlindemann.science.model.PoissonModel
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.PoissonPreferences
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import com.jlindemann.science.utils.Utils
 import java.util.*
 import kotlin.collections.ArrayList
@@ -40,10 +42,14 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
     private var poissonList = ArrayList<Poisson>()
     var mAdapter = PoissonAdapter(poissonList, this, this)
 
+    private lateinit var titleBar: UnifiedTitleBarController
+
     // Unified back handling fields
     private var backCallback: OnBackPressedCallback? = null
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
     private val uiHandler = Handler(Looper.getMainLooper())
+    
+    private var bottomSheetBehavior: BottomSheetBehavior<View>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,13 +70,10 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
             override fun handleOnBackPressed() {
                 val consumed = handleBackPress()
                 if (!consumed) {
-                    // Not consumed by overlays -> fall back to default behaviour.
-                    // Temporarily disable the callback to avoid recursion, then dispatch.
                     isEnabled = false
                     try {
                         onBackPressedDispatcher.onBackPressed()
                     } finally {
-                        // leave disabled by default
                         isEnabled = false
                     }
                 }
@@ -78,8 +81,6 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
         }
         onBackPressedDispatcher.addCallback(this, backCallback!!)
 
-        // Register platform callback for Android 14+ to forward gestures to the dispatcher when enabled.
-        // Start with interception disabled (we only need it when overlays are visible).
         setBackInterceptionEnabled(false)
 
         val recyclerView = findViewById<RecyclerView>(R.id.poi_view)
@@ -99,86 +100,129 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
             mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
         }
 
-        recyclerView()
-        clickSearch()
-        chipListeners(itempoi, recyclerView)
-        findViewById<Button>(R.id.clear_btn).visibility = View.GONE
-
-        // When tapping background, hide panel and update interception
-        findViewById<FrameLayout>(R.id.poi_det_inc_background).setOnClickListener {
-            hideInfoPanel()
-            setBackInterceptionEnabled(anyOverlayOpen())
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.poissons_ratio_title)
+        titleBar.setAction(R.drawable.ic_search) { titleBar.showSearch() }
+        titleBar.searchCloseButton.setOnClickListener {
+            titleBar.hideSearch()
+            titleBar.searchInput.setText("")
         }
-        findViewById<ImageButton>(R.id.close_detail_poisson_btn).setOnClickListener {
-            hideInfoPanel()
-            setBackInterceptionEnabled(anyOverlayOpen())
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        setupBottomSheet()
+        setupChips(itempoi, recyclerView)
+
+        // Initial filter to show all items
+        PoissonPreferences(this).setValue("")
+        filter("", itempoi, recyclerView)
+
+        findViewById<EditText>(R.id.unified_titlebar_search_input).addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){}
+            override fun afterTextChanged(s: Editable) {
+                filter(s.toString(), itempoi, recyclerView)
+            }
+        })
+    }
+
+    private fun setupBottomSheet() {
+        val poissonPanelRoot = findViewById<View>(R.id.poi_det_inc) ?: return
+        val background = findViewById<TextView>(R.id.background_poi) ?: return
+        
+        bottomSheetBehavior = BottomSheetBehavior.from(poissonPanelRoot)
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehavior?.skipCollapsed = true
+        
+        bottomSheetBehavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    background.visibility = View.GONE
+                    background.alpha = 0f
+                } else {
+                    background.visibility = View.VISIBLE
+                }
+                setBackInterceptionEnabled(anyOverlayOpen())
+            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                background.visibility = View.VISIBLE
+                background.alpha = slideOffset.coerceAtLeast(0f) * 0.6f
+            }
+        })
+        
+        background.setOnClickListener {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
 
-        findViewById<FrameLayout>(R.id.view_poi).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        findViewById<ImageButton>(R.id.back_btn_poi).setOnClickListener {
-            this.onBackPressed()
+        poissonPanelRoot.findViewById<View>(R.id.drag_frame_poisson)?.setOnClickListener {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         findViewById<RecyclerView>(R.id.poi_view).setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar_ph) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar_ph))
-        val params2 = findViewById<FrameLayout>(R.id.common_title_back_poi).layoutParams as ViewGroup.LayoutParams
+        val params2 = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
-        findViewById<FrameLayout>(R.id.common_title_back_poi).layoutParams = params2
+        titleBar.container.layoutParams = params2
 
         val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_poi).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
         findViewById<LinearLayout>(R.id.empty_search_box_poi).layoutParams = searchEmptyImgPrm
+        
+        // Handle Poisson Panel insets
+        findViewById<View>(R.id.scroll_poisson)?.setPadding(0, 0, 0, bottom + resources.getDimensionPixelSize(R.dimen.default_padding))
     }
 
-    private fun recyclerView() {
-        val recyclerView = findViewById<RecyclerView>(R.id.poi_view)
-        val poisson = ArrayList<Poisson>()
-
-        PoissonModel.getList(poisson)
-        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val adapter = PoissonAdapter(poisson, this, this)
-        recyclerView.adapter = adapter
-
-        adapter.notifyDataSetChanged()
-
-        findViewById<EditText>(R.id.edit_poi).addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){}
-            override fun afterTextChanged(s: Editable) {
-                filter(s.toString(), poisson, recyclerView)
+    private fun setupChips(list: ArrayList<Poisson>, recyclerView: RecyclerView) {
+        val poissonPreference = PoissonPreferences(this)
+        val categories = listOf(
+            0 to getString(R.string.poi_clear_filter),
+            1 to getString(R.string.chip_rocks),
+            2 to getString(R.string.chip_soils),
+            3 to getString(R.string.chip_minerals)
+        )
+        
+        titleBar.setCategories(categories) { id ->
+            val filter = when (id) {
+                1 -> "rock"
+                2 -> "soil"
+                3 -> "mineral"
+                else -> ""
             }
-        })
+            poissonPreference.setValue(filter)
+            titleBar.searchInput.setText("")
+            filter(titleBar.searchInput.text.toString(), list, recyclerView)
+        }
     }
 
-    //Overrides the clickListener from PoissonAdapter to show InfoPanel when clicking on elments
     override fun poissonClickListener(item: Poisson, position: Int) {
         showInfoPanel(item.name, item.start, item.end, item.type)
     }
 
-    //Show the info panel with detailed information about poisson interavls for materials
     private fun showInfoPanel(title: String, start: Double, end: Double, type: String) {
-        Anim.fadeIn(findViewById<ConstraintLayout>(R.id.poi_det_inc), 150)
-        findViewById<FrameLayout>(R.id.poi_det_inc_background).visibility = View.VISIBLE
+        val slider = findViewById<com.google.android.material.slider.RangeSlider>(R.id.rs_poisson_detail)
+        
+        // Poisson values can be outside [0.0, 0.5] for auxetic materials or other cases.
+        // We must update the slider range before setting values to avoid IllegalStateException.
+        val minVal = Math.min(start, end).toFloat()
+        val maxVal = Math.max(start, end).toFloat()
+        
+        // Ensure values are within [valueFrom, valueTo]
+        slider.valueFrom = Math.min(0.0f, Math.floor(minVal.toDouble()).toFloat())
+        slider.valueTo = Math.max(0.5f, Math.ceil(maxVal.toDouble()).toFloat())
 
-        // Info panel shown -> enable back interception
-        setBackInterceptionEnabled(true)
+        slider.setValues(start.toFloat(), end.toFloat())
 
-        findViewById<ProgressBar>(R.id.pb_poisson_detail).progress = (start*100*2).toInt() //*2 as 100% is 0.5
-        findViewById<ProgressBar>(R.id.pb_poisson_detail).secondaryProgress = (end*100*2).toInt() //*2 as 100% is 0.5
         findViewById<TextView>(R.id.detail_poisson_title).text = title
+        
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+        setBackInterceptionEnabled(true)
     }
 
-    //function for hiding info panel
     private fun hideInfoPanel() {
-        Anim.fadeOutAnim(findViewById<ConstraintLayout>(R.id.poi_det_inc), 150)
-        findViewById<FrameLayout>(R.id.poi_det_inc_background).visibility = View.GONE
-
-        // After hiding, update interception state
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         setBackInterceptionEnabled(anyOverlayOpen())
     }
 
-    //Filters the listView by different sorts of material by using the PoissonPreference to filter by the stringValue.
     private fun filter(text: String, list: ArrayList<Poisson>, recyclerView: RecyclerView) {
         val filteredList: ArrayList<Poisson> = ArrayList()
         for (item in list) {
@@ -190,7 +234,7 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
                 }
             }
         }
-        val handler = android.os.Handler()
+        val handler = android.os.Handler(Looper.getMainLooper())
         handler.postDelayed({
             if (recyclerView.adapter!!.itemCount == 0) {
                 Anim.fadeIn(findViewById<LinearLayout>(R.id.empty_search_box_poi), 300)
@@ -204,116 +248,21 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
         recyclerView.adapter = PoissonAdapter(filteredList, this, this)
     }
 
-    private fun clickSearch() {
-        findViewById<ImageButton>(R.id.search_btn_poi).setOnClickListener {
-            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_poi), 150)
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box_poi), 1)
-
-            findViewById<EditText>(R.id.edit_poi).requestFocus()
-            val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(findViewById<EditText>(R.id.edit_poi), InputMethodManager.SHOW_IMPLICIT)
-
-            // Search bar shown -> enable back interception
-            setBackInterceptionEnabled(true)
-        }
-        findViewById<ImageButton>(R.id.close_poi_search).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_poi), 1)
-
-            val delayClose = Handler()
-            delayClose.postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box_poi), 150)
-            }, 151)
-
-            val view = this.currentFocus
-            if (view != null) {
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-            }
-
-            // closed -> update interception state
-            setBackInterceptionEnabled(anyOverlayOpen())
-        }
-    }
-
-    private fun chipListeners(list: ArrayList<Poisson>, recyclerView: RecyclerView) {
-        findViewById<Button>(R.id.rocks_btn).setOnClickListener {
-            updateButtonColor("rocks_btn")
-            val poissonPreference = PoissonPreferences(this)
-            poissonPreference.setValue("rock")
-            findViewById<EditText>(R.id.edit_poi).setText("test")
-            findViewById<EditText>(R.id.edit_poi).setText("")
-        }
-        findViewById<Button>(R.id.soils_btn).setOnClickListener {
-            updateButtonColor("soils_btn")
-            val poissonPreference = PoissonPreferences(this)
-            poissonPreference.setValue("soil")
-            findViewById<EditText>(R.id.edit_poi).setText("test")
-            findViewById<EditText>(R.id.edit_poi).setText("")
-        }
-        findViewById<Button>(R.id.minerals_btn).setOnClickListener {
-            updateButtonColor("minerals_btn")
-            val poissonPreference = PoissonPreferences(this)
-            poissonPreference.setValue("mineral")
-            findViewById<EditText>(R.id.edit_poi).setText("test")
-            findViewById<EditText>(R.id.edit_poi).setText("")
-        }
-    }
-
-    private fun updateButtonColor(btn: String) {
-        findViewById<Button>(R.id.rocks_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.soils_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.minerals_btn).background = getDrawable(R.drawable.chip)
-
-        val delay = Handler()
-        delay.postDelayed({
-            val resIDB = resources.getIdentifier(btn, "id", packageName)
-            val button = findViewById<Button>(resIDB)
-            button.background = getDrawable(R.drawable.chip_active)
-        }, 200)
-
-        findViewById<Button>(R.id.clear_btn).visibility = View.VISIBLE
-        findViewById<Button>(R.id.clear_btn).setOnClickListener {
-            val resIDB = resources.getIdentifier(btn, "id", packageName)
-            val button = findViewById<Button>(resIDB)
-            val poissonPreference = PoissonPreferences(this)
-            button.background = getDrawable(R.drawable.chip)
-            poissonPreference.setValue("")
-            findViewById<EditText>(R.id.edit_poi).setText("test")
-            findViewById<EditText>(R.id.edit_poi).setText("")
-            findViewById<Button>(R.id.clear_btn).visibility = View.GONE
-        }
-    }
-
-    // Centralized overlay detection
     private fun anyOverlayOpen(): Boolean {
-        val infoVisible = findViewById<ConstraintLayout>(R.id.poi_det_inc).visibility == View.VISIBLE
-        val backgroundVisible = findViewById<FrameLayout>(R.id.poi_det_inc_background).visibility == View.VISIBLE
-        val searchBarVisible = findViewById<FrameLayout>(R.id.search_bar_poi).visibility == View.VISIBLE
+        val infoVisible = bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN
+        val backgroundVisible = findViewById<TextView>(R.id.background_poi).visibility == View.VISIBLE
+        val searchBarVisible = titleBar.searchRow.visibility == View.VISIBLE
         return infoVisible || backgroundVisible || searchBarVisible
     }
 
-    // Close overlays if visible; return true when consumed.
     private fun handleBackPress(): Boolean {
-        val infoPanel = findViewById<ConstraintLayout>(R.id.poi_det_inc)
-        val background = findViewById<FrameLayout>(R.id.poi_det_inc_background)
-        val searchBar = findViewById<FrameLayout>(R.id.search_bar_poi)
-
-        if (infoPanel.visibility == View.VISIBLE || background.visibility == View.VISIBLE) {
-            hideInfoPanel()
-            setBackInterceptionEnabled(anyOverlayOpen())
+        if (bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN) {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
             return true
         }
 
-        if (searchBar.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(searchBar, 1)
-            Handler(Looper.getMainLooper()).postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box_poi), 150)
-            }, 151)
-            val view = this.currentFocus
-            if (view != null) {
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-            }
+        if (titleBar.searchRow.visibility == View.VISIBLE) {
+            titleBar.hideSearch()
             setBackInterceptionEnabled(anyOverlayOpen())
             return true
         }
@@ -321,13 +270,16 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
         return false
     }
 
+    override fun onBackPressed() {
+        if (!handleBackPress()) {
+            super.onBackPressed()
+        }
+    }
+
     /**
      * Centralized management of platform back interception for Android 14+.
-     * We forward platform back invocations to the OnBackPressedDispatcher to ensure
-     * gestures and hardware back buttons call the same callbacks.
      */
     private fun setBackInterceptionEnabled(enabled: Boolean) {
-        // Keep OnBackPressedCallback state in sync
         backCallback?.isEnabled = enabled
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
@@ -340,7 +292,6 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
                             } catch (e: Exception) {
                                 val consumed = handleBackPress()
                                 if (!consumed) {
-                                    // fallback to finishing
                                     finish()
                                 }
                             }
@@ -351,17 +302,13 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
                             android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT,
                             onBackInvokedCb!!
                         )
-                    } catch (_: Exception) {
-                        // ignore registration errors on some devices
-                    }
+                    } catch (_: Exception) { }
                 }
             } else {
                 if (onBackInvokedCb != null) {
                     try {
                         onBackInvokedDispatcher.unregisterOnBackInvokedCallback(onBackInvokedCb!!)
-                    } catch (_: Exception) {
-                        // ignore
-                    }
+                    } catch (_: Exception) { }
                     onBackInvokedCb = null
                 }
             }
@@ -370,7 +317,6 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        // Cleanup back interception hooks
         backCallback?.remove()
         backCallback = null
         if (onBackInvokedCb != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {

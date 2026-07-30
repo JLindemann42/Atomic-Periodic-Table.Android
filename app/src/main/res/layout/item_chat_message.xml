@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="4dp"
+    android:paddingHorizontal="8dp">
+
+    <!-- User Message Container (Right-aligned) -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/userMessageContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:cardCornerRadius="16dp"
+        android:layout_margin="2dp"
+        app:cardBackgroundColor="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintStart_toStartOf="@+id/guideline_user"
+        app:layout_constraintHorizontal_bias="1"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/userMessageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="14sp"
+            tools:text="Hello, tell me about Oxygen!" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <!-- AI Mascot Icon -->
+    <ImageView
+        android:id="@+id/aiMascotIcon"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:src="@drawable/ic_ai_mascot"
+        android:visibility="gone"
+        android:contentDescription="Atomic Assistant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <!-- AI Message Container (Left-aligned) -->
+    <FrameLayout
+        android:id="@+id/aiMessageRoot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="24dp"
+        android:visibility="gone"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/aiMascotIcon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0"
+        tools:visibility="visible">
+
+        <View
+            android:id="@+id/aiMessageGlow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ai_message_border_glow"
+            android:alpha="0" />
+
+        <FrameLayout
+            android:id="@+id/aiMessageContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/aiMessageText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="4dp"
+                    android:paddingVertical="12dp"
+                    android:textColor="?attr/colorOnSecondaryContainer"
+                    android:textSize="14sp"
+                    android:focusable="true"
+                    android:textIsSelectable="true"
+                    tools:text="Oxygen is a chemical element with symbol O and atomic number 8." />
+
+                <!--
+                  Where a visual card is inflated, between the answer text and its sources.
+
+                  A host rather than the card itself: the card is inflated once when the ViewHolder
+                  is created, chosen by view type, so scrolling never re-inflates it.
+                -->
+                <FrameLayout
+                    android:id="@+id/aiMessageCardContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="gone">
+
+                    <FrameLayout
+                        android:id="@+id/aiMessageCardHost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <!--
+                      Shown over a locked card. It sits above the host rather than replacing it, so
+                      the blurred shape stays visible underneath: the upsell is then about something
+                      the user can see, not an empty rectangle.
+                    -->
+                    <FrameLayout
+                        android:id="@+id/aiCardProOverlay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:visibility="gone">
+
+                        <!-- Only drawn below API 31, where no view-level blur exists. -->
+                        <View
+                            android:id="@+id/aiCardProScrim"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?attr/colorSecondaryContainer"
+                            android:visibility="gone" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:contentDescription="@string/get_pro_title"
+                                android:src="@drawable/ic_lock"
+                                app:tint="?attr/colorOnSecondaryContainer" />
+
+                            <TextView
+                                android:id="@+id/aiCardProText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:gravity="center"
+                                android:text="@string/ai_card_pro_locked"
+                                android:textColor="?attr/colorOnSecondaryContainer"
+                                android:textSize="12sp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/aiCardProButton"
+                                style="@style/Widget.MaterialComponents.Button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:minHeight="0dp"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="6dp"
+                                android:text="@string/get_pro_plus_button"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                </FrameLayout>
+
+                <!-- Tappable sources for a grounded answer. The message renderer supports no
+                     links, so a citation is surfaced as a chip instead of an inline URL. -->
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/aiMessageActions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="12dp"
+                    android:paddingBottom="10dp"
+                    android:visibility="gone"
+                    app:chipSpacingHorizontal="6dp"
+                    app:chipSpacingVertical="0dp"
+                    app:singleLine="false" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9"  />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

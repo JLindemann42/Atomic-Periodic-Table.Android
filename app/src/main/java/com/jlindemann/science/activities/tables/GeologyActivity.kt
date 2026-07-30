@@ -20,6 +20,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.GeologyAdapter
@@ -30,6 +31,7 @@ import com.jlindemann.science.preferences.GeologyPreference
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.Utils
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import android.widget.TextView
 import java.util.*
 import kotlin.collections.ArrayList
@@ -38,10 +40,14 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
     private var geologyList = ArrayList<Geology>()
     var mAdapter = GeologyAdapter(geologyList, this, this)
 
+    private lateinit var titleBar: UnifiedTitleBarController
+
     // Unified back handling fields
     private var backCallback: OnBackPressedCallback? = null
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
     private val uiHandler = Handler(Looper.getMainLooper())
+    
+    private var bottomSheetBehavior: BottomSheetBehavior<View>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,22 +88,62 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         val item = ArrayList<Geology>()
         GeologyModel.getList(item)
 
-        recyclerView()
-        clickSearch()
-        chipListeners(item, recyclerView)
-        findViewById<Button>(R.id.clear_btn).visibility = View.GONE
+        //recyclerView()
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.activity_geology_title)
+        titleBar.setAction(R.drawable.ic_search) { titleBar.showSearch() }
+        titleBar.searchCloseButton.setOnClickListener {
+            titleBar.hideSearch()
+            titleBar.searchInput.setText("")
+        }
+        titleBar.backButton.setOnClickListener { onBackPressed() }
 
-        findViewById<FrameLayout>(R.id.view_geo).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        setupBottomSheet()
+        setupChips(item, recyclerView)
 
-        // When tapping background, hide panel and update interception
-        findViewById<TextView>(R.id.detail_background_geo).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.geo_details), 300)
-            // update interception state after hiding overlays
-            setBackInterceptionEnabled(anyOverlayOpen())
+        // Initial filter to show all items
+        GeologyPreference(this).setValue("")
+        filter("", item, recyclerView)
+
+        findViewById<EditText>(R.id.unified_titlebar_search_input).addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){}
+            override fun afterTextChanged(s: Editable) {
+                filter(s.toString(), item, recyclerView)
+            }
+        })
+    }
+
+    private fun setupBottomSheet() {
+        val geologyPanelRoot = findViewById<View>(R.id.geo_details) ?: return
+        val background = findViewById<TextView>(R.id.background_geo) ?: return
+        
+        bottomSheetBehavior = BottomSheetBehavior.from(geologyPanelRoot)
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehavior?.skipCollapsed = true
+        
+        bottomSheetBehavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    background.visibility = View.GONE
+                    background.alpha = 0f
+                } else {
+                    background.visibility = View.VISIBLE
+                }
+                setBackInterceptionEnabled(anyOverlayOpen())
+            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                background.visibility = View.VISIBLE
+                background.alpha = slideOffset.coerceAtLeast(0f) * 0.6f
+            }
+        })
+        
+        background.setOnClickListener {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
 
-        findViewById<ImageButton>(R.id.back_btn_geo).setOnClickListener {
-            this.onBackPressed()
+        geologyPanelRoot.findViewById<View>(R.id.drag_frame_geology)?.setOnClickListener {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
     }
 
@@ -114,52 +160,44 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         findViewById<TextView>(R.id.geo_magnetism).text = getString(R.string.magnetism_label) + item.magnetism
         findViewById<TextView>(R.id.geo_hydrochloride).text = item.hydrochloride
 
-        // Fade in geo_details and enable back interception while open
-        Utils.fadeInAnim(findViewById<FrameLayout>(R.id.geo_details), 300)
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
         setBackInterceptionEnabled(true)
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         findViewById<RecyclerView>(R.id.geo_view).setPadding(0, resources.getDimensionPixelSize(R.dimen.title_bar_ph) + top, 0, resources.getDimensionPixelSize(R.dimen.title_bar_ph))
-        val params2 = findViewById<FrameLayout>(R.id.common_title_back_geo).layoutParams as ViewGroup.LayoutParams
+        val params2 = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar_ph)
-        findViewById<FrameLayout>(R.id.common_title_back_geo).layoutParams = params2
+        titleBar.container.layoutParams = params2
 
         val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_geo).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
         findViewById<LinearLayout>(R.id.empty_search_box_geo).layoutParams = searchEmptyImgPrm
+        
+        // Handle Geology Panel insets
+        findViewById<View>(R.id.scroll_geology)?.setPadding(0, 0, 0, bottom + resources.getDimensionPixelSize(R.dimen.default_padding))
     }
 
-    private fun recyclerView() {
-        val recyclerView = findViewById<RecyclerView>(R.id.geo_view)
-        val geology = ArrayList<Geology>()
-
-        GeologyModel.getList(geology)
-        recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        val adapter = GeologyAdapter(geology, this, this)
-        recyclerView.adapter = adapter
-
-        adapter.notifyDataSetChanged()
-
-        //Add value to most used:
-        val mostUsedPreference = MostUsedPreference(this)
-        val mostUsedPrefValue = mostUsedPreference.getValue()
-        val targetLabel = "geo"
-        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
-        val match = regex.find(mostUsedPrefValue)
-        if (match != null) {
-            val value = match.groups[2]!!.value.toDouble()
-            val newValue = value + 1
-            mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
-        }
-
-        findViewById<EditText>(R.id.edit_geo).addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){}
-            override fun afterTextChanged(s: Editable) {
-                filter(s.toString(), geology, recyclerView)
+    private fun setupChips(list: ArrayList<Geology>, recyclerView: RecyclerView) {
+        val geoPreference = GeologyPreference(this)
+        val categories = listOf(
+            0 to getString(R.string.geo_clear_filter),
+            1 to getString(R.string.activity_geology_mineral),
+            2 to getString(R.string.activity_geology_rock),
+            3 to getString(R.string.activity_geology_soil)
+        )
+        
+        titleBar.setCategories(categories) { id ->
+            val filter = when (id) {
+                1 -> "mineral"
+                2 -> "rock"
+                3 -> "soil"
+                else -> ""
             }
-        })
+            geoPreference.setValue(filter)
+            titleBar.searchInput.setText("")
+            filter(titleBar.searchInput.text.toString(), list, recyclerView)
+        }
     }
 
     // Filters the listView by different sorts of material by using the geossonPreference to filter by the stringValue.
@@ -188,120 +226,24 @@ class GeologyActivity : BaseActivity(), GeologyAdapter.OnGeologyClickListener {
         recyclerView.adapter = GeologyAdapter(filteredList, this, this)
     }
 
-    private fun clickSearch() {
-        findViewById<ImageButton>(R.id.search_btn_geo).setOnClickListener {
-            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_geo), 150)
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box_geo), 1)
-
-            findViewById<EditText>(R.id.edit_geo).requestFocus()
-            val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(findViewById<EditText>(R.id.edit_geo), InputMethodManager.SHOW_IMPLICIT)
-
-            // Search bar shown -> enable back interception
-            setBackInterceptionEnabled(true)
-        }
-        findViewById<ImageButton>(R.id.close_geo_search).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_geo), 1)
-
-            val delayClose = Handler(Looper.getMainLooper())
-            delayClose.postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box_geo), 150)
-            }, 151)
-
-            val view = this.currentFocus
-            if (view != null) {
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-            }
-
-            // closed -> update interception state
-            setBackInterceptionEnabled(anyOverlayOpen())
-        }
-    }
-
-    private fun chipListeners(list: ArrayList<Geology>, recyclerView: RecyclerView) {
-        findViewById<Button>(R.id.rocks_btn).setOnClickListener {
-            updateButtonColor("rocks_btn")
-            val geoPreference = GeologyPreference(this)
-            geoPreference.setValue("rock")
-            findViewById<EditText>(R.id.edit_geo).setText("test")
-            findViewById<EditText>(R.id.edit_geo).setText("")
-        }
-        findViewById<Button>(R.id.soils_btn).setOnClickListener {
-            updateButtonColor("soils_btn")
-            val geoPreference = GeologyPreference(this)
-            geoPreference.setValue("soil")
-            findViewById<EditText>(R.id.edit_geo).setText("test")
-            findViewById<EditText>(R.id.edit_geo).setText("")
-        }
-        findViewById<Button>(R.id.minerals_btn).setOnClickListener {
-            updateButtonColor("minerals_btn")
-            val geoPreference = GeologyPreference(this)
-            geoPreference.setValue("mineral")
-            findViewById<EditText>(R.id.edit_geo).setText("test")
-            findViewById<EditText>(R.id.edit_geo).setText("")
-        }
-    }
-
-    private fun updateButtonColor(btn: String) {
-        findViewById<Button>(R.id.rocks_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.soils_btn).background = getDrawable(R.drawable.chip)
-        findViewById<Button>(R.id.minerals_btn).background = getDrawable(R.drawable.chip)
-
-        val delay = Handler(Looper.getMainLooper())
-        delay.postDelayed({
-            val resIDB = resources.getIdentifier(btn, "id", packageName)
-            val button = findViewById<Button>(resIDB)
-            button.background = getDrawable(R.drawable.chip_active)
-        }, 200)
-
-        findViewById<Button>(R.id.clear_btn).visibility = View.VISIBLE
-        findViewById<Button>(R.id.clear_btn).setOnClickListener {
-            val resIDB = resources.getIdentifier(btn, "id", packageName)
-            val button = findViewById<Button>(resIDB)
-            val geoPreference = GeologyPreference(this)
-            button.background = getDrawable(R.drawable.chip)
-            geoPreference.setValue("")
-            findViewById<EditText>(R.id.edit_geo).setText("test")
-            findViewById<EditText>(R.id.edit_geo).setText("")
-            findViewById<Button>(R.id.clear_btn).visibility = View.GONE
-        }
-    }
-
     // Centralized overlay detection
     private fun anyOverlayOpen(): Boolean {
-        val detailsVisible = findViewById<FrameLayout>(R.id.geo_details).visibility == View.VISIBLE
-        val backgroundVisible = findViewById<TextView>(R.id.detail_background_geo).visibility == View.VISIBLE
-        val searchBarVisible = findViewById<FrameLayout>(R.id.search_bar_geo).visibility == View.VISIBLE
-        return detailsVisible || backgroundVisible || searchBarVisible
+        val detailsVisible = bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN
+        val searchBarVisible = titleBar.searchRow.visibility == View.VISIBLE
+        return detailsVisible || searchBarVisible
     }
 
     // Close overlays if visible; return true when consumed.
     private fun handleBackPress(): Boolean {
-        val details = findViewById<FrameLayout>(R.id.geo_details)
-        val background = findViewById<TextView>(R.id.detail_background_geo)
-        val searchBar = findViewById<FrameLayout>(R.id.search_bar_geo)
-
         // If details visible, hide them
-        if (details.visibility == View.VISIBLE || background.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(details, 300)
-            Utils.fadeOutAnim(background, 300)
-            setBackInterceptionEnabled(anyOverlayOpen())
+        if (bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN) {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
             return true
         }
 
         // If search bar visible, close it
-        if (searchBar.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(searchBar, 1)
-            Handler(Looper.getMainLooper()).postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box_geo), 150)
-            }, 151)
-
-            val view = this.currentFocus
-            if (view != null) {
-                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(view.windowToken, 0)
-            }
+        if (titleBar.searchRow.visibility == View.VISIBLE) {
+            titleBar.hideSearch()
             setBackInterceptionEnabled(anyOverlayOpen())
             return true
         }

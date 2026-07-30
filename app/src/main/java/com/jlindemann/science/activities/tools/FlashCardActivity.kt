@@ -1,6 +1,6 @@
 package com.jlindemann.science.activities.tools
 
-import GameResultItem
+import com.jlindemann.science.utils.GameResultItem
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
@@ -39,18 +39,24 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.jlindemann.science.activities.UserActivity
-import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.settings.SubmitActivity
+import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ProVersion
+import com.jlindemann.science.utils.ExamManager
+import com.jlindemann.science.utils.FlashcardCatalog
+import com.jlindemann.science.utils.FlashcardCatalog.CategorySpec
+import com.jlindemann.science.utils.FlashcardCatalog.ExamSpec
 import com.jlindemann.science.utils.StreakManager
 import com.jlindemann.science.auth.AuthManager
 import com.jlindemann.science.sync.ProgressSyncManager
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import org.w3c.dom.Text
 
 class FlashCardActivity : BaseActivity() {
 
+    private lateinit var titleBar: UnifiedTitleBarController
     private lateinit var toggles: List<ToggleButton>
     private lateinit var infoText: TextView
     private var resultDialog: ResultDialogFragment? = null
@@ -136,63 +142,14 @@ class FlashCardActivity : BaseActivity() {
         }
     }
 
-    // Data model for creating boxes dynamically
-    private data class CategorySpec(val key: String, val labelRes: Int, val isPro: Boolean = false)
-    private data class LevelBoxSpec(val range: IntRange, val categories: List<CategorySpec>)
-
     // Keep runtime references to created category rows so we can control enabled state & random-launch
     private val createdCategoryRows = mutableListOf<Pair<View, String>>() // view -> categoryKey
 
+    // Exam cards sitting between the level boxes
+    private val createdExamRows = mutableListOf<Pair<View, ExamSpec>>()
+
     // Reward levels for 5% XP bonus (automatically applied when level is reached)
     private val REWARD_LEVELS = listOf(10, 15, 20)
-
-    // Define the boxes and categories (keeps same logical contents as previous XML)
-    private val levelBoxesSpec = listOf(
-        LevelBoxSpec(0..4, listOf(
-            CategorySpec("element_symbols", R.string.element_symbols),
-            CategorySpec("element_names", R.string.element_names),
-            CategorySpec("element_classifications", R.string.element_groups),
-            CategorySpec("discovered_by", R.string.discovered_by, isPro = true),
-            CategorySpec("discovery_year", R.string.discovery_year, isPro = true)
-        )),
-        LevelBoxSpec(5..9, listOf(
-            CategorySpec("appearance", R.string.appearance),
-            CategorySpec("atomic_number", R.string.atomic_number),
-            CategorySpec("electrical_type", R.string.electrical_type, isPro = true),
-            CategorySpec("radioactive", R.string.radioactive, isPro = true)
-        )),
-        LevelBoxSpec(10..14, listOf(
-            CategorySpec("atomic_mass", R.string.atomic_mass),
-            CategorySpec("density", R.string.density),
-            CategorySpec("electronegativity", R.string.electronegativity, isPro = true),
-            CategorySpec("block", R.string.block, isPro = true)
-        )),
-        LevelBoxSpec(15..19, listOf(
-            CategorySpec("magnetic_type", R.string.magnetic_type),
-            CategorySpec("phase_stp", R.string.phase_stp),
-            CategorySpec("crystal_structure", R.string.crystal_structure, isPro = true),
-            CategorySpec("superconducting_point", R.string.superconducting_point, isPro = true)
-        )),
-        LevelBoxSpec(20..24, listOf(
-            CategorySpec("neutron_cross_sectional", R.string.neutron_cross_sectional),
-            CategorySpec("specific_heat_capacity", R.string.specific_heat_capacity),
-            CategorySpec("mohs_hardness", R.string.mohs_hardness, isPro = true),
-            CategorySpec("vickers_hardness", R.string.vickers_hardness, isPro = true),
-            CategorySpec("brinell_hardness", R.string.brinell_hardness, isPro = true)
-        )),
-        LevelBoxSpec(25..29, listOf(
-            CategorySpec("element_boiling_celsius", R.string.boiling_point_celsius),
-            CategorySpec("element_boiling_fahrenheit", R.string.boiling_point_fahrenheit),
-            CategorySpec("element_boiling_kelvin", R.string.boiling_point_kelvin),
-            CategorySpec("element_melting_celsius", R.string.melting_point_celsius, isPro = true),
-            CategorySpec("element_melting_fahrenheit", R.string.melting_point_fahrenheit, isPro = true),
-            CategorySpec("element_melting_kelvin", R.string.melting_point_kelvin, isPro = true)
-        )),
-        LevelBoxSpec(30..34, listOf(
-            CategorySpec("earth_crust", R.string.abundance_earth_crust),
-            CategorySpec("earth_soils", R.string.abundance_earth_soils, isPro = true)
-        ))
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -279,7 +236,7 @@ class FlashCardActivity : BaseActivity() {
 
         //Set pro upgrade button listener
         findViewById<TextView>(R.id.get_pro_plus_btn).setOnClickListener {
-            startActivity(Intent(this, ProActivity::class.java))
+            goToProPage()
         }
 
         // Ensure UI reflects current sign-in state immediately
@@ -294,47 +251,8 @@ class FlashCardActivity : BaseActivity() {
             tvSyncStatus?.visibility = View.GONE
         }
 
-        // --- Rest of UI wiring (preserve existing initialization) ---
-        findViewById<FrameLayout>(R.id.common_title_back_fla_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.flashcard_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_fla).elevation = (resources.getDimension(R.dimen.zero_elevation))
 
-        val scrollView = findViewById<NestedScrollView>(R.id.flashcard_scroll)
-        scrollView?.viewTreeObserver?.addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
-            private var isTitleVisible = false
-            override fun onScrollChanged() {
-                val scrollY = scrollView.scrollY
-                val threshold = 150
-                val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_back_fla_color)
-                val titleText = findViewById<TextView>(R.id.flashcard_title)
-                val titleDownstateText = findViewById<TextView>(R.id.flashcard_title_downstate)
-                val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_fla)
-
-                if (scrollY > threshold) {
-                    if (!isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
-                        TitleBarAnimator.animateVisibility(titleText, true)
-                        TitleBarAnimator.animateVisibility(titleDownstateText, false)
-                        titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
-                        isTitleVisible = true
-                    }
-                } else {
-                    if (isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, false)
-                        TitleBarAnimator.animateVisibility(titleText, false)
-                        TitleBarAnimator.animateVisibility(titleDownstateText, true)
-                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
-                        isTitleVisible = false
-                    }
-                }
-            }
-        })
-
-        findViewById<ImageButton>(R.id.back_btn_fla).setOnClickListener {
-            onBackPressed()
-        }
-
-        val achievementsBtn = findViewById<ImageButton>(R.id.achievements_btn)
+        val achievementsBtn = findViewById<View>(R.id.achievements_btn)
         achievementsBtn.setOnClickListener {
             val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
@@ -368,17 +286,43 @@ class FlashCardActivity : BaseActivity() {
             // ignore
         }
 
-        // update most-used preference, lives/info, toggles, boxes, etc.
+        // update most-used preference
         val mostUsedPreference = MostUsedToolPreference(this)
         val mostUsedPrefValue = mostUsedPreference.getValue()
         val targetLabel = "fla"
-        val regex = Regex("($targetLabel)=(\\d\\.\\d)")
+        val regex = Regex("($targetLabel)=(\\d+\\.\\d+)")
         val match = regex.find(mostUsedPrefValue)
         if (match != null) {
             val value = match.groups[2]!!.value.toDouble()
             val newValue = value + 1
             mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
         }
+
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.flashcards_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
+        findViewById<NestedScrollView>(R.id.flashcard_scroll).viewTreeObserver
+            .addOnScrollChangedListener {
+                val scrollY = findViewById<NestedScrollView>(R.id.flashcard_scroll).scrollY
+                if (scrollY > 150) {
+                    titleSurface.visibility = View.VISIBLE
+                    titleBar.titleView.visibility = View.VISIBLE
+                    titleBar.container.elevation = resources.getDimension(R.dimen.one_elevation)
+                } else {
+                    titleSurface.visibility = View.INVISIBLE
+                    titleBar.titleView.visibility = View.INVISIBLE
+                    titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+                }
+            }
 
         infoText = findViewById(R.id.tv_lives_info)
         setupDifficultyToggles()
@@ -424,11 +368,12 @@ class FlashCardActivity : BaseActivity() {
         val container = findViewById<LinearLayout>(R.id.boxes_container)
         container.removeAllViews()
         createdCategoryRows.clear()
+        createdExamRows.clear()
 
         val inflater = LayoutInflater.from(this)
         // detect pro status once so we can indicate disabled state for level 10 if needed
         val isProUser = checkProPlusStatus()
-        for (boxSpec in levelBoxesSpec) {
+        for (boxSpec in FlashcardCatalog.levelBoxes) {
             val boxView = inflater.inflate(R.layout.level_box, container, false)
             val titleView = boxView.findViewById<TextView>(R.id.level_box_title)
             val categoriesContainer = boxView.findViewById<LinearLayout>(R.id.level_categories_container)
@@ -455,8 +400,7 @@ class FlashCardActivity : BaseActivity() {
                 row.setOnClickListener {
                     val isPro = checkProPlusStatus()
                     if (cat.isPro && !isPro) {
-                        // send to ProActivity
-                        startActivity(Intent(this, ProActivity::class.java))
+                        goToProPage()
                         return@setOnClickListener
                     }
                     // if the row is disabled, do nothing
@@ -523,10 +467,76 @@ class FlashCardActivity : BaseActivity() {
             // rewardsContainer left hidden by default; other code can populate it via:
             // boxView.findViewById<LinearLayout>(R.id.level_rewards_buttons).addView(...)
             container.addView(boxView)
+
+            FlashcardCatalog.examAfterBox(boxSpec.range)?.let { exam ->
+                container.addView(buildExamBox(inflater, container, exam))
+            }
         }
 
         // Finally run an initial update pass
         updateCategoryBoxes()
+    }
+
+    private fun buildExamBox(inflater: LayoutInflater, container: ViewGroup, exam: ExamSpec): View {
+        val examView = inflater.inflate(R.layout.exam_box, container, false)
+        examView.tag = exam
+
+        examView.findViewById<TextView>(R.id.exam_subtitle).text =
+            getString(R.string.exam_test_subtitle, 0, FlashcardCatalog.topLevelForExam(exam))
+        examView.findViewById<TextView>(R.id.exam_pro_badge).visibility =
+            if (exam.isPro) View.VISIBLE else View.GONE
+
+        val startRow = examView.findViewById<View>(R.id.exam_start_row)
+        startRow.setOnClickListener {
+            if (exam.isPro && !checkProPlusStatus()) {
+                goToProPage()
+                return@setOnClickListener
+            }
+            if (!startRow.isEnabled) return@setOnClickListener
+
+            val intent = Intent(this, LearningGamesActivity::class.java)
+            intent.putExtra("difficulty", getSelectedDifficulty())
+            intent.putExtra("category", exam.key)
+            startActivity(intent)
+        }
+
+        createdExamRows.add(examView to exam)
+        return examView
+    }
+
+    private fun updateExamBoxes() {
+        val userLevel = XpManager.getLevel(XpManager.getXp(this))
+        val isProUser = checkProPlusStatus()
+        val hasLives = LivesManager.getLives(this) > 0
+
+        for ((examView, exam) in createdExamRows) {
+            val levelReached = userLevel >= exam.unlockLevel
+            val proSatisfied = !exam.isPro || isProUser
+            val playable = levelReached && proSatisfied && hasLives
+
+            val label = examView.findViewById<TextView>(R.id.exam_start_label)
+            val startRow = examView.findViewById<View>(R.id.exam_start_row)
+            val score = examView.findViewById<TextView>(R.id.exam_score)
+
+            examView.alpha = if (levelReached) 1f else 0.5f
+            startRow.isEnabled = playable
+            startRow.alpha = if (playable) 1f else 0.5f
+
+            label.text = when {
+                !levelReached -> getString(R.string.exam_locked, exam.unlockLevel)
+                !proSatisfied -> getString(R.string.exam_pro_locked)
+                else -> getString(R.string.exam_start)
+            }
+            val lockIcon = if (levelReached && proSatisfied) 0 else R.drawable.ic_lock
+            label.setCompoundDrawablesWithIntrinsicBounds(lockIcon, 0, 0, 0)
+
+            val best = ExamManager.getBestScorePercent(this, exam.key)
+            score.text = when {
+                best < 0 -> getString(R.string.exam_not_taken)
+                ExamManager.isPassed(this, exam.key) -> getString(R.string.exam_passed, best)
+                else -> getString(R.string.exam_best_score, best)
+            }
+        }
     }
 
     // Reward persistence helpers (claimed flags remain here)
@@ -556,7 +566,7 @@ class FlashCardActivity : BaseActivity() {
         // persist multiplier in XpManager so future game completions get +5%
         XpManager.addXpBonusMultiplier(this, 0.05f)
         setRewardClaimed(level)
-        Toast.makeText(this, "5% XP bonus unlocked at level $level!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.xp_bonus_unlocked, level), Toast.LENGTH_SHORT).show()
         // refresh UI
         updateXpAndLevelStats()
     }
@@ -602,7 +612,11 @@ class FlashCardActivity : BaseActivity() {
         val totalQuestions = intent.getIntExtra("total_questions", results?.size ?: 0)
         val difficulty = intent.getStringExtra("difficulty") ?: "easy"
         if (results != null && results.isNotEmpty()) {
-            showGameResultsPopup(results, gameFinished, totalQuestions, difficulty)
+            showGameResultsPopup(
+                results, gameFinished, totalQuestions, difficulty,
+                intent.getIntExtra("total_xp", 0),
+                intent.getStringExtra("category") ?: "element_symbols"
+            )
             intent.removeExtra("game_finished")
             intent.removeExtra("game_results")
             intent.removeExtra("total_questions")
@@ -652,9 +666,9 @@ class FlashCardActivity : BaseActivity() {
         val currentLevel = XpManager.getLevel(xp)
         if (lastLevel != -1 && currentLevel > lastLevel) {
             AlertDialog.Builder(this)
-                .setTitle("Level Up!")
-                .setMessage("Congratulations, you've reached level $currentLevel!")
-                .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+                .setTitle(R.string.level_up_title)
+                .setMessage(getString(R.string.level_up_message, currentLevel))
+                .setPositiveButton(R.string.ok) { dialog, _ -> dialog.dismiss() }
                 .setCancelable(true)
                 .show()
         }
@@ -668,7 +682,11 @@ class FlashCardActivity : BaseActivity() {
         val totalQuestions = intent.getIntExtra("total_questions", results?.size ?: 0)
         val difficulty = intent.getStringExtra("difficulty") ?: "easy"
         if (results != null && results.isNotEmpty()) {
-            showGameResultsPopup(results, gameFinished, totalQuestions, difficulty)
+            showGameResultsPopup(
+                results, gameFinished, totalQuestions, difficulty,
+                intent.getIntExtra("total_xp", 0),
+                intent.getStringExtra("category") ?: "element_symbols"
+            )
         }
     }
 
@@ -761,6 +779,8 @@ class FlashCardActivity : BaseActivity() {
                 rewardsContainer.visibility = if (rewardsButtons.childCount > 0) View.VISIBLE else View.GONE
             }
         }
+
+        updateExamBoxes()
     }
 
     private fun checkProPlusStatus(): Boolean {
@@ -812,18 +832,13 @@ class FlashCardActivity : BaseActivity() {
         findViewById<TextView>(R.id.progress_text).text = getString(R.string.progress_xp, xpInLevel, xpRequired)
     }
 
-    override fun onBackPressed() {
-        // Try to handle overlays first; if not consumed, allow system/back behaviour
-        if (!handleBackPress()) {
-            super.onBackPressed()
-        }
-    }
-
     private fun showGameResultsPopup(
         results: List<GameResultItem>,
         gameFinished: Boolean,
         totalQuestions: Int,
-        difficulty: String = "easy"
+        difficulty: String = "easy",
+        totalXp: Int = 0,
+        category: String = "element_symbols"
     ) {
         // debounce duplicate invocations (e.g. when both onResume and onNewIntent are triggered)
         val now = System.currentTimeMillis()
@@ -834,7 +849,7 @@ class FlashCardActivity : BaseActivity() {
         lastResultsHandledAt = now
 
         if (resultDialog?.isVisible == true) return
-        resultDialog = ResultDialogFragment.newInstance(results, gameFinished, totalQuestions, difficulty)
+        resultDialog = ResultDialogFragment.newInstance(results, gameFinished, totalQuestions, difficulty, totalXp, category)
         resultDialog?.show(supportFragmentManager, "GameResultsPopup")
         updateXpAndLevelStats()
 
@@ -899,14 +914,14 @@ class FlashCardActivity : BaseActivity() {
     private fun launchRandomUnlockedGame() {
         val unlocked = getAllUnlockedCategoryButtons()
         if (unlocked.isEmpty()) {
-            Toast.makeText(this, "No unlocked games available!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.no_unlocked_games), Toast.LENGTH_SHORT).show()
             return
         }
         val (btn, category) = unlocked.random()
         val catSpec = btn.tag as? CategorySpec
         val isProCategory = catSpec?.isPro == true
         if (isProCategory && !checkProPlusStatus()) {
-            startActivity(Intent(this, ProActivity::class.java))
+            goToProPage()
             return
         }
         val intent = Intent(this, LearningGamesActivity::class.java)
@@ -916,14 +931,13 @@ class FlashCardActivity : BaseActivity() {
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params = findViewById<FrameLayout>(R.id.common_title_back_fla).layoutParams as ViewGroup.LayoutParams
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_fla).layoutParams = params
+        titleBar.container.layoutParams = params
 
-        val params2 = findViewById<TextView>(R.id.flashcard_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
-        params2.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) +
-                resources.getDimensionPixelSize(R.dimen.header_down_margin)
-        findViewById<TextView>(R.id.flashcard_title_downstate).layoutParams = params2
+        val paramsContent = findViewById<LinearLayout>(R.id.flashcard_content_container).layoutParams as ViewGroup.MarginLayoutParams
+        paramsContent.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        findViewById<LinearLayout>(R.id.flashcard_content_container).layoutParams = paramsContent
     }
 
     private fun showLivesInfoPopup(anchor: View) {
@@ -983,7 +997,8 @@ class FlashCardActivity : BaseActivity() {
         if (lives >= maxLives) {
             livesText.text = getString(R.string.you_have_full_lives)
         } else {
-            livesText.text = getString(R.string.next_life_in, minutes, seconds, refillAmount, if (refillAmount > 1) "s" else "")
+            val gained = resources.getQuantityString(R.plurals.next_life_gain, refillAmount, refillAmount)
+            livesText.text = getString(R.string.next_life_in_detail, minutes, seconds, gained)
         }
     }
 
@@ -1076,8 +1091,8 @@ class FlashCardActivity : BaseActivity() {
     }
 
     private val signInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(result.data)
         try {
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             val account = task.getResult(ApiException::class.java)
             val idToken = account?.idToken
             if (idToken != null) {
@@ -1094,8 +1109,23 @@ class FlashCardActivity : BaseActivity() {
                     }
                 }
             }
-        } catch (e: ApiException) {
+        } catch (_: Exception) {
             // silent per requirement
+        }
+    }
+
+    override fun updateLivesCount() {
+        val proPlusPref = ProPlusVersion(this)
+        val isInfinite = proPlusPref.getValue() == 100 || LivesManager.getLives(this) == Int.MAX_VALUE
+        val livesTextView = findViewById<TextView>(R.id.tv_lives_count)
+        val livesLabelView = findViewById<TextView>(R.id.tv_lives)
+        if (isInfinite) {
+            livesTextView?.text = "∞"
+            livesLabelView?.text = getString(R.string.lives_unlimited)
+        } else {
+            val lives = LivesManager.getLives(this)
+            livesTextView?.text = lives.toString()
+            livesLabelView?.text = getString(R.string.lives_label, lives.toString())
         }
     }
 
@@ -1144,7 +1174,7 @@ class FlashCardActivity : BaseActivity() {
         setSyncStatus(getString(R.string.syncing_progress))
 
         // Call merge/upload. ProgressSyncManager handles merge rules (including streak).
-        ProgressSyncManager.mergeAndUploadLocalProgress(this, uid) { success ->
+        ProgressSyncManager.mergeAndUploadLocalProgress(this, uid) { success: Boolean ->
             runOnUiThread {
                 if (success) {
                     // Refresh UI to reflect merged state from cloud

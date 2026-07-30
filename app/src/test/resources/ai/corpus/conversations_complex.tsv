@@ -1,0 +1,102 @@
+# Long threads: topic shifts, returns, corrections, and the question the whole thread was for.
+#
+# Three things here that the shorter files cannot reach:
+#
+#  - **The eventual question.** Several turns establish a subject and then a final turn depends on
+#    all of it. That is where a thread either pays off or reveals that the state was never really
+#    tracking what the user thought it was.
+#  - **Topic shift and return.** The user moves to another element and comes back. State has to
+#    follow the move, which also means it must not follow a move that never happened.
+#  - **Interruption.** Small talk, an unsupported concept or a narrative question lands mid-thread.
+#    The interruption must be declined *and* leave the thread intact behind it.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+cx-shift-1	cx-shift	1	en	what is the density of gold	PROPERTY_LOOKUP	density			
+cx-shift-2	cx-shift	2	en	what is the density of lead	PROPERTY_LOOKUP	density			
+cx-shift-3	cx-shift	3	en	and its melting point	PROPERTY_LOOKUP	melting_point			"its" is lead now, not gold
+cx-shift-4	cx-shift	4	en	what about gold	PROPERTY_LOOKUP	melting_point			back to the first subject
+cx-shift-5	cx-shift	5	en	which of the two melts first	COMPARATIVE	melting_point			the eventual question
+cx-build-1	cx-build	1	en	what is the melting point of tungsten	PROPERTY_LOOKUP	melting_point			
+cx-build-2	cx-build	2	en	and rhenium	PROPERTY_LOOKUP	melting_point			
+cx-build-3	cx-build	3	en	and osmium	PROPERTY_LOOKUP	melting_point			
+cx-build-4	cx-build	4	en	which element has the highest melting point	SUPERLATIVE	melting_point			the payoff after three manual lookups
+cx-build-5	cx-build	5	en	how does that compare to iron	COMPARATIVE	melting_point			
+cx-interrupt-1	cx-int	1	en	what is the atomic radius of sodium	PROPERTY_LOOKUP	atomic_radius			
+cx-interrupt-2	cx-int	2	en	why does atomic radius increase down a group	DATASET_LOOKUP				a concept question mid-thread, answered from the dictionary
+cx-interrupt-3	cx-int	3	en	and potassium	PROPERTY_LOOKUP	atomic_radius			the thread survives the detour
+cx-interrupt-4	cx-int	4	en	which is bigger	COMPARATIVE	atomic_radius			
+cx-interrupt-5	cx-int2	1	en	what is the density of osmium	PROPERTY_LOOKUP	density			
+cx-interrupt-6	cx-int2	2	en	how reactive is it				y	reactivity is not a stored field
+cx-interrupt-7	cx-int2	3	en	and its melting point	PROPERTY_LOOKUP	melting_point			
+cx-interrupt-8	cx-int3	1	en	what is the electronegativity of fluorine	PROPERTY_LOOKUP	electronegativity			
+cx-interrupt-9	cx-int3	2	en	quiz me				y	small talk must not consume the thread
+cx-interrupt-10	cx-int3	3	en	and chlorine	PROPERTY_LOOKUP	electronegativity			
+cx-subset-1	cx-subset	1	en	which transition metals are denser than iron	FILTER_LIST	density			
+cx-subset-2	cx-subset	2	en	how many are there	AGGREGATE				
+cx-subset-3	cx-subset	3	en	which is the densest	SUPERLATIVE	density			
+cx-subset-4	cx-subset	4	en	what is its atomic number	PROPERTY_LOOKUP	atomic_number			
+cx-compare-1	cx-cmp	1	en	compare gold and silver	COMPARISON				
+cx-compare-2	cx-cmp	2	en	which is denser	COMPARATIVE	density			
+cx-compare-3	cx-cmp	3	en	by how much	COMPARATIVE	density			the ratio question, only answerable from the thread
+cx-compare-4	cx-cmp	4	en	and their melting points	COMPARISON	melting_point			
+cx-iso-1	cx-iso	1	en	what are the isotopes of uranium	ISOTOPES		ISOTOPE_DECAY		
+cx-iso-2	cx-iso	2	en	uranium-235 vs uranium-238	ISOTOPE_COMPARISON				
+cx-iso-3	cx-iso	3	en	how many neutrons does uranium 235 have	NUCLIDE_COUNT				
+cx-iso-4	cx-iso	4	en	is uranium radioactive	PROPERTY_LOOKUP	radioactive			
+cx-safety-1	cx-safety	1	en	is arsenic dangerous	SAFETY		NFPA_DIAMOND		
+cx-safety-2	cx-safety	2	en	what is its atomic number	PROPERTY_LOOKUP	atomic_number			
+cx-safety-3	cx-safety	3	en	and mercury	PROPERTY_LOOKUP	atomic_number			
+cx-safety-4	cx-safety	4	en	is that one dangerous too	SAFETY		NFPA_DIAMOND		
+cx-units-1	cx-units	1	en	melting point of iron in kelvin	PROPERTY_LOOKUP	melting_point			
+cx-units-2	cx-units	2	en	in celsius	PROPERTY_LOOKUP	melting_point			
+cx-units-3	cx-units	3	en	and copper	PROPERTY_LOOKUP	melting_point			
+cx-units-4	cx-units	4	en	which melts at a lower temperature	COMPARATIVE	melting_point			
+cx-cat-1	cx-cat	1	en	tell me about the thermal properties of gold	CATEGORY_LOOKUP				
+cx-cat-2	cx-cat	2	en	what is its thermal conductivity	PROPERTY_LOOKUP	thermal_conductivity			narrowing from the family to one field
+cx-cat-3	cx-cat	3	en	and copper	PROPERTY_LOOKUP	thermal_conductivity			
+cx-cat-4	cx-cat	4	en	which conducts heat better	COMPARATIVE	thermal_conductivity			
+cx-abund-1	cx-abund	1	en	where is gold found	CATEGORY_LOOKUP		ABUNDANCE		
+cx-abund-2	cx-abund	2	en	how much is in sea water	PROPERTY_LOOKUP	abundance_sea_water	ABUNDANCE		
+cx-abund-3	cx-abund	3	en	what about silver	PROPERTY_LOOKUP	abundance_sea_water	ABUNDANCE		
+cx-abund-4	cx-abund	4	en	which is more common	COMPARATIVE	abundance_sea_water			
+cx-calc-1	cx-calc	1	en	what is the molar mass of H2SO4	FORMULA_MASS				
+cx-calc-2	cx-calc	2	en	what is the percentage composition of H2SO4	FORMULA_MASS				
+cx-calc-3	cx-calc	3	en	what is the atomic mass of sulfur	PROPERTY_LOOKUP	atomic_mass			
+cx-calc-4	cx-calc	4	en	how many atoms are in 2 moles of sulfur	MOLE_CONVERSION				
+cx-long-1	cx-long	1	en	what is the atomic number of iron	PROPERTY_LOOKUP	atomic_number			
+cx-long-2	cx-long	2	en	and its atomic mass	PROPERTY_LOOKUP	atomic_mass			
+cx-long-3	cx-long	3	en	and its density	PROPERTY_LOOKUP	density			
+cx-long-4	cx-long	4	en	and its melting point	PROPERTY_LOOKUP	melting_point			
+cx-long-5	cx-long	5	en	and its crystal structure	PROPERTY_LOOKUP	crystal_structure	CRYSTAL_STRUCTURE		
+cx-long-6	cx-long	6	en	what group is it in	PROPERTY_LOOKUP	group_number			
+cx-long-7	cx-long	7	en	what else is in that group	FILTER_LIST				the eventual question, six turns in
+cx-nested-1	cx-nested	1	en	which elements are denser than iron	FILTER_LIST	density			
+cx-nested-2	cx-nested	2	en	which of those are transition metals	FILTER_LIST				narrowing an existing set
+cx-nested-3	cx-nested	3	en	what is the densest	SUPERLATIVE	density			
+cx-compound-1	cx-compound	1	en	what is the density of gold and how does it compare to lead	COMPOUND				
+cx-compound-2	cx-compound	2	en	and their melting points	COMPARISON	melting_point			both elements survive a compound turn
+cx-recover-1	cx-recover	1	en	what is the mohs hardness of helium	PROPERTY_LOOKUP	mohs_hardness			no value; the answer must say so
+cx-recover-2	cx-recover	2	en	what about diamond's carbon	PROPERTY_LOOKUP	mohs_hardness			the thread continues past an honest miss
+cx-recover-3	cx-recover	3	en	and its density	PROPERTY_LOOKUP	density			
+cx-nodata-1	cx-nodata	1	en	who discovered iron	PROPERTY_LOOKUP	discovered_by			ancient element, no recorded discoverer
+cx-nodata-2	cx-nodata	2	en	who discovered radium	PROPERTY_LOOKUP	discovered_by			this one has a value
+cx-nodata-3	cx-nodata	3	en	when was it discovered	PROPERTY_LOOKUP	year_discovered			
+# ---- Swedish long threads ---------------------------------------------------------------------------
+cx-sv-1	cx-sv-a	1	sv	vad är smältpunkten för volfram	PROPERTY_LOOKUP	melting_point			
+cx-sv-2	cx-sv-a	2	sv	och järn	PROPERTY_LOOKUP	melting_point			
+cx-sv-3	cx-sv-a	3	sv	vilket smälter först	COMPARATIVE	melting_point			
+cx-sv-4	cx-sv-a	4	sv	vilket grundämne har högsta smältpunkten	SUPERLATIVE	melting_point			
+cx-sv-5	cx-sv-b	1	sv	vilka är ädelgaserna	FILTER_LIST				
+cx-sv-6	cx-sv-b	2	sv	hur många är de	AGGREGATE				
+cx-sv-7	cx-sv-b	3	sv	vilken är tätast	SUPERLATIVE	density			
+cx-sv-8	cx-sv-c	1	sv	vad är densiteten för guld	PROPERTY_LOOKUP	density			
+cx-sv-9	cx-sv-c	2	sv	berätta om guld				y	narrative interruption
+cx-sv-10	cx-sv-c	3	sv	och dess smältpunkt	PROPERTY_LOOKUP	melting_point			
+cx-sv-11	cx-sv-c	4	sv	är bly tätare	COMPARATIVE	density			
+cx-sv-12	cx-sv-d	1	sv	vilka isotoper har uran	ISOTOPES		ISOTOPE_DECAY		
+cx-sv-13	cx-sv-d	2	sv	hur många neutroner har uran 238	NUCLIDE_COUNT				
+cx-sv-14	cx-sv-d	3	sv	är uran radioaktivt	PROPERTY_LOOKUP	radioactive			
+# ---- German long thread -------------------------------------------------------------------------------
+cx-de-1	cx-de-a	1	de	was ist die dichte von gold	PROPERTY_LOOKUP	density			
+cx-de-2	cx-de-a	2	de	und blei	PROPERTY_LOOKUP	density			
+cx-de-3	cx-de-a	3	de	welches ist dichter	COMPARATIVE	density			
+cx-de-4	cx-de-a	4	de	welches element ist am dichtesten	SUPERLATIVE	density			

@@ -24,6 +24,7 @@ import org.json.JSONObject
 import java.io.IOException
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.activities.IsotopesActivityExperimental
 import com.jlindemann.science.preferences.ElementSendAndLoad
@@ -170,7 +171,7 @@ class NuclideActivity : BaseActivity() {
     }
 
     private fun setupBackButton() {
-        findViewById<ImageButton>(R.id.nuc_back_btn).setOnClickListener { this.onBackPressed() }
+        findViewById<View>(R.id.nuc_back_btn).setOnClickListener { this.onBackPressed() }
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
@@ -328,7 +329,7 @@ class NuclideActivity : BaseActivity() {
             // update interception after hiding
             setBackInterceptionEnabled(anyOverlayOpen())
         }
-        findViewById<FloatingActionButton>(R.id.nuc_info_close_btn).setOnClickListener {
+        findViewById<MaterialButton>(R.id.nuc_info_close_btn).setOnClickListener {
             closeInfoPanel()
             // update interception after hiding
             setBackInterceptionEnabled(anyOverlayOpen())

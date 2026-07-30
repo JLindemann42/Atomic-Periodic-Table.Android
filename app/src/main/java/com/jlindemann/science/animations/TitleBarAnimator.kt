@@ -1,4 +1,4 @@
-package com.jlindemann.science.activities.tools
+package com.jlindemann.science.animations
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter

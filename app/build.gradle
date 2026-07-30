@@ -22,29 +22,19 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 24
         targetSdkVersion 36
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-        versionCode 204
-        versionName "4.5.0m"
-=======
-        versionCode 214
-        versionName "4.7.0m"
->>>>>>> Stashed changes
-=======
-        versionCode 213
-        versionName "4.7.0m"
->>>>>>> c052db15d8a46d2cdfcf789e06bb60cf0cb2199a
+        versionCode 224
+        versionName "5.0.1m"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            // Ship only 16KB-compatible ABI for native dependencies.
+            abiFilters "arm64-v8a"
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
-
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {}
-            }
         }
     }
     sourceSets {
@@ -64,11 +54,18 @@ android {
     }
 
     namespace 'com.jlindemann.science'
+
+    // Ensure native libraries are packaged with 16KB alignment for compatibility on older devices
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation "androidx.activity:activity-ktx:1.10.1"
     implementation 'androidx.core:core-ktx:1.15.0'
@@ -83,7 +80,7 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:5.0.5'
     implementation 'com.beust:klaxon:5.6'
     implementation 'com.github.mmin18:realtimeblurview:82df3520b4'
-    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'com.google.android.material:material:1.14.0'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1"
     implementation 'androidx.browser:browser:1.8.0'
@@ -98,10 +95,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Google Sign-In
-    implementation('com.google.android.gms:play-services-auth:21.4.0') {
-        exclude group: 'com.google.android.gms', module: 'play-services-measurement'
-        exclude group: 'com.google.android.gms', module: 'play-services-measurement-impl'
-    }
+    implementation 'com.google.android.gms:play-services-auth:21.3.0'
 
     testImplementation 'junit:junit:4.13.2'
     implementation 'org.apache.commons:commons-math3:3.6.1'

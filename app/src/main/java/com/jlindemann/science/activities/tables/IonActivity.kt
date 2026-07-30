@@ -17,8 +17,10 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.IonAdapter
@@ -44,6 +46,8 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
     private var backCallback: OnBackPressedCallback? = null
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
     private val uiHandler = Handler(Looper.getMainLooper())
+    
+    private var bottomSheetBehavior: BottomSheetBehavior<View>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,27 +98,49 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
             mostUsedPreference.setValue(mostUsedPrefValue.replace("$targetLabel=$value", "$targetLabel=$newValue"))
         }
 
+        setupBottomSheet()
         recyclerView()
         clickSearch()
-        findViewById<FrameLayout>(R.id.view_ion).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view_ion).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
-        // When tapping the background detail area we should hide the detail and update interception.
-        findViewById<TextView>(R.id.detail_background_ion).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.ion_detail), 300)
-            // update back interception after hiding
-            setBackInterceptionEnabled(anyOverlayOpen())
+        findViewById<View>(R.id.back_btn_ion).setOnClickListener { this.onBackPressed() }
+    }
+
+    private fun setupBottomSheet() {
+        val ionPanelRoot = findViewById<View>(R.id.ion_detail) ?: return
+        val background = findViewById<TextView>(R.id.background_ion) ?: return
+        
+        bottomSheetBehavior = BottomSheetBehavior.from(ionPanelRoot)
+        bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehavior?.skipCollapsed = true
+        
+        bottomSheetBehavior?.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    background.visibility = View.GONE
+                    background.alpha = 0f
+                } else {
+                    background.visibility = View.VISIBLE
+                }
+                setBackInterceptionEnabled(anyOverlayOpen())
+            }
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+                background.visibility = View.VISIBLE
+                background.alpha = slideOffset.coerceAtLeast(0f) * 0.6f
+            }
+        })
+        
+        background.setOnClickListener {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
         }
 
-        findViewById<ImageButton>(R.id.back_btn_ion).setOnClickListener { this.onBackPressed() }
+        ionPanelRoot.findViewById<View>(R.id.drag_frame_ion)?.setOnClickListener {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
+        }
     }
 
     override fun ionClickListener(item: Ion, position: Int) {
         if (item.count > 1) {
-            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.ion_detail), 300)
-
-            // Info shown -> enable back interception
-            setBackInterceptionEnabled(true)
-
             findViewById<TextView>(R.id.ion_detail_title).text = ((item.name).replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } + " " + "ionization")
             try {
                 val jsonObject = ElementDataLoader.loadElementData(this, item.name)
@@ -136,15 +162,16 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
                         val extText = i.toString()
                         val nameId = "ion_text_$extText"
                         val iText = findViewById<TextView>(resources.getIdentifier(nameId, "id", packageName))
-                    iText.visibility = View.GONE
-                }
+                        iText.visibility = View.GONE
                     }
-            } catch (e: IOException) {
-                // If reading fails, show a toast and ensure interception state is consistent.
-                Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.ion_detail), 300)
-                setBackInterceptionEnabled(anyOverlayOpen())
+                }
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
+            
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
+            // Info shown -> enable back interception
+            setBackInterceptionEnabled(true)
         }
     }
 
@@ -158,6 +185,9 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
         val searchEmptyImgPrm = findViewById<LinearLayout>(R.id.empty_search_box_ion).layoutParams as ViewGroup.MarginLayoutParams
         searchEmptyImgPrm.topMargin = top + (resources.getDimensionPixelSize(R.dimen.title_bar))
         findViewById<LinearLayout>(R.id.empty_search_box_ion).layoutParams = searchEmptyImgPrm
+        
+        // Handle Ion Panel insets
+        findViewById<View>(R.id.scroll_ion)?.setPadding(0, 0, 0, bottom + resources.getDimensionPixelSize(R.dimen.default_padding))
     }
 
     private fun recyclerView() {
@@ -193,9 +223,9 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
     }
 
     private fun clickSearch() {
-        findViewById<ImageButton>(R.id.search_btn_ion).setOnClickListener {
-            Utils.fadeInAnim(findViewById<FrameLayout>(R.id.search_bar_ion), 150)
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.title_box), 1)
+        findViewById<View>(R.id.search_btn_ion).setOnClickListener {
+            Utils.fadeInAnim(findViewById<View>(R.id.search_bar_ion), 150)
+            Utils.fadeOutAnim(findViewById<View>(R.id.title_box), 1)
             findViewById<EditText>(R.id.edit_ion).requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(findViewById<EditText>(R.id.edit_ion), InputMethodManager.SHOW_IMPLICIT)
@@ -203,11 +233,11 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
             // Search bar shown -> enable back interception
             setBackInterceptionEnabled(true)
         }
-        findViewById<ImageButton>(R.id.close_ele_search_ion).setOnClickListener {
-            Utils.fadeOutAnim(findViewById<FrameLayout>(R.id.search_bar_ion), 1)
-            val delayClose = Handler()
+        findViewById<View>(R.id.close_ele_search_ion).setOnClickListener {
+            Utils.fadeOutAnim(findViewById<View>(R.id.search_bar_ion), 1)
+            val delayClose = Handler(Looper.getMainLooper())
             delayClose.postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box), 150)
             }, 151)
 
             val view = this.currentFocus
@@ -230,21 +260,19 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
 
     // Basic handler for in-activity overlays
     private fun anyOverlayOpen(): Boolean {
-        val detailVisible = findViewById<FrameLayout>(R.id.ion_detail).visibility == View.VISIBLE
-        val searchBarVisible = findViewById<FrameLayout>(R.id.search_bar_ion).visibility == View.VISIBLE
-        return detailVisible || searchBarVisible
+        val panelExpanded = bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN
+        val backgroundVisible = findViewById<TextView>(R.id.background_ion).visibility == View.VISIBLE
+        val searchBarVisible = findViewById<View>(R.id.search_bar_ion).visibility == View.VISIBLE
+        return panelExpanded || backgroundVisible || searchBarVisible
     }
 
     // Close overlays if visible; return true when consumed.
     private fun handleBackPress(): Boolean {
-        val detail = findViewById<FrameLayout>(R.id.ion_detail)
-        val searchBar = findViewById<FrameLayout>(R.id.search_bar_ion)
+        val searchBar = findViewById<View>(R.id.search_bar_ion)
 
         // If ion detail visible, hide it
-        if (detail.visibility == View.VISIBLE) {
-            Utils.fadeOutAnim(detail, 300)
-            // update interception state after hiding
-            setBackInterceptionEnabled(anyOverlayOpen())
+        if (bottomSheetBehavior?.state != BottomSheetBehavior.STATE_HIDDEN) {
+            bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN
             return true
         }
 
@@ -252,7 +280,7 @@ class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
         if (searchBar.visibility == View.VISIBLE) {
             Utils.fadeOutAnim(searchBar, 1)
             Handler(Looper.getMainLooper()).postDelayed({
-                Utils.fadeInAnim(findViewById<FrameLayout>(R.id.title_box), 150)
+                Utils.fadeInAnim(findViewById<View>(R.id.title_box), 150)
             }, 151)
             val view = this.currentFocus
             if (view != null) {

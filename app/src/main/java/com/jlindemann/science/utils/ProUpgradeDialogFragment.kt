@@ -7,7 +7,8 @@ import android.widget.Button
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.settings.ProActivity
+import com.jlindemann.science.activities.BaseActivity
+import com.jlindemann.science.activities.MainActivity
 
 class ProUpgradeDialogFragment : BottomSheetDialogFragment() {
 
@@ -29,7 +30,7 @@ class ProUpgradeDialogFragment : BottomSheetDialogFragment() {
 
         // Upgrade button
         view.findViewById<Button>(R.id.popup_action_button)?.setOnClickListener {
-            startActivity(Intent(requireContext(), ProActivity::class.java))
+            (requireActivity() as? BaseActivity)?.goToProPage()
             dismiss()
         }
 

@@ -1,0 +1,54 @@
+# The app's eleven reference tables. Every dataset name appears in a note, which is what the
+# coverage test checks — so adding a table without adding questions for it fails the build.
+#
+# These rows are also the boundary the deferral guard has to respect from the other side: the
+# dataset fallback must fire for a real reference lookup and stay quiet for "quiz me".
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+ds-const-1			en	what is the mass of an electron	DATASET_LOOKUP				constant table
+ds-const-2			en	what is avogadro's number	DATASET_LOOKUP				constant table
+ds-const-3			en	value of planck's constant	DATASET_LOOKUP				constant table
+ds-const-4			en	what is the speed of light	DATASET_LOOKUP				constant table
+ds-const-5			en	what is the gas constant	DATASET_LOOKUP				constant table
+ds-const-6			en	elementary charge value	DATASET_LOOKUP				constant table
+ds-dict-1			en	what is electronegativity	DATASET_LOOKUP				dictionary table — definition
+ds-dict-2			en	what is a halogen	DATASET_LOOKUP				dictionary table
+ds-dict-3			en	what is mass number	DATASET_LOOKUP				dictionary table
+ds-dict-4			en	what is an isotope	DATASET_LOOKUP				dictionary table
+ds-dict-5			en	what is a covalent bond	DATASET_LOOKUP				dictionary table
+ds-dict-6			en	what does oxidation mean	DATASET_LOOKUP				dictionary table
+ds-dict-7			en	define molar mass	DATASET_LOOKUP				dictionary table
+ds-dict-8			en	what is atomic number	DATASET_LOOKUP				dictionary table
+ds-why-1			en	why does atomic radius increase down a group	DATASET_LOOKUP				dictionary table — explanation of a periodic trend
+ds-why-2			en	why are noble gases unreactive	DATASET_LOOKUP				dictionary table
+ds-eq-1			en	what is the ideal gas law	DATASET_LOOKUP				equation table
+ds-eq-2			en	formula for kinetic energy	DATASET_LOOKUP				equation table
+ds-eq-3			en	what is the nernst equation	DATASET_LOOKUP				equation table
+ds-poisson-1			en	poisson ratio of basalt	DATASET_LOOKUP				poisson table — reference table, rocks rather than elements
+ds-poisson-2			en	poisson ratio of sandstone	DATASET_LOOKUP				poisson table
+ds-poisson-3			en	poisson ratio of quartz	DATASET_LOOKUP				poisson table — mineral
+ds-geo-1			en	what is the composition of basalt	DATASET_LOOKUP				geology table
+ds-geo-2			en	tell me about quartz	DATASET_LOOKUP				geology table
+ds-ion-1			en	what is the charge of the sulfate ion	DATASET_LOOKUP				ion table
+ds-ion-2			en	ion charge of lithium	*				answered from the element rather than the ion table, which is as good
+ds-ind-1			en	what colour does phenolphthalein turn	DATASET_LOOKUP				indicator table
+ds-ind-2			en	ph range of methyl orange	DATASET_LOOKUP				indicator table
+ds-elec-1			en	standard electrode potential of zinc	DATASET_LOOKUP				electrode table
+ds-elec-2			en	reduction potential of copper	DATASET_LOOKUP				electrode table
+ds-sol-1			en	is silver chloride soluble in water	DATASET_LOOKUP				solubility table
+ds-sol-2			en	solubility of sodium chloride	DATASET_LOOKUP				solubility table
+ds-unit-1			en	how many joules in a calorie	DATASET_LOOKUP				unit table — conversion
+ds-unit-2			en	convert pascal to bar	DATASET_LOOKUP				unit table
+ds-alloy-1			en	what is steel made of	DATASET_LOOKUP				alloy table
+ds-alloy-2			en	what is brass	DATASET_LOOKUP				alloy table
+ds-alloy-3			en	what is bronze made of	DATASET_LOOKUP				alloy table
+ds-alloy-4			en	what is stainless steel	DATASET_LOOKUP				alloy table
+ds-alloy-5			en	difference between iron and steel	DATASET_LOOKUP				alloy: table — the alloy entry explains how it differs from its base metal
+ds-const-sv-1			sv	vad är elektronens massa	DATASET_LOOKUP				constant table
+ds-dict-sv-1			sv	vad är elektronegativitet	DATASET_LOOKUP				dictionary table
+ds-dict-sv-2			sv	vad är masstal	DATASET_LOOKUP				dictionary table
+ds-dict-sv-3			sv	vad är en isotop	DATASET_LOOKUP				dictionary table
+ds-alloy-sv-1			sv	vad är stål gjort av	DATASET_LOOKUP				alloy table
+ds-dict-de-1			de	was ist elektronegativität	DATASET_LOOKUP				dictionary table
+ds-const-de-1			de	was ist die avogadro konstante	DATASET_LOOKUP				constant table
+ds-dict-fr-1			fr	qu'est-ce que l'électronégativité	DATASET_LOOKUP				dictionary table
+ds-dict-es-1			es	qué es la electronegatividad	DATASET_LOOKUP				dictionary table
