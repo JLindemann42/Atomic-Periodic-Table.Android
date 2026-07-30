@@ -4,6 +4,7 @@ import com.jlindemann.science.ai.core.TestStrings
 import com.jlindemann.science.ai.data.KnowledgeStore
 import com.jlindemann.science.ai.data.TestAssets
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
@@ -218,6 +219,68 @@ class CardFoundationsTest {
                 bar.logMgPerKg?.let {
                     assertTrue("${record.key}/${bar.fieldId} produced a non-finite log", it.isFinite())
                 }
+            }
+        }
+    }
+
+    /**
+     * The groups partition the bars: every bar in exactly one, none invented, none lost.
+     *
+     * `bars` stays the flat ORDER sequence and `groups` is the view the card draws, so the two
+     * have to be the same set or the chart shows something the profile does not claim.
+     */
+    @Test
+    fun groupsPartitionTheBars() {
+        for (record in store.elements) {
+            val profile = AbundanceReducer.of(record, strings) ?: continue
+            val grouped = profile.groups.flatMap { it.bars }
+            assertEquals("${record.key} lost or duplicated a bar", profile.bars.size, grouped.size)
+            assertEquals("${record.key}'s groups hold different bars", profile.bars.toSet(), grouped.toSet())
+            for (group in profile.groups) {
+                for (bar in group.bars) {
+                    assertEquals(
+                        "${record.key}/${bar.fieldId} sits under the wrong unit",
+                        group.unitKey, bar.unitKey
+                    )
+                }
+            }
+        }
+    }
+
+    /**
+     * A reservoir's unit is not decoration — it decides whether two bars mean the same thing.
+     *
+     * Gold has readings in mg/kg (rock, meteorites), µg/l (sea water) and atoms against silicon
+     * (sun, solar system). Drawn as one run of bars, as this card used to, their lengths invite a
+     * comparison none of those units support.
+     */
+    @Test
+    fun mixedUnitReservoirsAreDrawnAsSeparateGroups() {
+        val gold = requireNotNull(AbundanceReducer.of(element("gold"), strings))
+        assertTrue("gold's reservoirs are not all one unit", gold.groups.size >= 2)
+        for (group in gold.groups) {
+            assertTrue("a group with no unit heading: $group", group.unitLabel.isNotBlank())
+            assertFalse("a unit heading did not resolve: ${group.unitLabel}", group.unitLabel.startsWith("str:"))
+        }
+        val units = gold.groups.mapNotNull { it.unitKey }
+        assertEquals("a unit must head exactly one group", units.size, units.toSet().size)
+    }
+
+    /**
+     * A trace bar's text used to be `value.toString()` on an object with no override, so it read
+     * `com.jlindemann...FieldValue$Trace@1a2b3c`. It only escaped notice because the view skips
+     * value text for bars with no number.
+     */
+    @Test
+    fun noBarDisplaysAnObjectIdentity() {
+        for (record in store.elements) {
+            val profile = AbundanceReducer.of(record, strings) ?: continue
+            for (bar in profile.bars) {
+                assertFalse(
+                    "${record.key}/${bar.fieldId} draws a class name: ${bar.display}",
+                    bar.display.contains("FieldValue") || bar.display.contains("@")
+                )
+                assertTrue("${record.key}/${bar.fieldId} draws nothing", bar.display.isNotBlank())
             }
         }
     }

@@ -90,6 +90,11 @@ class AiChatPanelController(
     private lateinit var historyRecycler: RecyclerView
     private lateinit var historyEmptyView: View
 
+    /** Extra gap kept between the input and the top of the keyboard. */
+    private val keyboardGap by lazy {
+        activity.resources.getDimensionPixelSize(R.dimen.ai_input_keyboard_gap)
+    }
+
     private var adapter: ChatMessageAdapter? = null
     private var gradientAnimator: ValueAnimator? = null
     private var sessionId: String? = null
@@ -180,7 +185,8 @@ class AiChatPanelController(
             val ime = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
             val nav = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
             (inputContainer.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin =
-                maxOf(ime, nav) + activity.resources.getDimensionPixelSize(R.dimen.margin)
+                maxOf(ime, nav) + activity.resources.getDimensionPixelSize(R.dimen.margin) +
+                    if (ime > nav) keyboardGap else 0
             insets
         }
 
@@ -484,7 +490,10 @@ class AiChatPanelController(
         }
     }
 
-    /** Follow the keyboard, but only by however much it exceeds the navigation bar. */
+    /**
+     * Follow the keyboard, but only by however much it exceeds the navigation bar, plus a small
+     * gap so the input never sits flush against the keyboard.
+     */
     private fun setupKeyboardAnimation() {
         val inputWrapper = panelRoot.findViewById<LinearLayout>(R.id.ai_input_wrapper) ?: return
         ViewCompat.setWindowInsetsAnimationCallback(
@@ -496,7 +505,9 @@ class AiChatPanelController(
                 ): WindowInsetsCompat {
                     val ime = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom
                     val nav = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom
-                    val shift = -(ime - nav).coerceAtLeast(0).toFloat()
+                    val overlap = (ime - nav).coerceAtLeast(0)
+                    // Same extra gap the resting insets listener adds, so nothing jumps at the end.
+                    val shift = if (overlap > 0) -(overlap + keyboardGap).toFloat() else 0f
                     inputWrapper.translationY = shift
                     recycler.translationY = shift
                     return insets

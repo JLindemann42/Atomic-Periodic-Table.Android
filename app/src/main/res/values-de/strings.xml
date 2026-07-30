@@ -42,6 +42,8 @@
     <string name="pro_additional_tables_descr">Zusätzliche Tabellen, darunter eine Nuklidtabelle, Poissonzahl-Tabelle, Konstanten-Tabelle, Geologie-Tabelle usw., mit weiteren Tabellen in Zukunft</string>
     <string name="pro_better_calculator">Verbesserter Rechner</string>
     <string name="pro_better_calculator_descr">Ein verbesserter Rechner mit der Möglichkeit, molare Massen verschiedener Verbindungen auf der Favoritenseite zu speichern.</string>
+    <string name="pro_better_ai">Zusätzliche KI-Funktionen</string>
+    <string name="pro_better_ai_descr">Schalten Sie alle Funktionen des KI-Assistenten frei, mit Quiz, Zugriff auf PRO-Daten und vielem mehr</string>
     <string name="pro_additional_flashcards">Zusätzliche Lernkarten und Synchronisation</string>
     <string name="pro_additional_flashcards_descr">Zugriff auf zusätzliche Lernkarten, mehr Leben und Synchronisation Ihres Fortschritts</string>
     <string name="pro_additional_visualisations">Zusätzliche Visualisierungen</string>
@@ -425,6 +427,11 @@
     <string name="ai_phase_gas">gasförmig</string>
     <string name="ai_phase_solid">fest</string>
     <string name="ai_abundance_relative">(bezogen auf H=10¹²)</string>
+    <string name="ai_unit_mg_per_kg">mg/kg (ppm)</string>
+    <string name="ai_unit_ug_per_l">µg/l</string>
+    <string name="ai_unit_atoms_per_si">Atome pro 10⁶ Siliciumatome</string>
+    <string name="ai_value_trace">Spuren</string>
+    <string name="ai_abundance_caption">Logarithmische Skala. Die Einheiten unterscheiden sich je nach Vorkommen und lassen sich nicht ineinander umrechnen.</string>
     <string name="ai_isotope_decay">(Zerfall: %1$s)</string>
     <string name="ai_quiz_not_active">Ich befinde mich gerade nicht im Quiz-Modus.</string>
     <string name="ai_quiz_no_start">Ich kann gerade kein Quiz starten.</string>

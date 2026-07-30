@@ -25,6 +25,11 @@ object UnitConverter {
         "nωm" to "nΩm", "nohmm" to "nΩm", "μωm" to "µΩm", "µωm" to "µΩm", "ωm" to "Ωm",
         "cm3/mol" to "cm³/mol", "cm^3/mol" to "cm³/mol", "cm³/mol" to "cm³/mol",
         "mg/kg" to "mg/kg", "ppm" to "mg/kg", "%" to "%",
+        // Sea-water abundance. NFKC folds U+00B5 MICRO SIGN onto U+03BC GREEK SMALL MU before this
+        // lookup runs, so the greek key is the one that fires; the ASCII spelling is here for
+        // typed queries. No FACTORS entry: mass per volume does not convert to mass per mass
+        // without a density.
+        "μg/l" to "µg/l", "ug/l" to "µg/l",
         "b" to "b", "barn" to "b", "barns" to "b",
         "w/(m·k)" to "W/(m·K)", "w/(m*k)" to "W/(m·K)", "w/mk" to "W/(m·K)",
         "j/(g·k)" to "J/(g·K)", "j/(g*k)" to "J/(g·K)",
@@ -142,7 +147,9 @@ object UnitConverter {
             value = value,
             high = high,
             unit = target,
-            display = formatValue(value) + (target?.let { " $it" } ?: "")
+            display = formatValue(value) + (target?.let { " $it" } ?: ""),
+            // The unit is written into `display` right here, so a renderer must not add it again.
+            unitAuthored = target != null
         )
     }
 

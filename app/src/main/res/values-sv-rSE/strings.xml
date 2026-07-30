@@ -42,6 +42,8 @@
     <string name="pro_additional_tables_descr">Ytterligare tabeller inklusive en nuklidtabell, poisson\'s förhållandetabell, konstanttabell, geologitabell m.m., med fler som kommer i framtiden</string>
     <string name="pro_better_calculator">Bättre kalkylator</string>
     <string name="pro_better_calculator_descr">En förbättrad kalkylator med möjlighet att spara molvikter för olika föreningar på favoritsidan.</string>
+    <string name="pro_better_ai">Fler AI-funktioner</string>
+    <string name="pro_better_ai_descr">Lås upp alla funktioner i AI-assistenten, med quiz, tillgång till PRO-data och mycket mer</string>
     <string name="pro_additional_flashcards_descr">Tillgång till ytterligare flashcards, fler liv och synkronisering av dina framsteg</string>
     <string name="pro_additional_visualisations">Fler visualiseringar</string>
     <string name="pro_additional_visualisations_descr">Få tillgång till fler visualiseringar i huvudtabellen såsom Poisson\'s förhållande, bulkmodul m.m.</string>
@@ -423,6 +425,11 @@
     <string name="ai_phase_gas">gasformig</string>
     <string name="ai_phase_solid">fast</string>
     <string name="ai_abundance_relative">(i förhållande till H=10¹²)</string>
+    <string name="ai_unit_mg_per_kg">mg/kg (ppm)</string>
+    <string name="ai_unit_ug_per_l">µg/l</string>
+    <string name="ai_unit_atoms_per_si">atomer per 10⁶ kiselatomer</string>
+    <string name="ai_value_trace">spårmängd</string>
+    <string name="ai_abundance_caption">Logaritmisk skala. Enheterna skiljer sig åt mellan förekomstplatserna och kan inte omvandlas till varandra.</string>
     <string name="ai_isotope_decay">(Sönderfall: %1$s)</string>
     <string name="ai_quiz_not_active">Jag är inte i quiz-läge just nu.</string>
     <string name="ai_quiz_no_start">Jag kan inte starta ett quiz just nu.</string>

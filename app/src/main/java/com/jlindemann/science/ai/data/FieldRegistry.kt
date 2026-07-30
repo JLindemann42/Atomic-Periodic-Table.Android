@@ -83,6 +83,24 @@ data class FieldSpec(
      * reads as a noun phrase.
      */
     @StringRes val sentenceLabelRes: Int? = null,
+    /**
+     * The unit as a reader should see it, when that differs from [canonicalUnit].
+     *
+     * [canonicalUnit] is a language-invariant token chosen so values can be grouped and converted;
+     * it is not always something to put in a sentence. The abundance fields are the case that
+     * forced the split: the solar reservoirs are counted in atoms against a silicon reference,
+     * which is prose, not a symbol.
+     */
+    @StringRes val unitLabelRes: Int? = null,
+    /**
+     * Whether to state the unit when the authored value did not carry one.
+     *
+     * Off by default, because most of the element JSON writes its units into the value
+     * (`"2743 (K)"`, `"19.3 (g/cm³)"`) and [Quantity.display] echoing the source verbatim is the
+     * right behaviour there. The abundance reservoirs are stored as bare numbers, so without this
+     * the agent answers "gold's abundance in sea water is 0.011" and the figure means nothing.
+     */
+    val surfaceUnit: Boolean = false,
     /** What the user must own to be told this value. See [Tier]. */
     val tier: Tier = Tier.FREE
 ) {
@@ -111,6 +129,24 @@ data class FieldSpec(
     /** A copy that parses as a plain scalar, used when recursing into STRUCT parts. */
     fun asScalar(): FieldSpec =
         if (kind == FieldKind.STRUCT) copy(kind = FieldKind.NUMERIC) else this
+
+    /**
+     * [Quantity.display] with its unit stated, for the fields that opt into that.
+     *
+     * Adds nothing when the authored value already carries a unit, so `"8400 mg/kg"` never comes
+     * back doubled — that was the element screen's long-standing bug, and it is the reason this
+     * decision lives in one place rather than at each call site.
+     *
+     * @param unitLabel resolves a string resource. A lambda rather than a `StringProvider` or a
+     *   `Context` so this layer stays free of both; the element screen passes `getString`.
+     */
+    fun displayWithUnit(quantity: Quantity, unitLabel: (Int) -> String): String {
+        if (!surfaceUnit || quantity.unitAuthored) return quantity.display
+        val label = unitLabelRes?.let { runCatching { unitLabel(it) }.getOrNull() }?.trim()
+        // FakeStrings resolves an unknown id to "str:<id>"; an unresolved label must never print.
+        if (label.isNullOrEmpty() || label.startsWith("str:")) return quantity.display
+        return "${quantity.display} $label"
+    }
 }
 
 /**
@@ -256,13 +292,22 @@ object FieldRegistry {
         // ---- Abundance ------------------------------------------------------------------
         // Every abundance label is a table heading phrased as a prepositional phrase — "In the
         // Earth's crust", "I jordskorpan" — so each carries a sentence form as well.
+        //
+        // The units are taken from the element info screen, which is the app's source of truth for
+        // them, and they are not all the same. Stamping mg/kg on all nine — as this table used to —
+        // labelled sea water and the two solar reservoirs with a unit they are not measured in.
         add(abundance("abundance_earth_crust", "earth_crust", R.string.abundance_earth_crust, R.string.ai_field_abundance_earth_crust))
         add(abundance("abundance_earth_soils", "earth_soils", R.string.abundance_earth_soils, R.string.ai_field_abundance_earth_soils))
         add(abundance("abundance_urban_soils", "urban_soils", R.string.abundance_urban_soil, R.string.ai_field_abundance_urban_soils))
-        add(abundance("abundance_sea_water", "sea_water", R.string.abundance_sea_water, R.string.ai_field_abundance_sea_water))
+        add(abundance("abundance_sea_water", "sea_water", R.string.abundance_sea_water, R.string.ai_field_abundance_sea_water,
+            canonicalUnit = UNIT_MICROGRAM_PER_LITRE, unitLabelRes = R.string.ai_unit_ug_per_l))
         add(abundance("abundance_crustal_rocks", "crustal_rocks", R.string.abundance_crustal_rocks, R.string.ai_field_abundance_crustal_rocks))
-        add(abundance("abundance_sun", "sun", R.string.abundance_sun, R.string.ai_field_abundance_sun))
-        add(abundance("abundance_solar_system", "solar_system", R.string.abundance_solar_system, R.string.ai_field_abundance_solar_system))
+        add(abundance("abundance_sun", "sun", R.string.abundance_sun, R.string.ai_field_abundance_sun,
+            dimension = Dimension.DIMENSIONLESS, canonicalUnit = UNIT_ATOMS_PER_SILICON, unitLabelRes = R.string.ai_unit_atoms_per_si))
+        add(abundance("abundance_solar_system", "solar_system", R.string.abundance_solar_system, R.string.ai_field_abundance_solar_system,
+            dimension = Dimension.DIMENSIONLESS, canonicalUnit = UNIT_ATOMS_PER_SILICON, unitLabelRes = R.string.ai_unit_atoms_per_si))
+        // Meteorite and human-body values author their own unit — "8400 mg/kg", "65% (by mass)" —
+        // so the label below is only a fallback for the rare cell that does not.
         add(abundance("abundance_meteorites", "meteorites", R.string.abundance_meteorites, R.string.ai_field_abundance_meteorites))
         add(abundance("abundance_human_body", "human_body", R.string.abundance_human_body, R.string.ai_field_abundance_human_body))
 
@@ -366,14 +411,46 @@ object FieldRegistry {
             Dimension.TEMPERATURE, "K"
         )
 
+    /**
+     * The invariant token for a reservoir measured in µg of element per litre of sea water.
+     *
+     * Deliberately absent from [UnitConverter]'s factor table: this is mass per *volume*, and
+     * turning it into the mg/kg the other reservoirs use needs sea water's density. Leaving it
+     * unconvertible makes a "in ppm" request fall back to the authored figure rather than
+     * inventing a number.
+     */
+    const val UNIT_MICROGRAM_PER_LITRE = "µg/l"
+
+    /**
+     * The invariant token for the solar reservoirs, counted as atoms against silicon = 10⁶.
+     *
+     * Not a concentration at all, so it carries [Dimension.DIMENSIONLESS] and never converts.
+     * Users see `ai_unit_atoms_per_si` instead of this token, which is why it can stay ASCII —
+     * `UnitConverter.canonical` runs NFKC, and that folds a superscript ⁶ down to a plain 6.
+     */
+    const val UNIT_ATOMS_PER_SILICON = "Si=10^6"
+
+    /**
+     * An abundance reservoir.
+     *
+     * The nine reservoirs do **not** share a unit, which is why this takes one per field rather
+     * than stamping `mg/kg` on all of them: sea water is µg/l, the sun and solar system are atom
+     * counts against silicon, and the human-body figures are authored as either mg/kg or a
+     * percentage. Every one of them is stored as a bare number in at least some elements, so they
+     * all set [FieldSpec.surfaceUnit].
+     */
     private fun abundance(
         id: String,
         jsonKey: String,
         @StringRes labelRes: Int,
-        @StringRes sentenceLabelRes: Int? = null
+        @StringRes sentenceLabelRes: Int? = null,
+        dimension: Dimension = Dimension.CONCENTRATION,
+        canonicalUnit: String = "mg/kg",
+        @StringRes unitLabelRes: Int = R.string.ai_unit_mg_per_kg
     ) =
         FieldSpec(
             id, listOf(jsonKey), FieldKind.NUMERIC, FieldCategory.ABUNDANCE, labelRes,
-            Dimension.CONCENTRATION, "mg/kg", sentenceLabelRes = sentenceLabelRes
+            dimension, canonicalUnit, sentenceLabelRes = sentenceLabelRes,
+            unitLabelRes = unitLabelRes, surfaceUnit = true
         )
 }

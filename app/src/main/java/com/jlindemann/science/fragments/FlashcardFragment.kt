@@ -136,7 +136,7 @@ class FlashcardFragment : BaseFragment() {
 
     private val createdCategoryRows = mutableListOf<Pair<View, String>>()
     private val createdExamRows = mutableListOf<Pair<View, ExamSpec>>()
-    private val REWARD_LEVELS = listOf(10, 15, 20)
+    private val REWARD_LEVELS = listOf(10, 15, 20, 30, 40)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_flashcards, container, false)

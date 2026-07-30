@@ -22,8 +22,8 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 24
         targetSdkVersion 36
-        versionCode 221
-        versionName "5.0.0m"
+        versionCode 224
+        versionName "5.0.1m"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             // Ship only 16KB-compatible ABI for native dependencies.
@@ -35,7 +35,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
-
         }
     }
     sourceSets {

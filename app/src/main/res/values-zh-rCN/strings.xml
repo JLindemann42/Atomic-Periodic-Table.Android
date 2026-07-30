@@ -767,6 +767,11 @@ I：不溶"</string>
     <string name="account">账户</string>
     <string name="additional_ai_messages">增加的 AI 消息限制：</string>
     <string name="ai_abundance_relative">（相对于 H=10¹²）</string>
+    <string name="ai_unit_mg_per_kg">mg/kg (ppm)</string>
+    <string name="ai_unit_ug_per_l">µg/l</string>
+    <string name="ai_unit_atoms_per_si">每 10⁶ 个硅原子中的原子数</string>
+    <string name="ai_value_trace">微量</string>
+    <string name="ai_abundance_caption">对数刻度。各储库的单位不同，彼此之间无法换算。</string>
     <string name="ai_adv_header">%1$s 的高级属性：</string>
     <string name="ai_all_covered">我们已经涵盖了很多关于 %1$s 的内容！你知道吗？</string>
     <string name="ai_another_isotope"> 另一个同位素是 %1$s。</string>

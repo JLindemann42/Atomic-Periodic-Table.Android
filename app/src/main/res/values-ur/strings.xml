@@ -79,6 +79,11 @@
     <string name="ai_technical_mass"> اس کا درست ایٹمی وزن %1$s ہے۔</string>
     <string name="ai_technical_config"> اس کی الیکٹران ترتیب %1$s ہے۔</string>
     <string name="ai_abundance_relative">(نسبت H=10¹²)</string>
+    <string name="ai_unit_mg_per_kg">mg/kg (ppm)</string>
+    <string name="ai_unit_ug_per_l">µg/l</string>
+    <string name="ai_unit_atoms_per_si">ہر 10⁶ سلیکون ایٹموں پر ایٹم</string>
+    <string name="ai_value_trace">معمولی مقدار</string>
+    <string name="ai_abundance_caption">لاگرتھمک پیمانہ۔ اکائیاں ہر ذخیرے کے لیے مختلف ہیں اور آپس میں تبدیل نہیں ہوتیں۔</string>
     <string name="ai_adv_header">%1$s کی جدید خصوصیات:</string>
     <string name="ai_all_covered">ہم نے %1$s کے بارے میں بہت کچھ احاطہ کر لیا ہے! کیا آپ جانتے تھے؟</string>
     <string name="ai_another_isotope"> ایک اور آاسوٹوپ %1$s ہے۔</string>

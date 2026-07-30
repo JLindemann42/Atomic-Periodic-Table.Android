@@ -449,7 +449,10 @@ class QueryExecutor(
 
         val valued = candidates.mapNotNull { element ->
             val quantity = store.quantityIn(element, fieldId, plan.targetUnit) ?: return@mapNotNull null
-            ValuedElement(element, quantity, render(element.value(fieldId), quantity, plan.targetUnit))
+            ValuedElement(
+                element, quantity,
+                render(element.value(fieldId), quantity, plan.targetUnit, element, fieldId)
+            )
         }
 
         if (valued.isEmpty()) {
@@ -499,7 +502,10 @@ class QueryExecutor(
         val fieldId = plan.primaryField ?: return ExecutionResult.Empty(describeFilters(plan))
         val valued = candidates.mapNotNull { element ->
             val quantity = store.quantityIn(element, fieldId, plan.targetUnit) ?: return@mapNotNull null
-            ValuedElement(element, quantity, render(element.value(fieldId), quantity, plan.targetUnit))
+            ValuedElement(
+                element, quantity,
+                render(element.value(fieldId), quantity, plan.targetUnit, element, fieldId)
+            )
         }
         if (valued.isEmpty()) return ExecutionResult.NoData(fieldId, null, store.coverageOf(fieldId))
 
@@ -551,6 +557,12 @@ class QueryExecutor(
     /**
      * How a value is shown. A value read straight from the data prints exactly as authored;
      * only a converted value is reformatted, so nothing is lost to rounding on a plain lookup.
+     *
+     * "Exactly as authored" is not enough on its own for the abundance reservoirs, which the JSON
+     * stores as bare numbers — "gold's abundance in sea water is 0.011" says nothing without its
+     * µg/l. Those fields opt in via [FieldSpec.surfaceUnit] and get their unit appended here,
+     * which is the single funnel every property, category, comparison and superlative answer runs
+     * through.
      */
     private fun render(
         value: com.jlindemann.science.ai.data.FieldValue,
@@ -561,17 +573,28 @@ class QueryExecutor(
     ): String = when {
         targetUnit != null && quantity != null ->
             UnitConverter.formatValue(quantity.value) + (quantity.unit?.let { " $it" } ?: "")
-        quantity != null -> quantity.display
+        quantity != null -> withUnit(fieldId, quantity)
         // A prose field is served from the active language's table when it has one. The numeric
         // index is parsed from English, which is right for measured values and wrong for these.
         element != null && fieldId != null && translated(element, fieldId) != null ->
             translated(element, fieldId)!!
         value is com.jlindemann.science.ai.data.FieldValue.Text -> value.raw
         value is com.jlindemann.science.ai.data.FieldValue.Enum -> value.localized
-        value is com.jlindemann.science.ai.data.FieldValue.Trace -> strings.get(com.jlindemann.science.R.string.ai_abundance_relative)
+        // "Trace" means present but unquantified. It used to render as `ai_abundance_relative`
+        // — "(relative to H=10¹²)" — which is a unit note under a convention this app does not
+        // even use, and read as "iron's abundance in the human body is (relative to H=10¹²)".
+        value is com.jlindemann.science.ai.data.FieldValue.Trace ->
+            strings.get(com.jlindemann.science.R.string.ai_value_trace)
         value is com.jlindemann.science.ai.data.FieldValue.Struct ->
             value.parts.entries.joinToString(", ") { "${it.key}: ${it.value.display}" }
         else -> ""
+    }
+
+    /** The authored value, with its unit added for the fields that do not store one. */
+    private fun withUnit(fieldId: String?, quantity: Quantity): String {
+        val spec = fieldId?.let { com.jlindemann.science.ai.data.FieldRegistry.byId[it] }
+            ?: return quantity.display
+        return spec.displayWithUnit(quantity) { strings.get(it) }
     }
 
     /**

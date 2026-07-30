@@ -12,10 +12,16 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <!--
+      The only card view here that overrides onMeasure, so it is the only one that can size itself.
+      It has to: the chart holds between three and nine reservoirs in one to four unit groups, and
+      the fixed height this used to carry was too short for the tallest of those.
+    -->
     <com.jlindemann.science.views.AbundanceBarsView
         android:id="@+id/ai_card_abundance"
         android:layout_width="@dimen/ai_card_width"
-        android:layout_height="210dp" />
+        android:layout_height="wrap_content"
+        android:minHeight="120dp" />
 
     <TextView
         android:id="@+id/ai_card_caption"

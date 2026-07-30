@@ -777,6 +777,11 @@
     <string name="account">Account</string>
     <string name="additional_ai_messages">Tumaas na limitasyon sa mga mensahe ng AI:</string>
     <string name="ai_abundance_relative">(kaugnay sa H=10¹²)</string>
+    <string name="ai_unit_mg_per_kg">mg/kg (ppm)</string>
+    <string name="ai_unit_ug_per_l">µg/l</string>
+    <string name="ai_unit_atoms_per_si">mga atomo bawat 10⁶ atomo ng silikon</string>
+    <string name="ai_value_trace">bahagyang dami</string>
+    <string name="ai_abundance_caption">Logarithmic na sukat. Magkaiba ang yunit sa bawat reservoir at hindi maaaring i-convert ang isa sa iba.</string>
     <string name="ai_adv_header">Advanced na mga katangian ng %1$s:</string>
     <string name="ai_all_covered">Marami na kaming tinalakay tungkol sa %1$s! Alam mo ba?</string>
     <string name="ai_another_isotope"> Ang isa pang isotope ay %1$s.</string>

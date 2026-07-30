@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v5.0.0m-Build.221</string>
+    <string name="app_version" translatable="false">v5.0.1m-Build.224</string>
     <string name="next_sale_start" translatable="false" >2024/08/05</string>
     <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
@@ -18,6 +18,8 @@
     <string name="alphabetical">Alphabetical</string>
     <string name="Dictionary">Dictionary</string>
     <string name="New">New</string>
+
+    <string name="social_media_header">Connect with us</string>
 
     <!-- Hover Menu -->
     <string name="display_mode">Display Mode</string>
@@ -719,6 +721,18 @@
     <string name="ai_phase_gas">Gas</string>
     <string name="ai_phase_solid">Solid</string>
     <string name="ai_abundance_relative">(relative to H=10¹²)</string>
+
+    <!--
+      Abundance units. The element data stores most reservoirs as bare numbers, so the unit has to
+      come from here. They differ per reservoir and do not convert into one another: µg/l is
+      mass per volume, and the solar figures are atom counts against a silicon reference.
+    -->
+    <string name="ai_unit_mg_per_kg">mg/kg (ppm)</string>
+    <string name="ai_unit_ug_per_l">µg/l</string>
+    <string name="ai_unit_atoms_per_si">atoms per 10⁶ atoms of silicon</string>
+    <string name="ai_value_trace">trace</string>
+    <string name="ai_abundance_caption">Log scale. Units differ by reservoir and do not convert between them.</string>
+
     <string name="ai_isotope_decay">(Decay: %1$s)</string>
     <string name="ai_quiz_not_active">I\'m not in quiz mode right now.</string>
     <string name="ai_quiz_no_start">I can\'t start a quiz right now.</string>
@@ -729,6 +743,11 @@
     <string name="instagram" translatable="false" >https://www.instagram.com/jlindemanndev</string>
     <string name="facebook" translatable="false" >https://www.facebook.com/jlindemanndev</string>
     <string name="homepage" translatable="false" >https://www.jlindemann.se/homepage</string>
+
+    <!-- Icon-button labels. Brand names, so the same in every language. -->
+    <string name="bluesky_label" translatable="false">Bluesky</string>
+    <string name="instagram_label" translatable="false">Instagram</string>
+    <string name="facebook_label" translatable="false">Facebook</string>
 
     <string name="solubility_info_t">Solubility Help</string>
     <string name="solubility_info_c" >"S: Soluble\nSs: Slightly Soluble\nI: Insoluble"</string>

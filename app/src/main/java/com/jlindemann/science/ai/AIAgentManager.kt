@@ -9,6 +9,7 @@ import com.jlindemann.science.ai.core.AndroidStrings
 import com.jlindemann.science.ai.core.DialogueState
 import com.jlindemann.science.ai.core.Intent
 import com.jlindemann.science.ai.data.FieldCategory
+import com.jlindemann.science.ai.data.FieldRegistry
 import com.jlindemann.science.ai.retrieval.RetrievalService
 import com.jlindemann.science.ai.retrieval.TextMatching
 import com.jlindemann.science.ai.retrieval.RetrievedRef
@@ -2150,8 +2151,17 @@ class AIAgentManager(private val context: Context?) {
         
         // --- Where Found / Abundance ---
         val foundInfo = StringBuilder()
+        // The unit comes from the field registry rather than a literal, so this line and the
+        // structured answer cannot state different units for the same figure.
         val crust = element.optString("earth_crust", "---")
-        if (crust != "---") foundInfo.append("• **${ctx.getString(R.string.abundance_earth_crust)}**: $crust mg/kg\n")
+        if (crust != "---") {
+            val crustUnit = FieldRegistry.byId["abundance_earth_crust"]?.unitLabelRes
+                ?.let { ctx.getString(it) }
+            foundInfo.append(
+                "• **${ctx.getString(R.string.abundance_earth_crust)}**: $crust" +
+                    (crustUnit?.let { " $it" } ?: "") + "\n"
+            )
+        }
         val foundSentences = sentences.filter { s ->
             sectionKeywords["abundance"]?.any { s.contains(it, true) } == true
         }

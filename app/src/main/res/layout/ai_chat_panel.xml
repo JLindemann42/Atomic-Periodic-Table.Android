@@ -251,7 +251,7 @@
                 <FrameLayout
                     android:id="@+id/ai_input_container"
                     android:layout_width="match_parent"
-                    android:layout_height="92dp"
+                    android:layout_height="98dp"
                     android:layout_marginHorizontal="12dp"
                     android:layout_marginBottom="24dp"
                     android:elevation="24dp">
@@ -348,7 +348,7 @@
                                 android:layout_weight="1"
                                 android:background="@drawable/rounded_box"
                                 android:backgroundTint="?attr/colorSurfaceVariant"
-                                android:hint="Ask me anything..."
+                                android:hint="@string/ai_hint"
                                 android:importantForAutofill="no"
                                 android:inputType="textCapSentences|textMultiLine"
                                 android:maxLines="3"

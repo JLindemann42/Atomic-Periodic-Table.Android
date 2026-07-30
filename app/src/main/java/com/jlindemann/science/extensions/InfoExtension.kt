@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.media.Image
 import android.net.Uri
 import android.os.Bundle
@@ -19,7 +20,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ProgressBar
-import android.widget.Space
 import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import androidx.annotation.AttrRes
@@ -34,6 +34,10 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.widget.doAfterTextChanged
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
@@ -43,6 +47,9 @@ import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
+import com.jlindemann.science.ai.data.FieldRegistry
+import com.jlindemann.science.ai.data.FieldValue
+import com.jlindemann.science.ai.data.ValueParser
 import com.jlindemann.science.preferences.*
 import com.jlindemann.science.sync.NotesSyncManager
 import com.jlindemann.science.utils.Pasteur
@@ -63,6 +70,10 @@ import java.net.ConnectException
 abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener {
     companion object {
         private const val TAG = "BaseActivity"
+
+        // Element photos are hosted per element, named after the English element name.
+        private const val ELEMENT_IMAGE_BASE_URL = "https://jlindemann.se/atomic/element_images/"
+        private const val ELEMENT_IMAGE_EXTENSION = ".jpg"
     }
 
     private var systemUiConfigured = false
@@ -178,8 +189,9 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
     open fun updateElementUI(jsonObject: JSONObject, englishName: String = "---", rootView: View, elementKey: String) {
         val elementCode = jsonObject.optString("element_code", "---")
         val element = englishName
+        // The name as spelled in the app language, falling back to English if untranslated
+        val localizedName = jsonObject.optString("element", englishName).ifBlank { englishName }
         val description = jsonObject.optString("description", "---")
-        val url = jsonObject.optString("link", "---")
         val short = jsonObject.optString("short", "---")
         val elementElectrons = jsonObject.optString("element_electrons", "---")
         val elementShellElectrons = jsonObject.optString("element_shells_electrons", "---")
@@ -232,13 +244,13 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         val shearModulus = jsonObject.optString("shear_modulus", "---")
         val bulkModulus = jsonObject.optString("bulk_modulus", "---")
         val poissonRatio = jsonObject.optString("poisson_ratio", "---")
-        val abundanceEarthCrust = jsonObject.optString("earth_crust", "N/A") + " mg/kg (ppm)"
-        val abundanceEarthSoil = jsonObject.optString("earth_soils", "N/A") + " mg/kg (ppm)"
-        val abundanceUrbanSoil = jsonObject.optString("urban_soils", "N/A") + " mg/kg (ppm)"
-        val abundanceCrustalRocks = jsonObject.optString("crustal_rocks", "N/A") + " mg/kg (ppm)"
-        val abundanceSeaWater = jsonObject.optString("sea_water", "N/A") + " μg/l"
-        val abundanceSun = jsonObject.optString("sun", "N/A") + " (atoms per 10^6 atoms of silicon)"
-        val abundanceSolarSystem = jsonObject.optString("solar_system", "N/A") + " (atoms per 10^6 atoms of silicon)"
+        val abundanceEarthCrust = abundanceText(jsonObject, "earth_crust")
+        val abundanceEarthSoil = abundanceText(jsonObject, "earth_soils")
+        val abundanceUrbanSoil = abundanceText(jsonObject, "urban_soils")
+        val abundanceCrustalRocks = abundanceText(jsonObject, "crustal_rocks")
+        val abundanceSeaWater = abundanceText(jsonObject, "sea_water")
+        val abundanceSun = abundanceText(jsonObject, "sun")
+        val abundanceSolarSystem = abundanceText(jsonObject, "solar_system")
         val fireHazard = jsonObject.optString("flammability", "---")
         val healthHazard = jsonObject.optString("health", "---")
         val reactivityHazard = jsonObject.optString("instability", "---")
@@ -259,8 +271,8 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         val refractiveIndex = jsonObject.optString("refractive_index", "---")
         val curiePoint = jsonObject.optString("curie_point", "---")
         val neelPoint = jsonObject.optString("neel_point", "---")
-        val abundanceMeteorites = jsonObject.optString("meteorites", "N/A") + " mg/kg"
-        val abundanceHumanBody = jsonObject.optString("human_body", "N/A")
+        val abundanceMeteorites = abundanceText(jsonObject, "meteorites")
+        val abundanceHumanBody = abundanceText(jsonObject, "human_body")
 
         rootView.findViewById<TextView>(R.id.element_resistivity).text = resistivity
 
@@ -285,7 +297,9 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         }
 
         // Set elements in UI
-        rootView.findViewById<TextView>(R.id.element_title)?.text = element
+        // The title bar shows the name in the app language; element_name below is explicitly
+        // labelled "English name", so it keeps the English spelling.
+        rootView.findViewById<TextView>(R.id.element_title)?.text = localizedName
         rootView.findViewById<TextView>(R.id.description_name).text = description
         rootView.findViewById<TextView>(R.id.element_name).text = element
         rootView.findViewById<TextView>(R.id.electrons_el).text = elementElectrons
@@ -486,13 +500,6 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
                 rootView.findViewById<TextView>(R.id.melting_f).text = elementMeltingFahrenheit
             }
         }
-        if (url == "empty") {
-            Utils.fadeInAnim(rootView.findViewById<TextView>(R.id.no_img), 150)
-            rootView.findViewById<ProgressBar>(R.id.pro_bar).visibility = View.GONE
-        } else {
-            Utils.fadeInAnim(rootView.findViewById<ProgressBar>(R.id.pro_bar), 150)
-            rootView.findViewById<AppCompatTextView>(R.id.no_img).visibility = View.GONE
-        }
         rootView.findViewById<TextView>(R.id.fusion_heat_f).text = fusionHeat
         rootView.findViewById<TextView>(R.id.specific_heat_f).text = specificHeatCapacity
         rootView.findViewById<TextView>(R.id.vaporization_heat_f).text = vaporizationHeat
@@ -566,7 +573,7 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         // Images and model
         val offlinePreferences = offlinePreference(this)
         if (offlinePreferences.getValue() == 0) {
-            loadImage(url, rootView)
+            loadImage(englishName, rootView)
             loadModelView(elementShellElectrons, short, rootView)
             loadSp(short, rootView)
         }
@@ -839,17 +846,68 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
     }
 
     /**
-     * Loads the element image from the given URL into the appropriate ImageView.
+     * Loads the element image, which is hosted per element and named after the English element
+     * name (e.g. "Aluminium.jpg"). Elements without an image on the server fall back to the
+     * "No Image" display.
      */
-    private fun loadImage(url: String?, rootView: View = findViewById(android.R.id.content)) {
-        try {
-            //Picasso.get().load(url.toString()).into(findViewById<ImageView>(R.id.element_image))
-            //Refactored loadImage with Glide:
-            Glide.with(this).load(url.toString()).into(rootView.findViewById<ImageView>(R.id.element_image));
-        } catch (e: ConnectException) {
-            rootView.findViewById<Space>(R.id.offline_div).visibility = View.VISIBLE
-            rootView.findViewById<FrameLayout>(R.id.frame).visibility = View.GONE
+    private fun loadImage(englishName: String?, rootView: View = findViewById(android.R.id.content)) {
+        val imageView = rootView.findViewById<ImageView>(R.id.element_image) ?: return
+        val noImage = rootView.findViewById<TextView>(R.id.no_img)
+        val progressBar = rootView.findViewById<ProgressBar>(R.id.pro_bar)
+
+        // Reset to the loading state before starting a new request
+        rootView.findViewById<TextView>(R.id.ldn_text)?.visibility = View.GONE
+        noImage?.visibility = View.GONE
+        progressBar?.visibility = View.VISIBLE
+        imageView.visibility = View.VISIBLE
+
+        if (englishName.isNullOrBlank() || englishName == "---") {
+            showNoImage(imageView, noImage, progressBar)
+            return
         }
+
+        // The files are named after the English element name; capitalise defensively since a few
+        // entries in elements_en.json are authored lower case (e.g. "tennessine").
+        val fileName = englishName.trim().replaceFirstChar { it.uppercase() }
+        val imageUrl = ELEMENT_IMAGE_BASE_URL + fileName + ELEMENT_IMAGE_EXTENSION
+        Glide.with(this)
+            .load(imageUrl)
+            .listener(object : RequestListener<Drawable> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable>,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    Pasteur.info(TAG, "No element image available at $imageUrl")
+                    showNoImage(imageView, noImage, progressBar)
+                    return true // We handle the failure state ourselves
+                }
+
+                override fun onResourceReady(
+                    resource: Drawable,
+                    model: Any,
+                    target: Target<Drawable>,
+                    dataSource: DataSource,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    progressBar?.visibility = View.GONE
+                    noImage?.visibility = View.GONE
+                    imageView.visibility = View.VISIBLE
+                    return false
+                }
+            })
+            .into(imageView)
+    }
+
+    /**
+     * Shows the "No Image" placeholder in place of the element image.
+     */
+    private fun showNoImage(imageView: ImageView, noImage: TextView?, progressBar: ProgressBar?) {
+        imageView.setImageDrawable(null)
+        imageView.visibility = View.GONE
+        progressBar?.visibility = View.GONE
+        noImage?.let { Utils.fadeInAnim(it, 150) }
     }
 
     /**
@@ -992,6 +1050,32 @@ abstract class InfoExtension : BaseActivity(), View.OnApplyWindowInsetsListener 
         val radioactiveValue = radioactivePreference.getValue()
         rootView.findViewById<LinearLayout>(R.id.phase_lay).visibility =
             if (radioactiveValue == 1) View.VISIBLE else View.GONE
+    }
+
+    /**
+     * One abundance row's text, with its unit.
+     *
+     * The nine reservoirs are stored inconsistently: most are bare numbers, `meteorites` and
+     * `human_body` write their unit into the value, and several elements have no reading at all —
+     * as `"---"`, as an absent key, or as a JSON null. Each row used to concatenate a hardcoded
+     * unit onto `optString(key, "N/A")` unconditionally, which produced `"8400 mg/kg mg/kg"`,
+     * `"N/A mg/kg (ppm)"`, `"--- mg/kg"`, and — because `optString` hands back `"null"` rather
+     * than the fallback for `JSONObject.NULL` — `"null (atoms per 10^6 atoms of silicon)"`.
+     *
+     * The unit now comes from [FieldRegistry], the same table the AI agent answers from, so the
+     * two surfaces cannot state different units for the same figure.
+     */
+    private fun abundanceText(jsonObject: JSONObject, jsonKey: String): String {
+        val absent = "---"
+        val spec = FieldRegistry.byJsonKey[jsonKey] ?: return absent
+        if (jsonObject.isNull(jsonKey)) return absent
+        val raw = jsonObject.opt(jsonKey) ?: return absent
+        return when (val value = ValueParser.parse(raw, spec)) {
+            is FieldValue.Num -> spec.displayWithUnit(value.quantity) { getString(it) }
+            is FieldValue.Trace -> getString(R.string.ai_value_trace)
+            is FieldValue.Text -> value.raw
+            else -> absent
+        }
     }
 
     /**

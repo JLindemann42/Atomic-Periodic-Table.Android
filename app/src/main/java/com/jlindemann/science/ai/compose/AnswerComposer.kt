@@ -368,6 +368,19 @@ class AnswerComposer(
         }
     )
 
+    /**
+     * The unit to print beside an aggregate.
+     *
+     * [ExecutionResult.Aggregate.unit] carries the field's canonical token, which is chosen so
+     * values can be grouped and converted rather than read — the solar reservoirs canonicalise to
+     * `Si=10^6`. Where the field declares a reader-facing unit, that wins.
+     */
+    private fun aggregateUnit(result: ExecutionResult.Aggregate): String? {
+        val labelRes = FieldRegistry.byId[result.fieldId]?.unitLabelRes ?: return result.unit
+        val label = runCatching { strings.get(labelRes) }.getOrNull()?.trim()
+        return if (label.isNullOrEmpty() || label.startsWith("str:")) result.unit else label
+    }
+
     private fun aggregate(result: ExecutionResult.Aggregate): String {
         if (result.aggregation == Aggregation.COUNT) {
             val builder = StringBuilder(strings.get(R.string.ai_count_result, result.value.toInt()))
@@ -384,7 +397,7 @@ class AnswerComposer(
             Aggregation.SUM -> strings.get(R.string.ai_aggregate_sum, fieldLabel(result.fieldId))
             else -> strings.get(R.string.ai_aggregate_average, fieldLabel(result.fieldId))
         }
-        val rendered = UnitConverter.formatValue(result.value) + (result.unit?.let { " $it" } ?: "")
+        val rendered = UnitConverter.formatValue(result.value) + (aggregateUnit(result)?.let { " $it" } ?: "")
         val builder = StringBuilder(strings.get(R.string.ai_aggregate_result, label, rendered))
 
         // An average with no spread is the classic misleading statistic: the mean density of the

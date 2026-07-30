@@ -29,6 +29,7 @@ import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.AnalyticsHelper
 import com.jlindemann.science.utils.ElementDataLoader
+import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils
 import com.otaliastudios.zoom.ZoomLayout
 import java.io.IOException
@@ -155,6 +156,11 @@ class HomeFragment : BaseFragment() {
 
             val jsonObject = ElementDataLoader.loadElementData(requireContext(), name)
             textView.text = jsonObject?.optString("element", "---") ?: "---"
+            if (item.electro == 0.0) {
+                iText.text = "---"
+            } else {
+                iText.text = (item.electro).toString()
+            }
 
             if (item.electro == 0.0) {
                 if (themePrefValue == 100) {

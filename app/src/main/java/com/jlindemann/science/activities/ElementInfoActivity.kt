@@ -99,6 +99,9 @@ class ElementInfoActivity : InfoExtension() {
     private var compareElementKey: String? = null
     private var mainElementName: String? = null
     private var compareElementName: String? = null
+    // Same two elements, spelled in the app language, for display in the title bar
+    private var mainElementDisplayName: String? = null
+    private var compareElementDisplayName: String? = null
 
     // AI Panel. All of its state and view wiring lives in the controller.
     private val aiScope = CoroutineScope(Dispatchers.Main)
@@ -449,14 +452,17 @@ class ElementInfoActivity : InfoExtension() {
     override fun updateElementUI(jsonObject: JSONObject, englishName: String, rootView: View, elementKey: String) {
         super.updateElementUI(jsonObject, englishName, rootView, elementKey)
         
+        val localizedName = jsonObject.optString("element", englishName).ifBlank { englishName }
         if (rootView == findViewById<View>(android.R.id.content)) {
             mainElementName = englishName
+            mainElementDisplayName = localizedName
         } else if (rootView.id == R.id.compare_element_content) {
             compareElementName = englishName
+            compareElementDisplayName = localizedName
         }
 
-        if (isCompareMode && mainElementName != null && compareElementName != null) {
-            findViewById<TextView>(R.id.element_title).text = getString(R.string.comparison_title_format, mainElementName, compareElementName)
+        if (isCompareMode && mainElementDisplayName != null && compareElementDisplayName != null) {
+            findViewById<TextView>(R.id.element_title).text = getString(R.string.comparison_title_format, mainElementDisplayName, compareElementDisplayName)
         }
 
         // Hide specific property icons in comparison mode
@@ -640,6 +646,8 @@ class ElementInfoActivity : InfoExtension() {
         compareElementKey = elementKey
         mainElementName = null
         compareElementName = null
+        mainElementDisplayName = null
+        compareElementDisplayName = null
 
         // Show comparison layout
         val compareRoot = findViewById<View>(R.id.compare_element_content)
@@ -664,11 +672,8 @@ class ElementInfoActivity : InfoExtension() {
         // Show close comparison button
         findViewById<View>(R.id.close_compare_btn).visibility = View.VISIBLE
 
-        // Adjust title margins to use full width when buttons are hidden
-        val titleText = findViewById<TextView>(R.id.element_title)
-        val titleParams = titleText.layoutParams as ConstraintLayout.LayoutParams
-        titleParams.marginEnd = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics).toInt()
-        titleText.layoutParams = titleParams
+        // The title is constrained to button_container, which collapses on its own once the
+        // buttons above are hidden, so no manual margin adjustment is needed.
 
         // Hide notes section in comparison mode as it's not needed and takes space
         findViewById<FrameLayout>(R.id.notes_frame).visibility = View.GONE
@@ -889,8 +894,10 @@ class ElementInfoActivity : InfoExtension() {
         compareElementKey = null
         mainElementName = null
         compareElementName = null
+        mainElementDisplayName = null
+        compareElementDisplayName = null
 
-        // Restore title
+        // Restore title (the reload below replaces this with the element's localized name)
         findViewById<TextView>(R.id.element_title).text = getString(R.string.element_info_title)
 
         // Hide comparison layout
@@ -904,12 +911,6 @@ class ElementInfoActivity : InfoExtension() {
         findViewById<MaterialButton>(R.id.wikipedia_btn).visibility = View.VISIBLE
         findViewById<MaterialButton>(R.id.isotope_btn).visibility = View.VISIBLE
         findViewById<MaterialButton>(R.id.compare_btn).visibility = View.VISIBLE
-
-        // Reset title margins
-        val titleText = findViewById<TextView>(R.id.element_title)
-        val titleParams = titleText.layoutParams as ConstraintLayout.LayoutParams
-        titleParams.marginEnd = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 168f, resources.displayMetrics).toInt()
-        titleText.layoutParams = titleParams
 
         // Show navigation buttons
         findViewById<MaterialButton>(R.id.previous_btn).visibility = View.VISIBLE

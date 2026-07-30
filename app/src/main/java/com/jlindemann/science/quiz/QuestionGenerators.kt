@@ -49,7 +49,7 @@ object QuestionGenerators {
         SuperlativeGenerator("superlative_advanced", baseXp = 110, fields = ADVANCED_FIELDS, descending = null),
         // Two options rather than four, and either direction, so it plays as a head-to-head.
         SuperlativeGenerator("compare_pair", baseXp = 60, fields = BASIC_FIELDS, descending = null, optionCount = 2),
-        OddOneOutGenerator("odd_one_out_series", baseXp = 70),
+        OddOneOutGenerator("odd_one_out_series", baseXp = 20),
         // Takes over the existing category: the raw JSON spells several classifications two ways,
         // which the old lookup offered as separate answers.
         ClassificationGenerator("element_classifications", baseXp = 13),

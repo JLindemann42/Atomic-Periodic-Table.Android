@@ -2,6 +2,7 @@ package com.jlindemann.science.adapter
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.jlindemann.science.R
 import com.jlindemann.science.ai.cards.AbundanceReducer
 import com.jlindemann.science.ai.cards.ChatCard
@@ -84,8 +85,19 @@ class ChatCardBinder(
             ChatCardKind.ABUNDANCE -> {
                 val provider = strings() ?: return false
                 val profile = AbundanceReducer.of(element, provider) ?: return false
-                cardView.findViewById<AbundanceBarsView>(R.id.ai_card_abundance)
+                val drawn = cardView.findViewById<AbundanceBarsView>(R.id.ai_card_abundance)
                     ?.setProfile(profile) != null
+                // The chart's group headings say which unit each run of bars is in; the caption
+                // says the thing a heading cannot — that the axis is logarithmic and that the
+                // units do not convert into one another, so bar lengths across groups are not a
+                // comparison.
+                if (drawn) {
+                    cardView.findViewById<TextView>(R.id.ai_card_caption)?.apply {
+                        text = provider.get(R.string.ai_abundance_caption)
+                        visibility = View.VISIBLE
+                    }
+                }
+                drawn
             }
             ChatCardKind.NFPA_DIAMOND -> {
                 val provider = strings() ?: return false
@@ -112,5 +124,8 @@ class ChatCardBinder(
         if (cardView == null) return
         cardView.findViewById<CrystalStructureView>(R.id.ai_card_crystal)?.autoRotate = false
         cardView.findViewById<ImageView>(R.id.ai_card_emission)?.let { Picasso.get().cancelRequest(it) }
+        // The caption starts hidden in every card layout, so a recycled row must be put back that
+        // way or an abundance caption reappears under whichever card lands on the row next.
+        cardView.findViewById<TextView>(R.id.ai_card_caption)?.visibility = View.GONE
     }
 }

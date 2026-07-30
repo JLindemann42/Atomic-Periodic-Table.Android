@@ -31,6 +31,56 @@
                 android:textStyle="bold"
                 android:letterSpacing="-0.02" />
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:paddingVertical="4dp"
+                android:paddingHorizontal="8dp"
+                android:background="@drawable/toast_card_outline"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/instagram_btn"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        app:icon="@drawable/ic_instagram_outline"
+                        app:iconSize="24dp"
+                        app:iconTint="?attr/actionMenuTextColor" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/facebook_btn"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        app:icon="@drawable/ic_facebook_outline"
+                        app:iconSize="24dp"
+                        app:iconTint="?attr/actionMenuTextColor" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/bluesky_btn"
+                        style="@style/Widget.Material3.Button.IconButton"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        app:icon="@drawable/ic_bluesky"
+                        app:iconSize="24dp"
+                        app:iconTint="?attr/actionMenuTextColor" />
+                </LinearLayout>
+                <Button
+                    android:id="@+id/blog_btn"
+                    android:layout_width="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:layout_height="42dp"
+                    android:layout_gravity="end"
+                    style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
+                    android:text="@string/blog"/>
+            </FrameLayout>
+
             <LinearLayout
                 android:id="@+id/personalization_box"
                 style="@style/Widget.Science.Expressive.SectionHeader">

@@ -215,8 +215,8 @@
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
         android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:elevation="1dp"
-        app:layout_constraintTop_toTopOf="@+id/unified_titlebar_include"
         app:layout_constraintBottom_toBottomOf="@+id/unified_titlebar_include"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -15,6 +15,10 @@ package com.jlindemann.science.ai.data
  * @property approximate true when the source marked the value with `~`, `≈`, `<` or `>`
  * @property note a qualifier the source attached in brackets or as a prefix,
  *   e.g. `room temperature`, `Graphite`, `Br2`
+ * @property unitAuthored whether [unit] was read off the value itself rather than supplied by
+ *   [FieldSpec.canonicalUnit]. This is the difference between `"8400 mg/kg"`, where [display]
+ *   already states the unit, and `"80500"`, where a caller has to add it — and without it, the
+ *   only way to tell them apart is to guess from the string.
  */
 data class Quantity(
     val value: Double,
@@ -22,7 +26,8 @@ data class Quantity(
     val unit: String? = null,
     val display: String,
     val approximate: Boolean = false,
-    val note: String? = null
+    val note: String? = null,
+    val unitAuthored: Boolean = false
 ) {
     /** True when this represents a range rather than a single value. */
     val isRange: Boolean get() = high != null

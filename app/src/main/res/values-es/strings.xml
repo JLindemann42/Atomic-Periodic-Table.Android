@@ -120,6 +120,11 @@
     <string name="ai_valence_noble_helium">El helio tiene **2 electrones de valencia**, completando su única capa.</string>
     <string name="ai_valence_noble_other">Tiene una capa externa completa de **8 electrones de valencia**, lo que lo hace muy estable.</string>
     <string name="ai_abundance_relative">(relativo a H=10¹²)</string>
+    <string name="ai_unit_mg_per_kg">mg/kg (ppm)</string>
+    <string name="ai_unit_ug_per_l">µg/l</string>
+    <string name="ai_unit_atoms_per_si">átomos por cada 10⁶ átomos de silicio</string>
+    <string name="ai_value_trace">trazas</string>
+    <string name="ai_abundance_caption">Escala logarítmica. Las unidades varían según el reservorio y no se convierten entre sí.</string>
     <string name="ai_adv_header">Propiedades avanzadas de %1$s:</string>
     <string name="ai_all_covered">¡Ya hemos cubierto mucho sobre %1$s! ¿Sabías qué?</string>
     <string name="ai_another_isotope"> Otro isótopo es %1$s.</string>

@@ -764,6 +764,11 @@
     <string name="account">खाता</string>
     <string name="additional_ai_messages">बढ़ी हुई AI संदेश सीमा:</string>
     <string name="ai_abundance_relative">(H=10¹² के सापेक्ष)</string>
+    <string name="ai_unit_mg_per_kg">mg/kg (ppm)</string>
+    <string name="ai_unit_ug_per_l">µg/l</string>
+    <string name="ai_unit_atoms_per_si">प्रति 10⁶ सिलिकॉन परमाणु पर परमाणु</string>
+    <string name="ai_value_trace">अत्यल्प मात्रा</string>
+    <string name="ai_abundance_caption">लघुगणकीय पैमाना। इकाईयाँ हर स्रोत के लिए अलग हैं और आपस में परिवर्तित नहीं होतीं।</string>
     <string name="ai_adv_header">%1$s के उन्नत गुण:</string>
     <string name="ai_all_covered">हमने %1$s के बारे में बहुत कुछ कवर किया है! क्या आप जानते हैं?</string>
     <string name="ai_another_isotope"> एक अन्य आइसोटोप %1$s है।</string>

@@ -765,6 +765,11 @@
     <string name="account">Conta</string>
     <string name="additional_ai_messages">Limite de mensagens de IA aumentado:</string>
     <string name="ai_abundance_relative">(relativo a H=10¹²)</string>
+    <string name="ai_unit_mg_per_kg">mg/kg (ppm)</string>
+    <string name="ai_unit_ug_per_l">µg/l</string>
+    <string name="ai_unit_atoms_per_si">átomos por 10⁶ átomos de silício</string>
+    <string name="ai_value_trace">vestígios</string>
+    <string name="ai_abundance_caption">Escala logarítmica. As unidades variam conforme o reservatório e não se convertem entre si.</string>
     <string name="ai_adv_header">Propriedades avançadas de %1$s:</string>
     <string name="ai_all_covered">Já cobrimos muito sobre %1$s! Você sabia?</string>
     <string name="ai_another_isotope"> Outro isótopo é %1$s.</string>

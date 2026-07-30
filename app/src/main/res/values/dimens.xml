@@ -61,4 +61,7 @@ http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     <!-- Chat answer cards. Fixed rather than match_parent: the bubble is wrap_content, so a card
          with no intrinsic size would measure to zero. -->
     <dimen name="ai_card_width">280dp</dimen>
+
+    <!-- Extra breathing room between the chat input and the top of the keyboard. -->
+    <dimen name="ai_input_keyboard_gap">8dp</dimen>
 </resources>

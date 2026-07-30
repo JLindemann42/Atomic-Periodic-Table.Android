@@ -26,13 +26,6 @@
             app:strokeWidth="0dp"
             app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.ExtraLarge">
 
-            <include
-                android:id="@+id/ldn_place"
-                layout="@layout/loading_view"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center" />
-
             <ImageView
                 android:id="@+id/element_image"
                 android:layout_width="match_parent"
@@ -44,6 +37,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#33000000" />
+
+            <!-- Above the image so the spinner and the "No Image" fallback stay visible -->
+            <include
+                android:id="@+id/ldn_place"
+                layout="@layout/loading_view"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/previous_btn"

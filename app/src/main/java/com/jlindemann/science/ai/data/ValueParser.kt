@@ -58,7 +58,9 @@ object ValueParser {
     fun parse(raw: Any?, spec: FieldSpec): FieldValue {
         // Rule 1 — absent. Handles bare sentinels and unit-suffixed ones like "--- (pm)".
         if (raw == null) return FieldValue.Missing
-        if (raw is Int) return FieldValue.Num(Quantity(raw.toDouble(), unit = spec.canonicalUnit, display = raw.toString()))
+        if (raw is Int) return FieldValue.Num(
+            Quantity(raw.toDouble(), unit = spec.canonicalUnit, display = raw.toString())
+        )
 
         // Rule 2 — nested structures (lattice_constants, debye_temperature).
         if (raw is Map<*, *>) {
@@ -136,7 +138,10 @@ object ValueParser {
             if (mantissa != null && exponent != null) {
                 val unit = unitFrom(s.substring(m.value.length), spec)
                 return FieldValue.Num(
-                    Quantity(mantissa * pow10(exponent), null, unit, original.trim(), approximate, note)
+                    Quantity(
+                        mantissa * pow10(exponent), null, unit.unit, original.trim(), approximate,
+                        note, unit.authored
+                    )
                 )
             }
         }
@@ -144,7 +149,9 @@ object ValueParser {
             val exponent = normaliseSign(m.groupValues[1]).toIntOrNull()
             if (exponent != null) {
                 val unit = unitFrom(s.substring(m.value.length), spec)
-                return FieldValue.Num(Quantity(pow10(exponent), null, unit, original.trim(), approximate, note))
+                return FieldValue.Num(
+                    Quantity(pow10(exponent), null, unit.unit, original.trim(), approximate, note, unit.authored)
+                )
             }
         }
 
@@ -156,7 +163,9 @@ object ValueParser {
                 val high = m.groupValues[2].toDoubleOrNull()
                 if (low != null && high != null) {
                     val unit = unitFrom(s.substring(m.value.length), spec)
-                    return FieldValue.Num(Quantity(low, high, unit, original.trim(), approximate, note))
+                    return FieldValue.Num(
+                        Quantity(low, high, unit.unit, original.trim(), approximate, note, unit.authored)
+                    )
                 }
             }
         }
@@ -166,8 +175,14 @@ object ValueParser {
             val numeric = normaliseSign(m.groupValues[1]).replace(",", "").toDoubleOrNull()
             if (numeric != null) {
                 val remainder = s.substring(m.value.length)
-                val unit = if (remainder.trimStart().startsWith("%")) "%" else unitFrom(remainder, spec)
-                return FieldValue.Num(Quantity(numeric, null, unit, original.trim(), approximate, note))
+                // A percent sign is glued to the number rather than spaced off it, so it never
+                // reaches normaliseUnit; it is authored either way.
+                val unit =
+                    if (remainder.trimStart().startsWith("%")) UnitSource("%", authored = true)
+                    else unitFrom(remainder, spec)
+                return FieldValue.Num(
+                    Quantity(numeric, null, unit.unit, original.trim(), approximate, note, unit.authored)
+                )
             }
         }
 
@@ -202,8 +217,19 @@ object ValueParser {
         return u.ifEmpty { null }
     }
 
-    private fun unitFrom(remainder: String, spec: FieldSpec): String? =
-        normaliseUnit(remainder) ?: spec.canonicalUnit
+    /**
+     * A unit and where it came from.
+     *
+     * The distinction matters downstream: a unit read off the value is already inside
+     * [Quantity.display], while one taken from the registry is not and has to be added by whoever
+     * renders the value. See [FieldSpec.displayWithUnit].
+     */
+    private data class UnitSource(val unit: String?, val authored: Boolean)
+
+    private fun unitFrom(remainder: String, spec: FieldSpec): UnitSource =
+        normaliseUnit(remainder)
+            ?.let { UnitSource(it, authored = true) }
+            ?: UnitSource(spec.canonicalUnit, authored = false)
 
     /** Map the Unicode minus and dashes onto ASCII so [String.toDoubleOrNull] accepts them. */
     private fun normaliseSign(raw: String): String =

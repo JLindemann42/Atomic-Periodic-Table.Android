@@ -3,6 +3,7 @@ package com.jlindemann.science.activities
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -89,6 +90,7 @@ class SettingsActivity : BaseActivity() {
         initOfflineSwitches()
         initNavSwitches()
         initAnalyticsSwitch()
+        mediaListeners()
 
         findViewById<View>(R.id.offline_settings).setOnClickListener {
             findViewById<SwitchCompat>(R.id.offline_internet_switch).toggle()
@@ -368,6 +370,14 @@ class SettingsActivity : BaseActivity() {
         }
         // Clear the language cache when preference changes
         com.jlindemann.science.utils.ElementDataLoader.clearCache()
+    }
+
+    private fun mediaListeners() {
+        val openUrl = { url: String -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
+        findViewById<View>(R.id.bluesky_btn)?.setOnClickListener { openUrl(getString(R.string.bluesky)) }
+        findViewById<View>(R.id.facebook_btn)?.setOnClickListener { openUrl(getString(R.string.facebook)) }
+        findViewById<View>(R.id.instagram_btn)?.setOnClickListener { openUrl(getString(R.string.instagram)) }
+        findViewById<View>(R.id.blog_btn)?.setOnClickListener { openUrl(getString(R.string.homepage)) }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {

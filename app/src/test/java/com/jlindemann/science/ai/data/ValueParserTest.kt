@@ -14,6 +14,7 @@ class ValueParserTest {
     private val vickers = FieldRegistry.byId.getValue("vickers_hardness")
     private val crust = FieldRegistry.byId.getValue("abundance_earth_crust")
     private val humanBody = FieldRegistry.byId.getValue("abundance_human_body")
+    private val meteorites = FieldRegistry.byId.getValue("abundance_meteorites")
     private val soundSolid = FieldRegistry.byId.getValue("speed_of_sound_solid")
     private val resistivity = FieldRegistry.byId.getValue("resistivity")
     private val lattice = FieldRegistry.byId.getValue("lattice_constants")
@@ -187,6 +188,43 @@ class ValueParserTest {
     @Test
     fun traceIsItsOwnValue() {
         assertEquals(FieldValue.Trace, ValueParser.parse("trace", humanBody))
+    }
+
+    // ---- Where the unit came from ------------------------------------------------------
+
+    /**
+     * A unit read off the value is already inside `display`; one taken from the registry is not.
+     *
+     * Losing that distinction is what let the element screen print `"8400 mg/kg mg/kg"` — it
+     * appended a unit to a string that already had one, because a bare number and a
+     * unit-suffixed one are indistinguishable once parsed.
+     */
+    @Test
+    fun aUnitReadOffTheValueIsMarkedAsAuthored() {
+        assertTrue(num("8400 mg/kg", meteorites).unitAuthored)
+        assertTrue(num("22.14 nΩm", resistivity).unitAuthored)
+        assertTrue(num("19.3 (g/cm^3)", density).unitAuthored)
+        // A glued percent sign never reaches normaliseUnit, but it is authored all the same.
+        assertTrue(num("65% (by mass)", humanBody).unitAuthored)
+        assertEquals("%", num("65% (by mass)", humanBody).unit)
+    }
+
+    @Test
+    fun aUnitTakenFromTheRegistryIsNotMarkedAsAuthored() {
+        // The abundance reservoirs are the reason this exists: bare numbers throughout.
+        assertFalse(num("80500", crust).unitAuthored)
+        assertEquals("mg/kg", num("80500", crust).unit)
+        assertFalse(num("8.0 × 10^4", crust).unitAuthored)
+        assertFalse(num("10^-8", crust).unitAuthored)
+    }
+
+    /** Sea water is µg/l, not the mg/kg every reservoir used to be stamped with. */
+    @Test
+    fun eachReservoirFallsBackToItsOwnUnit() {
+        val seaWater = FieldRegistry.byId.getValue("abundance_sea_water")
+        val sun = FieldRegistry.byId.getValue("abundance_sun")
+        assertEquals(FieldRegistry.UNIT_MICROGRAM_PER_LITRE, num("0.011", seaWater).unit)
+        assertEquals(FieldRegistry.UNIT_ATOMS_PER_SILICON, num("8.3 × 10^4", sun).unit)
     }
 
     @Test
