@@ -1212,4 +1212,84 @@ I：不溶"</string>
     <string name="question_valence_electrons">%1$s 有多少个价电子？</string>
     <string name="quiz_loading">正在准备题目…</string>
     <string name="quiz_no_questions">无法为此游戏生成题目，请换一个。</string>
+
+    <!-- Assistant: calculations, tools and suggestion chips -->
+    <string name="ai_unit_converted">**%1$s %2$s** 等于 **%3$s %4$s**。</string>
+    <string name="ai_unit_bridge_note">使用 1 eV = 96.485 kJ/mol 换算 —— 同一份能量，按每个粒子而非每摩尔计。</string>
+    <string name="ai_equation_balanced">**%1$s → %2$s**</string>
+    <string name="ai_equation_check_header">原子核对</string>
+    <string name="ai_equation_tally_row">• **%1$s** —— 左边 %2$d，右边 %3$d</string>
+    <string name="ai_equation_one_sided">这个方程无法配平：某个元素只出现在一侧，任何系数都补不平。</string>
+    <string name="ai_equation_underdetermined">这个方程有不止一种独立的配平方式 —— 它读起来像是把两个反应写成了一个。拆开后我可以分别配平。</string>
+    <string name="ai_equation_too_large">这个方程需要的系数大得不像真实反应。请检查化学式。</string>
+    <string name="ai_equation_parse_failed">我没能把它读成化学方程式。可以试试 Fe + O2 -&gt; Fe2O3 这样的写法。</string>
+    <string name="ai_equation_no_solution">这个方程没有全部为正整数的配平解。</string>
+    <string name="ai_solution_generic_substance">该溶液</string>
+    <string name="ai_solution_mass_needed">配制 %3$s mL 的 %4$s mol/L %2$s 溶液需要 **%1$s g**。</string>
+    <string name="ai_solution_molarity">%2$s 的浓度是 **%1$s mol/L**。</string>
+    <string name="ai_solution_volume">在 **%2$s mol/L** 下需要 **%1$s mL**。</string>
+    <string name="ai_solution_moles">那是 **%1$s mol** 的 %2$s。</string>
+    <string name="ai_dilution_result">把 **%2$s mL** 的 **%1$s mol/L** 稀释后，可得 **%4$s mL** 的 **%3$s mol/L**。</string>
+    <string name="ai_dilution_add_solvent">加入 **%1$s mL** 溶剂。</string>
+    <string name="ai_solution_working_header">计算过程</string>
+    <string name="ai_solution_working_nvc">n = c × V → %1$s mol = %2$s mol/L × %3$s L</string>
+    <string name="ai_solution_working_mass">m = n × M → %1$s g = %2$s mol × %3$s g/mol</string>
+    <string name="ai_solution_working_c1v1">C₁V₁ = C₂V₂ → %1$s × %2$s = %3$s × %4$s</string>
+    <string name="ai_decay_stable">%1$s 是稳定的 —— 它不衰变，随时间不会减少。</string>
+    <string name="ai_decay_unlisted">应用未把 %1$s 列入该元素的同位素，因此我没有它的半衰期。</string>
+    <string name="ai_decay_no_half_life">%1$s 有记录，但其半衰期标为“%2$s”，因此无法据此计算衰变。</string>
+    <string name="ai_decay_effectively_none">经过 %2$s %3$s 后，%1$s 实际上已所剩无几。</string>
+    <string name="ai_decay_elapsed">%3$s 从 **%1$s g** 减到 **%2$s g** 大约需要 **%4$s %5$s**。</string>
+    <string name="ai_decay_remaining">经过 %5$s %6$s 后，最初 %3$s g 的 %4$s 大约还剩 **%1$s %2$s**。</string>
+    <string name="ai_decay_half_lives">在这段时间里 %1$s 经历了 **%2$s** 个半衰期，样品还剩约 **%3$s%%**。</string>
+    <string name="ai_decay_working_header">计算过程</string>
+    <string name="ai_decay_working_half_life">%1$s 的半衰期：%2$s</string>
+    <string name="ai_decay_working_n">n = t / t½ = %1$s → 2⁻ⁿ = %2$s%%</string>
+    <string name="ai_feature_nuclide_table">应用内置完整的**核素表**，展示所有元素的同位素，并按衰变类型（α、β 等）着色。</string>
+    <string name="ai_feature_emission_spectrum">你可以在元素的详情面板中查看其**发射光谱**，它显示该元素独有的光谱图样。</string>
+    <string name="ai_feature_flashcards">应用提供多款**记忆卡小游戏**，涵盖元素符号、原子量和分类，并有等级和经验值可追踪。</string>
+    <string name="ai_feature_achievements">在用户页面通过**成就**和使用统计追踪你的进度。</string>
+    <string name="ai_feature_molar_mass">应用内置**摩尔质量计算器**，可算出复杂化合物的分子量。我在这里也能算 —— 给我一个化学式就行。</string>
+    <string name="ai_feature_unit_converter">应用内置**单位换算器**，可换算温度和其他科学单位。你也可以直接问我，例如“把 500 K 换算成 °C”。</string>
+    <string name="ai_feature_ideal_gas">用**理想气体计算器**由 PV = nRT 求压强、体积、物质的量或温度。</string>
+    <string name="ai_feature_reaction_balancer">**化学反应配平器**可帮你配平方程并收藏常用反应。你也可以在这里问我 —— 写成 Fe + O2 -&gt; Fe2O3 就行。</string>
+    <string name="ai_feature_capabilities">我可以查询和比较元素性质、配平方程、计算摩尔质量和溶液浓度、换算单位，以及做衰变计算。问我某个元素，或者写一个化学式或方程式。</string>
+    <string-array name="ai_suggest_element">
+        <item>%1$s 的用途</item>
+        <item>%1$s 的原子量</item>
+        <item>%1$s 危险吗？</item>
+        <item>%1$s 在哪里找到？</item>
+        <item>%1$s 的电子排布</item>
+        <item>%1$s 的同位素</item>
+    </string-array>
+    <string-array name="ai_suggest_trends">
+        <item>什么是周期性趋势？</item>
+        <item>电负性趋势</item>
+        <item>原子半径趋势</item>
+        <item>电离能</item>
+    </string-array>
+    <string-array name="ai_suggest_general">
+        <item>讲个有趣的知识</item>
+        <item>开始一个测验</item>
+        <item>什么是碱金属？</item>
+        <item>最重的元素？</item>
+    </string-array>
+    <string-array name="ai_suggest_tools">
+        <item>配平 Fe + O2 -&gt; Fe2O3</item>
+        <item>把 500 K 换算成 °C</item>
+        <item>250 mL 的 0.5 mol/L 需要多少克 NaCl？</item>
+        <item>100 g 碳-14 经过 11460 年还剩多少？</item>
+    </string-array>
+
+    <!-- Equation Balancer tool -->
+    <string name="balancer_tool_title">方程配平器</string>
+    <string name="bal">配平器</string>
+    <string name="balancer_tool_text">用精确的整数系数配平化学方程式</string>
+    <string name="balancer_tool_card_title">配平一个方程式</string>
+    <string name="balancer_tool_hint">Fe + O2 -&gt; Fe2O3</string>
+    <string name="balancer_tool_result">配平后的方程式</string>
+    <string name="balancer_tool_prompt">输入带箭头的方程式，例如 Fe + O2 -&gt; Fe2O3。</string>
+    <string name="balancer_tool_examples">示例</string>
+    <string name="balancer_tool_note">箭头可写作 -&gt;、=&gt;、= 或 →。(s)、(l)、(g)、(aq) 等状态符号会被忽略。</string>
+    <string name="balancer_tool_copied">方程式已复制</string>
 </resources>

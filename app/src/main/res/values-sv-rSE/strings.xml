@@ -1142,4 +1142,84 @@
     <string name="question_valence_electrons">Hur många valenselektroner har %1$s?</string>
     <string name="quiz_loading">Förbereder frågor …</string>
     <string name="quiz_no_questions">Det gick inte att skapa frågor för det här spelet. Prova ett annat.</string>
+
+    <!-- Assistant: calculations, tools and suggestion chips -->
+    <string name="ai_unit_converted">**%1$s %2$s** är **%3$s %4$s**.</string>
+    <string name="ai_unit_bridge_note">Omvandlat med 1 eV = 96,485 kJ/mol — samma energi räknad per partikel i stället för per mol.</string>
+    <string name="ai_equation_balanced">**%1$s → %2$s**</string>
+    <string name="ai_equation_check_header">Atomkontroll</string>
+    <string name="ai_equation_tally_row">• **%1$s** — %2$d till vänster, %3$d till höger</string>
+    <string name="ai_equation_one_sided">Den ekvationen går inte att balansera: ett grundämne finns bara på ena sidan, så inga koefficienter kan jämna ut den.</string>
+    <string name="ai_equation_underdetermined">Den ekvationen har mer än en oberoende balans — den läses som två reaktioner skrivna som en. Dela upp den så balanserar jag varje del.</string>
+    <string name="ai_equation_too_large">Den ekvationen kräver koefficienter som är för stora för en verklig reaktion. Kontrollera formlerna.</string>
+    <string name="ai_equation_parse_failed">Jag kunde inte läsa det som en kemisk ekvation. Prova formen Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_equation_no_solution">Den ekvationen har ingen balans med hela positiva koefficienter.</string>
+    <string name="ai_solution_generic_substance">lösningen</string>
+    <string name="ai_solution_mass_needed">Du behöver **%1$s g** %2$s för %3$s mL av en %4$s mol/L-lösning.</string>
+    <string name="ai_solution_molarity">Koncentrationen av %2$s är **%1$s mol/L**.</string>
+    <string name="ai_solution_volume">Du behöver **%1$s mL** vid **%2$s mol/L**.</string>
+    <string name="ai_solution_moles">Det är **%1$s mol** %2$s.</string>
+    <string name="ai_dilution_result">Att späda **%1$s mol/L** från **%2$s mL** ger **%3$s mol/L** vid **%4$s mL**.</string>
+    <string name="ai_dilution_add_solvent">Tillsätt **%1$s mL** lösningsmedel.</string>
+    <string name="ai_solution_working_header">Uträkning</string>
+    <string name="ai_solution_working_nvc">n = c × V → %1$s mol = %2$s mol/L × %3$s L</string>
+    <string name="ai_solution_working_mass">m = n × M → %1$s g = %2$s mol × %3$s g/mol</string>
+    <string name="ai_solution_working_c1v1">C₁V₁ = C₂V₂ → %1$s × %2$s = %3$s × %4$s</string>
+    <string name="ai_decay_stable">%1$s är stabil — den sönderfaller inte, så inget försvinner med tiden.</string>
+    <string name="ai_decay_unlisted">Appen listar inte %1$s bland grundämnets isotoper, så jag har ingen halveringstid för den.</string>
+    <string name="ai_decay_no_half_life">%1$s finns med, men halveringstiden är angiven som \"%2$s\", så jag kan inte räkna på sönderfallet.</string>
+    <string name="ai_decay_effectively_none">Efter %2$s %3$s finns i praktiken inget av %1$s kvar.</string>
+    <string name="ai_decay_elapsed">Att gå från **%1$s g** till **%2$s g** %3$s tar ungefär **%4$s %5$s**.</string>
+    <string name="ai_decay_remaining">Ungefär **%1$s %2$s** av de ursprungliga %3$s g %4$s finns kvar efter %5$s %6$s.</string>
+    <string name="ai_decay_half_lives">Under den tiden genomgår %1$s **%2$s** halveringstider, vilket lämnar ungefär **%3$s%%** av provet.</string>
+    <string name="ai_decay_working_header">Uträkning</string>
+    <string name="ai_decay_working_half_life">Halveringstid för %1$s: %2$s</string>
+    <string name="ai_decay_working_n">n = t / t½ = %1$s → 2⁻ⁿ = %2$s%%</string>
+    <string name="ai_feature_nuclide_table">Appen har en omfattande **nuklidkarta** som visar isotoper för alla grundämnen, färgkodade efter sönderfallstyp (alfa, beta och så vidare).</string>
+    <string name="ai_feature_emission_spectrum">Du kan se **emissionsspektrumet** för ett grundämne i dess detaljpanel. Det visar det unika ljusmönster som ämnet ger.</string>
+    <string name="ai_feature_flashcards">Appen har flera **flashcard-minispel** för kemiska tecken, atommassor och klassificeringar, med nivå och XP att följa.</string>
+    <string name="ai_feature_achievements">Följ dina framsteg med **prestationer** och användningsstatistik på användarsidan.</string>
+    <string name="ai_feature_molar_mass">Det finns en inbyggd **molmassekalkylator** för att räkna ut molekylvikten hos sammansatta föreningar. Jag kan också göra det här — ge mig bara en formel.</string>
+    <string name="ai_feature_unit_converter">Appen har en **enhetsomvandlare** för temperaturer och andra vetenskapliga enheter. Du kan också bara fråga mig, till exempel \"omvandla 500 K till °C\".</string>
+    <string name="ai_feature_ideal_gas">Använd **idealgaskalkylatorn** för att hitta tryck, volym, substansmängd eller temperatur ur PV = nRT.</string>
+    <string name="ai_feature_reaction_balancer">**Reaktionsbalanseraren** hjälper dig balansera ekvationer och spara favoriter. Du kan också fråga mig här — skriv till exempel Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_feature_capabilities">Jag kan slå upp och jämföra ämnesegenskaper, balansera ekvationer, räkna ut molmassor och lösningskoncentrationer, omvandla enheter och göra sönderfallsberäkningar. Fråga om ett grundämne, eller skriv en formel eller ekvation.</string>
+    <string-array name="ai_suggest_element">
+        <item>Användning av %1$s</item>
+        <item>Atommassa för %1$s</item>
+        <item>Är %1$s farligt?</item>
+        <item>Var finns %1$s?</item>
+        <item>Elektronkonfiguration för %1$s</item>
+        <item>Isotoper av %1$s</item>
+    </string-array>
+    <string-array name="ai_suggest_trends">
+        <item>Vad är periodiska trender?</item>
+        <item>Elektronegativitetstrend</item>
+        <item>Atomradietrend</item>
+        <item>Joniseringsenergi</item>
+    </string-array>
+    <string-array name="ai_suggest_general">
+        <item>Berätta en kul fakta</item>
+        <item>Starta en quiz</item>
+        <item>Vilka är alkalimetallerna?</item>
+        <item>Tyngsta grundämnet?</item>
+    </string-array>
+    <string-array name="ai_suggest_tools">
+        <item>Balansera Fe + O2 -&gt; Fe2O3</item>
+        <item>Omvandla 500 K till °C</item>
+        <item>Hur många gram NaCl för 250 mL 0,5 mol/L?</item>
+        <item>Hur mycket av 100 g kol-14 finns kvar efter 11460 år?</item>
+    </string-array>
+
+    <!-- Equation Balancer tool -->
+    <string name="balancer_tool_title">Ekvationsbalanserare</string>
+    <string name="bal">Balanserare</string>
+    <string name="balancer_tool_text">Balansera kemiska ekvationer med exakta heltalskoefficienter</string>
+    <string name="balancer_tool_card_title">Balansera en ekvation</string>
+    <string name="balancer_tool_hint">Fe + O2 -&gt; Fe2O3</string>
+    <string name="balancer_tool_result">Balanserad ekvation</string>
+    <string name="balancer_tool_prompt">Skriv en ekvation med en pil, till exempel Fe + O2 -&gt; Fe2O3.</string>
+    <string name="balancer_tool_examples">Exempel</string>
+    <string name="balancer_tool_note">Pilar kan skrivas -&gt;, =&gt;, = eller →. Tillståndsbeteckningar som (s), (l), (g) och (aq) ignoreras.</string>
+    <string name="balancer_tool_copied">Ekvationen kopierad</string>
 </resources>

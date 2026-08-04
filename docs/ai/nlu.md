@@ -116,12 +116,50 @@ Roughly, in order:
 
 1. Defer-to-personality check (greetings, small talk, quiz answers)
 2. Out-of-range element numbers ("element 250")
-3. Narrative and etymology declines
-4. Explanation and definition routing to the dataset layer
-5. Slot inheritance from `DialogueState` — this is what makes "and its boiling
+3. `calculationPlan` — the arithmetic branches, checked before entity and field
+   resolution because a formula or a nuclide would otherwise be picked apart into
+   unrelated matches. Its own internal order is load-bearing (see below).
+4. Standalone unit conversion
+5. Narrative and etymology declines
+6. Explanation and definition routing to the dataset layer
+7. Slot inheritance from `DialogueState` — this is what makes "and its boiling
    point?" work
-6. Comparative / superlative / aggregate / filter-list branching
-7. Dataset fallback through `HybridRetriever`
+8. Comparative / superlative / aggregate / filter-list branching
+9. Dataset fallback through `HybridRetriever`
+
+### Order inside `calculationPlan`
+
+**BALANCE → SOLUTION → DECAY → MOLE → ISOTOPE_COMPARISON → NUCLIDE_COUNT →
+ISOTOPES → FORMULA_MASS.** Three of those adjacencies are not stylistic:
+
+- **SOLUTION above MOLE.** `ChemistryMath.MOLE_QUANTITY` matches the `0.5 mol`
+  inside `0.5 mol/L`, so below the mole branch every molarity question is
+  answered with a particle count.
+- **DECAY above ISOTOPES.** `Lexicon.ISOTOPE_WORDS` holds `decay`, `half life`,
+  `stable` and `how long does`, and that branch fires at 0.9. Placed after it,
+  `DECAY_CALC` is unreachable.
+- **BALANCE first, and on the raw query.** `normalized` is lowercased, which
+  destroys every formula in the sentence. The branch also needs an exemption from
+  `UNBACKED_CONCEPTS`, which contains `reaction` and would otherwise decline
+  "balance this reaction: Fe + O2 -> Fe2O3" outright.
+
+Each branch requires positive evidence and returns null without it, so the ones
+below stay reachable: a bare "half-life of carbon-14" has no arithmetic in it and
+falls through to the isotope table, which answers it better.
+
+### Unit conversion vs property lookup
+
+`UNIT_CONVERT` sits in `plan()` rather than in `calculationPlan`, because the
+guard that separates it from a property lookup needs the resolved field and
+element. Both are checked against the query **with its units removed**: a unit
+token resolves a field on its own — `GPa` reaches the pressure fields, `Pa` even
+resolves protactinium — so a plain "did a field resolve?" test declines
+"convert 5 GPa to MPa" on the strength of the very units being converted.
+
+The target unit comes from `QuantityScanner.targetUnit` first and only then from
+`OperatorExtractor.targetUnit`. The latter accepts any unit with a preposition on
+either side, which is right for a property lookup but here picks the unit being
+converted *from*: in "convert 5 GPa to MPa" the `GPa` has `to` on its right.
 
 Below the confidence `threshold`, or on `Intent.UNKNOWN`, the planner returns a
 plan the engine discards — and the query falls through to the legacy router.

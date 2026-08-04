@@ -65,6 +65,23 @@ enum class Intent {
     /** Conversion between moles and particle counts. */
     MOLE_CONVERSION,
 
+    /**
+     * A standalone unit conversion: "convert 500 K to °C", "96 kJ/mol in eV".
+     *
+     * Distinct from a property lookup carrying a target unit. "The density of gold in kg/m³" is a
+     * value the app holds, expressed differently; this is arithmetic on a number the user brought.
+     */
+    UNIT_CONVERT,
+
+    /** A chemical equation to balance: "Fe + O2 -> Fe2O3". */
+    BALANCE_EQUATION,
+
+    /** Molarity, mass↔moles↔concentration, and dilution. */
+    SOLUTION_CALC,
+
+    /** How much of a radioisotope is left after a time, or how long a decay takes. */
+    DECAY_CALC,
+
     /** A row from one of the app's tables: a constant, equation, mineral, dictionary term. */
     DATASET_LOOKUP,
 
@@ -153,6 +170,14 @@ data class QueryPlan(
     val sortDescending: Boolean = true,
     val limit: Int = 1,
     val targetUnit: String? = null,
+    /**
+     * A token the planner lifted verbatim out of the query — a chemical formula, an equation.
+     *
+     * Kept apart from [rawQuery] because the two are read differently downstream: [rawQuery] is
+     * re-scanned for the numbers the user wrote, so it has to stay the whole sentence, while this
+     * is the one substring the planner has already decided the answer is about.
+     */
+    val literal: String? = null,
     val confidence: Double = 0.0,
     val rawQuery: String = "",
     val evidence: List<String> = emptyList()

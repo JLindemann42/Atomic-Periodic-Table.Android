@@ -31,6 +31,7 @@ import com.jlindemann.science.adapter.ChatCardBinder
 import com.jlindemann.science.adapter.ChatMessageAdapter
 import com.jlindemann.science.ai.AIAgentManager
 import com.jlindemann.science.ai.AIPersonality
+import com.jlindemann.science.ai.AiTurnStats
 import com.jlindemann.science.ai.ChatHistoryManager
 import com.jlindemann.science.ai.compose.ChatAction
 import com.jlindemann.science.ai.compose.DeepLinkNavigator
@@ -99,13 +100,26 @@ class AiChatPanelController(
     private var gradientAnimator: ValueAnimator? = null
     private var sessionId: String? = null
 
+    /** When the panel was last opened, so closing it can report how long it was up. */
+    private var openedAt: Long = 0
+
+    /** Reported as the `host` of every panel event — the screen the chat was opened from. */
+    private val host: String get() = activity.javaClass.simpleName
+
     /** Completes once the agent has loaded, so a queued send cannot run against an empty index. */
     private var initJob: Job? = null
     private var isSetUp = false
 
-    private companion object {
+    companion object {
         /** The value ProPlusVersion stores for a PRO+ user; 1 means not subscribed. */
-        const val PRO_PLUS_UNLOCKED = 100
+        private const val PRO_PLUS_UNLOCKED = 100
+
+        /** Where a message or a panel open came from, reported as the `source` parameter. */
+        const val SOURCE_FAB = "fab"
+        const val SOURCE_WIDGET = "widget"
+        const val SOURCE_TYPED = "typed"
+        const val SOURCE_SUGGESTION = "suggestion"
+        const val SOURCE_ACTION_RESEND = "action_resend"
     }
 
     // ---- Lifecycle -------------------------------------------------------------------------
@@ -155,6 +169,16 @@ class AiChatPanelController(
         loading.visibility = View.VISIBLE
         initJob = scope.launch {
             agent.initialize()
+            // The agent swallows its own initialisation failure and degrades quietly, so this is
+            // the only place a total failure of the assistant becomes visible.
+            AnalyticsHelper.logEvent(
+                activity,
+                AnalyticsEvent.AI_AGENT_INIT,
+                AnalyticsParam.HOST to host,
+                AnalyticsParam.SUCCESS to (agent.initError == null),
+                AnalyticsParam.DURATION_MS to agent.initDurationMs,
+                AnalyticsParam.ERROR to agent.initError
+            )
             contextElement()?.let { agent.setCurrentElement(it) }
             updateMessageLimit()
             loadInitialConversation()
@@ -196,6 +220,17 @@ class AiChatPanelController(
                     if (newState == BottomSheetBehavior.STATE_HIDDEN) {
                         panelRoot.visibility = View.GONE
                         stopGradientPulsation()
+                        // Logged here rather than in close(), so a swipe-to-dismiss and a scrim tap
+                        // are counted the same way.
+                        AnalyticsHelper.logEvent(
+                            activity,
+                            AnalyticsEvent.AI_PANEL_CLOSE,
+                            AnalyticsParam.HOST to host,
+                            AnalyticsParam.MESSAGE_COUNT to messages.size,
+                            AnalyticsParam.DURATION_MS to
+                                if (openedAt == 0L) null else System.currentTimeMillis() - openedAt
+                        )
+                        openedAt = 0
                         onPanelHidden()
                     }
                 }
@@ -212,8 +247,18 @@ class AiChatPanelController(
 
     fun isOpen(): Boolean = panelRoot.visibility == View.VISIBLE
 
-    fun open() {
+    /** @param source what opened the panel — the FAB, or a home-screen widget. */
+    @JvmOverloads
+    fun open(source: String = SOURCE_FAB) {
         if (!isSetUp) return
+        openedAt = System.currentTimeMillis()
+        AnalyticsHelper.logEvent(
+            activity,
+            AnalyticsEvent.AI_PANEL_OPEN,
+            AnalyticsParam.HOST to host,
+            AnalyticsParam.SOURCE to source,
+            AnalyticsParam.HAS_CONTEXT to (contextElement() != null)
+        )
         panelRoot.visibility = View.VISIBLE
         val behavior = BottomSheetBehavior.from(container)
         behavior.state = BottomSheetBehavior.STATE_EXPANDED
@@ -252,15 +297,16 @@ class AiChatPanelController(
      * Queued behind initialisation, which fixes a latent bug in the widget path: it used to send
      * immediately after opening the panel, before the agent had finished loading.
      */
-    fun send(text: String) {
+    @JvmOverloads
+    fun send(text: String, source: String = SOURCE_TYPED) {
         if (!isSetUp || text.isBlank()) return
         scope.launch {
             initJob?.join()
-            deliver(text)
+            deliver(text, source)
         }
     }
 
-    private fun deliver(text: String) {
+    private fun deliver(text: String, source: String) {
         val userMsg = ChatMessage(UUID.randomUUID().toString(), text, true, System.currentTimeMillis())
         messages.add(userMsg)
         adapter?.notifyItemInserted(messages.size - 1)
@@ -268,12 +314,28 @@ class AiChatPanelController(
         input.text.clear()
         loading.visibility = View.VISIBLE
 
+        // The question itself never leaves the device — only its shape.
+        val trimmed = text.trim()
+        AnalyticsHelper.logEvent(
+            activity,
+            AnalyticsEvent.AI_MESSAGE_SENT,
+            AnalyticsParam.HOST to host,
+            AnalyticsParam.SOURCE to source,
+            AnalyticsParam.QUERY_CHARS to trimmed.length,
+            AnalyticsParam.QUERY_WORDS to trimmed.split(Regex("\\s+")).size,
+            AnalyticsParam.HAS_CONTEXT to (contextElement() != null),
+            AnalyticsParam.MESSAGE_INDEX to messages.size - 1
+        )
+
         agent.addToConversationHistory(userMsg)
         saveSession()
         startGradientPulsation(1000, ValueAnimator.INFINITE)
 
         scope.launch {
+            // Measured around the whole call, which is the wait the user actually sees.
+            val startedAt = System.currentTimeMillis()
             val response = agent.generateResponse(text, contextElement = contextElement())
+            logResponse(agent.lastTurnStats, System.currentTimeMillis() - startedAt)
             loading.visibility = View.GONE
             messages.add(response)
             adapter?.notifyItemInserted(messages.size - 1)
@@ -286,7 +348,55 @@ class AiChatPanelController(
         }
     }
 
+    /**
+     * Report one turn of the assistant.
+     *
+     * The path tells apart "the structured engine answered" from "the old keyword chain caught it"
+     * from "nothing did" — three outcomes that look identical to the user and, until now, identical
+     * in the data too.
+     */
+    private fun logResponse(stats: AiTurnStats?, latencyMs: Long) {
+        if (stats == null) return
+        AnalyticsHelper.logEvent(
+            activity,
+            AnalyticsEvent.AI_RESPONSE,
+            AnalyticsParam.HOST to host,
+            AnalyticsParam.PATH to stats.path,
+            AnalyticsParam.INTENT to stats.intent,
+            AnalyticsParam.CONFIDENCE to stats.confidenceBucket(),
+            AnalyticsParam.LATENCY_MS to latencyMs,
+            AnalyticsParam.LANGUAGE to stats.language,
+            AnalyticsParam.LANG_SWITCHED to stats.languageSwitched,
+            AnalyticsParam.ELEMENT_FOUND to stats.elementResolved,
+            AnalyticsParam.HAS_CARD to stats.hasCard,
+            AnalyticsParam.CARD_KIND to stats.cardKind,
+            AnalyticsParam.ACTION_COUNT to stats.actionCount,
+            AnalyticsParam.QUERY_CHARS to stats.queryChars,
+            AnalyticsParam.QUERY_WORDS to stats.queryWords
+        )
+        if (stats.path == AiTurnStats.Path.RATE_LIMITED) {
+            AnalyticsHelper.logEvent(
+                activity,
+                AnalyticsEvent.AI_RATE_LIMITED,
+                AnalyticsParam.DAILY_LIMIT to stats.dailyLimit
+            )
+        }
+        stats.engineError?.let {
+            AnalyticsHelper.logEvent(
+                activity,
+                AnalyticsEvent.AI_ENGINE_ERROR,
+                AnalyticsParam.ERROR to it
+            )
+        }
+    }
+
     fun startNewChat() {
+        AnalyticsHelper.logEvent(
+            activity,
+            AnalyticsEvent.AI_NEW_CHAT,
+            AnalyticsParam.HOST to host,
+            AnalyticsParam.MESSAGE_COUNT to messages.size
+        )
         messages.clear()
         sessionId = null
         scope.launch {
@@ -309,6 +419,12 @@ class AiChatPanelController(
      * embeds the panel differently.
      */
     private fun goToPro() {
+        AnalyticsHelper.logEvent(
+            activity,
+            AnalyticsEvent.AI_UPGRADE_TAP,
+            AnalyticsParam.HOST to host,
+            AnalyticsParam.SOURCE to "locked_card"
+        )
         close()
         (activity as? BaseActivity)?.goToProPage() ?: activity.startActivity(
             Intent(activity, com.jlindemann.science.activities.MainActivity::class.java).apply {
@@ -319,7 +435,13 @@ class AiChatPanelController(
     }
 
     private fun handleAction(action: ChatAction) {
-        DeepLinkNavigator.navigate(activity, action) { query -> send(query) }
+        AnalyticsHelper.logEvent(
+            activity,
+            AnalyticsEvent.AI_ACTION_TAP,
+            AnalyticsParam.HOST to host,
+            AnalyticsParam.TARGET to action.target.name
+        )
+        DeepLinkNavigator.navigate(activity, action) { query -> send(query, SOURCE_ACTION_RESEND) }
     }
 
     // ---- Conversation loading and persistence ------------------------------------------------
@@ -348,13 +470,16 @@ class AiChatPanelController(
 
     private fun openHistory() {
         if (!AuthManager.isSignedIn()) {
+            logHistoryOpen("blocked_signin")
             Toast.makeText(activity, R.string.ai_history_sign_in, Toast.LENGTH_SHORT).show()
             return
         }
         if (!agent.isHistoryEnabled()) {
+            logHistoryOpen("blocked_tier")
             Toast.makeText(activity, R.string.ai_history_pro_only, Toast.LENGTH_SHORT).show()
             return
         }
+        logHistoryOpen("opened")
         historyContainer.visibility = View.VISIBLE
         loading.visibility = View.VISIBLE
         ChatHistoryManager.loadChatHistory { sessions ->
@@ -378,7 +503,23 @@ class AiChatPanelController(
         }
     }
 
+    /** @param result whether history opened, or which gate stopped it. */
+    private fun logHistoryOpen(result: String) {
+        AnalyticsHelper.logEvent(
+            activity,
+            AnalyticsEvent.AI_HISTORY_OPEN,
+            AnalyticsParam.HOST to host,
+            AnalyticsParam.RESULT to result
+        )
+    }
+
     private fun applySession(session: ChatSession) {
+        AnalyticsHelper.logEvent(
+            activity,
+            AnalyticsEvent.AI_HISTORY_RESTORE,
+            AnalyticsParam.HOST to host,
+            AnalyticsParam.MESSAGE_COUNT to session.messages.size
+        )
         messages.clear()
         messages.addAll(session.messages)
         sessionId = session.id
@@ -439,7 +580,7 @@ class AiChatPanelController(
         background = ContextCompat.getDrawable(context, R.drawable.bg_suggestion_chip_outlined)
         isClickable = true
         isFocusable = true
-        setOnClickListener { send(suggestion) }
+        setOnClickListener { send(suggestion, SOURCE_SUGGESTION) }
     }
 
     private fun updateMessageLimit() {

@@ -39,6 +39,23 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
+    companion object {
+        /** The incompressible limit — the axis never shrinks below it, so 0.0-0.5 is the norm. */
+        private const val AXIS_DEFAULT_MAX = 0.5f
+        private const val AXIS_TICK = 0.1
+        private const val TICK_EPSILON = 1e-6
+
+        /** Left to right, evenly spaced across the slider track. See poisson_panel.xml. */
+        private val AXIS_LABEL_IDS = intArrayOf(
+            R.id.poisson_axis_0,
+            R.id.poisson_axis_1,
+            R.id.poisson_axis_2,
+            R.id.poisson_axis_3,
+            R.id.poisson_axis_4,
+            R.id.poisson_axis_5
+        )
+    }
+
     private var poissonList = ArrayList<Poisson>()
     var mAdapter = PoissonAdapter(poissonList, this, this)
 
@@ -200,23 +217,55 @@ class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
 
     private fun showInfoPanel(title: String, start: Double, end: Double, type: String) {
         val slider = findViewById<com.google.android.material.slider.RangeSlider>(R.id.rs_poisson_detail)
-        
-        // Poisson values can be outside [0.0, 0.5] for auxetic materials or other cases.
-        // We must update the slider range before setting values to avoid IllegalStateException.
+
         val minVal = Math.min(start, end).toFloat()
         val maxVal = Math.max(start, end).toFloat()
-        
-        // Ensure values are within [valueFrom, valueTo]
-        slider.valueFrom = Math.min(0.0f, Math.floor(minVal.toDouble()).toFloat())
-        slider.valueTo = Math.max(0.5f, Math.ceil(maxVal.toDouble()).toFloat())
 
-        slider.setValues(start.toFloat(), end.toFloat())
+        // Poisson values can fall outside [0.0, 0.5] for auxetic materials, so the axis has to be
+        // able to grow. It must only grow as far as the data actually needs, rounded to a tick:
+        // rounding out to whole numbers used to turn every axis into 0.0-1.0, which drew every
+        // material at half its true position.
+        // Math.min/max guard against float rounding leaving a bound a hair inside the data.
+        val axisMin = if (minVal < 0f) Math.min(floorToTick(minVal), minVal) else 0.0f
+        val axisMax = if (maxVal > AXIS_DEFAULT_MAX) Math.max(ceilToTick(maxVal), maxVal) else AXIS_DEFAULT_MAX
+
+        // Widen before assigning the values and settle the final bounds after, so the slider is
+        // never briefly asked to hold values outside its range (that throws).
+        slider.valueFrom = Math.min(axisMin, slider.valueFrom)
+        slider.valueTo = Math.max(axisMax, slider.valueTo)
+        slider.setValues(minVal, maxVal)
+        slider.valueFrom = axisMin
+        slider.valueTo = axisMax
+
+        updateAxisLabels(axisMin, axisMax)
 
         findViewById<TextView>(R.id.detail_poisson_title).text = title
-        
+
         bottomSheetBehavior?.state = BottomSheetBehavior.STATE_EXPANDED
         setBackInterceptionEnabled(true)
     }
+
+    /** Keeps the tick labels under the slider honest when the axis has to grow past 0.0-0.5. */
+    private fun updateAxisLabels(axisMin: Float, axisMax: Float) {
+        val lastIndex = AXIS_LABEL_IDS.size - 1
+        val span = axisMax - axisMin
+        AXIS_LABEL_IDS.forEachIndexed { index, id ->
+            val value = axisMin + span * index / lastIndex
+            findViewById<TextView>(id)?.text = formatAxisValue(value)
+        }
+    }
+
+    private fun formatAxisValue(value: Float): String {
+        val hundredths = Math.round(value * 100f)
+        val pattern = if (hundredths % 10 == 0) "%.1f" else "%.2f"
+        return String.format(Locale.getDefault(), pattern, hundredths / 100f)
+    }
+
+    private fun floorToTick(value: Float) =
+        (Math.floor(value / AXIS_TICK + TICK_EPSILON) * AXIS_TICK).toFloat()
+
+    private fun ceilToTick(value: Float) =
+        (Math.ceil(value / AXIS_TICK - TICK_EPSILON) * AXIS_TICK).toFloat()
 
     private fun hideInfoPanel() {
         bottomSheetBehavior?.state = BottomSheetBehavior.STATE_HIDDEN

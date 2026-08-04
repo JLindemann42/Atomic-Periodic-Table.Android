@@ -605,4 +605,84 @@
     <string name="question_valence_electrons">%1$s میں کتنے ویلنس الیکٹران ہیں؟</string>
     <string name="quiz_loading">سوالات تیار کیے جا رہے ہیں…</string>
     <string name="quiz_no_questions">اس گیم کے لیے سوالات نہیں بنائے جا سکے۔ براہ کرم کوئی اور منتخب کریں۔</string>
+
+    <!-- Assistant: calculations, tools and suggestion chips -->
+    <string name="ai_unit_converted">**%1$s %2$s** برابر ہے **%3$s %4$s**۔</string>
+    <string name="ai_unit_bridge_note">1 eV = 96.485 kJ/mol سے تبدیل کیا گیا — وہی توانائی، فی مول کے بجائے فی ذرہ شمار کی گئی۔</string>
+    <string name="ai_equation_balanced">**%1$s → %2$s**</string>
+    <string name="ai_equation_check_header">ایٹمی جانچ</string>
+    <string name="ai_equation_tally_row">• **%1$s** — بائیں طرف %2$d، دائیں طرف %3$d</string>
+    <string name="ai_equation_one_sided">یہ مساوات متوازن نہیں ہو سکتی: ایک عنصر صرف ایک طرف موجود ہے، اس لیے کوئی عدد اسے برابر نہیں کر سکتا۔</string>
+    <string name="ai_equation_underdetermined">اس مساوات کے ایک سے زیادہ آزاد توازن ہیں — یہ ایک میں لکھی دو تعاملات جیسی ہے۔ اسے الگ کریں، میں ہر ایک کو متوازن کر دوں گا۔</string>
+    <string name="ai_equation_too_large">اس مساوات کے لیے ایسے اعداد درکار ہیں جو کسی حقیقی تعامل کے لیے بہت بڑے ہیں۔ فارمولے دیکھ لیں۔</string>
+    <string name="ai_equation_parse_failed">میں اسے کیمیائی مساوات کے طور پر نہیں پڑھ سکا۔ Fe + O2 -&gt; Fe2O3 جیسی شکل آزمائیں۔</string>
+    <string name="ai_equation_no_solution">اس مساوات کا مکمل مثبت اعداد کے ساتھ کوئی توازن نہیں ہے۔</string>
+    <string name="ai_solution_generic_substance">محلول</string>
+    <string name="ai_solution_mass_needed">%3$s mL کے %4$s mol/L محلول کے لیے آپ کو %2$s کی **%1$s g** درکار ہے۔</string>
+    <string name="ai_solution_molarity">%2$s کا ارتکاز **%1$s mol/L** ہے۔</string>
+    <string name="ai_solution_volume">آپ کو **%2$s mol/L** پر **%1$s mL** درکار ہے۔</string>
+    <string name="ai_solution_moles">یہ %2$s کے **%1$s mol** ہیں۔</string>
+    <string name="ai_dilution_result">**%2$s mL** سے **%1$s mol/L** کو پتلا کرنے پر **%4$s mL** میں **%3$s mol/L** ملتا ہے۔</string>
+    <string name="ai_dilution_add_solvent">**%1$s mL** محلل شامل کریں۔</string>
+    <string name="ai_solution_working_header">حساب</string>
+    <string name="ai_solution_working_nvc">n = c × V → %1$s mol = %2$s mol/L × %3$s L</string>
+    <string name="ai_solution_working_mass">m = n × M → %1$s g = %2$s mol × %3$s g/mol</string>
+    <string name="ai_solution_working_c1v1">C₁V₁ = C₂V₂ → %1$s × %2$s = %3$s × %4$s</string>
+    <string name="ai_decay_stable">%1$s مستحکم ہے — یہ تنزل نہیں کرتا، اس لیے وقت کے ساتھ کچھ کم نہیں ہوتا۔</string>
+    <string name="ai_decay_unlisted">ایپ اس عنصر کے ہم جاؤں میں %1$s کو درج نہیں کرتی، اس لیے میرے پاس اس کی نصف عمر نہیں ہے۔</string>
+    <string name="ai_decay_no_half_life">%1$s درج ہے، مگر اس کی نصف عمر \"%2$s\" لکھی ہے، اس لیے میں تنزل کا حساب نہیں لگا سکتا۔</string>
+    <string name="ai_decay_effectively_none">%2$s %3$s کے بعد %1$s میں عملاً کچھ باقی نہیں رہتا۔</string>
+    <string name="ai_decay_elapsed">%3$s کے **%1$s g** سے **%2$s g** تک پہنچنے میں تقریباً **%4$s %5$s** لگتے ہیں۔</string>
+    <string name="ai_decay_remaining">%5$s %6$s کے بعد %4$s کے اصل %3$s g میں سے تقریباً **%1$s %2$s** باقی رہتا ہے۔</string>
+    <string name="ai_decay_half_lives">اس عرصے میں %1$s **%2$s** نصف عمریں گزارتا ہے، اور نمونے کا تقریباً **%3$s%%** باقی رہتا ہے۔</string>
+    <string name="ai_decay_working_header">حساب</string>
+    <string name="ai_decay_working_half_life">%1$s کی نصف عمر: %2$s</string>
+    <string name="ai_decay_working_n">n = t / t½ = %1$s → 2⁻ⁿ = %2$s%%</string>
+    <string name="ai_feature_nuclide_table">ایپ میں ایک تفصیلی **نیوکلائیڈ جدول** ہے جو تمام عناصر کے ہم جا دکھاتا ہے، تنزل کی قسم (الفا، بیٹا وغیرہ) کے مطابق رنگوں میں۔</string>
+    <string name="ai_feature_emission_spectrum">آپ کسی عنصر کا **اخراجی طیف** اس کے تفصیلی پینل میں دیکھ سکتے ہیں۔ یہ اس عنصر کی پیدا کردہ روشنی کا منفرد نمونہ دکھاتا ہے۔</string>
+    <string name="ai_feature_flashcards">ایپ میں عناصر کی علامات، جوہری کمیت اور درجہ بندی کے لیے کئی **فلیش کارڈ منی گیمز** ہیں، جن میں لیول اور XP بھی ہیں۔</string>
+    <string name="ai_feature_achievements">صارف صفحے پر **کامیابیوں** اور استعمال کے اعداد و شمار سے اپنی پیش رفت دیکھیں۔</string>
+    <string name="ai_feature_molar_mass">پیچیدہ مرکبات کا سالماتی وزن نکالنے کے لیے ایک بلٹ اِن **مولر ماس کیلکولیٹر** موجود ہے۔ میں یہ یہاں بھی کر سکتا ہوں — بس فارمولا دیں۔</string>
+    <string name="ai_feature_unit_converter">ایپ میں درجہ حرارت اور دیگر سائنسی اکائیوں کے لیے ایک **یونٹ کنورٹر** ہے۔ آپ مجھ سے بھی پوچھ سکتے ہیں، جیسے \"500 K کو °C میں بدلیں\"۔</string>
+    <string name="ai_feature_ideal_gas">PV = nRT سے دباؤ، حجم، مول یا درجہ حرارت نکالنے کے لیے **مثالی گیس کیلکولیٹر** استعمال کریں۔</string>
+    <string name="ai_feature_reaction_balancer">**کیمیائی تعامل کا توازن کار** مساوات متوازن کرنے اور پسندیدہ محفوظ کرنے میں مدد دیتا ہے۔ آپ یہاں بھی پوچھ سکتے ہیں — جیسے Fe + O2 -&gt; Fe2O3 لکھیں۔</string>
+    <string name="ai_feature_capabilities">میں عناصر کی خصوصیات دیکھ اور موازنہ کر سکتا ہوں، مساوات متوازن کر سکتا ہوں، مولر ماس اور محلول کا ارتکاز نکال سکتا ہوں، اکائیاں بدل سکتا ہوں، اور تنزل کا حساب لگا سکتا ہوں۔ کسی عنصر کے بارے میں پوچھیں، یا کوئی فارمولا یا مساوات لکھیں۔</string>
+    <string-array name="ai_suggest_element">
+        <item>%1$s کے استعمال</item>
+        <item>%1$s کی جوہری کمیت</item>
+        <item>کیا %1$s خطرناک ہے؟</item>
+        <item>%1$s کہاں پایا جاتا ہے؟</item>
+        <item>%1$s کی الیکٹران ترتیب</item>
+        <item>%1$s کے ہم جا</item>
+    </string-array>
+    <string-array name="ai_suggest_trends">
+        <item>دوری رجحانات کیا ہیں؟</item>
+        <item>برقی منفیت کا رجحان</item>
+        <item>جوہری رداس کا رجحان</item>
+        <item>آئنائزیشن توانائی</item>
+    </string-array>
+    <string-array name="ai_suggest_general">
+        <item>کوئی دلچسپ بات بتائیں</item>
+        <item>کوئز شروع کریں</item>
+        <item>الکلی دھاتیں کون سی ہیں؟</item>
+        <item>سب سے بھاری عنصر؟</item>
+    </string-array>
+    <string-array name="ai_suggest_tools">
+        <item>Fe + O2 -&gt; Fe2O3 متوازن کریں</item>
+        <item>500 K کو °C میں بدلیں</item>
+        <item>250 mL کے 0.5 mol/L کے لیے کتنے گرام NaCl؟</item>
+        <item>11460 سال بعد 100 g کاربن-14 میں سے کتنا باقی رہتا ہے؟</item>
+    </string-array>
+
+    <!-- Equation Balancer tool -->
+    <string name="balancer_tool_title">مساوات متوازن کار</string>
+    <string name="bal">توازن کار</string>
+    <string name="balancer_tool_text">کیمیائی مساوات کو درست صحیح عدد اعداد کے ساتھ متوازن کریں</string>
+    <string name="balancer_tool_card_title">ایک مساوات متوازن کریں</string>
+    <string name="balancer_tool_hint">Fe + O2 -&gt; Fe2O3</string>
+    <string name="balancer_tool_result">متوازن مساوات</string>
+    <string name="balancer_tool_prompt">تیر کے ساتھ ایک مساوات لکھیں، جیسے Fe + O2 -&gt; Fe2O3۔</string>
+    <string name="balancer_tool_examples">مثالیں</string>
+    <string name="balancer_tool_note">تیر -&gt;، =&gt;، = یا → کے طور پر لکھے جا سکتے ہیں۔ (s)، (l)، (g) اور (aq) جیسے حالت کے نشان نظر انداز کیے جاتے ہیں۔</string>
+    <string name="balancer_tool_copied">مساوات نقل ہو گئی</string>
 </resources>

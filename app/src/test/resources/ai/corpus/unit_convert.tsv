@@ -1,0 +1,26 @@
+# Standalone unit conversion: a number the user brought, expressed in another unit.
+# The rows that matter most are the negatives at the bottom. This intent sits just above the
+# property lookup in the cascade and is guarded by "no field resolved" — get that wrong and every
+# "density of gold in kg/m3" becomes a conversion of the number it does not have.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+uc-en-1			en	convert 500 K to °C	UNIT_CONVERT				
+uc-en-2			en	convert 100 celsius to fahrenheit	UNIT_CONVERT				
+uc-en-3			en	1.5 Å in pm	UNIT_CONVERT				
+uc-en-4			en	2 eV in kJ/mol	UNIT_CONVERT				
+uc-en-5			en	convert 250 mL to litres	UNIT_CONVERT				
+uc-en-6			en	convert 5 GPa to MPa	UNIT_CONVERT				
+uc-en-8			en	convert 1 g/cm3 to kg/m3	UNIT_CONVERT				
+uc-en-9			en	300 K in fahrenheit	UNIT_CONVERT				
+uc-en-10			en	convert 96 kJ/mol to eV	UNIT_CONVERT				
+uc-sv-1			sv	omvandla 500 K till °C	UNIT_CONVERT				
+uc-sv-2			sv	omvandla 250 mL till liter	UNIT_CONVERT				
+uc-de-1			de	rechne 500 K in °C um	UNIT_CONVERT				
+uc-es-1			es	convierte 500 K a °C	UNIT_CONVERT				
+uc-fr-1			fr	convertis 500 K en °C	UNIT_CONVERT				
+uc-it-1			it	converti 500 K in °C	UNIT_CONVERT				
+uc-pt-1			pt	converta 500 K para °C	UNIT_CONVERT				
+uc-zh-1			zh	把 500 K 换算成 °C	UNIT_CONVERT				
+# --- Negatives: these already have better answers elsewhere ---------------------------------
+uc-neg-1			en	density of gold in kg/m3	PROPERTY_LOOKUP	density			
+uc-neg-2			en	melting point of gold in fahrenheit	PROPERTY_LOOKUP	melting_point			
+uc-neg-3			en	which elements are denser than 5 g/cm3	FILTER_LIST				

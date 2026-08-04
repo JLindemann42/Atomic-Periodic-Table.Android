@@ -217,6 +217,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".activities.tools.EquationBalancerActivity"
+            android:label="EQUATIONBALANCERPAGE"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".activities.tools.IdealGasCalculatorActivity"
             android:label="IDEALGASCALCULATORPAGE"
             android:exported="true"

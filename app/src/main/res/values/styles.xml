@@ -142,6 +142,20 @@
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
+    <!-- A tappable example equation on the balancer screen. -->
+    <style name="Widget.Science.Balancer.Example" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">monospace</item>
+    </style>
+
     <style name="Widget.Science.Expressive.SectionHeader" parent="">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

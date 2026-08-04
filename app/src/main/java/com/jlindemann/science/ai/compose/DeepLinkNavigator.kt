@@ -15,7 +15,7 @@ import com.jlindemann.science.activities.tables.NuclideActivity
 import com.jlindemann.science.activities.tables.PoissonActivity
 import com.jlindemann.science.activities.tables.phActivity
 import com.jlindemann.science.activities.tools.CalculatorActivity
-import com.jlindemann.science.activities.tools.ChemicalReactionsActivity
+import com.jlindemann.science.activities.tools.EquationBalancerActivity
 import com.jlindemann.science.activities.tools.FlashCardActivity
 import com.jlindemann.science.activities.tools.IdealGasCalculatorActivity
 import com.jlindemann.science.activities.tools.LearningGamesActivity
@@ -87,7 +87,10 @@ object DeepLinkNavigator {
         DeepLinkTarget.MOLAR_MASS_CALC -> CalculatorActivity::class.java
         DeepLinkTarget.UNIT_CONVERTER -> UnitConversionActivity::class.java
         DeepLinkTarget.IDEAL_GAS -> IdealGasCalculatorActivity::class.java
-        DeepLinkTarget.REACTION_BALANCER -> ChemicalReactionsActivity::class.java
+        // The new balancer, not `ChemicalReactionsActivity`. The assistant cites this target beside
+        // an equation it has just balanced, and the older screen's solver returns all-zero
+        // coefficients for every input — so the chip led from a correct answer to a broken one.
+        DeepLinkTarget.REACTION_BALANCER -> EquationBalancerActivity::class.java
         DeepLinkTarget.LEARNING_GAMES -> LearningGamesActivity::class.java
         DeepLinkTarget.FLASHCARDS -> FlashCardActivity::class.java
         DeepLinkTarget.ELEMENT_INFO, DeepLinkTarget.RESEND_QUERY, DeepLinkTarget.PRO_PAGE -> null

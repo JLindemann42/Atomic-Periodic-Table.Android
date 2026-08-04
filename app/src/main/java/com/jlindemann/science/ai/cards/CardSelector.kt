@@ -51,6 +51,13 @@ object CardSelector {
         is ExecutionResult.Property -> forField(result.element, result.fieldId, store, strings, localized)
         is ExecutionResult.Safety -> forSafety(result, strings, localized)
         is ExecutionResult.Isotopes -> forIsotopes(result, strings, localized)
+        // A decay calculation is about one nuclide of one element, so the isotope chart is exactly
+        // the right picture — and it is the existing one, guarded by the same reducer. The other
+        // three new intents get nothing: a conversion, a balanced equation and a solution have no
+        // element subject, and every card kind is per-element.
+        is ExecutionResult.Decay ->
+            IsotopeSeriesReducer.of(result.element)
+                ?.let { card(ChatCardKind.ISOTOPE_DECAY, result.element, strings, localized) }
         // The one card that is not drawn from the app's own numbers: the spectrum is an image on the
         // author's server, so it is the one the policy can withhold when there is no network.
         is ExecutionResult.EmissionSpectrum ->

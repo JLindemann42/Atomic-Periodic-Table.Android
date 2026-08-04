@@ -90,7 +90,48 @@ object ChemistryMath {
         return out.toString()
     }
 
-    private fun strictParse(formula: String, atomicMassOf: (String) -> Double?): FormulaResult? {
+    /**
+     * Element symbol to atom count, without needing atomic masses.
+     *
+     * Split out of [parseFormula] because the balancer wants the counts and nothing else. Routing
+     * it through the mass path instead would make one element missing an atomic mass fatal to a
+     * perfectly balanceable equation — the counts are all the stoichiometry needs, and whether the
+     * app happens to know what a nuclide weighs is beside the point.
+     *
+     * @param isKnownSymbol decides which symbols exist, so this file keeps no dependency on the
+     *   element table. Pass `{ store.bySymbol(it) != null }`.
+     * @return counts in first-seen order, or null when the string is not a formula
+     */
+    fun elementCounts(raw: String, isKnownSymbol: (String) -> Boolean): Map<String, Int>? {
+        val formula = normalise(stripStateAnnotation(raw))
+        countAtoms(formula)?.let { counts ->
+            if (counts.keys.all(isKnownSymbol)) return counts
+        }
+        // Same digit gate as parseFormula: without it "percentage" parses as P-Er-Ce-N-Ta-Ge.
+        if (formula.none { it.isDigit() }) return null
+        val fixed = recapitalise(formula) { symbol -> if (isKnownSymbol(symbol)) 1.0 else null }
+            ?: return null
+        return countAtoms(fixed)?.takeIf { counts -> counts.keys.all(isKnownSymbol) }
+    }
+
+    /**
+     * Drop a phase annotation from a species token: `H2O(l)`, `NaCl (aq)`, `O2(g)`.
+     *
+     * Only the four state symbols, matched whole — `(OH)` and `(SO4)` are structure, not state,
+     * and stripping those would change what the formula means.
+     */
+    fun stripStateAnnotation(raw: String): String =
+        STATE_ANNOTATION.replace(raw.trim(), "").trim()
+
+    private val STATE_ANNOTATION = Regex("""\s*\((?:s|l|g|aq)\)\s*$""", RegexOption.IGNORE_CASE)
+
+    /**
+     * Walk a normalised formula, resolving groups and multipliers.
+     *
+     * @return counts in first-seen order, or null when the string does not parse. Symbols are not
+     *   validated here; the callers differ on what they accept.
+     */
+    private fun countAtoms(formula: String): LinkedHashMap<String, Int>? {
         if (formula.isEmpty() || !formula.first().isUpperCase()) return null
 
         val counts = LinkedHashMap<String, Int>()
@@ -130,6 +171,11 @@ object ChemistryMath {
             }
         }
         if (!sawElement || stack.isNotEmpty()) return null
+        return counts
+    }
+
+    private fun strictParse(formula: String, atomicMassOf: (String) -> Double?): FormulaResult? {
+        val counts = countAtoms(formula) ?: return null
 
         var total = 0.0
         val masses = LinkedHashMap<String, Double>()

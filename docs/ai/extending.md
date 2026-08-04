@@ -123,6 +123,28 @@ See [Chat cards](cards#adding-a-card).
 
 ## Things that will trip you up
 
+**Guards that will claim your new intent.** Verified the hard way while adding
+the four calculators:
+
+| Guard | What it swallows |
+|---|---|
+| `UNBACKED_CONCEPTS` (`QueryPlanner.kt:68`) | Anything containing `react`/`reaction` and their eleven translations. `BALANCE_EQUATION` needs the `writesAnEquation` exemption beside it. |
+| `calculationPlan` MOLE branch | `MOLE_QUANTITY` matches the `0.5 mol` inside `0.5 mol/L`. Anything about molarity must sit above it. |
+| `calculationPlan` ISOTOPES branch | `ISOTOPE_WORDS` holds `decay`, `half life`, `stable` and `how long does`, and fires at 0.9. |
+| `OperatorExtractor.targetUnit` | Accepts any unit with a preposition on either side, so in "convert 5 GPa to MPa" it returns the *source* unit. Use `QuantityScanner.targetUnit` first. |
+| A unit token resolving a field | `GPa` reaches the pressure fields and `Pa` resolves protactinium, so "no field resolved" is not a usable test for "this is not a property lookup". Strip the units first. |
+
+**Unit aliases are a minefield.** `a` is already angstrom, so year units are
+spelled `yr` and `ka`/`Ma`/`Ga` are absent. `mm` is deliberately unregistered — it
+would silently become millimolar. `M` and `m` are separated by a case-sensitive
+pre-pass ahead of the case-folded alias table. And a single-letter alias in one
+language is a word in another: `y` was added for "years" and made the Spanish
+"uranio-235 **y** uranio-238" a decay calculation over 235 years.
+
+**Accented spellings must be listed as authored.** `canonical` applies NFKC,
+which leaves `å` and `ñ` as single codepoints, so a folded `ar` never matches a
+typed `år`.
+
 **Confidence gating.** A new branch producing a low-confidence plan will be
 discarded silently and the query will fall through to the legacy router. If your
 intent never fires, check the threshold before checking your logic.

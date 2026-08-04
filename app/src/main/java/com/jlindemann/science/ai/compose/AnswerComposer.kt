@@ -72,6 +72,10 @@ class AnswerComposer(
             is ExecutionResult.Nuclide -> nuclide(result)
             is ExecutionResult.IsotopeComparison -> isotopeComparison(result)
             is ExecutionResult.MoleConversion -> moleConversion(result)
+            is ExecutionResult.UnitConversion -> unitConversion(result)
+            is ExecutionResult.BalancedEquation -> balancedEquation(result)
+            is ExecutionResult.SolutionCalc -> solutionCalc(result)
+            is ExecutionResult.Decay -> decay(result)
             is ExecutionResult.Isotopes -> isotopes(result)
             is ExecutionResult.Safety -> safety(result)
             is ExecutionResult.EmissionSpectrum -> emissionSpectrum(result)
@@ -565,6 +569,180 @@ class AnswerComposer(
     }
 
     /** Two significant decimals, trailing zeroes trimmed. */
+    private fun unitConversion(result: ExecutionResult.UnitConversion): String {
+        val body = strings.get(
+            R.string.ai_unit_converted,
+            format(result.value), result.fromUnit,
+            format(result.converted), result.toUnit
+        )
+        // A crossed dimension is named rather than glossed over. eV and kJ/mol measure the same
+        // energy counted per particle and per mole, and a reader who is not told that is entitled
+        // to conclude the two are the same quantity.
+        return if (result.bridged) body + "\n\n" + strings.get(R.string.ai_unit_bridge_note) else body
+    }
+
+    private fun balancedEquation(result: ExecutionResult.BalancedEquation): String {
+        result.reason?.let { return strings.get(reasonString(it)) }
+
+        val left = result.reactants.joinToString(" + ") { term(it) }
+        val right = result.products.joinToString(" + ") { term(it) }
+        val builder = StringBuilder(strings.get(R.string.ai_equation_balanced, left, right))
+
+        // The tally is the proof. A balancer that prints only coefficients is asking to be
+        // trusted; one that shows both sides' atom counts can be checked in a few seconds.
+        builder.append("\n\n### ").append(strings.get(R.string.ai_equation_check_header))
+        for (t in result.tally) {
+            builder.append("\n")
+                .append(strings.get(R.string.ai_equation_tally_row, t.symbol, t.left, t.right))
+        }
+        return builder.toString()
+    }
+
+    /** A coefficient of 1 is written, not printed — "1Fe" is how a bug looks, not chemistry. */
+    private fun term(t: com.jlindemann.science.ai.data.Term): String =
+        if (t.coefficient == 1) t.formula else "${t.coefficient}${t.formula}"
+
+    private fun reasonString(reason: com.jlindemann.science.ai.data.EquationBalancer.Reason): Int =
+        when (reason) {
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.ONE_SIDED_ELEMENT ->
+                R.string.ai_equation_one_sided
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.UNDERDETERMINED ->
+                R.string.ai_equation_underdetermined
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.TOO_LARGE ->
+                R.string.ai_equation_too_large
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.PARSE_FAILED ->
+                R.string.ai_equation_parse_failed
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.NO_SOLUTION ->
+                R.string.ai_equation_no_solution
+        }
+
+    private fun solutionCalc(result: ExecutionResult.SolutionCalc): String {
+        val substance = result.substance.orEmpty()
+
+        result.dilution?.let { d ->
+            val added = com.jlindemann.science.ai.data.SolutionMath.solventToAdd(d.v1, d.v2)
+            val builder = StringBuilder(
+                strings.get(
+                    R.string.ai_dilution_result,
+                    format(d.c1), format(d.v1 * 1000), format(d.c2), format(d.v2 * 1000)
+                )
+            )
+            if (added > 0) {
+                builder.append("\n").append(
+                    strings.get(R.string.ai_dilution_add_solvent, format(added * 1000))
+                )
+            }
+            builder.append("\n\n### ").append(strings.get(R.string.ai_solution_working_header))
+            builder.append("\n").append(
+                strings.get(
+                    R.string.ai_solution_working_c1v1,
+                    format(d.c1), format(d.v1 * 1000), format(d.c2), format(d.v2 * 1000)
+                )
+            )
+            return builder.toString()
+        }
+
+        val moles = result.moles ?: return ""
+        val molarity = result.molarity ?: return ""
+        val litres = result.litres ?: return ""
+
+        val lead = when (result.kind) {
+            ExecutionResult.SolutionCalc.Kind.MASS_NEEDED -> strings.get(
+                R.string.ai_solution_mass_needed,
+                format(result.grams ?: 0.0), substance, format(litres * 1000), format(molarity)
+            )
+            ExecutionResult.SolutionCalc.Kind.MOLARITY ->
+                strings.get(R.string.ai_solution_molarity, format(molarity), substance)
+            ExecutionResult.SolutionCalc.Kind.VOLUME ->
+                strings.get(R.string.ai_solution_volume, format(litres * 1000), format(molarity))
+            else -> strings.get(R.string.ai_solution_moles, format(moles), substance)
+        }
+
+        // The working is shown for the same reason the composition breakdown is: a number a reader
+        // cannot reproduce is a number they have to take on faith.
+        val builder = StringBuilder(lead)
+        builder.append("\n\n### ").append(strings.get(R.string.ai_solution_working_header))
+        builder.append("\n").append(
+            strings.get(
+                R.string.ai_solution_working_nvc,
+                format(moles), format(molarity), format(litres)
+            )
+        )
+        result.molarMass?.let { mass ->
+            builder.append("\n").append(
+                strings.get(
+                    R.string.ai_solution_working_mass,
+                    format(result.grams ?: 0.0), format(moles), format(mass)
+                )
+            )
+        }
+        return builder.toString()
+    }
+
+    private fun decay(result: ExecutionResult.Decay): String {
+        val nuclide = "${displayName(result.element.key)}-${result.massNumber}"
+
+        when (result.mode) {
+            ExecutionResult.Decay.Mode.STABLE ->
+                return strings.get(R.string.ai_decay_stable, nuclide)
+            ExecutionResult.Decay.Mode.NO_HALF_LIFE ->
+                // Two different gaps, and the display string is what tells them apart: an empty
+                // one means the nuclide is not listed at all, a non-empty one means it is listed
+                // with a half-life the source records as unknown.
+                return if (result.halfLifeDisplay.isBlank()) {
+                    strings.get(R.string.ai_decay_unlisted, nuclide)
+                } else {
+                    strings.get(R.string.ai_decay_no_half_life, nuclide, result.halfLifeDisplay)
+                }
+            else -> Unit
+        }
+
+        if (result.halfLifeSeconds == null) return ""
+        val n = result.halfLivesElapsed ?: return ""
+        val elapsedUnit = result.elapsedUnit ?: "s"
+        val elapsedInUnit = result.elapsedSeconds
+            ?.let { UnitConverter.convert(it, "s", elapsedUnit) }
+            ?: 0.0
+
+        val lead = when {
+            // Past sixty half-lives less than one part in 10^18 survives. Printing 3.2e-25 g would
+            // imply a measurement nobody could make from data this app does not have.
+            n > com.jlindemann.science.ai.data.DecayMath.EFFECTIVELY_GONE ->
+                strings.get(
+                    R.string.ai_decay_effectively_none,
+                    nuclide, format(elapsedInUnit), elapsedUnit
+                )
+            result.mode == ExecutionResult.Decay.Mode.ELAPSED ->
+                strings.get(
+                    R.string.ai_decay_elapsed,
+                    format(result.initialAmount ?: 0.0), format(result.finalAmount ?: 0.0),
+                    nuclide, groupDigits(format(elapsedInUnit)), elapsedUnit
+                )
+            result.mode == ExecutionResult.Decay.Mode.REMAINING ->
+                strings.get(
+                    R.string.ai_decay_remaining,
+                    format(result.finalAmount ?: 0.0), result.amountUnit.orEmpty(),
+                    format(result.initialAmount ?: 0.0), nuclide,
+                    groupDigits(format(elapsedInUnit)), elapsedUnit
+                )
+            else ->
+                strings.get(
+                    R.string.ai_decay_half_lives,
+                    nuclide, format(n), format((result.fractionRemaining ?: 0.0) * 100)
+                )
+        }
+
+        val builder = StringBuilder(lead)
+        builder.append("\n\n### ").append(strings.get(R.string.ai_decay_working_header))
+        builder.append("\n").append(
+            strings.get(R.string.ai_decay_working_half_life, nuclide, groupDigits(result.halfLifeDisplay))
+        )
+        builder.append("\n").append(
+            strings.get(R.string.ai_decay_working_n, format(n), format((result.fractionRemaining ?: 0.0) * 100))
+        )
+        return builder.toString()
+    }
+
     private fun format(value: Double): String = UnitConverter.formatValue(value)
 
     /** Renders a large count in scientific notation, e.g. 1.2 × 10²⁴. */

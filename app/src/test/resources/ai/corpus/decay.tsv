@@ -1,0 +1,23 @@
+# Decay arithmetic. This branch sits above the isotope branch, which fires at 0.9 on the words
+# "decay", "half life" and "how long does" — so the gate is whether the question has a number to
+# work with. The last three rows pin that boundary from the other side.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+dec-en-1			en	how much of 100 g of carbon-14 remains after 11460 years	DECAY_CALC				
+dec-en-2			en	how much of 50 g of carbon-14 is left after 5730 years	DECAY_CALC				
+dec-en-3			en	how long until 1 g of carbon-14 decays to 0.5 g	DECAY_CALC			the duration is the unknown	
+dec-en-4			en	how much of 10 g of uranium-238 is left after 4500000000 years	DECAY_CALC				
+dec-en-5			en	how many half-lives of carbon-14 pass over 20000 years	DECAY_CALC				
+dec-en-6			en	after 100 years how much of 5 g of cobalt-60 remains	DECAY_CALC				
+dec-en-7			en	how much of 100 g of carbon-14 remains after 1000000 years	DECAY_CALC			effectively none	
+dec-en-8			en	how much of 8 g of iodine-131 is left after 24 days	DECAY_CALC				
+dec-sv-1			sv	hur mycket av 100 g kol-14 finns kvar efter 11460 år	DECAY_CALC				
+dec-de-1			de	wie viel von 100 g Kohlenstoff-14 bleibt nach 11460 Jahren	DECAY_CALC				
+dec-es-1			es	cuánto queda de 100 g de carbono-14 después de 11460 años	DECAY_CALC				
+dec-fr-1			fr	que reste-t-il de 100 g de carbone-14 après 11460 ans	DECAY_CALC				
+dec-it-1			it	quanto resta di 100 g di carbonio-14 dopo 11460 anni	DECAY_CALC				
+dec-pt-1			pt	quanto resta de 100 g de carbono-14 após 11460 anos	DECAY_CALC				
+# --- Negatives: no arithmetic, so the isotope table answers better ----------------------------
+dec-neg-1			en	what is the half-life of carbon-14	ISOTOPES			no numbers to compute with	
+dec-neg-2			en	isotopes of uranium	ISOTOPES				
+dec-neg-3			en	compare uranium-235 and uranium-238	ISOTOPE_COMPARISON			two nuclides is a comparison	
+dec-neg-4			en	how many neutrons in uranium-238	NUCLIDE_COUNT				

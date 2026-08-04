@@ -618,4 +618,84 @@
     <string name="question_valence_electrons">¿Cuántos electrones de valencia tiene %1$s?</string>
     <string name="quiz_loading">Preparando preguntas…</string>
     <string name="quiz_no_questions">No se pudieron crear preguntas para este juego. Prueba con otro.</string>
+
+    <!-- Assistant: calculations, tools and suggestion chips -->
+    <string name="ai_unit_converted">**%1$s %2$s** son **%3$s %4$s**.</string>
+    <string name="ai_unit_bridge_note">Convertido con 1 eV = 96,485 kJ/mol: la misma energía contada por partícula en lugar de por mol.</string>
+    <string name="ai_equation_balanced">**%1$s → %2$s**</string>
+    <string name="ai_equation_check_header">Comprobación de átomos</string>
+    <string name="ai_equation_tally_row">• **%1$s** — %2$d a la izquierda, %3$d a la derecha</string>
+    <string name="ai_equation_one_sided">Esa ecuación no se puede equilibrar: un elemento aparece solo en un lado, así que ningún coeficiente puede igualarla.</string>
+    <string name="ai_equation_underdetermined">Esa ecuación tiene más de un equilibrio independiente: se lee como dos reacciones escritas como una. Sepárala y equilibro cada parte.</string>
+    <string name="ai_equation_too_large">Esa ecuación necesita coeficientes demasiado grandes para una reacción real. Revisa las fórmulas.</string>
+    <string name="ai_equation_parse_failed">No pude leer eso como una ecuación química. Prueba una forma como Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_equation_no_solution">Esa ecuación no tiene equilibrio con coeficientes enteros positivos.</string>
+    <string name="ai_solution_generic_substance">la disolución</string>
+    <string name="ai_solution_mass_needed">Necesitas **%1$s g** de %2$s para %3$s mL de disolución %4$s mol/L.</string>
+    <string name="ai_solution_molarity">La concentración de %2$s es **%1$s mol/L**.</string>
+    <string name="ai_solution_volume">Necesitas **%1$s mL** a **%2$s mol/L**.</string>
+    <string name="ai_solution_moles">Eso es **%1$s mol** de %2$s.</string>
+    <string name="ai_dilution_result">Diluir **%1$s mol/L** desde **%2$s mL** da **%3$s mol/L** en **%4$s mL**.</string>
+    <string name="ai_dilution_add_solvent">Añade **%1$s mL** de disolvente.</string>
+    <string name="ai_solution_working_header">Desarrollo</string>
+    <string name="ai_solution_working_nvc">n = c × V → %1$s mol = %2$s mol/L × %3$s L</string>
+    <string name="ai_solution_working_mass">m = n × M → %1$s g = %2$s mol × %3$s g/mol</string>
+    <string name="ai_solution_working_c1v1">C₁V₁ = C₂V₂ → %1$s × %2$s = %3$s × %4$s</string>
+    <string name="ai_decay_stable">%1$s es estable: no se desintegra, así que no se pierde nada con el tiempo.</string>
+    <string name="ai_decay_unlisted">La app no incluye %1$s entre los isótopos de ese elemento, así que no tengo su periodo de semidesintegración.</string>
+    <string name="ai_decay_no_half_life">%1$s aparece, pero su periodo de semidesintegración figura como \"%2$s\", así que no puedo calcular la desintegración.</string>
+    <string name="ai_decay_effectively_none">Después de %2$s %3$s, prácticamente no queda nada de %1$s.</string>
+    <string name="ai_decay_elapsed">Pasar de **%1$s g** a **%2$s g** de %3$s lleva unos **%4$s %5$s**.</string>
+    <string name="ai_decay_remaining">Quedan unos **%1$s %2$s** de los %3$s g originales de %4$s después de %5$s %6$s.</string>
+    <string name="ai_decay_half_lives">En ese tiempo %1$s pasa por **%2$s** periodos de semidesintegración, y queda alrededor del **%3$s%%** de la muestra.</string>
+    <string name="ai_decay_working_header">Desarrollo</string>
+    <string name="ai_decay_working_half_life">Periodo de semidesintegración de %1$s: %2$s</string>
+    <string name="ai_decay_working_n">n = t / t½ = %1$s → 2⁻ⁿ = %2$s%%</string>
+    <string name="ai_feature_nuclide_table">La app incluye una **tabla de nucleidos** completa con los isótopos de todos los elementos, coloreados según su tipo de desintegración (alfa, beta, etc.).</string>
+    <string name="ai_feature_emission_spectrum">Puedes ver el **espectro de emisión** de un elemento en su panel de detalles. Muestra el patrón de luz único que produce.</string>
+    <string name="ai_feature_flashcards">La app tiene varios **minijuegos de tarjetas** sobre símbolos, masas atómicas y clasificaciones, con nivel y XP para seguir tu progreso.</string>
+    <string name="ai_feature_achievements">Sigue tu progreso con los **logros** y las estadísticas de uso en la página de usuario.</string>
+    <string name="ai_feature_molar_mass">Hay una **calculadora de masa molar** integrada para el peso molecular de compuestos complejos. También puedo hacerlo aquí: dame una fórmula.</string>
+    <string name="ai_feature_unit_converter">La app incluye un **conversor de unidades** para temperaturas y otras unidades científicas. También puedes preguntarme, por ejemplo \"convierte 500 K a °C\".</string>
+    <string name="ai_feature_ideal_gas">Usa la **calculadora de gases ideales** para hallar presión, volumen, moles o temperatura a partir de PV = nRT.</string>
+    <string name="ai_feature_reaction_balancer">El **balanceador de reacciones químicas** te ayuda a equilibrar ecuaciones y guardar favoritas. También puedes pedírmelo aquí: escribe algo como Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_feature_capabilities">Puedo consultar y comparar propiedades de los elementos, equilibrar ecuaciones, calcular masas molares y concentraciones, convertir unidades y hacer cálculos de desintegración. Pregúntame por un elemento, o escribe una fórmula o una ecuación.</string>
+    <string-array name="ai_suggest_element">
+        <item>Usos del %1$s</item>
+        <item>Masa atómica del %1$s</item>
+        <item>¿Es peligroso el %1$s?</item>
+        <item>¿Dónde se encuentra el %1$s?</item>
+        <item>Configuración electrónica del %1$s</item>
+        <item>Isótopos del %1$s</item>
+    </string-array>
+    <string-array name="ai_suggest_trends">
+        <item>¿Qué son las tendencias periódicas?</item>
+        <item>Tendencia de electronegatividad</item>
+        <item>Tendencia del radio atómico</item>
+        <item>Energía de ionización</item>
+    </string-array>
+    <string-array name="ai_suggest_general">
+        <item>Cuéntame un dato curioso</item>
+        <item>Empieza un cuestionario</item>
+        <item>¿Cuáles son los metales alcalinos?</item>
+        <item>¿El elemento más pesado?</item>
+    </string-array>
+    <string-array name="ai_suggest_tools">
+        <item>Equilibra Fe + O2 -&gt; Fe2O3</item>
+        <item>Convierte 500 K a °C</item>
+        <item>¿Cuántos gramos de NaCl para 250 mL de 0,5 mol/L?</item>
+        <item>¿Cuánto queda de 100 g de carbono-14 tras 11460 años?</item>
+    </string-array>
+
+    <!-- Equation Balancer tool -->
+    <string name="balancer_tool_title">Equilibrador de ecuaciones</string>
+    <string name="bal">Equilibrador</string>
+    <string name="balancer_tool_text">Equilibra ecuaciones químicas con coeficientes enteros exactos</string>
+    <string name="balancer_tool_card_title">Equilibrar una ecuación</string>
+    <string name="balancer_tool_hint">Fe + O2 -&gt; Fe2O3</string>
+    <string name="balancer_tool_result">Ecuación equilibrada</string>
+    <string name="balancer_tool_prompt">Escribe una ecuación con una flecha, por ejemplo Fe + O2 -&gt; Fe2O3.</string>
+    <string name="balancer_tool_examples">Ejemplos</string>
+    <string name="balancer_tool_note">Las flechas pueden escribirse -&gt;, =&gt;, = o →. Los símbolos de estado como (s), (l), (g) y (aq) se ignoran.</string>
+    <string name="balancer_tool_copied">Ecuación copiada</string>
 </resources>

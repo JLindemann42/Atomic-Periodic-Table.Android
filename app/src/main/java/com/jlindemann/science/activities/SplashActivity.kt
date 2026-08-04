@@ -8,6 +8,7 @@ import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.jlindemann.science.utils.AnalyticsHelper
 
 class SplashActivity : AppCompatActivity() {
 
@@ -20,6 +21,11 @@ class SplashActivity : AppCompatActivity() {
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // This is the app's entry point and does not extend BaseActivity, so it has to initialize
+        // analytics itself. Logged from onCreate because it can finish before onResume settles.
+        AnalyticsHelper.initialize(this)
+        AnalyticsHelper.logScreenView(this, "Splash", javaClass.simpleName)
 
         // Check if we should request notification permission (Android 13+)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {

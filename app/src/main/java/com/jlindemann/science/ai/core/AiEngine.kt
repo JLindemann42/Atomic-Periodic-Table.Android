@@ -51,11 +51,24 @@ class AiEngine(
     private val composer = AnswerComposer(store, localized, strings, cardPolicy)
 
     /**
+     * The plan behind the most recent answer, or null when the engine deferred.
+     *
+     * The plan is otherwise discarded inside [answer], which leaves the caller unable to say *what*
+     * the engine understood — the difference between "the engine claimed 80% of questions" and
+     * "the engine claimed 80% of questions and they were nearly all property lookups". Read by the
+     * chat panel for analytics, so it stays a plain property here and this package keeps no
+     * dependency on Firebase.
+     */
+    var lastPlan: QueryPlan? = null
+        private set
+
+    /**
      * Answer a question, or return null to defer.
      *
      * @param state carries the conversation's focus so follow-ups resolve; updated on success
      */
     fun answer(query: String, state: DialogueState): ComposedAnswer? {
+        lastPlan = null
         if (query.isBlank()) return null
 
         // A question that asks two things is tried first. The whole query often plans to
@@ -72,6 +85,7 @@ class AiEngine(
         if (composed.text.isBlank()) return null
 
         state.noteAnswer(plan, resultKeys(result))
+        lastPlan = plan
         return composed
     }
 
@@ -92,9 +106,11 @@ class AiEngine(
         val scratch = state.copyOf()
         val answers = ArrayList<ComposedAnswer>(clauses.size)
         val citations = ArrayList<Citation>(clauses.size * 2)
+        var lastClausePlan: QueryPlan? = null
         for (clause in clauses) {
             val plan = planner.plan(clause, scratch)
             if (plan.intent == Intent.UNKNOWN || plan.confidence < planner.threshold) return null
+            lastClausePlan = plan
             val result = executor.execute(plan) ?: return null
             // Bodies only, so the merged answer carries one sources section rather than one
             // after every clause.
@@ -107,6 +123,9 @@ class AiEngine(
         if (answers.size < 2) return null
 
         state.adopt(scratch)
+        // The final clause's plan. A compound answer has no single plan, and the last clause is the
+        // one the conversation is left focused on.
+        lastPlan = lastClausePlan
         return ComposedAnswer(
             text = answers.joinToString("\n\n") { it.text } +
                     composer.citationsFor(citations.distinctBy { it.label to it.source }),
@@ -136,6 +155,7 @@ class AiEngine(
             confidence = 1.0
         )
         val result = executor.execute(plan) ?: return null
+        lastPlan = plan
         return composer.compose(result, plan)
     }
 
@@ -156,6 +176,7 @@ class AiEngine(
             confidence = 1.0
         )
         val result = executor.execute(plan) ?: return null
+        lastPlan = plan
         return composer.compose(result, plan)
     }
 
@@ -180,7 +201,13 @@ class AiEngine(
         // A withheld answer still establishes what the conversation is about, so a follow-up such
         // as "and its density?" resolves against the element the user just asked about.
         is ExecutionResult.Locked -> listOfNotNull(result.element?.key)
+        is ExecutionResult.Decay -> listOf(result.element.key)
+        // A conversion, a balanced equation and a solution calculation are about a number or a
+        // compound, not about an element, so none of them establishes a subject for "and its
+        // density?" to inherit.
         is ExecutionResult.Formula, is ExecutionResult.MoleConversion,
+        is ExecutionResult.UnitConversion, is ExecutionResult.BalancedEquation,
+        is ExecutionResult.SolutionCalc,
         is ExecutionResult.Dataset, is ExecutionResult.Empty -> emptyList()
     }
 }

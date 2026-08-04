@@ -1208,4 +1208,84 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
     <string name="question_valence_electrons">Hoeveel valenselektrone het %1$s?</string>
     <string name="quiz_loading">Vrae word voorberei…</string>
     <string name="quiz_no_questions">Kon nie vrae vir hierdie speletjie skep nie. Probeer ’n ander een.</string>
+
+    <!-- Assistant: calculations, tools and suggestion chips -->
+    <string name="ai_unit_converted">**%1$s %2$s** is **%3$s %4$s**.</string>
+    <string name="ai_unit_bridge_note">Omgeskakel met 1 eV = 96,485 kJ/mol — dieselfde energie, per deeltjie eerder as per mol getel.</string>
+    <string name="ai_equation_balanced">**%1$s → %2$s**</string>
+    <string name="ai_equation_check_header">Atoomkontrole</string>
+    <string name="ai_equation_tally_row">• **%1$s** — %2$d links, %3$d regs</string>
+    <string name="ai_equation_one_sided">Daardie vergelyking kan nie gebalanseer word nie: \'n element kom net aan een kant voor, en geen koëffisiënte kan dit regstel nie.</string>
+    <string name="ai_equation_underdetermined">Daardie vergelyking het meer as een onafhanklike balans — dit lees soos twee reaksies wat as een geskryf is. Skei hulle, dan balanseer ek elkeen.</string>
+    <string name="ai_equation_too_large">Daardie vergelyking benodig koëffisiënte wat te groot is vir \'n werklike reaksie. Kyk na die formules.</string>
+    <string name="ai_equation_parse_failed">Ek kon dit nie as \'n chemiese vergelyking lees nie. Probeer \'n vorm soos Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_equation_no_solution">Daardie vergelyking het geen balans met heel positiewe koëffisiënte nie.</string>
+    <string name="ai_solution_generic_substance">die oplossing</string>
+    <string name="ai_solution_mass_needed">Jy het **%1$s g** %2$s nodig vir %3$s mL van \'n %4$s mol/L-oplossing.</string>
+    <string name="ai_solution_molarity">Die konsentrasie van %2$s is **%1$s mol/L**.</string>
+    <string name="ai_solution_volume">Jy het **%1$s mL** by **%2$s mol/L** nodig.</string>
+    <string name="ai_solution_moles">Dit is **%1$s mol** %2$s.</string>
+    <string name="ai_dilution_result">Om **%1$s mol/L** vanaf **%2$s mL** te verdun gee **%3$s mol/L** by **%4$s mL**.</string>
+    <string name="ai_dilution_add_solvent">Voeg **%1$s mL** oplosmiddel by.</string>
+    <string name="ai_solution_working_header">Berekening</string>
+    <string name="ai_solution_working_nvc">n = c × V → %1$s mol = %2$s mol/L × %3$s L</string>
+    <string name="ai_solution_working_mass">m = n × M → %1$s g = %2$s mol × %3$s g/mol</string>
+    <string name="ai_solution_working_c1v1">C₁V₁ = C₂V₂ → %1$s × %2$s = %3$s × %4$s</string>
+    <string name="ai_decay_stable">%1$s is stabiel — dit verval nie, dus gaan niks met tyd verlore nie.</string>
+    <string name="ai_decay_unlisted">Die program lys nie %1$s onder daardie element se isotope nie, so ek het geen halfleeftyd daarvoor nie.</string>
+    <string name="ai_decay_no_half_life">%1$s is gelys, maar die halfleeftyd is as \"%2$s\" aangeteken, dus kan ek nie verval bereken nie.</string>
+    <string name="ai_decay_effectively_none">Ná %2$s %3$s is daar prakties niks van %1$s oor nie.</string>
+    <string name="ai_decay_elapsed">Om van **%1$s g** na **%2$s g** %3$s te gaan neem sowat **%4$s %5$s**.</string>
+    <string name="ai_decay_remaining">Ongeveer **%1$s %2$s** van die oorspronklike %3$s g %4$s bly oor ná %5$s %6$s.</string>
+    <string name="ai_decay_half_lives">In daardie tyd deurloop %1$s **%2$s** halfleeftye, wat sowat **%3$s%%** van die monster laat.</string>
+    <string name="ai_decay_working_header">Berekening</string>
+    <string name="ai_decay_working_half_life">Halfleeftyd van %1$s: %2$s</string>
+    <string name="ai_decay_working_n">n = t / t½ = %1$s → 2⁻ⁿ = %2$s%%</string>
+    <string name="ai_feature_nuclide_table">Die program bevat \'n omvattende **nukliedtabel** wat isotope vir alle elemente wys, kleurgekodeer volgens vervaltipe (alfa, beta ensovoorts).</string>
+    <string name="ai_feature_emission_spectrum">Jy kan \'n element se **emissiespektrum** in sy besonderhedepaneel sien. Dit wys die unieke ligpatroon wat daardie element voortbring.</string>
+    <string name="ai_feature_flashcards">Die program het verskeie **flitskaart-minispeletjies** vir elementsimbole, atoommassas en klassifikasies, met vlak en XP om by te hou.</string>
+    <string name="ai_feature_achievements">Volg jou vordering met **prestasies** en gebruikstatistieke op die gebruikersblad.</string>
+    <string name="ai_feature_molar_mass">Daar is \'n ingeboude **molmassa-sakrekenaar** vir die molekulêre gewig van komplekse verbindings. Ek kan dit ook hier doen — gee my net \'n formule.</string>
+    <string name="ai_feature_unit_converter">Die program bevat \'n **eenheidsomskakelaar** vir temperature en ander wetenskaplike eenhede. Jy kan my ook net vra, byvoorbeeld \"skakel 500 K om na °C\".</string>
+    <string name="ai_feature_ideal_gas">Gebruik die **ideale gas-sakrekenaar** om druk, volume, mol of temperatuur uit PV = nRT te vind.</string>
+    <string name="ai_feature_reaction_balancer">Die **chemiese reaksiebalanseerder** help jou vergelykings balanseer en gunstelinge stoor. Jy kan my ook hier vra — skryf iets soos Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_feature_capabilities">Ek kan elementeienskappe opsoek en vergelyk, vergelykings balanseer, molmassas en oplossingskonsentrasies bereken, eenhede omskakel en vervalberekeninge doen. Vra my oor \'n element, of skryf \'n formule of vergelyking.</string>
+    <string-array name="ai_suggest_element">
+        <item>Gebruike van %1$s</item>
+        <item>Atoommassa van %1$s</item>
+        <item>Is %1$s gevaarlik?</item>
+        <item>Waar kom %1$s voor?</item>
+        <item>Elektronkonfigurasie van %1$s</item>
+        <item>Isotope van %1$s</item>
+    </string-array>
+    <string-array name="ai_suggest_trends">
+        <item>Wat is periodieke tendense?</item>
+        <item>Tendens van elektronegatiwiteit</item>
+        <item>Tendens van atoomradius</item>
+        <item>Ionisasie-energie</item>
+    </string-array>
+    <string-array name="ai_suggest_general">
+        <item>Vertel my \'n interessante feit</item>
+        <item>Begin \'n vasvra</item>
+        <item>Wat is die alkalimetale?</item>
+        <item>Swaarste element?</item>
+    </string-array>
+    <string-array name="ai_suggest_tools">
+        <item>Balanseer Fe + O2 -&gt; Fe2O3</item>
+        <item>Skakel 500 K om na °C</item>
+        <item>Hoeveel gram NaCl vir 250 mL van 0,5 mol/L?</item>
+        <item>Hoeveel van 100 g koolstof-14 bly ná 11460 jaar oor?</item>
+    </string-array>
+
+    <!-- Equation Balancer tool -->
+    <string name="balancer_tool_title">Vergelykingbalanseerder</string>
+    <string name="bal">Balanseerder</string>
+    <string name="balancer_tool_text">Balanseer chemiese vergelykings met presiese heelgetalkoëffisiënte</string>
+    <string name="balancer_tool_card_title">Balanseer \'n vergelyking</string>
+    <string name="balancer_tool_hint">Fe + O2 -&gt; Fe2O3</string>
+    <string name="balancer_tool_result">Gebalanseerde vergelyking</string>
+    <string name="balancer_tool_prompt">Tik \'n vergelyking met \'n pyl, byvoorbeeld Fe + O2 -&gt; Fe2O3.</string>
+    <string name="balancer_tool_examples">Voorbeelde</string>
+    <string name="balancer_tool_note">Pyle kan as -&gt;, =&gt;, = of → geskryf word. Toestandsimbole soos (s), (l), (g) en (aq) word geïgnoreer.</string>
+    <string name="balancer_tool_copied">Vergelyking gekopieer</string>
 </resources>

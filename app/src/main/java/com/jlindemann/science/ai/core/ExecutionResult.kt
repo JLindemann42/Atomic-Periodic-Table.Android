@@ -193,6 +193,90 @@ sealed class ExecutionResult {
         override val citations: List<Citation> = emptyList()
     ) : ExecutionResult()
 
+    /**
+     * A value the user supplied, expressed in another unit.
+     *
+     * @property bridged true when the conversion crossed a dimension through a physical constant —
+     *   eV to kJ/mol — so the answer can name the constant rather than presenting the two as
+     *   interchangeable quantities, which they are not.
+     */
+    data class UnitConversion(
+        val value: Double,
+        val fromUnit: String,
+        val converted: Double,
+        val toUnit: String,
+        val bridged: Boolean,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /**
+     * A chemical equation, balanced or honestly declined.
+     *
+     * [reason] being non-null is a first-class answer rather than an error. An equation that
+     * cannot balance with positive integers, or that has several independent balances, has to be
+     * *said* — answering with one of the possibilities and no warning is worse than not answering.
+     *
+     * @property tally the per-element proof: how many atoms each side ends up with. A balancer
+     *   that prints only coefficients asks to be trusted; one that shows both counts can be checked.
+     */
+    data class BalancedEquation(
+        val reactants: List<com.jlindemann.science.ai.data.Term>,
+        val products: List<com.jlindemann.science.ai.data.Term>,
+        val tally: List<com.jlindemann.science.ai.data.ElementTally>,
+        val reason: com.jlindemann.science.ai.data.EquationBalancer.Reason?,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /**
+     * A solution-chemistry calculation: n = c·V, a mass from a concentration, or a dilution.
+     *
+     * @property kind which unknown the question asked for, which decides the sentence the answer
+     *   leads with. The other fields are filled in regardless, because the working is shown.
+     */
+    data class SolutionCalc(
+        val kind: Kind,
+        /** The compound as written, or as resolved from a common name. Null for a bare dilution. */
+        val substance: String?,
+        val molarMass: Double?,
+        val moles: Double?,
+        val molarity: Double?,
+        val litres: Double?,
+        val grams: Double?,
+        val dilution: com.jlindemann.science.ai.data.Dilution?,
+        override val citations: List<Citation>
+    ) : ExecutionResult() {
+        enum class Kind { MASS_NEEDED, MOLES, MOLARITY, VOLUME, DILUTION }
+    }
+
+    /**
+     * Exponential decay of a nuclide over time.
+     *
+     * [Mode] separates three outcomes that all look like "no number" and are not the same thing:
+     * the nuclide is stable, the app does not list it, or it is listed with a half-life the data
+     * records as unknown. Collapsing them would tell a user the app has no data when what it has
+     * is the opposite — a positive statement that nothing decays.
+     */
+    data class Decay(
+        val element: ElementRecord,
+        val massNumber: Int,
+        val halfLifeSeconds: Double?,
+        val halfLifeDisplay: String,
+        val stable: Boolean,
+        val mode: Mode,
+        val initialAmount: Double?,
+        val finalAmount: Double?,
+        /** The unit the amounts were written in, echoed back rather than converted. */
+        val amountUnit: String?,
+        val elapsedSeconds: Double?,
+        /** The unit the elapsed time was written in, so the answer can reply in it. */
+        val elapsedUnit: String?,
+        val halfLivesElapsed: Double?,
+        val fractionRemaining: Double?,
+        override val citations: List<Citation>
+    ) : ExecutionResult() {
+        enum class Mode { REMAINING, ELAPSED, HALF_LIVES, STABLE, NO_HALF_LIFE }
+    }
+
     /** A row from one of the app's tables. */
     data class Dataset(
         val row: DatasetRow,

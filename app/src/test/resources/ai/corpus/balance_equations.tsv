@@ -1,0 +1,31 @@
+# Equation balancing. The arrow is the trigger, not the verb, so most of these carry no verb at all.
+# Note the "reaction" rows: that word is in the unbacked-concept deny-list, which declines every
+# sentence containing it. The arrow has to override that guard or the commonest phrasing never
+# reaches the balancer.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+bal-en-1			en	balance Fe + O2 -> Fe2O3	BALANCE_EQUATION		none		
+bal-en-2			en	H2 + O2 -> H2O	BALANCE_EQUATION		none		
+bal-en-3			en	balance C3H8 + O2 -> CO2 + H2O	BALANCE_EQUATION		none		
+bal-en-4			en	balance this reaction: Fe + O2 -> Fe2O3	BALANCE_EQUATION		none	the deny-list exemption	
+bal-en-5			en	balance the reaction N2 + H2 -> NH3	BALANCE_EQUATION		none		
+bal-en-6			en	Ca(OH)2 + H3PO4 -> Ca3(PO4)2 + H2O	BALANCE_EQUATION		none	parenthesised groups	
+bal-en-7			en	KMnO4 + HCl -> KCl + MnCl2 + H2O + Cl2	BALANCE_EQUATION		none	six species, exact rationals	
+bal-en-8			en	balance CH4 + O2 -> CO2 + H2O	BALANCE_EQUATION		none		
+bal-en-9			en	Al + HCl -> AlCl3 + H2	BALANCE_EQUATION		none		
+bal-en-10			en	balance 2H2 + O2 -> 2H2O	BALANCE_EQUATION		none	user coefficients are re-derived	
+bal-en-11			en	Fe + O2 → Fe3O4	BALANCE_EQUATION		none	unicode arrow	
+bal-en-12			en	balance Na + Cl2 = NaCl	BALANCE_EQUATION		none	bare equals sign	
+bal-en-13			en	balance CO + O2 + H2 -> CO2 + H2O	BALANCE_EQUATION		none	underdetermined, answered as such	
+bal-en-14			en	balance H2 + O2 -> H2	BALANCE_EQUATION		none	one-sided element, answered as such	
+bal-sv-1			sv	balansera Fe + O2 -> Fe2O3	BALANCE_EQUATION		none		
+bal-sv-2			sv	balansera reaktionen CH4 + O2 -> CO2 + H2O	BALANCE_EQUATION		none		
+bal-de-1			de	gleiche Fe + O2 -> Fe2O3 aus	BALANCE_EQUATION		none		
+bal-es-1			es	equilibra Fe + O2 -> Fe2O3	BALANCE_EQUATION		none		
+bal-fr-1			fr	équilibre Fe + O2 -> Fe2O3	BALANCE_EQUATION		none		
+bal-it-1			it	bilancia Fe + O2 -> Fe2O3	BALANCE_EQUATION		none		
+bal-pt-1			pt	balanceie Fe + O2 -> Fe2O3	BALANCE_EQUATION		none		
+bal-zh-1			zh	配平 Fe + O2 -> Fe2O3	BALANCE_EQUATION		none		
+bal-hi-1			hi	Fe + O2 -> Fe2O3 संतुलित करें	BALANCE_EQUATION		none		
+# --- Negatives: an arrow or an equals sign that is not an equation ---------------------------
+bal-neg-2			en	what happens when sodium and chlorine react				y	prose, no equation written
+bal-neg-3			en	is gold denser than lead	COMPARATIVE				

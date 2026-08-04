@@ -33,7 +33,62 @@ object UnitConverter {
         "b" to "b", "barn" to "b", "barns" to "b",
         "w/(m·k)" to "W/(m·K)", "w/(m*k)" to "W/(m·K)", "w/mk" to "W/(m·K)",
         "j/(g·k)" to "J/(g·K)", "j/(g*k)" to "J/(g·K)",
-        "j/(mol·k)" to "J/(mol·K)", "j/(mol*k)" to "J/(mol·K)"
+        "j/(mol·k)" to "J/(mol·K)", "j/(mol*k)" to "J/(mol·K)",
+        // Time. The canonical year token is "yr", not "a": `"a"` is already angstrom above, and a
+        // query reading "1.5 a" means 1.5 Å in this app's data far more often than 1.5 years. For
+        // the same reason ka/Ma/Ga are absent — they would have to share the collision.
+        "s" to "s", "sec" to "s", "second" to "s", "seconds" to "s", "sekund" to "s",
+        "sekunder" to "s", "sekunde" to "s", "sekunden" to "s", "segundo" to "s",
+        "segundos" to "s", "seconde" to "s", "secondes" to "s", "secondi" to "s",
+        "ms" to "ms", "millisecond" to "ms", "milliseconds" to "ms",
+        "us" to "µs", "microsecond" to "µs", "microseconds" to "µs",
+        "ns" to "ns", "nanosecond" to "ns", "nanoseconds" to "ns",
+        "min" to "min", "minute" to "min", "minutes" to "min", "minuter" to "min",
+        "minuten" to "min", "minuto" to "min", "minutos" to "min", "minuti" to "min",
+        "h" to "h", "hr" to "h", "hrs" to "h", "hour" to "h", "hours" to "h",
+        "timme" to "h", "timmar" to "h", "stunde" to "h", "stunden" to "h",
+        "hora" to "h", "horas" to "h", "heure" to "h", "heures" to "h", "ora" to "h", "ore" to "h",
+        "d" to "d", "day" to "d", "days" to "d", "dag" to "d", "dagar" to "d",
+        "tag" to "d", "tage" to "d", "dia" to "d", "dias" to "d", "jour" to "d", "jours" to "d",
+        "giorno" to "d", "giorni" to "d",
+        // No bare "y" and no bare "an": both are ordinary words. Spanish "y" is "and", so
+        // "compara uranio-235 y uranio-238" read as "235 years" and became a decay calculation.
+        "yr" to "yr", "yrs" to "yr", "year" to "yr", "years" to "yr",
+        // Accented and inflected forms as authored. `canonical` applies NFKC, which leaves å and ñ
+        // as single codepoints, so a folded spelling never matches what the user actually types.
+        "ar" to "yr", "år" to "yr", "jahr" to "yr", "jahre" to "yr", "jahren" to "yr",
+        "ano" to "yr", "anos" to "yr",
+        "año" to "yr", "años" to "yr", "ans" to "yr", "annee" to "yr",
+        "annees" to "yr", "anno" to "yr", "anni" to "yr", "taon" to "yr",
+        "kyr" to "kyr", "myr" to "Myr", "gyr" to "Gyr",
+        // Volume, base litre.
+        "l" to "L", "litre" to "L", "litres" to "L", "liter" to "L", "liters" to "L",
+        "ml" to "mL", "millilitre" to "mL", "millilitres" to "mL", "milliliter" to "mL",
+        "milliliters" to "mL", "cc" to "cm³",
+        "ul" to "µL", "microlitre" to "µL", "microliter" to "µL",
+        "dm3" to "dm³", "dm^3" to "dm³", "dm³" to "dm³",
+        "cm3" to "cm³", "cm^3" to "cm³", "cm³" to "cm³",
+        "m3" to "m³", "m^3" to "m³", "m³" to "m³",
+        // Amount of substance.
+        "mole" to "mol", "moles" to "mol", "moli" to "mol", "mols" to "mol",
+        "mmol" to "mmol", "millimole" to "mmol", "millimoles" to "mmol",
+        "umol" to "µmol", "micromole" to "µmol", "micromoles" to "µmol",
+        // Molar concentration. "mm" is deliberately absent — it is millimetre to every reader,
+        // and mapping it to millimolar would make "0.5 mm" a concentration without warning.
+        "molar" to "M", "mol/l" to "M", "mol/liter" to "M", "mol/litre" to "M",
+        "moles per litre" to "M", "moles per liter" to "M", "mol/dm3" to "mol/dm³",
+        "mol/m3" to "mol/m³", "millimolar" to "mM", "micromolar" to "µM"
+    )
+
+    /**
+     * Units whose meaning depends on capitalisation.
+     *
+     * [canonical] lowercases before consulting [ALIASES], which is right for `Fahrenheit` and
+     * `GPa` and fatal for these: `M` is molar and `m` is metre, and case is the only thing that
+     * tells them apart. Checked before the fold, so the pair survives.
+     */
+    private val CASE_SENSITIVE: Map<String, String> = mapOf(
+        "M" to "M", "mM" to "mM", "µM" to "µM", "μM" to "µM", "m" to "m", "L" to "L"
     )
 
     /** Multiplicative units: canonical name to (dimension, factor relative to the base unit). */
@@ -75,7 +130,52 @@ object UnitConverter {
         // Conductivity and heat capacity have one unit each in this data
         "W/(m·K)" to (Dimension.CONDUCTIVITY to 1.0),
         "J/(g·K)" to (Dimension.HEAT_CAPACITY to 1.0),
-        "J/(mol·K)" to (Dimension.HEAT_CAPACITY to 1.0)
+        "J/(mol·K)" to (Dimension.HEAT_CAPACITY to 1.0),
+        // Time, base second. The year is the Julian year, 365.25 days, matching what IsotopeParser
+        // uses to normalise half-lives — the two have to agree or a decay answer contradicts the
+        // isotope table it cites.
+        "s" to (Dimension.TIME to 1.0),
+        "ms" to (Dimension.TIME to 1e-3),
+        "µs" to (Dimension.TIME to 1e-6),
+        "ns" to (Dimension.TIME to 1e-9),
+        "min" to (Dimension.TIME to 60.0),
+        "h" to (Dimension.TIME to 3600.0),
+        "d" to (Dimension.TIME to 86400.0),
+        "yr" to (Dimension.TIME to 3.15576e7),
+        "kyr" to (Dimension.TIME to 3.15576e10),
+        "Myr" to (Dimension.TIME to 3.15576e13),
+        "Gyr" to (Dimension.TIME to 3.15576e16),
+        // Volume, base litre
+        "L" to (Dimension.VOLUME to 1.0),
+        "mL" to (Dimension.VOLUME to 1e-3),
+        "µL" to (Dimension.VOLUME to 1e-6),
+        "dm³" to (Dimension.VOLUME to 1.0),
+        "cm³" to (Dimension.VOLUME to 1e-3),
+        "m³" to (Dimension.VOLUME to 1000.0),
+        // Amount of substance, base mol
+        "mol" to (Dimension.AMOUNT to 1.0),
+        "mmol" to (Dimension.AMOUNT to 1e-3),
+        "µmol" to (Dimension.AMOUNT to 1e-6),
+        // Molar concentration, base mol/L
+        "M" to (Dimension.MOLARITY to 1.0),
+        "mol/dm³" to (Dimension.MOLARITY to 1.0),
+        "mM" to (Dimension.MOLARITY to 1e-3),
+        "µM" to (Dimension.MOLARITY to 1e-6),
+        "mol/m³" to (Dimension.MOLARITY to 1e-3)
+    )
+
+    /**
+     * Conversions that cross a dimension because a physical constant relates them.
+     *
+     * One eV per particle is 96.485 kJ per mole — the same energy counted per particle rather than
+     * per mole. Kept out of [FACTORS] deliberately: putting the two in one dimension would make an
+     * ionisation energy in eV and a fusion enthalpy in kJ/mol look interchangeable to
+     * `Filter.FieldCompare`, and a ranking would silently mix them. Applied only when a user asks
+     * for the conversion outright, never by comparison or sorting.
+     */
+    private val BRIDGES: Map<Pair<Dimension, Dimension>, Double> = mapOf(
+        (Dimension.ENERGY to Dimension.ENERGY_PER_MOL) to 96.48533212,
+        (Dimension.ENERGY_PER_MOL to Dimension.ENERGY) to 1.0 / 96.48533212
     )
 
     private val TEMPERATURE_UNITS = setOf("K", "°C", "°F")
@@ -93,8 +193,22 @@ object UnitConverter {
         }
         val trimmed = normalized?.trim()?.trim('(', ')')?.trim() ?: return null
         if (trimmed.isEmpty()) return null
+        CASE_SENSITIVE[trimmed]?.let { return it }
         ALIASES[trimmed.lowercase()]?.let { return it }
         return trimmed
+    }
+
+    /**
+     * The canonical form of [token], but only when it is a unit this converter actually knows.
+     *
+     * [canonical] echoes anything it does not recognise straight back, which is right for a value
+     * read off the element data — the authored unit is the truth even when the table below has
+     * never heard of it. A query is the opposite case: something has to decide whether the word
+     * after a number is a unit at all, and an echo answers "yes" to everything.
+     */
+    fun knownUnit(token: String?): String? {
+        val c = canonical(token) ?: return null
+        return if (c in TEMPERATURE_UNITS || c in FACTORS) c else null
     }
 
     /** The dimension a unit belongs to, or null when it is unknown. */
@@ -120,6 +234,42 @@ object UnitConverter {
         val (toDim, toFactor) = FACTORS[t] ?: return null
         if (fromDim != toDim) return null
         return value * fromFactor / toFactor
+    }
+
+    /**
+     * Convert within a dimension, or across one of the [BRIDGES] when the dimensions differ.
+     *
+     * Used only by the standalone unit-conversion intent, where the user has named both units and
+     * asked for the crossing explicitly. Ranking, filtering and property lookups go through
+     * [convert], which refuses the crossing.
+     *
+     * @return the converted value, or null when neither route applies
+     */
+    fun convertAcrossBridges(value: Double, from: String?, to: String?): Double? {
+        convert(value, from, to)?.let { return it }
+        val f = canonical(from) ?: return null
+        val t = canonical(to) ?: return null
+        val fromDim = dimensionOf(f) ?: return null
+        val toDim = dimensionOf(t) ?: return null
+        val bridge = BRIDGES[fromDim to toDim] ?: return null
+        // Through each dimension's base unit, so "96485 J/mol in eV" works as well as kJ/mol.
+        val fromFactor = FACTORS[f]?.second ?: return null
+        val toFactor = FACTORS[t]?.second ?: return null
+        return value * fromFactor * bridge / toFactor
+    }
+
+    /** Whether [from] and [to] can be converted, within a dimension or across a bridge. */
+    fun convertible(from: String?, to: String?): Boolean {
+        val fromDim = dimensionOf(from) ?: return false
+        val toDim = dimensionOf(to) ?: return false
+        return fromDim == toDim || (fromDim to toDim) in BRIDGES
+    }
+
+    /** Whether converting [from] to [to] crosses a dimension through a physical constant. */
+    fun isBridged(from: String?, to: String?): Boolean {
+        val fromDim = dimensionOf(from) ?: return false
+        val toDim = dimensionOf(to) ?: return false
+        return fromDim != toDim && (fromDim to toDim) in BRIDGES
     }
 
     /** Affine temperature conversion between K, °C and °F. */

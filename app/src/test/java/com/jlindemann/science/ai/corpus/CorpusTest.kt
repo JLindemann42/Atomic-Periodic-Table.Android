@@ -41,6 +41,18 @@ class CorpusTest {
     @Test fun isotopesAndNuclides() = runFile("isotopes_nuclides")
     @Test fun safety() = runFile("safety")
     @Test fun calculations() = runFile("calculations")
+
+    /**
+     * The four calculators, each with the negative rows that pin where its branch stops.
+     *
+     * Kept as separate files rather than folded into `calculations`, because the guard ordering
+     * between them is the fragile part: each new branch sits above an older one that would
+     * otherwise claim the same query, and a failure here should name which boundary moved.
+     */
+    @Test fun unitConversion() = runFile("unit_convert")
+    @Test fun balanceEquations() = runFile("balance_equations")
+    @Test fun decay() = runFile("decay")
+    @Test fun solutions() = runFile("solutions")
     @Test fun compound() = runFile("compound")
     @Test fun followups() = runFile("followups")
 

@@ -42,6 +42,7 @@ import com.jlindemann.science.utils.*
 import com.jlindemann.science.adapter.*
 import com.jlindemann.science.animations.Anim
 import com.jlindemann.science.extensions.TableExtension
+import com.jlindemann.science.fragments.BaseFragment
 import com.jlindemann.science.fragments.FlashcardFragment
 import com.jlindemann.science.fragments.HomeFragment
 import com.jlindemann.science.activities.tools.CalculatorActivity
@@ -98,6 +99,15 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     private var aiPanel: AiChatPanelController? = null
 
     private var currentFragmentTag: String? = null
+
+    /**
+     * How the *next* fragment switch was triggered, consumed by [switchFragment].
+     *
+     * Most programmatic navigation here just assigns `bottom_nav.selectedItemId`, which then runs
+     * the same listener a tap does — indistinguishable from the user choosing the tab unless the
+     * caller says otherwise. Null means an actual tap.
+     */
+    private var pendingEntrySource: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -162,6 +172,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
         // Initial fragment
         if (savedInstanceState == null) {
+            pendingEntrySource = AnalyticsSource.INITIAL
             switchFragment(HomeFragment(), "home")
         }
 
@@ -223,7 +234,14 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     private fun switchFragment(fragment: Fragment, tag: String) {
         if (currentFragmentTag == tag) return
-        
+
+        // Carried as an argument rather than held on the activity: the fragment logs its own entry
+        // from onResume, which runs after this returns.
+        fragment.arguments = (fragment.arguments ?: Bundle()).apply {
+            putString(BaseFragment.ARG_ENTRY_SOURCE, pendingEntrySource ?: AnalyticsSource.BOTTOM_NAV)
+        }
+        pendingEntrySource = null
+
         val transaction = supportFragmentManager.beginTransaction()
         
         transaction.setCustomAnimations(
@@ -281,6 +299,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
             return
         }
         if (currentFragmentTag != "home") {
+            pendingEntrySource = AnalyticsSource.BACK
             findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId = R.id.nav_home
             return
         }
@@ -534,6 +553,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         intent?.let {
             if (it.getBooleanExtra("show_flashcard_results", false)) {
                 it.removeExtra("show_flashcard_results")
+                pendingEntrySource = AnalyticsSource.FLASHCARD_RESULTS
                 findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId = R.id.nav_learning_games
                 // Give it a tiny bit of time for the fragment to be swapped in if needed
                 Handler(Looper.getMainLooper()).postDelayed({
@@ -548,6 +568,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         setIntent(intent)
         handleProIntent(intent)
         if (intent.getBooleanExtra("show_flashcard_results", false)) {
+            pendingEntrySource = AnalyticsSource.FLASHCARD_RESULTS
             findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId = R.id.nav_learning_games
             // The fragment might already be active or being created
             Handler(Looper.getMainLooper()).postDelayed({
@@ -558,6 +579,7 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
 
     private fun handleProIntent(intent: Intent?) {
         if (intent?.getBooleanExtra("show_pro", false) == true) {
+            pendingEntrySource = AnalyticsSource.PRO_INTENT
             findViewById<BottomNavigationView>(R.id.bottom_nav).selectedItemId = R.id.nav_pro
         }
     }
@@ -630,12 +652,15 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
         
         when (action) {
             "OPEN_AI_CHAT" -> {
-                aiPanel?.open()
+                aiPanel?.open(AiChatPanelController.SOURCE_WIDGET)
                 // The controller queues this behind its own initialisation, so a widget query
                 // can no longer reach an agent that has not finished loading.
-                intent.getStringExtra("initial_query")?.let { aiPanel?.send(it) }
+                intent.getStringExtra("initial_query")?.let {
+                    aiPanel?.send(it, AiChatPanelController.SOURCE_WIDGET)
+                }
             }
             "OPEN_TABLE" -> {
+                pendingEntrySource = AnalyticsSource.WIDGET
                 findViewById<BottomNavigationView>(R.id.bottom_nav)?.selectedItemId = R.id.nav_home
             }
             "OPEN_QUIZ" -> {

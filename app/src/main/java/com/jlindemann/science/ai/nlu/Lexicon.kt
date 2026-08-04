@@ -1466,7 +1466,12 @@ object Lexicon {
         "in", "as", "to", "i", "als", "en", "com", "em", "用", "以",
         // Hindi and Urdu are postpositional — "सेल्सियस में" is "celsius in" — and Filipino uses
         // "sa". Without these, a bare unit follow-up resolved nothing at all.
-        "में", "میں", "sa"
+        "में", "میں", "sa",
+        // The prepositions that introduce a conversion *target*. Without these, "omvandla 500 K
+        // till °C" found no target at all, and the sentence was answered as a comparison of
+        // potassium and carbon — the two elements its unit symbols also spell.
+        "till", "a", "para", "zu", "nach", "auf", "su", "naar", "vers", "verso",
+        "成", "为", "到", "换算成", "में बदलें", "میں"
     )
 
     /** Unit names the planner accepts as a conversion target. */
@@ -1486,6 +1491,172 @@ object Lexicon {
         "gigapascal" to "GPa", "gpa" to "GPa",
         "megapascal" to "MPa", "mpa" to "MPa",
         "electronvolt" to "eV", "ev" to "eV",
-        "kilojoule per mole" to "kJ/mol", "kj/mol" to "kJ/mol"
+        "kilojoule per mole" to "kJ/mol", "kj/mol" to "kJ/mol",
+        // Time, volume, amount and molarity, so "in years" and "in millilitres" reach the same
+        // target-unit path that already makes "in Fahrenheit" work on a property lookup.
+        "second" to "s", "seconds" to "s", "minute" to "min", "minutes" to "min",
+        "hour" to "h", "hours" to "h", "day" to "d", "days" to "d",
+        "year" to "yr", "years" to "yr",
+        "litre" to "L", "litres" to "L", "liter" to "L", "liters" to "L",
+        "millilitre" to "mL", "millilitres" to "mL", "milliliter" to "mL", "milliliters" to "mL",
+        "mole" to "mol", "moles" to "mol", "millimole" to "mmol", "millimoles" to "mmol",
+        "molar" to "M", "millimolar" to "mM"
+    )
+
+    /**
+     * Unit spellings in the scripts the regex scanner cannot reach.
+     *
+     * [com.jlindemann.science.ai.data.UnitConverter.ALIASES] already carries every Latin-script
+     * form, including the Swedish, German, Spanish, French, Italian and Portuguese words. What it
+     * cannot help with is Devanagari, Arabic and Han: the number-plus-unit regex matches an ASCII
+     * letter run, so "११४६० साल" never presents a token for the alias table to fold. These are
+     * looked up by substring instead.
+     */
+    val SCRIPT_UNIT_WORDS: Map<String, String> = mapOf(
+        // Time
+        "सेकंड" to "s", "मिनट" to "min", "घंटे" to "h", "घंटा" to "h", "दिन" to "d",
+        "साल" to "yr", "वर्ष" to "yr",
+        "سیکنڈ" to "s", "منٹ" to "min", "گھنٹے" to "h", "دن" to "d", "سال" to "yr",
+        "秒" to "s", "分钟" to "min", "小时" to "h", "天" to "d", "年" to "yr",
+        // Volume
+        "लीटर" to "L", "मिलीलीटर" to "mL",
+        "لیٹر" to "L", "ملی لیٹر" to "mL",
+        "升" to "L", "毫升" to "mL",
+        // Amount and concentration
+        "मोल" to "mol", "मोलर" to "M",
+        "مول" to "mol", "مولر" to "M",
+        "摩尔" to "mol", "摩尔每升" to "M"
+    )
+
+    /**
+     * Verbs asking for an equation to be balanced.
+     *
+     * A confidence hint only. The arrow is what identifies an equation — a user who writes
+     * "Fe + O2 -> Fe2O3" with no verb at all is asking exactly one thing.
+     */
+    val BALANCE_WORDS = listOf(
+        "balance", "balanced", "balancing", "balansera", "balansera formeln",
+        "ausgleichen", "ausgleich", "gleiche aus", "equilibrar", "balancear", "ajustar",
+        "equilibrer", "equilibrez", "bilanciare", "bilancia", "balanseer",
+        "timbangin", "balansehin", "संतुलित", "संतुलन", "متوازن", "توازن",
+        "配平", "平衡"
+    )
+
+    /** Words framing a question as being about a solution's concentration. */
+    val SOLUTION_WORDS = listOf(
+        "solution", "molarity", "molar concentration", "concentration", "concentrated",
+        "losning", "molaritet", "koncentration",
+        "losung", "molaritat", "konzentration",
+        "solucion", "molaridad", "concentracion", "disolucion",
+        "solution", "molarite", "concentration",
+        "soluzione", "molarita", "concentrazione",
+        "solucao", "molaridade", "concentracao",
+        "oplossing", "molariteit", "konsentrasie",
+        "solusyon", "konsentrasyon",
+        "विलयन", "घोल", "मोलरता", "सांद्रता",
+        "محلول", "مولرتا", "ارتکاز",
+        "溶液", "摩尔浓度", "浓度"
+    )
+
+    /** Words framing a question as a dilution. */
+    val DILUTION_WORDS = listOf(
+        "dilute", "diluted", "dilution", "water down",
+        "spada", "spadning", "utspadd",
+        "verdunnen", "verdunnung",
+        "diluir", "dilucion", "diluida",
+        "diluer", "dilution",
+        "diluire", "diluizione",
+        "diluicao", "verdun",
+        "lawin", "palabnawin",
+        "तनुकरण", "पतला",
+        "تخفیف", "پتلا",
+        "稀释"
+    )
+
+    /** Words asking how much of a sample is left after decay. */
+    val REMAINS_WORDS = listOf(
+        "remain", "remains", "remaining", "left", "left over", "is left",
+        "kvar", "aterstar", "blir kvar",
+        "ubrig", "bleibt ubrig", "verbleibt",
+        "queda", "quedan", "restante", "sobra",
+        "reste", "restant", "il reste",
+        "rimane", "rimanente", "resta",
+        "resta", "restante", "sobra",
+        "oor", "bly oor",
+        "natitira", "matitira",
+        "बचेगा", "बचता", "शेष",
+        "باقی", "بچے گا",
+        "剩下", "剩余", "还剩"
+    )
+
+    /**
+     * The nine in-app tools the assistant can point at, and the words that name them.
+     *
+     * Lives here rather than in `strings.xml` because it is vocabulary, not display text: the same
+     * reason every other multilingual word list in the assistant is Kotlin. Splitting keywords into
+     * resources and answers into resources would look tidier and leave nothing tying a feature's
+     * twelve spellings to the paragraph they resolve to.
+     */
+    val APP_FEATURE_WORDS: Map<String, List<String>> = mapOf(
+        "nuclide_table" to listOf(
+            "nuclide", "nuclides", "table of nuclides", "isotope table", "chart of nuclides",
+            "nuklid", "nuklider", "nuklidkarta", "nuklidkarte", "nuclido", "nuclidos",
+            "nucleide", "nuclide", "nuclidi", "nuclideo", "nuklied",
+            "न्यूक्लाइड", "نیوکلائیڈ", "核素", "核素表"
+        ),
+        "emission_spectrum" to listOf(
+            "emission spectrum", "emission spectra", "spectral line", "spectrum viewer",
+            "emissionsspektrum", "spektrum", "espectro de emision", "espectro",
+            "spectre d emission", "spettro di emissione", "espectro de emissao",
+            "emissiespektrum", "spektro",
+            "उत्सर्जन स्पेक्ट्रम", "اخراجی طیف", "发射光谱", "光谱"
+        ),
+        "flashcards" to listOf(
+            "flashcard", "flashcards", "flash card", "study card",
+            "flashkort", "lernkarten", "karteikarten", "tarjetas", "fichas",
+            "cartes memoire", "flashcard", "carte", "cartoes", "flitskaarte",
+            "फ्लैशकार्ड", "فلیش کارڈ", "抽认卡", "记忆卡"
+        ),
+        "achievements" to listOf(
+            "achievement", "achievements", "badge", "badges", "trophy",
+            "prestation", "prestationer", "erfolge", "abzeichen", "logros", "insignias",
+            "succes", "obiettivi", "conquistas", "prestasies", "tagumpay",
+            "उपलब्धि", "کامیابی", "成就", "徽章"
+        ),
+        "molar_mass" to listOf(
+            "molar mass calculator", "molar mass tool", "mass calculator", "formula calculator",
+            "molmassa", "molmassenrechner", "calculadora de masa molar",
+            "calculateur de masse molaire", "calcolatore di massa molare",
+            "calculadora de massa molar", "molmassa sakrekenaar",
+            "मोलर द्रव्यमान कैलकुलेटर", "مولر ماس کیلکولیٹر", "摩尔质量计算器"
+        ),
+        "unit_converter" to listOf(
+            "unit converter", "convert units", "conversion tool",
+            "enhetsomvandlare", "einheitenumrechner", "conversor de unidades",
+            "convertisseur d unites", "convertitore di unita", "conversor de unidades",
+            "eenheidsomskakelaar", "unit converter",
+            "इकाई परिवर्तक", "یونٹ کنورٹر", "单位换算", "单位转换"
+        ),
+        "ideal_gas" to listOf(
+            "ideal gas", "gas law", "pv nrt",
+            "ideal gas", "idealgas", "gaslag", "gasgesetz", "gas ideal", "ley de los gases",
+            "gaz parfait", "gas perfetto", "gas ideal", "ideale gas",
+            "आदर्श गैस", "مثالی گیس", "理想气体"
+        ),
+        "reaction_balancer" to listOf(
+            "reaction balancer", "balance reactions", "chemical reactions tool",
+            "reaktionsbalanserare", "reaktionsgleichung", "balanceador de reacciones",
+            "equilibreur de reactions", "bilanciatore di reazioni",
+            "balanceador de reacoes", "reaksiebalanseerder",
+            "अभिक्रिया संतुलक", "تعاملات کا توازن", "反应配平", "配平"
+        ),
+        "capabilities" to listOf(
+            "what can you do", "what do you do", "your features", "help me",
+            "vad kan du", "vad kan du gora", "was kannst du", "deine funktionen",
+            "que puedes hacer", "que sabes hacer", "que peux tu faire",
+            "cosa puoi fare", "o que voce pode fazer", "wat kan jy doen",
+            "ano ang kaya mo", "तुम क्या कर सकते हो", "آپ کیا کر سکتے ہیں",
+            "你能做什么", "你会什么"
+        )
     )
 }

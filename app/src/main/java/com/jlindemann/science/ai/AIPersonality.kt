@@ -79,13 +79,17 @@ object AIPersonality {
         value: String,
         isRepeat: Boolean = false
     ): String {
+        // Through the localized context, like every sibling here. Reading off the raw `context`
+        // resolved these three sentences in the device locale while the rest of the same reply came
+        // back in the detected chat language.
+        val localizedCtx = getLocalizedContext(context, language)
         if (value.isEmpty() || value == "---") {
-            return context.getString(R.string.ai_no_property_data, elementName, propertyLabel)
+            return localizedCtx.getString(R.string.ai_no_property_data, elementName, propertyLabel)
         }
         return if (isRepeat) {
-            context.getString(R.string.ai_recap_is, elementName, propertyLabel, value)
+            localizedCtx.getString(R.string.ai_recap_is, elementName, propertyLabel, value)
         } else {
-            context.getString(R.string.ai_property_is, elementName, propertyLabel, value)
+            localizedCtx.getString(R.string.ai_property_is, elementName, propertyLabel, value)
         }
     }
 
@@ -157,76 +161,42 @@ object AIPersonality {
         }
     }
 
+    /**
+     * The chips offered under an empty or idle chat.
+     *
+     * Read from `<string-array>` resources rather than written here, so all twelve shipped
+     * languages get them. The hand-written `when (language)` this replaced covered Swedish, German
+     * and English only — Afrikaans, Filipino, Spanish, French, Hindi, Italian, Portuguese, Urdu and
+     * Chinese users were offered English chips in an otherwise translated conversation.
+     */
     fun getSuggestedQuestions(
         context: Context,
         language: String,
         elementName: String?,
         topic: String?
     ): List<String> {
-        val suggestions = mutableListOf<String>()
+        val localizedCtx = getLocalizedContext(context, language)
+        val locale = Locale.forLanguageTag(toBcp47Tag(language))
 
-        when (language) {
-            "sv" -> {
-                if (elementName != null) {
-                    val element = elementName.replaceFirstChar { it.uppercase() }
-                    suggestions.add("Användning av $element")
-                    suggestions.add("Atomnummer för $element")
-                    suggestions.add("Är $element farligt?")
-                    suggestions.add("Vart finns $element?")
-                    suggestions.add("Elektronkonfiguration")
-                } else if (topic == "trends") {
-                    suggestions.add("Vad är periodiska trender?")
-                    suggestions.add("Elektronegativitet")
-                    suggestions.add("Atomradie")
-                    suggestions.add("Joniseringsenergi")
-                } else {
-                    suggestions.add("Berätta en kul fakta")
-                    suggestions.add("Starta en quiz")
-                    suggestions.add("Vilka är ädelgaserna?")
-                    suggestions.add("Tyngsta grundämnet?")
+        val suggestions = when {
+            elementName != null -> {
+                val element = elementName.replaceFirstChar { it.uppercase(locale) }
+                // getStringArray does not format, so the substitution happens here — with the chat
+                // locale, since this file deliberately refuses to touch Locale.setDefault.
+                array(localizedCtx, R.array.ai_suggest_element).map { item ->
+                    runCatching { String.format(locale, item, element) }.getOrDefault(item)
                 }
             }
-            "de" -> {
-                if (elementName != null) {
-                    val element = elementName.replaceFirstChar { it.uppercase() }
-                    suggestions.add("Verwendung von $element")
-                    suggestions.add("Atommasse von $element")
-                    suggestions.add("Ist $element gefährlich?")
-                    suggestions.add("Wo wird $element gefunden?")
-                } else if (topic == "trends") {
-                    suggestions.add("Was sind periodische Trends?")
-                    suggestions.add("Elektronegativität")
-                    suggestions.add("Atomradius")
-                    suggestions.add("Ionisierungsenergie")
-                } else {
-                    suggestions.add("Erzähl mir einen Fakt")
-                    suggestions.add("Starte ein Quiz")
-                    suggestions.add("Was sind Edelgase?")
-                    suggestions.add("Schwerstes Element?")
-                }
-            }
-            else -> {
-                if (elementName != null) {
-                    val element = elementName.replaceFirstChar { it.uppercase() }
-                    suggestions.add("Usage of $element")
-                    suggestions.add("Atomic mass of $element")
-                    suggestions.add("Is $element dangerous?")
-                    suggestions.add("Where is $element found?")
-                    suggestions.add("Electron configuration")
-                } else if (topic == "trends") {
-                    suggestions.add("What are periodic trends?")
-                    suggestions.add("Electronegativity trend")
-                    suggestions.add("Atomic radius trend")
-                    suggestions.add("Ionization energy")
-                } else {
-                    suggestions.add("Tell me a fun fact")
-                    suggestions.add("Start a quiz")
-                    suggestions.add("What are alkali metals?")
-                    suggestions.add("Heaviest element?")
-                }
-            }
+            topic == "trends" -> array(localizedCtx, R.array.ai_suggest_trends)
+            // With no element and no topic in play there is room to advertise what the assistant
+            // can do beyond lookups, which is otherwise undiscoverable from an empty chat.
+            else -> array(localizedCtx, R.array.ai_suggest_general) +
+                    array(localizedCtx, R.array.ai_suggest_tools).shuffled().take(1)
         }
 
         return suggestions.shuffled().take(3)
     }
+
+    private fun array(context: Context, resId: Int): List<String> =
+        runCatching { context.resources.getStringArray(resId).toList() }.getOrDefault(emptyList())
 }

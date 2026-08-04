@@ -62,8 +62,8 @@
                 android:progressBackgroundTint="?attr/colorSurfaceVariant"
                 android:progressTint="?attr/colorSurfaceVariant"
                 android:max="100"
-                android:progress="25"
-                android:secondaryProgress="75" />
+                android:progress="10"
+                android:secondaryProgress="40" />
 
             <LinearLayout
                 android:layout_width="match_parent"

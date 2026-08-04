@@ -15,7 +15,22 @@ enum class FieldCategory {
 enum class Dimension {
     TEMPERATURE, MASS, DENSITY, LENGTH, ENERGY, ENERGY_PER_MOL, PRESSURE, POWER, TIME,
     VELOCITY, RESISTIVITY, CONDUCTIVITY, VOLUME_PER_MOL, HEAT_CAPACITY, CONCENTRATION,
-    AREA, DIMENSIONLESS
+    AREA, DIMENSIONLESS,
+
+    /** Litre-based volume. Distinct from [VOLUME_PER_MOL], which is a molar quantity. */
+    VOLUME,
+
+    /** Amount of substance, base mol. */
+    AMOUNT,
+
+    /**
+     * Molar concentration, base mol/L.
+     *
+     * Deliberately not folded into [CONCENTRATION], which is mg/kg and backs the nine
+     * `abundance_*` fields. Sharing a dimension would let [Filter.FieldCompare] rank a molarity
+     * against a crustal abundance and call the comparison meaningful.
+     */
+    MOLARITY
 }
 
 /**

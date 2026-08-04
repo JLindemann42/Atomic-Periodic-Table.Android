@@ -6,6 +6,7 @@ import com.jlindemann.science.ai.core.EntityRef
 import com.jlindemann.science.ai.core.Intent
 import com.jlindemann.science.ai.core.QueryPlan
 import com.jlindemann.science.ai.data.DatasetIndex
+import com.jlindemann.science.ai.data.Dimension
 import com.jlindemann.science.ai.data.FieldKind
 import com.jlindemann.science.ai.data.FieldRegistry
 import com.jlindemann.science.ai.data.KnowledgeStore
@@ -66,7 +67,13 @@ class QueryPlanner(
         // The unbacked-concept guard therefore declined every Hindi "which elements are in the same
         // group as carbon", which is a perfectly answerable structural question.
         val namesTheSameGroup = Lexicon.SAME_AS_WORDS.any { normalized.contains(it) }
-        if (!namesTheSameGroup && Lexicon.UNBACKED_CONCEPTS.any { normalized.contains(it) }) {
+        // An equation is written, not described. "Balance this reaction: Fe + O2 -> Fe2O3" carries
+        // a reaction word, and the unbacked-concept guard declines every sentence that does — but
+        // the arrow is far stronger evidence of what the sentence is than the noun beside it.
+        val writesAnEquation = EQUATION_ARROW.containsMatchIn(rawQuery)
+        if (!namesTheSameGroup && !writesAnEquation &&
+            Lexicon.UNBACKED_CONCEPTS.any { normalized.contains(it) }
+        ) {
             // A question *about* one of these concepts wants it explained, and the dictionary
             // can do that: "why are alkali metals so reactive". A question asking which element
             // is the most reactive wants an element, and only the bespoke scoring rule can
@@ -126,6 +133,12 @@ class QueryPlanner(
         val elementMatches = entities.resolveAll(rawQuery, limit = 4)
         val fieldMatches = fields.resolveAll(rawQuery, limit = 3)
         val evidence = ArrayList<String>(6)
+
+        // ---- Standalone unit conversion -------------------------------------------------------
+        // Placed here rather than in `calculationPlan`, because the guard that separates this from
+        // a property lookup needs the resolved field and element, and neither is available where
+        // the calculations run.
+        unitConvertPlan(rawQuery, operators)?.let { return it }
 
         // ---- Narrative questions -------------------------------------------------------------
         // Usage, biological role and etymology are answered from prose, not from a field. They are
@@ -1185,6 +1198,35 @@ class QueryPlanner(
      * conversions. Returns null when the query is not one of those.
      */
     private fun calculationPlan(rawQuery: String, normalized: String): QueryPlan? {
+        // --- Balance an equation --------------------------------------------------------------
+        // First, and on the raw query. The arrow is the most specific syntax any of these
+        // questions carry, and `normalized` is lowercased, which destroys every formula in the
+        // sentence. A plan is produced only when the equation actually parses, so "x -> y" written
+        // in prose falls through to everything below untouched.
+        if (EQUATION_ARROW.containsMatchIn(rawQuery)) {
+            val sides = com.jlindemann.science.ai.data.EquationBalancer
+                .parseEquation(rawQuery) { store.bySymbol(it) != null }
+            if (sides != null) {
+                return QueryPlan(
+                    intent = Intent.BALANCE_EQUATION,
+                    rawQuery = rawQuery,
+                    confidence = 0.9,
+                    evidence = listOf("equation ${sides.first.size} -> ${sides.second.size}")
+                )
+            }
+        }
+
+        // --- Solutions: molarity, mass↔moles↔concentration, dilution ---------------------------
+        // Above the mole branch, because `MOLE_QUANTITY` matches the "0.5 mol" inside "0.5 mol/L"
+        // and would answer a molarity question with a particle count.
+        solutionPlan(rawQuery, normalized)?.let { return it }
+
+        // --- Decay over time --------------------------------------------------------------------
+        // Above the isotope branch further down: `ISOTOPE_WORDS` holds "decay", "half life" and
+        // "how long does", so every one of these questions would otherwise be answered with the
+        // isotope table instead of the arithmetic that was asked for.
+        decayPlan(rawQuery, normalized)?.let { return it }
+
         // --- Moles to particles -------------------------------------------------------------
         if (mentionsAny(normalized, Lexicon.MOLE_WORDS)) {
             MOLES.find(normalized)?.let { match ->
@@ -1276,8 +1318,26 @@ class QueryPlanner(
         val wantsComposition = Lexicon.COMPOSITION_WORDS.any { normalized.contains(it) }
         if (!wantsMass && !wantsComposition) return null
 
+        val candidate = compoundIn(rawQuery, normalized) ?: return null
+
+        return QueryPlan(
+            intent = Intent.FORMULA_MASS,
+            fieldIds = if (wantsComposition) listOf("composition") else emptyList(),
+            rawQuery = candidate,
+            confidence = 0.9,
+            evidence = listOf(if (wantsComposition) "composition of $candidate" else "molar mass of $candidate")
+        )
+    }
+
+    /**
+     * The compound a query is about, written as a formula or named in words.
+     *
+     * Shared by the formula-mass and solution branches so the two cannot disagree about what
+     * "table salt" means.
+     */
+    private fun compoundIn(rawQuery: String, normalized: String): String? =
         // Prefer an explicit formula in the raw text, where capitalisation survives.
-        val candidate = FORMULA.findAll(rawQuery)
+        FORMULA.findAll(rawQuery)
             .map { it.value }
             .filter { it.any { c -> c.isDigit() } || it.length > 2 }
             .firstOrNull { candidate ->
@@ -1293,19 +1353,176 @@ class QueryPlanner(
                 .firstOrNull {
                     com.jlindemann.science.ai.retrieval.TextMatching.containsWord(normalized, it.key)
                 }?.value
-            ?: return null
-
-        return QueryPlan(
-            intent = Intent.FORMULA_MASS,
-            fieldIds = if (wantsComposition) listOf("composition") else emptyList(),
-            rawQuery = candidate,
-            confidence = 0.9,
-            evidence = listOf(if (wantsComposition) "composition of $candidate" else "molar mass of $candidate")
-        )
-    }
 
     private fun atomicMassOf(symbol: String): Double? =
         store.bySymbol(symbol)?.quantity("atomic_mass")?.value
+
+    /**
+     * A chemical equation's arrow.
+     *
+     * A bare `=` counts, since plenty of people write one, but never `==`, `<=`, `>=` or `!=` —
+     * those turn up in comparisons, and reading one as an equation would claim a query that is not.
+     */
+    private val EQUATION_ARROW =
+        Regex("""(?:<->|-{1,2}>|=>|→|⇌|⇄|⟶|(?<![<>=!])=(?![=>]))""")
+
+    /**
+     * A standalone unit conversion, on a number the user supplied.
+     *
+     * Every one of the conditions below exists to keep this off a query that already has a better
+     * answer. Taken together they say: there is a number with a unit, a target was named, this is
+     * not an element's property being asked for, nothing is being ranked or filtered, and the two
+     * units actually relate.
+     *
+     * The property-lookup guard is deliberately run against the query with its **units removed**.
+     * A unit token resolves a field all by itself — "GPa" reaches the pressure fields, "eV" the
+     * ionisation energies, "Pa" even resolves protactinium — so a guard that simply asked whether
+     * a field resolved declined "convert 5 GPa to MPa" on the strength of the very units being
+     * converted. What actually distinguishes "density of gold in kg/m³" is that a field and an
+     * element are named *outside* the unit expression, and that is what is checked here.
+     */
+    private fun unitConvertPlan(rawQuery: String, operators: Operators): QueryPlan? {
+        // Ranking and filtering carry numbers with units too: "elements denser than 5 g/cm³".
+        if (operators.comparators.isNotEmpty() || operators.subsetFilters.isNotEmpty()) return null
+        if (operators.superlativeDescending != null || operators.topN != null) return null
+        if (operators.aggregation != Aggregation.NONE || operators.range != null) return null
+
+        val source = QuantityScanner.scan(rawQuery).firstOrNull() ?: return null
+        // The scanner's own reading comes first. `OperatorExtractor.targetUnit` accepts any unit
+        // with a preposition on either side, which is right for a property lookup — there is no
+        // source quantity there to confuse it — but here it picks the unit being converted *from*:
+        // in "convert 5 GPa to MPa" the GPa has "to" on its right, so it was read as the target and
+        // the conversion collapsed to a no-op.
+        val target = QuantityScanner.targetUnit(rawQuery) ?: operators.targetUnit ?: return null
+        if (target == source.unit) return null
+        // A dimensional mismatch means the query was misread. Declining is the honest move; the
+        // alternative is inventing a relationship between a temperature and a volume.
+        if (!com.jlindemann.science.ai.data.UnitConverter.convertible(source.unit, target)) return null
+
+        val residual = withoutUnits(rawQuery, source)
+        if (fields.resolveAll(residual, limit = 1).isNotEmpty() &&
+            entities.resolveAll(residual, limit = 1).isNotEmpty()
+        ) return null
+
+        return QueryPlan(
+            intent = Intent.UNIT_CONVERT,
+            rawQuery = rawQuery,
+            targetUnit = target,
+            // Below the 0.9 of the syntax-driven branches, since a unit token is weaker evidence
+            // than an arrow or a nuclide, and above PROPERTY_LOOKUP's 0.8 so a phrasing that
+            // reaches both resolves toward the conversion.
+            confidence = 0.85,
+            evidence = listOf("convert ${source.unit} to $target")
+        )
+    }
+
+    /**
+     * The query with its unit expression taken out, for the property-lookup test above.
+     *
+     * Removes the scanned quantity's own span and every remaining token that is itself a unit, so
+     * what is left is the words the sentence used to name something — which is where a genuine
+     * property lookup keeps its field and its element.
+     */
+    private fun withoutUnits(rawQuery: String, source: ScannedQuantity): String {
+        val withoutSource = rawQuery.removeRange(source.range)
+        return withoutSource.split(' ')
+            .filterNot { token ->
+                val cleaned = token.trim(',', ';', '.', '(', ')')
+                cleaned.isNotEmpty() && (
+                        com.jlindemann.science.ai.data.UnitConverter.knownUnit(cleaned) != null ||
+                                Lexicon.UNIT_WORDS.containsKey(cleaned.lowercase()) ||
+                                Lexicon.SCRIPT_UNIT_WORDS.containsKey(cleaned)
+                        )
+            }
+            .joinToString(" ")
+    }
+
+    /**
+     * A solution-chemistry question: molarity, a mass from a concentration, or a dilution.
+     *
+     * Sits above the mole branch on purpose. `MOLE_QUANTITY` matches the "0.5 mol" inside
+     * "0.5 mol/L", so left below it "how many grams of NaCl for 250 mL of 0.5 mol/L" would be
+     * answered as a particle count.
+     */
+    private fun solutionPlan(rawQuery: String, normalized: String): QueryPlan? {
+        val molarities = QuantityScanner.of(rawQuery, Dimension.MOLARITY)
+        val volumes = QuantityScanner.of(rawQuery, Dimension.VOLUME)
+        val amounts = QuantityScanner.of(rawQuery, Dimension.AMOUNT)
+        val masses = GRAMS.findAll(normalized).count()
+
+        val framed = mentionsAny(normalized, Lexicon.SOLUTION_WORDS)
+        val dilutes = mentionsAny(normalized, Lexicon.DILUTION_WORDS)
+
+        // Two independent quantities, or one plus an explicit frame. A single "250 mL" on its own
+        // is not a solution question, and claiming it would take volume conversions away from the
+        // converter that answers them properly.
+        val quantities = molarities.size + volumes.size + amounts.size + masses
+        if (quantities < 2) return null
+        if (molarities.isEmpty() && !framed && !dilutes) return null
+
+        return QueryPlan(
+            intent = Intent.SOLUTION_CALC,
+            rawQuery = rawQuery,
+            literal = compoundIn(rawQuery, normalized),
+            // An explicit molarity unit is unambiguous syntax, on a par with an arrow or a nuclide.
+            // A frame word carrying units spelled out in words is weaker, and matches what the
+            // mole branch below claims for the same kind of evidence.
+            confidence = if (molarities.isNotEmpty()) 0.9 else 0.85,
+            evidence = listOf(
+                if (dilutes) "dilution" else "solution",
+                "quantities $quantities"
+            )
+        )
+    }
+
+    /**
+     * A decay-arithmetic question: how much is left after a time, or how long a decay takes.
+     *
+     * Sits above the isotope branch below, which fires at 0.9 on `ISOTOPE_WORDS` — a list holding
+     * "decay", "half life", "stable" and "how long does". Placed after it, this intent would never
+     * run at all.
+     *
+     * Requires a number to work with. Without that gate a bare "half-life of carbon-14" becomes an
+     * arithmetic question with no arithmetic in it, and the isotope table answers that better.
+     */
+    private fun decayPlan(rawQuery: String, normalized: String): QueryPlan? {
+        // Every match, not the first. The nuclide pattern is `word gap digits`, and a sentence like
+        // "how much of 100 g of carbon-14 remains" matches "of 100" before it reaches the nuclide —
+        // so taking the first match declines the question on the strength of the word "of".
+        val nuclides = NUCLIDE.findAll(normalized)
+            .mapNotNull { match ->
+                val resolved = nuclideElement(match.groupValues[1])
+                val number = match.groupValues[2].toIntOrNull()
+                if (resolved != null && number != null && number >= resolved.atomicNumber) {
+                    resolved to number
+                } else null
+            }
+            .distinct()
+            .take(2)
+            .toList()
+        // Two nuclides written out is a comparison — "uranium-235 vs uranium-238" — and the branch
+        // below answers it properly. Claiming it here would answer a side-by-side question with
+        // arithmetic about one of the two.
+        if (nuclides.size != 1) return null
+        val (element, mass) = nuclides.single()
+
+        val times = QuantityScanner.of(rawQuery, Dimension.TIME)
+        val amounts = GRAMS.findAll(normalized).count() +
+                QuantityScanner.of(rawQuery, Dimension.AMOUNT).size
+        val asksHowMuch = mentionsAny(normalized, Lexicon.REMAINS_WORDS)
+
+        if (times.isEmpty() && amounts < 2) return null
+
+        return QueryPlan(
+            intent = Intent.DECAY_CALC,
+            entities = listOf(EntityRef.Element(element.key)),
+            // The mass number rides in `limit`, as the neutron-count branch below already does.
+            limit = mass,
+            rawQuery = rawQuery,
+            confidence = if (times.isNotEmpty() && (asksHowMuch || amounts > 0)) 0.9 else 0.85,
+            evidence = listOf("decay ${element.key}-$mass")
+        )
+    }
 
     /**
      * Aspects a multi-part comparison asked for that no stored field can supply.

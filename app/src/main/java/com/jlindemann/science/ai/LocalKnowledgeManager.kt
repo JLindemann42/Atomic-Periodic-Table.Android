@@ -2,6 +2,8 @@ package com.jlindemann.science.ai
 
 import android.content.Context
 import com.jlindemann.science.R
+import com.jlindemann.science.ai.nlu.Lexicon
+import com.jlindemann.science.ai.retrieval.TextMatching
 import com.jlindemann.science.model.Constants
 import com.jlindemann.science.model.ConstantsModel
 import com.jlindemann.science.model.Dictionary
@@ -68,25 +70,60 @@ class LocalKnowledgeManager(private val context: Context?) {
             ?: resolveDictionary(normalized, activeLanguage)
     }
 
+    /**
+     * Which in-app tool a question is about.
+     *
+     * Vocabulary comes from [Lexicon.APP_FEATURE_WORDS] and the answers from `strings.xml`, so all
+     * twelve shipped languages reach these. Previously both were written inline here: the answers
+     * as English literals and the keywords in English and Swedish only, which left ten languages
+     * unable to ask the question and every language reading the answer in English.
+     *
+     * Matched on word boundaries rather than by `contains`. A bare substring search found "unit"
+     * inside "opportunity" and "reaction" inside "interaction", and answered a chemistry question
+     * with a tour of the app.
+     */
     private fun resolveAppFeature(query: String): QueryResult? {
-        val features = listOf(
-            listOf("nuclide", "table of nuclides", "nuklid", "kärnavfall", "isotoptabell") to "The app includes a comprehensive **Table of Nuclides** (Nuclide Table) showing isotopes for all elements, color-coded by their decay types (alpha, beta, etc.).",
-            listOf("emission", "spectrum", "spectral", "lines", "spektrum", "emissionsspektrum") to "You can view the **Emission Spectrum** (spectral lines) for elements in their detailed property panels. It shows the unique light pattern each element produces.",
-            listOf("flashcard", "game", "learn", "quiz", "test", "lärspel", "öva") to "The app features several **Flashcard mini-games** to help you master element symbols, atomic masses, classifications, and more. You can track your level and XP!",
-            listOf("achievement", "progress", "stat", "prestation", "framsteg", "statistik") to "Track your chemistry knowledge with **Achievements** and usage statistics, which can be found on the User Page.",
-            listOf("molar mass", "calculator", "formula", "molmassa", "beräkna", "kalkylator") to "There is a built-in **Molar Mass Calculator** tool that lets you calculate the molecular weight of complex chemical compounds.",
-            listOf("unit", "converter", "temperature", "kelvin", "celsius", "enhetsomvandlare") to "The app includes a versatile **Unit Converter** for converting temperatures and other scientific units used in chemistry.",
-            listOf("ideal gas", "pv=nrt", "gas law", "ideala gaslagen") to "Use the **Ideal Gas Calculator** to calculate pressure, volume, moles, or temperature for any ideal gas using the PV=nRT equation.",
-            listOf("reaction", "balancer", "equation", "favorit", "reaktionsbalanserare") to "The **Chemical Reaction Balancer** tool helps you balance complex chemical equations and save your favorite reactions for later study.",
-            listOf("how to use", "what can you do", "features", "vad kan du göra", "hjälp", "funktioner") to "I can help you explore elements, compare properties, calculate molar masses, explain chemical concepts, and guide you through the app's tables and tools! Just ask about an element or a chemistry term."
-        )
-
-        for ((keywords, desc) in features) {
-            if (keywords.any { query.contains(it) }) {
-                return QueryResult(response = desc, topic = "app_feature", isTechnical = false)
-            }
+        for ((feature, keywords) in Lexicon.APP_FEATURE_WORDS) {
+            if (keywords.none { TextMatching.containsWord(query, it) }) continue
+            val response = featureAnswer(feature) ?: continue
+            return QueryResult(response = response, topic = "app_feature", isTechnical = false)
         }
         return null
+    }
+
+    private fun featureAnswer(feature: String): String? {
+        val id = FEATURE_STRINGS[feature] ?: return null
+        return context?.getString(id) ?: FEATURE_FALLBACK[feature]
+    }
+
+    private companion object {
+        val FEATURE_STRINGS: Map<String, Int> = mapOf(
+            "nuclide_table" to R.string.ai_feature_nuclide_table,
+            "emission_spectrum" to R.string.ai_feature_emission_spectrum,
+            "flashcards" to R.string.ai_feature_flashcards,
+            "achievements" to R.string.ai_feature_achievements,
+            "molar_mass" to R.string.ai_feature_molar_mass,
+            "unit_converter" to R.string.ai_feature_unit_converter,
+            "ideal_gas" to R.string.ai_feature_ideal_gas,
+            "reaction_balancer" to R.string.ai_feature_reaction_balancer,
+            "capabilities" to R.string.ai_feature_capabilities
+        )
+
+        /**
+         * Used only when there is no Context at all, which is the shape the unit tests construct.
+         * Deliberately terse: the real answers live in `strings.xml` and are translated there.
+         */
+        val FEATURE_FALLBACK: Map<String, String> = mapOf(
+            "nuclide_table" to "The app includes a Table of Nuclides showing isotopes for all elements.",
+            "emission_spectrum" to "You can view an element's emission spectrum in its detail panel.",
+            "flashcards" to "The app has flashcard mini-games for symbols, masses and classifications.",
+            "achievements" to "Track your progress with achievements on the user page.",
+            "molar_mass" to "There is a built-in molar mass calculator for chemical compounds.",
+            "unit_converter" to "The app includes a unit converter for temperatures and other units.",
+            "ideal_gas" to "Use the ideal gas calculator to work with PV = nRT.",
+            "reaction_balancer" to "The chemical reaction balancer helps you balance equations.",
+            "capabilities" to "I can look up element properties, balance equations, calculate molar masses and convert units."
+        )
     }
 
     private fun resolveEquation(query: String): QueryResult? {

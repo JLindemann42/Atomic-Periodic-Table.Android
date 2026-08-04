@@ -1209,4 +1209,84 @@ Nagbabahagi sila ng mga katulad na gawi sa kemikal dahil sa kanilang mga valence
     <string name="question_valence_electrons">Ilang valence electron mayroon ang %1$s?</string>
     <string name="quiz_loading">Inihahanda ang mga tanong…</string>
     <string name="quiz_no_questions">Hindi makabuo ng mga tanong para sa larong ito. Subukan ang iba.</string>
+
+    <!-- Assistant: calculations, tools and suggestion chips -->
+    <string name="ai_unit_converted">Ang **%1$s %2$s** ay **%3$s %4$s**.</string>
+    <string name="ai_unit_bridge_note">Ginamit ang 1 eV = 96.485 kJ/mol — parehong enerhiya, bilang kada partikulo sa halip na kada mol.</string>
+    <string name="ai_equation_balanced">**%1$s → %2$s**</string>
+    <string name="ai_equation_check_header">Pagsusuri ng atomo</string>
+    <string name="ai_equation_tally_row">• **%1$s** — %2$d sa kaliwa, %3$d sa kanan</string>
+    <string name="ai_equation_one_sided">Hindi mabalanse ang ekwasyong iyan: may elementong nasa isang panig lang, kaya walang koepisyenteng makakaayos nito.</string>
+    <string name="ai_equation_underdetermined">May higit sa isang malayang balanse ang ekwasyong iyan — parang dalawang reaksyon na isinulat bilang isa. Hatiin mo at babalansehin ko ang bawat isa.</string>
+    <string name="ai_equation_too_large">Kailangan ng ekwasyong iyan ng koepisyenteng masyadong malaki para sa totoong reaksyon. Suriin ang mga pormula.</string>
+    <string name="ai_equation_parse_failed">Hindi ko iyon nabasa bilang ekwasyong kemikal. Subukan ang anyong Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_equation_no_solution">Walang balanse ang ekwasyong iyan gamit ang buong positibong koepisyente.</string>
+    <string name="ai_solution_generic_substance">ang solusyon</string>
+    <string name="ai_solution_mass_needed">Kailangan mo ng **%1$s g** ng %2$s para sa %3$s mL ng %4$s mol/L na solusyon.</string>
+    <string name="ai_solution_molarity">Ang konsentrasyon ng %2$s ay **%1$s mol/L**.</string>
+    <string name="ai_solution_volume">Kailangan mo ng **%1$s mL** sa **%2$s mol/L**.</string>
+    <string name="ai_solution_moles">Iyon ay **%1$s mol** ng %2$s.</string>
+    <string name="ai_dilution_result">Ang paglabnaw ng **%1$s mol/L** mula sa **%2$s mL** ay nagbibigay ng **%3$s mol/L** sa **%4$s mL**.</string>
+    <string name="ai_dilution_add_solvent">Magdagdag ng **%1$s mL** na solvent.</string>
+    <string name="ai_solution_working_header">Solusyon</string>
+    <string name="ai_solution_working_nvc">n = c × V → %1$s mol = %2$s mol/L × %3$s L</string>
+    <string name="ai_solution_working_mass">m = n × M → %1$s g = %2$s mol × %3$s g/mol</string>
+    <string name="ai_solution_working_c1v1">C₁V₁ = C₂V₂ → %1$s × %2$s = %3$s × %4$s</string>
+    <string name="ai_decay_stable">Matatag ang %1$s — hindi ito nabubulok, kaya walang nawawala sa paglipas ng panahon.</string>
+    <string name="ai_decay_unlisted">Hindi nakalista ang %1$s sa mga isotope ng elementong iyon, kaya wala akong half-life para dito.</string>
+    <string name="ai_decay_no_half_life">Nakalista ang %1$s, ngunit ang half-life nito ay nakatala bilang \"%2$s\", kaya hindi ko makalkula ang pagkabulok.</string>
+    <string name="ai_decay_effectively_none">Pagkatapos ng %2$s %3$s, halos wala nang natitira sa %1$s.</string>
+    <string name="ai_decay_elapsed">Ang pagbaba mula **%1$s g** hanggang **%2$s g** ng %3$s ay tumatagal ng humigit-kumulang **%4$s %5$s**.</string>
+    <string name="ai_decay_remaining">Humigit-kumulang **%1$s %2$s** ng orihinal na %3$s g ng %4$s ang natitira pagkatapos ng %5$s %6$s.</string>
+    <string name="ai_decay_half_lives">Sa panahong iyon, dumaraan ang %1$s sa **%2$s** half-life, at natitira ang mga **%3$s%%** ng sample.</string>
+    <string name="ai_decay_working_header">Solusyon</string>
+    <string name="ai_decay_working_half_life">Half-life ng %1$s: %2$s</string>
+    <string name="ai_decay_working_n">n = t / t½ = %1$s → 2⁻ⁿ = %2$s%%</string>
+    <string name="ai_feature_nuclide_table">May kumpletong **Table of Nuclides** ang app na nagpapakita ng mga isotope ng lahat ng elemento, may kulay ayon sa uri ng pagkabulok (alpha, beta, at iba pa).</string>
+    <string name="ai_feature_emission_spectrum">Makikita mo ang **emission spectrum** ng isang elemento sa detail panel nito. Ipinapakita nito ang natatanging pattern ng liwanag na nililikha ng elementong iyon.</string>
+    <string name="ai_feature_flashcards">May ilang **flashcard mini-games** ang app para sa mga simbolo, atomic mass at klasipikasyon, kasama ang level at XP na masusubaybayan.</string>
+    <string name="ai_feature_achievements">Subaybayan ang iyong progreso gamit ang **mga tagumpay** at estadistika ng paggamit sa user page.</string>
+    <string name="ai_feature_molar_mass">May built-in na **molar mass calculator** para sa molecular weight ng mga kumplikadong compound. Kaya ko rin ito rito — bigyan mo lang ako ng pormula.</string>
+    <string name="ai_feature_unit_converter">May **unit converter** ang app para sa temperatura at iba pang siyentipikong yunit. Puwede mo rin akong tanungin, halimbawa \"convert 500 K to °C\".</string>
+    <string name="ai_feature_ideal_gas">Gamitin ang **ideal gas calculator** para makuha ang presyon, volume, mol o temperatura mula sa PV = nRT.</string>
+    <string name="ai_feature_reaction_balancer">Tumutulong ang **chemical reaction balancer** sa pagbalanse ng ekwasyon at pag-save ng paborito. Puwede mo rin akong tanungin dito — isulat mo lang ang tulad ng Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_feature_capabilities">Kaya kong maghanap at maghambing ng mga katangian ng elemento, magbalanse ng ekwasyon, magkuwenta ng molar mass at konsentrasyon, mag-convert ng yunit, at magsagawa ng decay calculation. Magtanong tungkol sa isang elemento, o magsulat ng pormula o ekwasyon.</string>
+    <string-array name="ai_suggest_element">
+        <item>Gamit ng %1$s</item>
+        <item>Atomic mass ng %1$s</item>
+        <item>Delikado ba ang %1$s?</item>
+        <item>Saan matatagpuan ang %1$s?</item>
+        <item>Electron configuration ng %1$s</item>
+        <item>Mga isotope ng %1$s</item>
+    </string-array>
+    <string-array name="ai_suggest_trends">
+        <item>Ano ang periodic trends?</item>
+        <item>Trend ng electronegativity</item>
+        <item>Trend ng atomic radius</item>
+        <item>Ionization energy</item>
+    </string-array>
+    <string-array name="ai_suggest_general">
+        <item>Magkuwento ng kawili-wiling datos</item>
+        <item>Magsimula ng quiz</item>
+        <item>Ano ang alkali metals?</item>
+        <item>Pinakamabigat na elemento?</item>
+    </string-array>
+    <string-array name="ai_suggest_tools">
+        <item>Balansehin ang Fe + O2 -&gt; Fe2O3</item>
+        <item>I-convert ang 500 K sa °C</item>
+        <item>Ilang gramo ng NaCl para sa 250 mL ng 0.5 mol/L?</item>
+        <item>Ilan sa 100 g na carbon-14 ang natitira pagkatapos ng 11460 taon?</item>
+    </string-array>
+
+    <!-- Equation Balancer tool -->
+    <string name="balancer_tool_title">Equation Balancer</string>
+    <string name="bal">Balancer</string>
+    <string name="balancer_tool_text">Balansehin ang mga ekwasyong kemikal gamit ang eksaktong buong bilang na koepisyente</string>
+    <string name="balancer_tool_card_title">Magbalanse ng ekwasyon</string>
+    <string name="balancer_tool_hint">Fe + O2 -&gt; Fe2O3</string>
+    <string name="balancer_tool_result">Balanseng ekwasyon</string>
+    <string name="balancer_tool_prompt">Mag-type ng ekwasyon na may arrow, halimbawa Fe + O2 -&gt; Fe2O3.</string>
+    <string name="balancer_tool_examples">Mga halimbawa</string>
+    <string name="balancer_tool_note">Maaaring isulat ang arrow bilang -&gt;, =&gt;, = o →. Hindi pinapansin ang state symbols na (s), (l), (g) at (aq).</string>
+    <string name="balancer_tool_copied">Nakopya ang ekwasyon</string>
 </resources>

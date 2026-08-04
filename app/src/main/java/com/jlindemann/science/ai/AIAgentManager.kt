@@ -8,6 +8,7 @@ import com.jlindemann.science.ai.core.AiEngine
 import com.jlindemann.science.ai.core.AndroidStrings
 import com.jlindemann.science.ai.core.DialogueState
 import com.jlindemann.science.ai.core.Intent
+import com.jlindemann.science.ai.core.QueryPlan
 import com.jlindemann.science.ai.data.FieldCategory
 import com.jlindemann.science.ai.data.FieldRegistry
 import com.jlindemann.science.ai.retrieval.RetrievalService
@@ -108,7 +109,25 @@ class AIAgentManager(private val context: Context?) {
 
     private val rateLimiter: AIRateLimiter? by lazy { context?.let { AIRateLimiter(it) } }
     private val learningManager: AILearningManager? by lazy { context?.let { AILearningManager(it) } }
-    private val localKnowledgeManager: LocalKnowledgeManager? by lazy { context?.let { LocalKnowledgeManager(it) } }
+    /**
+     * Rebuilt when the chat language changes, like [cachedEngine] is.
+     *
+     * A `by lazy` here captured the raw Context once, so the manager's app-feature answers came
+     * back in the device locale no matter what language the conversation had been detected as —
+     * and assigning [localizedContext] later could not fix it, because the capture had happened.
+     */
+    private var localKnowledgeManagerCache: LocalKnowledgeManager? = null
+    private var localKnowledgeLanguage: String? = null
+
+    private val localKnowledgeManager: LocalKnowledgeManager?
+        get() {
+            val ctx = localizedContext ?: context ?: return null
+            if (localKnowledgeManagerCache == null || localKnowledgeLanguage != activeLanguage) {
+                localKnowledgeManagerCache = LocalKnowledgeManager(ctx)
+                localKnowledgeLanguage = activeLanguage
+            }
+            return localKnowledgeManagerCache
+        }
 
     private var molarMassCalculator: MolarMassCalculator? = null
     private var retrievalService: RetrievalService? = null
@@ -117,6 +136,39 @@ class AIAgentManager(private val context: Context?) {
     private var cachedEngineLanguage: String? = null
     /** Held so a change to offline mode rebuilds the engine, like a change of language does. */
     private var cachedEnginePolicy: com.jlindemann.science.ai.cards.ChatCardPolicy? = null
+
+    /**
+     * What the last [generateResponse] did, for the caller to report.
+     *
+     * A field rather than part of the return value: `generateResponse` returns the message two host
+     * activities and the panel controller already build on. Each panel owns its own agent, so no
+     * two conversations write this, and the coroutine's resumption orders the write before the
+     * caller's read — `@Volatile` only because the write happens on `Dispatchers.Default`.
+     */
+    @Volatile
+    var lastTurnStats: AiTurnStats? = null
+        private set
+
+    /** How long [initialize] took, in milliseconds. */
+    @Volatile
+    var initDurationMs: Long = 0
+        private set
+
+    /**
+     * The exception class that stopped [initialize], or null if it succeeded.
+     *
+     * The exception itself is still swallowed — degrading to the keyword handlers is deliberate —
+     * but a total failure of the assistant used to leave no trace at all.
+     */
+    @Volatile
+    var initError: String? = null
+        private set
+
+    /** Set by [structuredAnswer] when the engine throws, folded into the next [AiTurnStats]. */
+    private var pendingEngineError: String? = null
+
+    /** The plan behind the engine's answer this turn, read straight back out for [AiTurnStats]. */
+    private var pendingEnginePlan: QueryPlan? = null
 
     // Multi-language keywords for rich section extraction
     private val sectionKeywords = mapOf(
@@ -512,6 +564,7 @@ class AIAgentManager(private val context: Context?) {
 
     /** Initialize AI agent with element data */
     suspend fun initialize() {
+        val startedAt = System.currentTimeMillis()
         withContext(Dispatchers.IO) {
             try {
                 val ctx = context ?: return@withContext
@@ -533,10 +586,16 @@ class AIAgentManager(private val context: Context?) {
                 // loadCrossLanguageElementMap() is now lazy-loaded via ensureCrossLanguageMapLoaded()
 
                 isDataLoaded = true
+                initError = null
             } catch (e: Exception) {
                 isDataLoaded = false
+                // Still swallowed — the agent degrades rather than crashing the panel — but the
+                // failure is now reportable instead of silent.
+                initError = e.javaClass.simpleName
+                Log.w(TAG, "AI agent failed to initialize", e)
             }
         }
+        initDurationMs = System.currentTimeMillis() - startedAt
     }
     
     /**
@@ -602,18 +661,24 @@ class AIAgentManager(private val context: Context?) {
         // Cleared per turn: this carries an engine answer's chips and card into a legacy reply, and
         // must never survive into the next message.
         pendingEngineExtras = null
+        pendingEngineError = null
+        pendingEnginePlan = null
+        lastTurnStats = null
         return withContext(Dispatchers.Default) {
             val ctx = context ?: return@withContext ChatMessage(
                 id = UUID.randomUUID().toString(),
                 text = localizedContext?.getString(R.string.ai_context_lost) ?: "Context lost",
                 isFromUser = false,
                 timestamp = System.currentTimeMillis()
-            )
+            ).also { recordTurn(AiTurnStats.Path.CONTEXT_LOST, userMessage, it) }
+
+            var languageSwitched = false
 
         // Detect language of the query and switch temporarily if needed
         ensureCrossLanguageMapLoaded()
         val detectedLang = detectResponseLanguage(userMessage)
             if (detectedLang != activeLanguage) {
+                languageSwitched = true
                 activeLanguage = detectedLang
                 updateLocalizedContext()
                 elementData = getElementDataByLanguage(activeLanguage)
@@ -639,7 +704,13 @@ class AIAgentManager(private val context: Context?) {
                     ) + reset,
                     isFromUser = false,
                     timestamp = System.currentTimeMillis()
-                )
+                ).also {
+                    recordTurn(
+                        AiTurnStats.Path.RATE_LIMITED, userMessage, it,
+                        languageSwitched = languageSwitched,
+                        dailyLimit = rateLimiter?.getDailyLimit()
+                    )
+                }
             }
             
             // Increment message count
@@ -666,13 +737,23 @@ class AIAgentManager(private val context: Context?) {
                     text = handleQuizAnswer(lowerQuery),
                     isFromUser = false,
                     timestamp = System.currentTimeMillis()
-                )
+                ).also {
+                    recordTurn(AiTurnStats.Path.QUIZ, userMessage, it, languageSwitched = languageSwitched)
+                }
             }
 
             // Structured engine. It answers questions the keyword handlers below cannot express
             // — filters, rankings, aggregates, unit conversions, follow-ups — and returns null
             // for everything else, so unclaimed queries reach the existing handlers unchanged.
-            structuredAnswer(userMessage)?.let { return@withContext it }
+            structuredAnswer(userMessage)?.let {
+                recordTurn(
+                    AiTurnStats.Path.ENGINE, userMessage, it,
+                    languageSwitched = languageSwitched,
+                    elementResolved = currentElement != null,
+                    plan = pendingEnginePlan
+                )
+                return@withContext it
+            }
 
             // 1. Check if it's a numeric atomic number request (e.g. "element 79" or "what is 79?")
             val numberMatch = Regex("\\b(\\d+)\\b").find(lowerQuery)
@@ -688,6 +769,12 @@ class AIAgentManager(private val context: Context?) {
                             sharedProperties.clear()
                             return@withContext handleElementContextQuery(userMessage, key).let {
                                 ChatMessage(UUID.randomUUID().toString(), it, false, System.currentTimeMillis())
+                            }.also {
+                                recordTurn(
+                                    AiTurnStats.Path.ATOMIC_NUMBER, userMessage, it,
+                                    languageSwitched = languageSwitched,
+                                    elementResolved = true
+                                )
                             }
                         }
                     }
@@ -715,6 +802,11 @@ class AIAgentManager(private val context: Context?) {
 
             // 3. Handle complex / multi-part queries
             val responseParts = mutableListOf<String>()
+
+            // Anything reaching the keyword chain below is legacy unless the final else says
+            // otherwise. Which of the ~25 branches fired is deliberately not recorded — the useful
+            // signal is engine-versus-keyword, not the individual keyword.
+            var turnPath = AiTurnStats.Path.LEGACY
 
             // 4. Add Conversational Connector sometimes
             if (conversationHistory.size >= 2 && (0..2).random() == 0) {
@@ -812,11 +904,14 @@ class AIAgentManager(private val context: Context?) {
                 else -> {
                     val localMatch = localKnowledgeManager?.resolve(userMessage, activeLanguage)
                     if (localMatch != null) {
+                        turnPath = AiTurnStats.Path.LOCAL_KNOWLEDGE
                         responseParts.add(localMatch.response)
                     } else {
-                        responseParts.add(
-                            retrieveAnswer(userMessage) ?: handleElementQuery(userMessage)
-                        )
+                        val retrieved = retrieveAnswer(userMessage)
+                        turnPath =
+                            if (retrieved != null) AiTurnStats.Path.RETRIEVAL
+                            else AiTurnStats.Path.FALLBACK
+                        responseParts.add(retrieved ?: handleElementQuery(userMessage))
                     }
                 }
             }
@@ -857,8 +952,47 @@ class AIAgentManager(private val context: Context?) {
                 // rather than silently dropping them on the way through the string list.
                 actions = pendingEngineExtras?.actions?.let { ChatActionCodec.encode(it) },
                 cards = com.jlindemann.science.ai.cards.ChatCardCodec.encode(pendingEngineExtras?.card)
-            )
+            ).also {
+                recordTurn(
+                    turnPath, userMessage, it,
+                    languageSwitched = languageSwitched,
+                    elementResolved = targetElementKey != null
+                )
+            }
         }
+    }
+
+    /**
+     * Record what this turn did, for the panel to report once the answer is on screen.
+     *
+     * Reads the shape of the query rather than the query: a question is free text and could hold
+     * anything, so only its size and whether it resolved to an element leave this class.
+     */
+    private fun recordTurn(
+        path: String,
+        userMessage: String,
+        message: ChatMessage,
+        languageSwitched: Boolean = false,
+        elementResolved: Boolean = false,
+        plan: QueryPlan? = null,
+        dailyLimit: Int? = null
+    ) {
+        val trimmed = userMessage.trim()
+        lastTurnStats = AiTurnStats(
+            path = path,
+            intent = plan?.intent?.name,
+            confidence = plan?.confidence,
+            language = activeLanguage,
+            languageSwitched = languageSwitched,
+            elementResolved = elementResolved,
+            hasCard = message.cards != null,
+            cardKind = com.jlindemann.science.ai.cards.ChatCardCodec.kindOf(message.cards)?.name,
+            actionCount = ChatActionCodec.decode(message.actions).size,
+            queryChars = trimmed.length,
+            queryWords = if (trimmed.isEmpty()) 0 else trimmed.split(Regex("\\s+")).size,
+            engineError = pendingEngineError,
+            dailyLimit = dailyLimit
+        )
     }
 
     /**
@@ -877,8 +1011,13 @@ class AIAgentManager(private val context: Context?) {
             engine.answer(userMessage, dialogueState)
         } catch (e: Exception) {
             Log.w(TAG, "structured engine failed, falling back", e)
+            // A throw and a deliberate deferral both end up in the keyword handlers, and used to be
+            // indistinguishable from outside. This separates them.
+            pendingEngineError = e.javaClass.simpleName
             null
         } ?: return null
+
+        pendingEnginePlan = engine.lastPlan
 
         dialogueState.focusElement?.let { key ->
             if (key != currentElement) {

@@ -88,4 +88,82 @@ class UnitConverterTest {
         assertEquals("1000", UnitConverter.formatValue(1000.0))
         assertEquals("1064.18", UnitConverter.formatValue(1064.1800000001))
     }
+
+    /**
+     * `M` is molar and `m` is metre. The alias table is case-folded, so without the case-sensitive
+     * pre-pass one of the two has to lose — and whichever loses turns some perfectly ordinary
+     * question into a different one silently.
+     */
+    @Test
+    fun caseDistinguishesMolarFromMetre() {
+        assertEquals("M", UnitConverter.canonical("M"))
+        assertEquals("m", UnitConverter.canonical("m"))
+        assertEquals(Dimension.MOLARITY, UnitConverter.dimensionOf("M"))
+        assertEquals(Dimension.LENGTH, UnitConverter.dimensionOf("m"))
+        assertEquals(Dimension.MOLARITY, UnitConverter.dimensionOf("mM"))
+    }
+
+    /** `mm` is millimetre to every reader; it must not resolve as millimolar by case-folding. */
+    @Test
+    fun millimetreIsNotMillimolar() {
+        assertNull(UnitConverter.knownUnit("mm"))
+    }
+
+    /** Year units are spelled `yr`: `a` was angstrom long before this change and stays angstrom. */
+    @Test
+    fun theYearUnitsDoNotStealAngstrom() {
+        assertEquals("Å", UnitConverter.canonical("a"))
+        assertEquals(Dimension.LENGTH, UnitConverter.dimensionOf("a"))
+        assertEquals("yr", UnitConverter.canonical("years"))
+        assertEquals(Dimension.TIME, UnitConverter.dimensionOf("yr"))
+    }
+
+    @Test
+    fun timeVolumeAndAmountConvertThroughTheirBaseUnits() {
+        assertEquals(3.15576e7, UnitConverter.convert(1.0, "yr", "s")!!, 1.0)
+        assertEquals(60.0, UnitConverter.convert(1.0, "min", "s")!!, 1e-9)
+        assertEquals(1000.0, UnitConverter.convert(1.0, "L", "mL")!!, 1e-9)
+        assertEquals(0.25, UnitConverter.convert(250.0, "mL", "L")!!, 1e-12)
+        assertEquals(1.0, UnitConverter.convert(1.0, "dm³", "L")!!, 1e-12)
+        assertEquals(1000.0, UnitConverter.convert(1.0, "mol", "mmol")!!, 1e-9)
+    }
+
+    /**
+     * Molarity must not share a dimension with the mg/kg abundance fields, or a filter could rank
+     * a solution's concentration against how much of an element is in the Earth's crust.
+     */
+    @Test
+    fun molarityIsNotTheAbundanceConcentration() {
+        assertEquals(Dimension.MOLARITY, UnitConverter.dimensionOf("mol/L"))
+        assertEquals(Dimension.CONCENTRATION, UnitConverter.dimensionOf("mg/kg"))
+        assertNull(UnitConverter.convert(1.0, "mol/L", "mg/kg"))
+    }
+
+    /**
+     * The eV/kJ-per-mol bridge is reachable only by an explicit request. `convert` must keep
+     * refusing it, because that is what stops ranking and filtering mixing the two.
+     */
+    @Test
+    fun theEnergyBridgeIsOpenOnlyToExplicitConversion() {
+        assertNull(UnitConverter.convert(1.0, "eV", "kJ/mol"))
+        assertEquals(96.485, UnitConverter.convertAcrossBridges(1.0, "eV", "kJ/mol")!!, 0.01)
+        assertEquals(1.0, UnitConverter.convertAcrossBridges(96.48533212, "kJ/mol", "eV")!!, 1e-6)
+        assertTrue(UnitConverter.isBridged("eV", "kJ/mol"))
+        assertFalse(UnitConverter.isBridged("K", "°C"))
+        assertTrue(UnitConverter.convertible("K", "°C"))
+        assertFalse(UnitConverter.convertible("K", "L"))
+    }
+
+    /**
+     * `canonical` echoes anything it does not recognise, which is right for authored data and
+     * useless for a query — something has to be able to ask whether a word is a unit at all.
+     */
+    @Test
+    fun knownUnitRecognisesRatherThanEchoes() {
+        assertEquals("banana", UnitConverter.canonical("banana"))
+        assertNull(UnitConverter.knownUnit("banana"))
+        assertEquals("K", UnitConverter.knownUnit("kelvin"))
+        assertEquals("mL", UnitConverter.knownUnit("mL"))
+        assertNull(UnitConverter.knownUnit(null))
+    }
 }

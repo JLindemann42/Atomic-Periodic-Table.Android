@@ -1,0 +1,22 @@
+# Solution chemistry. This branch sits above the mole branch because the mole quantity pattern
+# matches the "0.5 mol" inside "0.5 mol/L" — left below it, every molarity question was answered
+# with a particle count. The negatives at the bottom pin that boundary both ways.
+id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
+sol-en-1			en	how many grams of NaCl for 250 mL of 0.5 mol/L solution	SOLUTION_CALC		none		
+sol-en-2			en	how many grams of NaCl do I need for 250 mL of 0.5 M	SOLUTION_CALC		none		
+sol-en-3			en	dilute 50 mL of 2 mol/L HCl to 0.5 mol/L	SOLUTION_CALC		none		
+sol-en-4			en	what is the molarity of 0.125 mol in 250 mL	SOLUTION_CALC		none		
+sol-en-5			en	how much water to dilute 100 mL of 1 mol/L to 0.25 mol/L	SOLUTION_CALC		none		
+sol-en-6			en	what volume of 0.5 mol/L contains 0.1 mol	SOLUTION_CALC		none		
+sol-en-7			en	moles in 500 mL of 0.2 mol/L NaCl solution	SOLUTION_CALC		none		
+sol-en-8			en	concentration of 5.844 g of NaCl in 100 mL	SOLUTION_CALC		none		
+sol-sv-1			sv	hur många gram NaCl för 250 mL av en 0.5 mol/L lösning	SOLUTION_CALC		none		
+sol-de-1			de	wie viel Gramm NaCl für 250 mL einer 0.5 mol/L Lösung	SOLUTION_CALC		none		
+sol-es-1			es	cuántos gramos de NaCl para 250 mL de disolución 0.5 mol/L	SOLUTION_CALC		none		
+sol-fr-1			fr	combien de grammes de NaCl pour 250 mL de solution à 0.5 mol/L	SOLUTION_CALC		none		
+sol-it-1			it	quanti grammi di NaCl per 250 mL di soluzione 0.5 mol/L	SOLUTION_CALC		none		
+sol-pt-1			pt	quantos gramas de NaCl para 250 mL de solução 0.5 mol/L	SOLUTION_CALC		none		
+# --- Negatives: plain mole questions and lone quantities --------------------------------------
+sol-neg-1			en	how many atoms are in 2.5 moles of iron	MOLE_CONVERSION			the mole branch still owns this	
+sol-neg-2			en	convert 250 mL to litres	UNIT_CONVERT			a lone volume is not a solution	
+sol-neg-3			en	what is the molar mass of NaCl	FORMULA_MASS				

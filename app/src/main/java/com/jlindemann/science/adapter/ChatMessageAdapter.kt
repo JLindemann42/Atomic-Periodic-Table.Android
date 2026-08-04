@@ -20,6 +20,9 @@ import com.jlindemann.science.ai.cards.ChatCardKind
 import com.jlindemann.science.ai.compose.ChatAction
 import com.jlindemann.science.ai.compose.ChatActionCodec
 import com.jlindemann.science.model.ChatMessage
+import com.jlindemann.science.utils.AnalyticsEvent
+import com.jlindemann.science.utils.AnalyticsHelper
+import com.jlindemann.science.utils.AnalyticsParam
 import com.jlindemann.science.views.ProCardGate
 
 class ChatMessageAdapter(
@@ -54,6 +57,14 @@ class ChatMessageAdapter(
      * reads as the conversation re-arriving.
      */
     private val animated = HashSet<String>()
+
+    /**
+     * Messages whose locked card has already been reported.
+     *
+     * `bindCard` runs on every rebind and every scroll pass, so without this the paywall impression
+     * would be counted once per time the row crossed the viewport rather than once per answer.
+     */
+    private val lockedCardReported = HashSet<String>()
 
     inner class ChatViewHolder(
         itemView: View,
@@ -122,6 +133,13 @@ class ChatMessageAdapter(
             ProCardGate.apply(view, locked)
             proOverlay.visibility = if (locked) View.VISIBLE else View.GONE
             if (locked) {
+                if (lockedCardReported.add(message.id)) {
+                    AnalyticsHelper.logEvent(
+                        itemView.context,
+                        AnalyticsEvent.AI_CARD_LOCKED,
+                        AnalyticsParam.CARD_KIND to card.kind.name
+                    )
+                }
                 proScrim.visibility = if (ProCardGate.needsScrim()) View.VISIBLE else View.GONE
                 proScrim.alpha = ProCardGate.SCRIM_ALPHA
                 // Swallow taps on the card itself so a locked visual cannot be interacted with.

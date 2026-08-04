@@ -242,4 +242,171 @@ class AiEngineTest {
         assertTrue("a grounded answer must name where it came from", result!!.citations.isNotEmpty())
         assertTrue(result.citations.all { it.args.containsKey("key") })
     }
+
+    // ---- Standalone unit conversion -----------------------------------------------------------
+
+    @Test
+    fun convertsAValueTheUserSupplied() {
+        val (plan, result) = run("convert 500 K to °C")
+        assertEquals(Intent.UNIT_CONVERT, plan.intent)
+        assertTrue(plan.confidence >= planner.threshold)
+        val conversion = result as ExecutionResult.UnitConversion
+        assertEquals(226.85, conversion.converted, 0.01)
+        assertEquals("°C", conversion.toUnit)
+        assertFalse(conversion.bridged)
+    }
+
+    @Test
+    fun crossesTheEnergyBridgeOnlyWhenAsked() {
+        val (plan, result) = run("2 eV in kJ/mol")
+        assertEquals(Intent.UNIT_CONVERT, plan.intent)
+        val conversion = result as ExecutionResult.UnitConversion
+        assertEquals(192.97, conversion.converted, 0.1)
+        assertTrue("a crossed dimension must be disclosed", conversion.bridged)
+    }
+
+    /**
+     * The guard that keeps this intent off property lookups. "Density of gold in kg/m³" resolves a
+     * field, and a field is what a conversion request does not have.
+     */
+    @Test
+    fun aPropertyLookupWithATargetUnitIsNotAConversion() {
+        assertEquals(Intent.PROPERTY_LOOKUP, planner.plan("density of gold in kg/m3", DialogueState()).intent)
+        assertEquals(Intent.PROPERTY_LOOKUP, planner.plan("melting point of gold in fahrenheit", DialogueState()).intent)
+    }
+
+    /** A filter carries a number and a unit too, and must stay a filter. */
+    @Test
+    fun aThresholdFilterIsNotAConversion() {
+        val plan = planner.plan("which elements are denser than 5 g/cm3", DialogueState())
+        assertEquals(Intent.FILTER_LIST, plan.intent)
+    }
+
+    // ---- Equation balancing -------------------------------------------------------------------
+
+    @Test
+    fun balancesAnEquation() {
+        val (plan, result) = run("balance Fe + O2 -> Fe2O3")
+        assertEquals(Intent.BALANCE_EQUATION, plan.intent)
+        val balanced = result as ExecutionResult.BalancedEquation
+        assertNull(balanced.reason)
+        assertEquals(listOf(4, 3), balanced.reactants.map { it.coefficient })
+        assertEquals(listOf(2), balanced.products.map { it.coefficient })
+        assertTrue(balanced.tally.all { it.left == it.right })
+    }
+
+    /**
+     * "Reaction" is in the unbacked-concept deny-list, which declines every sentence containing it.
+     * The arrow has to win, or the flagship phrasing never reaches the balancer.
+     */
+    @Test
+    fun theWordReactionDoesNotBlockAWrittenEquation() {
+        val plan = planner.plan("balance this reaction: Fe + O2 -> Fe2O3", DialogueState())
+        assertEquals(Intent.BALANCE_EQUATION, plan.intent)
+    }
+
+    /** A failure is an answer, not a fall-through: declining hands the query to the legacy router. */
+    @Test
+    fun anUnbalanceableEquationIsAnsweredRatherThanDeclined() {
+        val (plan, result) = run("balance CO + O2 + H2 -> CO2 + H2O")
+        assertEquals(Intent.BALANCE_EQUATION, plan.intent)
+        val balanced = result as ExecutionResult.BalancedEquation
+        assertEquals(
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.UNDERDETERMINED,
+            balanced.reason
+        )
+    }
+
+    @Test
+    fun aComparisonOperatorIsNotAnEquation() {
+        assertNotEquals(
+            Intent.BALANCE_EQUATION,
+            planner.plan("which elements have density >= 5", DialogueState()).intent
+        )
+    }
+
+    // ---- Decay ---------------------------------------------------------------------------------
+
+    @Test
+    fun computesHowMuchOfASampleIsLeft() {
+        val (plan, result) = run("how much of 100 g of carbon-14 remains after 11460 years")
+        assertEquals(Intent.DECAY_CALC, plan.intent)
+        val decay = result as ExecutionResult.Decay
+        assertEquals(ExecutionResult.Decay.Mode.REMAINING, decay.mode)
+        assertEquals(2.0, decay.halfLivesElapsed!!, 0.01)
+        assertEquals(25.0, decay.finalAmount!!, 0.5)
+        assertTrue(decay.citations.isNotEmpty())
+    }
+
+    @Test
+    fun computesHowLongADecayTakes() {
+        val (plan, result) = run("how long until 1 g of carbon-14 decays to 0.5 g")
+        assertEquals(Intent.DECAY_CALC, plan.intent)
+        val decay = result as ExecutionResult.Decay
+        assertEquals(ExecutionResult.Decay.Mode.ELAPSED, decay.mode)
+        assertEquals(1.0, decay.halfLivesElapsed!!, 0.01)
+    }
+
+    /**
+     * A bare half-life question has no arithmetic in it, and the isotope table answers it better.
+     * This pins the boundary from the other side: the decay branch sits above the isotope branch,
+     * so without the arithmetic gate it would swallow this too.
+     */
+    @Test
+    fun aBareHalfLifeQuestionStaysWithTheIsotopeTable() {
+        val plan = planner.plan("what is the half-life of carbon-14", DialogueState())
+        assertEquals(Intent.ISOTOPES, plan.intent)
+    }
+
+    /** Stable is a positive statement, and must not read as missing data. */
+    @Test
+    fun aStableNuclideSaysSoRatherThanShrugging() {
+        val (_, result) = run("how much of 100 g of carbon-12 remains after 5000 years")
+        val decay = result as? ExecutionResult.Decay ?: return
+        assertTrue(
+            "expected a stable or unlisted verdict, got ${decay.mode}",
+            decay.mode == ExecutionResult.Decay.Mode.STABLE ||
+                    decay.mode == ExecutionResult.Decay.Mode.NO_HALF_LIFE
+        )
+    }
+
+    // ---- Solutions -----------------------------------------------------------------------------
+
+    @Test
+    fun computesTheMassNeededForASolution() {
+        val (plan, result) = run("how many grams of NaCl for 250 mL of 0.5 mol/L solution")
+        assertEquals(Intent.SOLUTION_CALC, plan.intent)
+        val solution = result as ExecutionResult.SolutionCalc
+        assertEquals(0.125, solution.moles!!, 1e-6)
+        assertEquals(7.305, solution.grams!!, 0.05)
+        assertEquals("NaCl", solution.substance)
+    }
+
+    @Test
+    fun solvesADilution() {
+        val (plan, result) = run("dilute 50 mL of 2 mol/L HCl to 0.5 mol/L")
+        assertEquals(Intent.SOLUTION_CALC, plan.intent)
+        val solution = result as ExecutionResult.SolutionCalc
+        assertEquals(ExecutionResult.SolutionCalc.Kind.DILUTION, solution.kind)
+        assertEquals(0.200, solution.dilution!!.v2, 1e-6)
+    }
+
+    /**
+     * The mole quantity regex matches the "0.5 mol" inside "0.5 mol/L". A plain mole question has
+     * to keep reaching the mole branch, which sits below the solution branch.
+     */
+    @Test
+    fun aPlainMoleQuestionIsNotASolutionQuestion() {
+        val plan = planner.plan("how many atoms are in 2.5 moles of iron", DialogueState())
+        assertEquals(Intent.MOLE_CONVERSION, plan.intent)
+    }
+
+    /** A lone volume is not a solution question, and claiming it would break the converter. */
+    @Test
+    fun aLoneVolumeIsNotClaimed() {
+        assertNotEquals(
+            Intent.SOLUTION_CALC,
+            planner.plan("convert 250 mL to litres", DialogueState()).intent
+        )
+    }
 }

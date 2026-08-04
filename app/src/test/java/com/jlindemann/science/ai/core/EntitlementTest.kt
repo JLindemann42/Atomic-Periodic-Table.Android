@@ -136,6 +136,66 @@ class EntitlementTest {
     }
 
     /**
+     * Balancing and solution chemistry are compound analysis, which the chat already gates at PRO+
+     * for molar mass. Shipping one free beside the other locked would make the paywall arbitrary.
+     */
+    @Test
+    fun compoundAnalysisIsUniformlyProPlus() {
+        val balance = QueryPlan(
+            intent = Intent.BALANCE_EQUATION, rawQuery = "Fe + O2 -> Fe2O3", confidence = 1.0
+        )
+        val solution = QueryPlan(
+            intent = Intent.SOLUTION_CALC,
+            rawQuery = "250 mL of 0.5 mol/L NaCl", literal = "NaCl", confidence = 1.0
+        )
+        for (locked in listOf(free, pro)) {
+            assertTrue(
+                "balancing must match the PRO+ gate on molar mass",
+                executor(locked).execute(balance) is ExecutionResult.Locked
+            )
+            assertTrue(
+                "solution chemistry must match the PRO+ gate on molar mass",
+                executor(locked).execute(solution) is ExecutionResult.Locked
+            )
+        }
+        assertTrue(executor(proPlus).execute(balance) is ExecutionResult.BalancedEquation)
+        assertTrue(executor(proPlus).execute(solution) is ExecutionResult.SolutionCalc)
+    }
+
+    /**
+     * Unit conversion and decay arithmetic stay free.
+     *
+     * Conversion is already free in the engine as a target unit on any property lookup, and the
+     * Table of Nuclides screen is free — gating either would take away something the app gives.
+     */
+    @Test
+    fun theFreeCalculatorsAreNeverWithheld() {
+        val convert = QueryPlan(
+            intent = Intent.UNIT_CONVERT, rawQuery = "convert 500 K to °C",
+            targetUnit = "°C", confidence = 1.0
+        )
+        val decay = QueryPlan(
+            intent = Intent.DECAY_CALC,
+            entities = listOf(EntityRef.Element("carbon")),
+            limit = 14,
+            rawQuery = "how much of 100 g of carbon-14 remains after 11460 years",
+            confidence = 1.0
+        )
+        for (tier in listOf(free, pro, proPlus)) {
+            assertFalse(
+                "a unit conversion must never lock",
+                executor(tier).execute(convert) is ExecutionResult.Locked
+            )
+            assertFalse(
+                "decay arithmetic over free data must never lock",
+                executor(tier).execute(decay) is ExecutionResult.Locked
+            )
+        }
+        assertTrue(executor(free).execute(convert) is ExecutionResult.UnitConversion)
+        assertTrue(executor(free).execute(decay) is ExecutionResult.Decay)
+    }
+
+    /**
      * A family holding both free and gated fields answers with the free ones.
      *
      * Locking the whole family would withhold more than the app does — the Mechanical section still

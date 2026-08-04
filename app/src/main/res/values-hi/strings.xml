@@ -1200,4 +1200,84 @@
     <string name="question_valence_electrons">%1$s में कितने संयोजी इलेक्ट्रॉन हैं?</string>
     <string name="quiz_loading">प्रश्न तैयार किए जा रहे हैं…</string>
     <string name="quiz_no_questions">इस गेम के लिए प्रश्न नहीं बनाए जा सके। कृपया कोई और चुनें।</string>
+
+    <!-- Assistant: calculations, tools and suggestion chips -->
+    <string name="ai_unit_converted">**%1$s %2$s** बराबर है **%3$s %4$s**।</string>
+    <string name="ai_unit_bridge_note">1 eV = 96.485 kJ/mol से परिवर्तित — वही ऊर्जा, प्रति मोल के बजाय प्रति कण गिनी गई।</string>
+    <string name="ai_equation_balanced">**%1$s → %2$s**</string>
+    <string name="ai_equation_check_header">परमाणु जाँच</string>
+    <string name="ai_equation_tally_row">• **%1$s** — बाईं ओर %2$d, दाईं ओर %3$d</string>
+    <string name="ai_equation_one_sided">यह समीकरण संतुलित नहीं हो सकता: एक तत्व केवल एक ओर है, इसलिए कोई गुणांक इसे बराबर नहीं कर सकता।</string>
+    <string name="ai_equation_underdetermined">इस समीकरण के एक से अधिक स्वतंत्र संतुलन हैं — यह एक में लिखी दो अभिक्रियाओं जैसा है। इसे अलग करें, मैं हर एक को संतुलित कर दूँगा।</string>
+    <string name="ai_equation_too_large">इस समीकरण के लिए ऐसे गुणांक चाहिए जो किसी वास्तविक अभिक्रिया के लिए बहुत बड़े हैं। सूत्र जाँचें।</string>
+    <string name="ai_equation_parse_failed">मैं इसे रासायनिक समीकरण के रूप में नहीं पढ़ सका। Fe + O2 -&gt; Fe2O3 जैसा रूप आज़माएँ।</string>
+    <string name="ai_equation_no_solution">इस समीकरण का पूर्ण धनात्मक गुणांकों के साथ कोई संतुलन नहीं है।</string>
+    <string name="ai_solution_generic_substance">विलयन</string>
+    <string name="ai_solution_mass_needed">%3$s mL के %4$s mol/L विलयन के लिए आपको %2$s की **%1$s g** चाहिए।</string>
+    <string name="ai_solution_molarity">%2$s की सांद्रता **%1$s mol/L** है।</string>
+    <string name="ai_solution_volume">आपको **%2$s mol/L** पर **%1$s mL** चाहिए।</string>
+    <string name="ai_solution_moles">वह %2$s के **%1$s mol** हैं।</string>
+    <string name="ai_dilution_result">**%2$s mL** से **%1$s mol/L** को तनु करने पर **%4$s mL** में **%3$s mol/L** मिलता है।</string>
+    <string name="ai_dilution_add_solvent">**%1$s mL** विलायक मिलाएँ।</string>
+    <string name="ai_solution_working_header">गणना</string>
+    <string name="ai_solution_working_nvc">n = c × V → %1$s mol = %2$s mol/L × %3$s L</string>
+    <string name="ai_solution_working_mass">m = n × M → %1$s g = %2$s mol × %3$s g/mol</string>
+    <string name="ai_solution_working_c1v1">C₁V₁ = C₂V₂ → %1$s × %2$s = %3$s × %4$s</string>
+    <string name="ai_decay_stable">%1$s स्थायी है — यह क्षय नहीं करता, इसलिए समय के साथ कुछ भी कम नहीं होता।</string>
+    <string name="ai_decay_unlisted">ऐप उस तत्व के समस्थानिकों में %1$s को सूचीबद्ध नहीं करता, इसलिए मेरे पास इसकी अर्ध-आयु नहीं है।</string>
+    <string name="ai_decay_no_half_life">%1$s सूचीबद्ध है, लेकिन इसकी अर्ध-आयु \"%2$s\" दर्ज है, इसलिए मैं क्षय की गणना नहीं कर सकता।</string>
+    <string name="ai_decay_effectively_none">%2$s %3$s के बाद %1$s में व्यावहारिक रूप से कुछ नहीं बचता।</string>
+    <string name="ai_decay_elapsed">%3$s के **%1$s g** से **%2$s g** तक पहुँचने में लगभग **%4$s %5$s** लगते हैं।</string>
+    <string name="ai_decay_remaining">%5$s %6$s के बाद %4$s के मूल %3$s g में से लगभग **%1$s %2$s** बचता है।</string>
+    <string name="ai_decay_half_lives">उस समय में %1$s **%2$s** अर्ध-आयु से गुज़रता है, और नमूने का लगभग **%3$s%%** बचता है।</string>
+    <string name="ai_decay_working_header">गणना</string>
+    <string name="ai_decay_working_half_life">%1$s की अर्ध-आयु: %2$s</string>
+    <string name="ai_decay_working_n">n = t / t½ = %1$s → 2⁻ⁿ = %2$s%%</string>
+    <string name="ai_feature_nuclide_table">ऐप में एक विस्तृत **न्यूक्लाइड सारणी** है जो सभी तत्वों के समस्थानिक दिखाती है, क्षय प्रकार (अल्फा, बीटा आदि) के अनुसार रंगों में।</string>
+    <string name="ai_feature_emission_spectrum">आप किसी तत्व का **उत्सर्जन स्पेक्ट्रम** उसके विवरण पैनल में देख सकते हैं। यह उस तत्व द्वारा उत्पन्न प्रकाश का अनोखा पैटर्न दिखाता है।</string>
+    <string name="ai_feature_flashcards">ऐप में तत्व प्रतीकों, परमाणु द्रव्यमानों और वर्गीकरणों के लिए कई **फ्लैशकार्ड मिनी-गेम** हैं, जिनमें स्तर और XP भी हैं।</string>
+    <string name="ai_feature_achievements">उपयोगकर्ता पृष्ठ पर **उपलब्धियों** और उपयोग आँकड़ों से अपनी प्रगति देखें।</string>
+    <string name="ai_feature_molar_mass">जटिल यौगिकों का अणुभार निकालने के लिए एक अंतर्निहित **मोलर द्रव्यमान कैलकुलेटर** है। मैं यहाँ भी कर सकता हूँ — बस सूत्र दीजिए।</string>
+    <string name="ai_feature_unit_converter">ऐप में तापमान और अन्य वैज्ञानिक इकाइयों के लिए एक **इकाई परिवर्तक** है। आप मुझसे भी पूछ सकते हैं, जैसे \"500 K को °C में बदलें\"।</string>
+    <string name="ai_feature_ideal_gas">PV = nRT से दाब, आयतन, मोल या तापमान निकालने के लिए **आदर्श गैस कैलकुलेटर** का उपयोग करें।</string>
+    <string name="ai_feature_reaction_balancer">**रासायनिक अभिक्रिया संतुलक** समीकरण संतुलित करने और पसंदीदा सहेजने में मदद करता है। आप यहाँ भी पूछ सकते हैं — जैसे Fe + O2 -&gt; Fe2O3 लिखें।</string>
+    <string name="ai_feature_capabilities">मैं तत्वों के गुण देख और तुलना कर सकता हूँ, समीकरण संतुलित कर सकता हूँ, मोलर द्रव्यमान और विलयन सांद्रता निकाल सकता हूँ, इकाइयाँ बदल सकता हूँ, और क्षय गणना कर सकता हूँ। किसी तत्व के बारे में पूछें, या कोई सूत्र या समीकरण लिखें।</string>
+    <string-array name="ai_suggest_element">
+        <item>%1$s के उपयोग</item>
+        <item>%1$s का परमाणु द्रव्यमान</item>
+        <item>क्या %1$s खतरनाक है?</item>
+        <item>%1$s कहाँ मिलता है?</item>
+        <item>%1$s का इलेक्ट्रॉन विन्यास</item>
+        <item>%1$s के समस्थानिक</item>
+    </string-array>
+    <string-array name="ai_suggest_trends">
+        <item>आवर्त प्रवृत्तियाँ क्या हैं?</item>
+        <item>विद्युत्ऋणात्मकता की प्रवृत्ति</item>
+        <item>परमाणु त्रिज्या की प्रवृत्ति</item>
+        <item>आयनन ऊर्जा</item>
+    </string-array>
+    <string-array name="ai_suggest_general">
+        <item>कोई रोचक तथ्य बताइए</item>
+        <item>क्विज़ शुरू करें</item>
+        <item>क्षार धातुएँ कौन-सी हैं?</item>
+        <item>सबसे भारी तत्व?</item>
+    </string-array>
+    <string-array name="ai_suggest_tools">
+        <item>Fe + O2 -&gt; Fe2O3 संतुलित करें</item>
+        <item>500 K को °C में बदलें</item>
+        <item>250 mL के 0.5 mol/L के लिए कितने ग्राम NaCl?</item>
+        <item>11460 साल बाद 100 g कार्बन-14 में से कितना बचता है?</item>
+    </string-array>
+
+    <!-- Equation Balancer tool -->
+    <string name="balancer_tool_title">समीकरण संतुलक</string>
+    <string name="bal">संतुलक</string>
+    <string name="balancer_tool_text">रासायनिक समीकरणों को सटीक पूर्णांक गुणांकों के साथ संतुलित करें</string>
+    <string name="balancer_tool_card_title">एक समीकरण संतुलित करें</string>
+    <string name="balancer_tool_hint">Fe + O2 -&gt; Fe2O3</string>
+    <string name="balancer_tool_result">संतुलित समीकरण</string>
+    <string name="balancer_tool_prompt">तीर के साथ एक समीकरण लिखें, जैसे Fe + O2 -&gt; Fe2O3।</string>
+    <string name="balancer_tool_examples">उदाहरण</string>
+    <string name="balancer_tool_note">तीर -&gt;, =&gt;, = या → के रूप में लिखे जा सकते हैं। (s), (l), (g) और (aq) जैसे अवस्था चिह्न अनदेखे किए जाते हैं।</string>
+    <string name="balancer_tool_copied">समीकरण कॉपी किया गया</string>
 </resources>

@@ -128,7 +128,66 @@ class StringCoverageTest {
         assertTrue("empty locale folders: $empty", empty.isEmpty())
     }
 
+    // ---- String arrays -------------------------------------------------------------------------
+
+    private fun arrays(folder: String): Map<String, Int> {
+        val file = File(resDir, "$folder/strings.xml")
+        if (!file.isFile) return emptyMap()
+        return ARRAY_BLOCK.findAll(file.readText(Charsets.UTF_8))
+            .associate { it.groupValues[1] to ITEM.findAll(it.groupValues[2]).count() }
+            .filterKeys { it.startsWith("ai_") }
+    }
+
+    private fun reachableArrays(folder: String): Map<String, Int> {
+        val base = folder.substringBefore("-r").takeIf { it != folder }
+        return (base?.let { arrays(it) } ?: emptyMap()) + arrays(folder)
+    }
+
+    /**
+     * `<string-array>` is invisible to the string check above — `-array` sits between `<string` and
+     * ` name=`, so its regex never matches one. The suggestion chips are arrays, and before this
+     * they were the only user-facing agent text with no coverage net at all.
+     */
+    @Test
+    fun everyShippedLocaleTranslatesEveryAgentArray() {
+        assumeTrue("res/ not reachable", resDir.isDirectory)
+        val english = arrays("values")
+        assertTrue("no ai_* string-arrays found in values/", english.size >= 4)
+
+        val report = StringBuilder()
+        for (folder in fullLocales) {
+            val missing = (english.keys - reachableArrays(folder).keys).sorted()
+            if (missing.isNotEmpty()) report.append("\n  $folder is missing: ").append(missing.joinToString(", "))
+        }
+        assertTrue("Agent string-arrays missing from shipped locales.$report", report.isEmpty())
+    }
+
+    /**
+     * A short array is not a missing translation and shows up as one fewer chip, silently.
+     *
+     * The element chips also carry a format argument in every item, so a locale that drops items
+     * changes what the row offers rather than only how much of it.
+     */
+    @Test
+    fun agentArraysHaveTheSameItemCountInEveryLocale() {
+        assumeTrue("res/ not reachable", resDir.isDirectory)
+        val english = arrays("values")
+        assertTrue("no ai_* string-arrays found in values/", english.size >= 4)
+
+        val problems = mutableListOf<String>()
+        for (folder in fullLocales) {
+            val reachable = reachableArrays(folder)
+            for ((name, count) in english) {
+                val actual = reachable[name] ?: continue
+                if (actual != count) problems.add("$folder/$name has $actual items, English has $count")
+            }
+        }
+        assertTrue("String-array item counts differ across locales: $problems", problems.isEmpty())
+    }
+
     private companion object {
         val NAME = Regex("""<string name="([^"]+)"""")
+        val ARRAY_BLOCK = Regex("""<string-array name="([^"]+)"\s*>(.*?)</string-array>""", RegexOption.DOT_MATCHES_ALL)
+        val ITEM = Regex("""<item>""")
     }
 }

@@ -16,6 +16,7 @@ import com.jlindemann.science.ai.data.KnowledgeStore
 import com.jlindemann.science.ai.data.LocalizedView
 import com.jlindemann.science.ai.data.Quantity
 import com.jlindemann.science.ai.data.UnitConverter
+import com.jlindemann.science.ai.nlu.QuantityScanner
 
 /**
  * Runs a [QueryPlan] against the index.
@@ -91,6 +92,35 @@ class QueryExecutor(
         Intent.COMPARATIVE -> comparative(plan)
         Intent.NEIGHBOUR -> neighbour(plan)
         Intent.MOLE_CONVERSION -> moleConversion(plan)
+        // Free, and deliberately so: unit conversion is already free in the engine as a target unit
+        // on any property lookup, and free in `UnitConversionActivity`. Gating it here would take
+        // away something the app already gives.
+        Intent.UNIT_CONVERT -> unitConvert(plan)
+        // Balancing is compound analysis, which the chat already gates at PRO+ for molar mass.
+        // Shipping one free beside the other locked would make the paywall look arbitrary.
+        Intent.BALANCE_EQUATION ->
+            if (!entitlements.allows(com.jlindemann.science.ai.data.Tier.PRO_PLUS)) {
+                ExecutionResult.Locked(
+                    tier = com.jlindemann.science.ai.data.Tier.PRO_PLUS,
+                    fieldIds = emptyList(),
+                    element = null
+                )
+            } else balanceEquation(plan)
+        // Same gate, same reasoning: every branch but a bare dilution needs a compound molar mass.
+        // A split gate would be more generous and would produce the confusing experience of one
+        // solution question answering and the next one locking.
+        Intent.SOLUTION_CALC ->
+            if (!entitlements.allows(com.jlindemann.science.ai.data.Tier.PRO_PLUS)) {
+                ExecutionResult.Locked(
+                    tier = com.jlindemann.science.ai.data.Tier.PRO_PLUS,
+                    fieldIds = emptyList(),
+                    element = null
+                )
+            } else solutionCalc(plan)
+        // Free: the isotope intent is ungated, the Table of Nuclides screen is free, and every
+        // input here is data the user can already read. Gating arithmetic over free data would be
+        // a new paywall rather than a mirror of an existing one.
+        Intent.DECAY_CALC -> decay(plan)
         Intent.COMPARISON -> comparison(plan)
         Intent.SUPERLATIVE, Intent.FILTER_LIST -> elementList(plan)
         Intent.AGGREGATE -> aggregate(plan)
@@ -245,6 +275,241 @@ class QueryExecutor(
             }.take(3)
         )
     }
+
+    /**
+     * Convert a number the user wrote into the unit they asked for.
+     *
+     * The query is re-scanned here rather than carried on the plan, the same way the mole branch
+     * re-reads its own quantity — and for the same reason the scanner is shared: two readings of
+     * "250 mL" that can disagree eventually will.
+     */
+    private fun unitConvert(plan: QueryPlan): ExecutionResult? {
+        val source = QuantityScanner.scan(plan.rawQuery).firstOrNull() ?: return null
+        val target = plan.targetUnit ?: return null
+        val converted = UnitConverter.convertAcrossBridges(source.value, source.unit, target)
+            ?: return null
+        return ExecutionResult.UnitConversion(
+            value = source.value,
+            fromUnit = source.unit,
+            converted = converted,
+            toUnit = target,
+            bridged = UnitConverter.isBridged(source.unit, target),
+            citations = emptyList()
+        )
+    }
+
+    /**
+     * Balance an equation, or say why it cannot be balanced.
+     *
+     * A failure is returned as a result rather than as null. Declining here would drop the query
+     * back to the legacy router, which answers it by mentioning that the app has a reaction
+     * balancer — advice, where the user asked a question.
+     */
+    private fun balanceEquation(plan: QueryPlan): ExecutionResult {
+        val balancer = com.jlindemann.science.ai.data.EquationBalancer
+        val citations = listOf(
+            Citation(
+                label = strings.get(com.jlindemann.science.R.string.balancer_title),
+                source = strings.get(com.jlindemann.science.R.string.balancer_title),
+                deepLink = com.jlindemann.science.ai.data.DeepLinkTarget.REACTION_BALANCER,
+                fromTable = true
+            )
+        )
+        val sides = balancer.parseEquation(plan.rawQuery) { store.bySymbol(it) != null }
+            ?: return ExecutionResult.BalancedEquation(
+                emptyList(), emptyList(), emptyList(),
+                com.jlindemann.science.ai.data.EquationBalancer.Reason.PARSE_FAILED, citations
+            )
+
+        return when (val result = balancer.balance(sides.first, sides.second)) {
+            is com.jlindemann.science.ai.data.EquationBalancer.Result.Balanced ->
+                ExecutionResult.BalancedEquation(
+                    result.reactants, result.products, result.tally, null, citations
+                )
+            is com.jlindemann.science.ai.data.EquationBalancer.Result.Failed ->
+                ExecutionResult.BalancedEquation(
+                    emptyList(), emptyList(), emptyList(), result.reason, citations
+                )
+        }
+    }
+
+    /**
+     * Work a solution problem: n = c·V, a mass from a concentration, or a dilution.
+     *
+     * The quantities are read back off the raw query in litres, moles and mol/L, so every branch
+     * below is doing arithmetic in one system of units rather than remembering which input was
+     * written in millilitres.
+     */
+    private fun solutionCalc(plan: QueryPlan): ExecutionResult? {
+        val raw = plan.rawQuery
+        val molarities = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.MOLARITY)
+            .mapNotNull { it.inUnit("M") }
+        val volumes = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.VOLUME)
+            .mapNotNull { it.inUnit("L") }
+        val amounts = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.AMOUNT)
+            .mapNotNull { it.inUnit("mol") }
+        val grams = GRAMS.find(raw.lowercase())?.groupValues?.get(1)?.toDoubleOrNull()
+
+        val compound = plan.literal
+        val molarMass = compound?.let { formula ->
+            com.jlindemann.science.ai.data.ChemistryMath.parseFormula(formula) { symbol ->
+                store.bySymbol(symbol)?.quantity("atomic_mass")?.value
+            }?.molarMass
+        }
+        val citations = compound?.let { formula ->
+            com.jlindemann.science.ai.data.ChemistryMath.parseFormula(formula) { symbol ->
+                store.bySymbol(symbol)?.quantity("atomic_mass")?.value
+            }?.parts?.mapNotNull { part ->
+                store.bySymbol(part.symbol)?.let { citation("atomic_mass", it) }
+            }?.take(3)
+        }.orEmpty()
+
+        // Two concentrations is the shape of a dilution and of nothing else, so it is checked
+        // before the single-solution branches rather than after.
+        if (molarities.size >= 2) {
+            val solved = com.jlindemann.science.ai.data.SolutionMath.dilution(
+                c1 = molarities[0],
+                v1 = volumes.getOrNull(0),
+                c2 = molarities[1],
+                v2 = volumes.getOrNull(1)
+            ) ?: return null
+            return ExecutionResult.SolutionCalc(
+                kind = ExecutionResult.SolutionCalc.Kind.DILUTION,
+                substance = compound, molarMass = molarMass,
+                moles = null, molarity = null, litres = null, grams = null,
+                dilution = solved, citations = citations
+            )
+        }
+
+        val molesFromMass = if (grams != null && molarMass != null) {
+            com.jlindemann.science.ai.data.SolutionMath.molesOf(grams, molarMass)
+        } else null
+        val moles = amounts.firstOrNull() ?: molesFromMass
+
+        val completed = com.jlindemann.science.ai.data.SolutionMath.complete(
+            moles = moles,
+            molarity = molarities.firstOrNull(),
+            litres = volumes.firstOrNull()
+        ) ?: return null
+
+        val mass = molarMass?.let {
+            com.jlindemann.science.ai.data.SolutionMath.massOf(completed.first, it)
+        }
+        // What the question was missing is what it was asking for.
+        val kind = when {
+            grams == null && amounts.isEmpty() && molarMass != null ->
+                ExecutionResult.SolutionCalc.Kind.MASS_NEEDED
+            molarities.isEmpty() -> ExecutionResult.SolutionCalc.Kind.MOLARITY
+            volumes.isEmpty() -> ExecutionResult.SolutionCalc.Kind.VOLUME
+            else -> ExecutionResult.SolutionCalc.Kind.MOLES
+        }
+
+        return ExecutionResult.SolutionCalc(
+            kind = kind,
+            substance = compound,
+            molarMass = molarMass,
+            moles = completed.first,
+            molarity = completed.second,
+            litres = completed.third,
+            grams = mass ?: grams,
+            dilution = null,
+            citations = citations
+        )
+    }
+
+    /**
+     * Decay arithmetic over a nuclide's half-life.
+     *
+     * The three ways this can have no number are kept apart. "Stable" is a positive statement —
+     * nothing decays, so nothing is left to compute — while "not in the table" and "listed with an
+     * unrecorded half-life" are two different gaps. Collapsing them into one "no data" would tell
+     * a user the app knows nothing where in fact it knows the opposite.
+     */
+    private fun decay(plan: QueryPlan): ExecutionResult? {
+        val element = plan.elementKeys.firstOrNull()?.let { store.element(it) } ?: return null
+        val massNumber = plan.limit
+        val citations = listOf(citation("common_neutrons", element))
+
+        fun result(
+            mode: ExecutionResult.Decay.Mode,
+            halfLife: Double? = null,
+            display: String = "",
+            stable: Boolean = false,
+            initial: Double? = null,
+            final: Double? = null,
+            amountUnit: String? = null,
+            elapsed: Double? = null,
+            elapsedUnit: String? = null,
+            halfLivesElapsed: Double? = null,
+            fraction: Double? = null
+        ) = ExecutionResult.Decay(
+            element, massNumber, halfLife, display, stable, mode,
+            initial, final, amountUnit, elapsed, elapsedUnit, halfLivesElapsed, fraction, citations
+        )
+
+        // `nucleons` leads because `massNumber` overflows for many elements: IsotopeParser
+        // digit-filters the atomic mass, so carbon's "14.003241988" becomes an 11-digit integer.
+        val isotope = element.isotopes.firstOrNull {
+            it.nucleons == massNumber || it.massNumber == massNumber
+        } ?: return result(ExecutionResult.Decay.Mode.NO_HALF_LIFE)
+
+        if (isotope.stable) {
+            return result(
+                ExecutionResult.Decay.Mode.STABLE,
+                display = isotope.halfLifeDisplay.orEmpty(),
+                stable = true
+            )
+        }
+        val halfLife = isotope.halfLifeSeconds
+            ?: return result(
+                ExecutionResult.Decay.Mode.NO_HALF_LIFE,
+                display = isotope.halfLifeDisplay.orEmpty()
+            )
+        val display = isotope.halfLifeDisplay.orEmpty()
+
+        val decayMath = com.jlindemann.science.ai.data.DecayMath
+        val time = QuantityScanner.firstOf(plan.rawQuery, com.jlindemann.science.ai.data.Dimension.TIME)
+        val masses = GRAMS.findAll(plan.rawQuery.lowercase())
+            .mapNotNull { it.groupValues[1].toDoubleOrNull() }
+            .toList()
+
+        if (time != null) {
+            val elapsedSeconds = time.inUnit("s") ?: return null
+            val n = decayMath.halfLives(elapsedSeconds, halfLife) ?: return null
+            val initial = masses.firstOrNull()
+            return result(
+                // With a starting amount the answer is how much is left; without one, all that
+                // can honestly be said is how many half-lives went by and what fraction survives.
+                if (initial != null) ExecutionResult.Decay.Mode.REMAINING
+                else ExecutionResult.Decay.Mode.HALF_LIVES,
+                halfLife = halfLife, display = display,
+                initial = initial,
+                final = initial?.let { decayMath.remaining(it, elapsedSeconds, halfLife) },
+                amountUnit = if (initial != null) "g" else null,
+                elapsed = elapsedSeconds,
+                elapsedUnit = time.unit,
+                halfLivesElapsed = n,
+                fraction = decayMath.fractionRemaining(n)
+            )
+        }
+
+        // No duration written, so the duration is the unknown: "how long until 1 g becomes 0.5 g".
+        if (masses.size >= 2) {
+            val elapsedSeconds = decayMath.elapsedFor(masses[0], masses[1], halfLife) ?: return null
+            val n = decayMath.halfLives(elapsedSeconds, halfLife) ?: return null
+            return result(
+                ExecutionResult.Decay.Mode.ELAPSED,
+                halfLife = halfLife, display = display,
+                initial = masses[0], final = masses[1], amountUnit = "g",
+                elapsed = elapsedSeconds, elapsedUnit = "s",
+                halfLivesElapsed = n,
+                fraction = masses[1] / masses[0]
+            )
+        }
+        return null
+    }
+
+    private val GRAMS = Regex("""([\d.]+)\s*(?:g|gram|grams|gm|gramm|gramme|grammes)\b""")
 
     private fun nuclide(plan: QueryPlan): ExecutionResult? {
         val element = plan.elementKeys.firstOrNull()?.let { store.element(it) } ?: return null

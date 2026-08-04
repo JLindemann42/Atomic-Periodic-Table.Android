@@ -100,7 +100,11 @@ returns null and behaves exactly as it did before.
 | `FieldRegistry.kt` | ~80 queryable fields: JSON keys, units, categories, localized labels, deep-link targets. |
 | `SeriesCanon.kt` | Canonicalises the 15 `element_group` spellings into 11 series. |
 | `IsotopeParser.kt` | Reads the 42-slot isotope block and normalises 47 half-life unit spellings. |
-| `UnitConverter.kt` | Multiplicative and affine unit conversion. |
+| `UnitConverter.kt` | Multiplicative and affine unit conversion, plus the eV↔kJ/mol bridge that only an explicit conversion request may cross. |
+| `Fraction.kt` | Exact rationals for the balancer. No epsilon anywhere: a floating-point residue is indistinguishable from a real zero pivot. |
+| `EquationBalancer.kt` | Balances an equation, or declines with a reason. Shared with the Equation Balancer screen. |
+| `DecayMath.kt` | Exponential decay over a half-life read from `IsotopeParser`. |
+| `SolutionMath.kt` | `n = c·V`, mass through a molar mass, and `C₁V₁ = C₂V₂`. |
 | `KnowledgeStore.kt` | The index itself, plus per-field coverage counts. |
 | `DatasetIndex.kt` | Every non-element dataset (dictionary, equations, constants, Poisson, geology, ions, indicators, electrode series, solubility, units) in one searchable form. |
 
@@ -149,8 +153,19 @@ All files live under `app/src/main/java/com/jlindemann/science/ai/`.
 | Address a banked field | *"second ionization energy of gold"* |
 | Follow up | *"and its density?"* — works in all 12 languages with no pronoun lists |
 | Say it has no data | *"vickers hardness of helium"* → says so, and reports the field is recorded for 45 of 118 elements |
+| Convert a value the user brought | *"convert 500 K to °C"*, *"2 eV in kJ/mol"* — free |
+| Balance an equation | *"balance Fe + O2 -> Fe2O3"* — PRO+, same solver as the Equation Balancer screen |
+| Work a solution problem | *"how many grams of NaCl for 250 mL of 0.5 mol/L"*, *"dilute 50 mL of 2 mol/L to 0.5 mol/L"* — PRO+ |
+| Run a decay calculation | *"how much of 100 g of carbon-14 remains after 11460 years"* — free |
 
 Every answer names its sources and offers a chip that opens the screen the figure came from.
+
+The four calculators are all deterministic and offline, like everything else here.
+Two of them decline rather than guess, and that is deliberate: an equation with
+several independent balances is reported as such instead of being answered with
+whichever one the elimination happened to produce, and a nuclide the data records
+as stable, unlisted, or listed with an unknown half-life produces three different
+sentences rather than one shrug.
 
 ---
 
