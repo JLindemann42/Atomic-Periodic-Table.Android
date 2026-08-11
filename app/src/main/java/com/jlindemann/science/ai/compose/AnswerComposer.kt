@@ -582,7 +582,18 @@ class AnswerComposer(
     }
 
     private fun balancedEquation(result: ExecutionResult.BalancedEquation): String {
-        result.reason?.let { return strings.get(reasonString(it)) }
+        result.reason?.let { reason ->
+            // A one-sided element is named when the solver identified it. "An element appears on
+            // only one side" leaves the reader to find which; saying "O appears on only one side"
+            // is the same sentence with the work done.
+            val named = reason == com.jlindemann.science.ai.data.EquationBalancer.Reason
+                .ONE_SIDED_ELEMENT && result.detail != null
+            return if (named) {
+                strings.get(R.string.ai_equation_one_sided_named, result.detail!!)
+            } else {
+                strings.get(reasonString(reason))
+            }
+        }
 
         val left = result.reactants.joinToString(" + ") { term(it) }
         val right = result.products.joinToString(" + ") { term(it) }

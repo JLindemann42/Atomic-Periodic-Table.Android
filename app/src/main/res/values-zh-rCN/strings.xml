@@ -742,6 +742,7 @@ I：不溶"</string>
     <string name="protons">质子：</string>
     <string name="save_calculations">保存计算：</string>
     <string name="save_units">保存单位：</string>
+    <string name="save_equations">保存方程：</string>
     <string name="search_for_element">搜索元素</string>
     <string name="share">分享</string>
     <string name="share_app">分享应用</string>
@@ -1220,6 +1221,7 @@ I：不溶"</string>
     <string name="ai_equation_check_header">原子核对</string>
     <string name="ai_equation_tally_row">• **%1$s** —— 左边 %2$d，右边 %3$d</string>
     <string name="ai_equation_one_sided">这个方程无法配平：某个元素只出现在一侧，任何系数都补不平。</string>
+    <string name="ai_equation_one_sided_named">这个方程无法配平：%1$s 只出现在一侧，任何系数都补不平。</string>
     <string name="ai_equation_underdetermined">这个方程有不止一种独立的配平方式 —— 它读起来像是把两个反应写成了一个。拆开后我可以分别配平。</string>
     <string name="ai_equation_too_large">这个方程需要的系数大得不像真实反应。请检查化学式。</string>
     <string name="ai_equation_parse_failed">我没能把它读成化学方程式。可以试试 Fe + O2 -&gt; Fe2O3 这样的写法。</string>
@@ -1292,4 +1294,23 @@ I：不溶"</string>
     <string name="balancer_tool_examples">示例</string>
     <string name="balancer_tool_note">箭头可写作 -&gt;、=&gt;、= 或 →。(s)、(l)、(g)、(aq) 等状态符号会被忽略。</string>
     <string name="balancer_tool_copied">方程式已复制</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">合金表</string>
+    <string name="table_alloy_text">常见合金一览表，说明它们由什么组成以及为何用它们代替纯金属</string>
+    <string name="alo">合金表</string>
+    <string name="activity_alloy_title">合金</string>
+    <string name="alloy_clear_filter">清除筛选</string>
+    <string name="alloy_base_iron">铁</string>
+    <string name="alloy_base_copper">铜</string>
+    <string name="alloy_base_aluminium">铝</string>
+    <string name="alloy_base_nickel">镍</string>
+    <string name="alloy_base_tin">锡</string>
+    <string name="alloy_base_silver">银</string>
+    <string name="alloy_base_gold">金</string>
+    <string name="alloy_base_titanium">钛</string>
+    <string name="alloy_base_mercury">汞</string>
+    <string name="base_label">基体金属：</string>
+    <string name="composition_label">成分：</string>
+    <string name="open_base_element">打开基体元素</string>
 </resources>

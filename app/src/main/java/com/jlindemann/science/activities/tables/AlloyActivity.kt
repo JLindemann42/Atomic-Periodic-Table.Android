@@ -34,6 +34,22 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class AlloyActivity : BaseActivity(), AlloyAdapter.OnAlloyClickListener {
+
+    private companion object {
+        /** The base metals the table can be filtered by, in chip order, with their labels. */
+        val BASE_METALS = listOf(
+            "iron" to R.string.alloy_base_iron,
+            "copper" to R.string.alloy_base_copper,
+            "aluminium" to R.string.alloy_base_aluminium,
+            "nickel" to R.string.alloy_base_nickel,
+            "tin" to R.string.alloy_base_tin,
+            "silver" to R.string.alloy_base_silver,
+            "gold" to R.string.alloy_base_gold,
+            "titanium" to R.string.alloy_base_titanium,
+            "mercury" to R.string.alloy_base_mercury
+        )
+    }
+
     private var alloyList = ArrayList<Alloy>()
     var mAdapter = AlloyAdapter(alloyList, this, this)
 
@@ -167,7 +183,7 @@ class AlloyActivity : BaseActivity(), AlloyAdapter.OnAlloyClickListener {
     override fun alloyClickListener(item: Alloy, position: Int) {
         // Set textViews:
         findViewById<TextView>(R.id.alloy_detail_title).text = item.name
-        findViewById<TextView>(R.id.alloy_base).text = getString(R.string.base_label) + item.base.replaceFirstChar { it.uppercase() }
+        findViewById<TextView>(R.id.alloy_base).text = getString(R.string.base_label) + baseName(item.base)
         findViewById<TextView>(R.id.alloy_composition).text = getString(R.string.composition_label) + item.composition
         findViewById<TextView>(R.id.alloy_description).text = item.description
 
@@ -198,37 +214,29 @@ class AlloyActivity : BaseActivity(), AlloyAdapter.OnAlloyClickListener {
 
     private fun setupChips(list: ArrayList<Alloy>, recyclerView: RecyclerView) {
         val alloyPreference = AlloyPreference(this)
-        val categories = listOf(
-            0 to getString(R.string.alloy_clear_filter),
-            1 to getString(R.string.alloy_base_iron),
-            2 to getString(R.string.alloy_base_copper),
-            3 to getString(R.string.alloy_base_aluminium),
-            4 to getString(R.string.alloy_base_nickel),
-            5 to getString(R.string.alloy_base_tin),
-            6 to getString(R.string.alloy_base_silver),
-            7 to getString(R.string.alloy_base_gold),
-            8 to getString(R.string.alloy_base_titanium),
-            9 to getString(R.string.alloy_base_mercury)
-        )
+        // Chip 0 clears the filter, so a base metal's chip id is its index in BASE_METALS plus one.
+        val categories = listOf(0 to getString(R.string.alloy_clear_filter)) +
+                BASE_METALS.mapIndexed { index, (_, label) -> index + 1 to getString(label) }
 
         titleBar.setCategories(categories) { id ->
-            val filter = when (id) {
-                1 -> "iron"
-                2 -> "copper"
-                3 -> "aluminium"
-                4 -> "nickel"
-                5 -> "tin"
-                6 -> "silver"
-                7 -> "gold"
-                8 -> "titanium"
-                9 -> "mercury"
-                else -> ""
-            }
-            alloyPreference.setValue(filter)
+            alloyPreference.setValue(BASE_METALS.getOrNull(id - 1)?.first ?: "")
             titleBar.searchInput.setText("")
             filter(titleBar.searchInput.text.toString(), list, recyclerView)
         }
     }
+
+    /**
+     * The translated name of a base metal.
+     *
+     * [Alloy.base] is a lowercase English element key, which is what opens the element page. Shown
+     * as it is stored, the detail panel read "Basmetall: Iron" in a translated app, so it is looked
+     * up against the same strings the filter chips use. An alloy whose base has no chip falls back
+     * to the key itself rather than showing nothing.
+     */
+    private fun baseName(base: String): String =
+        BASE_METALS.firstOrNull { it.first == base }
+            ?.let { getString(it.second) }
+            ?: base.replaceFirstChar { it.uppercase() }
 
     /**
      * Filters the list by the base metal chosen in the chips, and by the search text. The text is

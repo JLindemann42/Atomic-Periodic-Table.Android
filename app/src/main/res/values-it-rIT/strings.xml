@@ -736,6 +736,7 @@
     <string name="protons">Protoni:</string>
     <string name="save_calculations">Salva calcoli:</string>
     <string name="save_units">Salva unità:</string>
+    <string name="save_equations">Salva equazioni:</string>
     <string name="search_for_element">Cerca elemento</string>
     <string name="share">Condividi</string>
     <string name="share_app">Condividi app</string>
@@ -1218,6 +1219,7 @@ Condividono comportamenti chimici simili grazie ai loro elettroni di valenza!</s
     <string name="ai_equation_check_header">Verifica degli atomi</string>
     <string name="ai_equation_tally_row">• **%1$s** — %2$d a sinistra, %3$d a destra</string>
     <string name="ai_equation_one_sided">Questa equazione non può essere bilanciata: un elemento compare solo da un lato, e nessun coefficiente può rimediare.</string>
+    <string name="ai_equation_one_sided_named">Questa equazione non può essere bilanciata: %1$s compare solo da un lato, e nessun coefficiente può rimediare.</string>
     <string name="ai_equation_underdetermined">Questa equazione ha più di un bilanciamento indipendente: si legge come due reazioni scritte come una. Separale e le bilancio entrambe.</string>
     <string name="ai_equation_too_large">Questa equazione richiede coefficienti troppo grandi per una reazione reale. Controlla le formule.</string>
     <string name="ai_equation_parse_failed">Non sono riuscito a leggerla come equazione chimica. Prova una forma come Fe + O2 -&gt; Fe2O3.</string>
@@ -1290,4 +1292,23 @@ Condividono comportamenti chimici simili grazie ai loro elettroni di valenza!</s
     <string name="balancer_tool_examples">Esempi</string>
     <string name="balancer_tool_note">Le frecce si possono scrivere -&gt;, =&gt;, = o →. I simboli di stato come (s), (l), (g) e (aq) vengono ignorati.</string>
     <string name="balancer_tool_copied">Equazione copiata</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">Tabella delle leghe</string>
+    <string name="table_alloy_text">Una tabella delle leghe più comuni, di cosa sono composte e perché vengono usate al posto del metallo puro</string>
+    <string name="alo">Tabella delle leghe</string>
+    <string name="activity_alloy_title">Leghe</string>
+    <string name="alloy_clear_filter">Cancella filtro</string>
+    <string name="alloy_base_iron">Ferro</string>
+    <string name="alloy_base_copper">Rame</string>
+    <string name="alloy_base_aluminium">Alluminio</string>
+    <string name="alloy_base_nickel">Nichel</string>
+    <string name="alloy_base_tin">Stagno</string>
+    <string name="alloy_base_silver">Argento</string>
+    <string name="alloy_base_gold">Oro</string>
+    <string name="alloy_base_titanium">Titanio</string>
+    <string name="alloy_base_mercury">Mercurio</string>
+    <string name="base_label">"Metallo base: "</string>
+    <string name="composition_label">"Composizione: "</string>
+    <string name="open_base_element">Apri elemento base</string>
 </resources>

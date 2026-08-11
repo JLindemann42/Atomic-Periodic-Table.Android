@@ -752,6 +752,7 @@
     <string name="protons">Mga proton:</string>
     <string name="save_calculations">I-save ang mga kalkulasyon:</string>
     <string name="save_units">I-save ang mga unit:</string>
+    <string name="save_equations">I-save ang mga equation:</string>
     <string name="search_for_element">Maghanap ng elemento</string>
     <string name="share">Ibahagi</string>
     <string name="share_app">Ibahagi ang App</string>
@@ -1217,6 +1218,7 @@ Nagbabahagi sila ng mga katulad na gawi sa kemikal dahil sa kanilang mga valence
     <string name="ai_equation_check_header">Pagsusuri ng atomo</string>
     <string name="ai_equation_tally_row">• **%1$s** — %2$d sa kaliwa, %3$d sa kanan</string>
     <string name="ai_equation_one_sided">Hindi mabalanse ang ekwasyong iyan: may elementong nasa isang panig lang, kaya walang koepisyenteng makakaayos nito.</string>
+    <string name="ai_equation_one_sided_named">Hindi mabalanse ang ekwasyong iyan: ang %1$s ay nasa isang panig lang, kaya walang koepisyenteng makakaayos nito.</string>
     <string name="ai_equation_underdetermined">May higit sa isang malayang balanse ang ekwasyong iyan — parang dalawang reaksyon na isinulat bilang isa. Hatiin mo at babalansehin ko ang bawat isa.</string>
     <string name="ai_equation_too_large">Kailangan ng ekwasyong iyan ng koepisyenteng masyadong malaki para sa totoong reaksyon. Suriin ang mga pormula.</string>
     <string name="ai_equation_parse_failed">Hindi ko iyon nabasa bilang ekwasyong kemikal. Subukan ang anyong Fe + O2 -&gt; Fe2O3.</string>
@@ -1289,4 +1291,23 @@ Nagbabahagi sila ng mga katulad na gawi sa kemikal dahil sa kanilang mga valence
     <string name="balancer_tool_examples">Mga halimbawa</string>
     <string name="balancer_tool_note">Maaaring isulat ang arrow bilang -&gt;, =&gt;, = o →. Hindi pinapansin ang state symbols na (s), (l), (g) at (aq).</string>
     <string name="balancer_tool_copied">Nakopya ang ekwasyon</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">Talaan ng Haluang Metal</string>
+    <string name="table_alloy_text">Isang talaan ng mga karaniwang haluang metal, kung saan sila gawa at kung bakit ginagamit ang mga ito sa halip na ang purong metal</string>
+    <string name="alo">Talaan ng Haluang Metal</string>
+    <string name="activity_alloy_title">Mga Haluang Metal</string>
+    <string name="alloy_clear_filter">I-clear ang filter</string>
+    <string name="alloy_base_iron">Bakal</string>
+    <string name="alloy_base_copper">Tanso</string>
+    <string name="alloy_base_aluminium">Aluminyo</string>
+    <string name="alloy_base_nickel">Nikel</string>
+    <string name="alloy_base_tin">Lata</string>
+    <string name="alloy_base_silver">Pilak</string>
+    <string name="alloy_base_gold">Ginto</string>
+    <string name="alloy_base_titanium">Titanyo</string>
+    <string name="alloy_base_mercury">Asoge</string>
+    <string name="base_label">"Batayang metal: "</string>
+    <string name="composition_label">"Komposisyon: "</string>
+    <string name="open_base_element">Buksan ang batayang elemento</string>
 </resources>

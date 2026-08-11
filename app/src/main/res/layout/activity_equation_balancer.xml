@@ -71,7 +71,7 @@
                             app:boxStrokeWidth="0dp"
                             app:boxStrokeWidthFocused="0dp"
                             app:hintEnabled="false"
-                            app:layout_constraintEnd_toStartOf="@+id/balancer_copy_btn"
+                            app:layout_constraintEnd_toStartOf="@+id/balancer_fav_star_btn"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
@@ -90,13 +90,14 @@
                         </com.google.android.material.textfield.TextInputLayout>
 
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/balancer_copy_btn"
+                            android:id="@+id/balancer_fav_star_btn"
                             style="@style/Widget.Material3.Button.IconButton.Filled"
                             android:layout_width="68dp"
                             android:layout_height="68dp"
+                            android:contentDescription="@string/unit_add_favorite"
                             app:cornerRadius="16dp"
-                            app:icon="@drawable/ic_share"
-                            app:iconSize="30dp"
+                            app:icon="@drawable/ic_star"
+                            app:iconSize="40dp"
                             app:layout_constraintBottom_toBottomOf="@+id/balancer_input_layout"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -142,6 +143,66 @@
                         android:textColor="?attr/colorOnSurface"
                         android:textSize="15sp"
                         android:visibility="gone" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Favorites (PRO) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/balancer_fav_box"
+                style="@style/Widget.Science.Expressive.SectionCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="@string/calc_favorites"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/balancer_no_pro_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/calc_no_pro_text"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="14sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/balancer_pro_button"
+                        style="@style/Widget.Material3.Button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/get_pro_title"
+                        app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
+
+                    <TextView
+                        android:id="@+id/balancer_no_fav_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/calc_no_favorites"
+                        android:textAlignment="center"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="14sp"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/balancer_fav_rec_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -204,7 +265,6 @@
     <include
         android:id="@+id/unified_titlebar_include"
         layout="@layout/view_unified_titlebar"
-        android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

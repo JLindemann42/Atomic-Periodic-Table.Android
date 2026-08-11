@@ -219,12 +219,18 @@ sealed class ExecutionResult {
      * @property tally the per-element proof: how many atoms each side ends up with. A balancer
      *   that prints only coefficients asks to be trusted; one that shows both counts can be checked.
      */
+    /**
+     * @property detail what the failure was about — for a one-sided element, which element. The
+     *   solver has always known; it used to be dropped here, so every failure was reported with the
+     *   same general sentence.
+     */
     data class BalancedEquation(
         val reactants: List<com.jlindemann.science.ai.data.Term>,
         val products: List<com.jlindemann.science.ai.data.Term>,
         val tally: List<com.jlindemann.science.ai.data.ElementTally>,
         val reason: com.jlindemann.science.ai.data.EquationBalancer.Reason?,
-        override val citations: List<Citation>
+        override val citations: List<Citation>,
+        val detail: String? = null
     ) : ExecutionResult()
 
     /**

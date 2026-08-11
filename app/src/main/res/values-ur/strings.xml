@@ -613,6 +613,7 @@
     <string name="ai_equation_check_header">ایٹمی جانچ</string>
     <string name="ai_equation_tally_row">• **%1$s** — بائیں طرف %2$d، دائیں طرف %3$d</string>
     <string name="ai_equation_one_sided">یہ مساوات متوازن نہیں ہو سکتی: ایک عنصر صرف ایک طرف موجود ہے، اس لیے کوئی عدد اسے برابر نہیں کر سکتا۔</string>
+    <string name="ai_equation_one_sided_named">یہ مساوات متوازن نہیں ہو سکتی: %1$s صرف ایک طرف موجود ہے، اس لیے کوئی عدد اسے برابر نہیں کر سکتا۔</string>
     <string name="ai_equation_underdetermined">اس مساوات کے ایک سے زیادہ آزاد توازن ہیں — یہ ایک میں لکھی دو تعاملات جیسی ہے۔ اسے الگ کریں، میں ہر ایک کو متوازن کر دوں گا۔</string>
     <string name="ai_equation_too_large">اس مساوات کے لیے ایسے اعداد درکار ہیں جو کسی حقیقی تعامل کے لیے بہت بڑے ہیں۔ فارمولے دیکھ لیں۔</string>
     <string name="ai_equation_parse_failed">میں اسے کیمیائی مساوات کے طور پر نہیں پڑھ سکا۔ Fe + O2 -&gt; Fe2O3 جیسی شکل آزمائیں۔</string>
@@ -685,4 +686,23 @@
     <string name="balancer_tool_examples">مثالیں</string>
     <string name="balancer_tool_note">تیر -&gt;، =&gt;، = یا → کے طور پر لکھے جا سکتے ہیں۔ (s)، (l)، (g) اور (aq) جیسے حالت کے نشان نظر انداز کیے جاتے ہیں۔</string>
     <string name="balancer_tool_copied">مساوات نقل ہو گئی</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">مرکب دھاتوں کا جدول</string>
+    <string name="table_alloy_text">عام مرکب دھاتوں کا جدول، وہ کن چیزوں سے بنی ہیں اور خالص دھات کے بجائے انہیں کیوں استعمال کیا جاتا ہے</string>
+    <string name="alo">مرکب دھاتوں کا جدول</string>
+    <string name="activity_alloy_title">مرکب دھاتیں</string>
+    <string name="alloy_clear_filter">فلٹر صاف کریں</string>
+    <string name="alloy_base_iron">آئرن</string>
+    <string name="alloy_base_copper">تانبا</string>
+    <string name="alloy_base_aluminium">ایلومینیم</string>
+    <string name="alloy_base_nickel">نکل</string>
+    <string name="alloy_base_tin">ٹن</string>
+    <string name="alloy_base_silver">چاندی</string>
+    <string name="alloy_base_gold">سونا</string>
+    <string name="alloy_base_titanium">ٹائٹینیم</string>
+    <string name="alloy_base_mercury">پارہ</string>
+    <string name="base_label">"بنیادی دھات: "</string>
+    <string name="composition_label">"ترکیب: "</string>
+    <string name="open_base_element">بنیادی عنصر کھولیں</string>
 </resources>

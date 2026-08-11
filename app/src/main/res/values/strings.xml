@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v5.0.1m-Build.226</string>
+    <string name="app_version" translatable="false">v5.0.3m-Build.228</string>
     <string name="next_sale_start" translatable="false" >2024/08/05</string>
     <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
@@ -1336,6 +1336,7 @@
     <string name="nuclide_table">Nuclide Table:</string>
     <string name="save_calculations">Save Calculations:</string>
     <string name="save_units">Save Units:</string>
+    <string name="save_equations">Save Equations:</string>
     <string name="data_visualisations">Data Visualisations:</string>
     <string name="young_bulk_shear_modulus">Young-, Bulk-, Shear modulus:</string>
     <string name="poisson_constants_sound_speed">Poisson\'s Constants, Sound of Speed:</string>
@@ -1440,6 +1441,7 @@
     <string name="ai_equation_check_header">Atom check</string>
     <string name="ai_equation_tally_row">• **%1$s** — %2$d on the left, %3$d on the right</string>
     <string name="ai_equation_one_sided">That equation cannot be balanced: an element appears on only one side, so no set of coefficients can even it out.</string>
+    <string name="ai_equation_one_sided_named">That equation cannot be balanced: %1$s appears on only one side, so no set of coefficients can even it out.</string>
     <string name="ai_equation_underdetermined">That equation has more than one independent balance — it reads as two reactions written as one. Split it and I can balance each.</string>
     <string name="ai_equation_too_large">That equation needs coefficients too large to be a real reaction. Check the formulas.</string>
     <string name="ai_equation_parse_failed">I could not read that as a chemical equation. Try a form like Fe + O2 -&gt; Fe2O3.</string>

@@ -3,23 +3,32 @@ package com.jlindemann.science.activities.tools
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
+import com.jlindemann.science.adapter.FavoriteEquation
+import com.jlindemann.science.adapter.FavoriteEquationsAdapter
+import com.jlindemann.science.ai.compose.DeepLinkNavigator
 import com.jlindemann.science.ai.data.ElementTally
 import com.jlindemann.science.ai.data.EquationBalancer
 import com.jlindemann.science.ai.data.Term
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.MostUsedToolPreference
+import com.jlindemann.science.preferences.ProPlusVersion
+import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.UnifiedTitleBarController
@@ -41,6 +50,18 @@ import com.jlindemann.science.utils.UnifiedTitleBarController
 class EquationBalancerActivity : BaseActivity() {
 
     private lateinit var titleBar: UnifiedTitleBarController
+
+    /** The last balanced equation; null whenever the result line is a prompt or a failure. */
+    private var balancedEquation: String? = null
+
+    /** What was typed to produce [balancedEquation]; saved beside it so a favorite can be edited. */
+    private var balancedInput: String? = null
+
+    private lateinit var favoritesPreferences: SharedPreferences
+    private lateinit var favoritesAdapter: FavoriteEquationsAdapter
+
+    /** PRO or PRO+; favorites are a paid feature here as they are on the molar mass calculator. */
+    private var hasProAccess: Boolean = false
 
     /** Every element symbol the app knows, for deciding what is a formula and what is prose. */
     private val symbols: Set<String> by lazy {
@@ -91,14 +112,124 @@ class EquationBalancerActivity : BaseActivity() {
 
         bumpMostUsed()
         inputController()
+        favoritesController()
 
-        findViewById<View>(R.id.balancer_copy_btn).setOnClickListener { copyResult() }
         for (id in listOf(R.id.example_1, R.id.example_2, R.id.example_3)) {
             val chip = findViewById<TextView>(id)
             chip.setOnClickListener {
                 findViewById<TextInputEditText>(R.id.edit_text_balancer).setText(chip.text)
             }
         }
+
+        // An equation handed over by the assistant's "open in app" chip. Filling it in after the
+        // watcher is attached is what makes the screen open already answered: the user tapped the
+        // chip from a balanced equation, and an empty box would ask them to type it again.
+        intent.getStringExtra(DeepLinkNavigator.EXTRA_EQUATION)
+            ?.takeIf { it.isNotBlank() }
+            ?.let { findViewById<TextInputEditText>(R.id.edit_text_balancer).setText(it) }
+    }
+
+    override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
+        val barParams = titleBar.container.layoutParams as ViewGroup.LayoutParams
+        barParams.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
+        titleBar.container.layoutParams = barParams
+
+        val downstate = findViewById<TextView>(R.id.balancer_title_downstate)
+        val headlineParams = downstate.layoutParams as ViewGroup.MarginLayoutParams
+        headlineParams.topMargin = top +
+            resources.getDimensionPixelSize(R.dimen.title_bar) +
+            resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        downstate.layoutParams = headlineParams
+    }
+
+    /**
+     * The favorites card: the PRO gate, the list, and the save button.
+     *
+     * Without PRO the list is hidden behind the upsell and the save button is not shown at all,
+     * which is how the molar mass calculator gates the same feature. The screen itself stays
+     * usable — balancing is free, only keeping the result is not.
+     */
+    private fun favoritesController() {
+        favoritesPreferences = getSharedPreferences(FAVORITES_PREFERENCES, Context.MODE_PRIVATE)
+        hasProAccess = ProVersion(this).getValue() == 100 || ProPlusVersion(this).getValue() == 100
+
+        val list = findViewById<RecyclerView>(R.id.balancer_fav_rec_list)
+        val noPro = findViewById<TextView>(R.id.balancer_no_pro_text)
+        val proButton = findViewById<View>(R.id.balancer_pro_button)
+        val saveButton = findViewById<View>(R.id.balancer_fav_star_btn)
+
+        list.visibility = if (hasProAccess) View.VISIBLE else View.GONE
+        noPro.visibility = if (hasProAccess) View.GONE else View.VISIBLE
+        proButton.visibility = if (hasProAccess) View.GONE else View.VISIBLE
+        saveButton.visibility = if (hasProAccess) View.VISIBLE else View.GONE
+
+        proButton.setOnClickListener { goToProPage() }
+
+        favoritesAdapter = FavoriteEquationsAdapter(
+            onRemove = { input -> removeFavorite(input) },
+            onCopy = { balanced -> copyToClipboard(balanced) },
+            onRestore = { input ->
+                findViewById<TextInputEditText>(R.id.edit_text_balancer).setText(input)
+            }
+        )
+        list.layoutManager = LinearLayoutManager(this)
+        list.adapter = favoritesAdapter
+
+        loadFavorites()
+
+        saveButton.setOnClickListener {
+            val balanced = balancedEquation
+            val input = balancedInput
+            // Only a balanced equation is worth keeping. Saving the prompt or a failure sentence
+            // would fill the list with rows that answer nothing.
+            if (balanced == null || input.isNullOrBlank()) {
+                ToastUtil.showToast(this, getString(R.string.balancer_tool_prompt))
+                return@setOnClickListener
+            }
+            saveFavorite(input, balanced)
+            loadFavorites()
+        }
+    }
+
+    /** Re-saving an equation replaces its row instead of adding a second one for the same input. */
+    private fun saveFavorite(input: String, balanced: String) {
+        val favorites = storedFavorites()
+        favorites.removeIf { it.substringBefore(FAVORITE_SEPARATOR) == input }
+        favorites.add("$input$FAVORITE_SEPARATOR$balanced")
+        favoritesPreferences.edit().putStringSet(FAVORITES_KEY, favorites).apply()
+    }
+
+    private fun removeFavorite(input: String) {
+        val favorites = storedFavorites()
+        favorites.removeIf { it.substringBefore(FAVORITE_SEPARATOR) == input }
+        favoritesPreferences.edit().putStringSet(FAVORITES_KEY, favorites).apply()
+        loadFavorites()
+    }
+
+    private fun loadFavorites() {
+        // A set has no order of its own, so the rows are sorted by the typed equation. Without it
+        // the list reshuffles itself every time something is added or removed.
+        val favorites = storedFavorites()
+            .map {
+                FavoriteEquation(
+                    input = it.substringBefore(FAVORITE_SEPARATOR),
+                    balanced = it.substringAfter(FAVORITE_SEPARATOR, "")
+                )
+            }
+            .sortedBy { it.input.lowercase() }
+
+        favoritesAdapter.updateEquations(favorites)
+        findViewById<TextView>(R.id.balancer_no_fav_text).visibility =
+            if (hasProAccess && favorites.isEmpty()) View.VISIBLE else View.GONE
+    }
+
+    private fun storedFavorites(): MutableSet<String> =
+        favoritesPreferences.getStringSet(FAVORITES_KEY, emptySet())?.toMutableSet() ?: mutableSetOf()
+
+    private fun copyToClipboard(text: String) {
+        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        clipboard.setPrimaryClip(ClipData.newPlainText("equation", text))
+        ToastUtil.showToast(this, getString(R.string.balancer_tool_copied))
     }
 
     private fun inputController() {
@@ -122,6 +253,9 @@ class EquationBalancerActivity : BaseActivity() {
         val tally = findViewById<TextView>(R.id.balancer_tally_text)
         val header = findViewById<TextView>(R.id.balancer_tally_header)
 
+        balancedEquation = null
+        balancedInput = null
+
         fun show(text: String, proof: String? = null) {
             output.text = text
             tally.text = proof.orEmpty()
@@ -135,20 +269,30 @@ class EquationBalancerActivity : BaseActivity() {
             return
         }
 
-        val sides = EquationBalancer.parseEquation(input) { it in symbols }
-        if (sides == null) {
+        when (val parsed = EquationBalancer.parse(input) { it in symbols }) {
             // No arrow yet is the normal state while typing, and calling that a parse failure
             // would scold the user for every keystroke up to the "->".
-            show(getString(R.string.balancer_tool_prompt))
-            return
-        }
+            EquationBalancer.ParseOutcome.NoArrow ->
+                show(getString(R.string.balancer_tool_prompt))
 
-        when (val result = EquationBalancer.balance(sides.first, sides.second)) {
-            is EquationBalancer.Result.Balanced -> show(
-                equationOf(result.reactants, result.products),
-                proofOf(result.tally)
-            )
-            is EquationBalancer.Result.Failed -> show(getString(messageFor(result.reason)))
+            // An arrow was written and the formulas beside it were not readable. This used to show
+            // the prompt as well, which told somebody who had typed an equation to type one.
+            EquationBalancer.ParseOutcome.NotAnEquation ->
+                show(getString(R.string.ai_equation_parse_failed))
+
+            EquationBalancer.ParseOutcome.TooManySpecies ->
+                show(getString(R.string.ai_equation_too_large))
+
+            is EquationBalancer.ParseOutcome.Sides ->
+                when (val result = EquationBalancer.balance(parsed.reactants, parsed.products)) {
+                    is EquationBalancer.Result.Balanced -> {
+                        balancedEquation = equationOf(result.reactants, result.products)
+                        balancedInput = input.trim()
+                        show(balancedEquation!!, proofOf(result.tally))
+                    }
+                    is EquationBalancer.Result.Failed ->
+                        show(messageFor(result.reason, result.detail))
+                }
         }
     }
 
@@ -160,25 +304,31 @@ class EquationBalancerActivity : BaseActivity() {
         return "${side(reactants)} → ${side(products)}"
     }
 
+    /**
+     * The per-element atom counts, as plain text.
+     *
+     * The row template is the assistant's, and the assistant's renderer turns `**Fe**` into bold.
+     * This screen's result is an ordinary TextView, so it was printing the asterisks. Stripping
+     * them keeps the one translated row shared between the two surfaces rather than forking it.
+     */
     private fun proofOf(tally: List<ElementTally>): String =
         tally.joinToString("\n") {
             getString(R.string.ai_equation_tally_row, it.symbol, it.left, it.right)
+                .replace("**", "")
         }
 
-    private fun messageFor(reason: EquationBalancer.Reason): Int = when (reason) {
-        EquationBalancer.Reason.ONE_SIDED_ELEMENT -> R.string.ai_equation_one_sided
-        EquationBalancer.Reason.UNDERDETERMINED -> R.string.ai_equation_underdetermined
-        EquationBalancer.Reason.TOO_LARGE -> R.string.ai_equation_too_large
-        EquationBalancer.Reason.PARSE_FAILED -> R.string.ai_equation_parse_failed
-        EquationBalancer.Reason.NO_SOLUTION -> R.string.ai_equation_no_solution
-    }
-
-    private fun copyResult() {
-        val text = findViewById<TextView>(R.id.balancer_out_text).text.toString()
-        if (text.isBlank() || text == getString(R.string.balancer_tool_prompt)) return
-        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        clipboard.setPrimaryClip(ClipData.newPlainText("equation", text))
-        ToastUtil.showToast(this, getString(R.string.balancer_tool_copied))
+    /**
+     * @param detail the offending element symbol, when the solver identified one. Naming it turns
+     *   "an element appears on only one side" into a sentence the user can act on without hunting.
+     */
+    private fun messageFor(reason: EquationBalancer.Reason, detail: String?): String = when (reason) {
+        EquationBalancer.Reason.ONE_SIDED_ELEMENT ->
+            if (detail == null) getString(R.string.ai_equation_one_sided)
+            else getString(R.string.ai_equation_one_sided_named, detail)
+        EquationBalancer.Reason.UNDERDETERMINED -> getString(R.string.ai_equation_underdetermined)
+        EquationBalancer.Reason.TOO_LARGE -> getString(R.string.ai_equation_too_large)
+        EquationBalancer.Reason.PARSE_FAILED -> getString(R.string.ai_equation_parse_failed)
+        EquationBalancer.Reason.NO_SOLUTION -> getString(R.string.ai_equation_no_solution)
     }
 
     /** Same counter the other tools bump, so the most-used row reflects real use. */
@@ -188,5 +338,19 @@ class EquationBalancerActivity : BaseActivity() {
         val match = Regex("(bal)=(\\d+\\.\\d+)").find(current) ?: return
         val value = match.groups[2]!!.value.toDouble()
         preference.setValue(current.replace("bal=$value", "bal=${value + 1}"))
+    }
+
+    private companion object {
+        const val FAVORITES_PREFERENCES = "EquationBalancerPrefs"
+        const val FAVORITES_KEY = "balancer_favorites"
+
+        /**
+         * Splits the typed equation from its balanced form inside one stored entry.
+         *
+         * A unit separator rather than the ":" the other tools use: an entry is split on the first
+         * occurrence, and ":" is a character a user can type — a state symbol or a stray colon
+         * would cut the row in the wrong place.
+         */
+        const val FAVORITE_SEPARATOR = "\u001F"
     }
 }

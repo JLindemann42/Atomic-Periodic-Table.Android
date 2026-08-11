@@ -1204,14 +1204,24 @@ class QueryPlanner(
         // sentence. A plan is produced only when the equation actually parses, so "x -> y" written
         // in prose falls through to everything below untouched.
         if (EQUATION_ARROW.containsMatchIn(rawQuery)) {
-            val sides = com.jlindemann.science.ai.data.EquationBalancer
-                .parseEquation(rawQuery) { store.bySymbol(it) != null }
-            if (sides != null) {
+            val outcome = com.jlindemann.science.ai.data.EquationBalancer
+                .parse(rawQuery) { store.bySymbol(it) != null }
+            val evidence = when (outcome) {
+                is com.jlindemann.science.ai.data.EquationBalancer.ParseOutcome.Sides ->
+                    "equation ${outcome.reactants.size} -> ${outcome.products.size}"
+                // Claimed too. The executor answers it with "too large", which is the truth; letting
+                // it fall through to the legacy router would answer a readable equation by
+                // recommending the balancer the user is already effectively using.
+                com.jlindemann.science.ai.data.EquationBalancer.ParseOutcome.TooManySpecies ->
+                    "equation too large"
+                else -> null
+            }
+            if (evidence != null) {
                 return QueryPlan(
                     intent = Intent.BALANCE_EQUATION,
                     rawQuery = rawQuery,
                     confidence = 0.9,
-                    evidence = listOf("equation ${sides.first.size} -> ${sides.second.size}")
+                    evidence = listOf(evidence)
                 )
             }
         }
@@ -1360,11 +1370,11 @@ class QueryPlanner(
     /**
      * A chemical equation's arrow.
      *
-     * A bare `=` counts, since plenty of people write one, but never `==`, `<=`, `>=` or `!=` —
-     * those turn up in comparisons, and reading one as an equation would claim a query that is not.
+     * The balancer's, not a copy of it. This file used to carry its own pattern and the two
+     * drifted: only this one excluded `==`, `<=`, `>=` and `!=`, so a query the planner correctly
+     * refused to read as an equation was read as one the moment it reached the solver.
      */
-    private val EQUATION_ARROW =
-        Regex("""(?:<->|-{1,2}>|=>|→|⇌|⇄|⟶|(?<![<>=!])=(?![=>]))""")
+    private val EQUATION_ARROW = com.jlindemann.science.ai.data.EquationBalancer.ARROW
 
     /**
      * A standalone unit conversion, on a number the user supplied.

@@ -740,6 +740,7 @@
     <string name="protons">Prótons:</string>
     <string name="save_calculations">Salvar cálculos:</string>
     <string name="save_units">Salvar unidades:</string>
+    <string name="save_equations">Salvar equações:</string>
     <string name="search_for_element">Procurar elemento</string>
     <string name="share">Compartilhar</string>
     <string name="share_app">Compartilhar app</string>
@@ -1222,6 +1223,7 @@ Eles compartilham comportamentos químicos semelhantes devido aos seus elétrons
     <string name="ai_equation_check_header">Verificação de átomos</string>
     <string name="ai_equation_tally_row">• **%1$s** — %2$d à esquerda, %3$d à direita</string>
     <string name="ai_equation_one_sided">Essa equação não pode ser balanceada: um elemento aparece só de um lado, e nenhum coeficiente corrige isso.</string>
+    <string name="ai_equation_one_sided_named">Essa equação não pode ser balanceada: %1$s aparece só de um lado, e nenhum coeficiente corrige isso.</string>
     <string name="ai_equation_underdetermined">Essa equação tem mais de um balanceamento independente — ela se lê como duas reações escritas como uma. Separe-as e eu balanceio cada uma.</string>
     <string name="ai_equation_too_large">Essa equação exige coeficientes grandes demais para uma reação real. Confira as fórmulas.</string>
     <string name="ai_equation_parse_failed">Não consegui ler isso como uma equação química. Tente um formato como Fe + O2 -&gt; Fe2O3.</string>
@@ -1294,4 +1296,23 @@ Eles compartilham comportamentos químicos semelhantes devido aos seus elétrons
     <string name="balancer_tool_examples">Exemplos</string>
     <string name="balancer_tool_note">As setas podem ser escritas -&gt;, =&gt;, = ou →. Símbolos de estado como (s), (l), (g) e (aq) são ignorados.</string>
     <string name="balancer_tool_copied">Equação copiada</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">Tabela de ligas</string>
+    <string name="table_alloy_text">Uma tabela de ligas comuns, do que são feitas e por que são usadas no lugar do metal puro</string>
+    <string name="alo">Tabela de ligas</string>
+    <string name="activity_alloy_title">Ligas</string>
+    <string name="alloy_clear_filter">Limpar filtro</string>
+    <string name="alloy_base_iron">Ferro</string>
+    <string name="alloy_base_copper">Cobre</string>
+    <string name="alloy_base_aluminium">Alumínio</string>
+    <string name="alloy_base_nickel">Níquel</string>
+    <string name="alloy_base_tin">Estanho</string>
+    <string name="alloy_base_silver">Prata</string>
+    <string name="alloy_base_gold">Ouro</string>
+    <string name="alloy_base_titanium">Titânio</string>
+    <string name="alloy_base_mercury">Mercúrio</string>
+    <string name="base_label">"Metal base: "</string>
+    <string name="composition_label">"Composição: "</string>
+    <string name="open_base_element">Abrir elemento base</string>
 </resources>

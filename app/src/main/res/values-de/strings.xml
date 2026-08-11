@@ -879,6 +879,7 @@
     <string name="element_electrons">Elektronen:</string>
     <string name="save_calculations">Berechnungen speichern:</string>
     <string name="save_units">Einheiten speichern:</string>
+    <string name="save_equations">Gleichungen speichern:</string>
     <string name="search_for_element">Nach Element suchen</string>
     <string name="share">Teilen</string>
     <string name="share_app">App teilen</string>
@@ -1148,6 +1149,7 @@
     <string name="ai_equation_check_header">Atombilanz</string>
     <string name="ai_equation_tally_row">• **%1$s** — %2$d links, %3$d rechts</string>
     <string name="ai_equation_one_sided">Diese Gleichung lässt sich nicht ausgleichen: ein Element steht nur auf einer Seite, das können keine Koeffizienten beheben.</string>
+    <string name="ai_equation_one_sided_named">Diese Gleichung lässt sich nicht ausgleichen: %1$s steht nur auf einer Seite, das können keine Koeffizienten beheben.</string>
     <string name="ai_equation_underdetermined">Diese Gleichung hat mehr als einen unabhängigen Ausgleich — sie liest sich wie zwei Reaktionen in einer. Trenne sie, dann gleiche ich jede aus.</string>
     <string name="ai_equation_too_large">Diese Gleichung bräuchte Koeffizienten, die für eine echte Reaktion zu groß sind. Prüfe die Formeln.</string>
     <string name="ai_equation_parse_failed">Das konnte ich nicht als chemische Gleichung lesen. Versuche eine Form wie Fe + O2 -&gt; Fe2O3.</string>
@@ -1220,4 +1222,23 @@
     <string name="balancer_tool_examples">Beispiele</string>
     <string name="balancer_tool_note">Pfeile lassen sich als -&gt;, =&gt;, = oder → schreiben. Zustandsangaben wie (s), (l), (g) und (aq) werden ignoriert.</string>
     <string name="balancer_tool_copied">Gleichung kopiert</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">Legierungstabelle</string>
+    <string name="table_alloy_text">Eine Tabelle gängiger Legierungen, woraus sie bestehen und warum sie anstelle des reinen Metalls verwendet werden</string>
+    <string name="alo">Legierungstabelle</string>
+    <string name="activity_alloy_title">Legierungen</string>
+    <string name="alloy_clear_filter">Filter zurücksetzen</string>
+    <string name="alloy_base_iron">Eisen</string>
+    <string name="alloy_base_copper">Kupfer</string>
+    <string name="alloy_base_aluminium">Aluminium</string>
+    <string name="alloy_base_nickel">Nickel</string>
+    <string name="alloy_base_tin">Zinn</string>
+    <string name="alloy_base_silver">Silber</string>
+    <string name="alloy_base_gold">Gold</string>
+    <string name="alloy_base_titanium">Titan</string>
+    <string name="alloy_base_mercury">Quecksilber</string>
+    <string name="base_label">"Basismetall: "</string>
+    <string name="composition_label">"Zusammensetzung: "</string>
+    <string name="open_base_element">Basiselement öffnen</string>
 </resources>

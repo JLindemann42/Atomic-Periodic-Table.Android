@@ -307,29 +307,60 @@ class QueryExecutor(
      */
     private fun balanceEquation(plan: QueryPlan): ExecutionResult {
         val balancer = com.jlindemann.science.ai.data.EquationBalancer
-        val citations = listOf(
+
+        /**
+         * The chip under the answer.
+         *
+         * Named for the screen it actually opens: it used to read `balancer_title`, which is
+         * "Chemical Reactions" — the older screen's title, and not where this chip goes.
+         *
+         * [equation] is what the solver read rather than what the user typed, so "balance this
+         * reaction: Fe + O2 -> Fe2O3" opens the tool on the equation without the sentence around
+         * it. Passing it at all is the point: the chip used to open an empty input box, asking the
+         * user to retype the equation they had just been given the answer to.
+         */
+        fun citationsFor(equation: String?) = listOf(
             Citation(
-                label = strings.get(com.jlindemann.science.R.string.balancer_title),
-                source = strings.get(com.jlindemann.science.R.string.balancer_title),
+                label = strings.get(com.jlindemann.science.R.string.balancer_tool_title),
+                source = strings.get(com.jlindemann.science.R.string.balancer_tool_title),
                 deepLink = com.jlindemann.science.ai.data.DeepLinkTarget.REACTION_BALANCER,
+                args = equation
+                    ?.let { mapOf(com.jlindemann.science.ai.compose.DeepLinkNavigator.ARG_EQUATION to it) }
+                    .orEmpty(),
                 fromTable = true
             )
         )
-        val sides = balancer.parseEquation(plan.rawQuery) { store.bySymbol(it) != null }
-            ?: return ExecutionResult.BalancedEquation(
-                emptyList(), emptyList(), emptyList(),
-                com.jlindemann.science.ai.data.EquationBalancer.Reason.PARSE_FAILED, citations
-            )
 
-        return when (val result = balancer.balance(sides.first, sides.second)) {
+        fun failed(
+            reason: com.jlindemann.science.ai.data.EquationBalancer.Reason,
+            equation: String? = null,
+            detail: String? = null
+        ) = ExecutionResult.BalancedEquation(
+            emptyList(), emptyList(), emptyList(), reason, citationsFor(equation), detail
+        )
+
+        val sides = when (
+            val outcome = balancer.parse(plan.rawQuery) { store.bySymbol(it) != null }
+        ) {
+            is com.jlindemann.science.ai.data.EquationBalancer.ParseOutcome.Sides -> outcome
+            // Read fine, just too long. Reporting this as a parse failure told the user their
+            // equation was unreadable when the objection was its size.
+            com.jlindemann.science.ai.data.EquationBalancer.ParseOutcome.TooManySpecies ->
+                return failed(com.jlindemann.science.ai.data.EquationBalancer.Reason.TOO_LARGE)
+            else ->
+                return failed(com.jlindemann.science.ai.data.EquationBalancer.Reason.PARSE_FAILED)
+        }
+
+        val equation = sides.reactants.joinToString(" + ") { it.formula } +
+            " -> " + sides.products.joinToString(" + ") { it.formula }
+
+        return when (val result = balancer.balance(sides.reactants, sides.products)) {
             is com.jlindemann.science.ai.data.EquationBalancer.Result.Balanced ->
                 ExecutionResult.BalancedEquation(
-                    result.reactants, result.products, result.tally, null, citations
+                    result.reactants, result.products, result.tally, null, citationsFor(equation)
                 )
             is com.jlindemann.science.ai.data.EquationBalancer.Result.Failed ->
-                ExecutionResult.BalancedEquation(
-                    emptyList(), emptyList(), emptyList(), result.reason, citations
-                )
+                failed(result.reason, equation, result.detail)
         }
     }
 

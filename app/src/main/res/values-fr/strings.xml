@@ -740,6 +740,7 @@
     <string name="protons">Protons:</string>
     <string name="save_calculations">Enregistrer les calculs:</string>
     <string name="save_units">Enregistrer les unités:</string>
+    <string name="save_equations">Enregistrer les équations:</string>
     <string name="search_for_element">Rechercher un élément</string>
     <string name="share">Partager</string>
     <string name="share_app">Partager l\'application</string>
@@ -1222,6 +1223,7 @@ Ils partagent des comportements chimiques similaires grâce à leurs électrons 
     <string name="ai_equation_check_header">Vérification des atomes</string>
     <string name="ai_equation_tally_row">• **%1$s** — %2$d à gauche, %3$d à droite</string>
     <string name="ai_equation_one_sided">Cette équation ne peut pas être équilibrée : un élément n\'apparaît que d\'un côté, aucun coefficient ne peut compenser cela.</string>
+    <string name="ai_equation_one_sided_named">Cette équation ne peut pas être équilibrée : %1$s n\'apparaît que d\'un côté, aucun coefficient ne peut compenser cela.</string>
     <string name="ai_equation_underdetermined">Cette équation admet plusieurs équilibres indépendants — elle se lit comme deux réactions écrites en une. Sépare-les et j\'équilibre chacune.</string>
     <string name="ai_equation_too_large">Cette équation exige des coefficients trop grands pour une vraie réaction. Vérifie les formules.</string>
     <string name="ai_equation_parse_failed">Je n\'ai pas pu lire cela comme une équation chimique. Essaie une forme comme Fe + O2 -&gt; Fe2O3.</string>
@@ -1294,4 +1296,23 @@ Ils partagent des comportements chimiques similaires grâce à leurs électrons 
     <string name="balancer_tool_examples">Exemples</string>
     <string name="balancer_tool_note">Les flèches peuvent s\'écrire -&gt;, =&gt;, = ou →. Les symboles d\'état comme (s), (l), (g) et (aq) sont ignorés.</string>
     <string name="balancer_tool_copied">Équation copiée</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">Tableau des alliages</string>
+    <string name="table_alloy_text">Un tableau des alliages courants, leur composition et les raisons pour lesquelles ils sont utilisés à la place du métal pur</string>
+    <string name="alo">Tableau des alliages</string>
+    <string name="activity_alloy_title">Alliages</string>
+    <string name="alloy_clear_filter">Effacer le filtre</string>
+    <string name="alloy_base_iron">Fer</string>
+    <string name="alloy_base_copper">Cuivre</string>
+    <string name="alloy_base_aluminium">Aluminium</string>
+    <string name="alloy_base_nickel">Nickel</string>
+    <string name="alloy_base_tin">Étain</string>
+    <string name="alloy_base_silver">Argent</string>
+    <string name="alloy_base_gold">Or</string>
+    <string name="alloy_base_titanium">Titane</string>
+    <string name="alloy_base_mercury">Mercure</string>
+    <string name="base_label">"Métal de base : "</string>
+    <string name="composition_label">"Composition : "</string>
+    <string name="open_base_element">Ouvrir l\'élément de base</string>
 </resources>

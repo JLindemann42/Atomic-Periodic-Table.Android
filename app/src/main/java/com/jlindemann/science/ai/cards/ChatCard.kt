@@ -6,16 +6,6 @@ enum class ChatCardKind {
     NFPA_DIAMOND, IONIZATION_SERIES, ISOTOPE_DECAY, ABUNDANCE
 }
 
-/**
- * A visual card attached to an answer.
- *
- * Carries a *reference* to what should be drawn, not the drawn data: the numbers are re-read from
- * the already-loaded [com.jlindemann.science.ai.data.KnowledgeStore] at bind time. A 42-isotope
- * chart therefore costs about thirty bytes on the message instead of two kilobytes through a Parcel
- * — and through Firestore, since chat sessions are persisted.
- *
- * @property title already localized at compose time, so a ViewHolder needs no StringProvider
- */
 data class ChatCard(
     val kind: ChatCardKind,
     val elementKey: String,
@@ -23,18 +13,6 @@ data class ChatCard(
     val args: Map<String, String> = emptyMap()
 )
 
-/**
- * Serialises a [ChatCard] onto [com.jlindemann.science.model.ChatMessage].
- *
- * The same control-character record encoding as
- * [com.jlindemann.science.ai.compose.ChatActionCodec], and for the same reason: `org.json` is a
- * throwing stub under JVM unit tests, so this stays plain Kotlin and testable. The delimiters
- * cannot occur in a label or an element key, so nothing needs escaping.
- *
- * Decoding never throws and returns null for anything it does not recognise. That single property
- * is what makes persistence and version skew a non-issue — an older build reading a card kind it
- * has never heard of, or a restored session, degrades to a plain text message.
- */
 object ChatCardCodec {
 
     private const val FIELD = ''

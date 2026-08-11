@@ -631,6 +631,7 @@
     <string name="protons">پروٹون:</string>
     <string name="save_calculations">حساب محفوظ کریں:</string>
     <string name="save_units">اکائیاں محفوظ کریں:</string>
+    <string name="save_equations">مساوات محفوظ کریں:</string>
     <string name="search_for_element">عنصر تلاش کریں</string>
     <string name="share">شیئر کریں</string>
     <string name="share_app">ایپ شیئر کریں</string>
@@ -655,4 +656,23 @@
     <string name="ai_grams_to_moles">%2$s کا **%1$s g** = **%3$s mol**۔</string>
     <string name="ai_comparison_verdict">موازنہ کی گئی %3$d خصوصیات میں سے %2$d میں %1$s کی قدر زیادہ ہے۔</string>
     <string name="ai_no_data_alternatives">%1$s کے لیے درج: %2$s۔</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">مرکب دھاتوں کا جدول</string>
+    <string name="table_alloy_text">عام مرکب دھاتوں کا جدول، وہ کن چیزوں سے بنی ہیں اور خالص دھات کے بجائے انہیں کیوں استعمال کیا جاتا ہے</string>
+    <string name="alo">مرکب دھاتوں کا جدول</string>
+    <string name="activity_alloy_title">مرکب دھاتیں</string>
+    <string name="alloy_clear_filter">فلٹر صاف کریں</string>
+    <string name="alloy_base_iron">آئرن</string>
+    <string name="alloy_base_copper">تانبا</string>
+    <string name="alloy_base_aluminium">ایلومینیم</string>
+    <string name="alloy_base_nickel">نکل</string>
+    <string name="alloy_base_tin">ٹن</string>
+    <string name="alloy_base_silver">چاندی</string>
+    <string name="alloy_base_gold">سونا</string>
+    <string name="alloy_base_titanium">ٹائٹینیم</string>
+    <string name="alloy_base_mercury">پارہ</string>
+    <string name="base_label">"بنیادی دھات: "</string>
+    <string name="composition_label">"ترکیب: "</string>
+    <string name="open_base_element">بنیادی عنصر کھولیں</string>
 </resources>

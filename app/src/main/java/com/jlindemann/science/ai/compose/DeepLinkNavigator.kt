@@ -66,11 +66,18 @@ object DeepLinkNavigator {
         val intent = Intent(activity, destination)
         // Harmless if the destination ignores it; lets a table scroll to the cited row later.
         action.args["id"]?.let { intent.putExtra(EXTRA_FOCUS, it) }
+        // Same convention: the balancer opens on the equation the answer was about, so the chip
+        // carries the user's work over instead of dropping them into an empty input box.
+        action.args[ARG_EQUATION]?.let { intent.putExtra(EXTRA_EQUATION, it) }
         activity.startActivity(intent)
     }
 
     /** The extra a table can read to highlight the row a citation pointed at. */
     const val EXTRA_FOCUS = "ai_focus"
+
+    /** The citation arg carrying an equation, and the intent extra it is handed over as. */
+    const val ARG_EQUATION = "equation"
+    const val EXTRA_EQUATION = "ai_equation"
 
     private fun activityFor(target: DeepLinkTarget): Class<*>? = when (target) {
         DeepLinkTarget.NUCLIDE -> NuclideActivity::class.java

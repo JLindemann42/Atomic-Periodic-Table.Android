@@ -736,6 +736,7 @@
     <string name="protons">Protone:</string>
     <string name="save_calculations">Stoor berekeninge:</string>
     <string name="save_units">Stoor eenhede:</string>
+    <string name="save_equations">Stoor vergelykings:</string>
     <string name="search_for_element">Soek vir element</string>
     <string name="share">Deel</string>
     <string name="share_app">Deel toep</string>
@@ -1216,6 +1217,7 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
     <string name="ai_equation_check_header">Atoomkontrole</string>
     <string name="ai_equation_tally_row">• **%1$s** — %2$d links, %3$d regs</string>
     <string name="ai_equation_one_sided">Daardie vergelyking kan nie gebalanseer word nie: \'n element kom net aan een kant voor, en geen koëffisiënte kan dit regstel nie.</string>
+    <string name="ai_equation_one_sided_named">Daardie vergelyking kan nie gebalanseer word nie: %1$s kom net aan een kant voor, en geen koëffisiënte kan dit regstel nie.</string>
     <string name="ai_equation_underdetermined">Daardie vergelyking het meer as een onafhanklike balans — dit lees soos twee reaksies wat as een geskryf is. Skei hulle, dan balanseer ek elkeen.</string>
     <string name="ai_equation_too_large">Daardie vergelyking benodig koëffisiënte wat te groot is vir \'n werklike reaksie. Kyk na die formules.</string>
     <string name="ai_equation_parse_failed">Ek kon dit nie as \'n chemiese vergelyking lees nie. Probeer \'n vorm soos Fe + O2 -&gt; Fe2O3.</string>
@@ -1288,4 +1290,23 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
     <string name="balancer_tool_examples">Voorbeelde</string>
     <string name="balancer_tool_note">Pyle kan as -&gt;, =&gt;, = of → geskryf word. Toestandsimbole soos (s), (l), (g) en (aq) word geïgnoreer.</string>
     <string name="balancer_tool_copied">Vergelyking gekopieer</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">Legeringtabel</string>
+    <string name="table_alloy_text">’n Tabel van algemene legerings, waarvan hulle gemaak is en waarom hulle in plaas van die suiwer metaal gebruik word</string>
+    <string name="alo">Legeringtabel</string>
+    <string name="activity_alloy_title">Legerings</string>
+    <string name="alloy_clear_filter">Wis filter</string>
+    <string name="alloy_base_iron">Yster</string>
+    <string name="alloy_base_copper">Koper</string>
+    <string name="alloy_base_aluminium">Aluminium</string>
+    <string name="alloy_base_nickel">Nikkel</string>
+    <string name="alloy_base_tin">Tin</string>
+    <string name="alloy_base_silver">Silwer</string>
+    <string name="alloy_base_gold">Goud</string>
+    <string name="alloy_base_titanium">Titanium</string>
+    <string name="alloy_base_mercury">Kwik</string>
+    <string name="base_label">"Basismetaal: "</string>
+    <string name="composition_label">"Samestelling: "</string>
+    <string name="open_base_element">Open basiselement</string>
 </resources>

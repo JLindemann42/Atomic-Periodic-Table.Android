@@ -869,6 +869,7 @@
     <string name="element_electrons">Elektroner:</string>
     <string name="save_calculations">Spara beräkningar:</string>
     <string name="save_units">Spara enheter:</string>
+    <string name="save_equations">Spara ekvationer:</string>
     <string name="search_for_element">Sök efter element</string>
     <string name="share">Dela</string>
     <string name="share_app">Dela app</string>
@@ -1150,6 +1151,7 @@
     <string name="ai_equation_check_header">Atomkontroll</string>
     <string name="ai_equation_tally_row">• **%1$s** — %2$d till vänster, %3$d till höger</string>
     <string name="ai_equation_one_sided">Den ekvationen går inte att balansera: ett grundämne finns bara på ena sidan, så inga koefficienter kan jämna ut den.</string>
+    <string name="ai_equation_one_sided_named">Den ekvationen går inte att balansera: %1$s finns bara på ena sidan, så inga koefficienter kan jämna ut den.</string>
     <string name="ai_equation_underdetermined">Den ekvationen har mer än en oberoende balans — den läses som två reaktioner skrivna som en. Dela upp den så balanserar jag varje del.</string>
     <string name="ai_equation_too_large">Den ekvationen kräver koefficienter som är för stora för en verklig reaktion. Kontrollera formlerna.</string>
     <string name="ai_equation_parse_failed">Jag kunde inte läsa det som en kemisk ekvation. Prova formen Fe + O2 -&gt; Fe2O3.</string>
@@ -1222,4 +1224,23 @@
     <string name="balancer_tool_examples">Exempel</string>
     <string name="balancer_tool_note">Pilar kan skrivas -&gt;, =&gt;, = eller →. Tillståndsbeteckningar som (s), (l), (g) och (aq) ignoreras.</string>
     <string name="balancer_tool_copied">Ekvationen kopierad</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">Legeringstabell</string>
+    <string name="table_alloy_text">En tabell med vanliga legeringar, vad de består av och varför de används i stället för den rena metallen</string>
+    <string name="alo">Legeringstabell</string>
+    <string name="activity_alloy_title">Legeringar</string>
+    <string name="alloy_clear_filter">Rensa filter</string>
+    <string name="alloy_base_iron">Järn</string>
+    <string name="alloy_base_copper">Koppar</string>
+    <string name="alloy_base_aluminium">Aluminium</string>
+    <string name="alloy_base_nickel">Nickel</string>
+    <string name="alloy_base_tin">Tenn</string>
+    <string name="alloy_base_silver">Silver</string>
+    <string name="alloy_base_gold">Guld</string>
+    <string name="alloy_base_titanium">Titan</string>
+    <string name="alloy_base_mercury">Kvicksilver</string>
+    <string name="base_label">"Basmetall: "</string>
+    <string name="composition_label">"Sammansättning: "</string>
+    <string name="open_base_element">Öppna basgrundämnet</string>
 </resources>

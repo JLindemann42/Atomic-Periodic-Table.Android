@@ -110,17 +110,71 @@ class EquationBalancerTest {
         assertNull(EquationBalancer.parseEquation("gold is denser than lead") { it in known })
     }
 
-    /** A comparison operator is not a reaction arrow. */
+    /**
+     * A comparison operator is not a reaction arrow.
+     *
+     * `"H2 == H2"` is the one that used to get through: the separator test was `contains("=")`,
+     * which is true of `==`, `<=`, `>=` and `!=` alike, and the leftover `=` was then normalised
+     * away — so the tool balanced a comparison as an equation.
+     */
     @Test
     fun comparisonOperatorsAreNotEquations() {
-        assertNull(EquationBalancer.parseEquation("density >= 5") { it in known })
-        assertNull(EquationBalancer.parseEquation("mass == 12") { it in known })
+        for (text in listOf("density >= 5", "mass == 12", "H2 == H2", "a <= b", "a != b")) {
+            assertNull(text, EquationBalancer.parseEquation(text) { it in known })
+        }
+    }
+
+    /**
+     * The split point is the first arrow written, not whichever spelling is listed first. Scanning
+     * a list of literals cut `"H2 = O2 -> H2O"` at the `->`, a place the user did not write.
+     */
+    @Test
+    fun theEarliestArrowIsTheSplitPoint() {
+        val text = "H2 = O2 -> H2O"
+        assertEquals(text.indexOf('='), EquationBalancer.ARROW.find(text)!!.range.first)
+    }
+
+    /** A two-character arrow is never read as one character followed by another. */
+    @Test
+    fun theLongestArrowSpellingWins() {
+        assertEquals("-->", EquationBalancer.ARROW.find("H2 --> H2")!!.value)
+        assertEquals("<->", EquationBalancer.ARROW.find("H2 <-> H2")!!.value)
+    }
+
+    /**
+     * The three ways of not being a solvable equation used to be one `null`, so every caller told
+     * the user the same thing about all of them.
+     */
+    @Test
+    fun theWaysOfNotBeingAnEquationAreToldApart() {
+        fun parse(text: String) = EquationBalancer.parse(text) { it in known }
+
+        // Half a typed equation, and a sentence that was never one. Neither is a mistake.
+        assertEquals(EquationBalancer.ParseOutcome.NoArrow, parse("Fe + O2"))
+        assertEquals(EquationBalancer.ParseOutcome.NoArrow, parse("gold is denser than lead"))
+
+        // An arrow was written; what sits beside it is not chemistry.
+        assertEquals(EquationBalancer.ParseOutcome.NotAnEquation, parse("Xx -> Yy"))
+
+        assertEquals(EquationBalancer.ParseOutcome.TooManySpecies, parse(tooManySpecies()))
+        assertTrue(parse("Fe + O2 -> Fe2O3") is EquationBalancer.ParseOutcome.Sides)
     }
 
     @Test
     fun tooManySpeciesIsDeclined() {
-        val many = (1..8).joinToString(" + ") { "H2" } + " -> " + (1..8).joinToString(" + ") { "H2" }
-        assertNotNull(reasonFor(many))
+        assertNotNull(reasonFor(tooManySpecies()))
+        assertNull(EquationBalancer.parseEquation(tooManySpecies()) { it in known })
+    }
+
+    private fun tooManySpecies(): String =
+        (1..8).joinToString(" + ") { "H2" } + " -> " + (1..8).joinToString(" + ") { "H2" }
+
+    /** The solver knows which element is unbalanced; the message is only useful if it says which. */
+    @Test
+    fun theOneSidedElementIsNamed() {
+        val failed = balance("H2 + O2 -> H2") as EquationBalancer.Result.Failed
+        assertEquals(EquationBalancer.Reason.ONE_SIDED_ELEMENT, failed.reason)
+        assertEquals("O", failed.detail)
     }
 
     /** The tally is recomputed from the final coefficients, so it must always agree. */

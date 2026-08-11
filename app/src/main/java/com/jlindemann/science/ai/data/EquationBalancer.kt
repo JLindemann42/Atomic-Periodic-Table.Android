@@ -62,19 +62,59 @@ object EquationBalancer {
         data class Failed(val reason: Reason, val detail: String? = null) : Result()
     }
 
+    /**
+     * What reading the text produced.
+     *
+     * Three different situations used to be one `null`: no arrow yet, an arrow over unreadable
+     * formulas, and an equation too long to solve. Callers cannot tell them apart from a null, so
+     * they all guessed the same way — the tool showed "type an equation" to somebody who had, and
+     * the assistant said "I could not read that" about an equation it had read perfectly well and
+     * merely found too long.
+     */
+    sealed class ParseOutcome {
+        data class Sides(val reactants: List<Species>, val products: List<Species>) : ParseOutcome()
+
+        /** No reaction arrow. The normal state while somebody is still typing. */
+        object NoArrow : ParseOutcome()
+
+        /** An arrow, but a side would not read as chemical formulas. */
+        object NotAnEquation : ParseOutcome()
+
+        /** Read fine, but past [MAX_SPECIES]. */
+        object TooManySpecies : ParseOutcome()
+    }
+
     /** Beyond this the input is not a question anybody typed on purpose. */
     const val MAX_SPECIES = 12
+
+    /**
+     * Where a side stops being parsed at all.
+     *
+     * [MAX_SPECIES] is a verdict — an equation of thirteen species is reported as too large. This
+     * is a guard: prose that happens to be full of `+` signs must never reach [reduce] and set it
+     * multiplying rationals across a matrix that wide.
+     */
+    private const val PARSE_CEILING = 40
 
     /** A real equation does not need coefficients this large; past it, something has gone wrong. */
     const val MAX_COEFFICIENT = 1000
 
     /**
-     * Reaction arrows, longest first so `-->` is not read as `-` followed by `->`.
+     * Reaction arrows.
      *
-     * A bare `=` counts, but not `==`, `<=`, `>=` or `!=`: those appear in comparisons, and reading
-     * one as an equation would claim a query that is not one.
+     * A bare `=` counts, since plenty of people write one, but never `==`, `<=`, `>=` or `!=`:
+     * those appear in comparisons, and reading one as an equation would claim a query that is not
+     * one. This file used to claim that in a comment while testing `raw.contains("=")`, which is
+     * true of all four — so `"H2 == O2"` was declined by the planner, which had the lookarounds,
+     * and balanced by the tool, which called straight in here. The pattern lives here now and the
+     * planner uses it, so the two cannot disagree again.
+     *
+     * Matching rather than scanning a list of literals also fixes the split point: [Regex.find]
+     * returns the *earliest* arrow, where `SEPARATORS.firstOrNull { raw.contains(it) }` returned
+     * whichever was listed first and cut `"A = B -> C"` at the `->`. The `-{1,2}>` branch is
+     * greedy, so `-->` is still never read as `-` followed by `->`.
      */
-    private val SEPARATORS = listOf("<->", "-->", "->", "=>", "→", "⇌", "⇄", "⟶", "=")
+    val ARROW = Regex("""(?:<->|-{1,2}>|=>|→|⇌|⇄|⟶|(?<![<>=!])=(?![=>]))""")
 
     /** Splits a side on `+`, but only a `+` that separates: `Na+` is a charge. */
     private val PLUS = Regex("""\s\+\s|\s\+|\+\s""")
@@ -83,23 +123,35 @@ object EquationBalancer {
     private val LEADING_COEFFICIENT = Regex("""^(\d+)\s*(?=[A-Za-z(])""")
 
     /**
+     * Split raw text into reactants and products, saying which way it failed if it did.
+     *
+     * [ParseOutcome.NoArrow] is the one a caller must not treat as an error: it is what half a
+     * typed equation looks like, and what a sentence that was never an equation looks like.
+     */
+    fun parse(raw: String, isKnownSymbol: (String) -> Boolean): ParseOutcome {
+        val arrow = ARROW.find(raw) ?: return ParseOutcome.NoArrow
+        val left = sideOf(raw.substring(0, arrow.range.first), isKnownSymbol)
+            ?: return ParseOutcome.NotAnEquation
+        val right = sideOf(raw.substring(arrow.range.last + 1), isKnownSymbol)
+            ?: return ParseOutcome.NotAnEquation
+        if (left.isEmpty() || right.isEmpty()) return ParseOutcome.NotAnEquation
+        // A verdict, not a parse error: the equation was read, there is just too much of it.
+        if (left.size + right.size > MAX_SPECIES) return ParseOutcome.TooManySpecies
+        return ParseOutcome.Sides(left, right)
+    }
+
+    /**
      * Split raw text into reactants and products.
      *
-     * @return the two sides, or null when the text is not an equation at all — which is how the
-     *   planner declines a sentence containing a stray arrow rather than claiming it.
+     * @return the two sides, or null when the text is not an equation this can solve — which is how
+     *   the planner declines a sentence containing a stray arrow rather than claiming it. Use
+     *   [parse] where the reason matters; it is the same work with the reason kept.
      */
     fun parseEquation(
         raw: String,
         isKnownSymbol: (String) -> Boolean
-    ): Pair<List<Species>, List<Species>>? {
-        val separator = SEPARATORS.firstOrNull { raw.contains(it) } ?: return null
-        val at = raw.indexOf(separator)
-        val left = sideOf(raw.substring(0, at), isKnownSymbol) ?: return null
-        val right = sideOf(raw.substring(at + separator.length), isKnownSymbol) ?: return null
-        if (left.isEmpty() || right.isEmpty()) return null
-        if (left.size + right.size > MAX_SPECIES) return null
-        return left to right
-    }
+    ): Pair<List<Species>, List<Species>>? =
+        (parse(raw, isKnownSymbol) as? ParseOutcome.Sides)?.let { it.reactants to it.products }
 
     /**
      * Parse one side of an equation.
@@ -133,6 +185,9 @@ object EquationBalancer {
                 return null
             }
             species.add(parsed)
+            // Stop reading rather than hand [reduce] a matrix this wide. Anything over MAX_SPECIES
+            // is refused upstream anyway, so nothing solvable is lost by not counting past here.
+            if (species.size > PARSE_CEILING) return species
         }
         return species
     }

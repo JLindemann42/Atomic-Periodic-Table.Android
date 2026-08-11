@@ -739,6 +739,7 @@
     <string name="protons">प्रोटॉन:</string>
     <string name="save_calculations">गणना सहेजें:</string>
     <string name="save_units">इकाइयाँ सहेजें:</string>
+    <string name="save_equations">समीकरण सहेजें:</string>
     <string name="search_for_element">तत्व खोजें</string>
     <string name="share">साझा करें</string>
     <string name="share_app">ऐप साझा करें</string>
@@ -1208,6 +1209,7 @@
     <string name="ai_equation_check_header">परमाणु जाँच</string>
     <string name="ai_equation_tally_row">• **%1$s** — बाईं ओर %2$d, दाईं ओर %3$d</string>
     <string name="ai_equation_one_sided">यह समीकरण संतुलित नहीं हो सकता: एक तत्व केवल एक ओर है, इसलिए कोई गुणांक इसे बराबर नहीं कर सकता।</string>
+    <string name="ai_equation_one_sided_named">यह समीकरण संतुलित नहीं हो सकता: %1$s केवल एक ओर है, इसलिए कोई गुणांक इसे बराबर नहीं कर सकता।</string>
     <string name="ai_equation_underdetermined">इस समीकरण के एक से अधिक स्वतंत्र संतुलन हैं — यह एक में लिखी दो अभिक्रियाओं जैसा है। इसे अलग करें, मैं हर एक को संतुलित कर दूँगा।</string>
     <string name="ai_equation_too_large">इस समीकरण के लिए ऐसे गुणांक चाहिए जो किसी वास्तविक अभिक्रिया के लिए बहुत बड़े हैं। सूत्र जाँचें।</string>
     <string name="ai_equation_parse_failed">मैं इसे रासायनिक समीकरण के रूप में नहीं पढ़ सका। Fe + O2 -&gt; Fe2O3 जैसा रूप आज़माएँ।</string>
@@ -1280,4 +1282,23 @@
     <string name="balancer_tool_examples">उदाहरण</string>
     <string name="balancer_tool_note">तीर -&gt;, =&gt;, = या → के रूप में लिखे जा सकते हैं। (s), (l), (g) और (aq) जैसे अवस्था चिह्न अनदेखे किए जाते हैं।</string>
     <string name="balancer_tool_copied">समीकरण कॉपी किया गया</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">मिश्रधातु तालिका</string>
+    <string name="table_alloy_text">सामान्य मिश्रधातुओं की तालिका, वे किससे बनी हैं और शुद्ध धातु के बजाय उनका उपयोग क्यों किया जाता है</string>
+    <string name="alo">मिश्रधातु तालिका</string>
+    <string name="activity_alloy_title">मिश्रधातुएँ</string>
+    <string name="alloy_clear_filter">फ़िल्टर हटाएँ</string>
+    <string name="alloy_base_iron">लोहा</string>
+    <string name="alloy_base_copper">तांबा</string>
+    <string name="alloy_base_aluminium">एल्युमिनियम</string>
+    <string name="alloy_base_nickel">निकल</string>
+    <string name="alloy_base_tin">टिन</string>
+    <string name="alloy_base_silver">चांदी</string>
+    <string name="alloy_base_gold">सोना</string>
+    <string name="alloy_base_titanium">टाइटेनियम</string>
+    <string name="alloy_base_mercury">पारा</string>
+    <string name="base_label">"आधार धातु: "</string>
+    <string name="composition_label">"संघटन: "</string>
+    <string name="open_base_element">आधार तत्व खोलें</string>
 </resources>

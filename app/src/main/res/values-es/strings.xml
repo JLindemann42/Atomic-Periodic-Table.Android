@@ -626,6 +626,7 @@
     <string name="ai_equation_check_header">Comprobación de átomos</string>
     <string name="ai_equation_tally_row">• **%1$s** — %2$d a la izquierda, %3$d a la derecha</string>
     <string name="ai_equation_one_sided">Esa ecuación no se puede equilibrar: un elemento aparece solo en un lado, así que ningún coeficiente puede igualarla.</string>
+    <string name="ai_equation_one_sided_named">Esa ecuación no se puede equilibrar: %1$s aparece solo en un lado, así que ningún coeficiente puede igualarla.</string>
     <string name="ai_equation_underdetermined">Esa ecuación tiene más de un equilibrio independiente: se lee como dos reacciones escritas como una. Sepárala y equilibro cada parte.</string>
     <string name="ai_equation_too_large">Esa ecuación necesita coeficientes demasiado grandes para una reacción real. Revisa las fórmulas.</string>
     <string name="ai_equation_parse_failed">No pude leer eso como una ecuación química. Prueba una forma como Fe + O2 -&gt; Fe2O3.</string>
@@ -698,4 +699,23 @@
     <string name="balancer_tool_examples">Ejemplos</string>
     <string name="balancer_tool_note">Las flechas pueden escribirse -&gt;, =&gt;, = o →. Los símbolos de estado como (s), (l), (g) y (aq) se ignoran.</string>
     <string name="balancer_tool_copied">Ecuación copiada</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">Tabla de aleaciones</string>
+    <string name="table_alloy_text">Una tabla de aleaciones comunes, de qué están hechas y por qué se usan en lugar del metal puro</string>
+    <string name="alo">Tabla de aleaciones</string>
+    <string name="activity_alloy_title">Aleaciones</string>
+    <string name="alloy_clear_filter">Borrar filtro</string>
+    <string name="alloy_base_iron">Hierro</string>
+    <string name="alloy_base_copper">Cobre</string>
+    <string name="alloy_base_aluminium">Aluminio</string>
+    <string name="alloy_base_nickel">Níquel</string>
+    <string name="alloy_base_tin">Estaño</string>
+    <string name="alloy_base_silver">Plata</string>
+    <string name="alloy_base_gold">Oro</string>
+    <string name="alloy_base_titanium">Titanio</string>
+    <string name="alloy_base_mercury">Mercurio</string>
+    <string name="base_label">"Metal base: "</string>
+    <string name="composition_label">"Composición: "</string>
+    <string name="open_base_element">Abrir elemento base</string>
 </resources>

@@ -590,6 +590,7 @@
     <string name="protons">Protones:</string>
     <string name="save_calculations">Guardar cálculos:</string>
     <string name="save_units">Guardar unidades:</string>
+    <string name="save_equations">Guardar ecuaciones:</string>
     <string name="search_for_element">Buscar elemento</string>
     <string name="share">Compartir</string>
     <string name="share_app">Compartir aplicación</string>
@@ -614,4 +615,23 @@
     <string name="ai_grams_to_moles">**%1$s g** de %2$s son **%3$s mol**.</string>
     <string name="ai_comparison_verdict">%1$s tiene el valor más alto en %2$d de las %3$d propiedades comparadas.</string>
     <string name="ai_no_data_alternatives">Registrado para %1$s: %2$s.</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">Tabla de aleaciones</string>
+    <string name="table_alloy_text">Una tabla de aleaciones comunes, de qué están hechas y por qué se usan en lugar del metal puro</string>
+    <string name="alo">Tabla de aleaciones</string>
+    <string name="activity_alloy_title">Aleaciones</string>
+    <string name="alloy_clear_filter">Borrar filtro</string>
+    <string name="alloy_base_iron">Hierro</string>
+    <string name="alloy_base_copper">Cobre</string>
+    <string name="alloy_base_aluminium">Aluminio</string>
+    <string name="alloy_base_nickel">Níquel</string>
+    <string name="alloy_base_tin">Estaño</string>
+    <string name="alloy_base_silver">Plata</string>
+    <string name="alloy_base_gold">Oro</string>
+    <string name="alloy_base_titanium">Titanio</string>
+    <string name="alloy_base_mercury">Mercurio</string>
+    <string name="base_label">"Metal base: "</string>
+    <string name="composition_label">"Composición: "</string>
+    <string name="open_base_element">Abrir elemento base</string>
 </resources>
