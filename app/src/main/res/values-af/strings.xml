@@ -1309,4 +1309,19 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
     <string name="base_label">"Basismetaal: "</string>
     <string name="composition_label">"Samestelling: "</string>
     <string name="open_base_element">Open basiselement</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">Ontsluit PRO+ op Android en Windows met \'n enkele aankoop. Maak seker jou aantekeninge, prestasies en vordering is op alle toestelle by jou!</string>
+    <string name="ultimate_buy">Kry PRO+ Ultimate</string>
+    <string name="ultimate_upgrade_title">Gradeer op na Ultimate</string>
+    <string name="ultimate_coming_soon">Kom binnekort</string>
+    <string name="ultimate_owned">Besit PRO+ Ultimate</string>
+    <string name="ultimate_already_owned_account">Jy besit reeds PRO+ Ultimate op hierdie rekening.</string>
+    <string name="account_tier_unknown">Nog nie gesinkroniseer nie</string>
+    <string name="account_title">Rekening</string>
+    <string name="account_id">Rekening-ID</string>
+    <string name="account_id_signed_out">Nie aangemeld nie</string>
+    <string name="account_id_copied">Rekening-ID gekopieer</string>
+    <string name="account_id_hint">Dit moet ooreenstem met die ID wat in die Windows-toepassing gewys word. As dit verskil, sinkroniseer die twee toestelle met aparte rekeninge.</string>
+    <string name="last_synced">Laaste gesinkroniseer</string>
+    <string name="last_synced_never">Nooit</string>
 </resources>

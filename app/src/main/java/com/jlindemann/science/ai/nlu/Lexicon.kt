@@ -756,6 +756,21 @@ object Lexicon {
         "onde se encontra" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
         "dove si trova" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
         "丰度" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+
+        // The phrasing each language's own "Where is %1$s found?" suggestion chip uses. Six of
+        // the twelve had no entry that could match it, so tapping the chip was declined in
+        // Portuguese, Hindi, Urdu, Chinese, Afrikaans and Filipino. Portuguese puts the element
+        // between "onde" and the participle, so the participle carries it.
+        "encontrado" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "encontrada" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "कहाँ मिलता" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "कहां मिलता" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "کہاں پایا" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "在哪里找到" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "哪里找到" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "waar kom" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "saan matatagpuan" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "matatagpuan" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
         "propiedades termicas" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
         "proprieta termiche" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
         "propriedades termicas" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
@@ -785,7 +800,10 @@ object Lexicon {
         "isotopi", "tempo di dimezzamento", "decadimento",
         "isotopos", "meia-vida", "decaimento",
         "isotoop", "halfleeftyd", "isotopo", "kalahating buhay",
-        "समस्थानिक", "अर्ध आयु", "آاइسوٹوپ", "نصف زندگی",
+        "समस्थानिक", "अर्ध आयु",
+        // The word Urdu's own "Isotopes of %1$s" chip uses; the list had only the
+        // transliteration, so the chip named something the planner could not find.
+        "ہم جا", "ہم جاء", "آاइسوٹوپ", "نصف زندگی",
         "同位素", "半衰期", "衰变",
         // "How long does plutonium 239 last" is a half-life question that never says "half-life".
         // The frame is what carries it; the query resolved no field and was declined outright.

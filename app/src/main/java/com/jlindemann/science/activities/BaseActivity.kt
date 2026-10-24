@@ -13,9 +13,6 @@ import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.FirebaseApp
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
 import com.jlindemann.science.R
 import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
@@ -47,28 +44,13 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // initialize Firebase
-        try {
-            FirebaseApp.initializeApp(this)
-        } catch (t: Throwable) {
-            // log or ignore: safe fallback if initialization already happened or missing config
-            t.printStackTrace()
-        }
+
+        // Firebase and Firestore are initialised once, in AtomicApplication. Firestore settings
+        // can only be applied before the instance is first used, so doing it per activity threw on
+        // every activity after the first.
 
         // Initialize Firebase Analytics
         AnalyticsHelper.initialize(this)
-
-        // Optional: enable Firestore offline persistence
-        try {
-            val fs = FirebaseFirestore.getInstance()
-            val settings = FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(true)
-                .build()
-            fs.firestoreSettings = settings
-        } catch (t: Throwable) {
-            // ignore if Firestore not available
-            t.printStackTrace()
-        }
     }
 
     override fun onResume() {

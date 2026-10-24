@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v5.0.3m-Build.228</string>
+    <string name="app_version" translatable="false">v5.1.0m-Build.231</string>
     <string name="next_sale_start" translatable="false" >2024/08/05</string>
     <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
@@ -1368,6 +1368,32 @@
     <string name="current_version">Current Version</string>
     <string name="owns_pro_plus">Owns PRO+</string>
     <string name="upgrade_to_pro_plus">Upgrade to PRO+</string>
+
+    <!-- PRO+ Ultimate: one purchase, PRO+ on every platform signed into the same account.
+         "Ultimate", "PRO" and "PRO+" are product names and stay in Latin script everywhere. -->
+    <string name="ultimate_version" translatable="false">PRO+ Ultimate</string>
+    <string name="ultimate_badge" translatable="false">Ultimate</string>
+    <string name="ultimate_description">Unlock PRO+ on Android and Windows with a single purchase. Make sure your notes, achievements and progress are with you on all devices!</string>
+    <string name="ultimate_buy">Get PRO+ Ultimate</string>
+    <string name="ultimate_upgrade_title">Upgrade to Ultimate</string>
+    <string name="ultimate_coming_soon">Coming soon</string>
+    <string name="ultimate_owned">Owns PRO+ Ultimate</string>
+    <string name="ultimate_already_owned_account">You already own PRO+ Ultimate on this account.</string>
+    <string name="license_platform_android" translatable="false">Android</string>
+    <string name="license_platform_windows" translatable="false">Windows</string>
+    <string name="license_platform_ios" translatable="false">iOS</string>
+    <string name="license_platform_macos" translatable="false">macOS</string>
+
+    <!-- A platform that has never written to the account document. Not the same as owning
+         nothing: a device that has not synced yet has not said anything either way. -->
+    <string name="account_tier_unknown">Not synced yet</string>
+    <string name="account_title">Account</string>
+    <string name="account_id">Account ID</string>
+    <string name="account_id_signed_out">Not signed in</string>
+    <string name="account_id_copied">Account ID copied</string>
+    <string name="account_id_hint">This must match the ID shown in the Windows app. If it differs, the two devices are syncing to separate accounts.</string>
+    <string name="last_synced">Last synced</string>
+    <string name="last_synced_never">Never</string>
     <string name="price_not_available">Price not available</string>
 
     <!-- Introduction Activity -->

@@ -3,7 +3,6 @@ package com.jlindemann.science.activities.tools
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
@@ -27,8 +26,10 @@ import com.jlindemann.science.ai.data.Term
 import com.jlindemann.science.model.Element
 import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.MostUsedToolPreference
-import com.jlindemann.science.preferences.ProPlusVersion
-import com.jlindemann.science.preferences.ProVersion
+import com.jlindemann.science.utils.EntitlementManager
+import com.jlindemann.science.sync.FavoriteKind
+import com.jlindemann.science.sync.FavoritesStore
+import com.jlindemann.science.sync.FavoritesSyncManager
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.UnifiedTitleBarController
@@ -57,10 +58,9 @@ class EquationBalancerActivity : BaseActivity() {
     /** What was typed to produce [balancedEquation]; saved beside it so a favorite can be edited. */
     private var balancedInput: String? = null
 
-    private lateinit var favoritesPreferences: SharedPreferences
     private lateinit var favoritesAdapter: FavoriteEquationsAdapter
 
-    /** PRO or PRO+; favorites are a paid feature here as they are on the molar mass calculator. */
+    /** PRO, PRO+ or Ultimate; favorites are a paid feature here as they are on the molar mass calculator. */
     private var hasProAccess: Boolean = false
 
     /** Every element symbol the app knows, for deciding what is a formula and what is prose. */
@@ -150,8 +150,7 @@ class EquationBalancerActivity : BaseActivity() {
      * usable — balancing is free, only keeping the result is not.
      */
     private fun favoritesController() {
-        favoritesPreferences = getSharedPreferences(FAVORITES_PREFERENCES, Context.MODE_PRIVATE)
-        hasProAccess = ProVersion(this).getValue() == 100 || ProPlusVersion(this).getValue() == 100
+        hasProAccess = EntitlementManager.hasAnyPro(this)
 
         val list = findViewById<RecyclerView>(R.id.balancer_fav_rec_list)
         val noPro = findViewById<TextView>(R.id.balancer_no_pro_text)
@@ -193,29 +192,19 @@ class EquationBalancerActivity : BaseActivity() {
 
     /** Re-saving an equation replaces its row instead of adding a second one for the same input. */
     private fun saveFavorite(input: String, balanced: String) {
-        val favorites = storedFavorites()
-        favorites.removeIf { it.substringBefore(FAVORITE_SEPARATOR) == input }
-        favorites.add("$input$FAVORITE_SEPARATOR$balanced")
-        favoritesPreferences.edit().putStringSet(FAVORITES_KEY, favorites).apply()
+        FavoritesStore.save(this, FavoriteKind.EQUATION, input, balanced)
     }
 
     private fun removeFavorite(input: String) {
-        val favorites = storedFavorites()
-        favorites.removeIf { it.substringBefore(FAVORITE_SEPARATOR) == input }
-        favoritesPreferences.edit().putStringSet(FAVORITES_KEY, favorites).apply()
+        FavoritesStore.remove(this, FavoriteKind.EQUATION, input)
         loadFavorites()
     }
 
     private fun loadFavorites() {
         // A set has no order of its own, so the rows are sorted by the typed equation. Without it
         // the list reshuffles itself every time something is added or removed.
-        val favorites = storedFavorites()
-            .map {
-                FavoriteEquation(
-                    input = it.substringBefore(FAVORITE_SEPARATOR),
-                    balanced = it.substringAfter(FAVORITE_SEPARATOR, "")
-                )
-            }
+        val favorites = FavoritesStore.entries(this, FavoriteKind.EQUATION)
+            .map { (input, balanced) -> FavoriteEquation(input = input, balanced = balanced) }
             .sortedBy { it.input.lowercase() }
 
         favoritesAdapter.updateEquations(favorites)
@@ -223,8 +212,21 @@ class EquationBalancerActivity : BaseActivity() {
             if (hasProAccess && favorites.isEmpty()) View.VISIBLE else View.GONE
     }
 
-    private fun storedFavorites(): MutableSet<String> =
-        favoritesPreferences.getStringSet(FAVORITES_KEY, emptySet())?.toMutableSet() ?: mutableSetOf()
+    /** A sync brought changes from another device; show them if this screen is open. */
+    private val favoritesChanged: (FavoriteKind) -> Unit = { kind ->
+        if (kind == FavoriteKind.EQUATION) loadFavorites()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FavoritesStore.addListener(favoritesChanged)
+        FavoritesSyncManager.sync(this)
+    }
+
+    override fun onPause() {
+        FavoritesStore.removeListener(favoritesChanged)
+        super.onPause()
+    }
 
     private fun copyToClipboard(text: String) {
         val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -341,16 +343,6 @@ class EquationBalancerActivity : BaseActivity() {
     }
 
     private companion object {
-        const val FAVORITES_PREFERENCES = "EquationBalancerPrefs"
-        const val FAVORITES_KEY = "balancer_favorites"
-
-        /**
-         * Splits the typed equation from its balanced form inside one stored entry.
-         *
-         * A unit separator rather than the ":" the other tools use: an entry is split on the first
-         * occurrence, and ":" is a character a user can type — a state symbol or a stray colon
-         * would cut the row in the wrong place.
-         */
-        const val FAVORITE_SEPARATOR = "\u001F"
+        // The favourites' preferences, key and U+001F entry separator moved to FavoritesStore.
     }
 }

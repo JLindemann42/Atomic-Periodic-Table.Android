@@ -683,13 +683,20 @@ class MainActivity : TableExtension(), ElementAdapter.OnElementClickListener2 {
     fun updateVersionBadge() {
         val versionBadge = findViewById<TextView>(R.id.version_badge) ?: return
         val bottomNav = findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottom_nav)
-        val proPref = com.jlindemann.science.preferences.ProVersion(this)
-        val proPlusPref = com.jlindemann.science.preferences.ProPlusVersion(this)
-
-        val isProPlus = proPlusPref.getValue() == 100
-        val isPro = proPref.getValue() == 100
+        val isUltimate = com.jlindemann.science.utils.EntitlementManager.hasUltimate(this)
+        val isProPlus = com.jlindemann.science.utils.EntitlementManager.isProPlus(this)
+        val isPro = com.jlindemann.science.utils.EntitlementManager.hasAnyPro(this)
 
         when {
+            // Ultimate is not a fourth tier - it is PRO+ everywhere at once - but it is worth
+            // showing by name, since it is the only badge that says something about the user's
+            // other devices.
+            isUltimate -> {
+                versionBadge.text = getString(R.string.ultimate_badge)
+                versionBadge.backgroundTintList = getColorStateListFromAttr(R.attr.colorTertiary)
+                versionBadge.setTextColor(getColorFromAttr(R.attr.colorOnTertiary))
+                bottomNav?.menu?.findItem(R.id.nav_pro)?.title = getString(R.string.get_pro_short)
+            }
             isProPlus -> {
                 versionBadge.text = getString(R.string.pro_plus_badge)
                 versionBadge.backgroundTintList = getColorStateListFromAttr(R.attr.colorTertiary)

@@ -1301,4 +1301,19 @@
     <string name="base_label">"आधार धातु: "</string>
     <string name="composition_label">"संघटन: "</string>
     <string name="open_base_element">आधार तत्व खोलें</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">एक ही खरीद से Android और Windows पर PRO+ अनलॉक करें। सुनिश्चित करें कि आपके नोट्स, उपलब्धियाँ और प्रगति सभी डिवाइस पर आपके साथ रहें!</string>
+    <string name="ultimate_buy">PRO+ Ultimate पाएँ</string>
+    <string name="ultimate_upgrade_title">Ultimate में अपग्रेड करें</string>
+    <string name="ultimate_coming_soon">जल्द आ रहा है</string>
+    <string name="ultimate_owned">PRO+ Ultimate के मालिक</string>
+    <string name="ultimate_already_owned_account">इस खाते पर आपके पास पहले से PRO+ Ultimate है।</string>
+    <string name="account_tier_unknown">अभी तक सिंक नहीं हुआ</string>
+    <string name="account_title">खाता</string>
+    <string name="account_id">खाता ID</string>
+    <string name="account_id_signed_out">साइन इन नहीं किया गया</string>
+    <string name="account_id_copied">खाता ID कॉपी किया गया</string>
+    <string name="account_id_hint">यह Windows ऐप में दिखाई गई ID से मेल खानी चाहिए। अगर यह अलग है, तो दोनों डिवाइस अलग-अलग खातों में सिंक हो रहे हैं।</string>
+    <string name="last_synced">पिछली बार सिंक किया गया</string>
+    <string name="last_synced_never">कभी नहीं</string>
 </resources>

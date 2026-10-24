@@ -508,6 +508,14 @@ class FieldResolver(private val strings: StringProvider) {
             "गलनांक" to "melting_point", "نقطہ پگھلاؤ" to "melting_point",
             "क्वथनांक" to "boiling_point",
             "समस्थानिक" to "isotopes",
+            // The Urdu field labels and the Urdu suggestion chips were translated by different
+            // hands and do not share a vocabulary: the labels transliterate English ("ایٹمی ماس",
+            // "آئسوٹوپس") while the chips use native Urdu ("جوہری کمیت", "ہم جا"). Aliases come
+            // from the labels, so the app's own chips named fields it could not resolve, and a
+            // user writing ordinary Urdu got nothing. Both spellings are accepted rather than
+            // either translation being overruled.
+            "جوہری کمیت" to "atomic_mass",
+            "ہم جا" to "isotopes", "ہم جاء" to "isotopes",
             "farg" to "appearance", "ser ut" to "appearance", "utseende" to "appearance",
             "aussehen" to "appearance", "farbe" to "appearance", "color" to "appearance",
             "fas" to "phase", "elektrisk typ" to "electrical_type",

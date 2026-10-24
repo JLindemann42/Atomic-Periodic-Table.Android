@@ -1311,4 +1311,19 @@ Condividono comportamenti chimici simili grazie ai loro elettroni di valenza!</s
     <string name="base_label">"Metallo base: "</string>
     <string name="composition_label">"Composizione: "</string>
     <string name="open_base_element">Apri elemento base</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">Sblocca PRO+ su Android e Windows con un unico acquisto. Assicurati che note, obiettivi e progressi siano con te su tutti i dispositivi!</string>
+    <string name="ultimate_buy">Ottieni PRO+ Ultimate</string>
+    <string name="ultimate_upgrade_title">Passa a Ultimate</string>
+    <string name="ultimate_coming_soon">Prossimamente</string>
+    <string name="ultimate_owned">Possiede PRO+ Ultimate</string>
+    <string name="ultimate_already_owned_account">Possiedi già PRO+ Ultimate su questo account.</string>
+    <string name="account_tier_unknown">Non ancora sincronizzato</string>
+    <string name="account_title">Account</string>
+    <string name="account_id">ID account</string>
+    <string name="account_id_signed_out">Non connesso</string>
+    <string name="account_id_copied">ID account copiato</string>
+    <string name="account_id_hint">Deve corrispondere all\'ID mostrato nell\'app Windows. Se è diverso, i due dispositivi si sincronizzano con account separati.</string>
+    <string name="last_synced">Ultima sincronizzazione</string>
+    <string name="last_synced_never">Mai</string>
 </resources>

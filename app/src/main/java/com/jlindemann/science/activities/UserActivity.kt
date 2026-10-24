@@ -5,7 +5,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -39,10 +42,14 @@ import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.model.ConstantsModel
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
-import com.jlindemann.science.preferences.ProPlusVersion
-import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.preferences.LastSyncPreference
+import com.jlindemann.science.preferences.WindowsTierPreference
 import com.jlindemann.science.sync.ProgressSyncManager
+import com.jlindemann.science.sync.AutoSync
+import com.jlindemann.science.utils.EntitlementManager
+import com.jlindemann.science.utils.EntitlementRules
+import com.jlindemann.science.utils.Tier
 import com.jlindemann.science.utils.UnifiedTitleBarController
 
 class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListener {
@@ -54,7 +61,6 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
     private var mAdapter: AchievementAdapter? = null
 
     private lateinit var btnSignOut: MaterialButton
-    private lateinit var tvUserInfo: TextView
     private lateinit var tvSyncStatus: TextView
     private lateinit var userImg: ImageView
 
@@ -68,25 +74,25 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             val account = task.getResult(ApiException::class.java)
             val idToken = account?.idToken
             if (idToken != null) {
-                tvSyncStatus.text = getString(R.string.signing_in)
+                setSyncStatus(getString(R.string.signing_in))
                 AuthManager.handleIdTokenForFirebase(idToken) { success, exception ->
                     runOnUiThread {
                         if (success) {
                             // update UI from Firebase currentUser and sync progress (if allowed)
                             updateUi()
                         } else {
-                            tvSyncStatus.text = getString(R.string.sign_in_failed)
+                            setSyncStatus(getString(R.string.sign_in_failed))
                             Log.w(TAG, "Firebase sign-in failed", exception)
                             Toast.makeText(this, R.string.sign_in_failed, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             } else {
-                tvSyncStatus.text = getString(R.string.sign_in_failed)
+                setSyncStatus(getString(R.string.sign_in_failed))
                 Toast.makeText(this, R.string.sign_in_failed, Toast.LENGTH_SHORT).show()
             }
         } catch (e: ApiException) {
-            tvSyncStatus.text = getString(R.string.sign_in_failed)
+            setSyncStatus(getString(R.string.sign_in_failed))
             if (e.statusCode == 10) {
                 Log.e(TAG, "Google Sign-In failed with DEVELOPER_ERROR (10). This usually means the SHA-1 of your signing certificate is not registered in the Firebase/Google Cloud Console, or the package name is incorrect.", e)
             } else {
@@ -94,7 +100,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
             }
             Toast.makeText(this, R.string.sign_in_failed, Toast.LENGTH_SHORT).show()
         } catch (e: Exception) {
-            tvSyncStatus.text = getString(R.string.sign_in_failed)
+            setSyncStatus(getString(R.string.sign_in_failed))
             Log.e(TAG, "Google sign-in unexpected error", e)
             Toast.makeText(this, R.string.sign_in_failed, Toast.LENGTH_SHORT).show()
         }
@@ -111,14 +117,14 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
                 val credential: SignInCredential = oneTapClient.getSignInCredentialFromIntent(result.data)
                 val idToken = credential.googleIdToken
                 if (!idToken.isNullOrEmpty()) {
-                    tvSyncStatus.text = getString(R.string.signing_in)
+                    setSyncStatus(getString(R.string.signing_in))
                     AuthManager.handleIdTokenForFirebase(idToken) { success, exception ->
                         runOnUiThread {
                             if (success) {
                                 // update UI and trigger sync if allowed
                                 updateUi()
                             } else {
-                                tvSyncStatus.text = getString(R.string.sign_in_failed)
+                                setSyncStatus(getString(R.string.sign_in_failed))
                                 Log.w(TAG, "Firebase sign-in failed (one-tap)", exception)
                                 Toast.makeText(this, R.string.sign_in_failed, Toast.LENGTH_SHORT).show()
                             }
@@ -126,11 +132,11 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
                     }
                 } else {
                     // no id token - silent / fallback if desired
-                    tvSyncStatus.text = getString(R.string.sign_in_failed)
+                    setSyncStatus(getString(R.string.sign_in_failed))
                 }
             } catch (t: Throwable) {
                 Log.w(TAG, "One Tap sign-in handling failed", t)
-                tvSyncStatus.text = getString(R.string.sign_in_failed)
+                setSyncStatus(getString(R.string.sign_in_failed))
             }
         }
     }
@@ -151,40 +157,15 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
 
         //Setting up UI and adding sync status
         userImg = findViewById(R.id.user_img)
-        tvUserInfo = TextView(this).apply {
-            textSize = 14f
-            gravity = Gravity.CENTER
-            setTextColor(context.obtainStyledAttributes(intArrayOf(androidx.appcompat.R.attr.actionMenuTextColor)).let { ta -> val color = ta.getColor(0, currentTextColor); ta.recycle(); color })
-        }
-        tvSyncStatus = TextView(this).apply {
-            textSize = 12f
-            gravity = Gravity.CENTER
-            setTextColor(context.obtainStyledAttributes(intArrayOf(androidx.appcompat.R.attr.actionMenuTextColor)).let { ta -> val color = ta.getColor(0, currentTextColor); ta.recycle(); color })
-        }
 
-        // insert status text under pro_badge if possible
-        try {
-            val proBadge = findViewById<Chip>(R.id.pro_badge)
-            val parent = proBadge.parent as? ViewGroup
-            parent?.let {
-                val index = it.indexOfChild(proBadge)
-                val params = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                params.gravity = Gravity.CENTER_HORIZONTAL
-                it.addView(tvUserInfo, index + 1, params)
-                val params2 = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                params2.gravity = Gravity.CENTER_HORIZONTAL
-                it.addView(tvSyncStatus, index + 2, params2)
-            }
-        } catch (e: Exception) {
-            Log.w(TAG, "Failed to add dynamic UI elements", e)
-        }
+        // The licence rows, the account id and the sync status all live in activity_user.xml now.
+        // They used to be TextViews built here and spliced in next to the badge chip, which meant
+        // the account page's most load-bearing information had no presence in the layout at all.
+        tvSyncStatus = findViewById(R.id.sync_status)
+
+        findViewById<View>(R.id.account_uid_row).setOnClickListener { copyAccountIdToClipboard() }
 
         btnSignOut = findViewById(R.id.signout_button)
-        try {
-            val proBadge = findViewById<TextView>(R.id.pro_badge)
-            val parent = proBadge.parent as? ViewGroup
-            parent?.addView(btnSignOut)
-        } catch (_: Exception) { /* ignore */ }
 
         // achievements list setup
         recyclerView = findViewById<RecyclerView>(R.id.recycler_view_achievements)
@@ -211,11 +192,7 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         shareSetup()
 
         // PRO badge text
-        val proPref = ProVersion(this).getValue()
-        val proPlusPref = ProPlusVersion(this).getValue()
-        if (proPref == 1) findViewById<Chip>(R.id.pro_badge).text = getString(R.string.non_pro)
-        if (proPref == 100) findViewById<Chip>(R.id.pro_badge).text = getString(R.string.pro_user)
-        if (proPlusPref == 100) findViewById<Chip>(R.id.pro_badge).text = getString(R.string.pro_plus_user)
+        updateAccountCard()
 
         // Replace user title views with user's name (they will be updated from updateUi)
         // initialize with a default placeholder
@@ -335,6 +312,15 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
         updateUi()
     }
 
+    /**
+     * Licences can change while this activity is in the background - a purchase made on the PRO
+     * tab, or an Ultimate granted by a sync somewhere else - so the card is rebuilt on the way in.
+     */
+    override fun onResume() {
+        super.onResume()
+        updateAccountCard()
+    }
+
     private fun startLegacySignIn() {
         try {
             val webClientId = getString(R.string.web_client_id)
@@ -375,51 +361,134 @@ class UserActivity : BaseActivity(), AchievementAdapter.OnAchievementClickListen
     }
 
     private fun updateUiForSignOut() {
-        tvUserInfo.text = getString(R.string.user_signed_out)
-        tvSyncStatus.text = ""
+        setSyncStatus(null)
         btnSignOut.visibility = View.GONE
         userImg.setImageResource(R.drawable.ic_account)
         userImg.imageTintList = getColorStateListFromAttr(R.attr.colorOnSurfaceVariant)
         setUserTitleViews("User Page")
+        updateAccountCard()
+    }
+
+    /** Show a sync status line, or hide it when there is nothing to say. */
+    private fun setSyncStatus(text: String?) {
+        tvSyncStatus.text = text ?: ""
+        tvSyncStatus.visibility = if (text.isNullOrEmpty()) View.GONE else View.VISIBLE
     }
 
     /**
      * Called after Firebase sign-in is established (or when UI is refreshed while signed in).
      * Reads FirebaseAuth.currentUser for uid/photo/name and performs progress sync.
      *
-     * Sync is only performed for Pro or Pro+ users. All users may sign in, but only sync for paying users.
+     * Progress and notes sync are a paid feature, but this does not return early for free
+     * accounts: [AutoSync] reads the licence keys for anyone signed in, which is the only way a
+     * user who bought Ultimate on the PC can find out that they are PRO+ here. It reports
+     * [AutoSync.Outcome.SKIPPED] if that read leaves them on the free tier.
      */
     private fun onSigninSuccess() {
         val uid = AuthManager.getUid()
         if (uid == null) {
-            tvSyncStatus.text = getString(R.string.sign_in_failed)
+            setSyncStatus(getString(R.string.sign_in_failed))
             return
         }
         findViewById<MaterialButton>(R.id.login_button).visibility = View.GONE
-        tvUserInfo.text = "Logged in"
 
-        // Check Pro/Pro+ status and only run sync if user has Pro or Pro+
-        val proPref = ProVersion(this).getValue()
-        val proPlusPref = ProPlusVersion(this).getValue()
-        val isProOrProPlus = (proPref == 100) || (proPlusPref == 100)
-
-
-        if (!isProOrProPlus) {
-            // Allow sign-in but do not sync for non-Pro users.
-            tvSyncStatus.text = "Get PRO or PRO+ to enable sync" // clear sync status for non-pro user
-            return
-        }
-
-        // perform sync for Pro/Pro+ users
-        tvSyncStatus.text = getString(R.string.syncing_progress)
-        ProgressSyncManager.mergeAndUploadLocalProgress(this, uid) { success: Boolean ->
+        setSyncStatus(getString(R.string.syncing_progress))
+        // Routed through AutoSync so this shares the single-flight guard with the sync the
+        // process lifecycle fires - two overlapping read-merge-writes against one document would
+        // each miss the other's result.
+        AutoSync.syncNow(this, force = true) { outcome ->
             runOnUiThread {
-                tvSyncStatus.text = if (success) getString(R.string.sync_complete) else getString(R.string.sync_failed)
+                when (outcome) {
+                    AutoSync.Outcome.SUCCESS -> setSyncStatus(getString(R.string.sync_complete))
+                    AutoSync.Outcome.FAILED -> setSyncStatus(getString(R.string.sync_failed))
+                    AutoSync.Outcome.SKIPPED ->
+                        // Either a sync is already in flight, or this is a free account and the
+                        // licence read found nothing to grant.
+                        if (!EntitlementManager.hasAnyPro(this)) {
+                            setSyncStatus(getString(R.string.sync_available_pro_only))
+                        }
+                }
                 // Always refresh the achievements/statistics view after a sync attempt
                 setupRecyclerView()
                 setupStats()
+                // A sync can grant Ultimate from another platform, so the badges may have changed.
+                updateAccountCard()
             }
         }
+    }
+
+    /**
+     * The licences card and the account card.
+     *
+     * A port of the Windows account page's ApplyLicences. PRO and PRO+ are purchases from a
+     * specific store, so each platform gets a row: a user with PRO+ on their PC and nothing here,
+     * and one with PRO+ here, are the same word without the platform beside it.
+     */
+    private fun updateAccountCard() {
+        val ultimate = EntitlementManager.hasUltimate(this)
+        val androidTier = EntitlementManager.currentTier(this)
+        val windowsWire = WindowsTierPreference(this).getValue()
+        val windowsTier = EntitlementRules.fromWire(windowsWire)
+
+        // An Ultimate owner sees "PRO+ Ultimate" on both rows - that is what they bought, and the
+        // PRO+ it grants on each is a consequence rather than a second purchase.
+        findViewById<TextView>(R.id.license_android_value)?.text =
+            if (ultimate) EntitlementRules.ULTIMATE_PRODUCT_NAME
+            else EntitlementRules.tierName(androidTier) ?: getString(R.string.free)
+
+        // Until a sync has read one, the PC's tier is not known rather than free: a device that
+        // has not synced yet is not a device that owns nothing.
+        findViewById<TextView>(R.id.license_windows_value)?.text = when {
+            ultimate -> EntitlementRules.ULTIMATE_PRODUCT_NAME
+            windowsWire.isEmpty() -> getString(R.string.account_tier_unknown)
+            else -> EntitlementRules.tierName(windowsTier) ?: getString(R.string.free)
+        }
+
+        // The Ultimate row and the offer are the two halves of one state: you own it, or you are
+        // being sold it.
+        findViewById<View>(R.id.license_ultimate_row)?.visibility =
+            if (ultimate) View.VISIBLE else View.GONE
+        findViewById<TextView>(R.id.license_ultimate_value)?.text =
+            getString(R.string.ultimate_owned)
+
+        findViewById<View>(R.id.ultimate_offer)?.visibility =
+            if (ultimate) View.GONE else View.VISIBLE
+        findViewById<MaterialButton>(R.id.ultimate_offer_btn)?.apply {
+            // The upgrade when PRO+ is already owned on either platform, the full product
+            // otherwise - the two products the PRO page sells.
+            setText(
+                if (androidTier == Tier.PRO_PLUS || windowsTier == Tier.PRO_PLUS)
+                    R.string.ultimate_upgrade_title
+                else R.string.ultimate_buy
+            )
+            setOnClickListener { goToProPage() }
+        }
+
+        findViewById<TextView>(R.id.account_uid_value)?.text =
+            AuthManager.getUid() ?: getString(R.string.account_id_signed_out)
+
+        val lastSync = LastSyncPreference(this).getValue()
+        findViewById<TextView>(R.id.last_synced_value)?.text =
+            if (lastSync <= 0L) {
+                getString(R.string.last_synced_never)
+            } else {
+                DateUtils.getRelativeTimeSpanString(
+                    lastSync, System.currentTimeMillis(), DateUtils.MINUTE_IN_MILLIS
+                ).toString()
+            }
+    }
+
+    /**
+     * The Firebase uid, which is what ties this device to the PC.
+     *
+     * Worth copying rather than only reading: it is the one value that makes a sync problem
+     * diagnosable, and it is 28 characters of base64 that nobody should be retyping.
+     */
+    private fun copyAccountIdToClipboard() {
+        val uid = AuthManager.getUid() ?: return
+        val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager ?: return
+        clipboard.setPrimaryClip(ClipData.newPlainText(getString(R.string.account_id), uid))
+        Toast.makeText(this, R.string.account_id_copied, Toast.LENGTH_SHORT).show()
     }
 
     private fun setupTitleController(titleSurface: View) {

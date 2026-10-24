@@ -1313,4 +1313,19 @@ I：不溶"</string>
     <string name="base_label">基体金属：</string>
     <string name="composition_label">成分：</string>
     <string name="open_base_element">打开基体元素</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">只需一次购买，即可在 Android 和 Windows 上解锁 PRO+。让您的笔记、成就和进度在所有设备上与您同在！</string>
+    <string name="ultimate_buy">获取 PRO+ Ultimate</string>
+    <string name="ultimate_upgrade_title">升级到 Ultimate</string>
+    <string name="ultimate_coming_soon">即将推出</string>
+    <string name="ultimate_owned">已拥有 PRO+ Ultimate</string>
+    <string name="ultimate_already_owned_account">您已在此账户上拥有 PRO+ Ultimate。</string>
+    <string name="account_tier_unknown">尚未同步</string>
+    <string name="account_title">账户</string>
+    <string name="account_id">账户 ID</string>
+    <string name="account_id_signed_out">未登录</string>
+    <string name="account_id_copied">账户 ID 已复制</string>
+    <string name="account_id_hint">它必须与 Windows 应用中显示的 ID 一致。如果不同，说明两台设备正在同步到不同的账户。</string>
+    <string name="last_synced">上次同步</string>
+    <string name="last_synced_never">从未</string>
 </resources>

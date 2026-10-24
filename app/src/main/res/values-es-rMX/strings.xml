@@ -632,4 +632,19 @@
     <string name="base_label">"Metal base: "</string>
     <string name="composition_label">"Composición: "</string>
     <string name="open_base_element">Abrir elemento base</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">Desbloquea PRO+ en Android y Windows con una sola compra. ¡Asegúrate de que tus notas, logros y progreso te acompañen en todos tus dispositivos!</string>
+    <string name="ultimate_buy">Obtener PRO+ Ultimate</string>
+    <string name="ultimate_upgrade_title">Mejorar a Ultimate</string>
+    <string name="ultimate_coming_soon">Próximamente</string>
+    <string name="ultimate_owned">Posee PRO+ Ultimate</string>
+    <string name="ultimate_already_owned_account">Ya tienes PRO+ Ultimate en esta cuenta.</string>
+    <string name="account_tier_unknown">Aún sin sincronizar</string>
+    <string name="account_title">Cuenta</string>
+    <string name="account_id">ID de cuenta</string>
+    <string name="account_id_signed_out">Sesión no iniciada</string>
+    <string name="account_id_copied">ID de cuenta copiado</string>
+    <string name="account_id_hint">Debe coincidir con el ID que aparece en la app de Windows. Si es distinto, los dos dispositivos se sincronizan con cuentas separadas.</string>
+    <string name="last_synced">Última sincronización</string>
+    <string name="last_synced_never">Nunca</string>
 </resources>

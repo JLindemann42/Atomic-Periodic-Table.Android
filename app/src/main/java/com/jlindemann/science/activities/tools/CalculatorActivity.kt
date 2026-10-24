@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.text.*
@@ -31,9 +30,12 @@ import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.MostUsedToolPreference
-import com.jlindemann.science.preferences.ProVersion
+import com.jlindemann.science.sync.FavoriteKind
+import com.jlindemann.science.sync.FavoritesStore
+import com.jlindemann.science.sync.FavoritesSyncManager
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ElementDataLoader
+import com.jlindemann.science.utils.EntitlementManager
 import com.jlindemann.science.utils.ToastUtil
 import org.json.JSONArray
 import java.io.IOException
@@ -45,8 +47,6 @@ class CalculatorActivity : BaseActivity() {
     private lateinit var favoriteCompoundsAdapter: FavoriteCompoundsAdapter
     private var isFormatting: Boolean = false
 
-    private lateinit var sharedPreferences: SharedPreferences
-    private val FAVORITES_KEY = "favorites"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,8 +82,6 @@ class CalculatorActivity : BaseActivity() {
 
         updateStats()
 
-        // Initialize SharedPreferences
-        sharedPreferences = getSharedPreferences("CalculatorPrefs", Context.MODE_PRIVATE)
 
         //Title Controller
         findViewById<ScrollView>(R.id.calculator_scroll).viewTreeObserver
@@ -123,16 +121,16 @@ class CalculatorActivity : BaseActivity() {
         //Show hint text at start:
         findViewById<TextView>(R.id.hint_calc_text).visibility = View.VISIBLE
 
-        // Check if favorite list should be shown or not (PRO)
-        val proPref = ProVersion(this)
-        val proPrefValue = proPref.getValue()
-        if (proPrefValue == 1) {
+        // Check if favorite list should be shown or not. Any paid tier: PRO, PRO+ or Ultimate - this
+        // used to read the PRO purchase alone, which hid the list from a PRO+ owner.
+        val hasProAccess = EntitlementManager.hasAnyPro(this)
+        if (!hasProAccess) {
             findViewById<RecyclerView>(R.id.fav_rec_list).visibility = View.INVISIBLE
             findViewById<TextView>(R.id.no_pro_text).visibility = View.VISIBLE
             findViewById<View>(R.id.pro_button_cal).visibility = View.VISIBLE
             findViewById<View>(R.id.fav_star_btn).visibility = View.GONE
         }
-        if (proPrefValue == 100) {
+        if (hasProAccess) {
             findViewById<RecyclerView>(R.id.fav_rec_list).visibility = View.VISIBLE
             findViewById<TextView>(R.id.no_pro_text).visibility = View.GONE
             findViewById<View>(R.id.pro_button_cal).visibility = View.GONE
@@ -315,26 +313,38 @@ class CalculatorActivity : BaseActivity() {
         includedElementsAdapter.updateElements(includedElements)
     }
 
+    // Favourites live in FavoritesStore, which keeps them where this screen always has (the
+    // "favorites" StringSet in CalculatorPrefs) and syncs them for PRO users.
+
     private fun saveFavorite(compound: String, molarWeight: String) {
-        val favorites = sharedPreferences.getStringSet(FAVORITES_KEY, mutableSetOf())?.toMutableSet() ?: mutableSetOf()
-        favorites.add("$compound:$molarWeight")
-        sharedPreferences.edit().putStringSet(FAVORITES_KEY, favorites).apply()
+        FavoritesStore.save(this, FavoriteKind.COMPOUND, compound, molarWeight)
     }
 
     private fun removeFavorite(compound: String) {
-        val favorites = sharedPreferences.getStringSet(FAVORITES_KEY, mutableSetOf())?.toMutableSet() ?: mutableSetOf()
-        favorites.removeIf { it.startsWith(compound) }
-        sharedPreferences.edit().putStringSet(FAVORITES_KEY, favorites).apply()
+        FavoritesStore.remove(this, FavoriteKind.COMPOUND, compound)
         loadFavorites()
     }
 
     private fun loadFavorites() {
-        val favorites = sharedPreferences.getStringSet(FAVORITES_KEY, mutableSetOf())?.toMutableList() ?: mutableListOf()
-        val favoriteCompounds = favorites.map {
-            val parts = it.split(":")
-            FavoriteCompound(parts[0], parts[1])
-        }
+        val favoriteCompounds = FavoritesStore.entries(this, FavoriteKind.COMPOUND)
+            .map { (compound, molarWeight) -> FavoriteCompound(compound, molarWeight) }
         favoriteCompoundsAdapter.updateCompounds(favoriteCompounds)
+    }
+
+    /** A sync brought changes from another device; show them if this screen is open. */
+    private val favoritesChanged: (FavoriteKind) -> Unit = { kind ->
+        if (kind == FavoriteKind.COMPOUND) loadFavorites()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FavoritesStore.addListener(favoritesChanged)
+        FavoritesSyncManager.sync(this)
+    }
+
+    override fun onPause() {
+        FavoritesStore.removeListener(favoritesChanged)
+        super.onPause()
     }
 
     private fun copyToClipboard(compound: String) {

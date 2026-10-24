@@ -4,7 +4,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
@@ -27,8 +26,10 @@ import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.MostUsedToolPreference
-import com.jlindemann.science.preferences.ProPlusVersion
-import com.jlindemann.science.preferences.ProVersion
+import com.jlindemann.science.utils.EntitlementManager
+import com.jlindemann.science.sync.FavoriteKind
+import com.jlindemann.science.sync.FavoritesStore
+import com.jlindemann.science.sync.FavoritesSyncManager
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.UnifiedTitleBarController
@@ -37,8 +38,6 @@ class IdealGasCalculatorActivity : BaseActivity() {
 
     private lateinit var titleBar: UnifiedTitleBarController
     private lateinit var favoriteCalculationsAdapter: FavoriteIdealGasAdapter
-    private lateinit var sharedPreferences: SharedPreferences
-    private val FAVORITES_KEY = "ideal_gas_favorites"
     
     // Gas constant R in different units
     private val R_ATM = 0.08206 // L·atm/(mol·K)
@@ -100,8 +99,6 @@ class IdealGasCalculatorActivity : BaseActivity() {
 
         updateStats()
 
-        // Initialize SharedPreferences
-        sharedPreferences = getSharedPreferences("IdealGasCalculatorPrefs", Context.MODE_PRIVATE)
 
         //Title Controller
         findViewById<ScrollView>(R.id.ideal_gas_calculator_scroll).viewTreeObserver
@@ -140,13 +137,8 @@ class IdealGasCalculatorActivity : BaseActivity() {
         }
 
         // Check if favorite list should be shown or not (PRO or PRO+)
-        val proPref = ProVersion(this)
-        val proPrefValue = proPref.getValue()
-        val proPlusPref = ProPlusVersion(this)
-        val proPlusPrefValue = proPlusPref.getValue()
-        
-        // Show favorites if user has either PRO or PRO+
-        val hasProAccess = proPrefValue == 100 || proPlusPrefValue == 100
+        // Show favorites for any paid tier: PRO, PRO+ or Ultimate
+        val hasProAccess = EntitlementManager.hasAnyPro(this)
         
         if (!hasProAccess) {
             findViewById<RecyclerView>(R.id.fav_rec_list_ideal_gas).visibility = View.INVISIBLE
@@ -428,30 +420,39 @@ class IdealGasCalculatorActivity : BaseActivity() {
         return inputs.joinToString(", ")
     }
 
+    // Favourites live in FavoritesStore, which keeps them where this screen always has (the
+    // "ideal_gas_favorites" StringSet) and syncs them for PRO users. Re-saving the same inputs
+    // replaces the row rather than adding a second one.
+
     private fun saveFavorite(calculation: String, result: String) {
-        val favorites = sharedPreferences.getStringSet(FAVORITES_KEY, mutableSetOf())?.toMutableSet() ?: mutableSetOf()
-        favorites.add("$calculation:$result")
-        sharedPreferences.edit().putStringSet(FAVORITES_KEY, favorites).apply()
+        FavoritesStore.save(this, FavoriteKind.IDEAL_GAS, calculation, result)
     }
 
     private fun removeFavorite(calculation: String) {
-        val favorites = sharedPreferences.getStringSet(FAVORITES_KEY, mutableSetOf())?.toMutableSet() ?: mutableSetOf()
-        favorites.removeIf { it.startsWith(calculation) }
-        sharedPreferences.edit().putStringSet(FAVORITES_KEY, favorites).apply()
+        FavoritesStore.remove(this, FavoriteKind.IDEAL_GAS, calculation)
         loadFavorites()
     }
 
     private fun loadFavorites() {
-        val favorites = sharedPreferences.getStringSet(FAVORITES_KEY, mutableSetOf())?.toMutableList() ?: mutableListOf()
-        val favoriteCalculations = favorites.map {
-            val parts = it.split(":")
-            if (parts.size >= 2) {
-                FavoriteIdealGasCalculation(parts[0], parts[1])
-            } else {
-                FavoriteIdealGasCalculation(it, "")
-            }
-        }
+        val favoriteCalculations = FavoritesStore.entries(this, FavoriteKind.IDEAL_GAS)
+            .map { (calculation, result) -> FavoriteIdealGasCalculation(calculation, result) }
         favoriteCalculationsAdapter.updateCalculations(favoriteCalculations)
+    }
+
+    /** A sync brought changes from another device; show them if this screen is open. */
+    private val favoritesChanged: (FavoriteKind) -> Unit = { kind ->
+        if (kind == FavoriteKind.IDEAL_GAS) loadFavorites()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FavoritesStore.addListener(favoritesChanged)
+        FavoritesSyncManager.sync(this)
+    }
+
+    override fun onPause() {
+        FavoritesStore.removeListener(favoritesChanged)
+        super.onPause()
     }
 
     private fun copyToClipboard(calculation: String) {

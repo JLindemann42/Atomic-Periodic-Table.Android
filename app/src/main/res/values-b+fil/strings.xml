@@ -1310,4 +1310,19 @@ Nagbabahagi sila ng mga katulad na gawi sa kemikal dahil sa kanilang mga valence
     <string name="base_label">"Batayang metal: "</string>
     <string name="composition_label">"Komposisyon: "</string>
     <string name="open_base_element">Buksan ang batayang elemento</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">I-unlock ang PRO+ sa Android at Windows sa isang bayad lang. Siguraduhing kasama mo ang iyong mga tala, nakamit, at progress sa lahat ng device!</string>
+    <string name="ultimate_buy">Kunin ang PRO+ Ultimate</string>
+    <string name="ultimate_upgrade_title">I-upgrade sa Ultimate</string>
+    <string name="ultimate_coming_soon">Malapit na</string>
+    <string name="ultimate_owned">May-ari ng PRO+ Ultimate</string>
+    <string name="ultimate_already_owned_account">Mayroon ka nang PRO+ Ultimate sa account na ito.</string>
+    <string name="account_tier_unknown">Hindi pa naka-sync</string>
+    <string name="account_title">Account</string>
+    <string name="account_id">Account ID</string>
+    <string name="account_id_signed_out">Hindi naka-sign in</string>
+    <string name="account_id_copied">Nakopya ang Account ID</string>
+    <string name="account_id_hint">Dapat itong tumugma sa ID na ipinapakita sa Windows app. Kung iba ito, magkahiwalay na account ang sini-sync ng dalawang device.</string>
+    <string name="last_synced">Huling na-sync</string>
+    <string name="last_synced_never">Hindi pa</string>
 </resources>

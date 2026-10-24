@@ -1241,4 +1241,19 @@
     <string name="base_label">"Basismetall: "</string>
     <string name="composition_label">"Zusammensetzung: "</string>
     <string name="open_base_element">Basiselement öffnen</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">Schalten Sie PRO+ auf Android und Windows mit einem einzigen Kauf frei. So haben Sie Ihre Notizen, Erfolge und Ihren Fortschritt auf allen Geräten dabei!</string>
+    <string name="ultimate_buy">PRO+ Ultimate holen</string>
+    <string name="ultimate_upgrade_title">Auf Ultimate upgraden</string>
+    <string name="ultimate_coming_soon">Demnächst verfügbar</string>
+    <string name="ultimate_owned">Besitzt PRO+ Ultimate</string>
+    <string name="ultimate_already_owned_account">Sie besitzen PRO+ Ultimate bereits auf diesem Konto.</string>
+    <string name="account_tier_unknown">Noch nicht synchronisiert</string>
+    <string name="account_title">Konto</string>
+    <string name="account_id">Konto-ID</string>
+    <string name="account_id_signed_out">Nicht angemeldet</string>
+    <string name="account_id_copied">Konto-ID kopiert</string>
+    <string name="account_id_hint">Diese ID muss mit der in der Windows-App angezeigten ID übereinstimmen. Weicht sie ab, synchronisieren die beiden Geräte mit getrennten Konten.</string>
+    <string name="last_synced">Zuletzt synchronisiert</string>
+    <string name="last_synced_never">Nie</string>
 </resources>

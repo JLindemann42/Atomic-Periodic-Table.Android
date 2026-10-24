@@ -22,8 +22,8 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 24
         targetSdkVersion 36
-        versionCode 228
-        versionName "5.0.3m"
+        versionCode 231
+        versionName "5.1.0m"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             // Ship only 16KB-compatible ABI for native dependencies.
@@ -87,6 +87,8 @@ dependencies {
     implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:1.2.0'
     implementation 'com.otaliastudios:zoomlayout:1.9.0'
     implementation 'androidx.work:work-runtime-ktx:2.11.0'
+    // ProcessLifecycleOwner, for the foreground/background sync trigger
+    implementation 'androidx.lifecycle:lifecycle-process:2.9.4'
 
     // Firebase BoM (analytics, auth, firestore controlled by BOM)
     implementation platform('com.google.firebase:firebase-bom:33.1.2')

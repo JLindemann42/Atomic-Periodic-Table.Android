@@ -1243,4 +1243,19 @@
     <string name="base_label">"Basmetall: "</string>
     <string name="composition_label">"Sammansättning: "</string>
     <string name="open_base_element">Öppna basgrundämnet</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">Lås upp PRO+ på Android och Windows med ett enda köp. Se till att dina anteckningar, prestationer och framsteg finns med dig på alla enheter!</string>
+    <string name="ultimate_buy">Skaffa PRO+ Ultimate</string>
+    <string name="ultimate_upgrade_title">Uppgradera till Ultimate</string>
+    <string name="ultimate_coming_soon">Kommer snart</string>
+    <string name="ultimate_owned">Äger PRO+ Ultimate</string>
+    <string name="ultimate_already_owned_account">Du äger redan PRO+ Ultimate på det här kontot.</string>
+    <string name="account_tier_unknown">Inte synkroniserad än</string>
+    <string name="account_title">Konto</string>
+    <string name="account_id">Konto-ID</string>
+    <string name="account_id_signed_out">Inte inloggad</string>
+    <string name="account_id_copied">Konto-ID kopierat</string>
+    <string name="account_id_hint">Det måste matcha ID:t som visas i Windows-appen. Om det skiljer sig synkroniserar de två enheterna mot separata konton.</string>
+    <string name="last_synced">Senast synkroniserad</string>
+    <string name="last_synced_never">Aldrig</string>
 </resources>

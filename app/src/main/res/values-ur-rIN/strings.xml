@@ -675,4 +675,19 @@
     <string name="base_label">"بنیادی دھات: "</string>
     <string name="composition_label">"ترکیب: "</string>
     <string name="open_base_element">بنیادی عنصر کھولیں</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">ایک ہی خریداری سے اینڈرائیڈ اور ونڈوز پر PRO+ اَن لاک کریں۔ یقینی بنائیں کہ آپ کے نوٹس، کامیابیاں اور پیش رفت تمام آلات پر آپ کے ساتھ ہوں!</string>
+    <string name="ultimate_buy">PRO+ Ultimate حاصل کریں</string>
+    <string name="ultimate_upgrade_title">Ultimate پر اپ گریڈ کریں</string>
+    <string name="ultimate_coming_soon">جلد آ رہا ہے</string>
+    <string name="ultimate_owned">PRO+ Ultimate کے مالک</string>
+    <string name="ultimate_already_owned_account">اس اکاؤنٹ پر آپ کے پاس پہلے سے PRO+ Ultimate موجود ہے۔</string>
+    <string name="account_tier_unknown">ابھی تک ہم آہنگ نہیں ہوا</string>
+    <string name="account_title">اکاؤنٹ</string>
+    <string name="account_id">اکاؤنٹ آئی ڈی</string>
+    <string name="account_id_signed_out">سائن اِن نہیں ہے</string>
+    <string name="account_id_copied">اکاؤنٹ آئی ڈی کاپی ہو گئی</string>
+    <string name="account_id_hint">یہ ونڈوز ایپ میں دکھائی گئی آئی ڈی سے مماثل ہونی چاہیے۔ اگر مختلف ہو تو دونوں آلات الگ اکاؤنٹس سے ہم آہنگ ہو رہے ہیں۔</string>
+    <string name="last_synced">آخری بار ہم آہنگ کیا گیا</string>
+    <string name="last_synced_never">کبھی نہیں</string>
 </resources>

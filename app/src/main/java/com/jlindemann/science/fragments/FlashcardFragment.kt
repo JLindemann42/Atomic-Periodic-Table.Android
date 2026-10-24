@@ -39,6 +39,7 @@ import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.sync.ProgressSyncManager
+import com.jlindemann.science.sync.AutoSync
 import com.jlindemann.science.util.LivesManager
 import com.jlindemann.science.util.XpManager
 import com.jlindemann.science.utils.UnifiedTitleBarController
@@ -680,16 +681,19 @@ class FlashcardFragment : BaseFragment() {
             return
         }
         setSyncStatus(getString(R.string.syncing_progress))
-        ProgressSyncManager.mergeAndUploadLocalProgress(requireContext(), uid) { success: Boolean ->
+        AutoSync.syncNow(requireContext(), force = true) { outcome ->
             activity?.runOnUiThread {
-                if (success) {
-                    view?.let {
-                        updateXpAndLevelStats(it)
-                        updateCategoryBoxes(it)
+                when (outcome) {
+                    AutoSync.Outcome.SUCCESS -> {
+                        view?.let {
+                            updateXpAndLevelStats(it)
+                            updateCategoryBoxes(it)
+                        }
+                        setSyncStatus(getString(R.string.sync_complete))
                     }
-                    setSyncStatus(getString(R.string.sync_complete))
-                } else {
-                    setSyncStatus(getString(R.string.sync_failed))
+                    AutoSync.Outcome.FAILED -> setSyncStatus(getString(R.string.sync_failed))
+                    // Another sync is already running, so "syncing" is still the truth.
+                    AutoSync.Outcome.SKIPPED -> Unit
                 }
             }
         }
