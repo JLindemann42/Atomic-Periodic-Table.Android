@@ -84,8 +84,11 @@ class AILearningManager(context: Context) {
      */
     fun isTechnicalPreferred(): Boolean = technicalScore > 0.7f
 
+    /** Ties break on the key, so the greeting does not change between launches. */
     fun getFavoriteElement(): String? {
-        return elementInterests.maxByOrNull { it.value }?.key
+        return elementInterests.entries
+            .sortedWith(compareByDescending<Map.Entry<String, Int>> { it.value }.thenBy { it.key })
+            .firstOrNull()?.key
     }
 
     fun getTopProperties(limit: Int = 3): List<String> {
@@ -95,8 +98,17 @@ class AILearningManager(context: Context) {
             .map { it.key }
     }
     
-    fun getPersonalizedGreeting(context: Context, language: String): String? {
-        val favElement = getFavoriteElement() ?: return null
+    /**
+     * @param displayName the element's name in the reader's language. The counts are keyed on the
+     *   English key, and interpolating that greeted a Swedish user about "gold" mid-sentence.
+     */
+    fun getPersonalizedGreeting(
+        context: Context,
+        language: String,
+        displayName: (String) -> String? = { null }
+    ): String? {
+        val favKey = getFavoriteElement() ?: return null
+        val favElement = displayName(favKey) ?: favKey
         val interests = getTopProperties(1)
         val localizedCtx = AIPersonality.getLocalizedContext(context, language)
         

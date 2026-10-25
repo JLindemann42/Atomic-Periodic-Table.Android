@@ -907,7 +907,9 @@ class AnswerComposer(
             val siblings = FieldRegistry.byId[result.fieldId]?.category?.let { category ->
                 FieldRegistry.ALL
                     .filter { it.category == category && it.id != result.fieldId }
-                    .filter { element.value(it.id) != null }
+                    // value() returns FieldValue.Missing, never null, so a `!= null` check here
+                    // kept every field and offered properties the element is also missing.
+                    .filter { !element.value(it.id).isMissing }
                     .take(MAX_ALTERNATIVES)
                     .map { fieldLabel(it.id) }
             }.orEmpty()

@@ -196,6 +196,24 @@ class AiEngineTest {
         assertTrue(plan.elementKeys.contains("iron"))
     }
 
+    /**
+     * With the element from focus and the field from the last turn, a bare "more" rebuilt the
+     * previous question exactly and answered it word for word. Windows porting notes, D47.
+     */
+    @Test
+    fun aContinuationThatSuppliesNothingDoesNotReplayTheLastQuestion() {
+        fun afterIronMeltingPoint() = DialogueState().apply {
+            focusElement = "iron"
+            lastFieldIds = listOf("melting_point")
+        }
+        assertNotEquals("melting_point", planner.plan("more", afterIronMeltingPoint()).primaryField)
+
+        // A unit is a slot of its own, so this still inherits both element and field.
+        val fahrenheit = planner.plan("and in fahrenheit", afterIronMeltingPoint())
+        assertEquals("melting_point", fahrenheit.primaryField)
+        assertEquals(listOf("iron"), fahrenheit.elementKeys)
+    }
+
     @Test
     fun dialogueStateTracksRecentElements() {
         val state = DialogueState()

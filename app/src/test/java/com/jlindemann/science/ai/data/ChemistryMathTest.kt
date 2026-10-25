@@ -167,4 +167,37 @@ class ChemistryMathTest {
             .associate { it.symbol to it.count })
         assertNull(parse("percentage"))
     }
+
+    @Test
+    fun hydrateMultipliersApplyToTheirWholeSegment() {
+        // Deleting the separator before parsing fused the sulfate's "O4" with the hydrate's "5"
+        // into a single "O45", so this came back with 46 oxygens. Windows porting notes, D9.
+        assertEquals(mapOf("Cu" to 1, "S" to 1, "O" to 9, "H" to 10), counts("CuSO4·5H2O"))
+    }
+
+    @Test
+    fun hydrateMolarMassIsRight() {
+        // Copper(II) sulfate pentahydrate is 249.68 g/mol. The old parse gave about 1,420.
+        assertEquals(249.68, parse("CuSO4·5H2O")!!.molarMass, 0.05)
+        assertEquals(249.68, parse("cuso4·5h2o")!!.molarMass, 0.05)
+    }
+
+    @Test
+    fun asteriskIsTheSameSeparator() {
+        // Plenty of sources write CuSO4*5H2O.
+        assertEquals(counts("CuSO4·5H2O"), counts("CuSO4*5H2O"))
+    }
+
+    @Test
+    fun aHydrateWithNoMultiplierCountsOnce() {
+        val soda = counts("Na2CO3·H2O")!!
+        assertEquals(4, soda["O"])   // 3 from the carbonate, 1 from the water
+        assertEquals(2, soda["H"])
+    }
+
+    @Test
+    fun anEmptyHydrateSegmentIsNotAFormula() {
+        assertNull(counts("CuSO4·"))
+        assertNull(counts("CuSO4·5"))
+    }
 }

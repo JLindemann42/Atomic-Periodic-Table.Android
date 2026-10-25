@@ -155,6 +155,25 @@ class EntityResolverTest {
         assertTrue(EntityResolver.isCommonWordCollision("as", "wat gebeur as dit warm word", listOf("wat", "gebeur", "as", "dit", "warm", "word"), "af"))
     }
 
+    /**
+     * "More" is one edit from the French for boron, "bore", and "sure" one from the Swedish for
+     * oxygen, "syre". The typo stage turned a bare "more" after iron into boron. Windows D47.
+     */
+    @Test
+    fun aContinuationIsNeverReadAsAMisspelledElement() {
+        val multilingual = EntityResolver(
+            EntityResolver.buildAliases(mapOf(
+                "fr" to mapOf("boron" to Triple("Bore", "B", "5")),
+                "sv" to mapOf("oxygen" to Triple("Syre", "O", "8"))
+            )), "en"
+        )
+        assertNull(multilingual.resolve("more")?.key)
+        assertNull(multilingual.resolve("sure")?.key)
+        // The exact names still resolve, and so does a genuine typo of them.
+        assertEquals("boron", multilingual.resolve("bore")?.key)
+        assertEquals("oxygen", multilingual.resolve("syyre")?.key)
+    }
+
     @Test
     fun tokensLongerThanTwoCharsAreNeverCollisions() {
         assertFalse(EntityResolver.isCommonWordCollision("gold", "gold is dense", listOf("gold", "is", "dense"), "en"))

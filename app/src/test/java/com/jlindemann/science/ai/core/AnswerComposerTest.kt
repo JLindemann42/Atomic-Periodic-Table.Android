@@ -3,6 +3,7 @@ package com.jlindemann.science.ai.core
 import com.jlindemann.science.ai.compose.AnswerComposer
 import com.jlindemann.science.ai.compose.ChatActionCodec
 import com.jlindemann.science.ai.data.DatasetIndex
+import com.jlindemann.science.ai.data.FieldRegistry
 import com.jlindemann.science.ai.data.KnowledgeStore
 import com.jlindemann.science.ai.data.TestAssets
 import com.jlindemann.science.ai.data.ValueParser
@@ -26,13 +27,14 @@ class AnswerComposerTest {
     private lateinit var planner: QueryPlanner
     private lateinit var executor: QueryExecutor
     private lateinit var composer: AnswerComposer
+    private lateinit var store: KnowledgeStore
 
     @Before
     fun setUp() {
         assumeTrue("real assets not reachable", TestAssets.available())
         assumeTrue("real strings not reachable", TestStrings.available)
         KnowledgeStore.clear()
-        val store = KnowledgeStore.build(TestAssets.elementTable("en"))
+        store = KnowledgeStore.build(TestAssets.elementTable("en"))
         val datasets = DatasetIndex.build()
         val aliases = EntityResolver.buildAliases(
             mapOf("en" to store.elements.associate {
@@ -116,6 +118,34 @@ class AnswerComposerTest {
         assertTrue("must say it lacks the data", text.contains("don't have the data", ignoreCase = true))
         assertTrue("must report how sparse the field is", text.contains("45 of 118"))
         assertFalse("must not invent a value", Regex("""\d+\s*MPa""").containsMatchIn(text))
+    }
+
+    /**
+     * "Recorded for X: …" may only name properties the element has. The filter used to test
+     * `value(id) != null`, which is always true, so it listed the category's first four fields
+     * whether or not they were recorded. Windows porting notes, D15.
+     */
+    @Test
+    fun theAlternativesOfferedAreOnesTheElementActuallyHas() {
+        var checked = 0
+        for (element in store.elements) {
+            for (field in FieldRegistry.ALL) {
+                if (!element.value(field.id).isMissing) continue
+                val present = FieldRegistry.ALL.count {
+                    it.category == field.category && it.id != field.id && !element.value(it.id).isMissing
+                }
+                val text = composer.compose(
+                    ExecutionResult.NoData(field.id, element, 0),
+                    QueryPlan(intent = Intent.PROPERTY_LOOKUP, fieldIds = listOf(field.id))
+                ).text
+                val line = text.lines().firstOrNull { it.startsWith("Recorded for") }
+                val named = line?.substringAfter(": ")?.removeSuffix(".")?.split(", ")?.size ?: 0
+                // At most four are offered (AnswerComposer.MAX_ALTERNATIVES).
+                assertEquals("${element.key} / ${field.id}: $line", minOf(present, 4), named)
+                checked++
+            }
+        }
+        assertTrue("expected some missing fields to check", checked > 100)
     }
 
     @Test

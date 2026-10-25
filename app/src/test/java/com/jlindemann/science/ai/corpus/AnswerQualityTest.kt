@@ -174,7 +174,8 @@ class AnswerQualityTest {
         val element = noData.element ?: return@check null
         val category = FieldRegistry.byId[noData.fieldId]?.category ?: return@check null
         val siblings = FieldRegistry.ALL.filter {
-            it.category == category && it.id != noData.fieldId && element.value(it.id) != null
+            // value() returns FieldValue.Missing, never null; see AnswerComposer.noData.
+            it.category == category && it.id != noData.fieldId && !element.value(it.id).isMissing
         }
         if (siblings.isEmpty()) return@check null
         // The answer must mention at least one of them by its label.

@@ -83,4 +83,13 @@ class IsotopeComparisonTest {
         val (plan, _) = answer("how many neutrons in uranium-238")
         assertEquals(Intent.NUCLIDE_COUNT, plan.intent)
     }
+
+    @Test fun everyNuclideBranchRejectsAnImpossibleMassNumber() {
+        // NUCLIDE_COUNT was the one branch without the mass >= Z guard, so this answered -89.
+        // (The ISOTOPES branch has the guard too, but through the full planner "half life of
+        // uranium-3" rightly falls back to uranium's isotope list, so it is not asserted here.)
+        fun intentOf(q: String) = planner.plan(q, DialogueState()).intent
+        assertNotEquals(Intent.ISOTOPE_COMPARISON, intentOf("uranium-3 vs uranium-5"))
+        assertNotEquals(Intent.NUCLIDE_COUNT, intentOf("how many neutrons in uranium-3"))
+    }
 }

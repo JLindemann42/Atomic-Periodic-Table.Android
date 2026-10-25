@@ -731,7 +731,7 @@ class AIAgentManager(private val context: Context?) {
             updateTopicFromIntent(lowerQuery)
 
             // Handle active Quiz answer
-            if (currentQuizAnswer != null && !isQuizQuery(lowerQuery)) {
+            if (currentQuizAnswer != null && !isQuizQuery(lowerQuery) && looksLikeQuizGuess(lowerQuery)) {
                 return@withContext ChatMessage(
                     id = UUID.randomUUID().toString(),
                     text = handleQuizAnswer(lowerQuery),
@@ -896,8 +896,9 @@ class AIAgentManager(private val context: Context?) {
                     }
                 }
                 isGeneralGreeting(userMessage) -> {
-                    val greeting = learningManager?.getPersonalizedGreeting(localizedCtx, activeLanguage) 
-                        ?: AIPersonality.getGreeting(localizedCtx, activeLanguage)
+                    val greeting = learningManager?.getPersonalizedGreeting(localizedCtx, activeLanguage) { key ->
+                        elementData?.optJSONObject(key)?.optString("element", "")?.takeIf { it.isNotBlank() }
+                    } ?: AIPersonality.getGreeting(localizedCtx, activeLanguage)
                     responseParts.add(greeting)
                 }
                 isFactRequest(userMessage) -> responseParts.add(AIPersonality.getRandomFact(ctx, activeLanguage))
@@ -1349,6 +1350,18 @@ class AIAgentManager(private val context: Context?) {
             "fråga", "सवाल", "امتحان", "vrae", "vraag", "toetsie"
         )
         return keywords.any { query.contains(it) }
+    }
+
+    /**
+     * Whether a reply with a quiz question open is a guess at it: it names the answer, or names
+     * some element. Anything else goes to the handler it was meant for — judging every reply
+     * answered "tell me more" with "Not quite! The answer was Vanadium". The question stays open.
+     */
+    private fun looksLikeQuizGuess(query: String): Boolean {
+        val answer = currentQuizAnswer ?: return false
+        if (query.contains(answer, ignoreCase = true)) return true
+        if (com.jlindemann.science.ai.retrieval.FuzzyMatch.isAffirmative(query)) return false
+        return findElementByQuery(query) != null
     }
 
     private fun handleQuizAnswer(query: String): String {
@@ -1877,17 +1890,18 @@ class AIAgentManager(private val context: Context?) {
         val ctx = localizedContext ?: context!!
         val lines = mutableListOf<String>()
         
-        // Thermal
-        val tc = element.optString("element_thermal_conductivity", "---")
+        // Thermal. The values carry their own units ("80.4 W/(m·K)", "13.81 (kJ/mol)"), so none
+        // is appended here; appending one printed it twice.
+        val tc = element.optString("thermal_conductivity", "---")
         val fh = element.optString("element_fusion_heat", "---")
-        if (tc != "---") lines.add("• ${ctx.getString(R.string.thermal_conductivity_colon).replace(":","")}: $tc W/(m·K)")
-        if (fh != "---") lines.add("• ${ctx.getString(R.string.fusion_heat_colon).replace(":","")}: $fh kJ/mol")
-        
+        if (tc != "---") lines.add("• ${ctx.getString(R.string.thermal_conductivity_colon).replace(":","")}: $tc")
+        if (fh != "---") lines.add("• ${ctx.getString(R.string.fusion_heat_colon).replace(":","")}: $fh")
+
         // Mechanical
         val mohs = element.optString("mohs_hardness", "---")
         val ym = element.optString("young_modulus", "---")
         if (mohs != "---") lines.add("• ${ctx.getString(R.string.mohs_hardness_colon).replace(":","")}: $mohs")
-        if (ym != "---") lines.add("• ${ctx.getString(R.string.element_young_modulus).replace(":","")}: $ym GPa")
+        if (ym != "---") lines.add("• ${ctx.getString(R.string.element_young_modulus).replace(":","")}: $ym")
         
         // Electromagnetic
         val et = element.optString("electrical_type", "---")
@@ -2423,12 +2437,20 @@ class AIAgentManager(private val context: Context?) {
             ctx.getString(R.string.crystal_structure).replace(":","") to "crystal_structure",
             ctx.getString(R.string.cas_number).replace(":","") to "cas_number",
             ctx.getString(R.string.molar_volume_colon).replace(":","") to "molar_volume",
-            ctx.getString(R.string.thermal_conductivity_colon).replace(":","") to "element_thermal_conductivity",
+            // The data key is thermal_conductivity; "element_thermal_conductivity" exists on no
+            // element, so this was never offered. Windows porting notes, D46.
+            ctx.getString(R.string.thermal_conductivity_colon).replace(":","") to "thermal_conductivity",
             ctx.getString(R.string.year_discovered_colon).replace(":","") to "element_year"
         )
-        
-        // Find properties we haven't shared yet
-        val availableNewFacts = potentialProperties.filter { !sharedProperties.contains(it.first) }.toMutableList()
+
+        // Find properties we haven't shared yet and that this element actually has. What has
+        // been said is remembered by data key, not label: "Densitet" is not "Density", so keying
+        // on the label forgot everything when the thread switched language. Filtering first also
+        // replaces the old recurse-on-a-miss, which could go eight deep for a sparse element.
+        val availableNewFacts = potentialProperties
+            .filter { !sharedProperties.contains(it.second) }
+            .filter { element.optString(it.second, "").let { v -> v.isNotEmpty() && v != "---" } }
+            .toMutableList()
         
         if (availableNewFacts.isEmpty()) {
             // If everything is shared, give a fun fact instead
@@ -2438,10 +2460,10 @@ class AIAgentManager(private val context: Context?) {
         // Try to pick a "logical next step" if possible
         val lastProp = sharedProperties.lastOrNull()
         val preferredIdx = when (lastProp) {
-            ctx.getString(R.string.boiling_point_colon).replace(":","") -> availableNewFacts.indexOfFirst { it.first == ctx.getString(R.string.melting_point_colon).replace(":","") }
-            ctx.getString(R.string.melting_point_colon).replace(":","") -> availableNewFacts.indexOfFirst { it.first == ctx.getString(R.string.boiling_point_colon).replace(":","") || it.first == ctx.getString(R.string.density_colon).replace(":","") }
-            ctx.getString(R.string.protons).replace(":","") -> availableNewFacts.indexOfFirst { it.first == ctx.getString(R.string.neutrons).replace(":","") || it.first == ctx.getString(R.string.element_electrons).replace(":","") }
-            ctx.getString(R.string.atomic_mass_colon).replace(":","") -> availableNewFacts.indexOfFirst { it.first == ctx.getString(R.string.density_colon).replace(":","") || it.first == ctx.getString(R.string.abundance_earth_crust).replace(":","") }
+            "element_boiling_celsius" -> availableNewFacts.indexOfFirst { it.second == "element_melting_celsius" }
+            "element_melting_celsius" -> availableNewFacts.indexOfFirst { it.second == "element_boiling_celsius" || it.second == "element_density" }
+            "element_protons" -> availableNewFacts.indexOfFirst { it.second == "element_neutron_common" || it.second == "element_electrons" }
+            "element_atomicmass" -> availableNewFacts.indexOfFirst { it.second == "element_density" || it.second == "earth_crust" }
             else -> -1
         }
 
@@ -2452,20 +2474,13 @@ class AIAgentManager(private val context: Context?) {
             if (availableNewFacts.isNotEmpty()) {
                 val idx = if (preferredIdx != -1 && preferredIdx < availableNewFacts.size) preferredIdx else (0 until availableNewFacts.size).random()
                 val (label, jsonKey) = availableNewFacts.removeAt(idx)
-                sharedProperties.add(label)
+                sharedProperties.add(jsonKey)
                 val value = element.optString(jsonKey, "")
-                if (value.isNotEmpty() && value != "---") {
-                    results.add(AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, value))
-                }
+                results.add(AIPersonality.formatElementResponse(ctx, activeLanguage, elementName, label, value))
             }
         }
 
-        return if (results.isNotEmpty()) {
-            results.joinToString("\n\n")
-        } else {
-            // Fallback: try one more time or give fact
-            provideNewInformation(element, elementName)
-        }
+        return results.joinToString("\n\n")
     }
     
     /**

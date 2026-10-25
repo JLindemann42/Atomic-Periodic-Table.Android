@@ -186,12 +186,13 @@ class RealCorpusTest {
                 }
             }
         }
-        // 69 elements flag at least one stable isotope. Gold is not among them: its block runs
-        // Au-170..Au-209 and never marks Au-197 stable, which is a data gap rather than a
-        // parsing one, so the assertion targets the elements that do carry the flag.
-        assertEquals(69, store.elements.count { e -> e.isotopes.any { it.stable } })
+        // 80 elements flag at least one stable isotope: the 106 with isotope data, less the 26
+        // that have none. This was 69 until the stable markers were repaired (Windows porting
+        // notes, D49) — gold, for one, never marked Au-197 stable.
+        assertEquals(80, store.elements.count { e -> e.isotopes.any { it.stable } })
         assertTrue(store.element("aluminium")!!.isotopes.any { it.stable })
         assertEquals(40, store.element("gold")!!.isotopes.size)
+        assertEquals(listOf(197), store.element("gold")!!.isotopes.filter { it.stable }.map { it.massNumber })
     }
 
     @Test

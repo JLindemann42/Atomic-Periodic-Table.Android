@@ -215,6 +215,9 @@ class QueryPlanner(
                 // "Noble gases", "the halogens", "ädelgaserna" — a family name and nothing else is
                 // a request for that family, not a continuation of whatever came before.
                 namesOnlyAFamily(normalized, operators, elementMatches.isNotEmpty())
+        // Set when a continuation supplied no slot of its own, so the field is not inherited on
+        // top of the element. See below.
+        var contributedNothing = false
         if (elementKeys.isEmpty() && !rangesOverTable) {
             // Inherit the subject whenever the turn reads as a continuation, not only when a field
             // resolved. "and in fahrenheit" resolves no field, "what are its isotopes" resolves no
@@ -234,7 +237,19 @@ class QueryPlanner(
                 elementKeys = previousSet
                 evidence.add("inherited ${previousSet.size} elements")
             } else if (fieldIds.isNotEmpty() || continuesTheThread(normalized)) {
-                state.focusElement?.let { elementKeys = listOf(it); evidence.add("inherited element $it") }
+                state.focusElement?.let {
+                    elementKeys = listOf(it)
+                    evidence.add("inherited element $it")
+                    // Nothing in this query was its own: no element, no field, nothing to range
+                    // over. Inheriting the field as well would rebuild the previous question
+                    // exactly and answer it again. A unit counts: "and in fahrenheit" names
+                    // neither element nor field, but it is a real question about the same value.
+                    contributedNothing = fieldIds.isEmpty() &&
+                            !operators.hasOperatorEvidence &&
+                            operators.ordinal == null &&
+                            operators.rankOrdinal == null &&
+                            !operators.isListQuestion
+                }
             }
         }
         // Inheriting a *field* is riskier than inheriting an element, because a full question that
@@ -248,7 +263,10 @@ class QueryPlanner(
         val elliptical = continuesTheThread(normalized) &&
                 (elementKeys.isNotEmpty() || operators.superlativeDescending != null ||
                         operators.aggregation != Aggregation.NONE)
-        if (fieldIds.isEmpty() && state.lastFieldIds.isNotEmpty() && elliptical) {
+        // A continuation that supplied neither slot is not a follow-up question — it is the previous
+        // question over again. Inheriting both gave "more" after "the melting point of iron" iron's
+        // melting point a second time, word for word. Windows porting notes, D47.
+        if (fieldIds.isEmpty() && state.lastFieldIds.isNotEmpty() && elliptical && !contributedNothing) {
             fieldIds = state.lastFieldIds
             evidence.add("inherited field ${fieldIds.first()}")
         }
@@ -1292,7 +1310,10 @@ class QueryPlanner(
                 val name = match.groupValues[1]
                 val mass = match.groupValues[2].toIntOrNull()
                 val element = nuclideElement(name)
-                if (element != null && mass != null) {
+                // mass >= Z, as the two branches above also require. No nuclide has fewer
+                // nucleons than protons, and without it "how many neutrons in uranium-3" was
+                // claimed and reached the executor, where 3 - 92 gave -89 neutrons.
+                if (element != null && mass != null && mass >= element.atomicNumber) {
                     return QueryPlan(
                         intent = Intent.NUCLIDE_COUNT,
                         entities = listOf(EntityRef.Element(element.key)),

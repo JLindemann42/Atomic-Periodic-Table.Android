@@ -83,8 +83,12 @@ class LocalKnowledgeManager(private val context: Context?) {
      * with a tour of the app.
      */
     private fun resolveAppFeature(query: String): QueryResult? {
+        // The keywords are diacritic-folded ASCII ("vad kan du gora") and normalize() folds
+        // nothing, so "vad kan du göra" only matched by way of a shorter prefix in the list, and
+        // an accented spelling with no such prefix never matched. Windows porting notes, D41.
+        val folded = TextMatching.normalizeForLookup(query)
         for ((feature, keywords) in Lexicon.APP_FEATURE_WORDS) {
-            if (keywords.none { TextMatching.containsWord(query, it) }) continue
+            if (keywords.none { TextMatching.containsToken(query, folded, it) }) continue
             val response = featureAnswer(feature) ?: continue
             return QueryResult(response = response, topic = "app_feature", isTechnical = false)
         }

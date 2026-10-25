@@ -71,7 +71,7 @@ object ChemistryMath {
         while (i < formula.length) {
             val c = formula[i]
             when {
-                c.isDigit() || c == '(' || c == ')' -> { out.append(c); i++ }
+                c.isDigit() || c == '(' || c == ')' || c == '·' -> { out.append(c); i++ }
                 c.isLetter() -> {
                     val two = if (i + 1 < formula.length && formula[i + 1].isLetter()) {
                         formula.substring(i, i + 2).lowercase()
@@ -104,14 +104,38 @@ object ChemistryMath {
      */
     fun elementCounts(raw: String, isKnownSymbol: (String) -> Boolean): Map<String, Int>? {
         val formula = normalise(stripStateAnnotation(raw))
-        countAtoms(formula)?.let { counts ->
+        countAtomsWithHydrates(formula)?.let { counts ->
             if (counts.keys.all(isKnownSymbol)) return counts
         }
         // Same digit gate as parseFormula: without it "percentage" parses as P-Er-Ce-N-Ta-Ge.
         if (formula.none { it.isDigit() }) return null
         val fixed = recapitalise(formula) { symbol -> if (isKnownSymbol(symbol)) 1.0 else null }
             ?: return null
-        return countAtoms(fixed)?.takeIf { counts -> counts.keys.all(isKnownSymbol) }
+        return countAtomsWithHydrates(fixed)?.takeIf { counts -> counts.keys.all(isKnownSymbol) }
+    }
+
+    /**
+     * Split a formula on the hydrate separator and apply each segment's leading multiplier.
+     *
+     * The separator used to be deleted before parsing, which turned `CuSO4·5H2O` into `CuSO45H2O`:
+     * the sulfate's `O4` and the hydrate's `5` fused into a single `O45`, so copper(II) sulfate
+     * pentahydrate came back with 46 oxygens instead of 9 and about six times its real molar mass.
+     * Windows fixed this first; see its porting notes, D9.
+     */
+    private fun countAtomsWithHydrates(formula: String): LinkedHashMap<String, Int>? {
+        if ('·' !in formula) return countAtoms(formula)
+
+        val total = LinkedHashMap<String, Int>()
+        for (segment in formula.split('·')) {
+            if (segment.isEmpty()) return null
+            // A leading integer multiplies the whole segment: the 5 in "5H2O".
+            val (multiplier, consumed) = readNumber(segment, 0)
+            val body = segment.substring(consumed)
+            if (body.isEmpty()) return null
+            val counts = countAtoms(body) ?: return null
+            for ((symbol, n) in counts) total.merge(symbol, n * (multiplier ?: 1), Int::plus)
+        }
+        return total.takeIf { it.isNotEmpty() }
     }
 
     /**
@@ -175,7 +199,7 @@ object ChemistryMath {
     }
 
     private fun strictParse(formula: String, atomicMassOf: (String) -> Double?): FormulaResult? {
-        val counts = countAtoms(formula) ?: return null
+        val counts = countAtomsWithHydrates(formula) ?: return null
 
         var total = 0.0
         val masses = LinkedHashMap<String, Double>()
@@ -222,7 +246,10 @@ object ChemistryMath {
         return massesAndAbundances.sumOf { it.first * it.second } / totalWeight
     }
 
-    /** Uppercase-normalised formula with subscripts, spaces and dot separators folded out. */
+    /**
+     * Uppercase-normalised formula with subscripts and spaces folded out. The hydrate separator is
+     * kept as `·`; [countAtomsWithHydrates] says why deleting it corrupts the formula.
+     */
     private fun normalise(raw: String): String = buildString {
         for (c in raw.trim()) {
             when {
@@ -231,7 +258,7 @@ object ChemistryMath {
                 c.isLetterOrDigit() || c == '(' || c == ')' -> append(c)
             }
         }
-    }.replace("·", "")
+    }
 
     /** Reads digits at [from]; returns the value (null when absent) and how many chars consumed. */
     private fun readNumber(text: String, from: Int): Pair<Int?, Int> {

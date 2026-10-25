@@ -64,6 +64,16 @@ class LocalKnowledgeManagerTest {
         assertNull(resolveFeature("explain interaction between atoms"))
     }
 
+    /**
+     * The keywords are folded ASCII, so the accented spelling a user actually types has to be
+     * folded before matching. "espectro de emisión" has no shorter keyword to fall back on.
+     */
+    @Test
+    fun accentedSpellingsMatchTheFoldedKeywords() {
+        assertNotNull(resolveFeature("espectro de emisión"))
+        assertNotNull(resolveFeature("vad kan du göra"))
+    }
+
     /** With no Context the English fallback still has to be a sentence, not a resource id. */
     @Test
     fun aNullContextStillAnswersInEnglish() {

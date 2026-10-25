@@ -23,7 +23,6 @@ object ConstantsModel {
         constants.add(Constants("Electron mass", "9.10938188e-31", "kg","me", "physics"))
         constants.add(Constants("Proton mass", "1.67262158e-27", "kg","mp", "physics"))
         constants.add(Constants("Neutron mass", "1.674927281e-27", "kg","mn", "physics"))
-        constants.add(Constants("Elementary charge", "1.602176565e-19", "C","e", "physics"))
         constants.add(Constants("Atomic mass unit", "1.660538782e-27", "kg","u", "physics"))
         constants.add(Constants("Boltzmann constant", "1.38064852e-23", "J*K^-1","k", "physics"))
         constants.add(Constants("Faraday constant", "96485.3399", "C*mol^-1","F", "physics"))

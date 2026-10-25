@@ -75,7 +75,11 @@ object IsotopeParser {
             isotopes.add(
                 Isotope(
                     name = name,
-                    massNumber = intOf(row["iso_mass_$slot"]),
+                    // iso_A is the mass number. iso_mass is the atomic *mass*, 196.966568 for
+                    // gold, and intOf keeps only digits — so reading that field made gold's mass
+                    // number 196966568, and the isotope chart's axis ran to nine digits. Rounding
+                    // the mass is the fallback for a slot with no iso_A. Windows porting notes, D49.
+                    massNumber = intOf(row["iso_A_$slot"]) ?: roundedMass(row["iso_mass_$slot"]),
                     decayType = row["decay_type_$slot"]?.toString()?.trim()
                         ?.takeUnless { ValueParser.isNullToken(it) },
                     halfLifeSeconds = halfLifeSeconds(halfRaw),
@@ -147,6 +151,10 @@ object IsotopeParser {
         val first = cleaned.substringBefore(' ')
         return UNIT_SECONDS.firstOrNull { it.first == first }?.second
     }
+
+    private fun roundedMass(value: Any?): Int? =
+        value?.toString()?.trim()?.takeUnless { ValueParser.isNullToken(it) }
+            ?.toDoubleOrNull()?.takeIf { it > 0 }?.let { Math.round(it).toInt() }
 
     private fun intOf(value: Any?): Int? =
         value?.toString()?.trim()?.takeUnless { ValueParser.isNullToken(it) }

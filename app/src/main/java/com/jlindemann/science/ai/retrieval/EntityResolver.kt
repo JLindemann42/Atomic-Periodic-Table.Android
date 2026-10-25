@@ -335,6 +335,12 @@ class EntityResolver(
         var best: ElementMatch? = null
         for (word in words) {
             if (word.length < 4) continue
+            // A continuation is not a typo. "More" is one edit from the French name for boron,
+            // "bore", and "sure" is one from the Swedish for oxygen, "syre" — so a bare "more"
+            // after a question about iron answered with boron's melting point and moved the
+            // conversation to boron for good. An exact "bore" still resolves; it never reaches
+            // this last resort. Windows porting notes, D47.
+            if (FuzzyMatch.isAffirmative(word)) continue
             val threshold = if (word.length > 6) 2 else 1
             for (alias in aliases.values.flatten()) {
                 if (alias.kind != ElementAlias.Kind.NAME) continue

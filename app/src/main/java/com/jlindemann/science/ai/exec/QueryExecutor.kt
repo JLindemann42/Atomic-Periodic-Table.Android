@@ -478,8 +478,8 @@ class QueryExecutor(
             initial, final, amountUnit, elapsed, elapsedUnit, halfLivesElapsed, fraction, citations
         )
 
-        // `nucleons` leads because `massNumber` overflows for many elements: IsotopeParser
-        // digit-filters the atomic mass, so carbon's "14.003241988" becomes an 11-digit integer.
+        // `nucleons` leads; `massNumber` is the same number when iso_A is present, and the rounded
+        // atomic mass for the few slots without it.
         val isotope = element.isotopes.firstOrNull {
             it.nucleons == massNumber || it.massNumber == massNumber
         } ?: return result(ExecutionResult.Decay.Mode.NO_HALF_LIFE)
