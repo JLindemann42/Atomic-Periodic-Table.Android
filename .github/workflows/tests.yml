@@ -1,0 +1,63 @@
+# Unit tests, including the Ask Atomic corpus (roadmap 0.4).
+#
+# The corpus lives in the shared-data submodule, which the Windows app runs too. Every corpus file
+# fails on any failing row, so a change that makes a single question worse fails here. The one way
+# this could pass without testing anything is a missing submodule — the tests that need the data
+# skip rather than fail — so the job checks the data is there before it runs anything.
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Shared data is checked out
+        run: |
+          test -f shared/corpus/regressions.tsv
+          test -f shared/elements/elements_en.json
+          echo "shared data at $(git -C shared rev-parse --short HEAD)"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Unit tests
+        run: ./gradlew :app:testDebugUnitTest --console=plain
+
+      - name: Corpus scoreboard
+        if: always()
+        run: |
+          results=app/build/test-results/testDebugUnitTest/TEST-com.jlindemann.science.ai.corpus.CorpusTest.xml
+          if [ ! -f "$results" ]; then echo "No corpus results." >> "$GITHUB_STEP_SUMMARY"; exit 0; fi
+          {
+            echo "### Ask Atomic corpus"
+            echo
+            echo '```'
+            grep -o '\[corpus\] [a-z_]*: [0-9]*/[0-9]* passed ([^)]*)' "$results" | sed 's/^\[corpus\] //'
+            echo '```'
+            grep -o '\[corpus\] [a-z_]*: [0-9]*/[0-9]*' "$results" | sed 's/.*: //' \
+              | awk -F/ '{p+=$1; t+=$2} END {printf "**Total: %d of %d**\n", p, t}'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Test reports
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: app/build/reports/tests/
