@@ -35,7 +35,7 @@ class CorpusSmokeTest {
     @Test
     fun corpusIsReachable() {
         assertTrue(
-            "Question corpus not found on the classpath or under app/src/test/resources/ai/corpus.",
+            "Question corpus not found under shared/corpus; run `git submodule update --init`.",
             QuestionCorpus.available
         )
     }

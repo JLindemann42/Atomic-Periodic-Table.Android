@@ -84,7 +84,7 @@ def needs_translation(description, lang_code):
 def main():
     """Main function to manage translation batches."""
     repo_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    assets_path = os.path.join(repo_path, 'app/src/main/assets')
+    assets_path = os.path.join(repo_path, 'shared/elements')
     
     # Load English reference
     en_file = os.path.join(assets_path, 'elements_en.json')

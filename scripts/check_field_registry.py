@@ -21,7 +21,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REGISTRY = os.path.join(ROOT, "app/src/main/java/com/jlindemann/science/ai/data/FieldRegistry.kt")
-ELEMENTS = os.path.join(ROOT, "app/src/main/assets/elements_en.json")
+ELEMENTS = os.path.join(ROOT, "shared/elements/elements_en.json")
 
 # Keys that are intentionally unreachable: internal ids, media URLs and one-off legacy leftovers.
 IGNORED_JSON_KEYS = {

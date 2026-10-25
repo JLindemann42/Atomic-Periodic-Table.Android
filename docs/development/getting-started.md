@@ -99,6 +99,7 @@ issue. New findings are reported; existing baselined ones are not.
 ## Where the data lives
 
 Element data is not generated at build time — it is committed as
-`app/src/main/assets/elements_{lang}.json`, twelve files of roughly 32,000 lines
-each. If you need to modify it, use the Python tooling described in the
+`shared/elements/elements_{lang}.json` in the shared-data submodule, twelve files of
+roughly 32,000 lines each. Clone with `git clone --recurse-submodules`, or run
+`git submodule update --init` in an existing clone, or the build has no element data. If you need to modify it, use the Python tooling described in the
 [Data Pipeline](../data-pipeline) section rather than hand-editing twelve files.

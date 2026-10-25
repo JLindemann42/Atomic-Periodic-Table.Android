@@ -38,13 +38,12 @@ data class CorpusCase(
  * TSV rather than JSON for two reasons: `org.json` is a throwing stub under plain JVM tests, and a
  * flat table is something a non-developer can extend by the hundred rows without touching Kotlin.
  *
- * Resolution tries the test classpath first — `src/test/resources` is on it under Gradle — and
- * falls back to probing the filesystem the way [com.jlindemann.science.ai.data.TestAssets] does,
- * so the corpus loads whatever the working directory happens to be.
+ * The files live in the shared-data submodule (`shared/corpus`), which the Windows app runs too, so
+ * both platforms are held to the same rows. Found by probing the filesystem the way
+ * [com.jlindemann.science.ai.data.TestAssets] does, so it loads whatever the working directory is.
  */
 object QuestionCorpus {
 
-    private const val RESOURCE_ROOT = "/ai/corpus"
 
     /** Every corpus file, in the order a report should list them. */
     val FILES = listOf(
@@ -106,13 +105,9 @@ object QuestionCorpus {
     }
 
     private fun read(name: String): String? {
-        QuestionCorpus::class.java.getResourceAsStream("$RESOURCE_ROOT/$name.tsv")?.use {
-            return it.readBytes().toString(Charsets.UTF_8)
-        }
         val candidates = listOf(
-            File("src/test/resources/ai/corpus/$name.tsv"),
-            File("app/src/test/resources/ai/corpus/$name.tsv"),
-            File("../app/src/test/resources/ai/corpus/$name.tsv")
+            File("../shared/corpus/$name.tsv"),
+            File("shared/corpus/$name.tsv")
         )
         return candidates.firstOrNull { it.isFile }?.readText(Charsets.UTF_8)
     }

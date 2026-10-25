@@ -156,7 +156,7 @@ def save_json_file(filepath: str, data: Dict):
 
 def analyze_translation_needs(repo_path: str) -> Dict:
     """Analyze which files need translation and how many elements."""
-    assets_path = os.path.join(repo_path, 'app/src/main/assets')
+    assets_path = os.path.join(repo_path, 'shared/elements')
     en_file = os.path.join(assets_path, 'elements_en.json')
     
     en_data = load_json_file(en_file)

@@ -35,7 +35,7 @@ DESCRIPTION = re.compile(r'"description"\s*:\s*"((?:[^"\\]|\\.)*)"')
 
 
 def assets_dir():
-    for candidate in ('app/src/main/assets', 'src/main/assets'):
+    for candidate in ('shared/elements', '../shared/elements'):
         if os.path.isdir(candidate):
             return candidate
     raise SystemExit('could not locate the assets directory')

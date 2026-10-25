@@ -34,7 +34,7 @@ if len(sys.argv) > 1 and not sys.argv[1].startswith('--'):
 else:
     repo_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-assets_path = os.path.join(repo_path, "app/src/main/assets")
+assets_path = os.path.join(repo_path, "shared/elements")
 
 ALL_ELEMENT_FILES = {
     'elements_en.json': 'English',

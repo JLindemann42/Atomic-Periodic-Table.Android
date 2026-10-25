@@ -506,7 +506,7 @@ rateLimiter.incrementMessageCount()
 
 ## Adding a New Language
 
-1. Create `app/src/main/assets/elements_{code}.json`.  
+1. Create `shared/elements/elements_{code}.json` in the shared-data submodule.  
    Each entry must follow the existing schema:
    ```json
    "hydrogen": {

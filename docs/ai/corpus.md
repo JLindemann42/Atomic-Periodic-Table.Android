@@ -6,8 +6,8 @@ nav_order: 7
 
 # The AI agent training corpus
 
-1,595 questions under `app/src/test/resources/ai/corpus/`, run against the real agent stack by
-`app/src/test/java/com/jlindemann/science/ai/corpus/`.
+2,799 questions under `shared/corpus/` (the shared-data submodule, which the Windows app runs too),
+run against the real agent stack by `app/src/test/java/com/jlindemann/science/ai/corpus/`.
 
 ```bash
 ./gradlew testDebugUnitTest --tests "com.jlindemann.science.ai.corpus.*"

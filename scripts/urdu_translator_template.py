@@ -23,7 +23,7 @@ def get_all_urdu_descriptions():
 def main():
     """Main function to update Urdu element descriptions"""
     # Load current file
-    with open('app/src/main/assets/elements_ur.json', 'r', encoding='utf-8') as f:
+    with open('shared/elements/elements_ur.json', 'r', encoding='utf-8') as f:
         ur_data = json.load(f)
     
     # Get descriptions
@@ -35,7 +35,7 @@ def main():
             ur_data[key]['description'] = desc
     
     # Save
-    with open('app/src/main/assets/elements_ur.json', 'w', encoding='utf-8') as f:
+    with open('shared/elements/elements_ur.json', 'w', encoding='utf-8') as f:
         json.dump(ur_data, f, ensure_ascii=False, indent=2)
     
     print(f"Updated {len(descriptions)} Urdu descriptions")

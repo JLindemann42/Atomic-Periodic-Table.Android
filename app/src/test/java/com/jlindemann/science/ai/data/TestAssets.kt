@@ -13,14 +13,14 @@ import java.io.File
 object TestAssets {
 
     private val assetsDir: File by lazy {
-        // Unit tests run with the module directory as the working directory.
+        // The element files are in the shared-data submodule. Unit tests run with the module
+        // directory as the working directory, so the repository root is one level up.
         val candidates = listOf(
-            File("src/main/assets"),
-            File("app/src/main/assets"),
-            File("../app/src/main/assets")
+            File("../shared/elements"),
+            File("shared/elements")
         )
-        candidates.firstOrNull { it.isDirectory }
-            ?: error("Could not locate assets from ${File(".").absolutePath}")
+        candidates.firstOrNull { File(it, "elements_en.json").isFile }
+            ?: error("Element files not found from ${File(".").absolutePath}; run `git submodule update --init`")
     }
 
     /** True when the real assets are reachable; lets tests skip rather than fail spuriously. */

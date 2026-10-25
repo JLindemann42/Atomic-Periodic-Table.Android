@@ -6,7 +6,7 @@ nav_order: 1
 
 # Element data tooling
 
-Maintaining `app/src/main/assets/elements_{lang}.json` — twelve files, 118
+Maintaining `shared/elements/elements_{lang}.json` — twelve files, 118
 elements each, ~80 non-isotope fields per element. See the
 [element data model](../development/data-model) for the schema.
 
@@ -108,8 +108,8 @@ For a quick check without the full script:
 ```bash
 python3 -c "
 import json, io, glob, os
-en = json.load(io.open('app/src/main/assets/elements_en.json', encoding='utf-8'))
-for f in sorted(glob.glob('app/src/main/assets/elements_*.json')):
+en = json.load(io.open('shared/elements/elements_en.json', encoding='utf-8'))
+for f in sorted(glob.glob('shared/elements/elements_*.json')):
     d = json.load(io.open(f, encoding='utf-8'))
     missing = set(en) - set(d)
     print(os.path.basename(f), len(d), 'elements', ('MISSING: ' + str(missing)) if missing else 'ok')

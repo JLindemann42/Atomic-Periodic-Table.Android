@@ -126,7 +126,7 @@ each other; the authoritative answer is whatever
 ## Adding a language
 
 1. Add `res/values-{code}/strings.xml`, translated from `values/strings.xml`.
-2. Add `app/src/main/assets/elements_{code}.json` — copy the English file and
+2. Add `shared/elements/elements_{code}.json` — copy the English file and
    translate the seven localised fields. `ElementDataLoader.getAvailableLanguages`
    discovers it automatically from the filename.
 3. Add the language to the picker in `SettingsActivity`.
