@@ -42,7 +42,7 @@ class CorpusSmokeTest {
 
     @Test
     fun everyCorpusFileParsesAndIsNonEmpty() {
-        val empty = QuestionCorpus.FILES.filter { QuestionCorpus.cases(it).isEmpty() }
+        val empty = QuestionCorpus.FILES.filter { QuestionCorpus.cases(it, QuestionCorpus.Split.ALL).isEmpty() }
         assertTrue("corpus files missing or empty: $empty", empty.isEmpty())
     }
 

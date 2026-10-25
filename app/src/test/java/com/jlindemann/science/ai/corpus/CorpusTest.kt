@@ -144,6 +144,8 @@ class CorpusTest {
 
     private fun runFile(name: String) {
         val sessions = QuestionCorpus.sessions(name)
+        // The defect files are never held out, so the held-out split has nothing for them.
+        if (sessions.isEmpty() && QuestionCorpus.split == QuestionCorpus.Split.HELDOUT) return
         if (sessions.isEmpty()) fail("corpus file $name.tsv is empty or missing")
 
         val failures = ArrayList<String>()
@@ -163,7 +165,7 @@ class CorpusTest {
 
         val passed = evaluated - failures.size
         val rate = if (evaluated == 0) 0.0 else 100.0 * passed / evaluated
-        println("[corpus] $name: $passed/$evaluated passed (%.1f%%)".format(rate))
+        println("[corpus] $name: $passed/$evaluated passed (%.1f%%)".format(java.util.Locale.ROOT, rate))
 
         if (failures.isNotEmpty()) {
             val report = failures.joinToString("\n  ") { it }

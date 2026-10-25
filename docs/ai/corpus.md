@@ -6,12 +6,34 @@ nav_order: 7
 
 # The AI agent training corpus
 
-2,799 questions under `shared/corpus/` (the shared-data submodule, which the Windows app runs too),
-run against the real agent stack by `app/src/test/java/com/jlindemann/science/ai/corpus/`.
+2,799 questions in the shared-data submodule, which the Windows app runs too, driven against the
+real agent stack by `app/src/test/java/com/jlindemann/science/ai/corpus/`. They are in two parts:
+
+| Split | Where | Rows | Runs |
+|---|---|--:|---|
+| `dev` | `shared/corpus/` | 2,279 | Every test run and every push. The everyday gate. |
+| `heldout` | `shared/heldout/` | 520 | Release tags and manual CI runs only |
 
 ```bash
 ./gradlew testDebugUnitTest --tests "com.jlindemann.science.ai.corpus.*"
 ```
+
+```bash
+./gradlew testDebugUnitTest --tests "com.jlindemann.science.ai.corpus.*" -Pcorpus.split=heldout
+```
+
+## The held-out split
+
+A corpus that everything passes stops telling good changes from bad ones: each fix gets tuned
+against the rows it is measured on, and the score says nothing about questions nobody wrote down.
+So about a fifth of the corpus (roadmap 0.5) was frozen into `shared/heldout/` by
+`shared/tools/split_heldout.py` — whole sessions, chosen by a hash of their ids, from every file
+except `regressions` and `reported`, whose rows are real defects and must be caught on every push.
+
+The rules are in the shared repository's README, and the short version is: do not open
+`heldout/` while working on a change, never move rows back, and never train on them (Phase 3).
+New rows go to `corpus/`. `CorpusCoverageTest` and `CorpusSmokeTest` read both splits, because
+coverage is a property of the corpus, not of the run.
 
 ## Why it exists in this shape
 

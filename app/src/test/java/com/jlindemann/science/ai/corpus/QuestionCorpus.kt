@@ -80,17 +80,43 @@ object QuestionCorpus {
         "conversations_repair"
     )
 
-    /** True when the corpus is reachable at all. A false here makes every corpus test vacuous. */
-    val available: Boolean by lazy { runCatching { read("regressions") != null }.getOrDefault(false) }
-
-    /** Parsed cases for one file, or an empty list when the file is absent. */
-    fun cases(name: String): List<CorpusCase> {
-        val text = read(name) ?: return emptyList()
-        return parse(name, text)
+    /**
+     * Which rows run (roadmap 0.5). About a fifth of the corpus is frozen into `shared/heldout/` and
+     * scored at release only, so a change tuned against the corpus can still be measured on
+     * questions nobody tuned against.
+     *
+     * Set with `-Pcorpus.split=dev|heldout|all`; `dev`, the everyday gate, is the default.
+     */
+    enum class Split(val folders: List<String>) {
+        DEV(listOf("corpus")),
+        HELDOUT(listOf("heldout")),
+        ALL(listOf("corpus", "heldout"))
     }
 
+    val split: Split = when (System.getProperty("corpus.split")?.trim()?.lowercase()) {
+        null, "", "dev" -> Split.DEV
+        "heldout" -> Split.HELDOUT
+        "all" -> Split.ALL
+        else -> error("corpus.split must be dev, heldout or all")
+    }
+
+    /**
+     * True when the corpus is reachable at all. A false here makes every corpus test vacuous. Checks
+     * must_defer, which every split has; the defect files are never held out.
+     */
+    val available: Boolean by lazy {
+        runCatching { split.folders.all { read(it, "must_defer") != null } }.getOrDefault(false)
+    }
+
+    /**
+     * Parsed cases for one file, or an empty list when the file is absent. The selected [split] by
+     * default; a test about the corpus itself rather than the engine passes [Split.ALL].
+     */
+    fun cases(name: String, split: Split = this.split): List<CorpusCase> =
+        split.folders.flatMap { folder -> read(folder, name)?.let { parse(name, it) }.orEmpty() }
+
     /** Every case in the corpus, across every file. */
-    fun allCases(): List<CorpusCase> = FILES.flatMap { cases(it) }
+    fun allCases(split: Split = this.split): List<CorpusCase> = FILES.flatMap { cases(it, split) }
 
     /**
      * Cases grouped into replay order.
@@ -104,10 +130,10 @@ object QuestionCorpus {
         return single.map { listOf(it) } + grouped
     }
 
-    private fun read(name: String): String? {
+    private fun read(folder: String, name: String): String? {
         val candidates = listOf(
-            File("../shared/corpus/$name.tsv"),
-            File("shared/corpus/$name.tsv")
+            File("../shared/$folder/$name.tsv"),
+            File("shared/$folder/$name.tsv")
         )
         return candidates.firstOrNull { it.isFile }?.readText(Charsets.UTF_8)
     }
