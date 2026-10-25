@@ -13,6 +13,13 @@ import java.io.File
  *   "don't care". Ignored until the card layer exists.
  * @property mustDefer the engine must decline, so the personality layer handles it. Greetings,
  *   quizzes and games live here — answering them from the constants table is the bug this catches.
+ * @property expectRow format 2: the canonical key of the dataset row the answer must come from, e.g.
+ *   `geology/granite`. Routing alone passed while "granite" was answered with basalt.
+ * @property expectValue format 2: the number the answer must carry — a property's quantity, a
+ *   dataset row's value or an aggregate — to within 0.1%.
+ * @property knownFailure format 2: why this row is expected to fail today. A failing known failure
+ *   is reported but does not fail the build; one that passes does, so the mark is removed the moment
+ *   the fix lands. How the corpus can say what is right before the engine does it.
  */
 data class CorpusCase(
     val id: String,
@@ -26,7 +33,10 @@ data class CorpusCase(
     val mustDefer: Boolean,
     val notes: String,
     val sourceFile: String,
-    val line: Int
+    val line: Int,
+    val expectRow: String? = null,
+    val expectValue: Double? = null,
+    val knownFailure: String? = null
 ) {
     /** How a failure identifies itself, so a report line is enough to find the row. */
     val where: String get() = "$sourceFile:$line [$id]"
@@ -145,17 +155,42 @@ object QuestionCorpus {
      * silent skip: a corpus that quietly drops rows would report a pass rate over a set nobody
      * knows the size of.
      */
+    /**
+     * The columns each corpus format allows (roadmap 0.6). A file declares its format with a
+     * `# corpus-format: N` comment before the header; none means 1. A column outside the declared
+     * format's set is an error, so a misspelt `expect_rows` cannot pass by being silently ignored,
+     * and a format this harness does not know is an error rather than a partial read. The Windows
+     * harness applies the same rules to the same files.
+     */
+    private val FORMAT_COLUMNS: Map<Int, Set<String>> = run {
+        val v1 = setOf(
+            "id", "session", "turn", "lang", "query", "expect_intent", "expect_fields",
+            "expect_card", "must_defer", "notes"
+        )
+        mapOf(1 to v1, 2 to v1 + setOf("expect_row", "expect_value", "known_failure"))
+    }
+
+    private val FORMAT_LINE = Regex("^#\\s*corpus-format:\\s*(\\d+)\\s*$")
+
     private fun parse(name: String, text: String): List<CorpusCase> {
         val cases = ArrayList<CorpusCase>()
         var header: List<String>? = null
+        var format = 1
         text.lineSequence().forEachIndexed { index, raw ->
             val line = raw.trimEnd('\r', '\n')
+            if (header == null) FORMAT_LINE.matchEntire(line.trim())?.let { format = it.groupValues[1].toInt() }
             if (line.isBlank() || line.startsWith("#")) return@forEachIndexed
             val columns = line.split('\t')
             if (header == null) {
                 header = columns.map { it.trim() }
                 require(header!!.first() == "id") {
                     "$name.tsv:${index + 1} first column must be 'id', got '${columns.first()}'"
+                }
+                val allowed = FORMAT_COLUMNS[format]
+                    ?: error("$name.tsv declares corpus-format $format, which this harness does not know")
+                val unknown = header!!.filterNot { it in allowed }
+                require(unknown.isEmpty()) {
+                    "$name.tsv: columns $unknown are not in corpus-format $format; declare a newer format or fix the name"
                 }
                 return@forEachIndexed
             }
@@ -185,7 +220,12 @@ object QuestionCorpus {
                     mustDefer = row["must_defer"].orEmpty().lowercase() in setOf("y", "yes", "true", "1"),
                     notes = row["notes"].orEmpty(),
                     sourceFile = "$name.tsv",
-                    line = index + 1
+                    line = index + 1,
+                    expectRow = row["expect_row"].orEmpty().ifEmpty { null },
+                    expectValue = row["expect_value"].orEmpty().ifEmpty { null }?.let { v ->
+                        requireNotNull(v.toDoubleOrNull()) { "$name.tsv:${index + 1} [$id] expect_value '$v' is not a number" }
+                    },
+                    knownFailure = row["known_failure"].orEmpty().ifEmpty { null }
                 )
             )
         }

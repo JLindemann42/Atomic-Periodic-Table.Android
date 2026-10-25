@@ -150,6 +150,7 @@ class CorpusTest {
 
         val failures = ArrayList<String>()
         var evaluated = 0
+        var known = 0
 
         for (session in sessions) {
             // One state per session, so a follow-up row inherits from the row before it and a
@@ -157,15 +158,21 @@ class CorpusTest {
             val state = DialogueState()
             for (case in session) {
                 evaluated++
-                runCatching { evaluate(case, state) }
-                    .onSuccess { problem -> problem?.let { failures.add("${case.where} $it") } }
-                    .onFailure { failures.add("${case.where} threw ${it::class.simpleName}: ${it.message}") }
+                val problem = runCatching { evaluate(case, state) }
+                    .getOrElse { "threw ${it::class.simpleName}: ${it.message}" }
+                when {
+                    case.knownFailure != null && problem != null -> known++
+                    case.knownFailure != null ->
+                        failures.add("${case.where} now passes; remove its known_failure (${case.knownFailure})")
+                    problem != null -> failures.add("${case.where} $problem")
+                }
             }
         }
 
-        val passed = evaluated - failures.size
+        val passed = evaluated - failures.size - known
         val rate = if (evaluated == 0) 0.0 else 100.0 * passed / evaluated
-        println("[corpus] $name: $passed/$evaluated passed (%.1f%%)".format(java.util.Locale.ROOT, rate))
+        val knownNote = if (known > 0) ", $known known failures" else ""
+        println("[corpus] $name: $passed/$evaluated passed (%.1f%%)$knownNote".format(java.util.Locale.ROOT, rate))
 
         if (failures.isNotEmpty()) {
             val report = failures.joinToString("\n  ") { it }
@@ -252,7 +259,29 @@ class CorpusTest {
             }
         }
 
+        // Content, not only routing (roadmap 0.6): which row, which number.
+        case.expectRow?.let { expected ->
+            val row = (result as? ExecutionResult.Dataset)?.row
+                ?: return "'${case.query}' should answer from $expected, but produced ${result::class.simpleName}"
+            if (row.key != expected) return "'${case.query}' answered from ${row.key}, expected $expected"
+        }
+        case.expectValue?.let { expected ->
+            val actual = valueOf(result)
+                ?: return "'${case.query}' should carry the value $expected, but ${result::class.simpleName} has none"
+            if (Math.abs(actual - expected) > maxOf(Math.abs(expected) * 1e-3, 1e-12)) {
+                return "'${case.query}' carries $actual, expected $expected"
+            }
+        }
+
         return null
+    }
+
+    /** The one number an answer stands on, for `expect_value`. */
+    private fun valueOf(result: ExecutionResult): Double? = when (result) {
+        is ExecutionResult.Property -> result.quantity?.value
+        is ExecutionResult.Dataset -> result.row.numericValue
+        is ExecutionResult.Aggregate -> result.value
+        else -> null
     }
 
     private fun resultKeys(result: ExecutionResult): List<String> = when (result) {

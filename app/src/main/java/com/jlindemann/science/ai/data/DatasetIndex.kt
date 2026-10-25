@@ -8,6 +8,7 @@ import com.jlindemann.science.model.*
  *
  * @property dataset the dataset id, matching [DatasetIndex.DICTIONARY] and friends
  * @property id stable identifier within the dataset, used in citations
+ * @property key the canonical id, the same on both platforms; see [DatasetIndex.canonicalKeys]
  * @property title the row's display name
  * @property body searchable prose; what BM25 indexes
  * @property detail rendered answer text
@@ -22,7 +23,8 @@ data class DatasetRow(
     val deepLink: DeepLinkTarget,
     val numericValue: Double? = null,
     val unit: String? = null,
-    val link: String? = null
+    val link: String? = null,
+    val key: String = ""
 )
 
 /**
@@ -33,14 +35,20 @@ data class DatasetRow(
  * answers drawn from them stay English regardless of chat language; the composer flags that
  * rather than pretending otherwise.
  */
-class DatasetIndex(val rows: List<DatasetRow>) {
+class DatasetIndex(rows: List<DatasetRow>) {
 
-    val byDataset: Map<String, List<DatasetRow>> = rows.groupBy { it.dataset }
+    /** The rows, each with its canonical [DatasetRow.key]. */
+    val rows: List<DatasetRow> = canonicalKeys(rows)
+
+    val byDataset: Map<String, List<DatasetRow>> = this.rows.groupBy { it.dataset }
 
     fun dataset(name: String): List<DatasetRow> = byDataset[name].orEmpty()
 
     fun row(dataset: String, id: String): DatasetRow? =
         byDataset[dataset]?.firstOrNull { it.id.equals(id, ignoreCase = true) }
+
+    /** A row by its canonical key, e.g. `poisson/basalt`. */
+    fun byKey(key: String): DatasetRow? = rows.firstOrNull { it.key == key }
 
     companion object {
         const val DICTIONARY = "dictionary"
@@ -204,6 +212,43 @@ class DatasetIndex(val rows: List<DatasetRow>) {
 
             return DatasetIndex(rows)
         }
+
+        /**
+         * Give every row a canonical key: `<dataset>/<slug of its title>`, with `#2`, `#3`… for a
+         * title repeated within a dataset, in source order. `#` rather than `-`, because titles end
+         * in numbers of their own: `Mg^2+` is `solubility/mg-2`.
+         *
+         * The two apps used to identify rows differently. Android keyed on the name alone, so the
+         * second of two Basalt rows in the Poisson table could never be cited; Windows appended the
+         * range. A corpus row that names *which* row must come back (roadmap 0.6) needs one id both
+         * agree on, so the key is computed the same way here and in the C# `DatasetIndex`, and both
+         * are pinned by `shared/golden/dataset_keys.tsv`.
+         *
+         * Units are keyed on `category/name` rather than the name, because unit names repeat across
+         * categories and the suffix order would then depend on category order.
+         */
+        fun canonicalKeys(rows: List<DatasetRow>): List<DatasetRow> {
+            val seen = HashMap<String, Int>()
+            return rows.map { row ->
+                val natural = if (row.dataset == UNIT) row.id else row.title
+                val base = "${row.dataset}/${slug(natural)}"
+                val n = (seen[base] ?: 0) + 1
+                seen[base] = n
+                row.copy(key = if (n == 1) base else "$base#$n")
+            }
+        }
+
+        /**
+         * Lowercase ASCII words joined by hyphens. Compatibility-decomposed first, so "₂" is "2" and
+         * "é" is "e"; anything left that is not a letter or digit separates words.
+         */
+        fun slug(text: String): String =
+            java.text.Normalizer.normalize(text, java.text.Normalizer.Form.NFKD)
+                .replace(Regex("\\p{M}+"), "")
+                .lowercase(java.util.Locale.ROOT)
+                .replace(Regex("[^a-z0-9]+"), "-")
+                .trim('-')
+                .ifEmpty { "row" }
 
         private fun solubilityWord(code: String): String = when (code) {
             "S" -> "soluble"

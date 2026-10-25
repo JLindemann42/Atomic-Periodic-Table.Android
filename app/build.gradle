@@ -72,6 +72,10 @@ tasks.withType(Test).configureEach {
     def split = project.findProperty('corpus.split') ?: 'dev'
     inputs.property('corpus.split', split)
     systemProperty 'corpus.split', split
+    // -Pgolden.update=true rewrites the shared golden files from the Kotlin sources.
+    def updateGolden = project.findProperty('golden.update') ?: 'false'
+    inputs.property('golden.update', updateGolden)
+    systemProperty 'golden.update', updateGolden
 }
 
 dependencies {

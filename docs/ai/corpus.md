@@ -35,6 +35,22 @@ The rules are in the shared repository's README, and the short version is: do no
 New rows go to `corpus/`. `CorpusCoverageTest` and `CorpusSmokeTest` read both splits, because
 coverage is a property of the corpus, not of the run.
 
+## Content, not only routing
+
+A row used to pass when the engine chose the right intent, whatever it then said. A file that
+declares `# corpus-format: 2` can also say *which* reference-table row must answer (`expect_row`,
+a canonical key such as `constant/electron-mass`) and *which number* the answer must carry
+(`expect_value`, within 0.1%). The keys are computed identically on both platforms and pinned by
+`shared/golden/dataset_keys.tsv`, which `DatasetKeyGoldenTest` regenerates with
+`-Pgolden.update=true`.
+
+Adding them to `datasets.tsv` found 10 of 36 dataset questions answered from the wrong row — the
+electron's mass from the Pauli exclusion principle, the Nernst equation from the Arrhenius one,
+basalt's composition from its Poisson ratio. Four have no right row at all, so those rows now expect
+a decline. All ten carry a `known_failure` reason: reported, not failing the build, until retrieval
+can abstain (roadmap 1.1); a known failure that starts passing fails the build so the mark is
+removed.
+
 ## Why it exists in this shape
 
 **It is a scoreboard, not a tripwire.** Every row in a file is evaluated and the failures are
