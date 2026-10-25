@@ -236,7 +236,7 @@ class QueryPlanner(
             if (plural && previousSet != null && !asksForIsotopes(normalized)) {
                 elementKeys = previousSet
                 evidence.add("inherited ${previousSet.size} elements")
-            } else if (fieldIds.isNotEmpty() || continuesTheThread(normalized)) {
+            } else if ((fieldIds.isNotEmpty() || continuesTheThread(normalized)) && !asksForADefinition(normalized)) {
                 state.focusElement?.let {
                     elementKeys = listOf(it)
                     evidence.add("inherited element $it")
@@ -260,7 +260,13 @@ class QueryPlanner(
         // A follow-up that ranges over the set rather than over one element inherits the field too:
         // "is that the highest" after listing metals by density has no element and no field of its
         // own, and every part of it comes from the turn before.
-        val elliptical = continuesTheThread(normalized) &&
+        // A query that names an element *and* states a predicate about it is not elliptical: it
+        // omits nothing. "Is gold a metal" has a subject and a complement, and inheriting the
+        // previous field answered it about Discovered By — left over from a question about radium.
+        // A follow-up that carries a filter but no element ("what about the noble gases") is still
+        // elliptical and still inherits. Ported from the Windows planner (porting notes, D53).
+        val statesItsOwnPredicate = elementKeys.isNotEmpty() && operators.subsetFilters.isNotEmpty()
+        val elliptical = continuesTheThread(normalized) && !statesItsOwnPredicate &&
                 (elementKeys.isNotEmpty() || operators.superlativeDescending != null ||
                         operators.aggregation != Aggregation.NONE)
         // A continuation that supplied neither slot is not a follow-up question — it is the previous
@@ -1064,6 +1070,44 @@ class QueryPlanner(
      * a question nobody asked. When no retriever is wired the check cannot run and the old
      * length-only behaviour stands.
      */
+    /**
+     * Whether this is a definitional question about a term the dictionary knows — "what is
+     * electronegativity" rather than "what is its electronegativity".
+     *
+     * Such a question names no element, so inheriting the one in focus turns it into a property
+     * lookup: after discussing gold, "what is electronegativity" came back "Gold's
+     * Electronegativity is 2.54". The dictionary path is guarded by `!hasElement`, so the inherited
+     * element is exactly what shut the definition out. An anaphor excludes it — "what is *its*
+     * density" is about the element in focus — and so does a topic with no entry, where inheriting
+     * is still the best available. Ported from the Windows planner (porting notes, D53).
+     */
+    private fun asksForADefinition(normalized: String): Boolean {
+        val tm = com.jlindemann.science.ai.retrieval.TextMatching
+        if (Lexicon.ANAPHORS.any { tm.containsWord(normalized, it) }) return false
+        // A definition opens with an interrogative; a follow-up opens with a connective ("and the
+        // melting point?") or is a bare noun phrase. The interrogatives come from DEFINITION_FRAMES
+        // so the twelve languages stay in one place.
+        val opener = tm.splitQueryTokens(normalized).firstOrNull { it.isNotBlank() } ?: return false
+        val interrogative = Lexicon.DEFINITION_FRAMES.any { tm.splitQueryTokens(it).firstOrNull() == opener }
+        if (!interrogative) return false
+        return datasets.dataset(DatasetIndex.DICTIONARY).any { namesEntry(normalized, it.title) }
+    }
+
+    /**
+     * Whether the query names this dictionary entry. Topic entries are titled "Periodic trend:
+     * ionization energy", so the part before the colon is matched as a substring — the question
+     * asks about it in the plural, "periodic trends".
+     */
+    private fun namesEntry(normalized: String, title: String): Boolean {
+        val tm = com.jlindemann.science.ai.retrieval.TextMatching
+        val full = tm.normalizeForLookup(title)
+        if (tm.containsWord(normalized, full)) return true
+        val colon = full.indexOf(':')
+        if (colon <= 0) return false
+        val topic = full.substring(0, colon).trim()
+        return topic.isNotEmpty() && normalized.contains(topic)
+    }
+
     private fun continuesTheThread(normalized: String): Boolean {
         // An explicit anaphor settles it. The unknown-word test exists to catch a turn that changes
         // the subject, and "is it dangerous" plainly does not — while its content word is safety

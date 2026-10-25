@@ -27,8 +27,8 @@ class ElementQuizTest {
     }
 
     /**
-     * The history shape is reachable. On Windows it is not: the handler reads the discoverer by its
-     * JSON key, `element_discovered_name`, which is not a field id, so every candidate is filtered out.
+     * The history shape is reachable. Reading the discoverer by its JSON key,
+     * `element_discovered_name`, which is not a field id, filters every candidate out (D53).
      */
     @Test fun theHistoryQuestionIsAskedForSomeSeed() {
         val asked = (0 until 40).any { ChatFixture.chat(it).ask("quiz me").text.contains("discovered", ignoreCase = true) }
@@ -86,9 +86,8 @@ class ElementQuizTest {
     }
 
     /**
-     * No sentinel and no empty value. The Windows version checks for "** in **", which every filled
-     * question contains ("by **X** in **1878**"); it passes there only because the question is never
-     * asked.
+     * No sentinel and no empty value. Not "** in **", which every filled question contains
+     * ("by **X** in **1878**"); that check only ever passed while the question was never asked.
      */
     @Test fun aHistoryQuestionNeverHasBlanks() {
         for (seed in 0 until 25) {

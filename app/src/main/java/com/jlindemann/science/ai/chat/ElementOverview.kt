@@ -127,7 +127,7 @@ object ElementOverview {
         fact(R.string.element_symbols, element.symbol)
         fact(R.string.atomic_mass_colon, show(element.value("atomic_mass")))
         fact(R.string.phase_stp_colon, localized?.text(key, "phase") ?: element.phase)
-        // The Windows port also lists a type here, from an `element_type` field no element has.
+        // No type line: `element_type` is not a field any element has (porting notes, D53).
         if (facts.isEmpty()) return null
 
         val english = show(element.value("description"))

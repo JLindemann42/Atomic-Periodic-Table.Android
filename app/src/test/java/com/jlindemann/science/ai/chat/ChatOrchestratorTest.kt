@@ -167,6 +167,14 @@ class ChatOrchestratorTest {
         assertTrue(reply.text, reply.text.contains("more reactive"))
     }
 
+    /**
+     * Every Chinese element name is one character, so the short-name floor must not apply to a
+     * script that writes no spaces. It did, briefly, and Chinese stopped being detected — the
+     * Windows suite caught it; this suite had no case for it.
+     */
+    @Test fun aDistinctiveNameIsFoundInAScriptThatWritesNoSpaces() =
+        assertEquals("zh", ChatFixture.service.resolver("en").detectLanguage("金的密度", "en"))
+
     /** The floor is for foreign names only: the language in play keeps its short names. */
     @Test fun aShortNameStillCountsInItsOwnLanguage() =
         assertEquals("fr", ChatFixture.service.resolver("fr").detectLanguage("densité de l'or", "fr"))

@@ -151,7 +151,11 @@ class EntityResolver(
         var only: String? = null
         for (alias in matches) {
             if (alias.kind != ElementAlias.Kind.NAME) continue
-            if (alias.language != active && alias.surface.length < MIN_FOREIGN_NAME) continue
+            // Not for scripts that write no spaces, as in [matches]: every Chinese element name is
+            // one character, and 金 is the clearest evidence of Chinese there is.
+            if (alias.language != active && alias.surface.length < MIN_FOREIGN_NAME &&
+                !Tokenizer.isUnspacedScript(alias.surface)
+            ) continue
             if (only == null) { only = alias.language; continue }
             // A second language claims the same spelling, so it distinguishes nothing.
             if (only != alias.language) return

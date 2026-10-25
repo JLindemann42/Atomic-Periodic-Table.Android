@@ -46,3 +46,9 @@ reg-concept-en-1			en	what is mass number	DATASET_LOOKUP				answered with a vagu
 reg-concept-sv-1			sv	Vad är masstal	DATASET_LOOKUP				same, in Swedish
 reg-affirm-en-1			en	yes				y	a bare affirmative is conversational state, never a retrieval hit
 reg-affirm-sv-1			sv	Ja				y	after a quiz this must continue the quiz, not dump an element overview
+reg-define-en-1	define-en	1	en	what is the density of gold	PROPERTY_LOOKUP	density			puts gold in focus
+reg-define-en-2	define-en	2	en	what is electronegativity	DATASET_LOOKUP				was "Gold's Electronegativity is 2.54": a definition inheriting the element in focus
+reg-define-en-3	define-en	3	en	what are periodic trends	DATASET_LOOKUP				was "Gold's Period is 6"
+reg-define-en-4	define-en	4	en	what is its electronegativity	PROPERTY_LOOKUP	electronegativity			an anaphor still inherits the element
+reg-predicate-en-1	predicate-en	1	en	who discovered radium	PROPERTY_LOOKUP	discovered_by			leaves discovered_by in lastFieldIds
+reg-predicate-en-2	predicate-en	2	en	is gold a metal				y	was "Gold's Discovered By": a question with its own subject and predicate inheriting the last field

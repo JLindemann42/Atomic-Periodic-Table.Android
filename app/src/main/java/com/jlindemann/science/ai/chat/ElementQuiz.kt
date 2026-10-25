@@ -85,8 +85,8 @@ object ElementQuiz {
     private fun present(value: String?): Boolean = !value.isNullOrBlank() && value.trim() != "---"
 
     /**
-     * Read by field id. The Windows port reads `element_discovered_name` and `element_year`, which
-     * are the JSON keys rather than the ids, so its history question is never asked.
+     * Read by field id. `element_discovered_name` and `element_year` are the JSON keys, which
+     * `value` never finds; read that way, the history question is never asked (porting notes, D53).
      */
     private fun show(element: ElementRecord, fieldId: String): String? = when (val v = element.value(fieldId)) {
         is FieldValue.Text -> v.raw
