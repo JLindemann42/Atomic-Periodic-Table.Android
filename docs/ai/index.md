@@ -34,11 +34,12 @@ melting point, and it is unit-testable end to end.
 ```mermaid
 flowchart TD
     U[User message] --> ACP[AiChatPanelController]
-    ACP --> AM["AIAgentManager.generateResponse()"]
+    ACP --> AM["AiChatAgent.generateResponse()"]
 
-    AM --> LD[detectResponseLanguage]
-    LD --> RL[AIRateLimiter gate]
-    RL --> ENG["AiEngine.answer(query, state)"]
+    AM --> RL[AIRateLimiter gate]
+    RL --> CO["ChatOrchestrator.ask()"]
+    CO --> LD[EntityResolver.detectLanguage]
+    LD --> ENG["AiEngine.answer(query, state)"]
 
     subgraph Engine["Structured engine"]
         ENG --> CS[ClauseSplitter<br/>split compound questions]
@@ -60,22 +61,22 @@ flowchart TD
         AC --> OUT[ComposedAnswer<br/>text + actions + card]
     end
 
-    DECLINE --> LEG[Legacy keyword router]
-    LEG --> HR[HybridRetriever<br/>BM25 fallback]
+    DECLINE --> HND[ai/chat handlers<br/>overview, more, quiz, reactions,<br/>similarity, narrative, app, greeting]
 
     OUT --> UI[ChatMessageAdapter<br/>+ ChatCardBinder]
-    HR --> UI
+    HND --> UI
 ```
 
 ## Stages
 
-**1 — Language detection.** `AIAgentManager.detectResponseLanguage` scores the
-message's words against a cross-language element-name map built from all twelve
-element files. A higher-scoring language switches the response language and
-rebuilds the cached engine.
+**1 — Rate limiting.** `AiChatAgent` checks `AIRateLimiter`, which enforces the
+daily message quota (16 free, 64 PRO, unlimited PRO+), keyed to the local
+calendar day, before anything is answered.
 
-**2 — Rate limiting.** `AIRateLimiter` enforces the daily message quota (16
-free, 64 PRO, unlimited PRO+), keyed to the local calendar day.
+**2 — Language detection.** `ChatOrchestrator` asks
+`EntityResolver.detectLanguage`, which credits a language for each element name
+in the message that only that language uses. A higher-scoring language switches
+the response language for that message; a tie keeps the current one.
 
 **3 — Clause splitting.** `ClauseSplitter` splits genuinely compound questions
 ("density of gold and how does it compare to lead") — but only when the tail
@@ -96,9 +97,12 @@ pipeline.
 attaches citations as deep-link chips, and asks `CardSelector` for a visual —
 derived from the typed result, never from the query text.
 
-**7 — Fallbacks.** If the structured engine declines, control falls to a legacy
-keyword router in `AIAgentManager` (trends, reactivity, etymology, quiz,
-greetings), and finally to `HybridRetriever` — BM25 over a runtime-built corpus.
+**7 — What the engine declines.** If the engine declines, `ChatOrchestrator`
+tries the handlers in `ai/chat/` in a fixed order — reactivity, "tell me more",
+the element overview, reactions, similarity, usage and etymology, then
+greetings, facts and questions about the app — and otherwise declines honestly.
+`HybridRetriever`'s BM25 search runs inside the planner, for the dataset
+lookups.
 
 ## Intents
 
@@ -160,7 +164,8 @@ from `jlindemann.se`. It is the only remote call in the subsystem, it is an
 image rather than data or inference, and `ChatCardPolicy.allowNetworkCards`
 withholds that card in offline mode.
 
-**Two engines coexist.** The legacy keyword router in `AIAgentManager` still
-handles trends, reactivity, etymology, greetings and quiz interactions that the
-structured engine deliberately declines (`Lexicon.DEFER_TO_PERSONALITY`,
-`UNBACKED_CONCEPTS`). It is not dead code.
+**One engine, one orchestrator.** The 2,664-line keyword router was replaced in
+roadmap 0.2 by `ChatOrchestrator` and its handlers, ported back from the Windows
+app. They answer what the engine declines by design
+(`Lexicon.DEFER_TO_PERSONALITY`, `UNBACKED_CONCEPTS`), and every one is covered
+by JVM tests over the real data.

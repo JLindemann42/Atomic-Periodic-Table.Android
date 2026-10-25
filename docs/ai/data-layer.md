@@ -185,6 +185,5 @@ and the quiz's classification generator.
 Formula parsing and stoichiometry: `parseFormula` handles nested parentheses and
 hydrates, and molar mass and mole conversions build on it.
 
-Note this is **not** the same code as `ai/MolarMassCalculator.kt`, which serves
-the legacy handler path. Two implementations exist; this is the one the
-structured engine uses.
+This is the only formula parser in the assistant. The keyword router's separate
+`MolarMassCalculator` went with the router in roadmap 0.2.

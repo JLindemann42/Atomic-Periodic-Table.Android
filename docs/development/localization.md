@@ -86,10 +86,10 @@ gaps are easy to miss without running the verification scripts.
 The assistant handles language differently from the rest of the app, in three
 ways worth knowing:
 
-**Per-message detection.** `AIAgentManager.detectResponseLanguage(query)` scores
-each word against a cross-language element-name map built from all twelve files.
-A higher-scoring non-active language switches the response language for that
-message and rebuilds the cached engine.
+**Per-message detection.** `EntityResolver.detectLanguage(query, active)`
+credits a language for each element name in the query that only it uses, across
+all twelve files. A higher-scoring non-active language switches the response
+language for that message; a tie keeps the current one.
 
 **No `Locale.setDefault()`.** Answers are composed through
 `ai/core/StringProvider.kt`, whose `AndroidStrings` implementation builds a

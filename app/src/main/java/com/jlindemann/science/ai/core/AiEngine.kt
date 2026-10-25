@@ -159,6 +159,26 @@ class AiEngine(
         return composer.compose(result, plan)
     }
 
+    /**
+     * One field of one element, rendered exactly as a real lookup would render it — same units,
+     * same citation, same entitlement gate. Used by "tell me more", which chooses the field and
+     * has no question to plan from. Composing the sentence by hand instead would be a second
+     * renderer to keep in step, and would hand out the PRO-gated fields on its list.
+     */
+    fun fieldAnswerFor(elementKey: String, fieldId: String): ComposedAnswer? {
+        val element = store.element(elementKey) ?: return null
+        if (element.value(fieldId).isMissing) return null
+        val plan = QueryPlan(
+            intent = Intent.PROPERTY_LOOKUP,
+            entities = listOf(EntityRef.Element(elementKey)),
+            fieldIds = listOf(fieldId),
+            confidence = 1.0
+        )
+        val result = executor.execute(plan) ?: return null
+        lastPlan = plan
+        return composer.compose(result, plan)
+    }
+
     /** Every populated field of one family, for one element. */
     fun categoryAnswerFor(
         elementKey: String,

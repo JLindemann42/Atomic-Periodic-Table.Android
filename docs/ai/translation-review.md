@@ -74,7 +74,7 @@ These are sentences like *"Titanium är ett kemiskt grundämne … Det är a lus
 with a silver color"* in `assets/elements_sv.json`. A naive "is it translated?" check passes, because
 none are byte-identical to English — they are a translated sentence followed by an untranslated one.
 
-The code-side mitigation is in: `AIAgentManager.sentencesInActiveLanguage` drops sentences that read
+The code-side mitigation is in: `ElementNarrative` drops sentences that read
 as English when the conversation is not in English. Previously the narrative handlers filtered
 description sentences by *English* keywords, so they preferentially picked the untranslated half —
 that is exactly how the reported *"Det har various allotropes, but only the gray form…"* was

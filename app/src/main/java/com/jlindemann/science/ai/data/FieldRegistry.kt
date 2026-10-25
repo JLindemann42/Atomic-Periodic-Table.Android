@@ -302,7 +302,9 @@ object FieldRegistry {
         // ---- Nuclear --------------------------------------------------------------------
         add(spec("radioactive", "radioactive", FieldKind.ENUM, FieldCategory.NUCLEAR, R.string.radioactive_colon))
         add(spec("neutron_cross_section", "neutron_cross_sectional", FieldKind.NUMERIC, FieldCategory.NUCLEAR, R.string.neutron_cross_sectional_colon, Dimension.AREA, "b", deepLink = DeepLinkTarget.NUCLIDE))
-        add(spec("common_neutrons", "element_neutron_common", FieldKind.NUMERIC, FieldCategory.NUCLEAR, R.string.isotopes_colon, deepLink = DeepLinkTarget.NUCLIDE))
+        // The Isotopes heading is right for parsing — it is how "isotopes" resolves here — and
+        // wrong in a sentence, which read "Gold's Isotopes is 118". Windows porting notes, D46.
+        add(spec("common_neutrons", "element_neutron_common", FieldKind.NUMERIC, FieldCategory.NUCLEAR, R.string.isotopes_colon, deepLink = DeepLinkTarget.NUCLIDE, sentenceLabelRes = R.string.ai_label_neutrons))
 
         // ---- Abundance ------------------------------------------------------------------
         // Every abundance label is a table heading phrased as a prepositional phrase — "In the
@@ -413,10 +415,12 @@ object FieldRegistry {
         localized: Boolean = false,
         higherIsMore: Boolean = true,
         /** What the user must own to be told this value; see [Tier]. */
-        tier: Tier = Tier.FREE
+        tier: Tier = Tier.FREE,
+        @StringRes sentenceLabelRes: Int? = null
     ) = FieldSpec(
         id, listOf(jsonKey), kind, category, labelRes, dimension, canonicalUnit,
-        deepLink, allowsRange, localized, higherIsMore, tier = tier
+        deepLink, allowsRange, localized, higherIsMore, tier = tier,
+        sentenceLabelRes = sentenceLabelRes
     )
 
     /** Temperature fields that ship all three scales, so a unit request needs no conversion. */

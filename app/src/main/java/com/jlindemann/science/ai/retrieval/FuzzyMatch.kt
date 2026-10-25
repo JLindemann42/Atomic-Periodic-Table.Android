@@ -1,12 +1,11 @@
 package com.jlindemann.science.ai.retrieval
 
 /**
- * "Yes, go on" in the twelve shipped languages, outside the legacy router.
+ * "Yes, go on" in the twelve shipped languages.
  *
- * `AIAgentManager.isAffirmative` holds the same list, but nothing platform-free can reach it, and
- * the entity resolver needs it to know which words are never a misspelled element name. Ported
- * back from the Windows `Atomic.Core.Text.FuzzyMatch`, which is where the orchestrator replacing
- * `AIAgentManager` will look for it too.
+ * Read by the chat orchestrator, where a bare "sure" continues "tell me more", and by the entity
+ * resolver, which needs to know which words are never a misspelled element name. Ported back from
+ * the Windows `Atomic.Core.Text.FuzzyMatch`.
  */
 object FuzzyMatch {
 

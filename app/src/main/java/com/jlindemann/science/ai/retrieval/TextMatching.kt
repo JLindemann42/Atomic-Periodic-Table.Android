@@ -5,10 +5,8 @@ import java.text.Normalizer
 /**
  * Shared string-matching helpers.
  *
- * These were private methods on `AIAgentManager`. The behaviour is preserved exactly, because
- * every intent predicate in the legacy router depends on it and `AIAgentManagerTest` asserts it
- * through reflection. `AIAgentManager` keeps one-line shims delegating here so that reflection
- * contract still holds.
+ * These began as private methods on the old keyword router, and their behaviour was kept exactly
+ * when they moved here. `FuzzyMatchTest` keeps the cases that router's test asserted.
  */
 object TextMatching {
 

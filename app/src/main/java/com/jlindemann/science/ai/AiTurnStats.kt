@@ -27,39 +27,34 @@ data class AiTurnStats(
     val actionCount: Int = 0,
     val queryChars: Int = 0,
     val queryWords: Int = 0,
-    /** Set when the structured engine threw and the legacy handlers took over. */
+    /** Set when answering threw, and the user was given the decline instead. */
     val engineError: String? = null,
     /** Set only on [Path.RATE_LIMITED]. */
     val dailyLimit: Int? = null
 ) {
     /**
-     * Coarse buckets rather than one label per handler.
+     * Coarse buckets rather than one label per handler, mirroring
+     * [com.jlindemann.science.ai.chat.ReplySource]: whether the engine answered from data, the
+     * personality handlers answered something the engine declines by design, or nothing could.
      *
-     * The question worth answering is whether the structured engine is claiming queries or the
-     * older keyword chain is still carrying them; which of the two dozen keyword branches fired is
-     * a level of detail that would cost a label at every branch and answer nothing on its own.
+     * The keyword router's paths (`legacy`, `local_knowledge`, `retrieval`, `atomic_number`, `quiz`)
+     * went with it. Earlier events carrying them are from builds before the orchestrator.
      */
     object Path {
-        /** The structured engine — planner, executor, composer. */
+        /** The structured engine — planner, executor, composer — including "tell me more". */
         const val ENGINE = "engine"
 
-        /** "element 79" and similar, resolved straight off the atomic number. */
-        const val ATOMIC_NUMBER = "atomic_number"
+        /**
+         * A handler for what the engine declines by design: overviews, quizzes, reactions,
+         * similarity, usage and etymology, greetings, facts and questions about the app.
+         */
+        const val PERSONALITY = "personality"
 
-        /** One of the keyword handlers the engine declined to claim. */
-        const val LEGACY = "legacy"
+        /** Two elements ordered by the reactivity heuristic, which no stored field can do. */
+        const val REACTIVITY = "reactivity"
 
-        /** The in-app tables: constants, dictionary, ions, equations. */
-        const val LOCAL_KNOWLEDGE = "local_knowledge"
-
-        /** BM25 retrieval over the app's own documents. */
-        const val RETRIEVAL = "retrieval"
-
-        /** Nothing claimed it; a generic element answer or a no-data reply. */
+        /** Nothing could be said honestly, so the user got the decline. */
         const val FALLBACK = "fallback"
-
-        /** An answer to an outstanding quiz question. */
-        const val QUIZ = "quiz"
 
         /** The daily message quota was already spent, so nothing was generated. */
         const val RATE_LIMITED = "rate_limited"

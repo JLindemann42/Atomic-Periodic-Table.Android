@@ -158,7 +158,6 @@ load-bearing. Your branch may never be reached.
 **Localisation coverage tests are strict, on purpose.** Adding a field without
 translating its label fails the build. That is the mechanism working.
 
-**Two engines.** If a query is handled by the legacy keyword router in
-`AIAgentManager` rather than the structured engine, changes to the structured
-engine will not affect it. Check `Lexicon.DEFER_TO_PERSONALITY` and
-`UNBACKED_CONCEPTS` first.
+**Engine or orchestrator.** If the engine declines a query by design, one of
+the `ai/chat/` handlers answers it instead, and changes to the engine will not
+affect it. Check `Lexicon.DEFER_TO_PERSONALITY` and `UNBACKED_CONCEPTS` first.

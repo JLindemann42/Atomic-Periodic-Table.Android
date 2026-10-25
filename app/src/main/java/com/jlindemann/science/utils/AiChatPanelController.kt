@@ -29,7 +29,7 @@ import com.jlindemann.science.activities.UserActivity
 import com.jlindemann.science.adapter.ChatHistoryAdapter
 import com.jlindemann.science.adapter.ChatCardBinder
 import com.jlindemann.science.adapter.ChatMessageAdapter
-import com.jlindemann.science.ai.AIAgentManager
+import com.jlindemann.science.ai.AiChatAgent
 import com.jlindemann.science.ai.AIPersonality
 import com.jlindemann.science.ai.AiTurnStats
 import com.jlindemann.science.ai.ChatHistoryManager
@@ -72,7 +72,7 @@ class AiChatPanelController(
     private val onPanelOpened: () -> Unit = {}
 ) {
 
-    val agent: AIAgentManager = AIAgentManager(activity)
+    val agent: AiChatAgent = AiChatAgent(activity)
 
     /** The live message list. Exposed because hosts restore it when re-entering the screen. */
     val messages: MutableList<ChatMessage> = mutableListOf()
@@ -327,7 +327,6 @@ class AiChatPanelController(
             AnalyticsParam.MESSAGE_INDEX to messages.size - 1
         )
 
-        agent.addToConversationHistory(userMsg)
         saveSession()
         startGradientPulsation(1000, ValueAnimator.INFINITE)
 
@@ -340,7 +339,6 @@ class AiChatPanelController(
             messages.add(response)
             adapter?.notifyItemInserted(messages.size - 1)
             recycler.scrollToPosition(messages.size - 1)
-            agent.addToConversationHistory(response)
             updateSuggestions()
             saveSession()
             updateMessageLimit()
@@ -525,7 +523,6 @@ class AiChatPanelController(
         sessionId = session.id
         adapter?.notifyDataSetChanged()
         if (messages.isNotEmpty()) recycler.scrollToPosition(messages.size - 1)
-        agent.setConversationHistory(session.messages)
     }
 
     private fun saveSession() {

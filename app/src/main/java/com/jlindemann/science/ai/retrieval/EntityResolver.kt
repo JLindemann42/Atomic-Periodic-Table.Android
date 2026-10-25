@@ -91,6 +91,75 @@ class EntityResolver(
     /** The single best element match, or null when the query names none. */
     fun resolve(query: String): ElementMatch? = resolveAll(query, limit = 1).firstOrNull()
 
+    /**
+     * Which language the user is writing in, judged by whose element names they used.
+     *
+     * The alias table already holds every shipped language's names, so the detector is a tally
+     * over it: "vad är guldets densitet" contains a Swedish element name and nothing else
+     * identifying, which is exactly the evidence available.
+     *
+     * A tie keeps the current language. Spurious switching is worse than not switching — most
+     * element names are shared across several languages, and a thread that flips language every
+     * third turn reads as broken even when each guess was defensible.
+     *
+     * @param active the language in play, returned unchanged when nothing is decisive
+     */
+    fun detectLanguage(query: String, active: String): String {
+        val lower = query.lowercase()
+        val normalized = TextMatching.normalizeForLookup(query)
+        val scores = HashMap<String, Int>()
+
+        for (word in TextMatching.splitQueryTokens(lower)) {
+            val matches = aliases[TextMatching.normalizeForLookup(word)] ?: aliases[word] ?: continue
+            score(matches, scores, active)
+        }
+        // Nothing matched token by token, so scan the whole query. The scripts that write no
+        // spaces need this: 金的密度 is one token to a splitter and three characters to a
+        // containment check.
+        if (scores.isEmpty()) {
+            for ((surface, matches) in aliases) {
+                if (!TextMatching.containsToken(lower, normalized, surface)) continue
+                score(matches, scores, active)
+            }
+        }
+        if (scores.isEmpty()) return active
+
+        val best = scores.values.max()
+        val leaders = scores.filterValues { it == best }.keys.sorted()
+        if (leaders.any { it.equals(active, ignoreCase = true) }) return active
+        // English loses a tie it is only in by coincidence: the active language is not among the
+        // leaders, so the user is not reading English either, and a name shared by English and one
+        // other language is evidence for the other one. Sorted first, so the choice between two
+        // equally distinctive leaders is stable rather than dependent on map order.
+        return leaders.firstOrNull { it != "en" } ?: leaders.first()
+    }
+
+    /**
+     * Credit a matched surface to the language that actually claims it.
+     *
+     * Only a surface claimed by exactly one language is evidence. "Gold" is the English, German and
+     * Afrikaans name; scoring every claimant made "electron configuration of gold" answer in German,
+     * because German tied with English and English was then discarded on purpose. Scoring
+     * distinctiveness keeps "guld" working — Swedish alone claims it — and leaves a shared name
+     * contributing nothing.
+     *
+     * A short name from a language other than [active] is no evidence either, by the same floor
+     * [matches] applies: French "or" is gold, and every English "sodium or potassium" switched the
+     * reply to French.
+     */
+    private fun score(matches: List<ElementAlias>, scores: MutableMap<String, Int>, active: String) {
+        var only: String? = null
+        for (alias in matches) {
+            if (alias.kind != ElementAlias.Kind.NAME) continue
+            if (alias.language != active && alias.surface.length < MIN_FOREIGN_NAME) continue
+            if (only == null) { only = alias.language; continue }
+            // A second language claims the same spelling, so it distinguishes nothing.
+            if (only != alias.language) return
+        }
+        val language = only ?: return
+        scores[language] = (scores[language] ?: 0) + 1
+    }
+
     private fun matches(
         alias: ElementAlias,
         rawQuery: String,
@@ -424,8 +493,8 @@ class EntityResolver(
         /**
          * Whether a short token is an ordinary word in the active language rather than a symbol.
          *
-         * Preserved verbatim from `AIAgentManager`; `AIAgentManagerTest` asserts these exact
-         * cases through reflection, including the Swedish `är`->`ar` argon collision.
+         * Preserved verbatim from the old keyword router; `EntityResolverTest` asserts these exact
+         * cases, including the Swedish `är`->`ar` argon collision.
          */
         /** Shortest element name that may carry a grammatical ending. */
         private const val MIN_INFLECTABLE_NAME = 3

@@ -50,8 +50,9 @@ infrastructure.
 
 Several classes in `utils/` also persist directly to SharedPreferences without a
 `preferences/` wrapper: `XpManager`, `StreakManager`, `LivesManager`,
-`ProPlusTimeUtil`, and `ai/AIRateLimiter` (`ai_rate_limit_prefs`) /
-`ai/AILearningManager`.
+`ProPlusTimeUtil`, `ai/AIRateLimiter` (`ai_rate_limit_prefs`) and
+`ai/AiChatAgent` (`ai_learning_prefs`, the element counts behind the
+returning-user greeting).
 
 ### Two encodings worth knowing
 

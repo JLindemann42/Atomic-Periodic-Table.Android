@@ -16,64 +16,69 @@ It requires **no cloud API**, works offline, and answers questions in the user's
 1. [Architecture Overview](#architecture-overview)
 2. [File Reference](#file-reference)
 3. [What the structured engine adds](#what-the-structured-engine-adds)
-4. [AIAgentManager](#aiagentmanager)
-5. [AIPersonality](#aipersonality)
-6. [AIRateLimiter](#airatelimiter)
-7. [AILearningManager](#ailearningmanager)
-8. [MolarMassCalculator](#molarmassecalculator)
-9. [LocalKnowledgeManager](#localknowledgemanager)
-10. [Retrieval (HybridRetriever)](#retrieval-hybridretriever)
-11. [ChatHistoryManager](#chathistorymanager)
-12. [Data Models](#data-models)
-13. [Language Support](#language-support)
-14. [Chat History & Persistence](#chat-history--persistence)
-15. [Rate Limiting & Tiers](#rate-limiting--tiers)
-16. [Adding a New Language](#adding-a-new-language)
-17. [Adding New Knowledge](#adding-new-knowledge)
-18. [Testing](#testing)
+4. [ChatOrchestrator](#chatorchestrator)
+5. [AiChatAgent](#aichatagent)
+6. [AIPersonality](#aipersonality)
+7. [AIRateLimiter](#airatelimiter)
+8. [Retrieval (HybridRetriever)](#retrieval-hybridretriever)
+9. [ChatHistoryManager](#chathistorymanager)
+10. [Data Models](#data-models)
+11. [Language Support](#language-support)
+12. [Chat History & Persistence](#chat-history--persistence)
+13. [Rate Limiting & Tiers](#rate-limiting--tiers)
+14. [Adding a New Language](#adding-a-new-language)
+15. [Adding New Knowledge](#adding-new-knowledge)
+16. [Testing](#testing)
 
 ---
 
 ## Architecture Overview
 
-The agent has two layers. A **structured engine** turns a question into an executable query over a
-typed index of the app's data; anything it cannot express falls through to the original
-**keyword handlers**, which are unchanged.
+The engine is the only source of answers about chemistry. Around it, a small **orchestrator**
+answers what the engine declines by design — greetings, overviews, quizzes, "tell me more" — and
+an Android **adapter** handles what the orchestrator must not know: rate limits, telemetry,
+resources and persistence. The orchestrator replaced the 2,664-line keyword router
+(`AIAgentManager`) in roadmap item 0.2, ported back from the Windows app's `ChatOrchestrator.cs`.
 
 ```
 User Input
     │
     ▼
-AIAgentManager.generateResponse()
+AiChatAgent.generateResponse()             Android: limits, strings, telemetry
+    ├── Rate limit check                   (AIRateLimiter)
+    ├── Element page in focus              (ChatOrchestrator.focusOn)
     │
-    ├── Language auto-detection  (detectResponseLanguage)
-    ├── Rate limit check         (AIRateLimiter)
-    ├── Active quiz answer?      (handleQuizAnswer)
+    ▼
+ChatOrchestrator.ask()                     platform-free, JVM-tested
+    ├── Language detection                 (EntityResolver.detectLanguage)
+    ├── Open quiz question?                (ElementQuiz)
     │
-    ├── STRUCTURED ENGINE        (AiEngine) ──────────────────────────────┐
-    │     1. Tokenize             (Tokenizer: Han bigrams, Arabic, …)     │
-    │     2. Resolve entities     (EntityResolver, 12 languages)          │
-    │     3. Resolve fields       (FieldResolver, from localized labels)  │
-    │     4. Extract operators    (OperatorExtractor)                     │
-    │     5. Plan                 (QueryPlanner) ── low confidence ───────┤
-    │     6. Execute              (QueryExecutor over KnowledgeStore)     │
-    │     7. Compose + cite       (AnswerComposer → ChatAction chips)     │
-    │                                                                    │
-    ├── KEYWORD HANDLERS  ◄──────────────── deferred queries ────────────┘
-    │       ├── Trends, molar mass, superlative, safety, formula, …
-    │       ├── Element detail   (handleElementContextQuery)
-    │       └── General          (LocalKnowledgeManager, AIPersonality)
-    │
-    └── Fallback retrieval       (HybridRetriever: BM25 over live app data)
+    ├── STRUCTURED ENGINE                  (AiEngine) — always asked first
+    │     1. Tokenize                      (Tokenizer: Han bigrams, Arabic, …)
+    │     2. Resolve entities              (EntityResolver, 12 languages)
+    │     3. Resolve fields                (FieldResolver, from localized labels)
+    │     4. Extract operators             (OperatorExtractor)
+    │     5. Plan                          (QueryPlanner) ── declines ──┐
+    │     6. Execute                       (QueryExecutor)              │
+    │     7. Compose + cite                (AnswerComposer)             │
+    │                                                                   │
+    └── WHAT THE ENGINE DECLINES  ◄─────────────────────────────────────┘
+          ├── Reactivity of two elements   (ReactivityScale)
+          ├── "Tell me more"               (ElementMoreInfo → AiEngine.fieldAnswerFor)
+          ├── "Gold", "element 79"         (ElementOverview)
+          ├── Reactions                    (ElementReactions)
+          ├── Similar elements             (ElementSimilarity)
+          ├── Uses, biology, etymology     (ElementNarrative)
+          └── Greeting, thanks, fun fact, questions about the app (AppFeatures), or decline
 
 Chat persistence (PRO, signed-in users only)
     └── ChatHistoryManager → Firebase Firestore
 ```
 
-The engine claims a query **only** when it has positive evidence it can do better: an operator
-(threshold, superlative, aggregation, unit request), several elements to compare, a slot inherited
-from the previous turn, or a resolved field whose value is genuinely absent. Everything else
-returns null and behaves exactly as it did before.
+**The order is the contract.** The engine is asked first and its decline is taken seriously:
+everything after it is for questions with no grounded answer, and reaching them when the engine
+could have answered would replace a cited fact with a pleasantry. What the orchestrator owes the
+user is defined by two corpus files, `must_defer.tsv` and `capabilities.tsv`.
 
 ---
 
@@ -81,13 +86,25 @@ returns null and behaves exactly as it did before.
 
 | File | Role |
 |------|------|
-| `AIAgentManager.kt` | Entry point. Rate limiting, language detection, engine bridge, legacy handlers. |
-| `AIPersonality.kt` | Localised response strings and formatting helpers. |
+| `AiChatAgent.kt` | Android adapter. Rate limits, locale-wrapped strings, entitlements, offline card policy, telemetry, interest persistence. |
+| `AiTurnStats.kt` | What one turn did, for analytics. Shape only, never the question. |
+| `AIPersonality.kt` | Localised greeting and suggestion strings for the panel and the widget. |
 | `AIRateLimiter.kt` | Daily message quota per subscription tier. |
-| `AILearningManager.kt` | Tracks user interests to personalise responses. |
-| `MolarMassCalculator.kt` | Parses chemical formulas and computes molar mass. |
-| `LocalKnowledgeManager.kt` | Resolves queries against constants, equations, ions, geology, indicators, and dictionary. |
 | `ChatHistoryManager.kt` | Saves and loads chat sessions to/from Firebase Firestore. |
+
+### `ai/chat/` — the conversation
+
+| File | Role |
+|------|------|
+| `ChatOrchestrator.kt` | One conversation: language per message, engine first, then the handlers below. Holds the `DialogueState`. |
+| `ElementOverview.kt` | "Gold", "tell me (everything) about gold": basic facts plus sections, in the reader's language. |
+| `ElementMoreInfo.kt` | "Tell me more": picks the next unsaid field; the engine renders it. |
+| `ElementQuiz.kt` | "Quiz me", and the verdict on the next reply. |
+| `ElementReactions.kt` | What an element does with water, oxygen, acid or another element. |
+| `ElementSimilarity.kt` | The elements in the same group. |
+| `ElementNarrative.kt` | Usage, biological role and etymology, read from the description. |
+| `AppFeatures.kt` | Questions about the app's own tools. |
+| `InterestProfile.kt` | Which elements a user asks about, for the returning-user greeting. Counts only. |
 
 ### `ai/data/` — the typed index
 
@@ -103,8 +120,10 @@ returns null and behaves exactly as it did before.
 | `UnitConverter.kt` | Multiplicative and affine unit conversion, plus the eV↔kJ/mol bridge that only an explicit conversion request may cross. |
 | `Fraction.kt` | Exact rationals for the balancer. No epsilon anywhere: a floating-point residue is indistinguishable from a real zero pivot. |
 | `EquationBalancer.kt` | Balances an equation, or declines with a reason. Shared with the Equation Balancer screen. |
+| `ChemistryMath.kt` | Formula parsing (hydrates included), molar mass, neutron counts, mole conversions. |
 | `DecayMath.kt` | Exponential decay over a half-life read from `IsotopeParser`. |
 | `SolutionMath.kt` | `n = c·V`, mass through a molar mass, and `C₁V₁ = C₂V₂`. |
+| `ReactivityScale.kt` | An ordinal reactivity heuristic. Not a field, which is why the planner declines reactivity. |
 | `KnowledgeStore.kt` | The index itself, plus per-field coverage counts. |
 | `DatasetIndex.kt` | Every non-element dataset (dictionary, equations, constants, Poisson, geology, ions, indicators, electrode series, solubility, units) in one searchable form. |
 
@@ -114,8 +133,9 @@ returns null and behaves exactly as it did before.
 |------|------|
 | `Tokenizer.kt` | Multilingual tokenisation. Han unigrams + bigrams, Arabic folding, Devanagari-safe. |
 | `Bm25Index.kt` | Okapi BM25 over a corpus built at runtime from live app data. |
-| `EntityResolver.kt` | Which elements a query names, with the short-symbol collision guard. |
+| `EntityResolver.kt` | Which elements a query names, with the short-symbol collision guard, and which language it is in. |
 | `TextMatching.kt` | Shared `levenshtein` / `hasKeyword` / normalisation helpers. |
+| `FuzzyMatch.kt` | "Yes, go on" in twelve languages, which is never a misspelled element. |
 | `HybridRetriever.kt` | Fuses exact entity matches with BM25. |
 | `RetrievalService.kt` | Builds and caches the index process-wide. |
 
@@ -129,7 +149,7 @@ returns null and behaves exactly as it did before.
 | `nlu/QueryPlanner.kt` | Builds a `QueryPlan`, or declines. |
 | `core/QueryPlan.kt` | `Intent`, `Filter`, `Aggregation` and the plan itself. |
 | `core/ExecutionResult.kt` | Result types, including `NoData` with coverage. |
-| `core/DialogueState.kt` | Multi-turn memory driven by slot-emptiness inheritance. |
+| `core/DialogueState.kt` | Multi-turn memory driven by slot-emptiness inheritance, plus the open quiz question and what "tell me more" has said. |
 | `core/StringProvider.kt` | Localization seam so the engine never needs a `Context` in tests. |
 | `core/AiEngine.kt` | Plan → execute → compose. |
 | `exec/QueryExecutor.kt` | Runs a plan across all 118 elements. |
@@ -152,8 +172,9 @@ All files live under `app/src/main/java/com/jlindemann/science/ai/`.
 | Convert units | *"melting point of gold in Fahrenheit"* |
 | Address a banked field | *"second ionization energy of gold"* |
 | Follow up | *"and its density?"* — works in all 12 languages with no pronoun lists |
-| Say it has no data | *"vickers hardness of helium"* → says so, and reports the field is recorded for 45 of 118 elements |
+| Say it has no data | *"vickers hardness of helium"* → says so, reports the field is recorded for 45 of 118 elements, and names what *is* recorded |
 | Convert a value the user brought | *"convert 500 K to °C"*, *"2 eV in kJ/mol"* — free |
+| Molar mass | *"molar mass of CuSO4·5H2O"* — hydrates included |
 | Balance an equation | *"balance Fe + O2 -> Fe2O3"* — PRO+, same solver as the Equation Balancer screen |
 | Work a solution problem | *"how many grams of NaCl for 250 mL of 0.5 mol/L"*, *"dilute 50 mL of 2 mol/L to 0.5 mol/L"* — PRO+ |
 | Run a decay calculation | *"how much of 100 g of carbon-14 remains after 11460 years"* — free |
@@ -169,72 +190,50 @@ sentences rather than one shrug.
 
 ---
 
-## AIAgentManager
+## ChatOrchestrator
 
-`class AIAgentManager(context: Context?)`
+`class ChatOrchestrator(retrieval, stringsFor, entitlements, cardPolicy, language, random)`
 
-The central class. Instantiate once per screen and hold it for the lifetime of the AI panel.
+One conversation. Platform-free: no `Context`, no Firebase, no storage, so every handler is
+covered by JVM tests over the real data (`ai/chat/*Test.kt`).
 
-### Initialisation
-
-```kotlin
-val agent = AIAgentManager(context)
-// Call once before the first message:
-lifecycleScope.launch { agent.initialize() }
-```
-
-`initialize()` reads the persisted language from `SharedPreferences` (key `ai_agent_language` in
-`ai_agent_settings`), falls back to the device locale, then loads element data and the
-cross-language element map.
-
-### Key public API
-
-| Method | Description |
+| Member | Description |
 |--------|-------------|
-| `suspend initialize()` | Load element data and cross-language map. Must be called before `generateResponse`. |
-| `suspend generateResponse(userMessage, contextElement?)` | Returns a `ChatMessage` with the AI reply. |
-| `suspend setLanguage(language: String)` | Switch active language. Persists to prefs. |
-| `getActiveLanguage(): String` | Returns the current language code (e.g. `"sv"`). |
-| `setConversationHistory(messages)` | Restore a previous session's messages for context. |
-| `addToConversationHistory(message)` | Append a single message to in-memory history. |
-| `clearConversation()` | Reset context (element, history, quiz state). |
+| `ask(message): ChatReply` | Answer one message. The reply carries its text, `ReplySource`, source chips, card, suggestion chips and the engine's plan. |
+| `focusOn(elementKey)` | Put an element in focus without a turn — the chat was opened from its page. |
+| `suggestions()` | The chips for the current state, before anything has been asked. |
+| `reset()` | Start a new thread, keeping the language. |
+| `state` | The `DialogueState`, public so a host can persist it. |
+| `profile` | The `InterestProfile`, which the host saves and restores. |
+| `language` | The language the last message was answered in. |
 
-### Language auto-detection
+**Language** is detected per message, not per session: `EntityResolver.detectLanguage` credits a
+language only for an element name that language alone uses ("guld" is Swedish evidence; "gold",
+shared by English, German and Afrikaans, is evidence for none), and a tie keeps the current one.
 
-Every call to `generateResponse` runs `detectResponseLanguage(query)` before routing.  
-It scores each word in the query against `localizedElementLanguageMap` (populated for all
-supported languages at startup). If a non-active language scores higher, the agent silently
-switches language, reloads element data, and persists the new language.
+**Engines** are built per language on demand and rebuilt when the entitlements or the offline
+setting change, so a purchase takes effect on the next message.
 
-Example: user types **"Väte"** (Swedish for Hydrogen) while the app is set to English — the agent
-detects Swedish, switches, and replies in Swedish.
+**Suggestion chips** come from the shipped string arrays (`ai_suggest_element`,
+`ai_suggest_general`, `ai_suggest_tools`), so all twelve languages get their own.
+`SuggestionChipTest` asks every chip in every language and fails if one is declined.
 
-### Element lookup
+---
 
-1. **Cross-language map** (`localizedElementMap`): built from all `elements_{lang}.json` files.
-   Maps `normalizedName → englishKey`. Accent-insensitive (`normalizeForLookup` strips combining
-   marks via NFD normalization).
-2. **Fuzzy fallback**: Levenshtein distance against element names/symbols in the active-language
-   JSON, with length-adaptive thresholds.
+## AiChatAgent
 
-### Query routing (priority order)
+`class AiChatAgent(context: Context)`
 
-1. Quiz answer collection (if a quiz is active)
-2. Comparison (≥ 2 elements found → `handleComparison`)
-3. Element lookup → element-context query
-4. Specific query types: quiz, trends, molar mass, superlative, safety, formula
-5. Series / block queries
-6. General greeting / random fact
-7. Fallback: `handleElementQuery` → `LocalKnowledgeManager`
+The Android half, owned by `AiChatPanelController`. It wraps one `ChatOrchestrator` and supplies
+what that must not know:
 
-### Companion object constants
-
-```kotlin
-companion object {
-    private const val PREFS_NAME    = "ai_agent_settings"
-    private const val PREF_LANGUAGE = "ai_agent_language"
-}
-```
+- the daily allowance (`AIRateLimiter`), checked before the orchestrator is asked;
+- strings from a locale-wrapped `Context` per language, without `Locale.setDefault`;
+- the user's entitlements and the offline card policy;
+- `AiTurnStats` for the panel to log — the path (`engine`, `personality`, `reactivity`,
+  `fallback`, `rate_limited`, `context_lost`), intent, confidence, language and query shape;
+- the interest counts behind the returning-user greeting, kept in `ai_learning_prefs` /
+  `element_interests` where the old `AILearningManager` kept them.
 
 ---
 
@@ -242,17 +241,10 @@ companion object {
 
 `object AIPersonality`
 
-Stateless singleton. All methods return localised strings by creating a
-`ConfigurationContext` for the requested language, then reading from `strings.xml`.
-
-| Method | Description |
-|--------|-------------|
-| `getGreeting(context, language)` | Friendly opening message. |
-| `getEncouragement(context, language)` | Short positive acknowledgement. |
-| `getNoDataResponse(context, language, query)` | "I couldn't find…" fallback. |
-| `formatElementResponse(...)` | Single-property reply: "Hydrogen's boiling point is −253 °C". |
-| `formatComprehensiveResponse(...)` | Multi-property overview card. |
-| `getRandomFact(context, language)` | Returns a random chemistry fact. |
+Stateless singleton. Methods return localised strings by creating a `ConfigurationContext` for the
+requested language, then reading from `strings.xml`. Used by the chat panel for its opening
+greeting and by the Science Daily widget; the conversation itself reads its strings through the
+orchestrator.
 
 All strings are defined in `res/values/strings.xml` (and language-specific overrides, e.g.
 `res/values-sv-rSE/strings.xml`).
@@ -268,8 +260,8 @@ The key format is `msg_count_{year}_{month}_{day}` — quotas reset automaticall
 
 | Tier | Daily limit |
 |------|-------------|
-| Free | 30 messages |
-| PRO | 200 messages |
+| Free | 16 messages |
+| PRO | 64 messages |
 | PRO+ | Unlimited |
 
 ```kotlin
@@ -279,87 +271,6 @@ if (rateLimiter.canSendMessage()) {
 }
 val remaining = rateLimiter.getRemainingMessages()
 ```
-
----
-
-## AILearningManager
-
-`class AILearningManager(context: Context)`
-
-Persists anonymous usage patterns in `ai_learning_prefs` `SharedPreferences`.  
-**No user-provided text is stored** — only element and property names.
-
-### Tracked data
-
-| Key | Type | Description |
-|-----|------|-------------|
-| `element_interests` | `Map<String, Int>` | How many times each element was asked about. |
-| `property_interests` | `Map<String, Int>` | How many times each property was asked about. |
-| `technical_score` | `Float` [0–1] | Estimated preference for technical vs. general replies. |
-| `session_count` | `Int` | Total number of sessions. |
-
-### Key methods
-
-| Method | Description |
-|--------|-------------|
-| `trackElementInterest(name)` | Increment count for an element. |
-| `trackPropertyInterest(name)` | Increment count for a property. |
-| `getPersonalizedGreeting()` | Returns a greeting mentioning the user's most-queried element, if any. |
-| `incrementSession()` | Call once when a new AI session starts. |
-| `saveData()` | Flush current state to SharedPreferences. |
-
----
-
-## MolarMassCalculator
-
-`class MolarMassCalculator(elementData: JSONObject?)`
-
-Parses a chemical formula string and returns the molar mass in g/mol.
-
-```kotlin
-val calculator = MolarMassCalculator(elementData)
-val mass = calculator.calculate("H2O")   // → 18.015
-val mass = calculator.calculate("NaCl")  // → 58.44
-```
-
-**Parsing rules:**
-- Respects case: `N` = Nitrogen, `Nh` = Nihonium.
-- Supports nested groups: `Ca(OH)2`, `Al2(SO4)3`.
-- Strips whitespace and common suffixes (e.g. `(s)`, `(l)`, `(aq)`).
-- Returns `null` if the formula cannot be parsed or contains unknown symbols.
-
----
-
-## LocalKnowledgeManager
-
-`class LocalKnowledgeManager(context: Context)`
-
-Resolves queries against the app's non-element data via lazy-loaded model lists.
-
-### Data sources
-
-| Source | Model class | Example queries |
-|--------|-------------|-----------------|
-| Physical constants | `Constants` / `ConstantsModel` | "speed of light", "Planck constant" |
-| Equations | `Equation` / `EquationModel` | "ideal gas law", "Ohm's law formula" |
-| Chemistry dictionary | `Dictionary` / `DictionaryModel` | "what is oxidation", "define electronegativity" |
-| Indicators | `Indicator` / `IndicatorModel` | "pH indicator", "litmus" |
-| Ions | `Ion` / `IonModel` | "sulfate ion", "ammonium" |
-| Poisson values | `Poisson` / `PoissonModel` | "Poisson ratio for steel" |
-| Geology | `Geology` / `GeologyModel` | "granite", "igneous rock" |
-
-### Usage
-
-```kotlin
-val result: LocalKnowledgeManager.QueryResult? = localKnowledgeManager.resolve(query, activeLanguage)
-if (result != null) {
-    // result.response  — formatted answer string
-    // result.topic     — category (e.g. "equations")
-    // result.isTechnical — hint for response style
-}
-```
-
-`resolve()` tries each resolver in priority order and returns the first non-null match.
 
 ---
 
@@ -526,10 +437,13 @@ which lists files matching `elements_*.json` in the assets root.
 ### How language switching works
 
 1. User changes language in settings **or** the agent auto-detects a language from element names.
-2. `AIAgentManager.setLanguage(code)` is called.
-3. The new code is written to `SharedPreferences` (`ai_agent_language`).
-4. `getElementDataByLanguage(code)` loads `assets/elements_{code}.json` (falls back to `en`).
-5. `AIPersonality` methods create a `ConfigurationContext` with the new locale so all UI strings
+2. The orchestrator's `state.activeLanguage` changes; nothing is persisted, since the next
+   message is detected afresh.
+3. Strings come from a `ConfigurationContext` with the new locale, so property labels and
+   section headers are in the right language too.
+4. The display overlay for `assets/elements_{code}.json` names elements and translates the
+   prose fields.
+5. `AiChatAgent` creates a `ConfigurationContext` with the new locale so all UI strings
    (property labels, section headers) are also in the correct language. Note this deliberately
    does **not** call `Locale.setDefault` — the chat language is auto-detected per message, and
    making it the process default would leak into every formatter in the app.
@@ -538,10 +452,10 @@ which lists files matching `elements_*.json` in the assets root.
 
 ### Auto-detection
 
-When the user types a message, `detectResponseLanguage(query)` scores every word against
-`localizedElementLanguageMap` (built from all `elements_*.json` files). The language with the
-highest cumulative score wins. On ties, the current active language is preferred to avoid
-spurious switches.
+When the user types a message, `EntityResolver.detectLanguage(query, active)` credits each
+language for the element names in the query that only that language uses. The language with the
+highest score wins. On ties, the current active language is preferred to avoid spurious switches,
+and English loses a tie it is only in by coincidence.
 
 ---
 
@@ -552,7 +466,7 @@ Chat history is only stored for users signed in with a Google account (Firebase 
 ```
 Sign-in detected
     └── ChatHistoryManager.loadLatestChatSession()
-            └── Restore messages into AIAgentManager
+            └── Restore messages into the panel
                 └── Apply session language via setLanguage()
 
 User sends a message
@@ -562,29 +476,30 @@ Language changed
     └── Persist to SharedPreferences + save current session with new language
 ```
 
-Offline / anonymous users: conversation history lives only in the `conversationHistory`
-`MutableList` inside `AIAgentManager` for the duration of the session.
+Offline / anonymous users: the messages live only in the panel's list, and the conversation's
+memory in the orchestrator's `DialogueState`, for the duration of the session.
 
 ---
 
 ## Rate Limiting & Tiers
 
 ```
-Free  → 30 messages / day
-PRO   → 200 messages / day
+Free  → 16 messages / day
+PRO   → 64 messages / day
 PRO+  → Unlimited
 ```
 
 Counts are stored per-day in `SharedPreferences` under the key
 `msg_count_{year}_{month}_{day}` — they reset automatically on calendar rollover.
 
-The limit check happens at the **start** of `generateResponse`, before any processing:
+The limit check happens at the **start** of `AiChatAgent.generateResponse`, before the
+orchestrator is asked:
 
 ```kotlin
-if (rateLimiter?.canSendMessage() == false) {
-    return ChatMessage(text = "You've reached your daily limit of X messages…")
+if (!rateLimiter.canSendMessage()) {
+    return reply(strings.get(R.string.ai_rate_limit_reached, rateLimiter.getDailyLimit()) + reset, …)
 }
-rateLimiter?.incrementMessageCount()
+rateLimiter.incrementMessageCount()
 ```
 
 ---
@@ -628,9 +543,8 @@ rateLimiter?.incrementMessageCount()
 
 ### New non-element topics (constants, equations, etc.)
 
-Add rows to the corresponding model class (e.g. `EquationModel`) and ensure
-`LocalKnowledgeManager.resolveEquation` (or the appropriate resolver) can score and return
-the new entries.
+Add rows to the corresponding model class (e.g. `EquationModel`). `DatasetIndex` reads every
+model class, so the engine can cite the new rows; add a `datasets.tsv` corpus row that asks for one.
 
 ### New searchable content
 

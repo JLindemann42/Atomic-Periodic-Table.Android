@@ -95,10 +95,8 @@ folds to ss.
 Shared primitives: `normalizeForLookup`, `splitQueryTokens`, `containsWord` /
 `containsToken`, `levenshtein`, `similarity`.
 
-These were extracted from the original `AIAgentManager` and kept
-behaviour-identical — `WordBoundaryTest` asserts this by reflection, so the
-legacy keyword router and the structured engine cannot drift apart on what
-counts as a word match.
+These were extracted from the old keyword router and kept behaviour-identical;
+`WordBoundaryTest` and `FuzzyMatchTest` pin what counts as a word match.
 
 ## `EntityResolver.kt`
 
@@ -139,9 +137,8 @@ That last part is what makes cross-language resolution work: a German element
 name resolves even when the app is running in English, because all twelve name
 sets are in the alias table regardless of the active language.
 
-The cache is invalidated when the active language changes — `AIAgentManager`
-tracks `cachedEngineLanguage` and `cachedEnginePolicy` and rebuilds the engine
-when either moves.
+Engines are cached per language by `ChatOrchestrator`, which drops them all
+when the entitlements or the offline card policy change.
 
 ## Why lexical retrieval is the right call here
 

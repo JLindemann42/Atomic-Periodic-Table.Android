@@ -34,7 +34,10 @@ No device or emulator required — the JVM tests are genuinely fast.
 
 ```
 ai/
-├── AIAgentManagerTest, AiPublicSurfaceTest, LocalKnowledgeManagerTest
+├── chat/      ChatOrchestratorTest, ElementOverviewTest, ElementMoreInfoTest,
+│              ElementQuizTest, ElementReactionsTest, ElementSimilarityTest,
+│              ElementNarrativeTest, AppFeaturesTest, InterestProfileTest,
+│              SuggestionChipTest
 ├── core/      AiEngineTest, AnswerComposerTest, EntitlementTest,
 │              PropertyCoverageTest, StringCoverageTest, StringFormatTest,
 │              ComplexQueryTest, CompoundQuestionTest, IsotopeComparisonTest,
