@@ -1,6 +1,7 @@
 package com.jlindemann.science.ai.nlu
 
 import com.jlindemann.science.ai.core.Aggregation
+import com.jlindemann.science.ai.core.DeclineReason
 import com.jlindemann.science.ai.core.DialogueState
 import com.jlindemann.science.ai.core.EntityRef
 import com.jlindemann.science.ai.core.Intent
@@ -53,14 +54,14 @@ class QueryPlanner(
                         (it.contains(' ') && normalized.contains(it))
             }
         ) {
-            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.CONVERSATIONAL)
         }
 
         // An element number past 118 has a definite answer — there is no such element — and the
         // worst thing to do is guess. Declining lets the personality layer say so; answering from
         // retrieval produced "Electron mass" for "tell me about element 119".
         if (entities.outOfRangeElementNumber(rawQuery) != null) {
-            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.NO_SUCH_ELEMENT)
         }
 
         // "समान" is Hindi for "similar" and also the first word of "समान समूह" — "the same group".
@@ -95,7 +96,7 @@ class QueryPlanner(
             val comparableAspect = fields.resolveAll(rawQuery, limit = 3).isNotEmpty()
             val severalElements = entities.resolveAll(rawQuery, limit = 3).size >= 2
             if (!comparableAspect || !severalElements) {
-                return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+                return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.UNBACKED_CONCEPT)
             }
         }
 
@@ -150,7 +151,7 @@ class QueryPlanner(
         // A resolved field wins over this: "what is titanium used for in aerospace, and its
         // density" still has a real question in it.
         if (fieldMatches.isEmpty() && Lexicon.NARRATIVE_INTENTS.any { normalized.contains(it) }) {
-            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.NARRATIVE)
         }
 
         // Etymology declines even with a field in hand, because the field is the *subject* of the
@@ -158,7 +159,7 @@ class QueryPlanner(
         // resolves `symbol`, and answering it with a value — tin's nine abundance reservoirs, as
         // reported — mistakes what the sentence is about.
         if (Lexicon.ETYMOLOGY_INTENTS.any { normalized.contains(it) }) {
-            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.ETYMOLOGY)
         }
 
         // ---- Explanations --------------------------------------------------------------------
@@ -925,7 +926,7 @@ class QueryPlanner(
             }
         }
 
-        return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+        return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.NO_MATCH)
     }
 
     /**
@@ -988,7 +989,7 @@ class QueryPlanner(
         // answer than saying that, and it lets the personality layer offer what it can.
         if (row == null) {
             return if (isWhy || isMechanism) {
-                QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+                QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.UNEXPLAINED_WHY)
             } else null
         }
         return QueryPlan(

@@ -733,4 +733,10 @@
     <string name="account_id_hint">Debe coincidir con el ID que aparece en la app de Windows. Si es distinto, los dos dispositivos se sincronizan con cuentas separadas.</string>
     <string name="last_synced">Última sincronización</string>
     <string name="last_synced_never">Nunca</string>
+    <string name="ai_send_question">Enviar esta pregunta</string>
+    <string name="ai_send_question_title">¿Enviar la pregunta?</string>
+    <string name="ai_send_question_body">Tu pregunta se enviará al desarrollador para que pueda responderse en una versión futura.\n\nSe envía: la pregunta tal como la escribiste, el idioma y la versión de la app, y por qué no se pudo responder.\nNo se envía: tu nombre, tu cuenta, tu dispositivo ni el resto de esta conversación.</string>
+    <string name="ai_send_question_confirm">Enviar</string>
+    <string name="ai_send_question_sent">Gracias: tu pregunta se envió.</string>
+    <string name="ai_send_question_failed">No se pudo enviar la pregunta. Revisa tu conexión e inténtalo de nuevo.</string>
 </resources>

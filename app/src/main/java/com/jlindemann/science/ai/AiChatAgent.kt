@@ -10,7 +10,9 @@ import com.jlindemann.science.ai.cards.ChatCardPolicy
 import com.jlindemann.science.ai.chat.ChatOrchestrator
 import com.jlindemann.science.ai.chat.ChatReply
 import com.jlindemann.science.ai.chat.ReplySource
+import com.jlindemann.science.ai.compose.ChatAction
 import com.jlindemann.science.ai.compose.ChatActionCodec
+import com.jlindemann.science.ai.data.DeepLinkTarget
 import com.jlindemann.science.ai.core.AndroidStrings
 import com.jlindemann.science.ai.core.Entitlements
 import com.jlindemann.science.ai.core.StringProvider
@@ -132,7 +134,8 @@ class AiChatAgent(private val context: Context) {
             lastSuggestions = answer.suggestions
             saveInterests(chat.profile.elements)
 
-            message(answer).also { recordTurn(answer, userMessage, it, languageSwitched = chat.language != before) }
+            message(answer, userMessage, chat.language)
+                .also { recordTurn(answer, userMessage, it, languageSwitched = chat.language != before) }
         }
 
     // ---- What the panel shows ---------------------------------------------------------------
@@ -212,14 +215,32 @@ class AiChatAgent(private val context: Context) {
 
     // ---- Internals --------------------------------------------------------------------------
 
-    private fun message(answer: ChatReply) = ChatMessage(
+    private fun message(answer: ChatReply, userMessage: String, language: String) = ChatMessage(
         id = UUID.randomUUID().toString(),
         text = answer.text,
         isFromUser = false,
         timestamp = System.currentTimeMillis(),
-        actions = ChatActionCodec.encode(answer.actions),
+        actions = ChatActionCodec.encode(answer.actions + listOfNotNull(reportAction(answer, userMessage, language))),
         cards = ChatCardCodec.encode(answer.card)
     )
+
+    /**
+     * On a decline, a chip that offers to send the question to the developer (roadmap 0.7). Tapping
+     * it only opens a dialog saying what would be sent; nothing leaves the device unless the user
+     * confirms there.
+     */
+    private fun reportAction(answer: ChatReply, userMessage: String, language: String): ChatAction? {
+        if (answer.source != ReplySource.DECLINED || userMessage.isBlank()) return null
+        return ChatAction(
+            label = stringsFor(language).get(R.string.ai_send_question),
+            target = DeepLinkTarget.REPORT_QUESTION,
+            args = mapOf(
+                "q" to UnansweredQuestions.clean(userMessage),
+                "lang" to language,
+                "reason" to (answer.declineReason?.name?.lowercase() ?: "unknown")
+            )
+        )
+    }
 
     /** A reply that did not come from the orchestrator — a limit, a lost context, a failure. */
     private fun reply(
@@ -244,7 +265,8 @@ class AiChatAgent(private val context: Context) {
             intent = answer.plan?.intent?.name,
             confidence = answer.plan?.confidence,
             languageSwitched = languageSwitched,
-            elementResolved = orchestrator?.state?.focusElement != null
+            elementResolved = orchestrator?.state?.focusElement != null,
+            declineReason = answer.declineReason?.name?.lowercase()
         )
     }
 
@@ -261,7 +283,8 @@ class AiChatAgent(private val context: Context) {
         languageSwitched: Boolean = false,
         elementResolved: Boolean = false,
         dailyLimit: Int? = null,
-        engineError: String? = null
+        engineError: String? = null,
+        declineReason: String? = null
     ): AiTurnStats {
         val trimmed = userMessage.trim()
         return AiTurnStats(
@@ -277,7 +300,8 @@ class AiChatAgent(private val context: Context) {
             queryChars = trimmed.length,
             queryWords = if (trimmed.isEmpty()) 0 else trimmed.split(Regex("\\s+")).size,
             engineError = engineError,
-            dailyLimit = dailyLimit
+            dailyLimit = dailyLimit,
+            declineReason = declineReason
         )
     }
 

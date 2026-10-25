@@ -1258,4 +1258,10 @@
     <string name="account_id_hint">Det måste matcha ID:t som visas i Windows-appen. Om det skiljer sig synkroniserar de två enheterna mot separata konton.</string>
     <string name="last_synced">Senast synkroniserad</string>
     <string name="last_synced_never">Aldrig</string>
+    <string name="ai_send_question">Skicka den här frågan</string>
+    <string name="ai_send_question_title">Skicka frågan?</string>
+    <string name="ai_send_question_body">Frågan skickas till utvecklaren så att den kan besvaras i en framtida version.\n\nSkickas: frågan som du skrev den, appens språk och version, och varför den inte kunde besvaras.\nSkickas inte: ditt namn, konto, enhet eller resten av chatten.</string>
+    <string name="ai_send_question_confirm">Skicka</string>
+    <string name="ai_send_question_sent">Tack – frågan har skickats.</string>
+    <string name="ai_send_question_failed">Frågan kunde inte skickas. Kontrollera anslutningen och försök igen.</string>
 </resources>

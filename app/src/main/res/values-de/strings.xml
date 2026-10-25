@@ -1256,4 +1256,10 @@
     <string name="account_id_hint">Diese ID muss mit der in der Windows-App angezeigten ID übereinstimmen. Weicht sie ab, synchronisieren die beiden Geräte mit getrennten Konten.</string>
     <string name="last_synced">Zuletzt synchronisiert</string>
     <string name="last_synced_never">Nie</string>
+    <string name="ai_send_question">Diese Frage senden</string>
+    <string name="ai_send_question_title">Frage senden?</string>
+    <string name="ai_send_question_body">Deine Frage wird an den Entwickler gesendet, damit sie in einer künftigen Version beantwortet werden kann.\n\nGesendet: die Frage, wie du sie eingegeben hast, Sprache und Version der App und warum sie nicht beantwortet werden konnte.\nNicht gesendet: dein Name, Konto, Gerät oder der Rest dieses Chats.</string>
+    <string name="ai_send_question_confirm">Senden</string>
+    <string name="ai_send_question_sent">Danke – deine Frage wurde gesendet.</string>
+    <string name="ai_send_question_failed">Die Frage konnte nicht gesendet werden. Prüfe die Verbindung und versuche es erneut.</string>
 </resources>

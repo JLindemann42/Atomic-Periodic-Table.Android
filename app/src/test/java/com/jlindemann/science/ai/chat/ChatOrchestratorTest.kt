@@ -7,6 +7,7 @@ import com.jlindemann.science.ai.data.FieldRegistry
 import com.jlindemann.science.ai.data.ReactivityScale
 import com.jlindemann.science.ai.data.SeriesId
 import com.jlindemann.science.ai.data.Tier
+import com.jlindemann.science.ai.core.DeclineReason
 import org.junit.Assert.*
 import org.junit.Assume.assumeTrue
 import org.junit.Before
@@ -229,4 +230,24 @@ class ChatOrchestratorTest {
             assertTrue(text, text.contains(expected, ignoreCase = true) && text.contains("Density", ignoreCase = true))
         }
     }
+
+    // ---- Why it declined (roadmap 0.7) --------------------------------------------------------
+
+    @Test fun aDeclinedReplyCarriesItsReason() {
+        val reply = chat().ask("write me a poem about the sea")
+        assertEquals(ReplySource.DECLINED, reply.source)
+        assertNotNull(reply.declineReason)
+        assertEquals(DeclineReason.NO_SUCH_ELEMENT, chat().ask("tell me about element 119").declineReason)
+    }
+
+    @Test fun onlyADeclinedReplyCarriesAReason() {
+        for (message in listOf("what is the density of gold", "hello", "what can you do")) {
+            val reply = chat().ask(message)
+            assertNotEquals(message, ReplySource.DECLINED, reply.source)
+            assertNull(message, reply.declineReason)
+        }
+    }
+
+    @Test fun anEmptyMessageDeclinesWithAReason() =
+        assertEquals(DeclineReason.NO_MATCH, chat().ask("").declineReason)
 }

@@ -720,4 +720,10 @@
     <string name="account_id_hint">یہ ونڈوز ایپ میں دکھائی گئی آئی ڈی سے مماثل ہونی چاہیے۔ اگر مختلف ہو تو دونوں آلات الگ اکاؤنٹس سے ہم آہنگ ہو رہے ہیں۔</string>
     <string name="last_synced">آخری بار ہم آہنگ کیا گیا</string>
     <string name="last_synced_never">کبھی نہیں</string>
+    <string name="ai_send_question">یہ سوال بھیجیں</string>
+    <string name="ai_send_question_title">سوال بھیجیں؟</string>
+    <string name="ai_send_question_body">آپ کا سوال ڈویلپر کو بھیجا جائے گا تاکہ آئندہ ورژن میں اس کا جواب دیا جا سکے۔\n\nبھیجا جاتا ہے: آپ کا سوال جیسا آپ نے لکھا، ایپ کی زبان اور ورژن، اور جواب نہ دے سکنے کی وجہ۔\nنہیں بھیجا جاتا: آپ کا نام، اکاؤنٹ، ڈیوائس یا اس چیٹ کا باقی حصہ۔</string>
+    <string name="ai_send_question_confirm">بھیجیں</string>
+    <string name="ai_send_question_sent">شکریہ – آپ کا سوال بھیج دیا گیا۔</string>
+    <string name="ai_send_question_failed">سوال نہیں بھیجا جا سکا۔ اپنا کنکشن چیک کریں اور دوبارہ کوشش کریں۔</string>
 </resources>

@@ -149,6 +149,42 @@ sealed class Filter {
 }
 
 /**
+ * Why the engine said no, reported with each declined turn (roadmap 0.7).
+ *
+ * A decline used to look the same in the data whatever caused it, so the only way to learn what
+ * goes unanswered was a user's screenshot. These say which door the question hit — never what it
+ * said. The planner sets the first seven; [AiEngine] adds the last two.
+ */
+enum class DeclineReason {
+    /** A greeting, thanks or small talk: the personality layer's to answer. */
+    CONVERSATIONAL,
+
+    /** "Element 119": a definite no, better said than guessed. */
+    NO_SUCH_ELEMENT,
+
+    /** Names a concept no field holds, such as reactivity, without a property to compare. */
+    UNBACKED_CONCEPT,
+
+    /** Asks what an element is used for or does in the body: prose, not a field. */
+    NARRATIVE,
+
+    /** Asks where a name comes from. */
+    ETYMOLOGY,
+
+    /** A "why" with no dictionary entry to explain it. */
+    UNEXPLAINED_WHY,
+
+    /** Nothing in the question matched a field, an element, an operator or a dataset row. */
+    NO_MATCH,
+
+    /** A plan was formed but fell below the planner's confidence threshold. */
+    LOW_CONFIDENCE,
+
+    /** Planned confidently, but executing it produced nothing to say. */
+    NO_RESULT
+}
+
+/**
  * A natural-language question turned into something executable.
  *
  * This is what makes multi-hop answers possible: "which transition metals melt above 2000 °C"
@@ -158,6 +194,7 @@ sealed class Filter {
  *
  * @property confidence 0..1; below the planner's threshold the caller should not use this plan
  * @property evidence human-readable reasons the planner chose this, for debugging and tests
+ * @property declined why the planner declined, on an [Intent.UNKNOWN] plan; see [DeclineReason]
  */
 data class QueryPlan(
     val intent: Intent,
@@ -180,7 +217,8 @@ data class QueryPlan(
     val literal: String? = null,
     val confidence: Double = 0.0,
     val rawQuery: String = "",
-    val evidence: List<String> = emptyList()
+    val evidence: List<String> = emptyList(),
+    val declined: DeclineReason? = null
 ) {
     val primaryField: String? get() = fieldIds.firstOrNull()
 

@@ -19,7 +19,15 @@ images, and Play Billing for purchases.
 
 No, and no. It is a deterministic pipeline that parses your question and looks
 the answer up in the data installed with the app. There is no model, no API key
-and no request. Nothing you type in the chat leaves your device.
+and no request. Nothing you type in the chat leaves your device — with one
+exception, which you choose question by question.
+
+When the assistant can't answer something, its reply carries a **Send this
+question** button. Tapping it only opens a dialog; the question is sent to the
+developer only if you then tap **Send**. What is sent: the question exactly as
+you typed it, the app's language and version, and why it couldn't be answered.
+What is not: your name, account, device, or anything else from the chat. It is
+how unanswered questions get answered in a later version.
 
 Your chat *history* is uploaded — but only if you are signed in, and only so it
 can be restored on your other devices. Signed out, it never leaves the phone.

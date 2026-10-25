@@ -1330,4 +1330,10 @@ Eles compartilham comportamentos químicos semelhantes devido aos seus elétrons
     <string name="account_id_hint">Ele deve corresponder ao ID exibido no app do Windows. Se for diferente, os dois dispositivos estão sincronizando com contas separadas.</string>
     <string name="last_synced">Última sincronização</string>
     <string name="last_synced_never">Nunca</string>
+    <string name="ai_send_question">Enviar esta pergunta</string>
+    <string name="ai_send_question_title">Enviar a pergunta?</string>
+    <string name="ai_send_question_body">Sua pergunta será enviada ao desenvolvedor para que possa ser respondida em uma versão futura.\n\nÉ enviado: a pergunta como você a digitou, o idioma e a versão do app e o motivo de não ter sido respondida.\nNão é enviado: seu nome, sua conta, seu dispositivo ou o resto desta conversa.</string>
+    <string name="ai_send_question_confirm">Enviar</string>
+    <string name="ai_send_question_sent">Obrigado! Sua pergunta foi enviada.</string>
+    <string name="ai_send_question_failed">Não foi possível enviar a pergunta. Verifique a conexão e tente novamente.</string>
 </resources>

@@ -231,7 +231,14 @@ what that must not know:
 - strings from a locale-wrapped `Context` per language, without `Locale.setDefault`;
 - the user's entitlements and the offline card policy;
 - `AiTurnStats` for the panel to log — the path (`engine`, `personality`, `reactivity`,
-  `fallback`, `rate_limited`, `context_lost`), intent, confidence, language and query shape;
+  `fallback`, `rate_limited`, `context_lost`), intent, confidence, language and query shape,
+  and on a fallback the `DeclineReason` (`no_match`, `low_confidence`, `no_result`,
+  `unbacked_concept`, …) so the console shows *why* questions go unanswered;
+- the **Send this question** chip on every declined reply (`DeepLinkTarget.REPORT_QUESTION`).
+  The panel intercepts it, asks in a dialog that says exactly what is sent, and only then
+  writes the question to the create-only `unanswered_questions` collection
+  (`UnansweredQuestions.kt`; see [Persistence and sync](../development/persistence-and-sync)).
+  The analytics event `ai_question_sent` carries the reason, never the text;
 - the interest counts behind the returning-user greeting, kept in `ai_learning_prefs` /
   `element_interests` where the old `AILearningManager` kept them.
 

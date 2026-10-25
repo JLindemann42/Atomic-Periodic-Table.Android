@@ -246,6 +246,46 @@ Chat sessions are stored as an **array field** on the user document
 (`users/{uid}.chats`), capped at 20, rather than as a subcollection. Only for
 signed-in users; otherwise history is in-memory for the session.
 
+### `unanswered_questions` (create-only)
+
+The one place chat text leaves the device without sign-in, and only when the
+user confirms it for that question: the **Send this question** chip on a
+declined reply (`ai/UnansweredQuestions.kt`, roadmap 0.7). Both apps write it.
+
+```
+unanswered_questions/{auto-id}
+├── text       : String    (the question as typed, at most 500 chars)
+├── language   : String    ("en", "sv", …)
+├── reason     : String    (DeclineReason in lower case, e.g. "no_match")
+├── appVersion : String
+├── platform   : String    ("android" | "windows")
+└── createdAt  : Timestamp (server)
+```
+
+No uid, no device id. Clients can create and nothing else; the documents are
+read in the Firebase console. The rule is not in the repo, so it lives here:
+
+```
+match /unanswered_questions/{id} {
+  allow create: if request.resource.data.keys().hasOnly(
+                     ['text', 'language', 'reason', 'appVersion', 'platform', 'createdAt'])
+                && request.resource.data.text is string
+                && request.resource.data.text.size() > 0
+                && request.resource.data.text.size() <= 500
+                && request.resource.data.language is string
+                && request.resource.data.language.size() <= 8
+                && request.resource.data.reason is string
+                && request.resource.data.reason.size() <= 32
+                && request.resource.data.platform in ['android', 'windows']
+                && request.resource.data.createdAt == request.time;
+  allow read, update, delete: if false;
+}
+```
+
+Creates are unauthenticated on purpose — signed-out users decline questions
+too. If spam ever shows up, enforce App Check on Firestore rather than adding a
+uid.
+
 ## What is *not* synced
 
 Theme, units, favourites, list ordering, offline mode, search state and

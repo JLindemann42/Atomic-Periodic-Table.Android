@@ -1330,4 +1330,10 @@ Ils partagent des comportements chimiques similaires grâce à leurs électrons 
     <string name="account_id_hint">Il doit correspondre à l\'ID affiché dans l\'application Windows. S\'il diffère, les deux appareils se synchronisent avec des comptes distincts.</string>
     <string name="last_synced">Dernière synchronisation</string>
     <string name="last_synced_never">Jamais</string>
+    <string name="ai_send_question">Envoyer cette question</string>
+    <string name="ai_send_question_title">Envoyer la question ?</string>
+    <string name="ai_send_question_body">Votre question sera envoyée au développeur pour qu\'elle puisse recevoir une réponse dans une prochaine version.\n\nEnvoyé : la question telle que vous l\'avez saisie, la langue et la version de l\'application, et la raison pour laquelle elle n\'a pas pu être traitée.\nNon envoyé : votre nom, votre compte, votre appareil ni le reste de cette conversation.</string>
+    <string name="ai_send_question_confirm">Envoyer</string>
+    <string name="ai_send_question_sent">Merci – votre question a été envoyée.</string>
+    <string name="ai_send_question_failed">Impossible d\'envoyer la question. Vérifiez votre connexion et réessayez.</string>
 </resources>

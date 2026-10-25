@@ -30,7 +30,12 @@ data class AiTurnStats(
     /** Set when answering threw, and the user was given the decline instead. */
     val engineError: String? = null,
     /** Set only on [Path.RATE_LIMITED]. */
-    val dailyLimit: Int? = null
+    val dailyLimit: Int? = null,
+    /**
+     * On [Path.FALLBACK], why the engine declined — a [com.jlindemann.science.ai.core.DeclineReason]
+     * in lower case. The question itself is never recorded (roadmap 0.7).
+     */
+    val declineReason: String? = null
 ) {
     /**
      * Coarse buckets rather than one label per handler, mirroring

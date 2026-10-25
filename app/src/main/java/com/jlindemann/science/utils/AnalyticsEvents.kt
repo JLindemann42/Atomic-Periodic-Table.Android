@@ -26,6 +26,9 @@ object AnalyticsEvent {
     const val AI_ACTION_TAP = "ai_action_tap"
     const val AI_CARD_LOCKED = "ai_card_locked"
     const val AI_UPGRADE_TAP = "ai_upgrade_tap"
+
+    /** The user confirmed sending a declined question (roadmap 0.7). Carries no text. */
+    const val AI_QUESTION_SENT = "ai_question_sent"
 }
 
 /**
@@ -60,6 +63,7 @@ object AnalyticsParam {
     const val HAS_CARD = "has_card"
     const val CARD_KIND = "card_kind"
     const val ACTION_COUNT = "action_count"
+    const val DECLINE_REASON = "decline_reason"
 
     const val QUERY_CHARS = "query_chars"
     const val QUERY_WORDS = "query_words"

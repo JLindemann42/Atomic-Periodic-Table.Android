@@ -41,6 +41,9 @@ object DeepLinkNavigator {
             return
         }
 
+        // The chat panel asks before sending anything; reaching here means nothing to open.
+        if (action.target == DeepLinkTarget.REPORT_QUESTION) return
+
         if (action.target == DeepLinkTarget.PRO_PAGE) {
             // Same destination the element screen's locked rows use, so an upgrade prompt from the
             // chat lands exactly where one from a locked property row does.
@@ -100,6 +103,7 @@ object DeepLinkNavigator {
         DeepLinkTarget.REACTION_BALANCER -> EquationBalancerActivity::class.java
         DeepLinkTarget.LEARNING_GAMES -> LearningGamesActivity::class.java
         DeepLinkTarget.FLASHCARDS -> FlashCardActivity::class.java
-        DeepLinkTarget.ELEMENT_INFO, DeepLinkTarget.RESEND_QUERY, DeepLinkTarget.PRO_PAGE -> null
+        DeepLinkTarget.ELEMENT_INFO, DeepLinkTarget.RESEND_QUERY, DeepLinkTarget.PRO_PAGE,
+        DeepLinkTarget.REPORT_QUESTION -> null
     }
 }

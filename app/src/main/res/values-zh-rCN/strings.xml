@@ -1328,4 +1328,10 @@ I：不溶"</string>
     <string name="account_id_hint">它必须与 Windows 应用中显示的 ID 一致。如果不同，说明两台设备正在同步到不同的账户。</string>
     <string name="last_synced">上次同步</string>
     <string name="last_synced_never">从未</string>
+    <string name="ai_send_question">发送这个问题</string>
+    <string name="ai_send_question_title">发送这个问题？</string>
+    <string name="ai_send_question_body">你的问题将发送给开发者，以便在未来的版本中得到解答。\n\n会发送：你输入的问题原文、应用的语言和版本，以及无法回答的原因。\n不会发送：你的姓名、账户、设备或本次聊天的其余内容。</string>
+    <string name="ai_send_question_confirm">发送</string>
+    <string name="ai_send_question_sent">谢谢——你的问题已发送。</string>
+    <string name="ai_send_question_failed">无法发送问题。请检查网络连接后重试。</string>
 </resources>

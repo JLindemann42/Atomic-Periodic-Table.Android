@@ -58,6 +58,12 @@ enum class DeepLinkTarget {
     SOLUBILITY, ION, ELECTRODE, PH, MOLAR_MASS_CALC, UNIT_CONVERTER, IDEAL_GAS,
     REACTION_BALANCER, LEARNING_GAMES, FLASHCARDS, RESEND_QUERY,
 
+    /**
+     * Offer to send a declined question to the developer (roadmap 0.7). Handled by the chat panel,
+     * which asks first; args carry the question, its language and the decline reason.
+     */
+    REPORT_QUESTION,
+
     /** The PRO page, for an answer withheld behind the paywall. */
     PRO_PAGE
 }

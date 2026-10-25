@@ -1326,4 +1326,10 @@ Condividono comportamenti chimici simili grazie ai loro elettroni di valenza!</s
     <string name="account_id_hint">Deve corrispondere all\'ID mostrato nell\'app Windows. Se è diverso, i due dispositivi si sincronizzano con account separati.</string>
     <string name="last_synced">Ultima sincronizzazione</string>
     <string name="last_synced_never">Mai</string>
+    <string name="ai_send_question">Invia questa domanda</string>
+    <string name="ai_send_question_title">Inviare la domanda?</string>
+    <string name="ai_send_question_body">La domanda verrà inviata allo sviluppatore perché possa ricevere risposta in una versione futura.\n\nViene inviato: la domanda così come l\'hai scritta, la lingua e la versione dell\'app e il motivo per cui non è stato possibile rispondere.\nNon viene inviato: il tuo nome, l\'account, il dispositivo o il resto della chat.</string>
+    <string name="ai_send_question_confirm">Invia</string>
+    <string name="ai_send_question_sent">Grazie, la domanda è stata inviata.</string>
+    <string name="ai_send_question_failed">Impossibile inviare la domanda. Controlla la connessione e riprova.</string>
 </resources>

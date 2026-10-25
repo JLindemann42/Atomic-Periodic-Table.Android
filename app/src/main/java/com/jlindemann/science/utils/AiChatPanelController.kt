@@ -35,6 +35,8 @@ import com.jlindemann.science.ai.AiTurnStats
 import com.jlindemann.science.ai.ChatHistoryManager
 import com.jlindemann.science.ai.compose.ChatAction
 import com.jlindemann.science.ai.compose.DeepLinkNavigator
+import com.jlindemann.science.ai.UnansweredQuestions
+import com.jlindemann.science.ai.data.DeepLinkTarget
 import com.jlindemann.science.auth.AuthManager
 import com.jlindemann.science.model.ChatMessage
 import com.jlindemann.science.model.ChatSession
@@ -370,7 +372,8 @@ class AiChatPanelController(
             AnalyticsParam.CARD_KIND to stats.cardKind,
             AnalyticsParam.ACTION_COUNT to stats.actionCount,
             AnalyticsParam.QUERY_CHARS to stats.queryChars,
-            AnalyticsParam.QUERY_WORDS to stats.queryWords
+            AnalyticsParam.QUERY_WORDS to stats.queryWords,
+            AnalyticsParam.DECLINE_REASON to stats.declineReason
         )
         if (stats.path == AiTurnStats.Path.RATE_LIMITED) {
             AnalyticsHelper.logEvent(
@@ -439,7 +442,56 @@ class AiChatPanelController(
             AnalyticsParam.HOST to host,
             AnalyticsParam.TARGET to action.target.name
         )
+        if (action.target == DeepLinkTarget.REPORT_QUESTION) {
+            confirmSendQuestion(action)
+            return
+        }
         DeepLinkNavigator.navigate(activity, action) { query -> send(query, SOURCE_ACTION_RESEND) }
+    }
+
+    /**
+     * Ask before sending a declined question to the developer (roadmap 0.7). The FAQ promises that
+     * nothing typed in the chat leaves the device; this is the one exception, so it is per
+     * question, the dialog says exactly what goes and what does not, and declining it sends nothing.
+     */
+    private fun confirmSendQuestion(action: ChatAction) {
+        val question = action.args["q"]?.takeIf { it.isNotBlank() } ?: return
+        com.google.android.material.dialog.MaterialAlertDialogBuilder(activity)
+            .setTitle(R.string.ai_send_question_title)
+            .setMessage(activity.getString(R.string.ai_send_question_body) + "\n\n\u201C" + question + "\u201D")
+            .setNegativeButton(android.R.string.cancel, null)
+            .setPositiveButton(R.string.ai_send_question_confirm) { _, _ ->
+                val reason = action.args["reason"]
+                UnansweredQuestions.send(question, action.args["lang"] ?: agent.getActiveLanguage(), reason) { ok ->
+                    Toast.makeText(
+                        activity,
+                        if (ok) R.string.ai_send_question_sent else R.string.ai_send_question_failed,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    if (ok) {
+                        AnalyticsHelper.logEvent(
+                            activity,
+                            AnalyticsEvent.AI_QUESTION_SENT,
+                            AnalyticsParam.HOST to host,
+                            AnalyticsParam.DECLINE_REASON to reason
+                        )
+                        removeAction(action)
+                    }
+                }
+            }
+            .show()
+    }
+
+    /** Take the send chip off its message once the question has gone, so it cannot go twice. */
+    private fun removeAction(action: ChatAction) {
+        val index = messages.indexOfFirst { message ->
+            com.jlindemann.science.ai.compose.ChatActionCodec.decode(message.actions).contains(action)
+        }
+        if (index < 0) return
+        val message = messages[index]
+        val remaining = com.jlindemann.science.ai.compose.ChatActionCodec.decode(message.actions) - action
+        messages[index] = message.copy(actions = com.jlindemann.science.ai.compose.ChatActionCodec.encode(remaining))
+        adapter?.notifyItemChanged(index)
     }
 
     // ---- Conversation loading and persistence ------------------------------------------------

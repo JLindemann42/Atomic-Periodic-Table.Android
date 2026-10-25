@@ -69,4 +69,39 @@ class AiEngineTelemetryTest {
         assertNotNull(engine.answerFor(Intent.ISOTOPES, "gold"))
         assertEquals(Intent.ISOTOPES, engine.lastPlan?.intent)
     }
+
+    // ---- Why it declined (roadmap 0.7) --------------------------------------------------------
+    // The decline reason is what the console groups unanswered questions by. Like the plan, nothing
+    // else reads it, so these are the tripwire for it going quiet.
+
+    @Test fun anAnswerLeavesNoDeclineReason() {
+        assertNotNull(engine.answer("what is the density of gold", DialogueState()))
+        assertNull(engine.lastDecline)
+    }
+
+    @Test fun aDeclineSaysWhy() {
+        val cases = mapOf(
+            "tell me about element 119" to DeclineReason.NO_SUCH_ELEMENT,
+            "quiz me" to DeclineReason.CONVERSATIONAL,
+            "why does radius decrease left to right, despite adding electrons" to DeclineReason.UNEXPLAINED_WHY
+        )
+        for ((query, reason) in cases) {
+            assertNull(query, engine.answer(query, DialogueState()))
+            assertEquals(query, reason, engine.lastDecline)
+        }
+    }
+
+    @Test fun everyDeclineHasAReason() {
+        for (query in listOf("please tell me a story about my weekend", "", "asdf qwerty")) {
+            assumeTrue(query, engine.answer(query, DialogueState()) == null)
+            assertNotNull("'$query' declined without a reason", engine.lastDecline)
+        }
+    }
+
+    @Test fun anAnswerClearsTheReasonFromThePreviousTurn() {
+        assertNull(engine.answer("tell me about element 119", DialogueState()))
+        assertNotNull(engine.lastDecline)
+        assertNotNull(engine.answer("what is the density of gold", DialogueState()))
+        assertNull(engine.lastDecline)
+    }
 }

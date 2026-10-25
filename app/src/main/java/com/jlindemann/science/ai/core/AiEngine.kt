@@ -63,13 +63,21 @@ class AiEngine(
         private set
 
     /**
+     * Why the most recent [answer] returned null, or null when it answered. Telemetry only: a
+     * reason, never the question (roadmap 0.7).
+     */
+    var lastDecline: DeclineReason? = null
+        private set
+
+    /**
      * Answer a question, or return null to defer.
      *
      * @param state carries the conversation's focus so follow-ups resolve; updated on success
      */
     fun answer(query: String, state: DialogueState): ComposedAnswer? {
         lastPlan = null
-        if (query.isBlank()) return null
+        lastDecline = null
+        if (query.isBlank()) return null.also { lastDecline = DeclineReason.NO_MATCH }
 
         // A question that asks two things is tried first. The whole query often plans to
         // something — "the density of gold and how does it compare to lead" plans as a
@@ -78,11 +86,12 @@ class AiEngine(
         compoundAnswer(query, state)?.let { return it }
 
         val plan = planner.plan(query, state)
-        if (plan.intent == Intent.UNKNOWN || plan.confidence < planner.threshold) return null
+        if (plan.intent == Intent.UNKNOWN) return null.also { lastDecline = plan.declined ?: DeclineReason.NO_MATCH }
+        if (plan.confidence < planner.threshold) return null.also { lastDecline = DeclineReason.LOW_CONFIDENCE }
 
-        val result = executor.execute(plan) ?: return null
+        val result = executor.execute(plan) ?: return null.also { lastDecline = DeclineReason.NO_RESULT }
         val composed = composer.compose(result, plan)
-        if (composed.text.isBlank()) return null
+        if (composed.text.isBlank()) return null.also { lastDecline = DeclineReason.NO_RESULT }
 
         state.noteAnswer(plan, resultKeys(result))
         lastPlan = plan

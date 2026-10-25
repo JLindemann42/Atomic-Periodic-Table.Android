@@ -1324,4 +1324,10 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
     <string name="account_id_hint">Dit moet ooreenstem met die ID wat in die Windows-toepassing gewys word. As dit verskil, sinkroniseer die twee toestelle met aparte rekeninge.</string>
     <string name="last_synced">Laaste gesinkroniseer</string>
     <string name="last_synced_never">Nooit</string>
+    <string name="ai_send_question">Stuur hierdie vraag</string>
+    <string name="ai_send_question_title">Stuur die vraag?</string>
+    <string name="ai_send_question_body">Jou vraag word na die ontwikkelaar gestuur sodat dit in \'n toekomstige weergawe beantwoord kan word.\n\nGestuur: die vraag soos jy dit getik het, die app se taal en weergawe, en waarom dit nie beantwoord kon word nie.\nNie gestuur nie: jou naam, rekening, toestel of die res van hierdie gesprek.</string>
+    <string name="ai_send_question_confirm">Stuur</string>
+    <string name="ai_send_question_sent">Dankie – jou vraag is gestuur.</string>
+    <string name="ai_send_question_failed">Die vraag kon nie gestuur word nie. Gaan jou verbinding na en probeer weer.</string>
 </resources>

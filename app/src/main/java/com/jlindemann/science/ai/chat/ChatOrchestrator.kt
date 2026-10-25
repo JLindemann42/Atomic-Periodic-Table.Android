@@ -5,6 +5,7 @@ import com.jlindemann.science.ai.cards.ChatCard
 import com.jlindemann.science.ai.cards.ChatCardPolicy
 import com.jlindemann.science.ai.compose.ChatAction
 import com.jlindemann.science.ai.core.AiEngine
+import com.jlindemann.science.ai.core.DeclineReason
 import com.jlindemann.science.ai.core.DialogueState
 import com.jlindemann.science.ai.core.Entitlements
 import com.jlindemann.science.ai.core.QueryPlan
@@ -37,6 +38,7 @@ enum class ReplySource {
  * One turn's reply.
  *
  * @property suggestions chips offered under the reply, to make the next question discoverable
+ * @property declineReason on a [ReplySource.DECLINED] reply, why the engine said no
  */
 data class ChatReply(
     val text: String,
@@ -44,7 +46,8 @@ data class ChatReply(
     val actions: List<ChatAction> = emptyList(),
     val card: ChatCard? = null,
     val suggestions: List<String> = emptyList(),
-    val plan: QueryPlan? = null
+    val plan: QueryPlan? = null,
+    val declineReason: DeclineReason? = null
 )
 
 /**
@@ -102,7 +105,7 @@ class ChatOrchestrator(
      * could have answered would replace a cited fact with a pleasantry.
      */
     fun ask(message: String): ChatReply {
-        if (message.isBlank()) return decline("en")
+        if (message.isBlank()) return decline("en", DeclineReason.NO_MATCH)
 
         // Per message, not per session: a thread can switch language and each turn is answered in
         // the language it was asked in.
@@ -137,7 +140,7 @@ class ChatOrchestrator(
         similarity(message, strings)?.let { return it }
         // Usage, biological role and etymology live in the element's prose, not in a field.
         narrative(message, strings, language)?.let { return it }
-        return personality(message, strings, language)
+        return personality(message, strings, language, engine.lastDecline)
     }
 
     /**
@@ -361,7 +364,12 @@ class ChatOrchestrator(
      * Each branch is reachable only because the one above did not match, so a question matching
      * two is answered the same way every time.
      */
-    private fun personality(message: String, strings: StringProvider, language: String): ChatReply {
+    private fun personality(
+        message: String,
+        strings: StringProvider,
+        language: String,
+        engineDecline: DeclineReason?
+    ): ChatReply {
         val normalized = TextMatching.normalizeForLookup(message)
         val chips = suggestions(strings, null)
 
@@ -382,7 +390,7 @@ class ChatOrchestrator(
         AppFeatures.resolve(normalized)?.let {
             return ChatReply(strings.get(it), ReplySource.PERSONALITY, suggestions = chips)
         }
-        return decline(language)
+        return decline(language, engineDecline ?: DeclineReason.NO_MATCH)
     }
 
     /** "I remember you were checking out Gold recently", in the reader's language, or null. */
@@ -404,9 +412,12 @@ class ChatOrchestrator(
      * The honest failure. Still carries the suggestion chips, so a decline is a dead end for one
      * turn rather than for the conversation.
      */
-    private fun decline(language: String): ChatReply {
+    private fun decline(language: String, reason: DeclineReason): ChatReply {
         val strings = stringsFor(language)
-        return ChatReply(strings.get(R.string.ai_no_data), ReplySource.DECLINED, suggestions = suggestions(strings, null))
+        return ChatReply(
+            strings.get(R.string.ai_no_data), ReplySource.DECLINED,
+            suggestions = suggestions(strings, null), declineReason = reason
+        )
     }
 
     /**

@@ -1316,4 +1316,10 @@
     <string name="account_id_hint">यह Windows ऐप में दिखाई गई ID से मेल खानी चाहिए। अगर यह अलग है, तो दोनों डिवाइस अलग-अलग खातों में सिंक हो रहे हैं।</string>
     <string name="last_synced">पिछली बार सिंक किया गया</string>
     <string name="last_synced_never">कभी नहीं</string>
+    <string name="ai_send_question">यह प्रश्न भेजें</string>
+    <string name="ai_send_question_title">प्रश्न भेजें?</string>
+    <string name="ai_send_question_body">आपका प्रश्न डेवलपर को भेजा जाएगा ताकि भविष्य के संस्करण में उसका उत्तर दिया जा सके।\n\nभेजा जाता है: आपका प्रश्न जैसा आपने लिखा, ऐप की भाषा और संस्करण, और उत्तर न दे पाने का कारण।\nनहीं भेजा जाता: आपका नाम, खाता, डिवाइस या इस चैट का बाकी हिस्सा।</string>
+    <string name="ai_send_question_confirm">भेजें</string>
+    <string name="ai_send_question_sent">धन्यवाद – आपका प्रश्न भेज दिया गया।</string>
+    <string name="ai_send_question_failed">प्रश्न नहीं भेजा जा सका। अपना कनेक्शन जाँचें और फिर से कोशिश करें।</string>
 </resources>

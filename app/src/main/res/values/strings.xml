@@ -1540,4 +1540,10 @@
     <string name="balancer_tool_examples">Examples</string>
     <string name="balancer_tool_note">Arrows can be written -&gt;, =&gt;, = or →. State symbols such as (s), (l), (g) and (aq) are ignored.</string>
     <string name="balancer_tool_copied">Equation copied</string>
+    <string name="ai_send_question">Send this question</string>
+    <string name="ai_send_question_title">Send this question?</string>
+    <string name="ai_send_question_body">This sends your question to the developer so it can be answered in a future version.\n\nSent: the question as you typed it, the app\'s language and version, and why it couldn\'t be answered.\nNot sent: your name, account, device, or the rest of this chat.</string>
+    <string name="ai_send_question_confirm">Send</string>
+    <string name="ai_send_question_sent">Thanks — your question was sent.</string>
+    <string name="ai_send_question_failed">Couldn\'t send the question. Check your connection and try again.</string>
 </resources>
