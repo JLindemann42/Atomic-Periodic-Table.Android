@@ -12,25 +12,26 @@ object SeriesModel {
     fun getList(series: ArrayList<Series>, context: Context? = null) {
         // Define series data: elementKey, voltage, charge, symbol.
         //
-        // The 33 couples the Windows app has shipped since its port: the 18 this table used to hold,
-        // with identical values, plus fifteen more including both halogens (Windows porting notes,
-        // D10, D56). The order is Windows', so both apps list the series - and key its rows for the
-        // assistant - the same way.
+        // The 33 couples the Windows app has shipped since its port: the 18 this table used to hold
+        // plus fifteen more including both halogens (Windows porting notes, D10, D56). Most negative
+        // first, strictly, and the same order as Windows, so both apps list the series - and key its
+        // rows for the assistant - the same way. Values are the CRC Handbook's; copper, thorium,
+        // praseodymium, erbium and lanthanum were corrected in roadmap 0.8.
         val seriesData = listOf(
-            arrayOf("thorium", -3.6, "4+", "Th"),
-            arrayOf("praseodymium", -3.1, "3+", "Pr"),
-            arrayOf("erbium", -3.0, "3+", "Er"),
             arrayOf("lithium", -3.04, "+", "Li"),
             arrayOf("caesium", -3.026, "+", "Cs"),
             arrayOf("rubidium", -2.98, "+", "Rb"),
             arrayOf("potassium", -2.931, "+", "K"),
             arrayOf("barium", -2.912, "2+", "Ba"),
             arrayOf("francium", -2.9, "+", "Fr"),
-            arrayOf("lanthanum", -2.9, "3+", "La"),
             arrayOf("strontium", -2.89, "2+", "Sr"),
             arrayOf("calcium", -2.868, "2+", "Ca"),
             arrayOf("sodium", -2.71, "+", "Na"),
+            arrayOf("lanthanum", -2.379, "3+", "La"),
             arrayOf("magnesium", -2.372, "2+", "Mg"),
+            arrayOf("praseodymium", -2.353, "3+", "Pr"),
+            arrayOf("erbium", -2.331, "3+", "Er"),
+            arrayOf("thorium", -1.899, "4+", "Th"),
             arrayOf("aluminium", -1.662, "3+", "Al"),
             arrayOf("manganese", -1.18, "2+", "Mn"),
             arrayOf("zinc", -0.7618, "2+", "Zn"),
@@ -39,11 +40,11 @@ object SeriesModel {
             arrayOf("cadmium", -0.403, "2+", "Cd"),
             arrayOf("cobalt", -0.28, "2+", "Co"),
             arrayOf("nickel", -0.25, "2+", "Ni"),
-            arrayOf("copper", -0.159, "2+", "Cu"),
             arrayOf("tin", -0.13, "2+", "Sn"),
             arrayOf("lead", -0.126, "2+", "Pb"),
             arrayOf("antimony", +0.204, "3+", "Sb"),
             arrayOf("bismuth", +0.317, "3+", "Bi"),
+            arrayOf("copper", +0.3419, "2+", "Cu"),
             arrayOf("silver", +0.7996, "+", "Ag"),
             arrayOf("mercury", +0.85, "2+", "Hg"),
             arrayOf("platinum", +1.188, "2+", "Pt"),

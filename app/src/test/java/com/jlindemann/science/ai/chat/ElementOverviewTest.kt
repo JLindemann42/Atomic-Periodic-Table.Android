@@ -91,7 +91,7 @@ class ElementOverviewTest {
     @Test fun withNoStableIsotopeTheLongestLivedAreNamed() {
         val text = ChatFixture.chat().ask("tell me everything about uranium").text
         val isotopes = text.substring(text.indexOf(s(R.string.ai_rich_overview_isotopes, "Uranium")))
-        assertTrue(isotopes, isotopes.substringAfter("**").startsWith("Uranium-238"))
+        assertTrue(isotopes, isotopes.substringAfter("**").startsWith("U-238"))
     }
 
     @Test fun safetyIsLabelledInTheReadersLanguage() {

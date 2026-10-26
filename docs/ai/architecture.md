@@ -581,14 +581,11 @@ Run everything with:
 python scripts/check_field_registry.py
 ```
 
-### Known data defects
+### Data defects, fixed
 
-`RealCorpusTest` documents three defects in `elements_*.json` as known-bad rather than working
-around them silently:
-
-- `lanthanum` and `cerium` record their **boiling** points in the melting-point fields (3737 K and
-  3716 K); both therefore outrank tungsten in a "highest melting point" query.
-- `gold` has 40 isotope entries and never marks Au-197 stable, so it is absent from the 69
-  elements that report a stable isotope.
-
-Update the assertions in `RealCorpusTest` when the data is corrected.
+`RealCorpusTest` used to carry two defects in `elements_*.json` as known-bad: lanthanum and cerium
+held their **boiling** points in the melting-point fields, and gold never marked Au-197 stable. Both
+were fixed by the merged data now in the shared submodule (roadmap 0.3). The test now asserts
+tungsten heads the melting points with nothing excluded, that no element melts above its boiling
+point, and that 80 elements report a stable isotope. Roadmap 0.8 fixed the rest; the Windows
+porting notes, D58, list them.
