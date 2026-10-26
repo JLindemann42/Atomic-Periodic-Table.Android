@@ -71,6 +71,7 @@ class CorpusTest {
 
     @Test fun conversationsComplex() = runFile("conversations_complex")
     @Test fun datasets() = runFile("datasets")
+    @Test fun namedCompounds() = runFile("named_compounds")
     @Test fun mustDefer() = runFile("must_defer")
 
     /**
@@ -281,6 +282,8 @@ class CorpusTest {
         is ExecutionResult.Property -> result.quantity?.value
         is ExecutionResult.Dataset -> result.row.numericValue
         is ExecutionResult.Aggregate -> result.value
+        is ExecutionResult.Formula -> result.result.molarMass
+        is ExecutionResult.MoleConversion -> result.moles
         else -> null
     }
 

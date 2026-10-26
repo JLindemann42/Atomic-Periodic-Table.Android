@@ -62,6 +62,31 @@ Aliases come from every `elements_{lang}.json` at once — built once per proces
 by `RetrievalService` — so a German element name resolves even when the app is
 in English.
 
+### Compounds claim their words first (roadmap 1.2)
+
+`scanCompounds(query)` finds compounds named in words and returns them with the
+query's remainder — the query with their words blanked out. `resolveAll` only
+looks for elements in that remainder, so "sodium chloride" is no longer sodium
+(and "density of sodium chloride" no longer sodium's density), while "water's
+oxygen" is still oxygen.
+
+Salts are not listed. They are composed from an element name in any of the
+twelve languages, an anion name from `Lexicon.ANION_NAMES`, and the shape each
+language writes them in: cation then anion ("sodium chloride"), anion, connector,
+cation ("cloruro de sodio", "chlorure d'argent"), one word ("natriumklorid",
+"Calciumcarbonat"), or a Han anion prefix before the cation's character (氯化钠,
+硫酸铜). An optional Roman numeral gives the charge ("iron(III) chloride"). The
+formula follows from the charges — Ca(OH)2, Al2(SO4)3, (NH4)2SO4. A metal without
+one common charge (`Lexicon.CATION_CHARGES`; iron and tin are absent) still
+claims its words but has no formula. Molecules and household names come from
+`Lexicon.COMMON_COMPOUNDS`.
+
+`QueryPlanner` answers a compound's formula, molar mass, composition and moles,
+sends "is X soluble" to its cation's row of the solubility table, and declines
+anything else it is asked about (`DeclineReason.COMPOUND_PROPERTY`): the app holds
+no compound properties. A compound whose words are part of a field's own name
+("sea water") is not treated as one.
+
 ## `FieldResolver.kt`
 
 `resolveAll(query, limit): List<FieldMatch>` — which property is being asked

@@ -157,7 +157,7 @@ object TextMatching {
         c != null && (c.isLetterOrDigit() || c == '_' || isCombiningMark(c))
 
     /** True when every letter of [text] is Han, so word boundaries do not apply to it. */
-    private fun isHanText(text: String): Boolean {
+    fun isHanText(text: String): Boolean {
         var sawHan = false
         for (ch in text) {
             if (!ch.isLetter()) continue

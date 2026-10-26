@@ -1057,17 +1057,143 @@ object Lexicon {
         "moli", "mols", "mole di", "atomi in", "atomos em", "atome in"
     )
 
-    /** Compounds users name in words rather than writing the formula. */
+    /**
+     * Compounds users name in words rather than writing the formula, and that are not a cation
+     * followed by an anion: molecules, acids and household names. Salts are not listed here; they
+     * are composed from [ANION_NAMES] and the element names (roadmap 1.2), see
+     * `EntityResolver.scanCompounds`.
+     */
     val COMMON_COMPOUNDS: Map<String, String> = mapOf(
         "water" to "H2O", "vatten" to "H2O", "wasser" to "H2O", "agua" to "H2O",
-        "eau" to "H2O", "acqua" to "H2O", "水" to "H2O",
+        "eau" to "H2O", "acqua" to "H2O", "tubig" to "H2O", "पानी" to "H2O", "پانی" to "H2O",
+        "水" to "H2O",
         "carbon dioxide" to "CO2", "koldioxid" to "CO2", "kohlendioxid" to "CO2",
-        "table salt" to "NaCl", "salt" to "NaCl", "koksalt" to "NaCl",
-        "sulfuric acid" to "H2SO4", "svavelsyra" to "H2SO4", "schwefelsaure" to "H2SO4",
-        "ammonia" to "NH3", "ammoniak" to "NH3",
-        "methane" to "CH4", "metan" to "CH4",
-        "glucose" to "C6H12O6", "glukos" to "C6H12O6",
-        "hydrochloric acid" to "HCl", "saltsyra" to "HCl"
+        "kohlenstoffdioxid" to "CO2", "dioxido de carbono" to "CO2", "dioxyde de carbone" to "CO2",
+        "anidride carbonica" to "CO2", "biossido di carbonio" to "CO2", "koolstofdioksied" to "CO2",
+        "कार्बन डाइऑक्साइड" to "CO2", "کاربن ڈائی آکسائیڈ" to "CO2", "二氧化碳" to "CO2",
+        "carbon monoxide" to "CO", "kolmonoxid" to "CO", "kohlenmonoxid" to "CO",
+        "kohlenstoffmonoxid" to "CO", "monoxido de carbono" to "CO", "monoxyde de carbone" to "CO",
+        "monossido di carbonio" to "CO", "koolstofmonoksied" to "CO", "一氧化碳" to "CO",
+        "sulfur dioxide" to "SO2", "sulphur dioxide" to "SO2", "svaveldioxid" to "SO2",
+        "schwefeldioxid" to "SO2", "二氧化硫" to "SO2",
+        "nitrogen dioxide" to "NO2", "kvavedioxid" to "NO2", "stickstoffdioxid" to "NO2",
+        "二氧化氮" to "NO2",
+        "hydrogen peroxide" to "H2O2", "vateperoxid" to "H2O2", "wasserstoffperoxid" to "H2O2",
+        "peroxido de hidrogeno" to "H2O2", "peroxyde d hydrogene" to "H2O2",
+        "perossido di idrogeno" to "H2O2", "peroxido de hidrogenio" to "H2O2", "过氧化氢" to "H2O2",
+        "table salt" to "NaCl", "salt" to "NaCl", "koksalt" to "NaCl", "bordssalt" to "NaCl",
+        "kochsalz" to "NaCl", "speisesalz" to "NaCl", "sal de mesa" to "NaCl", "sel de table" to "NaCl",
+        "sale da cucina" to "NaCl", "sal de cozinha" to "NaCl", "tafelsout" to "NaCl", "食盐" to "NaCl",
+        "baking soda" to "NaHCO3", "bakpulver" to "NaHCO3", "natron" to "NaHCO3",
+        "bicarbonato de sodio" to "NaHCO3", "bicarbonate de soude" to "NaHCO3",
+        "bicarbonato di sodio" to "NaHCO3", "sodium bicarbonate" to "NaHCO3", "小苏打" to "NaHCO3",
+        "sulfuric acid" to "H2SO4", "sulphuric acid" to "H2SO4", "svavelsyra" to "H2SO4",
+        "schwefelsaure" to "H2SO4", "acido sulfurico" to "H2SO4", "acide sulfurique" to "H2SO4",
+        "acido solforico" to "H2SO4", "swaelsuur" to "H2SO4",
+        "nitric acid" to "HNO3", "salpetersyra" to "HNO3", "salpetersaure" to "HNO3",
+        "acido nitrico" to "HNO3", "acide nitrique" to "HNO3", "硝酸" to "HNO3",
+        "hydrochloric acid" to "HCl", "saltsyra" to "HCl", "salzsaure" to "HCl",
+        "acido clorhidrico" to "HCl", "acide chlorhydrique" to "HCl", "acido cloridrico" to "HCl",
+        "soutsuur" to "HCl", "盐酸" to "HCl",
+        "ammonia" to "NH3", "ammoniak" to "NH3", "amoniaco" to "NH3", "ammoniac" to "NH3",
+        "ammoniaca" to "NH3", "amonia" to "NH3", "氨" to "NH3",
+        "methane" to "CH4", "metan" to "CH4", "methan" to "CH4", "metano" to "CH4", "metaan" to "CH4",
+        "甲烷" to "CH4",
+        "ethanol" to "C2H6O", "etanol" to "C2H6O", "etanolo" to "C2H6O", "乙醇" to "C2H6O",
+        "glucose" to "C6H12O6", "glukos" to "C6H12O6", "glucosa" to "C6H12O6",
+        "glucosio" to "C6H12O6", "glicose" to "C6H12O6", "glukose" to "C6H12O6", "葡萄糖" to "C6H12O6",
+        "sucrose" to "C12H22O11", "sackaros" to "C12H22O11", "saccharose" to "C12H22O11",
+        "sacarosa" to "C12H22O11", "saccarosio" to "C12H22O11", "sacarose" to "C12H22O11",
+        "蔗糖" to "C12H22O11"
+    )
+
+    /**
+     * Anion names, in every language, to the ion they name (roadmap 1.2). A salt is named as a
+     * cation and one of these - "sodium chloride", "natriumklorid", "cloruro de sodio", "氯化钠" -
+     * and the formula follows from the two charges, so the salts themselves are not listed. The
+     * Han entries are the prefix a salt's name opens with (氯化 in 氯化钠), not a word of their own.
+     */
+    val ANION_NAMES: Map<String, String> = mapOf(
+        "chloride" to "Cl^-", "klorid" to "Cl^-", "chlorid" to "Cl^-", "chloried" to "Cl^-",
+        "cloruro" to "Cl^-", "chlorure" to "Cl^-", "cloreto" to "Cl^-", "klorido" to "Cl^-",
+        "क्लोराइड" to "Cl^-", "کلورائیڈ" to "Cl^-", "氯化" to "Cl^-",
+        "bromide" to "Br^-", "bromid" to "Br^-", "bromied" to "Br^-", "bromuro" to "Br^-",
+        "bromure" to "Br^-", "brometo" to "Br^-", "bromido" to "Br^-", "ब्रोमाइड" to "Br^-",
+        "برومائیڈ" to "Br^-", "溴化" to "Br^-",
+        "iodide" to "I^-", "jodid" to "I^-", "iodid" to "I^-", "jodied" to "I^-", "yoduro" to "I^-",
+        "iodure" to "I^-", "ioduro" to "I^-", "iodeto" to "I^-", "iodido" to "I^-",
+        "आयोडाइड" to "I^-", "آیوڈائیڈ" to "I^-", "碘化" to "I^-",
+        "fluoride" to "F^-", "fluorid" to "F^-", "fluoried" to "F^-", "fluoruro" to "F^-",
+        "fluorure" to "F^-", "fluoreto" to "F^-", "fluorido" to "F^-", "फ्लोराइड" to "F^-",
+        "فلورائیڈ" to "F^-", "氟化" to "F^-",
+        "oxide" to "O^2-", "oxid" to "O^2-", "oksied" to "O^2-", "oxido" to "O^2-", "oxyde" to "O^2-",
+        "ossido" to "O^2-", "oksido" to "O^2-", "ऑक्साइड" to "O^2-", "آکسائیڈ" to "O^2-",
+        "氧化" to "O^2-",
+        "sulfide" to "S^2-", "sulphide" to "S^2-", "sulfid" to "S^2-", "sulfied" to "S^2-",
+        "sulfuro" to "S^2-", "sulfure" to "S^2-", "solfuro" to "S^2-", "sulfeto" to "S^2-",
+        "sulpido" to "S^2-", "सल्फाइड" to "S^2-", "سلفائیڈ" to "S^2-", "硫化" to "S^2-",
+        "hydroxide" to "OH^-", "hydroxid" to "OH^-", "hidroksied" to "OH^-", "hidroxido" to "OH^-",
+        "hydroxyde" to "OH^-", "idrossido" to "OH^-", "haydroksayd" to "OH^-",
+        "हाइड्रॉक्साइड" to "OH^-", "ہائیڈرو آکسائیڈ" to "OH^-", "氢氧化" to "OH^-",
+        "sulfate" to "SO4^2-", "sulphate" to "SO4^2-", "sulfat" to "SO4^2-", "sulfaat" to "SO4^2-",
+        "sulfato" to "SO4^2-", "solfato" to "SO4^2-", "sulpate" to "SO4^2-", "सल्फेट" to "SO4^2-",
+        "سلفیٹ" to "SO4^2-", "硫酸" to "SO4^2-",
+        "sulfite" to "SO3^2-", "sulphite" to "SO3^2-", "sulfit" to "SO3^2-", "sulfiet" to "SO3^2-",
+        "sulfito" to "SO3^2-", "solfito" to "SO3^2-", "सल्फाइट" to "SO3^2-", "سلفائٹ" to "SO3^2-",
+        "亚硫酸" to "SO3^2-",
+        "carbonate" to "CO3^2-", "karbonat" to "CO3^2-", "carbonat" to "CO3^2-",
+        "karbonaat" to "CO3^2-", "carbonato" to "CO3^2-", "karbonato" to "CO3^2-",
+        "कार्बोनेट" to "CO3^2-", "کاربونیٹ" to "CO3^2-", "碳酸" to "CO3^2-",
+        "nitrate" to "NO3^-", "nitrat" to "NO3^-", "nitraat" to "NO3^-", "nitrato" to "NO3^-",
+        "नाइट्रेट" to "NO3^-", "نائٹریٹ" to "NO3^-", "硝酸" to "NO3^-",
+        "phosphate" to "PO4^3-", "fosfat" to "PO4^3-", "phosphat" to "PO4^3-", "fosfaat" to "PO4^3-",
+        "fosfato" to "PO4^3-", "pospeyt" to "PO4^3-", "फॉस्फेट" to "PO4^3-", "فاسفیٹ" to "PO4^3-",
+        "磷酸" to "PO4^3-",
+        "chromate" to "CrO4^2-", "kromat" to "CrO4^2-", "chromat" to "CrO4^2-",
+        "chromaat" to "CrO4^2-", "cromato" to "CrO4^2-", "铬酸" to "CrO4^2-",
+        "acetate" to "CH3CO2^-", "acetat" to "CH3CO2^-", "asetaat" to "CH3CO2^-",
+        "acetato" to "CH3CO2^-", "asetat" to "CH3CO2^-", "एसीटेट" to "CH3CO2^-",
+        "ایسیٹیٹ" to "CH3CO2^-", "乙酸" to "CH3CO2^-", "醋酸" to "CH3CO2^-",
+        "silicate" to "SiO3^2-", "silikat" to "SiO3^2-", "silikaat" to "SiO3^2-",
+        "silicato" to "SiO3^2-", "सिलिकेट" to "SiO3^2-", "سلیکیٹ" to "SiO3^2-", "硅酸" to "SiO3^2-"
+    )
+
+    /** The word between anion and cation where a language writes one: "cloruro de sodio". */
+    val COMPOUND_CONNECTORS = listOf("de", "d", "di", "do", "da")
+
+    /**
+     * The charge a metal's ion carries when a salt's name does not say, for the metals that have
+     * one common charge. A metal with several (iron, tin, chromium) is absent: "iron oxide" is still
+     * recognised as a compound, so it is not answered as iron, but it has no formula unless the
+     * name gives the charge - "iron(III) chloride".
+     */
+    val CATION_CHARGES: Map<String, String> = mapOf(
+        "hydrogen" to "1", "lithium" to "1", "sodium" to "1", "potassium" to "1", "rubidium" to "1",
+        "caesium" to "1", "silver" to "1",
+        "beryllium" to "2", "magnesium" to "2", "calcium" to "2", "strontium" to "2", "barium" to "2",
+        "zinc" to "2", "cadmium" to "2", "nickel" to "2", "copper" to "2", "lead" to "2",
+        "cobalt" to "2", "mercury" to "2",
+        "aluminium" to "3"
+    )
+
+    /** Ammonium, the one cation in a salt's name that is not an element. */
+    val AMMONIUM_NAMES = listOf(
+        "ammonium", "amonio", "ammonio", "amonyum", "अमोनियम", "امونیم", "铵"
+    )
+
+    /** Words asking for a compound's formula, which its composition answers. */
+    val FORMULA_WORDS = listOf(
+        "formula", "chemical formula", "formel", "kemisk formel", "chemische formel", "formula quimica",
+        "formule", "formule chimique", "formula chimica", "formula quimica", "chemiese formule",
+        "pormula", "सूत्र", "فارمولا", "化学式", "分子式"
+    )
+
+    /** Words asking whether something dissolves. */
+    val SOLUBILITY_WORDS = listOf(
+        "soluble", "solubility", "insoluble", "dissolve", "dissolves", "loslig", "losligt", "losliga",
+        "loslighet", "olosligt", "loslich", "loslichkeit", "unloslich", "solubilidad", "solubilite",
+        "solubile", "solubilita", "insolubile", "soluvel", "solubilidade", "insoluvel", "oplosbaar",
+        "oplosbaarheid", "natutunaw", "घुलनशील", "घुलनशीलता", "حل پذیر", "溶解", "可溶", "难溶", "不溶"
     )
 
     /** Openers marking a question as asking for an explanation rather than a value. */

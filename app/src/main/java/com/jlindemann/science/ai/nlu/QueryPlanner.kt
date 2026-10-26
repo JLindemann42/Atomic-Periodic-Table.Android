@@ -141,6 +141,25 @@ class QueryPlanner(
         // the calculations run.
         unitConvertPlan(rawQuery, operators)?.let { return it }
 
+        // ---- A compound named in words ---------------------------------------------------------
+        // Before inheritance, so "and the boiling point of water?" cannot inherit the thread's
+        // element. Only when no element is named outside the compound: "water's oxygen" is oxygen,
+        // and "how much gold is in sea water" is about gold. And not when the compound's words are
+        // part of a field's own name: "and in sea water" asks for the abundance in sea water of the
+        // element the thread is about.
+        if (elementMatches.isEmpty()) {
+            entities.scanCompounds(rawQuery).compounds.firstOrNull { compound ->
+                fieldMatches.none { field ->
+                    com.jlindemann.science.ai.retrieval.TextMatching.containsWord(
+                        com.jlindemann.science.ai.retrieval.TextMatching.normalizeForLookup(field.matched),
+                        compound.surface
+                    )
+                }
+            }?.let { compound ->
+                compoundPlan(rawQuery, normalized, compound, fieldMatches.isNotEmpty())?.let { return it }
+            }
+        }
+
         // ---- Narrative questions -------------------------------------------------------------
         // Usage, biological role and etymology are answered from prose, not from a field. They are
         // declined here rather than left to fall through, because falling through is what caused
@@ -1339,6 +1358,16 @@ class QueryPlanner(
             // "If I have 12 grams of carbon-12, how many moles is that" used to resolve magnesium
             // from the 12 and answer with a two-element list.
             GRAMS.find(normalized)?.let { match ->
+                // A compound first: "10 g of sodium chloride" is not 10 g of sodium.
+                entities.scanCompounds(rawQuery).compounds.firstNotNullOfOrNull { it.formula }?.let { formula ->
+                    return QueryPlan(
+                        intent = Intent.MOLE_CONVERSION,
+                        literal = formula,
+                        rawQuery = rawQuery,
+                        confidence = 0.85,
+                        evidence = listOf("grams ${match.groupValues[1]} of $formula")
+                    )
+                }
                 val substance = entities.resolveAll(rawQuery, limit = 1).firstOrNull()
                 if (substance != null) {
                     return QueryPlan(
@@ -1431,6 +1460,78 @@ class QueryPlanner(
     }
 
     /**
+     * A question about a compound named in words, or null to let the rest of the planner have it
+     * (roadmap 1.2).
+     *
+     * The app knows a compound's formula, molar mass and composition, and which of its ions the
+     * solubility table covers. It holds no compound *properties*, so "density of sodium chloride"
+     * is declined - it used to be answered with sodium's density, "molar mass of calcium
+     * carbonate" as a comparison of calcium and carbon, and "boiling point of water" from the
+     * glossary's "Noble gas". A superlative or a list ("most abundant element in sea water")
+     * is not about the compound and is left alone.
+     */
+    private fun compoundPlan(
+        rawQuery: String,
+        normalized: String,
+        compound: com.jlindemann.science.ai.retrieval.CompoundMatch,
+        namesAField: Boolean
+    ): QueryPlan? {
+        // Not WHICH: it holds "what", and "what is sodium chloride" is about the compound.
+        if (mentionsAny(normalized, Lexicon.MOST) || mentionsAny(normalized, Lexicon.LEAST) ||
+            mentionsAny(normalized, Lexicon.AVERAGE)
+        ) return null
+
+        // "Is calcium carbonate soluble", "är silverklorid lösligt": the cation's row of the
+        // solubility table, which retrieval alone could not reach from a name in Swedish.
+        if (mentionsAny(normalized, Lexicon.SOLUBILITY_WORDS)) {
+            val row = compound.cation?.let { datasets.row(DatasetIndex.SOLUBILITY, it) }
+            if (row != null) {
+                return QueryPlan(
+                    intent = Intent.DATASET_LOOKUP,
+                    entities = listOf(EntityRef.DatasetRow(DatasetIndex.SOLUBILITY, row.id)),
+                    confidence = 0.8,
+                    rawQuery = rawQuery,
+                    evidence = listOf("solubility of ${compound.formula ?: compound.surface}")
+                )
+            }
+            return null
+        }
+
+        // "What is sodium chloride", "formula of table salt", "tell me about potassium iodide":
+        // nothing asked but the compound, which its formula and composition answer.
+        val remainder = com.jlindemann.science.ai.retrieval.TextMatching.splitQueryTokens(
+            com.jlindemann.science.ai.retrieval.TextMatching.normalizeForLookup(
+                entities.scanCompounds(rawQuery).remainder
+            )
+        ).filterNot { word ->
+            word in stopwords() || Lexicon.FORMULA_WORDS.any { it == word } ||
+                    Lexicon.OVERVIEW_WORDS.any { it == word }
+        }
+        if (remainder.isEmpty() && !namesAField) {
+            val formula = compound.formula
+                ?: return compoundDecline(rawQuery)
+            return QueryPlan(
+                intent = Intent.FORMULA_MASS,
+                fieldIds = listOf("composition"),
+                rawQuery = formula,
+                confidence = 0.85,
+                evidence = listOf("compound ${compound.surface} = $formula")
+            )
+        }
+
+        // A property of the compound, which the app does not hold.
+        return if (namesAField) compoundDecline(rawQuery) else null
+    }
+
+    private fun compoundDecline(rawQuery: String) = QueryPlan(
+        intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery,
+        declined = DeclineReason.COMPOUND_PROPERTY
+    )
+
+    private fun stopwords(): Set<String> =
+        (Lexicon.STOPWORDS.getValue("en") + Lexicon.STOPWORDS[entities.activeLanguage].orEmpty()).toHashSet()
+
+    /**
      * The compound a query is about, written as a formula or named in words.
      *
      * Shared by the formula-mass and solution branches so the two cannot disagree about what
@@ -1445,15 +1546,10 @@ class QueryPlanner(
                 com.jlindemann.science.ai.data.ChemistryMath
                     .parseFormula(candidate) { symbol -> atomicMassOf(symbol) } != null
             }
-            // "percentage composition of water" names a compound rather than writing it.
-            // Matched on word boundaries: a plain `contains` found "salt" inside "basalt", so
-            // "what is the composition of basalt" was answered with the formula mass of NaCl.
-            // Longest name first, so "table salt" is preferred over "salt".
-            ?: Lexicon.COMMON_COMPOUNDS.entries
-                .sortedByDescending { it.key.length }
-                .firstOrNull {
-                    com.jlindemann.science.ai.retrieval.TextMatching.containsWord(normalized, it.key)
-                }?.value
+            // "percentage composition of water", "molar mass of calcium carbonate": a compound named
+            // in words rather than written. The resolver matches whole words, so "salt" is not
+            // found inside "basalt", and composes salts in every language (roadmap 1.2).
+            ?: entities.scanCompounds(rawQuery).compounds.firstNotNullOfOrNull { it.formula }
 
     private fun atomicMassOf(symbol: String): Double? =
         store.bySymbol(symbol)?.quantity("atomic_mass")?.value

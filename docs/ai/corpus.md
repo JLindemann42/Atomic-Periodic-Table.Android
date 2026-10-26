@@ -63,6 +63,12 @@ touched. Instead, ten new dev rows describe the same three phenomena with differ
 general causes were fixed against those, and the held-out split was run once more, passing. Those
 three held-out rows are no longer a blind test of these phenomena.
 
+**It happened once more in roadmap 1.2.** `named_compounds.tsv` passed in full, and the held-out
+split then showed one follow-up it used to answer — an elliptical turn naming "sea water", which the
+new compound branch read as the compound "water". Two dev sessions with different wording now cover
+that (a compound's words inside a field's own name), the fix was made against them, and the
+held-out split passes again.
+
 ## Why it exists in this shape
 
 **It is a scoreboard, not a tripwire.** Every row in a file is evaluated and the failures are

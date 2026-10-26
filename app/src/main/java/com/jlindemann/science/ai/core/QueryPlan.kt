@@ -153,7 +153,7 @@ sealed class Filter {
  *
  * A decline used to look the same in the data whatever caused it, so the only way to learn what
  * goes unanswered was a user's screenshot. These say which door the question hit — never what it
- * said. The planner sets the first seven; [AiEngine] adds the last two.
+ * said. The planner sets the first eight; [AiEngine] adds the last two.
  */
 enum class DeclineReason {
     /** A greeting, thanks or small talk: the personality layer's to answer. */
@@ -173,6 +173,12 @@ enum class DeclineReason {
 
     /** A "why" with no dictionary entry to explain it. */
     UNEXPLAINED_WHY,
+
+    /**
+     * Names a compound and asks for something the app holds only for elements - its density,
+     * its melting point (roadmap 1.2). It used to be answered with the first element in the name.
+     */
+    COMPOUND_PROPERTY,
 
     /** Nothing in the question matched a field, an element, an operator or a dataset row. */
     NO_MATCH,

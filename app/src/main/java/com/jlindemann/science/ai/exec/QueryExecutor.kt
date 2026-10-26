@@ -602,6 +602,21 @@ class QueryExecutor(
             // without knowing what the substance is.
             val grams = Regex("""([\d.]+)\s*(?:g|gram|grams|gm|gramm|gramme|grammes)\b""")
                 .find(lowered)?.groupValues?.get(1)?.toDoubleOrNull() ?: return null
+            // A compound named in words carries its formula (roadmap 1.2): "10 g of sodium chloride"
+            // is converted through NaCl's molar mass, not sodium's atomic mass.
+            plan.literal?.let { formula ->
+                val parsed = com.jlindemann.science.ai.data.ChemistryMath
+                    .parseFormula(formula) { store.bySymbol(it)?.quantity("atomic_mass")?.value } ?: return null
+                val converted = com.jlindemann.science.ai.data.ChemistryMath
+                    .massToMoles(grams, parsed.molarMass) ?: return null
+                return ExecutionResult.MoleConversion(
+                    moles = converted,
+                    particles = com.jlindemann.science.ai.data.ChemistryMath.molesToParticles(converted),
+                    substance = parsed.formula,
+                    toParticles = false,
+                    grams = grams
+                )
+            }
             val molarMass = element?.quantity("atomic_mass")?.value ?: return null
             val converted = com.jlindemann.science.ai.data.ChemistryMath
                 .massToMoles(grams, molarMass) ?: return null

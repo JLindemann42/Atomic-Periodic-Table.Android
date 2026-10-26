@@ -75,6 +75,7 @@ object QuestionCorpus {
         "conversations_simple",
         "conversations_complex",
         "datasets",
+        "named_compounds",
         "must_defer",
         "capabilities",
         "cards",
