@@ -58,12 +58,41 @@ and stronger normalisation over-rewards the short ones.
 | Method | Purpose |
 |:--|:--|
 | `search` | Raw BM25 scores |
-| `searchNormalized` | Divided by the top hit — ordinal only, for threshold comparison |
+| `searchNormalized` | Divided by the top hit — ordinal only, never for a threshold |
+| `coverage` | How much of the query's content each document covers — absolute, for abstaining |
 | `mentionsUnknownTerm` | Is there a term the corpus has never seen? |
 | `sharesTermWithTitle` | Does the query touch a document title? |
 
-The last two support declining. A query containing a term nowhere in the corpus
-is more likely off-topic than poorly matched, and the engine would rather say so.
+### Coverage, and why the dataset fallback uses it (roadmap 1.1)
+
+`searchNormalized` divides by the top hit, so the best result always scores 1.0 and no threshold
+can tell a good match from the least bad one. The dataset fallback used it, and so could never
+abstain: "what is the mass of an electron" was answered from the Pauli exclusion principle, "what
+is the mass of the moon" from atomic mass.
+
+`coverage` divides by the *query* instead. For each document it reports the share of the query's
+content weight (IDF) found anywhere in it, the share found in its title, and how much of the title
+the query names. Three rules make that number honest:
+
+- **Stopwords are removed first** (`Lexicon.STOPWORDS`, English plus the query's language).
+  Reference text is declarative, so "what" appears in two documents of ~800 and outweighed
+  "electron"; IDF alone cannot discount question words. The lists were proposed by
+  `shared/tools/stopword_candidates.py` from the element descriptions and the assistant's own
+  questions, then reviewed: the frequent *domain* words it also proposes ("atomic", "metal") are
+  left out on purpose.
+- **A word the corpus has never seen counts at full weight**, so "what is the nernst equation"
+  cannot be covered by the Arrhenius equation just because both say "equation".
+- **A word is one unit.** The tokenizer emits a surface form and its stem ("joules", "joul"); they
+  count once, covered if either is present, and a Latin word is also tried with one ending removed
+  so "joules" meets a row that says "joule".
+
+`QueryPlanner` answers from the best-covered row only if it covers at least
+`MIN_DATASET_COVERAGE` (0.75) of the question, ranks by coverage, title precision, title recall,
+data table before glossary and BM25 last, and for a one-content-word query requires the word in the
+title. The rows carry the words people use for them — anion names on the solubility rows, the base
+unit on unit rows, "formula" on equations, "standard reduction" on the electrode series — and
+`Lexicon.DATASET_GLOSS` translates the tables' own vocabulary ("Konstante", "formule") as well as
+named topics, replacing the foreign words in the search string rather than appending to it.
 
 ## `Tokenizer.kt`
 

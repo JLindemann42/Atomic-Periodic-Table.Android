@@ -86,7 +86,9 @@ class DatasetIndex(rows: List<DatasetRow>) {
                 rows.add(
                     DatasetRow(
                         dataset = EQUATION, id = e.equationTitle, title = e.equationTitle,
-                        body = "${e.equationTitle} ${e.category} ${e.description}",
+                        // "Formula" and "equation", because that is what an equation is asked
+                        // for by: "formula for potential energy" (roadmap 1.1).
+                        body = "${e.equationTitle} ${e.category} formula equation ${e.description}",
                         detail = e.description, deepLink = DeepLinkTarget.EQUATIONS
                     )
                 )
@@ -148,7 +150,10 @@ class DatasetIndex(rows: List<DatasetRow>) {
                 rows.add(
                     DatasetRow(
                         dataset = INDICATOR, id = ind.name, title = ind.name.replace('_', ' '),
-                        body = "${ind.name.replace('_', ' ')} ph indicator ${ind.acidColor} ${ind.neutralColor} ${ind.alkaliColor}",
+                        // "Colour", "turn" and "range", because that is how indicators are asked
+                        // about: "what colour does phenolphthalein turn" (roadmap 1.1).
+                        body = "${ind.name.replace('_', ' ')} ph indicator ph range colour color turn turns changes " +
+                                "${ind.acidColor} ${ind.neutralColor} ${ind.alkaliColor}",
                         detail = "Acid ${ind.acid}: ${ind.acidColor} · Neutral ${ind.neutral}: ${ind.neutralColor} · Alkali ${ind.alkali}: ${ind.alkaliColor}",
                         deepLink = DeepLinkTarget.PH
                     )
@@ -159,7 +164,9 @@ class DatasetIndex(rows: List<DatasetRow>) {
                 rows.add(
                     DatasetRow(
                         dataset = ELECTRODE, id = s.short, title = s.name,
-                        body = "${s.name} ${s.short} ${s.charge} electrode potential electrochemical series",
+                        // "Standard" and "reduction": this is the standard reduction potential
+                        // table, and that is what it is asked for by (roadmap 1.1).
+                        body = "${s.name} ${s.short} ${s.charge} standard electrode potential reduction potential electrochemical series",
                         detail = "${s.charge}: ${s.voltage} V",
                         deepLink = DeepLinkTarget.ELECTRODE,
                         numericValue = s.voltage, unit = "V"
@@ -173,8 +180,10 @@ class DatasetIndex(rows: List<DatasetRow>) {
                 rows.add(
                     DatasetRow(
                         dataset = SOLUBILITY, id = column.cation, title = column.cation,
-                        body = "${column.cation} solubility soluble insoluble " +
-                                pairs.joinToString(" ") { it.first },
+                        // Anion *names* and "water", because users write "is silver chloride
+                        // soluble in water", not "Ag^+ Cl^-" (roadmap 1.1).
+                        body = "${column.cation} solubility soluble insoluble dissolve water " +
+                                pairs.joinToString(" ") { "${it.first} ${ANION_NAMES[it.first].orEmpty()}" },
                         detail = pairs.joinToString(" · ") { "${it.first} ${solubilityWord(it.second)}" },
                         deepLink = DeepLinkTarget.SOLUBILITY
                     )
@@ -196,11 +205,14 @@ class DatasetIndex(rows: List<DatasetRow>) {
             }
 
             UnitCatalog.categories.forEach { (category, units) ->
+                // The unit everything in the category converts through, named on every row:
+                // "how many joules in a calorie" names the joule, and the calorie row did not.
+                val base = units.firstOrNull { it.factor == 1.0 }?.name.orEmpty()
                 units.forEach { u ->
                     rows.add(
                         DatasetRow(
                             dataset = UNIT, id = "$category/${u.name}", title = u.name,
-                            body = "${u.name} $category unit conversion",
+                            body = "${u.name} $category unit conversion $base",
                             detail = if (category == UnitCatalog.TEMPERATURE) category
                             else "1 ${u.name} = ${u.factor} (base $category unit)",
                             deepLink = DeepLinkTarget.UNIT_CONVERTER,
@@ -249,6 +261,18 @@ class DatasetIndex(rows: List<DatasetRow>) {
                 .replace(Regex("[^a-z0-9]+"), "-")
                 .trim('-')
                 .ifEmpty { "row" }
+
+        /**
+         * The names people use for the anions the solubility table is keyed by. The table writes
+         * "Cl^-"; nobody asks whether silver Cl^- dissolves.
+         */
+        private val ANION_NAMES = mapOf(
+            "F^-" to "fluoride", "Cl^-" to "chloride", "Br^-" to "bromide", "I^-" to "iodide",
+            "OH^-" to "hydroxide", "S^2-" to "sulfide sulphide", "SO4^2-" to "sulfate sulphate",
+            "CO3^2-" to "carbonate", "NO3^-" to "nitrate", "PO4^3-" to "phosphate",
+            "CrO4^2-" to "chromate", "CH3CO2^-" to "acetate", "SO3^2-" to "sulfite sulphite",
+            "SiO3^2-" to "silicate"
+        )
 
         private fun solubilityWord(code: String): String = when (code) {
             "S" -> "soluble"

@@ -47,9 +47,21 @@ a canonical key such as `constant/electron-mass`) and *which number* the answer 
 Adding them to `datasets.tsv` found 10 of 36 dataset questions answered from the wrong row — the
 electron's mass from the Pauli exclusion principle, the Nernst equation from the Arrhenius one,
 basalt's composition from its Poisson ratio. Four have no right row at all, so those rows now expect
-a decline. All ten carry a `known_failure` reason: reported, not failing the build, until retrieval
-can abstain (roadmap 1.1); a known failure that starts passing fails the build so the mark is
-removed.
+a decline. All ten carried a `known_failure` reason: reported, not failing the build; a known
+failure that starts passing fails the build so the mark is removed.
+
+Roadmap 1.1 (coverage-scored retrieval) removed seven of them, and nineteen new rows went in with
+it, thirteen of which failed beforehand. Three remain: "what is a covalent bond" (both words are in
+"Hydrogen bond" and in "Covalent radius", so only phrase evidence could reject them), and Swedish
+and Spanish "what is electronegativity", which the concept path routes to the periodic-trend entry
+without reaching retrieval at all (roadmap 1.3).
+
+**The held-out split was consulted once during 1.1, and it changed the work.** The first version
+passed every dev row but declined three held-out ones it used to answer — an equation asked for by
+"formula", a "convert X to Y" with no number, and a German constant name. The held-out rows were not
+touched. Instead, ten new dev rows describe the same three phenomena with different questions, the
+general causes were fixed against those, and the held-out split was run once more, passing. Those
+three held-out rows are no longer a blind test of these phenomena.
 
 ## Why it exists in this shape
 

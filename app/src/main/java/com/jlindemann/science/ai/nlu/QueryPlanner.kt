@@ -878,47 +878,23 @@ class QueryPlanner(
         if ((elementKeys.isEmpty() || fieldIds.isEmpty()) &&
             com.jlindemann.science.ai.retrieval.TextMatching.splitQueryTokens(normalized).size >= MIN_DATASET_TOKENS
         ) {
-            // A query naming something the corpus has never heard of must retrieve a row that is
-            // at least *about* it. Neither test works alone: unknown words appear in perfectly good
-            // questions ("define molar mass"), and title overlap alone would not have been needed.
-            // Together they are what tells "define molar mass" from "write me a poem".
-            // The best *dataset* row, not the best row overall. "Standard electrode potential of
-            // zinc" ranks zinc itself first — of course it does, the query says zinc — and the
-            // element hit is worth nothing here: it is already known, and no field resolved to look
-            // up on it. Taking the top hit meant these questions were declined rather than answered
-            // from the table that holds them.
-            // Searched with the English name of anything the query named in another language. The
-            // reference tables are English and BM25 is lexical, so "vad är stål gjort av" matched
-            // nothing at all — the row is titled "Steel". Only the *search* string is glossed; the
-            // answer is still composed in the user's language.
-            val searchQuery = withDatasetGloss(rawQuery, normalized)
-            val hit = retriever?.search(searchQuery, DATASET_SEARCH_DEPTH)
-                ?.firstOrNull { it.ref is RetrievedRef.Dataset }
-                ?.takeUnless { mentionsSomethingUnknown(rawQuery) && !retriever.looksRelevant(searchQuery, it) }
-            val ref = hit?.ref
-            // The bar stays higher when the query names an element: the element is itself strong
-            // evidence the question is about it.
-            //
-            // Two relaxations were measured and rejected. Dropping this bar to the element-free
-            // one recovers five dataset rows and loses four must-defer rows; gating the drop on the
-            // retrieved row sharing a word with the query recovers the same five and still loses
-            // three. Both are bad trades: declining "solubility of sodium chloride" is a gap, while
-            // answering "what is the weather today" from the constants table is a wrong answer, and
-            // a wrong answer costs more than a missing one.
-            // Naming a *table topic* is the third possibility the two-way choice above missed.
-            // "Standard electrode potential of zinc" names an element, so it got the high bar — but
-            // it also names a subject no element field covers and that only the electrode table
-            // holds. That is evidence of the same kind the element is, pointing the other way, and
-            // it admits nothing the rejected relaxations did: chatter names no table.
+            // A named element keeps the question unless the query also names a *table topic*.
+            // "Tell me about gold" is about gold, and the overview answers it; "standard electrode
+            // potential of zinc" names a subject no element field covers and only the electrode
+            // table holds, which is evidence of the same kind as the element, pointing the other
+            // way. Chatter names no table. Before roadmap 1.1 the element case had a higher score
+            // bar instead, but the scores it compared were normalised to at most 0.55 and the bar was
+            // 0.6, so it was this rule in effect; it is now written as what it was.
             val namesATableTopic = Lexicon.DATASET_TOPIC_CUES.any { normalized.contains(it) }
-            val minimumScore =
-                if (elementKeys.isEmpty() || namesATableTopic) DATASET_CONFIDENCE
-                else DATASET_CONFIDENCE_WITH_ELEMENT
-            if (ref is RetrievedRef.Dataset && hit.score >= minimumScore) {
-                evidence.add("dataset ${ref.dataset}")
+            val match = if (elementKeys.isEmpty() || namesATableTopic) bestDatasetRow(normalized) else null
+            if (match != null) {
+                val separator = match.id.indexOf(':')
+                val dataset = match.id.substring(0, separator)
+                evidence.add("dataset $dataset")
+                evidence.add("coverage %.2f".format(java.util.Locale.ROOT, match.coverage))
                 return QueryPlan(
                     intent = Intent.DATASET_LOOKUP,
-                    entities = listOf(EntityRef.DatasetRow(ref.dataset, ref.id)),
+                    entities = listOf(EntityRef.DatasetRow(dataset, match.id.substring(separator + 1))),
                     confidence = 0.7,
                     rawQuery = rawQuery,
                     evidence = evidence
@@ -1177,6 +1153,55 @@ class QueryPlanner(
      * Appended rather than substituted, so the original words still contribute to the score and a
      * query that happens to contain a glossed word is not rewritten out from under itself.
      */
+    /**
+     * The reference-table row that covers the query's content, or null when none covers enough of
+     * it to answer from (roadmap 1.1).
+     *
+     * Retrieval used to rank with BM25 normalised against the top hit, so the best row always
+     * scored the same and nothing could abstain: "what is the mass of an electron" was answered from
+     * the Pauli exclusion principle, "what is the nernst equation" from the Arrhenius equation, and
+     * "what is the mass of the moon" from atomic mass. Coverage is a share of the query's own
+     * content - see [com.jlindemann.science.ai.retrieval.Bm25Index.coverage] - so one threshold
+     * means the same thing for every query, and a word the corpus has never seen counts against a
+     * match rather than being ignored.
+     *
+     * Ranked by coverage, then by how much of the row's title the query names (the mineral
+     * "Quartz" over the elastic "α-Quartz (SiO2)"), then by how much of the query is in the title
+     * ("Proton mass" over the glossary's "Proton"); a data table before the glossary when all three
+     * tie, because the tables hold values and the glossary only defines; BM25 last.
+     *
+     * A query with one content word must find it in the row's *title*. Every real one-word question
+     * names its row - "what is brass", "tell me about pyrite" - while a word that is only in a body
+     * is a coincidence: "tell me more" covered the Magnalium alloy completely, because its
+     * description says "more than cost".
+     */
+    private fun bestDatasetRow(normalized: String): com.jlindemann.science.ai.retrieval.Coverage? {
+        val retriever = retriever ?: return null
+        val stopwords = Lexicon.STOPWORDS.getValue("en") + Lexicon.STOPWORDS[entities.activeLanguage].orEmpty()
+        return retriever.datasetCoverage(datasetQuery(normalized), stopwords)
+            .filter { it.coverage >= MIN_DATASET_COVERAGE && (it.words > 1 || it.titleRecall > 0.0) }
+            .sortedWith(DATASET_RANKING)
+            .firstOrNull()
+    }
+
+    /**
+     * The query with every phrase [Lexicon.DATASET_GLOSS] knows *replaced* by its English name.
+     *
+     * The tables are English, so "vad är stål gjort av" can only reach the row titled "Steel"
+     * through the gloss. [withDatasetGloss] appends it, which suited BM25; coverage would count the
+     * Swedish words as unknown content the row does not cover, so here the gloss stands in for
+     * them. Only the search string is glossed; the answer is still composed in the user's language.
+     */
+    private fun datasetQuery(normalized: String): String {
+        var text = normalized
+        for ((phrase, english) in Lexicon.DATASET_GLOSS) {
+            if (!com.jlindemann.science.ai.retrieval.TextMatching.containsWord(text, phrase)) continue
+            text = if (phrase.any { it.code > 0x2000 }) text.replace(phrase, " $english ")
+            else Regex("""(?<![\p{L}\p{N}])${Regex.escape(phrase)}(?![\p{L}\p{N}])""").replace(text, english)
+        }
+        return text
+    }
+
     private fun withDatasetGloss(rawQuery: String, normalized: String): String {
         // On word boundaries. A plain `contains` found the Swedish word for steel, "stål", inside
         // the English "cry**stal**lographic", so "crystallographic data for iron" was glossed with
@@ -1799,7 +1824,26 @@ class QueryPlanner(
             "abundance_crustal_rocks" to "abundance_earth_crust"
         )
 
-        const val DATASET_CONFIDENCE = 0.45
+        /**
+         * The share of a query's content a reference-table row must cover to be answered from
+         * (roadmap 1.1).
+         *
+         * Read off the dev corpus. The rows that must be declined cover at most 0.66 - "what is the
+         * charge of the sulfate ion" by the glossary's "Ion", which holds two of its three words - and
+         * every row that must be answered covers all of its question once the tables carry the words
+         * people use for them (anion names, the base unit, "colour", "standard"). Set nearer the
+         * declines than the answers on purpose: a wrong answer costs more than a missing one.
+         */
+        const val MIN_DATASET_COVERAGE = 0.75
+
+        /** The order [bestDatasetRow] prefers among rows that clear [MIN_DATASET_COVERAGE]. */
+        val DATASET_RANKING: Comparator<com.jlindemann.science.ai.retrieval.Coverage> =
+            compareByDescending<com.jlindemann.science.ai.retrieval.Coverage> { it.coverage }
+                .thenByDescending { it.titlePrecision }
+                .thenByDescending { it.titleRecall }
+                .thenBy { it.id.startsWith("${DatasetIndex.DICTIONARY}:") }
+                .thenByDescending { it.bm25 }
+
         const val DEFAULT_LIST_LIMIT = 10
         const val DEFAULT_ISOTOPE_LIMIT = 8
 
@@ -1810,15 +1854,6 @@ class QueryPlanner(
          * dictionary row, both above the fallback's confidence floor.
          */
         const val MIN_DATASET_TOKENS = 3
-
-        /**
-         * How far down the ranking to look for a dataset row.
-         *
-         * Deep enough to see past the elements a question names — "solubility of sodium chloride"
-         * ranks both sodium and chlorine ahead of the solubility row — and shallow enough that a
-         * genuinely unrelated row never surfaces.
-         */
-        const val DATASET_SEARCH_DEPTH = 6
 
         /**
          * Shortest token treated as naming a topic rather than joining a sentence.
@@ -1835,15 +1870,6 @@ class QueryPlanner(
          * separately ("the noble gases"), while staying well short of a real question.
          */
         const val MAX_BARE_FAMILY_TOKENS = 3
-
-        /**
-         * The bar a dataset match must clear when the query also names an element.
-         *
-         * Higher than [DATASET_CONFIDENCE], because an element name is itself strong evidence that
-         * the question is about the element. Only a clearly better lexical match for something else
-         * should win, which is what "solubility of sodium chloride" is and "tell me about gold" is not.
-         */
-        const val DATASET_CONFIDENCE_WITH_ELEMENT = 0.6
 
         /** Shortest lexicon word that may be matched by stem rather than by whole word. */
         const val MIN_SUFFIX_MATCH = 5

@@ -14,6 +14,29 @@ data class Document(val id: String, val title: String, val body: String)
 data class SearchHit(val id: String, val title: String, val score: Double)
 
 /**
+ * How well one document covers a query's content (roadmap 1.1). Unlike a BM25 score these are
+ * absolute - a fraction of *this query's* weight - so a threshold on them means the same thing for
+ * every query, and a query nothing covers scores low instead of winning by default.
+ *
+ * @property coverage the share of the query's content weight found anywhere in the document
+ * @property titleRecall the share of the query's content weight found in the title
+ * @property titlePrecision the share of the title's weight the query names; 1.0 when the query
+ *   names everything the title says, which is what tells "tell me about quartz" the mineral row
+ *   ("Quartz") from the elastic one ("α-Quartz (SiO2)")
+ * @property bm25 the raw BM25 score, kept as the tie-break
+ * @property words how many content words the query had
+ */
+data class Coverage(
+    val id: String,
+    val title: String,
+    val coverage: Double,
+    val titleRecall: Double,
+    val titlePrecision: Double,
+    val bm25: Double,
+    val words: Int
+)
+
+/**
  * Okapi BM25 over the app's own data.
  *
  * This replaces the previous embedding search, which could never work: its query embedder
@@ -33,6 +56,8 @@ class Bm25Index(
 
     private val ids: Array<String> = Array(documents.size) { documents[it].id }
     private val titles: Array<String> = Array(documents.size) { documents[it].title }
+    private val titleTerms: Array<Set<String>> =
+        Array(documents.size) { Tokenizer.tokenize(documents[it].title, language).toHashSet() }
     private val lengths = IntArray(documents.size)
 
     /** term -> (document index -> term frequency). */
@@ -105,6 +130,117 @@ class Bm25Index(
     }
 
     /**
+     * Score every document that holds any of the query's content terms by how much of that content
+     * it covers (roadmap 1.1).
+     *
+     * [searchNormalized] divides by the top hit, so the best match always scores 1.0 and no
+     * threshold can tell a good match from the least bad one. Coverage divides by the *query*: the
+     * IDF of the content terms a document contains over the IDF of all of them. A term the corpus
+     * has never seen counts at full weight, so "what is the nernst equation" cannot be covered by
+     * the Arrhenius equation just because both say "equation".
+     *
+     * Every document holding a content term is scored, not BM25's top few: "Electron mass" is not
+     * in BM25's top six for "what is the mass of an electron", and re-ranking those could never
+     * find it.
+     *
+     * @param stopwords words that are not content, already folded; tokenized here like the query
+     * @param accept which document ids may be returned
+     * @return candidates in no particular order; ranking is the caller's policy
+     */
+    fun coverage(query: String, stopwords: Collection<String>, accept: (String) -> Boolean): List<Coverage> {
+        val stop = stopwords.flatMapTo(HashSet()) { Tokenizer.tokenize(it, language) }
+        val groups = contentWords(query, stop)
+        if (groups.isEmpty() || ids.isEmpty()) return emptyList()
+        val strictForms = Tokenizer.tokenize(query, language).toHashSet()
+
+        // A word weighs what its most specific form the corpus knows weighs; a word the corpus has
+        // never seen in any form weighs the most a term can. Only the tokenizer's own forms set the
+        // weight - the looser forms [contentWords] adds may only say the word is present.
+        val weights = groups.map { forms ->
+            forms.filter { it in strictForms && documentFrequency(it) > 0 }
+                .maxOfOrNull { inverseDocumentFrequency(documentFrequency(it)) }
+                ?: forms.filter { documentFrequency(it) > 0 }
+                    .maxOfOrNull { inverseDocumentFrequency(documentFrequency(it)) }
+                ?: inverseDocumentFrequency(0)
+        }
+        val total = weights.sum()
+        if (total <= 0.0) return emptyList()
+
+        val covered = HashMap<Int, Double>()
+        val inTitle = HashMap<Int, Double>()
+        val bm25 = HashMap<Int, Double>()
+        groups.forEachIndexed { g, forms ->
+            val w = weights[g]
+            val inDoc = HashSet<Int>()
+            val inDocTitle = HashSet<Int>()
+            for (term in forms) {
+                val bucket = postings[term] ?: continue
+                for ((docIndex, frequency) in bucket) {
+                    if (!accept(ids[docIndex])) continue
+                    inDoc.add(docIndex)
+                    if (term in titleTerms[docIndex]) inDocTitle.add(docIndex)
+                    val tf = frequency.toDouble()
+                    val norm = 1.0 - b + b * (lengths[docIndex] / averageLength.coerceAtLeast(1.0))
+                    bm25.merge(docIndex, w * tf * (k1 + 1.0) / (tf + k1 * norm), Double::plus)
+                }
+            }
+            for (docIndex in inDoc) covered.merge(docIndex, w, Double::plus)
+            for (docIndex in inDocTitle) inTitle.merge(docIndex, w, Double::plus)
+        }
+
+        val termSet = groups.flatten().toHashSet()
+        return covered.map { (docIndex, sum) ->
+            val title = titleTerms[docIndex].filter { it !in stop }
+            val titleWeight = title.sumOf { inverseDocumentFrequency(documentFrequency(it)) }
+            val named = title.filter { it in termSet }.sumOf { inverseDocumentFrequency(documentFrequency(it)) }
+            Coverage(
+                id = ids[docIndex],
+                title = titles[docIndex],
+                coverage = sum / total,
+                titleRecall = (inTitle[docIndex] ?: 0.0) / total,
+                titlePrecision = if (titleWeight > 0.0) named / titleWeight else 0.0,
+                bm25 = bm25[docIndex] ?: 0.0,
+                words = groups.size
+            )
+        }
+    }
+
+    /**
+     * The query's content words, each as the index terms it tokenizes to.
+     *
+     * [Tokenizer] emits a word's surface form and its folded stem as separate terms ("joules",
+     * "joul"). Counted separately, the surface form the corpus never wrote down weighed as an unknown
+     * word. A word and its stem are one word: covered when any form is. Han text is the exception -
+     * its terms are single characters and bigrams, not variants of one word - so each stays its own.
+     *
+     * The tokenizer folds a suffix only off words longer than five letters, so "joules" becomes
+     * "joul" while the row's "joule" stays "joule" and the two never meet. Changing that would move
+     * every BM25 score and the shared tokenizer golden files, so instead a Latin word also tries
+     * itself with one plural or inflection ending removed, whatever its length.
+     */
+    private fun contentWords(query: String, stop: Set<String>): List<List<String>> {
+        val words = ArrayList<List<String>>()
+        val seen = HashSet<String>()
+        for (word in query.split(WHITESPACE)) {
+            val forms = Tokenizer.tokenize(word, language).distinct()
+                .filter { it !in stop && it !in seen && it.none(Char::isDigit) }
+            if (forms.isEmpty()) continue
+            seen.addAll(forms)
+            val stem = forms.minBy { it.length }
+            if (!forms.all { it.startsWith(stem) }) {
+                forms.forEach { words.add(listOf(it)) }
+                continue
+            }
+            val looser = forms.flatMap { form ->
+                LOOSE_ENDINGS.filter { form.endsWith(it) && form.length - it.length >= MIN_LOOSE_STEM }
+                    .map { form.dropLast(it.length) }
+            }
+            words.add((forms + looser).distinct())
+        }
+        return words
+    }
+
+    /**
      * Probabilistic IDF with the +1 smoothing that keeps it non-negative.
      * A term in every document scores ~0, which is what makes a stopword list unnecessary.
      */
@@ -147,6 +283,14 @@ class Bm25Index(
     private companion object {
         /** Below this a shared token is a coincidence of grammar rather than of subject. */
         const val MIN_SHARED_TERM = 3
+
+        val WHITESPACE = Regex("""\s+""")
+
+        /** Endings a query word may also be tried without, for coverage only. */
+        val LOOSE_ENDINGS = listOf("es", "en", "er", "s", "e")
+
+        /** Shortest stem a loose ending may leave: "gas" must not become "ga". */
+        const val MIN_LOOSE_STEM = 4
     }
 
     /** Document frequency of a term, exposed for diagnostics and tests. */

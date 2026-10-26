@@ -32,7 +32,8 @@ data class ElementMatch(val key: ElementKey, val score: Double, val matched: Str
 class EntityResolver(
     /** Normalised surface form to alias. Built once from all available language tables. */
     private val aliases: Map<String, List<ElementAlias>>,
-    private val activeLanguage: String = "en"
+    /** The language this resolver answers in; the planner reads its stopwords off it. */
+    val activeLanguage: String = "en"
 ) {
 
     /** Symbols that are far more likely to be a scientist or unit name than an element. */

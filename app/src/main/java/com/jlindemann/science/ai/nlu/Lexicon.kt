@@ -310,6 +310,158 @@ object Lexicon {
     )
 
     /**
+     * Words that carry no subject, per language: grammar and the frame a question is asked in.
+     *
+     * Dataset retrieval scores a row by how much of the query's *content* it covers (roadmap 1.1),
+     * and these are what is not content. IDF cannot discount them on its own: the index is reference
+     * text, which is declarative, so "what" appears in two documents of ~800 and outweighed
+     * "electron" - "what is the weather today" covered the Pauli exclusion principle completely.
+     *
+     * Proposed by `shared/tools/stopword_candidates.py` from the element descriptions and the
+     * assistant's own questions, then reviewed: the frequent *domain* words it also proposes
+     * ("atomic", "element", "symbol", "metal") are deliberately absent, because they are what a
+     * dataset question is about. Folded like every other entry; the retriever tokenizes them, so
+     * they match whatever the tokenizer makes of the query. English is always applied as well,
+     * because the reference tables and the dataset gloss are English.
+     */
+    val STOPWORDS: Map<String, List<String>> = mapOf(
+        "en" to listOf(
+            "a", "an", "the", "of", "in", "on", "at", "to", "for", "from", "by", "with", "about",
+            "and", "or", "as", "into", "than", "that", "this", "these", "those", "it", "its",
+            "is", "are", "was", "were", "be", "been", "do", "does", "did", "has", "have", "had",
+            "can", "could", "would", "will", "should", "may", "might",
+            "what", "which", "who", "whom", "whose", "how", "why", "when", "where",
+            "much", "many", "some", "any",
+            "i", "me", "my", "you", "your", "we", "us", "our",
+            "tell", "show", "give", "explain", "describe", "define", "definition", "meaning", "mean",
+            "know", "like", "want", "please", "value", "s",
+            "made", "make", "consist", "consists", "use", "used", "uses",
+            "more", "else", "other", "others", "again", "also", "another", "next", "continue",
+            "further", "anything", "something", "convert"
+        ),
+        "sv" to listOf(
+            "en", "ett", "den", "det", "de", "och", "eller", "i", "pa", "av", "till", "for", "fran",
+            "med", "om", "som", "an", "att", "ar", "var", "vara", "har", "hade", "kan", "skulle",
+            "vad", "vilken", "vilket", "vilka", "vem", "hur", "varfor", "nar", "var",
+            "mycket", "manga", "jag", "mig", "du", "dig", "vi", "oss",
+            "beratta", "visa", "ge", "forklara", "beskriv", "definiera", "betyder", "betydelse",
+            "vill", "veta", "snalla", "varde", "finns", "mer",
+            "gjort", "gjord", "gjorda", "anvands", "anvander",
+            "mera", "annat", "andra", "igen", "ocksa", "nasta", "fortsatt", "nagot", "nat",
+            "omvandla", "konvertera"
+        ),
+        "de" to listOf(
+            "der", "die", "das", "den", "dem", "des", "ein", "eine", "einen", "einem", "einer",
+            "und", "oder", "in", "im", "an", "am", "auf", "zu", "zum", "zur", "von", "vom", "mit",
+            "fur", "uber", "als", "es", "ist", "sind", "war", "wird", "wurde", "hat", "haben",
+            "kann", "konnen", "was", "welche", "welcher", "welches", "wer", "wie", "warum",
+            "wann", "wo", "viel", "viele", "ich", "mir", "mich", "du", "dir", "wir",
+            "erzahl", "erzahle", "zeig", "zeige", "gib", "erklar", "erklare", "beschreibe",
+            "definiere", "bedeutet", "bedeutung", "mochte", "mochtest", "wissen", "bitte", "wert",
+            "gemacht", "besteht", "verwendet", "benutzt",
+            "mehr", "weiter", "andere", "anderes", "nochmal", "noch", "auch", "nachste", "etwas",
+            "umrechnen", "umwandeln", "rechne"
+        ),
+        "es" to listOf(
+            "el", "la", "los", "las", "un", "una", "unos", "unas", "de", "del", "al", "en", "a",
+            "con", "por", "para", "sobre", "y", "o", "que", "como", "se", "es", "son", "fue",
+            "era", "esta", "estan", "tiene", "tienen", "ha", "puede",
+            "cual", "cuales", "quien", "cuanto", "cuanta", "cuantos", "cuantas", "por que",
+            "cuando", "donde", "mi", "me", "yo", "tu", "te", "nos",
+            "dime", "muestra", "muestrame", "dame", "explica", "explicame", "describe", "define",
+            "significa", "significado", "quiero", "saber", "gustaria", "favor", "valor",
+            "hecho", "usa", "usan", "uso", "usado",
+            "mas", "otro", "otra", "otros", "otras", "tambien", "siguiente", "continua", "sigue", "algo",
+            "convertir", "convierte", "convierta"
+        ),
+        "fr" to listOf(
+            "le", "la", "les", "l", "un", "une", "des", "du", "de", "d", "au", "aux", "en", "dans",
+            "sur", "avec", "par", "pour", "et", "ou", "que", "qu", "qui", "quoi", "est", "sont",
+            "etait", "a", "ont", "peut", "il", "elle", "c", "ce", "cette",
+            "quel", "quelle", "quels", "quelles", "comment", "pourquoi", "quand", "combien",
+            "je", "me", "moi", "vous", "tu", "nous",
+            "dis", "dites", "montre", "montrez", "donne", "explique", "expliquez", "decris",
+            "definis", "signifie", "signification", "veux", "voudrais", "savoir", "plait", "valeur",
+            "fait", "faite", "utilise", "sert",
+            "plus", "autre", "autres", "encore", "aussi", "suivant", "continue", "quelque", "chose",
+            "convertir", "convertis", "convertissez"
+        ),
+        "it" to listOf(
+            "il", "lo", "la", "i", "gli", "le", "l", "un", "uno", "una", "di", "del", "della",
+            "dei", "delle", "nel", "nella", "a", "al", "alla", "da", "in", "con", "per", "su",
+            "e", "o", "che", "come", "si", "e", "sono", "era", "fu", "ha", "hanno", "puo",
+            "qual", "quale", "quali", "chi", "quanto", "quanti", "perche", "quando", "dove",
+            "mi", "me", "io", "tu", "ti", "noi", "dimmi", "mostra", "mostrami", "dammi",
+            "spiega", "spiegami", "descrivi", "definisci", "significa", "significato",
+            "voglio", "vorrei", "sapere", "favore", "valore",
+            "fatto", "fatta", "usa", "usato", "uso", "usare",
+            "piu", "altro", "altra", "altri", "ancora", "anche", "prossimo", "continua", "qualcosa",
+            "convertire", "converti", "convertisci"
+        ),
+        "pt" to listOf(
+            "o", "a", "os", "as", "um", "uma", "de", "do", "da", "dos", "das", "em", "no", "na",
+            "nos", "nas", "ao", "com", "por", "para", "sobre", "e", "ou", "que", "como", "se",
+            "e", "sao", "foi", "era", "tem", "pode",
+            "qual", "quais", "quem", "quanto", "quantos", "por que", "quando", "onde",
+            "me", "eu", "voce", "nos",
+            "diga", "mostre", "de", "explique", "descreva", "defina", "significa", "significado",
+            "quero", "gostaria", "saber", "favor", "valor",
+            "feito", "feita", "usa", "usado", "uso",
+            "mais", "outro", "outra", "outros", "tambem", "proximo", "continue", "algo",
+            "converter", "converta", "converte"
+        ),
+        "af" to listOf(
+            "die", "n", "en", "of", "in", "op", "aan", "na", "van", "vir", "met", "oor", "as",
+            "is", "was", "het", "kan", "sal", "wat", "watter", "wie", "hoe", "hoekom", "waarom",
+            "wanneer", "waar", "hoeveel", "baie", "ek", "my", "jy", "jou", "ons",
+            "vertel", "wys", "gee", "verduidelik", "beskryf", "definieer", "beteken", "betekenis",
+            "wil", "weet", "asseblief", "waarde", "dit",
+            "gemaak", "gebruik", "word",
+            "meer", "ander", "weer", "ook", "volgende", "nog", "iets",
+            "omskakel", "omsit"
+        ),
+        "fil" to listOf(
+            "ang", "ng", "sa", "si", "ni", "mga", "ay", "at", "o", "na", "ba", "may", "isang",
+            "ano", "alin", "sino", "paano", "bakit", "kailan", "saan", "ilan", "gaano",
+            "ko", "ako", "akin", "mo", "ikaw", "iyo", "natin", "namin",
+            "sabihin", "ipakita", "ibigay", "ipaliwanag", "ilarawan", "kahulugan", "ibig", "sabihin",
+            "gusto", "malaman", "alam", "pakiusap", "halaga", "tungkol", "nito", "nga", "po",
+            "gawa", "ginagamit", "gamit",
+            "pa", "iba", "ulit", "din", "rin", "susunod", "higit",
+            "i-convert", "convert", "palitan"
+        ),
+        "hi" to listOf(
+            "का", "की", "के", "को", "में", "से", "पर", "और", "या", "है", "हैं", "था", "थी", "थे",
+            "एक", "यह", "वह", "जो", "कि", "भी", "क्या", "कौन", "कौनसा", "कौन सा", "कैसे", "क्यों",
+            "कब", "कहाँ", "कितना", "कितने", "कितनी", "मैं", "मुझे", "मेरा", "आप", "आपका", "हम",
+            "बताओ", "बताइए", "बताएं", "दिखाओ", "दिखाइए", "समझाइए", "समझाओ", "परिभाषा", "मतलब",
+            "अर्थ", "चाहता", "चाहती", "चाहते", "जानना", "कृपया", "मान", "बारे",
+            "बना", "बनता", "उपयोग", "इस्तेमाल",
+            "ज़्यादा", "अधिक", "दूसरा", "दूसरे", "फिर", "अगला", "कुछ",
+            "बदलें", "बदलो", "रूपांतरित"
+        ),
+        "ur" to listOf(
+            "کا", "کی", "کے", "کو", "میں", "سے", "پر", "اور", "یا", "ہے", "ہیں", "تھا", "تھی", "تھے",
+            "ایک", "یہ", "وہ", "جو", "کہ", "بھی", "کیا", "کون", "کونسا", "کون سا", "کیسے", "کیوں",
+            "کب", "کہاں", "کتنا", "کتنے", "کتنی", "میں", "مجھے", "میرا", "آپ", "آپکا", "ہم",
+            "بتائیں", "بتاؤ", "دکھائیں", "دکھاؤ", "سمجھائیں", "تعریف", "مطلب", "معنی",
+            "چاہتا", "چاہتی", "چاہتے", "جاننا", "براہ", "کرم", "قدر", "بارے",
+            "بنا", "بنتا", "استعمال",
+            "مزید", "زیادہ", "دوسرا", "دوسرے", "پھر", "اگلا", "کچھ",
+            "تبدیل"
+        ),
+        "zh" to listOf(
+            "的", "是", "了", "吗", "呢", "吧", "在", "和", "与", "或", "有", "这", "那", "一个",
+            "什么", "哪个", "哪些", "谁", "怎么", "怎样", "如何", "为什么", "什么时候", "哪里",
+            "多少", "几", "我", "你", "您", "我们", "请", "告诉", "显示", "给", "解释", "描述",
+            "定义", "意思", "意味着", "想", "知道", "关于", "一下", "值",
+            "做", "制成", "用", "使用",
+            "更多", "其他", "别的", "还", "再", "也", "下一个",
+            "换算", "转换", "转成", "换成"
+        )
+    )
+
+    /**
      * Localized names for topics that live only in the app's English reference tables.
      *
      * The tables are English — `DatasetIndex` says so — and BM25 is lexical, so a Swedish user
@@ -345,7 +497,23 @@ object Lexicon {
         "constante des gaz" to "gas constant", "constante de los gases" to "gas constant",
         "气体常数" to "gas constant",
         "avogadros tal" to "avogadro", "avogadro zahl" to "avogadro",
-        "numero de avogadro" to "avogadro", "阿伏伽德罗常数" to "avogadro"
+        "numero de avogadro" to "avogadro", "阿伏伽德罗常数" to "avogadro",
+        // The tables' own vocabulary (roadmap 1.1). The rows above are topics; these are the words
+        // a question about *any* row is asked with. ("Convert" is not here: it frames a question
+        // rather than naming what it is about, so it is a stopword.) Without them "was ist die faraday konstante"
+        // covered half its content - "Konstante" is in no English row - and was declined, while
+        // French and Spanish "constante" only matched because the suffix fold happens to leave
+        // "constant". Words that already fold to the English one are left out.
+        "konstante" to "constant", "konstanten" to "constant", "konstant" to "constant",
+        "costante" to "constant", "costanti" to "constant", "konstanta" to "constant",
+        "स्थिरांक" to "constant", "مستقل" to "constant", "常数" to "constant", "常量" to "constant",
+        "formel" to "formula", "formeln" to "formula", "formule" to "formula", "formulas" to "formula",
+        "pormula" to "formula", "सूत्र" to "formula", "फ़ॉर्मूला" to "formula", "فارمولا" to "formula",
+        "公式" to "formula",
+        "gleichung" to "equation", "ekvation" to "equation", "ekvationen" to "equation",
+        "ecuacion" to "equation", "equazione" to "equation", "equacao" to "equation",
+        "vergelyking" to "equation", "ekwasyon" to "equation", "समीकरण" to "equation",
+        "مساوات" to "equation", "方程" to "equation", "方程式" to "equation"
     )
 
     /** Words asking for a median. */

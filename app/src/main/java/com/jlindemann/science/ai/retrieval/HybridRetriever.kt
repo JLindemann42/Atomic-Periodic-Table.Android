@@ -66,6 +66,14 @@ class HybridRetriever(
     fun looksRelevant(query: String, hit: RetrievedHit): Boolean =
         index.sharesTermWithTitle(query, hit.title)
 
+    /**
+     * Every reference-table row holding any of the query's content, scored by how much of it the row
+     * covers (roadmap 1.1). Elements are excluded: an element named in the query is resolved by
+     * [entities], never by matching its description.
+     */
+    fun datasetCoverage(query: String, stopwords: Collection<String>): List<Coverage> =
+        index.coverage(query, stopwords) { !it.startsWith("element:") }
+
     /** Search across elements and datasets, best first. */
     fun search(query: String, limit: Int = 5): List<RetrievedHit> {
         val fused = LinkedHashMap<String, RetrievedHit>()
