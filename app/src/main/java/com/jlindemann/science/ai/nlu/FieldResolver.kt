@@ -76,6 +76,15 @@ class FieldResolver(private val strings: StringProvider) {
         return singleWordAliases.any { inflects(word, it, compounds = false) }
     }
 
+    /** Every word of every alias, folded, and the fields it names: the speller's field words (roadmap 1.6). */
+    fun aliasWords(): Map<String, Set<String>> {
+        val words = HashMap<String, MutableSet<String>>()
+        for ((alias, fieldId) in aliases) {
+            for (word in alias.split(' ')) if (word.isNotEmpty()) words.getOrPut(word) { HashSet() }.add(fieldId)
+        }
+        return words
+    }
+
     private val singleWordAliases: List<String> by lazy {
         aliases.keys.filter { ' ' !in it && it.length >= 5 }
     }

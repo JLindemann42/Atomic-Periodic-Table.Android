@@ -90,7 +90,8 @@ object QuestionCorpus {
         "conversations_deep",
         "conversations_repair",
         "language",
-        "morphology"
+        "morphology",
+        "spelling"
     )
 
     /**

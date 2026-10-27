@@ -100,6 +100,14 @@ table that *includes* melting points, which satisfied `expect_fields` vacuously 
 inside the Filipino "ano " and negated every "ano ... na metal", and Afrikaans had no word for metal.
 Both are fixed. The held-out split was run once at the end and passed; it did not inform the work.
 
+**Roadmap 1.6 (spelling)** added `spelling.tsv`: sixteen misspelled questions in six languages,
+all declined before, with `expect_value` pinning the element and property each correction must
+reach; and eight guards that were declined and must stay so ("more", "sure", "nice", "what is the
+weather like", "tell me about mars"). A ninth guard, "what is the meaning of life", turned out to be
+answered already - with the half-life equation, because "meaning" is a stopword and "life" is in
+that row's title. That is a dataset-retrieval defect, not a spelling one, so it was left out of this
+file. The held-out split was run once at the end and passed; it did not inform the work.
+
 ## Why it exists in this shape
 
 **It is a scoreboard, not a tripwire.** Every row in a file is evaluated and the failures are

@@ -131,6 +131,32 @@ Rewritten words are written folded; words with digits are never touched, so the
 formulas and quantities the executor re-reads stay as written. `MorphologyTest`
 pins the rules and their guards, and Windows mirrors it.
 
+## `Speller.kt`
+
+`correct(query)` — misspellings (roadmap 1.6). Fuzzy matching used to cover element
+names only, and only for a query of one or two words (`EntityResolver.fuzzyMatch`,
+which stays), so "what is the denisty of gold" was declined. `QueryPlanner.plan`
+now asks the speller when, and only when, a question is declined with
+`NO_MATCH`, plans the corrected question, and keeps it only if it is answered from
+the element data: a correction that only a dataset row would answer is a guess on
+a guess ("tell me about mars" is one edit from "mass"), and the decline stands.
+
+A word is corrected only when it is a Latin-script word of four letters or more
+that the vocabulary (element names in every language, every field alias's words,
+the lexicon's operator words) does not know, and that is not a stopword, a "yes,
+go on" word, a `Lexicon.NEVER_CORRECTED` conversational word or a
+`DEFER_TO_PERSONALITY` word; when the nearest vocabulary words are within one edit
+(two from eight letters), a transposition counting as one; and when they all mean
+the same thing. "plomp" becomes "plomb", because "plomb" and "plomo" are both
+lead; a word between two meanings stays as written. SymSpell's deletion index buys
+speed the decline path does not need, so every candidate of a plausible length is
+measured instead.
+
+**By design it leaves alone** a typo in a question something already matched:
+"which halogn is the heaviest" is answered over every element, and "averge density
+of the noble gases" as a list, because nothing declined. Correcting answered
+questions is exactly how "more" once became boron (Windows porting notes, D47).
+
 ## `LanguageDetector.kt`
 
 `detect(message, active, byElementNames)` — which language to answer a message

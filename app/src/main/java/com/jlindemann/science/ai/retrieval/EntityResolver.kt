@@ -62,6 +62,12 @@ class EntityResolver(
      *
      * @param limit maximum number of distinct elements to return
      */
+    /** Every element name of one word, folded, in any language, and its element: the speller's names (roadmap 1.6). */
+    fun nameWords(): Map<String, ElementKey> =
+        aliases.values.flatten()
+            .filter { it.kind == ElementAlias.Kind.NAME && ' ' !in it.surface }
+            .associate { it.surface to it.key }
+
     fun resolveAll(query: String, limit: Int = 4): List<ElementMatch> {
         // A compound claims its words first: "sodium chloride" is not sodium (roadmap 1.2).
         val scan = scanCompounds(query)

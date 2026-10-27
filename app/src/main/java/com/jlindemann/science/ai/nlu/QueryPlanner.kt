@@ -41,7 +41,30 @@ class QueryPlanner(
     /** Compounds and affixed superlatives, written as their parts before anything reads the query. */
     private val morphology = Morphology(fields)
 
+    /** Misspellings, corrected when nothing else matched (roadmap 1.6). */
+    private val speller: Speller by lazy { Speller.build(entities.nameWords(), fields.aliasWords()) }
+
+    /**
+     * The plan for [query], corrected for misspelling when it would otherwise be declined.
+     *
+     * Correction runs only on a [DeclineReason.NO_MATCH]: a question something already matched is
+     * left as the user wrote it, so a typo can never move an answer that was right. The corrected
+     * question must then be answered from the element data. One that only a dataset row would
+     * answer is a guess on a guess - "tell me about mars" is one edit from "mass" - and the
+     * original decline stands.
+     */
     fun plan(query: String, state: DialogueState): QueryPlan {
+        val plan = planWords(query, state)
+        if (plan.declined != DeclineReason.NO_MATCH) return plan
+        val corrected = speller.correct(query)
+        if (corrected == query) return plan
+        val second = planWords(corrected, state)
+        val answered = second.intent != Intent.UNKNOWN && second.intent != Intent.DATASET_LOOKUP &&
+                second.confidence >= threshold
+        return if (answered) second.copy(evidence = second.evidence + "spelling: $corrected") else plan
+    }
+
+    private fun planWords(query: String, state: DialogueState): QueryPlan {
         // Everything below reads words, and "smältpunktsskillnaden" or "pinakamatigas" is one word
         // carrying two (roadmap 1.5).
         val rawQuery = morphology.expand(query)

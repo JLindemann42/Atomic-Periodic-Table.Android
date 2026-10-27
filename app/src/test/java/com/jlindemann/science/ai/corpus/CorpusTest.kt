@@ -149,6 +149,9 @@ class CorpusTest {
     /** Compounds and superlative affixes: one word carrying a property and what is asked about it. */
     @Test fun morphology() = runFile("morphology")
 
+    /** Misspellings corrected when a question would otherwise be declined, and the words never to touch. */
+    @Test fun spelling() = runFile("spelling")
+
     // ---- Runner ---------------------------------------------------------------------------------
 
     private fun runFile(name: String) {

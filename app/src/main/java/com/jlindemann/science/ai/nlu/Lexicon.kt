@@ -550,6 +550,19 @@ object Lexicon {
         "densidad" to "densest", "madensidad" to "densest"
     )
 
+    /**
+     * Conversational words the speller never corrects (roadmap 1.6), beside the stopwords, the
+     * "yes, go on" words and [DEFER_TO_PERSONALITY]. Reactions and greetings arrive constantly and
+     * name nothing, which makes them the worst possible thing to guess about: "more" became boron
+     * once already (Windows porting notes, D47). Folded, like every other entry.
+     */
+    val NEVER_CORRECTED = listOf(
+        "nice", "cool", "great", "awesome", "amazing", "wonderful", "interesting", "really", "wow",
+        "thanks", "thank", "hello", "goodbye", "love", "good", "fine", "okay", "haha", "lol",
+        "tack", "hej", "bra", "danke", "hallo", "gracias", "hola", "merci", "bonjour", "grazie",
+        "ciao", "obrigado", "obrigada", "dankie", "salamat", "kumusta", "shukriya", "namaste"
+    )
+
     /** Leading words that mark a query as a filtered list rather than a lookup. */
     val WHICH = listOf(
         "which", "what", "list", "show me", "find", "all",
