@@ -38,7 +38,14 @@ class QueryPlanner(
     /** Plans at or above this confidence are used; below it the caller falls back. */
     val threshold: Double get() = CONFIDENCE_THRESHOLD
 
-    fun plan(rawQuery: String, state: DialogueState): QueryPlan {
+    /** Compounds and affixed superlatives, written as their parts before anything reads the query. */
+    private val morphology = Morphology(fields)
+
+    fun plan(query: String, state: DialogueState): QueryPlan {
+        // Everything below reads words, and "smältpunktsskillnaden" or "pinakamatigas" is one word
+        // carrying two (roadmap 1.5).
+        val rawQuery = morphology.expand(query)
+
         // Some concepts have no backing field — reactivity is derived from group and position
         // rather than stored — so planning over them would answer the wrong question. Decline
         // and let the handler that actually models the concept take it.

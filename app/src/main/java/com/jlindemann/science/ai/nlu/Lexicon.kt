@@ -524,6 +524,32 @@ object Lexicon {
         "माध्यिका", "وسطی"
     )
 
+    /**
+     * Words that close a compound whose first part names the property, without changing what is
+     * asked about it (roadmap 1.5): "elektronegativitets**värdet**", "kokpunkts**temperatur**",
+     * "Dichte**unterschied**". `Morphology` splits a compound only into words it knows, and these are
+     * the known words that are neither a field nor a statistic.
+     */
+    val COMPOUND_HEADS = listOf(
+        "varde", "temperatur", "skillnad",
+        "wert", "unterschied", "differenz",
+        "waarde", "temperatuur", "verskil"
+    )
+
+    /**
+     * Adjectives a superlative affix attaches to, and the superlative the lexicon knows each by
+     * (roadmap 1.5). Afrikaans adds -ste ("hardste", "ligste"); Filipino prefixes pinaka-
+     * ("pinakamatigas"), with the linker -ng before a noun. Only the stems that imply a property are
+     * here: "hoogste" and "pinakamataas" say which way, not what, and are listed in [MOST] whole.
+     */
+    val SUPERLATIVE_STEMS: Map<String, String> = mapOf(
+        "hard" to "hardest", "sag" to "softest", "lig" to "lightest", "swaar" to "heaviest",
+        "dig" to "densest", "warm" to "hottest", "elektronegatief" to "most electronegative",
+        "matigas" to "hardest", "malambot" to "softest", "mabigat" to "heaviest",
+        "siksik" to "densest", "masiksik" to "densest", "mainit" to "hottest",
+        "densidad" to "densest", "madensidad" to "densest"
+    )
+
     /** Leading words that mark a query as a filtered list rather than a lookup. */
     val WHICH = listOf(
         "which", "what", "list", "show me", "find", "all",
@@ -1499,7 +1525,7 @@ object Lexicon {
     )
 
     /** Words selecting every metal, regardless of which metal series. */
-    val METAL_WORDS = listOf("metal", "metals", "metall", "metaller", "metalle", "metales", "metaux", "metalli", "metais", "金属")
+    val METAL_WORDS = listOf("metal", "metals", "metall", "metaller", "metalle", "metales", "metaux", "metalli", "metais", "metaal", "metale", "金属")
 
     val BLOCK_WORDS: Map<String, Block> = mapOf(
         "s-block" to Block.S, "s block" to Block.S,

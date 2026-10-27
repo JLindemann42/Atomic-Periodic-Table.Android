@@ -146,6 +146,9 @@ class CorpusTest {
     /** Which language each message is answered in, the one decision every other file presets. */
     @Test fun language() = runFile("language")
 
+    /** Compounds and superlative affixes: one word carrying a property and what is asked about it. */
+    @Test fun morphology() = runFile("morphology")
+
     // ---- Runner ---------------------------------------------------------------------------------
 
     private fun runFile(name: String) {
@@ -289,9 +292,17 @@ class CorpusTest {
         return null
     }
 
-    /** The one number an answer stands on, for `expect_value`. */
+    /**
+     * The one number an answer stands on, for `expect_value`. For a ranking it is the first
+     * element's, which is what pins a superlative's direction; for a comparison, the largest value
+     * of the first field compared, which is what tells a comparison of melting points from the
+     * default table that merely includes them, whatever order the elements come in (roadmap 1.5).
+     */
     private fun valueOf(result: ExecutionResult): Double? = when (result) {
         is ExecutionResult.Property -> result.quantity?.value
+        is ExecutionResult.ElementList -> result.results.firstOrNull()?.quantity?.value
+        is ExecutionResult.Comparison ->
+            result.fieldIds.firstOrNull()?.let { result.values[it] }?.mapNotNull { it.quantity?.value }?.maxOrNull()
         is ExecutionResult.Dataset -> result.row.numericValue
         is ExecutionResult.Aggregate -> result.value
         is ExecutionResult.Formula -> result.result.molarMass

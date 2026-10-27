@@ -89,7 +89,8 @@ object QuestionCorpus {
         "conversations_multi",
         "conversations_deep",
         "conversations_repair",
-        "language"
+        "language",
+        "morphology"
     )
 
     /**

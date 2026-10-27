@@ -104,6 +104,33 @@ Three planner rules changed with the translated titles (see `retrieval.md`):
   ("dell'", "nell'") are stopwords, because the tokenizer splits on the
   apostrophe and "dell" was unknown content.
 
+## `Morphology.kt`
+
+`expand(query)` — compounds and affixed superlatives, written as the words they
+are made of (roadmap 1.5). `QueryPlanner.plan` runs it first, so every matcher
+below sees "smaltpunkt skillnaden" rather than "smältpunktsskillnaden". Three
+rules, each splitting a word only into parts it knows, and each leaving alone a
+word already known with its property:
+
+- **Compounds.** A word that is no known word is split in two when the first part
+  is a field's name or a statistic (`FieldResolver.isFieldWord`, `Lexicon.AVERAGE`,
+  `MEDIAN`, `SUM`), the rest is a known word with a short ending
+  (`FieldResolver.knowsWord`, a statistic, or `Lexicon.COMPOUND_HEADS`: value,
+  temperature and difference in Swedish, German and Afrikaans), and at most a
+  linking `s` stands between: "smältpunkts|skillnaden", "Durchschnitts|dichte",
+  "medel|tätheten". "atommassan" and "natriumklorid" are never split: one is a known
+  word, the other has no known part.
+- **Afrikaans -ste.** "ligste" becomes the superlative `Lexicon.SUPERLATIVE_STEMS`
+  knows its stem by, "lightest"; a stem that is a field's name becomes "most" and
+  the stem. Forms listed whole with their property, "swaarste", stay as they are.
+- **Filipino pinaka-.** The same, after the hyphen and the linker (-ng, -g) are
+  dropped: "pinakamababang" is the listed "pinakamababa", "pinakamatigas" is
+  "hardest", "pinakaelectronegative" is "most electronegative".
+
+Rewritten words are written folded; words with digits are never touched, so the
+formulas and quantities the executor re-reads stay as written. `MorphologyTest`
+pins the rules and their guards, and Windows mirrors it.
+
 ## `LanguageDetector.kt`
 
 `detect(message, active, byElementNames)` — which language to answer a message

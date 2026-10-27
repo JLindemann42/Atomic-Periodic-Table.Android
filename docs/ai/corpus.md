@@ -90,6 +90,16 @@ replays every other row as a check on what detection must not do:
 The held-out split was run once at the end and passed both (no switches; 96.7% recognised), so it
 did not inform this work either.
 
+**Roadmap 1.5 (morphology)** added `morphology.tsv`: compounds in Swedish, German and Afrikaans,
+and the Afrikaans -ste and Filipino pinaka- superlatives: 32 rows, eight of them guards, and all 24
+others failed before. Six of those passed the harness at first for the wrong reason, so
+`expect_value` now also reads the first value of a ranking (pinning a superlative's direction) and
+the largest value of the first property compared: a comparison without a property shows a default
+table that *includes* melting points, which satisfied `expect_fields` vacuously for five rows, and
+"mediandensiteten" was answered with the average, which only the value showed. The rows also brought out two defects that were not morphology: "no " was found
+inside the Filipino "ano " and negated every "ano ... na metal", and Afrikaans had no word for metal.
+Both are fixed. The held-out split was run once at the end and passed; it did not inform the work.
+
 ## Why it exists in this shape
 
 **It is a scoreboard, not a tripwire.** Every row in a file is evaluated and the failures are
