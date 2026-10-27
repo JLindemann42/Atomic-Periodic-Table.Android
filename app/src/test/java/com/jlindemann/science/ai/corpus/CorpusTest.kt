@@ -17,10 +17,12 @@ import org.junit.Test
  * corpus useless for the thing it is for — seeing how wide a defect is, and watching a number move
  * as it gets fixed.
  *
- * Two pseudo-intents are recognised in `expect_intent`, because clause splitting is a decision made
- * before any intent exists:
+ * Three pseudo-intents are recognised in `expect_intent`, for decisions made before any intent
+ * exists:
  *  - `COMPOUND` — the query must split into clauses and the engine must answer it
  *  - `NOSPLIT` — the query must *not* split; this is the guard on "compare gold and silver"
+ *  - `LANGUAGE` — the message must be detected as the row's `lang`, starting from the language the
+ *    session's previous turn was answered in (roadmap 1.4)
  */
 class CorpusTest {
 
@@ -141,6 +143,9 @@ class CorpusTest {
      */
     @Test fun reported() = runFile("reported")
 
+    /** Which language each message is answered in, the one decision every other file presets. */
+    @Test fun language() = runFile("language")
+
     // ---- Runner ---------------------------------------------------------------------------------
 
     private fun runFile(name: String) {
@@ -183,6 +188,13 @@ class CorpusTest {
 
     /** @return a description of what went wrong, or null when the case passed. */
     private fun evaluate(case: CorpusCase, state: DialogueState): String? {
+        if (case.expectIntent == "LANGUAGE") {
+            val detected = CorpusHarness.detectLanguage(case.query, state.activeLanguage)
+            state.activeLanguage = detected
+            return if (detected == case.lang) null
+            else "'${case.query}' was detected as $detected, expected ${case.lang}"
+        }
+
         val stack = CorpusHarness.stackFor(case.lang)
 
         when (case.expectIntent) {

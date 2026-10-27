@@ -38,7 +38,7 @@ flowchart TD
 
     AM --> RL[AIRateLimiter gate]
     RL --> CO["ChatOrchestrator.ask()"]
-    CO --> LD[EntityResolver.detectLanguage]
+    CO --> LD[RetrievalService.detectLanguage]
     LD --> ENG["AiEngine.answer(query, state)"]
 
     subgraph Engine["Structured engine"]
@@ -74,9 +74,10 @@ daily message quota (16 free, 64 PRO, unlimited PRO+), keyed to the local
 calendar day, before anything is answered.
 
 **2 — Language detection.** `ChatOrchestrator` asks
-`EntityResolver.detectLanguage`, which credits a language for each element name
-in the message that only that language uses. A higher-scoring language switches
-the response language for that message; a tie keeps the current one.
+`RetrievalService.detectLanguage`: a character-trigram model (`LanguageDetector`,
+roadmap 1.4) judges the message's words, and element names decide a one-word
+message and break a near-tie. A language switches the response language for that
+message only when it clearly beats the one in play; otherwise the current one stays.
 
 **3 — Clause splitting.** `ClauseSplitter` splits genuinely compound questions
 ("density of gold and how does it compare to lead") — but only when the tail

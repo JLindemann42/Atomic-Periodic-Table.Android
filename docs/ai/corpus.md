@@ -75,6 +75,21 @@ electronegativity rows, whose known-failure marks are gone. That leaves one know
 file, "what is a covalent bond". The held-out split was run once at the end and passed with no
 change, so it did not inform this work.
 
+**Roadmap 1.4 (language detection)** added `language.tsv`, the first file to test detection: every
+other file declares its rows' language, so none of them ever exercised it. Its 53 rows passed 22 of
+53 with element names alone and pass in full with the trigram model. `LanguageDetectionTest` then
+replays every other row as a check on what detection must not do:
+
+- **No row may be switched away from its own language** when asked in it. This is a gate, and it
+  is what chose the margins: without the per-word clip and with a small switch margin, 36 rows
+  switched ("densest noble gas" to French, "y en fahrenheit" to German).
+- **Replayed as conversations opened in English, at least 95% must be recognised.** Element names
+  alone managed 68% of the dev split; the model manages 97%. One-word greetings and bare element
+  names are most of the rest, and are rightly not enough to switch on.
+
+The held-out split was run once at the end and passed both (no switches; 96.7% recognised), so it
+did not inform this work either.
+
 ## Why it exists in this shape
 
 **It is a scoreboard, not a tripwire.** Every row in a file is evaluated and the failures are
@@ -103,9 +118,11 @@ Tab-separated, `#` comments, ten columns:
 id	session	turn	lang	query	expect_intent	expect_fields	expect_card	must_defer	notes
 ```
 
-- `expect_intent` — an `Intent` name, or blank/`*` for "any claimed intent". Two pseudo-intents
-  cover clause splitting, which is decided before any intent exists: `COMPOUND` (must split and be
-  answered) and `NOSPLIT` (must stay whole).
+- `expect_intent` — an `Intent` name, or blank/`*` for "any claimed intent". Three pseudo-intents
+  cover decisions made before any intent exists: `COMPOUND` (must split and be answered),
+  `NOSPLIT` (must stay whole) and `LANGUAGE` (the message must be detected as the row's `lang`,
+  starting from the language the session's previous turn was answered in; a session starts in
+  English).
 - `expect_fields` — comma-separated field ids that must **all** appear in `plan.fieldIds`.
 - `expect_card` — a `ChatCardKind`, `none`, or blank. Authored now, enforced once the card layer
   lands (`CorpusTest.enforceCards`).

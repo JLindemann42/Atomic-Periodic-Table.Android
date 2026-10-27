@@ -50,7 +50,7 @@ AiChatAgent.generateResponse()             Android: limits, strings, telemetry
     │
     ▼
 ChatOrchestrator.ask()                     platform-free, JVM-tested
-    ├── Language detection                 (EntityResolver.detectLanguage)
+    ├── Language detection                 (RetrievalService.detectLanguage → LanguageDetector)
     ├── Open quiz question?                (ElementQuiz)
     │
     ├── STRUCTURED ENGINE                  (AiEngine) — always asked first
@@ -207,9 +207,10 @@ covered by JVM tests over the real data (`ai/chat/*Test.kt`).
 | `profile` | The `InterestProfile`, which the host saves and restores. |
 | `language` | The language the last message was answered in. |
 
-**Language** is detected per message, not per session: `EntityResolver.detectLanguage` credits a
-language only for an element name that language alone uses ("guld" is Swedish evidence; "gold",
-shared by English, German and Afrikaans, is evidence for none), and a tie keeps the current one.
+**Language** is detected per message, not per session, by `RetrievalService.detectLanguage`: a
+character-trigram model (`LanguageDetector`, roadmap 1.4) judges a message of two or more words, and
+element names decide a one-word message and break a near-tie. A language takes over only when it
+beats the one in play by a clear margin; see *Auto-detection* below.
 
 **Engines** are built per language on demand and rebuilt when the entitlements or the offline
 setting change, so a purchase takes effect on the next message.
@@ -443,7 +444,7 @@ which lists files matching `elements_*.json` in the assets root.
 
 ### How language switching works
 
-1. User changes language in settings **or** the agent auto-detects a language from element names.
+1. User changes language in settings **or** the agent auto-detects the language of a message.
 2. The orchestrator's `state.activeLanguage` changes; nothing is persisted, since the next
    message is detected afresh.
 3. Strings come from a `ConfigurationContext` with the new locale, so property labels and
@@ -459,10 +460,24 @@ which lists files matching `elements_*.json` in the assets root.
 
 ### Auto-detection
 
-When the user types a message, `EntityResolver.detectLanguage(query, active)` credits each
-language for the element names in the query that only that language uses. The language with the
-highest score wins. On ties, the current active language is preferred to avoid spurious switches,
-and English loses a tie it is only in by coincidence.
+Element names alone carried no signal for a question naming no element, so "hur många ädelgaser
+finns det" was answered in English. Since roadmap 1.4, `RetrievalService.detectLanguage(message,
+active)` asks `LanguageDetector`, a naive Bayes model over the character trigrams of each word.
+Its counts are `shared/language/trigrams.tsv`, which `LanguageModelGoldenTest` builds from the app
+strings, `Lexicon.STOPWORDS`, the element descriptions (less any sentence still in English) and the
+dataset titles, never from the corpus. The Windows app reads the same file.
+
+- Features are the trigrams of each word, lowercased, NFKC-normalised and padded with spaces, with
+  accents kept. Chemical formulas and the unit names in `Lexicon.UNIT_WORDS` are not words of any
+  language, and each Han character is a word of its own.
+- Each word votes, and no word decides: a language loses at most `WORD_CLIP` nats on one word, so
+  "y en fahrenheit" no longer outvotes Spanish with German-looking letters.
+- A message of one word goes to `EntityResolver.detectLanguage`, the old element-name tally: "guld"
+  is Swedish, "gold" keeps whatever language is in play. The same tally breaks a near-tie between
+  the two best languages.
+- A language takes over only when it beats the one in play by `SWITCH_MARGIN` nats. Both margins
+  were measured on the dev corpus (see `corpus.md`), where no row is switched away from its own
+  language.
 
 ---
 

@@ -12,6 +12,7 @@ import com.jlindemann.science.ai.data.LocalizedView
 import com.jlindemann.science.ai.data.TestAssets
 import com.jlindemann.science.ai.exec.QueryExecutor
 import com.jlindemann.science.ai.nlu.FieldResolver
+import com.jlindemann.science.ai.nlu.LanguageDetector
 import com.jlindemann.science.ai.nlu.QueryPlanner
 import com.jlindemann.science.ai.retrieval.Bm25Index
 import com.jlindemann.science.ai.retrieval.ElementAlias
@@ -84,6 +85,17 @@ object CorpusHarness {
     }
 
     fun stackFor(language: String): Stack = stacks.getOrPut(language) { build(language) }
+
+    val languageDetector: LanguageDetector? by lazy { LanguageDetector.parse(TestAssets.text("trigrams.tsv")) }
+
+    /** The language a message is answered in, decided as `RetrievalService.detectLanguage` decides it. */
+    fun detectByNames(message: String, active: String): String =
+        EntityResolver(aliases, active).detectLanguage(message, active)
+
+    fun detectLanguage(message: String, active: String): String {
+        val byNames = { m: String, a: String -> EntityResolver(aliases, a).detectLanguage(m, a) }
+        return languageDetector?.detect(message, active, byNames) ?: byNames(message, active)
+    }
 
     private fun build(language: String): Stack {
         val store = baseStore

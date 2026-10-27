@@ -49,7 +49,7 @@ class CorpusCoverageTest {
 
     @Test
     fun everyExpectedIntentIsRealOrAPseudoIntent() {
-        val known = Intent.values().map { it.name }.toSet() + setOf("COMPOUND", "NOSPLIT")
+        val known = Intent.values().map { it.name }.toSet() + setOf("COMPOUND", "NOSPLIT", "LANGUAGE")
         val unknown = all.mapNotNull { case ->
             case.expectIntent?.takeIf { it !in known }?.let { "${case.where} -> $it" }
         }

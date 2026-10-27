@@ -109,7 +109,7 @@ class ChatOrchestrator(
 
         // Per message, not per session: a thread can switch language and each turn is answered in
         // the language it was asked in.
-        state.activeLanguage = retrieval.resolver(state.activeLanguage).detectLanguage(message, state.activeLanguage)
+        state.activeLanguage = retrieval.detectLanguage(message, state.activeLanguage)
         val language = state.activeLanguage
         val strings = stringsFor(language)
         val engine = engineFor(language)

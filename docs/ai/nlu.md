@@ -104,6 +104,16 @@ Three planner rules changed with the translated titles (see `retrieval.md`):
   ("dell'", "nell'") are stopwords, because the tokenizer splits on the
   apostrophe and "dell" was unknown content.
 
+## `LanguageDetector.kt`
+
+`detect(message, active, byElementNames)` — which language to answer a message
+in (roadmap 1.4). A naive Bayes model over the character trigrams of each word,
+read from `shared/language/trigrams.tsv` and built by `LanguageModelGoldenTest`
+(`-Pgolden.update=true` regenerates it after the strings, stopwords, element
+descriptions or dataset titles change). `architecture.md` describes the decision
+rule; `LanguageDetectorTest` pins the feature extraction, which Windows mirrors
+exactly because both apps read the one model.
+
 ## `FieldResolver.kt`
 
 `resolveAll(query, limit): List<FieldMatch>` — which property is being asked
@@ -235,3 +245,7 @@ specifically:
    stripping. A new script may need work there — see [Retrieval](retrieval).
 5. Translate the field labels in `strings.xml`. That gives you field aliases for
    free.
+6. Add the language's `STOPWORDS` and a `shared/datasets/titles_{lang}.tsv`, then
+   regenerate the language model with `LanguageModelGoldenTest`
+   (`-Pgolden.update=true`) so the detector knows the language. A non-Latin script
+   needs no other work there; a Latin one is also trained without its accents.

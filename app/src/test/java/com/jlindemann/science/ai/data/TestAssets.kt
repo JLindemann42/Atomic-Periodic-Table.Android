@@ -24,11 +24,12 @@ object TestAssets {
     }
 
     /**
-     * A text file from the shared data's `datasets/` folder - `titles_sv.tsv` (roadmap 1.3) - or
-     * null when there is none, as the app's asset source does.
+     * A text file from the shared data's `datasets/` or `language/` folder - `titles_sv.tsv`
+     * (roadmap 1.3), `trigrams.tsv` (1.4) - or null when there is none, as the app's asset source
+     * does.
      */
     fun text(name: String): String? =
-        listOf(File("../shared/datasets"), File("shared/datasets"))
+        listOf("datasets", "language").flatMap { listOf(File("../shared/$it"), File("shared/$it")) }
             .map { File(it, name) }
             .firstOrNull { it.isFile }
             ?.readText(Charsets.UTF_8)

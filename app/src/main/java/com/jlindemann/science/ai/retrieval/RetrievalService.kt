@@ -7,6 +7,7 @@ import com.jlindemann.science.ai.data.ElementKey
 import com.jlindemann.science.ai.data.ElementSource
 import com.jlindemann.science.ai.data.KnowledgeStore
 import com.jlindemann.science.ai.data.LocalizedView
+import com.jlindemann.science.ai.nlu.LanguageDetector
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -41,6 +42,18 @@ class RetrievalService private constructor(
     /** The entity resolver for a language, built on first use. */
     fun resolver(language: String): EntityResolver =
         resolvers.getOrPut(language) { EntityResolver(sharedAliases(), language) }
+
+    /** The trigram model (roadmap 1.4), or null when the asset is missing. */
+    private val languageDetector: LanguageDetector? by lazy { LanguageDetector.parse(source.text("trigrams.tsv")) }
+
+    /**
+     * The language to answer [message] in, starting from [active]: by its letters, with element
+     * names as the tie-breaker, and by element names alone when there is no model.
+     */
+    fun detectLanguage(message: String, active: String): String {
+        val byNames = { m: String, a: String -> resolver(a).detectLanguage(m, a) }
+        return languageDetector?.detect(message, active, byNames) ?: byNames(message, active)
+    }
 
     private fun sharedAliases(): Map<String, List<ElementAlias>> {
         aliases?.let { return it }

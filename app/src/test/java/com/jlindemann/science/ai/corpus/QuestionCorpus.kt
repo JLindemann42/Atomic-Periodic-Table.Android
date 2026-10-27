@@ -88,7 +88,8 @@ object QuestionCorpus {
         "multilingual_operators",
         "conversations_multi",
         "conversations_deep",
-        "conversations_repair"
+        "conversations_repair",
+        "language"
     )
 
     /**
