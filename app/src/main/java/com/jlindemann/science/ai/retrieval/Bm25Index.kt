@@ -31,6 +31,9 @@ data class SearchHit(val id: String, val title: String, val score: Double)
  *   ("Quartz") from the elastic one ("α-Quartz (SiO2)")
  * @property bm25 the raw BM25 score, kept as the tie-break
  * @property words how many content words the query had
+ * @property namesTitle whether the query names every word of the title, in one of its wordings;
+ *   a formula in brackets is notation, not a word, so "periclase" names "Periclase (MgO)" while
+ *   "life" does not name "Half-Life"
  */
 data class Coverage(
     val id: String,
@@ -39,7 +42,8 @@ data class Coverage(
     val titleRecall: Double,
     val titlePrecision: Double,
     val bm25: Double,
-    val words: Int
+    val words: Int,
+    val namesTitle: Boolean = false
 )
 
 /**
@@ -65,6 +69,19 @@ class Bm25Index(
     /** Each document's title and alternative titles, tokenized separately. */
     private val titleVariants: Array<List<Set<String>>> = Array(documents.size) { i ->
         (listOf(documents[i].title) + documents[i].altTitles).map { Tokenizer.tokenize(it, language).toHashSet() }
+    }
+
+    /**
+     * Each title wording as its words, each word as the terms it tokenizes to, with any bracketed
+     * formula left out. A hyphen separates words here, as it does for the tokenizer: "Half-Life" is
+     * two words, and naming one of them is not naming the title.
+     */
+    private val titleWords: Array<List<List<Set<String>>>> = Array(documents.size) { i ->
+        (listOf(documents[i].title) + documents[i].altTitles).map { title ->
+            BRACKETED.replace(title, " ").split(NON_WORD).filter { it.isNotEmpty() }
+                .map { Tokenizer.tokenize(it, language).toHashSet() }
+                .filter { it.isNotEmpty() }
+        }
     }
 
     /** Every title term of a document, in any variant. */
@@ -215,7 +232,11 @@ class Bm25Index(
                 titleRecall = (inTitle[docIndex] ?: 0.0) / total,
                 titlePrecision = titlePrecision,
                 bm25 = bm25[docIndex] ?: 0.0,
-                words = groups.size
+                words = groups.size,
+                namesTitle = titleWords[docIndex].any { wording ->
+                    val content = wording.filter { forms -> forms.any { it !in stop } }
+                    content.isNotEmpty() && content.all { forms -> forms.any { it in termSet } }
+                }
             )
         }
     }
@@ -311,6 +332,12 @@ class Bm25Index(
         const val MIN_SHARED_TERM = 3
 
         val WHITESPACE = Regex("""\s+""")
+
+        /** A formula or note in brackets: "(SiO2)", "(radioactive decay)". */
+        val BRACKETED = Regex("""\([^)]*\)""")
+
+        /** What separates the words of a title. */
+        val NON_WORD = Regex("""[^\p{L}\p{M}\p{N}]+""")
 
         /** Endings a query word may also be tried without, for coverage only. */
         val LOOSE_ENDINGS = listOf("es", "en", "er", "s", "e")

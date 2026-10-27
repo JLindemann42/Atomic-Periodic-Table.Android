@@ -1244,16 +1244,18 @@ class QueryPlanner(
      * ("Proton mass" over the glossary's "Proton"); a data table before the glossary when all three
      * tie, because the tables hold values and the glossary only defines; BM25 last.
      *
-     * A query with one content word must find it in the row's *title*. Every real one-word question
-     * names its row - "what is brass", "tell me about pyrite" - while a word that is only in a body
-     * is a coincidence: "tell me more" covered the Magnalium alloy completely, because its
-     * description says "more than cost".
+     * A query with one content word must name the row's whole *title*, in one of its wordings. Every
+     * real one-word question does - "what is brass", "tell me about pyrite" - while a word that is
+     * only in a body is a coincidence ("tell me more" covered the Magnalium alloy, whose description
+     * says "more than cost"), and so is a word that is only part of a title: "what is the meaning of
+     * life" was answered with the half-life equation, "what is light" with the speed of light. A
+     * formula in brackets is notation, so "tell me about periclase" still finds "Periclase (MgO)".
      */
     private fun bestDatasetRow(normalized: String): com.jlindemann.science.ai.retrieval.Coverage? {
         val retriever = retriever ?: return null
         val stopwords = Lexicon.STOPWORDS.getValue("en") + Lexicon.STOPWORDS[entities.activeLanguage].orEmpty()
         return retriever.datasetCoverage(datasetQuery(normalized), stopwords)
-            .filter { it.coverage >= MIN_DATASET_COVERAGE && (it.words > 1 || it.titleRecall > 0.0) }
+            .filter { it.coverage >= MIN_DATASET_COVERAGE && (it.words > 1 || it.namesTitle) }
             .sortedWith(DATASET_RANKING)
             .firstOrNull()
     }

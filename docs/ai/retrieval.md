@@ -90,8 +90,13 @@ the query names. Three rules make that number honest:
 
 `QueryPlanner` answers from the best-covered row only if it covers at least
 `MIN_DATASET_COVERAGE` (0.75) of the question, ranks by coverage, title precision, title recall,
-data table before glossary and BM25 last, and for a one-content-word query requires the word in the
-title. The rows carry the words people use for them — anion names on the solubility rows, the base
+data table before glossary and BM25 last, and for a one-content-word query requires the word to name
+the row's whole title in one of its wordings (`Coverage.namesTitle`). Being *in* the title was not
+enough: "what is the meaning of life" was answered with the half-life equation and "what is light"
+with the speed of light. A formula in brackets is notation, not a word, so "tell me about periclase"
+still finds "Periclase (MgO)". The price is a decline for a one-word question whose answer has a
+longer title - "what is charge", "what is avogadro" - which the margins could not separate from
+"what is speed" (title precision 0.63 and 0.64 against 0.54). The rows carry the words people use for them — anion names on the solubility rows, the base
 unit on unit rows, "formula" on equations, "standard reduction" on the electrode series — and
 `Lexicon.DATASET_GLOSS` translates the tables' own vocabulary ("Konstante", "formule") as well as
 named topics, replacing the foreign words in the search string rather than appending to it.

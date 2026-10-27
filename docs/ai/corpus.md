@@ -108,6 +108,13 @@ answered already - with the half-life equation, because "meaning" is a stopword 
 that row's title. That is a dataset-retrieval defect, not a spelling one, so it was left out of this
 file. The held-out split was run once at the end and passed; it did not inform the work.
 
+That defect was fixed next, with ten `datasets.tsv` rows: six one-word questions that named part of
+a title and were answered from it ("what is life", "what is light", "what is speed", "what is a
+law", "what is a constant"), now declined, and four guards that must still answer, among them
+"tell me about periclase", whose title "Periclase (MgO)" carries a formula. A one-content-word
+question must now name a row's whole title; see `retrieval.md`. The held-out split was run once at
+the end and passed.
+
 ## Why it exists in this shape
 
 **It is a scoreboard, not a tripwire.** Every row in a file is evaluated and the failures are
