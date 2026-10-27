@@ -87,6 +87,23 @@ anything else it is asked about (`DeclineReason.COMPOUND_PROPERTY`): the app hol
 no compound properties. A compound whose words are part of a field's own name
 ("sea water") is not treated as one.
 
+### Non-English dataset questions (roadmap 1.3)
+
+Three planner rules changed with the translated titles (see `retrieval.md`):
+
+- **A definition gets the definition.** The explanation topics map to the
+  periodic-trend glossary entries, which answer "why does electronegativity
+  increase". A "what is" question now takes the plain entry ("Electronegativity")
+  when the glossary has one; before, every language whose word reached this path
+  got the trend.
+- **Han queries are measured in characters.** The dataset fallback needs three
+  words, and unspaced 动能的公式 is one, so it never reached retrieval. Han text
+  needs four characters (`MIN_DATASET_HAN_CHARS`), the clause splitter's floor.
+- **Request frames are stopwords in every language.** "parle-moi", "háblame",
+  "parlami" and "fale" joined "tell" and "berätta", and Italian elided articles
+  ("dell'", "nell'") are stopwords, because the tokenizer splits on the
+  apostrophe and "dell" was unknown content.
+
 ## `FieldResolver.kt`
 
 `resolveAll(query, limit): List<FieldMatch>` — which property is being asked

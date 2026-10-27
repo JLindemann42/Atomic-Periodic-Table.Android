@@ -29,6 +29,12 @@ interface ElementSource {
 
     /** The table for a language, or null when it cannot be loaded. */
     fun load(language: String): ElementTable?
+
+    /**
+     * A text file shipped beside the element tables, such as `titles_sv.tsv` (roadmap 1.3), or
+     * null when there is none.
+     */
+    fun text(name: String): String? = null
 }
 
 /** In-memory [ElementSource] for unit tests and previews. */

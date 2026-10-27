@@ -85,6 +85,8 @@ the query names. Three rules make that number honest:
 - **A word is one unit.** The tokenizer emits a surface form and its stem ("joules", "joul"); they
   count once, covered if either is present, and a Latin word is also tried with one ending removed
   so "joules" meets a row that says "joule".
+- **A Han bigram across a function character is not a word.** 动能的公式 also yields 能的 and 的公;
+  when no document contains such a bigram it is dropped instead of counting as unknown content.
 
 `QueryPlanner` answers from the best-covered row only if it covers at least
 `MIN_DATASET_COVERAGE` (0.75) of the question, ranks by coverage, title precision, title recall,
@@ -93,6 +95,26 @@ title. The rows carry the words people use for them — anion names on the solub
 unit on unit rows, "formula" on equations, "standard reduction" on the electrode series — and
 `Lexicon.DATASET_GLOSS` translates the tables' own vocabulary ("Konstante", "formule") as well as
 named topics, replacing the foreign words in the search string rather than appending to it.
+
+### Translated titles (roadmap 1.3)
+
+The reference tables are English, so a question in any other language shared no word with the row
+that answers it unless the gloss happened to cover the topic. `shared/datasets/titles_{lang}.tsv`
+holds every row's title in each of the eleven other languages, keyed by the row's canonical key
+(`golden/dataset_keys.tsv`), with other wordings after a `|` — "Fenolftaleína | fenolftaleina".
+`dataset/<table>` rows name the tables themselves ("Poissons tal"), so "poissons tal för sandsten"
+finds the sandstone row by its table's name.
+
+The files are app assets beside the element tables. `KnowledgeStore.overlay` loads the one for its
+language into `LocalizedView.datasetTitles`. `HybridRetriever` gives each row its translated titles
+as `Document.altTitles`, which count as title for coverage — title precision is the best of the
+wordings, since a query names one of them — and appends them and the table's names to the body. An
+ion or electrode row is titled by an element, whose localized name the overlay already has.
+`AnswerComposer` shows the translated title first and the English one beside it, because the row's
+text is still English.
+
+The titles are machine-translated and marked unreviewed; `shared/tools/dataset_titles.py --check`
+verifies every key is present and that numbers, Greek letters and formulas survive translation.
 
 ## `Tokenizer.kt`
 

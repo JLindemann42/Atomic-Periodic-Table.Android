@@ -857,7 +857,11 @@ class AnswerComposer(
      * conversation is not already in English.
      */
     private fun dataset(result: ExecutionResult.Dataset): String {
-        val body = "**${result.row.title}**\n${result.row.detail}"
+        // The title in the reader's language when the shared data has it (roadmap 1.3), with the
+        // English one beside it, because the row's text below is still English.
+        val translated = localized?.datasetTitles(result.row)?.firstOrNull()?.takeIf { it != result.row.title }
+        val heading = if (translated != null) "**$translated** (${result.row.title})" else "**${result.row.title}**"
+        val body = "$heading\n${result.row.detail}"
         if (strings.language == ENGLISH) return body
         val note = runCatching { strings.get(R.string.ai_dataset_english_note) }.getOrNull()
         return if (note == null || note.startsWith("str:")) body else "$body\n\n$note"

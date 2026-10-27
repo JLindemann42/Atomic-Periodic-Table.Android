@@ -894,9 +894,7 @@ class QueryPlanner(
         // was the worst of the three options. The bar is raised when an element is present, so a
         // bare "tell me about gold" still falls through to the overview rather than retrieving
         // whichever row happens to mention gold.
-        if ((elementKeys.isEmpty() || fieldIds.isEmpty()) &&
-            com.jlindemann.science.ai.retrieval.TextMatching.splitQueryTokens(normalized).size >= MIN_DATASET_TOKENS
-        ) {
+        if ((elementKeys.isEmpty() || fieldIds.isEmpty()) && longEnoughForDataset(normalized)) {
             // A named element keeps the question unless the query also names a *table topic*.
             // "Tell me about gold" is about gold, and the overview answers it; "standard electrode
             // potential of zinc" names a subject no element field covers and only the electrode
@@ -973,7 +971,14 @@ class QueryPlanner(
         // about — "why are alkali metals so reactive" wants the reactivity entry. A *mechanism*
         // frame is not: it asks how one thing follows from another, and any topic it happens to
         // mention is incidental. Returning a definition there looks like an answer and is not one.
-        val row = if (isMechanism) null else topic?.let { datasets.row(DatasetIndex.DICTIONARY, it.value) }
+        // A definition wants the definition. The topics map to the periodic-trend entries, which
+        // answer "why does electronegativity increase", but "what is electronegativity" was answered
+        // with the trend too in every language whose word reaches this path (roadmap 1.3); English
+        // only escaped because its word resolves a field first.
+        val row = if (isMechanism) null else topic?.let { t ->
+            (if (isDefinition && !isWhy) plainDefinition(t.value) else null)
+                ?: datasets.row(DatasetIndex.DICTIONARY, t.value)
+        }
 
         // No explanation to give — so decline, rather than falling through to the property path.
         //
@@ -994,6 +999,15 @@ class QueryPlanner(
             rawQuery = rawQuery,
             evidence = listOf(if (isWhy) "explains ${topic?.value}" else "defines ${topic?.value}")
         )
+    }
+
+    /** "Electronegativity" for "Periodic trend: electronegativity", when the glossary has one. */
+    private fun plainDefinition(topic: String): com.jlindemann.science.ai.data.DatasetRow? {
+        if (!topic.startsWith(TREND_PREFIX)) return null
+        val concept = topic.removePrefix(TREND_PREFIX)
+        return datasets.rows.firstOrNull {
+            it.dataset == DatasetIndex.DICTIONARY && it.title.equals(concept, ignoreCase = true)
+        }
     }
 
     /**
@@ -1165,6 +1179,17 @@ class QueryPlanner(
             com.jlindemann.science.ai.retrieval.TextMatching.containsWord(normalized, it)
         }
     }
+
+    /**
+     * Whether a query is long enough for a lexical dataset match to mean anything.
+     *
+     * Words for spaced scripts, characters for Han: unspaced, 动能的公式 is one "word" and never
+     * reached retrieval at all, though it is as complete a question as "formula for kinetic energy".
+     */
+    private fun longEnoughForDataset(normalized: String): Boolean =
+        if (com.jlindemann.science.ai.retrieval.Tokenizer.isUnspacedScript(normalized))
+            normalized.count(com.jlindemann.science.ai.retrieval.Tokenizer::isHan) >= MIN_DATASET_HAN_CHARS
+        else com.jlindemann.science.ai.retrieval.TextMatching.splitQueryTokens(normalized).size >= MIN_DATASET_TOKENS
 
     /**
      * [rawQuery] with the English name of any glossed topic appended.
@@ -1950,6 +1975,12 @@ class QueryPlanner(
          * dictionary row, both above the fallback's confidence floor.
          */
         const val MIN_DATASET_TOKENS = 3
+
+        /** The same floor in Han characters, each of which carries about what a word does. */
+        const val MIN_DATASET_HAN_CHARS = 4
+
+        /** How the glossary titles its periodic-trend entries. */
+        const val TREND_PREFIX = "Periodic trend: "
 
         /**
          * Shortest token treated as naming a topic rather than joining a sentence.

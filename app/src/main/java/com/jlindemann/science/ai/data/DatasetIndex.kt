@@ -274,6 +274,23 @@ class DatasetIndex(rows: List<DatasetRow>) {
             "SiO3^2-" to "silicate"
         )
 
+        /**
+         * Translated row titles from `datasets/titles_{lang}.tsv` in the shared data (roadmap 1.3):
+         * canonical key, then the title, with other wordings after a `|` - "Neutronens massa |
+         * neutronmassa". `#` lines and the header are skipped; a row with no title is no row.
+         */
+        fun parseTitles(text: String?): Map<String, List<String>> {
+            if (text.isNullOrBlank()) return emptyMap()
+            val out = HashMap<String, List<String>>()
+            for (line in text.lineSequence()) {
+                if (line.isBlank() || line.startsWith("#") || line.startsWith("key\t")) continue
+                val cells = line.trimEnd('\r').split('\t')
+                val forms = cells.getOrNull(1).orEmpty().split('|').map { it.trim() }.filter { it.isNotEmpty() }
+                if (forms.isNotEmpty()) out[cells[0]] = forms
+            }
+            return out
+        }
+
         private fun solubilityWord(code: String): String = when (code) {
             "S" -> "soluble"
             "Ss" -> "slightly soluble"

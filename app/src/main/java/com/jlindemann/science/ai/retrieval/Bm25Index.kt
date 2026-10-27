@@ -2,8 +2,14 @@ package com.jlindemann.science.ai.retrieval
 
 import kotlin.math.ln
 
-/** A document in the retrieval corpus. [id] is prefixed by kind, e.g. `element:gold`. */
-data class Document(val id: String, val title: String, val body: String)
+/**
+ * A document in the retrieval corpus. [id] is prefixed by kind, e.g. `element:gold`.
+ *
+ * @property altTitles the title in the index's language, and other wordings of it (roadmap 1.3);
+ *   they count as title for coverage, so "neutronens massa" names the "Electron mass" row's
+ *   Swedish title as fully as "electron mass" names the English one
+ */
+data class Document(val id: String, val title: String, val body: String, val altTitles: List<String> = emptyList())
 
 /**
  * A scored search result.
@@ -56,8 +62,13 @@ class Bm25Index(
 
     private val ids: Array<String> = Array(documents.size) { documents[it].id }
     private val titles: Array<String> = Array(documents.size) { documents[it].title }
-    private val titleTerms: Array<Set<String>> =
-        Array(documents.size) { Tokenizer.tokenize(documents[it].title, language).toHashSet() }
+    /** Each document's title and alternative titles, tokenized separately. */
+    private val titleVariants: Array<List<Set<String>>> = Array(documents.size) { i ->
+        (listOf(documents[i].title) + documents[i].altTitles).map { Tokenizer.tokenize(it, language).toHashSet() }
+    }
+
+    /** Every title term of a document, in any variant. */
+    private val titleTerms: Array<Set<String>> = Array(documents.size) { i -> titleVariants[i].flatten().toHashSet() }
     private val lengths = IntArray(documents.size)
 
     /** term -> (document index -> term frequency). */
@@ -190,15 +201,19 @@ class Bm25Index(
 
         val termSet = groups.flatten().toHashSet()
         return covered.map { (docIndex, sum) ->
-            val title = titleTerms[docIndex].filter { it !in stop }
-            val titleWeight = title.sumOf { inverseDocumentFrequency(documentFrequency(it)) }
-            val named = title.filter { it in termSet }.sumOf { inverseDocumentFrequency(documentFrequency(it)) }
+            // The best of the title's wordings: a query names one of them, not all at once.
+            val titlePrecision = titleVariants[docIndex].maxOfOrNull { variant ->
+                val title = variant.filter { it !in stop }
+                val titleWeight = title.sumOf { inverseDocumentFrequency(documentFrequency(it)) }
+                val named = title.filter { it in termSet }.sumOf { inverseDocumentFrequency(documentFrequency(it)) }
+                if (titleWeight > 0.0) named / titleWeight else 0.0
+            } ?: 0.0
             Coverage(
                 id = ids[docIndex],
                 title = titles[docIndex],
                 coverage = sum / total,
                 titleRecall = (inTitle[docIndex] ?: 0.0) / total,
-                titlePrecision = if (titleWeight > 0.0) named / titleWeight else 0.0,
+                titlePrecision = titlePrecision,
                 bm25 = bm25[docIndex] ?: 0.0,
                 words = groups.size
             )
@@ -228,7 +243,7 @@ class Bm25Index(
             seen.addAll(forms)
             val stem = forms.minBy { it.length }
             if (!forms.all { it.startsWith(stem) }) {
-                forms.forEach { words.add(listOf(it)) }
+                forms.filterNot { isStraddlingBigram(it, stop) }.forEach { words.add(listOf(it)) }
                 continue
             }
             val looser = forms.flatMap { form ->
@@ -239,6 +254,17 @@ class Bm25Index(
         }
         return words
     }
+
+    /**
+     * A Han bigram that runs across a function character and that no document contains.
+     *
+     * Han bigrams are every adjacent pair, so 动能的公式 also yields 能的 and 的公. Those are not
+     * words but seams around the particle 的, and counted as unknown content they outweighed the
+     * whole question. A bigram the corpus does contain stays, function character or not.
+     */
+    private fun isStraddlingBigram(term: String, stop: Set<String>): Boolean =
+        term.length == 2 && term.all(Tokenizer::isHan) &&
+                term.any { it.toString() in stop } && documentFrequency(term) == 0
 
     /**
      * Probabilistic IDF with the +1 smoothing that keeps it non-negative.

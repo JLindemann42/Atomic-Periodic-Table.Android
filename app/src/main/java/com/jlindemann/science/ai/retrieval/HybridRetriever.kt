@@ -162,17 +162,24 @@ class HybridRetriever(
             }
 
             for (row in datasets.rows) {
+                // The title in the index's language (roadmap 1.3). The tables are English, so
+                // "vad är neutronens massa" shared no word with "Neutron mass" until the row also
+                // carried its Swedish title.
+                val translated = localized?.datasetTitles(row).orEmpty()
                 documents.add(
                     Document(
                         id = "${row.dataset}:${row.id}",
                         title = row.title,
+                        altTitles = translated,
                         // Rows titled with a chemical symbol carry the element's *name* too.
                         // The solubility table is indexed by ion — "Na^+", "Ag^+" — and the
                         // electrode table by symbol, so "solubility of sodium chloride" and
                         // "standard electrode potential of zinc" shared no word with the row that
                         // answers them and retrieved a dictionary definition instead. Users write
                         // the name; the table is keyed by the symbol.
-                        body = row.body + elementGloss(row, store, localized)
+                        body = row.body + elementGloss(row, store, localized) +
+                                translated.joinToString(" ", prefix = " ") +
+                                localized?.tableNames(row.dataset).orEmpty().joinToString(" ", prefix = " ")
                     )
                 )
             }

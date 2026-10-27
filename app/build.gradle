@@ -42,6 +42,8 @@ android {
         // The element files live in the shared-data submodule (roadmap 0.3), so both apps ship and
         // test against one copy. `git submodule update --init` after a fresh clone.
         main.assets.srcDirs += "$rootDir/shared/elements"
+        // Reference-table titles in each language (roadmap 1.3).
+        main.assets.srcDirs += "$rootDir/shared/datasets"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

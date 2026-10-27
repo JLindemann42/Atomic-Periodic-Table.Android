@@ -23,6 +23,16 @@ object TestAssets {
             ?: error("Element files not found from ${File(".").absolutePath}; run `git submodule update --init`")
     }
 
+    /**
+     * A text file from the shared data's `datasets/` folder - `titles_sv.tsv` (roadmap 1.3) - or
+     * null when there is none, as the app's asset source does.
+     */
+    fun text(name: String): String? =
+        listOf(File("../shared/datasets"), File("shared/datasets"))
+            .map { File(it, name) }
+            .firstOrNull { it.isFile }
+            ?.readText(Charsets.UTF_8)
+
     /** True when the real assets are reachable; lets tests skip rather than fail spuriously. */
     fun available(language: String = "en"): Boolean =
         runCatching { File(assetsDir, "elements_$language.json").isFile }.getOrDefault(false)

@@ -130,6 +130,6 @@ object CorpusHarness {
                 magneticType = row["magnetic_type"]?.toString().orEmpty()
             )
         }
-        return LocalizedView(language, map)
+        return LocalizedView(language, map, DatasetIndex.parseTitles(TestAssets.text("titles_$language.tsv")))
     }
 }

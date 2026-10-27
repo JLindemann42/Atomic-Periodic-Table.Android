@@ -51,10 +51,10 @@ a decline. All ten carried a `known_failure` reason: reported, not failing the b
 failure that starts passing fails the build so the mark is removed.
 
 Roadmap 1.1 (coverage-scored retrieval) removed seven of them, and nineteen new rows went in with
-it, thirteen of which failed beforehand. Three remain: "what is a covalent bond" (both words are in
+it, thirteen of which failed beforehand. Three remained: "what is a covalent bond" (both words are in
 "Hydrogen bond" and in "Covalent radius", so only phrase evidence could reject them), and Swedish
-and Spanish "what is electronegativity", which the concept path routes to the periodic-trend entry
-without reaching retrieval at all (roadmap 1.3).
+and Spanish "what is electronegativity", which the concept path routed to the periodic-trend entry
+without reaching retrieval at all (fixed in roadmap 1.3).
 
 **The held-out split was consulted once during 1.1, and it changed the work.** The first version
 passed every dev row but declined three held-out ones it used to answer — an equation asked for by
@@ -68,6 +68,12 @@ split then showed one follow-up it used to answer — an elliptical turn naming 
 new compound branch read as the compound "water". Two dev sessions with different wording now cover
 that (a compound's words inside a field's own name), the fix was made against them, and the
 held-out split passes again.
+
+**Roadmap 1.3 (translated titles)** added twenty `datasets.tsv` rows asked in nine languages, each
+with an `expect_row`; all twenty failed before. They pass, and so do the Swedish and Spanish
+electronegativity rows, whose known-failure marks are gone. That leaves one known failure in the
+file, "what is a covalent bond". The held-out split was run once at the end and passed with no
+change, so it did not inform this work.
 
 ## Why it exists in this shape
 
