@@ -77,10 +77,14 @@ class QueryPlanner(
      */
     internal fun proposals(query: String, state: DialogueState): List<Proposal> {
         val proposals = ArrayList<Proposal>()
+        // What the query said, once it is resolved; the branches before that pre-empt by order and
+        // are not scored.
+        var said: Said? = null
         // Each proposal keeps the evidence it had when it was made: the list below is shared, and
-        // the branches further down keep adding to it.
-        fun propose(branch: Branch, plan: QueryPlan) {
-            proposals.add(Proposal(branch, plan.copy(evidence = plan.evidence.toList())))
+        // the branches further down keep adding to it. [cues] are the words only this branch's
+        // reading accounts for.
+        fun propose(branch: Branch, plan: QueryPlan, cues: List<String> = emptyList()) {
+            proposals.add(Proposal(branch, plan.copy(evidence = plan.evidence.toList()), Arbiter.uses(plan, said, cues)))
         }
 
         // Everything below reads words, and "smältpunktsskillnaden" or "pinakamatigas" is one word
@@ -406,6 +410,34 @@ class QueryPlanner(
             val fieldId = fieldIds.firstOrNull() ?: return@mapNotNull null
             com.jlindemann.science.ai.core.Filter.FieldCompare(fieldId, op, quantity)
         }.toMutableList()
+        // A number the operators read - a group, a period, a threshold, a count - is not also the
+        // name of an element: "which elements are in group 17" does not mention chlorine.
+        val operatorsReadANumber = operators.comparators.isNotEmpty() || operators.range != null ||
+                operators.topN != null || operators.subsetFilters.any {
+                    it is com.jlindemann.science.ai.core.Filter.InGroup || it is com.jlindemann.science.ai.core.Filter.InPeriod
+                }
+        // A word that names a reading of its own is evidence for that reading, not for a field whose
+        // label it shares: "isotopes of uranium" asks for the isotopes, not the common-neutron count.
+        val dedicatedWords = Lexicon.ISOTOPE_WORDS + Lexicon.SAFETY_WORDS + Lexicon.SPECTRUM_WORDS
+        val named = elementMatches.filterNot { operatorsReadANumber && it.matched.all(Char::isDigit) }
+        said = Said(
+            // One word names one element: "tingga" is lead, and the "tin" inside it is not a second
+            // subject.
+            elements = named
+                .filterNot { match ->
+                    named.any { it.matched.length > match.matched.length && it.matched.contains(match.matched, ignoreCase = true) }
+                }
+                .map { it.key }.toSet(),
+            fields = fieldMatches
+                .filterNot { match ->
+                    val surface = com.jlindemann.science.ai.retrieval.TextMatching.normalizeForLookup(match.matched)
+                    dedicatedWords.any { com.jlindemann.science.ai.retrieval.TextMatching.containsWord(surface, it) }
+                }
+                .map { it.spec.id }.toSet(),
+            statistic = operators.aggregation != Aggregation.NONE,
+            unit = operators.targetUnit,
+            inheritedFilters = if (operators.subsetFilters.isEmpty()) subsetFilters.toSet() else emptySet()
+        )
 
 
         // A comparative with only one element named takes the other from the conversation:
@@ -427,7 +459,7 @@ class QueryPlanner(
             val pair = listOf(state.focusElement!!, elementMatches.first().key)
             comparativePlan(rawQuery, normalized, pair, fieldIds)?.let {
                 evidence.add("comparative against focus element")
-                propose(Branch.COMPARATIVE_AGAINST_FOCUS, it)
+                propose(Branch.COMPARATIVE_AGAINST_FOCUS, it, listOf("comparative") + margin(it))
             }
             // `comparativePlan` reads an explicit "X is denser than Y" and needs a comparator, an
             // adjective or a degree word to do it — none of which a Hindi or Urdu comparative has.
@@ -435,7 +467,7 @@ class QueryPlanner(
             // pair and the field are still enough to answer it.
             if (fieldIds.isNotEmpty()) {
                 evidence.add("comparative against focus element")
-                propose(Branch.COMPARATIVE_AGAINST_FOCUS, QueryPlan(
+                propose(Branch.COMPARATIVE_AGAINST_FOCUS, cues = listOf("comparative"), plan = QueryPlan(
                     intent = Intent.COMPARATIVE,
                     entities = pair.map { EntityRef.Element(it) },
                     fieldIds = listOf(fieldIds.first()),
@@ -524,7 +556,7 @@ class QueryPlanner(
             if (comparativeField != null && readsAsComparison) {
                 val pair = recentPair.take(2)
                 evidence.add("comparative over the previous answer")
-                propose(Branch.COMPARATIVE_OVER_PREVIOUS, QueryPlan(
+                propose(Branch.COMPARATIVE_OVER_PREVIOUS, cues = listOf("comparative"), plan = QueryPlan(
                     intent = Intent.COMPARATIVE,
                     entities = pair.map { EntityRef.Element(it) },
                     fieldIds = listOf(comparativeField),
@@ -562,10 +594,10 @@ class QueryPlanner(
             // adjective to key on and no fixed position for the two operands.
             comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let {
                 evidence.add("comparative $fieldIds")
-                propose(Branch.PERIPHRASTIC_COMPARATIVE, it)
+                propose(Branch.PERIPHRASTIC_COMPARATIVE, it, listOf("comparative") + margin(it))
             }
             evidence.add("periphrastic comparative")
-            propose(Branch.PERIPHRASTIC_COMPARATIVE, QueryPlan(
+            propose(Branch.PERIPHRASTIC_COMPARATIVE, cues = listOf("comparative"), plan = QueryPlan(
                 intent = Intent.COMPARATIVE,
                 entities = elementKeys.map { EntityRef.Element(it) },
                 fieldIds = listOf(fieldIds.first()),
@@ -615,7 +647,7 @@ class QueryPlanner(
         // A question with a one-word answer should get one, not a property table. Checked
         // before the general comparison so the answer leads with yes/no or the winner.
         if (elementKeys.size >= 2) {
-            comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let { propose(Branch.DIRECT_COMPARATIVE, it) }
+            comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let { propose(Branch.DIRECT_COMPARATIVE, it, listOf("comparative") + margin(it)) }
         }
 
 
@@ -660,7 +692,7 @@ class QueryPlanner(
                 // not the top one. Carried as fieldOrdinal so the executor can skip past.
                 val rankOrdinal = operators.rankOrdinal
                 if (rankOrdinal != null) evidence.add("rank $rankOrdinal")
-                propose(Branch.SUPERLATIVE_OR_FILTERED_LIST, QueryPlan(
+                propose(Branch.SUPERLATIVE_OR_FILTERED_LIST, cues = if (wantsRanking) listOf("ranking") else emptyList(), plan = QueryPlan(
                     intent = if (isList && rankOrdinal == null) Intent.FILTER_LIST else Intent.SUPERLATIVE,
                     fieldIds = listOf(sortField),
                     fieldOrdinal = rankOrdinal,
@@ -693,7 +725,7 @@ class QueryPlanner(
             val displayField = fieldIds.firstOrNull()
                 ?.takeIf { FieldRegistry.byId[it]?.kind == FieldKind.NUMERIC }
             evidence.add("subset list")
-            propose(Branch.SUBSET_LIST, QueryPlan(
+            propose(Branch.SUBSET_LIST, cues = if (comparesASubset && comparatorFilters.isEmpty()) listOf("compare") else emptyList(), plan = QueryPlan(
                 intent = Intent.FILTER_LIST,
                 fieldIds = listOfNotNull(displayField),
                 // Every filter, not just the subset: "which metals are lighter than aluminium"
@@ -719,7 +751,7 @@ class QueryPlanner(
                 ?.takeIf { FieldRegistry.byId[it]?.kind == FieldKind.NUMERIC }
             if (coverageField != null) {
                 evidence.add("field coverage")
-                propose(Branch.FIELD_COVERAGE_LIST, QueryPlan(
+                propose(Branch.FIELD_COVERAGE_LIST, cues = listOf("has a value"), plan = QueryPlan(
                     intent = Intent.FILTER_LIST,
                     fieldIds = listOf(coverageField),
                     sortField = coverageField,
@@ -747,7 +779,7 @@ class QueryPlanner(
             // could not fire. Re-run it now that the pair is complete: "how does that compare to
             // iron" is a request for a winner, and without this it fell through to the side-by-side
             // table the branch below builds.
-            comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let { propose(Branch.COMPARE_WITH_FOCUS, it) }
+            comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let { propose(Branch.COMPARE_WITH_FOCUS, it, listOf("compare") + margin(it)) }
         }
 
 
@@ -756,7 +788,7 @@ class QueryPlanner(
             neighbourDirection(normalized)?.let { direction ->
                 store.byNumber(subject.atomicNumber + direction)?.let { target ->
                     evidence.add("neighbour ${if (direction > 0) "after" else "before"}")
-                    propose(Branch.NEIGHBOUR, QueryPlan(
+                    propose(Branch.NEIGHBOUR, cues = listOf("neighbour"), plan = QueryPlan(
                         intent = Intent.NEIGHBOUR,
                         entities = listOf(EntityRef.Element(subject.key), EntityRef.Element(target.key)),
                         limit = direction,
@@ -780,7 +812,7 @@ class QueryPlanner(
         val asksForAFieldOfAnElement = elementKeys.isNotEmpty() && fieldIds.isNotEmpty()
         if (!asksForAFieldOfAnElement) alloyIn(normalized)?.let { alloy ->
             evidence.add("alloy ${alloy.id}")
-            propose(Branch.ALLOY, QueryPlan(
+            propose(Branch.ALLOY, cues = listOf("alloy"), plan = QueryPlan(
                 intent = Intent.DATASET_LOOKUP,
                 entities = listOf(EntityRef.DatasetRow(DatasetIndex.ALLOY, alloy.id)),
                 confidence = 0.8,
@@ -800,7 +832,7 @@ class QueryPlanner(
         ) {
             comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let {
                 evidence.add("selective comparison")
-                propose(Branch.SELECTIVE_COMPARISON, it)
+                propose(Branch.SELECTIVE_COMPARISON, it, listOf("selective") + margin(it))
             }
         }
 
@@ -812,7 +844,7 @@ class QueryPlanner(
             val unsupported = unsupportedAspects(normalized)
             evidence.add("comparison of ${elementKeys.size} elements")
             if (aspects.size > 1) evidence.add("aspects ${aspects.size}")
-            propose(Branch.COMPARISON, QueryPlan(
+            propose(Branch.COMPARISON, cues = if (namesACompareVerb(normalized)) listOf("compare") else emptyList(), plan = QueryPlan(
                 intent = Intent.COMPARISON,
                 entities = elementKeys.map { EntityRef.Element(it) },
                 fieldIds = aspects.ifEmpty { fieldIds.ifEmpty { DEFAULT_COMPARISON_FIELDS } },
@@ -845,7 +877,7 @@ class QueryPlanner(
         if (element != null) {
             if (mentionsAny(normalized, Lexicon.ISOTOPE_WORDS)) {
                 evidence.add("isotopes")
-                propose(Branch.ISOTOPES, QueryPlan(
+                propose(Branch.ISOTOPES, cues = listOf("isotopes"), plan = QueryPlan(
                     intent = Intent.ISOTOPES,
                     entities = listOf(EntityRef.Element(element.key)),
                     limit = operators.topN ?: DEFAULT_ISOTOPE_LIMIT,
@@ -856,7 +888,7 @@ class QueryPlanner(
             }
             if (mentionsAny(normalized, Lexicon.SAFETY_WORDS)) {
                 evidence.add("safety")
-                propose(Branch.SAFETY, QueryPlan(
+                propose(Branch.SAFETY, cues = listOf("safety"), plan = QueryPlan(
                     intent = Intent.SAFETY,
                     entities = listOf(EntityRef.Element(element.key)),
                     confidence = 0.85,
@@ -869,7 +901,7 @@ class QueryPlanner(
             // spectrum of sodium" resolved nothing at all and was declined.
             if (mentionsAny(normalized, Lexicon.SPECTRUM_WORDS)) {
                 evidence.add("emission spectrum")
-                propose(Branch.EMISSION_SPECTRUM, QueryPlan(
+                propose(Branch.EMISSION_SPECTRUM, cues = listOf("spectrum"), plan = QueryPlan(
                     intent = Intent.EMISSION_SPECTRUM,
                     entities = listOf(EntityRef.Element(element.key)),
                     confidence = 0.85,
@@ -900,7 +932,7 @@ class QueryPlanner(
                     .map { it.id }
                 if (populated.size >= 2) {
                     evidence.add("category $category")
-                    propose(Branch.CATEGORY_LOOKUP, QueryPlan(
+                    propose(Branch.CATEGORY_LOOKUP, cues = listOf("category"), plan = QueryPlan(
                         intent = Intent.CATEGORY_LOOKUP,
                         entities = listOf(EntityRef.Element(element.key)),
                         fieldIds = populated,
@@ -933,7 +965,7 @@ class QueryPlanner(
                 } else {
                     evidence.add("property $fieldId")
                 }
-                propose(Branch.PROPERTY_LOOKUP, QueryPlan(
+                propose(Branch.PROPERTY_LOOKUP, cues = if (operators.ordinal != null) listOf("ordinal") else emptyList(), plan = QueryPlan(
                     intent = Intent.PROPERTY_LOOKUP,
                     entities = listOf(EntityRef.Element(element.key)),
                     fieldIds = listOf(fieldId),
@@ -1863,6 +1895,19 @@ class QueryPlanner(
      */
     private fun unsupportedAspects(normalizedQuery: String): List<String> =
         UNCOMPARABLE_ASPECTS.filter { normalizedQuery.contains(it) }
+
+    /**
+     * "Compare", "versus", "the difference between" - and not "denser than", which [Lexicon.COMPARE]
+     * also lists but which is the comparative's word: counted for the side-by-side reading as well,
+     * it would tie that reading with the one that answers the question asked.
+     */
+    private fun namesACompareVerb(normalized: String): Boolean =
+        Lexicon.COMPARE.any { word ->
+            normalized.contains(word) && Lexicon.COMPARATIVE_ADJECTIVES.keys.none { word.contains(it) }
+        }
+
+    /** A comparative that answers "by how much" accounts for those words too (roadmap 1.8). */
+    private fun margin(plan: QueryPlan): List<String> = if (plan.limit == 3) listOf("margin") else emptyList()
 
     /**
      * Recognise a question about how two elements stand relative to one another.

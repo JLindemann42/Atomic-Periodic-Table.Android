@@ -229,14 +229,50 @@ how a branch that tries the explicit "X is denser than Y" before its looser
 reading keeps meaning the explicit one. What changed is that the order is now
 data, and that the losing proposals can be seen.
 
+**Arbitration by evidence (roadmap 1.8, stage 2).** The branches come in two
+kinds. Those up to `EXPLANATION` (`Branch.preempts`) recognise what *kind* of
+question this is — chat, a formula, a conversion, a compound, a request for prose,
+something to decline — and still pre-empt in order. The rest read the same
+element-data question in different ways, and now compete on evidence: each
+proposal carries `uses`, the things the user actually *said* that the plan answers
+with, and the one that uses most wins. The order only breaks ties.
+
+What counts is read off the query, never the plan's own confidence (that is an
+acceptance threshold, not comparable across branches — a property lookup's 0.8
+would beat the subset list's 0.75 the corpus expects). `Said` holds what the
+query named once it is resolved; `Arbiter.uses` scores a plan against it:
+
+- each element the query named, and each field — not an element or field
+  inherited from the conversation, and not the default comparison fields;
+- each filter the query stated (a family, a threshold, a range), not one
+  inherited from the previous turn;
+- the statistic, and the unit asked in;
+- the words only that reading accounts for, which the branch passes as cues:
+  "isotopes", "after", a comparative, a ranking, "compare", "which … or",
+  "by how much" on a comparative that computes the margin.
+
+Five rules keep a word from counting twice, and they are what turned the ties
+into decisions. A number the operators read (a group, a period, a threshold) is
+not also an element's name: "group 17" is not chlorine. One word names one
+element: Filipino "tingga" is lead, and the "tin" the resolver also finds inside
+it is not a second subject. A word that names a
+reading of its own ("isotopes", "toxic", "spectrum") is evidence for that
+reading, not for the field whose label it shares. A comparative adjective is not
+a compare verb, although `Lexicon.COMPARE` lists "denser than". And a comparative
+that answers "by how much" accounts for those words as well as the statistic
+reading does.
+
 `ArbitrationTest` checks that the pick is the plan for every corpus row, and
-prints where the order still decides: 520 of 2,521 dev rows have more than one
-branch proposing, across 50 winner-and-loser pairs. The largest are an aggregate
-over a subset list (90 rows: "the average density of the halogens" is also a list
-of halogens), isotopes over a property lookup (63: "isotopes" resolves a field
-too), a superlative over a subset list (52), and a subset list over a dataset row
-(30). The later stages of 1.8 replace the order with evidence, one of these pairs
-at a time, with both corpora green between steps.
+prints what decided each contest. Of 2,521 dev rows, 475 have branches proposing
+different answers (two branches reaching the same plan agree, and are not a
+conflict). The evidence picks exactly what the order did on every one of them —
+the measure that it is a description of the old behaviour rather than a new one —
+and decides all but 5 of the reading-tier contests; 151 were ties before the five
+rules. The 5 left are whole sentences the splitter divides before planning ("what
+is the density of gold and how does it compare to lead"), so no answer depends on
+them. Held-out: 102 of 520 contested, none changed, 1 tie — "锇比铝致密多少", whose
+多少 is not in `Lexicon.BY_HOW_MUCH`, so the comparative does not claim the margin.
+It is left for a stage with dev rows of its own, not fixed against the held-out row.
 
 The branches, in their current order:
 
