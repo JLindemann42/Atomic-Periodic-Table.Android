@@ -212,12 +212,33 @@ with two conditions and must not.
 
 ## `QueryPlanner.kt`
 
-~1,640 lines, the largest file in the subsystem. It orchestrates everything above
-into a `QueryPlan` through a long **ordered cascade of guards**. Order is
-load-bearing — an earlier guard claiming a query prevents a later, wronger
-interpretation.
+~2,200 lines, the largest file in the subsystem. It orchestrates everything above
+into a `QueryPlan`. Until roadmap 1.8 that was a long **ordered cascade of
+guards**: the first branch to return won, so the order of ~30 `if` blocks decided
+every answer and could be read only as control flow.
 
-Roughly, in order:
+**Arbitration (roadmap 1.8, stage 1).** Every branch now *proposes*:
+`proposals(query, state)` returns each branch's plan, tagged with its `Branch`, in
+the order they were made, ending with `Branch.NO_MATCH`; `Arbiter.pick` chooses,
+and `plan` answers with the choice. The steps between the branches still run in
+order — inheritance from the dialogue, a threshold read off an element, the crust
+sibling fields — because they refine what the later branches see. In this first
+stage the arbiter still chooses by the old order, which is `Branch`'s declaration
+order, so no answer changed; within one branch the first proposal wins, which is
+how a branch that tries the explicit "X is denser than Y" before its looser
+reading keeps meaning the explicit one. What changed is that the order is now
+data, and that the losing proposals can be seen.
+
+`ArbitrationTest` checks that the pick is the plan for every corpus row, and
+prints where the order still decides: 520 of 2,521 dev rows have more than one
+branch proposing, across 50 winner-and-loser pairs. The largest are an aggregate
+over a subset list (90 rows: "the average density of the halogens" is also a list
+of halogens), isotopes over a property lookup (63: "isotopes" resolves a field
+too), a superlative over a subset list (52), and a subset list over a dataset row
+(30). The later stages of 1.8 replace the order with evidence, one of these pairs
+at a time, with both corpora green between steps.
+
+The branches, in their current order:
 
 1. Defer-to-personality check (greetings, small talk, quiz answers)
 2. Out-of-range element numbers ("element 250")

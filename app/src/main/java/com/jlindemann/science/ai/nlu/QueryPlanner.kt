@@ -64,7 +64,25 @@ class QueryPlanner(
         return if (answered) second.copy(evidence = second.evidence + "spelling: $corrected") else plan
     }
 
-    private fun planWords(query: String, state: DialogueState): QueryPlan {
+    private fun planWords(query: String, state: DialogueState): QueryPlan =
+        Arbiter.pick(proposals(query, state))!!.plan
+
+    /**
+     * Every plan the branches propose for [query], in the order they proposed (roadmap 1.8). The
+     * last is always [Branch.NO_MATCH], so there is always one to pick.
+     *
+     * The branches still run in the order the cascade had, because the steps between them refine
+     * what the later ones see - the subject a follow-up inherits, a threshold read off an element.
+     * What changed is that a branch proposes instead of ending the method.
+     */
+    internal fun proposals(query: String, state: DialogueState): List<Proposal> {
+        val proposals = ArrayList<Proposal>()
+        // Each proposal keeps the evidence it had when it was made: the list below is shared, and
+        // the branches further down keep adding to it.
+        fun propose(branch: Branch, plan: QueryPlan) {
+            proposals.add(Proposal(branch, plan.copy(evidence = plan.evidence.toList())))
+        }
+
         // Everything below reads words, and "smältpunktsskillnaden" or "pinakamatigas" is one word
         // carrying two (roadmap 1.5).
         val rawQuery = morphology.expand(query)
@@ -84,14 +102,14 @@ class QueryPlanner(
                         (it.contains(' ') && normalized.contains(it))
             }
         ) {
-            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.CONVERSATIONAL)
+            propose(Branch.DEFER_TO_PERSONALITY, QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.CONVERSATIONAL))
         }
 
         // An element number past 118 has a definite answer — there is no such element — and the
         // worst thing to do is guess. Declining lets the personality layer say so; answering from
         // retrieval produced "Electron mass" for "tell me about element 119".
         if (entities.outOfRangeElementNumber(rawQuery) != null) {
-            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.NO_SUCH_ELEMENT)
+            propose(Branch.OUT_OF_RANGE_ELEMENT, QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.NO_SUCH_ELEMENT))
         }
 
         // "समान" is Hindi for "similar" and also the first word of "समान समूह" — "the same group".
@@ -112,7 +130,7 @@ class QueryPlanner(
             val superlative = Lexicon.MOST.any { normalized.contains(it) } ||
                     Lexicon.LEAST.any { normalized.contains(it) }
             if (!superlative) {
-                explanationPlan(rawQuery, normalized, hasElement = false)?.let { return it }
+                explanationPlan(rawQuery, normalized, hasElement = false)?.let { propose(Branch.UNBACKED_EXPLANATION, it) }
             }
             // Mentioning one of these in passing does not block a comparison that also asks
             // about real properties: "compare lithium, sodium and potassium on reactivity,
@@ -126,7 +144,7 @@ class QueryPlanner(
             val comparableAspect = fields.resolveAll(rawQuery, limit = 3).isNotEmpty()
             val severalElements = entities.resolveAll(rawQuery, limit = 3).size >= 2
             if (!comparableAspect || !severalElements) {
-                return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.UNBACKED_CONCEPT)
+                propose(Branch.UNBACKED_CONCEPT, QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.UNBACKED_CONCEPT))
             }
         }
 
@@ -147,20 +165,20 @@ class QueryPlanner(
                 it.subsetFilters.isEmpty() && it.aggregation == Aggregation.COUNT
             }
         ) {
-            return QueryPlan(
+            propose(Branch.COUNT_OF_ALL_ELEMENTS, QueryPlan(
                 intent = Intent.AGGREGATE,
                 aggregation = Aggregation.COUNT,
                 confidence = 0.85,
                 rawQuery = rawQuery,
                 evidence = listOf("count of all elements")
-            )
+            ))
         }
 
         // ---- Calculations ------------------------------------------------------------------
         // Checked first: these questions name a formula or a nuclide, which the element and
         // field resolvers would otherwise pick apart into unrelated matches. "the molar mass of
         // H2SO4" used to retrieve the dictionary definition of molar mass instead of a number.
-        calculationPlan(rawQuery, normalized)?.let { return it }
+        calculationPlan(rawQuery, normalized)?.let { propose(Branch.CALCULATION, it) }
 
 
         var operators = OperatorExtractor.extract(rawQuery)
@@ -191,7 +209,7 @@ class QueryPlanner(
             elementMatches = elementMatches.filter { it.key != reference.key }
             fieldMatches = fieldMatches.filter { it.spec.id != DIMENSION_FIELDS[dimension] }
             if (asksForMembers) {
-                return QueryPlan(
+                propose(Branch.SET_OF_AN_ELEMENT, QueryPlan(
                     intent = Intent.FILTER_LIST,
                     fieldIds = fieldMatches.map { it.spec.id },
                     filters = operators.subsetFilters,
@@ -199,7 +217,7 @@ class QueryPlanner(
                     confidence = 0.85,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
@@ -207,7 +225,7 @@ class QueryPlanner(
         // Placed here rather than in `calculationPlan`, because the guard that separates this from
         // a property lookup needs the resolved field and element, and neither is available where
         // the calculations run.
-        unitConvertPlan(rawQuery, operators)?.let { return it }
+        unitConvertPlan(rawQuery, operators)?.let { propose(Branch.UNIT_CONVERT, it) }
 
         // ---- A compound named in words ---------------------------------------------------------
         // Before inheritance, so "and the boiling point of water?" cannot inherit the thread's
@@ -224,7 +242,7 @@ class QueryPlanner(
                     )
                 }
             }?.let { compound ->
-                compoundPlan(rawQuery, normalized, compound, fieldMatches.isNotEmpty())?.let { return it }
+                compoundPlan(rawQuery, normalized, compound, fieldMatches.isNotEmpty())?.let { propose(Branch.COMPOUND, it) }
             }
         }
 
@@ -238,7 +256,7 @@ class QueryPlanner(
         // A resolved field wins over this: "what is titanium used for in aerospace, and its
         // density" still has a real question in it.
         if (fieldMatches.isEmpty() && Lexicon.NARRATIVE_INTENTS.any { normalized.contains(it) }) {
-            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.NARRATIVE)
+            propose(Branch.NARRATIVE_DECLINE, QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.NARRATIVE))
         }
 
         // Etymology declines even with a field in hand, because the field is the *subject* of the
@@ -246,7 +264,7 @@ class QueryPlanner(
         // resolves `symbol`, and answering it with a value — tin's nine abundance reservoirs, as
         // reported — mistakes what the sentence is about.
         if (Lexicon.ETYMOLOGY_INTENTS.any { normalized.contains(it) }) {
-            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.ETYMOLOGY)
+            propose(Branch.ETYMOLOGY_DECLINE, QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.ETYMOLOGY))
         }
 
         // ---- Explanations --------------------------------------------------------------------
@@ -277,7 +295,7 @@ class QueryPlanner(
         // "why does that trend hold", "how does that change above Curie temperature" — so excluding
         // follow-ups here exempted exactly the turns that were failing.
         if (asksHowItWorks(normalized) || (!carriesOperator && !continuesAThread)) {
-            explanationPlan(rawQuery, normalized, elementMatches.isNotEmpty())?.let { return it }
+            explanationPlan(rawQuery, normalized, elementMatches.isNotEmpty())?.let { propose(Branch.EXPLANATION, it) }
         }
 
         // Slot-emptiness inheritance: a follow-up supplies one slot and inherits the other.
@@ -409,7 +427,7 @@ class QueryPlanner(
             val pair = listOf(state.focusElement!!, elementMatches.first().key)
             comparativePlan(rawQuery, normalized, pair, fieldIds)?.let {
                 evidence.add("comparative against focus element")
-                return it
+                propose(Branch.COMPARATIVE_AGAINST_FOCUS, it)
             }
             // `comparativePlan` reads an explicit "X is denser than Y" and needs a comparator, an
             // adjective or a degree word to do it — none of which a Hindi or Urdu comparative has.
@@ -417,7 +435,7 @@ class QueryPlanner(
             // pair and the field are still enough to answer it.
             if (fieldIds.isNotEmpty()) {
                 evidence.add("comparative against focus element")
-                return QueryPlan(
+                propose(Branch.COMPARATIVE_AGAINST_FOCUS, QueryPlan(
                     intent = Intent.COMPARATIVE,
                     entities = pair.map { EntityRef.Element(it) },
                     fieldIds = listOf(fieldIds.first()),
@@ -425,7 +443,7 @@ class QueryPlanner(
                     confidence = 0.8,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
         // Neither element named — "which is denser", "which melts first", "which conducts heat
@@ -506,7 +524,7 @@ class QueryPlanner(
             if (comparativeField != null && readsAsComparison) {
                 val pair = recentPair.take(2)
                 evidence.add("comparative over the previous answer")
-                return QueryPlan(
+                propose(Branch.COMPARATIVE_OVER_PREVIOUS, QueryPlan(
                     intent = Intent.COMPARATIVE,
                     entities = pair.map { EntityRef.Element(it) },
                     fieldIds = listOf(comparativeField),
@@ -516,7 +534,7 @@ class QueryPlanner(
                     confidence = 0.8,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
@@ -544,10 +562,10 @@ class QueryPlanner(
             // adjective to key on and no fixed position for the two operands.
             comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let {
                 evidence.add("comparative $fieldIds")
-                return it
+                propose(Branch.PERIPHRASTIC_COMPARATIVE, it)
             }
             evidence.add("periphrastic comparative")
-            return QueryPlan(
+            propose(Branch.PERIPHRASTIC_COMPARATIVE, QueryPlan(
                 intent = Intent.COMPARATIVE,
                 entities = elementKeys.map { EntityRef.Element(it) },
                 fieldIds = listOf(fieldIds.first()),
@@ -555,7 +573,7 @@ class QueryPlanner(
                 confidence = 0.8,
                 rawQuery = rawQuery,
                 evidence = evidence
-            )
+            ))
         }
 
         // A threshold can name an element instead of a number: "denser than iron" means denser
@@ -597,7 +615,7 @@ class QueryPlanner(
         // A question with a one-word answer should get one, not a property table. Checked
         // before the general comparison so the answer leads with yes/no or the winner.
         if (elementKeys.size >= 2) {
-            comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let { return it }
+            comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let { propose(Branch.DIRECT_COMPARATIVE, it) }
         }
 
 
@@ -612,7 +630,7 @@ class QueryPlanner(
             val fieldId = fieldIds.firstOrNull()
             if (operators.aggregation == Aggregation.COUNT || fieldId != null) {
                 evidence.add("aggregation ${operators.aggregation}")
-                return QueryPlan(
+                propose(Branch.AGGREGATE, QueryPlan(
                     intent = Intent.AGGREGATE,
                     entities = elementKeys.map { EntityRef.Element(it) },
                     fieldIds = listOfNotNull(fieldId),
@@ -623,7 +641,7 @@ class QueryPlanner(
                     confidence = 0.85,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
@@ -642,7 +660,7 @@ class QueryPlanner(
                 // not the top one. Carried as fieldOrdinal so the executor can skip past.
                 val rankOrdinal = operators.rankOrdinal
                 if (rankOrdinal != null) evidence.add("rank $rankOrdinal")
-                return QueryPlan(
+                propose(Branch.SUPERLATIVE_OR_FILTERED_LIST, QueryPlan(
                     intent = if (isList && rankOrdinal == null) Intent.FILTER_LIST else Intent.SUPERLATIVE,
                     fieldIds = listOf(sortField),
                     fieldOrdinal = rankOrdinal,
@@ -654,7 +672,7 @@ class QueryPlanner(
                     confidence = if (comparatorFilters.isNotEmpty()) 0.85 else 0.8,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
@@ -675,7 +693,7 @@ class QueryPlanner(
             val displayField = fieldIds.firstOrNull()
                 ?.takeIf { FieldRegistry.byId[it]?.kind == FieldKind.NUMERIC }
             evidence.add("subset list")
-            return QueryPlan(
+            propose(Branch.SUBSET_LIST, QueryPlan(
                 intent = Intent.FILTER_LIST,
                 fieldIds = listOfNotNull(displayField),
                 // Every filter, not just the subset: "which metals are lighter than aluminium"
@@ -687,7 +705,7 @@ class QueryPlanner(
                 confidence = 0.75,
                 rawQuery = rawQuery,
                 evidence = evidence
-            )
+            ))
         }
 
         // "which elements have a recorded curie point" — a list question with a field and no
@@ -701,7 +719,7 @@ class QueryPlanner(
                 ?.takeIf { FieldRegistry.byId[it]?.kind == FieldKind.NUMERIC }
             if (coverageField != null) {
                 evidence.add("field coverage")
-                return QueryPlan(
+                propose(Branch.FIELD_COVERAGE_LIST, QueryPlan(
                     intent = Intent.FILTER_LIST,
                     fieldIds = listOf(coverageField),
                     sortField = coverageField,
@@ -710,7 +728,7 @@ class QueryPlanner(
                     confidence = 0.75,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
@@ -729,7 +747,7 @@ class QueryPlanner(
             // could not fire. Re-run it now that the pair is complete: "how does that compare to
             // iron" is a request for a winner, and without this it fell through to the side-by-side
             // table the branch below builds.
-            comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let { return it }
+            comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let { propose(Branch.COMPARE_WITH_FOCUS, it) }
         }
 
 
@@ -738,14 +756,14 @@ class QueryPlanner(
             neighbourDirection(normalized)?.let { direction ->
                 store.byNumber(subject.atomicNumber + direction)?.let { target ->
                     evidence.add("neighbour ${if (direction > 0) "after" else "before"}")
-                    return QueryPlan(
+                    propose(Branch.NEIGHBOUR, QueryPlan(
                         intent = Intent.NEIGHBOUR,
                         entities = listOf(EntityRef.Element(subject.key), EntityRef.Element(target.key)),
                         limit = direction,
                         confidence = 0.85,
                         rawQuery = rawQuery,
                         evidence = evidence
-                    )
+                    ))
                 }
             }
         }
@@ -762,13 +780,13 @@ class QueryPlanner(
         val asksForAFieldOfAnElement = elementKeys.isNotEmpty() && fieldIds.isNotEmpty()
         if (!asksForAFieldOfAnElement) alloyIn(normalized)?.let { alloy ->
             evidence.add("alloy ${alloy.id}")
-            return QueryPlan(
+            propose(Branch.ALLOY, QueryPlan(
                 intent = Intent.DATASET_LOOKUP,
                 entities = listOf(EntityRef.DatasetRow(DatasetIndex.ALLOY, alloy.id)),
                 confidence = 0.8,
                 rawQuery = rawQuery,
                 evidence = evidence
-            )
+            ))
         }
 
         // ---- Comparison: two or more elements named together ------------------------------
@@ -782,7 +800,7 @@ class QueryPlanner(
         ) {
             comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let {
                 evidence.add("selective comparison")
-                return it
+                propose(Branch.SELECTIVE_COMPARISON, it)
             }
         }
 
@@ -794,7 +812,7 @@ class QueryPlanner(
             val unsupported = unsupportedAspects(normalized)
             evidence.add("comparison of ${elementKeys.size} elements")
             if (aspects.size > 1) evidence.add("aspects ${aspects.size}")
-            return QueryPlan(
+            propose(Branch.COMPARISON, QueryPlan(
                 intent = Intent.COMPARISON,
                 entities = elementKeys.map { EntityRef.Element(it) },
                 fieldIds = aspects.ifEmpty { fieldIds.ifEmpty { DEFAULT_COMPARISON_FIELDS } },
@@ -802,7 +820,7 @@ class QueryPlanner(
                 confidence = 0.8,
                 rawQuery = rawQuery,
                 evidence = evidence + unsupported.map { "no field for $it" }
-            )
+            ))
         }
 
         val element = elementKeys.firstOrNull()?.let { store.element(it) }
@@ -827,37 +845,37 @@ class QueryPlanner(
         if (element != null) {
             if (mentionsAny(normalized, Lexicon.ISOTOPE_WORDS)) {
                 evidence.add("isotopes")
-                return QueryPlan(
+                propose(Branch.ISOTOPES, QueryPlan(
                     intent = Intent.ISOTOPES,
                     entities = listOf(EntityRef.Element(element.key)),
                     limit = operators.topN ?: DEFAULT_ISOTOPE_LIMIT,
                     confidence = 0.85,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
             if (mentionsAny(normalized, Lexicon.SAFETY_WORDS)) {
                 evidence.add("safety")
-                return QueryPlan(
+                propose(Branch.SAFETY, QueryPlan(
                     intent = Intent.SAFETY,
                     entities = listOf(EntityRef.Element(element.key)),
                     confidence = 0.85,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
             // Also checked before field resolution: "what does the emission spectrum of iron look
             // like" matched `appearance` and answered with the metal's colour, and "emission
             // spectrum of sodium" resolved nothing at all and was declined.
             if (mentionsAny(normalized, Lexicon.SPECTRUM_WORDS)) {
                 evidence.add("emission spectrum")
-                return QueryPlan(
+                propose(Branch.EMISSION_SPECTRUM, QueryPlan(
                     intent = Intent.EMISSION_SPECTRUM,
                     entities = listOf(EntityRef.Element(element.key)),
                     confidence = 0.85,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
@@ -882,7 +900,7 @@ class QueryPlanner(
                     .map { it.id }
                 if (populated.size >= 2) {
                     evidence.add("category $category")
-                    return QueryPlan(
+                    propose(Branch.CATEGORY_LOOKUP, QueryPlan(
                         intent = Intent.CATEGORY_LOOKUP,
                         entities = listOf(EntityRef.Element(element.key)),
                         fieldIds = populated,
@@ -890,7 +908,7 @@ class QueryPlanner(
                         confidence = 0.8,
                         rawQuery = rawQuery,
                         evidence = evidence
-                    )
+                    ))
                 }
             }
         }
@@ -915,7 +933,7 @@ class QueryPlanner(
                 } else {
                     evidence.add("property $fieldId")
                 }
-                return QueryPlan(
+                propose(Branch.PROPERTY_LOOKUP, QueryPlan(
                     intent = Intent.PROPERTY_LOOKUP,
                     entities = listOf(EntityRef.Element(element.key)),
                     fieldIds = listOf(fieldId),
@@ -924,7 +942,7 @@ class QueryPlanner(
                     confidence = 0.8,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
@@ -954,17 +972,18 @@ class QueryPlanner(
                 val dataset = match.id.substring(0, separator)
                 evidence.add("dataset $dataset")
                 evidence.add("coverage %.2f".format(java.util.Locale.ROOT, match.coverage))
-                return QueryPlan(
+                propose(Branch.DATASET_ROW, QueryPlan(
                     intent = Intent.DATASET_LOOKUP,
                     entities = listOf(EntityRef.DatasetRow(dataset, match.id.substring(separator + 1))),
                     confidence = 0.7,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
-        return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.NO_MATCH)
+        propose(Branch.NO_MATCH, QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.NO_MATCH))
+        return proposals
     }
 
     /**
