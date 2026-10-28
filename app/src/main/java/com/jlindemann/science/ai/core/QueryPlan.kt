@@ -119,6 +119,9 @@ sealed class Filter {
     /** Whether the element occurs in nature, as opposed to being made in a reactor. */
     data class IsSynthetic(val synthetic: Boolean) : Filter()
 
+    /** Any element but these: "what **else** is in that group" leaves out the one it was read off (roadmap 1.7). */
+    data class Excludes(val keys: Set<ElementKey>) : Filter()
+
     /**
      * Whether an element satisfies this condition.
      *
@@ -145,6 +148,7 @@ sealed class Filter {
         is InGroup -> element.groupNumber == group
         is IsMetal -> element.series.isMetal == metal
         is IsSynthetic -> element.synthetic == synthetic
+        is Excludes -> element.key !in keys
     }
 }
 

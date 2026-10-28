@@ -137,9 +137,12 @@ class QueryPlanner(
         // ("how much"), so "镧系元素的中位原子量是多少" — the median atomic mass of the lanthanides —
         // matched the count word, the word "element" and no subset, and came back as the size of
         // the periodic table.
+        // Not when the elements are a set read off the one in focus: "how many elements are in its
+        // period" names no element, and was answered with 118.
         if (Lexicon.COUNT.any { normalized.contains(it) } &&
             Lexicon.ELEMENT_WORDS.any { normalized.contains(it) } &&
             entities.resolveAll(rawQuery, limit = 1).isEmpty() &&
+            (setDimension(normalized) == null || state.focusElement == null) &&
             OperatorExtractor.extract(rawQuery).let {
                 it.subsetFilters.isEmpty() && it.aggregation == Aggregation.COUNT
             }
@@ -160,10 +163,45 @@ class QueryPlanner(
         calculationPlan(rawQuery, normalized)?.let { return it }
 
 
-        val operators = OperatorExtractor.extract(rawQuery)
-        val elementMatches = entities.resolveAll(rawQuery, limit = 4)
-        val fieldMatches = fields.resolveAll(rawQuery, limit = 3)
+        var operators = OperatorExtractor.extract(rawQuery)
+        var elementMatches = entities.resolveAll(rawQuery, limit = 4)
+        var fieldMatches = fields.resolveAll(rawQuery, limit = 3)
         val evidence = ArrayList<String>(6)
+
+        // ---- A set read off an element: "what else is in that group" (roadmap 1.7) ----------
+        // The element is the reference, not the subject: the one named ("the same block as iron")
+        // or the one the conversation is about. Its set joins the subsets, so every branch below -
+        // list, count, superlative, statistic - ranges over it, and the words that named the set
+        // stop naming a property: "what is in the same block" is not a question about iron's block.
+        // "Else" and "other" leave the reference out of a list or a count, never out of a ranking:
+        // "más" and "mais" make superlatives too, and the densest in iron's group may be iron.
+        setDimension(normalized)?.let { dimension ->
+            val reference = (elementMatches.firstOrNull()?.key ?: state.focusElement)
+                ?.let { store.element(it) } ?: return@let
+            val setFilter = setFilter(dimension, reference) ?: return@let
+            val asksForMembers = operators.superlativeDescending == null && operators.topN == null &&
+                    operators.aggregation == Aggregation.NONE && operators.comparators.isEmpty() &&
+                    operators.range == null
+            val excludes = (asksForMembers || operators.aggregation == Aggregation.COUNT) &&
+                    mentionsAny(normalized, Lexicon.OTHER_WORDS)
+            val filters = listOf(setFilter) +
+                    if (excludes) listOf(com.jlindemann.science.ai.core.Filter.Excludes(setOf(reference.key))) else emptyList()
+            evidence.add("$dimension of ${reference.key}" + if (excludes) ", without it" else "")
+            operators = operators.copy(subsetFilters = operators.subsetFilters + filters)
+            elementMatches = elementMatches.filter { it.key != reference.key }
+            fieldMatches = fieldMatches.filter { it.spec.id != DIMENSION_FIELDS[dimension] }
+            if (asksForMembers) {
+                return QueryPlan(
+                    intent = Intent.FILTER_LIST,
+                    fieldIds = fieldMatches.map { it.spec.id },
+                    filters = operators.subsetFilters,
+                    limit = DEFAULT_LIST_LIMIT,
+                    confidence = 0.85,
+                    rawQuery = rawQuery,
+                    evidence = evidence
+                )
+            }
+        }
 
         // ---- Standalone unit conversion -------------------------------------------------------
         // Placed here rather than in `calculationPlan`, because the guard that separates this from
@@ -554,29 +592,6 @@ class QueryPlanner(
 
         val allFilters = subsetFilters + comparatorFilters
         val targetUnit = operators.targetUnit ?: state.lastTargetUnit.takeIf { fieldIds.isNotEmpty() }
-
-        // ---- "in the same group as carbon" ---------------------------------------------------
-        // The named element supplies the group or period; it is the reference, not the answer.
-        if (Lexicon.SAME_AS_WORDS.any { normalized.contains(it) }) {
-            elementKeys.firstOrNull()?.let { store.element(it) }?.let { reference ->
-                val byPeriod = normalized.contains("period") || normalized.contains("row")
-                val filter = if (byPeriod) {
-                    com.jlindemann.science.ai.core.Filter.InPeriod(reference.period)
-                } else {
-                    reference.groupNumber?.let { com.jlindemann.science.ai.core.Filter.InGroup(it) }
-                        ?: com.jlindemann.science.ai.core.Filter.InSeries(setOf(reference.series))
-                }
-                evidence.add("same ${if (byPeriod) "period" else "group"} as ${reference.key}")
-                return QueryPlan(
-                    intent = Intent.FILTER_LIST,
-                    filters = listOf(filter),
-                    limit = DEFAULT_LIST_LIMIT,
-                    confidence = 0.85,
-                    rawQuery = rawQuery,
-                    evidence = evidence
-                )
-            }
-        }
 
         // ---- Direct comparative: "is gold denser than lead" --------------------------------
         // A question with a one-word answer should get one, not a property table. Checked
@@ -1186,6 +1201,49 @@ class QueryPlanner(
         ) return true
         return !mentionsSomethingUnknown(normalized)
     }
+
+    /**
+     * The set a question reads off an element, or null (roadmap 1.7): "in its period" is the
+     * period, "the rest of that family" the series. A set's name counts only after one of
+     * [Lexicon.SET_DETERMINERS], so "what group is iron in" stays a question about iron's group; the
+     * whole phrases of [Lexicon.SAME_AS_WORDS] count too, and name the group unless they say which.
+     */
+    private fun setDimension(normalized: String): String? {
+        val words = com.jlindemann.science.ai.retrieval.TextMatching.splitQueryTokens(normalized)
+        for (determiner in Lexicon.SET_DETERMINERS) {
+            if (determiner.any { com.jlindemann.science.ai.retrieval.Tokenizer.isHan(it) }) {
+                for ((name, dimension) in Lexicon.SET_DIMENSIONS) {
+                    if (normalized.contains(determiner + name)) return dimension
+                }
+                continue
+            }
+            val parts = determiner.split(' ')
+            for (at in 0..words.size - parts.size - 1) {
+                if (parts.indices.any { words[at + it] != parts[it] }) continue
+                dimensionOf(words[at + parts.size])?.let { return it }
+            }
+        }
+        if (Lexicon.SAME_AS_WORDS.none { normalized.contains(it) }) return null
+        return words.firstNotNullOfOrNull { dimensionOf(it) }
+            ?: Lexicon.SET_DIMENSIONS.entries.firstOrNull { (name, _) -> name.length <= 2 && normalized.contains(name) }?.value
+            ?: "group"
+    }
+
+    /** The set a word names, allowing a short ending: "gruppen", "perioden", "blocket". */
+    private fun dimensionOf(word: String): String? = Lexicon.SET_DIMENSIONS.entries.firstOrNull { (name, _) ->
+        word.startsWith(name) && word.length - name.length <= MAX_SET_ENDING
+    }?.value
+
+    /** The filter for [reference]'s set of that kind; a lanthanide has no group, so its series stands in. */
+    private fun setFilter(dimension: String, reference: com.jlindemann.science.ai.data.ElementRecord): com.jlindemann.science.ai.core.Filter? =
+        when (dimension) {
+            "group" -> reference.groupNumber?.let { com.jlindemann.science.ai.core.Filter.InGroup(it) }
+                ?: com.jlindemann.science.ai.core.Filter.InSeries(setOf(reference.series))
+            "period" -> com.jlindemann.science.ai.core.Filter.InPeriod(reference.period)
+            "block" -> com.jlindemann.science.ai.core.Filter.InBlock(reference.block)
+            "series" -> com.jlindemann.science.ai.core.Filter.InSeries(setOf(reference.series))
+            else -> null
+        }
 
     /** Whether the query is the "same question, different subject" frame. */
     private fun asksWhatAbout(normalized: String): Boolean =
@@ -1998,6 +2056,14 @@ class QueryPlanner(
                 .thenByDescending { it.bm25 }
 
         const val DEFAULT_LIST_LIMIT = 10
+
+        /** The field that names each set, which a question about the set is not asking for. */
+        val DIMENSION_FIELDS = mapOf(
+            "group" to "group_number", "period" to "period", "block" to "block", "series" to "series"
+        )
+
+        /** Longest ending on a set's name: "familj" + "en". */
+        const val MAX_SET_ENDING = 3
         const val DEFAULT_ISOTOPE_LIMIT = 8
 
         /**

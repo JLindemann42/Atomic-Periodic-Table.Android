@@ -280,6 +280,25 @@ This is what lets a follow-up omit both the element and the property, and why
 asking about a second element then saying "and its density?" resolves against the
 new focus rather than the original one.
 
+### Sets read off an element (roadmap 1.7)
+
+"What else is in that group" takes its group from the element in focus, and "the
+same block as iron" from the element it names. The planner reads a set's name
+after one of `Lexicon.SET_DETERMINERS` ("in its period", "of that group", "in
+derselben Gruppe", "nello stesso gruppo", 同一族) or inside a `SAME_AS_WORDS`
+phrase, and turns the reference element's group, period, block or series
+(`Lexicon.SET_DIMENSIONS`) into a filter. That filter joins the subsets before
+anything else is decided, so a list, a count, a superlative or a statistic all
+range over it, and the word that named the set no longer resolves as a property:
+"what is in the same block" is not a question about iron's block. A plain list
+returns at once; "the lowest melting point in that group" goes on to the
+superlative branch with the group in hand.
+
+"Else", "other" and "the rest" (`Lexicon.OTHER_WORDS`) add `Filter.Excludes` for
+the reference - but only to a list or a count. "Más", "mais" and "mer" also make
+superlatives, and the densest in iron's group may be iron. "What group is iron in"
+is unaffected: the set's name must follow a determiner.
+
 ## Adding a language to the NLU
 
 The app-level localisation steps are in

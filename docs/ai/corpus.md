@@ -115,6 +115,15 @@ law", "what is a constant"), now declined, and four guards that must still answe
 question must now name a row's whole title; see `retrieval.md`. The held-out split was run once at
 the end and passed.
 
+**Roadmap 1.7 (sets read off an element)** added `focus_sets.tsv`: two-turn sessions that establish
+an element and then ask about its group, period, block or family, in five languages, plus
+single-turn questions naming the reference ("the same block as iron") and guards that must stay
+questions about the element itself ("what group is it in"). Counts carry `expect_value`, which pins
+the set and whether the reference is left out: "how many other elements are in that group" after
+iron is 3. 19 of 45 rows failed before. `ComplexQueryTest` changed with them: "what else is in the
+same period as iron" now lists seventeen elements, not eighteen with iron. The held-out split was
+run once at the end and passed.
+
 ## Why it exists in this shape
 
 **It is a scoreboard, not a tripwire.** Every row in a file is evaluated and the failures are

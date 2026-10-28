@@ -255,6 +255,72 @@ object Lexicon {
     )
 
     /**
+     * The four sets an element belongs to, by the words that name them (roadmap 1.7): group,
+     * period, block and series ("family"). Read with [SET_DETERMINERS] - "in **its** period", "of
+     * **that** group" - to find a set the question takes from an element rather than naming it.
+     * A word may carry a short ending: "gruppen", "perioden", "blocket".
+     */
+    val SET_DIMENSIONS: Map<String, String> = mapOf(
+        "group" to "group", "column" to "group", "grupp" to "group", "gruppe" to "group",
+        "grupo" to "group", "groupe" to "group", "gruppo" to "group", "groep" to "group",
+        "grupong" to "group", "समूह" to "group", "گروپ" to "group", "族" to "group",
+        "period" to "period", "row" to "period", "periode" to "period", "periodo" to "period",
+        "आवर्त" to "period", "دور" to "period", "周期" to "period",
+        "block" to "block", "bloque" to "block", "bloc" to "block", "blocco" to "block",
+        "bloco" to "block", "blok" to "block", "ब्लॉक" to "block", "بلاک" to "block", "区" to "block",
+        "family" to "series", "series" to "series", "familj" to "series", "serie" to "series",
+        "familie" to "series", "familia" to "series", "famille" to "series", "famiglia" to "series",
+        "pamilya" to "series", "परिवार" to "series", "خاندان" to "series", "系列" to "series"
+    )
+
+    /**
+     * What comes before a set's name when the question means an element's own set: a preposition
+     * and a demonstrative, a possessive or "same" (roadmap 1.7). Fused forms are listed whole -
+     * "nello stesso", "nesse", "del mismo" - and the Han ones are written without the space they
+     * never have.
+     */
+    val SET_DETERMINERS = listOf(
+        "in that", "in this", "in its", "in the same", "of that", "of its", "of the same",
+        "from that", "from its", "rest of that", "rest of its", "share its",
+        "i den", "i denna", "i samma", "i dess", "av samma", "inom samma", "resten av",
+        "in dieser", "in diesem", "in derselben", "in demselben", "in der gleichen", "im gleichen",
+        "im selben", "in seiner", "in seinem", "aus dieser", "aus derselben", "aus der gleichen",
+        "en ese", "en este", "en esa", "en esta", "en su", "en el mismo", "en la misma", "de su",
+        "del mismo", "de la misma", "de ese", "de este", "resto de su", "resto del",
+        "dans ce", "dans cette", "dans son", "dans sa", "dans le meme", "dans la meme", "de son",
+        "de sa", "du meme", "de la meme", "de ce", "reste de son",
+        "in quel", "in quella", "in questo", "in questa", "nel suo", "nella sua", "nello stesso",
+        "nella stessa", "del suo", "della sua", "dello stesso", "della stessa", "di quel",
+        "nesse", "nessa", "neste", "nesta", "no seu", "na sua", "no mesmo", "na mesma", "do seu",
+        "da sua", "do mesmo", "da mesma", "desse", "dessa",
+        "in daardie", "in hierdie", "in sy", "in dieselfde", "van sy", "van dieselfde", "van daardie",
+        "sa parehong", "sa kanyang", "ng parehong", "ng kanyang",
+        "उस", "उसी", "इसके", "इसी", "इस",
+        "اس", "اسی", "اس کے",
+        "那一", "同一", "这一", "这个", "那个", "它的", "该"
+    )
+
+    /**
+     * "Else", "other", "the rest": a set without the element it was read off (roadmap 1.7). Only a
+     * list or a count leaves the element out - "más" and "mais" also make superlatives, and the
+     * densest in iron's group may be iron.
+     */
+    val OTHER_WORDS = listOf(
+        "else", "other", "others", "rest",
+        "mer", "andra", "annat", "ovriga", "resten",
+        "noch", "andere", "anderen", "ubrigen",
+        "mas", "otro", "otros", "otra", "otras", "resto", "demas",
+        "autre", "autres", "reste",
+        "altri", "altre", "altro",
+        "outro", "outros", "outra", "outras", "mais",
+        "ander", "res", "nog",
+        "iba", "ibang", "natitira",
+        "और", "अन्य", "बाकी",
+        "اور", "دوسرے", "باقی",
+        "其他", "其余", "别的", "还有"
+    )
+
+    /**
      * The [SERIES_WORDS] surfaces that are plural.
      *
      * "What is a noble gas" asks for the definition; "what are the noble gases" asks for the

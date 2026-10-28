@@ -152,6 +152,9 @@ class CorpusTest {
     /** Misspellings corrected when a question would otherwise be declined, and the words never to touch. */
     @Test fun spelling() = runFile("spelling")
 
+    /** Sets read off an element: "what else is in that group", "the same block as iron". */
+    @Test fun focusSets() = runFile("focus_sets")
+
     // ---- Runner ---------------------------------------------------------------------------------
 
     private fun runFile(name: String) {
