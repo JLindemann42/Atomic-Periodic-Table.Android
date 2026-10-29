@@ -975,10 +975,13 @@ class QueryExecutor(
      */
     private fun explanation(plan: QueryPlan): ExecutionResult? {
         val explanation = plan.literal?.let { explanations.byKey(it) } ?: return null
-        val trend = (explanation.card as? com.jlindemann.science.ai.data.ExplanationCard.Trend)?.let { card ->
-            trend(QueryPlan(intent = Intent.TREND, fieldIds = listOf(card.fieldId), filters = listOfNotNull(card.filter)))
-                as? ExecutionResult.Trend
-        }
+        // The text is free; a PRO field's values are not, so its card is left off for a free user.
+        val trend = (explanation.card as? com.jlindemann.science.ai.data.ExplanationCard.Trend)
+            ?.takeIf { entitlements.allowsField(it.fieldId) }
+            ?.let { card ->
+                trend(QueryPlan(intent = Intent.TREND, fieldIds = listOf(card.fieldId), filters = listOfNotNull(card.filter)))
+                    as? ExecutionResult.Trend
+            }
         val ionization = (explanation.card as? com.jlindemann.science.ai.data.ExplanationCard.Ionization)
             ?.let { store.element(it.elementKey) }
         return ExecutionResult.Explanation(

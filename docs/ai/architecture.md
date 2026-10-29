@@ -242,13 +242,27 @@ chips fill the remaining places, less any that would repeat the question ("Atomi
 under the atomic mass of gold). `FollowUpsTest` asks each locale's own seed questions and then
 every chip they produce, and fails if any is declined.
 
-**Explanations** (roadmap 2.4, stage 1). "Why does atomic radius increase down a group", "why are
-noble gases unreactive" and "why is mercury a liquid" plan to `Intent.EXPLANATION`: a written
-explanation, shown with the data it explains. Stage 1 has 20 of the roughly 60 the roadmap lists:
-the radius, ionization, electronegativity, melting-point and electron-affinity trends, plus twelve
-concepts (the ionization dips and jumps, fluorine, noble gases, alkali metals, halogens, metallic
-character, density, the lanthanide contraction, mercury, helium's boiling point). Stage 2 adds the
-rest in the same format.
+**Explanations** (roadmap 2.4). "Why does atomic radius increase down a group", "why are noble
+gases unreactive" and "why is mercury a liquid" plan to `Intent.EXPLANATION`: a written explanation,
+shown with the data it explains. There are 60, the number the roadmap asks for. Stage 1 wrote 20:
+the radius, ionization, electronegativity, melting-point and electron-affinity trends, and concepts
+such as the ionization dips and jumps, noble gases, halogens, the lanthanide contraction and
+mercury. Stage 2 added 40:
+- trends in boiling point, density, electron affinity down a group, thermal conductivity, specific
+  heat and work function;
+- concepts such as the halogens' states, the transition metals' radii, ionization and melting
+  points, helium's ionization energy, the electron-configuration exceptions, tungsten, gallium, the
+  noble metals, the inert pair, the diagonal relationship, where hydrogen and helium sit, xenon
+  compounds, carbon, metalloids, shielding, periodicity, polar and ionic bonds, and why atomic
+  masses are not whole numbers.
+
+A card for a PRO field (electron affinity) is left off for a free user. The text is free, and the
+electron-affinity texts quote no values. Stage 1 had shown the PRO values in the card to everyone.
+
+Trigger phrases are substrings, so a short part has to be unambiguous on its own. French "or"
+(gold) sits inside "chlore", Chinese 金 inside 金属 (metal), Spanish and Italian "oro" inside
+"cloro". The gold triggers therefore say "l'or est", 黄金 and "el oro" / "l oro". The planner's text
+keeps the apostrophe, so French triggers spell "l'or" as well as "l or".
 
 The data is in the shared repository. `datasets/explanations.tsv` says what each explains (a field
 and a scope: group, period or table) and which card goes with it (`trend:<field>:group=1`,
@@ -277,7 +291,13 @@ and the trend is the better reading.
 `explanations.tsv` joins the corpus (38 files), with `expect_row` reading `explanation/<key>`. Five
 earlier rows that the dictionary answered or that deferred now expect an explanation. So does one
 held-out row, `ds-why-1`: it failed at the end-of-item held-out run, and only its expectation was
-updated. Nothing was tuned against it.
+updated. Nothing was tuned against it. Stage 2 adds a row per new explanation in English and two in
+each other language; held-out passed unchanged.
+
+Two data findings were left for their own change. Titanium's atomic radius is stored as 76 pm,
+about a hundred too small, so the period-4 radius card dips at titanium; the transition-radius text
+avoids it. Resistivity's scale multipliers are inconsistent (silver's comes out ten times copper's),
+so no explanation uses it, and the conductor texts use thermal conductivity instead.
 
 **Trends** (roadmap 2.3). "Electronegativity across period 3", "how does atomic radius change
 down group 1" and "a heat map of density" plan to `Intent.TREND`: one measurable field over the

@@ -47,6 +47,15 @@ class ExplanationTest {
     }
 
     @Test
+    fun aProFieldsCardStaysPro() {
+        val query = "why does electron affinity increase across a period"
+        assertEquals(ChatCardKind.TREND_LINE, ChatFixture.chat().ask(query).card?.kind)
+        val free = ChatFixture.chat(entitlements = com.jlindemann.science.ai.core.Entitlements(isPro = false, isProPlus = false)).ask(query)
+        assertEquals(Intent.EXPLANATION, free.plan?.intent)
+        assertEquals(null, free.card)
+    }
+
+    @Test
     fun aDefinitionIsNotAWhy() {
         assertNotEquals(Intent.EXPLANATION, ChatFixture.chat().ask("what is electronegativity").plan?.intent)
     }
