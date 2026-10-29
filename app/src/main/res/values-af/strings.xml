@@ -1305,6 +1305,15 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
     <string name="ai_trend_mixed">Dit het geen vaste rigting nie: %1$s (%2$s) aan die een kant, %3$s (%4$s) aan die ander.</string>
     <string name="ai_trend_extremes">Hoogste: %1$s (%2$s). Laagste: %3$s (%4$s).</string>
     <string name="ai_card_trend_title">Tendens: %1$s</string>
+    <string name="ai_quiz_run_start_all">\'n Vasvra van **%1$d vrae** uit die hele tabel. Tik op \'n antwoord, of sê stop om te eindig.</string>
+    <string name="ai_quiz_run_start_scoped">\'n Vasvra van **%1$d vrae** oor %2$s. Tik op \'n antwoord, of sê stop om te eindig.</string>
+    <string name="ai_quiz_run_scope_count">%1$d elemente</string>
+    <string name="ai_quiz_run_question">**Vraag %1$d van %2$d.** %3$s</string>
+    <string name="ai_quiz_run_right">✨ Reg! **+%1$d XP**.</string>
+    <string name="ai_quiz_run_wrong">Nie heeltemal nie: die antwoord was **%1$s**.</string>
+    <string name="ai_quiz_run_done">Dis die vasvra: **%1$d uit %2$d** reg, **%3$d XP** verdien.</string>
+    <string name="ai_quiz_run_stopped">Vasvra gestop: **%1$d uit %2$d** reg, **%3$d XP** verdien.</string>
+    <string name="ai_quiz_run_none">Ek kon nie vrae daaroor maak nie. Probeer \'n groep, \'n periode, \'n familie elemente of \'n enkele element.</string>
     <string name="ai_card_heat_map_title">%1$s oor die tabel</string>
 
     <!-- Equation Balancer tool -->

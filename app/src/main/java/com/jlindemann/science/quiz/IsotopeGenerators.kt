@@ -25,6 +25,7 @@ private data class Nuclide(val label: String, val isotope: Isotope) {
  */
 private fun isotopePool(ctx: GeneratorContext): List<Nuclide> =
     ctx.store.elements
+        .filter(ctx::inScope)
         .flatMap { element ->
             element.isotopes.mapNotNull { iso ->
                 val protons = iso.protons ?: return@mapNotNull null

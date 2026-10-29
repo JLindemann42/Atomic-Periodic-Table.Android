@@ -1309,6 +1309,15 @@ I：不溶"</string>
     <string name="ai_trend_mixed">没有稳定的方向：一端是 %1$s（%2$s），另一端是 %3$s（%4$s）。</string>
     <string name="ai_trend_extremes">最高：%1$s（%2$s）。最低：%3$s（%4$s）。</string>
     <string name="ai_card_trend_title">%1$s趋势</string>
+    <string name="ai_quiz_run_start_all">一个来自整个周期表的**%1$d道题**测验。点击一个答案，或说停止来结束。</string>
+    <string name="ai_quiz_run_start_scoped">一个关于%2$s的**%1$d道题**测验。点击一个答案，或说停止来结束。</string>
+    <string name="ai_quiz_run_scope_count">%1$d种元素</string>
+    <string name="ai_quiz_run_question">**第%1$d题，共%2$d题。** %3$s</string>
+    <string name="ai_quiz_run_right">✨ 答对了！**+%1$d XP**。</string>
+    <string name="ai_quiz_run_wrong">不太对：答案是**%1$s**。</string>
+    <string name="ai_quiz_run_done">测验结束：答对**%1$d/%2$d**题，获得**%3$d XP**。</string>
+    <string name="ai_quiz_run_stopped">测验已停止：答对**%1$d/%2$d**题，获得**%3$d XP**。</string>
+    <string name="ai_quiz_run_none">我无法就此出题。试试一个族、一个周期、一类元素或单个元素。</string>
     <string name="ai_card_heat_map_title">周期表中的%1$s</string>
 
     <!-- Equation Balancer tool -->

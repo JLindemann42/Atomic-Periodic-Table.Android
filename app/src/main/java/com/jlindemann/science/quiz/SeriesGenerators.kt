@@ -35,7 +35,8 @@ class ClassificationGenerator(
         val byLabel = elementsByLabel(ctx)
         if (byLabel.size < 2) return emptyList()
         val labels = byLabel.keys.toList()
-        val pool = byLabel.values.flatten()
+        val pool = byLabel.values.flatten().filter(ctx::inScope)
+        if (pool.isEmpty()) return emptyList()
 
         val questions = ArrayList<QuizQuestion>(count)
         val used = HashSet<String>()

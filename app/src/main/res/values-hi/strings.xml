@@ -1297,6 +1297,15 @@
     <string name="ai_trend_mixed">इसकी कोई स्थिर दिशा नहीं है: एक सिरे पर %1$s (%2$s), दूसरे पर %3$s (%4$s)।</string>
     <string name="ai_trend_extremes">सबसे अधिक: %1$s (%2$s)। सबसे कम: %3$s (%4$s)।</string>
     <string name="ai_card_trend_title">%1$s की प्रवृत्ति</string>
+    <string name="ai_quiz_run_start_all">पूरी सारणी से **%1$d प्रश्नों** की प्रश्नोत्तरी। किसी उत्तर पर टैप करें, या रोकने के लिए बस कहें।</string>
+    <string name="ai_quiz_run_start_scoped">%2$s पर **%1$d प्रश्नों** की प्रश्नोत्तरी। किसी उत्तर पर टैप करें, या रोकने के लिए बस कहें।</string>
+    <string name="ai_quiz_run_scope_count">%1$d तत्वों</string>
+    <string name="ai_quiz_run_question">**प्रश्न %1$d / %2$d.** %3$s</string>
+    <string name="ai_quiz_run_right">✨ सही! **+%1$d XP**।</string>
+    <string name="ai_quiz_run_wrong">पूरी तरह नहीं: उत्तर था **%1$s**।</string>
+    <string name="ai_quiz_run_done">प्रश्नोत्तरी पूरी: **%2$d में से %1$d** सही, **%3$d XP** मिले।</string>
+    <string name="ai_quiz_run_stopped">प्रश्नोत्तरी रोकी गई: **%2$d में से %1$d** सही, **%3$d XP** मिले।</string>
+    <string name="ai_quiz_run_none">मैं इस पर प्रश्न नहीं बना सका। कोई समूह, आवर्त, तत्वों का परिवार या एक तत्व आज़माएँ।</string>
     <string name="ai_card_heat_map_title">सारणी में %1$s</string>
 
     <!-- Equation Balancer tool -->

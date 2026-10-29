@@ -1311,6 +1311,15 @@ Ils partagent des comportements chimiques similaires grâce à leurs électrons 
     <string name="ai_trend_mixed">Sans direction nette : %1$s (%2$s) à un bout, %3$s (%4$s) à l’autre.</string>
     <string name="ai_trend_extremes">La plus élevée : %1$s (%2$s). La plus basse : %3$s (%4$s).</string>
     <string name="ai_card_trend_title">Tendance : %1$s</string>
+    <string name="ai_quiz_run_start_all">Un quiz de **%1$d questions** sur tout le tableau. Touche une réponse, ou dis stop pour arrêter.</string>
+    <string name="ai_quiz_run_start_scoped">Un quiz de **%1$d questions** sur %2$s. Touche une réponse, ou dis stop pour arrêter.</string>
+    <string name="ai_quiz_run_scope_count">%1$d éléments</string>
+    <string name="ai_quiz_run_question">**Question %1$d sur %2$d.** %3$s</string>
+    <string name="ai_quiz_run_right">✨ Exact ! **+%1$d XP**.</string>
+    <string name="ai_quiz_run_wrong">Pas tout à fait : la réponse était **%1$s**.</string>
+    <string name="ai_quiz_run_done">Quiz terminé : **%1$d sur %2$d** justes, **%3$d XP** gagnés.</string>
+    <string name="ai_quiz_run_stopped">Quiz arrêté : **%1$d sur %2$d** justes, **%3$d XP** gagnés.</string>
+    <string name="ai_quiz_run_none">Je n\'ai pas pu créer de questions là-dessus. Essaie un groupe, une période, une famille d\'éléments ou un seul élément.</string>
     <string name="ai_card_heat_map_title">%1$s dans le tableau</string>
 
     <!-- Equation Balancer tool -->

@@ -30,13 +30,19 @@ object ChatFixture {
     fun strings(language: String = "en"): TestStrings =
         synchronized(strings) { strings.getOrPut(language) { TestStrings(language, fallBackToEnglish = true) } }
 
-    fun chat(seed: Int? = null, language: String = "en", entitlements: Entitlements = Entitlements.FULL) =
+    fun chat(
+        seed: Int? = null,
+        language: String = "en",
+        entitlements: Entitlements = Entitlements.FULL,
+        onXp: (Int) -> Unit = {}
+    ) =
         ChatOrchestrator(
             retrieval = service,
             stringsFor = ::strings,
             entitlements = { entitlements },
             language = language,
-            random = seed?.let { Random(it) } ?: Random.Default
+            random = seed?.let { Random(it) } ?: Random.Default,
+            onXp = onXp
         )
 
     val noData: String get() = strings().get(com.jlindemann.science.R.string.ai_no_data)

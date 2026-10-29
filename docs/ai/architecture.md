@@ -51,7 +51,7 @@ AiChatAgent.generateResponse()             Android: limits, strings, telemetry
     ▼
 ChatOrchestrator.ask()                     platform-free, JVM-tested
     ├── Language detection                 (RetrievalService.detectLanguage → LanguageDetector)
-    ├── Open quiz question?                (ElementQuiz)
+    ├── Quiz run or open quiz question?    (QuizRun, ElementQuiz)
     │
     ├── STRUCTURED ENGINE                  (AiEngine) — always asked first
     │     1. Tokenize                      (Tokenizer: Han bigrams, Arabic, …)
@@ -100,6 +100,7 @@ user is defined by two corpus files, `must_defer.tsv` and `capabilities.tsv`.
 | `ElementOverview.kt` | "Gold", "tell me (everything) about gold": basic facts plus sections, in the reader's language. |
 | `ElementMoreInfo.kt` | "Tell me more": picks the next unsaid field; the engine renders it. |
 | `ElementQuiz.kt` | "Quiz me", and the verdict on the next reply. |
+| `QuizRun.kt` | Quiz runs (roadmap 2.5): "quiz me on the halogens", read into a count, a scope and a kind of question, and judged one pick at a time. |
 | `ElementReactions.kt` | What an element does with water, oxygen, acid or another element. |
 | `ElementSimilarity.kt` | The elements in the same group. |
 | `ElementNarrative.kt` | Usage, biological role and etymology, read from the description. |
@@ -241,6 +242,38 @@ read in some language is therefore never shown there, rather than leading to a d
 chips fill the remaining places, less any that would repeat the question ("Atomic mass of Gold"
 under the atomic mass of gold). `FollowUpsTest` asks each locale's own seed questions and then
 every chip they produce, and fails if any is declined.
+
+**Quiz runs** (roadmap 2.5). "Quiz me on the halogens", "five isotope questions on uranium" and
+"frågesport om ädelgaserna" start a run of multiple-choice questions, asked one at a time with the
+options as chips. The questions come from the Learning Games generators (`quiz/`), and each right
+answer earns that game's XP through `ChatOrchestrator`'s `onXp`. `AiChatAgent` passes
+`XpManager.addGameXp`, so chat XP counts towards the user's level like the games'.
+
+A request becomes a run when it names a scope, a count or a kind of question. A bare "quiz me" keeps
+the single free-text question of `ElementQuiz`. `QuizRun.request` reads:
+- the count: digits, or number words up to ten in each language; 5 by default and 10 at most. "Period
+  3" is a scope, not a count, and Chinese needs a measure word (五道题), since 三 also opens 第三周期.
+- the kind: isotope words give the four isotope games, "molar mass" the molar-mass game, and
+  "highest" or "lowest" the ranking games. Anything else gets a mix of classification, position,
+  valence, ranking and isotope-neutron questions.
+
+The scope comes from `OperatorExtractor`, the same reading of families, blocks, phases, periods and
+groups the engine uses, or else from the elements the request names. The planner itself is not
+asked, because it declines any message with a quiz word in it. `GeneratorContext` takes the scope as
+a set of keys. The element a question is about comes from it; wrong options still come from the
+whole table, since a question about bromine's period needs other periods. A generator the scope
+cannot feed returns nothing and is skipped: one element has no "which of these is densest".
+
+During a run:
+- a pick is an option said exactly (a chip) or alone inside a short sentence ("it's sodium");
+- "stop" ends the run with the score so far;
+- any other message leaves the run and is answered as usual.
+
+The run is not persisted: it belongs to one sitting.
+
+"The halogens" scopes to what the data files as halogens: bromine, iodine, astatine, tennessine and
+radon. Radon's `element_group` says "Halogens", and fluorine and chlorine are filed as reactive
+nonmetals. That is a data fix of its own.
 
 **Explanations** (roadmap 2.4). "Why does atomic radius increase down a group", "why are noble
 gases unreactive" and "why is mercury a liquid" plan to `Intent.EXPLANATION`: a written explanation,

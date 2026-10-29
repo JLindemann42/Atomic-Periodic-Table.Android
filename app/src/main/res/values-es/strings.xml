@@ -714,6 +714,15 @@
     <string name="ai_trend_mixed">Sin una dirección clara: %1$s (%2$s) en un extremo, %3$s (%4$s) en el otro.</string>
     <string name="ai_trend_extremes">El más alto: %1$s (%2$s). El más bajo: %3$s (%4$s).</string>
     <string name="ai_card_trend_title">Tendencia: %1$s</string>
+    <string name="ai_quiz_run_start_all">Un quiz de **%1$d preguntas** de toda la tabla. Toca una respuesta o di parar para terminar.</string>
+    <string name="ai_quiz_run_start_scoped">Un quiz de **%1$d preguntas** sobre %2$s. Toca una respuesta o di parar para terminar.</string>
+    <string name="ai_quiz_run_scope_count">%1$d elementos</string>
+    <string name="ai_quiz_run_question">**Pregunta %1$d de %2$d.** %3$s</string>
+    <string name="ai_quiz_run_right">✨ ¡Correcto! **+%1$d XP**.</string>
+    <string name="ai_quiz_run_wrong">No exactamente: la respuesta era **%1$s**.</string>
+    <string name="ai_quiz_run_done">Fin del quiz: **%1$d de %2$d** correctas, **%3$d XP** ganados.</string>
+    <string name="ai_quiz_run_stopped">Quiz detenido: **%1$d de %2$d** correctas, **%3$d XP** ganados.</string>
+    <string name="ai_quiz_run_none">No pude crear preguntas sobre eso. Prueba con un grupo, un periodo, una familia de elementos o un solo elemento.</string>
     <string name="ai_card_heat_map_title">%1$s en la tabla</string>
 
     <!-- Equation Balancer tool -->

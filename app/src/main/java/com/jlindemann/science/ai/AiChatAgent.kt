@@ -86,7 +86,9 @@ class AiChatAgent(private val context: Context) {
                     stringsFor = ::stringsFor,
                     entitlements = ::currentEntitlements,
                     cardPolicy = ::currentCardPolicy,
-                    language = appLanguage
+                    language = appLanguage,
+                    // A right answer in a chat quiz run earns XP like the Learning Games (roadmap 2.5).
+                    onXp = { com.jlindemann.science.util.XpManager.addGameXp(context, it) }
                 ).also { it.profile.load(loadInterests()) }
                 lastSuggestions = orchestrator?.suggestions().orEmpty()
                 initError = null

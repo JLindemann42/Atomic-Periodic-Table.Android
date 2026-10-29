@@ -34,8 +34,17 @@ class GeneratorContext(
     private val names: LocalizedView?,
     private val strings: StringProvider,
     val difficulty: String,
-    val random: Random = Random.Default
+    val random: Random = Random.Default,
+    /**
+     * The elements a question may be about, by key, or null for the whole table: a quiz run from
+     * chat on "the halogens" (roadmap 2.5). Wrong options still come from the whole table, since a
+     * question about bromine's period needs periods other than bromine's.
+     */
+    private val scope: Set<String>? = null
 ) {
+
+    /** Whether a question may be about [element]. */
+    fun inScope(element: ElementRecord): Boolean = scope == null || element.key in scope
 
     private val rankableCache = HashMap<String, List<Pair<ElementRecord, Quantity>>>()
 
@@ -63,7 +72,7 @@ class GeneratorContext(
      */
     fun rankableFor(fieldId: String): List<Pair<ElementRecord, Quantity>> =
         rankableCache.getOrPut(fieldId) {
-            store.elements.mapNotNull { element ->
+            store.elements.filter(::inScope).mapNotNull { element ->
                 element.quantity(fieldId)?.takeIf { !it.isRange }?.let { element to it }
             }
         }

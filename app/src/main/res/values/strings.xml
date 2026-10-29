@@ -1555,6 +1555,15 @@
     <string name="ai_trend_mixed">It has no steady direction: %1$s (%2$s) at one end, %3$s (%4$s) at the other.</string>
     <string name="ai_trend_extremes">Highest: %1$s (%2$s). Lowest: %3$s (%4$s).</string>
     <string name="ai_card_trend_title">%1$s trend</string>
+    <string name="ai_quiz_run_start_all">A quiz of **%1$d questions** from the whole table. Tap an answer, or say stop to end it.</string>
+    <string name="ai_quiz_run_start_scoped">A quiz of **%1$d questions** on %2$s. Tap an answer, or say stop to end it.</string>
+    <string name="ai_quiz_run_scope_count">%1$d elements</string>
+    <string name="ai_quiz_run_question">**Question %1$d of %2$d.** %3$s</string>
+    <string name="ai_quiz_run_right">✨ Right! **+%1$d XP**.</string>
+    <string name="ai_quiz_run_wrong">Not quite: the answer was **%1$s**.</string>
+    <string name="ai_quiz_run_done">That\'s the quiz: **%1$d of %2$d** right, **%3$d XP** earned.</string>
+    <string name="ai_quiz_run_stopped">Quiz stopped: **%1$d of %2$d** right, **%3$d XP** earned.</string>
+    <string name="ai_quiz_run_none">I couldn\'t make questions on that. Try a group, a period, a family of elements or a single element.</string>
     <string name="ai_card_heat_map_title">%1$s across the table</string>
 
     <!-- Equation Balancer tool -->

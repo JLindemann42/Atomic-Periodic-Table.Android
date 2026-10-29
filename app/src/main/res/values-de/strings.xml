@@ -1237,6 +1237,15 @@
     <string name="ai_trend_mixed">Ohne klare Richtung: %1$s (%2$s) am einen Ende, %3$s (%4$s) am anderen.</string>
     <string name="ai_trend_extremes">Am höchsten: %1$s (%2$s). Am niedrigsten: %3$s (%4$s).</string>
     <string name="ai_card_trend_title">Verlauf: %1$s</string>
+    <string name="ai_quiz_run_start_all">Ein Quiz mit **%1$d Fragen** aus dem ganzen Periodensystem. Tippe auf eine Antwort oder sag Stopp, um es zu beenden.</string>
+    <string name="ai_quiz_run_start_scoped">Ein Quiz mit **%1$d Fragen** zu %2$s. Tippe auf eine Antwort oder sag Stopp, um es zu beenden.</string>
+    <string name="ai_quiz_run_scope_count">%1$d Elementen</string>
+    <string name="ai_quiz_run_question">**Frage %1$d von %2$d.** %3$s</string>
+    <string name="ai_quiz_run_right">✨ Richtig! **+%1$d XP**.</string>
+    <string name="ai_quiz_run_wrong">Nicht ganz: Die Antwort war **%1$s**.</string>
+    <string name="ai_quiz_run_done">Das war das Quiz: **%1$d von %2$d** richtig, **%3$d XP** verdient.</string>
+    <string name="ai_quiz_run_stopped">Quiz beendet: **%1$d von %2$d** richtig, **%3$d XP** verdient.</string>
+    <string name="ai_quiz_run_none">Dazu konnte ich keine Fragen erstellen. Versuch es mit einer Gruppe, einer Periode, einer Elementfamilie oder einem einzelnen Element.</string>
     <string name="ai_card_heat_map_title">%1$s im Periodensystem</string>
 
     <!-- Equation Balancer tool -->

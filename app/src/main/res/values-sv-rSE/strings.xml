@@ -1239,6 +1239,15 @@
     <string name="ai_trend_mixed">Den har ingen tydlig riktning: %1$s (%2$s) i ena änden, %3$s (%4$s) i den andra.</string>
     <string name="ai_trend_extremes">Högst: %1$s (%2$s). Lägst: %3$s (%4$s).</string>
     <string name="ai_card_trend_title">%1$s – trend</string>
+    <string name="ai_quiz_run_start_all">Ett quiz med **%1$d frågor** från hela tabellen. Tryck på ett svar, eller säg stopp för att avsluta.</string>
+    <string name="ai_quiz_run_start_scoped">Ett quiz med **%1$d frågor** om %2$s. Tryck på ett svar, eller säg stopp för att avsluta.</string>
+    <string name="ai_quiz_run_scope_count">%1$d grundämnen</string>
+    <string name="ai_quiz_run_question">**Fråga %1$d av %2$d.** %3$s</string>
+    <string name="ai_quiz_run_right">✨ Rätt! **+%1$d XP**.</string>
+    <string name="ai_quiz_run_wrong">Inte riktigt: svaret var **%1$s**.</string>
+    <string name="ai_quiz_run_done">Quizet är klart: **%1$d av %2$d** rätt, **%3$d XP** intjänat.</string>
+    <string name="ai_quiz_run_stopped">Quizet avbrutet: **%1$d av %2$d** rätt, **%3$d XP** intjänat.</string>
+    <string name="ai_quiz_run_none">Jag kunde inte göra frågor om det. Prova en grupp, en period, en grundämnesfamilj eller ett enskilt grundämne.</string>
     <string name="ai_card_heat_map_title">%1$s i hela systemet</string>
 
     <!-- Equation Balancer tool -->

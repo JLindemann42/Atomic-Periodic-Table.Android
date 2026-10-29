@@ -16,6 +16,7 @@ import com.jlindemann.science.ai.data.ReactivityScale
 import com.jlindemann.science.ai.retrieval.FuzzyMatch
 import com.jlindemann.science.ai.retrieval.RetrievalService
 import com.jlindemann.science.ai.retrieval.TextMatching
+import com.jlindemann.science.quiz.GeneratorContext
 import java.util.Locale
 import kotlin.random.Random
 
@@ -74,7 +75,9 @@ class ChatOrchestrator(
     private val cardPolicy: () -> ChatCardPolicy = { ChatCardPolicy.DEFAULT },
     language: String = "en",
     /** Picks among the shipped facts and quiz questions. Seedable, so a test can name the reply. */
-    private val random: Random = Random.Default
+    private val random: Random = Random.Default,
+    /** Receives the XP a right answer in a quiz run earns (roadmap 2.5); the app adds it to the user's. */
+    private val onXp: (Int) -> Unit = {}
 ) {
 
     private val store = retrieval.store
@@ -90,6 +93,10 @@ class ChatOrchestrator(
 
     /** What the conversation remembers. Public so a host can persist and restore a thread. */
     val state: DialogueState = DialogueState().apply { activeLanguage = language }
+
+    /** The quiz run in progress, if any (roadmap 2.5). Not persisted: a run belongs to one sitting. */
+    var quizRun: QuizRunState? = null
+        private set
 
     /** Which elements this user keeps asking about. The host saves and restores it. */
     val profile = InterestProfile()
@@ -156,7 +163,10 @@ class ChatOrchestrator(
     fun suggestions(): List<String> = suggestions(stringsFor(state.activeLanguage), null)
 
     /** Start a new thread, keeping the language the user is writing in. */
-    fun reset() = state.clear()
+    fun reset() {
+        state.clear()
+        quizRun = null
+    }
 
     // ---- Handlers ---------------------------------------------------------------------------
 
@@ -184,6 +194,21 @@ class ChatOrchestrator(
     /** Ask a quiz question, or judge the answer to the one outstanding. */
     private fun quiz(message: String, strings: StringProvider): ChatReply? {
         val normalized = TextMatching.normalizeForLookup(message)
+
+        // A run in progress (roadmap 2.5): an option picks an answer, "stop" ends it, and anything
+        // else is a new question, so the run is left and the message answered as usual.
+        quizRun?.let { run ->
+            if (QuizRun.stops(normalized)) {
+                quizRun = null
+                return ChatReply(
+                    strings.get(R.string.ai_quiz_run_stopped, run.correct, run.index, run.xp),
+                    ReplySource.PERSONALITY, suggestions = suggestions(strings, null)
+                )
+            }
+            QuizRun.choice(normalized, run.current.alternatives)?.let { return answerRun(run, it, strings) }
+            quizRun = null
+        }
+
         val pending = state.pendingQuizAnswer
 
         // A short reply while a question is open is the answer to it — but only if it names an
@@ -204,6 +229,9 @@ class ChatOrchestrator(
         }
 
         if (!ElementQuiz.asks(normalized)) return null
+        // A quiz with a scope, a count or a kind of question is a run; a bare "quiz me" is the
+        // single question below.
+        startRun(message, normalized, strings)?.let { return it }
         val question = ElementQuiz.ask(store.elements, random, strings)
             ?: return ChatReply(strings.get(R.string.ai_quiz_no_start), ReplySource.PERSONALITY,
                 suggestions = suggestions(strings, null))
@@ -211,6 +239,74 @@ class ChatOrchestrator(
         // Deliberately not set as the focus: the user is being asked to name this element, and
         // putting it in focus would let the next question answer itself.
         return ChatReply(question.first, ReplySource.PERSONALITY, suggestions = suggestions(strings, null))
+    }
+
+    /**
+     * Start a run, or null when the request names no scope, count or kind of question. Its
+     * questions come from the Learning Games generators, about the elements the request names.
+     */
+    private fun startRun(message: String, normalized: String, strings: StringProvider): ChatReply? {
+        val request = QuizRun.request(normalized)
+        val scope = quizScope(message)
+        if (scope == null && !request.explicitCount && !QuizRun.namesATopic(request)) return null
+
+        val context = GeneratorContext(
+            store, retrieval.localized(state.activeLanguage), strings, "medium", random, scope
+        )
+        val questions = QuizRun.questions(context, request)
+        if (questions.isEmpty()) {
+            return ChatReply(strings.get(R.string.ai_quiz_run_none), ReplySource.PERSONALITY, suggestions = suggestions(strings, null))
+        }
+        val run = QuizRunState(questions, scope)
+        quizRun = run
+        state.pendingQuizAnswer = null
+        val intro = if (scope == null) strings.get(R.string.ai_quiz_run_start_all, questions.size)
+        else strings.get(R.string.ai_quiz_run_start_scoped, questions.size, scopeLabel(scope, strings))
+        return ChatReply("$intro\n\n${runQuestion(run, strings)}", ReplySource.PERSONALITY, suggestions = run.current.alternatives)
+    }
+
+    /**
+     * The elements a quiz request is about: those its filters leave ("the halogens", "period 3"),
+     * or those it names ("uranium"); null for the whole table. Read with the operator extractor
+     * rather than the planner, which declines anything with a quiz word in it. The element in focus
+     * does not narrow it: a quiz asked for in general is about the whole table.
+     */
+    private fun quizScope(message: String): Set<String>? {
+        val filters = com.jlindemann.science.ai.nlu.OperatorExtractor.extract(message).subsetFilters
+        if (filters.isNotEmpty()) {
+            return store.elements.filter { element -> filters.all { it.matches(element, store) } }
+                .map { it.key }.toSet().takeIf { it.isNotEmpty() }
+        }
+        return retrieval.resolver(state.activeLanguage).resolveAll(message, limit = 4)
+            .map { it.key }.toSet().takeIf { it.isNotEmpty() }
+    }
+
+    /** "gold", "lithium, sodium", or "8 elements". */
+    private fun scopeLabel(scope: Set<String>, strings: StringProvider): String =
+        if (scope.size <= 3) scope.mapNotNull(store::element).sortedBy { it.atomicNumber }.joinToString(", ") { display(it) }
+        else strings.get(R.string.ai_quiz_run_scope_count, scope.size)
+
+    private fun runQuestion(run: QuizRunState, strings: StringProvider): String =
+        strings.get(R.string.ai_quiz_run_question, run.index + 1, run.questions.size, run.current.question)
+
+    /** Judge a pick, award its XP, and ask the next question or close the run. */
+    private fun answerRun(run: QuizRunState, pick: String, strings: StringProvider): ChatReply {
+        val question = run.current
+        val verdict = if (pick == question.correctAnswer) {
+            run.correct++
+            run.xp += question.baseXp
+            onXp(question.baseXp)
+            strings.get(R.string.ai_quiz_run_right, question.baseXp)
+        } else {
+            strings.get(R.string.ai_quiz_run_wrong, question.correctAnswer)
+        }
+        run.index++
+        if (run.finished) {
+            quizRun = null
+            val done = strings.get(R.string.ai_quiz_run_done, run.correct, run.questions.size, run.xp)
+            return ChatReply("$verdict\n\n$done", ReplySource.PERSONALITY, suggestions = suggestions(strings, null))
+        }
+        return ChatReply("$verdict\n\n${runQuestion(run, strings)}", ReplySource.PERSONALITY, suggestions = run.current.alternatives)
     }
 
     /** What an element does when it meets water, oxygen, an acid, or another element. */

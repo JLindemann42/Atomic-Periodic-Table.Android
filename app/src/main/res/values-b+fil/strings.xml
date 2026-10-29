@@ -1306,6 +1306,15 @@ Nagbabahagi sila ng mga katulad na gawi sa kemikal dahil sa kanilang mga valence
     <string name="ai_trend_mixed">Walang tiyak na direksyon: %1$s (%2$s) sa isang dulo, %3$s (%4$s) sa kabila.</string>
     <string name="ai_trend_extremes">Pinakamataas: %1$s (%2$s). Pinakamababa: %3$s (%4$s).</string>
     <string name="ai_card_trend_title">Takbo ng %1$s</string>
+    <string name="ai_quiz_run_start_all">Isang quiz na may **%1$d tanong** mula sa buong talaan. I-tap ang sagot, o sabihing stop para tapusin.</string>
+    <string name="ai_quiz_run_start_scoped">Isang quiz na may **%1$d tanong** tungkol sa %2$s. I-tap ang sagot, o sabihing stop para tapusin.</string>
+    <string name="ai_quiz_run_scope_count">%1$d elemento</string>
+    <string name="ai_quiz_run_question">**Tanong %1$d ng %2$d.** %3$s</string>
+    <string name="ai_quiz_run_right">✨ Tama! **+%1$d XP**.</string>
+    <string name="ai_quiz_run_wrong">Hindi pa: ang sagot ay **%1$s**.</string>
+    <string name="ai_quiz_run_done">Tapos na ang quiz: **%1$d sa %2$d** tama, **%3$d XP** ang nakuha.</string>
+    <string name="ai_quiz_run_stopped">Itinigil ang quiz: **%1$d sa %2$d** tama, **%3$d XP** ang nakuha.</string>
+    <string name="ai_quiz_run_none">Hindi ako makagawa ng tanong tungkol diyan. Subukan ang isang grupo, period, pamilya ng elemento o iisang elemento.</string>
     <string name="ai_card_heat_map_title">%1$s sa buong table</string>
 
     <!-- Equation Balancer tool -->
