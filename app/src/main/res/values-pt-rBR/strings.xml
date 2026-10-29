@@ -1327,6 +1327,17 @@ Eles compartilham comportamentos químicos semelhantes devido aos seus elétrons
     <string name="ai_fact_data_lowest">**%1$s** tem o menor valor de %2$s entre os %3$d elementos com um valor registrado: %4$s.</string>
     <string name="ai_fact_data_rank_high">**%1$s** está em %2$dº de %3$d elementos no maior valor de %4$s: %5$s.</string>
     <string name="ai_fact_data_rank_low">**%1$s** está em %2$dº de %3$d elementos no menor valor de %4$s: %5$s.</string>
+    <string name="ai_gas_result">Pela lei dos gases ideais, PV = nRT: **%1$s**.</string>
+    <string name="ai_gas_stp">As CNTP são tomadas como 1 atm e 273,15 K.</string>
+    <string name="ai_steps_gas">Isole a incógnita em PV = nRT, com R = 0,08206 L·atm/(mol·K):</string>
+    <string name="ai_ph_acid">%1$s é um ácido forte, então uma solução %2$s M tem [H⁺] = %3$s M e pH **%4$s**.</string>
+    <string name="ai_ph_base">%1$s é uma base forte, então uma solução %2$s M tem [OH⁻] = %3$s M, pOH %4$s e pH **%5$s**.</string>
+    <string name="ai_steps_ph">Um ácido ou base forte se dissocia completamente, então a concentração dá o íon diretamente:</string>
+    <string name="ai_ion_config">A configuração eletrônica de **%1$s** é **%2$s**. O %3$s neutro é %4$s.</string>
+    <string name="ai_ion_cation">Um cátion perde primeiro seus elétrons mais externos: a camada mais alta e, dentro dela, a subcamada mais alta.</string>
+    <string name="ai_ion_anion">Um ânion coloca seus elétrons extras nos próximos lugares da ordem de preenchimento.</string>
+    <string name="ai_ion_isoelectronic">É a mesma configuração do %1$s.</string>
+    <string name="ai_steps_ion">Comece pelo átomo neutro e retire ou adicione elétrons:</string>
     <string name="ai_card_heat_map_title">%1$s na tabela</string>
 
     <!-- Equation Balancer tool -->

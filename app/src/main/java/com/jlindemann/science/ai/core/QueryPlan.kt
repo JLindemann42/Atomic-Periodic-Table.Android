@@ -97,12 +97,23 @@ enum class Intent {
      */
     EXPLANATION,
 
+    /** PV = nRT given three of the four (roadmap 2.8). */
+    GAS_LAW,
+
+    /** The pH of a strong acid or base at a given molarity (roadmap 2.8). [QueryPlan.literal] is its formula. */
+    PH_CALC,
+
+    /** An ion's electron configuration, Fe³⁺ (roadmap 2.8). [QueryPlan.literal] is "symbol:charge". */
+    ION_CONFIG,
+
     /** Nothing recognised. The caller should fall back. */
     UNKNOWN;
 
     companion object {
         /** The intents that compute an answer from numbers, and so have steps to show (roadmap 2.2). */
-        val CALCULATIONS = setOf(FORMULA_MASS, MOLE_CONVERSION, BALANCE_EQUATION, SOLUTION_CALC, DECAY_CALC)
+        val CALCULATIONS = setOf(
+            FORMULA_MASS, MOLE_CONVERSION, BALANCE_EQUATION, SOLUTION_CALC, DECAY_CALC, GAS_LAW, PH_CALC, ION_CONFIG
+        )
     }
 }
 

@@ -1327,6 +1327,17 @@ Ils partagent des comportements chimiques similaires grâce à leurs électrons 
     <string name="ai_fact_data_lowest">**%1$s** a la plus faible valeur de %2$s parmi les %3$d éléments qui en ont une : %4$s.</string>
     <string name="ai_fact_data_rank_high">**%1$s** est n° %2$d sur %3$d éléments pour la plus forte valeur de %4$s : %5$s.</string>
     <string name="ai_fact_data_rank_low">**%1$s** est n° %2$d sur %3$d éléments pour la plus faible valeur de %4$s : %5$s.</string>
+    <string name="ai_gas_result">Selon la loi des gaz parfaits, PV = nRT : **%1$s**.</string>
+    <string name="ai_gas_stp">Les CNTP sont prises à 1 atm et 273,15 K.</string>
+    <string name="ai_steps_gas">Isole l\'inconnue dans PV = nRT, avec R = 0,08206 L·atm/(mol·K) :</string>
+    <string name="ai_ph_acid">%1$s est un acide fort, donc une solution à %2$s M a [H⁺] = %3$s M et un pH de **%4$s**.</string>
+    <string name="ai_ph_base">%1$s est une base forte, donc une solution à %2$s M a [OH⁻] = %3$s M, un pOH de %4$s et un pH de **%5$s**.</string>
+    <string name="ai_steps_ph">Un acide ou une base fort se dissocie complètement, donc la concentration donne directement l\'ion :</string>
+    <string name="ai_ion_config">La configuration électronique de **%1$s** est **%2$s**. L\'atome neutre de %3$s est %4$s.</string>
+    <string name="ai_ion_cation">Un cation perd d\'abord ses électrons les plus externes : la couche la plus haute, et dans celle-ci la sous-couche la plus haute.</string>
+    <string name="ai_ion_anion">Un anion place ses électrons supplémentaires aux places suivantes dans l\'ordre de remplissage.</string>
+    <string name="ai_ion_isoelectronic">C\'est la même configuration que %1$s.</string>
+    <string name="ai_steps_ion">Pars de l\'atome neutre et retire ou ajoute des électrons :</string>
     <string name="ai_card_heat_map_title">%1$s dans le tableau</string>
 
     <!-- Equation Balancer tool -->

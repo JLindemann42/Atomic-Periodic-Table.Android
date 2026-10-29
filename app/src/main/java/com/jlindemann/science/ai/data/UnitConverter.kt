@@ -21,6 +21,9 @@ object UnitConverter {
         "nm" to "nm", "angstrom" to "Å", "å" to "Å", "a" to "Å",
         "ev" to "eV", "kj/mol" to "kJ/mol", "j/mol" to "J/mol",
         "gpa" to "GPa", "mpa" to "MPa", "pa" to "Pa", "kpa" to "kPa",
+        // The pressures a gas-law question is written in (roadmap 2.8).
+        "atm" to "atm", "atmosphere" to "atm", "atmospheres" to "atm", "bar" to "bar",
+        "mmhg" to "mmHg", "torr" to "Torr",
         "m/s" to "m/s", "km/h" to "km/h",
         "nωm" to "nΩm", "nohmm" to "nΩm", "μωm" to "µΩm", "µωm" to "µΩm", "ωm" to "Ωm",
         "cm3/mol" to "cm³/mol", "cm^3/mol" to "cm³/mol", "cm³/mol" to "cm³/mol",
@@ -113,6 +116,10 @@ object UnitConverter {
         "kPa" to (Dimension.PRESSURE to 1e3),
         "MPa" to (Dimension.PRESSURE to 1e6),
         "GPa" to (Dimension.PRESSURE to 1e9),
+        "atm" to (Dimension.PRESSURE to 101_325.0),
+        "bar" to (Dimension.PRESSURE to 1e5),
+        "mmHg" to (Dimension.PRESSURE to 133.322387415),
+        "Torr" to (Dimension.PRESSURE to 101_325.0 / 760.0),
         // Velocity, base m/s
         "m/s" to (Dimension.VELOCITY to 1.0),
         "km/h" to (Dimension.VELOCITY to 1.0 / 3.6),

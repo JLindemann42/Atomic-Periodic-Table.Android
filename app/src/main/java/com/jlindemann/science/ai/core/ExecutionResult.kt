@@ -299,6 +299,36 @@ sealed class ExecutionResult {
     ) : ExecutionResult()
 
     /**
+     * The ideal gas law solved for its unknown (roadmap 2.8).
+     *
+     * @property grams and [substance] when the amount was given as a mass, so the working can show n = m ÷ M
+     * @property stp whether standard temperature and pressure filled in what the question left out
+     */
+    data class GasLaw(
+        val solution: com.jlindemann.science.ai.data.GasLaw.Solution,
+        val substance: String?,
+        val grams: Double?,
+        val molarMass: Double?,
+        val stp: Boolean,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /** The pH of a strong acid or base (roadmap 2.8). */
+    data class Ph(
+        val result: com.jlindemann.science.ai.data.AcidBase.Result,
+        override val citations: List<Citation> = emptyList()
+    ) : ExecutionResult()
+
+    /** An ion's electron configuration, beside the neutral atom's (roadmap 2.8). */
+    data class IonConfiguration(
+        val element: ElementRecord,
+        val charge: Int,
+        val neutral: com.jlindemann.science.ai.data.IonConfig.Configuration,
+        val ion: com.jlindemann.science.ai.data.IonConfig.Configuration,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /**
      * A reviewed explanation (roadmap 2.4), with the data it explains: a trend over a set or the whole
      * table, or one element's ionization series.
      *

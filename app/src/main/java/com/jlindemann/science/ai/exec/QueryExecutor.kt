@@ -124,6 +124,15 @@ class QueryExecutor(
         // input here is data the user can already read. Gating arithmetic over free data would be
         // a new paywall rather than a mirror of an existing one.
         Intent.DECAY_CALC -> decay(plan)
+        // PRO+, as the other calculators are (roadmap 2.8).
+        Intent.GAS_LAW, Intent.PH_CALC, Intent.ION_CONFIG ->
+            if (!entitlements.allows(com.jlindemann.science.ai.data.Tier.PRO_PLUS)) {
+                ExecutionResult.Locked(tier = com.jlindemann.science.ai.data.Tier.PRO_PLUS, fieldIds = emptyList(), element = null)
+            } else when (plan.intent) {
+                Intent.GAS_LAW -> gasLaw(plan)
+                Intent.PH_CALC -> ph(plan)
+                else -> ionConfig(plan)
+            }
         Intent.COMPARISON -> comparison(plan)
         Intent.SUPERLATIVE, Intent.FILTER_LIST -> elementList(plan)
         Intent.AGGREGATE -> aggregate(plan)
@@ -992,6 +1001,59 @@ class QueryExecutor(
             ionization = ionization,
             citations = trend?.citations.orEmpty()
         )
+    }
+
+    /**
+     * PV = nRT (roadmap 2.8). A mass with a compound counts as an amount; "at STP" fills in 1 atm and
+     * 273.15 K where the question gives no pressure or temperature.
+     */
+    private fun gasLaw(plan: QueryPlan): ExecutionResult? {
+        val raw = plan.rawQuery
+        val atm = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.PRESSURE).firstNotNullOfOrNull { it.inUnit("atm") }
+        val litres = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.VOLUME).firstNotNullOfOrNull { it.inUnit("L") }
+        val kelvin = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.TEMPERATURE).firstNotNullOfOrNull { it.inUnit("K") }
+        val amount = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.AMOUNT).firstNotNullOfOrNull { it.inUnit("mol") }
+        val grams = GRAMS.find(raw.lowercase())?.groupValues?.get(1)?.toDoubleOrNull()
+        val formula = plan.literal?.let { f ->
+            com.jlindemann.science.ai.data.ChemistryMath.parseFormula(f) { store.bySymbol(it)?.quantity("atomic_mass")?.value }
+        }
+        val moles = amount ?: if (grams != null && formula != null) grams / formula.molarMass else null
+        val stp = "stp" in plan.evidence
+        val solution = com.jlindemann.science.ai.data.GasLaw.solve(
+            atm = atm ?: if (stp) com.jlindemann.science.ai.data.GasLaw.STP_ATM else null,
+            litres = litres,
+            moles = moles,
+            kelvin = kelvin ?: if (stp) com.jlindemann.science.ai.data.GasLaw.STP_KELVIN else null
+        ) ?: return null
+        val citations = formula?.parts?.mapNotNull { part -> store.bySymbol(part.symbol)?.let { citation("atomic_mass", it) } }?.take(3).orEmpty()
+        return ExecutionResult.GasLaw(
+            solution, formula?.formula, grams.takeIf { amount == null && formula != null }, formula?.molarMass,
+            stp = stp && (atm == null || kelvin == null), citations = citations
+        )
+    }
+
+    /** The pH of a strong acid or base (roadmap 2.8). The planner claims only strong ones. */
+    private fun ph(plan: QueryPlan): ExecutionResult? {
+        val formula = plan.literal ?: return null
+        val molarity = QuantityScanner.of(plan.rawQuery, com.jlindemann.science.ai.data.Dimension.MOLARITY)
+            .firstNotNullOfOrNull { it.inUnit("M") } ?: return null
+        val (canonical, base) = com.jlindemann.science.ai.data.AcidBase.strong(formula, ::composition) ?: return null
+        return ExecutionResult.Ph(com.jlindemann.science.ai.data.AcidBase.solve(canonical, base, molarity) ?: return null)
+    }
+
+    private fun composition(formula: String): Map<String, Int>? =
+        com.jlindemann.science.ai.data.ChemistryMath.parseFormula(formula) { store.bySymbol(it)?.quantity("atomic_mass")?.value }
+            ?.parts?.associate { it.symbol to it.count }
+
+    /** An ion's electron configuration (roadmap 2.8); literal is "symbol:charge". */
+    private fun ionConfig(plan: QueryPlan): ExecutionResult? {
+        val (symbol, chargeText) = plan.literal?.split(':')?.takeIf { it.size == 2 } ?: return null
+        val charge = chargeText.toIntOrNull()?.takeIf { it != 0 } ?: return null
+        val element = store.bySymbol(symbol) ?: return null
+        val outer = (element.value("electron_configuration") as? com.jlindemann.science.ai.data.FieldValue.Text)?.raw ?: return null
+        val neutral = com.jlindemann.science.ai.data.IonConfig.ion(element.atomicNumber, outer, 0) ?: return null
+        val ion = com.jlindemann.science.ai.data.IonConfig.ion(element.atomicNumber, outer, charge) ?: return null
+        return ExecutionResult.IonConfiguration(element, charge, neutral, ion, listOf(citation("electron_configuration", element)))
     }
 
     private fun describeFilters(plan: QueryPlan): List<String> =

@@ -1325,6 +1325,17 @@ I：不溶"</string>
     <string name="ai_fact_data_lowest">在有记录数值的%3$d种元素中，**%1$s**的%2$s最低：%4$s。</string>
     <string name="ai_fact_data_rank_high">**%1$s**的%4$s在%3$d种元素中排第%2$d高：%5$s。</string>
     <string name="ai_fact_data_rank_low">**%1$s**的%4$s在%3$d种元素中排第%2$d低：%5$s。</string>
+    <string name="ai_gas_result">根据理想气体定律 PV = nRT：**%1$s**。</string>
+    <string name="ai_gas_stp">标准状况取1 atm和273.15 K。</string>
+    <string name="ai_steps_gas">将PV = nRT对未知量变形，R = 0.08206 L·atm/(mol·K)：</string>
+    <string name="ai_ph_acid">%1$s是强酸，所以%2$s M溶液的[H⁺] = %3$s M，pH为**%4$s**。</string>
+    <string name="ai_ph_base">%1$s是强碱，所以%2$s M溶液的[OH⁻] = %3$s M，pOH为%4$s，pH为**%5$s**。</string>
+    <string name="ai_steps_ph">强酸或强碱完全电离，所以浓度直接给出离子浓度：</string>
+    <string name="ai_ion_config">**%1$s**的电子排布是**%2$s**。中性%3$s是%4$s。</string>
+    <string name="ai_ion_cation">阳离子先失去最外层电子：最高的电子层，以及其中最高的亚层。</string>
+    <string name="ai_ion_anion">阴离子把多出的电子按填充顺序放入接下来的位置。</string>
+    <string name="ai_ion_isoelectronic">这与%1$s的电子排布相同。</string>
+    <string name="ai_steps_ion">从中性原子出发，失去或得到电子：</string>
     <string name="ai_card_heat_map_title">周期表中的%1$s</string>
 
     <!-- Equation Balancer tool -->

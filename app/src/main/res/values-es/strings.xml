@@ -730,6 +730,17 @@
     <string name="ai_fact_data_lowest">**%1$s** tiene el valor más bajo de %2$s de los %3$d elementos con un valor registrado: %4$s.</string>
     <string name="ai_fact_data_rank_high">**%1$s** ocupa el puesto %2$d de %3$d elementos en valor más alto de %4$s: %5$s.</string>
     <string name="ai_fact_data_rank_low">**%1$s** ocupa el puesto %2$d de %3$d elementos en valor más bajo de %4$s: %5$s.</string>
+    <string name="ai_gas_result">Por la ley de los gases ideales, PV = nRT: **%1$s**.</string>
+    <string name="ai_gas_stp">Las condiciones normales se toman como 1 atm y 273,15 K.</string>
+    <string name="ai_steps_gas">Despeja la incógnita de PV = nRT, con R = 0,08206 L·atm/(mol·K):</string>
+    <string name="ai_ph_acid">%1$s es un ácido fuerte, así que una disolución %2$s M tiene [H⁺] = %3$s M y un pH de **%4$s**.</string>
+    <string name="ai_ph_base">%1$s es una base fuerte, así que una disolución %2$s M tiene [OH⁻] = %3$s M, un pOH de %4$s y un pH de **%5$s**.</string>
+    <string name="ai_steps_ph">Un ácido o una base fuerte se disocia por completo, así que la concentración da el ion directamente:</string>
+    <string name="ai_ion_config">La configuración electrónica de **%1$s** es **%2$s**. El %3$s neutro es %4$s.</string>
+    <string name="ai_ion_cation">Un catión pierde primero sus electrones más externos: la capa más alta y, dentro de ella, la subcapa más alta.</string>
+    <string name="ai_ion_anion">Un anión coloca sus electrones extra en los siguientes lugares del orden de llenado.</string>
+    <string name="ai_ion_isoelectronic">Es la misma configuración que la del %1$s.</string>
+    <string name="ai_steps_ion">Parte del átomo neutro y quita o añade electrones:</string>
     <string name="ai_card_heat_map_title">%1$s en la tabla</string>
 
     <!-- Equation Balancer tool -->

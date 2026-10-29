@@ -1571,6 +1571,17 @@
     <string name="ai_fact_data_lowest">**%1$s** has the lowest %2$s of the %3$d elements with a recorded value: %4$s.</string>
     <string name="ai_fact_data_rank_high">**%1$s** ranks #%2$d of %3$d elements for the highest %4$s: %5$s.</string>
     <string name="ai_fact_data_rank_low">**%1$s** ranks #%2$d of %3$d elements for the lowest %4$s: %5$s.</string>
+    <string name="ai_gas_result">By the ideal gas law, PV = nRT: **%1$s**.</string>
+    <string name="ai_gas_stp">STP is taken as 1 atm and 273.15 K.</string>
+    <string name="ai_steps_gas">Rearrange PV = nRT for the unknown, with R = 0.08206 L·atm/(mol·K):</string>
+    <string name="ai_ph_acid">%1$s is a strong acid, so a %2$s M solution has [H⁺] = %3$s M and a pH of **%4$s**.</string>
+    <string name="ai_ph_base">%1$s is a strong base, so a %2$s M solution has [OH⁻] = %3$s M, a pOH of %4$s and a pH of **%5$s**.</string>
+    <string name="ai_steps_ph">A strong acid or base dissociates completely, so the concentration gives the ion directly:</string>
+    <string name="ai_ion_config">The electron configuration of **%1$s** is **%2$s**. Neutral %3$s is %4$s.</string>
+    <string name="ai_ion_cation">A cation loses its outermost electrons first: the highest shell, and within it the highest subshell.</string>
+    <string name="ai_ion_anion">An anion takes its extra electrons into the next places in filling order.</string>
+    <string name="ai_ion_isoelectronic">That is the same configuration as %1$s.</string>
+    <string name="ai_steps_ion">Start from the neutral atom and remove or add electrons:</string>
     <string name="ai_card_heat_map_title">%1$s across the table</string>
 
     <!-- Equation Balancer tool -->

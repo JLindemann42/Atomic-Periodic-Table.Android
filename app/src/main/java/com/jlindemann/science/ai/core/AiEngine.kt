@@ -230,6 +230,7 @@ class AiEngine(
         is ExecutionResult.ElementList -> result.results.map { it.element.key }
         is ExecutionResult.Trend -> result.points.map { it.element.key }
         is ExecutionResult.Explanation -> result.trend?.points?.map { it.element.key } ?: listOfNotNull(result.ionization?.key)
+        is ExecutionResult.IonConfiguration -> listOf(result.element.key)
         is ExecutionResult.Aggregate -> result.contributors.map { it.element.key }
         is ExecutionResult.Isotopes -> listOf(result.element.key)
         is ExecutionResult.Safety -> listOf(result.element.key)
@@ -249,7 +250,7 @@ class AiEngine(
         // density?" to inherit.
         is ExecutionResult.Formula, is ExecutionResult.MoleConversion,
         is ExecutionResult.UnitConversion, is ExecutionResult.BalancedEquation,
-        is ExecutionResult.SolutionCalc,
+        is ExecutionResult.SolutionCalc, is ExecutionResult.GasLaw, is ExecutionResult.Ph,
         is ExecutionResult.Dataset, is ExecutionResult.Empty -> emptyList()
     }
 }

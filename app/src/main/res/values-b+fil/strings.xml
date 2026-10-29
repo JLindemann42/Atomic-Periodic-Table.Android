@@ -1322,6 +1322,17 @@ Nagbabahagi sila ng mga katulad na gawi sa kemikal dahil sa kanilang mga valence
     <string name="ai_fact_data_lowest">Ang **%1$s** ang may pinakamababang %2$s sa %3$d elementong may naitalang halaga: %4$s.</string>
     <string name="ai_fact_data_rank_high">Ang **%1$s** ay pang-%2$d sa %3$d elemento sa pinakamataas na %4$s: %5$s.</string>
     <string name="ai_fact_data_rank_low">Ang **%1$s** ay pang-%2$d sa %3$d elemento sa pinakamababang %4$s: %5$s.</string>
+    <string name="ai_gas_result">Ayon sa batas ng ideal na gas, PV = nRT: **%1$s**.</string>
+    <string name="ai_gas_stp">Ang STP ay itinuturing na 1 atm at 273.15 K.</string>
+    <string name="ai_steps_gas">Ayusin ang PV = nRT para sa hindi alam, na R = 0.08206 L·atm/(mol·K):</string>
+    <string name="ai_ph_acid">Ang %1$s ay malakas na asido, kaya ang %2$s M na solusyon ay may [H⁺] = %3$s M at pH na **%4$s**.</string>
+    <string name="ai_ph_base">Ang %1$s ay malakas na base, kaya ang %2$s M na solusyon ay may [OH⁻] = %3$s M, pOH na %4$s at pH na **%5$s**.</string>
+    <string name="ai_steps_ph">Ganap na naghihiwalay ang malakas na asido o base, kaya direktang ibinibigay ng konsentrasyon ang ion:</string>
+    <string name="ai_ion_config">Ang electron configuration ng **%1$s** ay **%2$s**. Ang neutral na %3$s ay %4$s.</string>
+    <string name="ai_ion_cation">Unang nawawala sa isang cation ang pinakalabas nitong electron: ang pinakamataas na shell, at sa loob nito ang pinakamataas na subshell.</string>
+    <string name="ai_ion_anion">Inilalagay ng isang anion ang dagdag nitong electron sa mga susunod na puwesto sa pagkakasunod ng pagpuno.</string>
+    <string name="ai_ion_isoelectronic">Iyan ang parehong configuration ng %1$s.</string>
+    <string name="ai_steps_ion">Magsimula sa neutral na atom at magbawas o magdagdag ng electron:</string>
     <string name="ai_card_heat_map_title">%1$s sa buong table</string>
 
     <!-- Equation Balancer tool -->

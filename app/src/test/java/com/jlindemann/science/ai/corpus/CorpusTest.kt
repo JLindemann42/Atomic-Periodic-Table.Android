@@ -161,6 +161,9 @@ class CorpusTest {
     /** Why-questions answered with a written explanation and its card (roadmap 2.4). */
     @Test fun explanations() = runFile("explanations")
 
+    /** The ideal gas law, pH, and ion configurations (roadmap 2.8). */
+    @Test fun calculators() = runFile("calculators")
+
     // ---- Runner ---------------------------------------------------------------------------------
 
     private fun runFile(name: String) {
@@ -325,6 +328,10 @@ class CorpusTest {
         // (roadmap 2.2): a declined equation carries no value, and fails a row that expects one.
         // The first element's value, which pins the field and the order (roadmap 2.3).
         is ExecutionResult.Trend -> result.points.firstOrNull()?.quantity?.value
+        // The solved quantity, the pH, and the ion's electron count (roadmap 2.8).
+        is ExecutionResult.GasLaw -> result.solution.solved
+        is ExecutionResult.Ph -> result.result.pH
+        is ExecutionResult.IonConfiguration -> (result.element.atomicNumber - result.charge).toDouble()
         is ExecutionResult.BalancedEquation ->
             if (result.reason != null) null else (result.reactants + result.products).sumOf { it.coefficient }.toDouble()
         else -> null

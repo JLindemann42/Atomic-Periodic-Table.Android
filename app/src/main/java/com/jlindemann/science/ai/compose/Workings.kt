@@ -24,6 +24,49 @@ import java.math.MathContext
  */
 class Workings(private val strings: StringProvider) {
 
+    /** PV = nRT rearranged for the unknown, with n = m ÷ M first when a mass was given (roadmap 2.8). */
+    fun gasLaw(result: ExecutionResult.GasLaw): List<String> {
+        val s = result.solution
+        val r = "${number(com.jlindemann.science.ai.data.GasLaw.R)} L·atm/(mol·K)"
+        val mass = if (result.grams != null && result.molarMass != null && result.substance != null)
+            listOf("n = m ÷ M = ${number(result.grams)} g ÷ ${number(result.molarMass)} g/mol = ${number(s.moles)} mol") else emptyList()
+        val p = "${number(s.atm)} atm"; val v = "${number(s.litres)} L"; val n = "${number(s.moles)} mol"; val t = "${number(s.kelvin)} K"
+        val line = when (s.unknown) {
+            com.jlindemann.science.ai.data.GasLaw.Unknown.PRESSURE -> "P = nRT ÷ V = $n × $r × $t ÷ $v = $p"
+            com.jlindemann.science.ai.data.GasLaw.Unknown.VOLUME -> "V = nRT ÷ P = $n × $r × $t ÷ $p = $v"
+            com.jlindemann.science.ai.data.GasLaw.Unknown.MOLES -> "n = PV ÷ RT = $p × $v ÷ ($r × $t) = $n"
+            com.jlindemann.science.ai.data.GasLaw.Unknown.TEMPERATURE -> "T = PV ÷ nR = $p × $v ÷ ($n × $r) = $t"
+        }
+        return listOf(strings.get(R.string.ai_steps_gas)) + mass + line
+    }
+
+    /** Full dissociation, then the negative logarithm (roadmap 2.8). */
+    fun ph(result: ExecutionResult.Ph): List<String> {
+        val r = result.result
+        val supplied = "${r.factor} × ${number(r.molarity)} M = ${number(r.molarity * r.factor)} M"
+        return if (r.base) listOf(
+            strings.get(R.string.ai_steps_ph),
+            "[OH⁻] = $supplied",
+            "pOH = −log₁₀(${number(r.hydroxide)}) = ${number(r.pOH)}",
+            "pH = 14 − pOH = ${number(r.pH)}"
+        ) else listOf(
+            strings.get(R.string.ai_steps_ph),
+            "[H⁺] = $supplied",
+            "pH = −log₁₀(${number(r.hydrogen)}) = ${number(r.pH)}"
+        )
+    }
+
+    /** From the neutral atom to the ion, electron by electron (roadmap 2.8). */
+    fun ion(result: ExecutionResult.IonConfiguration): List<String> {
+        val label = com.jlindemann.science.ai.data.IonConfig.ionLabel(result.element.symbol, result.charge)
+        val change = if (result.charge > 0) "−${result.charge} e⁻" else "+${-result.charge} e⁻"
+        return listOf(
+            strings.get(R.string.ai_steps_ion),
+            "${result.element.symbol}: ${result.neutral}",
+            "$label: $change → ${result.ion}"
+        )
+    }
+
     /** M = Σ count × atomic mass. */
     fun formula(result: FormulaResult): List<String> {
         if (result.parts.isEmpty()) return emptyList()

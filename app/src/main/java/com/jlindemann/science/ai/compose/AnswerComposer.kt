@@ -84,6 +84,9 @@ class AnswerComposer(
             is ExecutionResult.Dataset -> dataset(result)
             is ExecutionResult.Trend -> trend(result)
             is ExecutionResult.Explanation -> explanation(result)
+            is ExecutionResult.GasLaw -> stepsInstead(plan, { gasLaw(result, it) }) { workings.gasLaw(result) }
+            is ExecutionResult.Ph -> stepsInstead(plan, { ph(result, it) }) { workings.ph(result) }
+            is ExecutionResult.IonConfiguration -> ionConfiguration(result) + steps(plan) { workings.ion(result) }
             is ExecutionResult.NoData -> noData(result)
             is ExecutionResult.Locked -> locked(result)
             is ExecutionResult.Empty -> strings.get(R.string.ai_filter_none)
@@ -438,6 +441,50 @@ class AnswerComposer(
     private fun explanation(result: ExecutionResult.Explanation): String =
         if (result.language == ENGLISH || strings.language == ENGLISH) result.text
         else result.text + "\n\n" + strings.get(R.string.ai_dataset_english_note)
+
+    /** PV = nRT solved (roadmap 2.8): the unknown, and the three it came from as the working. */
+    private fun gasLaw(result: ExecutionResult.GasLaw, working: Boolean = true): String {
+        val s = result.solution
+        val answer = when (s.unknown) {
+            com.jlindemann.science.ai.data.GasLaw.Unknown.PRESSURE -> "P = ${format(s.atm)} atm"
+            com.jlindemann.science.ai.data.GasLaw.Unknown.VOLUME -> "V = ${format(s.litres)} L"
+            com.jlindemann.science.ai.data.GasLaw.Unknown.MOLES -> "n = ${format(s.moles)} mol"
+            com.jlindemann.science.ai.data.GasLaw.Unknown.TEMPERATURE -> "T = ${format(s.kelvin)} K (${format(s.kelvin - 273.15)} °C)"
+        }
+        val builder = StringBuilder(strings.get(R.string.ai_gas_result, answer))
+        if (working) {
+            val given = listOfNotNull(
+                "P = ${format(s.atm)} atm".takeIf { s.unknown != com.jlindemann.science.ai.data.GasLaw.Unknown.PRESSURE },
+                "V = ${format(s.litres)} L".takeIf { s.unknown != com.jlindemann.science.ai.data.GasLaw.Unknown.VOLUME },
+                "n = ${format(s.moles)} mol".takeIf { s.unknown != com.jlindemann.science.ai.data.GasLaw.Unknown.MOLES },
+                "T = ${format(s.kelvin)} K".takeIf { s.unknown != com.jlindemann.science.ai.data.GasLaw.Unknown.TEMPERATURE }
+            )
+            builder.append("\n").append(given.joinToString(", "))
+        }
+        if (result.stp) builder.append("\n").append(strings.get(R.string.ai_gas_stp))
+        return builder.toString()
+    }
+
+    /** A strong acid's or base's pH (roadmap 2.8). */
+    private fun ph(result: ExecutionResult.Ph, working: Boolean = true): String {
+        val r = result.result
+        return if (r.base) strings.get(R.string.ai_ph_base, r.formula, format(r.molarity), format(r.hydroxide), format(r.pOH), format(r.pH))
+        else strings.get(R.string.ai_ph_acid, r.formula, format(r.molarity), format(r.hydrogen), format(r.pH))
+    }
+
+    /** An ion's configuration beside the neutral atom's, and the rule that got from one to the other (roadmap 2.8). */
+    private fun ionConfiguration(result: ExecutionResult.IonConfiguration): String {
+        val label = com.jlindemann.science.ai.data.IonConfig.ionLabel(result.element.symbol, result.charge)
+        val builder = StringBuilder(
+            strings.get(R.string.ai_ion_config, label, result.ion.toString(), displayName(result.element.key), result.neutral.toString())
+        )
+        builder.append("\n").append(strings.get(if (result.charge > 0) R.string.ai_ion_cation else R.string.ai_ion_anion))
+        result.ion.isoelectronicWith?.let { noble ->
+            val name = store.bySymbol(noble)?.let { displayName(it.key) } ?: noble
+            builder.append("\n").append(strings.get(R.string.ai_ion_isoelectronic, name))
+        }
+        return builder.toString()
+    }
 
     /** English ordinal suffix: 1st, 2nd, 3rd, 4th, with the teens handled. */
     private fun ordinalSuffix(n: Int): String = strings.get(

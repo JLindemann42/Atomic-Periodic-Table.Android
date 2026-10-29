@@ -1767,6 +1767,31 @@ object Lexicon {
         "同周期", "周期中", "从左到右"
     )
 
+    /** The ideal gas law by name (roadmap 2.8). Folded. */
+    val GAS_LAW_WORDS = listOf(
+        "ideal gas", "gas law", "pv=nrt", "pv = nrt", "gaslagen", "allmanna gaslagen", "idealgas",
+        "ideales gas", "gasgesetz", "gaz parfait", "loi des gaz", "gas ideal", "ley de los gases",
+        "gas ideale", "legge dei gas", "lei dos gases", "ideale gas", "gaswet", "batas ng gas",
+        "आदर्श गैस", "गैस नियम", "مثالی گیس", "گیس کا قانون", "理想气体", "气体定律",
+        // Asking for the pressure frames it as well: "pressure of 2 mol in 10 L at 300 K" gives
+        // no pressure to see. Three gas quantities are still required, so a conversion is not caught.
+        "pressure", "tryck", "trycket", "druck", "pression", "presion", "pressione", "pressao", "druk",
+        "presyon", "दाब", "دباؤ", "压强", "压力"
+    )
+
+    /** Standard temperature and pressure (roadmap 2.8). Folded. */
+    val STP_WORDS = listOf(
+        "stp", "standard temperature and pressure", "normalforhallanden", "normbedingungen", "cntp", "tpn",
+        "condiciones normales", "condizioni normali", "condicoes normais", "standaardtemperatuur en druk",
+        "मानक ताप और दाब", "معیاری درجہ حرارت اور دباؤ", "标准状况", "标准状态"
+    )
+
+    /** "Configuration" on its own, for "Fe3+ configuration" (roadmap 2.8). Folded. */
+    val CONFIGURATION_WORDS = listOf(
+        "configuration", "config", "konfiguration", "konfigurasie", "configuracion", "configurazione",
+        "configuracao", "kumpigurasyon", "विन्यास", "ترتیب", "排布", "构型"
+    )
+
     /** Asking for a field over the whole table at once: a heat map (roadmap 2.3). Folded. */
     val HEATMAP_WORDS = listOf(
         "heat map", "heatmap", "map of", "across the periodic table", "over the periodic table",

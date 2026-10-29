@@ -717,6 +717,17 @@
     <string name="ai_fact_data_lowest">درج شدہ قدر والے %3$d عناصر میں سے **%1$s** میں %2$s سب سے کم ہے: %4$s۔</string>
     <string name="ai_fact_data_rank_high">سب سے زیادہ %4$s میں **%1$s** %3$d عناصر میں %2$d ویں نمبر پر ہے: %5$s۔</string>
     <string name="ai_fact_data_rank_low">سب سے کم %4$s میں **%1$s** %3$d عناصر میں %2$d ویں نمبر پر ہے: %5$s۔</string>
+    <string name="ai_gas_result">مثالی گیس کے قانون، PV = nRT، سے: **%1$s**۔</string>
+    <string name="ai_gas_stp">STP کو 1 atm اور 273.15 K مانا گیا ہے۔</string>
+    <string name="ai_steps_gas">نامعلوم کے لیے PV = nRT کو ترتیب دیں، R = 0.08206 L·atm/(mol·K) کے ساتھ:</string>
+    <string name="ai_ph_acid">%1$s ایک طاقتور تیزاب ہے، اس لیے %2$s M محلول میں [H⁺] = %3$s M اور pH **%4$s** ہے۔</string>
+    <string name="ai_ph_base">%1$s ایک طاقتور اساس ہے، اس لیے %2$s M محلول میں [OH⁻] = %3$s M، pOH %4$s اور pH **%5$s** ہے۔</string>
+    <string name="ai_steps_ph">طاقتور تیزاب یا اساس مکمل طور پر علیحدہ ہوتا ہے، اس لیے ارتکاز براہ راست آئن دیتا ہے:</string>
+    <string name="ai_ion_config">**%1$s** کی الیکٹرانی ترتیب **%2$s** ہے۔ غیر جانبدار %3$s %4$s ہے۔</string>
+    <string name="ai_ion_cation">کیٹائن پہلے اپنے سب سے باہری الیکٹران کھوتا ہے: سب سے اونچا شیل، اور اس کے اندر سب سے اونچا سب شیل۔</string>
+    <string name="ai_ion_anion">اینائن اپنے اضافی الیکٹران بھرنے کی ترتیب میں اگلی جگہوں پر لیتا ہے۔</string>
+    <string name="ai_ion_isoelectronic">یہ %1$s جیسی ہی ترتیب ہے۔</string>
+    <string name="ai_steps_ion">غیر جانبدار ایٹم سے شروع کریں اور الیکٹران ہٹائیں یا جوڑیں:</string>
     <string name="ai_card_heat_map_title">جدول میں %1$s</string>
 
     <!-- Equation Balancer tool -->

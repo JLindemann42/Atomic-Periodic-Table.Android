@@ -1565,6 +1565,11 @@ class QueryPlanner(
      * conversions. Returns null when the query is not one of those.
      */
     private fun calculationPlan(rawQuery: String, normalized: String): QueryPlan? {
+        // --- An ion's configuration (roadmap 2.8) -------------------------------------------------
+        // Before everything else: "Fe3+" would otherwise be read as iron, and the answer would be
+        // the neutral atom's configuration, which is exactly the wrong one.
+        ionConfigPlan(rawQuery, normalized)?.let { return it }
+
         // --- Balance an equation --------------------------------------------------------------
         // First, and on the raw query. The arrow is the most specific syntax any of these
         // questions carry, and `normalized` is lowercased, which destroys every formula in the
@@ -1592,6 +1597,12 @@ class QueryPlanner(
                 )
             }
         }
+
+        // --- pH and the gas law (roadmap 2.8) ----------------------------------------------------
+        // Above the solution branch: a pH question carries a molarity, and a gas-law one a volume
+        // and an amount, which the solution branch would read as a concentration question.
+        phPlan(rawQuery, normalized)?.let { return it }
+        gasLawPlan(rawQuery, normalized)?.let { return it }
 
         // --- Solutions: molarity, mass↔moles↔concentration, dilution ---------------------------
         // Above the mole branch, because `MOLE_QUANTITY` matches the "0.5 mol" inside "0.5 mol/L"
@@ -1893,6 +1904,79 @@ class QueryPlanner(
             }
             .joinToString(" ")
     }
+
+    /**
+     * "pH of 0.01 M HCl", "the pH of 0.05 M sodium hydroxide" (roadmap 2.8). Only for a strong acid
+     * or base: a weak one needs a Ka the app does not have, and is left for the decline.
+     */
+    private fun phPlan(rawQuery: String, normalized: String): QueryPlan? {
+        if (!com.jlindemann.science.ai.retrieval.TextMatching.containsWord(normalized, "ph")) return null
+        if (QuantityScanner.of(rawQuery, Dimension.MOLARITY).isEmpty()) return null
+        val formula = compoundIn(rawQuery, normalized) ?: return null
+        val composition: (String) -> Map<String, Int>? = { f ->
+            com.jlindemann.science.ai.data.ChemistryMath.parseFormula(f) { atomicMassOf(it) }?.parts?.associate { it.symbol to it.count }
+        }
+        com.jlindemann.science.ai.data.AcidBase.strong(formula, composition) ?: return null
+        return QueryPlan(intent = Intent.PH_CALC, rawQuery = rawQuery, literal = formula, confidence = 0.9, evidence = listOf("ph"))
+    }
+
+    /**
+     * "Volume of 2 mol of gas at 300 K and 1.5 atm", "moles in 10 L at STP" (roadmap 2.8). Three of
+     * pressure, volume, amount and temperature, counting STP as two; a gas-law word or a pressure
+     * says it is a gas question rather than a solution one.
+     */
+    private fun gasLawPlan(rawQuery: String, normalized: String): QueryPlan? {
+        val pressures = QuantityScanner.of(rawQuery, Dimension.PRESSURE).size
+        val volumes = QuantityScanner.of(rawQuery, Dimension.VOLUME).size
+        val amounts = QuantityScanner.of(rawQuery, Dimension.AMOUNT).size
+        val temperatures = QuantityScanner.of(rawQuery, Dimension.TEMPERATURE).size
+        val grams = if (GRAMS.containsMatchIn(normalized)) 1 else 0
+        val stp = mentionsAny(normalized, Lexicon.STP_WORDS)
+        val framed = mentionsAny(normalized, Lexicon.GAS_LAW_WORDS)
+        val known = minOf(pressures, 1) + minOf(volumes, 1) + minOf(amounts + grams, 1) + minOf(temperatures, 1) +
+            if (stp) 2 else 0
+        if (known < 3) return null
+        if (!framed && !stp && pressures == 0) return null
+        return QueryPlan(
+            intent = Intent.GAS_LAW,
+            rawQuery = rawQuery,
+            literal = if (grams > 0) compoundIn(rawQuery, normalized) else null,
+            confidence = 0.9,
+            evidence = listOfNotNull("gas law", "stp".takeIf { stp })
+        )
+    }
+
+    /**
+     * "Electron configuration of Fe3+", "Cl⁻ configuration" (roadmap 2.8): an ion, written with its
+     * charge, beside a configuration word.
+     */
+    private fun ionConfigPlan(rawQuery: String, normalized: String): QueryPlan? {
+        val asksConfiguration = fields.resolveAll(rawQuery, limit = 3).any { it.spec.id == "electron_configuration" } ||
+            mentionsAny(normalized, Lexicon.CONFIGURATION_WORDS)
+        if (!asksConfiguration) return null
+        val (symbol, charge) = ionIn(rawQuery) ?: return null
+        if (store.bySymbol(symbol) == null) return null
+        return QueryPlan(intent = Intent.ION_CONFIG, rawQuery = rawQuery, literal = "$symbol:$charge", confidence = 0.92, evidence = listOf("ion"))
+    }
+
+    /** The first ion written in [rawQuery]: Fe3+, Fe 3+, Fe+3, Fe^3+, Fe³⁺, Cl-, Cl⁻, O2-. */
+    private fun ionIn(rawQuery: String): Pair<String, Int>? {
+        ION_CHARGE_AFTER.find(rawQuery)?.let { m ->
+            val size = m.groupValues[2].map { SUPERSCRIPT_DIGITS.indexOf(it).takeIf { i -> i >= 0 }?.digitToChar() ?: it }
+                .joinToString("").toIntOrNull() ?: 1
+            val sign = if (m.groupValues[3] in listOf("+", "⁺")) 1 else -1
+            return m.groupValues[1] to sign * size
+        }
+        ION_SIGN_FIRST.find(rawQuery)?.let { m ->
+            val sign = if (m.groupValues[2] == "+") 1 else -1
+            return m.groupValues[1] to sign * m.groupValues[3].toInt()
+        }
+        return null
+    }
+
+    private val SUPERSCRIPT_DIGITS = "⁰¹²³⁴⁵⁶⁷⁸⁹"
+    private val ION_CHARGE_AFTER = Regex("""(?<![A-Za-z])([A-Z][a-z]?)\s?\^?([1-7]|[¹²³⁴⁵⁶⁷])?\s?([+⁺]|[-−⁻])(?![A-Za-z0-9>])""")
+    private val ION_SIGN_FIRST = Regex("""(?<![A-Za-z])([A-Z][a-z]?)([+\-−])([1-7])(?![A-Za-z0-9])""")
 
     /**
      * A solution-chemistry question: molarity, a mass from a concentration, or a dilution.

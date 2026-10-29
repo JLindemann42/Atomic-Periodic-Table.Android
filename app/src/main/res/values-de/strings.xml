@@ -1253,6 +1253,17 @@
     <string name="ai_fact_data_lowest">**%1$s** hat den niedrigsten Wert für %2$s unter den %3$d Elementen mit einem erfassten Wert: %4$s.</string>
     <string name="ai_fact_data_rank_high">**%1$s** liegt beim höchsten Wert für %4$s auf Platz %2$d von %3$d Elementen: %5$s.</string>
     <string name="ai_fact_data_rank_low">**%1$s** liegt beim niedrigsten Wert für %4$s auf Platz %2$d von %3$d Elementen: %5$s.</string>
+    <string name="ai_gas_result">Nach dem idealen Gasgesetz, PV = nRT: **%1$s**.</string>
+    <string name="ai_gas_stp">Normbedingungen werden als 1 atm und 273,15 K angenommen.</string>
+    <string name="ai_steps_gas">Stelle PV = nRT nach der Unbekannten um, mit R = 0,08206 L·atm/(mol·K):</string>
+    <string name="ai_ph_acid">%1$s ist eine starke Säure, also hat eine %2$s M Lösung [H⁺] = %3$s M und einen pH-Wert von **%4$s**.</string>
+    <string name="ai_ph_base">%1$s ist eine starke Base, also hat eine %2$s M Lösung [OH⁻] = %3$s M, einen pOH von %4$s und einen pH-Wert von **%5$s**.</string>
+    <string name="ai_steps_ph">Eine starke Säure oder Base dissoziiert vollständig, also ergibt die Konzentration das Ion direkt:</string>
+    <string name="ai_ion_config">Die Elektronenkonfiguration von **%1$s** ist **%2$s**. Neutrales %3$s ist %4$s.</string>
+    <string name="ai_ion_cation">Ein Kation verliert zuerst seine äußersten Elektronen: die höchste Schale und darin die höchste Unterschale.</string>
+    <string name="ai_ion_anion">Ein Anion nimmt seine zusätzlichen Elektronen auf den nächsten Plätzen der Füllreihenfolge auf.</string>
+    <string name="ai_ion_isoelectronic">Das ist dieselbe Konfiguration wie bei %1$s.</string>
+    <string name="ai_steps_ion">Gehe vom neutralen Atom aus und entferne oder füge Elektronen hinzu:</string>
     <string name="ai_card_heat_map_title">%1$s im Periodensystem</string>
 
     <!-- Equation Balancer tool -->

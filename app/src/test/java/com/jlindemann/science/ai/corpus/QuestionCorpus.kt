@@ -94,7 +94,8 @@ object QuestionCorpus {
         "spelling",
         "focus_sets",
         "trends",
-        "explanations"
+        "explanations",
+        "calculators"
     )
 
     /**

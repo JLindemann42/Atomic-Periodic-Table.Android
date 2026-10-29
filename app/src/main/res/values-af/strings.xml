@@ -1321,6 +1321,17 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
     <string name="ai_fact_data_lowest">**%1$s** het die laagste %2$s van die %3$d elemente met \'n aangetekende waarde: %4$s.</string>
     <string name="ai_fact_data_rank_high">**%1$s** is nommer %2$d uit %3$d elemente vir die hoogste %4$s: %5$s.</string>
     <string name="ai_fact_data_rank_low">**%1$s** is nommer %2$d uit %3$d elemente vir die laagste %4$s: %5$s.</string>
+    <string name="ai_gas_result">Volgens die ideale gaswet, PV = nRT: **%1$s**.</string>
+    <string name="ai_gas_stp">STD word as 1 atm en 273,15 K geneem.</string>
+    <string name="ai_steps_gas">Herrangskik PV = nRT vir die onbekende, met R = 0,08206 L·atm/(mol·K):</string>
+    <string name="ai_ph_acid">%1$s is \'n sterk suur, so \'n %2$s M oplossing het [H⁺] = %3$s M en \'n pH van **%4$s**.</string>
+    <string name="ai_ph_base">%1$s is \'n sterk basis, so \'n %2$s M oplossing het [OH⁻] = %3$s M, \'n pOH van %4$s en \'n pH van **%5$s**.</string>
+    <string name="ai_steps_ph">\'n Sterk suur of basis dissosieer heeltemal, so die konsentrasie gee die ioon direk:</string>
+    <string name="ai_ion_config">Die elektronkonfigurasie van **%1$s** is **%2$s**. Neutrale %3$s is %4$s.</string>
+    <string name="ai_ion_cation">\'n Katioon verloor eers sy buitenste elektrone: die hoogste skil, en daarin die hoogste subskil.</string>
+    <string name="ai_ion_anion">\'n Anioon neem sy ekstra elektrone op die volgende plekke in die vulvolgorde op.</string>
+    <string name="ai_ion_isoelectronic">Dit is dieselfde konfigurasie as %1$s.</string>
+    <string name="ai_steps_ion">Begin by die neutrale atoom en verwyder of voeg elektrone by:</string>
     <string name="ai_card_heat_map_title">%1$s oor die tabel</string>
 
     <!-- Equation Balancer tool -->

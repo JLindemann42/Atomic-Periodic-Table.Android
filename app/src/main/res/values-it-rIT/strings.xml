@@ -1323,6 +1323,17 @@ Condividono comportamenti chimici simili grazie ai loro elettroni di valenza!</s
     <string name="ai_fact_data_lowest">**%1$s** ha il valore più basso di %2$s tra i %3$d elementi con un valore registrato: %4$s.</string>
     <string name="ai_fact_data_rank_high">**%1$s** è al %2$d° posto su %3$d elementi per il valore più alto di %4$s: %5$s.</string>
     <string name="ai_fact_data_rank_low">**%1$s** è al %2$d° posto su %3$d elementi per il valore più basso di %4$s: %5$s.</string>
+    <string name="ai_gas_result">Secondo la legge dei gas ideali, PV = nRT: **%1$s**.</string>
+    <string name="ai_gas_stp">Le condizioni normali sono prese come 1 atm e 273,15 K.</string>
+    <string name="ai_steps_gas">Ricava l\'incognita da PV = nRT, con R = 0,08206 L·atm/(mol·K):</string>
+    <string name="ai_ph_acid">%1$s è un acido forte, quindi una soluzione %2$s M ha [H⁺] = %3$s M e un pH di **%4$s**.</string>
+    <string name="ai_ph_base">%1$s è una base forte, quindi una soluzione %2$s M ha [OH⁻] = %3$s M, un pOH di %4$s e un pH di **%5$s**.</string>
+    <string name="ai_steps_ph">Un acido o una base forte si dissocia completamente, quindi la concentrazione dà direttamente lo ione:</string>
+    <string name="ai_ion_config">La configurazione elettronica di **%1$s** è **%2$s**. Il %3$s neutro è %4$s.</string>
+    <string name="ai_ion_cation">Un catione perde prima gli elettroni più esterni: il guscio più alto, e al suo interno il sottolivello più alto.</string>
+    <string name="ai_ion_anion">Un anione mette gli elettroni in più nei posti successivi dell\'ordine di riempimento.</string>
+    <string name="ai_ion_isoelectronic">È la stessa configurazione del %1$s.</string>
+    <string name="ai_steps_ion">Parti dall\'atomo neutro e togli o aggiungi elettroni:</string>
     <string name="ai_card_heat_map_title">%1$s nella tavola</string>
 
     <!-- Equation Balancer tool -->

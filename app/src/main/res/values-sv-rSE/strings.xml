@@ -1255,6 +1255,17 @@
     <string name="ai_fact_data_lowest">**%1$s** har lägst %2$s av de %3$d grundämnen som har ett uppmätt värde: %4$s.</string>
     <string name="ai_fact_data_rank_high">**%1$s** ligger på plats %2$d av %3$d grundämnen för högst %4$s: %5$s.</string>
     <string name="ai_fact_data_rank_low">**%1$s** ligger på plats %2$d av %3$d grundämnen för lägst %4$s: %5$s.</string>
+    <string name="ai_gas_result">Enligt allmänna gaslagen, PV = nRT: **%1$s**.</string>
+    <string name="ai_gas_stp">STP räknas som 1 atm och 273,15 K.</string>
+    <string name="ai_steps_gas">Lös ut det okända ur PV = nRT, med R = 0,08206 L·atm/(mol·K):</string>
+    <string name="ai_ph_acid">%1$s är en stark syra, så en %2$s M lösning har [H⁺] = %3$s M och pH **%4$s**.</string>
+    <string name="ai_ph_base">%1$s är en stark bas, så en %2$s M lösning har [OH⁻] = %3$s M, pOH %4$s och pH **%5$s**.</string>
+    <string name="ai_steps_ph">En stark syra eller bas dissocierar helt, så koncentrationen ger jonen direkt:</string>
+    <string name="ai_ion_config">Elektronkonfigurationen för **%1$s** är **%2$s**. Neutralt %3$s är %4$s.</string>
+    <string name="ai_ion_cation">En katjon förlorar sina yttersta elektroner först: det högsta skalet, och inom det det högsta underskalet.</string>
+    <string name="ai_ion_anion">En anjon tar upp sina extra elektroner på nästa platser i fyllnadsordningen.</string>
+    <string name="ai_ion_isoelectronic">Det är samma konfiguration som %1$s.</string>
+    <string name="ai_steps_ion">Utgå från den neutrala atomen och ta bort eller lägg till elektroner:</string>
     <string name="ai_card_heat_map_title">%1$s i hela systemet</string>
 
     <!-- Equation Balancer tool -->

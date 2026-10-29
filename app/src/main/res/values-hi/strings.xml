@@ -1313,6 +1313,17 @@
     <string name="ai_fact_data_lowest">दर्ज मान वाले %3$d तत्वों में से **%1$s** में %2$s सबसे कम है: %4$s।</string>
     <string name="ai_fact_data_rank_high">सबसे अधिक %4$s में **%1$s** %3$d तत्वों में %2$d वें स्थान पर है: %5$s।</string>
     <string name="ai_fact_data_rank_low">सबसे कम %4$s में **%1$s** %3$d तत्वों में %2$d वें स्थान पर है: %5$s।</string>
+    <string name="ai_gas_result">आदर्श गैस नियम, PV = nRT, से: **%1$s**।</string>
+    <string name="ai_gas_stp">STP को 1 atm और 273.15 K माना गया है।</string>
+    <string name="ai_steps_gas">अज्ञात के लिए PV = nRT को पुनर्व्यवस्थित करें, R = 0.08206 L·atm/(mol·K) के साथ:</string>
+    <string name="ai_ph_acid">%1$s एक प्रबल अम्ल है, इसलिए %2$s M विलयन में [H⁺] = %3$s M और pH **%4$s** है।</string>
+    <string name="ai_ph_base">%1$s एक प्रबल क्षार है, इसलिए %2$s M विलयन में [OH⁻] = %3$s M, pOH %4$s और pH **%5$s** है।</string>
+    <string name="ai_steps_ph">प्रबल अम्ल या क्षार पूरी तरह वियोजित होता है, इसलिए सांद्रता सीधे आयन देती है:</string>
+    <string name="ai_ion_config">**%1$s** का इलेक्ट्रॉन विन्यास **%2$s** है। उदासीन %3$s %4$s है।</string>
+    <string name="ai_ion_cation">धनायन पहले अपने सबसे बाहरी इलेक्ट्रॉन खोता है: सबसे ऊँचा कोश, और उसके भीतर सबसे ऊँचा उपकोश।</string>
+    <string name="ai_ion_anion">ऋणायन अपने अतिरिक्त इलेक्ट्रॉन भरने के क्रम में अगले स्थानों पर लेता है।</string>
+    <string name="ai_ion_isoelectronic">यह %1$s जैसा ही विन्यास है।</string>
+    <string name="ai_steps_ion">उदासीन परमाणु से शुरू करें और इलेक्ट्रॉन हटाएँ या जोड़ें:</string>
     <string name="ai_card_heat_map_title">सारणी में %1$s</string>
 
     <!-- Equation Balancer tool -->

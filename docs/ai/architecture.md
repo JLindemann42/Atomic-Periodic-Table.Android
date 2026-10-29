@@ -244,6 +244,29 @@ chips fill the remaining places, less any that would repeat the question ("Atomi
 under the atomic mass of gold). `FollowUpsTest` asks each locale's own seed questions and then
 every chip they produce, and fails if any is declined.
 
+**More calculators, stage 1** (roadmap 2.8, PRO+). Three calculators join the ones from 2.2, with
+the same gate and the same "show steps" working:
+- **Ideal gas law.** `ai/data/GasLaw` solves PV = nRT for whichever of pressure, volume, amount and
+  temperature is missing. The planner's `gasLawPlan` needs three of the four, with "at STP" counting
+  as two (1 atm and 273.15 K). It also needs a gas-law word, STP or a pressure, so a volume and an
+  amount alone stay a solution question. A mass with a formula ("16 g of O2") is turned into moles
+  first. `UnitConverter` now knows atm, bar, mmHg and Torr.
+- **pH.** `ai/data/AcidBase` covers the strong acids (HCl, HBr, HI, HNO3, HClO4, HClO3, and H2SO4
+  with both protons) and the strong hydroxides of groups 1 and 2. A formula or a name is matched by
+  composition, so "sodium hydroxide" and "BaO2H2" both resolve. The ion concentration solves
+  x = (c + √(c² + 4Kw)) / 2, so a very dilute acid stays below pH 7. A weak acid needs a Ka the app
+  does not have, so `phPlan` does not claim it and it falls through to the decline.
+- **Ion configuration.** `ai/data/IonConfig` derives an ion's configuration from the element's own.
+  A cation loses electrons from the highest shell, then the highest l, so Fe³⁺ is [Ar] 3d⁵ and lead
+  keeps its 6s². An anion fills in Madelung order. A result with a noble gas's electron count reads
+  as that gas ("[Ne]") and names it. `ionConfigPlan` runs before every other calculation, because
+  "Fe3+" otherwise resolves to iron and gets the neutral atom's configuration. It reads Fe3+, Fe 3+,
+  Fe+3, Fe^3+, Fe³⁺, Cl- and O2-, and only beside a configuration word.
+
+`corpus/calculators.tsv` holds 21 rows; each failed before this stage.
+`CalculatorMathTest` checks the math on both platforms. Percent composition, empirical formulas,
+gram-to-gram stoichiometry and the limiting reagent are left for stage 2.
+
 **Facts read off the data** (roadmap 2.7). `ai/data/DataFacts` ranks ten free fields and keeps
 each field's top and bottom: twenty facts such as "Osmium has the highest density of the 99 elements
 with a recorded value: 22.59 (g/cm^3)". The fields are density, melting and boiling points,
