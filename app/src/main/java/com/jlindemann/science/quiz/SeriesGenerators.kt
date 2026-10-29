@@ -55,7 +55,9 @@ class ClassificationGenerator(
                     question = ctx.string(R.string.question_element_group, ctx.name(element)),
                     correctAnswer = correct,
                     alternatives = (wrongs + correct).shuffled(ctx.random),
-                    baseXp = baseXp
+                    baseXp = baseXp,
+                    subjectKey = element.key,
+                    category = categoryKey
                 )
             )
         }

@@ -88,7 +88,13 @@ class AiChatAgent(private val context: Context) {
                     cardPolicy = ::currentCardPolicy,
                     language = appLanguage,
                     // A right answer in a chat quiz run earns XP like the Learning Games (roadmap 2.5).
-                    onXp = { com.jlindemann.science.util.XpManager.addGameXp(context, it) }
+                    onXp = { com.jlindemann.science.util.XpManager.addGameXp(context, it) },
+                    // The study coach's deck, shared with the Learning Games (roadmap 2.6).
+                    study = com.jlindemann.science.study.StudyStore.deck(context).let { deck ->
+                        com.jlindemann.science.study.StudyAccess(deck, save = {
+                            com.jlindemann.science.study.StudyStore.save(context, deck)
+                        })
+                    }
                 ).also { it.profile.load(loadInterests()) }
                 lastSuggestions = orchestrator?.suggestions().orEmpty()
                 initError = null

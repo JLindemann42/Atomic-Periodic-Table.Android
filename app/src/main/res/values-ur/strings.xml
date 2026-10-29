@@ -710,6 +710,9 @@
     <string name="ai_quiz_run_done">کوئز مکمل: **%2$d میں سے %1$d** درست، **%3$d XP** حاصل۔</string>
     <string name="ai_quiz_run_stopped">کوئز روکا گیا: **%2$d میں سے %1$d** درست، **%3$d XP** حاصل۔</string>
     <string name="ai_quiz_run_none">میں اس پر سوال نہیں بنا سکا۔ کوئی گروپ، پیریڈ، عناصر کا خاندان یا ایک عنصر آزمائیں۔</string>
+    <string name="ai_study_start">دہرائی کا وقت: **%1$d سوالات** مشق کے لیے تیار ہیں۔ کسی جواب پر ٹیپ کریں، یا ختم کرنے کے لیے بس کہیں۔</string>
+    <string name="ai_study_none">ابھی دہرانے کے لیے کچھ نہیں ہے۔ کوئز کے جو سوال آپ سے چھوٹ جاتے ہیں وہ مشق کا وقت آنے پر یہاں لوٹتے ہیں۔</string>
+    <string name="ai_study_locked">مطالعہ کوچ PRO کا حصہ ہے: یہ آپ سے چھوٹے ہوئے کوئز سوالات یاد رکھتا ہے اور ہر ایک کو آپ کے بھولنے سے ذرا پہلے واپس لاتا ہے۔</string>
     <string name="ai_card_heat_map_title">جدول میں %1$s</string>
 
     <!-- Equation Balancer tool -->

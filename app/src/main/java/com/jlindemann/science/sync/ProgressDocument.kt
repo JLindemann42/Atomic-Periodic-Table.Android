@@ -26,6 +26,10 @@ object ProgressDocument {
     const val NOTES = "notes"
     const val LAST_UPDATED = "lastUpdated"
 
+    /** The study coach's cards (roadmap 2.6): `study.cards.<key>` = `{s, d, due, last, reps, lapses}`. */
+    const val STUDY = "study"
+    const val STUDY_CARDS = "cards"
+
     /**
      * The per-platform entitlement map: `entitlements.android`, `entitlements.windows`,
      * `entitlements.ultimate`.
@@ -64,8 +68,32 @@ object ProgressDocument {
             androidTier = entitlements?.get(ANDROID_TIER) as? String,
             windowsTier = entitlements?.get(WINDOWS_TIER) as? String,
             ultimate = entitlements?.get(ULTIMATE) as? Boolean ?: false,
+            study = readStudy(snapshot.get(STUDY)),
         )
     }
+
+    /** `study.cards`, dropping any card whose fields are missing or of the wrong type. */
+    fun readStudy(raw: Any?): Map<String, com.jlindemann.science.study.CardState> {
+        val cards = (raw as? Map<*, *>)?.get(STUDY_CARDS) as? Map<*, *> ?: return emptyMap()
+        return cards.mapNotNull { (key, value) ->
+            val id = key as? String ?: return@mapNotNull null
+            val map = value as? Map<*, *> ?: return@mapNotNull null
+            id to com.jlindemann.science.study.CardState(
+                stability = (map["s"] as? Number)?.toDouble() ?: return@mapNotNull null,
+                difficulty = (map["d"] as? Number)?.toDouble() ?: return@mapNotNull null,
+                due = readLong(map["due"]) ?: return@mapNotNull null,
+                last = readLong(map["last"]) ?: return@mapNotNull null,
+                reps = readInt(map["reps"]) ?: return@mapNotNull null,
+                lapses = readInt(map["lapses"]) ?: return@mapNotNull null,
+            )
+        }.toMap()
+    }
+
+    /** The `study` value to write: every card, whole. Merged into the document, so the other device's keys survive. */
+    fun studyMap(cards: Map<String, com.jlindemann.science.study.CardState>): Map<String, Any> =
+        mapOf(STUDY_CARDS to cards.mapValues { (_, c) ->
+            mapOf("s" to c.stability, "d" to c.difficulty, "due" to c.due, "last" to c.last, "reps" to c.reps, "lapses" to c.lapses)
+        })
 
     /**
      * Achievement entries, whichever type the writer used for the numbers.
@@ -127,6 +155,7 @@ object ProgressDocument {
         )
 
         snapshot.streakLastPlay?.let { data[STREAK_LAST_PLAY] = it }
+        if (snapshot.study.isNotEmpty()) data[STUDY] = studyMap(snapshot.study)
         snapshot.notes?.let { data[NOTES] = it }
 
         data[ACHIEVEMENTS] = snapshot.achievements.map { achievement ->

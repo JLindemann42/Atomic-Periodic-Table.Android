@@ -81,7 +81,10 @@ class LearningGamesActivity : BaseActivity() {
         val question: String,
         val correctAnswer: String,
         val alternatives: List<String>,
-        val baseXp: Int
+        val baseXp: Int,
+        /** The element and category the question is about, for the study coach (roadmap 2.6). */
+        val subjectKey: String? = null,
+        val category: String? = null
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -432,6 +435,8 @@ class LearningGamesActivity : BaseActivity() {
         timerAnimator?.cancel()
         val q = questions[currentQuestionIndex]
         val correct = normalizeLabel(selectedAnswer) == normalizeLabel(q.correctAnswer)
+        // A timeout is a miss: the coach schedules the card sooner either way (roadmap 2.6).
+        com.jlindemann.science.study.StudyStore.record(this, q.category, q.subjectKey, correct)
 
         gameResults.add(
             GameResultItem(
@@ -650,7 +655,7 @@ class LearningGamesActivity : BaseActivity() {
         QuestionGenerators.forCategory(category)?.let { generator ->
             val ctx = generatorContext ?: return emptyList()
             return generator.generate(ctx, count).map {
-                Question(it.question, it.correctAnswer, it.alternatives, it.baseXp)
+                Question(it.question, it.correctAnswer, it.alternatives, it.baseXp, it.subjectKey, it.category)
             }
         }
 

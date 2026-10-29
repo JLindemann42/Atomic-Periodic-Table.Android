@@ -1306,6 +1306,9 @@
     <string name="ai_quiz_run_done">प्रश्नोत्तरी पूरी: **%2$d में से %1$d** सही, **%3$d XP** मिले।</string>
     <string name="ai_quiz_run_stopped">प्रश्नोत्तरी रोकी गई: **%2$d में से %1$d** सही, **%3$d XP** मिले।</string>
     <string name="ai_quiz_run_none">मैं इस पर प्रश्न नहीं बना सका। कोई समूह, आवर्त, तत्वों का परिवार या एक तत्व आज़माएँ।</string>
+    <string name="ai_study_start">दोहराने का समय: **%1$d प्रश्न** अभ्यास के लिए तैयार हैं। किसी उत्तर पर टैप करें, या रोकने के लिए बस कहें।</string>
+    <string name="ai_study_none">अभी दोहराने के लिए कुछ नहीं है। प्रश्नोत्तरी के जो प्रश्न आप चूकते हैं, वे अभ्यास का समय आने पर यहाँ लौटते हैं।</string>
+    <string name="ai_study_locked">अध्ययन कोच PRO का हिस्सा है: यह आपके चूके हुए प्रश्नोत्तरी प्रश्न याद रखता है और हर एक को आपके भूलने से ठीक पहले वापस लाता है।</string>
     <string name="ai_card_heat_map_title">सारणी में %1$s</string>
 
     <!-- Equation Balancer tool -->

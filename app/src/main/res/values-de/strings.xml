@@ -1246,6 +1246,9 @@
     <string name="ai_quiz_run_done">Das war das Quiz: **%1$d von %2$d** richtig, **%3$d XP** verdient.</string>
     <string name="ai_quiz_run_stopped">Quiz beendet: **%1$d von %2$d** richtig, **%3$d XP** verdient.</string>
     <string name="ai_quiz_run_none">Dazu konnte ich keine Fragen erstellen. Versuch es mit einer Gruppe, einer Periode, einer Elementfamilie oder einem einzelnen Element.</string>
+    <string name="ai_study_start">Zeit zum Wiederholen: **%1$d Fragen** sind fällig. Tippe auf eine Antwort oder sag Stopp, um zu beenden.</string>
+    <string name="ai_study_none">Gerade ist nichts zum Wiederholen fällig. Quizfragen, die du verpasst, kommen hierher zurück, wenn es Zeit zum Üben ist.</string>
+    <string name="ai_study_locked">Der Lerncoach gehört zu PRO: Er merkt sich die Quizfragen, die du verpasst, und bringt jede kurz bevor du sie vergessen würdest zurück.</string>
     <string name="ai_card_heat_map_title">%1$s im Periodensystem</string>
 
     <!-- Equation Balancer tool -->

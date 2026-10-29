@@ -124,6 +124,30 @@ object QuizRun {
         return out
     }
 
+    /** "Review", "what should I study", in each language (roadmap 2.6). */
+    private val REVIEW_WORDS = listOf(
+        "review", "revise", "what should i study", "study session",
+        "repetera", "plugga", "vad ska jag plugga",
+        "wiederholen", "wiederholung", "was soll ich lernen",
+        "reviser", "revision", "que dois je reviser",
+        "repasar", "repaso", "que debo estudiar",
+        "ripassare", "ripasso", "cosa devo studiare",
+        "revisar", "revisao", "o que devo estudar",
+        "hersien", "hersiening", "wat moet ek leer",
+        "balik aral", "ano ang dapat kong pag aralan",
+        "दोहराना", "दोहराओ", "पुनरावृत्ति", "क्या पढ़ूँ",
+        "دہرائی", "دہرانا", "کیا پڑھوں",
+        "复习", "该学什么"
+    )
+
+    /**
+     * Whether a message asks the study coach for its review. Short messages only: "review" inside
+     * a longer question ("review the trend of density") is that question.
+     */
+    fun asksForReview(normalized: String): Boolean =
+        TextMatching.splitQueryTokens(normalized).size <= 6 &&
+            REVIEW_WORDS.any { TextMatching.containsWord(normalized, it) }
+
     fun stops(normalized: String): Boolean =
         TextMatching.splitQueryTokens(normalized).size <= 4 &&
             STOP_WORDS.any { TextMatching.containsWord(normalized, it) }

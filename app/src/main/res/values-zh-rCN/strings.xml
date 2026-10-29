@@ -1318,6 +1318,9 @@ I：不溶"</string>
     <string name="ai_quiz_run_done">测验结束：答对**%1$d/%2$d**题，获得**%3$d XP**。</string>
     <string name="ai_quiz_run_stopped">测验已停止：答对**%1$d/%2$d**题，获得**%3$d XP**。</string>
     <string name="ai_quiz_run_none">我无法就此出题。试试一个族、一个周期、一类元素或单个元素。</string>
+    <string name="ai_study_start">该复习了：有**%1$d道题**需要练习。点击一个答案，或说停止来结束。</string>
+    <string name="ai_study_none">现在没有需要复习的内容。你在测验中答错的题目会在该练习时回到这里。</string>
+    <string name="ai_study_locked">学习教练是PRO的一部分：它会记住你答错的测验题，并在你快要忘记之前把每一道带回来。</string>
     <string name="ai_card_heat_map_title">周期表中的%1$s</string>
 
     <!-- Equation Balancer tool -->

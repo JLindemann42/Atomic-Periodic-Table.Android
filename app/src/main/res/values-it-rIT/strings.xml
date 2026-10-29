@@ -1316,6 +1316,9 @@ Condividono comportamenti chimici simili grazie ai loro elettroni di valenza!</s
     <string name="ai_quiz_run_done">Quiz finito: **%1$d su %2$d** giuste, **%3$d XP** guadagnati.</string>
     <string name="ai_quiz_run_stopped">Quiz interrotto: **%1$d su %2$d** giuste, **%3$d XP** guadagnati.</string>
     <string name="ai_quiz_run_none">Non sono riuscito a creare domande su questo. Prova con un gruppo, un periodo, una famiglia di elementi o un singolo elemento.</string>
+    <string name="ai_study_start">Ora di ripassare: **%1$d domande** da rivedere. Tocca una risposta, oppure di\' basta per finire.</string>
+    <string name="ai_study_none">Al momento non c\'è niente da ripassare. Le domande dei quiz che sbagli tornano qui quando è il momento di esercitarti.</string>
+    <string name="ai_study_locked">Il coach di studio fa parte di PRO: ricorda le domande dei quiz che sbagli e riporta ognuna poco prima che tu la dimentichi.</string>
     <string name="ai_card_heat_map_title">%1$s nella tavola</string>
 
     <!-- Equation Balancer tool -->

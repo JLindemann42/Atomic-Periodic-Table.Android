@@ -186,6 +186,7 @@ object ProgressSyncManager {
             androidTier = EntitlementManager.currentTier(context).wire,
             windowsTier = WindowsTierPreference(context).getValue().ifEmpty { null },
             ultimate = EntitlementManager.hasUltimate(context),
+            study = com.jlindemann.science.study.StudyStore.deck(context).snapshot(),
         )
     }
 
@@ -238,6 +239,12 @@ object ProgressSyncManager {
             if (mergedNotes.length > notesPref.getValue().length) notesPref.setValue(mergedNotes)
         } catch (t: Throwable) {
             Log.w(TAG, "Failed to update local notes", t)
+        }
+
+        try {
+            com.jlindemann.science.study.StudyStore.mergeFrom(context, merged.study)
+        } catch (t: Throwable) {
+            Log.w(TAG, "Failed to update local study cards", t)
         }
 
         applyEntitlements(context, merged)

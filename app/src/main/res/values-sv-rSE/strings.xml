@@ -1248,6 +1248,9 @@
     <string name="ai_quiz_run_done">Quizet är klart: **%1$d av %2$d** rätt, **%3$d XP** intjänat.</string>
     <string name="ai_quiz_run_stopped">Quizet avbrutet: **%1$d av %2$d** rätt, **%3$d XP** intjänat.</string>
     <string name="ai_quiz_run_none">Jag kunde inte göra frågor om det. Prova en grupp, en period, en grundämnesfamilj eller ett enskilt grundämne.</string>
+    <string name="ai_study_start">Dags att repetera: **%1$d frågor** som ska övas nu. Tryck på ett svar, eller säg stopp för att avsluta.</string>
+    <string name="ai_study_none">Inget behöver repeteras just nu. Quizfrågor du missar kommer tillbaka hit när det är dags att öva på dem.</string>
+    <string name="ai_study_locked">Studiecoachen ingår i PRO: den minns quizfrågorna du missar och tar tillbaka var och en precis innan du skulle glömma den.</string>
     <string name="ai_card_heat_map_title">%1$s i hela systemet</string>
 
     <!-- Equation Balancer tool -->

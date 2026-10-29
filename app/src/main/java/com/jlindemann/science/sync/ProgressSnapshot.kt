@@ -39,6 +39,8 @@ data class ProgressSnapshot(
     val windowsTier: String? = null,
     val androidTier: String? = null,
     val ultimate: Boolean = false,
+    /** The study coach's cards, `study.cards` (roadmap 2.6; shared data `sync/study.md`). */
+    val study: Map<String, com.jlindemann.science.study.CardState> = emptyMap(),
 ) {
     companion object {
         val EMPTY = ProgressSnapshot()

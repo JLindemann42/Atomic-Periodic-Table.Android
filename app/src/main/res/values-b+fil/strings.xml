@@ -1315,6 +1315,9 @@ Nagbabahagi sila ng mga katulad na gawi sa kemikal dahil sa kanilang mga valence
     <string name="ai_quiz_run_done">Tapos na ang quiz: **%1$d sa %2$d** tama, **%3$d XP** ang nakuha.</string>
     <string name="ai_quiz_run_stopped">Itinigil ang quiz: **%1$d sa %2$d** tama, **%3$d XP** ang nakuha.</string>
     <string name="ai_quiz_run_none">Hindi ako makagawa ng tanong tungkol diyan. Subukan ang isang grupo, period, pamilya ng elemento o iisang elemento.</string>
+    <string name="ai_study_start">Oras na para mag-repaso: **%1$d tanong** na dapat sanayin. I-tap ang sagot, o sabihing stop para tapusin.</string>
+    <string name="ai_study_none">Walang kailangang i-repaso ngayon. Babalik dito ang mga tanong sa quiz na namali mo kapag oras na para sanayin ang mga ito.</string>
+    <string name="ai_study_locked">Bahagi ng PRO ang study coach: tinatandaan nito ang mga tanong sa quiz na namali mo at ibinabalik ang bawat isa bago mo ito makalimutan.</string>
     <string name="ai_card_heat_map_title">%1$s sa buong table</string>
 
     <!-- Equation Balancer tool -->

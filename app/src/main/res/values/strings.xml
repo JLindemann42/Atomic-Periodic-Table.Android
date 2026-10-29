@@ -1564,6 +1564,9 @@
     <string name="ai_quiz_run_done">That\'s the quiz: **%1$d of %2$d** right, **%3$d XP** earned.</string>
     <string name="ai_quiz_run_stopped">Quiz stopped: **%1$d of %2$d** right, **%3$d XP** earned.</string>
     <string name="ai_quiz_run_none">I couldn\'t make questions on that. Try a group, a period, a family of elements or a single element.</string>
+    <string name="ai_study_start">Time to review: **%1$d questions** you\'re due to practise. Tap an answer, or say stop to end it.</string>
+    <string name="ai_study_none">Nothing is due for review right now. The quiz questions you miss come back here when it\'s time to practise them.</string>
+    <string name="ai_study_locked">The study coach is part of PRO: it remembers the quiz questions you miss and brings each one back just before you\'d forget it.</string>
     <string name="ai_card_heat_map_title">%1$s across the table</string>
 
     <!-- Equation Balancer tool -->

@@ -1320,6 +1320,9 @@ Eles compartilham comportamentos químicos semelhantes devido aos seus elétrons
     <string name="ai_quiz_run_done">Fim do quiz: **%1$d de %2$d** certas, **%3$d XP** ganhos.</string>
     <string name="ai_quiz_run_stopped">Quiz interrompido: **%1$d de %2$d** certas, **%3$d XP** ganhos.</string>
     <string name="ai_quiz_run_none">Não consegui criar perguntas sobre isso. Tente um grupo, um período, uma família de elementos ou um único elemento.</string>
+    <string name="ai_study_start">Hora de revisar: **%1$d perguntas** para praticar. Toque numa resposta, ou diga parar para terminar.</string>
+    <string name="ai_study_none">Nada para revisar agora. As perguntas de quiz que você erra voltam aqui quando chega a hora de praticá-las.</string>
+    <string name="ai_study_locked">O treinador de estudo faz parte do PRO: ele lembra as perguntas de quiz que você erra e traz cada uma de volta pouco antes de você esquecer.</string>
     <string name="ai_card_heat_map_title">%1$s na tabela</string>
 
     <!-- Equation Balancer tool -->

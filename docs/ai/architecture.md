@@ -100,6 +100,7 @@ user is defined by two corpus files, `must_defer.tsv` and `capabilities.tsv`.
 | `ElementOverview.kt` | "Gold", "tell me (everything) about gold": basic facts plus sections, in the reader's language. |
 | `ElementMoreInfo.kt` | "Tell me more": picks the next unsaid field; the engine renders it. |
 | `ElementQuiz.kt` | "Quiz me", and the verdict on the next reply. |
+| `study/` | The study coach (roadmap 2.6): `Fsrs` (FSRS-5), `StudyDeck` (cards, due order, merge), `StudyStore` (this device's file), `StudyAccess` (what the chat gets). |
 | `QuizRun.kt` | Quiz runs (roadmap 2.5): "quiz me on the halogens", read into a count, a scope and a kind of question, and judged one pick at a time. |
 | `ElementReactions.kt` | What an element does with water, oxygen, acid or another element. |
 | `ElementSimilarity.kt` | The elements in the same group. |
@@ -242,6 +243,29 @@ read in some language is therefore never shown there, rather than leading to a d
 chips fill the remaining places, less any that would repeat the question ("Atomic mass of Gold"
 under the atomic mass of gold). `FollowUpsTest` asks each locale's own seed questions and then
 every chip they produce, and fails if any is declined.
+
+**The study coach** (roadmap 2.6, PRO). The coach schedules the quiz questions a user gets wrong and
+brings each one back just before it would be forgotten. The cards, the scheduler and the synced
+field are defined in the shared data's `sync/study.md`, before either app's code.
+
+- **Cards.** One card per skill and element, keyed `periodic_group:bromine`. The skills are the five
+  Learning Games categories that ask about one given element: classification, period, group,
+  valence electrons and isotope neutrons. `QuizQuestion` now carries `subjectKey` and `category`;
+  the generators that ask about one element fill them in.
+- **Feeding.** An answer feeds its card wherever the question was asked: the Learning Games
+  (`StudyStore.record`, a timeout counting as a miss), a chat quiz run, or a review. Right rates Good
+  and wrong rates Again. A question about no single element (rankings, molar mass) feeds nothing.
+- **Scheduler.** `study/Fsrs.kt` is FSRS-5 with its default parameters. `tools/fsrs_golden.py` in the
+  shared data is the reference. `golden/fsrs.tsv` holds its vectors, and `FsrsTest` on both
+  platforms checks them: stability and difficulty to 1e-9, the interval to the day.
+- **Review.** "Review" or "what should I study" in chat (twelve languages, short messages only)
+  starts a run of the due cards, most overdue first, at most ten. It reuses the 2.5 run machinery:
+  each card's generator is scoped to its element, so the options are fresh every time. Without PRO,
+  the reply says what the coach would do.
+- **Storage and sync.** `StudyDeck` is pure and holds the cards. `StudyStore` keeps them in
+  `study_cards.tsv` and gives the chat a `StudyAccess`. The progress sync carries them in
+  `study.cards`, merged per card with the later review winning (`ProgressMerge.mergeStudy`). Android
+  writes with `SetOptions.merge()`, Windows with an update mask of `study`.
 
 **Quiz runs** (roadmap 2.5). "Quiz me on the halogens", "five isotope questions on uranium" and
 "frågesport om ädelgaserna" start a run of multiple-choice questions, asked one at a time with the

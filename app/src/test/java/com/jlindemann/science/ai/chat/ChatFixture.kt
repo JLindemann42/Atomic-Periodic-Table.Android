@@ -34,7 +34,8 @@ object ChatFixture {
         seed: Int? = null,
         language: String = "en",
         entitlements: Entitlements = Entitlements.FULL,
-        onXp: (Int) -> Unit = {}
+        onXp: (Int) -> Unit = {},
+        study: com.jlindemann.science.study.StudyAccess? = null
     ) =
         ChatOrchestrator(
             retrieval = service,
@@ -42,7 +43,8 @@ object ChatFixture {
             entitlements = { entitlements },
             language = language,
             random = seed?.let { Random(it) } ?: Random.Default,
-            onXp = onXp
+            onXp = onXp,
+            study = study
         )
 
     val noData: String get() = strings().get(com.jlindemann.science.R.string.ai_no_data)

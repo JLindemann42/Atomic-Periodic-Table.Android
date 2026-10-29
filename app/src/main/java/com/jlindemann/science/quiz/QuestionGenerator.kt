@@ -19,7 +19,11 @@ data class QuizQuestion(
     val question: String,
     val correctAnswer: String,
     val alternatives: List<String>,
-    val baseXp: Int
+    val baseXp: Int,
+    /** The element the question is about, when it is about one; feeds the study coach (roadmap 2.6). */
+    val subjectKey: String? = null,
+    /** The category that generated it, so an answer can be filed under its skill. */
+    val category: String? = null
 )
 
 /**

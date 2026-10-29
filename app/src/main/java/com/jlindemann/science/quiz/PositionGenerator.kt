@@ -65,7 +65,9 @@ class PositionGenerator(
                     question = ctx.string(aspect.questionRes, ctx.name(element)),
                     correctAnswer = correct.toString(),
                     alternatives = options.shuffled(ctx.random),
-                    baseXp = baseXp
+                    baseXp = baseXp,
+                    subjectKey = element.key,
+                    category = categoryKey
                 )
             )
         }

@@ -77,7 +77,9 @@ class ChatOrchestrator(
     /** Picks among the shipped facts and quiz questions. Seedable, so a test can name the reply. */
     private val random: Random = Random.Default,
     /** Receives the XP a right answer in a quiz run earns (roadmap 2.5); the app adds it to the user's. */
-    private val onXp: (Int) -> Unit = {}
+    private val onXp: (Int) -> Unit = {},
+    /** The study coach's deck (roadmap 2.6), or null where there is none. Used only with PRO. */
+    private val study: com.jlindemann.science.study.StudyAccess? = null
 ) {
 
     private val store = retrieval.store
@@ -195,6 +197,9 @@ class ChatOrchestrator(
     private fun quiz(message: String, strings: StringProvider): ChatReply? {
         val normalized = TextMatching.normalizeForLookup(message)
 
+        // "Review", "what should I study": the study coach's due cards as a run (roadmap 2.6).
+        if (QuizRun.asksForReview(normalized)) return review(strings)
+
         // A run in progress (roadmap 2.5): an option picks an answer, "stop" ends it, and anything
         // else is a new question, so the run is left and the message answered as usual.
         quizRun?.let { run ->
@@ -289,10 +294,46 @@ class ChatOrchestrator(
     private fun runQuestion(run: QuizRunState, strings: StringProvider): String =
         strings.get(R.string.ai_quiz_run_question, run.index + 1, run.questions.size, run.current.question)
 
+    /** Whether the study coach is in play: there is a deck, and the user has PRO (roadmap 2.6). */
+    private fun studying(): Boolean =
+        study != null && entitlements().allows(com.jlindemann.science.ai.data.Tier.PRO)
+
+    /**
+     * The study coach's due cards as a run (roadmap 2.6): each card's skill asked again about its
+     * element, with fresh options. PRO only; without it, what the coach would do.
+     */
+    private fun review(strings: StringProvider): ChatReply {
+        val access = study
+        if (access == null || !studying()) {
+            return ChatReply(strings.get(R.string.ai_study_locked), ReplySource.PERSONALITY, suggestions = suggestions(strings, null))
+        }
+        val questions = access.deck.due(access.now()).mapNotNull { key ->
+            val (skill, element) = com.jlindemann.science.study.StudyDeck.parse(key) ?: return@mapNotNull null
+            val generator = com.jlindemann.science.quiz.QuestionGenerators.forCategory(skill) ?: return@mapNotNull null
+            val context = GeneratorContext(
+                store, retrieval.localized(state.activeLanguage), strings, "medium", random, setOf(element)
+            )
+            generator.generate(context, 1).firstOrNull()
+        }
+        if (questions.isEmpty()) {
+            return ChatReply(strings.get(R.string.ai_study_none), ReplySource.PERSONALITY, suggestions = suggestions(strings, null))
+        }
+        val run = QuizRunState(questions, null)
+        quizRun = run
+        state.pendingQuizAnswer = null
+        val intro = strings.get(R.string.ai_study_start, questions.size)
+        return ChatReply("$intro\n\n${runQuestion(run, strings)}", ReplySource.PERSONALITY, suggestions = run.current.alternatives)
+    }
+
     /** Judge a pick, award its XP, and ask the next question or close the run. */
     private fun answerRun(run: QuizRunState, pick: String, strings: StringProvider): ChatReply {
         val question = run.current
-        val verdict = if (pick == question.correctAnswer) {
+        val right = pick == question.correctAnswer
+        // Every answer in a run reviews its card, whether the run is a review or a quiz (roadmap 2.6).
+        study?.takeIf { studying() }?.let { access ->
+            if (access.deck.record(question.category, question.subjectKey, right, access.now()) != null) access.save()
+        }
+        val verdict = if (right) {
             run.correct++
             run.xp += question.baseXp
             onXp(question.baseXp)

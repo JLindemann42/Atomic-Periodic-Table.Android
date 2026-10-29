@@ -240,5 +240,32 @@ class ProgressMergeTest {
         assertEquals("line one\nline two", NotesCodec.parse(blob)["h"])
     }
 
+    // ---- Study cards (roadmap 2.6) ---------------------------------------------------------------
+
+    @Test
+    fun studyCardsKeepTheLaterReviewPerCard() {
+        val t = 1_700_000_000_000L
+        val early = com.jlindemann.science.study.Fsrs.review(null, 3, t)
+        val late = com.jlindemann.science.study.Fsrs.review(early, 1, t + 5 * 86_400_000L)
+        val local = ProgressSnapshot(study = mapOf("periodic_group:gold" to late, "periodic_period:iron" to early))
+        val cloud = ProgressSnapshot(study = mapOf("periodic_group:gold" to early, "valence_electrons:neon" to early))
+
+        val merged = ProgressMerge.merge(local, cloud).study
+        assertEquals(setOf("periodic_group:gold", "periodic_period:iron", "valence_electrons:neon"), merged.keys)
+        assertEquals(late, merged["periodic_group:gold"])
+        // Either direction gives the same cards.
+        assertEquals(merged, ProgressMerge.merge(cloud, local).study)
+    }
+
+    @Test
+    fun studyCardsRoundTripTheWireFormat() {
+        val card = com.jlindemann.science.study.Fsrs.review(null, 3, 1_700_000_000_000L)
+        val wire = ProgressDocument.studyMap(mapOf("periodic_group:gold" to card))
+        assertEquals(mapOf("periodic_group:gold" to card), ProgressDocument.readStudy(wire))
+        // Firestore returns whole numbers as Long and a missing field as nothing: a malformed card is dropped.
+        val broken = mapOf("cards" to mapOf("periodic_group:iron" to mapOf("s" to 1.0, "d" to 5L)))
+        assertTrue(ProgressDocument.readStudy(broken).isEmpty())
+    }
+
     private fun ProgressSnapshot.associateAchievements() = achievements.associateBy { it.id }
 }

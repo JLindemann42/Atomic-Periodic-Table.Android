@@ -46,8 +46,22 @@ object ProgressMerge {
 
             // Ultimate is bought once and honoured everywhere, so it only ever grants.
             ultimate = local.ultimate || cloud.ultimate,
+
+            study = mergeStudy(local.study, cloud.study),
         )
     }
+
+    /**
+     * Per card, the later review wins; on a tie the one with more reps, then the cloud's. Cards
+     * are never deleted, so a card on either side is kept (shared data `sync/study.md`).
+     */
+    fun mergeStudy(
+        local: Map<String, com.jlindemann.science.study.CardState>,
+        cloud: Map<String, com.jlindemann.science.study.CardState>
+    ): Map<String, com.jlindemann.science.study.CardState> =
+        (local.keys + cloud.keys).associateWith { key ->
+            com.jlindemann.science.study.StudyDeck.newer(local[key], cloud[key])!!
+        }
 
     /**
      * The later of two ISO days.

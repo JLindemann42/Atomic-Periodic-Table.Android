@@ -723,6 +723,9 @@
     <string name="ai_quiz_run_done">Fin del quiz: **%1$d de %2$d** correctas, **%3$d XP** ganados.</string>
     <string name="ai_quiz_run_stopped">Quiz detenido: **%1$d de %2$d** correctas, **%3$d XP** ganados.</string>
     <string name="ai_quiz_run_none">No pude crear preguntas sobre eso. Prueba con un grupo, un periodo, una familia de elementos o un solo elemento.</string>
+    <string name="ai_study_start">Hora de repasar: **%1$d preguntas** pendientes. Toca una respuesta o di parar para terminar.</string>
+    <string name="ai_study_none">No hay nada que repasar ahora. Las preguntas de quiz que fallas vuelven aquí cuando toca practicarlas.</string>
+    <string name="ai_study_locked">El entrenador de estudio es parte de PRO: recuerda las preguntas de quiz que fallas y trae cada una justo antes de que la olvides.</string>
     <string name="ai_card_heat_map_title">%1$s en la tabla</string>
 
     <!-- Equation Balancer tool -->
