@@ -1218,6 +1218,17 @@
     <string name="ai_follow_unit">%1$s von %2$s in %3$s</string>
     <string name="ai_follow_count">Wie viele gibt es?</string>
 
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">Zeig die Schritte</string>
+    <string name="ai_steps_header">Schritt für Schritt</string>
+    <string name="ai_steps_formula">Die molare Masse ist die Summe aus der Atomzahl jedes Elements mal seiner Atommasse:</string>
+    <string name="ai_steps_moles_legend">m ist die Masse, M die molare Masse, n die Stoffmenge in Mol, N die Teilchenzahl und N_A die Avogadro-Konstante.</string>
+    <string name="ai_steps_solution_legend">n ist die Stoffmenge in Mol, c die Konzentration, V das Volumen, m die Masse und M die molare Masse.</string>
+    <string name="ai_steps_decay_legend">t½ ist die Halbwertszeit, t die vergangene Zeit, n die Zahl der Halbwertszeiten, N₀ und N die Mengen vorher und nachher.</string>
+    <string name="ai_steps_balance_unknowns">Schreibe vor jede Formel einen unbekannten Koeffizienten:</string>
+    <string name="ai_steps_balance_equations">Jedes Element braucht links so viele Atome wie rechts:</string>
+    <string name="ai_steps_balance_solve">Die kleinsten ganzen Zahlen, die jede Zeile erfüllen:</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Gleichungsrechner</string>
     <string name="bal">Ausgleich</string>

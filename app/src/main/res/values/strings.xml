@@ -1536,6 +1536,17 @@
     <string name="ai_follow_unit">%1$s of %2$s in %3$s</string>
     <string name="ai_follow_count">How many are there?</string>
 
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">Show the steps</string>
+    <string name="ai_steps_header">Step by step</string>
+    <string name="ai_steps_formula">The molar mass is the sum of each element\'s atom count times its atomic mass:</string>
+    <string name="ai_steps_moles_legend">m is the mass, M the molar mass, n the amount in moles, N the number of particles and N_A Avogadro\'s constant.</string>
+    <string name="ai_steps_solution_legend">n is the amount in moles, c the concentration, V the volume, m the mass and M the molar mass.</string>
+    <string name="ai_steps_decay_legend">t½ is the half-life, t the time elapsed, n the number of half-lives, and N₀ and N the amounts before and after.</string>
+    <string name="ai_steps_balance_unknowns">Write an unknown coefficient in front of each formula:</string>
+    <string name="ai_steps_balance_equations">Each element needs as many atoms on the left as on the right:</string>
+    <string name="ai_steps_balance_solve">The smallest whole numbers that satisfy every line:</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Equation Balancer</string>
     <string name="bal">Balancer</string>

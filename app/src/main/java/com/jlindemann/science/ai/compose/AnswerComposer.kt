@@ -66,16 +66,18 @@ class AnswerComposer(
             is ExecutionResult.Comparison -> comparison(result) + uncoveredAspects(plan)
             is ExecutionResult.ElementList -> elementList(result, plan)
             is ExecutionResult.Aggregate -> aggregate(result)
-            is ExecutionResult.Formula -> formula(result)
+            is ExecutionResult.Formula -> formula(result) + steps(plan) { workings.formula(result.result) }
             is ExecutionResult.Comparative -> comparative(result)
             is ExecutionResult.Neighbour -> neighbour(result)
             is ExecutionResult.Nuclide -> nuclide(result)
             is ExecutionResult.IsotopeComparison -> isotopeComparison(result)
-            is ExecutionResult.MoleConversion -> moleConversion(result)
+            is ExecutionResult.MoleConversion -> moleConversion(result) + steps(plan) { workings.moles(result) }
             is ExecutionResult.UnitConversion -> unitConversion(result)
-            is ExecutionResult.BalancedEquation -> balancedEquation(result)
-            is ExecutionResult.SolutionCalc -> solutionCalc(result)
-            is ExecutionResult.Decay -> decay(result)
+            is ExecutionResult.BalancedEquation ->
+                stepsInstead(plan, { balancedEquation(result, it) }) { workings.balance(result) }
+            is ExecutionResult.SolutionCalc ->
+                stepsInstead(plan, { solutionCalc(result, it) }) { workings.solution(result) }
+            is ExecutionResult.Decay -> stepsInstead(plan, { decay(result, it) }) { workings.decay(result) }
             is ExecutionResult.Isotopes -> isotopes(result)
             is ExecutionResult.Safety -> safety(result)
             is ExecutionResult.EmissionSpectrum -> emissionSpectrum(result)
@@ -96,6 +98,25 @@ class AnswerComposer(
             // show what the prose above it has already asserted.
             card = CardSelector.select(result, plan, store, strings, localized, cardPolicy)
         )
+    }
+
+    private val workings = Workings(strings)
+
+    /** A calculation's steps as a numbered section, when the plan asks for them (roadmap 2.2). */
+    private fun steps(plan: QueryPlan, lines: () -> List<String>): String {
+        if (!plan.showSteps) return ""
+        val steps = lines().takeIf { it.isNotEmpty() } ?: return ""
+        return "\n\n### " + strings.get(R.string.ai_steps_header) + "\n" +
+                steps.mapIndexed { i, line -> "${i + 1}. $line" }.joinToString("\n")
+    }
+
+    /**
+     * An answer whose short working the steps replace rather than repeat: [render] is called with
+     * whether to include its own working.
+     */
+    private fun stepsInstead(plan: QueryPlan, render: (Boolean) -> String, lines: () -> List<String>): String {
+        val steps = steps(plan, lines)
+        return if (steps.isEmpty()) render(true) else render(false) + steps
     }
 
     /** The "Get PRO" chip shown beside a withheld answer, or null when nothing was withheld. */
@@ -581,7 +602,7 @@ class AnswerComposer(
         return if (result.bridged) body + "\n\n" + strings.get(R.string.ai_unit_bridge_note) else body
     }
 
-    private fun balancedEquation(result: ExecutionResult.BalancedEquation): String {
+    private fun balancedEquation(result: ExecutionResult.BalancedEquation, working: Boolean = true): String {
         result.reason?.let { reason ->
             // A one-sided element is named when the solver identified it. "An element appears on
             // only one side" leaves the reader to find which; saying "O appears on only one side"
@@ -598,6 +619,7 @@ class AnswerComposer(
         val left = result.reactants.joinToString(" + ") { term(it) }
         val right = result.products.joinToString(" + ") { term(it) }
         val builder = StringBuilder(strings.get(R.string.ai_equation_balanced, left, right))
+        if (!working) return builder.toString()
 
         // The tally is the proof. A balancer that prints only coefficients is asking to be
         // trusted; one that shows both sides' atom counts can be checked in a few seconds.
@@ -627,7 +649,7 @@ class AnswerComposer(
                 R.string.ai_equation_no_solution
         }
 
-    private fun solutionCalc(result: ExecutionResult.SolutionCalc): String {
+    private fun solutionCalc(result: ExecutionResult.SolutionCalc, working: Boolean = true): String {
         val substance = result.substance.orEmpty()
 
         result.dilution?.let { d ->
@@ -643,6 +665,7 @@ class AnswerComposer(
                     strings.get(R.string.ai_dilution_add_solvent, format(added * 1000))
                 )
             }
+            if (!working) return builder.toString()
             builder.append("\n\n### ").append(strings.get(R.string.ai_solution_working_header))
             builder.append("\n").append(
                 strings.get(
@@ -672,6 +695,7 @@ class AnswerComposer(
         // The working is shown for the same reason the composition breakdown is: a number a reader
         // cannot reproduce is a number they have to take on faith.
         val builder = StringBuilder(lead)
+        if (!working) return builder.toString()
         builder.append("\n\n### ").append(strings.get(R.string.ai_solution_working_header))
         builder.append("\n").append(
             strings.get(
@@ -690,7 +714,7 @@ class AnswerComposer(
         return builder.toString()
     }
 
-    private fun decay(result: ExecutionResult.Decay): String {
+    private fun decay(result: ExecutionResult.Decay, working: Boolean = true): String {
         val nuclide = "${displayName(result.element.key)}-${result.massNumber}"
 
         when (result.mode) {
@@ -744,6 +768,7 @@ class AnswerComposer(
         }
 
         val builder = StringBuilder(lead)
+        if (!working) return builder.toString()
         builder.append("\n\n### ").append(strings.get(R.string.ai_decay_working_header))
         builder.append("\n").append(
             strings.get(R.string.ai_decay_working_half_life, nuclide, groupDigits(result.halfLifeDisplay))

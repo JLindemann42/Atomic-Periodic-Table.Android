@@ -695,6 +695,17 @@
     <string name="ai_follow_unit">%1$s de %2$s en %3$s</string>
     <string name="ai_follow_count">¿Cuántos hay?</string>
 
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">Muestra los pasos</string>
+    <string name="ai_steps_header">Paso a paso</string>
+    <string name="ai_steps_formula">La masa molar es la suma, para cada elemento, de su número de átomos por su masa atómica:</string>
+    <string name="ai_steps_moles_legend">m es la masa, M la masa molar, n la cantidad en moles, N el número de partículas y N_A la constante de Avogadro.</string>
+    <string name="ai_steps_solution_legend">n es la cantidad en moles, c la concentración, V el volumen, m la masa y M la masa molar.</string>
+    <string name="ai_steps_decay_legend">t½ es el periodo de semidesintegración, t el tiempo transcurrido, n el número de periodos, y N₀ y N las cantidades antes y después.</string>
+    <string name="ai_steps_balance_unknowns">Escribe un coeficiente desconocido delante de cada fórmula:</string>
+    <string name="ai_steps_balance_equations">Cada elemento necesita tantos átomos a la izquierda como a la derecha:</string>
+    <string name="ai_steps_balance_solve">Los menores números enteros que cumplen cada línea:</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Equilibrador de ecuaciones</string>
     <string name="bal">Equilibrador</string>

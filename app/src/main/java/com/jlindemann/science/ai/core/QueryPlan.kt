@@ -86,7 +86,12 @@ enum class Intent {
     DATASET_LOOKUP,
 
     /** Nothing recognised. The caller should fall back. */
-    UNKNOWN
+    UNKNOWN;
+
+    companion object {
+        /** The intents that compute an answer from numbers, and so have steps to show (roadmap 2.2). */
+        val CALCULATIONS = setOf(FORMULA_MASS, MOLE_CONVERSION, BALANCE_EQUATION, SOLUTION_CALC, DECAY_CALC)
+    }
 }
 
 /** Comparison operators available in a filter. */
@@ -228,7 +233,12 @@ data class QueryPlan(
     val confidence: Double = 0.0,
     val rawQuery: String = "",
     val evidence: List<String> = emptyList(),
-    val declined: DeclineReason? = null
+    val declined: DeclineReason? = null,
+    /**
+     * Whether to show the calculation step by step rather than only its short working (roadmap
+     * 2.2): asked for in the question, or as "show the steps" after a calculation.
+     */
+    val showSteps: Boolean = false
 ) {
     val primaryField: String? get() = fieldIds.firstOrNull()
 

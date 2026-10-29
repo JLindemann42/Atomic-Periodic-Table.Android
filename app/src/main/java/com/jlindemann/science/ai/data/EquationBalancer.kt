@@ -119,6 +119,9 @@ object EquationBalancer {
     /** Splits a side on `+`, but only a `+` that separates: `Na+` is a charge. */
     private val PLUS = Regex("""\s\+\s|\s\+|\+\s""")
 
+    /** A word of lower-case letters only: prose, never a formula as written. */
+    private val PROSE = Regex("""\p{Ll}+""")
+
     /** A leading stoichiometric coefficient the user supplied, which is re-derived rather than kept. */
     private val LEADING_COEFFICIENT = Regex("""^(\d+)\s*(?=[A-Za-z(])""")
 
@@ -163,8 +166,15 @@ object EquationBalancer {
     private fun sideOf(raw: String, isKnownSymbol: (String) -> Boolean): List<Species>? {
         val species = ArrayList<Species>()
         for (token in raw.split(PLUS)) {
+            // A word of prose sharing a token with a formula is not part of it. Read together, the
+            // German chip's "Fe2O3 aus" was Fe2O3 + Au + S, "balance C3H8" was Ba + La + N + Ce +
+            // C3H8, and "Fe2O3 step by step" grew sulfur: each answered that an element appears on one
+            // side only (roadmap 2.2). A lower-case word with no digit is prose; a token that is
+            // one word stays as written, so "na" and "fe2o3" are still read.
+            val words = token.trim().split(' ').filter { it.isNotBlank() }
+            val formula = if (words.size > 1) words.filterNot { PROSE.matches(it) }.joinToString(" ") else token
             val cleaned = LEADING_COEFFICIENT.replace(
-                ChemistryMath.stripStateAnnotation(token).trim(), ""
+                ChemistryMath.stripStateAnnotation(formula).trim(), ""
             ).trim()
             if (cleaned.isEmpty()) continue
 

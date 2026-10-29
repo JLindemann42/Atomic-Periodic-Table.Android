@@ -313,6 +313,10 @@ class CorpusTest {
         is ExecutionResult.Aggregate -> result.value
         is ExecutionResult.Formula -> result.result.molarMass
         is ExecutionResult.MoleConversion -> result.moles
+        // The sum of the coefficients, so a row checks the balance and not only that one was tried
+        // (roadmap 2.2): a declined equation carries no value, and fails a row that expects one.
+        is ExecutionResult.BalancedEquation ->
+            if (result.reason != null) null else (result.reactants + result.products).sumOf { it.coefficient }.toDouble()
         else -> null
     }
 

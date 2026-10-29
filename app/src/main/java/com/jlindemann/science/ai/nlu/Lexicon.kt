@@ -1721,6 +1721,26 @@ object Lexicon {
     )
 
     /**
+     * Asking for a calculation's working, step by step (roadmap 2.2): with the calculation, or as
+     * "show the steps" after one. Folded, like every vocabulary here.
+     */
+    val STEPS_WORDS = listOf(
+        "step by step", "show the steps", "show steps", "show me the steps", "show the working",
+        "show your working", "show your work", "show the calculation", "how did you calculate",
+        "steg for steg", "visa stegen", "visa utrakningen", "hur raknade du",
+        "schritt fur schritt", "zeig die schritte", "zeige die schritte", "zeig den rechenweg", "rechenweg",
+        "etape par etape", "montre les etapes", "montre le calcul",
+        "paso a paso", "muestra los pasos", "muestra el calculo",
+        "passo dopo passo", "passo per passo", "mostra i passaggi", "mostra il calcolo",
+        "passo a passo", "mostre os passos", "mostra os passos", "mostre o calculo",
+        "stap vir stap", "wys die stappe", "wys die berekening",
+        "hakbang-hakbang", "ipakita ang mga hakbang", "ipakita ang solusyon",
+        "चरण दर चरण", "चरण दिखाएँ", "चरण दिखाओ",
+        "مرحلہ وار", "مراحل دکھائیں",
+        "一步一步", "逐步", "显示步骤", "计算过程"
+    )
+
+    /**
      * Words naming the act of discovery, in every shipped language.
      *
      * Paired with [WHEN_WORDS] and [WHO_WORDS] to choose between the two discovery fields, which

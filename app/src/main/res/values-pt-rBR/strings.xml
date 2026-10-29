@@ -1292,6 +1292,17 @@ Eles compartilham comportamentos químicos semelhantes devido aos seus elétrons
     <string name="ai_follow_unit">%1$s de %2$s em %3$s</string>
     <string name="ai_follow_count">Quantos são?</string>
 
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">Mostre os passos</string>
+    <string name="ai_steps_header">Passo a passo</string>
+    <string name="ai_steps_formula">A massa molar é a soma, para cada elemento, do número de átomos vezes sua massa atômica:</string>
+    <string name="ai_steps_moles_legend">m é a massa, M a massa molar, n a quantidade em mols, N o número de partículas e N_A a constante de Avogadro.</string>
+    <string name="ai_steps_solution_legend">n é a quantidade em mols, c a concentração, V o volume, m a massa e M a massa molar.</string>
+    <string name="ai_steps_decay_legend">t½ é a meia-vida, t o tempo decorrido, n o número de meias-vidas, e N₀ e N as quantidades antes e depois.</string>
+    <string name="ai_steps_balance_unknowns">Escreva um coeficiente desconhecido na frente de cada fórmula:</string>
+    <string name="ai_steps_balance_equations">Cada elemento precisa de tantos átomos à esquerda quanto à direita:</string>
+    <string name="ai_steps_balance_solve">Os menores números inteiros que satisfazem cada linha:</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Balanceador de equações</string>
     <string name="bal">Balanceador</string>

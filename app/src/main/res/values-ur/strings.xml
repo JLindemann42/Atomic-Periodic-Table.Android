@@ -682,6 +682,17 @@
     <string name="ai_follow_unit">%2$s کی %1$s %3$s میں</string>
     <string name="ai_follow_count">کتنے ہیں؟</string>
 
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">مراحل دکھائیں</string>
+    <string name="ai_steps_header">مرحلہ وار</string>
+    <string name="ai_steps_formula">مولر کمیت ہر عنصر کے ایٹموں کی تعداد ضرب اس کی جوہری کمیت کا مجموعہ ہے:</string>
+    <string name="ai_steps_moles_legend">m کمیت ہے، M مولر کمیت، n مول میں مقدار، N ذرات کی تعداد اور N_A ایووگاڈرو مستقل۔</string>
+    <string name="ai_steps_solution_legend">n مول میں مقدار ہے، c ارتکاز، V حجم، m کمیت اور M مولر کمیت۔</string>
+    <string name="ai_steps_decay_legend">t½ نصف عمر ہے، t گزرا ہوا وقت، n نصف عمروں کی تعداد، اور N₀ اور N پہلے اور بعد کی مقداریں۔</string>
+    <string name="ai_steps_balance_unknowns">ہر فارمولے کے آگے ایک نامعلوم عددی سر لکھیں:</string>
+    <string name="ai_steps_balance_equations">ہر عنصر کے بائیں طرف اتنے ہی ایٹم ہونے چاہییں جتنے دائیں طرف:</string>
+    <string name="ai_steps_balance_solve">سب سے چھوٹے صحیح اعداد جو ہر سطر کو پورا کریں:</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">مساوات متوازن کار</string>
     <string name="bal">توازن کار</string>

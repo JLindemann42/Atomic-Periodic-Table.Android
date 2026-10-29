@@ -242,7 +242,34 @@ chips fill the remaining places, less any that would repeat the question ("Atomi
 under the atomic mass of gold). `FollowUpsTest` asks each locale's own seed questions and then
 every chip they produce, and fails if any is declined.
 
-Building them found three planner gaps, fixed with rows in `unit_convert.tsv`: "kg/m³" with a
+**Steps** (roadmap 2.2). Every calculation answer shows a short working: the atom check for a
+balance, n = c·V for a solution, the number of half-lives for a decay, the composition of a molar
+mass. Asked for the steps — "step by step" with the question, or "show the steps" after it, which
+the follow-up chips offer under every calculation — it shows the derivation instead, numbered,
+from `compose/Workings.kt`:
+
+| Calculation | The steps |
+|---|---|
+| Balance | An unknown coefficient per formula; one equation per element ("O: 2b = 3c"); the smallest whole numbers that solve them; the atom check |
+| Solution | The volume in litres; n = c × V or n = m ÷ M; m = n × M, c = n ÷ V or V = n ÷ c; for a dilution c₁V₁ = c₂V₂ and the solvent to add |
+| Decay | t½ in the unit asked; n = t ÷ t½; N ÷ N₀ = (½)ⁿ; N = N₀ × (½)ⁿ — or, for the time, n = log₂(N₀ ÷ N) and t = n × t½ |
+| Moles | M; n = m ÷ M, or N = n × N_A |
+| Molar mass | Each element's count × atomic mass, and their sum |
+
+The lines are mathematics with the numbers put in, at four significant figures; a legend string
+names the symbols in the reader's language. The planner sets `QueryPlan.showSteps` on a calculation
+asked for with its steps, and `Branch.SHOW_STEPS` re-plans the previous calculation with it, ranked
+after `CALCULATION` so a new calculation in the same message is the one answered. `StepsTest` asks
+for the steps of each kind, and of every locale's own balancing chip in its own words.
+
+Building it found that the balancer read prose sharing a token with a formula as elements: the
+German chip "Gleiche Fe + O2 -> Fe2O3 aus" answered that gold appears on one side, "balance C3H8 + O2
+-> CO2 + H2O" that barium, lanthanum, nitrogen and cerium do, and "step by step" grew sulfur. A
+lower-case word with no digit beside a formula is now dropped. The corpus rows had passed on the
+intent alone; `expect_value` on a balanced equation is now its coefficient sum, and
+`balance_equations.tsv` (corpus format 2) carries it for every row that balances.
+
+Building the follow-up chips found three planner gaps, fixed with rows in `unit_convert.tsv`: "kg/m³" with a
 superscript was not a unit; the capital in "°F" and "°C" was read as fluorine or carbon, turning
 "melting point of gold in °F" into a comparison; and Afrikaans "na" (to) was not a conversion
 preposition, so the app's own chip "Skakel 500 K om na °C" had been answered as potassium against

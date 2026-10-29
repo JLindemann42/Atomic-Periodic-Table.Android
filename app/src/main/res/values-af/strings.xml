@@ -1286,6 +1286,17 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
     <string name="ai_follow_unit">%1$s van %2$s in %3$s</string>
     <string name="ai_follow_count">Hoeveel is daar?</string>
 
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">Wys die stappe</string>
+    <string name="ai_steps_header">Stap vir stap</string>
+    <string name="ai_steps_formula">Die molêre massa is die som van elke element se aantal atome maal sy atoommassa:</string>
+    <string name="ai_steps_moles_legend">m is die massa, M die molêre massa, n die hoeveelheid in mol, N die aantal deeltjies en N_A Avogadro se konstante.</string>
+    <string name="ai_steps_solution_legend">n is die hoeveelheid in mol, c die konsentrasie, V die volume, m die massa en M die molêre massa.</string>
+    <string name="ai_steps_decay_legend">t½ is die halfleeftyd, t die tyd wat verloop het, n die aantal halfleeftye, en N₀ en N die hoeveelhede voor en ná.</string>
+    <string name="ai_steps_balance_unknowns">Skryf \'n onbekende koëffisiënt voor elke formule:</string>
+    <string name="ai_steps_balance_equations">Elke element het net soveel atome links as regs nodig:</string>
+    <string name="ai_steps_balance_solve">Die kleinste heelgetalle wat aan elke reël voldoen:</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Vergelykingbalanseerder</string>
     <string name="bal">Balanseerder</string>

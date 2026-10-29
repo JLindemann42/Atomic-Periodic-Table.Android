@@ -1292,6 +1292,17 @@ Ils partagent des comportements chimiques similaires grâce à leurs électrons 
     <string name="ai_follow_unit">%1$s de %2$s en %3$s</string>
     <string name="ai_follow_count">Combien y en a-t-il ?</string>
 
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">Montre les étapes</string>
+    <string name="ai_steps_header">Étape par étape</string>
+    <string name="ai_steps_formula">La masse molaire est la somme, pour chaque élément, du nombre d\'atomes multiplié par sa masse atomique :</string>
+    <string name="ai_steps_moles_legend">m est la masse, M la masse molaire, n la quantité de matière en moles, N le nombre de particules et N_A la constante d\'Avogadro.</string>
+    <string name="ai_steps_solution_legend">n est la quantité de matière en moles, c la concentration, V le volume, m la masse et M la masse molaire.</string>
+    <string name="ai_steps_decay_legend">t½ est la demi-vie, t le temps écoulé, n le nombre de demi-vies, N₀ et N les quantités avant et après.</string>
+    <string name="ai_steps_balance_unknowns">Place un coefficient inconnu devant chaque formule :</string>
+    <string name="ai_steps_balance_equations">Chaque élément doit avoir autant d\'atomes à gauche qu\'à droite :</string>
+    <string name="ai_steps_balance_solve">Les plus petits entiers qui satisfont chaque ligne :</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Équilibreur d\'équations</string>
     <string name="bal">Équilibreur</string>

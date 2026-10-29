@@ -182,7 +182,16 @@ class QueryPlanner(
         // Checked first: these questions name a formula or a nuclide, which the element and
         // field resolvers would otherwise pick apart into unrelated matches. "the molar mass of
         // H2SO4" used to retrieve the dictionary definition of molar mass instead of a number.
-        calculationPlan(rawQuery, normalized)?.let { propose(Branch.CALCULATION, it) }
+        // "Balance Fe + O2 -> Fe2O3 step by step" asks for the steps with the calculation; "show the
+        // steps" after one asks for the steps of the calculation just answered (roadmap 2.2). Ranked
+        // after the calculation, so a new one in the same message is the one that is shown.
+        val asksForSteps = mentionsAny(normalized, Lexicon.STEPS_WORDS)
+        calculationPlan(rawQuery, normalized)?.let {
+            propose(Branch.CALCULATION, if (asksForSteps) it.copy(showSteps = true) else it)
+        }
+        if (asksForSteps) state.lastPlan?.takeIf { it.intent in Intent.CALCULATIONS }?.let { previous ->
+            propose(Branch.SHOW_STEPS, previous.copy(showSteps = true, evidence = previous.evidence + "steps of the previous answer"))
+        }
 
 
         var operators = OperatorExtractor.extract(rawQuery)

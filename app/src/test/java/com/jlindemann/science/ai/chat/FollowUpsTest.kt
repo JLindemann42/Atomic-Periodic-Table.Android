@@ -22,14 +22,15 @@ class FollowUpsTest {
 
     /**
      * Questions every language has a chip for already, so each can be asked in its own words: a
-     * property lookup, a ranking and a list.
+     * property lookup, a ranking, a list and a calculation.
      */
     private fun seeds(language: String): List<String> {
         val strings = ChatFixture.strings(language)
         return listOf(
             String.format(strings.array(R.array.ai_suggest_element)[1], gold(language)),
             strings.array(R.array.ai_suggest_general)[3],
-            strings.array(R.array.ai_suggest_general)[2]
+            strings.array(R.array.ai_suggest_general)[2],
+            strings.array(R.array.ai_suggest_tools)[0]
         )
     }
 

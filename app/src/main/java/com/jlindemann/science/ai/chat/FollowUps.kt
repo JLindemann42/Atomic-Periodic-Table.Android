@@ -76,6 +76,8 @@ class FollowUps(
             Intent.SUPERLATIVE -> if (label == null || plan.filters.isNotEmpty()) emptyList() else listOf(
                 format(strings, if (plan.sortDescending) R.string.ai_follow_lowest else R.string.ai_follow_highest, label)
             )
+            // A calculation invites its working, unless that is what was just shown (roadmap 2.2).
+            in Intent.CALCULATIONS -> if (plan.showSteps) emptyList() else listOf(strings.get(R.string.ai_follow_steps))
             Intent.FILTER_LIST -> if (plan.filters.isEmpty()) emptyList() else listOf(strings.get(R.string.ai_follow_count))
             Intent.AGGREGATE ->
                 if (plan.filters.isEmpty() || plan.aggregation == Aggregation.COUNT) emptyList()
@@ -148,6 +150,7 @@ class FollowUps(
         fun asksTheSame(next: QueryPlan, previous: QueryPlan): Boolean =
             next.intent == previous.intent && next.elementKeys == previous.elementKeys &&
                     next.fieldIds == previous.fieldIds && next.filters == previous.filters &&
-                    next.sortDescending == previous.sortDescending && next.targetUnit == previous.targetUnit
+                    next.sortDescending == previous.sortDescending && next.targetUnit == previous.targetUnit &&
+                    next.showSteps == previous.showSteps
     }
 }

@@ -1288,6 +1288,17 @@ Condividono comportamenti chimici simili grazie ai loro elettroni di valenza!</s
     <string name="ai_follow_unit">%1$s di %2$s in %3$s</string>
     <string name="ai_follow_count">Quanti sono?</string>
 
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">Mostra i passaggi</string>
+    <string name="ai_steps_header">Passo per passo</string>
+    <string name="ai_steps_formula">La massa molare è la somma, per ogni elemento, del numero di atomi per la sua massa atomica:</string>
+    <string name="ai_steps_moles_legend">m è la massa, M la massa molare, n la quantità in moli, N il numero di particelle e N_A la costante di Avogadro.</string>
+    <string name="ai_steps_solution_legend">n è la quantità in moli, c la concentrazione, V il volume, m la massa e M la massa molare.</string>
+    <string name="ai_steps_decay_legend">t½ è il tempo di dimezzamento, t il tempo trascorso, n il numero di dimezzamenti, N₀ e N le quantità prima e dopo.</string>
+    <string name="ai_steps_balance_unknowns">Scrivi un coefficiente incognito davanti a ogni formula:</string>
+    <string name="ai_steps_balance_equations">Ogni elemento deve avere tanti atomi a sinistra quanti a destra:</string>
+    <string name="ai_steps_balance_solve">I più piccoli numeri interi che soddisfano ogni riga:</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Bilanciatore di equazioni</string>
     <string name="bal">Bilanciatore</string>

@@ -1287,6 +1287,17 @@ Nagbabahagi sila ng mga katulad na gawi sa kemikal dahil sa kanilang mga valence
     <string name="ai_follow_unit">%1$s ng %2$s sa %3$s</string>
     <string name="ai_follow_count">Ilan ang mayroon?</string>
 
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">Ipakita ang mga hakbang</string>
+    <string name="ai_steps_header">Hakbang-hakbang</string>
+    <string name="ai_steps_formula">Ang molar mass ay ang kabuuan ng bilang ng atom ng bawat elemento na pinarami sa atomic mass nito:</string>
+    <string name="ai_steps_moles_legend">Ang m ay ang masa, M ang molar mass, n ang dami sa mole, N ang bilang ng particle at N_A ang Avogadro constant.</string>
+    <string name="ai_steps_solution_legend">Ang n ay ang dami sa mole, c ang konsentrasyon, V ang volume, m ang masa at M ang molar mass.</string>
+    <string name="ai_steps_decay_legend">Ang t½ ay ang half-life, t ang lumipas na oras, n ang bilang ng half-life, at N₀ at N ang dami bago at pagkatapos.</string>
+    <string name="ai_steps_balance_unknowns">Maglagay ng hindi kilalang coefficient sa harap ng bawat formula:</string>
+    <string name="ai_steps_balance_equations">Kailangan ng bawat elemento ng kasindaming atom sa kaliwa at sa kanan:</string>
+    <string name="ai_steps_balance_solve">Ang pinakamaliliit na buong bilang na tumutugon sa bawat linya:</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Equation Balancer</string>
     <string name="bal">Balancer</string>

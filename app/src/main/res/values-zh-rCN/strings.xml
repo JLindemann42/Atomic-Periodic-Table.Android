@@ -1290,6 +1290,17 @@ I：不溶"</string>
     <string name="ai_follow_unit">%2$s 的%1$s，单位 %3$s</string>
     <string name="ai_follow_count">有多少个？</string>
 
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">显示步骤</string>
+    <string name="ai_steps_header">逐步计算</string>
+    <string name="ai_steps_formula">摩尔质量是每种元素的原子数乘以其原子量之和：</string>
+    <string name="ai_steps_moles_legend">m 是质量，M 是摩尔质量，n 是物质的量（摩尔），N 是粒子数，N_A 是阿伏加德罗常数。</string>
+    <string name="ai_steps_solution_legend">n 是物质的量（摩尔），c 是浓度，V 是体积，m 是质量，M 是摩尔质量。</string>
+    <string name="ai_steps_decay_legend">t½ 是半衰期，t 是经过的时间，n 是半衰期的个数，N₀ 和 N 是之前和之后的量。</string>
+    <string name="ai_steps_balance_unknowns">在每个化学式前写一个未知系数：</string>
+    <string name="ai_steps_balance_equations">每种元素在左边和右边的原子数必须相等：</string>
+    <string name="ai_steps_balance_solve">满足每一行的最小整数：</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">方程配平器</string>
     <string name="bal">配平器</string>

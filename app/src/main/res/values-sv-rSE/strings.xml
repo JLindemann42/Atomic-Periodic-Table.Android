@@ -1220,6 +1220,17 @@
     <string name="ai_follow_unit">%1$s för %2$s i %3$s</string>
     <string name="ai_follow_count">Hur många finns det?</string>
 
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">Visa stegen</string>
+    <string name="ai_steps_header">Steg för steg</string>
+    <string name="ai_steps_formula">Molmassan är summan av varje grundämnes antal atomer gånger dess atommassa:</string>
+    <string name="ai_steps_moles_legend">m är massan, M molmassan, n substansmängden i mol, N antalet partiklar och N_A Avogadros konstant.</string>
+    <string name="ai_steps_solution_legend">n är substansmängden i mol, c koncentrationen, V volymen, m massan och M molmassan.</string>
+    <string name="ai_steps_decay_legend">t½ är halveringstiden, t den tid som gått, n antalet halveringstider, och N₀ och N mängden före och efter.</string>
+    <string name="ai_steps_balance_unknowns">Skriv en okänd koefficient framför varje formel:</string>
+    <string name="ai_steps_balance_equations">Varje grundämne behöver lika många atomer till vänster som till höger:</string>
+    <string name="ai_steps_balance_solve">De minsta heltal som uppfyller varje rad:</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Ekvationsbalanserare</string>
     <string name="bal">Balanserare</string>
