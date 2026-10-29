@@ -49,11 +49,14 @@ class SuggestionChipTest {
         }
     }
 
-    /** With an element in play, the chips are about it, in the reader's language. */
+    /**
+     * With an element in play, the chips about it name it in the reader's language. Not every chip
+     * names it since roadmap 2.1: "Vilket grundämne har högst smältpunkt?" follows the same answer.
+     */
     @Test fun elementChipsNameTheElementInTheReadersLanguage() {
         val chat = ChatFixture.chat(language = "sv")
         chat.ask("vad är guldets densitet")
         val chips = chat.ask("och dess smältpunkt").suggestions
-        assertTrue(chips.toString(), chips.isNotEmpty() && chips.all { it.contains("Guld") })
+        assertTrue(chips.toString(), chips.any { it.contains("Guld") } && chips.none { it.contains("Gold") })
     }
 }

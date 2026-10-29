@@ -1279,6 +1279,13 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
         <item>Hoeveel van 100 g koolstof-14 bly ná 11460 jaar oor?</item>
     </string-array>
 
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%1$s van %2$s en %3$s</string>
+    <string name="ai_follow_highest">Watter element het die hoogste %1$s?</string>
+    <string name="ai_follow_lowest">Watter element het die laagste %1$s?</string>
+    <string name="ai_follow_unit">%1$s van %2$s in %3$s</string>
+    <string name="ai_follow_count">Hoeveel is daar?</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Vergelykingbalanseerder</string>
     <string name="bal">Balanseerder</string>

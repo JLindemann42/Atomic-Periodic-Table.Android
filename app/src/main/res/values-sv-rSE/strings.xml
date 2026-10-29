@@ -1213,6 +1213,13 @@
         <item>Hur mycket av 100 g kol-14 finns kvar efter 11460 år?</item>
     </string-array>
 
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%1$s för %2$s och %3$s</string>
+    <string name="ai_follow_highest">Vilket grundämne har högst %1$s?</string>
+    <string name="ai_follow_lowest">Vilket grundämne har lägst %1$s?</string>
+    <string name="ai_follow_unit">%1$s för %2$s i %3$s</string>
+    <string name="ai_follow_count">Hur många finns det?</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Ekvationsbalanserare</string>
     <string name="bal">Balanserare</string>

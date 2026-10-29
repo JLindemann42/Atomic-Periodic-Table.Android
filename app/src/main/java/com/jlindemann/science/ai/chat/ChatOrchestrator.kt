@@ -425,17 +425,24 @@ class ChatOrchestrator(
      * them. The router's hand-written list covered Swedish, German and English only.
      */
     private fun suggestions(strings: StringProvider, plan: QueryPlan?): List<String> {
-        // With an element in play the follow-ups are about it; otherwise there is room to
-        // advertise what the assistant can do beyond lookups.
+        // Follow-ups built from the answer just given come first (roadmap 2.1), and only the ones
+        // the engine would answer next.
+        val engine = engineFor(strings.language)
+        val followUps = FollowUps(store, { engine.wouldAnswer(it, state) }, ::displayKey)
+        val fitted = plan?.let { followUps.after(it, strings, MAX_SUGGESTIONS) }.orEmpty()
+        // Then the fixed chips. With an element in play they are about it; otherwise there is room
+        // to advertise what the assistant can do beyond lookups.
         val subject = plan?.elementKeys?.firstOrNull() ?: state.focusElement
-        if (subject != null) {
+        val fixed = if (subject != null) {
             val name = displayKey(subject)
-            return strings.array(R.array.ai_suggest_element)
+            strings.array(R.array.ai_suggest_element)
                 .map { template -> runCatching { String.format(Locale.ROOT, template, name) }.getOrDefault(template) }
-                .take(MAX_SUGGESTIONS)
+        } else {
+            strings.array(R.array.ai_suggest_general) + strings.array(R.array.ai_suggest_tools).take(1)
         }
-        return (strings.array(R.array.ai_suggest_general) + strings.array(R.array.ai_suggest_tools).take(1))
-            .take(MAX_SUGGESTIONS)
+        // "Atomic mass of gold" is no follow-up to the atomic mass of gold.
+        val fresh = fixed.asSequence().filterNot { chip -> plan != null && followUps.repeats(chip, plan) }
+        return (fitted.asSequence() + fresh).distinct().take(MAX_SUGGESTIONS).toList()
     }
 
     /**

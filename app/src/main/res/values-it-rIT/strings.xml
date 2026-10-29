@@ -1281,6 +1281,13 @@ Condividono comportamenti chimici simili grazie ai loro elettroni di valenza!</s
         <item>Quanto resta di 100 g di carbonio-14 dopo 11460 anni?</item>
     </string-array>
 
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%1$s di %2$s e %3$s</string>
+    <string name="ai_follow_highest">Quale elemento ha il valore di %1$s più alto?</string>
+    <string name="ai_follow_lowest">Quale elemento ha il valore di %1$s più basso?</string>
+    <string name="ai_follow_unit">%1$s di %2$s in %3$s</string>
+    <string name="ai_follow_count">Quanti sono?</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Bilanciatore di equazioni</string>
     <string name="bal">Bilanciatore</string>

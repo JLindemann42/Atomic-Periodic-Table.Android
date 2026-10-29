@@ -484,7 +484,9 @@ class EntityResolver(
             if (at < 0) return false
             val before = originalQuery.getOrNull(at - 1)
             val after = originalQuery.getOrNull(at + expected.length)
-            if ((before == null || !before.isLetterOrDigit()) &&
+            // A capital after a degree sign is a temperature scale: "in °F" is not fluorine, and
+            // "in °C" is not carbon (roadmap 2.1).
+            if ((before == null || !before.isLetterOrDigit()) && before != '°' &&
                 (after == null || !after.isLetterOrDigit())
             ) return true
             from = at + 1

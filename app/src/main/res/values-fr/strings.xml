@@ -1285,6 +1285,13 @@ Ils partagent des comportements chimiques similaires grâce à leurs électrons 
         <item>Que reste-t-il de 100 g de carbone-14 après 11460 ans ?</item>
     </string-array>
 
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%1$s de %2$s et de %3$s</string>
+    <string name="ai_follow_highest">Quel élément a la valeur de %1$s la plus élevée ?</string>
+    <string name="ai_follow_lowest">Quel élément a la valeur de %1$s la plus basse ?</string>
+    <string name="ai_follow_unit">%1$s de %2$s en %3$s</string>
+    <string name="ai_follow_count">Combien y en a-t-il ?</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Équilibreur d\'équations</string>
     <string name="bal">Équilibreur</string>

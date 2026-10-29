@@ -104,6 +104,7 @@ user is defined by two corpus files, `must_defer.tsv` and `capabilities.tsv`.
 | `ElementSimilarity.kt` | The elements in the same group. |
 | `ElementNarrative.kt` | Usage, biological role and etymology, read from the description. |
 | `AppFeatures.kt` | Questions about the app's own tools. |
+| `FollowUps.kt` | Follow-up chips built from the answer's plan, offered only when the engine would answer them (roadmap 2.1). |
 | `InterestProfile.kt` | Which elements a user asks about, for the returning-user greeting. Counts only. |
 
 ### `ai/data/` — the typed index
@@ -218,6 +219,34 @@ setting change, so a purchase takes effect on the next message.
 **Suggestion chips** come from the shipped string arrays (`ai_suggest_element`,
 `ai_suggest_general`, `ai_suggest_tools`), so all twelve languages get their own.
 `SuggestionChipTest` asks every chip in every language and fails if one is declined.
+
+**Follow-up chips** (roadmap 2.1) come first, built by `chat/FollowUps.kt` from the plan the
+engine just answered with rather than from a fixed list:
+
+| The answer | The chips |
+|---|---|
+| A property of an element | The same field for the element's neighbour in its group ("Density of Gold and Silver"); the element with the highest value ("Which element has the highest density?"); the same value in another unit the converter supports ("Density of Gold in kg/m³") |
+| A comparison | The element with the highest value of the field compared |
+| A ranking over the whole table | Its other end ("Which element has the lowest melting point?") |
+| A list or a statistic over a subset | "How many are there?", which inherits the subset |
+
+The partner is the nearest element in the group with a value for the field, a natural one before a
+synthetic one, and the lighter on a tie; the lanthanides and actinides, which have no group, take
+the nearest in their series. Each chip is a template in the reader's language (`ai_follow_*`) filled
+with the field's sentence label and the element's localized name.
+
+A chip is offered only if `AiEngine.wouldAnswer` plans it, as the next turn and against a copy of
+the dialogue state, into an answer that is not the one just given. A phrasing the planner cannot
+read in some language is therefore never shown there, rather than leading to a decline. The fixed
+chips fill the remaining places, less any that would repeat the question ("Atomic mass of Gold"
+under the atomic mass of gold). `FollowUpsTest` asks each locale's own seed questions and then
+every chip they produce, and fails if any is declined.
+
+Building them found three planner gaps, fixed with rows in `unit_convert.tsv`: "kg/m³" with a
+superscript was not a unit; the capital in "°F" and "°C" was read as fluorine or carbon, turning
+"melting point of gold in °F" into a comparison; and Afrikaans "na" (to) was not a conversion
+preposition, so the app's own chip "Skakel 500 K om na °C" had been answered as potassium against
+carbon.
 
 ---
 

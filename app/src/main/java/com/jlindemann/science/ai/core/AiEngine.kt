@@ -149,6 +149,15 @@ class AiEngine(
     fun plan(query: String, state: DialogueState): QueryPlan = planner.plan(query, state)
 
     /**
+     * The plan [answer] would answer [query] with, or null where it would decline - without
+     * answering, and against a copy of [state], so asking changes nothing. Used to offer only the
+     * follow-up chips the engine can answer (roadmap 2.1).
+     */
+    fun wouldAnswer(query: String, state: DialogueState): QueryPlan? =
+        planner.plan(query, state.copyOf())
+            .takeIf { it.intent != Intent.UNKNOWN && it.confidence >= planner.threshold }
+
+    /**
      * Run an intent directly against a known element, bypassing query parsing.
      *
      * Used when the conversation already establishes what is being asked — a "yes" to a suggested

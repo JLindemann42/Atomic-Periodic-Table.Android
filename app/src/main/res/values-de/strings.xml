@@ -1211,6 +1211,13 @@
         <item>Wie viel von 100 g Kohlenstoff-14 bleibt nach 11460 Jahren?</item>
     </string-array>
 
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%1$s von %2$s und %3$s</string>
+    <string name="ai_follow_highest">Welches Element hat den höchsten Wert für %1$s?</string>
+    <string name="ai_follow_lowest">Welches Element hat den niedrigsten Wert für %1$s?</string>
+    <string name="ai_follow_unit">%1$s von %2$s in %3$s</string>
+    <string name="ai_follow_count">Wie viele gibt es?</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Gleichungsrechner</string>
     <string name="bal">Ausgleich</string>

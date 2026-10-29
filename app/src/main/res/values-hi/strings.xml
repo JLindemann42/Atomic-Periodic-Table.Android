@@ -1271,6 +1271,13 @@
         <item>11460 साल बाद 100 g कार्बन-14 में से कितना बचता है?</item>
     </string-array>
 
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%2$s और %3$s का %1$s</string>
+    <string name="ai_follow_highest">किस तत्व का %1$s सबसे अधिक है?</string>
+    <string name="ai_follow_lowest">किस तत्व का %1$s सबसे कम है?</string>
+    <string name="ai_follow_unit">%2$s का %1$s %3$s में</string>
+    <string name="ai_follow_count">कितने हैं?</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">समीकरण संतुलक</string>
     <string name="bal">संतुलक</string>

@@ -675,6 +675,13 @@
         <item>11460 سال بعد 100 g کاربن-14 میں سے کتنا باقی رہتا ہے؟</item>
     </string-array>
 
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%2$s اور %3$s کی %1$s</string>
+    <string name="ai_follow_highest">کس عنصر کی %1$s سب سے زیادہ ہے؟</string>
+    <string name="ai_follow_lowest">کس عنصر کی %1$s سب سے کم ہے؟</string>
+    <string name="ai_follow_unit">%2$s کی %1$s %3$s میں</string>
+    <string name="ai_follow_count">کتنے ہیں؟</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">مساوات متوازن کار</string>
     <string name="bal">توازن کار</string>

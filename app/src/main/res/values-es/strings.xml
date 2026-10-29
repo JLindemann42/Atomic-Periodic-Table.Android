@@ -688,6 +688,13 @@
         <item>¿Cuánto queda de 100 g de carbono-14 tras 11460 años?</item>
     </string-array>
 
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%1$s de %2$s y %3$s</string>
+    <string name="ai_follow_highest">¿Qué elemento tiene el valor más alto de %1$s?</string>
+    <string name="ai_follow_lowest">¿Qué elemento tiene el valor más bajo de %1$s?</string>
+    <string name="ai_follow_unit">%1$s de %2$s en %3$s</string>
+    <string name="ai_follow_count">¿Cuántos hay?</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Equilibrador de ecuaciones</string>
     <string name="bal">Equilibrador</string>

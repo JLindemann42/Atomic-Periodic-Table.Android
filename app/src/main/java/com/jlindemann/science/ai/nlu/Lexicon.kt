@@ -1890,6 +1890,9 @@ object Lexicon {
         // till °C" found no target at all, and the sentence was answered as a comparison of
         // potassium and carbon — the two elements its unit symbols also spell.
         "till", "a", "para", "zu", "nach", "auf", "su", "naar", "vers", "verso",
+        // Afrikaans "skakel 500 K om na °C". It only counts beside a unit, so Filipino's linker "na"
+        // is not affected; the Afrikaans chip had been answered as potassium against carbon.
+        "na",
         "成", "为", "到", "换算成", "में बदलें", "میں"
     )
 
@@ -1903,8 +1906,12 @@ object Lexicon {
         "سیلسیس" to "°C", "فارن ہائیٹ" to "°F", "کیلون" to "K",
         "摄氏度" to "°C", "华氏度" to "°F", "开尔文" to "K",
         "grader celsius" to "°C", "grad celsius" to "°C",
-        "gram per cubic centimetre" to "g/cm³", "g/cm3" to "g/cm³",
-        "kilograms per cubic metre" to "kg/m³", "kg/m3" to "kg/m³",
+        // The degree sign survives normalisation, so "in °F" is matched as written; without it the
+        // one-letter "f" is too short to count, and the F was read as fluorine (roadmap 2.1).
+        "°f" to "°F", "°c" to "°C",
+        // Superscript as well as plain: "kg/m³" is how the app itself writes the unit.
+        "gram per cubic centimetre" to "g/cm³", "g/cm3" to "g/cm³", "g/cm³" to "g/cm³",
+        "kilograms per cubic metre" to "kg/m³", "kg/m3" to "kg/m³", "kg/m³" to "kg/m³",
         "picometre" to "pm", "picometer" to "pm", "pm" to "pm",
         "angstrom" to "Å",
         "gigapascal" to "GPa", "gpa" to "GPa",

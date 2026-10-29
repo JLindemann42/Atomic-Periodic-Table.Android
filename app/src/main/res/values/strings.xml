@@ -1529,6 +1529,13 @@
         <item>How much of 100 g of carbon-14 is left after 11460 years?</item>
     </string-array>
 
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%1$s of %2$s and %3$s</string>
+    <string name="ai_follow_highest">Which element has the highest %1$s?</string>
+    <string name="ai_follow_lowest">Which element has the lowest %1$s?</string>
+    <string name="ai_follow_unit">%1$s of %2$s in %3$s</string>
+    <string name="ai_follow_count">How many are there?</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Equation Balancer</string>
     <string name="bal">Balancer</string>

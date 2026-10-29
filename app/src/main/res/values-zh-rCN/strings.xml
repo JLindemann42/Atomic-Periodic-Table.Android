@@ -1283,6 +1283,13 @@ I：不溶"</string>
         <item>100 g 碳-14 经过 11460 年还剩多少？</item>
     </string-array>
 
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%2$s 和 %3$s 的%1$s</string>
+    <string name="ai_follow_highest">哪种元素的%1$s最高？</string>
+    <string name="ai_follow_lowest">哪种元素的%1$s最低？</string>
+    <string name="ai_follow_unit">%2$s 的%1$s，单位 %3$s</string>
+    <string name="ai_follow_count">有多少个？</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">方程配平器</string>
     <string name="bal">配平器</string>
