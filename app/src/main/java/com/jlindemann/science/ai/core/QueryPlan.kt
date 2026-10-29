@@ -91,6 +91,12 @@ enum class Intent {
      */
     TREND,
 
+    /**
+     * A reviewed explanation of a mechanism (roadmap 2.4): "why does atomic radius increase down a
+     * group", shown with the trend it explains. [QueryPlan.literal] is its key.
+     */
+    EXPLANATION,
+
     /** Nothing recognised. The caller should fall back. */
     UNKNOWN;
 

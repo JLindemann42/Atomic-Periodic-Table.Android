@@ -93,7 +93,8 @@ object QuestionCorpus {
         "morphology",
         "spelling",
         "focus_sets",
-        "trends"
+        "trends",
+        "explanations"
     )
 
     /**

@@ -298,6 +298,21 @@ sealed class ExecutionResult {
         override val citations: List<Citation>
     ) : ExecutionResult()
 
+    /**
+     * A reviewed explanation (roadmap 2.4), with the data it explains: a trend over a set or the whole
+     * table, or one element's ionization series.
+     *
+     * @property language the language [text] is in, so an English fallback can be disclosed
+     */
+    data class Explanation(
+        val key: String,
+        val text: String,
+        val language: String,
+        val trend: Trend?,
+        val ionization: ElementRecord?,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
     /** A row from one of the app's tables. */
     data class Dataset(
         val row: DatasetRow,

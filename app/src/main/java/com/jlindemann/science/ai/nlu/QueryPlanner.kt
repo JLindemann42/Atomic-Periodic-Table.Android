@@ -32,7 +32,10 @@ class QueryPlanner(
     private val datasets: DatasetIndex,
     private val entities: EntityResolver,
     private val fields: FieldResolver,
-    private val retriever: HybridRetriever?
+    private val retriever: HybridRetriever?,
+    /** The reviewed explanations for this language (roadmap 2.4). */
+    private val explanations: com.jlindemann.science.ai.data.Explanations =
+        com.jlindemann.science.ai.data.Explanations.EMPTY
 ) {
 
     /** Plans at or above this confidence are used; below it the caller falls back. */
@@ -133,7 +136,9 @@ class QueryPlanner(
             // answer it — so a superlative disqualifies the explanation.
             val superlative = Lexicon.MOST.any { normalized.contains(it) } ||
                     Lexicon.LEAST.any { normalized.contains(it) }
-            if (!superlative) {
+            // Unless it is a why with an explanation to give: "why is fluorine the most reactive
+            // halogen" asks the reason, not for the ranking (roadmap 2.4).
+            if (!superlative || (asksWhy(normalized) && explanationFor(rawQuery, normalized) != null)) {
                 explanationPlan(rawQuery, normalized, hasElement = false)?.let { propose(Branch.UNBACKED_EXPLANATION, it) }
             }
             // Mentioning one of these in passing does not block a comparison that also asks
@@ -307,7 +312,10 @@ class QueryPlanner(
         // A mechanism question is checked even mid-thread. Every reported case was a follow-up —
         // "why does that trend hold", "how does that change above Curie temperature" — so excluding
         // follow-ups here exempted exactly the turns that were failing.
-        if (asksHowItWorks(normalized) || (!carriesOperator && !continuesAThread)) {
+        // A why with an operator in it is still a why when there is an explanation to give: "why is
+        // fluorine the most electronegative element" asks the reason, not for the ranking (roadmap 2.4).
+        val whyWithAnAnswer = carriesOperator && asksWhy(normalized) && explanationFor(rawQuery, normalized) != null
+        if (asksHowItWorks(normalized) || (!carriesOperator && !continuesAThread) || whyWithAnAnswer) {
             explanationPlan(rawQuery, normalized, elementMatches.isNotEmpty())?.let { propose(Branch.EXPLANATION, it) }
         }
 
@@ -1094,11 +1102,11 @@ class QueryPlanner(
      */
     private fun readsAsATrend(normalized: String): Boolean =
         (mentionsAny(normalized, Lexicon.TREND_WORDS) || mentionsAny(normalized, Lexicon.HEATMAP_WORDS)) &&
-                Lexicon.WHY_WORDS.none { normalized.startsWith("$it ") || normalized.contains(" $it ") } &&
+                !asksWhy(normalized) &&
                 fields.resolveAll(normalized, limit = 1).any { it.spec.kind == FieldKind.NUMERIC }
 
     private fun explanationPlan(rawQuery: String, normalized: String, hasElement: Boolean): QueryPlan? {
-        val isWhy = Lexicon.WHY_WORDS.any { normalized.startsWith("$it ") || normalized.contains(" $it ") }
+        val isWhy = asksWhy(normalized)
         // A definitional frame over a family named in the *plural* is a request for its members,
         // not for its definition. Deliberately narrowed to `isDefinition`: "why are noble gases
         // unreactive" is still a question the dictionary answers, and `isWhy` is untouched.
@@ -1107,6 +1115,19 @@ class QueryPlanner(
                 Lexicon.PLURAL_SERIES_WORDS.none { normalized.contains(it) }
         val isMechanism = asksHowItWorks(normalized)
         if (!isWhy && !isDefinition && !isMechanism) return null
+
+        // A reviewed explanation first (roadmap 2.4): one that names its own subject, "why are noble
+        // gases unreactive", or the trend a field and a direction pick out, "why does atomic radius
+        // increase down a group". A definition is not a why, and keeps the dictionary.
+        if (isWhy || isMechanism) explanationFor(rawQuery, normalized)?.let { explanation ->
+            return QueryPlan(
+                intent = Intent.EXPLANATION,
+                literal = explanation.key,
+                confidence = 0.9,
+                rawQuery = rawQuery,
+                evidence = listOf("explanation ${explanation.key}")
+            )
+        }
 
         // Longest topic first, so "electron configuration unusual" beats "electron".
         val topic = Lexicon.EXPLANATION_TOPICS.entries
@@ -1145,6 +1166,29 @@ class QueryPlanner(
             rawQuery = rawQuery,
             evidence = listOf(if (isWhy) "explains ${topic?.value}" else "defines ${topic?.value}")
         )
+    }
+
+    /**
+     * The explanation a why question asks for: by its trigger phrases, or by the field it names and the
+     * way it reads the table - down a group, across a period, or neither, which takes the field's first.
+     */
+    private fun explanationFor(rawQuery: String, normalized: String): com.jlindemann.science.ai.data.Explanation? {
+        explanations.forTopic(normalized)?.let { return it }
+        val scope = when {
+            mentionsAny(normalized, Lexicon.EXPLAIN_DOWN_WORDS) -> com.jlindemann.science.ai.data.ExplanationScope.GROUP
+            mentionsAny(normalized, Lexicon.EXPLAIN_ACROSS_WORDS) -> com.jlindemann.science.ai.data.ExplanationScope.PERIOD
+            else -> null
+        }
+        // Each field the question names, until one has an explanation: "why does radius decrease left
+        // to right, despite adding electrons" names electrons as well as radius.
+        return fields.resolveAll(rawQuery, limit = 3)
+            .filter { it.spec.kind == FieldKind.NUMERIC }
+            .firstNotNullOfOrNull { explanations.forTrend(it.spec.id, scope) }
+    }
+
+    /** Chinese writes no spaces, so "为什么汞是液体" holds its why word with nothing around it. */
+    private fun asksWhy(normalized: String): Boolean = Lexicon.WHY_WORDS.any {
+        normalized.startsWith("$it ") || normalized.contains(" $it ") || (it.any { c -> c.code > 0x2000 } && normalized.contains(it))
     }
 
     /** "Electronegativity" for "Periodic trend: electronegativity", when the glossary has one. */

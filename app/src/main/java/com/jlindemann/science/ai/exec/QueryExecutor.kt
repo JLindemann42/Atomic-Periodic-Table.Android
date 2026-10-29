@@ -39,7 +39,10 @@ class QueryExecutor(
      * unaffected; the app supplies the real entitlements.
      */
     private val entitlements: com.jlindemann.science.ai.core.Entitlements =
-        com.jlindemann.science.ai.core.Entitlements.FULL
+        com.jlindemann.science.ai.core.Entitlements.FULL,
+    /** The reviewed explanations for this language (roadmap 2.4). */
+    private val explanations: com.jlindemann.science.ai.data.Explanations =
+        com.jlindemann.science.ai.data.Explanations.EMPTY
 ) {
 
     /**
@@ -126,6 +129,7 @@ class QueryExecutor(
         Intent.AGGREGATE -> aggregate(plan)
         Intent.DATASET_LOOKUP -> dataset(plan)
         Intent.TREND -> trend(plan)
+        Intent.EXPLANATION -> explanation(plan)
         Intent.UNKNOWN -> null
     }
 
@@ -961,6 +965,29 @@ class QueryExecutor(
             missing = pool.size - points.size,
             wholeTable = plan.filters.isEmpty(),
             citations = listOf(points.first(), points.last()).distinct().map { citation(fieldId, it.element) }
+        )
+    }
+
+    /**
+     * A reviewed explanation, with the data it explains computed now from the store (roadmap 2.4): the
+     * trend it describes, or the element whose ionization series shows it. The text says why; the
+     * card shows that it is so.
+     */
+    private fun explanation(plan: QueryPlan): ExecutionResult? {
+        val explanation = plan.literal?.let { explanations.byKey(it) } ?: return null
+        val trend = (explanation.card as? com.jlindemann.science.ai.data.ExplanationCard.Trend)?.let { card ->
+            trend(QueryPlan(intent = Intent.TREND, fieldIds = listOf(card.fieldId), filters = listOfNotNull(card.filter)))
+                as? ExecutionResult.Trend
+        }
+        val ionization = (explanation.card as? com.jlindemann.science.ai.data.ExplanationCard.Ionization)
+            ?.let { store.element(it.elementKey) }
+        return ExecutionResult.Explanation(
+            key = explanation.key,
+            text = explanation.text,
+            language = explanation.language,
+            trend = trend,
+            ionization = ionization,
+            citations = trend?.citations.orEmpty()
         )
     }
 

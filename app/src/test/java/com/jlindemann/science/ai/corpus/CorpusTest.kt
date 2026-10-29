@@ -158,6 +158,9 @@ class CorpusTest {
     /** A field across a period, group or series, or the whole table (roadmap 2.3). */
     @Test fun trends() = runFile("trends")
 
+    /** Why-questions answered with a written explanation and its card (roadmap 2.4). */
+    @Test fun explanations() = runFile("explanations")
+
     // ---- Runner ---------------------------------------------------------------------------------
 
     private fun runFile(name: String) {
@@ -286,9 +289,11 @@ class CorpusTest {
 
         // Content, not only routing (roadmap 0.6): which row, which number.
         case.expectRow?.let { expected ->
-            val row = (result as? ExecutionResult.Dataset)?.row
+            // An explanation is a row of the explanations table (roadmap 2.4): explanation/<key>.
+            val key = (result as? ExecutionResult.Dataset)?.row?.key
+                ?: (result as? ExecutionResult.Explanation)?.let { "explanation/${it.key}" }
                 ?: return "'${case.query}' should answer from $expected, but produced ${result::class.simpleName}"
-            if (row.key != expected) return "'${case.query}' answered from ${row.key}, expected $expected"
+            if (key != expected) return "'${case.query}' answered from $key, expected $expected"
         }
         case.expectValue?.let { expected ->
             val actual = valueOf(result)

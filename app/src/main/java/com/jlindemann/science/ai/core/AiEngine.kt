@@ -43,11 +43,13 @@ class AiEngine(
      * chat withholds the emission spectrum image exactly where the element screen already does.
      */
     private val cardPolicy: com.jlindemann.science.ai.cards.ChatCardPolicy =
-        com.jlindemann.science.ai.cards.ChatCardPolicy.DEFAULT
+        com.jlindemann.science.ai.cards.ChatCardPolicy.DEFAULT,
+    /** The reviewed explanations for this language (roadmap 2.4); none, for a test that does not need them. */
+    explanations: com.jlindemann.science.ai.data.Explanations = com.jlindemann.science.ai.data.Explanations.EMPTY
 ) {
 
-    private val planner = QueryPlanner(store, datasets, entities, FieldResolver(strings), retriever)
-    private val executor = QueryExecutor(store, datasets, localized, strings, entitlements)
+    private val planner = QueryPlanner(store, datasets, entities, FieldResolver(strings), retriever, explanations)
+    private val executor = QueryExecutor(store, datasets, localized, strings, entitlements, explanations)
     private val composer = AnswerComposer(store, localized, strings, cardPolicy)
 
     /**
@@ -227,6 +229,7 @@ class AiEngine(
         is ExecutionResult.Comparison -> result.elements.map { it.key }
         is ExecutionResult.ElementList -> result.results.map { it.element.key }
         is ExecutionResult.Trend -> result.points.map { it.element.key }
+        is ExecutionResult.Explanation -> result.trend?.points?.map { it.element.key } ?: listOfNotNull(result.ionization?.key)
         is ExecutionResult.Aggregate -> result.contributors.map { it.element.key }
         is ExecutionResult.Isotopes -> listOf(result.element.key)
         is ExecutionResult.Safety -> listOf(result.element.key)

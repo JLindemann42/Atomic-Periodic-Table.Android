@@ -83,6 +83,7 @@ class AnswerComposer(
             is ExecutionResult.EmissionSpectrum -> emissionSpectrum(result)
             is ExecutionResult.Dataset -> dataset(result)
             is ExecutionResult.Trend -> trend(result)
+            is ExecutionResult.Explanation -> explanation(result)
             is ExecutionResult.NoData -> noData(result)
             is ExecutionResult.Locked -> locked(result)
             is ExecutionResult.Empty -> strings.get(R.string.ai_filter_none)
@@ -429,6 +430,14 @@ class AnswerComposer(
         if (result.missing > 0) builder.append("\n").append(strings.get(R.string.ai_aggregate_missing_note, result.missing))
         return builder.toString()
     }
+
+    /**
+     * A reviewed explanation (roadmap 2.4). The card beside it shows the data; an explanation only
+     * written in English so far says so, as a dictionary entry does.
+     */
+    private fun explanation(result: ExecutionResult.Explanation): String =
+        if (result.language == ENGLISH || strings.language == ENGLISH) result.text
+        else result.text + "\n\n" + strings.get(R.string.ai_dataset_english_note)
 
     /** English ordinal suffix: 1st, 2nd, 3rd, 4th, with the teens handled. */
     private fun ordinalSuffix(n: Int): String = strings.get(

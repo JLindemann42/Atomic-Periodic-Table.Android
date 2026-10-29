@@ -5,6 +5,7 @@ import com.jlindemann.science.ai.data.AssetElementSource
 import com.jlindemann.science.ai.data.DatasetIndex
 import com.jlindemann.science.ai.data.ElementKey
 import com.jlindemann.science.ai.data.ElementSource
+import com.jlindemann.science.ai.data.Explanations
 import com.jlindemann.science.ai.data.KnowledgeStore
 import com.jlindemann.science.ai.data.LocalizedView
 import com.jlindemann.science.ai.nlu.LanguageDetector
@@ -37,6 +38,16 @@ class RetrievalService private constructor(
             Bm25Index(HybridRetriever.buildCorpus(store, datasets, view), language)
         }
         return HybridRetriever(store, datasets, index, resolver(language), view)
+    }
+
+    private val explanationSets = ConcurrentHashMap<String, Explanations>()
+
+    /** The reviewed explanations for a language, English filling its gaps (roadmap 2.4). */
+    fun explanations(language: String): Explanations = explanationSets.getOrPut(language) {
+        Explanations.parse(
+            source.text("explanations.tsv"), source.text("explanations_$language.tsv"),
+            source.text("explanations_en.tsv"), language
+        )
     }
 
     /** The entity resolver for a language, built on first use. */

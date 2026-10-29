@@ -458,7 +458,8 @@ class ChatOrchestrator(
         return engines.getOrPut(language) {
             AiEngine(
                 store, retrieval.datasets, retrieval.localized(language), stringsFor(language),
-                retrieval.resolver(language), retrieval.retriever(language), current.first, current.second
+                retrieval.resolver(language), retrieval.retriever(language), current.first, current.second,
+                retrieval.explanations(language)
             )
         }
     }

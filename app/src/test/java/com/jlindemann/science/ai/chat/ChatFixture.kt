@@ -18,7 +18,9 @@ object ChatFixture {
     val available: Boolean by lazy { TestAssets.available() && TestStrings.available }
 
     val service: RetrievalService by lazy {
-        val source = MapElementSource(TestAssets.availableLanguages().associateWith { TestAssets.elementTable(it) })
+        val source = MapElementSource(
+            TestAssets.availableLanguages().associateWith { TestAssets.elementTable(it) }, TestAssets::text
+        )
         RetrievalService.clear()
         RetrievalService.get(source) ?: error("element assets not readable")
     }

@@ -110,10 +110,15 @@ object CorpusHarness {
         // A real corpus and a real index, so the dataset fallback behaves as it does in the app.
         val index = Bm25Index(HybridRetriever.buildCorpus(store, datasets, localized))
         val retriever = HybridRetriever(store, datasets, index, entities, localized)
-        val planner = QueryPlanner(store, datasets, entities, FieldResolver(strings), retriever)
-        val executor = QueryExecutor(store, datasets, localized, strings)
+        // The reviewed explanations, as the app loads them (roadmap 2.4).
+        val explanations = com.jlindemann.science.ai.data.Explanations.parse(
+            TestAssets.text("explanations.tsv"), TestAssets.text("explanations_$language.tsv"),
+            TestAssets.text("explanations_en.tsv"), language
+        )
+        val planner = QueryPlanner(store, datasets, entities, FieldResolver(strings), retriever, explanations)
+        val executor = QueryExecutor(store, datasets, localized, strings, explanations = explanations)
         val composer = AnswerComposer(store, localized, strings)
-        val engine = AiEngine(store, datasets, localized, strings, entities, retriever)
+        val engine = AiEngine(store, datasets, localized, strings, entities, retriever, explanations = explanations)
         return Stack(language, store, datasets, localized, strings, entities, retriever, index, planner, executor, composer, engine)
     }
 

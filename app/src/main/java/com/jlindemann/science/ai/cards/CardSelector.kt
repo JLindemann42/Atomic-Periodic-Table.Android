@@ -76,6 +76,10 @@ object CardSelector {
         is ExecutionResult.Locked ->
             result.element?.let { forLocked(it, result.fieldIds, store, strings, localized) }
         is ExecutionResult.Trend -> forTrend(result, store, strings)
+        // An explanation is shown with the data it explains (roadmap 2.4).
+        is ExecutionResult.Explanation ->
+            result.trend?.let { forTrend(it, store, strings) }
+                ?: result.ionization?.let { ionization(it, strings, localized) }
         else -> null
     }
 

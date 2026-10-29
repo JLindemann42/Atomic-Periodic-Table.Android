@@ -242,6 +242,43 @@ chips fill the remaining places, less any that would repeat the question ("Atomi
 under the atomic mass of gold). `FollowUpsTest` asks each locale's own seed questions and then
 every chip they produce, and fails if any is declined.
 
+**Explanations** (roadmap 2.4, stage 1). "Why does atomic radius increase down a group", "why are
+noble gases unreactive" and "why is mercury a liquid" plan to `Intent.EXPLANATION`: a written
+explanation, shown with the data it explains. Stage 1 has 20 of the roughly 60 the roadmap lists:
+the radius, ionization, electronegativity, melting-point and electron-affinity trends, plus twelve
+concepts (the ionization dips and jumps, fluorine, noble gases, alkali metals, halogens, metallic
+character, density, the lanthanide contraction, mercury, helium's boiling point). Stage 2 adds the
+rest in the same format.
+
+The data is in the shared repository. `datasets/explanations.tsv` says what each explains (a field
+and a scope: group, period or table) and which card goes with it (`trend:<field>:group=1`,
+`trend:<field>:table`, `trend:<field>:series=lanthanoid`, `ionization:sodium`).
+`datasets/explanations_<lang>.tsv` holds the words in each of the twelve languages: the text and
+its trigger phrases (`|` between alternatives, `+` between parts that must all appear). The
+non-English files are machine-translated, with `reviewed` left blank until a native speaker checks
+them. A row a language lacks falls back to English, and the answer then says the text is in English,
+as a dictionary entry does. The texts cite numbers from the app's data (Na 0.93 and Cl 3.16, Hg
+−38.8 °C), so the card beside each one shows the same values.
+
+`Explanations` (`ai/data`) chooses one in two ways: by trigger phrase, where the longest match wins,
+so "why is fluorine the most electronegative" gets the fluorine explanation rather than the group
+trend; or by a field the question names plus a direction from `Lexicon.EXPLAIN_DOWN_WORDS` or
+`EXPLAIN_ACROSS_WORDS`. A related field counts as its family: any radius means atomic radius. The
+planner tries this before the dictionary, for a why or a mechanism only. A definition ("what is
+electronegativity") still gets the dictionary. A why with an operator in it ("the most …") reaches
+the explanation when one exists; before, the operator sent it to the ranking. The same applies to
+the unbacked-concept guard: "why is fluorine the most reactive halogen" is no longer declined as a
+reactivity ranking. Chinese has no spaces, so a why word there is matched on its own; "为什么" was
+never recognised before. `QueryExecutor` builds the card's data when it answers: the trend through
+the 2.3 path, or the element whose ionization series the card shows. `TREND` now sits before
+`SUBSET_LIST` in the arbiter, because "how does X change down group 1" could be claimed by either
+and the trend is the better reading.
+
+`explanations.tsv` joins the corpus (38 files), with `expect_row` reading `explanation/<key>`. Five
+earlier rows that the dictionary answered or that deferred now expect an explanation. So does one
+held-out row, `ds-why-1`: it failed at the end-of-item held-out run, and only its expectation was
+updated. Nothing was tuned against it.
+
 **Trends** (roadmap 2.3). "Electronegativity across period 3", "how does atomic radius change
 down group 1" and "a heat map of density" plan to `Intent.TREND`: one measurable field over the
 elements a period, group or series leaves, in atomic-number order, or over the whole table when the
