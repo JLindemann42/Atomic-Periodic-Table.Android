@@ -271,9 +271,11 @@ During a run:
 
 The run is not persisted: it belongs to one sitting.
 
-"The halogens" scopes to what the data files as halogens: bromine, iodine, astatine, tennessine and
-radon. Radon's `element_group` says "Halogens", and fluorine and chlorine are filed as reactive
-nonmetals. That is a data fix of its own.
+Building quiz runs exposed a data defect: radon's `element_group` said "Halogens", and fluorine
+and chlorine were filed as reactive nonmetals. So every "halogens" filter gave bromine, iodine,
+astatine, tennessine and radon. The shared element files now file fluorine and chlorine as halogens
+and radon as a noble gas, in all twelve languages. Three aggregate rows over "the halogens" in
+`morphology.tsv` changed their expected values with it.
 
 **Explanations** (roadmap 2.4). "Why does atomic radius increase down a group", "why are noble
 gases unreactive" and "why is mercury a liquid" plan to `Intent.EXPLANATION`: a written explanation,
@@ -353,9 +355,9 @@ each trend's first value.
 
 Two defects turned up on the way. "Which element in period 3 has the highest electronegativity"
 read the 3 of "period 3" as "top 3" and listed three; `OperatorExtractor` no longer counts a number
-a period or group has read. And the data files fluorine and chlorine as reactive nonmetals, so "the
-halogens" start at bromine everywhere in the app; that, and the predicted densities that make
-seaborgium the densest element, are data matters left for their own change.
+a period or group has read. And the data filed fluorine and chlorine as reactive nonmetals, so "the
+halogens" started at bromine everywhere in the app; that was fixed with roadmap 2.5. The predicted
+densities that make seaborgium the densest element are a data matter left for its own change.
 
 **Steps** (roadmap 2.2). Every calculation answer shows a short working: the atom check for a
 balance, n = c·V for a solution, the number of half-lives for a decay, the composition of a molar

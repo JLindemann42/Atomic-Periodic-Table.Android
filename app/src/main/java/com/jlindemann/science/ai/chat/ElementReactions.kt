@@ -90,8 +90,9 @@ object ElementReactions {
     }
 
     /**
-     * Group 17, not [SeriesId.HALOGEN]: the shipped data classifies chlorine as a reactive nonmetal,
-     * so matching on the series never fired and sodium and chlorine never formed a salt.
+     * Group 17 as well as [SeriesId.HALOGEN]: the shipped data classified chlorine as a reactive
+     * nonmetal until roadmap 2.5, so matching on the series alone never fired and sodium and chlorine
+     * never formed a salt. The group check keeps it right whatever the series data says.
      */
     private fun isHalogen(element: ElementRecord): Boolean =
         element.series == SeriesId.HALOGEN || element.groupNumber == 17
