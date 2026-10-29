@@ -31,6 +31,11 @@ ENGLISH_FUNCTION_WORDS = re.compile(
 # Below this many English function words a sentence is plausibly just borrowed terminology.
 THRESHOLD = 4
 
+# Function words that are also words of the language itself: Afrikaans writes "Goud is 'n chemiese
+# element", "dit was" and "of" (or). Counted, they marked 23 Afrikaans descriptions as English. The
+# shared data's tools/element_descriptions.py applies the same rule and more checks.
+OWN_WORDS = {'af': {'is', 'was', 'of'}}
+
 DESCRIPTION = re.compile(r'"description"\s*:\s*"((?:[^"\\]|\\.)*)"')
 
 
@@ -64,7 +69,9 @@ def main():
         if language == 'en':
             continue
         found = descriptions(os.path.join(root, f'elements_{language}.json'))
-        mixed = [d for d in found if len(ENGLISH_FUNCTION_WORDS.findall(d.lower())) >= THRESHOLD]
+        own = OWN_WORDS.get(language, set())
+        mixed = [d for d in found
+                 if sum(1 for w in ENGLISH_FUNCTION_WORDS.findall(d.lower()) if w not in own) >= THRESHOLD]
         share = 100.0 * len(mixed) / max(len(found), 1)
         print(f'{language:6} {len(found):6} {len(mixed):13} {share:6.1f}%')
         if wanted == language:

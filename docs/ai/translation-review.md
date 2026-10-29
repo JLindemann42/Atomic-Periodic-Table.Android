@@ -52,9 +52,17 @@ resolution, not translation: Android walks `values-es-rAR` → `values-es` → `
 The two empty locale folders `values-b+es` and `values-it` were removed — they advertised a
 supported language and contained nothing.
 
-## Separate backlog: half-translated element descriptions
+## Half-translated element descriptions (fixed, roadmap 1.10)
 
-This is a **data** problem, not a strings problem, and it is not fixed.
+This was a **data** problem, not a strings problem. It is fixed in the shared data: every flagged
+description was translated whole from the English, and the translations live in
+`shared/tools/translations/descriptions_<lang>.tsv` with a `reviewed` column that stays blank until
+a native speaker has checked the row. `shared/tools/element_descriptions.py` checks each row before
+writing it - no English clause left, the element's symbol kept as a word, every number from the
+English kept, no line break inside a word, no French substitution artefacts - and reports the same
+checks over every description. `ElementDescriptionLanguageTest` guards the shipped files.
+
+The backlog as it stood, by the check below:
 
 ```bash
 python scripts/check_description_translations.py
@@ -81,8 +89,29 @@ that is exactly how the reported *"Det har various allotropes, but only the gray
 produced. Now those sentences are skipped, and if every sentence looks English the original list is
 kept, on the grounds that a partial answer in the wrong language still beats no answer.
 
-Repairing the underlying asset text needs a native speaker per language. Run the script with
-`--list sv` to print the offending descriptions for one locale.
+Two of those counts were wrong. Afrikaans writes "is", "was" and "of" (or) as its own words, so
+23 of its 104 were Afrikaans already: 81 were English (80 identical to it, and nobelium). And the
+check missed two French rows that were English under a word-for-word substitution ("est a",
+"crystalldanse"), the same damage 0.8 found in the French element fields. What 1.10 changed:
+
+| Locale | Translated whole | Repaired |
+|---|---|---|
+| `af` | 81 | |
+| `sv` | 84 | |
+| `fil` | 84 | |
+| `fr` | 25 | nobelium's symbol, written "Non" |
+| `hi` | 2 (gold; nobelium, whose symbol was "नहीं") | |
+| `pt` | 2 | |
+| `it` | 1 | |
+| `ur` | | nobelium's symbol, written "نہیں" ("not") |
+| `zh` | | lanthanum, which never named its symbol |
+| `de` | | five words broken across a blank line ("zweiw\n\nertiges") |
+
+The language detector (roadmap 1.4) trains on the descriptions, so `shared/language/trigrams.tsv`
+was regenerated with them. The narrative sentence filters still key on English and Swedish words
+only (`USAGE_SENTENCE_WORDS` and its siblings in `ElementNarrative`), so in the other ten languages a
+usage or etymology question usually finds no matching sentence and says so; that is the next step
+for answer language quality, and a code change rather than a data one.
 
 ## Also outstanding: hazard wording on the element screen
 
