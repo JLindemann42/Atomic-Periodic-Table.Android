@@ -148,7 +148,9 @@ sealed class ExecutionResult {
     data class Formula(
         val result: com.jlindemann.science.ai.data.FormulaResult,
         val wantsComposition: Boolean,
-        override val citations: List<Citation>
+        override val citations: List<Citation>,
+        /** The element whose share the question asked for, "oxygen in water" (roadmap 2.8). */
+        val focus: String? = null
     ) : ExecutionResult()
 
     /** One nuclide with everything known about it, for side-by-side display. */
@@ -317,6 +319,23 @@ sealed class ExecutionResult {
     data class Ph(
         val result: com.jlindemann.science.ai.data.AcidBase.Result,
         override val citations: List<Citation> = emptyList()
+    ) : ExecutionResult()
+
+    /** An empirical formula, and the molecular formula when a molar mass was given (roadmap 2.8). */
+    data class EmpiricalFormula(
+        val result: com.jlindemann.science.ai.data.Empirical.Result,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /**
+     * Amounts through a balanced equation (roadmap 2.8).
+     *
+     * @property targets the species the question asked about, by index; empty for "what does it make"
+     */
+    data class Stoichiometry(
+        val result: com.jlindemann.science.ai.data.Stoichiometry.Result,
+        val targets: List<Int>,
+        override val citations: List<Citation>
     ) : ExecutionResult()
 
     /** An ion's electron configuration, beside the neutral atom's (roadmap 2.8). */

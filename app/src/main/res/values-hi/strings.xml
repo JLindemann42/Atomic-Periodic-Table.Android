@@ -1324,6 +1324,19 @@
     <string name="ai_ion_anion">ऋणायन अपने अतिरिक्त इलेक्ट्रॉन भरने के क्रम में अगले स्थानों पर लेता है।</string>
     <string name="ai_ion_isoelectronic">यह %1$s जैसा ही विन्यास है।</string>
     <string name="ai_steps_ion">उदासीन परमाणु से शुरू करें और इलेक्ट्रॉन हटाएँ या जोड़ें:</string>
+    <string name="ai_composition_element">%3$s के द्रव्यमान में %1$s का हिस्सा **%2$s** है।</string>
+    <string name="ai_empirical_result">मूलानुपाती सूत्र **%1$s** है।</string>
+    <string name="ai_empirical_reduced">%1$s का मूलानुपाती सूत्र **%2$s** है: इसके अधोलेखों में %3$d का साझा गुणनखंड है।</string>
+    <string name="ai_empirical_same">%1$s पहले से ही अपने सबसे सरल पूर्णांक अनुपात में है, इसलिए यही इसका मूलानुपाती सूत्र है।</string>
+    <string name="ai_empirical_molecular">%1$s g/mol के मोलर द्रव्यमान के साथ आण्विक सूत्र **%2$s** है, %3$d × %4$s।</string>
+    <string name="ai_steps_empirical">हर द्रव्यमान को मोल में बदलें, फिर हर एक को सबसे छोटे से भाग दें:</string>
+    <string name="ai_stoich_makes">%1$s में, %2$s से **%3$s g %4$s** (%5$s mol) बनता है।</string>
+    <string name="ai_stoich_needs">%1$s में, %2$s के लिए **%3$s g %4$s** (%5$s mol) चाहिए।</string>
+    <string name="ai_stoich_matches">%1$s में, %2$s के साथ **%3$s g %4$s** (%5$s mol) जुड़ता है।</string>
+    <string name="ai_stoich_limiting">%1$s में, **%2$s** सीमांत अभिकर्मक है: यह सबसे पहले ख़त्म होता है।</string>
+    <string name="ai_stoich_product">इससे **%1$s g %2$s** (%3$s mol) बनता है।</string>
+    <string name="ai_stoich_excess">%1$s g %2$s बच जाता है।</string>
+    <string name="ai_steps_stoich">हर मात्रा को मोल में बदलें, फिर गुणांकों के ज़रिए:</string>
     <string name="ai_card_heat_map_title">सारणी में %1$s</string>
 
     <!-- Equation Balancer tool -->

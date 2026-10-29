@@ -1264,6 +1264,19 @@
     <string name="ai_ion_anion">Ein Anion nimmt seine zusätzlichen Elektronen auf den nächsten Plätzen der Füllreihenfolge auf.</string>
     <string name="ai_ion_isoelectronic">Das ist dieselbe Konfiguration wie bei %1$s.</string>
     <string name="ai_steps_ion">Gehe vom neutralen Atom aus und entferne oder füge Elektronen hinzu:</string>
+    <string name="ai_composition_element">%1$s macht **%2$s** der Masse von %3$s aus.</string>
+    <string name="ai_empirical_result">Die empirische Formel lautet **%1$s**.</string>
+    <string name="ai_empirical_reduced">Die empirische Formel von %1$s ist **%2$s**: Ihre Indizes haben den gemeinsamen Faktor %3$d.</string>
+    <string name="ai_empirical_same">%1$s hat bereits das einfachste ganzzahlige Verhältnis und ist damit seine eigene empirische Formel.</string>
+    <string name="ai_empirical_molecular">Bei einer molaren Masse von %1$s g/mol lautet die Summenformel **%2$s**, %3$d × %4$s.</string>
+    <string name="ai_steps_empirical">Jede Masse in Mol, dann jede durch die kleinste geteilt:</string>
+    <string name="ai_stoich_makes">In %1$s ergeben %2$s **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_needs">In %1$s brauchen %2$s **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_matches">In %1$s gehören zu %2$s **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_limiting">In %1$s ist **%2$s** der limitierende Reaktant: Er ist zuerst verbraucht.</string>
+    <string name="ai_stoich_product">Es entstehen **%1$s g %2$s** (%3$s mol).</string>
+    <string name="ai_stoich_excess">Übrig bleiben %1$s g %2$s.</string>
+    <string name="ai_steps_stoich">Jede Menge in Mol, dann über die Koeffizienten:</string>
     <string name="ai_card_heat_map_title">%1$s im Periodensystem</string>
 
     <!-- Equation Balancer tool -->

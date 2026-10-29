@@ -161,7 +161,7 @@ class CorpusTest {
     /** Why-questions answered with a written explanation and its card (roadmap 2.4). */
     @Test fun explanations() = runFile("explanations")
 
-    /** The ideal gas law, pH, and ion configurations (roadmap 2.8). */
+    /** The ideal gas law, pH, ion configurations, empirical formulas and stoichiometry (roadmap 2.8). */
     @Test fun calculators() = runFile("calculators")
 
     // ---- Runner ---------------------------------------------------------------------------------
@@ -332,6 +332,13 @@ class CorpusTest {
         is ExecutionResult.GasLaw -> result.solution.solved
         is ExecutionResult.Ph -> result.result.pH
         is ExecutionResult.IonConfiguration -> (result.element.atomicNumber - result.charge).toDouble()
+        // The formula's mass, the molecular one's when a molar mass was given; and the grams of the
+        // species asked about, or of the first product (roadmap 2.8, stage 2).
+        is ExecutionResult.EmpiricalFormula -> result.result.molecular?.let { result.result.empiricalMass * it.factor }
+            ?: result.result.empiricalMass
+        is ExecutionResult.Stoichiometry -> result.result.amounts[
+            result.targets.firstOrNull() ?: result.result.lines.indexOfFirst { !it.reactant }
+        ].grams
         is ExecutionResult.BalancedEquation ->
             if (result.reason != null) null else (result.reactants + result.products).sumOf { it.coefficient }.toDouble()
         else -> null

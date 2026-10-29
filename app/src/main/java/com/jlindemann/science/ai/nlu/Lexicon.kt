@@ -1147,7 +1147,28 @@ object Lexicon {
         "percentage composition", "percent composition", "composition of", "mass percent",
         "percentage of", "made up of", "sammansattning", "zusammensetzung",
         "composicion", "composition", "composizione", "composicao", "samestelling",
-        "komposisyon", "संघटन", "ترکیب", "组成", "百分比组成"
+        "komposisyon", "संघटन", "ترکیب", "组成", "百分比组成",
+        // One element's share, "mass percent of oxygen in water" (roadmap 2.8).
+        "percent by mass", "percentage by mass", "mass percentage", "mass fraction", "masshalt",
+        "massprocent", "viktprocent", "massenanteil", "massenprozent", "porcentaje en masa",
+        "pourcentage massique", "pourcentage en masse", "percentuale in massa", "porcentagem em massa",
+        "percentagem em massa", "massapercentage", "massaprocent", "porsyento ayon sa masa",
+        "द्रव्यमान प्रतिशत", "کمیتی فیصد", "质量分数", "质量百分比"
+    )
+
+    /** Words asking for an empirical formula, the simplest whole-number ratio (roadmap 2.8). */
+    val EMPIRICAL_WORDS = listOf(
+        "empirical formula", "simplest formula", "empirisk formel", "enklaste formel",
+        "empirische formel", "verhaltnisformel", "formula empirica", "formule empirique",
+        "formula minima", "empirische formule", "empirikal na pormula", "pinakasimpleng pormula",
+        "मूलानुपाती सूत्र", "आनुभविक सूत्र", "تجربی فارمولا", "سادہ ترین فارمولا", "最简式", "实验式"
+    )
+
+    /** Words asking for a molecular formula, which needs a molar mass beside the ratio (roadmap 2.8). */
+    val MOLECULAR_FORMULA_WORDS = listOf(
+        "molecular formula", "molekylformel", "summenformel", "molekularformel", "formula molecular",
+        "formule moleculaire", "formula molecolare", "molecuulformule", "molekular na pormula",
+        "आण्विक सूत्र", "आणविक सूत्र", "سالمی فارمولا", "分子式"
     )
 
     /** Words asking about neutron counts. */

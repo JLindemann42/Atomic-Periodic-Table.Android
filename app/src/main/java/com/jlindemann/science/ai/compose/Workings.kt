@@ -40,6 +40,49 @@ class Workings(private val strings: StringProvider) {
         return listOf(strings.get(R.string.ai_steps_gas)) + mass + line
     }
 
+    /** Each mass in moles, the ratios over the smallest, then a multiplier to make them whole (roadmap 2.8). */
+    fun empirical(result: ExecutionResult.EmpiricalFormula): List<String> {
+        val r = result.result
+        val steps = ArrayList<String>()
+        if (r.from != null) {
+            steps.add("${r.from}: ${r.counts.keys.joinToString(", ") { "$it ${r.counts.getValue(it) * r.divisor}" }}")
+            steps.add("÷ ${r.divisor} → ${r.formula}")
+        } else {
+            steps.add(strings.get(R.string.ai_steps_empirical))
+            r.rows.forEach { steps.add("n(${it.symbol}) = ${number(it.mass)} g ÷ ${number(it.atomicMass)} g/mol = ${number(it.moles)} mol") }
+            val smallest = r.rows.minOf { it.moles }
+            steps.add("÷ ${number(smallest)} mol: " + r.rows.joinToString(", ") { "${it.symbol} ${number(it.ratio)}" })
+            if (r.multiplier > 1) steps.add("× ${r.multiplier}: " + r.rows.joinToString(", ") { "${it.symbol} ${number(it.ratio * r.multiplier)}" })
+            steps.add("→ ${r.formula}")
+        }
+        r.molecular?.let { m ->
+            steps.add("M(${r.formula}) = ${number(r.empiricalMass)} g/mol")
+            steps.add("${number(m.molarMass)} ÷ ${number(r.empiricalMass)} ≈ ${m.factor} → ${m.formula}")
+        }
+        return steps
+    }
+
+    /** Given amounts in moles, the extent each allows, then every amount from the smallest (roadmap 2.8). */
+    fun stoichiometry(result: ExecutionResult.Stoichiometry): List<String> {
+        val r = result.result
+        val steps = arrayListOf(strings.get(R.string.ai_steps_stoich), r.equation)
+        for (g in r.givens) {
+            val line = r.lines[g.index]
+            if (g.grams != null) steps.add("n(${line.formula}) = ${number(g.grams)} g ÷ ${number(line.molarMass)} g/mol = ${number(g.moles)} mol")
+            if (r.givens.size > 1 || line.coefficient > 1) {
+                steps.add("${number(g.moles)} mol ÷ ${line.coefficient} = ${number(g.moles / line.coefficient)} mol")
+            }
+        }
+        r.limiting?.let { steps.add("→ ${r.lines[it].formula}") }
+        val shown = result.targets.ifEmpty { r.lines.indices.filter { i -> r.givens.none { it.index == i } } }
+        for (i in shown) {
+            val line = r.lines[i]
+            val a = r.amounts[i]
+            steps.add("n(${line.formula}) = ${line.coefficient} × ${number(r.extent)} mol = ${number(a.moles)} mol; m = ${number(a.moles)} mol × ${number(line.molarMass)} g/mol = ${number(a.grams)} g")
+        }
+        return steps
+    }
+
     /** Full dissociation, then the negative logarithm (roadmap 2.8). */
     fun ph(result: ExecutionResult.Ph): List<String> {
         val r = result.result

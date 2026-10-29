@@ -1570,6 +1570,13 @@ class QueryPlanner(
         // the neutral atom's configuration, which is exactly the wrong one.
         ionConfigPlan(rawQuery, normalized)?.let { return it }
 
+        // --- Empirical formulas and stoichiometry (roadmap 2.8) ---------------------------------
+        // Above balancing: a stoichiometry question carries an equation, and the balancer reads the
+        // amounts written around it as species. Percentages beside element names would otherwise
+        // be taken for a comparison of those elements.
+        empiricalPlan(rawQuery, normalized)?.let { return it }
+        stoichiometryPlan(rawQuery)?.let { return it }
+
         // --- Balance an equation --------------------------------------------------------------
         // First, and on the raw query. The arrow is the most specific syntax any of these
         // questions carry, and `normalized` is lowercased, which destroys every formula in the
@@ -1720,9 +1727,11 @@ class QueryPlanner(
         if (!wantsMass && !wantsComposition) return null
 
         val candidate = compoundIn(rawQuery, normalized) ?: return null
+        val focus = if (wantsComposition) focusElement(rawQuery, candidate) else null
 
         return QueryPlan(
             intent = Intent.FORMULA_MASS,
+            entities = listOfNotNull(focus?.let { EntityRef.Element(it.key) }),
             fieldIds = if (wantsComposition) listOf("composition") else emptyList(),
             rawQuery = candidate,
             confidence = 0.9,
@@ -1973,6 +1982,138 @@ class QueryPlanner(
         }
         return null
     }
+
+    /**
+     * The element whose share a composition question asks for, "oxygen in water", "Fe in Fe2O3"
+     * (roadmap 2.8), when it is one of the compound's own.
+     */
+    private fun focusElement(rawQuery: String, formula: String): com.jlindemann.science.ai.data.ElementRecord? {
+        val symbols = com.jlindemann.science.ai.data.ChemistryMath.parseFormula(formula) { atomicMassOf(it) }
+            ?.parts?.map { it.symbol }?.toSet() ?: return null
+        if (symbols.size < 2) return null
+        val rest = rawQuery.replace(formula, " ", ignoreCase = true)
+        return entities.resolveAll(rest, limit = 3).mapNotNull { store.element(it.key) }.firstOrNull { it.symbol in symbols }
+    }
+
+    /**
+     * "Empirical formula of 40% C, 6.7% H and 53.3% O", "empirical formula of C6H12O6", "molecular
+     * formula of CH2O with a molar mass of 180 g/mol" (roadmap 2.8). The literal carries the masses or
+     * the formula, and the molar mass after a bar.
+     */
+    private fun empiricalPlan(rawQuery: String, normalized: String): QueryPlan? {
+        val empirical = mentionsAny(normalized, Lexicon.EMPIRICAL_WORDS)
+        val molecular = mentionsAny(normalized, Lexicon.MOLECULAR_FORMULA_WORDS)
+        if (!empirical && !molecular) return null
+        val molarMass = molarMassGiven(rawQuery, normalized)
+        // A molecular formula alone says nothing a formula does not; with a molar mass it does.
+        if (!empirical && molarMass == null) return null
+        val masses = elementMasses(rawQuery)
+        val body = if (masses.size >= 2) masses.entries.joinToString(";") { "${it.key}=${it.value}" }
+        else "formula:" + (compoundIn(rawQuery, normalized) ?: return null)
+        return QueryPlan(
+            intent = Intent.EMPIRICAL_FORMULA,
+            rawQuery = rawQuery,
+            literal = body + (molarMass?.let { "|$it" } ?: ""),
+            confidence = 0.9,
+            evidence = listOf("empirical formula")
+        )
+    }
+
+    /** A molar mass the question gives: "180 g/mol", or a number after "molar mass". */
+    private fun molarMassGiven(rawQuery: String, normalized: String): Double? {
+        MOLAR_MASS_GIVEN.find(rawQuery)?.let { return decimal(it.groupValues[1]) }
+        for (word in Lexicon.MOLAR_MASS_WORDS) {
+            val at = normalized.indexOf(word).takeIf { it >= 0 } ?: continue
+            NUMBER_AFTER.find(normalized.substring(at + word.length).take(24))?.let { return decimal(it.groupValues[1]) }
+        }
+        return null
+    }
+
+    /**
+     * Each element's percentage or mass, "40% C", "6.7 % hydrogen", "53.3 g of oxygen", "C: 40%".
+     * An element is a symbol as written, or a name in any language.
+     */
+    private fun elementMasses(rawQuery: String): Map<String, Double> {
+        val masses = LinkedHashMap<String, Double>()
+        for (m in ELEMENT_AMOUNT.findAll(rawQuery)) {
+            val value = decimal(m.groupValues[1]) ?: continue
+            // The element is one of the next two words: "40% C", "40 % of carbon", "40 g av kol".
+            val element = WORD.findAll(rawQuery, m.range.last + 1).take(2).firstNotNullOfOrNull { elementWord(it.value) } ?: continue
+            masses.putIfAbsent(element.symbol, value)
+        }
+        if (masses.size >= 2) return masses
+        masses.clear()
+        for (m in ELEMENT_THEN_PERCENT.findAll(rawQuery)) {
+            val element = elementWord(m.groupValues[1]) ?: continue
+            masses.putIfAbsent(element.symbol, decimal(m.groupValues[2]) ?: continue)
+        }
+        return masses
+    }
+
+    private fun elementWord(word: String): com.jlindemann.science.ai.data.ElementRecord? =
+        if (SYMBOL.matches(word)) store.bySymbol(word)
+        else if (word.length < 3) null
+        else store.element(word.lowercase()) ?: entities.resolveAll(word, limit = 1).firstOrNull()?.let { store.element(it.key) }
+
+    private fun decimal(text: String): Double? = text.replace(',', '.').toDoubleOrNull()
+
+    /**
+     * "How many grams of water from 4 g of H2 in 2H2 + O2 -> 2H2O", "2H2 + O2 -> 2H2O with 4 g H2 and
+     * 40 g O2" (roadmap 2.8). The equation is cut out of the sentence; each amount around it is tied
+     * to the species written or named just after it, and a species named without one is a target.
+     * The literal is "equation|H2=4 g;O2=40 g|H2O".
+     */
+    private fun stoichiometryPlan(rawQuery: String): QueryPlan? {
+        val balancer = com.jlindemann.science.ai.data.EquationBalancer
+        val span = balancer.span(rawQuery) { store.bySymbol(it) != null } ?: return null
+        val sides = balancer.parse(span.equation) { store.bySymbol(it) != null }
+            as? com.jlindemann.science.ai.data.EquationBalancer.ParseOutcome.Sides ?: return null
+        val species = sides.reactants + sides.products
+        val outside = rawQuery.removeRange(span.range)
+
+        fun speciesOf(counts: Map<String, Int>?) = counts?.let { c -> species.firstOrNull { it.counts == c } }
+        fun formulaSpecies(token: String) = token.trim(',', ';', ':', '?', '!', '.', '(', ')').takeIf { it.isNotEmpty() && it.first().isUpperCase() }
+            ?.let { speciesOf(com.jlindemann.science.ai.data.ChemistryMath.elementCounts(it) { s -> store.bySymbol(s) != null }) }
+        fun namedSpecies(text: String) = entities.scanCompounds(text).compounds.firstNotNullOfOrNull { match ->
+            match.formula?.let { f -> speciesOf(com.jlindemann.science.ai.data.ChemistryMath.elementCounts(f) { s -> store.bySymbol(s) != null }) }
+        }
+
+        val givens = LinkedHashMap<String, String>()
+        for (m in SPECIES_AMOUNT.findAll(outside)) {
+            val value = decimal(m.groupValues[1]) ?: continue
+            val unit = if (m.groupValues[2].lowercase().startsWith("mol")) "mol" else "g"
+            // The species is one of the next three words, written as a formula or named.
+            val next = TOKEN.findAll(outside, m.range.last + 1).take(3).toList()
+            val named = next.firstNotNullOfOrNull { formulaSpecies(it.value) }
+                ?: namedSpecies(next.joinToString(" ") { it.value })
+                ?: continue
+            givens.putIfAbsent(named.formula, "$value $unit")
+        }
+        // The amount is what makes this a stoichiometry question rather than a request to balance.
+        if (givens.isEmpty()) return null
+
+        val mentioned = TOKEN.findAll(outside).mapNotNull { formulaSpecies(it.value) }.toMutableList()
+        mentioned += entities.scanCompounds(outside).compounds.mapNotNull { match ->
+            match.formula?.let { f -> speciesOf(com.jlindemann.science.ai.data.ChemistryMath.elementCounts(f) { s -> store.bySymbol(s) != null }) }
+        }
+        val targets = mentioned.map { it.formula }.distinct().filter { it !in givens }
+        return QueryPlan(
+            intent = Intent.STOICHIOMETRY,
+            rawQuery = rawQuery,
+            literal = span.equation + "|" + givens.entries.joinToString(";") { "${it.key}=${it.value}" } + "|" + targets.joinToString(","),
+            confidence = 0.9,
+            evidence = listOf("stoichiometry")
+        )
+    }
+
+    private val MOLAR_MASS_GIVEN = Regex("""(\d+(?:[.,]\d+)?)\s*g\s*/\s*mol""", RegexOption.IGNORE_CASE)
+    private val NUMBER_AFTER = Regex("""(\d+(?:[.,]\d+)?)""")
+    private val ELEMENT_AMOUNT = Regex("""(\d+(?:[.,]\d+)?)\s*(?:%|g(?![\p{L}/])|grams?(?![\p{L}])|gramm(?![\p{L}])|grammes?(?![\p{L}])|gramos?(?![\p{L}])|grammi(?![\p{L}])|gramas?(?![\p{L}]))""")
+    private val ELEMENT_THEN_PERCENT = Regex("""([\p{L}\p{M}]+)\s*[:=]?\s*(\d+(?:[.,]\d+)?)\s*%""")
+    private val SPECIES_AMOUNT = Regex("""(\d+(?:[.,]\d+)?)\s*(g(?![\p{L}/])|grams?(?![\p{L}])|gramm(?![\p{L}])|grammes?(?![\p{L}])|gramos?(?![\p{L}])|grammi(?![\p{L}])|gramas?(?![\p{L}])|mol(?:es|s|i)?(?![\p{L}/]))""", RegexOption.IGNORE_CASE)
+    private val WORD = Regex("""[\p{L}\p{M}]+""")
+    private val TOKEN = Regex("""\S+""")
+    private val SYMBOL = Regex("""[A-Z][a-z]?""")
 
     private val SUPERSCRIPT_DIGITS = "⁰¹²³⁴⁵⁶⁷⁸⁹"
     private val ION_CHARGE_AFTER = Regex("""(?<![A-Za-z])([A-Z][a-z]?)\s?\^?([1-7]|[¹²³⁴⁵⁶⁷])?\s?([+⁺]|[-−⁻])(?![A-Za-z0-9>])""")

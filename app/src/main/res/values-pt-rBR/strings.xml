@@ -1338,6 +1338,19 @@ Eles compartilham comportamentos químicos semelhantes devido aos seus elétrons
     <string name="ai_ion_anion">Um ânion coloca seus elétrons extras nos próximos lugares da ordem de preenchimento.</string>
     <string name="ai_ion_isoelectronic">É a mesma configuração do %1$s.</string>
     <string name="ai_steps_ion">Comece pelo átomo neutro e retire ou adicione elétrons:</string>
+    <string name="ai_composition_element">%1$s corresponde a **%2$s** da massa de %3$s.</string>
+    <string name="ai_empirical_result">A fórmula empírica é **%1$s**.</string>
+    <string name="ai_empirical_reduced">A fórmula empírica de %1$s é **%2$s**: seus índices têm um fator comum de %3$d.</string>
+    <string name="ai_empirical_same">%1$s já está na sua proporção inteira mais simples, então é a sua própria fórmula empírica.</string>
+    <string name="ai_empirical_molecular">Com uma massa molar de %1$s g/mol, a fórmula molecular é **%2$s**, %3$d × %4$s.</string>
+    <string name="ai_steps_empirical">Cada massa em mols e depois cada uma dividida pela menor:</string>
+    <string name="ai_stoich_makes">Em %1$s, %2$s produzem **%3$s g de %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_needs">Em %1$s, %2$s precisam de **%3$s g de %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_matches">Em %1$s, %2$s correspondem a **%3$s g de %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_limiting">Em %1$s, **%2$s** é o reagente limitante: acaba primeiro.</string>
+    <string name="ai_stoich_product">Formam-se **%1$s g de %2$s** (%3$s mol).</string>
+    <string name="ai_stoich_excess">Sobram %1$s g de %2$s.</string>
+    <string name="ai_steps_stoich">Cada quantidade em mols e depois pelos coeficientes:</string>
     <string name="ai_card_heat_map_title">%1$s na tabela</string>
 
     <!-- Equation Balancer tool -->

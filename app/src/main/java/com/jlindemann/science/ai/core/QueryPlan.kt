@@ -106,13 +106,24 @@ enum class Intent {
     /** An ion's electron configuration, Fe³⁺ (roadmap 2.8). [QueryPlan.literal] is "symbol:charge". */
     ION_CONFIG,
 
+    /**
+     * An empirical formula from element percentages or masses, or from a molecular formula; with a
+     * molar mass, the molecular formula too (roadmap 2.8). [QueryPlan.literal] is "C=40;H=6.7;O=53.3"
+     * or "formula:C6H12O6", either followed by "|180" for a molar mass.
+     */
+    EMPIRICAL_FORMULA,
+
+    /** Amounts through a balanced equation, and the limiting reagent (roadmap 2.8). [QueryPlan.literal] is the equation. */
+    STOICHIOMETRY,
+
     /** Nothing recognised. The caller should fall back. */
     UNKNOWN;
 
     companion object {
         /** The intents that compute an answer from numbers, and so have steps to show (roadmap 2.2). */
         val CALCULATIONS = setOf(
-            FORMULA_MASS, MOLE_CONVERSION, BALANCE_EQUATION, SOLUTION_CALC, DECAY_CALC, GAS_LAW, PH_CALC, ION_CONFIG
+            FORMULA_MASS, MOLE_CONVERSION, BALANCE_EQUATION, SOLUTION_CALC, DECAY_CALC, GAS_LAW, PH_CALC, ION_CONFIG,
+            EMPIRICAL_FORMULA, STOICHIOMETRY
         )
     }
 }

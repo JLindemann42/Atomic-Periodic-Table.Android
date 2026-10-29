@@ -1336,6 +1336,19 @@ I：不溶"</string>
     <string name="ai_ion_anion">阴离子把多出的电子按填充顺序放入接下来的位置。</string>
     <string name="ai_ion_isoelectronic">这与%1$s的电子排布相同。</string>
     <string name="ai_steps_ion">从中性原子出发，失去或得到电子：</string>
+    <string name="ai_composition_element">%1$s 占 %3$s 质量的 **%2$s**。</string>
+    <string name="ai_empirical_result">最简式为 **%1$s**。</string>
+    <string name="ai_empirical_reduced">%1$s 的最简式为 **%2$s**：其下标有公因数 %3$d。</string>
+    <string name="ai_empirical_same">%1$s 已是最简整数比，所以它就是自己的最简式。</string>
+    <string name="ai_empirical_molecular">摩尔质量为 %1$s g/mol 时，分子式为 **%2$s**，即 %3$d × %4$s。</string>
+    <string name="ai_steps_empirical">把每个质量换算成摩尔，再都除以最小的那个：</string>
+    <string name="ai_stoich_makes">在 %1$s 中，%2$s 生成 **%3$s g %4$s**（%5$s mol）。</string>
+    <string name="ai_stoich_needs">在 %1$s 中，%2$s 需要 **%3$s g %4$s**（%5$s mol）。</string>
+    <string name="ai_stoich_matches">在 %1$s 中，%2$s 对应 **%3$s g %4$s**（%5$s mol）。</string>
+    <string name="ai_stoich_limiting">在 %1$s 中，**%2$s** 是限量试剂：它最先耗尽。</string>
+    <string name="ai_stoich_product">生成 **%1$s g %2$s**（%3$s mol）。</string>
+    <string name="ai_stoich_excess">剩余 %1$s g %2$s。</string>
+    <string name="ai_steps_stoich">把每个量换算成摩尔，再按系数计算：</string>
     <string name="ai_card_heat_map_title">周期表中的%1$s</string>
 
     <!-- Equation Balancer tool -->

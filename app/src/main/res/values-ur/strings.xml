@@ -728,6 +728,19 @@
     <string name="ai_ion_anion">اینائن اپنے اضافی الیکٹران بھرنے کی ترتیب میں اگلی جگہوں پر لیتا ہے۔</string>
     <string name="ai_ion_isoelectronic">یہ %1$s جیسی ہی ترتیب ہے۔</string>
     <string name="ai_steps_ion">غیر جانبدار ایٹم سے شروع کریں اور الیکٹران ہٹائیں یا جوڑیں:</string>
+    <string name="ai_composition_element">%3$s کی کمیت میں %1$s کا حصہ **%2$s** ہے۔</string>
+    <string name="ai_empirical_result">تجربی فارمولا **%1$s** ہے۔</string>
+    <string name="ai_empirical_reduced">%1$s کا تجربی فارمولا **%2$s** ہے: اس کے زیریں اعداد میں %3$d کا مشترک جزو ہے۔</string>
+    <string name="ai_empirical_same">%1$s پہلے ہی اپنی سادہ ترین مکمل عددی نسبت میں ہے، اس لیے یہی اس کا تجربی فارمولا ہے۔</string>
+    <string name="ai_empirical_molecular">%1$s g/mol کی مولر کمیت کے ساتھ سالمی فارمولا **%2$s** ہے، %3$d × %4$s۔</string>
+    <string name="ai_steps_empirical">ہر کمیت کو مول میں بدلیں، پھر ہر ایک کو سب سے چھوٹی سے تقسیم کریں:</string>
+    <string name="ai_stoich_makes">%1$s میں، %2$s سے **%3$s g %4$s** (%5$s mol) بنتا ہے۔</string>
+    <string name="ai_stoich_needs">%1$s میں، %2$s کے لیے **%3$s g %4$s** (%5$s mol) درکار ہے۔</string>
+    <string name="ai_stoich_matches">%1$s میں، %2$s کے ساتھ **%3$s g %4$s** (%5$s mol) آتا ہے۔</string>
+    <string name="ai_stoich_limiting">%1$s میں، **%2$s** محدود کرنے والا ری ایجنٹ ہے: یہ سب سے پہلے ختم ہوتا ہے۔</string>
+    <string name="ai_stoich_product">اس سے **%1$s g %2$s** (%3$s mol) بنتا ہے۔</string>
+    <string name="ai_stoich_excess">%1$s g %2$s بچ جاتا ہے۔</string>
+    <string name="ai_steps_stoich">ہر مقدار کو مول میں بدلیں، پھر ضربی عددوں کے ذریعے:</string>
     <string name="ai_card_heat_map_title">جدول میں %1$s</string>
 
     <!-- Equation Balancer tool -->

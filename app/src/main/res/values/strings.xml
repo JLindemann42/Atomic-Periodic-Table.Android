@@ -1582,6 +1582,19 @@
     <string name="ai_ion_anion">An anion takes its extra electrons into the next places in filling order.</string>
     <string name="ai_ion_isoelectronic">That is the same configuration as %1$s.</string>
     <string name="ai_steps_ion">Start from the neutral atom and remove or add electrons:</string>
+    <string name="ai_composition_element">%1$s makes up **%2$s** of %3$s by mass.</string>
+    <string name="ai_empirical_result">The empirical formula is **%1$s**.</string>
+    <string name="ai_empirical_reduced">The empirical formula of %1$s is **%2$s**: its subscripts share a factor of %3$d.</string>
+    <string name="ai_empirical_same">%1$s is already in its simplest whole-number ratio, so it is its own empirical formula.</string>
+    <string name="ai_empirical_molecular">With a molar mass of %1$s g/mol, the molecular formula is **%2$s**, %3$d × %4$s.</string>
+    <string name="ai_steps_empirical">Each mass in moles, then each divided by the smallest:</string>
+    <string name="ai_stoich_makes">In %1$s, %2$s makes **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_needs">In %1$s, %2$s needs **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_matches">In %1$s, %2$s goes with **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_limiting">In %1$s, **%2$s** is the limiting reagent: it runs out first.</string>
+    <string name="ai_stoich_product">It makes **%1$s g %2$s** (%3$s mol).</string>
+    <string name="ai_stoich_excess">%1$s g %2$s is left over.</string>
+    <string name="ai_steps_stoich">Each amount in moles, then through the coefficients:</string>
     <string name="ai_card_heat_map_title">%1$s across the table</string>
 
     <!-- Equation Balancer tool -->

@@ -1333,6 +1333,19 @@ Nagbabahagi sila ng mga katulad na gawi sa kemikal dahil sa kanilang mga valence
     <string name="ai_ion_anion">Inilalagay ng isang anion ang dagdag nitong electron sa mga susunod na puwesto sa pagkakasunod ng pagpuno.</string>
     <string name="ai_ion_isoelectronic">Iyan ang parehong configuration ng %1$s.</string>
     <string name="ai_steps_ion">Magsimula sa neutral na atom at magbawas o magdagdag ng electron:</string>
+    <string name="ai_composition_element">Ang %1$s ay **%2$s** ng masa ng %3$s.</string>
+    <string name="ai_empirical_result">Ang empirical formula ay **%1$s**.</string>
+    <string name="ai_empirical_reduced">Ang empirical formula ng %1$s ay **%2$s**: may iisang factor na %3$d ang mga subscript nito.</string>
+    <string name="ai_empirical_same">Nasa pinakasimpleng ratio na ng buong bilang ang %1$s, kaya ito na ang sarili nitong empirical formula.</string>
+    <string name="ai_empirical_molecular">Sa molar mass na %1$s g/mol, ang molecular formula ay **%2$s**, %3$d × %4$s.</string>
+    <string name="ai_steps_empirical">Bawat masa sa mole, saka hatiin ang bawat isa sa pinakamaliit:</string>
+    <string name="ai_stoich_makes">Sa %1$s, ang %2$s ay nakagagawa ng **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_needs">Sa %1$s, ang %2$s ay nangangailangan ng **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_matches">Sa %1$s, ang %2$s ay katumbas ng **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_limiting">Sa %1$s, ang **%2$s** ang limiting reagent: ito ang unang nauubos.</string>
+    <string name="ai_stoich_product">Nakagagawa ito ng **%1$s g %2$s** (%3$s mol).</string>
+    <string name="ai_stoich_excess">May natitirang %1$s g %2$s.</string>
+    <string name="ai_steps_stoich">Bawat dami sa mole, saka sa mga coefficient:</string>
     <string name="ai_card_heat_map_title">%1$s sa buong table</string>
 
     <!-- Equation Balancer tool -->

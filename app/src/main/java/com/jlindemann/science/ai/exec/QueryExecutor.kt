@@ -125,12 +125,14 @@ class QueryExecutor(
         // a new paywall rather than a mirror of an existing one.
         Intent.DECAY_CALC -> decay(plan)
         // PRO+, as the other calculators are (roadmap 2.8).
-        Intent.GAS_LAW, Intent.PH_CALC, Intent.ION_CONFIG ->
+        Intent.GAS_LAW, Intent.PH_CALC, Intent.ION_CONFIG, Intent.EMPIRICAL_FORMULA, Intent.STOICHIOMETRY ->
             if (!entitlements.allows(com.jlindemann.science.ai.data.Tier.PRO_PLUS)) {
                 ExecutionResult.Locked(tier = com.jlindemann.science.ai.data.Tier.PRO_PLUS, fieldIds = emptyList(), element = null)
             } else when (plan.intent) {
                 Intent.GAS_LAW -> gasLaw(plan)
                 Intent.PH_CALC -> ph(plan)
+                Intent.EMPIRICAL_FORMULA -> empirical(plan)
+                Intent.STOICHIOMETRY -> stoichiometry(plan)
                 else -> ionConfig(plan)
             }
         Intent.COMPARISON -> comparison(plan)
@@ -286,7 +288,9 @@ class QueryExecutor(
             wantsComposition = "composition" in plan.fieldIds,
             citations = result.parts.mapNotNull { part ->
                 store.bySymbol(part.symbol)?.let { citation("atomic_mass", it) }
-            }.take(3)
+            }.take(3),
+            focus = (plan.entities.firstOrNull() as? EntityRef.Element)?.let { store.element(it.key)?.symbol }
+                ?.takeIf { symbol -> result.parts.any { it.symbol == symbol } }
         )
     }
 
@@ -1039,6 +1043,60 @@ class QueryExecutor(
             .firstNotNullOfOrNull { it.inUnit("M") } ?: return null
         val (canonical, base) = com.jlindemann.science.ai.data.AcidBase.strong(formula, ::composition) ?: return null
         return ExecutionResult.Ph(com.jlindemann.science.ai.data.AcidBase.solve(canonical, base, molarity) ?: return null)
+    }
+
+    private fun atomicMass(symbol: String): Double? = store.bySymbol(symbol)?.quantity("atomic_mass")?.value
+
+    private fun atomicMassCitations(symbols: Collection<String>): List<Citation> =
+        symbols.mapNotNull { symbol -> store.bySymbol(symbol)?.let { citation("atomic_mass", it) } }.take(3)
+
+    /** An empirical formula (roadmap 2.8); the literal is "C=40;H=6.7" or "formula:C6H12O6", then "|molar mass". */
+    private fun empirical(plan: QueryPlan): ExecutionResult? {
+        val parts = plan.literal?.split('|') ?: return null
+        val molarMass = parts.getOrNull(1)?.toDoubleOrNull()
+        val body = parts[0]
+        val empirical = com.jlindemann.science.ai.data.Empirical
+        val result = if (body.startsWith("formula:")) {
+            val parsed = com.jlindemann.science.ai.data.ChemistryMath.parseFormula(body.removePrefix("formula:"), ::atomicMass) ?: return null
+            val counts = LinkedHashMap<String, Int>()
+            parsed.parts.forEach { counts[it.symbol] = (counts[it.symbol] ?: 0) + it.count }
+            empirical.fromFormula(parsed.formula, counts, ::atomicMass)?.let { r ->
+                if (molarMass == null) r else r.copy(molecular = empirical.molecular(r.counts, r.empiricalMass, molarMass))
+            }
+        } else {
+            val masses = body.split(';').associate { entry ->
+                val (symbol, value) = entry.split('=').takeIf { it.size == 2 } ?: return null
+                symbol to (value.toDoubleOrNull() ?: return null)
+            }
+            empirical.fromMasses(masses, ::atomicMass, molarMass)
+        } ?: return null
+        return ExecutionResult.EmpiricalFormula(result, atomicMassCitations(result.counts.keys))
+    }
+
+    /** Amounts through a balanced equation (roadmap 2.8); the literal is "equation|H2=4 g;O2=40 g|H2O". */
+    private fun stoichiometry(plan: QueryPlan): ExecutionResult? {
+        val parts = plan.literal?.split('|')?.takeIf { it.size == 3 } ?: return null
+        val balancer = com.jlindemann.science.ai.data.EquationBalancer
+        val sides = balancer.parse(parts[0]) { store.bySymbol(it) != null }
+            as? com.jlindemann.science.ai.data.EquationBalancer.ParseOutcome.Sides ?: return null
+        val balanced = balancer.balance(sides.reactants, sides.products)
+            as? com.jlindemann.science.ai.data.EquationBalancer.Result.Balanced ?: return null
+        val lines = (balanced.reactants.map { it to true } + balanced.products.map { it to false }).map { (term, reactant) ->
+            val mass = com.jlindemann.science.ai.data.ChemistryMath.parseFormula(term.formula, ::atomicMass)?.molarMass ?: return null
+            com.jlindemann.science.ai.data.Stoichiometry.Line(term.formula, term.coefficient, mass, reactant)
+        }
+        val givens = parts[1].split(';').filter { it.isNotBlank() }.map { entry ->
+            val (formula, amount) = entry.split('=').takeIf { it.size == 2 } ?: return null
+            val (value, unit) = amount.split(' ').takeIf { it.size == 2 } ?: return null
+            val index = lines.indexOfFirst { it.formula == formula }.takeIf { it >= 0 } ?: return null
+            val number = value.toDoubleOrNull() ?: return null
+            if (unit == "mol") com.jlindemann.science.ai.data.Stoichiometry.Given(index, number, null)
+            else com.jlindemann.science.ai.data.Stoichiometry.Given(index, number / lines[index].molarMass, number)
+        }
+        val result = com.jlindemann.science.ai.data.Stoichiometry.solve(lines, givens) ?: return null
+        val targets = parts[2].split(',').filter { it.isNotBlank() }.mapNotNull { f -> lines.indexOfFirst { it.formula == f }.takeIf { it >= 0 } }
+        val symbols = sides.reactants.flatMap { it.counts.keys }.distinct()
+        return ExecutionResult.Stoichiometry(result, targets, atomicMassCitations(symbols))
     }
 
     private fun composition(formula: String): Map<String, Int>? =

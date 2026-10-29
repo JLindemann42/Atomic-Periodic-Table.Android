@@ -251,6 +251,7 @@ class AiEngine(
         is ExecutionResult.Formula, is ExecutionResult.MoleConversion,
         is ExecutionResult.UnitConversion, is ExecutionResult.BalancedEquation,
         is ExecutionResult.SolutionCalc, is ExecutionResult.GasLaw, is ExecutionResult.Ph,
+        is ExecutionResult.EmpiricalFormula, is ExecutionResult.Stoichiometry,
         is ExecutionResult.Dataset, is ExecutionResult.Empty -> emptyList()
     }
 }

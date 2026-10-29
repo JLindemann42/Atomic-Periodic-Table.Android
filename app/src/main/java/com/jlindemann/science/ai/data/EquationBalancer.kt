@@ -143,6 +143,82 @@ object EquationBalancer {
         return ParseOutcome.Sides(left, right)
     }
 
+    /** The equation written inside a sentence, and where it sits in it. */
+    data class Span(val equation: String, val range: IntRange)
+
+    private val TOKEN = Regex("""\S+""")
+
+    /**
+     * Cut the equation out of a sentence that says something else as well (roadmap 2.8): "how many
+     * grams of water from 4 g of H2 in 2H2 + O2 -> 2H2O". From the arrow outwards, species and `+`
+     * alternate; the first word that breaks the pattern ends the equation on that side.
+     *
+     * [parse] drops prose words but keeps numbers, so the "4" and "H2" before the equation become a
+     * species "H2 2H2"; that is fine for a request to balance, where nothing else is written, and
+     * wrong for a question that also gives amounts.
+     */
+    fun span(raw: String, isKnownSymbol: (String) -> Boolean): Span? {
+        val arrow = ARROW.find(raw) ?: return null
+        val before = TOKEN.findAll(raw.substring(0, arrow.range.first)).toList().asReversed()
+        val after = TOKEN.findAll(raw, arrow.range.last + 1).toList()
+        val left = walk(before, isKnownSymbol, backwards = true) ?: return null
+        val right = walk(after, isKnownSymbol, backwards = false) ?: return null
+        val equation = left.second.asReversed().joinToString(" ") + " -> " + right.second.joinToString(" ")
+        return Span(equation, left.first..right.first)
+    }
+
+    /**
+     * Species and `+` from the arrow outwards. Returns the outermost character reached and the
+     * tokens taken, nearest the arrow first.
+     */
+    private fun walk(tokens: List<MatchResult>, isKnownSymbol: (String) -> Boolean, backwards: Boolean): Pair<Int, List<String>>? {
+        val taken = ArrayList<String>()
+        var edge = -1
+        var expectSpecies = true
+        for ((i, match) in tokens.withIndex()) {
+            val token = match.value.trim(',', ';', ':', '?', '!', '.')
+            // "2H2+O2" written without spaces reads as three tokens.
+            val parts = splitPlus(token).let { if (backwards) it.asReversed() else it }
+            var stop = false
+            for (part in parts) {
+                when {
+                    expectSpecies && isSpecies(part, isKnownSymbol) -> { taken.add(part); expectSpecies = false }
+                    // A coefficient written apart, "2 H2": behind the species when reading backwards.
+                    !expectSpecies && backwards && part.all(Char::isDigit) && taken.lastOrNull() != "+" -> {
+                        taken[taken.lastIndex] = part + taken.last()
+                    }
+                    expectSpecies && !backwards && part.all(Char::isDigit) &&
+                        tokens.getOrNull(i + 1)?.value?.let { isSpecies(it.trim(',', ';', ':', '?', '!', '.'), isKnownSymbol) } == true -> {
+                        // Joined with the species that follows, on the next token.
+                        taken.add(part); expectSpecies = true
+                    }
+                    !expectSpecies && part == "+" -> { taken.add(part); expectSpecies = true }
+                    else -> { stop = true; break }
+                }
+            }
+            if (stop) break
+            edge = if (backwards) match.range.first else match.range.last
+        }
+        // A forward coefficient joins the species after it: "2", "H2" is "2H2".
+        val joined = ArrayList<String>()
+        for (t in taken) if (joined.isNotEmpty() && joined.last().all(Char::isDigit)) joined[joined.lastIndex] += t else joined.add(t)
+        while (joined.lastOrNull() == "+" || joined.lastOrNull()?.all(Char::isDigit) == true) joined.removeAt(joined.lastIndex)
+        if (joined.isEmpty() || edge < 0) return null
+        return edge to joined
+    }
+
+    private fun splitPlus(token: String): List<String> {
+        if (token == "+" || '+' !in token.dropLast(1)) return listOf(token)
+        return token.split('+').flatMapIndexed { i, part -> if (i == 0) listOf(part) else listOf("+", part) }.filter { it.isNotEmpty() }
+    }
+
+    private fun isSpecies(token: String, isKnownSymbol: (String) -> Boolean): Boolean {
+        if (token.isEmpty() || PROSE.matches(token)) return false
+        val cleaned = LEADING_COEFFICIENT.replace(ChemistryMath.stripStateAnnotation(token).trim(), "").trim()
+        return cleaned.isNotEmpty() && cleaned.first().isUpperCase() &&
+            ChemistryMath.elementCounts(cleaned) { isKnownSymbol(it) } != null
+    }
+
     /**
      * Split raw text into reactants and products.
      *

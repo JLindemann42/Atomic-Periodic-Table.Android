@@ -1266,6 +1266,19 @@
     <string name="ai_ion_anion">En anjon tar upp sina extra elektroner på nästa platser i fyllnadsordningen.</string>
     <string name="ai_ion_isoelectronic">Det är samma konfiguration som %1$s.</string>
     <string name="ai_steps_ion">Utgå från den neutrala atomen och ta bort eller lägg till elektroner:</string>
+    <string name="ai_composition_element">%1$s utgör **%2$s** av massan i %3$s.</string>
+    <string name="ai_empirical_result">Den empiriska formeln är **%1$s**.</string>
+    <string name="ai_empirical_reduced">Den empiriska formeln för %1$s är **%2$s**: dess index har den gemensamma faktorn %3$d.</string>
+    <string name="ai_empirical_same">%1$s har redan det enklaste heltalsförhållandet, så det är sin egen empiriska formel.</string>
+    <string name="ai_empirical_molecular">Med molmassan %1$s g/mol är molekylformeln **%2$s**, %3$d × %4$s.</string>
+    <string name="ai_steps_empirical">Varje massa i mol, sedan var och en delad med den minsta:</string>
+    <string name="ai_stoich_makes">I %1$s ger %2$s **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_needs">I %1$s behöver %2$s **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_matches">I %1$s hör %2$s ihop med **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_limiting">I %1$s är **%2$s** det begränsande ämnet: det tar slut först.</string>
+    <string name="ai_stoich_product">Det ger **%1$s g %2$s** (%3$s mol).</string>
+    <string name="ai_stoich_excess">%1$s g %2$s blir över.</string>
+    <string name="ai_steps_stoich">Varje mängd i mol, sedan genom koefficienterna:</string>
     <string name="ai_card_heat_map_title">%1$s i hela systemet</string>
 
     <!-- Equation Balancer tool -->

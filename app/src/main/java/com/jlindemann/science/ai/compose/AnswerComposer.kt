@@ -87,6 +87,8 @@ class AnswerComposer(
             is ExecutionResult.GasLaw -> stepsInstead(plan, { gasLaw(result, it) }) { workings.gasLaw(result) }
             is ExecutionResult.Ph -> stepsInstead(plan, { ph(result, it) }) { workings.ph(result) }
             is ExecutionResult.IonConfiguration -> ionConfiguration(result) + steps(plan) { workings.ion(result) }
+            is ExecutionResult.EmpiricalFormula -> empirical(result) + steps(plan) { workings.empirical(result) }
+            is ExecutionResult.Stoichiometry -> stoichiometry(result) + steps(plan) { workings.stoichiometry(result) }
             is ExecutionResult.NoData -> noData(result)
             is ExecutionResult.Locked -> locked(result)
             is ExecutionResult.Empty -> strings.get(R.string.ai_filter_none)
@@ -465,6 +467,57 @@ class AnswerComposer(
         return builder.toString()
     }
 
+    /** An empirical formula, and the molecular formula when a molar mass was given (roadmap 2.8). */
+    private fun empirical(result: ExecutionResult.EmpiricalFormula): String {
+        val r = result.result
+        val builder = StringBuilder(
+            when {
+                r.from == null -> strings.get(R.string.ai_empirical_result, r.formula)
+                r.divisor > 1 -> strings.get(R.string.ai_empirical_reduced, r.from, r.formula, r.divisor)
+                else -> strings.get(R.string.ai_empirical_same, r.from)
+            }
+        )
+        r.molecular?.let { m ->
+            builder.append("\n").append(strings.get(R.string.ai_empirical_molecular, format(m.molarMass), m.formula, m.factor, r.formula))
+        }
+        return builder.toString()
+    }
+
+    /** Amounts through a balanced equation, or the limiting reagent and what it makes (roadmap 2.8). */
+    private fun stoichiometry(result: ExecutionResult.Stoichiometry): String {
+        val r = result.result
+        val lines = r.lines
+        fun amount(i: Int) = r.amounts[i]
+        val builder = StringBuilder()
+        val limiting = r.limiting
+        if (limiting != null) {
+            builder.append(strings.get(R.string.ai_stoich_limiting, r.equation, lines[limiting].formula))
+            val shown = result.targets.filter { !lines[it].reactant }.ifEmpty { lines.indices.filter { !lines[it].reactant } }
+            for (i in shown) {
+                builder.append("\n").append(strings.get(R.string.ai_stoich_product, format(amount(i).grams), lines[i].formula, format(amount(i).moles)))
+            }
+            for (left in r.leftovers) {
+                builder.append("\n").append(strings.get(R.string.ai_stoich_excess, format(left.grams), lines[left.index].formula))
+            }
+            return builder.toString()
+        }
+        val given = r.givens.first()
+        val givenText = (given.grams?.let { "${format(it)} g" } ?: "${format(given.moles)} mol") + " " + lines[given.index].formula
+        val givenIsReactant = lines[given.index].reactant
+        // Asked about nothing in particular: the other side of the equation.
+        val shown = result.targets.ifEmpty { lines.indices.filter { lines[it].reactant != givenIsReactant } }
+        shown.forEachIndexed { n, i ->
+            val template = when {
+                lines[i].reactant -> R.string.ai_stoich_needs
+                givenIsReactant -> R.string.ai_stoich_makes
+                else -> R.string.ai_stoich_matches
+            }
+            if (n > 0) builder.append("\n")
+            builder.append(strings.get(template, r.equation, givenText, format(amount(i).grams), lines[i].formula, format(amount(i).moles)))
+        }
+        return builder.toString()
+    }
+
     /** A strong acid's or base's pH (roadmap 2.8). */
     private fun ph(result: ExecutionResult.Ph, working: Boolean = true): String {
         val r = result.result
@@ -562,9 +615,13 @@ class AnswerComposer(
 
     private fun formula(result: ExecutionResult.Formula): String {
         val r = result.result
-        val builder = StringBuilder(
-            strings.get(R.string.ai_formula_mass, r.formula, format(r.molarMass))
-        )
+        val builder = StringBuilder()
+        // "Mass percent of oxygen in water" leads with oxygen's share (roadmap 2.8).
+        r.parts.firstOrNull { it.symbol == result.focus }?.let { part ->
+            val name = store.bySymbol(part.symbol)?.let { displayName(it.key) } ?: part.symbol
+            builder.append(strings.get(R.string.ai_composition_element, name, format(part.percent) + "%", r.formula)).append("\n")
+        }
+        builder.append(strings.get(R.string.ai_formula_mass, r.formula, format(r.molarMass)))
         // The per-element breakdown *is* the calculation, so a compound shows it whether or not the
         // word "composition" was used. Asked for the molar mass of Ca(NO3)2 the agent gave the total
         // and nothing else, and the follow-up "show the calculation step by step" then retrieved the

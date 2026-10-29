@@ -1332,6 +1332,19 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
     <string name="ai_ion_anion">\'n Anioon neem sy ekstra elektrone op die volgende plekke in die vulvolgorde op.</string>
     <string name="ai_ion_isoelectronic">Dit is dieselfde konfigurasie as %1$s.</string>
     <string name="ai_steps_ion">Begin by die neutrale atoom en verwyder of voeg elektrone by:</string>
+    <string name="ai_composition_element">%1$s maak **%2$s** van die massa van %3$s uit.</string>
+    <string name="ai_empirical_result">Die empiriese formule is **%1$s**.</string>
+    <string name="ai_empirical_reduced">Die empiriese formule van %1$s is **%2$s**: sy onderskrifte deel \'n faktor van %3$d.</string>
+    <string name="ai_empirical_same">%1$s is reeds in sy eenvoudigste heelgetalverhouding, dus is dit sy eie empiriese formule.</string>
+    <string name="ai_empirical_molecular">Met \'n molêre massa van %1$s g/mol is die molekulêre formule **%2$s**, %3$d × %4$s.</string>
+    <string name="ai_steps_empirical">Elke massa in mol, dan elkeen gedeel deur die kleinste:</string>
+    <string name="ai_stoich_makes">In %1$s lewer %2$s **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_needs">In %1$s benodig %2$s **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_matches">In %1$s hoort %2$s by **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_limiting">In %1$s is **%2$s** die beperkende reagens: dit raak eerste op.</string>
+    <string name="ai_stoich_product">Dit lewer **%1$s g %2$s** (%3$s mol).</string>
+    <string name="ai_stoich_excess">%1$s g %2$s bly oor.</string>
+    <string name="ai_steps_stoich">Elke hoeveelheid in mol, dan deur die koëffisiënte:</string>
     <string name="ai_card_heat_map_title">%1$s oor die tabel</string>
 
     <!-- Equation Balancer tool -->

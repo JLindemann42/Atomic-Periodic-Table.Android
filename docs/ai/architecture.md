@@ -263,9 +263,34 @@ the same gate and the same "show steps" working:
   "Fe3+" otherwise resolves to iron and gets the neutral atom's configuration. It reads Fe3+, Fe 3+,
   Fe+3, Fe^3+, Fe³⁺, Cl- and O2-, and only beside a configuration word.
 
-`corpus/calculators.tsv` holds 21 rows; each failed before this stage.
-`CalculatorMathTest` checks the math on both platforms. Percent composition, empirical formulas,
-gram-to-gram stoichiometry and the limiting reagent are left for stage 2.
+**More calculators, stage 2** (roadmap 2.8, PRO+). Percent composition already came with the
+formula-mass answer. Stage 2 adds:
+- **One element's share.** A composition question that names one of the compound's elements ("mass
+  percent of oxygen in water", "Fe in Fe2O3") leads with that element's share. `COMPOSITION_WORDS`
+  gains the mass-percent words of every language, so German "Massenanteil" is no longer declined.
+- **Empirical formula.** `ai/data/Empirical` turns element percentages or masses into moles, divides
+  by the smallest, and multiplies by up to 8 until every ratio is within 0.1 of a whole number
+  (72.4% Fe and 27.6% O give Fe3O4). The formula is written in Hill order. A molecular formula is
+  instead reduced by its common factor (C6H12O6 to CH2O). With a molar mass given, the molecular
+  formula follows (CH2 and 56 g/mol give C4H8). `empiricalPlan` needs an empirical-formula word, or a
+  molecular-formula word with a molar mass. Before this, "40% C, 6.7% H and 53.3% O" was answered as
+  a comparison of the three elements.
+- **Stoichiometry and the limiting reagent.** The balancer drops lowercase words but keeps numbers,
+  so "4 g of H2 in 2H2 + O2 -> 2H2O" was balanced as nonsense with a species "H2 2H2".
+  `EquationBalancer.span` now cuts the equation out of the sentence: from the arrow outwards,
+  species and "+" alternate, and the first word that breaks the pattern ends that side.
+  `stoichiometryPlan` runs before the balance branch and claims a sentence only when an amount (g or
+  mol) is tied to one of its species. The species is written or named in the next three words after
+  the amount ("16 g of methane"). A species named without an amount is the target.
+  `ai/data/Stoichiometry` turns each amount into moles and divides by its coefficient; the smallest
+  over the given reactants is how far the reaction runs. With two reactants given, that one is the
+  limiting reagent, and the answer gives the products and what is left of the other. Without an
+  equation ("CO2 from 10 g of CH4") the question is still declined: the app cannot know the
+  reaction.
+
+`corpus/calculators.tsv` holds 40 rows, 21 from stage 1 and 19 from stage 2; each failed before its
+stage. `CalculatorMathTest` checks the math on both platforms. One gap remains: "how many moles of
+O2" leads with grams, and the moles follow in brackets.
 
 **Facts read off the data** (roadmap 2.7). `ai/data/DataFacts` ranks ten free fields and keeps
 each field's top and bottom: twenty facts such as "Osmium has the highest density of the 99 elements

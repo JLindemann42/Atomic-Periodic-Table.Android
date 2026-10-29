@@ -741,6 +741,19 @@
     <string name="ai_ion_anion">Un anión coloca sus electrones extra en los siguientes lugares del orden de llenado.</string>
     <string name="ai_ion_isoelectronic">Es la misma configuración que la del %1$s.</string>
     <string name="ai_steps_ion">Parte del átomo neutro y quita o añade electrones:</string>
+    <string name="ai_composition_element">%1$s representa **%2$s** de la masa de %3$s.</string>
+    <string name="ai_empirical_result">La fórmula empírica es **%1$s**.</string>
+    <string name="ai_empirical_reduced">La fórmula empírica de %1$s es **%2$s**: sus subíndices comparten un factor de %3$d.</string>
+    <string name="ai_empirical_same">%1$s ya está en su proporción entera más simple, así que es su propia fórmula empírica.</string>
+    <string name="ai_empirical_molecular">Con una masa molar de %1$s g/mol, la fórmula molecular es **%2$s**, %3$d × %4$s.</string>
+    <string name="ai_steps_empirical">Cada masa en moles y luego cada una dividida entre la menor:</string>
+    <string name="ai_stoich_makes">En %1$s, %2$s producen **%3$s g de %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_needs">En %1$s, %2$s necesitan **%3$s g de %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_matches">En %1$s, %2$s corresponden a **%3$s g de %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_limiting">En %1$s, **%2$s** es el reactivo limitante: se agota primero.</string>
+    <string name="ai_stoich_product">Se forman **%1$s g de %2$s** (%3$s mol).</string>
+    <string name="ai_stoich_excess">Sobran %1$s g de %2$s.</string>
+    <string name="ai_steps_stoich">Cada cantidad en moles y luego a través de los coeficientes:</string>
     <string name="ai_card_heat_map_title">%1$s en la tabla</string>
 
     <!-- Equation Balancer tool -->
