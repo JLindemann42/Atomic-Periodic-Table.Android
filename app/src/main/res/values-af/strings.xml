@@ -1317,6 +1317,10 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
     <string name="ai_study_start">Tyd om te hersien: **%1$d vrae** om te oefen. Tik op \'n antwoord, of sê stop om te eindig.</string>
     <string name="ai_study_none">Daar is niks om nou te hersien nie. Vasvravrae wat jy mis, kom hierheen terug wanneer dit tyd is om hulle te oefen.</string>
     <string name="ai_study_locked">Die studieafrigter is deel van PRO: dit onthou die vasvravrae wat jy mis en bring elkeen terug net voordat jy dit sou vergeet.</string>
+    <string name="ai_fact_data_highest">**%1$s** het die hoogste %2$s van die %3$d elemente met \'n aangetekende waarde: %4$s.</string>
+    <string name="ai_fact_data_lowest">**%1$s** het die laagste %2$s van die %3$d elemente met \'n aangetekende waarde: %4$s.</string>
+    <string name="ai_fact_data_rank_high">**%1$s** is nommer %2$d uit %3$d elemente vir die hoogste %4$s: %5$s.</string>
+    <string name="ai_fact_data_rank_low">**%1$s** is nommer %2$d uit %3$d elemente vir die laagste %4$s: %5$s.</string>
     <string name="ai_card_heat_map_title">%1$s oor die tabel</string>
 
     <!-- Equation Balancer tool -->

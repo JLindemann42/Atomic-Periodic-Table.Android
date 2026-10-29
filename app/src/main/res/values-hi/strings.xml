@@ -1309,6 +1309,10 @@
     <string name="ai_study_start">दोहराने का समय: **%1$d प्रश्न** अभ्यास के लिए तैयार हैं। किसी उत्तर पर टैप करें, या रोकने के लिए बस कहें।</string>
     <string name="ai_study_none">अभी दोहराने के लिए कुछ नहीं है। प्रश्नोत्तरी के जो प्रश्न आप चूकते हैं, वे अभ्यास का समय आने पर यहाँ लौटते हैं।</string>
     <string name="ai_study_locked">अध्ययन कोच PRO का हिस्सा है: यह आपके चूके हुए प्रश्नोत्तरी प्रश्न याद रखता है और हर एक को आपके भूलने से ठीक पहले वापस लाता है।</string>
+    <string name="ai_fact_data_highest">दर्ज मान वाले %3$d तत्वों में से **%1$s** में %2$s सबसे अधिक है: %4$s।</string>
+    <string name="ai_fact_data_lowest">दर्ज मान वाले %3$d तत्वों में से **%1$s** में %2$s सबसे कम है: %4$s।</string>
+    <string name="ai_fact_data_rank_high">सबसे अधिक %4$s में **%1$s** %3$d तत्वों में %2$d वें स्थान पर है: %5$s।</string>
+    <string name="ai_fact_data_rank_low">सबसे कम %4$s में **%1$s** %3$d तत्वों में %2$d वें स्थान पर है: %5$s।</string>
     <string name="ai_card_heat_map_title">सारणी में %1$s</string>
 
     <!-- Equation Balancer tool -->

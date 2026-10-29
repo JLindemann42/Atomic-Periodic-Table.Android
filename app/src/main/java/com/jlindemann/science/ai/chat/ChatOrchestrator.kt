@@ -541,9 +541,18 @@ class ChatOrchestrator(
      * English sentence a Swedish reader should not get.
      */
     private fun fact(strings: StringProvider): String? {
-        val facts = strings.array(R.array.ai_facts)
-        return if (facts.isEmpty()) null else facts[random.nextInt(facts.size)]
+        // The shipped facts and the ones read off the data (roadmap 2.7), drawn from together.
+        val shipped = strings.array(R.array.ai_facts)
+        val derived = dataFacts.extremes()
+        val total = shipped.size + derived.size
+        if (total == 0) return null
+        val pick = random.nextInt(total)
+        return if (pick < shipped.size) shipped[pick]
+        else dataFacts.render(derived[pick - shipped.size], strings, retrieval.localized(state.activeLanguage))
     }
+
+    /** Facts read off the data (roadmap 2.7), built once per conversation. */
+    private val dataFacts by lazy { com.jlindemann.science.ai.data.DataFacts(store) }
 
     /**
      * The honest failure. Still carries the suggestion chips, so a decline is a dead end for one

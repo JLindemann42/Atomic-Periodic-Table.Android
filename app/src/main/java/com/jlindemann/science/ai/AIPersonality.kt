@@ -162,6 +162,38 @@ object AIPersonality {
     }
 
     /**
+     * The Science Daily fact (roadmap 2.7): on even days one read off the data, which runs through
+     * every field's top and bottom in turn, and on odd days one of the shipped facts.
+     */
+    fun getDailyFact(context: Context, language: String): String {
+        val day = java.util.Calendar.getInstance().get(java.util.Calendar.DAY_OF_YEAR)
+        if (day % 2 == 0) withDataFacts(context, language) { facts, render -> facts.forDay(day / 2)?.let(render) }?.let { return it }
+        return getRandomFact(context, language)
+    }
+
+    /** Where [elementKey] stands out in the data, for Element of the Day; null when it does not. */
+    fun getElementFact(context: Context, language: String, elementKey: String): String? =
+        withDataFacts(context, language) { facts, render -> facts.forElement(elementKey)?.let(render) }
+
+    /** Plain text: a widget does not render the chat's Markdown. */
+    private fun <T> withDataFacts(
+        context: Context,
+        language: String,
+        pick: (com.jlindemann.science.ai.data.DataFacts, (com.jlindemann.science.ai.data.DataFact) -> String) -> T?
+    ): T? = try {
+        val source = com.jlindemann.science.ai.data.AssetElementSource(context.assets)
+        val store = com.jlindemann.science.ai.data.KnowledgeStore.get(source)
+        if (store == null) null else {
+            val facts = com.jlindemann.science.ai.data.DataFacts(store)
+            val strings = com.jlindemann.science.ai.core.AndroidStrings(getLocalizedContext(context, language), language)
+            val names = com.jlindemann.science.ai.data.KnowledgeStore.overlay(source, language)
+            pick(facts) { fact -> facts.render(fact, strings, names).replace("**", "") }
+        }
+    } catch (e: Exception) {
+        null
+    }
+
+    /**
      * The chips offered under an empty or idle chat.
      *
      * Read from `<string-array>` resources rather than written here, so all twelve shipped

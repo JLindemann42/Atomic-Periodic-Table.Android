@@ -40,7 +40,7 @@ class ScienceDailyWidget : AppWidgetProvider() {
 
         // Get a random fact
         val language = ElementDataLoader.getAppLanguage(context)
-        val fact = AIPersonality.getRandomFact(context, language)
+        val fact = AIPersonality.getDailyFact(context, language)
 
         // The fact sits in a weighted row, so anything taller than the widget would be
         // clipped mid-word. Size the text to the space we actually have and trim the

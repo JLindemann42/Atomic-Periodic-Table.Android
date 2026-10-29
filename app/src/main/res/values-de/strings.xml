@@ -1249,6 +1249,10 @@
     <string name="ai_study_start">Zeit zum Wiederholen: **%1$d Fragen** sind fällig. Tippe auf eine Antwort oder sag Stopp, um zu beenden.</string>
     <string name="ai_study_none">Gerade ist nichts zum Wiederholen fällig. Quizfragen, die du verpasst, kommen hierher zurück, wenn es Zeit zum Üben ist.</string>
     <string name="ai_study_locked">Der Lerncoach gehört zu PRO: Er merkt sich die Quizfragen, die du verpasst, und bringt jede kurz bevor du sie vergessen würdest zurück.</string>
+    <string name="ai_fact_data_highest">**%1$s** hat den höchsten Wert für %2$s unter den %3$d Elementen mit einem erfassten Wert: %4$s.</string>
+    <string name="ai_fact_data_lowest">**%1$s** hat den niedrigsten Wert für %2$s unter den %3$d Elementen mit einem erfassten Wert: %4$s.</string>
+    <string name="ai_fact_data_rank_high">**%1$s** liegt beim höchsten Wert für %4$s auf Platz %2$d von %3$d Elementen: %5$s.</string>
+    <string name="ai_fact_data_rank_low">**%1$s** liegt beim niedrigsten Wert für %4$s auf Platz %2$d von %3$d Elementen: %5$s.</string>
     <string name="ai_card_heat_map_title">%1$s im Periodensystem</string>
 
     <!-- Equation Balancer tool -->

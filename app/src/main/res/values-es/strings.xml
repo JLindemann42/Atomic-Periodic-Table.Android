@@ -726,6 +726,10 @@
     <string name="ai_study_start">Hora de repasar: **%1$d preguntas** pendientes. Toca una respuesta o di parar para terminar.</string>
     <string name="ai_study_none">No hay nada que repasar ahora. Las preguntas de quiz que fallas vuelven aquí cuando toca practicarlas.</string>
     <string name="ai_study_locked">El entrenador de estudio es parte de PRO: recuerda las preguntas de quiz que fallas y trae cada una justo antes de que la olvides.</string>
+    <string name="ai_fact_data_highest">**%1$s** tiene el valor más alto de %2$s de los %3$d elementos con un valor registrado: %4$s.</string>
+    <string name="ai_fact_data_lowest">**%1$s** tiene el valor más bajo de %2$s de los %3$d elementos con un valor registrado: %4$s.</string>
+    <string name="ai_fact_data_rank_high">**%1$s** ocupa el puesto %2$d de %3$d elementos en valor más alto de %4$s: %5$s.</string>
+    <string name="ai_fact_data_rank_low">**%1$s** ocupa el puesto %2$d de %3$d elementos en valor más bajo de %4$s: %5$s.</string>
     <string name="ai_card_heat_map_title">%1$s en la tabla</string>
 
     <!-- Equation Balancer tool -->

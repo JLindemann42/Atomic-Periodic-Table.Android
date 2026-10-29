@@ -1319,6 +1319,10 @@ Condividono comportamenti chimici simili grazie ai loro elettroni di valenza!</s
     <string name="ai_study_start">Ora di ripassare: **%1$d domande** da rivedere. Tocca una risposta, oppure di\' basta per finire.</string>
     <string name="ai_study_none">Al momento non c\'è niente da ripassare. Le domande dei quiz che sbagli tornano qui quando è il momento di esercitarti.</string>
     <string name="ai_study_locked">Il coach di studio fa parte di PRO: ricorda le domande dei quiz che sbagli e riporta ognuna poco prima che tu la dimentichi.</string>
+    <string name="ai_fact_data_highest">**%1$s** ha il valore più alto di %2$s tra i %3$d elementi con un valore registrato: %4$s.</string>
+    <string name="ai_fact_data_lowest">**%1$s** ha il valore più basso di %2$s tra i %3$d elementi con un valore registrato: %4$s.</string>
+    <string name="ai_fact_data_rank_high">**%1$s** è al %2$d° posto su %3$d elementi per il valore più alto di %4$s: %5$s.</string>
+    <string name="ai_fact_data_rank_low">**%1$s** è al %2$d° posto su %3$d elementi per il valore più basso di %4$s: %5$s.</string>
     <string name="ai_card_heat_map_title">%1$s nella tavola</string>
 
     <!-- Equation Balancer tool -->

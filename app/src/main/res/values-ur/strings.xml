@@ -713,6 +713,10 @@
     <string name="ai_study_start">دہرائی کا وقت: **%1$d سوالات** مشق کے لیے تیار ہیں۔ کسی جواب پر ٹیپ کریں، یا ختم کرنے کے لیے بس کہیں۔</string>
     <string name="ai_study_none">ابھی دہرانے کے لیے کچھ نہیں ہے۔ کوئز کے جو سوال آپ سے چھوٹ جاتے ہیں وہ مشق کا وقت آنے پر یہاں لوٹتے ہیں۔</string>
     <string name="ai_study_locked">مطالعہ کوچ PRO کا حصہ ہے: یہ آپ سے چھوٹے ہوئے کوئز سوالات یاد رکھتا ہے اور ہر ایک کو آپ کے بھولنے سے ذرا پہلے واپس لاتا ہے۔</string>
+    <string name="ai_fact_data_highest">درج شدہ قدر والے %3$d عناصر میں سے **%1$s** میں %2$s سب سے زیادہ ہے: %4$s۔</string>
+    <string name="ai_fact_data_lowest">درج شدہ قدر والے %3$d عناصر میں سے **%1$s** میں %2$s سب سے کم ہے: %4$s۔</string>
+    <string name="ai_fact_data_rank_high">سب سے زیادہ %4$s میں **%1$s** %3$d عناصر میں %2$d ویں نمبر پر ہے: %5$s۔</string>
+    <string name="ai_fact_data_rank_low">سب سے کم %4$s میں **%1$s** %3$d عناصر میں %2$d ویں نمبر پر ہے: %5$s۔</string>
     <string name="ai_card_heat_map_title">جدول میں %1$s</string>
 
     <!-- Equation Balancer tool -->

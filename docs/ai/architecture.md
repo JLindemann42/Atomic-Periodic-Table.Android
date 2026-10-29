@@ -244,6 +244,27 @@ chips fill the remaining places, less any that would repeat the question ("Atomi
 under the atomic mass of gold). `FollowUpsTest` asks each locale's own seed questions and then
 every chip they produce, and fails if any is declined.
 
+**Facts read off the data** (roadmap 2.7). `ai/data/DataFacts` ranks ten free fields and keeps
+each field's top and bottom: twenty facts such as "Osmium has the highest density of the 99 elements
+with a recorded value: 22.59 (g/cm^3)". The fields are density, melting and boiling points,
+electronegativity, atomic radius, ionization energy, thermal conductivity, specific heat, and
+fusion and vaporization heat. Atomic mass is left out, since it follows atomic number.
+- **Up to fermium.** Only elements up to fermium count. Past it most values are predictions; with
+  them, seaborgium's predicted 35 g/cm³ was the densest element.
+- **Ties.** On a tie at either end the lighter element wins: caesium and francium share the lowest
+  electronegativity, and francium's is an estimate.
+- **Per element.** `forElement` gives an element's place when it is within three of either end.
+  `forDay` cycles through the extremes.
+
+Where the facts appear:
+- **Chat:** a fun fact now draws from the ten shipped facts and the twenty data facts together.
+- **Science Daily widget:** a data fact on even days (`AIPersonality.getDailyFact`).
+- **Element of the Day widget:** the element's place leads its description when it has one
+  (`getElementFact`).
+
+The widgets show plain text, so the Markdown bold is stripped there. The `ai_fact_data_*`
+templates in German, Hindi and Urdu avoid gender agreement with the field name.
+
 **The study coach** (roadmap 2.6, PRO). The coach schedules the quiz questions a user gets wrong and
 brings each one back just before it would be forgotten. The cards, the scheduler and the synced
 field are defined in the shared data's `sync/study.md`, before either app's code.

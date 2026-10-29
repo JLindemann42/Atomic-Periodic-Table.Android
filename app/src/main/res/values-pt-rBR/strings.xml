@@ -1323,6 +1323,10 @@ Eles compartilham comportamentos químicos semelhantes devido aos seus elétrons
     <string name="ai_study_start">Hora de revisar: **%1$d perguntas** para praticar. Toque numa resposta, ou diga parar para terminar.</string>
     <string name="ai_study_none">Nada para revisar agora. As perguntas de quiz que você erra voltam aqui quando chega a hora de praticá-las.</string>
     <string name="ai_study_locked">O treinador de estudo faz parte do PRO: ele lembra as perguntas de quiz que você erra e traz cada uma de volta pouco antes de você esquecer.</string>
+    <string name="ai_fact_data_highest">**%1$s** tem o maior valor de %2$s entre os %3$d elementos com um valor registrado: %4$s.</string>
+    <string name="ai_fact_data_lowest">**%1$s** tem o menor valor de %2$s entre os %3$d elementos com um valor registrado: %4$s.</string>
+    <string name="ai_fact_data_rank_high">**%1$s** está em %2$dº de %3$d elementos no maior valor de %4$s: %5$s.</string>
+    <string name="ai_fact_data_rank_low">**%1$s** está em %2$dº de %3$d elementos no menor valor de %4$s: %5$s.</string>
     <string name="ai_card_heat_map_title">%1$s na tabela</string>
 
     <!-- Equation Balancer tool -->

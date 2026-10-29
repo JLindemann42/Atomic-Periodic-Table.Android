@@ -1251,6 +1251,10 @@
     <string name="ai_study_start">Dags att repetera: **%1$d frågor** som ska övas nu. Tryck på ett svar, eller säg stopp för att avsluta.</string>
     <string name="ai_study_none">Inget behöver repeteras just nu. Quizfrågor du missar kommer tillbaka hit när det är dags att öva på dem.</string>
     <string name="ai_study_locked">Studiecoachen ingår i PRO: den minns quizfrågorna du missar och tar tillbaka var och en precis innan du skulle glömma den.</string>
+    <string name="ai_fact_data_highest">**%1$s** har högst %2$s av de %3$d grundämnen som har ett uppmätt värde: %4$s.</string>
+    <string name="ai_fact_data_lowest">**%1$s** har lägst %2$s av de %3$d grundämnen som har ett uppmätt värde: %4$s.</string>
+    <string name="ai_fact_data_rank_high">**%1$s** ligger på plats %2$d av %3$d grundämnen för högst %4$s: %5$s.</string>
+    <string name="ai_fact_data_rank_low">**%1$s** ligger på plats %2$d av %3$d grundämnen för lägst %4$s: %5$s.</string>
     <string name="ai_card_heat_map_title">%1$s i hela systemet</string>
 
     <!-- Equation Balancer tool -->

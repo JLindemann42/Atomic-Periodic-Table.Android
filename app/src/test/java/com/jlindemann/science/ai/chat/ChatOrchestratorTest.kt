@@ -87,18 +87,19 @@ class ChatOrchestratorTest {
 
     // ---- Facts -------------------------------------------------------------------------------
 
-    @Test fun aFactRequestGetsAShippedFact() {
+    /** One of the ten shipped facts, or one read off the data (roadmap 2.7). */
+    @Test fun aFactRequestGetsAFact() {
         val facts = ChatFixture.strings().array(R.array.ai_facts)
         for (message in listOf("tell me a fun fact", "did you know anything interesting")) {
             val reply = chat(seed = 7).ask(message)
             assertEquals(message, ReplySource.PERSONALITY, reply.source)
-            assertTrue(reply.text, reply.text in facts)
+            assertTrue(reply.text, reply.text in facts || reply.text.contains("elements with a recorded value"))
         }
     }
 
     @Test fun aSwedishFactRequestIsAnsweredInSwedish() {
         val text = chat("sv", 3).ask("visste du nagot intressant").text
-        assertTrue(text, text in ChatFixture.strings("sv").array(R.array.ai_facts))
+        assertTrue(text, text in ChatFixture.strings("sv").array(R.array.ai_facts) || text.contains("grundämnen som har ett uppmätt värde"))
         assertFalse(text, text in ChatFixture.strings("en").array(R.array.ai_facts))
     }
 
