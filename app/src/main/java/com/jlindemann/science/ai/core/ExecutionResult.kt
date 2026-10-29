@@ -283,6 +283,21 @@ sealed class ExecutionResult {
         enum class Mode { REMAINING, ELAPSED, HALF_LIVES, STABLE, NO_HALF_LIFE }
     }
 
+    /**
+     * One field across a set of elements, in atomic-number order (roadmap 2.3).
+     *
+     * @property points the elements with a value, in atomic-number order - the order a trend is read in
+     * @property missing elements in the set with no value for the field, so the answer can say so
+     * @property wholeTable true when no subset was named: the answer is a map of the table, not a line
+     */
+    data class Trend(
+        val fieldId: String,
+        val points: List<ValuedElement>,
+        val missing: Int,
+        val wholeTable: Boolean,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
     /** A row from one of the app's tables. */
     data class Dataset(
         val row: DatasetRow,

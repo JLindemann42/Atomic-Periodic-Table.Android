@@ -1721,6 +1721,43 @@ object Lexicon {
     )
 
     /**
+     * Asking how a field runs across a set of elements (roadmap 2.3): "across period 3", "down group
+     * 1", "the trend in". Folded, like every vocabulary here.
+     */
+    val TREND_WORDS = listOf(
+        "trend", "trends", "across", "down group", "down the group", "down a group", "vary", "varies",
+        "variation", "change across", "change down", "changes across", "changes down",
+        "trenden", "genom perioden", "over perioden", "nedat i gruppen", "varierar", "forandras",
+        "verlauf", "entlang", "uber die periode", "in der gruppe nach unten", "variiert", "andert sich",
+        "tendance", "evolution", "a travers", "le long de", "en descendant", "varie",
+        "tendencia", "a lo largo", "a traves", "al bajar", "evolucion",
+        "tendenza", "andamento", "lungo il", "lungo la", "attraverso", "scendendo",
+        "ao longo", "atraves", "descendo", "evolucao",
+        "tendens", "neiging", "oor die periode", "deur die periode", "af in die groep", "wissel", "verander",
+        "takbo", "pababa sa grupo", "nagbabago",
+        "प्रवृत्ति", "रुझान", "बदलता", "बदलती",
+        "رجحان", "رحجان", "تبدیلی",
+        "趋势", "变化", "规律"
+    )
+
+    /** Asking for a field over the whole table at once: a heat map (roadmap 2.3). Folded. */
+    val HEATMAP_WORDS = listOf(
+        "heat map", "heatmap", "map of", "across the periodic table", "over the periodic table",
+        "on the periodic table", "across the table",
+        "varmekarta", "over periodiska systemet", "i periodiska systemet",
+        "warmekarte", "im periodensystem", "uber das periodensystem",
+        "carte de chaleur", "dans le tableau periodique", "sur le tableau periodique",
+        "mapa de calor", "en la tabla periodica",
+        "mappa di calore", "nella tavola periodica",
+        "na tabela periodica",
+        "hittekaart", "oor die periodieke tabel",
+        "sa periodic table", "sa buong periodic table",
+        "हीट मैप", "आवर्त सारणी में", "आवर्त सारणी पर",
+        "ہیٹ میپ", "دوری جدول میں",
+        "热图", "热力图", "周期表上"
+    )
+
+    /**
      * Asking for a calculation's working, step by step (roadmap 2.2): with the calculation, or as
      * "show the steps" after one. Folded, like every vocabulary here.
      */

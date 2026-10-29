@@ -85,6 +85,12 @@ enum class Intent {
     /** A row from one of the app's tables: a constant, equation, mineral, dictionary term. */
     DATASET_LOOKUP,
 
+    /**
+     * One field across a set of elements in atomic-number order (roadmap 2.3): "electronegativity
+     * across period 3", or with no subset the whole table, "a heat map of density".
+     */
+    TREND,
+
     /** Nothing recognised. The caller should fall back. */
     UNKNOWN;
 

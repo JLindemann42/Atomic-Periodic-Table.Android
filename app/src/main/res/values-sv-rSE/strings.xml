@@ -1231,6 +1231,16 @@
     <string name="ai_steps_balance_equations">Varje grundämne behöver lika många atomer till vänster som till höger:</string>
     <string name="ai_steps_balance_solve">De minsta heltal som uppfyller varje rad:</string>
 
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">**%1$s** för %2$d grundämnen, i atomnummerordning:</string>
+    <string name="ai_trend_table_header">**%1$s** i hela periodiska systemet: %2$d grundämnen har ett värde.</string>
+    <string name="ai_trend_rises">Den stiger överlag, från %1$s (%2$s) till %3$s (%4$s).</string>
+    <string name="ai_trend_falls">Den sjunker överlag, från %1$s (%2$s) till %3$s (%4$s).</string>
+    <string name="ai_trend_mixed">Den har ingen tydlig riktning: %1$s (%2$s) i ena änden, %3$s (%4$s) i den andra.</string>
+    <string name="ai_trend_extremes">Högst: %1$s (%2$s). Lägst: %3$s (%4$s).</string>
+    <string name="ai_card_trend_title">%1$s – trend</string>
+    <string name="ai_card_heat_map_title">%1$s i hela systemet</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Ekvationsbalanserare</string>
     <string name="bal">Balanserare</string>

@@ -706,6 +706,16 @@
     <string name="ai_steps_balance_equations">Cada elemento necesita tantos átomos a la izquierda como a la derecha:</string>
     <string name="ai_steps_balance_solve">Los menores números enteros que cumplen cada línea:</string>
 
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">**%1$s** en %2$d elementos, por número atómico:</string>
+    <string name="ai_trend_table_header">**%1$s** en toda la tabla periódica: %2$d elementos tienen un valor.</string>
+    <string name="ai_trend_rises">En conjunto aumenta, de %1$s (%2$s) a %3$s (%4$s).</string>
+    <string name="ai_trend_falls">En conjunto disminuye, de %1$s (%2$s) a %3$s (%4$s).</string>
+    <string name="ai_trend_mixed">Sin una dirección clara: %1$s (%2$s) en un extremo, %3$s (%4$s) en el otro.</string>
+    <string name="ai_trend_extremes">El más alto: %1$s (%2$s). El más bajo: %3$s (%4$s).</string>
+    <string name="ai_card_trend_title">Tendencia: %1$s</string>
+    <string name="ai_card_heat_map_title">%1$s en la tabla</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Equilibrador de ecuaciones</string>
     <string name="bal">Equilibrador</string>

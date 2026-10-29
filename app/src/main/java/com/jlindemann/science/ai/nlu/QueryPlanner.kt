@@ -749,6 +749,36 @@ class QueryPlanner(
             ))
         }
 
+        // ---- Trend: "electronegativity across period 3", "a heat map of density" (roadmap 2.3) ----
+        // One measurable field read across a set in atomic-number order, or across the whole table.
+        // A ranking, a statistic or a threshold asks something else of the same set, and a named
+        // element makes it a question about that element; `said` is used rather than the element
+        // matches, because "period 3" also reads as lithium's atomic number.
+        val asksForTheTable = mentionsAny(normalized, Lexicon.HEATMAP_WORDS)
+        if ((asksForTheTable || mentionsAny(normalized, Lexicon.TREND_WORDS)) && said?.elements.isNullOrEmpty() &&
+            operators.superlativeDescending == null && operators.topN == null &&
+            operators.aggregation == Aggregation.NONE && comparatorFilters.isEmpty()
+        ) {
+            // A position is not a trend: "periodic" resolves `period`, and "what are periodic trends"
+            // is a definition. Nor is a trend word alone a question about the whole table - that
+            // takes a set to read it across, or the words for a map.
+            val trendField = fieldMatches.firstOrNull()?.spec
+                ?.takeIf { it.kind == FieldKind.NUMERIC && it.id !in STRUCTURAL_FIELDS }?.id
+            if (trendField != null && (asksForTheTable || subsetFilters.isNotEmpty())) {
+                evidence.add("trend of $trendField")
+                propose(Branch.TREND, cues = listOf("trend"), plan = QueryPlan(
+                    intent = Intent.TREND,
+                    fieldIds = listOf(trendField),
+                    // A heat map is the whole table, whatever subset its words also name.
+                    filters = if (asksForTheTable) emptyList() else subsetFilters,
+                    targetUnit = targetUnit,
+                    confidence = 0.85,
+                    rawQuery = rawQuery,
+                    evidence = evidence
+                ))
+            }
+        }
+
         // "which elements have a recorded curie point" — a list question with a field and no
         // constraint at all. The set is everything with a value, which for the sparse fields is the
         // interesting part of the answer: the composer already reports how many of the pool were
@@ -1048,6 +1078,7 @@ class QueryPlanner(
      */
     private fun asksHowItWorks(normalized: String): Boolean {
         if (Lexicon.MECHANISM_FRAMES.none { normalized.contains(it) }) return false
+        if (readsAsATrend(normalized)) return false
         if (Lexicon.COMPARE.any { normalized.contains(it) }) return false
         if (Lexicon.COMPARATIVE_ADJECTIVES.keys.any {
                 com.jlindemann.science.ai.retrieval.TextMatching.containsWord(normalized, it)
@@ -1055,6 +1086,16 @@ class QueryPlanner(
         ) return false
         return true
     }
+
+    /**
+     * "How does atomic radius change down group 1" asks what the values do, which the data shows as
+     * a trend (roadmap 2.3); "why does it" asks for the mechanism, which is an explanation. A
+     * measurable field and a trend word, without a why, is the first.
+     */
+    private fun readsAsATrend(normalized: String): Boolean =
+        (mentionsAny(normalized, Lexicon.TREND_WORDS) || mentionsAny(normalized, Lexicon.HEATMAP_WORDS)) &&
+                Lexicon.WHY_WORDS.none { normalized.startsWith("$it ") || normalized.contains(" $it ") } &&
+                fields.resolveAll(normalized, limit = 1).any { it.spec.kind == FieldKind.NUMERIC }
 
     private fun explanationPlan(rawQuery: String, normalized: String, hasElement: Boolean): QueryPlan? {
         val isWhy = Lexicon.WHY_WORDS.any { normalized.startsWith("$it ") || normalized.contains(" $it ") }
@@ -2129,6 +2170,9 @@ class QueryPlanner(
                 .thenByDescending { it.bm25 }
 
         const val DEFAULT_LIST_LIMIT = 10
+
+        /** Fields that say where an element sits rather than what it is like: no trend runs along them. */
+        val STRUCTURAL_FIELDS = setOf("atomic_number", "period", "group_number", "protons", "electrons")
 
         /** The field that names each set, which a question about the set is not asking for. */
         val DIMENSION_FIELDS = mapOf(

@@ -1301,6 +1301,16 @@ I：不溶"</string>
     <string name="ai_steps_balance_equations">每种元素在左边和右边的原子数必须相等：</string>
     <string name="ai_steps_balance_solve">满足每一行的最小整数：</string>
 
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">%2$d 种元素的**%1$s**，按原子序数排列：</string>
+    <string name="ai_trend_table_header">整个周期表的**%1$s**：%2$d 种元素有数值。</string>
+    <string name="ai_trend_rises">总体上升，从 %1$s（%2$s）到 %3$s（%4$s）。</string>
+    <string name="ai_trend_falls">总体下降，从 %1$s（%2$s）到 %3$s（%4$s）。</string>
+    <string name="ai_trend_mixed">没有稳定的方向：一端是 %1$s（%2$s），另一端是 %3$s（%4$s）。</string>
+    <string name="ai_trend_extremes">最高：%1$s（%2$s）。最低：%3$s（%4$s）。</string>
+    <string name="ai_card_trend_title">%1$s趋势</string>
+    <string name="ai_card_heat_map_title">周期表中的%1$s</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">方程配平器</string>
     <string name="bal">配平器</string>

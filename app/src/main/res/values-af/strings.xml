@@ -1297,6 +1297,16 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
     <string name="ai_steps_balance_equations">Elke element het net soveel atome links as regs nodig:</string>
     <string name="ai_steps_balance_solve">Die kleinste heelgetalle wat aan elke reël voldoen:</string>
 
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">**%1$s** oor %2$d elemente, volgens atoomnommer:</string>
+    <string name="ai_trend_table_header">**%1$s** oor die hele periodieke tabel: %2$d elemente het ’n waarde.</string>
+    <string name="ai_trend_rises">Dit styg oor die algemeen, van %1$s (%2$s) tot %3$s (%4$s).</string>
+    <string name="ai_trend_falls">Dit daal oor die algemeen, van %1$s (%2$s) tot %3$s (%4$s).</string>
+    <string name="ai_trend_mixed">Dit het geen vaste rigting nie: %1$s (%2$s) aan die een kant, %3$s (%4$s) aan die ander.</string>
+    <string name="ai_trend_extremes">Hoogste: %1$s (%2$s). Laagste: %3$s (%4$s).</string>
+    <string name="ai_card_trend_title">Tendens: %1$s</string>
+    <string name="ai_card_heat_map_title">%1$s oor die tabel</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Vergelykingbalanseerder</string>
     <string name="bal">Balanseerder</string>

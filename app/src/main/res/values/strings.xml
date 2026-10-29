@@ -1547,6 +1547,16 @@
     <string name="ai_steps_balance_equations">Each element needs as many atoms on the left as on the right:</string>
     <string name="ai_steps_balance_solve">The smallest whole numbers that satisfy every line:</string>
 
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">**%1$s** across %2$d elements, in atomic-number order:</string>
+    <string name="ai_trend_table_header">**%1$s** across the periodic table: %2$d elements have a recorded value.</string>
+    <string name="ai_trend_rises">It rises overall, from %1$s (%2$s) to %3$s (%4$s).</string>
+    <string name="ai_trend_falls">It falls overall, from %1$s (%2$s) to %3$s (%4$s).</string>
+    <string name="ai_trend_mixed">It has no steady direction: %1$s (%2$s) at one end, %3$s (%4$s) at the other.</string>
+    <string name="ai_trend_extremes">Highest: %1$s (%2$s). Lowest: %3$s (%4$s).</string>
+    <string name="ai_card_trend_title">%1$s trend</string>
+    <string name="ai_card_heat_map_title">%1$s across the table</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Equation Balancer</string>
     <string name="bal">Balancer</string>

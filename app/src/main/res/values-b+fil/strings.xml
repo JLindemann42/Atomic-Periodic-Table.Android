@@ -1298,6 +1298,16 @@ Nagbabahagi sila ng mga katulad na gawi sa kemikal dahil sa kanilang mga valence
     <string name="ai_steps_balance_equations">Kailangan ng bawat elemento ng kasindaming atom sa kaliwa at sa kanan:</string>
     <string name="ai_steps_balance_solve">Ang pinakamaliliit na buong bilang na tumutugon sa bawat linya:</string>
 
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">**%1$s** sa %2$d elemento, ayon sa atomic number:</string>
+    <string name="ai_trend_table_header">**%1$s** sa buong periodic table: may halaga ang %2$d elemento.</string>
+    <string name="ai_trend_rises">Tumataas ito sa kabuuan, mula %1$s (%2$s) hanggang %3$s (%4$s).</string>
+    <string name="ai_trend_falls">Bumababa ito sa kabuuan, mula %1$s (%2$s) hanggang %3$s (%4$s).</string>
+    <string name="ai_trend_mixed">Walang tiyak na direksyon: %1$s (%2$s) sa isang dulo, %3$s (%4$s) sa kabila.</string>
+    <string name="ai_trend_extremes">Pinakamataas: %1$s (%2$s). Pinakamababa: %3$s (%4$s).</string>
+    <string name="ai_card_trend_title">Takbo ng %1$s</string>
+    <string name="ai_card_heat_map_title">%1$s sa buong table</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Equation Balancer</string>
     <string name="bal">Balancer</string>

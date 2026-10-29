@@ -125,6 +125,7 @@ class QueryExecutor(
         Intent.SUPERLATIVE, Intent.FILTER_LIST -> elementList(plan)
         Intent.AGGREGATE -> aggregate(plan)
         Intent.DATASET_LOOKUP -> dataset(plan)
+        Intent.TREND -> trend(plan)
         Intent.UNKNOWN -> null
     }
 
@@ -934,6 +935,32 @@ class QueryExecutor(
             source = displayName(element),
             deepLink = spec?.deepLink ?: com.jlindemann.science.ai.data.DeepLinkTarget.ELEMENT_INFO,
             args = mapOf("key" to element.key)
+        )
+    }
+
+    /**
+     * One field across the elements the filters leave, in atomic-number order (roadmap 2.3). Unlike a
+     * list, nothing is ranked or cut: a trend is read left to right, and a missing value is a gap in
+     * it rather than a reason to drop the rest.
+     */
+    private fun trend(plan: QueryPlan): ExecutionResult {
+        val fieldId = plan.fieldIds.firstOrNull() ?: return ExecutionResult.Empty(describeFilters(plan))
+        // The store's own order is not the table's; a trend is read in atomic-number order.
+        val pool = plan.candidates(store).sortedBy { it.atomicNumber }
+        val points = pool.mapNotNull { element ->
+            val quantity = store.quantityIn(element, fieldId, plan.targetUnit) ?: return@mapNotNull null
+            ValuedElement(element, quantity, render(element.value(fieldId), quantity, plan.targetUnit, element, fieldId))
+        }
+        if (points.isEmpty()) {
+            return if (pool.isEmpty()) ExecutionResult.Empty(describeFilters(plan))
+            else ExecutionResult.NoData(fieldId, null, store.coverageOf(fieldId))
+        }
+        return ExecutionResult.Trend(
+            fieldId = fieldId,
+            points = points,
+            missing = pool.size - points.size,
+            wholeTable = plan.filters.isEmpty(),
+            citations = listOf(points.first(), points.last()).distinct().map { citation(fieldId, it.element) }
         )
     }
 

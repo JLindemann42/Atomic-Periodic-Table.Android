@@ -82,6 +82,7 @@ class AnswerComposer(
             is ExecutionResult.Safety -> safety(result)
             is ExecutionResult.EmissionSpectrum -> emissionSpectrum(result)
             is ExecutionResult.Dataset -> dataset(result)
+            is ExecutionResult.Trend -> trend(result)
             is ExecutionResult.NoData -> noData(result)
             is ExecutionResult.Locked -> locked(result)
             is ExecutionResult.Empty -> strings.get(R.string.ai_filter_none)
@@ -379,6 +380,53 @@ class AnswerComposer(
         if (result.missing > 0 && result.fieldId != null) {
             builder.append("\n").append(strings.get(R.string.ai_aggregate_missing_note, result.missing))
         }
+        return builder.toString()
+    }
+
+    /**
+     * A field across a set of elements (roadmap 2.3): the values in atomic-number order, which way
+     * they run from the first to the last, and where they peak and bottom out. The card draws it; the
+     * text says what the drawing shows, so the answer stands without the picture.
+     *
+     * A whole-table trend is a map, not a line, and has no direction to state - the values are not
+     * read in one order - so it gives the span and the extremes only.
+     */
+    private fun trend(result: ExecutionResult.Trend): String {
+        val label = fieldLabel(result.fieldId)
+        val points = result.points
+        val highest = points.maxBy { it.quantity!!.mid }
+        val lowest = points.minBy { it.quantity!!.mid }
+        val builder = StringBuilder()
+        if (result.wholeTable) {
+            builder.append(strings.get(R.string.ai_trend_table_header, label, points.size))
+        } else {
+            builder.append(strings.get(R.string.ai_trend_header, label, points.size))
+            // Symbols rather than names: a period is up to eighteen entries, and the line is read
+            // as a sequence, the way the table itself is.
+            builder.append("\n").append(points.joinToString(" · ") { "${it.element.symbol} ${it.display}" })
+            val first = points.first()
+            val last = points.last()
+            val steps = points.zipWithNext { a, b -> b.quantity!!.mid.compareTo(a.quantity!!.mid) }.filter { it != 0 }
+            val rises = steps.count { it > 0 }
+            val direction = when {
+                steps.isEmpty() -> null
+                rises >= steps.size * STEADY_SHARE -> R.string.ai_trend_rises
+                steps.size - rises >= steps.size * STEADY_SHARE -> R.string.ai_trend_falls
+                else -> R.string.ai_trend_mixed
+            }
+            direction?.let {
+                builder.append("\n\n").append(
+                    strings.get(it, displayName(first.element.key), first.display, displayName(last.element.key), last.display)
+                )
+            }
+        }
+        builder.append("\n").append(
+            strings.get(
+                R.string.ai_trend_extremes,
+                displayName(highest.element.key), highest.display, displayName(lowest.element.key), lowest.display
+            )
+        )
+        if (result.missing > 0) builder.append("\n").append(strings.get(R.string.ai_aggregate_missing_note, result.missing))
         return builder.toString()
     }
 
@@ -994,6 +1042,13 @@ class AnswerComposer(
 
         /** Below this many distinct elements a formula breakdown just repeats the total. */
         const val MIN_PARTS_TO_BREAK_DOWN = 2
+
+        /**
+         * The share of steps that must go one way for a trend to be called rising or falling. Period
+         * 3's electronegativity rises at every step; ionization energy across a period dips twice and
+         * still rises, which is what a reader means by the trend.
+         */
+        const val STEADY_SHARE = 0.7
 
         /** Below this many decided fields, a tally of wins says less than the table above it. */
         const val MIN_FIELDS_TO_JUDGE = 2

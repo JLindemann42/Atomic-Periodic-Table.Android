@@ -242,6 +242,31 @@ chips fill the remaining places, less any that would repeat the question ("Atomi
 under the atomic mass of gold). `FollowUpsTest` asks each locale's own seed questions and then
 every chip they produce, and fails if any is declined.
 
+**Trends** (roadmap 2.3). "Electronegativity across period 3", "how does atomic radius change
+down group 1" and "a heat map of density" plan to `Intent.TREND`: one measurable field over the
+elements a period, group or series leaves, in atomic-number order, or over the whole table when the
+question asks for a map (`Lexicon.TREND_WORDS`, `HEATMAP_WORDS`, twelve languages). A ranking, a
+statistic, a threshold or a named element asks something else, and a position — period, group,
+atomic number — is not a trend. `ExecutionResult.Trend` keeps every element with a value, unranked
+and uncut, and counts the ones without. The answer lists the values by symbol, says whether they
+rise or fall overall from the first element to the last (70% of the steps one way; ionization energy
+across a period dips and still rises), and names the extremes; a map gives the span and the
+extremes only. A "how does … change" with a field and a trend word is no longer taken as a
+mechanism question; a "why" still is.
+
+Two cards draw it, the first about many elements: `TREND_LINE` (`TrendLineView`) and `HEAT_MAP`
+(`HeatMapView`, a mini periodic table with the f-block below it, cells shaded on a log scale when
+the field spans a decade, and an outline where an element has no value). The card's element is
+only its first point; its arguments carry the field and, for the line, the elements in order, and
+`TrendSeriesReducer` and `HeatMapReducer` read the values back out of the store. `trends.tsv` pins
+each trend's first value.
+
+Two defects turned up on the way. "Which element in period 3 has the highest electronegativity"
+read the 3 of "period 3" as "top 3" and listed three; `OperatorExtractor` no longer counts a number
+a period or group has read. And the data files fluorine and chlorine as reactive nonmetals, so "the
+halogens" start at bromine everywhere in the app; that, and the predicted densities that make
+seaborgium the densest element, are data matters left for their own change.
+
 **Steps** (roadmap 2.2). Every calculation answer shows a short working: the atom check for a
 balance, n = c·V for a solution, the number of half-lives for a decay, the composition of a molar
 mass. Asked for the steps — "step by step" with the question, or "show the steps" after it, which

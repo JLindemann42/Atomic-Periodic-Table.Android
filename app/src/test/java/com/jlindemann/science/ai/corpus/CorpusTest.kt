@@ -155,6 +155,9 @@ class CorpusTest {
     /** Sets read off an element: "what else is in that group", "the same block as iron". */
     @Test fun focusSets() = runFile("focus_sets")
 
+    /** A field across a period, group or series, or the whole table (roadmap 2.3). */
+    @Test fun trends() = runFile("trends")
+
     // ---- Runner ---------------------------------------------------------------------------------
 
     private fun runFile(name: String) {
@@ -315,6 +318,8 @@ class CorpusTest {
         is ExecutionResult.MoleConversion -> result.moles
         // The sum of the coefficients, so a row checks the balance and not only that one was tried
         // (roadmap 2.2): a declined equation carries no value, and fails a row that expects one.
+        // The first element's value, which pins the field and the order (roadmap 2.3).
+        is ExecutionResult.Trend -> result.points.firstOrNull()?.quantity?.value
         is ExecutionResult.BalancedEquation ->
             if (result.reason != null) null else (result.reactants + result.products).sumOf { it.coefficient }.toDouble()
         else -> null

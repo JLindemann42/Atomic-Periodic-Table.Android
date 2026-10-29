@@ -1303,6 +1303,16 @@ Eles compartilham comportamentos químicos semelhantes devido aos seus elétrons
     <string name="ai_steps_balance_equations">Cada elemento precisa de tantos átomos à esquerda quanto à direita:</string>
     <string name="ai_steps_balance_solve">Os menores números inteiros que satisfazem cada linha:</string>
 
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">**%1$s** em %2$d elementos, por número atômico:</string>
+    <string name="ai_trend_table_header">**%1$s** em toda a tabela periódica: %2$d elementos têm um valor.</string>
+    <string name="ai_trend_rises">No geral aumenta, de %1$s (%2$s) a %3$s (%4$s).</string>
+    <string name="ai_trend_falls">No geral diminui, de %1$s (%2$s) a %3$s (%4$s).</string>
+    <string name="ai_trend_mixed">Sem uma direção clara: %1$s (%2$s) numa ponta, %3$s (%4$s) na outra.</string>
+    <string name="ai_trend_extremes">O mais alto: %1$s (%2$s). O mais baixo: %3$s (%4$s).</string>
+    <string name="ai_card_trend_title">Tendência: %1$s</string>
+    <string name="ai_card_heat_map_title">%1$s na tabela</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Balanceador de equações</string>
     <string name="bal">Balanceador</string>

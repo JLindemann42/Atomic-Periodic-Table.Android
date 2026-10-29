@@ -693,6 +693,16 @@
     <string name="ai_steps_balance_equations">ہر عنصر کے بائیں طرف اتنے ہی ایٹم ہونے چاہییں جتنے دائیں طرف:</string>
     <string name="ai_steps_balance_solve">سب سے چھوٹے صحیح اعداد جو ہر سطر کو پورا کریں:</string>
 
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">%2$d عناصر میں **%1$s**، جوہری نمبر کی ترتیب سے:</string>
+    <string name="ai_trend_table_header">پوری دوری جدول میں **%1$s**: %2$d عناصر کی قدر درج ہے۔</string>
+    <string name="ai_trend_rises">مجموعی طور پر یہ بڑھتا ہے، %1$s (%2$s) سے %3$s (%4$s) تک۔</string>
+    <string name="ai_trend_falls">مجموعی طور پر یہ گھٹتا ہے، %1$s (%2$s) سے %3$s (%4$s) تک۔</string>
+    <string name="ai_trend_mixed">اس کی کوئی ایک سمت نہیں: ایک سرے پر %1$s (%2$s)، دوسرے پر %3$s (%4$s)۔</string>
+    <string name="ai_trend_extremes">سب سے زیادہ: %1$s (%2$s)۔ سب سے کم: %3$s (%4$s)۔</string>
+    <string name="ai_card_trend_title">%1$s کا رجحان</string>
+    <string name="ai_card_heat_map_title">جدول میں %1$s</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">مساوات متوازن کار</string>
     <string name="bal">توازن کار</string>

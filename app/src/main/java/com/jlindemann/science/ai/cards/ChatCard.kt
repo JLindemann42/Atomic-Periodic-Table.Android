@@ -3,7 +3,13 @@ package com.jlindemann.science.ai.cards
 /** The visual an answer can carry alongside its text. */
 enum class ChatCardKind {
     ELECTRON_SHELL, CRYSTAL_STRUCTURE, EMISSION_SPECTRUM, POISSON_BAND,
-    NFPA_DIAMOND, IONIZATION_SERIES, ISOTOPE_DECAY, ABUNDANCE
+    NFPA_DIAMOND, IONIZATION_SERIES, ISOTOPE_DECAY, ABUNDANCE,
+
+    /** A field across a period, group or series, as a line (roadmap 2.3). */
+    TREND_LINE,
+
+    /** A field over the whole table, as a mini periodic table shaded by value (roadmap 2.3). */
+    HEAT_MAP
 }
 
 data class ChatCard(

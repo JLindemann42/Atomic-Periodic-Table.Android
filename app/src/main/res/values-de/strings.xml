@@ -1229,6 +1229,16 @@
     <string name="ai_steps_balance_equations">Jedes Element braucht links so viele Atome wie rechts:</string>
     <string name="ai_steps_balance_solve">Die kleinsten ganzen Zahlen, die jede Zeile erfüllen:</string>
 
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">**%1$s** über %2$d Elemente, nach Ordnungszahl:</string>
+    <string name="ai_trend_table_header">**%1$s** im ganzen Periodensystem: %2$d Elemente haben einen Wert.</string>
+    <string name="ai_trend_rises">Insgesamt steigt der Wert, von %1$s (%2$s) bis %3$s (%4$s).</string>
+    <string name="ai_trend_falls">Insgesamt sinkt der Wert, von %1$s (%2$s) bis %3$s (%4$s).</string>
+    <string name="ai_trend_mixed">Ohne klare Richtung: %1$s (%2$s) am einen Ende, %3$s (%4$s) am anderen.</string>
+    <string name="ai_trend_extremes">Am höchsten: %1$s (%2$s). Am niedrigsten: %3$s (%4$s).</string>
+    <string name="ai_card_trend_title">Verlauf: %1$s</string>
+    <string name="ai_card_heat_map_title">%1$s im Periodensystem</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Gleichungsrechner</string>
     <string name="bal">Ausgleich</string>

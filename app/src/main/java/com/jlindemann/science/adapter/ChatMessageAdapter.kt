@@ -357,6 +357,8 @@ class ChatMessageAdapter(
         ChatCardKind.IONIZATION_SERIES -> R.layout.card_ai_ionization_series
         ChatCardKind.ISOTOPE_DECAY -> R.layout.card_ai_isotope_decay
         ChatCardKind.ABUNDANCE -> R.layout.card_ai_abundance
+        ChatCardKind.TREND_LINE -> R.layout.card_ai_trend_line
+        ChatCardKind.HEAT_MAP -> R.layout.card_ai_heat_map
     }
 
     private companion object {

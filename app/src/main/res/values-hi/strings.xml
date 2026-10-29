@@ -1289,6 +1289,16 @@
     <string name="ai_steps_balance_equations">हर तत्व के बाईं ओर उतने ही परमाणु चाहिए जितने दाईं ओर:</string>
     <string name="ai_steps_balance_solve">सबसे छोटी पूर्ण संख्याएँ जो हर पंक्ति को संतुष्ट करती हैं:</string>
 
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">%2$d तत्वों में **%1$s**, परमाणु क्रमांक के क्रम में:</string>
+    <string name="ai_trend_table_header">पूरी आवर्त सारणी में **%1$s**: %2$d तत्वों का मान दर्ज है।</string>
+    <string name="ai_trend_rises">कुल मिलाकर यह बढ़ता है, %1$s (%2$s) से %3$s (%4$s) तक।</string>
+    <string name="ai_trend_falls">कुल मिलाकर यह घटता है, %1$s (%2$s) से %3$s (%4$s) तक।</string>
+    <string name="ai_trend_mixed">इसकी कोई स्थिर दिशा नहीं है: एक सिरे पर %1$s (%2$s), दूसरे पर %3$s (%4$s)।</string>
+    <string name="ai_trend_extremes">सबसे अधिक: %1$s (%2$s)। सबसे कम: %3$s (%4$s)।</string>
+    <string name="ai_card_trend_title">%1$s की प्रवृत्ति</string>
+    <string name="ai_card_heat_map_title">सारणी में %1$s</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">समीकरण संतुलक</string>
     <string name="bal">संतुलक</string>

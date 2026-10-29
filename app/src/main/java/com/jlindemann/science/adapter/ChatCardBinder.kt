@@ -8,20 +8,24 @@ import com.jlindemann.science.ai.cards.AbundanceReducer
 import com.jlindemann.science.ai.cards.ChatCard
 import com.jlindemann.science.ai.cards.ChatCardKind
 import com.jlindemann.science.ai.cards.EmissionSpectrumUrl
+import com.jlindemann.science.ai.cards.HeatMapReducer
 import com.jlindemann.science.ai.cards.IonizationSeriesReducer
 import com.jlindemann.science.ai.cards.IsotopeSeriesReducer
 import com.jlindemann.science.ai.cards.NfpaLabeller
 import com.jlindemann.science.ai.cards.PoissonBandReducer
+import com.jlindemann.science.ai.cards.TrendSeriesReducer
 import com.jlindemann.science.ai.core.StringProvider
 import com.jlindemann.science.ai.data.ElementRecord
 import com.jlindemann.science.ai.data.KnowledgeStore
 import com.jlindemann.science.extensions.CrystalStructureView
 import com.jlindemann.science.views.AbundanceBarsView
 import com.jlindemann.science.views.ElectronShellView
+import com.jlindemann.science.views.HeatMapView
 import com.jlindemann.science.views.IonizationSeriesView
 import com.jlindemann.science.views.IsotopeDecayView
 import com.jlindemann.science.views.NfpaDiamondBinder
 import com.jlindemann.science.views.PoissonBandView
+import com.jlindemann.science.views.TrendLineView
 import com.squareup.picasso.Picasso
 
 /**
@@ -104,6 +108,18 @@ class ChatCardBinder(
                 val nfpa = element.nfpa?.takeIf { NfpaLabeller.hasAnyRating(it) } ?: return false
                 NfpaDiamondBinder.bindDiamond(cardView, NfpaLabeller.labels(nfpa, provider))
                 true
+            }
+            // The two cards about many elements (roadmap 2.3). The card's element is only its first
+            // point; what it draws is in its arguments, read back out of the store.
+            ChatCardKind.TREND_LINE -> {
+                val knowledge = store() ?: return false
+                val series = TrendSeriesReducer.of(card, knowledge) ?: return false
+                cardView.findViewById<TrendLineView>(R.id.ai_card_trend)?.setSeries(series) != null
+            }
+            ChatCardKind.HEAT_MAP -> {
+                val knowledge = store() ?: return false
+                val map = HeatMapReducer.of(card, knowledge) ?: return false
+                cardView.findViewById<HeatMapView>(R.id.ai_card_heat_map)?.setMap(map) != null
             }
             ChatCardKind.EMISSION_SPECTRUM -> {
                 val image = cardView.findViewById<ImageView>(R.id.ai_card_emission) ?: return false

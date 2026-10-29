@@ -226,6 +226,7 @@ class AiEngine(
         is ExecutionResult.Property -> listOf(result.element.key)
         is ExecutionResult.Comparison -> result.elements.map { it.key }
         is ExecutionResult.ElementList -> result.results.map { it.element.key }
+        is ExecutionResult.Trend -> result.points.map { it.element.key }
         is ExecutionResult.Aggregate -> result.contributors.map { it.element.key }
         is ExecutionResult.Isotopes -> listOf(result.element.key)
         is ExecutionResult.Safety -> listOf(result.element.key)

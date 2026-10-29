@@ -1299,6 +1299,16 @@ Condividono comportamenti chimici simili grazie ai loro elettroni di valenza!</s
     <string name="ai_steps_balance_equations">Ogni elemento deve avere tanti atomi a sinistra quanti a destra:</string>
     <string name="ai_steps_balance_solve">I più piccoli numeri interi che soddisfano ogni riga:</string>
 
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">**%1$s** su %2$d elementi, per numero atomico:</string>
+    <string name="ai_trend_table_header">**%1$s** in tutta la tavola periodica: %2$d elementi hanno un valore.</string>
+    <string name="ai_trend_rises">Nel complesso cresce, da %1$s (%2$s) a %3$s (%4$s).</string>
+    <string name="ai_trend_falls">Nel complesso diminuisce, da %1$s (%2$s) a %3$s (%4$s).</string>
+    <string name="ai_trend_mixed">Senza una direzione netta: %1$s (%2$s) a un estremo, %3$s (%4$s) all’altro.</string>
+    <string name="ai_trend_extremes">Il più alto: %1$s (%2$s). Il più basso: %3$s (%4$s).</string>
+    <string name="ai_card_trend_title">Andamento: %1$s</string>
+    <string name="ai_card_heat_map_title">%1$s nella tavola</string>
+
     <!-- Equation Balancer tool -->
     <string name="balancer_tool_title">Bilanciatore di equazioni</string>
     <string name="bal">Bilanciatore</string>
