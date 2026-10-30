@@ -44,6 +44,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class IsotopesActivityExperimental : BaseActivity(), IsotopeAdapter.OnElementClickListener {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.NUCLIDES
+
     private var elementList = ArrayList<Element>()
     var mAdapter = IsotopeAdapter(elementList, this, this)
     private var headerView: View? = null

@@ -50,6 +50,11 @@ class RetrievalService private constructor(
         )
     }
 
+    /** The questions a chat opened from each screen offers first (roadmap 2.9). */
+    val screenChips: com.jlindemann.science.ai.chat.ScreenChips by lazy {
+        com.jlindemann.science.ai.chat.ScreenChips.parse(source.text("screen_chips.tsv"))
+    }
+
     /** The entity resolver for a language, built on first use. */
     fun resolver(language: String): EntityResolver =
         resolvers.getOrPut(language) { EntityResolver(sharedAliases(), language) }

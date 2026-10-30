@@ -35,6 +35,9 @@ import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.UnifiedTitleBarController
 
 class IdealGasCalculatorActivity : BaseActivity() {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.IDEAL_GAS
+
 
     private lateinit var titleBar: UnifiedTitleBarController
     private lateinit var favoriteCalculationsAdapter: FavoriteIdealGasAdapter

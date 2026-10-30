@@ -155,6 +155,12 @@ class AiChatAgent(private val context: Context) {
         orchestrator?.let { lastSuggestions = it.suggestions() }
     }
 
+    /** Where the chat was opened: a screen from [com.jlindemann.science.ai.chat.Screens], and its element (roadmap 2.9). */
+    fun setOpenedFrom(screen: String?, element: String?) {
+        orchestrator?.openedFrom(screen, element)
+        orchestrator?.let { lastSuggestions = it.suggestions() }
+    }
+
     fun getSuggestedQuestions(): List<String> = lastSuggestions
 
     fun isHistoryEnabled(): Boolean = rateLimiter.isPro() || rateLimiter.isProPlus()

@@ -41,6 +41,9 @@ import org.json.JSONArray
 import java.io.IOException
 
 class CalculatorActivity : BaseActivity() {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.MOLAR_MASS
+
 
     private lateinit var titleBar: UnifiedTitleBarController
     private lateinit var includedElementsAdapter: IncludedElementsAdapter

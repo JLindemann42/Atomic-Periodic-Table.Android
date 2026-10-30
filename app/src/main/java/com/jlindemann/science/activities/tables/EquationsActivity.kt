@@ -37,6 +37,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class EquationsActivity : BaseActivity(), EquationsAdapter.OnEquationClickListener  {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.EQUATIONS
+
     private var equationList = ArrayList<Equation>()
     var mAdapter = EquationsAdapter(equationList, this, this)
 

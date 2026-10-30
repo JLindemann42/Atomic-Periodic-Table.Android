@@ -49,6 +49,9 @@ import com.jlindemann.science.utils.UnifiedTitleBarController
  * every language the app ships.
  */
 class EquationBalancerActivity : BaseActivity() {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.BALANCER
+
 
     private lateinit var titleBar: UnifiedTitleBarController
 

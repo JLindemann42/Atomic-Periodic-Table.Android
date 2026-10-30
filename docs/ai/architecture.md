@@ -244,6 +244,29 @@ chips fill the remaining places, less any that would repeat the question ("Atomi
 under the atomic mass of gold). `FollowUpsTest` asks each locale's own seed questions and then
 every chip they produce, and fails if any is declined.
 
+**Context from any screen** (roadmap 2.9). Before this, only the main screen and the element pages
+hosted the chat; an element page focused its element. Now every table and tool screen hosts it too,
+and the chat knows which screen it was opened from.
+- **Hosting.** `BaseActivity` attaches the chat button and the existing panel to any screen that
+  overrides `chatScreen`, without a layout change. Both go into the content frame. The panel's back
+  callback is registered after the screen's own, so while the panel is open, back closes it and
+  not the screen. Eighteen screens opt in: the eleven reference tables, the solubility and isotope
+  screens, and the tools. Several share a screen id (both balancers, the flashcards and the
+  Learning Games).
+- **Screen ids.** `Screens` (`ai/chat/ScreenChips.kt`) lists seventeen ids, such as `nuclides`,
+  `ideal_gas` and `balancer`. `AiChatPanelController` takes one as `screen`.
+  `ChatOrchestrator.openedFrom(screen, element)` records it, and focuses the element when the
+  screen has one.
+- **Opening chips.** `suggestions()` puts the screen's own questions first, then the general ones,
+  three in all. A new thread keeps them, since the screen has not changed. The chips are shared
+  data, `datasets/screen_chips.tsv`: two per screen in each language.
+- **The test.** `ScreenChipsTest` asks every chip in its language, after opening from its screen,
+  and fails on any decline. The first pass failed 54 of 408. Rewording rescued 20. The other 34
+  were dropped, so those screens fall back to the general chips in those languages. They mark real
+  gaps, mostly in Chinese, Urdu and Hindi: dataset lookups (electrode potentials, alloys, minerals,
+  constants) and the 2.8 calculators in Chinese ("0.01 M HCl的pH", where the unit runs into the
+  Chinese text).
+
 **More calculators, stage 1** (roadmap 2.8, PRO+). Three calculators join the ones from 2.2, with
 the same gate and the same "show steps" working:
 - **Ideal gas law.** `ai/data/GasLaw` solves PV = nRT for whichever of pressure, volume, amount and

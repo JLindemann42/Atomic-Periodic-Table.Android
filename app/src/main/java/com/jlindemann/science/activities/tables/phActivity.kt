@@ -27,6 +27,9 @@ import kotlin.collections.ArrayList
 
 
 class phActivity : BaseActivity()  {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.PH
+
     private lateinit var titleBar: UnifiedTitleBarController
 
     override fun onCreate(savedInstanceState: Bundle?) {

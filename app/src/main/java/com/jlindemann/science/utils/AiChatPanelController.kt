@@ -62,6 +62,8 @@ import java.util.UUID
  * @param scope the host's coroutine scope. The host still owns and cancels it.
  * @param contextElement supplies the element the screen is about, so an element page can ground
  *   answers in it. Returns null on screens with no element context.
+ * @param screen the screen the chat is opened from, one of
+ *   [com.jlindemann.science.ai.chat.Screens], whose questions it offers first (roadmap 2.9).
  * @param onPanelHidden lets the host re-evaluate its back-press interception.
  * @param onPanelOpened lets the host refresh anything of its own when the panel appears.
  */
@@ -70,6 +72,7 @@ class AiChatPanelController(
     private val panelRoot: View,
     private val scope: CoroutineScope,
     private val contextElement: () -> String? = { null },
+    private val screen: String? = null,
     private val onPanelHidden: () -> Unit = {},
     private val onPanelOpened: () -> Unit = {}
 ) {
@@ -181,7 +184,8 @@ class AiChatPanelController(
                 AnalyticsParam.DURATION_MS to agent.initDurationMs,
                 AnalyticsParam.ERROR to agent.initError
             )
-            contextElement()?.let { agent.setCurrentElement(it) }
+            if (screen != null) agent.setOpenedFrom(screen, contextElement())
+            else contextElement()?.let { agent.setCurrentElement(it) }
             updateMessageLimit()
             loadInitialConversation()
         }
@@ -259,7 +263,7 @@ class AiChatPanelController(
             AnalyticsEvent.AI_PANEL_OPEN,
             AnalyticsParam.HOST to host,
             AnalyticsParam.SOURCE to source,
-            AnalyticsParam.HAS_CONTEXT to (contextElement() != null)
+            AnalyticsParam.HAS_CONTEXT to (contextElement() != null || screen != null)
         )
         panelRoot.visibility = View.VISIBLE
         val behavior = BottomSheetBehavior.from(container)

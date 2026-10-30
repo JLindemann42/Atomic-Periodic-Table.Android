@@ -39,6 +39,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class EmissionActivity : BaseActivity(), EmissionAdapter.OnEmissionClickListener {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.EMISSION
+
     private var emiList = ArrayList<Element>()
     var mAdapter = EmissionAdapter(emiList, this, this)
 

@@ -45,6 +45,9 @@ import org.json.JSONObject
 import kotlin.math.roundToInt
 
 class LearningGamesActivity : BaseActivity() {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.GAMES
+
 
     private lateinit var questions: List<Question>
     private var currentQuestionIndex = 0

@@ -39,6 +39,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class PoissonActivity : BaseActivity(), PoissonAdapter.OnPoissonClickListener {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.POISSON
+
     companion object {
         /** The incompressible limit — the axis never shrinks below it, so 0.0-0.5 is the norm. */
         private const val AXIS_DEFAULT_MAX = 0.5f

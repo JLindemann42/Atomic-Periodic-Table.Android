@@ -30,6 +30,9 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 class ChemicalReactionsActivity : BaseActivity() {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.BALANCER
+
 
     private lateinit var titleBar: UnifiedTitleBarController
     private lateinit var includedElementsAdapter: IncludedElementsAdapter

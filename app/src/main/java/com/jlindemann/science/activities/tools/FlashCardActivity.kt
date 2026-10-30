@@ -56,6 +56,9 @@ import com.jlindemann.science.utils.UnifiedTitleBarController
 import org.w3c.dom.Text
 
 class FlashCardActivity : BaseActivity() {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.GAMES
+
 
     private lateinit var titleBar: UnifiedTitleBarController
     private lateinit var toggles: List<ToggleButton>

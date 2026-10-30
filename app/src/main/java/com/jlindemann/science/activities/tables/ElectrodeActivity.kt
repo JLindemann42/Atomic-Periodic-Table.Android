@@ -33,6 +33,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ElectrodeActivity : BaseActivity() {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.ELECTRODE
+
     private var seriesList = ArrayList<Series>()
     var mAdapter = ElectrodeAdapter(seriesList, this, this)
 

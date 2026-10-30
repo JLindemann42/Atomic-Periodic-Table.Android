@@ -33,6 +33,9 @@ import com.jlindemann.science.utils.EntitlementManager
 import com.jlindemann.science.preferences.ThemePreference
 
 class UnitConversionActivity : BaseActivity() {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.UNIT_CONVERTER
+
     private lateinit var titleBar: UnifiedTitleBarController
     private val unitCategories: Map<String, List<UnitDefinition>> = UnitCatalog.categories
 

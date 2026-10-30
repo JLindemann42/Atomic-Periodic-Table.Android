@@ -161,8 +161,29 @@ class ChatOrchestrator(
         state.focusElement = elementKey.lowercase()
     }
 
-    /** The chips to show before anything has been asked, or after a restored thread. */
-    fun suggestions(): List<String> = suggestions(stringsFor(state.activeLanguage), null)
+    /**
+     * The screen the chat was opened from (roadmap 2.9), one of [Screens]; null for the periodic
+     * table and the element pages. Not dialogue state: a new thread is still opened from there.
+     */
+    var screen: String? = null
+        private set
+
+    /** Where the chat was opened: the screen, and the element it is about when it has one (roadmap 2.9). */
+    fun openedFrom(screen: String?, elementKey: String? = null) {
+        this.screen = screen
+        focusOn(elementKey)
+    }
+
+    /**
+     * The chips to show before anything has been asked, or after a restored thread. Opened from a
+     * screen, its own questions come first (roadmap 2.9).
+     */
+    fun suggestions(): List<String> {
+        val strings = stringsFor(state.activeLanguage)
+        val general = suggestions(strings, null)
+        val fromScreen = screen?.let { retrieval.screenChips.forScreen(it, strings.language) }.orEmpty()
+        return (fromScreen + general).distinct().take(MAX_SUGGESTIONS)
+    }
 
     /** Start a new thread, keeping the language the user is writing in. */
     fun reset() {

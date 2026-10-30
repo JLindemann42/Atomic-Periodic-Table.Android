@@ -37,6 +37,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class ConstantsActivity : BaseActivity(), ConstantsAdapter.OnConstantsClickListener {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.CONSTANTS
+
     private var constantsList = ArrayList<Constants>()
     var mAdapter = ConstantsAdapter(constantsList, this, this)
 
