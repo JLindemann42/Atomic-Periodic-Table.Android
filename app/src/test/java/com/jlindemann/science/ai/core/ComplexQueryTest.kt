@@ -119,7 +119,9 @@ class ComplexQueryTest {
         val (_, result) = run("what else is in the same period as iron")
         val list = result as ExecutionResult.ElementList
         assertTrue(list.results.all { it.element.period == 4 })
-        assertEquals(18, list.matched)
+        // "Else" leaves out the element the set was read off (roadmap 1.7): seventeen, not iron.
+        assertEquals(17, list.matched)
+        assertTrue(list.results.none { it.element.key == "iron" })
     }
 
     // ---- Negation ------------------------------------------------------------------------------------

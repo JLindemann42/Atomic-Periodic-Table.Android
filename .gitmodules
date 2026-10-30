@@ -1,0 +1,4 @@
+[submodule "shared"]
+	path = shared
+	url = https://github.com/JLindemann42/Atomic-Shared-Data.git
+	branch = main

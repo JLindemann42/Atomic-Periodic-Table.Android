@@ -740,6 +740,7 @@
     <string name="protons">Prótons:</string>
     <string name="save_calculations">Salvar cálculos:</string>
     <string name="save_units">Salvar unidades:</string>
+    <string name="save_equations">Salvar equações:</string>
     <string name="search_for_element">Procurar elemento</string>
     <string name="share">Compartilhar</string>
     <string name="share_app">Compartilhar app</string>
@@ -1214,4 +1215,197 @@ Eles compartilham comportamentos químicos semelhantes devido aos seus elétrons
     <string name="question_valence_electrons">Quantos elétrons de valência tem %1$s?</string>
     <string name="quiz_loading">Preparando perguntas…</string>
     <string name="quiz_no_questions">Não foi possível criar perguntas para este jogo. Tente outro.</string>
+
+    <!-- Assistant: calculations, tools and suggestion chips -->
+    <string name="ai_unit_converted">**%1$s %2$s** são **%3$s %4$s**.</string>
+    <string name="ai_unit_bridge_note">Convertido com 1 eV = 96,485 kJ/mol — a mesma energia contada por partícula em vez de por mol.</string>
+    <string name="ai_equation_balanced">**%1$s → %2$s**</string>
+    <string name="ai_equation_check_header">Verificação de átomos</string>
+    <string name="ai_equation_tally_row">• **%1$s** — %2$d à esquerda, %3$d à direita</string>
+    <string name="ai_equation_one_sided">Essa equação não pode ser balanceada: um elemento aparece só de um lado, e nenhum coeficiente corrige isso.</string>
+    <string name="ai_equation_one_sided_named">Essa equação não pode ser balanceada: %1$s aparece só de um lado, e nenhum coeficiente corrige isso.</string>
+    <string name="ai_equation_underdetermined">Essa equação tem mais de um balanceamento independente — ela se lê como duas reações escritas como uma. Separe-as e eu balanceio cada uma.</string>
+    <string name="ai_equation_too_large">Essa equação exige coeficientes grandes demais para uma reação real. Confira as fórmulas.</string>
+    <string name="ai_equation_parse_failed">Não consegui ler isso como uma equação química. Tente um formato como Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_equation_no_solution">Essa equação não tem balanceamento com coeficientes inteiros positivos.</string>
+    <string name="ai_solution_generic_substance">a solução</string>
+    <string name="ai_solution_mass_needed">Você precisa de **%1$s g** de %2$s para %3$s mL de solução %4$s mol/L.</string>
+    <string name="ai_solution_molarity">A concentração de %2$s é **%1$s mol/L**.</string>
+    <string name="ai_solution_volume">Você precisa de **%1$s mL** a **%2$s mol/L**.</string>
+    <string name="ai_solution_moles">Isso é **%1$s mol** de %2$s.</string>
+    <string name="ai_dilution_result">Diluir **%1$s mol/L** a partir de **%2$s mL** dá **%3$s mol/L** em **%4$s mL**.</string>
+    <string name="ai_dilution_add_solvent">Adicione **%1$s mL** de solvente.</string>
+    <string name="ai_solution_working_header">Cálculo</string>
+    <string name="ai_solution_working_nvc">n = c × V → %1$s mol = %2$s mol/L × %3$s L</string>
+    <string name="ai_solution_working_mass">m = n × M → %1$s g = %2$s mol × %3$s g/mol</string>
+    <string name="ai_solution_working_c1v1">C₁V₁ = C₂V₂ → %1$s × %2$s = %3$s × %4$s</string>
+    <string name="ai_decay_stable">%1$s é estável — não decai, então nada se perde com o tempo.</string>
+    <string name="ai_decay_unlisted">O app não lista %1$s entre os isótopos desse elemento, então não tenho a meia-vida dele.</string>
+    <string name="ai_decay_no_half_life">%1$s está listado, mas sua meia-vida consta como \"%2$s\", então não consigo calcular o decaimento.</string>
+    <string name="ai_decay_effectively_none">Depois de %2$s %3$s, praticamente não resta nada de %1$s.</string>
+    <string name="ai_decay_elapsed">Ir de **%1$s g** para **%2$s g** de %3$s leva cerca de **%4$s %5$s**.</string>
+    <string name="ai_decay_remaining">Restam cerca de **%1$s %2$s** dos %3$s g originais de %4$s depois de %5$s %6$s.</string>
+    <string name="ai_decay_half_lives">Nesse tempo %1$s passa por **%2$s** meias-vidas, restando cerca de **%3$s%%** da amostra.</string>
+    <string name="ai_decay_working_header">Cálculo</string>
+    <string name="ai_decay_working_half_life">Meia-vida de %1$s: %2$s</string>
+    <string name="ai_decay_working_n">n = t / t½ = %1$s → 2⁻ⁿ = %2$s%%</string>
+    <string name="ai_feature_nuclide_table">O app inclui uma **tabela de nuclídeos** completa com os isótopos de todos os elementos, coloridos por tipo de decaimento (alfa, beta e assim por diante).</string>
+    <string name="ai_feature_emission_spectrum">Você pode ver o **espectro de emissão** de um elemento no painel de detalhes. Ele mostra o padrão de luz único daquele elemento.</string>
+    <string name="ai_feature_flashcards">O app tem vários **minijogos de flashcards** sobre símbolos, massas atômicas e classificações, com nível e XP para acompanhar.</string>
+    <string name="ai_feature_achievements">Acompanhe seu progresso com **conquistas** e estatísticas de uso na página do usuário.</string>
+    <string name="ai_feature_molar_mass">Há uma **calculadora de massa molar** integrada para o peso molecular de compostos complexos. Também posso fazer isso aqui — é só me dar uma fórmula.</string>
+    <string name="ai_feature_unit_converter">O app inclui um **conversor de unidades** para temperaturas e outras unidades científicas. Você também pode me perguntar, por exemplo \"converta 500 K para °C\".</string>
+    <string name="ai_feature_ideal_gas">Use a **calculadora de gás ideal** para obter pressão, volume, mols ou temperatura a partir de PV = nRT.</string>
+    <string name="ai_feature_reaction_balancer">O **balanceador de reações químicas** ajuda a balancear equações e salvar favoritas. Você também pode me pedir aqui — escreva algo como Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_feature_capabilities">Posso consultar e comparar propriedades dos elementos, balancear equações, calcular massas molares e concentrações, converter unidades e fazer cálculos de decaimento. Pergunte sobre um elemento, ou escreva uma fórmula ou equação.</string>
+    <string-array name="ai_suggest_element">
+        <item>Usos do %1$s</item>
+        <item>Massa atômica do %1$s</item>
+        <item>O %1$s é perigoso?</item>
+        <item>Onde o %1$s é encontrado?</item>
+        <item>Configuração eletrônica do %1$s</item>
+        <item>Isótopos do %1$s</item>
+    </string-array>
+    <string-array name="ai_suggest_trends">
+        <item>O que são tendências periódicas?</item>
+        <item>Tendência da eletronegatividade</item>
+        <item>Tendência do raio atômico</item>
+        <item>Energia de ionização</item>
+    </string-array>
+    <string-array name="ai_suggest_general">
+        <item>Conte-me uma curiosidade</item>
+        <item>Iniciar um quiz</item>
+        <item>Quais são os metais alcalinos?</item>
+        <item>Elemento mais pesado?</item>
+    </string-array>
+    <string-array name="ai_suggest_tools">
+        <item>Balanceie Fe + O2 -&gt; Fe2O3</item>
+        <item>Converta 500 K para °C</item>
+        <item>Quantos gramas de NaCl para 250 mL de 0,5 mol/L?</item>
+        <item>Quanto resta de 100 g de carbono-14 após 11460 anos?</item>
+    </string-array>
+
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%1$s de %2$s e %3$s</string>
+    <string name="ai_follow_highest">Qual elemento tem o maior valor de %1$s?</string>
+    <string name="ai_follow_lowest">Qual elemento tem o menor valor de %1$s?</string>
+    <string name="ai_follow_unit">%1$s de %2$s em %3$s</string>
+    <string name="ai_follow_count">Quantos são?</string>
+
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">Mostre os passos</string>
+    <string name="ai_steps_header">Passo a passo</string>
+    <string name="ai_steps_formula">A massa molar é a soma, para cada elemento, do número de átomos vezes sua massa atômica:</string>
+    <string name="ai_steps_moles_legend">m é a massa, M a massa molar, n a quantidade em mols, N o número de partículas e N_A a constante de Avogadro.</string>
+    <string name="ai_steps_solution_legend">n é a quantidade em mols, c a concentração, V o volume, m a massa e M a massa molar.</string>
+    <string name="ai_steps_decay_legend">t½ é a meia-vida, t o tempo decorrido, n o número de meias-vidas, e N₀ e N as quantidades antes e depois.</string>
+    <string name="ai_steps_balance_unknowns">Escreva um coeficiente desconhecido na frente de cada fórmula:</string>
+    <string name="ai_steps_balance_equations">Cada elemento precisa de tantos átomos à esquerda quanto à direita:</string>
+    <string name="ai_steps_balance_solve">Os menores números inteiros que satisfazem cada linha:</string>
+
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">**%1$s** em %2$d elementos, por número atômico:</string>
+    <string name="ai_trend_table_header">**%1$s** em toda a tabela periódica: %2$d elementos têm um valor.</string>
+    <string name="ai_trend_rises">No geral aumenta, de %1$s (%2$s) a %3$s (%4$s).</string>
+    <string name="ai_trend_falls">No geral diminui, de %1$s (%2$s) a %3$s (%4$s).</string>
+    <string name="ai_trend_mixed">Sem uma direção clara: %1$s (%2$s) numa ponta, %3$s (%4$s) na outra.</string>
+    <string name="ai_trend_extremes">O mais alto: %1$s (%2$s). O mais baixo: %3$s (%4$s).</string>
+    <string name="ai_card_trend_title">Tendência: %1$s</string>
+    <string name="ai_quiz_run_start_all">Um quiz de **%1$d perguntas** da tabela inteira. Toque numa resposta, ou diga parar para terminar.</string>
+    <string name="ai_quiz_run_start_scoped">Um quiz de **%1$d perguntas** sobre %2$s. Toque numa resposta, ou diga parar para terminar.</string>
+    <string name="ai_quiz_run_scope_count">%1$d elementos</string>
+    <string name="ai_quiz_run_question">**Pergunta %1$d de %2$d.** %3$s</string>
+    <string name="ai_quiz_run_right">✨ Certo! **+%1$d XP**.</string>
+    <string name="ai_quiz_run_wrong">Não exatamente: a resposta era **%1$s**.</string>
+    <string name="ai_quiz_run_done">Fim do quiz: **%1$d de %2$d** certas, **%3$d XP** ganhos.</string>
+    <string name="ai_quiz_run_stopped">Quiz interrompido: **%1$d de %2$d** certas, **%3$d XP** ganhos.</string>
+    <string name="ai_quiz_run_none">Não consegui criar perguntas sobre isso. Tente um grupo, um período, uma família de elementos ou um único elemento.</string>
+    <string name="ai_study_start">Hora de revisar: **%1$d perguntas** para praticar. Toque numa resposta, ou diga parar para terminar.</string>
+    <string name="ai_study_none">Nada para revisar agora. As perguntas de quiz que você erra voltam aqui quando chega a hora de praticá-las.</string>
+    <string name="ai_study_locked">O treinador de estudo faz parte do PRO: ele lembra as perguntas de quiz que você erra e traz cada uma de volta pouco antes de você esquecer.</string>
+    <string name="ai_fact_data_highest">**%1$s** tem o maior valor de %2$s entre os %3$d elementos com um valor registrado: %4$s.</string>
+    <string name="ai_fact_data_lowest">**%1$s** tem o menor valor de %2$s entre os %3$d elementos com um valor registrado: %4$s.</string>
+    <string name="ai_fact_data_rank_high">**%1$s** está em %2$dº de %3$d elementos no maior valor de %4$s: %5$s.</string>
+    <string name="ai_fact_data_rank_low">**%1$s** está em %2$dº de %3$d elementos no menor valor de %4$s: %5$s.</string>
+    <string name="ai_gas_result">Pela lei dos gases ideais, PV = nRT: **%1$s**.</string>
+    <string name="ai_gas_stp">As CNTP são tomadas como 1 atm e 273,15 K.</string>
+    <string name="ai_steps_gas">Isole a incógnita em PV = nRT, com R = 0,08206 L·atm/(mol·K):</string>
+    <string name="ai_ph_acid">%1$s é um ácido forte, então uma solução %2$s M tem [H⁺] = %3$s M e pH **%4$s**.</string>
+    <string name="ai_ph_base">%1$s é uma base forte, então uma solução %2$s M tem [OH⁻] = %3$s M, pOH %4$s e pH **%5$s**.</string>
+    <string name="ai_steps_ph">Um ácido ou base forte se dissocia completamente, então a concentração dá o íon diretamente:</string>
+    <string name="ai_ion_config">A configuração eletrônica de **%1$s** é **%2$s**. O %3$s neutro é %4$s.</string>
+    <string name="ai_ion_cation">Um cátion perde primeiro seus elétrons mais externos: a camada mais alta e, dentro dela, a subcamada mais alta.</string>
+    <string name="ai_ion_anion">Um ânion coloca seus elétrons extras nos próximos lugares da ordem de preenchimento.</string>
+    <string name="ai_ion_isoelectronic">É a mesma configuração do %1$s.</string>
+    <string name="ai_steps_ion">Comece pelo átomo neutro e retire ou adicione elétrons:</string>
+    <string name="ai_composition_element">%1$s corresponde a **%2$s** da massa de %3$s.</string>
+    <string name="ai_empirical_result">A fórmula empírica é **%1$s**.</string>
+    <string name="ai_empirical_reduced">A fórmula empírica de %1$s é **%2$s**: seus índices têm um fator comum de %3$d.</string>
+    <string name="ai_empirical_same">%1$s já está na sua proporção inteira mais simples, então é a sua própria fórmula empírica.</string>
+    <string name="ai_empirical_molecular">Com uma massa molar de %1$s g/mol, a fórmula molecular é **%2$s**, %3$d × %4$s.</string>
+    <string name="ai_steps_empirical">Cada massa em mols e depois cada uma dividida pela menor:</string>
+    <string name="ai_stoich_makes">Em %1$s, %2$s produzem **%3$s g de %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_needs">Em %1$s, %2$s precisam de **%3$s g de %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_matches">Em %1$s, %2$s correspondem a **%3$s g de %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_limiting">Em %1$s, **%2$s** é o reagente limitante: acaba primeiro.</string>
+    <string name="ai_stoich_product">Formam-se **%1$s g de %2$s** (%3$s mol).</string>
+    <string name="ai_stoich_excess">Sobram %1$s g de %2$s.</string>
+    <string name="ai_steps_stoich">Cada quantidade em mols e depois pelos coeficientes:</string>
+    <string name="ai_share_image">Compartilhar como imagem</string>
+    <string name="ai_share_footer">Respondido pelo Atomic, o app da tabela periódica</string>
+    <string name="ai_share_failed">Não foi possível criar a imagem</string>
+    <string name="ai_copy_image">Copiar imagem</string>
+    <string name="ai_card_heat_map_title">%1$s na tabela</string>
+
+    <!-- Equation Balancer tool -->
+    <string name="balancer_tool_title">Balanceador de equações</string>
+    <string name="bal">Balanceador</string>
+    <string name="balancer_tool_text">Balanceie equações químicas com coeficientes inteiros exatos</string>
+    <string name="balancer_tool_card_title">Balancear uma equação</string>
+    <string name="balancer_tool_hint">Fe + O2 -&gt; Fe2O3</string>
+    <string name="balancer_tool_result">Equação balanceada</string>
+    <string name="balancer_tool_prompt">Digite uma equação com uma seta, por exemplo Fe + O2 -&gt; Fe2O3.</string>
+    <string name="balancer_tool_examples">Exemplos</string>
+    <string name="balancer_tool_note">As setas podem ser escritas -&gt;, =&gt;, = ou →. Símbolos de estado como (s), (l), (g) e (aq) são ignorados.</string>
+    <string name="balancer_tool_copied">Equação copiada</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">Tabela de ligas</string>
+    <string name="table_alloy_text">Uma tabela de ligas comuns, do que são feitas e por que são usadas no lugar do metal puro</string>
+    <string name="alo">Tabela de ligas</string>
+    <string name="activity_alloy_title">Ligas</string>
+    <string name="alloy_clear_filter">Limpar filtro</string>
+    <string name="alloy_base_iron">Ferro</string>
+    <string name="alloy_base_copper">Cobre</string>
+    <string name="alloy_base_aluminium">Alumínio</string>
+    <string name="alloy_base_nickel">Níquel</string>
+    <string name="alloy_base_tin">Estanho</string>
+    <string name="alloy_base_silver">Prata</string>
+    <string name="alloy_base_gold">Ouro</string>
+    <string name="alloy_base_titanium">Titânio</string>
+    <string name="alloy_base_mercury">Mercúrio</string>
+    <string name="base_label">"Metal base: "</string>
+    <string name="composition_label">"Composição: "</string>
+    <string name="open_base_element">Abrir elemento base</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">Desbloqueie o PRO+ no Android e no Windows com uma única compra. Garanta que suas notas, conquistas e progresso estejam com você em todos os dispositivos!</string>
+    <string name="ultimate_buy">Obter PRO+ Ultimate</string>
+    <string name="ultimate_upgrade_title">Fazer upgrade para Ultimate</string>
+    <string name="ultimate_coming_soon">Em breve</string>
+    <string name="ultimate_owned">Possui PRO+ Ultimate</string>
+    <string name="ultimate_already_owned_account">Você já possui o PRO+ Ultimate nesta conta.</string>
+    <string name="account_tier_unknown">Ainda não sincronizado</string>
+    <string name="account_title">Conta</string>
+    <string name="account_id">ID da conta</string>
+    <string name="account_id_signed_out">Não conectado</string>
+    <string name="account_id_copied">ID da conta copiado</string>
+    <string name="account_id_hint">Ele deve corresponder ao ID exibido no app do Windows. Se for diferente, os dois dispositivos estão sincronizando com contas separadas.</string>
+    <string name="last_synced">Última sincronização</string>
+    <string name="last_synced_never">Nunca</string>
+    <string name="ai_send_question">Enviar esta pergunta</string>
+    <string name="ai_send_question_title">Enviar a pergunta?</string>
+    <string name="ai_send_question_body">Sua pergunta será enviada ao desenvolvedor para que possa ser respondida em uma versão futura.\n\nÉ enviado: a pergunta como você a digitou, o idioma e a versão do app e o motivo de não ter sido respondida.\nNão é enviado: seu nome, sua conta, seu dispositivo ou o resto desta conversa.</string>
+    <string name="ai_send_question_confirm">Enviar</string>
+    <string name="ai_send_question_sent">Obrigado! Sua pergunta foi enviada.</string>
+    <string name="ai_send_question_failed">Não foi possível enviar a pergunta. Verifique a conexão e tente novamente.</string>
 </resources>

@@ -29,7 +29,7 @@ def main():
     print("Loading Urdu elements file...")
     
     # Load the current Urdu file
-    with open('app/src/main/assets/elements_ur.json', 'r', encoding='utf-8') as f:
+    with open('shared/elements/elements_ur.json', 'r', encoding='utf-8') as f:
         ur_data = json.load(f)
     
     # Get all Urdu descriptions
@@ -47,7 +47,7 @@ def main():
     print(f"Updated {updated_count} elements")
     
     # Save the updated file
-    with open('app/src/main/assets/elements_ur.json', 'w', encoding='utf-8') as f:
+    with open('shared/elements/elements_ur.json', 'w', encoding='utf-8') as f:
         json.dump(ur_data, f, ensure_ascii=False, indent=2)
     
     print("Urdu translations completed successfully!")

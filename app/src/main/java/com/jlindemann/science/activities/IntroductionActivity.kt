@@ -20,6 +20,9 @@ import com.jlindemann.science.billing.BillingManager
 import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.AnalyticsEvent
+import com.jlindemann.science.utils.AnalyticsHelper
+import com.jlindemann.science.utils.AnalyticsParam
 import kotlinx.coroutines.launch
 
 class IntroductionActivity : AppCompatActivity(), BillingManager.Listener {
@@ -80,13 +83,20 @@ class IntroductionActivity : AppCompatActivity(), BillingManager.Listener {
             if (viewPager.currentItem > 0) viewPager.currentItem -= 1
         }
 
+        // Onboarding is the one funnel where drop-off matters most, and the pager holds views
+        // rather than fragments, so it needs its own event instead of the BaseFragment hook.
+        AnalyticsHelper.initialize(this)
+        AnalyticsHelper.logScreenView(this, "Introduction", javaClass.simpleName)
+
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 updateButtonStates(position, introductionAdapter.itemCount)
+                logIntroPage(position)
             }
         })
         updateButtonStates(0, introductionAdapter.itemCount)
+        logIntroPage(0)
 
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -102,6 +112,14 @@ class IntroductionActivity : AppCompatActivity(), BillingManager.Listener {
     override fun onDestroy() {
         super.onDestroy()
         billingManager.endConnection()
+    }
+
+    private fun logIntroPage(position: Int) {
+        AnalyticsHelper.logEvent(
+            this,
+            AnalyticsEvent.INTRO_PAGE_VIEW,
+            AnalyticsParam.PAGE_INDEX to position
+        )
     }
 
     // Methods used by the adapter (delegate to billingManager)

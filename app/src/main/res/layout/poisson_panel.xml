@@ -79,68 +79,77 @@
                     app:trackColorActive="?attr/colorPrimary"
                     app:values="@array/poisson_default_values" />
 
+                <!--
+                    Tick labels for the slider above. The weights are 1:2:2:2:2:1 on purpose: the
+                    four interior labels then land exactly on 20/40/60/80% of the row, which is
+                    where the slider draws those values, and the two end labels sit flush with the
+                    track ends. Equal weights would push every label inwards by half a cell.
+                    The horizontal margin must match the slider's, or the whole row is off by 12dp.
+                -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginTop="8dp">
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="12dp">
 
                     <TextView
+                        android:id="@+id/poisson_axis_0"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="0.0"
-                        android:gravity="center"
+                        android:gravity="start"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/poisson_axis_1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:text="0.1"
                         android:gravity="center"
-                        android:textAlignment="viewEnd"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/poisson_axis_2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:text="0.2"
                         android:gravity="center"
-                        android:textAlignment="viewEnd"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/poisson_axis_3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:text="0.3"
                         android:gravity="center"
-                        android:textAlignment="viewEnd"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/poisson_axis_4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:text="0.4"
                         android:gravity="center"
-                        android:textAlignment="viewEnd"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="12sp" />
 
                     <TextView
+                        android:id="@+id/poisson_axis_5"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="0.5"
-                        android:gravity="center"
-                        android:textAlignment="viewEnd"
+                        android:gravity="end"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="12sp" />
                 </LinearLayout>

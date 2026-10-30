@@ -86,10 +86,10 @@ gaps are easy to miss without running the verification scripts.
 The assistant handles language differently from the rest of the app, in three
 ways worth knowing:
 
-**Per-message detection.** `AIAgentManager.detectResponseLanguage(query)` scores
-each word against a cross-language element-name map built from all twelve files.
-A higher-scoring non-active language switches the response language for that
-message and rebuilds the cached engine.
+**Per-message detection.** `EntityResolver.detectLanguage(query, active)`
+credits a language for each element name in the query that only it uses, across
+all twelve files. A higher-scoring non-active language switches the response
+language for that message; a tie keeps the current one.
 
 **No `Locale.setDefault()`.** Answers are composed through
 `ai/core/StringProvider.kt`, whose `AndroidStrings` implementation builds a
@@ -126,7 +126,7 @@ each other; the authoritative answer is whatever
 ## Adding a language
 
 1. Add `res/values-{code}/strings.xml`, translated from `values/strings.xml`.
-2. Add `app/src/main/assets/elements_{code}.json` — copy the English file and
+2. Add `shared/elements/elements_{code}.json` — copy the English file and
    translate the seven localised fields. `ElementDataLoader.getAvailableLanguages`
    discovers it automatically from the filename.
 3. Add the language to the picker in `SettingsActivity`.

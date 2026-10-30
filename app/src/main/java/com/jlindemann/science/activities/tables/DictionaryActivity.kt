@@ -44,6 +44,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class DictionaryActivity : BaseActivity(), DictionaryAdapter.OnDictionaryClickListener {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.DICTIONARY
+
     private var dictionaryList = ArrayList<Dictionary>()
     var mAdapter = DictionaryAdapter(dictionaryList, this, this)
 

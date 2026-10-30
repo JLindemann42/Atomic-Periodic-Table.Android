@@ -7,7 +7,8 @@ nav_order: 6
 # The AI assistant
 
 **Classes:** `utils/AiChatPanelController.kt` (the panel),
-`ai/AIAgentManager.kt` (the entry point)
+`ai/AiChatAgent.kt` (the Android entry point), `ai/chat/ChatOrchestrator.kt`
+(the conversation)
 
 A chat panel that answers chemistry questions in plain language. It slides up
 from the bottom of the periodic table screen and from every element page.

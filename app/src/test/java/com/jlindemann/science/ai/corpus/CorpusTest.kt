@@ -17,10 +17,12 @@ import org.junit.Test
  * corpus useless for the thing it is for — seeing how wide a defect is, and watching a number move
  * as it gets fixed.
  *
- * Two pseudo-intents are recognised in `expect_intent`, because clause splitting is a decision made
- * before any intent exists:
+ * Three pseudo-intents are recognised in `expect_intent`, for decisions made before any intent
+ * exists:
  *  - `COMPOUND` — the query must split into clauses and the engine must answer it
  *  - `NOSPLIT` — the query must *not* split; this is the guard on "compare gold and silver"
+ *  - `LANGUAGE` — the message must be detected as the row's `lang`, starting from the language the
+ *    session's previous turn was answered in (roadmap 1.4)
  */
 class CorpusTest {
 
@@ -41,6 +43,18 @@ class CorpusTest {
     @Test fun isotopesAndNuclides() = runFile("isotopes_nuclides")
     @Test fun safety() = runFile("safety")
     @Test fun calculations() = runFile("calculations")
+
+    /**
+     * The four calculators, each with the negative rows that pin where its branch stops.
+     *
+     * Kept as separate files rather than folded into `calculations`, because the guard ordering
+     * between them is the fragile part: each new branch sits above an older one that would
+     * otherwise claim the same query, and a failure here should name which boundary moved.
+     */
+    @Test fun unitConversion() = runFile("unit_convert")
+    @Test fun balanceEquations() = runFile("balance_equations")
+    @Test fun decay() = runFile("decay")
+    @Test fun solutions() = runFile("solutions")
     @Test fun compound() = runFile("compound")
     @Test fun followups() = runFile("followups")
 
@@ -59,6 +73,7 @@ class CorpusTest {
 
     @Test fun conversationsComplex() = runFile("conversations_complex")
     @Test fun datasets() = runFile("datasets")
+    @Test fun namedCompounds() = runFile("named_compounds")
     @Test fun mustDefer() = runFile("must_defer")
 
     /**
@@ -128,14 +143,38 @@ class CorpusTest {
      */
     @Test fun reported() = runFile("reported")
 
+    /** Which language each message is answered in, the one decision every other file presets. */
+    @Test fun language() = runFile("language")
+
+    /** Compounds and superlative affixes: one word carrying a property and what is asked about it. */
+    @Test fun morphology() = runFile("morphology")
+
+    /** Misspellings corrected when a question would otherwise be declined, and the words never to touch. */
+    @Test fun spelling() = runFile("spelling")
+
+    /** Sets read off an element: "what else is in that group", "the same block as iron". */
+    @Test fun focusSets() = runFile("focus_sets")
+
+    /** A field across a period, group or series, or the whole table (roadmap 2.3). */
+    @Test fun trends() = runFile("trends")
+
+    /** Why-questions answered with a written explanation and its card (roadmap 2.4). */
+    @Test fun explanations() = runFile("explanations")
+
+    /** The ideal gas law, pH, ion configurations, empirical formulas and stoichiometry (roadmap 2.8). */
+    @Test fun calculators() = runFile("calculators")
+
     // ---- Runner ---------------------------------------------------------------------------------
 
     private fun runFile(name: String) {
         val sessions = QuestionCorpus.sessions(name)
+        // The defect files are never held out, so the held-out split has nothing for them.
+        if (sessions.isEmpty() && QuestionCorpus.split == QuestionCorpus.Split.HELDOUT) return
         if (sessions.isEmpty()) fail("corpus file $name.tsv is empty or missing")
 
         val failures = ArrayList<String>()
         var evaluated = 0
+        var known = 0
 
         for (session in sessions) {
             // One state per session, so a follow-up row inherits from the row before it and a
@@ -143,15 +182,21 @@ class CorpusTest {
             val state = DialogueState()
             for (case in session) {
                 evaluated++
-                runCatching { evaluate(case, state) }
-                    .onSuccess { problem -> problem?.let { failures.add("${case.where} $it") } }
-                    .onFailure { failures.add("${case.where} threw ${it::class.simpleName}: ${it.message}") }
+                val problem = runCatching { evaluate(case, state) }
+                    .getOrElse { "threw ${it::class.simpleName}: ${it.message}" }
+                when {
+                    case.knownFailure != null && problem != null -> known++
+                    case.knownFailure != null ->
+                        failures.add("${case.where} now passes; remove its known_failure (${case.knownFailure})")
+                    problem != null -> failures.add("${case.where} $problem")
+                }
             }
         }
 
-        val passed = evaluated - failures.size
+        val passed = evaluated - failures.size - known
         val rate = if (evaluated == 0) 0.0 else 100.0 * passed / evaluated
-        println("[corpus] $name: $passed/$evaluated passed (%.1f%%)".format(rate))
+        val knownNote = if (known > 0) ", $known known failures" else ""
+        println("[corpus] $name: $passed/$evaluated passed (%.1f%%)$knownNote".format(java.util.Locale.ROOT, rate))
 
         if (failures.isNotEmpty()) {
             val report = failures.joinToString("\n  ") { it }
@@ -161,6 +206,13 @@ class CorpusTest {
 
     /** @return a description of what went wrong, or null when the case passed. */
     private fun evaluate(case: CorpusCase, state: DialogueState): String? {
+        if (case.expectIntent == "LANGUAGE") {
+            val detected = CorpusHarness.detectLanguage(case.query, state.activeLanguage)
+            state.activeLanguage = detected
+            return if (detected == case.lang) null
+            else "'${case.query}' was detected as $detected, expected ${case.lang}"
+        }
+
         val stack = CorpusHarness.stackFor(case.lang)
 
         when (case.expectIntent) {
@@ -238,7 +290,58 @@ class CorpusTest {
             }
         }
 
+        // Content, not only routing (roadmap 0.6): which row, which number.
+        case.expectRow?.let { expected ->
+            // An explanation is a row of the explanations table (roadmap 2.4): explanation/<key>.
+            val key = (result as? ExecutionResult.Dataset)?.row?.key
+                ?: (result as? ExecutionResult.Explanation)?.let { "explanation/${it.key}" }
+                ?: return "'${case.query}' should answer from $expected, but produced ${result::class.simpleName}"
+            if (key != expected) return "'${case.query}' answered from $key, expected $expected"
+        }
+        case.expectValue?.let { expected ->
+            val actual = valueOf(result)
+                ?: return "'${case.query}' should carry the value $expected, but ${result::class.simpleName} has none"
+            if (Math.abs(actual - expected) > maxOf(Math.abs(expected) * 1e-3, 1e-12)) {
+                return "'${case.query}' carries $actual, expected $expected"
+            }
+        }
+
         return null
+    }
+
+    /**
+     * The one number an answer stands on, for `expect_value`. For a ranking it is the first
+     * element's, which is what pins a superlative's direction; for a comparison, the largest value
+     * of the first field compared, which is what tells a comparison of melting points from the
+     * default table that merely includes them, whatever order the elements come in (roadmap 1.5).
+     */
+    private fun valueOf(result: ExecutionResult): Double? = when (result) {
+        is ExecutionResult.Property -> result.quantity?.value
+        is ExecutionResult.ElementList -> result.results.firstOrNull()?.quantity?.value
+        is ExecutionResult.Comparison ->
+            result.fieldIds.firstOrNull()?.let { result.values[it] }?.mapNotNull { it.quantity?.value }?.maxOrNull()
+        is ExecutionResult.Dataset -> result.row.numericValue
+        is ExecutionResult.Aggregate -> result.value
+        is ExecutionResult.Formula -> result.result.molarMass
+        is ExecutionResult.MoleConversion -> result.moles
+        // The sum of the coefficients, so a row checks the balance and not only that one was tried
+        // (roadmap 2.2): a declined equation carries no value, and fails a row that expects one.
+        // The first element's value, which pins the field and the order (roadmap 2.3).
+        is ExecutionResult.Trend -> result.points.firstOrNull()?.quantity?.value
+        // The solved quantity, the pH, and the ion's electron count (roadmap 2.8).
+        is ExecutionResult.GasLaw -> result.solution.solved
+        is ExecutionResult.Ph -> result.result.pH
+        is ExecutionResult.IonConfiguration -> (result.element.atomicNumber - result.charge).toDouble()
+        // The formula's mass, the molecular one's when a molar mass was given; and the grams of the
+        // species asked about, or of the first product (roadmap 2.8, stage 2).
+        is ExecutionResult.EmpiricalFormula -> result.result.molecular?.let { result.result.empiricalMass * it.factor }
+            ?: result.result.empiricalMass
+        is ExecutionResult.Stoichiometry -> result.result.amounts[
+            result.targets.firstOrNull() ?: result.result.lines.indexOfFirst { !it.reactant }
+        ].grams
+        is ExecutionResult.BalancedEquation ->
+            if (result.reason != null) null else (result.reactants + result.products).sumOf { it.coefficient }.toDouble()
+        else -> null
     }
 
     private fun resultKeys(result: ExecutionResult): List<String> = when (result) {

@@ -513,6 +513,7 @@
     <string name="protons">پروٹون:</string>
     <string name="save_calculations">حساب محفوظ کریں:</string>
     <string name="save_units">اکائیاں محفوظ کریں:</string>
+    <string name="save_equations">مساوات محفوظ کریں:</string>
     <string name="search_for_element">عنصر تلاش کریں</string>
     <string name="share">شیئر کریں</string>
     <string name="share_app">ایپ شیئر کریں</string>
@@ -605,4 +606,38 @@
     <string name="ai_grams_to_moles">%2$s کا **%1$s g** = **%3$s mol**۔</string>
     <string name="ai_comparison_verdict">موازنہ کی گئی %3$d خصوصیات میں سے %2$d میں %1$s کی قدر زیادہ ہے۔</string>
     <string name="ai_no_data_alternatives">%1$s کے لیے درج: %2$s۔</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">مرکب دھاتوں کا جدول</string>
+    <string name="table_alloy_text">عام مرکب دھاتوں کا جدول، وہ کن چیزوں سے بنی ہیں اور خالص دھات کے بجائے انہیں کیوں استعمال کیا جاتا ہے</string>
+    <string name="alo">مرکب دھاتوں کا جدول</string>
+    <string name="activity_alloy_title">مرکب دھاتیں</string>
+    <string name="alloy_clear_filter">فلٹر صاف کریں</string>
+    <string name="alloy_base_iron">آئرن</string>
+    <string name="alloy_base_copper">تانبا</string>
+    <string name="alloy_base_aluminium">ایلومینیم</string>
+    <string name="alloy_base_nickel">نکل</string>
+    <string name="alloy_base_tin">ٹن</string>
+    <string name="alloy_base_silver">چاندی</string>
+    <string name="alloy_base_gold">سونا</string>
+    <string name="alloy_base_titanium">ٹائٹینیم</string>
+    <string name="alloy_base_mercury">پارہ</string>
+    <string name="base_label">"بنیادی دھات: "</string>
+    <string name="composition_label">"ترکیب: "</string>
+    <string name="open_base_element">بنیادی عنصر کھولیں</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">ایک ہی خریداری سے اینڈرائیڈ اور ونڈوز پر PRO+ اَن لاک کریں۔ یقینی بنائیں کہ آپ کے نوٹس، کامیابیاں اور پیش رفت تمام آلات پر آپ کے ساتھ ہوں!</string>
+    <string name="ultimate_buy">PRO+ Ultimate حاصل کریں</string>
+    <string name="ultimate_upgrade_title">Ultimate پر اپ گریڈ کریں</string>
+    <string name="ultimate_coming_soon">جلد آ رہا ہے</string>
+    <string name="ultimate_owned">PRO+ Ultimate کے مالک</string>
+    <string name="ultimate_already_owned_account">اس اکاؤنٹ پر آپ کے پاس پہلے سے PRO+ Ultimate موجود ہے۔</string>
+    <string name="account_tier_unknown">ابھی تک ہم آہنگ نہیں ہوا</string>
+    <string name="account_title">اکاؤنٹ</string>
+    <string name="account_id">اکاؤنٹ آئی ڈی</string>
+    <string name="account_id_signed_out">سائن اِن نہیں ہے</string>
+    <string name="account_id_copied">اکاؤنٹ آئی ڈی کاپی ہو گئی</string>
+    <string name="account_id_hint">یہ ونڈوز ایپ میں دکھائی گئی آئی ڈی سے مماثل ہونی چاہیے۔ اگر مختلف ہو تو دونوں آلات الگ اکاؤنٹس سے ہم آہنگ ہو رہے ہیں۔</string>
+    <string name="last_synced">آخری بار ہم آہنگ کیا گیا</string>
+    <string name="last_synced_never">کبھی نہیں</string>
 </resources>

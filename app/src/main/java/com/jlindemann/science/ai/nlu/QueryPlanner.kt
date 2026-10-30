@@ -1,11 +1,13 @@
 package com.jlindemann.science.ai.nlu
 
 import com.jlindemann.science.ai.core.Aggregation
+import com.jlindemann.science.ai.core.DeclineReason
 import com.jlindemann.science.ai.core.DialogueState
 import com.jlindemann.science.ai.core.EntityRef
 import com.jlindemann.science.ai.core.Intent
 import com.jlindemann.science.ai.core.QueryPlan
 import com.jlindemann.science.ai.data.DatasetIndex
+import com.jlindemann.science.ai.data.Dimension
 import com.jlindemann.science.ai.data.FieldKind
 import com.jlindemann.science.ai.data.FieldRegistry
 import com.jlindemann.science.ai.data.KnowledgeStore
@@ -30,13 +32,68 @@ class QueryPlanner(
     private val datasets: DatasetIndex,
     private val entities: EntityResolver,
     private val fields: FieldResolver,
-    private val retriever: HybridRetriever?
+    private val retriever: HybridRetriever?,
+    /** The reviewed explanations for this language (roadmap 2.4). */
+    private val explanations: com.jlindemann.science.ai.data.Explanations =
+        com.jlindemann.science.ai.data.Explanations.EMPTY
 ) {
 
     /** Plans at or above this confidence are used; below it the caller falls back. */
     val threshold: Double get() = CONFIDENCE_THRESHOLD
 
-    fun plan(rawQuery: String, state: DialogueState): QueryPlan {
+    /** Compounds and affixed superlatives, written as their parts before anything reads the query. */
+    private val morphology = Morphology(fields)
+
+    /** Misspellings, corrected when nothing else matched (roadmap 1.6). */
+    private val speller: Speller by lazy { Speller.build(entities.nameWords(), fields.aliasWords()) }
+
+    /**
+     * The plan for [query], corrected for misspelling when it would otherwise be declined.
+     *
+     * Correction runs only on a [DeclineReason.NO_MATCH]: a question something already matched is
+     * left as the user wrote it, so a typo can never move an answer that was right. The corrected
+     * question must then be answered from the element data. One that only a dataset row would
+     * answer is a guess on a guess - "tell me about mars" is one edit from "mass" - and the
+     * original decline stands.
+     */
+    fun plan(query: String, state: DialogueState): QueryPlan {
+        val plan = planWords(query, state)
+        if (plan.declined != DeclineReason.NO_MATCH) return plan
+        val corrected = speller.correct(query)
+        if (corrected == query) return plan
+        val second = planWords(corrected, state)
+        val answered = second.intent != Intent.UNKNOWN && second.intent != Intent.DATASET_LOOKUP &&
+                second.confidence >= threshold
+        return if (answered) second.copy(evidence = second.evidence + "spelling: $corrected") else plan
+    }
+
+    private fun planWords(query: String, state: DialogueState): QueryPlan =
+        Arbiter.pick(proposals(query, state))!!.plan
+
+    /**
+     * Every plan the branches propose for [query], in the order they proposed (roadmap 1.8). The
+     * last is always [Branch.NO_MATCH], so there is always one to pick.
+     *
+     * The branches still run in the order the cascade had, because the steps between them refine
+     * what the later ones see - the subject a follow-up inherits, a threshold read off an element.
+     * What changed is that a branch proposes instead of ending the method.
+     */
+    internal fun proposals(query: String, state: DialogueState): List<Proposal> {
+        val proposals = ArrayList<Proposal>()
+        // What the query said, once it is resolved; the branches before that pre-empt by order and
+        // are not scored.
+        var said: Said? = null
+        // Each proposal keeps the evidence it had when it was made: the list below is shared, and
+        // the branches further down keep adding to it. [cues] are the words only this branch's
+        // reading accounts for.
+        fun propose(branch: Branch, plan: QueryPlan, cues: List<String> = emptyList()) {
+            proposals.add(Proposal(branch, plan.copy(evidence = plan.evidence.toList()), Arbiter.uses(plan, said, cues)))
+        }
+
+        // Everything below reads words, and "smältpunktsskillnaden" or "pinakamatigas" is one word
+        // carrying two (roadmap 1.5).
+        val rawQuery = morphology.expand(query)
+
         // Some concepts have no backing field — reactivity is derived from group and position
         // rather than stored — so planning over them would answer the wrong question. Decline
         // and let the handler that actually models the concept take it.
@@ -52,29 +109,37 @@ class QueryPlanner(
                         (it.contains(' ') && normalized.contains(it))
             }
         ) {
-            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+            propose(Branch.DEFER_TO_PERSONALITY, QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.CONVERSATIONAL))
         }
 
         // An element number past 118 has a definite answer — there is no such element — and the
         // worst thing to do is guess. Declining lets the personality layer say so; answering from
         // retrieval produced "Electron mass" for "tell me about element 119".
         if (entities.outOfRangeElementNumber(rawQuery) != null) {
-            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+            propose(Branch.OUT_OF_RANGE_ELEMENT, QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.NO_SUCH_ELEMENT))
         }
 
         // "समान" is Hindi for "similar" and also the first word of "समान समूह" — "the same group".
         // The unbacked-concept guard therefore declined every Hindi "which elements are in the same
         // group as carbon", which is a perfectly answerable structural question.
         val namesTheSameGroup = Lexicon.SAME_AS_WORDS.any { normalized.contains(it) }
-        if (!namesTheSameGroup && Lexicon.UNBACKED_CONCEPTS.any { normalized.contains(it) }) {
+        // An equation is written, not described. "Balance this reaction: Fe + O2 -> Fe2O3" carries
+        // a reaction word, and the unbacked-concept guard declines every sentence that does — but
+        // the arrow is far stronger evidence of what the sentence is than the noun beside it.
+        val writesAnEquation = EQUATION_ARROW.containsMatchIn(rawQuery)
+        if (!namesTheSameGroup && !writesAnEquation &&
+            Lexicon.UNBACKED_CONCEPTS.any { normalized.contains(it) }
+        ) {
             // A question *about* one of these concepts wants it explained, and the dictionary
             // can do that: "why are alkali metals so reactive". A question asking which element
             // is the most reactive wants an element, and only the bespoke scoring rule can
             // answer it — so a superlative disqualifies the explanation.
             val superlative = Lexicon.MOST.any { normalized.contains(it) } ||
                     Lexicon.LEAST.any { normalized.contains(it) }
-            if (!superlative) {
-                explanationPlan(rawQuery, normalized, hasElement = false)?.let { return it }
+            // Unless it is a why with an explanation to give: "why is fluorine the most reactive
+            // halogen" asks the reason, not for the ranking (roadmap 2.4).
+            if (!superlative || (asksWhy(normalized) && explanationFor(rawQuery, normalized) != null)) {
+                explanationPlan(rawQuery, normalized, hasElement = false)?.let { propose(Branch.UNBACKED_EXPLANATION, it) }
             }
             // Mentioning one of these in passing does not block a comparison that also asks
             // about real properties: "compare lithium, sodium and potassium on reactivity,
@@ -88,7 +153,7 @@ class QueryPlanner(
             val comparableAspect = fields.resolveAll(rawQuery, limit = 3).isNotEmpty()
             val severalElements = entities.resolveAll(rawQuery, limit = 3).size >= 2
             if (!comparableAspect || !severalElements) {
-                return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+                propose(Branch.UNBACKED_CONCEPT, QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.UNBACKED_CONCEPT))
             }
         }
 
@@ -99,33 +164,105 @@ class QueryPlanner(
         // ("how much"), so "镧系元素的中位原子量是多少" — the median atomic mass of the lanthanides —
         // matched the count word, the word "element" and no subset, and came back as the size of
         // the periodic table.
+        // Not when the elements are a set read off the one in focus: "how many elements are in its
+        // period" names no element, and was answered with 118.
         if (Lexicon.COUNT.any { normalized.contains(it) } &&
             Lexicon.ELEMENT_WORDS.any { normalized.contains(it) } &&
             entities.resolveAll(rawQuery, limit = 1).isEmpty() &&
+            (setDimension(normalized) == null || state.focusElement == null) &&
             OperatorExtractor.extract(rawQuery).let {
                 it.subsetFilters.isEmpty() && it.aggregation == Aggregation.COUNT
             }
         ) {
-            return QueryPlan(
+            propose(Branch.COUNT_OF_ALL_ELEMENTS, QueryPlan(
                 intent = Intent.AGGREGATE,
                 aggregation = Aggregation.COUNT,
                 confidence = 0.85,
                 rawQuery = rawQuery,
                 evidence = listOf("count of all elements")
-            )
+            ))
         }
 
         // ---- Calculations ------------------------------------------------------------------
         // Checked first: these questions name a formula or a nuclide, which the element and
         // field resolvers would otherwise pick apart into unrelated matches. "the molar mass of
         // H2SO4" used to retrieve the dictionary definition of molar mass instead of a number.
-        calculationPlan(rawQuery, normalized)?.let { return it }
+        // "Balance Fe + O2 -> Fe2O3 step by step" asks for the steps with the calculation; "show the
+        // steps" after one asks for the steps of the calculation just answered (roadmap 2.2). Ranked
+        // after the calculation, so a new one in the same message is the one that is shown.
+        val asksForSteps = mentionsAny(normalized, Lexicon.STEPS_WORDS)
+        calculationPlan(rawQuery, normalized)?.let {
+            propose(Branch.CALCULATION, if (asksForSteps) it.copy(showSteps = true) else it)
+        }
+        if (asksForSteps) state.lastPlan?.takeIf { it.intent in Intent.CALCULATIONS }?.let { previous ->
+            propose(Branch.SHOW_STEPS, previous.copy(showSteps = true, evidence = previous.evidence + "steps of the previous answer"))
+        }
 
 
-        val operators = OperatorExtractor.extract(rawQuery)
-        val elementMatches = entities.resolveAll(rawQuery, limit = 4)
-        val fieldMatches = fields.resolveAll(rawQuery, limit = 3)
+        var operators = OperatorExtractor.extract(rawQuery)
+        var elementMatches = entities.resolveAll(rawQuery, limit = 4)
+        var fieldMatches = fields.resolveAll(rawQuery, limit = 3)
         val evidence = ArrayList<String>(6)
+
+        // ---- A set read off an element: "what else is in that group" (roadmap 1.7) ----------
+        // The element is the reference, not the subject: the one named ("the same block as iron")
+        // or the one the conversation is about. Its set joins the subsets, so every branch below -
+        // list, count, superlative, statistic - ranges over it, and the words that named the set
+        // stop naming a property: "what is in the same block" is not a question about iron's block.
+        // "Else" and "other" leave the reference out of a list or a count, never out of a ranking:
+        // "más" and "mais" make superlatives too, and the densest in iron's group may be iron.
+        setDimension(normalized)?.let { dimension ->
+            val reference = (elementMatches.firstOrNull()?.key ?: state.focusElement)
+                ?.let { store.element(it) } ?: return@let
+            val setFilter = setFilter(dimension, reference) ?: return@let
+            val asksForMembers = operators.superlativeDescending == null && operators.topN == null &&
+                    operators.aggregation == Aggregation.NONE && operators.comparators.isEmpty() &&
+                    operators.range == null
+            val excludes = (asksForMembers || operators.aggregation == Aggregation.COUNT) &&
+                    mentionsAny(normalized, Lexicon.OTHER_WORDS)
+            val filters = listOf(setFilter) +
+                    if (excludes) listOf(com.jlindemann.science.ai.core.Filter.Excludes(setOf(reference.key))) else emptyList()
+            evidence.add("$dimension of ${reference.key}" + if (excludes) ", without it" else "")
+            operators = operators.copy(subsetFilters = operators.subsetFilters + filters)
+            elementMatches = elementMatches.filter { it.key != reference.key }
+            fieldMatches = fieldMatches.filter { it.spec.id != DIMENSION_FIELDS[dimension] }
+            if (asksForMembers) {
+                propose(Branch.SET_OF_AN_ELEMENT, QueryPlan(
+                    intent = Intent.FILTER_LIST,
+                    fieldIds = fieldMatches.map { it.spec.id },
+                    filters = operators.subsetFilters,
+                    limit = DEFAULT_LIST_LIMIT,
+                    confidence = 0.85,
+                    rawQuery = rawQuery,
+                    evidence = evidence
+                ))
+            }
+        }
+
+        // ---- Standalone unit conversion -------------------------------------------------------
+        // Placed here rather than in `calculationPlan`, because the guard that separates this from
+        // a property lookup needs the resolved field and element, and neither is available where
+        // the calculations run.
+        unitConvertPlan(rawQuery, operators)?.let { propose(Branch.UNIT_CONVERT, it) }
+
+        // ---- A compound named in words ---------------------------------------------------------
+        // Before inheritance, so "and the boiling point of water?" cannot inherit the thread's
+        // element. Only when no element is named outside the compound: "water's oxygen" is oxygen,
+        // and "how much gold is in sea water" is about gold. And not when the compound's words are
+        // part of a field's own name: "and in sea water" asks for the abundance in sea water of the
+        // element the thread is about.
+        if (elementMatches.isEmpty()) {
+            entities.scanCompounds(rawQuery).compounds.firstOrNull { compound ->
+                fieldMatches.none { field ->
+                    com.jlindemann.science.ai.retrieval.TextMatching.containsWord(
+                        com.jlindemann.science.ai.retrieval.TextMatching.normalizeForLookup(field.matched),
+                        compound.surface
+                    )
+                }
+            }?.let { compound ->
+                compoundPlan(rawQuery, normalized, compound, fieldMatches.isNotEmpty())?.let { propose(Branch.COMPOUND, it) }
+            }
+        }
 
         // ---- Narrative questions -------------------------------------------------------------
         // Usage, biological role and etymology are answered from prose, not from a field. They are
@@ -137,7 +274,7 @@ class QueryPlanner(
         // A resolved field wins over this: "what is titanium used for in aerospace, and its
         // density" still has a real question in it.
         if (fieldMatches.isEmpty() && Lexicon.NARRATIVE_INTENTS.any { normalized.contains(it) }) {
-            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+            propose(Branch.NARRATIVE_DECLINE, QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.NARRATIVE))
         }
 
         // Etymology declines even with a field in hand, because the field is the *subject* of the
@@ -145,7 +282,7 @@ class QueryPlanner(
         // resolves `symbol`, and answering it with a value — tin's nine abundance reservoirs, as
         // reported — mistakes what the sentence is about.
         if (Lexicon.ETYMOLOGY_INTENTS.any { normalized.contains(it) }) {
-            return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+            propose(Branch.ETYMOLOGY_DECLINE, QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.ETYMOLOGY))
         }
 
         // ---- Explanations --------------------------------------------------------------------
@@ -175,8 +312,11 @@ class QueryPlanner(
         // A mechanism question is checked even mid-thread. Every reported case was a follow-up —
         // "why does that trend hold", "how does that change above Curie temperature" — so excluding
         // follow-ups here exempted exactly the turns that were failing.
-        if (asksHowItWorks(normalized) || (!carriesOperator && !continuesAThread)) {
-            explanationPlan(rawQuery, normalized, elementMatches.isNotEmpty())?.let { return it }
+        // A why with an operator in it is still a why when there is an explanation to give: "why is
+        // fluorine the most electronegative element" asks the reason, not for the ranking (roadmap 2.4).
+        val whyWithAnAnswer = carriesOperator && asksWhy(normalized) && explanationFor(rawQuery, normalized) != null
+        if (asksHowItWorks(normalized) || (!carriesOperator && !continuesAThread) || whyWithAnAnswer) {
+            explanationPlan(rawQuery, normalized, elementMatches.isNotEmpty())?.let { propose(Branch.EXPLANATION, it) }
         }
 
         // Slot-emptiness inheritance: a follow-up supplies one slot and inherits the other.
@@ -202,6 +342,9 @@ class QueryPlanner(
                 // "Noble gases", "the halogens", "ädelgaserna" — a family name and nothing else is
                 // a request for that family, not a continuation of whatever came before.
                 namesOnlyAFamily(normalized, operators, elementMatches.isNotEmpty())
+        // Set when a continuation supplied no slot of its own, so the field is not inherited on
+        // top of the element. See below.
+        var contributedNothing = false
         if (elementKeys.isEmpty() && !rangesOverTable) {
             // Inherit the subject whenever the turn reads as a continuation, not only when a field
             // resolved. "and in fahrenheit" resolves no field, "what are its isotopes" resolves no
@@ -220,8 +363,20 @@ class QueryPlanner(
             if (plural && previousSet != null && !asksForIsotopes(normalized)) {
                 elementKeys = previousSet
                 evidence.add("inherited ${previousSet.size} elements")
-            } else if (fieldIds.isNotEmpty() || continuesTheThread(normalized)) {
-                state.focusElement?.let { elementKeys = listOf(it); evidence.add("inherited element $it") }
+            } else if ((fieldIds.isNotEmpty() || continuesTheThread(normalized)) && !asksForADefinition(normalized)) {
+                state.focusElement?.let {
+                    elementKeys = listOf(it)
+                    evidence.add("inherited element $it")
+                    // Nothing in this query was its own: no element, no field, nothing to range
+                    // over. Inheriting the field as well would rebuild the previous question
+                    // exactly and answer it again. A unit counts: "and in fahrenheit" names
+                    // neither element nor field, but it is a real question about the same value.
+                    contributedNothing = fieldIds.isEmpty() &&
+                            !operators.hasOperatorEvidence &&
+                            operators.ordinal == null &&
+                            operators.rankOrdinal == null &&
+                            !operators.isListQuestion
+                }
             }
         }
         // Inheriting a *field* is riskier than inheriting an element, because a full question that
@@ -232,10 +387,19 @@ class QueryPlanner(
         // A follow-up that ranges over the set rather than over one element inherits the field too:
         // "is that the highest" after listing metals by density has no element and no field of its
         // own, and every part of it comes from the turn before.
-        val elliptical = continuesTheThread(normalized) &&
+        // A query that names an element *and* states a predicate about it is not elliptical: it
+        // omits nothing. "Is gold a metal" has a subject and a complement, and inheriting the
+        // previous field answered it about Discovered By — left over from a question about radium.
+        // A follow-up that carries a filter but no element ("what about the noble gases") is still
+        // elliptical and still inherits. Ported from the Windows planner (porting notes, D53).
+        val statesItsOwnPredicate = elementKeys.isNotEmpty() && operators.subsetFilters.isNotEmpty()
+        val elliptical = continuesTheThread(normalized) && !statesItsOwnPredicate &&
                 (elementKeys.isNotEmpty() || operators.superlativeDescending != null ||
                         operators.aggregation != Aggregation.NONE)
-        if (fieldIds.isEmpty() && state.lastFieldIds.isNotEmpty() && elliptical) {
+        // A continuation that supplied neither slot is not a follow-up question — it is the previous
+        // question over again. Inheriting both gave "more" after "the melting point of iron" iron's
+        // melting point a second time, word for word. Windows porting notes, D47.
+        if (fieldIds.isEmpty() && state.lastFieldIds.isNotEmpty() && elliptical && !contributedNothing) {
             fieldIds = state.lastFieldIds
             evidence.add("inherited field ${fieldIds.first()}")
         }
@@ -263,6 +427,34 @@ class QueryPlanner(
             val fieldId = fieldIds.firstOrNull() ?: return@mapNotNull null
             com.jlindemann.science.ai.core.Filter.FieldCompare(fieldId, op, quantity)
         }.toMutableList()
+        // A number the operators read - a group, a period, a threshold, a count - is not also the
+        // name of an element: "which elements are in group 17" does not mention chlorine.
+        val operatorsReadANumber = operators.comparators.isNotEmpty() || operators.range != null ||
+                operators.topN != null || operators.subsetFilters.any {
+                    it is com.jlindemann.science.ai.core.Filter.InGroup || it is com.jlindemann.science.ai.core.Filter.InPeriod
+                }
+        // A word that names a reading of its own is evidence for that reading, not for a field whose
+        // label it shares: "isotopes of uranium" asks for the isotopes, not the common-neutron count.
+        val dedicatedWords = Lexicon.ISOTOPE_WORDS + Lexicon.SAFETY_WORDS + Lexicon.SPECTRUM_WORDS
+        val named = elementMatches.filterNot { operatorsReadANumber && it.matched.all(Char::isDigit) }
+        said = Said(
+            // One word names one element: "tingga" is lead, and the "tin" inside it is not a second
+            // subject.
+            elements = named
+                .filterNot { match ->
+                    named.any { it.matched.length > match.matched.length && it.matched.contains(match.matched, ignoreCase = true) }
+                }
+                .map { it.key }.toSet(),
+            fields = fieldMatches
+                .filterNot { match ->
+                    val surface = com.jlindemann.science.ai.retrieval.TextMatching.normalizeForLookup(match.matched)
+                    dedicatedWords.any { com.jlindemann.science.ai.retrieval.TextMatching.containsWord(surface, it) }
+                }
+                .map { it.spec.id }.toSet(),
+            statistic = operators.aggregation != Aggregation.NONE,
+            unit = operators.targetUnit,
+            inheritedFilters = if (operators.subsetFilters.isEmpty()) subsetFilters.toSet() else emptySet()
+        )
 
 
         // A comparative with only one element named takes the other from the conversation:
@@ -284,7 +476,7 @@ class QueryPlanner(
             val pair = listOf(state.focusElement!!, elementMatches.first().key)
             comparativePlan(rawQuery, normalized, pair, fieldIds)?.let {
                 evidence.add("comparative against focus element")
-                return it
+                propose(Branch.COMPARATIVE_AGAINST_FOCUS, it, listOf("comparative") + margin(it))
             }
             // `comparativePlan` reads an explicit "X is denser than Y" and needs a comparator, an
             // adjective or a degree word to do it — none of which a Hindi or Urdu comparative has.
@@ -292,7 +484,7 @@ class QueryPlanner(
             // pair and the field are still enough to answer it.
             if (fieldIds.isNotEmpty()) {
                 evidence.add("comparative against focus element")
-                return QueryPlan(
+                propose(Branch.COMPARATIVE_AGAINST_FOCUS, cues = listOf("comparative"), plan = QueryPlan(
                     intent = Intent.COMPARATIVE,
                     entities = pair.map { EntityRef.Element(it) },
                     fieldIds = listOf(fieldIds.first()),
@@ -300,7 +492,7 @@ class QueryPlanner(
                     confidence = 0.8,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
         // Neither element named — "which is denser", "which melts first", "which conducts heat
@@ -381,7 +573,7 @@ class QueryPlanner(
             if (comparativeField != null && readsAsComparison) {
                 val pair = recentPair.take(2)
                 evidence.add("comparative over the previous answer")
-                return QueryPlan(
+                propose(Branch.COMPARATIVE_OVER_PREVIOUS, cues = listOf("comparative"), plan = QueryPlan(
                     intent = Intent.COMPARATIVE,
                     entities = pair.map { EntityRef.Element(it) },
                     fieldIds = listOf(comparativeField),
@@ -391,7 +583,7 @@ class QueryPlanner(
                     confidence = 0.8,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
@@ -419,10 +611,10 @@ class QueryPlanner(
             // adjective to key on and no fixed position for the two operands.
             comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let {
                 evidence.add("comparative $fieldIds")
-                return it
+                propose(Branch.PERIPHRASTIC_COMPARATIVE, it, listOf("comparative") + margin(it))
             }
             evidence.add("periphrastic comparative")
-            return QueryPlan(
+            propose(Branch.PERIPHRASTIC_COMPARATIVE, cues = listOf("comparative"), plan = QueryPlan(
                 intent = Intent.COMPARATIVE,
                 entities = elementKeys.map { EntityRef.Element(it) },
                 fieldIds = listOf(fieldIds.first()),
@@ -430,7 +622,7 @@ class QueryPlanner(
                 confidence = 0.8,
                 rawQuery = rawQuery,
                 evidence = evidence
-            )
+            ))
         }
 
         // A threshold can name an element instead of a number: "denser than iron" means denser
@@ -468,34 +660,11 @@ class QueryPlanner(
         val allFilters = subsetFilters + comparatorFilters
         val targetUnit = operators.targetUnit ?: state.lastTargetUnit.takeIf { fieldIds.isNotEmpty() }
 
-        // ---- "in the same group as carbon" ---------------------------------------------------
-        // The named element supplies the group or period; it is the reference, not the answer.
-        if (Lexicon.SAME_AS_WORDS.any { normalized.contains(it) }) {
-            elementKeys.firstOrNull()?.let { store.element(it) }?.let { reference ->
-                val byPeriod = normalized.contains("period") || normalized.contains("row")
-                val filter = if (byPeriod) {
-                    com.jlindemann.science.ai.core.Filter.InPeriod(reference.period)
-                } else {
-                    reference.groupNumber?.let { com.jlindemann.science.ai.core.Filter.InGroup(it) }
-                        ?: com.jlindemann.science.ai.core.Filter.InSeries(setOf(reference.series))
-                }
-                evidence.add("same ${if (byPeriod) "period" else "group"} as ${reference.key}")
-                return QueryPlan(
-                    intent = Intent.FILTER_LIST,
-                    filters = listOf(filter),
-                    limit = DEFAULT_LIST_LIMIT,
-                    confidence = 0.85,
-                    rawQuery = rawQuery,
-                    evidence = evidence
-                )
-            }
-        }
-
         // ---- Direct comparative: "is gold denser than lead" --------------------------------
         // A question with a one-word answer should get one, not a property table. Checked
         // before the general comparison so the answer leads with yes/no or the winner.
         if (elementKeys.size >= 2) {
-            comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let { return it }
+            comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let { propose(Branch.DIRECT_COMPARATIVE, it, listOf("comparative") + margin(it)) }
         }
 
 
@@ -510,7 +679,7 @@ class QueryPlanner(
             val fieldId = fieldIds.firstOrNull()
             if (operators.aggregation == Aggregation.COUNT || fieldId != null) {
                 evidence.add("aggregation ${operators.aggregation}")
-                return QueryPlan(
+                propose(Branch.AGGREGATE, QueryPlan(
                     intent = Intent.AGGREGATE,
                     entities = elementKeys.map { EntityRef.Element(it) },
                     fieldIds = listOfNotNull(fieldId),
@@ -521,7 +690,7 @@ class QueryPlanner(
                     confidence = 0.85,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
@@ -540,7 +709,7 @@ class QueryPlanner(
                 // not the top one. Carried as fieldOrdinal so the executor can skip past.
                 val rankOrdinal = operators.rankOrdinal
                 if (rankOrdinal != null) evidence.add("rank $rankOrdinal")
-                return QueryPlan(
+                propose(Branch.SUPERLATIVE_OR_FILTERED_LIST, cues = if (wantsRanking) listOf("ranking") else emptyList(), plan = QueryPlan(
                     intent = if (isList && rankOrdinal == null) Intent.FILTER_LIST else Intent.SUPERLATIVE,
                     fieldIds = listOf(sortField),
                     fieldOrdinal = rankOrdinal,
@@ -552,7 +721,7 @@ class QueryPlanner(
                     confidence = if (comparatorFilters.isNotEmpty()) 0.85 else 0.8,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
@@ -573,7 +742,7 @@ class QueryPlanner(
             val displayField = fieldIds.firstOrNull()
                 ?.takeIf { FieldRegistry.byId[it]?.kind == FieldKind.NUMERIC }
             evidence.add("subset list")
-            return QueryPlan(
+            propose(Branch.SUBSET_LIST, cues = if (comparesASubset && comparatorFilters.isEmpty()) listOf("compare") else emptyList(), plan = QueryPlan(
                 intent = Intent.FILTER_LIST,
                 fieldIds = listOfNotNull(displayField),
                 // Every filter, not just the subset: "which metals are lighter than aluminium"
@@ -585,7 +754,37 @@ class QueryPlanner(
                 confidence = 0.75,
                 rawQuery = rawQuery,
                 evidence = evidence
-            )
+            ))
+        }
+
+        // ---- Trend: "electronegativity across period 3", "a heat map of density" (roadmap 2.3) ----
+        // One measurable field read across a set in atomic-number order, or across the whole table.
+        // A ranking, a statistic or a threshold asks something else of the same set, and a named
+        // element makes it a question about that element; `said` is used rather than the element
+        // matches, because "period 3" also reads as lithium's atomic number.
+        val asksForTheTable = mentionsAny(normalized, Lexicon.HEATMAP_WORDS)
+        if ((asksForTheTable || mentionsAny(normalized, Lexicon.TREND_WORDS)) && said?.elements.isNullOrEmpty() &&
+            operators.superlativeDescending == null && operators.topN == null &&
+            operators.aggregation == Aggregation.NONE && comparatorFilters.isEmpty()
+        ) {
+            // A position is not a trend: "periodic" resolves `period`, and "what are periodic trends"
+            // is a definition. Nor is a trend word alone a question about the whole table - that
+            // takes a set to read it across, or the words for a map.
+            val trendField = fieldMatches.firstOrNull()?.spec
+                ?.takeIf { it.kind == FieldKind.NUMERIC && it.id !in STRUCTURAL_FIELDS }?.id
+            if (trendField != null && (asksForTheTable || subsetFilters.isNotEmpty())) {
+                evidence.add("trend of $trendField")
+                propose(Branch.TREND, cues = listOf("trend"), plan = QueryPlan(
+                    intent = Intent.TREND,
+                    fieldIds = listOf(trendField),
+                    // A heat map is the whole table, whatever subset its words also name.
+                    filters = if (asksForTheTable) emptyList() else subsetFilters,
+                    targetUnit = targetUnit,
+                    confidence = 0.85,
+                    rawQuery = rawQuery,
+                    evidence = evidence
+                ))
+            }
         }
 
         // "which elements have a recorded curie point" — a list question with a field and no
@@ -599,7 +798,7 @@ class QueryPlanner(
                 ?.takeIf { FieldRegistry.byId[it]?.kind == FieldKind.NUMERIC }
             if (coverageField != null) {
                 evidence.add("field coverage")
-                return QueryPlan(
+                propose(Branch.FIELD_COVERAGE_LIST, cues = listOf("has a value"), plan = QueryPlan(
                     intent = Intent.FILTER_LIST,
                     fieldIds = listOf(coverageField),
                     sortField = coverageField,
@@ -608,7 +807,7 @@ class QueryPlanner(
                     confidence = 0.75,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
@@ -627,7 +826,7 @@ class QueryPlanner(
             // could not fire. Re-run it now that the pair is complete: "how does that compare to
             // iron" is a request for a winner, and without this it fell through to the side-by-side
             // table the branch below builds.
-            comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let { return it }
+            comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let { propose(Branch.COMPARE_WITH_FOCUS, it, listOf("compare") + margin(it)) }
         }
 
 
@@ -636,14 +835,14 @@ class QueryPlanner(
             neighbourDirection(normalized)?.let { direction ->
                 store.byNumber(subject.atomicNumber + direction)?.let { target ->
                     evidence.add("neighbour ${if (direction > 0) "after" else "before"}")
-                    return QueryPlan(
+                    propose(Branch.NEIGHBOUR, cues = listOf("neighbour"), plan = QueryPlan(
                         intent = Intent.NEIGHBOUR,
                         entities = listOf(EntityRef.Element(subject.key), EntityRef.Element(target.key)),
                         limit = direction,
                         confidence = 0.85,
                         rawQuery = rawQuery,
                         evidence = evidence
-                    )
+                    ))
                 }
             }
         }
@@ -660,13 +859,13 @@ class QueryPlanner(
         val asksForAFieldOfAnElement = elementKeys.isNotEmpty() && fieldIds.isNotEmpty()
         if (!asksForAFieldOfAnElement) alloyIn(normalized)?.let { alloy ->
             evidence.add("alloy ${alloy.id}")
-            return QueryPlan(
+            propose(Branch.ALLOY, cues = listOf("alloy"), plan = QueryPlan(
                 intent = Intent.DATASET_LOOKUP,
                 entities = listOf(EntityRef.DatasetRow(DatasetIndex.ALLOY, alloy.id)),
                 confidence = 0.8,
                 rawQuery = rawQuery,
                 evidence = evidence
-            )
+            ))
         }
 
         // ---- Comparison: two or more elements named together ------------------------------
@@ -680,7 +879,7 @@ class QueryPlanner(
         ) {
             comparativePlan(rawQuery, normalized, elementKeys, fieldIds)?.let {
                 evidence.add("selective comparison")
-                return it
+                propose(Branch.SELECTIVE_COMPARISON, it, listOf("selective") + margin(it))
             }
         }
 
@@ -692,7 +891,7 @@ class QueryPlanner(
             val unsupported = unsupportedAspects(normalized)
             evidence.add("comparison of ${elementKeys.size} elements")
             if (aspects.size > 1) evidence.add("aspects ${aspects.size}")
-            return QueryPlan(
+            propose(Branch.COMPARISON, cues = if (namesACompareVerb(normalized)) listOf("compare") else emptyList(), plan = QueryPlan(
                 intent = Intent.COMPARISON,
                 entities = elementKeys.map { EntityRef.Element(it) },
                 fieldIds = aspects.ifEmpty { fieldIds.ifEmpty { DEFAULT_COMPARISON_FIELDS } },
@@ -700,7 +899,7 @@ class QueryPlanner(
                 confidence = 0.8,
                 rawQuery = rawQuery,
                 evidence = evidence + unsupported.map { "no field for $it" }
-            )
+            ))
         }
 
         val element = elementKeys.firstOrNull()?.let { store.element(it) }
@@ -725,37 +924,37 @@ class QueryPlanner(
         if (element != null) {
             if (mentionsAny(normalized, Lexicon.ISOTOPE_WORDS)) {
                 evidence.add("isotopes")
-                return QueryPlan(
+                propose(Branch.ISOTOPES, cues = listOf("isotopes"), plan = QueryPlan(
                     intent = Intent.ISOTOPES,
                     entities = listOf(EntityRef.Element(element.key)),
                     limit = operators.topN ?: DEFAULT_ISOTOPE_LIMIT,
                     confidence = 0.85,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
             if (mentionsAny(normalized, Lexicon.SAFETY_WORDS)) {
                 evidence.add("safety")
-                return QueryPlan(
+                propose(Branch.SAFETY, cues = listOf("safety"), plan = QueryPlan(
                     intent = Intent.SAFETY,
                     entities = listOf(EntityRef.Element(element.key)),
                     confidence = 0.85,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
             // Also checked before field resolution: "what does the emission spectrum of iron look
             // like" matched `appearance` and answered with the metal's colour, and "emission
             // spectrum of sodium" resolved nothing at all and was declined.
             if (mentionsAny(normalized, Lexicon.SPECTRUM_WORDS)) {
                 evidence.add("emission spectrum")
-                return QueryPlan(
+                propose(Branch.EMISSION_SPECTRUM, cues = listOf("spectrum"), plan = QueryPlan(
                     intent = Intent.EMISSION_SPECTRUM,
                     entities = listOf(EntityRef.Element(element.key)),
                     confidence = 0.85,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
@@ -780,7 +979,7 @@ class QueryPlanner(
                     .map { it.id }
                 if (populated.size >= 2) {
                     evidence.add("category $category")
-                    return QueryPlan(
+                    propose(Branch.CATEGORY_LOOKUP, cues = listOf("category"), plan = QueryPlan(
                         intent = Intent.CATEGORY_LOOKUP,
                         entities = listOf(EntityRef.Element(element.key)),
                         fieldIds = populated,
@@ -788,7 +987,7 @@ class QueryPlanner(
                         confidence = 0.8,
                         rawQuery = rawQuery,
                         evidence = evidence
-                    )
+                    ))
                 }
             }
         }
@@ -813,7 +1012,7 @@ class QueryPlanner(
                 } else {
                     evidence.add("property $fieldId")
                 }
-                return QueryPlan(
+                propose(Branch.PROPERTY_LOOKUP, cues = if (operators.ordinal != null) listOf("ordinal") else emptyList(), plan = QueryPlan(
                     intent = Intent.PROPERTY_LOOKUP,
                     entities = listOf(EntityRef.Element(element.key)),
                     fieldIds = listOf(fieldId),
@@ -822,7 +1021,7 @@ class QueryPlanner(
                     confidence = 0.8,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
@@ -837,58 +1036,33 @@ class QueryPlanner(
         // was the worst of the three options. The bar is raised when an element is present, so a
         // bare "tell me about gold" still falls through to the overview rather than retrieving
         // whichever row happens to mention gold.
-        if ((elementKeys.isEmpty() || fieldIds.isEmpty()) &&
-            com.jlindemann.science.ai.retrieval.TextMatching.splitQueryTokens(normalized).size >= MIN_DATASET_TOKENS
-        ) {
-            // A query naming something the corpus has never heard of must retrieve a row that is
-            // at least *about* it. Neither test works alone: unknown words appear in perfectly good
-            // questions ("define molar mass"), and title overlap alone would not have been needed.
-            // Together they are what tells "define molar mass" from "write me a poem".
-            // The best *dataset* row, not the best row overall. "Standard electrode potential of
-            // zinc" ranks zinc itself first — of course it does, the query says zinc — and the
-            // element hit is worth nothing here: it is already known, and no field resolved to look
-            // up on it. Taking the top hit meant these questions were declined rather than answered
-            // from the table that holds them.
-            // Searched with the English name of anything the query named in another language. The
-            // reference tables are English and BM25 is lexical, so "vad är stål gjort av" matched
-            // nothing at all — the row is titled "Steel". Only the *search* string is glossed; the
-            // answer is still composed in the user's language.
-            val searchQuery = withDatasetGloss(rawQuery, normalized)
-            val hit = retriever?.search(searchQuery, DATASET_SEARCH_DEPTH)
-                ?.firstOrNull { it.ref is RetrievedRef.Dataset }
-                ?.takeUnless { mentionsSomethingUnknown(rawQuery) && !retriever.looksRelevant(searchQuery, it) }
-            val ref = hit?.ref
-            // The bar stays higher when the query names an element: the element is itself strong
-            // evidence the question is about it.
-            //
-            // Two relaxations were measured and rejected. Dropping this bar to the element-free
-            // one recovers five dataset rows and loses four must-defer rows; gating the drop on the
-            // retrieved row sharing a word with the query recovers the same five and still loses
-            // three. Both are bad trades: declining "solubility of sodium chloride" is a gap, while
-            // answering "what is the weather today" from the constants table is a wrong answer, and
-            // a wrong answer costs more than a missing one.
-            // Naming a *table topic* is the third possibility the two-way choice above missed.
-            // "Standard electrode potential of zinc" names an element, so it got the high bar — but
-            // it also names a subject no element field covers and that only the electrode table
-            // holds. That is evidence of the same kind the element is, pointing the other way, and
-            // it admits nothing the rejected relaxations did: chatter names no table.
+        if ((elementKeys.isEmpty() || fieldIds.isEmpty()) && longEnoughForDataset(normalized)) {
+            // A named element keeps the question unless the query also names a *table topic*.
+            // "Tell me about gold" is about gold, and the overview answers it; "standard electrode
+            // potential of zinc" names a subject no element field covers and only the electrode
+            // table holds, which is evidence of the same kind as the element, pointing the other
+            // way. Chatter names no table. Before roadmap 1.1 the element case had a higher score
+            // bar instead, but the scores it compared were normalised to at most 0.55 and the bar was
+            // 0.6, so it was this rule in effect; it is now written as what it was.
             val namesATableTopic = Lexicon.DATASET_TOPIC_CUES.any { normalized.contains(it) }
-            val minimumScore =
-                if (elementKeys.isEmpty() || namesATableTopic) DATASET_CONFIDENCE
-                else DATASET_CONFIDENCE_WITH_ELEMENT
-            if (ref is RetrievedRef.Dataset && hit.score >= minimumScore) {
-                evidence.add("dataset ${ref.dataset}")
-                return QueryPlan(
+            val match = if (elementKeys.isEmpty() || namesATableTopic) bestDatasetRow(normalized) else null
+            if (match != null) {
+                val separator = match.id.indexOf(':')
+                val dataset = match.id.substring(0, separator)
+                evidence.add("dataset $dataset")
+                evidence.add("coverage %.2f".format(java.util.Locale.ROOT, match.coverage))
+                propose(Branch.DATASET_ROW, QueryPlan(
                     intent = Intent.DATASET_LOOKUP,
-                    entities = listOf(EntityRef.DatasetRow(ref.dataset, ref.id)),
+                    entities = listOf(EntityRef.DatasetRow(dataset, match.id.substring(separator + 1))),
                     confidence = 0.7,
                     rawQuery = rawQuery,
                     evidence = evidence
-                )
+                ))
             }
         }
 
-        return QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+        propose(Branch.NO_MATCH, QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.NO_MATCH))
+        return proposals
     }
 
     /**
@@ -912,6 +1086,7 @@ class QueryPlanner(
      */
     private fun asksHowItWorks(normalized: String): Boolean {
         if (Lexicon.MECHANISM_FRAMES.none { normalized.contains(it) }) return false
+        if (readsAsATrend(normalized)) return false
         if (Lexicon.COMPARE.any { normalized.contains(it) }) return false
         if (Lexicon.COMPARATIVE_ADJECTIVES.keys.any {
                 com.jlindemann.science.ai.retrieval.TextMatching.containsWord(normalized, it)
@@ -920,8 +1095,18 @@ class QueryPlanner(
         return true
     }
 
+    /**
+     * "How does atomic radius change down group 1" asks what the values do, which the data shows as
+     * a trend (roadmap 2.3); "why does it" asks for the mechanism, which is an explanation. A
+     * measurable field and a trend word, without a why, is the first.
+     */
+    private fun readsAsATrend(normalized: String): Boolean =
+        (mentionsAny(normalized, Lexicon.TREND_WORDS) || mentionsAny(normalized, Lexicon.HEATMAP_WORDS)) &&
+                !asksWhy(normalized) &&
+                fields.resolveAll(normalized, limit = 1).any { it.spec.kind == FieldKind.NUMERIC }
+
     private fun explanationPlan(rawQuery: String, normalized: String, hasElement: Boolean): QueryPlan? {
-        val isWhy = Lexicon.WHY_WORDS.any { normalized.startsWith("$it ") || normalized.contains(" $it ") }
+        val isWhy = asksWhy(normalized)
         // A definitional frame over a family named in the *plural* is a request for its members,
         // not for its definition. Deliberately narrowed to `isDefinition`: "why are noble gases
         // unreactive" is still a question the dictionary answers, and `isWhy` is untouched.
@@ -930,6 +1115,19 @@ class QueryPlanner(
                 Lexicon.PLURAL_SERIES_WORDS.none { normalized.contains(it) }
         val isMechanism = asksHowItWorks(normalized)
         if (!isWhy && !isDefinition && !isMechanism) return null
+
+        // A reviewed explanation first (roadmap 2.4): one that names its own subject, "why are noble
+        // gases unreactive", or the trend a field and a direction pick out, "why does atomic radius
+        // increase down a group". A definition is not a why, and keeps the dictionary.
+        if (isWhy || isMechanism) explanationFor(rawQuery, normalized)?.let { explanation ->
+            return QueryPlan(
+                intent = Intent.EXPLANATION,
+                literal = explanation.key,
+                confidence = 0.9,
+                rawQuery = rawQuery,
+                evidence = listOf("explanation ${explanation.key}")
+            )
+        }
 
         // Longest topic first, so "electron configuration unusual" beats "electron".
         val topic = Lexicon.EXPLANATION_TOPICS.entries
@@ -940,7 +1138,14 @@ class QueryPlanner(
         // about — "why are alkali metals so reactive" wants the reactivity entry. A *mechanism*
         // frame is not: it asks how one thing follows from another, and any topic it happens to
         // mention is incidental. Returning a definition there looks like an answer and is not one.
-        val row = if (isMechanism) null else topic?.let { datasets.row(DatasetIndex.DICTIONARY, it.value) }
+        // A definition wants the definition. The topics map to the periodic-trend entries, which
+        // answer "why does electronegativity increase", but "what is electronegativity" was answered
+        // with the trend too in every language whose word reaches this path (roadmap 1.3); English
+        // only escaped because its word resolves a field first.
+        val row = if (isMechanism) null else topic?.let { t ->
+            (if (isDefinition && !isWhy) plainDefinition(t.value) else null)
+                ?: datasets.row(DatasetIndex.DICTIONARY, t.value)
+        }
 
         // No explanation to give — so decline, rather than falling through to the property path.
         //
@@ -951,7 +1156,7 @@ class QueryPlanner(
         // answer than saying that, and it lets the personality layer offer what it can.
         if (row == null) {
             return if (isWhy || isMechanism) {
-                QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery)
+                QueryPlan(intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery, declined = DeclineReason.UNEXPLAINED_WHY)
             } else null
         }
         return QueryPlan(
@@ -961,6 +1166,38 @@ class QueryPlanner(
             rawQuery = rawQuery,
             evidence = listOf(if (isWhy) "explains ${topic?.value}" else "defines ${topic?.value}")
         )
+    }
+
+    /**
+     * The explanation a why question asks for: by its trigger phrases, or by the field it names and the
+     * way it reads the table - down a group, across a period, or neither, which takes the field's first.
+     */
+    private fun explanationFor(rawQuery: String, normalized: String): com.jlindemann.science.ai.data.Explanation? {
+        explanations.forTopic(normalized)?.let { return it }
+        val scope = when {
+            mentionsAny(normalized, Lexicon.EXPLAIN_DOWN_WORDS) -> com.jlindemann.science.ai.data.ExplanationScope.GROUP
+            mentionsAny(normalized, Lexicon.EXPLAIN_ACROSS_WORDS) -> com.jlindemann.science.ai.data.ExplanationScope.PERIOD
+            else -> null
+        }
+        // Each field the question names, until one has an explanation: "why does radius decrease left
+        // to right, despite adding electrons" names electrons as well as radius.
+        return fields.resolveAll(rawQuery, limit = 3)
+            .filter { it.spec.kind == FieldKind.NUMERIC }
+            .firstNotNullOfOrNull { explanations.forTrend(it.spec.id, scope) }
+    }
+
+    /** Chinese writes no spaces, so "为什么汞是液体" holds its why word with nothing around it. */
+    private fun asksWhy(normalized: String): Boolean = Lexicon.WHY_WORDS.any {
+        normalized.startsWith("$it ") || normalized.contains(" $it ") || (it.any { c -> c.code > 0x2000 } && normalized.contains(it))
+    }
+
+    /** "Electronegativity" for "Periodic trend: electronegativity", when the glossary has one. */
+    private fun plainDefinition(topic: String): com.jlindemann.science.ai.data.DatasetRow? {
+        if (!topic.startsWith(TREND_PREFIX)) return null
+        val concept = topic.removePrefix(TREND_PREFIX)
+        return datasets.rows.firstOrNull {
+            it.dataset == DatasetIndex.DICTIONARY && it.title.equals(concept, ignoreCase = true)
+        }
     }
 
     /**
@@ -1033,6 +1270,44 @@ class QueryPlanner(
      * a question nobody asked. When no retriever is wired the check cannot run and the old
      * length-only behaviour stands.
      */
+    /**
+     * Whether this is a definitional question about a term the dictionary knows — "what is
+     * electronegativity" rather than "what is its electronegativity".
+     *
+     * Such a question names no element, so inheriting the one in focus turns it into a property
+     * lookup: after discussing gold, "what is electronegativity" came back "Gold's
+     * Electronegativity is 2.54". The dictionary path is guarded by `!hasElement`, so the inherited
+     * element is exactly what shut the definition out. An anaphor excludes it — "what is *its*
+     * density" is about the element in focus — and so does a topic with no entry, where inheriting
+     * is still the best available. Ported from the Windows planner (porting notes, D53).
+     */
+    private fun asksForADefinition(normalized: String): Boolean {
+        val tm = com.jlindemann.science.ai.retrieval.TextMatching
+        if (Lexicon.ANAPHORS.any { tm.containsWord(normalized, it) }) return false
+        // A definition opens with an interrogative; a follow-up opens with a connective ("and the
+        // melting point?") or is a bare noun phrase. The interrogatives come from DEFINITION_FRAMES
+        // so the twelve languages stay in one place.
+        val opener = tm.splitQueryTokens(normalized).firstOrNull { it.isNotBlank() } ?: return false
+        val interrogative = Lexicon.DEFINITION_FRAMES.any { tm.splitQueryTokens(it).firstOrNull() == opener }
+        if (!interrogative) return false
+        return datasets.dataset(DatasetIndex.DICTIONARY).any { namesEntry(normalized, it.title) }
+    }
+
+    /**
+     * Whether the query names this dictionary entry. Topic entries are titled "Periodic trend:
+     * ionization energy", so the part before the colon is matched as a substring — the question
+     * asks about it in the plural, "periodic trends".
+     */
+    private fun namesEntry(normalized: String, title: String): Boolean {
+        val tm = com.jlindemann.science.ai.retrieval.TextMatching
+        val full = tm.normalizeForLookup(title)
+        if (tm.containsWord(normalized, full)) return true
+        val colon = full.indexOf(':')
+        if (colon <= 0) return false
+        val topic = full.substring(0, colon).trim()
+        return topic.isNotEmpty() && normalized.contains(topic)
+    }
+
     private fun continuesTheThread(normalized: String): Boolean {
         // An explicit anaphor settles it. The unknown-word test exists to catch a turn that changes
         // the subject, and "is it dangerous" plainly does not — while its content word is safety
@@ -1072,6 +1347,49 @@ class QueryPlanner(
         return !mentionsSomethingUnknown(normalized)
     }
 
+    /**
+     * The set a question reads off an element, or null (roadmap 1.7): "in its period" is the
+     * period, "the rest of that family" the series. A set's name counts only after one of
+     * [Lexicon.SET_DETERMINERS], so "what group is iron in" stays a question about iron's group; the
+     * whole phrases of [Lexicon.SAME_AS_WORDS] count too, and name the group unless they say which.
+     */
+    private fun setDimension(normalized: String): String? {
+        val words = com.jlindemann.science.ai.retrieval.TextMatching.splitQueryTokens(normalized)
+        for (determiner in Lexicon.SET_DETERMINERS) {
+            if (determiner.any { com.jlindemann.science.ai.retrieval.Tokenizer.isHan(it) }) {
+                for ((name, dimension) in Lexicon.SET_DIMENSIONS) {
+                    if (normalized.contains(determiner + name)) return dimension
+                }
+                continue
+            }
+            val parts = determiner.split(' ')
+            for (at in 0..words.size - parts.size - 1) {
+                if (parts.indices.any { words[at + it] != parts[it] }) continue
+                dimensionOf(words[at + parts.size])?.let { return it }
+            }
+        }
+        if (Lexicon.SAME_AS_WORDS.none { normalized.contains(it) }) return null
+        return words.firstNotNullOfOrNull { dimensionOf(it) }
+            ?: Lexicon.SET_DIMENSIONS.entries.firstOrNull { (name, _) -> name.length <= 2 && normalized.contains(name) }?.value
+            ?: "group"
+    }
+
+    /** The set a word names, allowing a short ending: "gruppen", "perioden", "blocket". */
+    private fun dimensionOf(word: String): String? = Lexicon.SET_DIMENSIONS.entries.firstOrNull { (name, _) ->
+        word.startsWith(name) && word.length - name.length <= MAX_SET_ENDING
+    }?.value
+
+    /** The filter for [reference]'s set of that kind; a lanthanide has no group, so its series stands in. */
+    private fun setFilter(dimension: String, reference: com.jlindemann.science.ai.data.ElementRecord): com.jlindemann.science.ai.core.Filter? =
+        when (dimension) {
+            "group" -> reference.groupNumber?.let { com.jlindemann.science.ai.core.Filter.InGroup(it) }
+                ?: com.jlindemann.science.ai.core.Filter.InSeries(setOf(reference.series))
+            "period" -> com.jlindemann.science.ai.core.Filter.InPeriod(reference.period)
+            "block" -> com.jlindemann.science.ai.core.Filter.InBlock(reference.block)
+            "series" -> com.jlindemann.science.ai.core.Filter.InSeries(setOf(reference.series))
+            else -> null
+        }
+
     /** Whether the query is the "same question, different subject" frame. */
     private fun asksWhatAbout(normalized: String): Boolean =
         Lexicon.WHAT_ABOUT_FRAMES.any { normalized.contains(it) }
@@ -1096,11 +1414,73 @@ class QueryPlanner(
     }
 
     /**
+     * Whether a query is long enough for a lexical dataset match to mean anything.
+     *
+     * Words for spaced scripts, characters for Han: unspaced, 动能的公式 is one "word" and never
+     * reached retrieval at all, though it is as complete a question as "formula for kinetic energy".
+     */
+    private fun longEnoughForDataset(normalized: String): Boolean =
+        if (com.jlindemann.science.ai.retrieval.Tokenizer.isUnspacedScript(normalized))
+            normalized.count(com.jlindemann.science.ai.retrieval.Tokenizer::isHan) >= MIN_DATASET_HAN_CHARS
+        else com.jlindemann.science.ai.retrieval.TextMatching.splitQueryTokens(normalized).size >= MIN_DATASET_TOKENS
+
+    /**
      * [rawQuery] with the English name of any glossed topic appended.
      *
      * Appended rather than substituted, so the original words still contribute to the score and a
      * query that happens to contain a glossed word is not rewritten out from under itself.
      */
+    /**
+     * The reference-table row that covers the query's content, or null when none covers enough of
+     * it to answer from (roadmap 1.1).
+     *
+     * Retrieval used to rank with BM25 normalised against the top hit, so the best row always
+     * scored the same and nothing could abstain: "what is the mass of an electron" was answered from
+     * the Pauli exclusion principle, "what is the nernst equation" from the Arrhenius equation, and
+     * "what is the mass of the moon" from atomic mass. Coverage is a share of the query's own
+     * content - see [com.jlindemann.science.ai.retrieval.Bm25Index.coverage] - so one threshold
+     * means the same thing for every query, and a word the corpus has never seen counts against a
+     * match rather than being ignored.
+     *
+     * Ranked by coverage, then by how much of the row's title the query names (the mineral
+     * "Quartz" over the elastic "α-Quartz (SiO2)"), then by how much of the query is in the title
+     * ("Proton mass" over the glossary's "Proton"); a data table before the glossary when all three
+     * tie, because the tables hold values and the glossary only defines; BM25 last.
+     *
+     * A query with one content word must name the row's whole *title*, in one of its wordings. Every
+     * real one-word question does - "what is brass", "tell me about pyrite" - while a word that is
+     * only in a body is a coincidence ("tell me more" covered the Magnalium alloy, whose description
+     * says "more than cost"), and so is a word that is only part of a title: "what is the meaning of
+     * life" was answered with the half-life equation, "what is light" with the speed of light. A
+     * formula in brackets is notation, so "tell me about periclase" still finds "Periclase (MgO)".
+     */
+    private fun bestDatasetRow(normalized: String): com.jlindemann.science.ai.retrieval.Coverage? {
+        val retriever = retriever ?: return null
+        val stopwords = Lexicon.STOPWORDS.getValue("en") + Lexicon.STOPWORDS[entities.activeLanguage].orEmpty()
+        return retriever.datasetCoverage(datasetQuery(normalized), stopwords)
+            .filter { it.coverage >= MIN_DATASET_COVERAGE && (it.words > 1 || it.namesTitle) }
+            .sortedWith(DATASET_RANKING)
+            .firstOrNull()
+    }
+
+    /**
+     * The query with every phrase [Lexicon.DATASET_GLOSS] knows *replaced* by its English name.
+     *
+     * The tables are English, so "vad är stål gjort av" can only reach the row titled "Steel"
+     * through the gloss. [withDatasetGloss] appends it, which suited BM25; coverage would count the
+     * Swedish words as unknown content the row does not cover, so here the gloss stands in for
+     * them. Only the search string is glossed; the answer is still composed in the user's language.
+     */
+    private fun datasetQuery(normalized: String): String {
+        var text = normalized
+        for ((phrase, english) in Lexicon.DATASET_GLOSS) {
+            if (!com.jlindemann.science.ai.retrieval.TextMatching.containsWord(text, phrase)) continue
+            text = if (phrase.any { it.code > 0x2000 }) text.replace(phrase, " $english ")
+            else Regex("""(?<![\p{L}\p{N}])${Regex.escape(phrase)}(?![\p{L}\p{N}])""").replace(text, english)
+        }
+        return text
+    }
+
     private fun withDatasetGloss(rawQuery: String, normalized: String): String {
         // On word boundaries. A plain `contains` found the Swedish word for steel, "stål", inside
         // the English "cry**stal**lographic", so "crystallographic data for iron" was glossed with
@@ -1185,6 +1565,63 @@ class QueryPlanner(
      * conversions. Returns null when the query is not one of those.
      */
     private fun calculationPlan(rawQuery: String, normalized: String): QueryPlan? {
+        // --- An ion's configuration (roadmap 2.8) -------------------------------------------------
+        // Before everything else: "Fe3+" would otherwise be read as iron, and the answer would be
+        // the neutral atom's configuration, which is exactly the wrong one.
+        ionConfigPlan(rawQuery, normalized)?.let { return it }
+
+        // --- Empirical formulas and stoichiometry (roadmap 2.8) ---------------------------------
+        // Above balancing: a stoichiometry question carries an equation, and the balancer reads the
+        // amounts written around it as species. Percentages beside element names would otherwise
+        // be taken for a comparison of those elements.
+        empiricalPlan(rawQuery, normalized)?.let { return it }
+        stoichiometryPlan(rawQuery)?.let { return it }
+
+        // --- Balance an equation --------------------------------------------------------------
+        // First, and on the raw query. The arrow is the most specific syntax any of these
+        // questions carry, and `normalized` is lowercased, which destroys every formula in the
+        // sentence. A plan is produced only when the equation actually parses, so "x -> y" written
+        // in prose falls through to everything below untouched.
+        if (EQUATION_ARROW.containsMatchIn(rawQuery)) {
+            val outcome = com.jlindemann.science.ai.data.EquationBalancer
+                .parse(rawQuery) { store.bySymbol(it) != null }
+            val evidence = when (outcome) {
+                is com.jlindemann.science.ai.data.EquationBalancer.ParseOutcome.Sides ->
+                    "equation ${outcome.reactants.size} -> ${outcome.products.size}"
+                // Claimed too. The executor answers it with "too large", which is the truth; letting
+                // it fall through to the legacy router would answer a readable equation by
+                // recommending the balancer the user is already effectively using.
+                com.jlindemann.science.ai.data.EquationBalancer.ParseOutcome.TooManySpecies ->
+                    "equation too large"
+                else -> null
+            }
+            if (evidence != null) {
+                return QueryPlan(
+                    intent = Intent.BALANCE_EQUATION,
+                    rawQuery = rawQuery,
+                    confidence = 0.9,
+                    evidence = listOf(evidence)
+                )
+            }
+        }
+
+        // --- pH and the gas law (roadmap 2.8) ----------------------------------------------------
+        // Above the solution branch: a pH question carries a molarity, and a gas-law one a volume
+        // and an amount, which the solution branch would read as a concentration question.
+        phPlan(rawQuery, normalized)?.let { return it }
+        gasLawPlan(rawQuery, normalized)?.let { return it }
+
+        // --- Solutions: molarity, mass↔moles↔concentration, dilution ---------------------------
+        // Above the mole branch, because `MOLE_QUANTITY` matches the "0.5 mol" inside "0.5 mol/L"
+        // and would answer a molarity question with a particle count.
+        solutionPlan(rawQuery, normalized)?.let { return it }
+
+        // --- Decay over time --------------------------------------------------------------------
+        // Above the isotope branch further down: `ISOTOPE_WORDS` holds "decay", "half life" and
+        // "how long does", so every one of these questions would otherwise be answered with the
+        // isotope table instead of the arithmetic that was asked for.
+        decayPlan(rawQuery, normalized)?.let { return it }
+
         // --- Moles to particles -------------------------------------------------------------
         if (mentionsAny(normalized, Lexicon.MOLE_WORDS)) {
             MOLES.find(normalized)?.let { match ->
@@ -1199,6 +1636,16 @@ class QueryPlanner(
             // "If I have 12 grams of carbon-12, how many moles is that" used to resolve magnesium
             // from the 12 and answer with a two-element list.
             GRAMS.find(normalized)?.let { match ->
+                // A compound first: "10 g of sodium chloride" is not 10 g of sodium.
+                entities.scanCompounds(rawQuery).compounds.firstNotNullOfOrNull { it.formula }?.let { formula ->
+                    return QueryPlan(
+                        intent = Intent.MOLE_CONVERSION,
+                        literal = formula,
+                        rawQuery = rawQuery,
+                        confidence = 0.85,
+                        evidence = listOf("grams ${match.groupValues[1]} of $formula")
+                    )
+                }
                 val substance = entities.resolveAll(rawQuery, limit = 1).firstOrNull()
                 if (substance != null) {
                     return QueryPlan(
@@ -1240,7 +1687,10 @@ class QueryPlanner(
                 val name = match.groupValues[1]
                 val mass = match.groupValues[2].toIntOrNull()
                 val element = nuclideElement(name)
-                if (element != null && mass != null) {
+                // mass >= Z, as the two branches above also require. No nuclide has fewer
+                // nucleons than protons, and without it "how many neutrons in uranium-3" was
+                // claimed and reached the executor, where 3 - 92 gave -89 neutrons.
+                if (element != null && mass != null && mass >= element.atomicNumber) {
                     return QueryPlan(
                         intent = Intent.NUCLIDE_COUNT,
                         entities = listOf(EntityRef.Element(element.key)),
@@ -1276,27 +1726,12 @@ class QueryPlanner(
         val wantsComposition = Lexicon.COMPOSITION_WORDS.any { normalized.contains(it) }
         if (!wantsMass && !wantsComposition) return null
 
-        // Prefer an explicit formula in the raw text, where capitalisation survives.
-        val candidate = FORMULA.findAll(rawQuery)
-            .map { it.value }
-            .filter { it.any { c -> c.isDigit() } || it.length > 2 }
-            .firstOrNull { candidate ->
-                com.jlindemann.science.ai.data.ChemistryMath
-                    .parseFormula(candidate) { symbol -> atomicMassOf(symbol) } != null
-            }
-            // "percentage composition of water" names a compound rather than writing it.
-            // Matched on word boundaries: a plain `contains` found "salt" inside "basalt", so
-            // "what is the composition of basalt" was answered with the formula mass of NaCl.
-            // Longest name first, so "table salt" is preferred over "salt".
-            ?: Lexicon.COMMON_COMPOUNDS.entries
-                .sortedByDescending { it.key.length }
-                .firstOrNull {
-                    com.jlindemann.science.ai.retrieval.TextMatching.containsWord(normalized, it.key)
-                }?.value
-            ?: return null
+        val candidate = compoundIn(rawQuery, normalized) ?: return null
+        val focus = if (wantsComposition) focusElement(rawQuery, candidate) else null
 
         return QueryPlan(
             intent = Intent.FORMULA_MASS,
+            entities = listOfNotNull(focus?.let { EntityRef.Element(it.key) }),
             fieldIds = if (wantsComposition) listOf("composition") else emptyList(),
             rawQuery = candidate,
             confidence = 0.9,
@@ -1304,8 +1739,472 @@ class QueryPlanner(
         )
     }
 
+    /**
+     * A question about a compound named in words, or null to let the rest of the planner have it
+     * (roadmap 1.2).
+     *
+     * The app knows a compound's formula, molar mass and composition, and which of its ions the
+     * solubility table covers. It holds no compound *properties*, so "density of sodium chloride"
+     * is declined - it used to be answered with sodium's density, "molar mass of calcium
+     * carbonate" as a comparison of calcium and carbon, and "boiling point of water" from the
+     * glossary's "Noble gas". A superlative or a list ("most abundant element in sea water")
+     * is not about the compound and is left alone.
+     */
+    private fun compoundPlan(
+        rawQuery: String,
+        normalized: String,
+        compound: com.jlindemann.science.ai.retrieval.CompoundMatch,
+        namesAField: Boolean
+    ): QueryPlan? {
+        // Not WHICH: it holds "what", and "what is sodium chloride" is about the compound.
+        if (mentionsAny(normalized, Lexicon.MOST) || mentionsAny(normalized, Lexicon.LEAST) ||
+            mentionsAny(normalized, Lexicon.AVERAGE)
+        ) return null
+
+        // "Is calcium carbonate soluble", "är silverklorid lösligt": the cation's row of the
+        // solubility table, which retrieval alone could not reach from a name in Swedish.
+        if (mentionsAny(normalized, Lexicon.SOLUBILITY_WORDS)) {
+            val row = compound.cation?.let { datasets.row(DatasetIndex.SOLUBILITY, it) }
+            if (row != null) {
+                return QueryPlan(
+                    intent = Intent.DATASET_LOOKUP,
+                    entities = listOf(EntityRef.DatasetRow(DatasetIndex.SOLUBILITY, row.id)),
+                    confidence = 0.8,
+                    rawQuery = rawQuery,
+                    evidence = listOf("solubility of ${compound.formula ?: compound.surface}")
+                )
+            }
+            return null
+        }
+
+        // "What is sodium chloride", "formula of table salt", "tell me about potassium iodide":
+        // nothing asked but the compound, which its formula and composition answer.
+        val remainder = com.jlindemann.science.ai.retrieval.TextMatching.splitQueryTokens(
+            com.jlindemann.science.ai.retrieval.TextMatching.normalizeForLookup(
+                entities.scanCompounds(rawQuery).remainder
+            )
+        ).filterNot { word ->
+            word in stopwords() || Lexicon.FORMULA_WORDS.any { it == word } ||
+                    Lexicon.OVERVIEW_WORDS.any { it == word }
+        }
+        if (remainder.isEmpty() && !namesAField) {
+            val formula = compound.formula
+                ?: return compoundDecline(rawQuery)
+            return QueryPlan(
+                intent = Intent.FORMULA_MASS,
+                fieldIds = listOf("composition"),
+                rawQuery = formula,
+                confidence = 0.85,
+                evidence = listOf("compound ${compound.surface} = $formula")
+            )
+        }
+
+        // A property of the compound, which the app does not hold.
+        return if (namesAField) compoundDecline(rawQuery) else null
+    }
+
+    private fun compoundDecline(rawQuery: String) = QueryPlan(
+        intent = Intent.UNKNOWN, confidence = 0.0, rawQuery = rawQuery,
+        declined = DeclineReason.COMPOUND_PROPERTY
+    )
+
+    private fun stopwords(): Set<String> =
+        (Lexicon.STOPWORDS.getValue("en") + Lexicon.STOPWORDS[entities.activeLanguage].orEmpty()).toHashSet()
+
+    /**
+     * The compound a query is about, written as a formula or named in words.
+     *
+     * Shared by the formula-mass and solution branches so the two cannot disagree about what
+     * "table salt" means.
+     */
+    private fun compoundIn(rawQuery: String, normalized: String): String? =
+        // Prefer an explicit formula in the raw text, where capitalisation survives.
+        FORMULA.findAll(rawQuery)
+            .map { it.value }
+            .filter { it.any { c -> c.isDigit() } || it.length > 2 }
+            .firstOrNull { candidate ->
+                com.jlindemann.science.ai.data.ChemistryMath
+                    .parseFormula(candidate) { symbol -> atomicMassOf(symbol) } != null
+            }
+            // "percentage composition of water", "molar mass of calcium carbonate": a compound named
+            // in words rather than written. The resolver matches whole words, so "salt" is not
+            // found inside "basalt", and composes salts in every language (roadmap 1.2).
+            ?: entities.scanCompounds(rawQuery).compounds.firstNotNullOfOrNull { it.formula }
+
     private fun atomicMassOf(symbol: String): Double? =
         store.bySymbol(symbol)?.quantity("atomic_mass")?.value
+
+    /**
+     * A chemical equation's arrow.
+     *
+     * The balancer's, not a copy of it. This file used to carry its own pattern and the two
+     * drifted: only this one excluded `==`, `<=`, `>=` and `!=`, so a query the planner correctly
+     * refused to read as an equation was read as one the moment it reached the solver.
+     */
+    private val EQUATION_ARROW = com.jlindemann.science.ai.data.EquationBalancer.ARROW
+
+    /**
+     * A standalone unit conversion, on a number the user supplied.
+     *
+     * Every one of the conditions below exists to keep this off a query that already has a better
+     * answer. Taken together they say: there is a number with a unit, a target was named, this is
+     * not an element's property being asked for, nothing is being ranked or filtered, and the two
+     * units actually relate.
+     *
+     * The property-lookup guard is deliberately run against the query with its **units removed**.
+     * A unit token resolves a field all by itself — "GPa" reaches the pressure fields, "eV" the
+     * ionisation energies, "Pa" even resolves protactinium — so a guard that simply asked whether
+     * a field resolved declined "convert 5 GPa to MPa" on the strength of the very units being
+     * converted. What actually distinguishes "density of gold in kg/m³" is that a field and an
+     * element are named *outside* the unit expression, and that is what is checked here.
+     */
+    private fun unitConvertPlan(rawQuery: String, operators: Operators): QueryPlan? {
+        // Ranking and filtering carry numbers with units too: "elements denser than 5 g/cm³".
+        if (operators.comparators.isNotEmpty() || operators.subsetFilters.isNotEmpty()) return null
+        if (operators.superlativeDescending != null || operators.topN != null) return null
+        if (operators.aggregation != Aggregation.NONE || operators.range != null) return null
+
+        val source = QuantityScanner.scan(rawQuery).firstOrNull() ?: return null
+        // The scanner's own reading comes first. `OperatorExtractor.targetUnit` accepts any unit
+        // with a preposition on either side, which is right for a property lookup — there is no
+        // source quantity there to confuse it — but here it picks the unit being converted *from*:
+        // in "convert 5 GPa to MPa" the GPa has "to" on its right, so it was read as the target and
+        // the conversion collapsed to a no-op.
+        val target = QuantityScanner.targetUnit(rawQuery) ?: operators.targetUnit ?: return null
+        if (target == source.unit) return null
+        // A dimensional mismatch means the query was misread. Declining is the honest move; the
+        // alternative is inventing a relationship between a temperature and a volume.
+        if (!com.jlindemann.science.ai.data.UnitConverter.convertible(source.unit, target)) return null
+
+        val residual = withoutUnits(rawQuery, source)
+        if (fields.resolveAll(residual, limit = 1).isNotEmpty() &&
+            entities.resolveAll(residual, limit = 1).isNotEmpty()
+        ) return null
+
+        return QueryPlan(
+            intent = Intent.UNIT_CONVERT,
+            rawQuery = rawQuery,
+            targetUnit = target,
+            // Below the 0.9 of the syntax-driven branches, since a unit token is weaker evidence
+            // than an arrow or a nuclide, and above PROPERTY_LOOKUP's 0.8 so a phrasing that
+            // reaches both resolves toward the conversion.
+            confidence = 0.85,
+            evidence = listOf("convert ${source.unit} to $target")
+        )
+    }
+
+    /**
+     * The query with its unit expression taken out, for the property-lookup test above.
+     *
+     * Removes the scanned quantity's own span and every remaining token that is itself a unit, so
+     * what is left is the words the sentence used to name something — which is where a genuine
+     * property lookup keeps its field and its element.
+     */
+    private fun withoutUnits(rawQuery: String, source: ScannedQuantity): String {
+        val withoutSource = rawQuery.removeRange(source.range)
+        return withoutSource.split(' ')
+            .filterNot { token ->
+                val cleaned = token.trim(',', ';', '.', '(', ')')
+                cleaned.isNotEmpty() && (
+                        com.jlindemann.science.ai.data.UnitConverter.knownUnit(cleaned) != null ||
+                                Lexicon.UNIT_WORDS.containsKey(cleaned.lowercase()) ||
+                                Lexicon.SCRIPT_UNIT_WORDS.containsKey(cleaned)
+                        )
+            }
+            .joinToString(" ")
+    }
+
+    /**
+     * "pH of 0.01 M HCl", "the pH of 0.05 M sodium hydroxide" (roadmap 2.8). Only for a strong acid
+     * or base: a weak one needs a Ka the app does not have, and is left for the decline.
+     */
+    private fun phPlan(rawQuery: String, normalized: String): QueryPlan? {
+        if (!com.jlindemann.science.ai.retrieval.TextMatching.containsWord(normalized, "ph")) return null
+        if (QuantityScanner.of(rawQuery, Dimension.MOLARITY).isEmpty()) return null
+        val formula = compoundIn(rawQuery, normalized) ?: return null
+        val composition: (String) -> Map<String, Int>? = { f ->
+            com.jlindemann.science.ai.data.ChemistryMath.parseFormula(f) { atomicMassOf(it) }?.parts?.associate { it.symbol to it.count }
+        }
+        com.jlindemann.science.ai.data.AcidBase.strong(formula, composition) ?: return null
+        return QueryPlan(intent = Intent.PH_CALC, rawQuery = rawQuery, literal = formula, confidence = 0.9, evidence = listOf("ph"))
+    }
+
+    /**
+     * "Volume of 2 mol of gas at 300 K and 1.5 atm", "moles in 10 L at STP" (roadmap 2.8). Three of
+     * pressure, volume, amount and temperature, counting STP as two; a gas-law word or a pressure
+     * says it is a gas question rather than a solution one.
+     */
+    private fun gasLawPlan(rawQuery: String, normalized: String): QueryPlan? {
+        val pressures = QuantityScanner.of(rawQuery, Dimension.PRESSURE).size
+        val volumes = QuantityScanner.of(rawQuery, Dimension.VOLUME).size
+        val amounts = QuantityScanner.of(rawQuery, Dimension.AMOUNT).size
+        val temperatures = QuantityScanner.of(rawQuery, Dimension.TEMPERATURE).size
+        val grams = if (GRAMS.containsMatchIn(normalized)) 1 else 0
+        val stp = mentionsAny(normalized, Lexicon.STP_WORDS)
+        val framed = mentionsAny(normalized, Lexicon.GAS_LAW_WORDS)
+        val known = minOf(pressures, 1) + minOf(volumes, 1) + minOf(amounts + grams, 1) + minOf(temperatures, 1) +
+            if (stp) 2 else 0
+        if (known < 3) return null
+        if (!framed && !stp && pressures == 0) return null
+        return QueryPlan(
+            intent = Intent.GAS_LAW,
+            rawQuery = rawQuery,
+            literal = if (grams > 0) compoundIn(rawQuery, normalized) else null,
+            confidence = 0.9,
+            evidence = listOfNotNull("gas law", "stp".takeIf { stp })
+        )
+    }
+
+    /**
+     * "Electron configuration of Fe3+", "Cl⁻ configuration" (roadmap 2.8): an ion, written with its
+     * charge, beside a configuration word.
+     */
+    private fun ionConfigPlan(rawQuery: String, normalized: String): QueryPlan? {
+        val asksConfiguration = fields.resolveAll(rawQuery, limit = 3).any { it.spec.id == "electron_configuration" } ||
+            mentionsAny(normalized, Lexicon.CONFIGURATION_WORDS)
+        if (!asksConfiguration) return null
+        val (symbol, charge) = ionIn(rawQuery) ?: return null
+        if (store.bySymbol(symbol) == null) return null
+        return QueryPlan(intent = Intent.ION_CONFIG, rawQuery = rawQuery, literal = "$symbol:$charge", confidence = 0.92, evidence = listOf("ion"))
+    }
+
+    /** The first ion written in [rawQuery]: Fe3+, Fe 3+, Fe+3, Fe^3+, Fe³⁺, Cl-, Cl⁻, O2-. */
+    private fun ionIn(rawQuery: String): Pair<String, Int>? {
+        ION_CHARGE_AFTER.find(rawQuery)?.let { m ->
+            val size = m.groupValues[2].map { SUPERSCRIPT_DIGITS.indexOf(it).takeIf { i -> i >= 0 }?.digitToChar() ?: it }
+                .joinToString("").toIntOrNull() ?: 1
+            val sign = if (m.groupValues[3] in listOf("+", "⁺")) 1 else -1
+            return m.groupValues[1] to sign * size
+        }
+        ION_SIGN_FIRST.find(rawQuery)?.let { m ->
+            val sign = if (m.groupValues[2] == "+") 1 else -1
+            return m.groupValues[1] to sign * m.groupValues[3].toInt()
+        }
+        return null
+    }
+
+    /**
+     * The element whose share a composition question asks for, "oxygen in water", "Fe in Fe2O3"
+     * (roadmap 2.8), when it is one of the compound's own.
+     */
+    private fun focusElement(rawQuery: String, formula: String): com.jlindemann.science.ai.data.ElementRecord? {
+        val symbols = com.jlindemann.science.ai.data.ChemistryMath.parseFormula(formula) { atomicMassOf(it) }
+            ?.parts?.map { it.symbol }?.toSet() ?: return null
+        if (symbols.size < 2) return null
+        val rest = rawQuery.replace(formula, " ", ignoreCase = true)
+        return entities.resolveAll(rest, limit = 3).mapNotNull { store.element(it.key) }.firstOrNull { it.symbol in symbols }
+    }
+
+    /**
+     * "Empirical formula of 40% C, 6.7% H and 53.3% O", "empirical formula of C6H12O6", "molecular
+     * formula of CH2O with a molar mass of 180 g/mol" (roadmap 2.8). The literal carries the masses or
+     * the formula, and the molar mass after a bar.
+     */
+    private fun empiricalPlan(rawQuery: String, normalized: String): QueryPlan? {
+        val empirical = mentionsAny(normalized, Lexicon.EMPIRICAL_WORDS)
+        val molecular = mentionsAny(normalized, Lexicon.MOLECULAR_FORMULA_WORDS)
+        if (!empirical && !molecular) return null
+        val molarMass = molarMassGiven(rawQuery, normalized)
+        // A molecular formula alone says nothing a formula does not; with a molar mass it does.
+        if (!empirical && molarMass == null) return null
+        val masses = elementMasses(rawQuery)
+        val body = if (masses.size >= 2) masses.entries.joinToString(";") { "${it.key}=${it.value}" }
+        else "formula:" + (compoundIn(rawQuery, normalized) ?: return null)
+        return QueryPlan(
+            intent = Intent.EMPIRICAL_FORMULA,
+            rawQuery = rawQuery,
+            literal = body + (molarMass?.let { "|$it" } ?: ""),
+            confidence = 0.9,
+            evidence = listOf("empirical formula")
+        )
+    }
+
+    /** A molar mass the question gives: "180 g/mol", or a number after "molar mass". */
+    private fun molarMassGiven(rawQuery: String, normalized: String): Double? {
+        MOLAR_MASS_GIVEN.find(rawQuery)?.let { return decimal(it.groupValues[1]) }
+        for (word in Lexicon.MOLAR_MASS_WORDS) {
+            val at = normalized.indexOf(word).takeIf { it >= 0 } ?: continue
+            NUMBER_AFTER.find(normalized.substring(at + word.length).take(24))?.let { return decimal(it.groupValues[1]) }
+        }
+        return null
+    }
+
+    /**
+     * Each element's percentage or mass, "40% C", "6.7 % hydrogen", "53.3 g of oxygen", "C: 40%".
+     * An element is a symbol as written, or a name in any language.
+     */
+    private fun elementMasses(rawQuery: String): Map<String, Double> {
+        val masses = LinkedHashMap<String, Double>()
+        for (m in ELEMENT_AMOUNT.findAll(rawQuery)) {
+            val value = decimal(m.groupValues[1]) ?: continue
+            // The element is one of the next two words: "40% C", "40 % of carbon", "40 g av kol".
+            val element = WORD.findAll(rawQuery, m.range.last + 1).take(2).firstNotNullOfOrNull { elementWord(it.value) } ?: continue
+            masses.putIfAbsent(element.symbol, value)
+        }
+        if (masses.size >= 2) return masses
+        masses.clear()
+        for (m in ELEMENT_THEN_PERCENT.findAll(rawQuery)) {
+            val element = elementWord(m.groupValues[1]) ?: continue
+            masses.putIfAbsent(element.symbol, decimal(m.groupValues[2]) ?: continue)
+        }
+        return masses
+    }
+
+    private fun elementWord(word: String): com.jlindemann.science.ai.data.ElementRecord? =
+        if (SYMBOL.matches(word)) store.bySymbol(word)
+        else if (word.length < 3) null
+        else store.element(word.lowercase()) ?: entities.resolveAll(word, limit = 1).firstOrNull()?.let { store.element(it.key) }
+
+    private fun decimal(text: String): Double? = text.replace(',', '.').toDoubleOrNull()
+
+    /**
+     * "How many grams of water from 4 g of H2 in 2H2 + O2 -> 2H2O", "2H2 + O2 -> 2H2O with 4 g H2 and
+     * 40 g O2" (roadmap 2.8). The equation is cut out of the sentence; each amount around it is tied
+     * to the species written or named just after it, and a species named without one is a target.
+     * The literal is "equation|H2=4 g;O2=40 g|H2O".
+     */
+    private fun stoichiometryPlan(rawQuery: String): QueryPlan? {
+        val balancer = com.jlindemann.science.ai.data.EquationBalancer
+        val span = balancer.span(rawQuery) { store.bySymbol(it) != null } ?: return null
+        val sides = balancer.parse(span.equation) { store.bySymbol(it) != null }
+            as? com.jlindemann.science.ai.data.EquationBalancer.ParseOutcome.Sides ?: return null
+        val species = sides.reactants + sides.products
+        val outside = rawQuery.removeRange(span.range)
+
+        fun speciesOf(counts: Map<String, Int>?) = counts?.let { c -> species.firstOrNull { it.counts == c } }
+        fun formulaSpecies(token: String) = token.trim(',', ';', ':', '?', '!', '.', '(', ')').takeIf { it.isNotEmpty() && it.first().isUpperCase() }
+            ?.let { speciesOf(com.jlindemann.science.ai.data.ChemistryMath.elementCounts(it) { s -> store.bySymbol(s) != null }) }
+        fun namedSpecies(text: String) = entities.scanCompounds(text).compounds.firstNotNullOfOrNull { match ->
+            match.formula?.let { f -> speciesOf(com.jlindemann.science.ai.data.ChemistryMath.elementCounts(f) { s -> store.bySymbol(s) != null }) }
+        }
+
+        val givens = LinkedHashMap<String, String>()
+        for (m in SPECIES_AMOUNT.findAll(outside)) {
+            val value = decimal(m.groupValues[1]) ?: continue
+            val unit = if (m.groupValues[2].lowercase().startsWith("mol")) "mol" else "g"
+            // The species is one of the next three words, written as a formula or named.
+            val next = TOKEN.findAll(outside, m.range.last + 1).take(3).toList()
+            val named = next.firstNotNullOfOrNull { formulaSpecies(it.value) }
+                ?: namedSpecies(next.joinToString(" ") { it.value })
+                ?: continue
+            givens.putIfAbsent(named.formula, "$value $unit")
+        }
+        // The amount is what makes this a stoichiometry question rather than a request to balance.
+        if (givens.isEmpty()) return null
+
+        val mentioned = TOKEN.findAll(outside).mapNotNull { formulaSpecies(it.value) }.toMutableList()
+        mentioned += entities.scanCompounds(outside).compounds.mapNotNull { match ->
+            match.formula?.let { f -> speciesOf(com.jlindemann.science.ai.data.ChemistryMath.elementCounts(f) { s -> store.bySymbol(s) != null }) }
+        }
+        val targets = mentioned.map { it.formula }.distinct().filter { it !in givens }
+        return QueryPlan(
+            intent = Intent.STOICHIOMETRY,
+            rawQuery = rawQuery,
+            literal = span.equation + "|" + givens.entries.joinToString(";") { "${it.key}=${it.value}" } + "|" + targets.joinToString(","),
+            confidence = 0.9,
+            evidence = listOf("stoichiometry")
+        )
+    }
+
+    private val MOLAR_MASS_GIVEN = Regex("""(\d+(?:[.,]\d+)?)\s*g\s*/\s*mol""", RegexOption.IGNORE_CASE)
+    private val NUMBER_AFTER = Regex("""(\d+(?:[.,]\d+)?)""")
+    private val ELEMENT_AMOUNT = Regex("""(\d+(?:[.,]\d+)?)\s*(?:%|g(?![\p{L}/])|grams?(?![\p{L}])|gramm(?![\p{L}])|grammes?(?![\p{L}])|gramos?(?![\p{L}])|grammi(?![\p{L}])|gramas?(?![\p{L}]))""")
+    private val ELEMENT_THEN_PERCENT = Regex("""([\p{L}\p{M}]+)\s*[:=]?\s*(\d+(?:[.,]\d+)?)\s*%""")
+    private val SPECIES_AMOUNT = Regex("""(\d+(?:[.,]\d+)?)\s*(g(?![\p{L}/])|grams?(?![\p{L}])|gramm(?![\p{L}])|grammes?(?![\p{L}])|gramos?(?![\p{L}])|grammi(?![\p{L}])|gramas?(?![\p{L}])|mol(?:es|s|i)?(?![\p{L}/]))""", RegexOption.IGNORE_CASE)
+    private val WORD = Regex("""[\p{L}\p{M}]+""")
+    private val TOKEN = Regex("""\S+""")
+    private val SYMBOL = Regex("""[A-Z][a-z]?""")
+
+    private val SUPERSCRIPT_DIGITS = "⁰¹²³⁴⁵⁶⁷⁸⁹"
+    private val ION_CHARGE_AFTER = Regex("""(?<![A-Za-z])([A-Z][a-z]?)\s?\^?([1-7]|[¹²³⁴⁵⁶⁷])?\s?([+⁺]|[-−⁻])(?![A-Za-z0-9>])""")
+    private val ION_SIGN_FIRST = Regex("""(?<![A-Za-z])([A-Z][a-z]?)([+\-−])([1-7])(?![A-Za-z0-9])""")
+
+    /**
+     * A solution-chemistry question: molarity, a mass from a concentration, or a dilution.
+     *
+     * Sits above the mole branch on purpose. `MOLE_QUANTITY` matches the "0.5 mol" inside
+     * "0.5 mol/L", so left below it "how many grams of NaCl for 250 mL of 0.5 mol/L" would be
+     * answered as a particle count.
+     */
+    private fun solutionPlan(rawQuery: String, normalized: String): QueryPlan? {
+        val molarities = QuantityScanner.of(rawQuery, Dimension.MOLARITY)
+        val volumes = QuantityScanner.of(rawQuery, Dimension.VOLUME)
+        val amounts = QuantityScanner.of(rawQuery, Dimension.AMOUNT)
+        val masses = GRAMS.findAll(normalized).count()
+
+        val framed = mentionsAny(normalized, Lexicon.SOLUTION_WORDS)
+        val dilutes = mentionsAny(normalized, Lexicon.DILUTION_WORDS)
+
+        // Two independent quantities, or one plus an explicit frame. A single "250 mL" on its own
+        // is not a solution question, and claiming it would take volume conversions away from the
+        // converter that answers them properly.
+        val quantities = molarities.size + volumes.size + amounts.size + masses
+        if (quantities < 2) return null
+        if (molarities.isEmpty() && !framed && !dilutes) return null
+
+        return QueryPlan(
+            intent = Intent.SOLUTION_CALC,
+            rawQuery = rawQuery,
+            literal = compoundIn(rawQuery, normalized),
+            // An explicit molarity unit is unambiguous syntax, on a par with an arrow or a nuclide.
+            // A frame word carrying units spelled out in words is weaker, and matches what the
+            // mole branch below claims for the same kind of evidence.
+            confidence = if (molarities.isNotEmpty()) 0.9 else 0.85,
+            evidence = listOf(
+                if (dilutes) "dilution" else "solution",
+                "quantities $quantities"
+            )
+        )
+    }
+
+    /**
+     * A decay-arithmetic question: how much is left after a time, or how long a decay takes.
+     *
+     * Sits above the isotope branch below, which fires at 0.9 on `ISOTOPE_WORDS` — a list holding
+     * "decay", "half life", "stable" and "how long does". Placed after it, this intent would never
+     * run at all.
+     *
+     * Requires a number to work with. Without that gate a bare "half-life of carbon-14" becomes an
+     * arithmetic question with no arithmetic in it, and the isotope table answers that better.
+     */
+    private fun decayPlan(rawQuery: String, normalized: String): QueryPlan? {
+        // Every match, not the first. The nuclide pattern is `word gap digits`, and a sentence like
+        // "how much of 100 g of carbon-14 remains" matches "of 100" before it reaches the nuclide —
+        // so taking the first match declines the question on the strength of the word "of".
+        val nuclides = NUCLIDE.findAll(normalized)
+            .mapNotNull { match ->
+                val resolved = nuclideElement(match.groupValues[1])
+                val number = match.groupValues[2].toIntOrNull()
+                if (resolved != null && number != null && number >= resolved.atomicNumber) {
+                    resolved to number
+                } else null
+            }
+            .distinct()
+            .take(2)
+            .toList()
+        // Two nuclides written out is a comparison — "uranium-235 vs uranium-238" — and the branch
+        // below answers it properly. Claiming it here would answer a side-by-side question with
+        // arithmetic about one of the two.
+        if (nuclides.size != 1) return null
+        val (element, mass) = nuclides.single()
+
+        val times = QuantityScanner.of(rawQuery, Dimension.TIME)
+        val amounts = GRAMS.findAll(normalized).count() +
+                QuantityScanner.of(rawQuery, Dimension.AMOUNT).size
+        val asksHowMuch = mentionsAny(normalized, Lexicon.REMAINS_WORDS)
+
+        if (times.isEmpty() && amounts < 2) return null
+
+        return QueryPlan(
+            intent = Intent.DECAY_CALC,
+            entities = listOf(EntityRef.Element(element.key)),
+            // The mass number rides in `limit`, as the neutron-count branch below already does.
+            limit = mass,
+            rawQuery = rawQuery,
+            confidence = if (times.isNotEmpty() && (asksHowMuch || amounts > 0)) 0.9 else 0.85,
+            evidence = listOf("decay ${element.key}-$mass")
+        )
+    }
 
     /**
      * Aspects a multi-part comparison asked for that no stored field can supply.
@@ -1315,6 +2214,19 @@ class QueryPlanner(
      */
     private fun unsupportedAspects(normalizedQuery: String): List<String> =
         UNCOMPARABLE_ASPECTS.filter { normalizedQuery.contains(it) }
+
+    /**
+     * "Compare", "versus", "the difference between" - and not "denser than", which [Lexicon.COMPARE]
+     * also lists but which is the comparative's word: counted for the side-by-side reading as well,
+     * it would tie that reading with the one that answers the question asked.
+     */
+    private fun namesACompareVerb(normalized: String): Boolean =
+        Lexicon.COMPARE.any { word ->
+            normalized.contains(word) && Lexicon.COMPARATIVE_ADJECTIVES.keys.none { word.contains(it) }
+        }
+
+    /** A comparative that answers "by how much" accounts for those words too (roadmap 1.8). */
+    private fun margin(plan: QueryPlan): List<String> = if (plan.limit == 3) listOf("margin") else emptyList()
 
     /**
      * Recognise a question about how two elements stand relative to one another.
@@ -1506,8 +2418,38 @@ class QueryPlanner(
             "abundance_crustal_rocks" to "abundance_earth_crust"
         )
 
-        const val DATASET_CONFIDENCE = 0.45
+        /**
+         * The share of a query's content a reference-table row must cover to be answered from
+         * (roadmap 1.1).
+         *
+         * Read off the dev corpus. The rows that must be declined cover at most 0.66 - "what is the
+         * charge of the sulfate ion" by the glossary's "Ion", which holds two of its three words - and
+         * every row that must be answered covers all of its question once the tables carry the words
+         * people use for them (anion names, the base unit, "colour", "standard"). Set nearer the
+         * declines than the answers on purpose: a wrong answer costs more than a missing one.
+         */
+        const val MIN_DATASET_COVERAGE = 0.75
+
+        /** The order [bestDatasetRow] prefers among rows that clear [MIN_DATASET_COVERAGE]. */
+        val DATASET_RANKING: Comparator<com.jlindemann.science.ai.retrieval.Coverage> =
+            compareByDescending<com.jlindemann.science.ai.retrieval.Coverage> { it.coverage }
+                .thenByDescending { it.titlePrecision }
+                .thenByDescending { it.titleRecall }
+                .thenBy { it.id.startsWith("${DatasetIndex.DICTIONARY}:") }
+                .thenByDescending { it.bm25 }
+
         const val DEFAULT_LIST_LIMIT = 10
+
+        /** Fields that say where an element sits rather than what it is like: no trend runs along them. */
+        val STRUCTURAL_FIELDS = setOf("atomic_number", "period", "group_number", "protons", "electrons")
+
+        /** The field that names each set, which a question about the set is not asking for. */
+        val DIMENSION_FIELDS = mapOf(
+            "group" to "group_number", "period" to "period", "block" to "block", "series" to "series"
+        )
+
+        /** Longest ending on a set's name: "familj" + "en". */
+        const val MAX_SET_ENDING = 3
         const val DEFAULT_ISOTOPE_LIMIT = 8
 
         /**
@@ -1518,14 +2460,11 @@ class QueryPlanner(
          */
         const val MIN_DATASET_TOKENS = 3
 
-        /**
-         * How far down the ranking to look for a dataset row.
-         *
-         * Deep enough to see past the elements a question names — "solubility of sodium chloride"
-         * ranks both sodium and chlorine ahead of the solubility row — and shallow enough that a
-         * genuinely unrelated row never surfaces.
-         */
-        const val DATASET_SEARCH_DEPTH = 6
+        /** The same floor in Han characters, each of which carries about what a word does. */
+        const val MIN_DATASET_HAN_CHARS = 4
+
+        /** How the glossary titles its periodic-trend entries. */
+        const val TREND_PREFIX = "Periodic trend: "
 
         /**
          * Shortest token treated as naming a topic rather than joining a sentence.
@@ -1542,15 +2481,6 @@ class QueryPlanner(
          * separately ("the noble gases"), while staying well short of a real question.
          */
         const val MAX_BARE_FAMILY_TOKENS = 3
-
-        /**
-         * The bar a dataset match must clear when the query also names an element.
-         *
-         * Higher than [DATASET_CONFIDENCE], because an element name is itself strong evidence that
-         * the question is about the element. Only a clearly better lexical match for something else
-         * should win, which is what "solubility of sodium chloride" is and "tell me about gold" is not.
-         */
-        const val DATASET_CONFIDENCE_WITH_ELEMENT = 0.6
 
         /** Shortest lexicon word that may be matched by stem rather than by whole word. */
         const val MIN_SUFFIX_MATCH = 5

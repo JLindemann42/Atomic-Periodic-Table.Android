@@ -7,7 +7,7 @@ Focus on completing more elements across all languages including Afrikaans.
 import json
 import os
 
-ASSETS_PATH = '/home/runner/work/Atomic-Periodic-Table.Android/Atomic-Periodic-Table.Android/app/src/main/assets'
+ASSETS_PATH = '/home/runner/work/Atomic-Periodic-Table.Android/Atomic-Periodic-Table.Android/shared/elements'
 
 def bulk_update(lang_code, translations_dict):
     lang_file = os.path.join(ASSETS_PATH, f'elements_{lang_code}.json')

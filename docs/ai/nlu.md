@@ -62,6 +62,111 @@ Aliases come from every `elements_{lang}.json` at once — built once per proces
 by `RetrievalService` — so a German element name resolves even when the app is
 in English.
 
+### Compounds claim their words first (roadmap 1.2)
+
+`scanCompounds(query)` finds compounds named in words and returns them with the
+query's remainder — the query with their words blanked out. `resolveAll` only
+looks for elements in that remainder, so "sodium chloride" is no longer sodium
+(and "density of sodium chloride" no longer sodium's density), while "water's
+oxygen" is still oxygen.
+
+Salts are not listed. They are composed from an element name in any of the
+twelve languages, an anion name from `Lexicon.ANION_NAMES`, and the shape each
+language writes them in: cation then anion ("sodium chloride"), anion, connector,
+cation ("cloruro de sodio", "chlorure d'argent"), one word ("natriumklorid",
+"Calciumcarbonat"), or a Han anion prefix before the cation's character (氯化钠,
+硫酸铜). An optional Roman numeral gives the charge ("iron(III) chloride"). The
+formula follows from the charges — Ca(OH)2, Al2(SO4)3, (NH4)2SO4. A metal without
+one common charge (`Lexicon.CATION_CHARGES`; iron and tin are absent) still
+claims its words but has no formula. Molecules and household names come from
+`Lexicon.COMMON_COMPOUNDS`.
+
+`QueryPlanner` answers a compound's formula, molar mass, composition and moles,
+sends "is X soluble" to its cation's row of the solubility table, and declines
+anything else it is asked about (`DeclineReason.COMPOUND_PROPERTY`): the app holds
+no compound properties. A compound whose words are part of a field's own name
+("sea water") is not treated as one.
+
+### Non-English dataset questions (roadmap 1.3)
+
+Three planner rules changed with the translated titles (see `retrieval.md`):
+
+- **A definition gets the definition.** The explanation topics map to the
+  periodic-trend glossary entries, which answer "why does electronegativity
+  increase". A "what is" question now takes the plain entry ("Electronegativity")
+  when the glossary has one; before, every language whose word reached this path
+  got the trend.
+- **Han queries are measured in characters.** The dataset fallback needs three
+  words, and unspaced 动能的公式 is one, so it never reached retrieval. Han text
+  needs four characters (`MIN_DATASET_HAN_CHARS`), the clause splitter's floor.
+- **Request frames are stopwords in every language.** "parle-moi", "háblame",
+  "parlami" and "fale" joined "tell" and "berätta", and Italian elided articles
+  ("dell'", "nell'") are stopwords, because the tokenizer splits on the
+  apostrophe and "dell" was unknown content.
+
+## `Morphology.kt`
+
+`expand(query)` — compounds and affixed superlatives, written as the words they
+are made of (roadmap 1.5). `QueryPlanner.plan` runs it first, so every matcher
+below sees "smaltpunkt skillnaden" rather than "smältpunktsskillnaden". Three
+rules, each splitting a word only into parts it knows, and each leaving alone a
+word already known with its property:
+
+- **Compounds.** A word that is no known word is split in two when the first part
+  is a field's name or a statistic (`FieldResolver.isFieldWord`, `Lexicon.AVERAGE`,
+  `MEDIAN`, `SUM`), the rest is a known word with a short ending
+  (`FieldResolver.knowsWord`, a statistic, or `Lexicon.COMPOUND_HEADS`: value,
+  temperature and difference in Swedish, German and Afrikaans), and at most a
+  linking `s` stands between: "smältpunkts|skillnaden", "Durchschnitts|dichte",
+  "medel|tätheten". "atommassan" and "natriumklorid" are never split: one is a known
+  word, the other has no known part.
+- **Afrikaans -ste.** "ligste" becomes the superlative `Lexicon.SUPERLATIVE_STEMS`
+  knows its stem by, "lightest"; a stem that is a field's name becomes "most" and
+  the stem. Forms listed whole with their property, "swaarste", stay as they are.
+- **Filipino pinaka-.** The same, after the hyphen and the linker (-ng, -g) are
+  dropped: "pinakamababang" is the listed "pinakamababa", "pinakamatigas" is
+  "hardest", "pinakaelectronegative" is "most electronegative".
+
+Rewritten words are written folded; words with digits are never touched, so the
+formulas and quantities the executor re-reads stay as written. `MorphologyTest`
+pins the rules and their guards, and Windows mirrors it.
+
+## `Speller.kt`
+
+`correct(query)` — misspellings (roadmap 1.6). Fuzzy matching used to cover element
+names only, and only for a query of one or two words (`EntityResolver.fuzzyMatch`,
+which stays), so "what is the denisty of gold" was declined. `QueryPlanner.plan`
+now asks the speller when, and only when, a question is declined with
+`NO_MATCH`, plans the corrected question, and keeps it only if it is answered from
+the element data: a correction that only a dataset row would answer is a guess on
+a guess ("tell me about mars" is one edit from "mass"), and the decline stands.
+
+A word is corrected only when it is a Latin-script word of four letters or more
+that the vocabulary (element names in every language, every field alias's words,
+the lexicon's operator words) does not know, and that is not a stopword, a "yes,
+go on" word, a `Lexicon.NEVER_CORRECTED` conversational word or a
+`DEFER_TO_PERSONALITY` word; when the nearest vocabulary words are within one edit
+(two from eight letters), a transposition counting as one; and when they all mean
+the same thing. "plomp" becomes "plomb", because "plomb" and "plomo" are both
+lead; a word between two meanings stays as written. SymSpell's deletion index buys
+speed the decline path does not need, so every candidate of a plausible length is
+measured instead.
+
+**By design it leaves alone** a typo in a question something already matched:
+"which halogn is the heaviest" is answered over every element, and "averge density
+of the noble gases" as a list, because nothing declined. Correcting answered
+questions is exactly how "more" once became boron (Windows porting notes, D47).
+
+## `LanguageDetector.kt`
+
+`detect(message, active, byElementNames)` — which language to answer a message
+in (roadmap 1.4). A naive Bayes model over the character trigrams of each word,
+read from `shared/language/trigrams.tsv` and built by `LanguageModelGoldenTest`
+(`-Pgolden.update=true` regenerates it after the strings, stopwords, element
+descriptions or dataset titles change). `architecture.md` describes the decision
+rule; `LanguageDetectorTest` pins the feature extraction, which Windows mirrors
+exactly because both apps read the one model.
+
 ## `FieldResolver.kt`
 
 `resolveAll(query, limit): List<FieldMatch>` — which property is being asked
@@ -107,21 +212,116 @@ with two conditions and must not.
 
 ## `QueryPlanner.kt`
 
-~1,640 lines, the largest file in the subsystem. It orchestrates everything above
-into a `QueryPlan` through a long **ordered cascade of guards**. Order is
-load-bearing — an earlier guard claiming a query prevents a later, wronger
-interpretation.
+~2,200 lines, the largest file in the subsystem. It orchestrates everything above
+into a `QueryPlan`. Until roadmap 1.8 that was a long **ordered cascade of
+guards**: the first branch to return won, so the order of ~30 `if` blocks decided
+every answer and could be read only as control flow.
 
-Roughly, in order:
+**Arbitration (roadmap 1.8, stage 1).** Every branch now *proposes*:
+`proposals(query, state)` returns each branch's plan, tagged with its `Branch`, in
+the order they were made, ending with `Branch.NO_MATCH`; `Arbiter.pick` chooses,
+and `plan` answers with the choice. The steps between the branches still run in
+order — inheritance from the dialogue, a threshold read off an element, the crust
+sibling fields — because they refine what the later branches see. In this first
+stage the arbiter still chooses by the old order, which is `Branch`'s declaration
+order, so no answer changed; within one branch the first proposal wins, which is
+how a branch that tries the explicit "X is denser than Y" before its looser
+reading keeps meaning the explicit one. What changed is that the order is now
+data, and that the losing proposals can be seen.
+
+**Arbitration by evidence (roadmap 1.8, stage 2).** The branches come in two
+kinds. Those up to `EXPLANATION` (`Branch.preempts`) recognise what *kind* of
+question this is — chat, a formula, a conversion, a compound, a request for prose,
+something to decline — and still pre-empt in order. The rest read the same
+element-data question in different ways, and now compete on evidence: each
+proposal carries `uses`, the things the user actually *said* that the plan answers
+with, and the one that uses most wins. The order only breaks ties.
+
+What counts is read off the query, never the plan's own confidence (that is an
+acceptance threshold, not comparable across branches — a property lookup's 0.8
+would beat the subset list's 0.75 the corpus expects). `Said` holds what the
+query named once it is resolved; `Arbiter.uses` scores a plan against it:
+
+- each element the query named, and each field — not an element or field
+  inherited from the conversation, and not the default comparison fields;
+- each filter the query stated (a family, a threshold, a range), not one
+  inherited from the previous turn;
+- the statistic, and the unit asked in;
+- the words only that reading accounts for, which the branch passes as cues:
+  "isotopes", "after", a comparative, a ranking, "compare", "which … or",
+  "by how much" on a comparative that computes the margin.
+
+Five rules keep a word from counting twice, and they are what turned the ties
+into decisions. A number the operators read (a group, a period, a threshold) is
+not also an element's name: "group 17" is not chlorine. One word names one
+element: Filipino "tingga" is lead, and the "tin" the resolver also finds inside
+it is not a second subject. A word that names a
+reading of its own ("isotopes", "toxic", "spectrum") is evidence for that
+reading, not for the field whose label it shares. A comparative adjective is not
+a compare verb, although `Lexicon.COMPARE` lists "denser than". And a comparative
+that answers "by how much" accounts for those words as well as the statistic
+reading does.
+
+`ArbitrationTest` checks that the pick is the plan for every corpus row, and
+prints what decided each contest. Of 2,521 dev rows, 475 have branches proposing
+different answers (two branches reaching the same plan agree, and are not a
+conflict). The evidence picks exactly what the order did on every one of them —
+the measure that it is a description of the old behaviour rather than a new one —
+and decides all but 5 of the reading-tier contests; 151 were ties before the five
+rules. The 5 left are whole sentences the splitter divides before planning ("what
+is the density of gold and how does it compare to lead"), so no answer depends on
+them. Held-out: 102 of 520 contested, none changed, 1 tie — "锇比铝致密多少", whose
+多少 is not in `Lexicon.BY_HOW_MUCH`, so the comparative does not claim the margin.
+It is left for a stage with dev rows of its own, not fixed against the held-out row.
+
+The branches, in their current order:
 
 1. Defer-to-personality check (greetings, small talk, quiz answers)
 2. Out-of-range element numbers ("element 250")
-3. Narrative and etymology declines
-4. Explanation and definition routing to the dataset layer
-5. Slot inheritance from `DialogueState` — this is what makes "and its boiling
+3. `calculationPlan` — the arithmetic branches, checked before entity and field
+   resolution because a formula or a nuclide would otherwise be picked apart into
+   unrelated matches. Its own internal order is load-bearing (see below).
+4. Standalone unit conversion
+5. Narrative and etymology declines
+6. Explanation and definition routing to the dataset layer
+7. Slot inheritance from `DialogueState` — this is what makes "and its boiling
    point?" work
-6. Comparative / superlative / aggregate / filter-list branching
-7. Dataset fallback through `HybridRetriever`
+8. Comparative / superlative / aggregate / filter-list branching
+9. Dataset fallback through `HybridRetriever`
+
+### Order inside `calculationPlan`
+
+**BALANCE → SOLUTION → DECAY → MOLE → ISOTOPE_COMPARISON → NUCLIDE_COUNT →
+ISOTOPES → FORMULA_MASS.** Three of those adjacencies are not stylistic:
+
+- **SOLUTION above MOLE.** `ChemistryMath.MOLE_QUANTITY` matches the `0.5 mol`
+  inside `0.5 mol/L`, so below the mole branch every molarity question is
+  answered with a particle count.
+- **DECAY above ISOTOPES.** `Lexicon.ISOTOPE_WORDS` holds `decay`, `half life`,
+  `stable` and `how long does`, and that branch fires at 0.9. Placed after it,
+  `DECAY_CALC` is unreachable.
+- **BALANCE first, and on the raw query.** `normalized` is lowercased, which
+  destroys every formula in the sentence. The branch also needs an exemption from
+  `UNBACKED_CONCEPTS`, which contains `reaction` and would otherwise decline
+  "balance this reaction: Fe + O2 -> Fe2O3" outright.
+
+Each branch requires positive evidence and returns null without it, so the ones
+below stay reachable: a bare "half-life of carbon-14" has no arithmetic in it and
+falls through to the isotope table, which answers it better.
+
+### Unit conversion vs property lookup
+
+`UNIT_CONVERT` sits in `plan()` rather than in `calculationPlan`, because the
+guard that separates it from a property lookup needs the resolved field and
+element. Both are checked against the query **with its units removed**: a unit
+token resolves a field on its own — `GPa` reaches the pressure fields, `Pa` even
+resolves protactinium — so a plain "did a field resolve?" test declines
+"convert 5 GPa to MPa" on the strength of the very units being converted.
+
+The target unit comes from `QuantityScanner.targetUnit` first and only then from
+`OperatorExtractor.targetUnit`. The latter accepts any unit with a preposition on
+either side, which is right for a property lookup but here picks the unit being
+converted *from*: in "convert 5 GPa to MPa" the `GPa` has `to` on its right.
 
 Below the confidence `threshold`, or on `Intent.UNKNOWN`, the planner returns a
 plan the engine discards — and the query falls through to the legacy router.
@@ -136,6 +336,25 @@ reads it.
 This is what lets a follow-up omit both the element and the property, and why
 asking about a second element then saying "and its density?" resolves against the
 new focus rather than the original one.
+
+### Sets read off an element (roadmap 1.7)
+
+"What else is in that group" takes its group from the element in focus, and "the
+same block as iron" from the element it names. The planner reads a set's name
+after one of `Lexicon.SET_DETERMINERS` ("in its period", "of that group", "in
+derselben Gruppe", "nello stesso gruppo", 同一族) or inside a `SAME_AS_WORDS`
+phrase, and turns the reference element's group, period, block or series
+(`Lexicon.SET_DIMENSIONS`) into a filter. That filter joins the subsets before
+anything else is decided, so a list, a count, a superlative or a statistic all
+range over it, and the word that named the set no longer resolves as a property:
+"what is in the same block" is not a question about iron's block. A plain list
+returns at once; "the lowest melting point in that group" goes on to the
+superlative branch with the group in hand.
+
+"Else", "other" and "the rest" (`Lexicon.OTHER_WORDS`) add `Filter.Excludes` for
+the reference - but only to a list or a count. "Más", "mais" and "mer" also make
+superlatives, and the densest in iron's group may be iron. "What group is iron in"
+is unaffected: the set's name must follow a determiner.
 
 ## Adding a language to the NLU
 
@@ -155,3 +374,7 @@ specifically:
    stripping. A new script may need work there — see [Retrieval](retrieval).
 5. Translate the field labels in `strings.xml`. That gives you field aliases for
    free.
+6. Add the language's `STOPWORDS` and a `shared/datasets/titles_{lang}.tsv`, then
+   regenerate the language model with `LanguageModelGoldenTest`
+   (`-Pgolden.update=true`) so the detector knows the language. A non-Latin script
+   needs no other work there; a Latin one is also trained without its accents.

@@ -12,10 +12,15 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.FirebaseApp
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
+import androidx.core.view.ViewCompat
+import androidx.core.view.updateLayoutParams
+import androidx.lifecycle.lifecycleScope
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.jlindemann.science.utils.AiChatPanelController
 import com.jlindemann.science.R
 import com.jlindemann.science.model.Achievement
 import com.jlindemann.science.model.AchievementModel
@@ -33,6 +38,90 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
 
     private var systemUiConfigured = false
 
+    /**
+     * The screen this is, from [com.jlindemann.science.ai.chat.Screens], for a chat opened here
+     * (roadmap 2.9). A screen that names one gets the chat button and panel without a layout
+     * change; null, the default, adds nothing. The main screen and the element pages host their own.
+     */
+    protected open val chatScreen: String? = null
+
+    /** The element this screen is showing, if any, so the chat can focus it. */
+    protected open fun chatElement(): String? = null
+
+    private var chatPanel: AiChatPanelController? = null
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        attachChat()
+    }
+
+    /**
+     * Add the chat button and the chat panel over this screen's own layout. Both go into the
+     * content frame, the panel last so it covers the button when open.
+     */
+    private fun attachChat() {
+        val screen = chatScreen ?: return
+        if (chatPanel != null) return
+        val content = findViewById<ViewGroup>(android.R.id.content) ?: return
+        val density = resources.displayMetrics.density
+        val margin = (16 * density).toInt()
+
+        val fab = FloatingActionButton(this).apply {
+            id = R.id.ai_chat_fab
+            setImageResource(R.drawable.ic_ai_mascot)
+            contentDescription = getString(R.string.ask_atomic)
+            val primary = android.util.TypedValue()
+            val typedValue = android.util.TypedValue()
+            if (theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, primary, true)) {
+                backgroundTintList = android.content.res.ColorStateList.valueOf(primary.data)
+            }
+
+            if (theme.resolveAttribute(com.google.android.material.R.attr.colorOnPrimary, typedValue, true)) {
+                imageTintList = android.content.res.ColorStateList.valueOf(typedValue.data)
+            }
+        }
+        content.addView(fab, FrameLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
+            android.view.Gravity.BOTTOM or android.view.Gravity.END
+        ).apply { setMargins(margin, margin, margin, margin) })
+        // Clear of the navigation bar on edge-to-edge screens.
+        ViewCompat.setOnApplyWindowInsetsListener(fab) { view, insets ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updateLayoutParams<FrameLayout.LayoutParams> {
+                bottomMargin = margin + bars.bottom
+                marginEnd = margin + bars.right
+            }
+            insets
+        }
+
+        val panelRoot = LayoutInflater.from(this).inflate(R.layout.ai_chat_panel, content, false)
+        panelRoot.id = R.id.ai_panel_include
+        content.addView(panelRoot, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
+
+        // Added after the screen's own callbacks, so while it is enabled it is the one that runs.
+        val back = object : OnBackPressedCallback(false) {
+            override fun handleOnBackPressed() {
+                chatPanel?.close()
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, back)
+        chatPanel = AiChatPanelController(
+            activity = this,
+            panelRoot = panelRoot,
+            scope = lifecycleScope,
+            contextElement = { chatElement() },
+            screen = screen,
+            onPanelOpened = { back.isEnabled = true; fab.hide() },
+            onPanelHidden = { back.isEnabled = false; fab.show() }
+        ).also { it.setup() }
+        fab.setOnClickListener { chatPanel?.open() }
+    }
+
+    override fun onDestroy() {
+        chatPanel?.onDestroy()
+        super.onDestroy()
+    }
+
     // --- Locale wrapping for runtime language switching ---
     override fun attachBaseContext(newBase: Context) {
         val prefs = newBase.getSharedPreferences("settings", Context.MODE_PRIVATE)
@@ -47,28 +136,13 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // initialize Firebase
-        try {
-            FirebaseApp.initializeApp(this)
-        } catch (t: Throwable) {
-            // log or ignore: safe fallback if initialization already happened or missing config
-            t.printStackTrace()
-        }
+
+        // Firebase and Firestore are initialised once, in AtomicApplication. Firestore settings
+        // can only be applied before the instance is first used, so doing it per activity threw on
+        // every activity after the first.
 
         // Initialize Firebase Analytics
         AnalyticsHelper.initialize(this)
-
-        // Optional: enable Firestore offline persistence
-        try {
-            val fs = FirebaseFirestore.getInstance()
-            val settings = FirebaseFirestoreSettings.Builder()
-                .setPersistenceEnabled(true)
-                .build()
-            fs.firestoreSettings = settings
-        } catch (t: Throwable) {
-            // ignore if Firestore not available
-            t.printStackTrace()
-        }
     }
 
     override fun onResume() {

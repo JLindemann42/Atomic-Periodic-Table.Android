@@ -106,7 +106,7 @@ def analyze_all_languages(assets_path):
 def main():
     """Main function."""
     repo_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    assets_path = os.path.join(repo_path, 'app/src/main/assets')
+    assets_path = os.path.join(repo_path, 'shared/elements')
     
     print("="*80)
     print("COMPREHENSIVE ELEMENT DESCRIPTION TRANSLATION")

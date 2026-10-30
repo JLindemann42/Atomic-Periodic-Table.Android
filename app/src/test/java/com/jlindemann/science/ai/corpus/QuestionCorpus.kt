@@ -13,6 +13,13 @@ import java.io.File
  *   "don't care". Ignored until the card layer exists.
  * @property mustDefer the engine must decline, so the personality layer handles it. Greetings,
  *   quizzes and games live here — answering them from the constants table is the bug this catches.
+ * @property expectRow format 2: the canonical key of the dataset row the answer must come from, e.g.
+ *   `geology/granite`. Routing alone passed while "granite" was answered with basalt.
+ * @property expectValue format 2: the number the answer must carry — a property's quantity, a
+ *   dataset row's value or an aggregate — to within 0.1%.
+ * @property knownFailure format 2: why this row is expected to fail today. A failing known failure
+ *   is reported but does not fail the build; one that passes does, so the mark is removed the moment
+ *   the fix lands. How the corpus can say what is right before the engine does it.
  */
 data class CorpusCase(
     val id: String,
@@ -26,7 +33,10 @@ data class CorpusCase(
     val mustDefer: Boolean,
     val notes: String,
     val sourceFile: String,
-    val line: Int
+    val line: Int,
+    val expectRow: String? = null,
+    val expectValue: Double? = null,
+    val knownFailure: String? = null
 ) {
     /** How a failure identifies itself, so a report line is enough to find the row. */
     val where: String get() = "$sourceFile:$line [$id]"
@@ -38,13 +48,12 @@ data class CorpusCase(
  * TSV rather than JSON for two reasons: `org.json` is a throwing stub under plain JVM tests, and a
  * flat table is something a non-developer can extend by the hundred rows without touching Kotlin.
  *
- * Resolution tries the test classpath first — `src/test/resources` is on it under Gradle — and
- * falls back to probing the filesystem the way [com.jlindemann.science.ai.data.TestAssets] does,
- * so the corpus loads whatever the working directory happens to be.
+ * The files live in the shared-data submodule (`shared/corpus`), which the Windows app runs too, so
+ * both platforms are held to the same rows. Found by probing the filesystem the way
+ * [com.jlindemann.science.ai.data.TestAssets] does, so it loads whatever the working directory is.
  */
 object QuestionCorpus {
 
-    private const val RESOURCE_ROOT = "/ai/corpus"
 
     /** Every corpus file, in the order a report should list them. */
     val FILES = listOf(
@@ -56,12 +65,17 @@ object QuestionCorpus {
         "isotopes_nuclides",
         "safety",
         "calculations",
+        "unit_convert",
+        "balance_equations",
+        "decay",
+        "solutions",
         "compound",
         "followups",
         "complex",
         "conversations_simple",
         "conversations_complex",
         "datasets",
+        "named_compounds",
         "must_defer",
         "capabilities",
         "cards",
@@ -74,20 +88,53 @@ object QuestionCorpus {
         "multilingual_operators",
         "conversations_multi",
         "conversations_deep",
-        "conversations_repair"
+        "conversations_repair",
+        "language",
+        "morphology",
+        "spelling",
+        "focus_sets",
+        "trends",
+        "explanations",
+        "calculators"
     )
 
-    /** True when the corpus is reachable at all. A false here makes every corpus test vacuous. */
-    val available: Boolean by lazy { runCatching { read("regressions") != null }.getOrDefault(false) }
-
-    /** Parsed cases for one file, or an empty list when the file is absent. */
-    fun cases(name: String): List<CorpusCase> {
-        val text = read(name) ?: return emptyList()
-        return parse(name, text)
+    /**
+     * Which rows run (roadmap 0.5). About a fifth of the corpus is frozen into `shared/heldout/` and
+     * scored at release only, so a change tuned against the corpus can still be measured on
+     * questions nobody tuned against.
+     *
+     * Set with `-Pcorpus.split=dev|heldout|all`; `dev`, the everyday gate, is the default.
+     */
+    enum class Split(val folders: List<String>) {
+        DEV(listOf("corpus")),
+        HELDOUT(listOf("heldout")),
+        ALL(listOf("corpus", "heldout"))
     }
 
+    val split: Split = when (System.getProperty("corpus.split")?.trim()?.lowercase()) {
+        null, "", "dev" -> Split.DEV
+        "heldout" -> Split.HELDOUT
+        "all" -> Split.ALL
+        else -> error("corpus.split must be dev, heldout or all")
+    }
+
+    /**
+     * True when the corpus is reachable at all. A false here makes every corpus test vacuous. Checks
+     * must_defer, which every split has; the defect files are never held out.
+     */
+    val available: Boolean by lazy {
+        runCatching { split.folders.all { read(it, "must_defer") != null } }.getOrDefault(false)
+    }
+
+    /**
+     * Parsed cases for one file, or an empty list when the file is absent. The selected [split] by
+     * default; a test about the corpus itself rather than the engine passes [Split.ALL].
+     */
+    fun cases(name: String, split: Split = this.split): List<CorpusCase> =
+        split.folders.flatMap { folder -> read(folder, name)?.let { parse(name, it) }.orEmpty() }
+
     /** Every case in the corpus, across every file. */
-    fun allCases(): List<CorpusCase> = FILES.flatMap { cases(it) }
+    fun allCases(split: Split = this.split): List<CorpusCase> = FILES.flatMap { cases(it, split) }
 
     /**
      * Cases grouped into replay order.
@@ -101,14 +148,10 @@ object QuestionCorpus {
         return single.map { listOf(it) } + grouped
     }
 
-    private fun read(name: String): String? {
-        QuestionCorpus::class.java.getResourceAsStream("$RESOURCE_ROOT/$name.tsv")?.use {
-            return it.readBytes().toString(Charsets.UTF_8)
-        }
+    private fun read(folder: String, name: String): String? {
         val candidates = listOf(
-            File("src/test/resources/ai/corpus/$name.tsv"),
-            File("app/src/test/resources/ai/corpus/$name.tsv"),
-            File("../app/src/test/resources/ai/corpus/$name.tsv")
+            File("../shared/$folder/$name.tsv"),
+            File("shared/$folder/$name.tsv")
         )
         return candidates.firstOrNull { it.isFile }?.readText(Charsets.UTF_8)
     }
@@ -120,17 +163,42 @@ object QuestionCorpus {
      * silent skip: a corpus that quietly drops rows would report a pass rate over a set nobody
      * knows the size of.
      */
+    /**
+     * The columns each corpus format allows (roadmap 0.6). A file declares its format with a
+     * `# corpus-format: N` comment before the header; none means 1. A column outside the declared
+     * format's set is an error, so a misspelt `expect_rows` cannot pass by being silently ignored,
+     * and a format this harness does not know is an error rather than a partial read. The Windows
+     * harness applies the same rules to the same files.
+     */
+    private val FORMAT_COLUMNS: Map<Int, Set<String>> = run {
+        val v1 = setOf(
+            "id", "session", "turn", "lang", "query", "expect_intent", "expect_fields",
+            "expect_card", "must_defer", "notes"
+        )
+        mapOf(1 to v1, 2 to v1 + setOf("expect_row", "expect_value", "known_failure"))
+    }
+
+    private val FORMAT_LINE = Regex("^#\\s*corpus-format:\\s*(\\d+)\\s*$")
+
     private fun parse(name: String, text: String): List<CorpusCase> {
         val cases = ArrayList<CorpusCase>()
         var header: List<String>? = null
+        var format = 1
         text.lineSequence().forEachIndexed { index, raw ->
             val line = raw.trimEnd('\r', '\n')
+            if (header == null) FORMAT_LINE.matchEntire(line.trim())?.let { format = it.groupValues[1].toInt() }
             if (line.isBlank() || line.startsWith("#")) return@forEachIndexed
             val columns = line.split('\t')
             if (header == null) {
                 header = columns.map { it.trim() }
                 require(header!!.first() == "id") {
                     "$name.tsv:${index + 1} first column must be 'id', got '${columns.first()}'"
+                }
+                val allowed = FORMAT_COLUMNS[format]
+                    ?: error("$name.tsv declares corpus-format $format, which this harness does not know")
+                val unknown = header!!.filterNot { it in allowed }
+                require(unknown.isEmpty()) {
+                    "$name.tsv: columns $unknown are not in corpus-format $format; declare a newer format or fix the name"
                 }
                 return@forEachIndexed
             }
@@ -160,7 +228,12 @@ object QuestionCorpus {
                     mustDefer = row["must_defer"].orEmpty().lowercase() in setOf("y", "yes", "true", "1"),
                     notes = row["notes"].orEmpty(),
                     sourceFile = "$name.tsv",
-                    line = index + 1
+                    line = index + 1,
+                    expectRow = row["expect_row"].orEmpty().ifEmpty { null },
+                    expectValue = row["expect_value"].orEmpty().ifEmpty { null }?.let { v ->
+                        requireNotNull(v.toDoubleOrNull()) { "$name.tsv:${index + 1} [$id] expect_value '$v' is not a number" }
+                    },
+                    knownFailure = row["known_failure"].orEmpty().ifEmpty { null }
                 )
             )
         }

@@ -20,13 +20,13 @@ No device or emulator required — the JVM tests are genuinely fast.
 
 ## What is covered
 
-44 test classes. The distribution is lopsided and worth being upfront about:
+61 JVM test classes, 672 tests. The distribution is lopsided and worth being upfront about:
 
 | Area | Classes | State |
 |:--|--:|:--|
-| `ai/` | 38 | Thorough |
+| `ai/` | 50 | Thorough, plus the 2,799-row corpus |
 | `quiz/` | 4 | Good |
-| `utils/` | 1 | `ProPlusTimeUtil` only |
+| `sync/`, `utils/`, `billing/`, `preferences/` | 6 | A few classes each |
 | Everything else | 0 | Untested |
 | `androidTest/` | 1 | Stock generated example |
 
@@ -34,7 +34,10 @@ No device or emulator required — the JVM tests are genuinely fast.
 
 ```
 ai/
-├── AIAgentManagerTest, AiPublicSurfaceTest, LocalKnowledgeManagerTest
+├── chat/      ChatOrchestratorTest, ElementOverviewTest, ElementMoreInfoTest,
+│              ElementQuizTest, ElementReactionsTest, ElementSimilarityTest,
+│              ElementNarrativeTest, AppFeaturesTest, InterestProfileTest,
+│              SuggestionChipTest
 ├── core/      AiEngineTest, AnswerComposerTest, EntitlementTest,
 │              PropertyCoverageTest, StringCoverageTest, StringFormatTest,
 │              ComplexQueryTest, CompoundQuestionTest, IsotopeComparisonTest,
@@ -119,5 +122,14 @@ larger decision than a single test.
 
 ## CI
 
-There is no CI workflow in the repository — no `.github/workflows`. Tests are
-run locally.
+`.github/workflows/tests.yml` runs `./gradlew :app:testDebugUnitTest` on every push and pull
+request, on Ubuntu with the JDK 21 that `gradle/gradle-daemon-jvm.properties` asks for. The job
+summary shows the Ask Atomic corpus scoreboard per file.
+
+The corpus and the element files come from the shared-data submodule (`shared/`), so the workflow
+checks out submodules and then **fails if the data is missing** before running anything: the tests
+that read it skip rather than fail without it, which would otherwise be a green run that tested
+nothing. Every corpus file fails on any failing row, so no file can go down unnoticed.
+
+The Windows repository runs the same corpus from the same submodule, and also checks that its
+generated C# tables still match this repository's Kotlin.

@@ -47,9 +47,41 @@ data class LocalizedElement(
     val magneticType: String
 )
 
-/** A language's display overlay on top of the shared numeric index. */
-class LocalizedView(val language: String, val elements: Map<ElementKey, LocalizedElement>) {
+/**
+ * A language's display overlay on top of the shared numeric index.
+ *
+ * @property datasetTitles the reference tables' row titles in this language (roadmap 1.3), by
+ *   canonical row key, each the title shown first and then any other wording people use for it
+ */
+class LocalizedView(
+    val language: String,
+    val elements: Map<ElementKey, LocalizedElement>,
+    val datasetTitles: Map<String, List<String>> = emptyMap()
+) {
     fun name(key: ElementKey): String? = elements[key]?.name
+
+    /**
+     * What a reference table is called in this language - "Poissons tal" for the Poisson table -
+     * from the `dataset/<table>` rows of the same file. "Poissons tal för sandsten" asks for the row
+     * "Sandsten" by its table's name.
+     */
+    fun tableNames(dataset: String): List<String> = datasetTitles["dataset/$dataset"].orEmpty()
+
+    /**
+     * Every wording of a reference-table row's title in this language, the one to show first, or
+     * empty when it has none.
+     *
+     * The tables are English. Their titles are translated in the shared data
+     * (`datasets/titles_{lang}.tsv`); an ion or electrode row is titled by an element, whose name
+     * this overlay already knows.
+     */
+    fun datasetTitles(row: DatasetRow): List<String> {
+        datasetTitles[row.key]?.let { return it }
+        if (row.dataset == DatasetIndex.ION || row.dataset == DatasetIndex.ELECTRODE) {
+            name(row.title.lowercase())?.takeIf { it.isNotBlank() && it != row.title }?.let { return listOf(it) }
+        }
+        return emptyList()
+    }
 
     /**
      * A translated value for one of the seven overlaid fields, or null when this language has none.
@@ -154,7 +186,8 @@ class KnowledgeStore private constructor(
         fun overlay(source: ElementSource, language: String): LocalizedView? {
             overlays[language]?.let { return it }
             val table = source.load(language) ?: return null
-            val view = buildOverlay(language, table)
+            val titles = DatasetIndex.parseTitles(source.text("titles_$language.tsv"))
+            val view = buildOverlay(language, table, titles)
             overlays[language] = view
             return view
         }
@@ -278,7 +311,11 @@ class KnowledgeStore private constructor(
             )
         }
 
-        private fun buildOverlay(language: String, table: ElementTable): LocalizedView {
+        private fun buildOverlay(
+            language: String,
+            table: ElementTable,
+            titles: Map<String, List<String>>
+        ): LocalizedView {
             val map = HashMap<ElementKey, LocalizedElement>(table.size * 2)
             for ((key, row) in table.rows) {
                 map[key] = LocalizedElement(
@@ -291,7 +328,7 @@ class KnowledgeStore private constructor(
                     magneticType = row["magnetic_type"]?.toString().orEmpty()
                 )
             }
-            return LocalizedView(language, map)
+            return LocalizedView(language, map, titles)
         }
     }
 }

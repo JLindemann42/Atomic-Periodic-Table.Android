@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- What the FileProvider may hand to other apps: only the shared answer images (roadmap 2.10). -->
+<paths>
+    <cache-path name="shared" path="shared/" />
+</paths>

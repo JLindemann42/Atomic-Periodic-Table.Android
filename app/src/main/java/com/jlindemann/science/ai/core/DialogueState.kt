@@ -34,6 +34,40 @@ class DialogueState {
 
     var activeLanguage: String = "en"
 
+    /**
+     * The element a quiz question is waiting on, lower-cased, or null when no question is
+     * outstanding. A quiz spans turns — ask, then judge the reply — so it lives with the rest of
+     * what the conversation remembers rather than in the handler.
+     */
+    var pendingQuizAnswer: String? = null
+
+    /**
+     * Fields already covered for [focusElement], oldest first, so "tell me more" says something new
+     * each time.
+     *
+     * Per element: reset when the conversation turns to a different one. Keyed by field id rather
+     * than by the localized label, so it survives a mid-thread language switch — "Densitet" is not
+     * "Density".
+     */
+    val sharedFieldIds: List<String> get() = shared
+
+    private val shared = ArrayList<String>()
+    private var sharedFor: ElementKey? = null
+
+    /** Record that [fieldIds] have now been said about an element. */
+    fun noteShared(elementKey: ElementKey?, fieldIds: List<String>) {
+        if (elementKey == null) return
+        if (!elementKey.equals(sharedFor, ignoreCase = true)) {
+            shared.clear()
+            sharedFor = elementKey
+        }
+        for (id in fieldIds) if (id !in shared) shared.add(id)
+    }
+
+    /** Whether a field has already been covered for this element. */
+    fun hasShared(elementKey: ElementKey, fieldId: String): Boolean =
+        elementKey.equals(sharedFor, ignoreCase = true) && fieldId in shared
+
     /** Record what an answer covered so the next turn can refer back to it. */
     fun noteAnswer(plan: QueryPlan, resultKeys: List<ElementKey>) {
         lastPlan = plan
@@ -42,6 +76,10 @@ class DialogueState {
         if (resultKeys.isNotEmpty()) {
             lastResultKeys = resultKeys
             focusElement = resultKeys.first()
+            // Only for a question about one element. A comparison or a filter list names a field
+            // for several at once, and marking it "said about" the first of thirty would make
+            // "tell me more" skip the very fields it should still be offering.
+            if (plan.elementKeys.size == 1) noteShared(focusElement, plan.fieldIds)
             for (key in resultKeys.asReversed()) {
                 recentElements.remove(key)
                 recentElements.addFirst(key)
@@ -85,6 +123,9 @@ class DialogueState {
         lastPlan = null
         lastResultKeys = emptyList()
         lastTargetUnit = null
+        pendingQuizAnswer = null
+        shared.clear()
+        sharedFor = null
     }
 
     private companion object {

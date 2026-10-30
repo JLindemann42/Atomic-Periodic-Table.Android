@@ -32,9 +32,8 @@ parentheses and hydrates.
 
 The same formula parsing is available through the [AI assistant](ai-assistant) —
 asking "molar mass of Ca(OH)2" gives the same answer without leaving the chat.
-Note that there are two separate implementations: `ai/MolarMassCalculator.kt`
-serves the assistant's legacy handler path, and `ai/data/ChemistryMath.kt`
-serves the structured engine.
+The assistant uses `ai/data/ChemistryMath.kt`, which also handles hydrates
+such as CuSO4·5H2O.
 
 ## Unit converter
 

@@ -5,10 +5,8 @@ import java.text.Normalizer
 /**
  * Shared string-matching helpers.
  *
- * These were private methods on `AIAgentManager`. The behaviour is preserved exactly, because
- * every intent predicate in the legacy router depends on it and `AIAgentManagerTest` asserts it
- * through reflection. `AIAgentManager` keeps one-line shims delegating here so that reflection
- * contract still holds.
+ * These began as private methods on the old keyword router, and their behaviour was kept exactly
+ * when they moved here. `FuzzyMatchTest` keeps the cases that router's test asserted.
  */
 object TextMatching {
 
@@ -159,7 +157,7 @@ object TextMatching {
         c != null && (c.isLetterOrDigit() || c == '_' || isCombiningMark(c))
 
     /** True when every letter of [text] is Han, so word boundaries do not apply to it. */
-    private fun isHanText(text: String): Boolean {
+    fun isHanText(text: String): Boolean {
         var sawHan = false
         for (ch in text) {
             if (!ch.isLetter()) continue

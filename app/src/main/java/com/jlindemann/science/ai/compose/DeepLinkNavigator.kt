@@ -15,7 +15,7 @@ import com.jlindemann.science.activities.tables.NuclideActivity
 import com.jlindemann.science.activities.tables.PoissonActivity
 import com.jlindemann.science.activities.tables.phActivity
 import com.jlindemann.science.activities.tools.CalculatorActivity
-import com.jlindemann.science.activities.tools.ChemicalReactionsActivity
+import com.jlindemann.science.activities.tools.EquationBalancerActivity
 import com.jlindemann.science.activities.tools.FlashCardActivity
 import com.jlindemann.science.activities.tools.IdealGasCalculatorActivity
 import com.jlindemann.science.activities.tools.LearningGamesActivity
@@ -40,6 +40,9 @@ object DeepLinkNavigator {
             action.args["q"]?.let(resend)
             return
         }
+
+        // The chat panel asks before sending anything; reaching here means nothing to open.
+        if (action.target == DeepLinkTarget.REPORT_QUESTION) return
 
         if (action.target == DeepLinkTarget.PRO_PAGE) {
             // Same destination the element screen's locked rows use, so an upgrade prompt from the
@@ -66,11 +69,18 @@ object DeepLinkNavigator {
         val intent = Intent(activity, destination)
         // Harmless if the destination ignores it; lets a table scroll to the cited row later.
         action.args["id"]?.let { intent.putExtra(EXTRA_FOCUS, it) }
+        // Same convention: the balancer opens on the equation the answer was about, so the chip
+        // carries the user's work over instead of dropping them into an empty input box.
+        action.args[ARG_EQUATION]?.let { intent.putExtra(EXTRA_EQUATION, it) }
         activity.startActivity(intent)
     }
 
     /** The extra a table can read to highlight the row a citation pointed at. */
     const val EXTRA_FOCUS = "ai_focus"
+
+    /** The citation arg carrying an equation, and the intent extra it is handed over as. */
+    const val ARG_EQUATION = "equation"
+    const val EXTRA_EQUATION = "ai_equation"
 
     private fun activityFor(target: DeepLinkTarget): Class<*>? = when (target) {
         DeepLinkTarget.NUCLIDE -> NuclideActivity::class.java
@@ -87,9 +97,13 @@ object DeepLinkNavigator {
         DeepLinkTarget.MOLAR_MASS_CALC -> CalculatorActivity::class.java
         DeepLinkTarget.UNIT_CONVERTER -> UnitConversionActivity::class.java
         DeepLinkTarget.IDEAL_GAS -> IdealGasCalculatorActivity::class.java
-        DeepLinkTarget.REACTION_BALANCER -> ChemicalReactionsActivity::class.java
+        // The new balancer, not `ChemicalReactionsActivity`. The assistant cites this target beside
+        // an equation it has just balanced, and the older screen's solver returns all-zero
+        // coefficients for every input — so the chip led from a correct answer to a broken one.
+        DeepLinkTarget.REACTION_BALANCER -> EquationBalancerActivity::class.java
         DeepLinkTarget.LEARNING_GAMES -> LearningGamesActivity::class.java
         DeepLinkTarget.FLASHCARDS -> FlashCardActivity::class.java
-        DeepLinkTarget.ELEMENT_INFO, DeepLinkTarget.RESEND_QUERY, DeepLinkTarget.PRO_PAGE -> null
+        DeepLinkTarget.ELEMENT_INFO, DeepLinkTarget.RESEND_QUERY, DeepLinkTarget.PRO_PAGE,
+        DeepLinkTarget.REPORT_QUESTION -> null
     }
 }

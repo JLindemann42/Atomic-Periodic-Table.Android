@@ -117,4 +117,87 @@ class ChemistryMathTest {
         assertEquals(average, asFractions, 1e-9)
         assertNull(ChemistryMath.averageAtomicMass(emptyList()))
     }
+
+    private fun counts(formula: String) =
+        ChemistryMath.elementCounts(formula) { it in masses }
+
+    @Test
+    fun elementCountsResolvesGroupsAndMultipliers() {
+        assertEquals(mapOf("Fe" to 2, "S" to 3, "O" to 12), counts("Fe2(SO4)3"))
+        assertEquals(mapOf("H" to 2, "O" to 1), counts("H2O"))
+        assertEquals(mapOf("Ca" to 3, "P" to 2, "O" to 8), ChemistryMath.elementCounts("Ca3(PO4)2") {
+            it in masses || it == "P"
+        })
+    }
+
+    /** The balancer needs counts even when the app has no atomic mass for a symbol. */
+    @Test
+    fun elementCountsDoesNotNeedAtomicMasses() {
+        assertEquals(mapOf("U" to 1, "O" to 2), ChemistryMath.elementCounts("UO2") {
+            it == "U" || it == "O"
+        })
+    }
+
+    @Test
+    fun elementCountsRecapitalisesLowercaseFormulas() {
+        assertEquals(mapOf("H" to 2, "S" to 1, "O" to 4), counts("h2so4"))
+    }
+
+    /** The same digit gate parseFormula relies on: without it "percentage" is a compound. */
+    @Test
+    fun elementCountsRejectsOrdinaryWords() {
+        assertNull(counts("percentage"))
+        assertNull(counts("hello"))
+        assertNull(counts(""))
+    }
+
+    @Test
+    fun stateAnnotationsAreStrippedButStructureIsNot() {
+        assertEquals(mapOf("H" to 2, "O" to 1), counts("H2O(l)"))
+        assertEquals(mapOf("O" to 2), counts("O2 (g)"))
+        assertEquals(mapOf("Na" to 1, "Cl" to 1), counts("NaCl(aq)"))
+        // (OH) is structure, not a phase marker.
+        assertEquals(mapOf("Ca" to 1, "O" to 2, "H" to 2), counts("Ca(OH)2"))
+    }
+
+    @Test
+    fun existingFormulaParsingIsUnchangedByTheSplit() {
+        assertEquals(18.015, parse("H2O")!!.molarMass, 0.01)
+        assertEquals(mapOf("Fe" to 2, "S" to 3, "O" to 12), parse("Fe2(SO4)3")!!.parts
+            .associate { it.symbol to it.count })
+        assertNull(parse("percentage"))
+    }
+
+    @Test
+    fun hydrateMultipliersApplyToTheirWholeSegment() {
+        // Deleting the separator before parsing fused the sulfate's "O4" with the hydrate's "5"
+        // into a single "O45", so this came back with 46 oxygens. Windows porting notes, D9.
+        assertEquals(mapOf("Cu" to 1, "S" to 1, "O" to 9, "H" to 10), counts("CuSO4·5H2O"))
+    }
+
+    @Test
+    fun hydrateMolarMassIsRight() {
+        // Copper(II) sulfate pentahydrate is 249.68 g/mol. The old parse gave about 1,420.
+        assertEquals(249.68, parse("CuSO4·5H2O")!!.molarMass, 0.05)
+        assertEquals(249.68, parse("cuso4·5h2o")!!.molarMass, 0.05)
+    }
+
+    @Test
+    fun asteriskIsTheSameSeparator() {
+        // Plenty of sources write CuSO4*5H2O.
+        assertEquals(counts("CuSO4·5H2O"), counts("CuSO4*5H2O"))
+    }
+
+    @Test
+    fun aHydrateWithNoMultiplierCountsOnce() {
+        val soda = counts("Na2CO3·H2O")!!
+        assertEquals(4, soda["O"])   // 3 from the carbonate, 1 from the water
+        assertEquals(2, soda["H"])
+    }
+
+    @Test
+    fun anEmptyHydrateSegmentIsNotAFormula() {
+        assertNull(counts("CuSO4·"))
+        assertNull(counts("CuSO4·5"))
+    }
 }

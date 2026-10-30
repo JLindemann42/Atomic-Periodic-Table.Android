@@ -16,6 +16,7 @@ import com.jlindemann.science.ai.data.KnowledgeStore
 import com.jlindemann.science.ai.data.LocalizedView
 import com.jlindemann.science.ai.data.Quantity
 import com.jlindemann.science.ai.data.UnitConverter
+import com.jlindemann.science.ai.nlu.QuantityScanner
 
 /**
  * Runs a [QueryPlan] against the index.
@@ -38,7 +39,10 @@ class QueryExecutor(
      * unaffected; the app supplies the real entitlements.
      */
     private val entitlements: com.jlindemann.science.ai.core.Entitlements =
-        com.jlindemann.science.ai.core.Entitlements.FULL
+        com.jlindemann.science.ai.core.Entitlements.FULL,
+    /** The reviewed explanations for this language (roadmap 2.4). */
+    private val explanations: com.jlindemann.science.ai.data.Explanations =
+        com.jlindemann.science.ai.data.Explanations.EMPTY
 ) {
 
     /**
@@ -91,10 +95,52 @@ class QueryExecutor(
         Intent.COMPARATIVE -> comparative(plan)
         Intent.NEIGHBOUR -> neighbour(plan)
         Intent.MOLE_CONVERSION -> moleConversion(plan)
+        // Free, and deliberately so: unit conversion is already free in the engine as a target unit
+        // on any property lookup, and free in `UnitConversionActivity`. Gating it here would take
+        // away something the app already gives.
+        Intent.UNIT_CONVERT -> unitConvert(plan)
+        // Balancing is compound analysis, which the chat already gates at PRO+ for molar mass.
+        // Shipping one free beside the other locked would make the paywall look arbitrary.
+        Intent.BALANCE_EQUATION ->
+            if (!entitlements.allows(com.jlindemann.science.ai.data.Tier.PRO_PLUS)) {
+                ExecutionResult.Locked(
+                    tier = com.jlindemann.science.ai.data.Tier.PRO_PLUS,
+                    fieldIds = emptyList(),
+                    element = null
+                )
+            } else balanceEquation(plan)
+        // Same gate, same reasoning: every branch but a bare dilution needs a compound molar mass.
+        // A split gate would be more generous and would produce the confusing experience of one
+        // solution question answering and the next one locking.
+        Intent.SOLUTION_CALC ->
+            if (!entitlements.allows(com.jlindemann.science.ai.data.Tier.PRO_PLUS)) {
+                ExecutionResult.Locked(
+                    tier = com.jlindemann.science.ai.data.Tier.PRO_PLUS,
+                    fieldIds = emptyList(),
+                    element = null
+                )
+            } else solutionCalc(plan)
+        // Free: the isotope intent is ungated, the Table of Nuclides screen is free, and every
+        // input here is data the user can already read. Gating arithmetic over free data would be
+        // a new paywall rather than a mirror of an existing one.
+        Intent.DECAY_CALC -> decay(plan)
+        // PRO+, as the other calculators are (roadmap 2.8).
+        Intent.GAS_LAW, Intent.PH_CALC, Intent.ION_CONFIG, Intent.EMPIRICAL_FORMULA, Intent.STOICHIOMETRY ->
+            if (!entitlements.allows(com.jlindemann.science.ai.data.Tier.PRO_PLUS)) {
+                ExecutionResult.Locked(tier = com.jlindemann.science.ai.data.Tier.PRO_PLUS, fieldIds = emptyList(), element = null)
+            } else when (plan.intent) {
+                Intent.GAS_LAW -> gasLaw(plan)
+                Intent.PH_CALC -> ph(plan)
+                Intent.EMPIRICAL_FORMULA -> empirical(plan)
+                Intent.STOICHIOMETRY -> stoichiometry(plan)
+                else -> ionConfig(plan)
+            }
         Intent.COMPARISON -> comparison(plan)
         Intent.SUPERLATIVE, Intent.FILTER_LIST -> elementList(plan)
         Intent.AGGREGATE -> aggregate(plan)
         Intent.DATASET_LOOKUP -> dataset(plan)
+        Intent.TREND -> trend(plan)
+        Intent.EXPLANATION -> explanation(plan)
         Intent.UNKNOWN -> null
     }
 
@@ -242,9 +288,277 @@ class QueryExecutor(
             wantsComposition = "composition" in plan.fieldIds,
             citations = result.parts.mapNotNull { part ->
                 store.bySymbol(part.symbol)?.let { citation("atomic_mass", it) }
-            }.take(3)
+            }.take(3),
+            focus = (plan.entities.firstOrNull() as? EntityRef.Element)?.let { store.element(it.key)?.symbol }
+                ?.takeIf { symbol -> result.parts.any { it.symbol == symbol } }
         )
     }
+
+    /**
+     * Convert a number the user wrote into the unit they asked for.
+     *
+     * The query is re-scanned here rather than carried on the plan, the same way the mole branch
+     * re-reads its own quantity — and for the same reason the scanner is shared: two readings of
+     * "250 mL" that can disagree eventually will.
+     */
+    private fun unitConvert(plan: QueryPlan): ExecutionResult? {
+        val source = QuantityScanner.scan(plan.rawQuery).firstOrNull() ?: return null
+        val target = plan.targetUnit ?: return null
+        val converted = UnitConverter.convertAcrossBridges(source.value, source.unit, target)
+            ?: return null
+        return ExecutionResult.UnitConversion(
+            value = source.value,
+            fromUnit = source.unit,
+            converted = converted,
+            toUnit = target,
+            bridged = UnitConverter.isBridged(source.unit, target),
+            citations = emptyList()
+        )
+    }
+
+    /**
+     * Balance an equation, or say why it cannot be balanced.
+     *
+     * A failure is returned as a result rather than as null. Declining here would drop the query
+     * back to the legacy router, which answers it by mentioning that the app has a reaction
+     * balancer — advice, where the user asked a question.
+     */
+    private fun balanceEquation(plan: QueryPlan): ExecutionResult {
+        val balancer = com.jlindemann.science.ai.data.EquationBalancer
+
+        /**
+         * The chip under the answer.
+         *
+         * Named for the screen it actually opens: it used to read `balancer_title`, which is
+         * "Chemical Reactions" — the older screen's title, and not where this chip goes.
+         *
+         * [equation] is what the solver read rather than what the user typed, so "balance this
+         * reaction: Fe + O2 -> Fe2O3" opens the tool on the equation without the sentence around
+         * it. Passing it at all is the point: the chip used to open an empty input box, asking the
+         * user to retype the equation they had just been given the answer to.
+         */
+        fun citationsFor(equation: String?) = listOf(
+            Citation(
+                label = strings.get(com.jlindemann.science.R.string.balancer_tool_title),
+                source = strings.get(com.jlindemann.science.R.string.balancer_tool_title),
+                deepLink = com.jlindemann.science.ai.data.DeepLinkTarget.REACTION_BALANCER,
+                args = equation
+                    ?.let { mapOf(com.jlindemann.science.ai.compose.DeepLinkNavigator.ARG_EQUATION to it) }
+                    .orEmpty(),
+                fromTable = true
+            )
+        )
+
+        fun failed(
+            reason: com.jlindemann.science.ai.data.EquationBalancer.Reason,
+            equation: String? = null,
+            detail: String? = null
+        ) = ExecutionResult.BalancedEquation(
+            emptyList(), emptyList(), emptyList(), reason, citationsFor(equation), detail
+        )
+
+        val sides = when (
+            val outcome = balancer.parse(plan.rawQuery) { store.bySymbol(it) != null }
+        ) {
+            is com.jlindemann.science.ai.data.EquationBalancer.ParseOutcome.Sides -> outcome
+            // Read fine, just too long. Reporting this as a parse failure told the user their
+            // equation was unreadable when the objection was its size.
+            com.jlindemann.science.ai.data.EquationBalancer.ParseOutcome.TooManySpecies ->
+                return failed(com.jlindemann.science.ai.data.EquationBalancer.Reason.TOO_LARGE)
+            else ->
+                return failed(com.jlindemann.science.ai.data.EquationBalancer.Reason.PARSE_FAILED)
+        }
+
+        val equation = sides.reactants.joinToString(" + ") { it.formula } +
+            " -> " + sides.products.joinToString(" + ") { it.formula }
+
+        return when (val result = balancer.balance(sides.reactants, sides.products)) {
+            is com.jlindemann.science.ai.data.EquationBalancer.Result.Balanced ->
+                ExecutionResult.BalancedEquation(
+                    result.reactants, result.products, result.tally, null, citationsFor(equation)
+                )
+            is com.jlindemann.science.ai.data.EquationBalancer.Result.Failed ->
+                failed(result.reason, equation, result.detail)
+        }
+    }
+
+    /**
+     * Work a solution problem: n = c·V, a mass from a concentration, or a dilution.
+     *
+     * The quantities are read back off the raw query in litres, moles and mol/L, so every branch
+     * below is doing arithmetic in one system of units rather than remembering which input was
+     * written in millilitres.
+     */
+    private fun solutionCalc(plan: QueryPlan): ExecutionResult? {
+        val raw = plan.rawQuery
+        val molarities = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.MOLARITY)
+            .mapNotNull { it.inUnit("M") }
+        val volumes = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.VOLUME)
+            .mapNotNull { it.inUnit("L") }
+        val amounts = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.AMOUNT)
+            .mapNotNull { it.inUnit("mol") }
+        val grams = GRAMS.find(raw.lowercase())?.groupValues?.get(1)?.toDoubleOrNull()
+
+        val compound = plan.literal
+        val molarMass = compound?.let { formula ->
+            com.jlindemann.science.ai.data.ChemistryMath.parseFormula(formula) { symbol ->
+                store.bySymbol(symbol)?.quantity("atomic_mass")?.value
+            }?.molarMass
+        }
+        val citations = compound?.let { formula ->
+            com.jlindemann.science.ai.data.ChemistryMath.parseFormula(formula) { symbol ->
+                store.bySymbol(symbol)?.quantity("atomic_mass")?.value
+            }?.parts?.mapNotNull { part ->
+                store.bySymbol(part.symbol)?.let { citation("atomic_mass", it) }
+            }?.take(3)
+        }.orEmpty()
+
+        // Two concentrations is the shape of a dilution and of nothing else, so it is checked
+        // before the single-solution branches rather than after.
+        if (molarities.size >= 2) {
+            val solved = com.jlindemann.science.ai.data.SolutionMath.dilution(
+                c1 = molarities[0],
+                v1 = volumes.getOrNull(0),
+                c2 = molarities[1],
+                v2 = volumes.getOrNull(1)
+            ) ?: return null
+            return ExecutionResult.SolutionCalc(
+                kind = ExecutionResult.SolutionCalc.Kind.DILUTION,
+                substance = compound, molarMass = molarMass,
+                moles = null, molarity = null, litres = null, grams = null,
+                dilution = solved, citations = citations
+            )
+        }
+
+        val molesFromMass = if (grams != null && molarMass != null) {
+            com.jlindemann.science.ai.data.SolutionMath.molesOf(grams, molarMass)
+        } else null
+        val moles = amounts.firstOrNull() ?: molesFromMass
+
+        val completed = com.jlindemann.science.ai.data.SolutionMath.complete(
+            moles = moles,
+            molarity = molarities.firstOrNull(),
+            litres = volumes.firstOrNull()
+        ) ?: return null
+
+        val mass = molarMass?.let {
+            com.jlindemann.science.ai.data.SolutionMath.massOf(completed.first, it)
+        }
+        // What the question was missing is what it was asking for.
+        val kind = when {
+            grams == null && amounts.isEmpty() && molarMass != null ->
+                ExecutionResult.SolutionCalc.Kind.MASS_NEEDED
+            molarities.isEmpty() -> ExecutionResult.SolutionCalc.Kind.MOLARITY
+            volumes.isEmpty() -> ExecutionResult.SolutionCalc.Kind.VOLUME
+            else -> ExecutionResult.SolutionCalc.Kind.MOLES
+        }
+
+        return ExecutionResult.SolutionCalc(
+            kind = kind,
+            substance = compound,
+            molarMass = molarMass,
+            moles = completed.first,
+            molarity = completed.second,
+            litres = completed.third,
+            grams = mass ?: grams,
+            dilution = null,
+            citations = citations
+        )
+    }
+
+    /**
+     * Decay arithmetic over a nuclide's half-life.
+     *
+     * The three ways this can have no number are kept apart. "Stable" is a positive statement —
+     * nothing decays, so nothing is left to compute — while "not in the table" and "listed with an
+     * unrecorded half-life" are two different gaps. Collapsing them into one "no data" would tell
+     * a user the app knows nothing where in fact it knows the opposite.
+     */
+    private fun decay(plan: QueryPlan): ExecutionResult? {
+        val element = plan.elementKeys.firstOrNull()?.let { store.element(it) } ?: return null
+        val massNumber = plan.limit
+        val citations = listOf(citation("common_neutrons", element))
+
+        fun result(
+            mode: ExecutionResult.Decay.Mode,
+            halfLife: Double? = null,
+            display: String = "",
+            stable: Boolean = false,
+            initial: Double? = null,
+            final: Double? = null,
+            amountUnit: String? = null,
+            elapsed: Double? = null,
+            elapsedUnit: String? = null,
+            halfLivesElapsed: Double? = null,
+            fraction: Double? = null
+        ) = ExecutionResult.Decay(
+            element, massNumber, halfLife, display, stable, mode,
+            initial, final, amountUnit, elapsed, elapsedUnit, halfLivesElapsed, fraction, citations
+        )
+
+        // `nucleons` leads; `massNumber` is the same number when iso_A is present, and the rounded
+        // atomic mass for the few slots without it.
+        val isotope = element.isotopes.firstOrNull {
+            it.nucleons == massNumber || it.massNumber == massNumber
+        } ?: return result(ExecutionResult.Decay.Mode.NO_HALF_LIFE)
+
+        if (isotope.stable) {
+            return result(
+                ExecutionResult.Decay.Mode.STABLE,
+                display = isotope.halfLifeDisplay.orEmpty(),
+                stable = true
+            )
+        }
+        val halfLife = isotope.halfLifeSeconds
+            ?: return result(
+                ExecutionResult.Decay.Mode.NO_HALF_LIFE,
+                display = isotope.halfLifeDisplay.orEmpty()
+            )
+        val display = isotope.halfLifeDisplay.orEmpty()
+
+        val decayMath = com.jlindemann.science.ai.data.DecayMath
+        val time = QuantityScanner.firstOf(plan.rawQuery, com.jlindemann.science.ai.data.Dimension.TIME)
+        val masses = GRAMS.findAll(plan.rawQuery.lowercase())
+            .mapNotNull { it.groupValues[1].toDoubleOrNull() }
+            .toList()
+
+        if (time != null) {
+            val elapsedSeconds = time.inUnit("s") ?: return null
+            val n = decayMath.halfLives(elapsedSeconds, halfLife) ?: return null
+            val initial = masses.firstOrNull()
+            return result(
+                // With a starting amount the answer is how much is left; without one, all that
+                // can honestly be said is how many half-lives went by and what fraction survives.
+                if (initial != null) ExecutionResult.Decay.Mode.REMAINING
+                else ExecutionResult.Decay.Mode.HALF_LIVES,
+                halfLife = halfLife, display = display,
+                initial = initial,
+                final = initial?.let { decayMath.remaining(it, elapsedSeconds, halfLife) },
+                amountUnit = if (initial != null) "g" else null,
+                elapsed = elapsedSeconds,
+                elapsedUnit = time.unit,
+                halfLivesElapsed = n,
+                fraction = decayMath.fractionRemaining(n)
+            )
+        }
+
+        // No duration written, so the duration is the unknown: "how long until 1 g becomes 0.5 g".
+        if (masses.size >= 2) {
+            val elapsedSeconds = decayMath.elapsedFor(masses[0], masses[1], halfLife) ?: return null
+            val n = decayMath.halfLives(elapsedSeconds, halfLife) ?: return null
+            return result(
+                ExecutionResult.Decay.Mode.ELAPSED,
+                halfLife = halfLife, display = display,
+                initial = masses[0], final = masses[1], amountUnit = "g",
+                elapsed = elapsedSeconds, elapsedUnit = "s",
+                halfLivesElapsed = n,
+                fraction = masses[1] / masses[0]
+            )
+        }
+        return null
+    }
+
+    private val GRAMS = Regex("""([\d.]+)\s*(?:g|gram|grams|gm|gramm|gramme|grammes)\b""")
 
     private fun nuclide(plan: QueryPlan): ExecutionResult? {
         val element = plan.elementKeys.firstOrNull()?.let { store.element(it) } ?: return null
@@ -306,6 +620,21 @@ class QueryExecutor(
             // without knowing what the substance is.
             val grams = Regex("""([\d.]+)\s*(?:g|gram|grams|gm|gramm|gramme|grammes)\b""")
                 .find(lowered)?.groupValues?.get(1)?.toDoubleOrNull() ?: return null
+            // A compound named in words carries its formula (roadmap 1.2): "10 g of sodium chloride"
+            // is converted through NaCl's molar mass, not sodium's atomic mass.
+            plan.literal?.let { formula ->
+                val parsed = com.jlindemann.science.ai.data.ChemistryMath
+                    .parseFormula(formula) { store.bySymbol(it)?.quantity("atomic_mass")?.value } ?: return null
+                val converted = com.jlindemann.science.ai.data.ChemistryMath
+                    .massToMoles(grams, parsed.molarMass) ?: return null
+                return ExecutionResult.MoleConversion(
+                    moles = converted,
+                    particles = com.jlindemann.science.ai.data.ChemistryMath.molesToParticles(converted),
+                    substance = parsed.formula,
+                    toParticles = false,
+                    grams = grams
+                )
+            }
             val molarMass = element?.quantity("atomic_mass")?.value ?: return null
             val converted = com.jlindemann.science.ai.data.ChemistryMath
                 .massToMoles(grams, molarMass) ?: return null
@@ -624,6 +953,165 @@ class QueryExecutor(
             deepLink = spec?.deepLink ?: com.jlindemann.science.ai.data.DeepLinkTarget.ELEMENT_INFO,
             args = mapOf("key" to element.key)
         )
+    }
+
+    /**
+     * One field across the elements the filters leave, in atomic-number order (roadmap 2.3). Unlike a
+     * list, nothing is ranked or cut: a trend is read left to right, and a missing value is a gap in
+     * it rather than a reason to drop the rest.
+     */
+    private fun trend(plan: QueryPlan): ExecutionResult {
+        val fieldId = plan.fieldIds.firstOrNull() ?: return ExecutionResult.Empty(describeFilters(plan))
+        // The store's own order is not the table's; a trend is read in atomic-number order.
+        val pool = plan.candidates(store).sortedBy { it.atomicNumber }
+        val points = pool.mapNotNull { element ->
+            val quantity = store.quantityIn(element, fieldId, plan.targetUnit) ?: return@mapNotNull null
+            ValuedElement(element, quantity, render(element.value(fieldId), quantity, plan.targetUnit, element, fieldId))
+        }
+        if (points.isEmpty()) {
+            return if (pool.isEmpty()) ExecutionResult.Empty(describeFilters(plan))
+            else ExecutionResult.NoData(fieldId, null, store.coverageOf(fieldId))
+        }
+        return ExecutionResult.Trend(
+            fieldId = fieldId,
+            points = points,
+            missing = pool.size - points.size,
+            wholeTable = plan.filters.isEmpty(),
+            citations = listOf(points.first(), points.last()).distinct().map { citation(fieldId, it.element) }
+        )
+    }
+
+    /**
+     * A reviewed explanation, with the data it explains computed now from the store (roadmap 2.4): the
+     * trend it describes, or the element whose ionization series shows it. The text says why; the
+     * card shows that it is so.
+     */
+    private fun explanation(plan: QueryPlan): ExecutionResult? {
+        val explanation = plan.literal?.let { explanations.byKey(it) } ?: return null
+        // The text is free; a PRO field's values are not, so its card is left off for a free user.
+        val trend = (explanation.card as? com.jlindemann.science.ai.data.ExplanationCard.Trend)
+            ?.takeIf { entitlements.allowsField(it.fieldId) }
+            ?.let { card ->
+                trend(QueryPlan(intent = Intent.TREND, fieldIds = listOf(card.fieldId), filters = listOfNotNull(card.filter)))
+                    as? ExecutionResult.Trend
+            }
+        val ionization = (explanation.card as? com.jlindemann.science.ai.data.ExplanationCard.Ionization)
+            ?.let { store.element(it.elementKey) }
+        return ExecutionResult.Explanation(
+            key = explanation.key,
+            text = explanation.text,
+            language = explanation.language,
+            trend = trend,
+            ionization = ionization,
+            citations = trend?.citations.orEmpty()
+        )
+    }
+
+    /**
+     * PV = nRT (roadmap 2.8). A mass with a compound counts as an amount; "at STP" fills in 1 atm and
+     * 273.15 K where the question gives no pressure or temperature.
+     */
+    private fun gasLaw(plan: QueryPlan): ExecutionResult? {
+        val raw = plan.rawQuery
+        val atm = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.PRESSURE).firstNotNullOfOrNull { it.inUnit("atm") }
+        val litres = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.VOLUME).firstNotNullOfOrNull { it.inUnit("L") }
+        val kelvin = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.TEMPERATURE).firstNotNullOfOrNull { it.inUnit("K") }
+        val amount = QuantityScanner.of(raw, com.jlindemann.science.ai.data.Dimension.AMOUNT).firstNotNullOfOrNull { it.inUnit("mol") }
+        val grams = GRAMS.find(raw.lowercase())?.groupValues?.get(1)?.toDoubleOrNull()
+        val formula = plan.literal?.let { f ->
+            com.jlindemann.science.ai.data.ChemistryMath.parseFormula(f) { store.bySymbol(it)?.quantity("atomic_mass")?.value }
+        }
+        val moles = amount ?: if (grams != null && formula != null) grams / formula.molarMass else null
+        val stp = "stp" in plan.evidence
+        val solution = com.jlindemann.science.ai.data.GasLaw.solve(
+            atm = atm ?: if (stp) com.jlindemann.science.ai.data.GasLaw.STP_ATM else null,
+            litres = litres,
+            moles = moles,
+            kelvin = kelvin ?: if (stp) com.jlindemann.science.ai.data.GasLaw.STP_KELVIN else null
+        ) ?: return null
+        val citations = formula?.parts?.mapNotNull { part -> store.bySymbol(part.symbol)?.let { citation("atomic_mass", it) } }?.take(3).orEmpty()
+        return ExecutionResult.GasLaw(
+            solution, formula?.formula, grams.takeIf { amount == null && formula != null }, formula?.molarMass,
+            stp = stp && (atm == null || kelvin == null), citations = citations
+        )
+    }
+
+    /** The pH of a strong acid or base (roadmap 2.8). The planner claims only strong ones. */
+    private fun ph(plan: QueryPlan): ExecutionResult? {
+        val formula = plan.literal ?: return null
+        val molarity = QuantityScanner.of(plan.rawQuery, com.jlindemann.science.ai.data.Dimension.MOLARITY)
+            .firstNotNullOfOrNull { it.inUnit("M") } ?: return null
+        val (canonical, base) = com.jlindemann.science.ai.data.AcidBase.strong(formula, ::composition) ?: return null
+        return ExecutionResult.Ph(com.jlindemann.science.ai.data.AcidBase.solve(canonical, base, molarity) ?: return null)
+    }
+
+    private fun atomicMass(symbol: String): Double? = store.bySymbol(symbol)?.quantity("atomic_mass")?.value
+
+    private fun atomicMassCitations(symbols: Collection<String>): List<Citation> =
+        symbols.mapNotNull { symbol -> store.bySymbol(symbol)?.let { citation("atomic_mass", it) } }.take(3)
+
+    /** An empirical formula (roadmap 2.8); the literal is "C=40;H=6.7" or "formula:C6H12O6", then "|molar mass". */
+    private fun empirical(plan: QueryPlan): ExecutionResult? {
+        val parts = plan.literal?.split('|') ?: return null
+        val molarMass = parts.getOrNull(1)?.toDoubleOrNull()
+        val body = parts[0]
+        val empirical = com.jlindemann.science.ai.data.Empirical
+        val result = if (body.startsWith("formula:")) {
+            val parsed = com.jlindemann.science.ai.data.ChemistryMath.parseFormula(body.removePrefix("formula:"), ::atomicMass) ?: return null
+            val counts = LinkedHashMap<String, Int>()
+            parsed.parts.forEach { counts[it.symbol] = (counts[it.symbol] ?: 0) + it.count }
+            empirical.fromFormula(parsed.formula, counts, ::atomicMass)?.let { r ->
+                if (molarMass == null) r else r.copy(molecular = empirical.molecular(r.counts, r.empiricalMass, molarMass))
+            }
+        } else {
+            val masses = body.split(';').associate { entry ->
+                val (symbol, value) = entry.split('=').takeIf { it.size == 2 } ?: return null
+                symbol to (value.toDoubleOrNull() ?: return null)
+            }
+            empirical.fromMasses(masses, ::atomicMass, molarMass)
+        } ?: return null
+        return ExecutionResult.EmpiricalFormula(result, atomicMassCitations(result.counts.keys))
+    }
+
+    /** Amounts through a balanced equation (roadmap 2.8); the literal is "equation|H2=4 g;O2=40 g|H2O". */
+    private fun stoichiometry(plan: QueryPlan): ExecutionResult? {
+        val parts = plan.literal?.split('|')?.takeIf { it.size == 3 } ?: return null
+        val balancer = com.jlindemann.science.ai.data.EquationBalancer
+        val sides = balancer.parse(parts[0]) { store.bySymbol(it) != null }
+            as? com.jlindemann.science.ai.data.EquationBalancer.ParseOutcome.Sides ?: return null
+        val balanced = balancer.balance(sides.reactants, sides.products)
+            as? com.jlindemann.science.ai.data.EquationBalancer.Result.Balanced ?: return null
+        val lines = (balanced.reactants.map { it to true } + balanced.products.map { it to false }).map { (term, reactant) ->
+            val mass = com.jlindemann.science.ai.data.ChemistryMath.parseFormula(term.formula, ::atomicMass)?.molarMass ?: return null
+            com.jlindemann.science.ai.data.Stoichiometry.Line(term.formula, term.coefficient, mass, reactant)
+        }
+        val givens = parts[1].split(';').filter { it.isNotBlank() }.map { entry ->
+            val (formula, amount) = entry.split('=').takeIf { it.size == 2 } ?: return null
+            val (value, unit) = amount.split(' ').takeIf { it.size == 2 } ?: return null
+            val index = lines.indexOfFirst { it.formula == formula }.takeIf { it >= 0 } ?: return null
+            val number = value.toDoubleOrNull() ?: return null
+            if (unit == "mol") com.jlindemann.science.ai.data.Stoichiometry.Given(index, number, null)
+            else com.jlindemann.science.ai.data.Stoichiometry.Given(index, number / lines[index].molarMass, number)
+        }
+        val result = com.jlindemann.science.ai.data.Stoichiometry.solve(lines, givens) ?: return null
+        val targets = parts[2].split(',').filter { it.isNotBlank() }.mapNotNull { f -> lines.indexOfFirst { it.formula == f }.takeIf { it >= 0 } }
+        val symbols = sides.reactants.flatMap { it.counts.keys }.distinct()
+        return ExecutionResult.Stoichiometry(result, targets, atomicMassCitations(symbols))
+    }
+
+    private fun composition(formula: String): Map<String, Int>? =
+        com.jlindemann.science.ai.data.ChemistryMath.parseFormula(formula) { store.bySymbol(it)?.quantity("atomic_mass")?.value }
+            ?.parts?.associate { it.symbol to it.count }
+
+    /** An ion's electron configuration (roadmap 2.8); literal is "symbol:charge". */
+    private fun ionConfig(plan: QueryPlan): ExecutionResult? {
+        val (symbol, chargeText) = plan.literal?.split(':')?.takeIf { it.size == 2 } ?: return null
+        val charge = chargeText.toIntOrNull()?.takeIf { it != 0 } ?: return null
+        val element = store.bySymbol(symbol) ?: return null
+        val outer = (element.value("electron_configuration") as? com.jlindemann.science.ai.data.FieldValue.Text)?.raw ?: return null
+        val neutral = com.jlindemann.science.ai.data.IonConfig.ion(element.atomicNumber, outer, 0) ?: return null
+        val ion = com.jlindemann.science.ai.data.IonConfig.ion(element.atomicNumber, outer, charge) ?: return null
+        return ExecutionResult.IonConfiguration(element, charge, neutral, ion, listOf(citation("electron_configuration", element)))
     }
 
     private fun describeFilters(plan: QueryPlan): List<String> =

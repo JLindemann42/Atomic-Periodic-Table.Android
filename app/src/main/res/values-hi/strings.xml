@@ -739,6 +739,7 @@
     <string name="protons">प्रोटॉन:</string>
     <string name="save_calculations">गणना सहेजें:</string>
     <string name="save_units">इकाइयाँ सहेजें:</string>
+    <string name="save_equations">समीकरण सहेजें:</string>
     <string name="search_for_element">तत्व खोजें</string>
     <string name="share">साझा करें</string>
     <string name="share_app">ऐप साझा करें</string>
@@ -1200,4 +1201,197 @@
     <string name="question_valence_electrons">%1$s में कितने संयोजी इलेक्ट्रॉन हैं?</string>
     <string name="quiz_loading">प्रश्न तैयार किए जा रहे हैं…</string>
     <string name="quiz_no_questions">इस गेम के लिए प्रश्न नहीं बनाए जा सके। कृपया कोई और चुनें।</string>
+
+    <!-- Assistant: calculations, tools and suggestion chips -->
+    <string name="ai_unit_converted">**%1$s %2$s** बराबर है **%3$s %4$s**।</string>
+    <string name="ai_unit_bridge_note">1 eV = 96.485 kJ/mol से परिवर्तित — वही ऊर्जा, प्रति मोल के बजाय प्रति कण गिनी गई।</string>
+    <string name="ai_equation_balanced">**%1$s → %2$s**</string>
+    <string name="ai_equation_check_header">परमाणु जाँच</string>
+    <string name="ai_equation_tally_row">• **%1$s** — बाईं ओर %2$d, दाईं ओर %3$d</string>
+    <string name="ai_equation_one_sided">यह समीकरण संतुलित नहीं हो सकता: एक तत्व केवल एक ओर है, इसलिए कोई गुणांक इसे बराबर नहीं कर सकता।</string>
+    <string name="ai_equation_one_sided_named">यह समीकरण संतुलित नहीं हो सकता: %1$s केवल एक ओर है, इसलिए कोई गुणांक इसे बराबर नहीं कर सकता।</string>
+    <string name="ai_equation_underdetermined">इस समीकरण के एक से अधिक स्वतंत्र संतुलन हैं — यह एक में लिखी दो अभिक्रियाओं जैसा है। इसे अलग करें, मैं हर एक को संतुलित कर दूँगा।</string>
+    <string name="ai_equation_too_large">इस समीकरण के लिए ऐसे गुणांक चाहिए जो किसी वास्तविक अभिक्रिया के लिए बहुत बड़े हैं। सूत्र जाँचें।</string>
+    <string name="ai_equation_parse_failed">मैं इसे रासायनिक समीकरण के रूप में नहीं पढ़ सका। Fe + O2 -&gt; Fe2O3 जैसा रूप आज़माएँ।</string>
+    <string name="ai_equation_no_solution">इस समीकरण का पूर्ण धनात्मक गुणांकों के साथ कोई संतुलन नहीं है।</string>
+    <string name="ai_solution_generic_substance">विलयन</string>
+    <string name="ai_solution_mass_needed">%3$s mL के %4$s mol/L विलयन के लिए आपको %2$s की **%1$s g** चाहिए।</string>
+    <string name="ai_solution_molarity">%2$s की सांद्रता **%1$s mol/L** है।</string>
+    <string name="ai_solution_volume">आपको **%2$s mol/L** पर **%1$s mL** चाहिए।</string>
+    <string name="ai_solution_moles">वह %2$s के **%1$s mol** हैं।</string>
+    <string name="ai_dilution_result">**%2$s mL** से **%1$s mol/L** को तनु करने पर **%4$s mL** में **%3$s mol/L** मिलता है।</string>
+    <string name="ai_dilution_add_solvent">**%1$s mL** विलायक मिलाएँ।</string>
+    <string name="ai_solution_working_header">गणना</string>
+    <string name="ai_solution_working_nvc">n = c × V → %1$s mol = %2$s mol/L × %3$s L</string>
+    <string name="ai_solution_working_mass">m = n × M → %1$s g = %2$s mol × %3$s g/mol</string>
+    <string name="ai_solution_working_c1v1">C₁V₁ = C₂V₂ → %1$s × %2$s = %3$s × %4$s</string>
+    <string name="ai_decay_stable">%1$s स्थायी है — यह क्षय नहीं करता, इसलिए समय के साथ कुछ भी कम नहीं होता।</string>
+    <string name="ai_decay_unlisted">ऐप उस तत्व के समस्थानिकों में %1$s को सूचीबद्ध नहीं करता, इसलिए मेरे पास इसकी अर्ध-आयु नहीं है।</string>
+    <string name="ai_decay_no_half_life">%1$s सूचीबद्ध है, लेकिन इसकी अर्ध-आयु \"%2$s\" दर्ज है, इसलिए मैं क्षय की गणना नहीं कर सकता।</string>
+    <string name="ai_decay_effectively_none">%2$s %3$s के बाद %1$s में व्यावहारिक रूप से कुछ नहीं बचता।</string>
+    <string name="ai_decay_elapsed">%3$s के **%1$s g** से **%2$s g** तक पहुँचने में लगभग **%4$s %5$s** लगते हैं।</string>
+    <string name="ai_decay_remaining">%5$s %6$s के बाद %4$s के मूल %3$s g में से लगभग **%1$s %2$s** बचता है।</string>
+    <string name="ai_decay_half_lives">उस समय में %1$s **%2$s** अर्ध-आयु से गुज़रता है, और नमूने का लगभग **%3$s%%** बचता है।</string>
+    <string name="ai_decay_working_header">गणना</string>
+    <string name="ai_decay_working_half_life">%1$s की अर्ध-आयु: %2$s</string>
+    <string name="ai_decay_working_n">n = t / t½ = %1$s → 2⁻ⁿ = %2$s%%</string>
+    <string name="ai_feature_nuclide_table">ऐप में एक विस्तृत **न्यूक्लाइड सारणी** है जो सभी तत्वों के समस्थानिक दिखाती है, क्षय प्रकार (अल्फा, बीटा आदि) के अनुसार रंगों में।</string>
+    <string name="ai_feature_emission_spectrum">आप किसी तत्व का **उत्सर्जन स्पेक्ट्रम** उसके विवरण पैनल में देख सकते हैं। यह उस तत्व द्वारा उत्पन्न प्रकाश का अनोखा पैटर्न दिखाता है।</string>
+    <string name="ai_feature_flashcards">ऐप में तत्व प्रतीकों, परमाणु द्रव्यमानों और वर्गीकरणों के लिए कई **फ्लैशकार्ड मिनी-गेम** हैं, जिनमें स्तर और XP भी हैं।</string>
+    <string name="ai_feature_achievements">उपयोगकर्ता पृष्ठ पर **उपलब्धियों** और उपयोग आँकड़ों से अपनी प्रगति देखें।</string>
+    <string name="ai_feature_molar_mass">जटिल यौगिकों का अणुभार निकालने के लिए एक अंतर्निहित **मोलर द्रव्यमान कैलकुलेटर** है। मैं यहाँ भी कर सकता हूँ — बस सूत्र दीजिए।</string>
+    <string name="ai_feature_unit_converter">ऐप में तापमान और अन्य वैज्ञानिक इकाइयों के लिए एक **इकाई परिवर्तक** है। आप मुझसे भी पूछ सकते हैं, जैसे \"500 K को °C में बदलें\"।</string>
+    <string name="ai_feature_ideal_gas">PV = nRT से दाब, आयतन, मोल या तापमान निकालने के लिए **आदर्श गैस कैलकुलेटर** का उपयोग करें।</string>
+    <string name="ai_feature_reaction_balancer">**रासायनिक अभिक्रिया संतुलक** समीकरण संतुलित करने और पसंदीदा सहेजने में मदद करता है। आप यहाँ भी पूछ सकते हैं — जैसे Fe + O2 -&gt; Fe2O3 लिखें।</string>
+    <string name="ai_feature_capabilities">मैं तत्वों के गुण देख और तुलना कर सकता हूँ, समीकरण संतुलित कर सकता हूँ, मोलर द्रव्यमान और विलयन सांद्रता निकाल सकता हूँ, इकाइयाँ बदल सकता हूँ, और क्षय गणना कर सकता हूँ। किसी तत्व के बारे में पूछें, या कोई सूत्र या समीकरण लिखें।</string>
+    <string-array name="ai_suggest_element">
+        <item>%1$s के उपयोग</item>
+        <item>%1$s का परमाणु द्रव्यमान</item>
+        <item>क्या %1$s खतरनाक है?</item>
+        <item>%1$s कहाँ मिलता है?</item>
+        <item>%1$s का इलेक्ट्रॉन विन्यास</item>
+        <item>%1$s के समस्थानिक</item>
+    </string-array>
+    <string-array name="ai_suggest_trends">
+        <item>आवर्त प्रवृत्तियाँ क्या हैं?</item>
+        <item>विद्युत्ऋणात्मकता की प्रवृत्ति</item>
+        <item>परमाणु त्रिज्या की प्रवृत्ति</item>
+        <item>आयनन ऊर्जा</item>
+    </string-array>
+    <string-array name="ai_suggest_general">
+        <item>कोई रोचक तथ्य बताइए</item>
+        <item>क्विज़ शुरू करें</item>
+        <item>क्षार धातुएँ कौन-सी हैं?</item>
+        <item>सबसे भारी तत्व?</item>
+    </string-array>
+    <string-array name="ai_suggest_tools">
+        <item>Fe + O2 -&gt; Fe2O3 संतुलित करें</item>
+        <item>500 K को °C में बदलें</item>
+        <item>250 mL के 0.5 mol/L के लिए कितने ग्राम NaCl?</item>
+        <item>11460 साल बाद 100 g कार्बन-14 में से कितना बचता है?</item>
+    </string-array>
+
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%2$s और %3$s का %1$s</string>
+    <string name="ai_follow_highest">किस तत्व का %1$s सबसे अधिक है?</string>
+    <string name="ai_follow_lowest">किस तत्व का %1$s सबसे कम है?</string>
+    <string name="ai_follow_unit">%2$s का %1$s %3$s में</string>
+    <string name="ai_follow_count">कितने हैं?</string>
+
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">चरण दिखाएँ</string>
+    <string name="ai_steps_header">चरण दर चरण</string>
+    <string name="ai_steps_formula">मोलर द्रव्यमान हर तत्व के परमाणुओं की संख्या और उसके परमाणु द्रव्यमान के गुणनफल का योग है:</string>
+    <string name="ai_steps_moles_legend">m द्रव्यमान है, M मोलर द्रव्यमान, n मोल में मात्रा, N कणों की संख्या और N_A आवोगाद्रो स्थिरांक।</string>
+    <string name="ai_steps_solution_legend">n मोल में मात्रा है, c सांद्रता, V आयतन, m द्रव्यमान और M मोलर द्रव्यमान।</string>
+    <string name="ai_steps_decay_legend">t½ अर्धायु है, t बीता हुआ समय, n अर्धायुओं की संख्या, और N₀ और N पहले और बाद की मात्राएँ।</string>
+    <string name="ai_steps_balance_unknowns">हर सूत्र के आगे एक अज्ञात गुणांक लिखें:</string>
+    <string name="ai_steps_balance_equations">हर तत्व के बाईं ओर उतने ही परमाणु चाहिए जितने दाईं ओर:</string>
+    <string name="ai_steps_balance_solve">सबसे छोटी पूर्ण संख्याएँ जो हर पंक्ति को संतुष्ट करती हैं:</string>
+
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">%2$d तत्वों में **%1$s**, परमाणु क्रमांक के क्रम में:</string>
+    <string name="ai_trend_table_header">पूरी आवर्त सारणी में **%1$s**: %2$d तत्वों का मान दर्ज है।</string>
+    <string name="ai_trend_rises">कुल मिलाकर यह बढ़ता है, %1$s (%2$s) से %3$s (%4$s) तक।</string>
+    <string name="ai_trend_falls">कुल मिलाकर यह घटता है, %1$s (%2$s) से %3$s (%4$s) तक।</string>
+    <string name="ai_trend_mixed">इसकी कोई स्थिर दिशा नहीं है: एक सिरे पर %1$s (%2$s), दूसरे पर %3$s (%4$s)।</string>
+    <string name="ai_trend_extremes">सबसे अधिक: %1$s (%2$s)। सबसे कम: %3$s (%4$s)।</string>
+    <string name="ai_card_trend_title">%1$s की प्रवृत्ति</string>
+    <string name="ai_quiz_run_start_all">पूरी सारणी से **%1$d प्रश्नों** की प्रश्नोत्तरी। किसी उत्तर पर टैप करें, या रोकने के लिए बस कहें।</string>
+    <string name="ai_quiz_run_start_scoped">%2$s पर **%1$d प्रश्नों** की प्रश्नोत्तरी। किसी उत्तर पर टैप करें, या रोकने के लिए बस कहें।</string>
+    <string name="ai_quiz_run_scope_count">%1$d तत्वों</string>
+    <string name="ai_quiz_run_question">**प्रश्न %1$d / %2$d.** %3$s</string>
+    <string name="ai_quiz_run_right">✨ सही! **+%1$d XP**।</string>
+    <string name="ai_quiz_run_wrong">पूरी तरह नहीं: उत्तर था **%1$s**।</string>
+    <string name="ai_quiz_run_done">प्रश्नोत्तरी पूरी: **%2$d में से %1$d** सही, **%3$d XP** मिले।</string>
+    <string name="ai_quiz_run_stopped">प्रश्नोत्तरी रोकी गई: **%2$d में से %1$d** सही, **%3$d XP** मिले।</string>
+    <string name="ai_quiz_run_none">मैं इस पर प्रश्न नहीं बना सका। कोई समूह, आवर्त, तत्वों का परिवार या एक तत्व आज़माएँ।</string>
+    <string name="ai_study_start">दोहराने का समय: **%1$d प्रश्न** अभ्यास के लिए तैयार हैं। किसी उत्तर पर टैप करें, या रोकने के लिए बस कहें।</string>
+    <string name="ai_study_none">अभी दोहराने के लिए कुछ नहीं है। प्रश्नोत्तरी के जो प्रश्न आप चूकते हैं, वे अभ्यास का समय आने पर यहाँ लौटते हैं।</string>
+    <string name="ai_study_locked">अध्ययन कोच PRO का हिस्सा है: यह आपके चूके हुए प्रश्नोत्तरी प्रश्न याद रखता है और हर एक को आपके भूलने से ठीक पहले वापस लाता है।</string>
+    <string name="ai_fact_data_highest">दर्ज मान वाले %3$d तत्वों में से **%1$s** में %2$s सबसे अधिक है: %4$s।</string>
+    <string name="ai_fact_data_lowest">दर्ज मान वाले %3$d तत्वों में से **%1$s** में %2$s सबसे कम है: %4$s।</string>
+    <string name="ai_fact_data_rank_high">सबसे अधिक %4$s में **%1$s** %3$d तत्वों में %2$d वें स्थान पर है: %5$s।</string>
+    <string name="ai_fact_data_rank_low">सबसे कम %4$s में **%1$s** %3$d तत्वों में %2$d वें स्थान पर है: %5$s।</string>
+    <string name="ai_gas_result">आदर्श गैस नियम, PV = nRT, से: **%1$s**।</string>
+    <string name="ai_gas_stp">STP को 1 atm और 273.15 K माना गया है।</string>
+    <string name="ai_steps_gas">अज्ञात के लिए PV = nRT को पुनर्व्यवस्थित करें, R = 0.08206 L·atm/(mol·K) के साथ:</string>
+    <string name="ai_ph_acid">%1$s एक प्रबल अम्ल है, इसलिए %2$s M विलयन में [H⁺] = %3$s M और pH **%4$s** है।</string>
+    <string name="ai_ph_base">%1$s एक प्रबल क्षार है, इसलिए %2$s M विलयन में [OH⁻] = %3$s M, pOH %4$s और pH **%5$s** है।</string>
+    <string name="ai_steps_ph">प्रबल अम्ल या क्षार पूरी तरह वियोजित होता है, इसलिए सांद्रता सीधे आयन देती है:</string>
+    <string name="ai_ion_config">**%1$s** का इलेक्ट्रॉन विन्यास **%2$s** है। उदासीन %3$s %4$s है।</string>
+    <string name="ai_ion_cation">धनायन पहले अपने सबसे बाहरी इलेक्ट्रॉन खोता है: सबसे ऊँचा कोश, और उसके भीतर सबसे ऊँचा उपकोश।</string>
+    <string name="ai_ion_anion">ऋणायन अपने अतिरिक्त इलेक्ट्रॉन भरने के क्रम में अगले स्थानों पर लेता है।</string>
+    <string name="ai_ion_isoelectronic">यह %1$s जैसा ही विन्यास है।</string>
+    <string name="ai_steps_ion">उदासीन परमाणु से शुरू करें और इलेक्ट्रॉन हटाएँ या जोड़ें:</string>
+    <string name="ai_composition_element">%3$s के द्रव्यमान में %1$s का हिस्सा **%2$s** है।</string>
+    <string name="ai_empirical_result">मूलानुपाती सूत्र **%1$s** है।</string>
+    <string name="ai_empirical_reduced">%1$s का मूलानुपाती सूत्र **%2$s** है: इसके अधोलेखों में %3$d का साझा गुणनखंड है।</string>
+    <string name="ai_empirical_same">%1$s पहले से ही अपने सबसे सरल पूर्णांक अनुपात में है, इसलिए यही इसका मूलानुपाती सूत्र है।</string>
+    <string name="ai_empirical_molecular">%1$s g/mol के मोलर द्रव्यमान के साथ आण्विक सूत्र **%2$s** है, %3$d × %4$s।</string>
+    <string name="ai_steps_empirical">हर द्रव्यमान को मोल में बदलें, फिर हर एक को सबसे छोटे से भाग दें:</string>
+    <string name="ai_stoich_makes">%1$s में, %2$s से **%3$s g %4$s** (%5$s mol) बनता है।</string>
+    <string name="ai_stoich_needs">%1$s में, %2$s के लिए **%3$s g %4$s** (%5$s mol) चाहिए।</string>
+    <string name="ai_stoich_matches">%1$s में, %2$s के साथ **%3$s g %4$s** (%5$s mol) जुड़ता है।</string>
+    <string name="ai_stoich_limiting">%1$s में, **%2$s** सीमांत अभिकर्मक है: यह सबसे पहले ख़त्म होता है।</string>
+    <string name="ai_stoich_product">इससे **%1$s g %2$s** (%3$s mol) बनता है।</string>
+    <string name="ai_stoich_excess">%1$s g %2$s बच जाता है।</string>
+    <string name="ai_steps_stoich">हर मात्रा को मोल में बदलें, फिर गुणांकों के ज़रिए:</string>
+    <string name="ai_share_image">छवि के रूप में साझा करें</string>
+    <string name="ai_share_footer">Atomic द्वारा उत्तर, आवर्त सारणी ऐप</string>
+    <string name="ai_share_failed">छवि नहीं बन सकी</string>
+    <string name="ai_copy_image">छवि कॉपी करें</string>
+    <string name="ai_card_heat_map_title">सारणी में %1$s</string>
+
+    <!-- Equation Balancer tool -->
+    <string name="balancer_tool_title">समीकरण संतुलक</string>
+    <string name="bal">संतुलक</string>
+    <string name="balancer_tool_text">रासायनिक समीकरणों को सटीक पूर्णांक गुणांकों के साथ संतुलित करें</string>
+    <string name="balancer_tool_card_title">एक समीकरण संतुलित करें</string>
+    <string name="balancer_tool_hint">Fe + O2 -&gt; Fe2O3</string>
+    <string name="balancer_tool_result">संतुलित समीकरण</string>
+    <string name="balancer_tool_prompt">तीर के साथ एक समीकरण लिखें, जैसे Fe + O2 -&gt; Fe2O3।</string>
+    <string name="balancer_tool_examples">उदाहरण</string>
+    <string name="balancer_tool_note">तीर -&gt;, =&gt;, = या → के रूप में लिखे जा सकते हैं। (s), (l), (g) और (aq) जैसे अवस्था चिह्न अनदेखे किए जाते हैं।</string>
+    <string name="balancer_tool_copied">समीकरण कॉपी किया गया</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">मिश्रधातु तालिका</string>
+    <string name="table_alloy_text">सामान्य मिश्रधातुओं की तालिका, वे किससे बनी हैं और शुद्ध धातु के बजाय उनका उपयोग क्यों किया जाता है</string>
+    <string name="alo">मिश्रधातु तालिका</string>
+    <string name="activity_alloy_title">मिश्रधातुएँ</string>
+    <string name="alloy_clear_filter">फ़िल्टर हटाएँ</string>
+    <string name="alloy_base_iron">लोहा</string>
+    <string name="alloy_base_copper">तांबा</string>
+    <string name="alloy_base_aluminium">एल्युमिनियम</string>
+    <string name="alloy_base_nickel">निकल</string>
+    <string name="alloy_base_tin">टिन</string>
+    <string name="alloy_base_silver">चांदी</string>
+    <string name="alloy_base_gold">सोना</string>
+    <string name="alloy_base_titanium">टाइटेनियम</string>
+    <string name="alloy_base_mercury">पारा</string>
+    <string name="base_label">"आधार धातु: "</string>
+    <string name="composition_label">"संघटन: "</string>
+    <string name="open_base_element">आधार तत्व खोलें</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">एक ही खरीद से Android और Windows पर PRO+ अनलॉक करें। सुनिश्चित करें कि आपके नोट्स, उपलब्धियाँ और प्रगति सभी डिवाइस पर आपके साथ रहें!</string>
+    <string name="ultimate_buy">PRO+ Ultimate पाएँ</string>
+    <string name="ultimate_upgrade_title">Ultimate में अपग्रेड करें</string>
+    <string name="ultimate_coming_soon">जल्द आ रहा है</string>
+    <string name="ultimate_owned">PRO+ Ultimate के मालिक</string>
+    <string name="ultimate_already_owned_account">इस खाते पर आपके पास पहले से PRO+ Ultimate है।</string>
+    <string name="account_tier_unknown">अभी तक सिंक नहीं हुआ</string>
+    <string name="account_title">खाता</string>
+    <string name="account_id">खाता ID</string>
+    <string name="account_id_signed_out">साइन इन नहीं किया गया</string>
+    <string name="account_id_copied">खाता ID कॉपी किया गया</string>
+    <string name="account_id_hint">यह Windows ऐप में दिखाई गई ID से मेल खानी चाहिए। अगर यह अलग है, तो दोनों डिवाइस अलग-अलग खातों में सिंक हो रहे हैं।</string>
+    <string name="last_synced">पिछली बार सिंक किया गया</string>
+    <string name="last_synced_never">कभी नहीं</string>
+    <string name="ai_send_question">यह प्रश्न भेजें</string>
+    <string name="ai_send_question_title">प्रश्न भेजें?</string>
+    <string name="ai_send_question_body">आपका प्रश्न डेवलपर को भेजा जाएगा ताकि भविष्य के संस्करण में उसका उत्तर दिया जा सके।\n\nभेजा जाता है: आपका प्रश्न जैसा आपने लिखा, ऐप की भाषा और संस्करण, और उत्तर न दे पाने का कारण।\nनहीं भेजा जाता: आपका नाम, खाता, डिवाइस या इस चैट का बाकी हिस्सा।</string>
+    <string name="ai_send_question_confirm">भेजें</string>
+    <string name="ai_send_question_sent">धन्यवाद – आपका प्रश्न भेज दिया गया।</string>
+    <string name="ai_send_question_failed">प्रश्न नहीं भेजा जा सका। अपना कनेक्शन जाँचें और फिर से कोशिश करें।</string>
 </resources>

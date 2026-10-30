@@ -13,15 +13,26 @@ import java.io.File
 object TestAssets {
 
     private val assetsDir: File by lazy {
-        // Unit tests run with the module directory as the working directory.
+        // The element files are in the shared-data submodule. Unit tests run with the module
+        // directory as the working directory, so the repository root is one level up.
         val candidates = listOf(
-            File("src/main/assets"),
-            File("app/src/main/assets"),
-            File("../app/src/main/assets")
+            File("../shared/elements"),
+            File("shared/elements")
         )
-        candidates.firstOrNull { it.isDirectory }
-            ?: error("Could not locate assets from ${File(".").absolutePath}")
+        candidates.firstOrNull { File(it, "elements_en.json").isFile }
+            ?: error("Element files not found from ${File(".").absolutePath}; run `git submodule update --init`")
     }
+
+    /**
+     * A text file from the shared data's `datasets/` or `language/` folder - `titles_sv.tsv`
+     * (roadmap 1.3), `trigrams.tsv` (1.4) - or null when there is none, as the app's asset source
+     * does.
+     */
+    fun text(name: String): String? =
+        listOf("datasets", "language").flatMap { listOf(File("../shared/$it"), File("shared/$it")) }
+            .map { File(it, name) }
+            .firstOrNull { it.isFile }
+            ?.readText(Charsets.UTF_8)
 
     /** True when the real assets are reachable; lets tests skip rather than fail spuriously. */
     fun available(language: String = "en"): Boolean =

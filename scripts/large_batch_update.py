@@ -7,7 +7,7 @@ import json
 import os
 import sys
 
-ASSETS_PATH = '/home/runner/work/Atomic-Periodic-Table.Android/Atomic-Periodic-Table.Android/app/src/main/assets'
+ASSETS_PATH = '/home/runner/work/Atomic-Periodic-Table.Android/Atomic-Periodic-Table.Android/shared/elements'
 
 def bulk_update(lang_code, translations_dict):
     """Update multiple elements for a language."""

@@ -24,6 +24,9 @@ import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.UnifiedTitleBarController
 
 class SolubilityActivity : BaseActivity() {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.SOLUBILITY
+
 
     private lateinit var titleBar: UnifiedTitleBarController
     private var backCallback: OnBackPressedCallback? = null

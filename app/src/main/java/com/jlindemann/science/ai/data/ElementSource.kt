@@ -29,10 +29,21 @@ interface ElementSource {
 
     /** The table for a language, or null when it cannot be loaded. */
     fun load(language: String): ElementTable?
+
+    /**
+     * A text file shipped beside the element tables, such as `titles_sv.tsv` (roadmap 1.3), or
+     * null when there is none.
+     */
+    fun text(name: String): String? = null
 }
 
 /** In-memory [ElementSource] for unit tests and previews. */
-class MapElementSource(private val byLanguage: Map<String, ElementTable>) : ElementSource {
+class MapElementSource(
+    private val byLanguage: Map<String, ElementTable>,
+    /** The text files beside the tables, for tests that read them (roadmap 2.4). */
+    private val texts: (String) -> String? = { null }
+) : ElementSource {
     override fun availableLanguages(): List<String> = byLanguage.keys.sorted()
     override fun load(language: String): ElementTable? = byLanguage[language]
+    override fun text(name: String): String? = texts(name)
 }

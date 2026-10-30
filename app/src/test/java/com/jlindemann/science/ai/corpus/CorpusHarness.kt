@@ -12,6 +12,7 @@ import com.jlindemann.science.ai.data.LocalizedView
 import com.jlindemann.science.ai.data.TestAssets
 import com.jlindemann.science.ai.exec.QueryExecutor
 import com.jlindemann.science.ai.nlu.FieldResolver
+import com.jlindemann.science.ai.nlu.LanguageDetector
 import com.jlindemann.science.ai.nlu.QueryPlanner
 import com.jlindemann.science.ai.retrieval.Bm25Index
 import com.jlindemann.science.ai.retrieval.ElementAlias
@@ -85,6 +86,17 @@ object CorpusHarness {
 
     fun stackFor(language: String): Stack = stacks.getOrPut(language) { build(language) }
 
+    val languageDetector: LanguageDetector? by lazy { LanguageDetector.parse(TestAssets.text("trigrams.tsv")) }
+
+    /** The language a message is answered in, decided as `RetrievalService.detectLanguage` decides it. */
+    fun detectByNames(message: String, active: String): String =
+        EntityResolver(aliases, active).detectLanguage(message, active)
+
+    fun detectLanguage(message: String, active: String): String {
+        val byNames = { m: String, a: String -> EntityResolver(aliases, a).detectLanguage(m, a) }
+        return languageDetector?.detect(message, active, byNames) ?: byNames(message, active)
+    }
+
     private fun build(language: String): Stack {
         val store = baseStore
         val datasets = datasetIndex
@@ -98,10 +110,15 @@ object CorpusHarness {
         // A real corpus and a real index, so the dataset fallback behaves as it does in the app.
         val index = Bm25Index(HybridRetriever.buildCorpus(store, datasets, localized))
         val retriever = HybridRetriever(store, datasets, index, entities, localized)
-        val planner = QueryPlanner(store, datasets, entities, FieldResolver(strings), retriever)
-        val executor = QueryExecutor(store, datasets, localized, strings)
+        // The reviewed explanations, as the app loads them (roadmap 2.4).
+        val explanations = com.jlindemann.science.ai.data.Explanations.parse(
+            TestAssets.text("explanations.tsv"), TestAssets.text("explanations_$language.tsv"),
+            TestAssets.text("explanations_en.tsv"), language
+        )
+        val planner = QueryPlanner(store, datasets, entities, FieldResolver(strings), retriever, explanations)
+        val executor = QueryExecutor(store, datasets, localized, strings, explanations = explanations)
         val composer = AnswerComposer(store, localized, strings)
-        val engine = AiEngine(store, datasets, localized, strings, entities, retriever)
+        val engine = AiEngine(store, datasets, localized, strings, entities, retriever, explanations = explanations)
         return Stack(language, store, datasets, localized, strings, entities, retriever, index, planner, executor, composer, engine)
     }
 
@@ -130,6 +147,6 @@ object CorpusHarness {
                 magneticType = row["magnetic_type"]?.toString().orEmpty()
             )
         }
-        return LocalizedView(language, map)
+        return LocalizedView(language, map, DatasetIndex.parseTitles(TestAssets.text("titles_$language.tsv")))
     }
 }

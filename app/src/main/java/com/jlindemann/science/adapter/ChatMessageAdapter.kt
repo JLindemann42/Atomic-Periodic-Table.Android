@@ -20,6 +20,9 @@ import com.jlindemann.science.ai.cards.ChatCardKind
 import com.jlindemann.science.ai.compose.ChatAction
 import com.jlindemann.science.ai.compose.ChatActionCodec
 import com.jlindemann.science.model.ChatMessage
+import com.jlindemann.science.utils.AnalyticsEvent
+import com.jlindemann.science.utils.AnalyticsHelper
+import com.jlindemann.science.utils.AnalyticsParam
 import com.jlindemann.science.views.ProCardGate
 
 class ChatMessageAdapter(
@@ -44,7 +47,12 @@ class ChatMessageAdapter(
      */
     private val isProPlusUser: () -> Boolean = { true },
     /** Sends the user to the PRO page. Null renders the lock without a button. */
-    private val onUpgrade: (() -> Unit)? = null
+    private val onUpgrade: (() -> Unit)? = null,
+    /**
+     * Shares an answer as an image (roadmap 2.10), with the answer as shown and its card when the
+     * card may be shared: null for none, and for a locked one. Null hides the share button.
+     */
+    private val onShare: ((message: ChatMessage, shown: CharSequence, card: View?) -> Unit)? = null
 ) : RecyclerView.Adapter<ChatMessageAdapter.ChatViewHolder>() {
 
     /**
@@ -54,6 +62,14 @@ class ChatMessageAdapter(
      * reads as the conversation re-arriving.
      */
     private val animated = HashSet<String>()
+
+    /**
+     * Messages whose locked card has already been reported.
+     *
+     * `bindCard` runs on every rebind and every scroll pass, so without this the paywall impression
+     * would be counted once per time the row crossed the viewport rather than once per answer.
+     */
+    private val lockedCardReported = HashSet<String>()
 
     inner class ChatViewHolder(
         itemView: View,
@@ -67,6 +83,7 @@ class ChatMessageAdapter(
         private val aiMascotIcon: android.widget.ImageView = itemView.findViewById(R.id.aiMascotIcon)
         private val aiGlow: View = itemView.findViewById(R.id.aiMessageGlow)
         private val aiActions: ChipGroup = itemView.findViewById(R.id.aiMessageActions)
+        private val shareButton: View = itemView.findViewById(R.id.aiShareButton)
         private val cardContainer: FrameLayout = itemView.findViewById(R.id.aiMessageCardContainer)
         private val cardHost: FrameLayout = itemView.findViewById(R.id.aiMessageCardHost)
         private val proOverlay: View = itemView.findViewById(R.id.aiCardProOverlay)
@@ -92,7 +109,13 @@ class ChatMessageAdapter(
             aiMascotIcon.visibility = View.VISIBLE
             aiMessageText.text = formatMarkdown(message.text)
             bindActions(message)
-            bindCard(message)
+            val shareableCard = bindCard(message)
+            // Only an answer to a question: the greeting has nothing to share.
+            val answersAQuestion = messages.getOrNull(bindingAdapterPosition - 1)?.isFromUser == true
+            shareButton.visibility = if (onShare != null && answersAQuestion) View.VISIBLE else View.GONE
+            shareButton.setOnClickListener {
+                onShare?.invoke(message, aiMessageText.text, if (shareableCard) cardHost else null)
+            }
 
             if (animated.add(message.id)) animateEntrance(aiRoot, aiMascotIcon)
             startGlowAnimation(aiGlow)
@@ -104,8 +127,10 @@ class ChatMessageAdapter(
          *
          * The view type already guarantees the inflated card matches the message's kind, so there is
          * no "hide the other seven" branch here — RecyclerView pools per view type.
+         *
+         * @return whether a card is shown unlocked, and so may be shared
          */
-        private fun bindCard(message: ChatMessage) {
+        private fun bindCard(message: ChatMessage): Boolean {
             val card = cardKind?.let { ChatCardCodec.decode(message.cards) }
             val view = cardView
             val bound = card != null && view != null && cardBinder?.bind(view, card) == true
@@ -113,7 +138,7 @@ class ChatMessageAdapter(
             if (!bound) {
                 proOverlay.visibility = View.GONE
                 ProCardGate.apply(view, locked = false)
-                return
+                return false
             }
 
             // The card is bound either way and only obscured, so unlocking is a one-frame change
@@ -122,6 +147,13 @@ class ChatMessageAdapter(
             ProCardGate.apply(view, locked)
             proOverlay.visibility = if (locked) View.VISIBLE else View.GONE
             if (locked) {
+                if (lockedCardReported.add(message.id)) {
+                    AnalyticsHelper.logEvent(
+                        itemView.context,
+                        AnalyticsEvent.AI_CARD_LOCKED,
+                        AnalyticsParam.CARD_KIND to card.kind.name
+                    )
+                }
                 proScrim.visibility = if (ProCardGate.needsScrim()) View.VISIBLE else View.GONE
                 proScrim.alpha = ProCardGate.SCRIM_ALPHA
                 // Swallow taps on the card itself so a locked visual cannot be interacted with.
@@ -131,6 +163,7 @@ class ChatMessageAdapter(
                     setOnClickListener { onUpgrade?.invoke() }
                 }
             }
+            return !locked
         }
 
         /** Render the answer's sources as tappable chips, or hide the group when there are none. */
@@ -339,6 +372,8 @@ class ChatMessageAdapter(
         ChatCardKind.IONIZATION_SERIES -> R.layout.card_ai_ionization_series
         ChatCardKind.ISOTOPE_DECAY -> R.layout.card_ai_isotope_decay
         ChatCardKind.ABUNDANCE -> R.layout.card_ai_abundance
+        ChatCardKind.TREND_LINE -> R.layout.card_ai_trend_line
+        ChatCardKind.HEAT_MAP -> R.layout.card_ai_heat_map
     }
 
     private companion object {

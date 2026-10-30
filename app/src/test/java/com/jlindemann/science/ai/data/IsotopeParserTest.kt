@@ -97,6 +97,24 @@ class IsotopeParserTest {
         assertEquals(118, isotopes[1].neutrons)
     }
 
+    /**
+     * The mass number comes from iso_A, not from iso_mass. Digit-filtering gold's atomic mass
+     * "196.966568" gave 196966568, which the isotope chart then used as its axis.
+     */
+    @Test
+    fun massNumberIsTheNucleonCountNotTheDigitsOfTheMass() {
+        val row = mapOf(
+            "iso_1" to "Gold-197", "iso_mass_1" to "196.966568", "iso_half_1" to "Stable",
+            "iso_A_1" to "197",
+            // No iso_A: fall back to the rounded atomic mass.
+            "iso_2" to "Gold-198", "iso_mass_2" to "197.968242", "iso_half_2" to "2.69 days"
+        )
+        val isotopes = IsotopeParser.parse(row)
+        assertEquals(197, isotopes[0].massNumber)
+        assertEquals(198, isotopes[1].massNumber)
+        assertNull(isotopes[1].nucleons)
+    }
+
     @Test
     fun sentinelInSlotOneYieldsNoIsotopes() {
         assertTrue(IsotopeParser.parse(mapOf("iso_1" to "---")).isEmpty())

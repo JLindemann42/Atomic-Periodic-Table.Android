@@ -62,6 +62,33 @@ class FieldResolver(private val strings: StringProvider) {
 
     fun resolve(query: String): FieldMatch? = resolveAll(query, 1).firstOrNull()
 
+    /** Whether [word], folded, is exactly the name of a field (roadmap 1.5). */
+    fun isFieldWord(word: String): Boolean = word.length >= minimumLength(word) && aliases.containsKey(word)
+
+    /**
+     * Whether [word], folded, is the name of a field, or one with a grammatical ending: the words
+     * `Morphology` may split a compound into. The compound rule in [inflects] is left out, or every
+     * compound would vouch for itself.
+     */
+    fun knowsWord(word: String): Boolean {
+        if (isFieldWord(word)) return true
+        if (word.length < 5) return false
+        return singleWordAliases.any { inflects(word, it, compounds = false) }
+    }
+
+    /** Every word of every alias, folded, and the fields it names: the speller's field words (roadmap 1.6). */
+    fun aliasWords(): Map<String, Set<String>> {
+        val words = HashMap<String, MutableSet<String>>()
+        for ((alias, fieldId) in aliases) {
+            for (word in alias.split(' ')) if (word.isNotEmpty()) words.getOrPut(word) { HashSet() }.add(fieldId)
+        }
+        return words
+    }
+
+    private val singleWordAliases: List<String> by lazy {
+        aliases.keys.filter { ' ' !in it && it.length >= 5 }
+    }
+
     /**
      * Which discovery field a question is really asking for, or null when it is not asking.
      *
@@ -105,7 +132,7 @@ class FieldResolver(private val strings: StringProvider) {
      *    "atomnummer" becomes "atomnumret", which is the *same length* as the alias, so the suffix
      *    rule could not see it and every "vad är atomnumret för guld" was declined.
      */
-    private fun inflects(word: String, alias: String): Boolean {
+    private fun inflects(word: String, alias: String, compounds: Boolean = true): Boolean {
         if (word.length > alias.length &&
             word.length - alias.length <= MAX_INFLECTION_SUFFIX &&
             word.startsWith(alias)
@@ -118,7 +145,7 @@ class FieldResolver(private val strings: StringProvider) {
         // "median" + "densitet". The field is in there, at the end, and nothing that matched from
         // the front could see it — so the aggregation was recognised and the field it applied to
         // was not. Only long aliases qualify, and only with a real word in front of them.
-        if (alias.length >= MIN_COMPOUND_HEAD) {
+        if (compounds && alias.length >= MIN_COMPOUND_HEAD) {
             val at = word.lastIndexOf(alias)
             if (at >= MIN_COMPOUND_MODIFIER && word.length - (at + alias.length) <= MAX_INFLECTION_SUFFIX) {
                 return true
@@ -413,6 +440,14 @@ class FieldResolver(private val strings: StringProvider) {
             "punto de ebullicion" to "boiling_point", "kokpunkt" to "boiling_point",
             "siedepunkt" to "boiling_point", "point d ebullition" to "boiling_point",
             "kookpunt" to "boiling_point", "沸点" to "boiling_point",
+            // The standard German terms beside Schmelzpunkt and Siedepunkt. "Schmelz" and "Siede" are
+            // no words of their own, so these are vocabulary, not compounds Morphology can split.
+            "schmelztemperatur" to "melting_point", "siedetemperatur" to "boiling_point",
+            // The everyday Swedish word for density, and the Tagalog names of the two points: the
+            // Filipino strings still label them in English, so "pinakamababang punto ng pagkatunaw"
+            // named no property at all.
+            "tathet" to "density",
+            "punto ng pagkatunaw" to "melting_point", "punto ng pagkulo" to "boiling_point",
             "electronegatividad" to "electronegativity", "elektronegativitet" to "electronegativity",
             "elektronegativitat" to "electronegativity", "electronegativite" to "electronegativity",
             "elettronegativita" to "electronegativity", "电负性" to "electronegativity",
@@ -508,6 +543,14 @@ class FieldResolver(private val strings: StringProvider) {
             "गलनांक" to "melting_point", "نقطہ پگھلاؤ" to "melting_point",
             "क्वथनांक" to "boiling_point",
             "समस्थानिक" to "isotopes",
+            // The Urdu field labels and the Urdu suggestion chips were translated by different
+            // hands and do not share a vocabulary: the labels transliterate English ("ایٹمی ماس",
+            // "آئسوٹوپس") while the chips use native Urdu ("جوہری کمیت", "ہم جا"). Aliases come
+            // from the labels, so the app's own chips named fields it could not resolve, and a
+            // user writing ordinary Urdu got nothing. Both spellings are accepted rather than
+            // either translation being overruled.
+            "جوہری کمیت" to "atomic_mass",
+            "ہم جا" to "isotopes", "ہم جاء" to "isotopes",
             "farg" to "appearance", "ser ut" to "appearance", "utseende" to "appearance",
             "aussehen" to "appearance", "farbe" to "appearance", "color" to "appearance",
             "fas" to "phase", "elektrisk typ" to "electrical_type",

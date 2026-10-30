@@ -51,6 +51,7 @@ import com.jlindemann.science.utils.FlashcardCatalog.ExamSpec
 import com.jlindemann.science.utils.StreakManager
 import com.jlindemann.science.auth.AuthManager
 import com.jlindemann.science.sync.ProgressSyncManager
+import com.jlindemann.science.sync.AutoSync
 import com.jlindemann.science.utils.UnifiedTitleBarController
 import org.w3c.dom.Text
 
@@ -1173,24 +1174,28 @@ class FlashCardActivity : BaseActivity() {
         // Show syncing status in the sync_status TextView (visible only for Pro/Pro+ per setSyncStatus)
         setSyncStatus(getString(R.string.syncing_progress))
 
-        // Call merge/upload. ProgressSyncManager handles merge rules (including streak).
-        ProgressSyncManager.mergeAndUploadLocalProgress(this, uid) { success: Boolean ->
+        // Routed through AutoSync so this shares the single-flight guard with the sync the process
+        // lifecycle fires. ProgressSyncManager still handles the merge rules (including streak).
+        AutoSync.syncNow(this, force = true) { outcome ->
             runOnUiThread {
-                if (success) {
-                    // Refresh UI to reflect merged state from cloud
-                    try {
-                        updateXpAndLevelStats()
-                    } catch (_: Exception) { /* ignore UI refresh errors */ }
-                    try {
-                        updateCategoryBoxes()
-                    } catch (_: Exception) { /* ignore UI refresh errors */ }
-                    try {
-                        refreshStreakDisplay()
-                    } catch (_: Exception) { /* ignore UI refresh errors */ }
+                when (outcome) {
+                    AutoSync.Outcome.SUCCESS -> {
+                        // Refresh UI to reflect merged state from cloud
+                        try {
+                            updateXpAndLevelStats()
+                        } catch (_: Exception) { /* ignore UI refresh errors */ }
+                        try {
+                            updateCategoryBoxes()
+                        } catch (_: Exception) { /* ignore UI refresh errors */ }
+                        try {
+                            refreshStreakDisplay()
+                        } catch (_: Exception) { /* ignore UI refresh errors */ }
 
-                    setSyncStatus(getString(R.string.sync_complete))
-                } else {
-                    setSyncStatus(getString(R.string.sync_failed))
+                        setSyncStatus(getString(R.string.sync_complete))
+                    }
+                    AutoSync.Outcome.FAILED -> setSyncStatus(getString(R.string.sync_failed))
+                    // Another sync is already running, so "syncing" is still the truth.
+                    AutoSync.Outcome.SKIPPED -> Unit
                 }
             }
         }

@@ -7,7 +7,7 @@ import json
 import re
 
 # Load Urdu elements file
-with open('app/src/main/assets/elements_ur.json', 'r', encoding='utf-8') as f:
+with open('shared/elements/elements_ur.json', 'r', encoding='utf-8') as f:
     ur_data = json.load(f)
 
 # Urdu translations for element names
@@ -247,7 +247,7 @@ for elem_key, elem_data in ur_data.items():
                 updated_count += 1
 
 # Save updated file
-with open('app/src/main/assets/elements_ur.json', 'w', encoding='utf-8') as f:
+with open('shared/elements/elements_ur.json', 'w', encoding='utf-8') as f:
     json.dump(ur_data, f, ensure_ascii=False, indent=2)
 
 print(f"✅ Urdu file updated!")

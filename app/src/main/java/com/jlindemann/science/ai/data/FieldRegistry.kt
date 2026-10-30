@@ -15,7 +15,22 @@ enum class FieldCategory {
 enum class Dimension {
     TEMPERATURE, MASS, DENSITY, LENGTH, ENERGY, ENERGY_PER_MOL, PRESSURE, POWER, TIME,
     VELOCITY, RESISTIVITY, CONDUCTIVITY, VOLUME_PER_MOL, HEAT_CAPACITY, CONCENTRATION,
-    AREA, DIMENSIONLESS
+    AREA, DIMENSIONLESS,
+
+    /** Litre-based volume. Distinct from [VOLUME_PER_MOL], which is a molar quantity. */
+    VOLUME,
+
+    /** Amount of substance, base mol. */
+    AMOUNT,
+
+    /**
+     * Molar concentration, base mol/L.
+     *
+     * Deliberately not folded into [CONCENTRATION], which is mg/kg and backs the nine
+     * `abundance_*` fields. Sharing a dimension would let [Filter.FieldCompare] rank a molarity
+     * against a crustal abundance and call the comparison meaningful.
+     */
+    MOLARITY
 }
 
 /**
@@ -42,6 +57,12 @@ enum class DeepLinkTarget {
     ELEMENT_INFO, NUCLIDE, EMISSION, CONSTANTS, DICTIONARY, EQUATIONS, POISSON, GEOLOGY,
     SOLUBILITY, ION, ELECTRODE, PH, MOLAR_MASS_CALC, UNIT_CONVERTER, IDEAL_GAS,
     REACTION_BALANCER, LEARNING_GAMES, FLASHCARDS, RESEND_QUERY,
+
+    /**
+     * Offer to send a declined question to the developer (roadmap 0.7). Handled by the chat panel,
+     * which asks first; args carry the question, its language and the decline reason.
+     */
+    REPORT_QUESTION,
 
     /** The PRO page, for an answer withheld behind the paywall. */
     PRO_PAGE
@@ -287,7 +308,9 @@ object FieldRegistry {
         // ---- Nuclear --------------------------------------------------------------------
         add(spec("radioactive", "radioactive", FieldKind.ENUM, FieldCategory.NUCLEAR, R.string.radioactive_colon))
         add(spec("neutron_cross_section", "neutron_cross_sectional", FieldKind.NUMERIC, FieldCategory.NUCLEAR, R.string.neutron_cross_sectional_colon, Dimension.AREA, "b", deepLink = DeepLinkTarget.NUCLIDE))
-        add(spec("common_neutrons", "element_neutron_common", FieldKind.NUMERIC, FieldCategory.NUCLEAR, R.string.isotopes_colon, deepLink = DeepLinkTarget.NUCLIDE))
+        // The Isotopes heading is right for parsing — it is how "isotopes" resolves here — and
+        // wrong in a sentence, which read "Gold's Isotopes is 118". Windows porting notes, D46.
+        add(spec("common_neutrons", "element_neutron_common", FieldKind.NUMERIC, FieldCategory.NUCLEAR, R.string.isotopes_colon, deepLink = DeepLinkTarget.NUCLIDE, sentenceLabelRes = R.string.ai_label_neutrons))
 
         // ---- Abundance ------------------------------------------------------------------
         // Every abundance label is a table heading phrased as a prepositional phrase — "In the
@@ -398,10 +421,12 @@ object FieldRegistry {
         localized: Boolean = false,
         higherIsMore: Boolean = true,
         /** What the user must own to be told this value; see [Tier]. */
-        tier: Tier = Tier.FREE
+        tier: Tier = Tier.FREE,
+        @StringRes sentenceLabelRes: Int? = null
     ) = FieldSpec(
         id, listOf(jsonKey), kind, category, labelRes, dimension, canonicalUnit,
-        deepLink, allowsRange, localized, higherIsMore, tier = tier
+        deepLink, allowsRange, localized, higherIsMore, tier = tier,
+        sentenceLabelRes = sentenceLabelRes
     )
 
     /** Temperature fields that ship all three scales, so a unit request needs no conversion. */

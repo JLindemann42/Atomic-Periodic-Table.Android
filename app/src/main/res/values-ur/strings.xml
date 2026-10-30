@@ -605,4 +605,197 @@
     <string name="question_valence_electrons">%1$s میں کتنے ویلنس الیکٹران ہیں؟</string>
     <string name="quiz_loading">سوالات تیار کیے جا رہے ہیں…</string>
     <string name="quiz_no_questions">اس گیم کے لیے سوالات نہیں بنائے جا سکے۔ براہ کرم کوئی اور منتخب کریں۔</string>
+
+    <!-- Assistant: calculations, tools and suggestion chips -->
+    <string name="ai_unit_converted">**%1$s %2$s** برابر ہے **%3$s %4$s**۔</string>
+    <string name="ai_unit_bridge_note">1 eV = 96.485 kJ/mol سے تبدیل کیا گیا — وہی توانائی، فی مول کے بجائے فی ذرہ شمار کی گئی۔</string>
+    <string name="ai_equation_balanced">**%1$s → %2$s**</string>
+    <string name="ai_equation_check_header">ایٹمی جانچ</string>
+    <string name="ai_equation_tally_row">• **%1$s** — بائیں طرف %2$d، دائیں طرف %3$d</string>
+    <string name="ai_equation_one_sided">یہ مساوات متوازن نہیں ہو سکتی: ایک عنصر صرف ایک طرف موجود ہے، اس لیے کوئی عدد اسے برابر نہیں کر سکتا۔</string>
+    <string name="ai_equation_one_sided_named">یہ مساوات متوازن نہیں ہو سکتی: %1$s صرف ایک طرف موجود ہے، اس لیے کوئی عدد اسے برابر نہیں کر سکتا۔</string>
+    <string name="ai_equation_underdetermined">اس مساوات کے ایک سے زیادہ آزاد توازن ہیں — یہ ایک میں لکھی دو تعاملات جیسی ہے۔ اسے الگ کریں، میں ہر ایک کو متوازن کر دوں گا۔</string>
+    <string name="ai_equation_too_large">اس مساوات کے لیے ایسے اعداد درکار ہیں جو کسی حقیقی تعامل کے لیے بہت بڑے ہیں۔ فارمولے دیکھ لیں۔</string>
+    <string name="ai_equation_parse_failed">میں اسے کیمیائی مساوات کے طور پر نہیں پڑھ سکا۔ Fe + O2 -&gt; Fe2O3 جیسی شکل آزمائیں۔</string>
+    <string name="ai_equation_no_solution">اس مساوات کا مکمل مثبت اعداد کے ساتھ کوئی توازن نہیں ہے۔</string>
+    <string name="ai_solution_generic_substance">محلول</string>
+    <string name="ai_solution_mass_needed">%3$s mL کے %4$s mol/L محلول کے لیے آپ کو %2$s کی **%1$s g** درکار ہے۔</string>
+    <string name="ai_solution_molarity">%2$s کا ارتکاز **%1$s mol/L** ہے۔</string>
+    <string name="ai_solution_volume">آپ کو **%2$s mol/L** پر **%1$s mL** درکار ہے۔</string>
+    <string name="ai_solution_moles">یہ %2$s کے **%1$s mol** ہیں۔</string>
+    <string name="ai_dilution_result">**%2$s mL** سے **%1$s mol/L** کو پتلا کرنے پر **%4$s mL** میں **%3$s mol/L** ملتا ہے۔</string>
+    <string name="ai_dilution_add_solvent">**%1$s mL** محلل شامل کریں۔</string>
+    <string name="ai_solution_working_header">حساب</string>
+    <string name="ai_solution_working_nvc">n = c × V → %1$s mol = %2$s mol/L × %3$s L</string>
+    <string name="ai_solution_working_mass">m = n × M → %1$s g = %2$s mol × %3$s g/mol</string>
+    <string name="ai_solution_working_c1v1">C₁V₁ = C₂V₂ → %1$s × %2$s = %3$s × %4$s</string>
+    <string name="ai_decay_stable">%1$s مستحکم ہے — یہ تنزل نہیں کرتا، اس لیے وقت کے ساتھ کچھ کم نہیں ہوتا۔</string>
+    <string name="ai_decay_unlisted">ایپ اس عنصر کے ہم جاؤں میں %1$s کو درج نہیں کرتی، اس لیے میرے پاس اس کی نصف عمر نہیں ہے۔</string>
+    <string name="ai_decay_no_half_life">%1$s درج ہے، مگر اس کی نصف عمر \"%2$s\" لکھی ہے، اس لیے میں تنزل کا حساب نہیں لگا سکتا۔</string>
+    <string name="ai_decay_effectively_none">%2$s %3$s کے بعد %1$s میں عملاً کچھ باقی نہیں رہتا۔</string>
+    <string name="ai_decay_elapsed">%3$s کے **%1$s g** سے **%2$s g** تک پہنچنے میں تقریباً **%4$s %5$s** لگتے ہیں۔</string>
+    <string name="ai_decay_remaining">%5$s %6$s کے بعد %4$s کے اصل %3$s g میں سے تقریباً **%1$s %2$s** باقی رہتا ہے۔</string>
+    <string name="ai_decay_half_lives">اس عرصے میں %1$s **%2$s** نصف عمریں گزارتا ہے، اور نمونے کا تقریباً **%3$s%%** باقی رہتا ہے۔</string>
+    <string name="ai_decay_working_header">حساب</string>
+    <string name="ai_decay_working_half_life">%1$s کی نصف عمر: %2$s</string>
+    <string name="ai_decay_working_n">n = t / t½ = %1$s → 2⁻ⁿ = %2$s%%</string>
+    <string name="ai_feature_nuclide_table">ایپ میں ایک تفصیلی **نیوکلائیڈ جدول** ہے جو تمام عناصر کے ہم جا دکھاتا ہے، تنزل کی قسم (الفا، بیٹا وغیرہ) کے مطابق رنگوں میں۔</string>
+    <string name="ai_feature_emission_spectrum">آپ کسی عنصر کا **اخراجی طیف** اس کے تفصیلی پینل میں دیکھ سکتے ہیں۔ یہ اس عنصر کی پیدا کردہ روشنی کا منفرد نمونہ دکھاتا ہے۔</string>
+    <string name="ai_feature_flashcards">ایپ میں عناصر کی علامات، جوہری کمیت اور درجہ بندی کے لیے کئی **فلیش کارڈ منی گیمز** ہیں، جن میں لیول اور XP بھی ہیں۔</string>
+    <string name="ai_feature_achievements">صارف صفحے پر **کامیابیوں** اور استعمال کے اعداد و شمار سے اپنی پیش رفت دیکھیں۔</string>
+    <string name="ai_feature_molar_mass">پیچیدہ مرکبات کا سالماتی وزن نکالنے کے لیے ایک بلٹ اِن **مولر ماس کیلکولیٹر** موجود ہے۔ میں یہ یہاں بھی کر سکتا ہوں — بس فارمولا دیں۔</string>
+    <string name="ai_feature_unit_converter">ایپ میں درجہ حرارت اور دیگر سائنسی اکائیوں کے لیے ایک **یونٹ کنورٹر** ہے۔ آپ مجھ سے بھی پوچھ سکتے ہیں، جیسے \"500 K کو °C میں بدلیں\"۔</string>
+    <string name="ai_feature_ideal_gas">PV = nRT سے دباؤ، حجم، مول یا درجہ حرارت نکالنے کے لیے **مثالی گیس کیلکولیٹر** استعمال کریں۔</string>
+    <string name="ai_feature_reaction_balancer">**کیمیائی تعامل کا توازن کار** مساوات متوازن کرنے اور پسندیدہ محفوظ کرنے میں مدد دیتا ہے۔ آپ یہاں بھی پوچھ سکتے ہیں — جیسے Fe + O2 -&gt; Fe2O3 لکھیں۔</string>
+    <string name="ai_feature_capabilities">میں عناصر کی خصوصیات دیکھ اور موازنہ کر سکتا ہوں، مساوات متوازن کر سکتا ہوں، مولر ماس اور محلول کا ارتکاز نکال سکتا ہوں، اکائیاں بدل سکتا ہوں، اور تنزل کا حساب لگا سکتا ہوں۔ کسی عنصر کے بارے میں پوچھیں، یا کوئی فارمولا یا مساوات لکھیں۔</string>
+    <string-array name="ai_suggest_element">
+        <item>%1$s کے استعمال</item>
+        <item>%1$s کی جوہری کمیت</item>
+        <item>کیا %1$s خطرناک ہے؟</item>
+        <item>%1$s کہاں پایا جاتا ہے؟</item>
+        <item>%1$s کی الیکٹران ترتیب</item>
+        <item>%1$s کے ہم جا</item>
+    </string-array>
+    <string-array name="ai_suggest_trends">
+        <item>دوری رجحانات کیا ہیں؟</item>
+        <item>برقی منفیت کا رجحان</item>
+        <item>جوہری رداس کا رجحان</item>
+        <item>آئنائزیشن توانائی</item>
+    </string-array>
+    <string-array name="ai_suggest_general">
+        <item>کوئی دلچسپ بات بتائیں</item>
+        <item>کوئز شروع کریں</item>
+        <item>الکلی دھاتیں کون سی ہیں؟</item>
+        <item>سب سے بھاری عنصر؟</item>
+    </string-array>
+    <string-array name="ai_suggest_tools">
+        <item>Fe + O2 -&gt; Fe2O3 متوازن کریں</item>
+        <item>500 K کو °C میں بدلیں</item>
+        <item>250 mL کے 0.5 mol/L کے لیے کتنے گرام NaCl؟</item>
+        <item>11460 سال بعد 100 g کاربن-14 میں سے کتنا باقی رہتا ہے؟</item>
+    </string-array>
+
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%2$s اور %3$s کی %1$s</string>
+    <string name="ai_follow_highest">کس عنصر کی %1$s سب سے زیادہ ہے؟</string>
+    <string name="ai_follow_lowest">کس عنصر کی %1$s سب سے کم ہے؟</string>
+    <string name="ai_follow_unit">%2$s کی %1$s %3$s میں</string>
+    <string name="ai_follow_count">کتنے ہیں؟</string>
+
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">مراحل دکھائیں</string>
+    <string name="ai_steps_header">مرحلہ وار</string>
+    <string name="ai_steps_formula">مولر کمیت ہر عنصر کے ایٹموں کی تعداد ضرب اس کی جوہری کمیت کا مجموعہ ہے:</string>
+    <string name="ai_steps_moles_legend">m کمیت ہے، M مولر کمیت، n مول میں مقدار، N ذرات کی تعداد اور N_A ایووگاڈرو مستقل۔</string>
+    <string name="ai_steps_solution_legend">n مول میں مقدار ہے، c ارتکاز، V حجم، m کمیت اور M مولر کمیت۔</string>
+    <string name="ai_steps_decay_legend">t½ نصف عمر ہے، t گزرا ہوا وقت، n نصف عمروں کی تعداد، اور N₀ اور N پہلے اور بعد کی مقداریں۔</string>
+    <string name="ai_steps_balance_unknowns">ہر فارمولے کے آگے ایک نامعلوم عددی سر لکھیں:</string>
+    <string name="ai_steps_balance_equations">ہر عنصر کے بائیں طرف اتنے ہی ایٹم ہونے چاہییں جتنے دائیں طرف:</string>
+    <string name="ai_steps_balance_solve">سب سے چھوٹے صحیح اعداد جو ہر سطر کو پورا کریں:</string>
+
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">%2$d عناصر میں **%1$s**، جوہری نمبر کی ترتیب سے:</string>
+    <string name="ai_trend_table_header">پوری دوری جدول میں **%1$s**: %2$d عناصر کی قدر درج ہے۔</string>
+    <string name="ai_trend_rises">مجموعی طور پر یہ بڑھتا ہے، %1$s (%2$s) سے %3$s (%4$s) تک۔</string>
+    <string name="ai_trend_falls">مجموعی طور پر یہ گھٹتا ہے، %1$s (%2$s) سے %3$s (%4$s) تک۔</string>
+    <string name="ai_trend_mixed">اس کی کوئی ایک سمت نہیں: ایک سرے پر %1$s (%2$s)، دوسرے پر %3$s (%4$s)۔</string>
+    <string name="ai_trend_extremes">سب سے زیادہ: %1$s (%2$s)۔ سب سے کم: %3$s (%4$s)۔</string>
+    <string name="ai_card_trend_title">%1$s کا رجحان</string>
+    <string name="ai_quiz_run_start_all">پورے جدول سے **%1$d سوالات** کا کوئز۔ کسی جواب پر ٹیپ کریں، یا ختم کرنے کے لیے بس کہیں۔</string>
+    <string name="ai_quiz_run_start_scoped">%2$s پر **%1$d سوالات** کا کوئز۔ کسی جواب پر ٹیپ کریں، یا ختم کرنے کے لیے بس کہیں۔</string>
+    <string name="ai_quiz_run_scope_count">%1$d عناصر</string>
+    <string name="ai_quiz_run_question">**سوال %1$d از %2$d۔** %3$s</string>
+    <string name="ai_quiz_run_right">✨ درست! **+%1$d XP**۔</string>
+    <string name="ai_quiz_run_wrong">بالکل نہیں: جواب تھا **%1$s**۔</string>
+    <string name="ai_quiz_run_done">کوئز مکمل: **%2$d میں سے %1$d** درست، **%3$d XP** حاصل۔</string>
+    <string name="ai_quiz_run_stopped">کوئز روکا گیا: **%2$d میں سے %1$d** درست، **%3$d XP** حاصل۔</string>
+    <string name="ai_quiz_run_none">میں اس پر سوال نہیں بنا سکا۔ کوئی گروپ، پیریڈ، عناصر کا خاندان یا ایک عنصر آزمائیں۔</string>
+    <string name="ai_study_start">دہرائی کا وقت: **%1$d سوالات** مشق کے لیے تیار ہیں۔ کسی جواب پر ٹیپ کریں، یا ختم کرنے کے لیے بس کہیں۔</string>
+    <string name="ai_study_none">ابھی دہرانے کے لیے کچھ نہیں ہے۔ کوئز کے جو سوال آپ سے چھوٹ جاتے ہیں وہ مشق کا وقت آنے پر یہاں لوٹتے ہیں۔</string>
+    <string name="ai_study_locked">مطالعہ کوچ PRO کا حصہ ہے: یہ آپ سے چھوٹے ہوئے کوئز سوالات یاد رکھتا ہے اور ہر ایک کو آپ کے بھولنے سے ذرا پہلے واپس لاتا ہے۔</string>
+    <string name="ai_fact_data_highest">درج شدہ قدر والے %3$d عناصر میں سے **%1$s** میں %2$s سب سے زیادہ ہے: %4$s۔</string>
+    <string name="ai_fact_data_lowest">درج شدہ قدر والے %3$d عناصر میں سے **%1$s** میں %2$s سب سے کم ہے: %4$s۔</string>
+    <string name="ai_fact_data_rank_high">سب سے زیادہ %4$s میں **%1$s** %3$d عناصر میں %2$d ویں نمبر پر ہے: %5$s۔</string>
+    <string name="ai_fact_data_rank_low">سب سے کم %4$s میں **%1$s** %3$d عناصر میں %2$d ویں نمبر پر ہے: %5$s۔</string>
+    <string name="ai_gas_result">مثالی گیس کے قانون، PV = nRT، سے: **%1$s**۔</string>
+    <string name="ai_gas_stp">STP کو 1 atm اور 273.15 K مانا گیا ہے۔</string>
+    <string name="ai_steps_gas">نامعلوم کے لیے PV = nRT کو ترتیب دیں، R = 0.08206 L·atm/(mol·K) کے ساتھ:</string>
+    <string name="ai_ph_acid">%1$s ایک طاقتور تیزاب ہے، اس لیے %2$s M محلول میں [H⁺] = %3$s M اور pH **%4$s** ہے۔</string>
+    <string name="ai_ph_base">%1$s ایک طاقتور اساس ہے، اس لیے %2$s M محلول میں [OH⁻] = %3$s M، pOH %4$s اور pH **%5$s** ہے۔</string>
+    <string name="ai_steps_ph">طاقتور تیزاب یا اساس مکمل طور پر علیحدہ ہوتا ہے، اس لیے ارتکاز براہ راست آئن دیتا ہے:</string>
+    <string name="ai_ion_config">**%1$s** کی الیکٹرانی ترتیب **%2$s** ہے۔ غیر جانبدار %3$s %4$s ہے۔</string>
+    <string name="ai_ion_cation">کیٹائن پہلے اپنے سب سے باہری الیکٹران کھوتا ہے: سب سے اونچا شیل، اور اس کے اندر سب سے اونچا سب شیل۔</string>
+    <string name="ai_ion_anion">اینائن اپنے اضافی الیکٹران بھرنے کی ترتیب میں اگلی جگہوں پر لیتا ہے۔</string>
+    <string name="ai_ion_isoelectronic">یہ %1$s جیسی ہی ترتیب ہے۔</string>
+    <string name="ai_steps_ion">غیر جانبدار ایٹم سے شروع کریں اور الیکٹران ہٹائیں یا جوڑیں:</string>
+    <string name="ai_composition_element">%3$s کی کمیت میں %1$s کا حصہ **%2$s** ہے۔</string>
+    <string name="ai_empirical_result">تجربی فارمولا **%1$s** ہے۔</string>
+    <string name="ai_empirical_reduced">%1$s کا تجربی فارمولا **%2$s** ہے: اس کے زیریں اعداد میں %3$d کا مشترک جزو ہے۔</string>
+    <string name="ai_empirical_same">%1$s پہلے ہی اپنی سادہ ترین مکمل عددی نسبت میں ہے، اس لیے یہی اس کا تجربی فارمولا ہے۔</string>
+    <string name="ai_empirical_molecular">%1$s g/mol کی مولر کمیت کے ساتھ سالمی فارمولا **%2$s** ہے، %3$d × %4$s۔</string>
+    <string name="ai_steps_empirical">ہر کمیت کو مول میں بدلیں، پھر ہر ایک کو سب سے چھوٹی سے تقسیم کریں:</string>
+    <string name="ai_stoich_makes">%1$s میں، %2$s سے **%3$s g %4$s** (%5$s mol) بنتا ہے۔</string>
+    <string name="ai_stoich_needs">%1$s میں، %2$s کے لیے **%3$s g %4$s** (%5$s mol) درکار ہے۔</string>
+    <string name="ai_stoich_matches">%1$s میں، %2$s کے ساتھ **%3$s g %4$s** (%5$s mol) آتا ہے۔</string>
+    <string name="ai_stoich_limiting">%1$s میں، **%2$s** محدود کرنے والا ری ایجنٹ ہے: یہ سب سے پہلے ختم ہوتا ہے۔</string>
+    <string name="ai_stoich_product">اس سے **%1$s g %2$s** (%3$s mol) بنتا ہے۔</string>
+    <string name="ai_stoich_excess">%1$s g %2$s بچ جاتا ہے۔</string>
+    <string name="ai_steps_stoich">ہر مقدار کو مول میں بدلیں، پھر ضربی عددوں کے ذریعے:</string>
+    <string name="ai_share_image">تصویر کے طور پر شیئر کریں</string>
+    <string name="ai_share_footer">Atomic کا جواب، دوری جدول کی ایپ</string>
+    <string name="ai_share_failed">تصویر نہیں بن سکی</string>
+    <string name="ai_copy_image">تصویر کاپی کریں</string>
+    <string name="ai_card_heat_map_title">جدول میں %1$s</string>
+
+    <!-- Equation Balancer tool -->
+    <string name="balancer_tool_title">مساوات متوازن کار</string>
+    <string name="bal">توازن کار</string>
+    <string name="balancer_tool_text">کیمیائی مساوات کو درست صحیح عدد اعداد کے ساتھ متوازن کریں</string>
+    <string name="balancer_tool_card_title">ایک مساوات متوازن کریں</string>
+    <string name="balancer_tool_hint">Fe + O2 -&gt; Fe2O3</string>
+    <string name="balancer_tool_result">متوازن مساوات</string>
+    <string name="balancer_tool_prompt">تیر کے ساتھ ایک مساوات لکھیں، جیسے Fe + O2 -&gt; Fe2O3۔</string>
+    <string name="balancer_tool_examples">مثالیں</string>
+    <string name="balancer_tool_note">تیر -&gt;، =&gt;، = یا → کے طور پر لکھے جا سکتے ہیں۔ (s)، (l)، (g) اور (aq) جیسے حالت کے نشان نظر انداز کیے جاتے ہیں۔</string>
+    <string name="balancer_tool_copied">مساوات نقل ہو گئی</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">مرکب دھاتوں کا جدول</string>
+    <string name="table_alloy_text">عام مرکب دھاتوں کا جدول، وہ کن چیزوں سے بنی ہیں اور خالص دھات کے بجائے انہیں کیوں استعمال کیا جاتا ہے</string>
+    <string name="alo">مرکب دھاتوں کا جدول</string>
+    <string name="activity_alloy_title">مرکب دھاتیں</string>
+    <string name="alloy_clear_filter">فلٹر صاف کریں</string>
+    <string name="alloy_base_iron">آئرن</string>
+    <string name="alloy_base_copper">تانبا</string>
+    <string name="alloy_base_aluminium">ایلومینیم</string>
+    <string name="alloy_base_nickel">نکل</string>
+    <string name="alloy_base_tin">ٹن</string>
+    <string name="alloy_base_silver">چاندی</string>
+    <string name="alloy_base_gold">سونا</string>
+    <string name="alloy_base_titanium">ٹائٹینیم</string>
+    <string name="alloy_base_mercury">پارہ</string>
+    <string name="base_label">"بنیادی دھات: "</string>
+    <string name="composition_label">"ترکیب: "</string>
+    <string name="open_base_element">بنیادی عنصر کھولیں</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">ایک ہی خریداری سے اینڈرائیڈ اور ونڈوز پر PRO+ اَن لاک کریں۔ یقینی بنائیں کہ آپ کے نوٹس، کامیابیاں اور پیش رفت تمام آلات پر آپ کے ساتھ ہوں!</string>
+    <string name="ultimate_buy">PRO+ Ultimate حاصل کریں</string>
+    <string name="ultimate_upgrade_title">Ultimate پر اپ گریڈ کریں</string>
+    <string name="ultimate_coming_soon">جلد آ رہا ہے</string>
+    <string name="ultimate_owned">PRO+ Ultimate کے مالک</string>
+    <string name="ultimate_already_owned_account">اس اکاؤنٹ پر آپ کے پاس پہلے سے PRO+ Ultimate موجود ہے۔</string>
+    <string name="account_tier_unknown">ابھی تک ہم آہنگ نہیں ہوا</string>
+    <string name="account_title">اکاؤنٹ</string>
+    <string name="account_id">اکاؤنٹ آئی ڈی</string>
+    <string name="account_id_signed_out">سائن اِن نہیں ہے</string>
+    <string name="account_id_copied">اکاؤنٹ آئی ڈی کاپی ہو گئی</string>
+    <string name="account_id_hint">یہ ونڈوز ایپ میں دکھائی گئی آئی ڈی سے مماثل ہونی چاہیے۔ اگر مختلف ہو تو دونوں آلات الگ اکاؤنٹس سے ہم آہنگ ہو رہے ہیں۔</string>
+    <string name="last_synced">آخری بار ہم آہنگ کیا گیا</string>
+    <string name="last_synced_never">کبھی نہیں</string>
+    <string name="ai_send_question">یہ سوال بھیجیں</string>
+    <string name="ai_send_question_title">سوال بھیجیں؟</string>
+    <string name="ai_send_question_body">آپ کا سوال ڈویلپر کو بھیجا جائے گا تاکہ آئندہ ورژن میں اس کا جواب دیا جا سکے۔\n\nبھیجا جاتا ہے: آپ کا سوال جیسا آپ نے لکھا، ایپ کی زبان اور ورژن، اور جواب نہ دے سکنے کی وجہ۔\nنہیں بھیجا جاتا: آپ کا نام، اکاؤنٹ، ڈیوائس یا اس چیٹ کا باقی حصہ۔</string>
+    <string name="ai_send_question_confirm">بھیجیں</string>
+    <string name="ai_send_question_sent">شکریہ – آپ کا سوال بھیج دیا گیا۔</string>
+    <string name="ai_send_question_failed">سوال نہیں بھیجا جا سکا۔ اپنا کنکشن چیک کریں اور دوبارہ کوشش کریں۔</string>
 </resources>

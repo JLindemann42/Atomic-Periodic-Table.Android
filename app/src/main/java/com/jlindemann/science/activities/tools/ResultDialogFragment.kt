@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.DialogFragment
 import com.jlindemann.science.R
+import com.jlindemann.science.utils.AnalyticsHelper
+import com.jlindemann.science.utils.AnalyticsSource
 import com.jlindemann.science.utils.FlashcardCatalog
 import java.util.Locale
 import kotlin.math.roundToInt
@@ -60,6 +62,15 @@ class ResultDialogFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.dialog_game_results, container, false)
+    }
+
+    // Logged here rather than through BaseFragment: this is shown from both FlashcardFragment and
+    // FlashCardActivity, so it cannot assume a MainActivity host the way BaseFragment does.
+    override fun onResume() {
+        super.onResume()
+        context?.let {
+            AnalyticsHelper.logFragmentView(it, "GameResults", javaClass.simpleName, AnalyticsSource.DIALOG)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

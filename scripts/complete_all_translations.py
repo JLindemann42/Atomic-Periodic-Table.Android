@@ -4,7 +4,7 @@
 import json
 import os
 
-BASE_PATH = '/home/runner/work/Atomic-Periodic-Table.Android/Atomic-Periodic-Table.Android/app/src/main/assets'
+BASE_PATH = '/home/runner/work/Atomic-Periodic-Table.Android/Atomic-Periodic-Table.Android/shared/elements'
 
 # Comprehensive translations for remaining Chinese elements (first 20 elements)
 chinese_translations = {

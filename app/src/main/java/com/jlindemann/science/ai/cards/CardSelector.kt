@@ -1,5 +1,6 @@
 package com.jlindemann.science.ai.cards
 
+import com.jlindemann.science.R
 import com.jlindemann.science.ai.core.ExecutionResult
 import com.jlindemann.science.ai.core.QueryPlan
 import com.jlindemann.science.ai.core.StringProvider
@@ -51,6 +52,13 @@ object CardSelector {
         is ExecutionResult.Property -> forField(result.element, result.fieldId, store, strings, localized)
         is ExecutionResult.Safety -> forSafety(result, strings, localized)
         is ExecutionResult.Isotopes -> forIsotopes(result, strings, localized)
+        // A decay calculation is about one nuclide of one element, so the isotope chart is exactly
+        // the right picture — and it is the existing one, guarded by the same reducer. The other
+        // three new intents get nothing: a conversion, a balanced equation and a solution have no
+        // element subject, and every card kind is per-element.
+        is ExecutionResult.Decay ->
+            IsotopeSeriesReducer.of(result.element)
+                ?.let { card(ChatCardKind.ISOTOPE_DECAY, result.element, strings, localized) }
         // The one card that is not drawn from the app's own numbers: the spectrum is an image on the
         // author's server, so it is the one the policy can withhold when there is no network.
         is ExecutionResult.EmissionSpectrum ->
@@ -67,7 +75,38 @@ object CardSelector {
         // diamond, both PRO, were the two cards a free user could never reach by any question.
         is ExecutionResult.Locked ->
             result.element?.let { forLocked(it, result.fieldIds, store, strings, localized) }
+        is ExecutionResult.Trend -> forTrend(result, store, strings)
+        // An explanation is shown with the data it explains (roadmap 2.4).
+        is ExecutionResult.Explanation ->
+            result.trend?.let { forTrend(it, store, strings) }
+                ?: result.ionization?.let { ionization(it, strings, localized) }
         else -> null
+    }
+
+    /**
+     * The trend card: a line across the set, or a map of the table when no set was named (roadmap
+     * 2.3). The first card that is about many elements, so its element is only the first point, which
+     * the codec needs; the card's arguments carry what it draws, and its reducer reads the values back
+     * out of the store.
+     */
+    private fun forTrend(result: ExecutionResult.Trend, store: KnowledgeStore, strings: StringProvider): ChatCard? {
+        val first = result.points.firstOrNull()?.element ?: return null
+        val label = FieldRegistry.byId[result.fieldId]?.let { spec ->
+            runCatching { strings.get(spec.sentenceLabel()) }.getOrNull()?.replace(":", "")?.trim()
+        } ?: result.fieldId
+        if (result.wholeTable) {
+            HeatMapReducer.of(result.fieldId, store) ?: return null
+            return ChatCard(
+                ChatCardKind.HEAT_MAP, first.key, strings.get(R.string.ai_card_heat_map_title, label),
+                mapOf(HeatMapReducer.FIELD_ARG to result.fieldId)
+            )
+        }
+        val keys = result.points.map { it.element.key }
+        TrendSeriesReducer.of(result.fieldId, keys, store) ?: return null
+        return ChatCard(
+            ChatCardKind.TREND_LINE, first.key, strings.get(R.string.ai_card_trend_title, label),
+            mapOf(TrendSeriesReducer.FIELD_ARG to result.fieldId, TrendSeriesReducer.KEYS_ARG to keys.joinToString(","))
+        )
     }
 
     /** The card that goes with one field of one element, or none. */

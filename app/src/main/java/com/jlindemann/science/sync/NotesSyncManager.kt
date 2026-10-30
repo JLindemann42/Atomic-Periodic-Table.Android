@@ -4,12 +4,9 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.widget.TextView
-import com.jlindemann.science.R
 import com.jlindemann.science.auth.AuthManager
 import com.jlindemann.science.preferences.NotesPreference
-import com.jlindemann.science.preferences.ProPlusVersion
-import com.jlindemann.science.preferences.ProVersion
+import com.jlindemann.science.utils.EntitlementManager
 
 /**
  * Manager for syncing notes to Firebase with optimized debouncing to minimize calls.
@@ -34,18 +31,16 @@ object NotesSyncManager {
     }
 
     /**
-     * Check if user is eligible for notes sync (logged in AND has Pro or Pro+ version).
+     * Check if user is eligible for notes sync (logged in AND has PRO, PRO+ or Ultimate).
+     *
+     * Ultimate is included because it grants PRO+, which [EntitlementManager.hasAnyPro] already
+     * knows - the point of routing this through the manager rather than reading the two
+     * preferences directly is that a user whose Ultimate came from the PC has no Play purchase to
+     * show for it.
      */
     fun canSyncNotes(context: Context): Boolean {
-        val isSignedIn = AuthManager.isSignedIn()
-        if (!isSignedIn) return false
-
-        val proPref = ProVersion(context)
-        val proPlusPreference = ProPlusVersion(context)
-        val hasPro = proPref.getValue() == 100
-        val hasProPlus = proPlusPreference.getValue() == 100
-
-        return hasPro || hasProPlus
+        if (!AuthManager.isSignedIn()) return false
+        return EntitlementManager.hasAnyPro(context)
     }
 
     /**
@@ -69,14 +64,20 @@ object NotesSyncManager {
         }
 
         // Schedule a new sync after delay
+        val appContext = context.applicationContext
         pendingSyncRunnable = Runnable {
-            performSync(context, onSyncStatusChange)
+            performSync(appContext, onSyncStatusChange)
         }
         handler.postDelayed(pendingSyncRunnable!!, SYNC_DELAY_MS)
     }
 
     /**
      * Perform the actual sync operation.
+     *
+     * A single write of the notes field. It used to read the whole document first so it could pass
+     * the cloud's XP and level back into a full write; with SetOptions.merge() touching only the
+     * keys present, the fields it was protecting were never in danger, and the read was a round
+     * trip on every pause in typing.
      */
     private fun performSync(context: Context, onSyncStatusChange: ((SyncStatus) -> Unit)?) {
         isSyncing = true
@@ -89,46 +90,16 @@ object NotesSyncManager {
             return
         }
 
-        // Get current notes
-        val notesPref = NotesPreference(context)
-        val notes = notesPref.getValue()
+        val notes = NotesPreference(context).getValue()
 
-        // Load current cloud progress to get existing xp/level
-        ProgressSyncManager.loadCloudProgress(uid) { cloudProgress ->
-            if (cloudProgress != null) {
-                // Use existing cloud xp/level so we don't overwrite them
-                ProgressSyncManager.saveFullProgressToCloud(
-                    uid = uid,
-                    xp = cloudProgress.xp,
-                    level = cloudProgress.level,
-                    notes = notes
-                ) { success, exception ->
-                    isSyncing = false
-                    if (success) {
-                        Log.d(TAG, "Notes synced successfully")
-                        notifyStatusOnMain(onSyncStatusChange, SyncStatus.SYNCED)
-                    } else {
-                        Log.e(TAG, "Failed to sync notes", exception)
-                        notifyStatusOnMain(onSyncStatusChange, SyncStatus.ERROR)
-                    }
-                }
+        ProgressSyncManager.saveNotesToCloud(context, uid, notes) { success, exception ->
+            isSyncing = false
+            if (success) {
+                Log.d(TAG, "Notes synced successfully")
+                notifyStatusOnMain(onSyncStatusChange, SyncStatus.SYNCED)
             } else {
-                // No cloud progress exists, create initial entry with notes only
-                ProgressSyncManager.saveFullProgressToCloud(
-                    uid = uid,
-                    xp = 0L,
-                    level = 1,
-                    notes = notes
-                ) { success, exception ->
-                    isSyncing = false
-                    if (success) {
-                        Log.d(TAG, "Notes synced successfully (initial)")
-                        notifyStatusOnMain(onSyncStatusChange, SyncStatus.SYNCED)
-                    } else {
-                        Log.e(TAG, "Failed to sync notes", exception)
-                        notifyStatusOnMain(onSyncStatusChange, SyncStatus.ERROR)
-                    }
-                }
+                Log.e(TAG, "Failed to sync notes", exception)
+                notifyStatusOnMain(onSyncStatusChange, SyncStatus.ERROR)
             }
         }
     }
@@ -142,7 +113,7 @@ object NotesSyncManager {
     }
 
     enum class SyncStatus {
-        NOT_ELIGIBLE,  // User not logged in or doesn't have Pro/Pro+
+        NOT_ELIGIBLE,  // User not logged in or doesn't have PRO/PRO+/Ultimate
         SYNCING,       // Currently syncing
         SYNCED,        // Successfully synced
         ERROR          // Error during sync

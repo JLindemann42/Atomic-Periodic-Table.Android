@@ -22,7 +22,9 @@ class CorpusCoverageTest {
     @Before
     fun setUp() {
         assumeTrue("corpus not reachable", QuestionCorpus.available)
-        all = QuestionCorpus.allCases()
+        // The whole corpus, held-out rows included: coverage is a property of the corpus, not of the
+        // split a run happens to select.
+        all = QuestionCorpus.allCases(QuestionCorpus.Split.ALL)
     }
 
     @Test
@@ -47,7 +49,7 @@ class CorpusCoverageTest {
 
     @Test
     fun everyExpectedIntentIsRealOrAPseudoIntent() {
-        val known = Intent.values().map { it.name }.toSet() + setOf("COMPOUND", "NOSPLIT")
+        val known = Intent.values().map { it.name }.toSet() + setOf("COMPOUND", "NOSPLIT", "LANGUAGE")
         val unknown = all.mapNotNull { case ->
             case.expectIntent?.takeIf { it !in known }?.let { "${case.where} -> $it" }
         }

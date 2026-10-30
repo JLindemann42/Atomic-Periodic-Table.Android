@@ -66,16 +66,29 @@ class AnswerComposer(
             is ExecutionResult.Comparison -> comparison(result) + uncoveredAspects(plan)
             is ExecutionResult.ElementList -> elementList(result, plan)
             is ExecutionResult.Aggregate -> aggregate(result)
-            is ExecutionResult.Formula -> formula(result)
+            is ExecutionResult.Formula -> formula(result) + steps(plan) { workings.formula(result.result) }
             is ExecutionResult.Comparative -> comparative(result)
             is ExecutionResult.Neighbour -> neighbour(result)
             is ExecutionResult.Nuclide -> nuclide(result)
             is ExecutionResult.IsotopeComparison -> isotopeComparison(result)
-            is ExecutionResult.MoleConversion -> moleConversion(result)
+            is ExecutionResult.MoleConversion -> moleConversion(result) + steps(plan) { workings.moles(result) }
+            is ExecutionResult.UnitConversion -> unitConversion(result)
+            is ExecutionResult.BalancedEquation ->
+                stepsInstead(plan, { balancedEquation(result, it) }) { workings.balance(result) }
+            is ExecutionResult.SolutionCalc ->
+                stepsInstead(plan, { solutionCalc(result, it) }) { workings.solution(result) }
+            is ExecutionResult.Decay -> stepsInstead(plan, { decay(result, it) }) { workings.decay(result) }
             is ExecutionResult.Isotopes -> isotopes(result)
             is ExecutionResult.Safety -> safety(result)
             is ExecutionResult.EmissionSpectrum -> emissionSpectrum(result)
             is ExecutionResult.Dataset -> dataset(result)
+            is ExecutionResult.Trend -> trend(result)
+            is ExecutionResult.Explanation -> explanation(result)
+            is ExecutionResult.GasLaw -> stepsInstead(plan, { gasLaw(result, it) }) { workings.gasLaw(result) }
+            is ExecutionResult.Ph -> stepsInstead(plan, { ph(result, it) }) { workings.ph(result) }
+            is ExecutionResult.IonConfiguration -> ionConfiguration(result) + steps(plan) { workings.ion(result) }
+            is ExecutionResult.EmpiricalFormula -> empirical(result) + steps(plan) { workings.empirical(result) }
+            is ExecutionResult.Stoichiometry -> stoichiometry(result) + steps(plan) { workings.stoichiometry(result) }
             is ExecutionResult.NoData -> noData(result)
             is ExecutionResult.Locked -> locked(result)
             is ExecutionResult.Empty -> strings.get(R.string.ai_filter_none)
@@ -92,6 +105,25 @@ class AnswerComposer(
             // show what the prose above it has already asserted.
             card = CardSelector.select(result, plan, store, strings, localized, cardPolicy)
         )
+    }
+
+    private val workings = Workings(strings)
+
+    /** A calculation's steps as a numbered section, when the plan asks for them (roadmap 2.2). */
+    private fun steps(plan: QueryPlan, lines: () -> List<String>): String {
+        if (!plan.showSteps) return ""
+        val steps = lines().takeIf { it.isNotEmpty() } ?: return ""
+        return "\n\n### " + strings.get(R.string.ai_steps_header) + "\n" +
+                steps.mapIndexed { i, line -> "${i + 1}. $line" }.joinToString("\n")
+    }
+
+    /**
+     * An answer whose short working the steps replace rather than repeat: [render] is called with
+     * whether to include its own working.
+     */
+    private fun stepsInstead(plan: QueryPlan, render: (Boolean) -> String, lines: () -> List<String>): String {
+        val steps = steps(plan, lines)
+        return if (steps.isEmpty()) render(true) else render(false) + steps
     }
 
     /** The "Get PRO" chip shown beside a withheld answer, or null when nothing was withheld. */
@@ -357,6 +389,156 @@ class AnswerComposer(
         return builder.toString()
     }
 
+    /**
+     * A field across a set of elements (roadmap 2.3): the values in atomic-number order, which way
+     * they run from the first to the last, and where they peak and bottom out. The card draws it; the
+     * text says what the drawing shows, so the answer stands without the picture.
+     *
+     * A whole-table trend is a map, not a line, and has no direction to state - the values are not
+     * read in one order - so it gives the span and the extremes only.
+     */
+    private fun trend(result: ExecutionResult.Trend): String {
+        val label = fieldLabel(result.fieldId)
+        val points = result.points
+        val highest = points.maxBy { it.quantity!!.mid }
+        val lowest = points.minBy { it.quantity!!.mid }
+        val builder = StringBuilder()
+        if (result.wholeTable) {
+            builder.append(strings.get(R.string.ai_trend_table_header, label, points.size))
+        } else {
+            builder.append(strings.get(R.string.ai_trend_header, label, points.size))
+            // Symbols rather than names: a period is up to eighteen entries, and the line is read
+            // as a sequence, the way the table itself is.
+            builder.append("\n").append(points.joinToString(" · ") { "${it.element.symbol} ${it.display}" })
+            val first = points.first()
+            val last = points.last()
+            val steps = points.zipWithNext { a, b -> b.quantity!!.mid.compareTo(a.quantity!!.mid) }.filter { it != 0 }
+            val rises = steps.count { it > 0 }
+            val direction = when {
+                steps.isEmpty() -> null
+                rises >= steps.size * STEADY_SHARE -> R.string.ai_trend_rises
+                steps.size - rises >= steps.size * STEADY_SHARE -> R.string.ai_trend_falls
+                else -> R.string.ai_trend_mixed
+            }
+            direction?.let {
+                builder.append("\n\n").append(
+                    strings.get(it, displayName(first.element.key), first.display, displayName(last.element.key), last.display)
+                )
+            }
+        }
+        builder.append("\n").append(
+            strings.get(
+                R.string.ai_trend_extremes,
+                displayName(highest.element.key), highest.display, displayName(lowest.element.key), lowest.display
+            )
+        )
+        if (result.missing > 0) builder.append("\n").append(strings.get(R.string.ai_aggregate_missing_note, result.missing))
+        return builder.toString()
+    }
+
+    /**
+     * A reviewed explanation (roadmap 2.4). The card beside it shows the data; an explanation only
+     * written in English so far says so, as a dictionary entry does.
+     */
+    private fun explanation(result: ExecutionResult.Explanation): String =
+        if (result.language == ENGLISH || strings.language == ENGLISH) result.text
+        else result.text + "\n\n" + strings.get(R.string.ai_dataset_english_note)
+
+    /** PV = nRT solved (roadmap 2.8): the unknown, and the three it came from as the working. */
+    private fun gasLaw(result: ExecutionResult.GasLaw, working: Boolean = true): String {
+        val s = result.solution
+        val answer = when (s.unknown) {
+            com.jlindemann.science.ai.data.GasLaw.Unknown.PRESSURE -> "P = ${format(s.atm)} atm"
+            com.jlindemann.science.ai.data.GasLaw.Unknown.VOLUME -> "V = ${format(s.litres)} L"
+            com.jlindemann.science.ai.data.GasLaw.Unknown.MOLES -> "n = ${format(s.moles)} mol"
+            com.jlindemann.science.ai.data.GasLaw.Unknown.TEMPERATURE -> "T = ${format(s.kelvin)} K (${format(s.kelvin - 273.15)} °C)"
+        }
+        val builder = StringBuilder(strings.get(R.string.ai_gas_result, answer))
+        if (working) {
+            val given = listOfNotNull(
+                "P = ${format(s.atm)} atm".takeIf { s.unknown != com.jlindemann.science.ai.data.GasLaw.Unknown.PRESSURE },
+                "V = ${format(s.litres)} L".takeIf { s.unknown != com.jlindemann.science.ai.data.GasLaw.Unknown.VOLUME },
+                "n = ${format(s.moles)} mol".takeIf { s.unknown != com.jlindemann.science.ai.data.GasLaw.Unknown.MOLES },
+                "T = ${format(s.kelvin)} K".takeIf { s.unknown != com.jlindemann.science.ai.data.GasLaw.Unknown.TEMPERATURE }
+            )
+            builder.append("\n").append(given.joinToString(", "))
+        }
+        if (result.stp) builder.append("\n").append(strings.get(R.string.ai_gas_stp))
+        return builder.toString()
+    }
+
+    /** An empirical formula, and the molecular formula when a molar mass was given (roadmap 2.8). */
+    private fun empirical(result: ExecutionResult.EmpiricalFormula): String {
+        val r = result.result
+        val builder = StringBuilder(
+            when {
+                r.from == null -> strings.get(R.string.ai_empirical_result, r.formula)
+                r.divisor > 1 -> strings.get(R.string.ai_empirical_reduced, r.from, r.formula, r.divisor)
+                else -> strings.get(R.string.ai_empirical_same, r.from)
+            }
+        )
+        r.molecular?.let { m ->
+            builder.append("\n").append(strings.get(R.string.ai_empirical_molecular, format(m.molarMass), m.formula, m.factor, r.formula))
+        }
+        return builder.toString()
+    }
+
+    /** Amounts through a balanced equation, or the limiting reagent and what it makes (roadmap 2.8). */
+    private fun stoichiometry(result: ExecutionResult.Stoichiometry): String {
+        val r = result.result
+        val lines = r.lines
+        fun amount(i: Int) = r.amounts[i]
+        val builder = StringBuilder()
+        val limiting = r.limiting
+        if (limiting != null) {
+            builder.append(strings.get(R.string.ai_stoich_limiting, r.equation, lines[limiting].formula))
+            val shown = result.targets.filter { !lines[it].reactant }.ifEmpty { lines.indices.filter { !lines[it].reactant } }
+            for (i in shown) {
+                builder.append("\n").append(strings.get(R.string.ai_stoich_product, format(amount(i).grams), lines[i].formula, format(amount(i).moles)))
+            }
+            for (left in r.leftovers) {
+                builder.append("\n").append(strings.get(R.string.ai_stoich_excess, format(left.grams), lines[left.index].formula))
+            }
+            return builder.toString()
+        }
+        val given = r.givens.first()
+        val givenText = (given.grams?.let { "${format(it)} g" } ?: "${format(given.moles)} mol") + " " + lines[given.index].formula
+        val givenIsReactant = lines[given.index].reactant
+        // Asked about nothing in particular: the other side of the equation.
+        val shown = result.targets.ifEmpty { lines.indices.filter { lines[it].reactant != givenIsReactant } }
+        shown.forEachIndexed { n, i ->
+            val template = when {
+                lines[i].reactant -> R.string.ai_stoich_needs
+                givenIsReactant -> R.string.ai_stoich_makes
+                else -> R.string.ai_stoich_matches
+            }
+            if (n > 0) builder.append("\n")
+            builder.append(strings.get(template, r.equation, givenText, format(amount(i).grams), lines[i].formula, format(amount(i).moles)))
+        }
+        return builder.toString()
+    }
+
+    /** A strong acid's or base's pH (roadmap 2.8). */
+    private fun ph(result: ExecutionResult.Ph, working: Boolean = true): String {
+        val r = result.result
+        return if (r.base) strings.get(R.string.ai_ph_base, r.formula, format(r.molarity), format(r.hydroxide), format(r.pOH), format(r.pH))
+        else strings.get(R.string.ai_ph_acid, r.formula, format(r.molarity), format(r.hydrogen), format(r.pH))
+    }
+
+    /** An ion's configuration beside the neutral atom's, and the rule that got from one to the other (roadmap 2.8). */
+    private fun ionConfiguration(result: ExecutionResult.IonConfiguration): String {
+        val label = com.jlindemann.science.ai.data.IonConfig.ionLabel(result.element.symbol, result.charge)
+        val builder = StringBuilder(
+            strings.get(R.string.ai_ion_config, label, result.ion.toString(), displayName(result.element.key), result.neutral.toString())
+        )
+        builder.append("\n").append(strings.get(if (result.charge > 0) R.string.ai_ion_cation else R.string.ai_ion_anion))
+        result.ion.isoelectronicWith?.let { noble ->
+            val name = store.bySymbol(noble)?.let { displayName(it.key) } ?: noble
+            builder.append("\n").append(strings.get(R.string.ai_ion_isoelectronic, name))
+        }
+        return builder.toString()
+    }
+
     /** English ordinal suffix: 1st, 2nd, 3rd, 4th, with the teens handled. */
     private fun ordinalSuffix(n: Int): String = strings.get(
         when {
@@ -433,9 +615,13 @@ class AnswerComposer(
 
     private fun formula(result: ExecutionResult.Formula): String {
         val r = result.result
-        val builder = StringBuilder(
-            strings.get(R.string.ai_formula_mass, r.formula, format(r.molarMass))
-        )
+        val builder = StringBuilder()
+        // "Mass percent of oxygen in water" leads with oxygen's share (roadmap 2.8).
+        r.parts.firstOrNull { it.symbol == result.focus }?.let { part ->
+            val name = store.bySymbol(part.symbol)?.let { displayName(it.key) } ?: part.symbol
+            builder.append(strings.get(R.string.ai_composition_element, name, format(part.percent) + "%", r.formula)).append("\n")
+        }
+        builder.append(strings.get(R.string.ai_formula_mass, r.formula, format(r.molarMass)))
         // The per-element breakdown *is* the calculation, so a compound shows it whether or not the
         // word "composition" was used. Asked for the molar mass of Ca(NO3)2 the agent gave the total
         // and nothing else, and the follow-up "show the calculation step by step" then retrieved the
@@ -565,6 +751,195 @@ class AnswerComposer(
     }
 
     /** Two significant decimals, trailing zeroes trimmed. */
+    private fun unitConversion(result: ExecutionResult.UnitConversion): String {
+        val body = strings.get(
+            R.string.ai_unit_converted,
+            format(result.value), result.fromUnit,
+            format(result.converted), result.toUnit
+        )
+        // A crossed dimension is named rather than glossed over. eV and kJ/mol measure the same
+        // energy counted per particle and per mole, and a reader who is not told that is entitled
+        // to conclude the two are the same quantity.
+        return if (result.bridged) body + "\n\n" + strings.get(R.string.ai_unit_bridge_note) else body
+    }
+
+    private fun balancedEquation(result: ExecutionResult.BalancedEquation, working: Boolean = true): String {
+        result.reason?.let { reason ->
+            // A one-sided element is named when the solver identified it. "An element appears on
+            // only one side" leaves the reader to find which; saying "O appears on only one side"
+            // is the same sentence with the work done.
+            val named = reason == com.jlindemann.science.ai.data.EquationBalancer.Reason
+                .ONE_SIDED_ELEMENT && result.detail != null
+            return if (named) {
+                strings.get(R.string.ai_equation_one_sided_named, result.detail!!)
+            } else {
+                strings.get(reasonString(reason))
+            }
+        }
+
+        val left = result.reactants.joinToString(" + ") { term(it) }
+        val right = result.products.joinToString(" + ") { term(it) }
+        val builder = StringBuilder(strings.get(R.string.ai_equation_balanced, left, right))
+        if (!working) return builder.toString()
+
+        // The tally is the proof. A balancer that prints only coefficients is asking to be
+        // trusted; one that shows both sides' atom counts can be checked in a few seconds.
+        builder.append("\n\n### ").append(strings.get(R.string.ai_equation_check_header))
+        for (t in result.tally) {
+            builder.append("\n")
+                .append(strings.get(R.string.ai_equation_tally_row, t.symbol, t.left, t.right))
+        }
+        return builder.toString()
+    }
+
+    /** A coefficient of 1 is written, not printed — "1Fe" is how a bug looks, not chemistry. */
+    private fun term(t: com.jlindemann.science.ai.data.Term): String =
+        if (t.coefficient == 1) t.formula else "${t.coefficient}${t.formula}"
+
+    private fun reasonString(reason: com.jlindemann.science.ai.data.EquationBalancer.Reason): Int =
+        when (reason) {
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.ONE_SIDED_ELEMENT ->
+                R.string.ai_equation_one_sided
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.UNDERDETERMINED ->
+                R.string.ai_equation_underdetermined
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.TOO_LARGE ->
+                R.string.ai_equation_too_large
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.PARSE_FAILED ->
+                R.string.ai_equation_parse_failed
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.NO_SOLUTION ->
+                R.string.ai_equation_no_solution
+        }
+
+    private fun solutionCalc(result: ExecutionResult.SolutionCalc, working: Boolean = true): String {
+        val substance = result.substance.orEmpty()
+
+        result.dilution?.let { d ->
+            val added = com.jlindemann.science.ai.data.SolutionMath.solventToAdd(d.v1, d.v2)
+            val builder = StringBuilder(
+                strings.get(
+                    R.string.ai_dilution_result,
+                    format(d.c1), format(d.v1 * 1000), format(d.c2), format(d.v2 * 1000)
+                )
+            )
+            if (added > 0) {
+                builder.append("\n").append(
+                    strings.get(R.string.ai_dilution_add_solvent, format(added * 1000))
+                )
+            }
+            if (!working) return builder.toString()
+            builder.append("\n\n### ").append(strings.get(R.string.ai_solution_working_header))
+            builder.append("\n").append(
+                strings.get(
+                    R.string.ai_solution_working_c1v1,
+                    format(d.c1), format(d.v1 * 1000), format(d.c2), format(d.v2 * 1000)
+                )
+            )
+            return builder.toString()
+        }
+
+        val moles = result.moles ?: return ""
+        val molarity = result.molarity ?: return ""
+        val litres = result.litres ?: return ""
+
+        val lead = when (result.kind) {
+            ExecutionResult.SolutionCalc.Kind.MASS_NEEDED -> strings.get(
+                R.string.ai_solution_mass_needed,
+                format(result.grams ?: 0.0), substance, format(litres * 1000), format(molarity)
+            )
+            ExecutionResult.SolutionCalc.Kind.MOLARITY ->
+                strings.get(R.string.ai_solution_molarity, format(molarity), substance)
+            ExecutionResult.SolutionCalc.Kind.VOLUME ->
+                strings.get(R.string.ai_solution_volume, format(litres * 1000), format(molarity))
+            else -> strings.get(R.string.ai_solution_moles, format(moles), substance)
+        }
+
+        // The working is shown for the same reason the composition breakdown is: a number a reader
+        // cannot reproduce is a number they have to take on faith.
+        val builder = StringBuilder(lead)
+        if (!working) return builder.toString()
+        builder.append("\n\n### ").append(strings.get(R.string.ai_solution_working_header))
+        builder.append("\n").append(
+            strings.get(
+                R.string.ai_solution_working_nvc,
+                format(moles), format(molarity), format(litres)
+            )
+        )
+        result.molarMass?.let { mass ->
+            builder.append("\n").append(
+                strings.get(
+                    R.string.ai_solution_working_mass,
+                    format(result.grams ?: 0.0), format(moles), format(mass)
+                )
+            )
+        }
+        return builder.toString()
+    }
+
+    private fun decay(result: ExecutionResult.Decay, working: Boolean = true): String {
+        val nuclide = "${displayName(result.element.key)}-${result.massNumber}"
+
+        when (result.mode) {
+            ExecutionResult.Decay.Mode.STABLE ->
+                return strings.get(R.string.ai_decay_stable, nuclide)
+            ExecutionResult.Decay.Mode.NO_HALF_LIFE ->
+                // Two different gaps, and the display string is what tells them apart: an empty
+                // one means the nuclide is not listed at all, a non-empty one means it is listed
+                // with a half-life the source records as unknown.
+                return if (result.halfLifeDisplay.isBlank()) {
+                    strings.get(R.string.ai_decay_unlisted, nuclide)
+                } else {
+                    strings.get(R.string.ai_decay_no_half_life, nuclide, result.halfLifeDisplay)
+                }
+            else -> Unit
+        }
+
+        if (result.halfLifeSeconds == null) return ""
+        val n = result.halfLivesElapsed ?: return ""
+        val elapsedUnit = result.elapsedUnit ?: "s"
+        val elapsedInUnit = result.elapsedSeconds
+            ?.let { UnitConverter.convert(it, "s", elapsedUnit) }
+            ?: 0.0
+
+        val lead = when {
+            // Past sixty half-lives less than one part in 10^18 survives. Printing 3.2e-25 g would
+            // imply a measurement nobody could make from data this app does not have.
+            n > com.jlindemann.science.ai.data.DecayMath.EFFECTIVELY_GONE ->
+                strings.get(
+                    R.string.ai_decay_effectively_none,
+                    nuclide, format(elapsedInUnit), elapsedUnit
+                )
+            result.mode == ExecutionResult.Decay.Mode.ELAPSED ->
+                strings.get(
+                    R.string.ai_decay_elapsed,
+                    format(result.initialAmount ?: 0.0), format(result.finalAmount ?: 0.0),
+                    nuclide, groupDigits(format(elapsedInUnit)), elapsedUnit
+                )
+            result.mode == ExecutionResult.Decay.Mode.REMAINING ->
+                strings.get(
+                    R.string.ai_decay_remaining,
+                    format(result.finalAmount ?: 0.0), result.amountUnit.orEmpty(),
+                    format(result.initialAmount ?: 0.0), nuclide,
+                    groupDigits(format(elapsedInUnit)), elapsedUnit
+                )
+            else ->
+                strings.get(
+                    R.string.ai_decay_half_lives,
+                    nuclide, format(n), format((result.fractionRemaining ?: 0.0) * 100)
+                )
+        }
+
+        val builder = StringBuilder(lead)
+        if (!working) return builder.toString()
+        builder.append("\n\n### ").append(strings.get(R.string.ai_decay_working_header))
+        builder.append("\n").append(
+            strings.get(R.string.ai_decay_working_half_life, nuclide, groupDigits(result.halfLifeDisplay))
+        )
+        builder.append("\n").append(
+            strings.get(R.string.ai_decay_working_n, format(n), format((result.fractionRemaining ?: 0.0) * 100))
+        )
+        return builder.toString()
+    }
+
     private fun format(value: Double): String = UnitConverter.formatValue(value)
 
     /** Renders a large count in scientific notation, e.g. 1.2 × 10²⁴. */
@@ -668,7 +1043,11 @@ class AnswerComposer(
      * conversation is not already in English.
      */
     private fun dataset(result: ExecutionResult.Dataset): String {
-        val body = "**${result.row.title}**\n${result.row.detail}"
+        // The title in the reader's language when the shared data has it (roadmap 1.3), with the
+        // English one beside it, because the row's text below is still English.
+        val translated = localized?.datasetTitles(result.row)?.firstOrNull()?.takeIf { it != result.row.title }
+        val heading = if (translated != null) "**$translated** (${result.row.title})" else "**${result.row.title}**"
+        val body = "$heading\n${result.row.detail}"
         if (strings.language == ENGLISH) return body
         val note = runCatching { strings.get(R.string.ai_dataset_english_note) }.getOrNull()
         return if (note == null || note.startsWith("str:")) body else "$body\n\n$note"
@@ -718,7 +1097,9 @@ class AnswerComposer(
             val siblings = FieldRegistry.byId[result.fieldId]?.category?.let { category ->
                 FieldRegistry.ALL
                     .filter { it.category == category && it.id != result.fieldId }
-                    .filter { element.value(it.id) != null }
+                    // value() returns FieldValue.Missing, never null, so a `!= null` check here
+                    // kept every field and offered properties the element is also missing.
+                    .filter { !element.value(it.id).isMissing }
                     .take(MAX_ALTERNATIVES)
                     .map { fieldLabel(it.id) }
             }.orEmpty()
@@ -774,6 +1155,13 @@ class AnswerComposer(
 
         /** Below this many distinct elements a formula breakdown just repeats the total. */
         const val MIN_PARTS_TO_BREAK_DOWN = 2
+
+        /**
+         * The share of steps that must go one way for a trend to be called rising or falling. Period
+         * 3's electronegativity rises at every step; ionization energy across a period dips twice and
+         * still rises, which is what a reader means by the trend.
+         */
+        const val STEADY_SHARE = 0.7
 
         /** Below this many decided fields, a tally of wins says less than the table above it. */
         const val MIN_FIELDS_TO_JUDGE = 2

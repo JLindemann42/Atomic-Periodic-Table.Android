@@ -69,8 +69,9 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
         val defaultTools = mutableListOf(
             ToolItem("cal", R.string.calculator_title, R.string.calculator_text, false, false, 0),
             ToolItem("uni", R.string.unit_title, R.string.unit_description, false, false, 1),
-            ToolItem("gas", R.string.ideal_gas_calculator_title, R.string.ideal_gas_text, proPlusValue != 100 && isBeforeDeadline, false, 2),
-            ToolItem("dic", R.string.dictionary, R.string.dictionary_text, false, false, 3)
+            ToolItem("bal", R.string.balancer_tool_title, R.string.balancer_tool_text, false, false, 2),
+            ToolItem("gas", R.string.ideal_gas_calculator_title, R.string.ideal_gas_text, proPlusValue != 100 && isBeforeDeadline, false, 3),
+            ToolItem("dic", R.string.dictionary, R.string.dictionary_text, false, false, 4)
         )
 
         val savedOrder = toolOrderPreference.getOrder()
@@ -106,6 +107,7 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
         val activityClass = when (item.id) {
             "cal" -> CalculatorActivity::class.java
             "uni" -> UnitConversionActivity::class.java
+            "bal" -> EquationBalancerActivity::class.java
             "gas" -> IdealGasCalculatorActivity::class.java
             "dic" -> DictionaryActivity::class.java
             else -> return
@@ -136,6 +138,7 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
                 val text = when (pair.first) {
                     "cal" -> getString(R.string.cal)
                     "uni" -> getString(R.string.uni)
+                    "bal" -> getString(R.string.bal)
                     "gas" -> getString(R.string.gas)
                     "dic" -> getString(R.string.dic)
                     else -> ""
@@ -151,6 +154,7 @@ class ToolsFragment : BaseFragment(), ToolAdapter.OnToolItemClickListener {
                             val activity = when (pair.first) {
                                 "cal" -> CalculatorActivity::class.java
                                 "uni" -> UnitConversionActivity::class.java
+                                "bal" -> EquationBalancerActivity::class.java
                                 "gas" -> IdealGasCalculatorActivity::class.java
                                 "dic" -> DictionaryActivity::class.java
                                 else -> null

@@ -31,7 +31,7 @@ change, or neither is reviewable.
 
 ### Add a field to the element data
 
-1. Add the key to all twelve `app/src/main/assets/elements_*.json` files. Use a
+1. Add the key to all twelve `shared/elements/elements_*.json` files. Use a
    script — see [Data Pipeline](../data-pipeline) — not twelve manual edits.
    Use `"---"` where no authoritative value exists.
 2. Register it in `ai/data/FieldRegistry.kt`:

@@ -869,6 +869,7 @@
     <string name="element_electrons">Elektroner:</string>
     <string name="save_calculations">Spara beräkningar:</string>
     <string name="save_units">Spara enheter:</string>
+    <string name="save_equations">Spara ekvationer:</string>
     <string name="search_for_element">Sök efter element</string>
     <string name="share">Dela</string>
     <string name="share_app">Dela app</string>
@@ -1142,4 +1143,197 @@
     <string name="question_valence_electrons">Hur många valenselektroner har %1$s?</string>
     <string name="quiz_loading">Förbereder frågor …</string>
     <string name="quiz_no_questions">Det gick inte att skapa frågor för det här spelet. Prova ett annat.</string>
+
+    <!-- Assistant: calculations, tools and suggestion chips -->
+    <string name="ai_unit_converted">**%1$s %2$s** är **%3$s %4$s**.</string>
+    <string name="ai_unit_bridge_note">Omvandlat med 1 eV = 96,485 kJ/mol — samma energi räknad per partikel i stället för per mol.</string>
+    <string name="ai_equation_balanced">**%1$s → %2$s**</string>
+    <string name="ai_equation_check_header">Atomkontroll</string>
+    <string name="ai_equation_tally_row">• **%1$s** — %2$d till vänster, %3$d till höger</string>
+    <string name="ai_equation_one_sided">Den ekvationen går inte att balansera: ett grundämne finns bara på ena sidan, så inga koefficienter kan jämna ut den.</string>
+    <string name="ai_equation_one_sided_named">Den ekvationen går inte att balansera: %1$s finns bara på ena sidan, så inga koefficienter kan jämna ut den.</string>
+    <string name="ai_equation_underdetermined">Den ekvationen har mer än en oberoende balans — den läses som två reaktioner skrivna som en. Dela upp den så balanserar jag varje del.</string>
+    <string name="ai_equation_too_large">Den ekvationen kräver koefficienter som är för stora för en verklig reaktion. Kontrollera formlerna.</string>
+    <string name="ai_equation_parse_failed">Jag kunde inte läsa det som en kemisk ekvation. Prova formen Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_equation_no_solution">Den ekvationen har ingen balans med hela positiva koefficienter.</string>
+    <string name="ai_solution_generic_substance">lösningen</string>
+    <string name="ai_solution_mass_needed">Du behöver **%1$s g** %2$s för %3$s mL av en %4$s mol/L-lösning.</string>
+    <string name="ai_solution_molarity">Koncentrationen av %2$s är **%1$s mol/L**.</string>
+    <string name="ai_solution_volume">Du behöver **%1$s mL** vid **%2$s mol/L**.</string>
+    <string name="ai_solution_moles">Det är **%1$s mol** %2$s.</string>
+    <string name="ai_dilution_result">Att späda **%1$s mol/L** från **%2$s mL** ger **%3$s mol/L** vid **%4$s mL**.</string>
+    <string name="ai_dilution_add_solvent">Tillsätt **%1$s mL** lösningsmedel.</string>
+    <string name="ai_solution_working_header">Uträkning</string>
+    <string name="ai_solution_working_nvc">n = c × V → %1$s mol = %2$s mol/L × %3$s L</string>
+    <string name="ai_solution_working_mass">m = n × M → %1$s g = %2$s mol × %3$s g/mol</string>
+    <string name="ai_solution_working_c1v1">C₁V₁ = C₂V₂ → %1$s × %2$s = %3$s × %4$s</string>
+    <string name="ai_decay_stable">%1$s är stabil — den sönderfaller inte, så inget försvinner med tiden.</string>
+    <string name="ai_decay_unlisted">Appen listar inte %1$s bland grundämnets isotoper, så jag har ingen halveringstid för den.</string>
+    <string name="ai_decay_no_half_life">%1$s finns med, men halveringstiden är angiven som \"%2$s\", så jag kan inte räkna på sönderfallet.</string>
+    <string name="ai_decay_effectively_none">Efter %2$s %3$s finns i praktiken inget av %1$s kvar.</string>
+    <string name="ai_decay_elapsed">Att gå från **%1$s g** till **%2$s g** %3$s tar ungefär **%4$s %5$s**.</string>
+    <string name="ai_decay_remaining">Ungefär **%1$s %2$s** av de ursprungliga %3$s g %4$s finns kvar efter %5$s %6$s.</string>
+    <string name="ai_decay_half_lives">Under den tiden genomgår %1$s **%2$s** halveringstider, vilket lämnar ungefär **%3$s%%** av provet.</string>
+    <string name="ai_decay_working_header">Uträkning</string>
+    <string name="ai_decay_working_half_life">Halveringstid för %1$s: %2$s</string>
+    <string name="ai_decay_working_n">n = t / t½ = %1$s → 2⁻ⁿ = %2$s%%</string>
+    <string name="ai_feature_nuclide_table">Appen har en omfattande **nuklidkarta** som visar isotoper för alla grundämnen, färgkodade efter sönderfallstyp (alfa, beta och så vidare).</string>
+    <string name="ai_feature_emission_spectrum">Du kan se **emissionsspektrumet** för ett grundämne i dess detaljpanel. Det visar det unika ljusmönster som ämnet ger.</string>
+    <string name="ai_feature_flashcards">Appen har flera **flashcard-minispel** för kemiska tecken, atommassor och klassificeringar, med nivå och XP att följa.</string>
+    <string name="ai_feature_achievements">Följ dina framsteg med **prestationer** och användningsstatistik på användarsidan.</string>
+    <string name="ai_feature_molar_mass">Det finns en inbyggd **molmassekalkylator** för att räkna ut molekylvikten hos sammansatta föreningar. Jag kan också göra det här — ge mig bara en formel.</string>
+    <string name="ai_feature_unit_converter">Appen har en **enhetsomvandlare** för temperaturer och andra vetenskapliga enheter. Du kan också bara fråga mig, till exempel \"omvandla 500 K till °C\".</string>
+    <string name="ai_feature_ideal_gas">Använd **idealgaskalkylatorn** för att hitta tryck, volym, substansmängd eller temperatur ur PV = nRT.</string>
+    <string name="ai_feature_reaction_balancer">**Reaktionsbalanseraren** hjälper dig balansera ekvationer och spara favoriter. Du kan också fråga mig här — skriv till exempel Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_feature_capabilities">Jag kan slå upp och jämföra ämnesegenskaper, balansera ekvationer, räkna ut molmassor och lösningskoncentrationer, omvandla enheter och göra sönderfallsberäkningar. Fråga om ett grundämne, eller skriv en formel eller ekvation.</string>
+    <string-array name="ai_suggest_element">
+        <item>Användning av %1$s</item>
+        <item>Atommassa för %1$s</item>
+        <item>Är %1$s farligt?</item>
+        <item>Var finns %1$s?</item>
+        <item>Elektronkonfiguration för %1$s</item>
+        <item>Isotoper av %1$s</item>
+    </string-array>
+    <string-array name="ai_suggest_trends">
+        <item>Vad är periodiska trender?</item>
+        <item>Elektronegativitetstrend</item>
+        <item>Atomradietrend</item>
+        <item>Joniseringsenergi</item>
+    </string-array>
+    <string-array name="ai_suggest_general">
+        <item>Berätta en kul fakta</item>
+        <item>Starta en quiz</item>
+        <item>Vilka är alkalimetallerna?</item>
+        <item>Tyngsta grundämnet?</item>
+    </string-array>
+    <string-array name="ai_suggest_tools">
+        <item>Balansera Fe + O2 -&gt; Fe2O3</item>
+        <item>Omvandla 500 K till °C</item>
+        <item>Hur många gram NaCl för 250 mL 0,5 mol/L?</item>
+        <item>Hur mycket av 100 g kol-14 finns kvar efter 11460 år?</item>
+    </string-array>
+
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%1$s för %2$s och %3$s</string>
+    <string name="ai_follow_highest">Vilket grundämne har högst %1$s?</string>
+    <string name="ai_follow_lowest">Vilket grundämne har lägst %1$s?</string>
+    <string name="ai_follow_unit">%1$s för %2$s i %3$s</string>
+    <string name="ai_follow_count">Hur många finns det?</string>
+
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">Visa stegen</string>
+    <string name="ai_steps_header">Steg för steg</string>
+    <string name="ai_steps_formula">Molmassan är summan av varje grundämnes antal atomer gånger dess atommassa:</string>
+    <string name="ai_steps_moles_legend">m är massan, M molmassan, n substansmängden i mol, N antalet partiklar och N_A Avogadros konstant.</string>
+    <string name="ai_steps_solution_legend">n är substansmängden i mol, c koncentrationen, V volymen, m massan och M molmassan.</string>
+    <string name="ai_steps_decay_legend">t½ är halveringstiden, t den tid som gått, n antalet halveringstider, och N₀ och N mängden före och efter.</string>
+    <string name="ai_steps_balance_unknowns">Skriv en okänd koefficient framför varje formel:</string>
+    <string name="ai_steps_balance_equations">Varje grundämne behöver lika många atomer till vänster som till höger:</string>
+    <string name="ai_steps_balance_solve">De minsta heltal som uppfyller varje rad:</string>
+
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">**%1$s** för %2$d grundämnen, i atomnummerordning:</string>
+    <string name="ai_trend_table_header">**%1$s** i hela periodiska systemet: %2$d grundämnen har ett värde.</string>
+    <string name="ai_trend_rises">Den stiger överlag, från %1$s (%2$s) till %3$s (%4$s).</string>
+    <string name="ai_trend_falls">Den sjunker överlag, från %1$s (%2$s) till %3$s (%4$s).</string>
+    <string name="ai_trend_mixed">Den har ingen tydlig riktning: %1$s (%2$s) i ena änden, %3$s (%4$s) i den andra.</string>
+    <string name="ai_trend_extremes">Högst: %1$s (%2$s). Lägst: %3$s (%4$s).</string>
+    <string name="ai_card_trend_title">%1$s – trend</string>
+    <string name="ai_quiz_run_start_all">Ett quiz med **%1$d frågor** från hela tabellen. Tryck på ett svar, eller säg stopp för att avsluta.</string>
+    <string name="ai_quiz_run_start_scoped">Ett quiz med **%1$d frågor** om %2$s. Tryck på ett svar, eller säg stopp för att avsluta.</string>
+    <string name="ai_quiz_run_scope_count">%1$d grundämnen</string>
+    <string name="ai_quiz_run_question">**Fråga %1$d av %2$d.** %3$s</string>
+    <string name="ai_quiz_run_right">✨ Rätt! **+%1$d XP**.</string>
+    <string name="ai_quiz_run_wrong">Inte riktigt: svaret var **%1$s**.</string>
+    <string name="ai_quiz_run_done">Quizet är klart: **%1$d av %2$d** rätt, **%3$d XP** intjänat.</string>
+    <string name="ai_quiz_run_stopped">Quizet avbrutet: **%1$d av %2$d** rätt, **%3$d XP** intjänat.</string>
+    <string name="ai_quiz_run_none">Jag kunde inte göra frågor om det. Prova en grupp, en period, en grundämnesfamilj eller ett enskilt grundämne.</string>
+    <string name="ai_study_start">Dags att repetera: **%1$d frågor** som ska övas nu. Tryck på ett svar, eller säg stopp för att avsluta.</string>
+    <string name="ai_study_none">Inget behöver repeteras just nu. Quizfrågor du missar kommer tillbaka hit när det är dags att öva på dem.</string>
+    <string name="ai_study_locked">Studiecoachen ingår i PRO: den minns quizfrågorna du missar och tar tillbaka var och en precis innan du skulle glömma den.</string>
+    <string name="ai_fact_data_highest">**%1$s** har högst %2$s av de %3$d grundämnen som har ett uppmätt värde: %4$s.</string>
+    <string name="ai_fact_data_lowest">**%1$s** har lägst %2$s av de %3$d grundämnen som har ett uppmätt värde: %4$s.</string>
+    <string name="ai_fact_data_rank_high">**%1$s** ligger på plats %2$d av %3$d grundämnen för högst %4$s: %5$s.</string>
+    <string name="ai_fact_data_rank_low">**%1$s** ligger på plats %2$d av %3$d grundämnen för lägst %4$s: %5$s.</string>
+    <string name="ai_gas_result">Enligt allmänna gaslagen, PV = nRT: **%1$s**.</string>
+    <string name="ai_gas_stp">STP räknas som 1 atm och 273,15 K.</string>
+    <string name="ai_steps_gas">Lös ut det okända ur PV = nRT, med R = 0,08206 L·atm/(mol·K):</string>
+    <string name="ai_ph_acid">%1$s är en stark syra, så en %2$s M lösning har [H⁺] = %3$s M och pH **%4$s**.</string>
+    <string name="ai_ph_base">%1$s är en stark bas, så en %2$s M lösning har [OH⁻] = %3$s M, pOH %4$s och pH **%5$s**.</string>
+    <string name="ai_steps_ph">En stark syra eller bas dissocierar helt, så koncentrationen ger jonen direkt:</string>
+    <string name="ai_ion_config">Elektronkonfigurationen för **%1$s** är **%2$s**. Neutralt %3$s är %4$s.</string>
+    <string name="ai_ion_cation">En katjon förlorar sina yttersta elektroner först: det högsta skalet, och inom det det högsta underskalet.</string>
+    <string name="ai_ion_anion">En anjon tar upp sina extra elektroner på nästa platser i fyllnadsordningen.</string>
+    <string name="ai_ion_isoelectronic">Det är samma konfiguration som %1$s.</string>
+    <string name="ai_steps_ion">Utgå från den neutrala atomen och ta bort eller lägg till elektroner:</string>
+    <string name="ai_composition_element">%1$s utgör **%2$s** av massan i %3$s.</string>
+    <string name="ai_empirical_result">Den empiriska formeln är **%1$s**.</string>
+    <string name="ai_empirical_reduced">Den empiriska formeln för %1$s är **%2$s**: dess index har den gemensamma faktorn %3$d.</string>
+    <string name="ai_empirical_same">%1$s har redan det enklaste heltalsförhållandet, så det är sin egen empiriska formel.</string>
+    <string name="ai_empirical_molecular">Med molmassan %1$s g/mol är molekylformeln **%2$s**, %3$d × %4$s.</string>
+    <string name="ai_steps_empirical">Varje massa i mol, sedan var och en delad med den minsta:</string>
+    <string name="ai_stoich_makes">I %1$s ger %2$s **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_needs">I %1$s behöver %2$s **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_matches">I %1$s hör %2$s ihop med **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_limiting">I %1$s är **%2$s** det begränsande ämnet: det tar slut först.</string>
+    <string name="ai_stoich_product">Det ger **%1$s g %2$s** (%3$s mol).</string>
+    <string name="ai_stoich_excess">%1$s g %2$s blir över.</string>
+    <string name="ai_steps_stoich">Varje mängd i mol, sedan genom koefficienterna:</string>
+    <string name="ai_share_image">Dela som bild</string>
+    <string name="ai_share_footer">Besvarat av Atomic, appen för periodiska systemet</string>
+    <string name="ai_share_failed">Kunde inte skapa bilden</string>
+    <string name="ai_copy_image">Kopiera bild</string>
+    <string name="ai_card_heat_map_title">%1$s i hela systemet</string>
+
+    <!-- Equation Balancer tool -->
+    <string name="balancer_tool_title">Ekvationsbalanserare</string>
+    <string name="bal">Balanserare</string>
+    <string name="balancer_tool_text">Balansera kemiska ekvationer med exakta heltalskoefficienter</string>
+    <string name="balancer_tool_card_title">Balansera en ekvation</string>
+    <string name="balancer_tool_hint">Fe + O2 -&gt; Fe2O3</string>
+    <string name="balancer_tool_result">Balanserad ekvation</string>
+    <string name="balancer_tool_prompt">Skriv en ekvation med en pil, till exempel Fe + O2 -&gt; Fe2O3.</string>
+    <string name="balancer_tool_examples">Exempel</string>
+    <string name="balancer_tool_note">Pilar kan skrivas -&gt;, =&gt;, = eller →. Tillståndsbeteckningar som (s), (l), (g) och (aq) ignoreras.</string>
+    <string name="balancer_tool_copied">Ekvationen kopierad</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">Legeringstabell</string>
+    <string name="table_alloy_text">En tabell med vanliga legeringar, vad de består av och varför de används i stället för den rena metallen</string>
+    <string name="alo">Legeringstabell</string>
+    <string name="activity_alloy_title">Legeringar</string>
+    <string name="alloy_clear_filter">Rensa filter</string>
+    <string name="alloy_base_iron">Järn</string>
+    <string name="alloy_base_copper">Koppar</string>
+    <string name="alloy_base_aluminium">Aluminium</string>
+    <string name="alloy_base_nickel">Nickel</string>
+    <string name="alloy_base_tin">Tenn</string>
+    <string name="alloy_base_silver">Silver</string>
+    <string name="alloy_base_gold">Guld</string>
+    <string name="alloy_base_titanium">Titan</string>
+    <string name="alloy_base_mercury">Kvicksilver</string>
+    <string name="base_label">"Basmetall: "</string>
+    <string name="composition_label">"Sammansättning: "</string>
+    <string name="open_base_element">Öppna basgrundämnet</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">Lås upp PRO+ på Android och Windows med ett enda köp. Se till att dina anteckningar, prestationer och framsteg finns med dig på alla enheter!</string>
+    <string name="ultimate_buy">Skaffa PRO+ Ultimate</string>
+    <string name="ultimate_upgrade_title">Uppgradera till Ultimate</string>
+    <string name="ultimate_coming_soon">Kommer snart</string>
+    <string name="ultimate_owned">Äger PRO+ Ultimate</string>
+    <string name="ultimate_already_owned_account">Du äger redan PRO+ Ultimate på det här kontot.</string>
+    <string name="account_tier_unknown">Inte synkroniserad än</string>
+    <string name="account_title">Konto</string>
+    <string name="account_id">Konto-ID</string>
+    <string name="account_id_signed_out">Inte inloggad</string>
+    <string name="account_id_copied">Konto-ID kopierat</string>
+    <string name="account_id_hint">Det måste matcha ID:t som visas i Windows-appen. Om det skiljer sig synkroniserar de två enheterna mot separata konton.</string>
+    <string name="last_synced">Senast synkroniserad</string>
+    <string name="last_synced_never">Aldrig</string>
+    <string name="ai_send_question">Skicka den här frågan</string>
+    <string name="ai_send_question_title">Skicka frågan?</string>
+    <string name="ai_send_question_body">Frågan skickas till utvecklaren så att den kan besvaras i en framtida version.\n\nSkickas: frågan som du skrev den, appens språk och version, och varför den inte kunde besvaras.\nSkickas inte: ditt namn, konto, enhet eller resten av chatten.</string>
+    <string name="ai_send_question_confirm">Skicka</string>
+    <string name="ai_send_question_sent">Tack – frågan har skickats.</string>
+    <string name="ai_send_question_failed">Frågan kunde inte skickas. Kontrollera anslutningen och försök igen.</string>
 </resources>

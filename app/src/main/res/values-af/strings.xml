@@ -736,6 +736,7 @@
     <string name="protons">Protone:</string>
     <string name="save_calculations">Stoor berekeninge:</string>
     <string name="save_units">Stoor eenhede:</string>
+    <string name="save_equations">Stoor vergelykings:</string>
     <string name="search_for_element">Soek vir element</string>
     <string name="share">Deel</string>
     <string name="share_app">Deel toep</string>
@@ -1208,4 +1209,197 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
     <string name="question_valence_electrons">Hoeveel valenselektrone het %1$s?</string>
     <string name="quiz_loading">Vrae word voorberei…</string>
     <string name="quiz_no_questions">Kon nie vrae vir hierdie speletjie skep nie. Probeer ’n ander een.</string>
+
+    <!-- Assistant: calculations, tools and suggestion chips -->
+    <string name="ai_unit_converted">**%1$s %2$s** is **%3$s %4$s**.</string>
+    <string name="ai_unit_bridge_note">Omgeskakel met 1 eV = 96,485 kJ/mol — dieselfde energie, per deeltjie eerder as per mol getel.</string>
+    <string name="ai_equation_balanced">**%1$s → %2$s**</string>
+    <string name="ai_equation_check_header">Atoomkontrole</string>
+    <string name="ai_equation_tally_row">• **%1$s** — %2$d links, %3$d regs</string>
+    <string name="ai_equation_one_sided">Daardie vergelyking kan nie gebalanseer word nie: \'n element kom net aan een kant voor, en geen koëffisiënte kan dit regstel nie.</string>
+    <string name="ai_equation_one_sided_named">Daardie vergelyking kan nie gebalanseer word nie: %1$s kom net aan een kant voor, en geen koëffisiënte kan dit regstel nie.</string>
+    <string name="ai_equation_underdetermined">Daardie vergelyking het meer as een onafhanklike balans — dit lees soos twee reaksies wat as een geskryf is. Skei hulle, dan balanseer ek elkeen.</string>
+    <string name="ai_equation_too_large">Daardie vergelyking benodig koëffisiënte wat te groot is vir \'n werklike reaksie. Kyk na die formules.</string>
+    <string name="ai_equation_parse_failed">Ek kon dit nie as \'n chemiese vergelyking lees nie. Probeer \'n vorm soos Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_equation_no_solution">Daardie vergelyking het geen balans met heel positiewe koëffisiënte nie.</string>
+    <string name="ai_solution_generic_substance">die oplossing</string>
+    <string name="ai_solution_mass_needed">Jy het **%1$s g** %2$s nodig vir %3$s mL van \'n %4$s mol/L-oplossing.</string>
+    <string name="ai_solution_molarity">Die konsentrasie van %2$s is **%1$s mol/L**.</string>
+    <string name="ai_solution_volume">Jy het **%1$s mL** by **%2$s mol/L** nodig.</string>
+    <string name="ai_solution_moles">Dit is **%1$s mol** %2$s.</string>
+    <string name="ai_dilution_result">Om **%1$s mol/L** vanaf **%2$s mL** te verdun gee **%3$s mol/L** by **%4$s mL**.</string>
+    <string name="ai_dilution_add_solvent">Voeg **%1$s mL** oplosmiddel by.</string>
+    <string name="ai_solution_working_header">Berekening</string>
+    <string name="ai_solution_working_nvc">n = c × V → %1$s mol = %2$s mol/L × %3$s L</string>
+    <string name="ai_solution_working_mass">m = n × M → %1$s g = %2$s mol × %3$s g/mol</string>
+    <string name="ai_solution_working_c1v1">C₁V₁ = C₂V₂ → %1$s × %2$s = %3$s × %4$s</string>
+    <string name="ai_decay_stable">%1$s is stabiel — dit verval nie, dus gaan niks met tyd verlore nie.</string>
+    <string name="ai_decay_unlisted">Die program lys nie %1$s onder daardie element se isotope nie, so ek het geen halfleeftyd daarvoor nie.</string>
+    <string name="ai_decay_no_half_life">%1$s is gelys, maar die halfleeftyd is as \"%2$s\" aangeteken, dus kan ek nie verval bereken nie.</string>
+    <string name="ai_decay_effectively_none">Ná %2$s %3$s is daar prakties niks van %1$s oor nie.</string>
+    <string name="ai_decay_elapsed">Om van **%1$s g** na **%2$s g** %3$s te gaan neem sowat **%4$s %5$s**.</string>
+    <string name="ai_decay_remaining">Ongeveer **%1$s %2$s** van die oorspronklike %3$s g %4$s bly oor ná %5$s %6$s.</string>
+    <string name="ai_decay_half_lives">In daardie tyd deurloop %1$s **%2$s** halfleeftye, wat sowat **%3$s%%** van die monster laat.</string>
+    <string name="ai_decay_working_header">Berekening</string>
+    <string name="ai_decay_working_half_life">Halfleeftyd van %1$s: %2$s</string>
+    <string name="ai_decay_working_n">n = t / t½ = %1$s → 2⁻ⁿ = %2$s%%</string>
+    <string name="ai_feature_nuclide_table">Die program bevat \'n omvattende **nukliedtabel** wat isotope vir alle elemente wys, kleurgekodeer volgens vervaltipe (alfa, beta ensovoorts).</string>
+    <string name="ai_feature_emission_spectrum">Jy kan \'n element se **emissiespektrum** in sy besonderhedepaneel sien. Dit wys die unieke ligpatroon wat daardie element voortbring.</string>
+    <string name="ai_feature_flashcards">Die program het verskeie **flitskaart-minispeletjies** vir elementsimbole, atoommassas en klassifikasies, met vlak en XP om by te hou.</string>
+    <string name="ai_feature_achievements">Volg jou vordering met **prestasies** en gebruikstatistieke op die gebruikersblad.</string>
+    <string name="ai_feature_molar_mass">Daar is \'n ingeboude **molmassa-sakrekenaar** vir die molekulêre gewig van komplekse verbindings. Ek kan dit ook hier doen — gee my net \'n formule.</string>
+    <string name="ai_feature_unit_converter">Die program bevat \'n **eenheidsomskakelaar** vir temperature en ander wetenskaplike eenhede. Jy kan my ook net vra, byvoorbeeld \"skakel 500 K om na °C\".</string>
+    <string name="ai_feature_ideal_gas">Gebruik die **ideale gas-sakrekenaar** om druk, volume, mol of temperatuur uit PV = nRT te vind.</string>
+    <string name="ai_feature_reaction_balancer">Die **chemiese reaksiebalanseerder** help jou vergelykings balanseer en gunstelinge stoor. Jy kan my ook hier vra — skryf iets soos Fe + O2 -&gt; Fe2O3.</string>
+    <string name="ai_feature_capabilities">Ek kan elementeienskappe opsoek en vergelyk, vergelykings balanseer, molmassas en oplossingskonsentrasies bereken, eenhede omskakel en vervalberekeninge doen. Vra my oor \'n element, of skryf \'n formule of vergelyking.</string>
+    <string-array name="ai_suggest_element">
+        <item>Gebruike van %1$s</item>
+        <item>Atoommassa van %1$s</item>
+        <item>Is %1$s gevaarlik?</item>
+        <item>Waar kom %1$s voor?</item>
+        <item>Elektronkonfigurasie van %1$s</item>
+        <item>Isotope van %1$s</item>
+    </string-array>
+    <string-array name="ai_suggest_trends">
+        <item>Wat is periodieke tendense?</item>
+        <item>Tendens van elektronegatiwiteit</item>
+        <item>Tendens van atoomradius</item>
+        <item>Ionisasie-energie</item>
+    </string-array>
+    <string-array name="ai_suggest_general">
+        <item>Vertel my \'n interessante feit</item>
+        <item>Begin \'n vasvra</item>
+        <item>Wat is die alkalimetale?</item>
+        <item>Swaarste element?</item>
+    </string-array>
+    <string-array name="ai_suggest_tools">
+        <item>Balanseer Fe + O2 -&gt; Fe2O3</item>
+        <item>Skakel 500 K om na °C</item>
+        <item>Hoeveel gram NaCl vir 250 mL van 0,5 mol/L?</item>
+        <item>Hoeveel van 100 g koolstof-14 bly ná 11460 jaar oor?</item>
+    </string-array>
+
+    <!-- Follow-up chips built from the answer just given (roadmap 2.1) -->
+    <string name="ai_follow_compare">%1$s van %2$s en %3$s</string>
+    <string name="ai_follow_highest">Watter element het die hoogste %1$s?</string>
+    <string name="ai_follow_lowest">Watter element het die laagste %1$s?</string>
+    <string name="ai_follow_unit">%1$s van %2$s in %3$s</string>
+    <string name="ai_follow_count">Hoeveel is daar?</string>
+
+    <!-- A calculation step by step (roadmap 2.2) -->
+    <string name="ai_follow_steps">Wys die stappe</string>
+    <string name="ai_steps_header">Stap vir stap</string>
+    <string name="ai_steps_formula">Die molêre massa is die som van elke element se aantal atome maal sy atoommassa:</string>
+    <string name="ai_steps_moles_legend">m is die massa, M die molêre massa, n die hoeveelheid in mol, N die aantal deeltjies en N_A Avogadro se konstante.</string>
+    <string name="ai_steps_solution_legend">n is die hoeveelheid in mol, c die konsentrasie, V die volume, m die massa en M die molêre massa.</string>
+    <string name="ai_steps_decay_legend">t½ is die halfleeftyd, t die tyd wat verloop het, n die aantal halfleeftye, en N₀ en N die hoeveelhede voor en ná.</string>
+    <string name="ai_steps_balance_unknowns">Skryf \'n onbekende koëffisiënt voor elke formule:</string>
+    <string name="ai_steps_balance_equations">Elke element het net soveel atome links as regs nodig:</string>
+    <string name="ai_steps_balance_solve">Die kleinste heelgetalle wat aan elke reël voldoen:</string>
+
+    <!-- A field across a set of elements, and the whole table (roadmap 2.3) -->
+    <string name="ai_trend_header">**%1$s** oor %2$d elemente, volgens atoomnommer:</string>
+    <string name="ai_trend_table_header">**%1$s** oor die hele periodieke tabel: %2$d elemente het ’n waarde.</string>
+    <string name="ai_trend_rises">Dit styg oor die algemeen, van %1$s (%2$s) tot %3$s (%4$s).</string>
+    <string name="ai_trend_falls">Dit daal oor die algemeen, van %1$s (%2$s) tot %3$s (%4$s).</string>
+    <string name="ai_trend_mixed">Dit het geen vaste rigting nie: %1$s (%2$s) aan die een kant, %3$s (%4$s) aan die ander.</string>
+    <string name="ai_trend_extremes">Hoogste: %1$s (%2$s). Laagste: %3$s (%4$s).</string>
+    <string name="ai_card_trend_title">Tendens: %1$s</string>
+    <string name="ai_quiz_run_start_all">\'n Vasvra van **%1$d vrae** uit die hele tabel. Tik op \'n antwoord, of sê stop om te eindig.</string>
+    <string name="ai_quiz_run_start_scoped">\'n Vasvra van **%1$d vrae** oor %2$s. Tik op \'n antwoord, of sê stop om te eindig.</string>
+    <string name="ai_quiz_run_scope_count">%1$d elemente</string>
+    <string name="ai_quiz_run_question">**Vraag %1$d van %2$d.** %3$s</string>
+    <string name="ai_quiz_run_right">✨ Reg! **+%1$d XP**.</string>
+    <string name="ai_quiz_run_wrong">Nie heeltemal nie: die antwoord was **%1$s**.</string>
+    <string name="ai_quiz_run_done">Dis die vasvra: **%1$d uit %2$d** reg, **%3$d XP** verdien.</string>
+    <string name="ai_quiz_run_stopped">Vasvra gestop: **%1$d uit %2$d** reg, **%3$d XP** verdien.</string>
+    <string name="ai_quiz_run_none">Ek kon nie vrae daaroor maak nie. Probeer \'n groep, \'n periode, \'n familie elemente of \'n enkele element.</string>
+    <string name="ai_study_start">Tyd om te hersien: **%1$d vrae** om te oefen. Tik op \'n antwoord, of sê stop om te eindig.</string>
+    <string name="ai_study_none">Daar is niks om nou te hersien nie. Vasvravrae wat jy mis, kom hierheen terug wanneer dit tyd is om hulle te oefen.</string>
+    <string name="ai_study_locked">Die studieafrigter is deel van PRO: dit onthou die vasvravrae wat jy mis en bring elkeen terug net voordat jy dit sou vergeet.</string>
+    <string name="ai_fact_data_highest">**%1$s** het die hoogste %2$s van die %3$d elemente met \'n aangetekende waarde: %4$s.</string>
+    <string name="ai_fact_data_lowest">**%1$s** het die laagste %2$s van die %3$d elemente met \'n aangetekende waarde: %4$s.</string>
+    <string name="ai_fact_data_rank_high">**%1$s** is nommer %2$d uit %3$d elemente vir die hoogste %4$s: %5$s.</string>
+    <string name="ai_fact_data_rank_low">**%1$s** is nommer %2$d uit %3$d elemente vir die laagste %4$s: %5$s.</string>
+    <string name="ai_gas_result">Volgens die ideale gaswet, PV = nRT: **%1$s**.</string>
+    <string name="ai_gas_stp">STD word as 1 atm en 273,15 K geneem.</string>
+    <string name="ai_steps_gas">Herrangskik PV = nRT vir die onbekende, met R = 0,08206 L·atm/(mol·K):</string>
+    <string name="ai_ph_acid">%1$s is \'n sterk suur, so \'n %2$s M oplossing het [H⁺] = %3$s M en \'n pH van **%4$s**.</string>
+    <string name="ai_ph_base">%1$s is \'n sterk basis, so \'n %2$s M oplossing het [OH⁻] = %3$s M, \'n pOH van %4$s en \'n pH van **%5$s**.</string>
+    <string name="ai_steps_ph">\'n Sterk suur of basis dissosieer heeltemal, so die konsentrasie gee die ioon direk:</string>
+    <string name="ai_ion_config">Die elektronkonfigurasie van **%1$s** is **%2$s**. Neutrale %3$s is %4$s.</string>
+    <string name="ai_ion_cation">\'n Katioon verloor eers sy buitenste elektrone: die hoogste skil, en daarin die hoogste subskil.</string>
+    <string name="ai_ion_anion">\'n Anioon neem sy ekstra elektrone op die volgende plekke in die vulvolgorde op.</string>
+    <string name="ai_ion_isoelectronic">Dit is dieselfde konfigurasie as %1$s.</string>
+    <string name="ai_steps_ion">Begin by die neutrale atoom en verwyder of voeg elektrone by:</string>
+    <string name="ai_composition_element">%1$s maak **%2$s** van die massa van %3$s uit.</string>
+    <string name="ai_empirical_result">Die empiriese formule is **%1$s**.</string>
+    <string name="ai_empirical_reduced">Die empiriese formule van %1$s is **%2$s**: sy onderskrifte deel \'n faktor van %3$d.</string>
+    <string name="ai_empirical_same">%1$s is reeds in sy eenvoudigste heelgetalverhouding, dus is dit sy eie empiriese formule.</string>
+    <string name="ai_empirical_molecular">Met \'n molêre massa van %1$s g/mol is die molekulêre formule **%2$s**, %3$d × %4$s.</string>
+    <string name="ai_steps_empirical">Elke massa in mol, dan elkeen gedeel deur die kleinste:</string>
+    <string name="ai_stoich_makes">In %1$s lewer %2$s **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_needs">In %1$s benodig %2$s **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_matches">In %1$s hoort %2$s by **%3$s g %4$s** (%5$s mol).</string>
+    <string name="ai_stoich_limiting">In %1$s is **%2$s** die beperkende reagens: dit raak eerste op.</string>
+    <string name="ai_stoich_product">Dit lewer **%1$s g %2$s** (%3$s mol).</string>
+    <string name="ai_stoich_excess">%1$s g %2$s bly oor.</string>
+    <string name="ai_steps_stoich">Elke hoeveelheid in mol, dan deur die koëffisiënte:</string>
+    <string name="ai_share_image">Deel as prent</string>
+    <string name="ai_share_footer">Beantwoord deur Atomic, die periodieke tabel-toep</string>
+    <string name="ai_share_failed">Kon nie die prent skep nie</string>
+    <string name="ai_copy_image">Kopieer prent</string>
+    <string name="ai_card_heat_map_title">%1$s oor die tabel</string>
+
+    <!-- Equation Balancer tool -->
+    <string name="balancer_tool_title">Vergelykingbalanseerder</string>
+    <string name="bal">Balanseerder</string>
+    <string name="balancer_tool_text">Balanseer chemiese vergelykings met presiese heelgetalkoëffisiënte</string>
+    <string name="balancer_tool_card_title">Balanseer \'n vergelyking</string>
+    <string name="balancer_tool_hint">Fe + O2 -&gt; Fe2O3</string>
+    <string name="balancer_tool_result">Gebalanseerde vergelyking</string>
+    <string name="balancer_tool_prompt">Tik \'n vergelyking met \'n pyl, byvoorbeeld Fe + O2 -&gt; Fe2O3.</string>
+    <string name="balancer_tool_examples">Voorbeelde</string>
+    <string name="balancer_tool_note">Pyle kan as -&gt;, =&gt;, = of → geskryf word. Toestandsimbole soos (s), (l), (g) en (aq) word geïgnoreer.</string>
+    <string name="balancer_tool_copied">Vergelyking gekopieer</string>
+
+    <!-- Alloy Table -->
+    <string name="table_alloy">Legeringtabel</string>
+    <string name="table_alloy_text">’n Tabel van algemene legerings, waarvan hulle gemaak is en waarom hulle in plaas van die suiwer metaal gebruik word</string>
+    <string name="alo">Legeringtabel</string>
+    <string name="activity_alloy_title">Legerings</string>
+    <string name="alloy_clear_filter">Wis filter</string>
+    <string name="alloy_base_iron">Yster</string>
+    <string name="alloy_base_copper">Koper</string>
+    <string name="alloy_base_aluminium">Aluminium</string>
+    <string name="alloy_base_nickel">Nikkel</string>
+    <string name="alloy_base_tin">Tin</string>
+    <string name="alloy_base_silver">Silwer</string>
+    <string name="alloy_base_gold">Goud</string>
+    <string name="alloy_base_titanium">Titanium</string>
+    <string name="alloy_base_mercury">Kwik</string>
+    <string name="base_label">"Basismetaal: "</string>
+    <string name="composition_label">"Samestelling: "</string>
+    <string name="open_base_element">Open basiselement</string>
+    <!-- PRO+ Ultimate and the account card -->
+    <string name="ultimate_description">Ontsluit PRO+ op Android en Windows met \'n enkele aankoop. Maak seker jou aantekeninge, prestasies en vordering is op alle toestelle by jou!</string>
+    <string name="ultimate_buy">Kry PRO+ Ultimate</string>
+    <string name="ultimate_upgrade_title">Gradeer op na Ultimate</string>
+    <string name="ultimate_coming_soon">Kom binnekort</string>
+    <string name="ultimate_owned">Besit PRO+ Ultimate</string>
+    <string name="ultimate_already_owned_account">Jy besit reeds PRO+ Ultimate op hierdie rekening.</string>
+    <string name="account_tier_unknown">Nog nie gesinkroniseer nie</string>
+    <string name="account_title">Rekening</string>
+    <string name="account_id">Rekening-ID</string>
+    <string name="account_id_signed_out">Nie aangemeld nie</string>
+    <string name="account_id_copied">Rekening-ID gekopieer</string>
+    <string name="account_id_hint">Dit moet ooreenstem met die ID wat in die Windows-toepassing gewys word. As dit verskil, sinkroniseer die twee toestelle met aparte rekeninge.</string>
+    <string name="last_synced">Laaste gesinkroniseer</string>
+    <string name="last_synced_never">Nooit</string>
+    <string name="ai_send_question">Stuur hierdie vraag</string>
+    <string name="ai_send_question_title">Stuur die vraag?</string>
+    <string name="ai_send_question_body">Jou vraag word na die ontwikkelaar gestuur sodat dit in \'n toekomstige weergawe beantwoord kan word.\n\nGestuur: die vraag soos jy dit getik het, die app se taal en weergawe, en waarom dit nie beantwoord kon word nie.\nNie gestuur nie: jou naam, rekening, toestel of die res van hierdie gesprek.</string>
+    <string name="ai_send_question_confirm">Stuur</string>
+    <string name="ai_send_question_sent">Dankie – jou vraag is gestuur.</string>
+    <string name="ai_send_question_failed">Die vraag kon nie gestuur word nie. Gaan jou verbinding na en probeer weer.</string>
 </resources>

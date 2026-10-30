@@ -1,6 +1,7 @@
 package com.jlindemann.science.ai.retrieval
 
 import com.jlindemann.science.ai.data.ElementKey
+import com.jlindemann.science.ai.nlu.Lexicon
 
 /** A name the resolver knows about, mapped to the English element key it identifies. */
 data class ElementAlias(
@@ -14,6 +15,20 @@ data class ElementAlias(
 
 /** A resolved element mention, with how confident the match is. */
 data class ElementMatch(val key: ElementKey, val score: Double, val matched: String)
+
+/**
+ * A compound named in words (roadmap 1.2).
+ *
+ * @property surface the words that named it, folded
+ * @property formula its formula, or null when the name does not fix one - "iron oxide", since iron
+ *   has more than one common charge
+ * @property cation the cation as the solubility table writes it ("Na^+", "Ca^2+", "NH4^+"), or null
+ *   for a molecule
+ */
+data class CompoundMatch(val surface: String, val formula: String?, val cation: String?)
+
+/** The compounds a query names, and the query with their words blanked out. */
+data class CompoundScan(val compounds: List<CompoundMatch>, val remainder: String)
 
 /**
  * Finds which elements a query mentions, across all twelve languages.
@@ -32,7 +47,8 @@ data class ElementMatch(val key: ElementKey, val score: Double, val matched: Str
 class EntityResolver(
     /** Normalised surface form to alias. Built once from all available language tables. */
     private val aliases: Map<String, List<ElementAlias>>,
-    private val activeLanguage: String = "en"
+    /** The language this resolver answers in; the planner reads its stopwords off it. */
+    val activeLanguage: String = "en"
 ) {
 
     /** Symbols that are far more likely to be a scientist or unit name than an element. */
@@ -46,7 +62,20 @@ class EntityResolver(
      *
      * @param limit maximum number of distinct elements to return
      */
+    /** Every element name of one word, folded, in any language, and its element: the speller's names (roadmap 1.6). */
+    fun nameWords(): Map<String, ElementKey> =
+        aliases.values.flatten()
+            .filter { it.kind == ElementAlias.Kind.NAME && ' ' !in it.surface }
+            .associate { it.surface to it.key }
+
     fun resolveAll(query: String, limit: Int = 4): List<ElementMatch> {
+        // A compound claims its words first: "sodium chloride" is not sodium (roadmap 1.2).
+        val scan = scanCompounds(query)
+        if (scan.compounds.isNotEmpty()) return resolveElements(scan.remainder, limit)
+        return resolveElements(query, limit)
+    }
+
+    private fun resolveElements(query: String, limit: Int): List<ElementMatch> {
         val raw = query.lowercase()
         val normalized = TextMatching.normalizeForLookup(query)
         val words = TextMatching.splitQueryTokens(normalized)
@@ -90,6 +119,269 @@ class EntityResolver(
 
     /** The single best element match, or null when the query names none. */
     fun resolve(query: String): ElementMatch? = resolveAll(query, limit = 1).firstOrNull()
+
+    /**
+     * The compounds a query names in words, and the query with their words blanked out
+     * (roadmap 1.2).
+     *
+     * "Sodium chloride" used to resolve as sodium plus chlorine, so "density of sodium chloride"
+     * was answered with sodium's density. A compound now claims its words before elements are
+     * looked for, and [resolveAll] only sees what is left: "water's oxygen" is still oxygen, because
+     * oxygen is outside the claimed words.
+     *
+     * Salts are not listed. They are composed from an element name in any language, an anion name
+     * from [Lexicon.ANION_NAMES] and the shape each language writes them in:
+     *
+     *  - cation, anion: "sodium chloride", "सोडियम क्लोराइड"
+     *  - anion, connector, cation: "cloruro de sodio", "chlorure d'argent", "solfato di rame"
+     *  - one word: "natriumklorid", "Calciumcarbonat", "natriumchloried"
+     *  - Han, anion prefix then the cation's character: 氯化钠, 硫酸铜
+     *
+     * with an optional Roman numeral for the charge, "iron(III) chloride". The formula follows from
+     * the charges; a metal without one common charge ([Lexicon.CATION_CHARGES]) still claims its
+     * words but has no formula. Molecules and household names ("carbon dioxide", "table salt") come
+     * from [Lexicon.COMMON_COMPOUNDS].
+     */
+    fun scanCompounds(query: String): CompoundScan {
+        lastScan?.let { if (it.first == query) return it.second }
+        val scan = scan(query)
+        lastScan = query to scan
+        return scan
+    }
+
+    /** The planner asks about one query several times in a row; scanning it once is enough. */
+    @Volatile private var lastScan: Pair<String, CompoundScan>? = null
+
+    private fun scan(query: String): CompoundScan {
+        val tokens = query.split(WHITESPACE).filter { it.isNotEmpty() }
+        // Each whitespace word, folded and split the way every lexicon entry is, remembering which
+        // word each piece came from so a claimed compound can be blanked in the original text.
+        val words = ArrayList<String>()
+        val origin = ArrayList<Int>()
+        tokens.forEachIndexed { i, token ->
+            TextMatching.splitQueryTokens(TextMatching.normalizeForLookup(token)).forEach {
+                words.add(it); origin.add(i)
+            }
+        }
+        val claimed = HashSet<Int>()
+        val hanClaims = HashMap<Int, MutableList<String>>()
+        val found = ArrayList<CompoundMatch>()
+
+        fun claim(from: Int, to: Int) { for (k in from..to) claimed.add(k) }
+        fun free(from: Int, to: Int) = from >= 0 && to < words.size && (from..to).none { it in claimed }
+
+        // Salts first, so 硫酸铜 (copper sulfate) is not read as 硫酸 (sulfuric acid) plus copper.
+        for (k in words.indices) {
+            if (k in claimed) continue
+            val word = words[k]
+            Lexicon.ANION_NAMES[word]?.takeUnless { TextMatching.isHanText(word) }?.let { anion ->
+                // cation, anion - with a Roman numeral between when the name gives the charge
+                val roman = ROMAN[words.getOrNull(k - 1)]
+                val before = if (roman != null) k - 2 else k - 1
+                cationAt(words.getOrNull(before), roman)?.let { cation ->
+                    if (free(before, k)) {
+                        salt(word, cation, anion)?.let { found.add(it); claim(before, k) }
+                    }
+                }
+                // anion, connector, cation
+                if (k !in claimed && words.getOrNull(k + 1) in Lexicon.COMPOUND_CONNECTORS) {
+                    val romanAfter = ROMAN[words.getOrNull(k + 3)]
+                    cationAt(words.getOrNull(k + 2), romanAfter)?.let { cation ->
+                        val end = if (romanAfter != null) k + 3 else k + 2
+                        if (free(k, end)) salt(word, cation, anion)?.let { found.add(it); claim(k, end) }
+                    }
+                }
+            }
+            if (k in claimed) continue
+            if (TextMatching.isHanText(word)) {
+                hanSalts(word).forEach { (surface, match) ->
+                    found.add(match); hanClaims.getOrPut(origin[k]) { ArrayList() }.add(surface)
+                }
+                continue
+            }
+            // one word: cation and anion written together, perhaps with an ending
+            joinedSalt(word)?.let { found.add(it); claim(k, k) }
+        }
+
+        // Named molecules, longest first, in the words no salt claimed.
+        for ((name, formula) in MOLECULES) {
+            if (TextMatching.isHanText(name)) {
+                for (k in words.indices) {
+                    if (k in claimed) continue
+                    val taken = hanClaims[origin[k]].orEmpty()
+                    val rest = taken.fold(words[k]) { text, surface -> text.replace(surface, " ") }
+                    if (rest.contains(name)) {
+                        found.add(CompoundMatch(name, formula, null))
+                        hanClaims.getOrPut(origin[k]) { ArrayList() }.add(name)
+                    }
+                }
+                continue
+            }
+            val parts = name.split(' ')
+            var k = 0
+            while (k + parts.size <= words.size) {
+                if (free(k, k + parts.size - 1) && words.subList(k, k + parts.size) == parts) {
+                    found.add(CompoundMatch(name, formula, null)); claim(k, k + parts.size - 1)
+                    k += parts.size
+                } else k++
+            }
+        }
+
+        if (found.isEmpty()) return CompoundScan(emptyList(), query)
+        val blanked = claimed.map { origin[it] }.toSet()
+        val remainder = tokens.mapIndexed { i, token ->
+            when {
+                i in blanked -> " "
+                hanClaims[i] != null -> hanClaims.getValue(i).fold(token) { text, s -> text.replace(s, " ") }
+                else -> token
+            }
+        }.joinToString(" ")
+        return CompoundScan(found, remainder)
+    }
+
+    /** A cation named by a word: an element with a known or stated charge, or ammonium. */
+    private fun cationAt(word: String?, statedCharge: Int?): Cation? {
+        if (word == null) return null
+        if (word in Lexicon.AMMONIUM_NAMES) return Cation("NH4", 1, "ammonium")
+        val alias = aliases[word]?.firstOrNull { it.kind == ElementAlias.Kind.NAME } ?: return null
+        val symbol = symbolOf(alias.key) ?: return null
+        return Cation(symbol, statedCharge ?: Lexicon.CATION_CHARGES[alias.key]?.toIntOrNull(), alias.key)
+    }
+
+    private data class Cation(val formula: String, val charge: Int?, val key: String)
+
+    /** A salt from a cation and an anion code such as "SO4^2-"; null for a pairing that is not one. */
+    private fun salt(surface: String, cation: Cation, anion: String): CompoundMatch? {
+        val (anionFormula, anionCharge) = ion(anion)
+        // Hydrogen names an acid only with a single-atom anion: "hydrogen chloride" is HCl, but
+        // "hydrogen carbonate" is the bicarbonate ion, not carbonic acid.
+        if (cation.key == "hydrogen" && !isMonatomic(anionFormula)) return null
+        val charge = cation.charge
+        val formula = charge?.let { compose(cation.formula, it, anionFormula, anionCharge) }
+        val code = when {
+            charge == null -> null
+            charge == 1 -> "${cation.formula}^+"
+            else -> "${cation.formula}^$charge+"
+        }
+        return CompoundMatch(surface, formula, code)
+    }
+
+    /** "natriumklorid", "calciumcarbonat", "silverkloriden": a cation name and an anion in one word. */
+    private fun joinedSalt(word: String): CompoundMatch? {
+        for ((anionName, anion) in LATIN_ANIONS) {
+            val at = word.indexOf(anionName, startIndex = 1)
+            if (at <= 0 || word.length - at - anionName.length > MAX_JOINED_ENDING) continue
+            val cation = cationAt(word.substring(0, at), null) ?: continue
+            return salt(word, cation, anion)
+        }
+        return null
+    }
+
+    /** 氯化钠, 硫酸铜: an anion prefix followed by the character that names the cation. */
+    private fun hanSalts(word: String): List<Pair<String, CompoundMatch>> {
+        val out = ArrayList<Pair<String, CompoundMatch>>()
+        var text = word
+        for ((prefix, anion) in HAN_ANIONS) {
+            var at = text.indexOf(prefix)
+            while (at >= 0) {
+                val next = text.getOrNull(at + prefix.length)?.toString()
+                val cation = next?.let { c ->
+                    if (c in Lexicon.AMMONIUM_NAMES) Cation("NH4", 1, "ammonium")
+                    else aliases[c]?.firstOrNull { it.kind == ElementAlias.Kind.NAME && it.language == "zh" }
+                        ?.let { alias -> symbolOf(alias.key)?.let { Cation(it, Lexicon.CATION_CHARGES[alias.key]?.toIntOrNull(), alias.key) } }
+                }
+                if (cation != null) {
+                    val surface = prefix + next
+                    salt(surface, cation, anion)?.let { out.add(surface to it) }
+                    text = text.replaceFirst(surface, " ".repeat(surface.length))
+                }
+                at = text.indexOf(prefix, at + 1)
+            }
+        }
+        return out
+    }
+
+    private fun symbolOf(key: ElementKey): String? = symbols[key]
+
+    /** Element key to its symbol, properly capitalised, from the symbol aliases. */
+    private val symbols: Map<ElementKey, String> by lazy {
+        aliases.values.flatten()
+            .filter { it.kind == ElementAlias.Kind.SYMBOL }
+            .associate { it.key to it.surface.replaceFirstChar(Char::uppercaseChar) }
+    }
+
+    /**
+     * Which language the user is writing in, judged by whose element names they used.
+     *
+     * The alias table already holds every shipped language's names, so the detector is a tally
+     * over it: "vad är guldets densitet" contains a Swedish element name and nothing else
+     * identifying, which is exactly the evidence available.
+     *
+     * A tie keeps the current language. Spurious switching is worse than not switching — most
+     * element names are shared across several languages, and a thread that flips language every
+     * third turn reads as broken even when each guess was defensible.
+     *
+     * @param active the language in play, returned unchanged when nothing is decisive
+     */
+    fun detectLanguage(query: String, active: String): String {
+        val lower = query.lowercase()
+        val normalized = TextMatching.normalizeForLookup(query)
+        val scores = HashMap<String, Int>()
+
+        for (word in TextMatching.splitQueryTokens(lower)) {
+            val matches = aliases[TextMatching.normalizeForLookup(word)] ?: aliases[word] ?: continue
+            score(matches, scores, active)
+        }
+        // Nothing matched token by token, so scan the whole query. The scripts that write no
+        // spaces need this: 金的密度 is one token to a splitter and three characters to a
+        // containment check.
+        if (scores.isEmpty()) {
+            for ((surface, matches) in aliases) {
+                if (!TextMatching.containsToken(lower, normalized, surface)) continue
+                score(matches, scores, active)
+            }
+        }
+        if (scores.isEmpty()) return active
+
+        val best = scores.values.max()
+        val leaders = scores.filterValues { it == best }.keys.sorted()
+        if (leaders.any { it.equals(active, ignoreCase = true) }) return active
+        // English loses a tie it is only in by coincidence: the active language is not among the
+        // leaders, so the user is not reading English either, and a name shared by English and one
+        // other language is evidence for the other one. Sorted first, so the choice between two
+        // equally distinctive leaders is stable rather than dependent on map order.
+        return leaders.firstOrNull { it != "en" } ?: leaders.first()
+    }
+
+    /**
+     * Credit a matched surface to the language that actually claims it.
+     *
+     * Only a surface claimed by exactly one language is evidence. "Gold" is the English, German and
+     * Afrikaans name; scoring every claimant made "electron configuration of gold" answer in German,
+     * because German tied with English and English was then discarded on purpose. Scoring
+     * distinctiveness keeps "guld" working — Swedish alone claims it — and leaves a shared name
+     * contributing nothing.
+     *
+     * A short name from a language other than [active] is no evidence either, by the same floor
+     * [matches] applies: French "or" is gold, and every English "sodium or potassium" switched the
+     * reply to French.
+     */
+    private fun score(matches: List<ElementAlias>, scores: MutableMap<String, Int>, active: String) {
+        var only: String? = null
+        for (alias in matches) {
+            if (alias.kind != ElementAlias.Kind.NAME) continue
+            // Not for scripts that write no spaces, as in [matches]: every Chinese element name is
+            // one character, and 金 is the clearest evidence of Chinese there is.
+            if (alias.language != active && alias.surface.length < MIN_FOREIGN_NAME &&
+                !Tokenizer.isUnspacedScript(alias.surface)
+            ) continue
+            if (only == null) { only = alias.language; continue }
+            // A second language claims the same spelling, so it distinguishes nothing.
+            if (only != alias.language) return
+        }
+        val language = only ?: return
+        scores[language] = (scores[language] ?: 0) + 1
+    }
 
     private fun matches(
         alias: ElementAlias,
@@ -192,7 +484,9 @@ class EntityResolver(
             if (at < 0) return false
             val before = originalQuery.getOrNull(at - 1)
             val after = originalQuery.getOrNull(at + expected.length)
-            if ((before == null || !before.isLetterOrDigit()) &&
+            // A capital after a degree sign is a temperature scale: "in °F" is not fluorine, and
+            // "in °C" is not carbon (roadmap 2.1).
+            if ((before == null || !before.isLetterOrDigit()) && before != '°' &&
                 (after == null || !after.isLetterOrDigit())
             ) return true
             from = at + 1
@@ -335,6 +629,12 @@ class EntityResolver(
         var best: ElementMatch? = null
         for (word in words) {
             if (word.length < 4) continue
+            // A continuation is not a typo. "More" is one edit from the French name for boron,
+            // "bore", and "sure" is one from the Swedish for oxygen, "syre" — so a bare "more"
+            // after a question about iron answered with boron's melting point and moved the
+            // conversation to boron for good. An exact "bore" still resolves; it never reaches
+            // this last resort. Windows porting notes, D47.
+            if (FuzzyMatch.isAffirmative(word)) continue
             val threshold = if (word.length > 6) 2 else 1
             for (alias in aliases.values.flatten()) {
                 if (alias.kind != ElementAlias.Kind.NAME) continue
@@ -368,6 +668,59 @@ class EntityResolver(
     }
 
     companion object {
+        private val WHITESPACE = Regex("""\s+""")
+
+        /** A charge written into a salt's name: "iron(III) chloride", "cloruro de hierro (III)". */
+        private val ROMAN = mapOf("ii" to 2, "iii" to 3, "iv" to 4)
+
+        /** Longest ending accepted after an anion written into one word, Swedish "kloriden". */
+        private const val MAX_JOINED_ENDING = 3
+
+        /** Latin-script anion names that can end a one-word salt, longest first. */
+        private val LATIN_ANIONS: List<Pair<String, String>> = Lexicon.ANION_NAMES.entries
+            .filter { (name, _) -> name.length >= 4 && name.all { it in 'a'..'z' } }
+            .map { it.key to it.value }
+            .sortedByDescending { it.first.length }
+
+        /** Han anion prefixes, longest first so 氢氧化 (hydroxide) is tried before 氧化 (oxide). */
+        private val HAN_ANIONS: List<Pair<String, String>> = Lexicon.ANION_NAMES.entries
+            .filter { TextMatching.isHanText(it.key) }
+            .map { it.key to it.value }
+            .sortedByDescending { it.first.length }
+
+        /** Named molecules, longest first so "carbon dioxide" is not read as something shorter. */
+        private val MOLECULES: List<Pair<String, String>> = Lexicon.COMMON_COMPOUNDS.entries
+            .map { it.key to it.value }
+            .sortedByDescending { it.first.length }
+
+        /** "SO4^2-" to ("SO4", 2). */
+        private fun ion(code: String): Pair<String, Int> {
+            val formula = code.substringBefore('^')
+            val charge = code.substringAfter('^').filter(Char::isDigit).toIntOrNull() ?: 1
+            return formula to charge
+        }
+
+        /** One element and no count: "Cl", "O" - which never need brackets. */
+        private fun isMonatomic(formula: String): Boolean =
+            formula.count(Char::isUpperCase) == 1 && formula.none(Char::isDigit)
+
+        /**
+         * The neutral formula of a cation and an anion: as many of each as balances the charges,
+         * with a polyatomic ion bracketed when there is more than one of it - Ca(OH)2, Al2(SO4)3,
+         * (NH4)2SO4.
+         */
+        internal fun compose(cation: String, cationCharge: Int, anion: String, anionCharge: Int): String {
+            val divisor = gcd(cationCharge, anionCharge)
+            fun part(formula: String, count: Int) = when {
+                count == 1 -> formula
+                isMonatomic(formula) -> "$formula$count"
+                else -> "($formula)$count"
+            }
+            return part(cation, anionCharge / divisor) + part(anion, cationCharge / divisor)
+        }
+
+        private tailrec fun gcd(a: Int, b: Int): Int = if (b == 0) a else gcd(b, a % b)
+
         /**
          * Everyday names the shipped tables miss, by element key and language.
          *
@@ -418,8 +771,8 @@ class EntityResolver(
         /**
          * Whether a short token is an ordinary word in the active language rather than a symbol.
          *
-         * Preserved verbatim from `AIAgentManager`; `AIAgentManagerTest` asserts these exact
-         * cases through reflection, including the Swedish `är`->`ar` argon collision.
+         * Preserved verbatim from the old keyword router; `EntityResolverTest` asserts these exact
+         * cases, including the Swedish `är`->`ar` argon collision.
          */
         /** Shortest element name that may carry a grammatical ending. */
         private const val MIN_INFLECTABLE_NAME = 3

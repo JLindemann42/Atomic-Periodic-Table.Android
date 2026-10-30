@@ -12,14 +12,16 @@ build-time generation step — the JSON files are committed and read directly.
 ## Files
 
 ```
-app/src/main/assets/
+shared/elements/        (the shared-data submodule; see below)
 ├── elements_af.json    elements_fr.json    elements_pt.json
 ├── elements_de.json    elements_hi.json    elements_sv.json
 ├── elements_en.json    elements_it.json    elements_ur.json
 ├── elements_es.json    elements_fil.json   elements_zh.json
 ```
 
-Twelve files, one per language, each around 32,000 lines. `elements_en.json` is
+Twelve files, one per language, each around 32,000 lines. They live in the
+[Atomic-Shared-Data](https://github.com/JLindemann42/Atomic-Shared-Data) submodule at `shared/`,
+which the Windows app reads too; Gradle adds `shared/elements` to the app's assets. `elements_en.json` is
 the reference; the others are structurally identical and differ only in the
 handful of localised fields.
 

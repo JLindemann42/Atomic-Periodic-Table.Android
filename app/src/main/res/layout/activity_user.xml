@@ -49,19 +49,6 @@
                 android:textStyle="bold"
                 android:letterSpacing="-0.02" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/pro_badge"
-                style="@style/Widget.Material3.Chip.Assist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="2dp"
-                android:text="@string/pro_user_badge"
-                app:chipBackgroundColor="?attr/colorPrimaryContainer"
-                app:chipStrokeWidth="0dp"
-                app:chipIcon="@drawable/ic_star"
-                app:chipIconTint="?attr/colorPrimary" />
-
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/login_button"
                 style="@style/Widget.Material3.Button.TonalButton"
@@ -72,6 +59,129 @@
                 android:text="@string/login_for_sync_and_more"
                 app:icon="@drawable/ic_cloud_sync"
                 app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
+
+            <!--
+                Licenses.
+
+                Mirrors the Windows account page. PRO and PRO+ are purchases from a specific
+                store, so each platform gets its own row: a bare tier cannot answer the question a
+                shared account makes it possible to ask. Ultimate is named as itself rather than
+                hidden behind the PRO+ it grants.
+            -->
+            <LinearLayout
+                style="@style/Widget.Science.Expressive.SectionHeader">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/licenses_title"
+                    android:textSize="14sp"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/licenses_box"
+                style="@style/Widget.Science.Expressive.SectionCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:id="@+id/license_android_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/license_platform_android"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/license_android_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/license_windows_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/license_platform_windows"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/license_windows_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/license_ultimate_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ultimate_version"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/license_ultimate_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Only while Ultimate is not owned; the row above replaces it once it is. -->
+                    <LinearLayout
+                        android:id="@+id/ultimate_offer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingTop="6dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/ultimate_description"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="13sp" />
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/ultimate_offer_btn"
+                            style="@style/Widget.Material3.Button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/ultimate_buy"
+                            app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 style="@style/Widget.Science.Expressive.SectionHeader">
@@ -174,6 +284,103 @@
                     android:layout_height="400dp"
                     android:clipToPadding="false"
                     android:padding="8dp" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--
+                Account. The uid is shown deliberately: both apps write to users/{uid}, so it is
+                the one value that proves this device and the PC landed in the same account, and
+                nothing else in either app can reveal it.
+            -->
+            <LinearLayout
+                style="@style/Widget.Science.Expressive.SectionHeader">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_title"
+                    android:textSize="14sp"
+                    android:textColor="?attr/colorPrimary"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/account_box"
+                style="@style/Widget.Science.Expressive.SectionCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/sync_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+
+                    <LinearLayout
+                        android:id="@+id/account_uid_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="?attr/selectableItemBackground"
+                        android:paddingVertical="6dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/account_id"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/account_uid_value"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:ellipsize="middle"
+                            android:fontFamily="monospace"
+                            android:singleLine="true"
+                            android:textAlignment="viewEnd"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/account_uid_hint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:alpha="0.8"
+                        android:text="@string/account_id_hint"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="12sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6dp">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="@string/last_synced"
+                            android:textColor="?attr/colorOnSurfaceVariant"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/last_synced_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.button.MaterialButton

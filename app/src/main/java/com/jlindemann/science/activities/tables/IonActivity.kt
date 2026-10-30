@@ -39,6 +39,9 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class IonActivity : BaseActivity(), IonAdapter.OnIonClickListener {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.IONS
+
     private var ionList = ArrayList<Ion>()
     var mAdapter = IonAdapter(ionList, this, this)
 

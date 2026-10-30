@@ -31,6 +31,10 @@ class TestStrings(
     private val fallback: Map<Int, String> by lazy {
         if (fallBackToEnglish && language != "en") load("en") else emptyMap()
     }
+    private val arrays: Map<Int, List<String>> by lazy { loadArrays(language) }
+    private val fallbackArrays: Map<Int, List<String>> by lazy {
+        if (fallBackToEnglish && language != "en") loadArrays("en") else emptyMap()
+    }
 
     override fun get(id: Int, vararg args: Any): String {
         val template = byId[id] ?: fallback[id] ?: return "str:$id"
@@ -41,7 +45,8 @@ class TestStrings(
     /** True when this language has its own value for the key, rather than borrowing English. */
     fun hasOwn(id: Int): Boolean = byId.containsKey(id)
 
-    override fun array(id: Int): List<String> = emptyList()
+    /** A `<string-array>`, resolved like Android does: the language's own, else English when falling back. */
+    override fun array(id: Int): List<String> = arrays[id] ?: fallbackArrays[id] ?: emptyList()
 
     companion object {
         /** True when the real strings could be loaded; lets tests skip rather than fail. */
@@ -94,6 +99,27 @@ class TestStrings(
 
             val result = HashMap<Int, String>(byName.size)
             for (field in R.string::class.java.fields) {
+                val value = byName[field.name] ?: continue
+                runCatching { result[field.getInt(null)] = value }
+            }
+            return result
+        }
+
+        private fun loadArrays(language: String): Map<Int, List<String>> {
+            val byName = HashMap<String, List<String>>()
+            val array = Regex("""<string-array name="([^"]+)"[^>]*>(.*?)</string-array>""", RegexOption.DOT_MATCHES_ALL)
+            val item = Regex("""<item>(.*?)</item>""", RegexOption.DOT_MATCHES_ALL)
+            for (folder in foldersFor(language).reversed()) {
+                val xml = listOf(
+                    File("src/main/res/$folder/strings.xml"),
+                    File("app/src/main/res/$folder/strings.xml")
+                ).firstOrNull { it.isFile } ?: continue
+                for (match in array.findAll(xml.readText(Charsets.UTF_8))) {
+                    byName[match.groupValues[1]] = item.findAll(match.groupValues[2]).map { unescape(it.groupValues[1]) }.toList()
+                }
+            }
+            val result = HashMap<Int, List<String>>(byName.size)
+            for (field in R.array::class.java.fields) {
                 val value = byName[field.name] ?: continue
                 runCatching { result[field.getInt(null)] = value }
             }

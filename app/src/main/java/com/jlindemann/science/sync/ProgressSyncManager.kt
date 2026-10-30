@@ -2,7 +2,6 @@ package com.jlindemann.science.sync
 
 import android.content.Context
 import android.util.Log
-import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -11,100 +10,44 @@ import com.jlindemann.science.model.AchievementModel
 import com.jlindemann.science.model.Statistics
 import com.jlindemann.science.model.StatisticsModel
 import com.jlindemann.science.preferences.NotesPreference
+import com.jlindemann.science.preferences.WindowsTierPreference
 import com.jlindemann.science.util.XpManager
+import com.jlindemann.science.utils.EntitlementManager
 import com.jlindemann.science.utils.StreakManager
 
+/**
+ * Reads and writes users/{uid}, and reconciles it with local progress.
+ *
+ * The merge itself is [ProgressMerge] and [NotesCodec] - pure, and unit tested. What lives here is
+ * only transport and the local read/write, which keeps the part that can destroy data separable
+ * from the part that can fail on a network.
+ */
 object ProgressSyncManager {
     private const val TAG = "ProgressSyncManager"
     private val db by lazy { FirebaseFirestore.getInstance() }
 
-    data class CloudAchievement(val id: Int = 0, val progress: Int = 0, val maxProgress: Int? = null)
-    data class CloudProgress(
-        val xp: Long = 0L,
-        val level: Int = 1,
-        val lastUpdated: Timestamp? = null,
-        val achievements: List<CloudAchievement>? = null,
-        val statistics: Map<Int, Long>? = null,
-        val streak: Long? = null,
-        val streakLastPlay: String? = null,  // ISO date string (yyyy-MM-dd)
-        val notes: String? = null  // Element notes data
-    )
-
     private fun docRefForUid(uid: String) = db.collection("users").document(uid)
 
+    // ---- Transport ---------------------------------------------------------------------------
+
     /**
-     * Load cloud progress for uid and call callback. If document not present, callback with null.
-     * Also attempts to read achievements (list of maps), statistics (map of id->progress), streak, and notes.
+     * Load the account document.
+     *
+     * A missing document is [ProgressSnapshot.EMPTY] - a first sign-in has nothing yet, which is
+     * the empty side of the merge rather than an error. Null means the read itself failed, and a
+     * caller must not treat that as "the cloud is empty" and upload over it.
      */
-    fun loadCloudProgress(uid: String, onLoaded: (CloudProgress?) -> Unit) {
+    fun loadCloudProgress(uid: String, onLoaded: (ProgressSnapshot?) -> Unit) {
         docRefForUid(uid).get()
             .addOnSuccessListener { snap ->
-                if (snap.exists()) {
+                onLoaded(
                     try {
-                        val xp = snap.getLong("xp") ?: 0L
-                        val level = snap.getLong("level")?.toInt() ?: 1
-                        val last = snap.getTimestamp("lastUpdated")
-
-                        val cloudAchievements: List<CloudAchievement>? = (snap.get("achievements") as? List<*>)?.mapNotNull { item ->
-                            (item as? Map<*, *>)?.let { map ->
-                                val idAny = map["id"]
-                                val progAny = map["progress"]
-                                val maxAny = map["maxProgress"]
-                                val id = when (idAny) {
-                                    is Number -> idAny.toInt()
-                                    is String -> idAny.toIntOrNull()
-                                    else -> null
-                                }
-                                val prog = when (progAny) {
-                                    is Number -> progAny.toInt()
-                                    is String -> progAny.toIntOrNull()
-                                    else -> null
-                                }
-                                val maxP = when (maxAny) {
-                                    is Number -> maxAny.toInt()
-                                    is String -> maxAny.toIntOrNull()
-                                    else -> null
-                                }
-                                if (id != null && prog != null) {
-                                    CloudAchievement(id = id, progress = prog, maxProgress = maxP)
-                                } else null
-                            }
-                        }
-
-                        val cloudStats: Map<Int, Long>? = (snap.get("statistics") as? Map<*, *>)?.mapNotNull { entry ->
-                            val key = entry.key
-                            val value = entry.value
-                            val id = when (key) {
-                                is String -> key.toIntOrNull()
-                                is Number -> key.toInt()
-                                else -> null
-                            }
-                            val progLong = when (value) {
-                                is Number -> value.toLong()
-                                is String -> value.toLongOrNull()
-                                else -> null
-                            }
-                            if (id != null && progLong != null) Pair(id, progLong) else null
-                        }?.toMap()
-
-                        val cloudStreak: Long? = when (val s = snap.get("streak")) {
-                            is Number -> s.toLong()
-                            is String -> s.toLongOrNull()
-                            else -> null
-                        }
-
-                        val cloudStreakLastPlay: String? = snap.getString("streakLastPlay")
-                        
-                        val cloudNotes: String? = snap.getString("notes")
-
-                        onLoaded(CloudProgress(xp = xp, level = level, lastUpdated = last, achievements = cloudAchievements, statistics = cloudStats, streak = cloudStreak, streakLastPlay = cloudStreakLastPlay, notes = cloudNotes))
+                        ProgressDocument.fromSnapshot(snap)
                     } catch (t: Throwable) {
                         Log.w(TAG, "Failed to parse cloud progress", t)
-                        onLoaded(null)
+                        null
                     }
-                } else {
-                    onLoaded(null)
-                }
+                )
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "loadCloudProgress failed", e)
@@ -113,330 +56,243 @@ object ProgressSyncManager {
     }
 
     /**
-     * Write progress and optionally achievements/statistics/streak/streakLastPlay/notes to cloud (merge). lastUpdated will be server timestamp.
+     * Write a snapshot.
+     *
+     * Always with [SetOptions.merge]. A bare set() replaces the whole document, and this document
+     * is co-owned with the Windows app: a field this build has never heard of would be deleted from
+     * the user's PC. See [ProgressDocument].
      */
-    fun saveFullProgressToCloud(
+    fun saveProgressToCloud(
         uid: String,
-        xp: Long,
-        level: Int,
-        achievements: List<Achievement>? = null,
-        statistics: List<Statistics>? = null,
-        streak: Int? = null,
-        streakLastPlay: String? = null,
-        notes: String? = null,
-        onComplete: ((Boolean, Exception?) -> Unit)? = null
+        snapshot: ProgressSnapshot,
+        onComplete: ((Boolean, Exception?) -> Unit)? = null,
     ) {
-        val data = mutableMapOf<String, Any>(
-            "xp" to xp,
-            "level" to level,
-            "lastUpdated" to FieldValue.serverTimestamp()
+        docRefForUid(uid).set(ProgressDocument.toFirestoreMap(snapshot), SetOptions.merge())
+            .addOnSuccessListener { onComplete?.invoke(true, null) }
+            .addOnFailureListener { e -> onComplete?.invoke(false, e) }
+    }
+
+    /**
+     * Write just the notes blob, plus this platform's entitlements.
+     *
+     * Notes are synced on a debounce while the user types, so this deliberately does not read the
+     * document first and does not merge: SetOptions.merge() touches only the keys present, so the
+     * XP and achievements the read used to exist to preserve were never at risk. It also does not
+     * apply anything locally - the merge rule is "longer note wins", and running it against a note
+     * the user is in the middle of shortening would undo their deletion as they typed.
+     */
+    fun saveNotesToCloud(
+        context: Context,
+        uid: String,
+        notes: String,
+        onComplete: ((Boolean, Exception?) -> Unit)? = null,
+    ) {
+        val data = mapOf(
+            ProgressDocument.NOTES to notes,
+            ProgressDocument.LAST_UPDATED to FieldValue.serverTimestamp(),
+            ProgressDocument.ENTITLEMENTS to buildMap {
+                put(ProgressDocument.ANDROID_TIER, EntitlementManager.currentTier(context).wire)
+                if (EntitlementManager.hasUltimate(context)) put(ProgressDocument.ULTIMATE, true)
+            },
         )
-
-        achievements?.let { list ->
-            val achMaps = list.map { ach ->
-                mapOf(
-                    "id" to ach.id,
-                    "title" to ach.title,
-                    "progress" to ach.progress,
-                    "maxProgress" to ach.maxProgress
-                )
-            }
-            data["achievements"] = achMaps
-        }
-
-        statistics?.let { stats ->
-            val statMap = stats.associate { stat ->
-                stat.id.toString() to stat.progress
-            }
-            data["statistics"] = statMap
-        }
-
-        streak?.let {
-            data["streak"] = it
-        }
-
-        streakLastPlay?.let {
-            data["streakLastPlay"] = it
-        }
-
-        notes?.let {
-            data["notes"] = it
-        }
 
         docRefForUid(uid).set(data, SetOptions.merge())
             .addOnSuccessListener { onComplete?.invoke(true, null) }
             .addOnFailureListener { e -> onComplete?.invoke(false, e) }
     }
 
+    // ---- The sync ----------------------------------------------------------------------------
+
     /**
-     * Merge strategy (improved):
-     * - For xp: keep the larger xp (cloud or local).
-     * - For achievements/statistics: per-item, take the maximum progress between local and cloud.
-     * - For streak: take the maximum of local and cloud.
+     * Merge local and cloud progress, write the result back, then move local state forward.
      *
-     * After computing merged state, write it to cloud and then update local storage:
-     * - XP/local level will be updated to mergedXp (only increase local if merged is greater).
-     * - Achievements/statistics are increased locally to match merged values (never reduced).
-     * - Streak is increased locally if merged is greater.
+     * The merge is monotonic, so running this twice is harmless and running it on every launch is
+     * safe.
      */
-    fun mergeAndUploadLocalProgress(context: Context, uid: String, onComplete: ((Boolean) -> Unit)? = null) {
-        // read local xp/level
-        val localXp = XpManager.getXp(context)
-        val localLevel = XpManager.getLevel(localXp)
-
-        // read local achievements & statistics using existing model getters
-        val localAchievements = ArrayList<Achievement>()
-        AchievementModel.getList(context, localAchievements)
-        // Ensure each item's progress is loaded (in case getList doesn't)
-        localAchievements.forEach { it.loadProgress(context) }
-
-        val localStatistics = ArrayList<Statistics>()
-        StatisticsModel.getList(context, localStatistics)
-        localStatistics.forEach { it.loadProgress(context) }
-
-        // read local streak and last play date
-        val localStreak = try {
-            StreakManager.getCurrentStreak(context)
-        } catch (t: Throwable) {
-            Log.w(TAG, "Failed to read local streak", t)
-            0
-        }
-        val localLastPlayDate = try {
-            StreakManager.getLastPlayDate(context)
-        } catch (t: Throwable) {
-            Log.w(TAG, "Failed to read local last play date", t)
-            null
-        }
+    fun mergeAndUploadLocalProgress(
+        context: Context,
+        uid: String,
+        onComplete: ((Boolean) -> Unit)? = null,
+    ) {
+        val local = readLocal(context)
 
         loadCloudProgress(uid) { cloud ->
+            if (cloud == null) {
+                // The read failed. Uploading local state now would merge against an empty document
+                // and could push a fresh install's zeroes over real progress.
+                onComplete?.invoke(false)
+                return@loadCloudProgress
+            }
+
             try {
-                // merged XP is per-item max
-                val cloudXp = cloud?.xp ?: 0L
-                val mergedXp: Long = maxOf(localXp.toLong(), cloudXp)
-                // determine merged level from XP to ensure consistency
-                val mergedLevel: Int = try {
-                    XpManager.getLevel(mergedXp.toInt())
-                } catch (_: Throwable) {
-                    // fallback: prefer cloud level if available, else local
-                    cloud?.level ?: localLevel
-                }
+                val merged = ProgressMerge.merge(local, cloud)
 
-                // Merge achievements: per-id max progress and pick sensible metadata
-                val localById = localAchievements.associateBy { it.id }.toMutableMap()
-                val cloudById = cloud?.achievements?.associateBy { it.id } ?: emptyMap()
-
-                // collect all ids
-                val allIds = (localById.keys + cloudById.keys).toSet()
-                val mergedAchievements = allIds.map { id ->
-                    val local = localById[id]
-                    val cloudA = cloudById[id]
-
-                    val localProg = local?.progress ?: 0
-                    val cloudProg = cloudA?.progress ?: 0
-                    val prog = maxOf(localProg, cloudProg)
-
-                    val maxProgress = maxOf(local?.maxProgress ?: prog, cloudA?.maxProgress ?: prog)
-                    val title = local?.title ?: ("achievement_$id")
-                    val description = local?.description ?: ""
-
-                    Achievement(id, title, description, prog, maxProgress)
-                }
-
-                // Merge statistics: per-id max progress
-                val localStatsById = localStatistics.associateBy { it.id }.toMutableMap()
-                val cloudStatsById = cloud?.statistics ?: emptyMap()
-                val allStatIds = (localStatsById.keys + cloudStatsById.keys).toSet()
-                val mergedStatistics = allStatIds.map { id ->
-                    val local = localStatsById[id]
-                    val cloudProgLong = cloudStatsById[id] ?: 0L
-                    val cloudProg = cloudProgLong.toInt()
-                    val localProg = local?.progress ?: 0
-                    val prog = maxOf(localProg, cloudProg)
-                    val title = local?.title ?: "stat_$id"
-                    Statistics(id, title, prog)
-                }
-
-                // Merge streak: use max streak, but prefer the last play date from the higher streak
-                val cloudStreakInt = cloud?.streak?.toInt() ?: 0
-                val mergedStreak: Int
-                var mergedLastPlayDate: String?
-                
-                if (localStreak > cloudStreakInt) {
-                    // Local streak is higher, use local values
-                    mergedStreak = localStreak
-                    mergedLastPlayDate = localLastPlayDate
-                } else if (cloudStreakInt > localStreak) {
-                    // Cloud streak is higher, use cloud values
-                    mergedStreak = cloudStreakInt
-                    mergedLastPlayDate = cloud?.streakLastPlay
-                } else {
-                    // Equal streaks - prefer the most recent last play date
-                    mergedStreak = localStreak
-                    if (localLastPlayDate != null && cloud?.streakLastPlay != null) {
-                        // Compare dates, use the more recent one
-                        try {
-                            val localDate = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).parse(localLastPlayDate)
-                            val cloudDate = java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).parse(cloud.streakLastPlay)
-                            mergedLastPlayDate = if (localDate!!.after(cloudDate)) localLastPlayDate else cloud.streakLastPlay
-                        } catch (e: Exception) {
-                            mergedLastPlayDate = localLastPlayDate
-                        }
-                    } else {
-                        mergedLastPlayDate = localLastPlayDate ?: cloud?.streakLastPlay
-                    }
-                }
-
-                // Merge notes: per-element, take the longer content (more detailed)
-                val notesPref = NotesPreference(context)
-                val localNotes = notesPref.getValue()
-                val cloudNotes = cloud?.notes
-                val mergedNotes = mergeNotes(localNotes, cloudNotes)
-
-                // persist merged to cloud (write full state)
-                saveFullProgressToCloud(uid, mergedXp, mergedLevel, mergedAchievements, mergedStatistics, mergedStreak, mergedLastPlayDate, mergedNotes) { success, _ ->
+                saveProgressToCloud(uid, merged) { success, _ ->
                     if (success) {
-                        try {
-                            // Update local XP if mergedXp is greater than local
-                            if (mergedXp > localXp.toLong()) {
-                                try {
-                                    // Prefer an explicit setter if available
-                                    XpManager.setXp(context, mergedXp.toInt())
-                                } catch (t: Throwable) {
-                                    // Fallback to adding the difference if setXp not available
-                                    try {
-                                        val diff = (mergedXp - localXp.toLong()).toInt()
-                                        if (diff > 0) XpManager.addXp(context, diff)
-                                    } catch (_: Throwable) {
-                                        Log.w(TAG, "Unable to update local XP to merged value", t)
-                                    }
-                                }
-                            }
-                        } catch (t: Throwable) {
-                            Log.w(TAG, "Failed to update local XP", t)
-                        }
-
-                        // Achievements: for each merged achievement, if merged.progress > current local progress -> increment by diff
-                        val localByIdMutable = localAchievements.associateBy { it.id }.toMutableMap()
-                        mergedAchievements.forEach { mergedAch ->
-                            val local = localByIdMutable[mergedAch.id]
-                            if (local != null) {
-                                val current = local.progress
-                                val target = mergedAch.progress
-                                val diff = target - current
-                                if (diff > 0) {
-                                    // incrementProgress will save progress
-                                    local.incrementProgress(context, diff)
-                                }
-                            } else {
-                                // create new and set progress
-                                val newAch = Achievement(mergedAch.id, mergedAch.title, mergedAch.description, 0, mergedAch.maxProgress)
-                                val diff = mergedAch.progress - 0
-                                if (diff > 0) newAch.incrementProgress(context, diff)
-                            }
-                        }
-
-                        // Statistics: similar - only increase via incrementProgress
-                        val localStatsByIdMutable = localStatistics.associateBy { it.id }.toMutableMap()
-                        mergedStatistics.forEach { mergedStat ->
-                            val local = localStatsByIdMutable[mergedStat.id]
-                            if (local != null) {
-                                val current = local.progress
-                                val target = mergedStat.progress
-                                val diff = target - current
-                                if (diff > 0) {
-                                    local.incrementProgress(context, diff)
-                                }
-                            } else {
-                                val newStat = Statistics(mergedStat.id, mergedStat.title, 0)
-                                val diff = mergedStat.progress - 0
-                                if (diff > 0) newStat.incrementProgress(context, diff)
-                            }
-                        }
-
-                        // Streak: update local streak with merged value and date
-                        // Use setCurrentStreakWithDate to ensure proper validation and date tracking
-                        try {
-                            StreakManager.setCurrentStreakWithDate(context, mergedStreak, mergedLastPlayDate)
-                        } catch (t: Throwable) {
-                            Log.w(TAG, "Failed to update local streak", t)
-                        }
-
-                        // Notes: update local notes with merged value
-                        try {
-                            notesPref.setValue(mergedNotes)
-                        } catch (t: Throwable) {
-                            Log.w(TAG, "Failed to update local notes", t)
-                        }
-
+                        applyLocally(context, local, merged)
                         onComplete?.invoke(true)
                     } else {
                         onComplete?.invoke(false)
                     }
                 }
             } catch (t: Throwable) {
-                t.printStackTrace()
+                Log.w(TAG, "Merge failed", t)
                 onComplete?.invoke(false)
             }
         }
     }
 
-    /**
-     * Merge notes from local and cloud sources.
-     * Strategy: For each element, keep the longer content (more detailed notes).
-     * Notes format: "<element_code>note text</element_code>"
-     */
-    private fun mergeNotes(localNotes: String, cloudNotes: String?): String {
-        if (cloudNotes == null || cloudNotes.isEmpty()) {
-            return localNotes
+    // ---- Local state -------------------------------------------------------------------------
+
+    /** Everything this device would contribute to the merge. */
+    fun readLocal(context: Context): ProgressSnapshot {
+        val xp = XpManager.getXp(context)
+
+        val achievements = ArrayList<Achievement>()
+        AchievementModel.getList(context, achievements)
+        achievements.forEach { it.loadProgress(context) }
+
+        val statistics = ArrayList<Statistics>()
+        StatisticsModel.getList(context, statistics)
+        statistics.forEach { it.loadProgress(context) }
+
+        val streak = try {
+            StreakManager.getCurrentStreak(context)
+        } catch (t: Throwable) {
+            Log.w(TAG, "Failed to read local streak", t)
+            0
         }
-        if (localNotes.isEmpty()) {
-            return cloudNotes
-        }
-
-        // Parse both notes strings to extract element-specific notes
-        val localElementNotes = parseElementNotes(localNotes)
-        val cloudElementNotes = parseElementNotes(cloudNotes)
-
-        // Merge: for each element, take the longer content
-        val allElements = (localElementNotes.keys + cloudElementNotes.keys).toSet()
-        val mergedElementNotes = mutableMapOf<String, String>()
-
-        for (element in allElements) {
-            val localNote = localElementNotes[element] ?: ""
-            val cloudNote = cloudElementNotes[element] ?: ""
-            
-            // Take the longer note (more content means more user edits)
-            mergedElementNotes[element] = if (localNote.length >= cloudNote.length) localNote else cloudNote
+        val lastPlay = try {
+            StreakManager.getLastPlayDate(context)
+        } catch (t: Throwable) {
+            Log.w(TAG, "Failed to read local last play date", t)
+            null
         }
 
-        // Reconstruct the notes string
-        return buildNotesString(mergedElementNotes)
+        return ProgressSnapshot(
+            xp = xp.toLong(),
+            level = XpManager.getLevel(xp),
+            streak = streak,
+            streakLastPlay = lastPlay,
+            achievements = achievements.map {
+                AchievementProgress(it.id, it.progress, it.maxProgress, it.title)
+            },
+            statistics = statistics.associate { it.id to it.progress.toLong() },
+            notes = NotesPreference(context).getValue(),
+
+            // Reported per platform so the PC can tell "PRO+ on Windows" from "PRO+ on Android".
+            // Without the platform the shared document cannot distinguish two separate purchases
+            // from two separate stores.
+            androidTier = EntitlementManager.currentTier(context).wire,
+            windowsTier = WindowsTierPreference(context).getValue().ifEmpty { null },
+            ultimate = EntitlementManager.hasUltimate(context),
+            study = com.jlindemann.science.study.StudyStore.deck(context).snapshot(),
+        )
     }
 
     /**
-     * Parse notes string into a map of element code to note content.
+     * Move local state forward to the merged values.
+     *
+     * Only ever forward. The merge already guarantees it, but writing it as an explicit comparison
+     * means a future change to either side cannot quietly start moving a counter backwards.
      */
-    private fun parseElementNotes(notes: String): Map<String, String> {
-        val elementNotes = mutableMapOf<String, String>()
-        val regex = Regex("<([^>]+)>(.*?)</\\1>", RegexOption.DOT_MATCHES_ALL)
-        
-        regex.findAll(notes).forEach { match ->
-            val elementCode = match.groups[1]?.value ?: return@forEach
-            val noteContent = match.groups[2]?.value ?: ""
-            elementNotes[elementCode] = noteContent
-        }
-        
-        return elementNotes
-    }
-
-    /**
-     * Build notes string from element notes map.
-     */
-    private fun buildNotesString(elementNotes: Map<String, String>): String {
-        return elementNotes.entries
-            .sortedBy { it.key }
-            .joinToString("") { (element, content) ->
-                "<$element>$content</$element>"
+    private fun applyLocally(context: Context, local: ProgressSnapshot, merged: ProgressSnapshot) {
+        if (merged.xp > local.xp) {
+            try {
+                XpManager.setXp(context, merged.xp.toInt())
+            } catch (t: Throwable) {
+                Log.w(TAG, "Failed to update local XP", t)
             }
+        }
+
+        val achievements = ArrayList<Achievement>()
+        AchievementModel.getList(context, achievements)
+        achievements.forEach { it.loadProgress(context) }
+        val achievementsById = achievements.associateBy { it.id }
+        merged.achievements.forEach { mergedAchievement ->
+            val current = achievementsById[mergedAchievement.id] ?: return@forEach
+            val diff = mergedAchievement.progress - current.progress
+            if (diff > 0) current.incrementProgress(context, diff)
+        }
+
+        val statistics = ArrayList<Statistics>()
+        StatisticsModel.getList(context, statistics)
+        statistics.forEach { it.loadProgress(context) }
+        val statisticsById = statistics.associateBy { it.id }
+        merged.statistics.forEach { (id, progress) ->
+            val current = statisticsById[id] ?: return@forEach
+            val diff = progress.toInt() - current.progress
+            if (diff > 0) current.incrementProgress(context, diff)
+        }
+
+        try {
+            StreakManager.setCurrentStreakWithDate(context, merged.streak, merged.streakLastPlay)
+        } catch (t: Throwable) {
+            Log.w(TAG, "Failed to update local streak", t)
+        }
+
+        try {
+            val notesPref = NotesPreference(context)
+            val mergedNotes = merged.notes ?: ""
+            // Longer wins, matching the merge rule. Writing unconditionally would let a shorter
+            // merged value overwrite a local edit made since the merge was computed.
+            if (mergedNotes.length > notesPref.getValue().length) notesPref.setValue(mergedNotes)
+        } catch (t: Throwable) {
+            Log.w(TAG, "Failed to update local notes", t)
+        }
+
+        try {
+            com.jlindemann.science.study.StudyStore.mergeFrom(context, merged.study)
+        } catch (t: Throwable) {
+            Log.w(TAG, "Failed to update local study cards", t)
+        }
+
+        applyEntitlements(context, merged)
+    }
+
+    /**
+     * Take what the document says about the user's licences.
+     *
+     * Split out of [applyLocally] because [refreshEntitlements] needs exactly this and nothing
+     * else: a free user must be able to learn that they own Ultimate without a full merge running.
+     */
+    private fun applyEntitlements(context: Context, snapshot: ProgressSnapshot) {
+        snapshot.windowsTier?.takeIf { it.isNotEmpty() }?.let {
+            WindowsTierPreference(context).setValue(it)
+        }
+
+        // Ultimate crosses stores: bought on the PC, it unlocks PRO+ here, and Google Play has no
+        // purchase to show for it. Grant-only, like every other rule in the merge.
+        if (snapshot.ultimate) EntitlementManager.grantUltimate(context)
+    }
+
+    /**
+     * Read the licence keys and nothing else.
+     *
+     * Progress and notes sync are a paid feature, so [AutoSync] gates them on owning a tier. That
+     * gate cannot also cover this: Ultimate bought on the PC is precisely how a user who has paid
+     * nothing on Google Play becomes PRO+ here, so gating the read on already being PRO would make
+     * the grant unreachable - the phone would wait for an entitlement it could only learn about by
+     * reading.
+     *
+     * Writes nothing, so a free account contributes no progress to the document.
+     *
+     * @param onComplete true when the document was read, whatever it contained.
+     */
+    fun refreshEntitlements(context: Context, uid: String, onComplete: ((Boolean) -> Unit)? = null) {
+        loadCloudProgress(uid) { cloud ->
+            if (cloud == null) {
+                onComplete?.invoke(false)
+                return@loadCloudProgress
+            }
+
+            try {
+                applyEntitlements(context, cloud)
+                onComplete?.invoke(true)
+            } catch (t: Throwable) {
+                Log.w(TAG, "Failed to apply cloud entitlements", t)
+                onComplete?.invoke(false)
+            }
+        }
     }
 }

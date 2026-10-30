@@ -5,8 +5,10 @@ import com.jlindemann.science.ai.data.AssetElementSource
 import com.jlindemann.science.ai.data.DatasetIndex
 import com.jlindemann.science.ai.data.ElementKey
 import com.jlindemann.science.ai.data.ElementSource
+import com.jlindemann.science.ai.data.Explanations
 import com.jlindemann.science.ai.data.KnowledgeStore
 import com.jlindemann.science.ai.data.LocalizedView
+import com.jlindemann.science.ai.nlu.LanguageDetector
 import java.util.concurrent.ConcurrentHashMap
 
 /**
@@ -38,9 +40,36 @@ class RetrievalService private constructor(
         return HybridRetriever(store, datasets, index, resolver(language), view)
     }
 
+    private val explanationSets = ConcurrentHashMap<String, Explanations>()
+
+    /** The reviewed explanations for a language, English filling its gaps (roadmap 2.4). */
+    fun explanations(language: String): Explanations = explanationSets.getOrPut(language) {
+        Explanations.parse(
+            source.text("explanations.tsv"), source.text("explanations_$language.tsv"),
+            source.text("explanations_en.tsv"), language
+        )
+    }
+
+    /** The questions a chat opened from each screen offers first (roadmap 2.9). */
+    val screenChips: com.jlindemann.science.ai.chat.ScreenChips by lazy {
+        com.jlindemann.science.ai.chat.ScreenChips.parse(source.text("screen_chips.tsv"))
+    }
+
     /** The entity resolver for a language, built on first use. */
     fun resolver(language: String): EntityResolver =
         resolvers.getOrPut(language) { EntityResolver(sharedAliases(), language) }
+
+    /** The trigram model (roadmap 1.4), or null when the asset is missing. */
+    private val languageDetector: LanguageDetector? by lazy { LanguageDetector.parse(source.text("trigrams.tsv")) }
+
+    /**
+     * The language to answer [message] in, starting from [active]: by its letters, with element
+     * names as the tie-breaker, and by element names alone when there is no model.
+     */
+    fun detectLanguage(message: String, active: String): String {
+        val byNames = { m: String, a: String -> resolver(a).detectLanguage(m, a) }
+        return languageDetector?.detect(message, active, byNames) ?: byNames(message, active)
+    }
 
     private fun sharedAliases(): Map<String, List<ElementAlias>> {
         aliases?.let { return it }

@@ -28,6 +28,9 @@ class AssetElementSource(private val assets: AssetManager) : ElementSource {
         return ElementTable(rows)
     }
 
+    override fun text(name: String): String? =
+        runCatching { assets.open(name).bufferedReader(Charsets.UTF_8).use { it.readText() } }.getOrNull()
+
     private fun toRow(obj: JSONObject): ElementRow {
         val row = HashMap<String, Any?>(obj.length() * 2)
         val fields = obj.keys()

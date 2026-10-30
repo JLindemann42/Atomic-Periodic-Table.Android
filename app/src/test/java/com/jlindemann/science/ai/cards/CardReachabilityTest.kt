@@ -93,7 +93,9 @@ class CardReachabilityTest {
         ChatCardKind.NFPA_DIAMOND to "is sodium dangerous",
         ChatCardKind.IONIZATION_SERIES to "ionization energy of sodium",
         ChatCardKind.ISOTOPE_DECAY to "isotopes of carbon",
-        ChatCardKind.ABUNDANCE to "how abundant is gold in the earth's crust"
+        ChatCardKind.ABUNDANCE to "how abundant is gold in the earth's crust",
+        ChatCardKind.TREND_LINE to "electronegativity across period 3",
+        ChatCardKind.HEAT_MAP to "heat map of density"
     )
 
     @Test fun everyCardKindIsReachableByAsking() {

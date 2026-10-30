@@ -38,6 +38,9 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class NuclideActivity : BaseActivity() {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.NUCLIDES
+
     private val elementLists = ArrayList<Element>()
     var mScale = 1f
     lateinit var mScaleDetector: ScaleGestureDetector

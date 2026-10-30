@@ -4,7 +4,7 @@ import com.jlindemann.science.R
 import com.jlindemann.science.ai.data.Isotope
 
 /** An isotope together with the label the quiz shows for it. */
-private data class Nuclide(val label: String, val isotope: Isotope) {
+private data class Nuclide(val label: String, val isotope: Isotope, val elementKey: String) {
     val neutrons: Int? get() = isotope.neutrons
     val stable: Boolean get() = isotope.stable
     val halfLifeSeconds: Double? get() = isotope.halfLifeSeconds
@@ -25,6 +25,7 @@ private data class Nuclide(val label: String, val isotope: Isotope) {
  */
 private fun isotopePool(ctx: GeneratorContext): List<Nuclide> =
     ctx.store.elements
+        .filter(ctx::inScope)
         .flatMap { element ->
             element.isotopes.mapNotNull { iso ->
                 val protons = iso.protons ?: return@mapNotNull null
@@ -32,7 +33,7 @@ private fun isotopePool(ctx: GeneratorContext): List<Nuclide> =
                 val nucleons = iso.nucleons ?: return@mapNotNull null
                 if (protons + neutrons != nucleons) return@mapNotNull null
                 if (protons != element.atomicNumber) return@mapNotNull null
-                Nuclide("${element.symbol}-$nucleons", iso)
+                Nuclide("${element.symbol}-$nucleons", iso, element.key)
             }
         }
         // A label that resolves to two records would make the question unanswerable.
@@ -72,7 +73,9 @@ class IsotopeNeutronGenerator(
                     question = ctx.string(R.string.question_isotope_neutrons, nuclide.label),
                     correctAnswer = correct.toString(),
                     alternatives = (wrongs + correct).map { it.toString() }.shuffled(ctx.random),
-                    baseXp = baseXp
+                    baseXp = baseXp,
+                    subjectKey = nuclide.elementKey,
+                    category = categoryKey
                 )
             )
         }

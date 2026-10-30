@@ -17,7 +17,7 @@ import os
 import sys
 
 REPO_PATH = '/home/runner/work/Atomic-Periodic-Table.Android/Atomic-Periodic-Table.Android'
-ASSETS_PATH = os.path.join(REPO_PATH, 'app/src/main/assets')
+ASSETS_PATH = os.path.join(REPO_PATH, 'shared/elements')
 
 # Language configurations with priority
 LANGUAGES = {

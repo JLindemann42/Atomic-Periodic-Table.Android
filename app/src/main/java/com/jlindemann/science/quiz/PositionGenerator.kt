@@ -38,8 +38,9 @@ class PositionGenerator(
 ) : QuestionGenerator {
 
     override fun generate(ctx: GeneratorContext, count: Int): List<QuizQuestion> {
-        val pool = ctx.store.elements.mapNotNull { e -> aspect.valueOf(e)?.let { e to it } }
-        val values = pool.map { it.second }.distinct().sorted()
+        val all = ctx.store.elements.mapNotNull { e -> aspect.valueOf(e)?.let { e to it } }
+        val pool = all.filter { ctx.inScope(it.first) }
+        val values = all.map { it.second }.distinct().sorted()
         if (pool.isEmpty() || values.size < 2) return emptyList()
 
         val questions = ArrayList<QuizQuestion>(count)
@@ -64,7 +65,9 @@ class PositionGenerator(
                     question = ctx.string(aspect.questionRes, ctx.name(element)),
                     correctAnswer = correct.toString(),
                     alternatives = options.shuffled(ctx.random),
-                    baseXp = baseXp
+                    baseXp = baseXp,
+                    subjectKey = element.key,
+                    category = categoryKey
                 )
             )
         }

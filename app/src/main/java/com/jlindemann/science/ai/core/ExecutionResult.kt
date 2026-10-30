@@ -148,7 +148,9 @@ sealed class ExecutionResult {
     data class Formula(
         val result: com.jlindemann.science.ai.data.FormulaResult,
         val wantsComposition: Boolean,
-        override val citations: List<Citation>
+        override val citations: List<Citation>,
+        /** The element whose share the question asked for, "oxygen in water" (roadmap 2.8). */
+        val focus: String? = null
     ) : ExecutionResult()
 
     /** One nuclide with everything known about it, for side-by-side display. */
@@ -191,6 +193,173 @@ sealed class ExecutionResult {
          */
         val grams: Double? = null,
         override val citations: List<Citation> = emptyList()
+    ) : ExecutionResult()
+
+    /**
+     * A value the user supplied, expressed in another unit.
+     *
+     * @property bridged true when the conversion crossed a dimension through a physical constant —
+     *   eV to kJ/mol — so the answer can name the constant rather than presenting the two as
+     *   interchangeable quantities, which they are not.
+     */
+    data class UnitConversion(
+        val value: Double,
+        val fromUnit: String,
+        val converted: Double,
+        val toUnit: String,
+        val bridged: Boolean,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /**
+     * A chemical equation, balanced or honestly declined.
+     *
+     * [reason] being non-null is a first-class answer rather than an error. An equation that
+     * cannot balance with positive integers, or that has several independent balances, has to be
+     * *said* — answering with one of the possibilities and no warning is worse than not answering.
+     *
+     * @property tally the per-element proof: how many atoms each side ends up with. A balancer
+     *   that prints only coefficients asks to be trusted; one that shows both counts can be checked.
+     */
+    /**
+     * @property detail what the failure was about — for a one-sided element, which element. The
+     *   solver has always known; it used to be dropped here, so every failure was reported with the
+     *   same general sentence.
+     */
+    data class BalancedEquation(
+        val reactants: List<com.jlindemann.science.ai.data.Term>,
+        val products: List<com.jlindemann.science.ai.data.Term>,
+        val tally: List<com.jlindemann.science.ai.data.ElementTally>,
+        val reason: com.jlindemann.science.ai.data.EquationBalancer.Reason?,
+        override val citations: List<Citation>,
+        val detail: String? = null
+    ) : ExecutionResult()
+
+    /**
+     * A solution-chemistry calculation: n = c·V, a mass from a concentration, or a dilution.
+     *
+     * @property kind which unknown the question asked for, which decides the sentence the answer
+     *   leads with. The other fields are filled in regardless, because the working is shown.
+     */
+    data class SolutionCalc(
+        val kind: Kind,
+        /** The compound as written, or as resolved from a common name. Null for a bare dilution. */
+        val substance: String?,
+        val molarMass: Double?,
+        val moles: Double?,
+        val molarity: Double?,
+        val litres: Double?,
+        val grams: Double?,
+        val dilution: com.jlindemann.science.ai.data.Dilution?,
+        override val citations: List<Citation>
+    ) : ExecutionResult() {
+        enum class Kind { MASS_NEEDED, MOLES, MOLARITY, VOLUME, DILUTION }
+    }
+
+    /**
+     * Exponential decay of a nuclide over time.
+     *
+     * [Mode] separates three outcomes that all look like "no number" and are not the same thing:
+     * the nuclide is stable, the app does not list it, or it is listed with a half-life the data
+     * records as unknown. Collapsing them would tell a user the app has no data when what it has
+     * is the opposite — a positive statement that nothing decays.
+     */
+    data class Decay(
+        val element: ElementRecord,
+        val massNumber: Int,
+        val halfLifeSeconds: Double?,
+        val halfLifeDisplay: String,
+        val stable: Boolean,
+        val mode: Mode,
+        val initialAmount: Double?,
+        val finalAmount: Double?,
+        /** The unit the amounts were written in, echoed back rather than converted. */
+        val amountUnit: String?,
+        val elapsedSeconds: Double?,
+        /** The unit the elapsed time was written in, so the answer can reply in it. */
+        val elapsedUnit: String?,
+        val halfLivesElapsed: Double?,
+        val fractionRemaining: Double?,
+        override val citations: List<Citation>
+    ) : ExecutionResult() {
+        enum class Mode { REMAINING, ELAPSED, HALF_LIVES, STABLE, NO_HALF_LIFE }
+    }
+
+    /**
+     * One field across a set of elements, in atomic-number order (roadmap 2.3).
+     *
+     * @property points the elements with a value, in atomic-number order - the order a trend is read in
+     * @property missing elements in the set with no value for the field, so the answer can say so
+     * @property wholeTable true when no subset was named: the answer is a map of the table, not a line
+     */
+    data class Trend(
+        val fieldId: String,
+        val points: List<ValuedElement>,
+        val missing: Int,
+        val wholeTable: Boolean,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /**
+     * The ideal gas law solved for its unknown (roadmap 2.8).
+     *
+     * @property grams and [substance] when the amount was given as a mass, so the working can show n = m ÷ M
+     * @property stp whether standard temperature and pressure filled in what the question left out
+     */
+    data class GasLaw(
+        val solution: com.jlindemann.science.ai.data.GasLaw.Solution,
+        val substance: String?,
+        val grams: Double?,
+        val molarMass: Double?,
+        val stp: Boolean,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /** The pH of a strong acid or base (roadmap 2.8). */
+    data class Ph(
+        val result: com.jlindemann.science.ai.data.AcidBase.Result,
+        override val citations: List<Citation> = emptyList()
+    ) : ExecutionResult()
+
+    /** An empirical formula, and the molecular formula when a molar mass was given (roadmap 2.8). */
+    data class EmpiricalFormula(
+        val result: com.jlindemann.science.ai.data.Empirical.Result,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /**
+     * Amounts through a balanced equation (roadmap 2.8).
+     *
+     * @property targets the species the question asked about, by index; empty for "what does it make"
+     */
+    data class Stoichiometry(
+        val result: com.jlindemann.science.ai.data.Stoichiometry.Result,
+        val targets: List<Int>,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /** An ion's electron configuration, beside the neutral atom's (roadmap 2.8). */
+    data class IonConfiguration(
+        val element: ElementRecord,
+        val charge: Int,
+        val neutral: com.jlindemann.science.ai.data.IonConfig.Configuration,
+        val ion: com.jlindemann.science.ai.data.IonConfig.Configuration,
+        override val citations: List<Citation>
+    ) : ExecutionResult()
+
+    /**
+     * A reviewed explanation (roadmap 2.4), with the data it explains: a trend over a set or the whole
+     * table, or one element's ionization series.
+     *
+     * @property language the language [text] is in, so an English fallback can be disclosed
+     */
+    data class Explanation(
+        val key: String,
+        val text: String,
+        val language: String,
+        val trend: Trend?,
+        val ionization: ElementRecord?,
+        override val citations: List<Citation>
     ) : ExecutionResult()
 
     /** A row from one of the app's tables. */

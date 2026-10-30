@@ -255,6 +255,72 @@ object Lexicon {
     )
 
     /**
+     * The four sets an element belongs to, by the words that name them (roadmap 1.7): group,
+     * period, block and series ("family"). Read with [SET_DETERMINERS] - "in **its** period", "of
+     * **that** group" - to find a set the question takes from an element rather than naming it.
+     * A word may carry a short ending: "gruppen", "perioden", "blocket".
+     */
+    val SET_DIMENSIONS: Map<String, String> = mapOf(
+        "group" to "group", "column" to "group", "grupp" to "group", "gruppe" to "group",
+        "grupo" to "group", "groupe" to "group", "gruppo" to "group", "groep" to "group",
+        "grupong" to "group", "समूह" to "group", "گروپ" to "group", "族" to "group",
+        "period" to "period", "row" to "period", "periode" to "period", "periodo" to "period",
+        "आवर्त" to "period", "دور" to "period", "周期" to "period",
+        "block" to "block", "bloque" to "block", "bloc" to "block", "blocco" to "block",
+        "bloco" to "block", "blok" to "block", "ब्लॉक" to "block", "بلاک" to "block", "区" to "block",
+        "family" to "series", "series" to "series", "familj" to "series", "serie" to "series",
+        "familie" to "series", "familia" to "series", "famille" to "series", "famiglia" to "series",
+        "pamilya" to "series", "परिवार" to "series", "خاندان" to "series", "系列" to "series"
+    )
+
+    /**
+     * What comes before a set's name when the question means an element's own set: a preposition
+     * and a demonstrative, a possessive or "same" (roadmap 1.7). Fused forms are listed whole -
+     * "nello stesso", "nesse", "del mismo" - and the Han ones are written without the space they
+     * never have.
+     */
+    val SET_DETERMINERS = listOf(
+        "in that", "in this", "in its", "in the same", "of that", "of its", "of the same",
+        "from that", "from its", "rest of that", "rest of its", "share its",
+        "i den", "i denna", "i samma", "i dess", "av samma", "inom samma", "resten av",
+        "in dieser", "in diesem", "in derselben", "in demselben", "in der gleichen", "im gleichen",
+        "im selben", "in seiner", "in seinem", "aus dieser", "aus derselben", "aus der gleichen",
+        "en ese", "en este", "en esa", "en esta", "en su", "en el mismo", "en la misma", "de su",
+        "del mismo", "de la misma", "de ese", "de este", "resto de su", "resto del",
+        "dans ce", "dans cette", "dans son", "dans sa", "dans le meme", "dans la meme", "de son",
+        "de sa", "du meme", "de la meme", "de ce", "reste de son",
+        "in quel", "in quella", "in questo", "in questa", "nel suo", "nella sua", "nello stesso",
+        "nella stessa", "del suo", "della sua", "dello stesso", "della stessa", "di quel",
+        "nesse", "nessa", "neste", "nesta", "no seu", "na sua", "no mesmo", "na mesma", "do seu",
+        "da sua", "do mesmo", "da mesma", "desse", "dessa",
+        "in daardie", "in hierdie", "in sy", "in dieselfde", "van sy", "van dieselfde", "van daardie",
+        "sa parehong", "sa kanyang", "ng parehong", "ng kanyang",
+        "उस", "उसी", "इसके", "इसी", "इस",
+        "اس", "اسی", "اس کے",
+        "那一", "同一", "这一", "这个", "那个", "它的", "该"
+    )
+
+    /**
+     * "Else", "other", "the rest": a set without the element it was read off (roadmap 1.7). Only a
+     * list or a count leaves the element out - "más" and "mais" also make superlatives, and the
+     * densest in iron's group may be iron.
+     */
+    val OTHER_WORDS = listOf(
+        "else", "other", "others", "rest",
+        "mer", "andra", "annat", "ovriga", "resten",
+        "noch", "andere", "anderen", "ubrigen",
+        "mas", "otro", "otros", "otra", "otras", "resto", "demas",
+        "autre", "autres", "reste",
+        "altri", "altre", "altro",
+        "outro", "outros", "outra", "outras", "mais",
+        "ander", "res", "nog",
+        "iba", "ibang", "natitira",
+        "और", "अन्य", "बाकी",
+        "اور", "دوسرے", "باقی",
+        "其他", "其余", "别的", "还有"
+    )
+
+    /**
      * The [SERIES_WORDS] surfaces that are plural.
      *
      * "What is a noble gas" asks for the definition; "what are the noble gases" asks for the
@@ -310,6 +376,160 @@ object Lexicon {
     )
 
     /**
+     * Words that carry no subject, per language: grammar and the frame a question is asked in.
+     *
+     * Dataset retrieval scores a row by how much of the query's *content* it covers (roadmap 1.1),
+     * and these are what is not content. IDF cannot discount them on its own: the index is reference
+     * text, which is declarative, so "what" appears in two documents of ~800 and outweighed
+     * "electron" - "what is the weather today" covered the Pauli exclusion principle completely.
+     *
+     * Proposed by `shared/tools/stopword_candidates.py` from the element descriptions and the
+     * assistant's own questions, then reviewed: the frequent *domain* words it also proposes
+     * ("atomic", "element", "symbol", "metal") are deliberately absent, because they are what a
+     * dataset question is about. Folded like every other entry; the retriever tokenizes them, so
+     * they match whatever the tokenizer makes of the query. English is always applied as well,
+     * because the reference tables and the dataset gloss are English.
+     */
+    val STOPWORDS: Map<String, List<String>> = mapOf(
+        "en" to listOf(
+            "a", "an", "the", "of", "in", "on", "at", "to", "for", "from", "by", "with", "about",
+            "and", "or", "as", "into", "than", "that", "this", "these", "those", "it", "its",
+            "is", "are", "was", "were", "be", "been", "do", "does", "did", "has", "have", "had",
+            "can", "could", "would", "will", "should", "may", "might",
+            "what", "which", "who", "whom", "whose", "how", "why", "when", "where",
+            "much", "many", "some", "any",
+            "i", "me", "my", "you", "your", "we", "us", "our",
+            "tell", "show", "give", "explain", "describe", "define", "definition", "meaning", "mean",
+            "know", "like", "want", "please", "value", "s",
+            "made", "make", "consist", "consists", "use", "used", "uses",
+            "more", "else", "other", "others", "again", "also", "another", "next", "continue",
+            "further", "anything", "something", "convert"
+        ),
+        "sv" to listOf(
+            "en", "ett", "den", "det", "de", "och", "eller", "i", "pa", "av", "till", "for", "fran",
+            "med", "om", "som", "an", "att", "ar", "var", "vara", "har", "hade", "kan", "skulle",
+            "vad", "vilken", "vilket", "vilka", "vem", "hur", "varfor", "nar", "var",
+            "mycket", "manga", "jag", "mig", "du", "dig", "vi", "oss",
+            "beratta", "visa", "ge", "forklara", "beskriv", "definiera", "betyder", "betydelse",
+            "vill", "veta", "snalla", "varde", "finns", "mer",
+            "gjort", "gjord", "gjorda", "anvands", "anvander",
+            "mera", "annat", "andra", "igen", "ocksa", "nasta", "fortsatt", "nagot", "nat",
+            "omvandla", "konvertera"
+        ),
+        "de" to listOf(
+            "der", "die", "das", "den", "dem", "des", "ein", "eine", "einen", "einem", "einer",
+            "und", "oder", "in", "im", "an", "am", "auf", "zu", "zum", "zur", "von", "vom", "mit",
+            "fur", "uber", "als", "es", "ist", "sind", "war", "wird", "wurde", "hat", "haben",
+            "kann", "konnen", "was", "welche", "welcher", "welches", "wer", "wie", "warum",
+            "wann", "wo", "viel", "viele", "ich", "mir", "mich", "du", "dir", "wir",
+            "erzahl", "erzahle", "zeig", "zeige", "gib", "erklar", "erklare", "beschreibe",
+            "definiere", "bedeutet", "bedeutung", "mochte", "mochtest", "wissen", "bitte", "wert",
+            "gemacht", "besteht", "verwendet", "benutzt",
+            "mehr", "weiter", "andere", "anderes", "nochmal", "noch", "auch", "nachste", "etwas",
+            "umrechnen", "umwandeln", "rechne"
+        ),
+        "es" to listOf(
+            "el", "la", "los", "las", "un", "una", "unos", "unas", "de", "del", "al", "en", "a",
+            "con", "por", "para", "sobre", "y", "o", "que", "como", "se", "es", "son", "fue",
+            "era", "esta", "estan", "tiene", "tienen", "ha", "puede",
+            "cual", "cuales", "quien", "cuanto", "cuanta", "cuantos", "cuantas", "por que",
+            "cuando", "donde", "mi", "me", "yo", "tu", "te", "nos",
+            "dime", "habla", "hablame", "muestra", "muestrame", "dame", "explica", "explicame", "describe", "define",
+            "significa", "significado", "quiero", "saber", "gustaria", "favor", "valor",
+            "hecho", "usa", "usan", "uso", "usado",
+            "mas", "otro", "otra", "otros", "otras", "tambien", "siguiente", "continua", "sigue", "algo",
+            "convertir", "convierte", "convierta"
+        ),
+        "fr" to listOf(
+            "le", "la", "les", "l", "un", "une", "des", "du", "de", "d", "au", "aux", "en", "dans",
+            "sur", "avec", "par", "pour", "et", "ou", "que", "qu", "qui", "quoi", "est", "sont",
+            "etait", "a", "ont", "peut", "il", "elle", "c", "ce", "cette",
+            "quel", "quelle", "quels", "quelles", "comment", "pourquoi", "quand", "combien",
+            "je", "me", "moi", "vous", "tu", "nous",
+            "dis", "dites", "parle", "parlez", "montre", "montrez", "donne", "explique", "expliquez", "decris",
+            "definis", "signifie", "signification", "veux", "voudrais", "savoir", "plait", "valeur",
+            "fait", "faite", "utilise", "sert",
+            "plus", "autre", "autres", "encore", "aussi", "suivant", "continue", "quelque", "chose",
+            "convertir", "convertis", "convertissez"
+        ),
+        "it" to listOf(
+            "il", "lo", "la", "i", "gli", "le", "l", "un", "uno", "una", "di", "del", "della",
+            "dei", "delle", "nel", "nella", "a", "al", "alla", "da", "in", "con", "per", "su",
+            // Elided before a vowel: "dell'energia" tokenizes to "dell" and "energia".
+            "dell", "nell", "all", "dall", "sull",
+            "e", "o", "che", "come", "si", "e", "sono", "era", "fu", "ha", "hanno", "puo",
+            "qual", "quale", "quali", "chi", "quanto", "quanti", "perche", "quando", "dove",
+            "mi", "me", "io", "tu", "ti", "noi", "dimmi", "parlami", "mostra", "mostrami", "dammi",
+            "spiega", "spiegami", "descrivi", "definisci", "significa", "significato",
+            "voglio", "vorrei", "sapere", "favore", "valore",
+            "fatto", "fatta", "usa", "usato", "uso", "usare",
+            "piu", "altro", "altra", "altri", "ancora", "anche", "prossimo", "continua", "qualcosa",
+            "convertire", "converti", "convertisci"
+        ),
+        "pt" to listOf(
+            "o", "a", "os", "as", "um", "uma", "de", "do", "da", "dos", "das", "em", "no", "na",
+            "nos", "nas", "ao", "com", "por", "para", "sobre", "e", "ou", "que", "como", "se",
+            "e", "sao", "foi", "era", "tem", "pode",
+            "qual", "quais", "quem", "quanto", "quantos", "por que", "quando", "onde",
+            "me", "eu", "voce", "nos",
+            "diga", "fale", "fala", "mostre", "de", "explique", "descreva", "defina", "significa", "significado",
+            "quero", "gostaria", "saber", "favor", "valor",
+            "feito", "feita", "usa", "usado", "uso",
+            "mais", "outro", "outra", "outros", "tambem", "proximo", "continue", "algo",
+            "converter", "converta", "converte"
+        ),
+        "af" to listOf(
+            "die", "n", "en", "of", "in", "op", "aan", "na", "van", "vir", "met", "oor", "as",
+            "is", "was", "het", "kan", "sal", "wat", "watter", "wie", "hoe", "hoekom", "waarom",
+            "wanneer", "waar", "hoeveel", "baie", "ek", "my", "jy", "jou", "ons",
+            "vertel", "wys", "gee", "verduidelik", "beskryf", "definieer", "beteken", "betekenis",
+            "wil", "weet", "asseblief", "waarde", "dit",
+            "gemaak", "gebruik", "word",
+            "meer", "ander", "weer", "ook", "volgende", "nog", "iets",
+            "omskakel", "omsit"
+        ),
+        "fil" to listOf(
+            "ang", "ng", "sa", "si", "ni", "mga", "ay", "at", "o", "na", "ba", "may", "isang",
+            "ano", "alin", "sino", "paano", "bakit", "kailan", "saan", "ilan", "gaano",
+            "ko", "ako", "akin", "mo", "ikaw", "iyo", "natin", "namin",
+            "sabihin", "ipakita", "ibigay", "ipaliwanag", "ilarawan", "kahulugan", "ibig", "sabihin",
+            "gusto", "malaman", "alam", "pakiusap", "halaga", "tungkol", "nito", "nga", "po",
+            "gawa", "ginagamit", "gamit",
+            "pa", "iba", "ulit", "din", "rin", "susunod", "higit",
+            "i-convert", "convert", "palitan"
+        ),
+        "hi" to listOf(
+            "का", "की", "के", "को", "में", "से", "पर", "और", "या", "है", "हैं", "था", "थी", "थे",
+            "एक", "यह", "वह", "जो", "कि", "भी", "क्या", "कौन", "कौनसा", "कौन सा", "कैसे", "क्यों",
+            "कब", "कहाँ", "कितना", "कितने", "कितनी", "मैं", "मुझे", "मेरा", "आप", "आपका", "हम",
+            "बताओ", "बताइए", "बताएं", "दिखाओ", "दिखाइए", "समझाइए", "समझाओ", "परिभाषा", "मतलब",
+            "अर्थ", "चाहता", "चाहती", "चाहते", "जानना", "कृपया", "मान", "बारे",
+            "बना", "बनता", "उपयोग", "इस्तेमाल",
+            "ज़्यादा", "अधिक", "दूसरा", "दूसरे", "फिर", "अगला", "कुछ",
+            "बदलें", "बदलो", "रूपांतरित"
+        ),
+        "ur" to listOf(
+            "کا", "کی", "کے", "کو", "میں", "سے", "پر", "اور", "یا", "ہے", "ہیں", "تھا", "تھی", "تھے",
+            "ایک", "یہ", "وہ", "جو", "کہ", "بھی", "کیا", "کون", "کونسا", "کون سا", "کیسے", "کیوں",
+            "کب", "کہاں", "کتنا", "کتنے", "کتنی", "میں", "مجھے", "میرا", "آپ", "آپکا", "ہم",
+            "بتائیں", "بتاؤ", "دکھائیں", "دکھاؤ", "سمجھائیں", "تعریف", "مطلب", "معنی",
+            "چاہتا", "چاہتی", "چاہتے", "جاننا", "براہ", "کرم", "قدر", "بارے",
+            "بنا", "بنتا", "استعمال",
+            "مزید", "زیادہ", "دوسرا", "دوسرے", "پھر", "اگلا", "کچھ",
+            "تبدیل"
+        ),
+        "zh" to listOf(
+            "的", "是", "了", "吗", "呢", "吧", "在", "和", "与", "或", "有", "这", "那", "一个",
+            "什么", "哪个", "哪些", "谁", "怎么", "怎样", "如何", "为什么", "什么时候", "哪里",
+            "多少", "几", "我", "你", "您", "我们", "请", "告诉", "显示", "给", "解释", "描述",
+            "定义", "意思", "意味着", "想", "知道", "关于", "一下", "值",
+            "做", "制成", "用", "使用",
+            "更多", "其他", "别的", "还", "再", "也", "下一个",
+            "换算", "转换", "转成", "换成"
+        )
+    )
+
+    /**
      * Localized names for topics that live only in the app's English reference tables.
      *
      * The tables are English — `DatasetIndex` says so — and BM25 is lexical, so a Swedish user
@@ -345,13 +565,68 @@ object Lexicon {
         "constante des gaz" to "gas constant", "constante de los gases" to "gas constant",
         "气体常数" to "gas constant",
         "avogadros tal" to "avogadro", "avogadro zahl" to "avogadro",
-        "numero de avogadro" to "avogadro", "阿伏伽德罗常数" to "avogadro"
+        "numero de avogadro" to "avogadro", "阿伏伽德罗常数" to "avogadro",
+        // The tables' own vocabulary (roadmap 1.1). The rows above are topics; these are the words
+        // a question about *any* row is asked with. ("Convert" is not here: it frames a question
+        // rather than naming what it is about, so it is a stopword.) Without them "was ist die faraday konstante"
+        // covered half its content - "Konstante" is in no English row - and was declined, while
+        // French and Spanish "constante" only matched because the suffix fold happens to leave
+        // "constant". Words that already fold to the English one are left out.
+        "konstante" to "constant", "konstanten" to "constant", "konstant" to "constant",
+        "costante" to "constant", "costanti" to "constant", "konstanta" to "constant",
+        "स्थिरांक" to "constant", "مستقل" to "constant", "常数" to "constant", "常量" to "constant",
+        "formel" to "formula", "formeln" to "formula", "formule" to "formula", "formulas" to "formula",
+        "pormula" to "formula", "सूत्र" to "formula", "फ़ॉर्मूला" to "formula", "فارمولا" to "formula",
+        "公式" to "formula",
+        "gleichung" to "equation", "ekvation" to "equation", "ekvationen" to "equation",
+        "ecuacion" to "equation", "equazione" to "equation", "equacao" to "equation",
+        "vergelyking" to "equation", "ekwasyon" to "equation", "समीकरण" to "equation",
+        "مساوات" to "equation", "方程" to "equation", "方程式" to "equation"
     )
 
     /** Words asking for a median. */
     val MEDIAN = listOf(
         "median", "mediane", "mediana", "medianen", "mediaan", "中位数", "中位",
         "माध्यिका", "وسطی"
+    )
+
+    /**
+     * Words that close a compound whose first part names the property, without changing what is
+     * asked about it (roadmap 1.5): "elektronegativitets**värdet**", "kokpunkts**temperatur**",
+     * "Dichte**unterschied**". `Morphology` splits a compound only into words it knows, and these are
+     * the known words that are neither a field nor a statistic.
+     */
+    val COMPOUND_HEADS = listOf(
+        "varde", "temperatur", "skillnad",
+        "wert", "unterschied", "differenz",
+        "waarde", "temperatuur", "verskil"
+    )
+
+    /**
+     * Adjectives a superlative affix attaches to, and the superlative the lexicon knows each by
+     * (roadmap 1.5). Afrikaans adds -ste ("hardste", "ligste"); Filipino prefixes pinaka-
+     * ("pinakamatigas"), with the linker -ng before a noun. Only the stems that imply a property are
+     * here: "hoogste" and "pinakamataas" say which way, not what, and are listed in [MOST] whole.
+     */
+    val SUPERLATIVE_STEMS: Map<String, String> = mapOf(
+        "hard" to "hardest", "sag" to "softest", "lig" to "lightest", "swaar" to "heaviest",
+        "dig" to "densest", "warm" to "hottest", "elektronegatief" to "most electronegative",
+        "matigas" to "hardest", "malambot" to "softest", "mabigat" to "heaviest",
+        "siksik" to "densest", "masiksik" to "densest", "mainit" to "hottest",
+        "densidad" to "densest", "madensidad" to "densest"
+    )
+
+    /**
+     * Conversational words the speller never corrects (roadmap 1.6), beside the stopwords, the
+     * "yes, go on" words and [DEFER_TO_PERSONALITY]. Reactions and greetings arrive constantly and
+     * name nothing, which makes them the worst possible thing to guess about: "more" became boron
+     * once already (Windows porting notes, D47). Folded, like every other entry.
+     */
+    val NEVER_CORRECTED = listOf(
+        "nice", "cool", "great", "awesome", "amazing", "wonderful", "interesting", "really", "wow",
+        "thanks", "thank", "hello", "goodbye", "love", "good", "fine", "okay", "haha", "lol",
+        "tack", "hej", "bra", "danke", "hallo", "gracias", "hola", "merci", "bonjour", "grazie",
+        "ciao", "obrigado", "obrigada", "dankie", "salamat", "kumusta", "shukriya", "namaste"
     )
 
     /** Leading words that mark a query as a filtered list rather than a lookup. */
@@ -756,6 +1031,21 @@ object Lexicon {
         "onde se encontra" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
         "dove si trova" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
         "丰度" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+
+        // The phrasing each language's own "Where is %1$s found?" suggestion chip uses. Six of
+        // the twelve had no entry that could match it, so tapping the chip was declined in
+        // Portuguese, Hindi, Urdu, Chinese, Afrikaans and Filipino. Portuguese puts the element
+        // between "onde" and the participle, so the participle carries it.
+        "encontrado" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "encontrada" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "कहाँ मिलता" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "कहां मिलता" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "کہاں پایا" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "在哪里找到" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "哪里找到" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "waar kom" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "saan matatagpuan" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
+        "matatagpuan" to com.jlindemann.science.ai.data.FieldCategory.ABUNDANCE,
         "propiedades termicas" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
         "proprieta termiche" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
         "propriedades termicas" to com.jlindemann.science.ai.data.FieldCategory.THERMO,
@@ -785,7 +1075,10 @@ object Lexicon {
         "isotopi", "tempo di dimezzamento", "decadimento",
         "isotopos", "meia-vida", "decaimento",
         "isotoop", "halfleeftyd", "isotopo", "kalahating buhay",
-        "समस्थानिक", "अर्ध आयु", "آاइسوٹوپ", "نصف زندگی",
+        "समस्थानिक", "अर्ध आयु",
+        // The word Urdu's own "Isotopes of %1$s" chip uses; the list had only the
+        // transliteration, so the chip named something the planner could not find.
+        "ہم جا", "ہم جاء", "آاइسوٹوپ", "نصف زندگی",
         "同位素", "半衰期", "衰变",
         // "How long does plutonium 239 last" is a half-life question that never says "half-life".
         // The frame is what carries it; the query resolved no field and was declined outright.
@@ -854,7 +1147,28 @@ object Lexicon {
         "percentage composition", "percent composition", "composition of", "mass percent",
         "percentage of", "made up of", "sammansattning", "zusammensetzung",
         "composicion", "composition", "composizione", "composicao", "samestelling",
-        "komposisyon", "संघटन", "ترکیب", "组成", "百分比组成"
+        "komposisyon", "संघटन", "ترکیب", "组成", "百分比组成",
+        // One element's share, "mass percent of oxygen in water" (roadmap 2.8).
+        "percent by mass", "percentage by mass", "mass percentage", "mass fraction", "masshalt",
+        "massprocent", "viktprocent", "massenanteil", "massenprozent", "porcentaje en masa",
+        "pourcentage massique", "pourcentage en masse", "percentuale in massa", "porcentagem em massa",
+        "percentagem em massa", "massapercentage", "massaprocent", "porsyento ayon sa masa",
+        "द्रव्यमान प्रतिशत", "کمیتی فیصد", "质量分数", "质量百分比"
+    )
+
+    /** Words asking for an empirical formula, the simplest whole-number ratio (roadmap 2.8). */
+    val EMPIRICAL_WORDS = listOf(
+        "empirical formula", "simplest formula", "empirisk formel", "enklaste formel",
+        "empirische formel", "verhaltnisformel", "formula empirica", "formule empirique",
+        "formula minima", "empirische formule", "empirikal na pormula", "pinakasimpleng pormula",
+        "मूलानुपाती सूत्र", "आनुभविक सूत्र", "تجربی فارمولا", "سادہ ترین فارمولا", "最简式", "实验式"
+    )
+
+    /** Words asking for a molecular formula, which needs a molar mass beside the ratio (roadmap 2.8). */
+    val MOLECULAR_FORMULA_WORDS = listOf(
+        "molecular formula", "molekylformel", "summenformel", "molekularformel", "formula molecular",
+        "formule moleculaire", "formula molecolare", "molecuulformule", "molekular na pormula",
+        "आण्विक सूत्र", "आणविक सूत्र", "سالمی فارمولا", "分子式"
     )
 
     /** Words asking about neutron counts. */
@@ -871,17 +1185,143 @@ object Lexicon {
         "moli", "mols", "mole di", "atomi in", "atomos em", "atome in"
     )
 
-    /** Compounds users name in words rather than writing the formula. */
+    /**
+     * Compounds users name in words rather than writing the formula, and that are not a cation
+     * followed by an anion: molecules, acids and household names. Salts are not listed here; they
+     * are composed from [ANION_NAMES] and the element names (roadmap 1.2), see
+     * `EntityResolver.scanCompounds`.
+     */
     val COMMON_COMPOUNDS: Map<String, String> = mapOf(
         "water" to "H2O", "vatten" to "H2O", "wasser" to "H2O", "agua" to "H2O",
-        "eau" to "H2O", "acqua" to "H2O", "水" to "H2O",
+        "eau" to "H2O", "acqua" to "H2O", "tubig" to "H2O", "पानी" to "H2O", "پانی" to "H2O",
+        "水" to "H2O",
         "carbon dioxide" to "CO2", "koldioxid" to "CO2", "kohlendioxid" to "CO2",
-        "table salt" to "NaCl", "salt" to "NaCl", "koksalt" to "NaCl",
-        "sulfuric acid" to "H2SO4", "svavelsyra" to "H2SO4", "schwefelsaure" to "H2SO4",
-        "ammonia" to "NH3", "ammoniak" to "NH3",
-        "methane" to "CH4", "metan" to "CH4",
-        "glucose" to "C6H12O6", "glukos" to "C6H12O6",
-        "hydrochloric acid" to "HCl", "saltsyra" to "HCl"
+        "kohlenstoffdioxid" to "CO2", "dioxido de carbono" to "CO2", "dioxyde de carbone" to "CO2",
+        "anidride carbonica" to "CO2", "biossido di carbonio" to "CO2", "koolstofdioksied" to "CO2",
+        "कार्बन डाइऑक्साइड" to "CO2", "کاربن ڈائی آکسائیڈ" to "CO2", "二氧化碳" to "CO2",
+        "carbon monoxide" to "CO", "kolmonoxid" to "CO", "kohlenmonoxid" to "CO",
+        "kohlenstoffmonoxid" to "CO", "monoxido de carbono" to "CO", "monoxyde de carbone" to "CO",
+        "monossido di carbonio" to "CO", "koolstofmonoksied" to "CO", "一氧化碳" to "CO",
+        "sulfur dioxide" to "SO2", "sulphur dioxide" to "SO2", "svaveldioxid" to "SO2",
+        "schwefeldioxid" to "SO2", "二氧化硫" to "SO2",
+        "nitrogen dioxide" to "NO2", "kvavedioxid" to "NO2", "stickstoffdioxid" to "NO2",
+        "二氧化氮" to "NO2",
+        "hydrogen peroxide" to "H2O2", "vateperoxid" to "H2O2", "wasserstoffperoxid" to "H2O2",
+        "peroxido de hidrogeno" to "H2O2", "peroxyde d hydrogene" to "H2O2",
+        "perossido di idrogeno" to "H2O2", "peroxido de hidrogenio" to "H2O2", "过氧化氢" to "H2O2",
+        "table salt" to "NaCl", "salt" to "NaCl", "koksalt" to "NaCl", "bordssalt" to "NaCl",
+        "kochsalz" to "NaCl", "speisesalz" to "NaCl", "sal de mesa" to "NaCl", "sel de table" to "NaCl",
+        "sale da cucina" to "NaCl", "sal de cozinha" to "NaCl", "tafelsout" to "NaCl", "食盐" to "NaCl",
+        "baking soda" to "NaHCO3", "bakpulver" to "NaHCO3", "natron" to "NaHCO3",
+        "bicarbonato de sodio" to "NaHCO3", "bicarbonate de soude" to "NaHCO3",
+        "bicarbonato di sodio" to "NaHCO3", "sodium bicarbonate" to "NaHCO3", "小苏打" to "NaHCO3",
+        "sulfuric acid" to "H2SO4", "sulphuric acid" to "H2SO4", "svavelsyra" to "H2SO4",
+        "schwefelsaure" to "H2SO4", "acido sulfurico" to "H2SO4", "acide sulfurique" to "H2SO4",
+        "acido solforico" to "H2SO4", "swaelsuur" to "H2SO4",
+        "nitric acid" to "HNO3", "salpetersyra" to "HNO3", "salpetersaure" to "HNO3",
+        "acido nitrico" to "HNO3", "acide nitrique" to "HNO3", "硝酸" to "HNO3",
+        "hydrochloric acid" to "HCl", "saltsyra" to "HCl", "salzsaure" to "HCl",
+        "acido clorhidrico" to "HCl", "acide chlorhydrique" to "HCl", "acido cloridrico" to "HCl",
+        "soutsuur" to "HCl", "盐酸" to "HCl",
+        "ammonia" to "NH3", "ammoniak" to "NH3", "amoniaco" to "NH3", "ammoniac" to "NH3",
+        "ammoniaca" to "NH3", "amonia" to "NH3", "氨" to "NH3",
+        "methane" to "CH4", "metan" to "CH4", "methan" to "CH4", "metano" to "CH4", "metaan" to "CH4",
+        "甲烷" to "CH4",
+        "ethanol" to "C2H6O", "etanol" to "C2H6O", "etanolo" to "C2H6O", "乙醇" to "C2H6O",
+        "glucose" to "C6H12O6", "glukos" to "C6H12O6", "glucosa" to "C6H12O6",
+        "glucosio" to "C6H12O6", "glicose" to "C6H12O6", "glukose" to "C6H12O6", "葡萄糖" to "C6H12O6",
+        "sucrose" to "C12H22O11", "sackaros" to "C12H22O11", "saccharose" to "C12H22O11",
+        "sacarosa" to "C12H22O11", "saccarosio" to "C12H22O11", "sacarose" to "C12H22O11",
+        "蔗糖" to "C12H22O11"
+    )
+
+    /**
+     * Anion names, in every language, to the ion they name (roadmap 1.2). A salt is named as a
+     * cation and one of these - "sodium chloride", "natriumklorid", "cloruro de sodio", "氯化钠" -
+     * and the formula follows from the two charges, so the salts themselves are not listed. The
+     * Han entries are the prefix a salt's name opens with (氯化 in 氯化钠), not a word of their own.
+     */
+    val ANION_NAMES: Map<String, String> = mapOf(
+        "chloride" to "Cl^-", "klorid" to "Cl^-", "chlorid" to "Cl^-", "chloried" to "Cl^-",
+        "cloruro" to "Cl^-", "chlorure" to "Cl^-", "cloreto" to "Cl^-", "klorido" to "Cl^-",
+        "क्लोराइड" to "Cl^-", "کلورائیڈ" to "Cl^-", "氯化" to "Cl^-",
+        "bromide" to "Br^-", "bromid" to "Br^-", "bromied" to "Br^-", "bromuro" to "Br^-",
+        "bromure" to "Br^-", "brometo" to "Br^-", "bromido" to "Br^-", "ब्रोमाइड" to "Br^-",
+        "برومائیڈ" to "Br^-", "溴化" to "Br^-",
+        "iodide" to "I^-", "jodid" to "I^-", "iodid" to "I^-", "jodied" to "I^-", "yoduro" to "I^-",
+        "iodure" to "I^-", "ioduro" to "I^-", "iodeto" to "I^-", "iodido" to "I^-",
+        "आयोडाइड" to "I^-", "آیوڈائیڈ" to "I^-", "碘化" to "I^-",
+        "fluoride" to "F^-", "fluorid" to "F^-", "fluoried" to "F^-", "fluoruro" to "F^-",
+        "fluorure" to "F^-", "fluoreto" to "F^-", "fluorido" to "F^-", "फ्लोराइड" to "F^-",
+        "فلورائیڈ" to "F^-", "氟化" to "F^-",
+        "oxide" to "O^2-", "oxid" to "O^2-", "oksied" to "O^2-", "oxido" to "O^2-", "oxyde" to "O^2-",
+        "ossido" to "O^2-", "oksido" to "O^2-", "ऑक्साइड" to "O^2-", "آکسائیڈ" to "O^2-",
+        "氧化" to "O^2-",
+        "sulfide" to "S^2-", "sulphide" to "S^2-", "sulfid" to "S^2-", "sulfied" to "S^2-",
+        "sulfuro" to "S^2-", "sulfure" to "S^2-", "solfuro" to "S^2-", "sulfeto" to "S^2-",
+        "sulpido" to "S^2-", "सल्फाइड" to "S^2-", "سلفائیڈ" to "S^2-", "硫化" to "S^2-",
+        "hydroxide" to "OH^-", "hydroxid" to "OH^-", "hidroksied" to "OH^-", "hidroxido" to "OH^-",
+        "hydroxyde" to "OH^-", "idrossido" to "OH^-", "haydroksayd" to "OH^-",
+        "हाइड्रॉक्साइड" to "OH^-", "ہائیڈرو آکسائیڈ" to "OH^-", "氢氧化" to "OH^-",
+        "sulfate" to "SO4^2-", "sulphate" to "SO4^2-", "sulfat" to "SO4^2-", "sulfaat" to "SO4^2-",
+        "sulfato" to "SO4^2-", "solfato" to "SO4^2-", "sulpate" to "SO4^2-", "सल्फेट" to "SO4^2-",
+        "سلفیٹ" to "SO4^2-", "硫酸" to "SO4^2-",
+        "sulfite" to "SO3^2-", "sulphite" to "SO3^2-", "sulfit" to "SO3^2-", "sulfiet" to "SO3^2-",
+        "sulfito" to "SO3^2-", "solfito" to "SO3^2-", "सल्फाइट" to "SO3^2-", "سلفائٹ" to "SO3^2-",
+        "亚硫酸" to "SO3^2-",
+        "carbonate" to "CO3^2-", "karbonat" to "CO3^2-", "carbonat" to "CO3^2-",
+        "karbonaat" to "CO3^2-", "carbonato" to "CO3^2-", "karbonato" to "CO3^2-",
+        "कार्बोनेट" to "CO3^2-", "کاربونیٹ" to "CO3^2-", "碳酸" to "CO3^2-",
+        "nitrate" to "NO3^-", "nitrat" to "NO3^-", "nitraat" to "NO3^-", "nitrato" to "NO3^-",
+        "नाइट्रेट" to "NO3^-", "نائٹریٹ" to "NO3^-", "硝酸" to "NO3^-",
+        "phosphate" to "PO4^3-", "fosfat" to "PO4^3-", "phosphat" to "PO4^3-", "fosfaat" to "PO4^3-",
+        "fosfato" to "PO4^3-", "pospeyt" to "PO4^3-", "फॉस्फेट" to "PO4^3-", "فاسفیٹ" to "PO4^3-",
+        "磷酸" to "PO4^3-",
+        "chromate" to "CrO4^2-", "kromat" to "CrO4^2-", "chromat" to "CrO4^2-",
+        "chromaat" to "CrO4^2-", "cromato" to "CrO4^2-", "铬酸" to "CrO4^2-",
+        "acetate" to "CH3CO2^-", "acetat" to "CH3CO2^-", "asetaat" to "CH3CO2^-",
+        "acetato" to "CH3CO2^-", "asetat" to "CH3CO2^-", "एसीटेट" to "CH3CO2^-",
+        "ایسیٹیٹ" to "CH3CO2^-", "乙酸" to "CH3CO2^-", "醋酸" to "CH3CO2^-",
+        "silicate" to "SiO3^2-", "silikat" to "SiO3^2-", "silikaat" to "SiO3^2-",
+        "silicato" to "SiO3^2-", "सिलिकेट" to "SiO3^2-", "سلیکیٹ" to "SiO3^2-", "硅酸" to "SiO3^2-"
+    )
+
+    /** The word between anion and cation where a language writes one: "cloruro de sodio". */
+    val COMPOUND_CONNECTORS = listOf("de", "d", "di", "do", "da")
+
+    /**
+     * The charge a metal's ion carries when a salt's name does not say, for the metals that have
+     * one common charge. A metal with several (iron, tin, chromium) is absent: "iron oxide" is still
+     * recognised as a compound, so it is not answered as iron, but it has no formula unless the
+     * name gives the charge - "iron(III) chloride".
+     */
+    val CATION_CHARGES: Map<String, String> = mapOf(
+        "hydrogen" to "1", "lithium" to "1", "sodium" to "1", "potassium" to "1", "rubidium" to "1",
+        "caesium" to "1", "silver" to "1",
+        "beryllium" to "2", "magnesium" to "2", "calcium" to "2", "strontium" to "2", "barium" to "2",
+        "zinc" to "2", "cadmium" to "2", "nickel" to "2", "copper" to "2", "lead" to "2",
+        "cobalt" to "2", "mercury" to "2",
+        "aluminium" to "3"
+    )
+
+    /** Ammonium, the one cation in a salt's name that is not an element. */
+    val AMMONIUM_NAMES = listOf(
+        "ammonium", "amonio", "ammonio", "amonyum", "अमोनियम", "امونیم", "铵"
+    )
+
+    /** Words asking for a compound's formula, which its composition answers. */
+    val FORMULA_WORDS = listOf(
+        "formula", "chemical formula", "formel", "kemisk formel", "chemische formel", "formula quimica",
+        "formule", "formule chimique", "formula chimica", "formula quimica", "chemiese formule",
+        "pormula", "सूत्र", "فارمولا", "化学式", "分子式"
+    )
+
+    /** Words asking whether something dissolves. */
+    val SOLUBILITY_WORDS = listOf(
+        "soluble", "solubility", "insoluble", "dissolve", "dissolves", "loslig", "losligt", "losliga",
+        "loslighet", "olosligt", "loslich", "loslichkeit", "unloslich", "solubilidad", "solubilite",
+        "solubile", "solubilita", "insolubile", "soluvel", "solubilidade", "insoluvel", "oplosbaar",
+        "oplosbaarheid", "natutunaw", "घुलनशील", "घुलनशीलता", "حل پذیر", "溶解", "可溶", "难溶", "不溶"
     )
 
     /** Openers marking a question as asking for an explanation rather than a value. */
@@ -1185,7 +1625,7 @@ object Lexicon {
     )
 
     /** Words selecting every metal, regardless of which metal series. */
-    val METAL_WORDS = listOf("metal", "metals", "metall", "metaller", "metalle", "metales", "metaux", "metalli", "metais", "金属")
+    val METAL_WORDS = listOf("metal", "metals", "metall", "metaller", "metalle", "metales", "metaux", "metalli", "metais", "metaal", "metale", "金属")
 
     val BLOCK_WORDS: Map<String, Block> = mapOf(
         "s-block" to Block.S, "s block" to Block.S,
@@ -1299,6 +1739,115 @@ object Lexicon {
         "कितना अधिक", "कितना ज्यादा", "अंतर",
         "کتنا زیادہ", "فرق",
         "相差", "相差多少", "差多少"
+    )
+
+    /**
+     * Asking how a field runs across a set of elements (roadmap 2.3): "across period 3", "down group
+     * 1", "the trend in". Folded, like every vocabulary here.
+     */
+    val TREND_WORDS = listOf(
+        "trend", "trends", "across", "down group", "down the group", "down a group", "vary", "varies",
+        "variation", "change across", "change down", "changes across", "changes down",
+        "trenden", "genom perioden", "over perioden", "nedat i gruppen", "varierar", "forandras",
+        "verlauf", "entlang", "uber die periode", "in der gruppe nach unten", "variiert", "andert sich",
+        "tendance", "evolution", "a travers", "le long de", "en descendant", "varie",
+        "tendencia", "a lo largo", "a traves", "al bajar", "evolucion",
+        "tendenza", "andamento", "lungo il", "lungo la", "attraverso", "scendendo",
+        "ao longo", "atraves", "descendo", "evolucao",
+        "tendens", "neiging", "oor die periode", "deur die periode", "af in die groep", "wissel", "verander",
+        "takbo", "pababa sa grupo", "nagbabago",
+        "प्रवृत्ति", "रुझान", "बदलता", "बदलती",
+        "رجحان", "رحجان", "تبدیلی",
+        "趋势", "变化", "规律"
+    )
+
+    /**
+     * Which way a "why" question reads the table, for picking the explanation of a trend (roadmap
+     * 2.4): down a group, or across a period. Folded.
+     */
+    val EXPLAIN_DOWN_WORDS = listOf(
+        "down a group", "down the group", "down group", "down a column", "going down", "in a group",
+        "in the group", "nedat i en grupp", "nedat i gruppen", "i en grupp", "i gruppen",
+        "in einer gruppe", "in der gruppe", "nach unten", "dans un groupe", "dans le groupe", "en descendant", "vers le bas",
+        "le long du groupe", "le long d un groupe", "le long dun groupe",
+        "en un grupo", "en el grupo", "al bajar", "in un gruppo", "nel gruppo", "scendendo",
+        "em um grupo", "num grupo", "no grupo", "descendo", "in 'n groep", "in n groep", "in die groep",
+        "af in", "sa isang grupo", "sa grupo", "pababa", "समूह में", "گروپ میں", "同族", "族中", "从上到下"
+    )
+
+    /** See [EXPLAIN_DOWN_WORDS]. */
+    val EXPLAIN_ACROSS_WORDS = listOf(
+        "across a period", "across the period", "across period", "across a row", "left to right",
+        "in a period", "in the period", "over en period", "over perioden", "i en period", "i perioden",
+        "fran vanster till hoger", "in einer periode", "in der periode", "von links nach rechts",
+        "uber die periode", "dans une periode", "dans la periode", "de gauche a droite", "le long",
+        "en un periodo", "en el periodo", "de izquierda a derecha", "in un periodo", "nel periodo",
+        "da sinistra a destra", "em um periodo", "num periodo", "no periodo", "da esquerda para a direita",
+        "oor 'n periode", "oor n periode", "in die periode", "van links na regs", "sa isang period",
+        "sa period", "mula kaliwa pakanan", "आवर्त में", "बाएँ से दाएँ", "دور میں", "بائیں سے دائیں",
+        "同周期", "周期中", "从左到右"
+    )
+
+    /** The ideal gas law by name (roadmap 2.8). Folded. */
+    val GAS_LAW_WORDS = listOf(
+        "ideal gas", "gas law", "pv=nrt", "pv = nrt", "gaslagen", "allmanna gaslagen", "idealgas",
+        "ideales gas", "gasgesetz", "gaz parfait", "loi des gaz", "gas ideal", "ley de los gases",
+        "gas ideale", "legge dei gas", "lei dos gases", "ideale gas", "gaswet", "batas ng gas",
+        "आदर्श गैस", "गैस नियम", "مثالی گیس", "گیس کا قانون", "理想气体", "气体定律",
+        // Asking for the pressure frames it as well: "pressure of 2 mol in 10 L at 300 K" gives
+        // no pressure to see. Three gas quantities are still required, so a conversion is not caught.
+        "pressure", "tryck", "trycket", "druck", "pression", "presion", "pressione", "pressao", "druk",
+        "presyon", "दाब", "دباؤ", "压强", "压力"
+    )
+
+    /** Standard temperature and pressure (roadmap 2.8). Folded. */
+    val STP_WORDS = listOf(
+        "stp", "standard temperature and pressure", "normalforhallanden", "normbedingungen", "cntp", "tpn",
+        "condiciones normales", "condizioni normali", "condicoes normais", "standaardtemperatuur en druk",
+        "मानक ताप और दाब", "معیاری درجہ حرارت اور دباؤ", "标准状况", "标准状态"
+    )
+
+    /** "Configuration" on its own, for "Fe3+ configuration" (roadmap 2.8). Folded. */
+    val CONFIGURATION_WORDS = listOf(
+        "configuration", "config", "konfiguration", "konfigurasie", "configuracion", "configurazione",
+        "configuracao", "kumpigurasyon", "विन्यास", "ترتیب", "排布", "构型"
+    )
+
+    /** Asking for a field over the whole table at once: a heat map (roadmap 2.3). Folded. */
+    val HEATMAP_WORDS = listOf(
+        "heat map", "heatmap", "map of", "across the periodic table", "over the periodic table",
+        "on the periodic table", "across the table",
+        "varmekarta", "over periodiska systemet", "i periodiska systemet",
+        "warmekarte", "im periodensystem", "uber das periodensystem",
+        "carte de chaleur", "dans le tableau periodique", "sur le tableau periodique",
+        "mapa de calor", "en la tabla periodica",
+        "mappa di calore", "nella tavola periodica",
+        "na tabela periodica",
+        "hittekaart", "oor die periodieke tabel",
+        "sa periodic table", "sa buong periodic table",
+        "हीट मैप", "आवर्त सारणी में", "आवर्त सारणी पर",
+        "ہیٹ میپ", "دوری جدول میں",
+        "热图", "热力图", "周期表上"
+    )
+
+    /**
+     * Asking for a calculation's working, step by step (roadmap 2.2): with the calculation, or as
+     * "show the steps" after one. Folded, like every vocabulary here.
+     */
+    val STEPS_WORDS = listOf(
+        "step by step", "show the steps", "show steps", "show me the steps", "show the working",
+        "show your working", "show your work", "show the calculation", "how did you calculate",
+        "steg for steg", "visa stegen", "visa utrakningen", "hur raknade du",
+        "schritt fur schritt", "zeig die schritte", "zeige die schritte", "zeig den rechenweg", "rechenweg",
+        "etape par etape", "montre les etapes", "montre le calcul",
+        "paso a paso", "muestra los pasos", "muestra el calculo",
+        "passo dopo passo", "passo per passo", "mostra i passaggi", "mostra il calcolo",
+        "passo a passo", "mostre os passos", "mostra os passos", "mostre o calculo",
+        "stap vir stap", "wys die stappe", "wys die berekening",
+        "hakbang-hakbang", "ipakita ang mga hakbang", "ipakita ang solusyon",
+        "चरण दर चरण", "चरण दिखाएँ", "चरण दिखाओ",
+        "مرحلہ وار", "مراحل دکھائیں",
+        "一步一步", "逐步", "显示步骤", "计算过程"
     )
 
     /**
@@ -1466,7 +2015,15 @@ object Lexicon {
         "in", "as", "to", "i", "als", "en", "com", "em", "用", "以",
         // Hindi and Urdu are postpositional — "सेल्सियस में" is "celsius in" — and Filipino uses
         // "sa". Without these, a bare unit follow-up resolved nothing at all.
-        "में", "میں", "sa"
+        "में", "میں", "sa",
+        // The prepositions that introduce a conversion *target*. Without these, "omvandla 500 K
+        // till °C" found no target at all, and the sentence was answered as a comparison of
+        // potassium and carbon — the two elements its unit symbols also spell.
+        "till", "a", "para", "zu", "nach", "auf", "su", "naar", "vers", "verso",
+        // Afrikaans "skakel 500 K om na °C". It only counts beside a unit, so Filipino's linker "na"
+        // is not affected; the Afrikaans chip had been answered as potassium against carbon.
+        "na",
+        "成", "为", "到", "换算成", "में बदलें", "میں"
     )
 
     /** Unit names the planner accepts as a conversion target. */
@@ -1479,13 +2036,183 @@ object Lexicon {
         "سیلسیس" to "°C", "فارن ہائیٹ" to "°F", "کیلون" to "K",
         "摄氏度" to "°C", "华氏度" to "°F", "开尔文" to "K",
         "grader celsius" to "°C", "grad celsius" to "°C",
-        "gram per cubic centimetre" to "g/cm³", "g/cm3" to "g/cm³",
-        "kilograms per cubic metre" to "kg/m³", "kg/m3" to "kg/m³",
+        // The degree sign survives normalisation, so "in °F" is matched as written; without it the
+        // one-letter "f" is too short to count, and the F was read as fluorine (roadmap 2.1).
+        "°f" to "°F", "°c" to "°C",
+        // Superscript as well as plain: "kg/m³" is how the app itself writes the unit.
+        "gram per cubic centimetre" to "g/cm³", "g/cm3" to "g/cm³", "g/cm³" to "g/cm³",
+        "kilograms per cubic metre" to "kg/m³", "kg/m3" to "kg/m³", "kg/m³" to "kg/m³",
         "picometre" to "pm", "picometer" to "pm", "pm" to "pm",
         "angstrom" to "Å",
         "gigapascal" to "GPa", "gpa" to "GPa",
         "megapascal" to "MPa", "mpa" to "MPa",
         "electronvolt" to "eV", "ev" to "eV",
-        "kilojoule per mole" to "kJ/mol", "kj/mol" to "kJ/mol"
+        "kilojoule per mole" to "kJ/mol", "kj/mol" to "kJ/mol",
+        // Time, volume, amount and molarity, so "in years" and "in millilitres" reach the same
+        // target-unit path that already makes "in Fahrenheit" work on a property lookup.
+        "second" to "s", "seconds" to "s", "minute" to "min", "minutes" to "min",
+        "hour" to "h", "hours" to "h", "day" to "d", "days" to "d",
+        "year" to "yr", "years" to "yr",
+        "litre" to "L", "litres" to "L", "liter" to "L", "liters" to "L",
+        "millilitre" to "mL", "millilitres" to "mL", "milliliter" to "mL", "milliliters" to "mL",
+        "mole" to "mol", "moles" to "mol", "millimole" to "mmol", "millimoles" to "mmol",
+        "molar" to "M", "millimolar" to "mM"
+    )
+
+    /**
+     * Unit spellings in the scripts the regex scanner cannot reach.
+     *
+     * [com.jlindemann.science.ai.data.UnitConverter.ALIASES] already carries every Latin-script
+     * form, including the Swedish, German, Spanish, French, Italian and Portuguese words. What it
+     * cannot help with is Devanagari, Arabic and Han: the number-plus-unit regex matches an ASCII
+     * letter run, so "११४६० साल" never presents a token for the alias table to fold. These are
+     * looked up by substring instead.
+     */
+    val SCRIPT_UNIT_WORDS: Map<String, String> = mapOf(
+        // Time
+        "सेकंड" to "s", "मिनट" to "min", "घंटे" to "h", "घंटा" to "h", "दिन" to "d",
+        "साल" to "yr", "वर्ष" to "yr",
+        "سیکنڈ" to "s", "منٹ" to "min", "گھنٹے" to "h", "دن" to "d", "سال" to "yr",
+        "秒" to "s", "分钟" to "min", "小时" to "h", "天" to "d", "年" to "yr",
+        // Volume
+        "लीटर" to "L", "मिलीलीटर" to "mL",
+        "لیٹر" to "L", "ملی لیٹر" to "mL",
+        "升" to "L", "毫升" to "mL",
+        // Amount and concentration
+        "मोल" to "mol", "मोलर" to "M",
+        "مول" to "mol", "مولر" to "M",
+        "摩尔" to "mol", "摩尔每升" to "M"
+    )
+
+    /**
+     * Verbs asking for an equation to be balanced.
+     *
+     * A confidence hint only. The arrow is what identifies an equation — a user who writes
+     * "Fe + O2 -> Fe2O3" with no verb at all is asking exactly one thing.
+     */
+    val BALANCE_WORDS = listOf(
+        "balance", "balanced", "balancing", "balansera", "balansera formeln",
+        "ausgleichen", "ausgleich", "gleiche aus", "equilibrar", "balancear", "ajustar",
+        "equilibrer", "equilibrez", "bilanciare", "bilancia", "balanseer",
+        "timbangin", "balansehin", "संतुलित", "संतुलन", "متوازن", "توازن",
+        "配平", "平衡"
+    )
+
+    /** Words framing a question as being about a solution's concentration. */
+    val SOLUTION_WORDS = listOf(
+        "solution", "molarity", "molar concentration", "concentration", "concentrated",
+        "losning", "molaritet", "koncentration",
+        "losung", "molaritat", "konzentration",
+        "solucion", "molaridad", "concentracion", "disolucion",
+        "solution", "molarite", "concentration",
+        "soluzione", "molarita", "concentrazione",
+        "solucao", "molaridade", "concentracao",
+        "oplossing", "molariteit", "konsentrasie",
+        "solusyon", "konsentrasyon",
+        "विलयन", "घोल", "मोलरता", "सांद्रता",
+        "محلول", "مولرتا", "ارتکاز",
+        "溶液", "摩尔浓度", "浓度"
+    )
+
+    /** Words framing a question as a dilution. */
+    val DILUTION_WORDS = listOf(
+        "dilute", "diluted", "dilution", "water down",
+        "spada", "spadning", "utspadd",
+        "verdunnen", "verdunnung",
+        "diluir", "dilucion", "diluida",
+        "diluer", "dilution",
+        "diluire", "diluizione",
+        "diluicao", "verdun",
+        "lawin", "palabnawin",
+        "तनुकरण", "पतला",
+        "تخفیف", "پتلا",
+        "稀释"
+    )
+
+    /** Words asking how much of a sample is left after decay. */
+    val REMAINS_WORDS = listOf(
+        "remain", "remains", "remaining", "left", "left over", "is left",
+        "kvar", "aterstar", "blir kvar",
+        "ubrig", "bleibt ubrig", "verbleibt",
+        "queda", "quedan", "restante", "sobra",
+        "reste", "restant", "il reste",
+        "rimane", "rimanente", "resta",
+        "resta", "restante", "sobra",
+        "oor", "bly oor",
+        "natitira", "matitira",
+        "बचेगा", "बचता", "शेष",
+        "باقی", "بچے گا",
+        "剩下", "剩余", "还剩"
+    )
+
+    /**
+     * The nine in-app tools the assistant can point at, and the words that name them.
+     *
+     * Lives here rather than in `strings.xml` because it is vocabulary, not display text: the same
+     * reason every other multilingual word list in the assistant is Kotlin. Splitting keywords into
+     * resources and answers into resources would look tidier and leave nothing tying a feature's
+     * twelve spellings to the paragraph they resolve to.
+     */
+    val APP_FEATURE_WORDS: Map<String, List<String>> = mapOf(
+        "nuclide_table" to listOf(
+            "nuclide", "nuclides", "table of nuclides", "isotope table", "chart of nuclides",
+            "nuklid", "nuklider", "nuklidkarta", "nuklidkarte", "nuclido", "nuclidos",
+            "nucleide", "nuclide", "nuclidi", "nuclideo", "nuklied",
+            "न्यूक्लाइड", "نیوکلائیڈ", "核素", "核素表"
+        ),
+        "emission_spectrum" to listOf(
+            "emission spectrum", "emission spectra", "spectral line", "spectrum viewer",
+            "emissionsspektrum", "spektrum", "espectro de emision", "espectro",
+            "spectre d emission", "spettro di emissione", "espectro de emissao",
+            "emissiespektrum", "spektro",
+            "उत्सर्जन स्पेक्ट्रम", "اخراجی طیف", "发射光谱", "光谱"
+        ),
+        "flashcards" to listOf(
+            "flashcard", "flashcards", "flash card", "study card",
+            "flashkort", "lernkarten", "karteikarten", "tarjetas", "fichas",
+            "cartes memoire", "flashcard", "carte", "cartoes", "flitskaarte",
+            "फ्लैशकार्ड", "فلیش کارڈ", "抽认卡", "记忆卡"
+        ),
+        "achievements" to listOf(
+            "achievement", "achievements", "badge", "badges", "trophy",
+            "prestation", "prestationer", "erfolge", "abzeichen", "logros", "insignias",
+            "succes", "obiettivi", "conquistas", "prestasies", "tagumpay",
+            "उपलब्धि", "کامیابی", "成就", "徽章"
+        ),
+        "molar_mass" to listOf(
+            "molar mass calculator", "molar mass tool", "mass calculator", "formula calculator",
+            "molmassa", "molmassenrechner", "calculadora de masa molar",
+            "calculateur de masse molaire", "calcolatore di massa molare",
+            "calculadora de massa molar", "molmassa sakrekenaar",
+            "मोलर द्रव्यमान कैलकुलेटर", "مولر ماس کیلکولیٹر", "摩尔质量计算器"
+        ),
+        "unit_converter" to listOf(
+            "unit converter", "convert units", "conversion tool",
+            "enhetsomvandlare", "einheitenumrechner", "conversor de unidades",
+            "convertisseur d unites", "convertitore di unita", "conversor de unidades",
+            "eenheidsomskakelaar", "unit converter",
+            "इकाई परिवर्तक", "یونٹ کنورٹر", "单位换算", "单位转换"
+        ),
+        "ideal_gas" to listOf(
+            "ideal gas", "gas law", "pv nrt",
+            "ideal gas", "idealgas", "gaslag", "gasgesetz", "gas ideal", "ley de los gases",
+            "gaz parfait", "gas perfetto", "gas ideal", "ideale gas",
+            "आदर्श गैस", "مثالی گیس", "理想气体"
+        ),
+        "reaction_balancer" to listOf(
+            "reaction balancer", "balance reactions", "chemical reactions tool",
+            "reaktionsbalanserare", "reaktionsgleichung", "balanceador de reacciones",
+            "equilibreur de reactions", "bilanciatore di reazioni",
+            "balanceador de reacoes", "reaksiebalanseerder",
+            "अभिक्रिया संतुलक", "تعاملات کا توازن", "反应配平", "配平"
+        ),
+        "capabilities" to listOf(
+            "what can you do", "what do you do", "your features", "help me",
+            "vad kan du", "vad kan du gora", "was kannst du", "deine funktionen",
+            "que puedes hacer", "que sabes hacer", "que peux tu faire",
+            "cosa puoi fare", "o que voce pode fazer", "wat kan jy doen",
+            "ano ang kaya mo", "तुम क्या कर सकते हो", "آپ کیا کر سکتے ہیں",
+            "你能做什么", "你会什么"
+        )
     )
 }

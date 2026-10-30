@@ -13,7 +13,6 @@
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:layout_margin="4dp"
-        app:cardElevation="0dp"
         app:cardBackgroundColor="?attr/colorSurfaceVariant"
         app:strokeWidth="0dp"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.MediumComponent">
@@ -85,7 +84,6 @@
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:layout_margin="4dp"
-        app:cardElevation="2dp"
         app:cardBackgroundColor="?attr/colorPrimaryContainer"
         app:strokeWidth="0dp"
         app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.MediumComponent">

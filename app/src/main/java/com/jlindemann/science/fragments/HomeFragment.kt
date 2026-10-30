@@ -27,7 +27,6 @@ import com.jlindemann.science.model.ElementModel
 import com.jlindemann.science.preferences.ElementSendAndLoad
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.ThemePreference
-import com.jlindemann.science.utils.AnalyticsHelper
 import com.jlindemann.science.utils.ElementDataLoader
 import com.jlindemann.science.utils.ToastUtil
 import com.jlindemann.science.utils.Utils

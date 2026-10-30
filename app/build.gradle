@@ -22,8 +22,8 @@ android {
         applicationId "com.jlindemann.science"
         minSdkVersion 24
         targetSdkVersion 36
-        versionCode 224
-        versionName "5.0.1m"
+        versionCode 234
+        versionName "5.2.0m"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             // Ship only 16KB-compatible ABI for native dependencies.
@@ -39,6 +39,13 @@ android {
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        // The element files live in the shared-data submodule (roadmap 0.3), so both apps ship and
+        // test against one copy. `git submodule update --init` after a fresh clone.
+        main.assets.srcDirs += "$rootDir/shared/elements"
+        // Reference-table titles in each language (roadmap 1.3).
+        main.assets.srcDirs += "$rootDir/shared/datasets"
+        // The language detector's trigram model (roadmap 1.4).
+        main.assets.srcDirs += "$rootDir/shared/language"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -61,6 +68,18 @@ android {
             useLegacyPackaging = true
         }
     }
+}
+
+// Which Ask Atomic corpus rows the unit tests run: dev (the everyday gate, default), heldout (the
+// frozen fifth scored at release) or all. `./gradlew :app:testDebugUnitTest -Pcorpus.split=heldout`.
+tasks.withType(Test).configureEach {
+    def split = project.findProperty('corpus.split') ?: 'dev'
+    inputs.property('corpus.split', split)
+    systemProperty 'corpus.split', split
+    // -Pgolden.update=true rewrites the shared golden files from the Kotlin sources.
+    def updateGolden = project.findProperty('golden.update') ?: 'false'
+    inputs.property('golden.update', updateGolden)
+    systemProperty 'golden.update', updateGolden
 }
 
 dependencies {
@@ -87,6 +106,8 @@ dependencies {
     implementation 'com.ernestoyaquello.dragdropswiperecyclerview:drag-drop-swipe-recyclerview:1.2.0'
     implementation 'com.otaliastudios:zoomlayout:1.9.0'
     implementation 'androidx.work:work-runtime-ktx:2.11.0'
+    // ProcessLifecycleOwner, for the foreground/background sync trigger
+    implementation 'androidx.lifecycle:lifecycle-process:2.9.4'
 
     // Firebase BoM (analytics, auth, firestore controlled by BOM)
     implementation platform('com.google.firebase:firebase-bom:33.1.2')

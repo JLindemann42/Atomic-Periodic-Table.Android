@@ -14,8 +14,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.jlindemann.science.R
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -28,10 +26,16 @@ import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.model.UnitCatalog
 import com.jlindemann.science.preferences.MostUsedToolPreference
 import com.jlindemann.science.utils.UnifiedTitleBarController
-import com.jlindemann.science.preferences.ProVersion
+import com.jlindemann.science.sync.FavoriteKind
+import com.jlindemann.science.sync.FavoritesStore
+import com.jlindemann.science.sync.FavoritesSyncManager
+import com.jlindemann.science.utils.EntitlementManager
 import com.jlindemann.science.preferences.ThemePreference
 
 class UnitConversionActivity : BaseActivity() {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.UNIT_CONVERTER
+
     private lateinit var titleBar: UnifiedTitleBarController
     private val unitCategories: Map<String, List<UnitDefinition>> = UnitCatalog.categories
 
@@ -46,7 +50,6 @@ class UnitConversionActivity : BaseActivity() {
 
     private val favorites = mutableListOf<UnitConversionFavorite>()
     private lateinit var favoritesAdapter: FavoriteRecyclerAdapter
-    private val favoritesKey = "unit_favorites"
 
     // Back handling fields (new unified logic used across activities)
     private var backCallback: OnBackPressedCallback? = null
@@ -128,16 +131,16 @@ class UnitConversionActivity : BaseActivity() {
         // Register platform OnBackInvoked callback on Android 14+ to forward gestures to dispatcher
         setBackInterceptionEnabled(true)
 
-        // Check if favorite list should be shown or not (PRO)
-        val proPref = ProVersion(this)
-        val proPrefValue = proPref.getValue()
-        if (proPrefValue == 1) {
+        // Check if favorite list should be shown or not. Any paid tier: PRO, PRO+ or Ultimate - this
+        // used to read the PRO purchase alone, which hid the list from a PRO+ owner.
+        val hasProAccess = EntitlementManager.hasAnyPro(this)
+        if (!hasProAccess) {
             findViewById<RecyclerView>(R.id.favorites_list).visibility = View.INVISIBLE
             findViewById<TextView>(R.id.no_pro_text).visibility = View.VISIBLE
             findViewById<View>(R.id.pro_button_cal).visibility = View.VISIBLE
             findViewById<View>(R.id.add_favorite_button).visibility = View.GONE
         }
-        if (proPrefValue == 100) {
+        if (hasProAccess) {
             findViewById<RecyclerView>(R.id.favorites_list).visibility = View.VISIBLE
             findViewById<TextView>(R.id.no_pro_text).visibility = View.GONE
             findViewById<View>(R.id.pro_button_cal).visibility = View.GONE
@@ -332,42 +335,43 @@ class UnitConversionActivity : BaseActivity() {
                 it.category == category && it.fromUnit == fromUnit &&
                         it.toUnit == toUnit && it.inputValue == value
             }) return
-        favorites.add(favorite)
-        saveFavorites()
-        updateFavoritesList()
-        updateFavoriteButtonState()
+        FavoritesStore.saveUnitConversion(this, favorite)
+        loadFavorites()
     }
 
     private fun removeFavorite(position: Int) {
         if (position < 0 || position >= favorites.size) return
-        favorites.removeAt(position)
-        saveFavorites()
-        updateFavoritesList()
-        updateFavoriteButtonState()
+        FavoritesStore.removeUnitConversion(this, favorites[position])
+        loadFavorites()
     }
 
     private fun updateFavoritesList() {
         favoritesAdapter.notifyDataSetChanged()
     }
 
+    // Favourites live in FavoritesStore, in the same "unit_favorites" JSON list as before, and sync
+    // for PRO, PRO+ and Ultimate users.
     private fun loadFavorites() {
-        val prefs = getSharedPreferences("unit_converter", Context.MODE_PRIVATE)
-        val json = prefs.getString(favoritesKey, null)
-        if (json != null) {
-            val type = object : TypeToken<List<UnitConversionFavorite>>() {}.type
-            val loaded = Gson().fromJson<List<UnitConversionFavorite>>(json, type)
-            favorites.clear()
-            favorites.addAll(loaded)
-            updateFavoritesList()
-        }
+        favorites.clear()
+        favorites.addAll(FavoritesStore.unitConversions(this))
+        updateFavoritesList()
+        updateFavoriteButtonState()
     }
 
-    private fun saveFavorites() {
-        val prefs = getSharedPreferences("unit_converter", Context.MODE_PRIVATE)
-        val editor = prefs.edit()
-        val json = Gson().toJson(favorites)
-        editor.putString(favoritesKey, json)
-        editor.apply()
+    /** A sync brought changes from another device; show them if this screen is open. */
+    private val favoritesChanged: (FavoriteKind) -> Unit = { kind ->
+        if (kind == FavoriteKind.UNIT_CONVERSION) loadFavorites()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FavoritesStore.addListener(favoritesChanged)
+        FavoritesSyncManager.sync(this)
+    }
+
+    override fun onPause() {
+        FavoritesStore.removeListener(favoritesChanged)
+        super.onPause()
     }
 
     private fun isCurrentConversionFavorite(): Boolean {

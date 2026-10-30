@@ -58,12 +58,68 @@ and stronger normalisation over-rewards the short ones.
 | Method | Purpose |
 |:--|:--|
 | `search` | Raw BM25 scores |
-| `searchNormalized` | Divided by the top hit — ordinal only, for threshold comparison |
+| `searchNormalized` | Divided by the top hit — ordinal only, never for a threshold |
+| `coverage` | How much of the query's content each document covers — absolute, for abstaining |
 | `mentionsUnknownTerm` | Is there a term the corpus has never seen? |
 | `sharesTermWithTitle` | Does the query touch a document title? |
 
-The last two support declining. A query containing a term nowhere in the corpus
-is more likely off-topic than poorly matched, and the engine would rather say so.
+### Coverage, and why the dataset fallback uses it (roadmap 1.1)
+
+`searchNormalized` divides by the top hit, so the best result always scores 1.0 and no threshold
+can tell a good match from the least bad one. The dataset fallback used it, and so could never
+abstain: "what is the mass of an electron" was answered from the Pauli exclusion principle, "what
+is the mass of the moon" from atomic mass.
+
+`coverage` divides by the *query* instead. For each document it reports the share of the query's
+content weight (IDF) found anywhere in it, the share found in its title, and how much of the title
+the query names. Three rules make that number honest:
+
+- **Stopwords are removed first** (`Lexicon.STOPWORDS`, English plus the query's language).
+  Reference text is declarative, so "what" appears in two documents of ~800 and outweighed
+  "electron"; IDF alone cannot discount question words. The lists were proposed by
+  `shared/tools/stopword_candidates.py` from the element descriptions and the assistant's own
+  questions, then reviewed: the frequent *domain* words it also proposes ("atomic", "metal") are
+  left out on purpose.
+- **A word the corpus has never seen counts at full weight**, so "what is the nernst equation"
+  cannot be covered by the Arrhenius equation just because both say "equation".
+- **A word is one unit.** The tokenizer emits a surface form and its stem ("joules", "joul"); they
+  count once, covered if either is present, and a Latin word is also tried with one ending removed
+  so "joules" meets a row that says "joule".
+- **A Han bigram across a function character is not a word.** 动能的公式 also yields 能的 and 的公;
+  when no document contains such a bigram it is dropped instead of counting as unknown content.
+
+`QueryPlanner` answers from the best-covered row only if it covers at least
+`MIN_DATASET_COVERAGE` (0.75) of the question, ranks by coverage, title precision, title recall,
+data table before glossary and BM25 last, and for a one-content-word query requires the word to name
+the row's whole title in one of its wordings (`Coverage.namesTitle`). Being *in* the title was not
+enough: "what is the meaning of life" was answered with the half-life equation and "what is light"
+with the speed of light. A formula in brackets is notation, not a word, so "tell me about periclase"
+still finds "Periclase (MgO)". The price is a decline for a one-word question whose answer has a
+longer title - "what is charge", "what is avogadro" - which the margins could not separate from
+"what is speed" (title precision 0.63 and 0.64 against 0.54). The rows carry the words people use for them — anion names on the solubility rows, the base
+unit on unit rows, "formula" on equations, "standard reduction" on the electrode series — and
+`Lexicon.DATASET_GLOSS` translates the tables' own vocabulary ("Konstante", "formule") as well as
+named topics, replacing the foreign words in the search string rather than appending to it.
+
+### Translated titles (roadmap 1.3)
+
+The reference tables are English, so a question in any other language shared no word with the row
+that answers it unless the gloss happened to cover the topic. `shared/datasets/titles_{lang}.tsv`
+holds every row's title in each of the eleven other languages, keyed by the row's canonical key
+(`golden/dataset_keys.tsv`), with other wordings after a `|` — "Fenolftaleína | fenolftaleina".
+`dataset/<table>` rows name the tables themselves ("Poissons tal"), so "poissons tal för sandsten"
+finds the sandstone row by its table's name.
+
+The files are app assets beside the element tables. `KnowledgeStore.overlay` loads the one for its
+language into `LocalizedView.datasetTitles`. `HybridRetriever` gives each row its translated titles
+as `Document.altTitles`, which count as title for coverage — title precision is the best of the
+wordings, since a query names one of them — and appends them and the table's names to the body. An
+ion or electrode row is titled by an element, whose localized name the overlay already has.
+`AnswerComposer` shows the translated title first and the English one beside it, because the row's
+text is still English.
+
+The titles are machine-translated and marked unreviewed; `shared/tools/dataset_titles.py --check`
+verifies every key is present and that numbers, Greek letters and formulas survive translation.
 
 ## `Tokenizer.kt`
 
@@ -95,10 +151,8 @@ folds to ss.
 Shared primitives: `normalizeForLookup`, `splitQueryTokens`, `containsWord` /
 `containsToken`, `levenshtein`, `similarity`.
 
-These were extracted from the original `AIAgentManager` and kept
-behaviour-identical — `WordBoundaryTest` asserts this by reflection, so the
-legacy keyword router and the structured engine cannot drift apart on what
-counts as a word match.
+These were extracted from the old keyword router and kept behaviour-identical;
+`WordBoundaryTest` and `FuzzyMatchTest` pin what counts as a word match.
 
 ## `EntityResolver.kt`
 
@@ -139,9 +193,8 @@ That last part is what makes cross-language resolution work: a German element
 name resolves even when the app is running in English, because all twelve name
 sets are in the alias table regardless of the active language.
 
-The cache is invalidated when the active language changes — `AIAgentManager`
-tracks `cachedEngineLanguage` and `cachedEnginePolicy` and rebuilds the engine
-when either moves.
+Engines are cached per language by `ChatOrchestrator`, which drops them all
+when the entitlements or the offline card policy change.
 
 ## Why lexical retrieval is the right call here
 

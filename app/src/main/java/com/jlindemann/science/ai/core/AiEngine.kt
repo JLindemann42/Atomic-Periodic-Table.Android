@@ -43,12 +43,33 @@ class AiEngine(
      * chat withholds the emission spectrum image exactly where the element screen already does.
      */
     private val cardPolicy: com.jlindemann.science.ai.cards.ChatCardPolicy =
-        com.jlindemann.science.ai.cards.ChatCardPolicy.DEFAULT
+        com.jlindemann.science.ai.cards.ChatCardPolicy.DEFAULT,
+    /** The reviewed explanations for this language (roadmap 2.4); none, for a test that does not need them. */
+    explanations: com.jlindemann.science.ai.data.Explanations = com.jlindemann.science.ai.data.Explanations.EMPTY
 ) {
 
-    private val planner = QueryPlanner(store, datasets, entities, FieldResolver(strings), retriever)
-    private val executor = QueryExecutor(store, datasets, localized, strings, entitlements)
+    private val planner = QueryPlanner(store, datasets, entities, FieldResolver(strings), retriever, explanations)
+    private val executor = QueryExecutor(store, datasets, localized, strings, entitlements, explanations)
     private val composer = AnswerComposer(store, localized, strings, cardPolicy)
+
+    /**
+     * The plan behind the most recent answer, or null when the engine deferred.
+     *
+     * The plan is otherwise discarded inside [answer], which leaves the caller unable to say *what*
+     * the engine understood — the difference between "the engine claimed 80% of questions" and
+     * "the engine claimed 80% of questions and they were nearly all property lookups". Read by the
+     * chat panel for analytics, so it stays a plain property here and this package keeps no
+     * dependency on Firebase.
+     */
+    var lastPlan: QueryPlan? = null
+        private set
+
+    /**
+     * Why the most recent [answer] returned null, or null when it answered. Telemetry only: a
+     * reason, never the question (roadmap 0.7).
+     */
+    var lastDecline: DeclineReason? = null
+        private set
 
     /**
      * Answer a question, or return null to defer.
@@ -56,7 +77,9 @@ class AiEngine(
      * @param state carries the conversation's focus so follow-ups resolve; updated on success
      */
     fun answer(query: String, state: DialogueState): ComposedAnswer? {
-        if (query.isBlank()) return null
+        lastPlan = null
+        lastDecline = null
+        if (query.isBlank()) return null.also { lastDecline = DeclineReason.NO_MATCH }
 
         // A question that asks two things is tried first. The whole query often plans to
         // something — "the density of gold and how does it compare to lead" plans as a
@@ -65,13 +88,15 @@ class AiEngine(
         compoundAnswer(query, state)?.let { return it }
 
         val plan = planner.plan(query, state)
-        if (plan.intent == Intent.UNKNOWN || plan.confidence < planner.threshold) return null
+        if (plan.intent == Intent.UNKNOWN) return null.also { lastDecline = plan.declined ?: DeclineReason.NO_MATCH }
+        if (plan.confidence < planner.threshold) return null.also { lastDecline = DeclineReason.LOW_CONFIDENCE }
 
-        val result = executor.execute(plan) ?: return null
+        val result = executor.execute(plan) ?: return null.also { lastDecline = DeclineReason.NO_RESULT }
         val composed = composer.compose(result, plan)
-        if (composed.text.isBlank()) return null
+        if (composed.text.isBlank()) return null.also { lastDecline = DeclineReason.NO_RESULT }
 
         state.noteAnswer(plan, resultKeys(result))
+        lastPlan = plan
         return composed
     }
 
@@ -92,9 +117,11 @@ class AiEngine(
         val scratch = state.copyOf()
         val answers = ArrayList<ComposedAnswer>(clauses.size)
         val citations = ArrayList<Citation>(clauses.size * 2)
+        var lastClausePlan: QueryPlan? = null
         for (clause in clauses) {
             val plan = planner.plan(clause, scratch)
             if (plan.intent == Intent.UNKNOWN || plan.confidence < planner.threshold) return null
+            lastClausePlan = plan
             val result = executor.execute(plan) ?: return null
             // Bodies only, so the merged answer carries one sources section rather than one
             // after every clause.
@@ -107,6 +134,9 @@ class AiEngine(
         if (answers.size < 2) return null
 
         state.adopt(scratch)
+        // The final clause's plan. A compound answer has no single plan, and the last clause is the
+        // one the conversation is left focused on.
+        lastPlan = lastClausePlan
         return ComposedAnswer(
             text = answers.joinToString("\n\n") { it.text } +
                     composer.citationsFor(citations.distinctBy { it.label to it.source }),
@@ -119,6 +149,15 @@ class AiEngine(
 
     /** Plan without executing. Exposed so tests can assert planning separately from rendering. */
     fun plan(query: String, state: DialogueState): QueryPlan = planner.plan(query, state)
+
+    /**
+     * The plan [answer] would answer [query] with, or null where it would decline - without
+     * answering, and against a copy of [state], so asking changes nothing. Used to offer only the
+     * follow-up chips the engine can answer (roadmap 2.1).
+     */
+    fun wouldAnswer(query: String, state: DialogueState): QueryPlan? =
+        planner.plan(query, state.copyOf())
+            .takeIf { it.intent != Intent.UNKNOWN && it.confidence >= planner.threshold }
 
     /**
      * Run an intent directly against a known element, bypassing query parsing.
@@ -136,6 +175,27 @@ class AiEngine(
             confidence = 1.0
         )
         val result = executor.execute(plan) ?: return null
+        lastPlan = plan
+        return composer.compose(result, plan)
+    }
+
+    /**
+     * One field of one element, rendered exactly as a real lookup would render it — same units,
+     * same citation, same entitlement gate. Used by "tell me more", which chooses the field and
+     * has no question to plan from. Composing the sentence by hand instead would be a second
+     * renderer to keep in step, and would hand out the PRO-gated fields on its list.
+     */
+    fun fieldAnswerFor(elementKey: String, fieldId: String): ComposedAnswer? {
+        val element = store.element(elementKey) ?: return null
+        if (element.value(fieldId).isMissing) return null
+        val plan = QueryPlan(
+            intent = Intent.PROPERTY_LOOKUP,
+            entities = listOf(EntityRef.Element(elementKey)),
+            fieldIds = listOf(fieldId),
+            confidence = 1.0
+        )
+        val result = executor.execute(plan) ?: return null
+        lastPlan = plan
         return composer.compose(result, plan)
     }
 
@@ -156,6 +216,7 @@ class AiEngine(
             confidence = 1.0
         )
         val result = executor.execute(plan) ?: return null
+        lastPlan = plan
         return composer.compose(result, plan)
     }
 
@@ -167,6 +228,9 @@ class AiEngine(
         is ExecutionResult.Property -> listOf(result.element.key)
         is ExecutionResult.Comparison -> result.elements.map { it.key }
         is ExecutionResult.ElementList -> result.results.map { it.element.key }
+        is ExecutionResult.Trend -> result.points.map { it.element.key }
+        is ExecutionResult.Explanation -> result.trend?.points?.map { it.element.key } ?: listOfNotNull(result.ionization?.key)
+        is ExecutionResult.IonConfiguration -> listOf(result.element.key)
         is ExecutionResult.Aggregate -> result.contributors.map { it.element.key }
         is ExecutionResult.Isotopes -> listOf(result.element.key)
         is ExecutionResult.Safety -> listOf(result.element.key)
@@ -180,7 +244,14 @@ class AiEngine(
         // A withheld answer still establishes what the conversation is about, so a follow-up such
         // as "and its density?" resolves against the element the user just asked about.
         is ExecutionResult.Locked -> listOfNotNull(result.element?.key)
+        is ExecutionResult.Decay -> listOf(result.element.key)
+        // A conversion, a balanced equation and a solution calculation are about a number or a
+        // compound, not about an element, so none of them establishes a subject for "and its
+        // density?" to inherit.
         is ExecutionResult.Formula, is ExecutionResult.MoleConversion,
+        is ExecutionResult.UnitConversion, is ExecutionResult.BalancedEquation,
+        is ExecutionResult.SolutionCalc, is ExecutionResult.GasLaw, is ExecutionResult.Ph,
+        is ExecutionResult.EmpiricalFormula, is ExecutionResult.Stoichiometry,
         is ExecutionResult.Dataset, is ExecutionResult.Empty -> emptyList()
     }
 }

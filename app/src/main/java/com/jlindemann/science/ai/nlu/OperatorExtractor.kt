@@ -124,9 +124,11 @@ object OperatorExtractor {
         // ---- Aggregation ------------------------------------------------------------------
         // Suffix-tolerant for the same reason superlatives are: German "durchschnittliche" carries
         // an adjective ending that a word-boundary match misses entirely.
+        // The median first: the Italian and Spanish mean, "media", opens "mediana" and "median", so
+        // "mediandensiteten" was answered with the average.
         val aggregation = when {
-            Lexicon.AVERAGE.any { marksStatistic(query, it) } -> Aggregation.AVG
             Lexicon.MEDIAN.any { marksStatistic(query, it) } -> Aggregation.MEDIAN
+            Lexicon.AVERAGE.any { marksStatistic(query, it) } -> Aggregation.AVG
             Lexicon.SUM.any { mentionsFamily(query, it) } -> Aggregation.SUM
             Lexicon.COUNT.any { mentionsFamily(query, it) } -> Aggregation.COUNT
             else -> Aggregation.NONE
@@ -162,7 +164,12 @@ object OperatorExtractor {
 
         // ---- Negation ---------------------------------------------------------------------
         // "which noble gases are not radioactive" must invert the filter, not drop it.
-        val negated = Lexicon.NEGATIONS.any { query.contains(it) }
+        // A negation written as a word is matched as one. By containment, the Spanish and Italian
+        // "no " was found inside the Filipino "ano " ("what"), so "ano ang pinakamalambot na metal"
+        // ranked the non-metals.
+        val negated = Lexicon.NEGATIONS.any {
+            if (it.endsWith(' ')) TextMatching.containsWord(query, it.trim()) else query.contains(it)
+        }
         val finalSubsets = if (negated) subsets.map { invert(it) } else subsets
 
         return Operators(
@@ -349,9 +356,17 @@ object OperatorExtractor {
         val explicit = Regex("""\btop\s+(\d{1,3})\b""").find(query)?.groupValues?.get(1)?.toIntOrNull()
         if (explicit != null) return explicit.coerceIn(1, 118)
         if (!hasSuperlative) return null
-        // "5 densest nonmetals" — a bare number only counts alongside a superlative.
-        val n = TOP_N.find(query)?.groupValues?.get(1)?.toIntOrNull() ?: return null
+        // "5 densest nonmetals" — a bare number only counts alongside a superlative. And not a number
+        // a period or group has read: "which element in period 3 has the highest electronegativity"
+        // asks for one element, and was answered with the top three (found with roadmap 2.3).
+        val n = TOP_N.find(withoutPeriodOrGroup(query))?.groupValues?.get(1)?.toIntOrNull() ?: return null
         return n.takeIf { it in 2..118 }
+    }
+
+    /** [query] with "period 3", "group 17" and "第3周期" blanked out, for reading a count. */
+    private fun withoutPeriodOrGroup(query: String): String {
+        val words = (PERIOD_WORDS + GROUP_WORDS).joinToString("|") { Regex.escape(it) }
+        return Regex("""(?:$words)\s*\d{1,2}|\d{1,2}\s*(?:$words)""").replace(query, " ")
     }
 
     /** A requested output unit, e.g. "in Fahrenheit". */
