@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ai_panel_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    android:elevation="50000dp"
+    tools:visibility="visible">
+
+    <!-- Scrim Background -->
+    <View
+        android:id="@+id/ai_panel_scrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:alpha="0" />
+
+    <!-- Sliding Panel Content -->
+    <FrameLayout
+        android:id="@+id/ai_panel_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/ai_panel_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="20dp"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="0dp"
+        app:behavior_skipCollapsed="true"
+        app:behavior_fitToContents="false"
+        app:behavior_expandedOffset="82dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <View
+            android:id="@+id/ai_panel_gradient_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ai_full_panel_gradient"
+            android:alpha="0" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="82dp">
+
+            <!-- Header/Drag Handle -->
+            <FrameLayout
+                android:id="@+id/ai_panel_header"
+                android:layout_width="match_parent"
+                android:layout_height="64dp">
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="4dp"
+                    android:layout_gravity="center_horizontal|top"
+                    android:layout_marginTop="8dp"
+                    android:background="?attr/colorOutlineVariant" />
+
+                <ImageView
+                    android:id="@+id/ai_close_btn"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_arrow"
+                    android:rotation="-90"
+                    android:visibility="gone"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
+                <TextView
+                    android:id="@+id/ai_panel_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="7dp"
+                    android:gravity="center"
+                    android:text="@string/ask_atomic"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_ai_mascot" />
+
+                <ImageButton
+                    android:id="@+id/ai_history_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="8dp"
+                    android:padding="12dp"
+                    android:src="@drawable/ic_history"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
+                <ImageButton
+                    android:id="@+id/ai_user_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="8dp"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_account"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
+                <ImageButton
+                    android:id="@+id/ai_new_chat"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="56dp"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_add"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
+
+                <ImageButton
+                    android:id="@+id/ai_language_btn"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="start|center_vertical"
+                    android:layout_marginStart="56dp"
+                    android:padding="12dp"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_language"
+                    app:tint="?attr/colorOnSurfaceVariant" />
+
+            </FrameLayout>
+
+            <!-- Main Content Area with History and Chat -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <!-- Chat Area -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/ai_chat_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="8dp" />
+
+                <!-- History Area (Hidden by default) -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ai_history_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/half_up_toast"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:visibility="gone"
+                    android:elevation="1dp">
+
+                    <TextView
+                        android:id="@+id/history_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:text="Chat History"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/close_history_btn"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_margin="8dp"
+                        android:src="@drawable/ic_arrow"
+                        android:rotation="90"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="?attr/colorOnSurfaceVariant" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/ai_history_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:clipToPadding="false"
+                        android:paddingVertical="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/history_header" />
+
+                    <TextView
+                        android:id="@+id/history_empty_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No history found. Sign in to save chats."
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/history_header" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Loading Indicator -->
+                <ProgressBar
+                    android:id="@+id/ai_loading_indicator"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:elevation="35dp" />
+
+            </FrameLayout>
+
+            <!-- Input Wrapper -->
+            <LinearLayout
+                android:id="@+id/ai_input_wrapper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <HorizontalScrollView
+                    android:id="@+id/ai_suggestions_scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:background="@drawable/toast"
+                    android:backgroundTint="?attr/colorSurface"
+                    android:layout_marginHorizontal="12dp"
+                    android:paddingVertical="8dp"
+                    android:fadingEdgeLength="54dp"
+                    android:fadingEdge="horizontal"
+                    android:fadeScrollbars="true"
+                    android:requiresFadingEdge="horizontal"
+                    android:scrollbars="none"
+                    android:clipToPadding="true"
+                    android:paddingHorizontal="8dp">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/ai_suggestions_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:singleLine="true"
+                        app:chipSpacingHorizontal="8dp" />
+                </HorizontalScrollView>
+
+                <FrameLayout
+                    android:id="@+id/ai_input_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="98dp"
+                    android:layout_marginHorizontal="12dp"
+                    android:layout_marginBottom="24dp"
+                    android:elevation="24dp">
+
+                    <View
+                        android:id="@+id/ai_input_gradient_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/toast"
+                        android:backgroundTint="?attr/colorSurface"
+                        android:alpha="0.85" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="12dp"
+                                android:layout_marginTop="8dp"
+                                android:textSize="12sp"
+                                android:paddingHorizontal="12dp"
+                                android:paddingVertical="2dp"
+                                android:textStyle="bold"
+                                android:text="@string/ai_beta_badge"
+                                android:background="@drawable/toast"
+                                android:backgroundTint="?attr/colorSecondaryContainer"
+                                android:textColor="?attr/colorOnSecondaryContainer"/>
+
+                            <!--
+                              The counter and, to its left, when the counter refills. A row rather
+                              than two positioned views so the reset chip cannot overlap the count
+                              once it is wider — the reset text is a translated word plus a clock
+                              time, and its width varies by locale and by 12/24-hour setting.
+                            -->
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginHorizontal="12dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/ai_message_limit_reset_view"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="6dp"
+                                    android:background="@drawable/toast"
+                                    android:backgroundTint="?attr/colorSurfaceVariant"
+                                    android:paddingHorizontal="12dp"
+                                    android:paddingVertical="2dp"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:textSize="12sp"
+                                    android:visibility="gone"
+                                    tools:text="Resets 00:00"
+                                    tools:visibility="visible" />
+
+                                <TextView
+                                    android:id="@+id/ai_message_limit_view"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingHorizontal="12dp"
+                                    android:paddingVertical="2dp"
+                                    android:text="0/0"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
+                                    android:background="@drawable/toast"
+                                    android:backgroundTint="?attr/colorSurfaceVariant"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+
+                            </LinearLayout>
+
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="12dp">
+
+                            <EditText
+                                android:id="@+id/ai_message_input"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/rounded_box"
+                                android:backgroundTint="?attr/colorSurfaceVariant"
+                                android:hint="@string/ai_hint"
+                                android:importantForAutofill="no"
+                                android:inputType="textCapSentences|textMultiLine"
+                                android:maxLines="3"
+                                android:minHeight="48dp"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="8dp"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:textColorHint="?attr/colorOnSurfaceVariant"
+                                android:textSize="14sp" />
+
+                            <ImageButton
+                                android:id="@+id/ai_send_btn"
+                                style="?android:attr/borderlessButtonStyle"
+                                android:layout_width="48dp"
+                                android:layout_height="48dp"
+                                android:contentDescription="Send"
+                                android:src="@drawable/ic_send"
+                                app:tint="?attr/colorPrimary" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

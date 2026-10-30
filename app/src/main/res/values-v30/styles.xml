@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">#0856CF</item>
         <item name="colorOnPrimary">#ffffff</item>
         <item name="colorPrimaryContainer">#D9E2FF</item>
@@ -22,7 +22,7 @@
 
         <item name="colorSurfaceVariant">#E2E2EC</item>
         <item name="colorOnSurfaceVariant">#44464E</item>
-        <item name="colorOutline">#75767F</item>
+        <item name="colorOutline">#75767F</item><item name="colorOutlineVariant">#C5C6D0</item>
 
         <item name="backgroundColor">#FEFBFF</item>
         <item name="colorOnBackground">#1B1B1E</item>
@@ -42,7 +42,7 @@
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
     </style>
 
-    <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppThemeDark" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">#b0c5ff</item>
         <item name="colorOnPrimary">#002B76</item>
         <item name="colorPrimaryContainer">#003FA4</item>
@@ -63,7 +63,7 @@
 
         <item name="colorSurfaceVariant">#44464E</item>
         <item name="colorOnSurfaceVariant">#C5C6D0</item>
-        <item name="colorOutline">#8F909A</item>
+        <item name="colorOutline">#8F909A</item><item name="colorOutlineVariant">#44464E</item>
 
         <item name="backgroundColor">#1B1B1E</item>
         <item name="colorOnBackground">#E4E2E6</item>

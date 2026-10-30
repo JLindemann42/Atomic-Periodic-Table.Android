@@ -17,19 +17,13 @@ class ToolAdapter(
 ) : DragDropSwipeAdapter<ToolItem, ToolAdapter.BaseViewHolder>(dataSet) {
 
     private var isReorderMode = false
-    private var headerBindingAction: ((View) -> Unit)? = null
-
-    companion object {
-        private const val TYPE_HEADER = 0
-        private const val TYPE_ITEM = 1
-    }
 
     interface OnToolItemClickListener {
         fun onToolItemClick(item: ToolItem)
     }
 
     fun setHeaderBindingAction(action: (View) -> Unit) {
-        headerBindingAction = action
+        // Legacy support - headers are now handled in Fragment layouts
     }
 
     fun setReorderMode(enabled: Boolean) {
@@ -37,38 +31,27 @@ class ToolAdapter(
         notifyDataSetChanged()
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if (dataSet[position].id == "header") TYPE_HEADER else TYPE_ITEM
-    }
-
-    override fun getViewHolder(itemLayout: View): BaseViewHolder {
-        return BaseViewHolder(itemLayout)
+    override fun getViewHolder(itemView: View): BaseViewHolder {
+        return BaseViewHolder(itemView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
-        return if (viewType == TYPE_HEADER) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.tool_list_header, parent, false)
-            HeaderViewHolder(view)
-        } else {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.tool_list_item, parent, false)
-            ItemViewHolder(view)
-        }
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.tool_list_item, parent, false)
+        return ItemViewHolder(view)
     }
 
     override fun onBindViewHolder(item: ToolItem, viewHolder: BaseViewHolder, position: Int) {
-        if (item.id == "header") {
-            headerBindingAction?.invoke(viewHolder.itemView)
-        } else if (viewHolder is ItemViewHolder) {
+        if (viewHolder is ItemViewHolder) {
             viewHolder.bind(item, clickListener, isReorderMode, context)
         }
     }
 
     override fun canBeDragged(item: ToolItem, viewHolder: BaseViewHolder, position: Int): Boolean {
-        return item.id != "header" && isReorderMode
+        return isReorderMode
     }
 
     override fun canBeDroppedOver(item: ToolItem, viewHolder: BaseViewHolder, position: Int): Boolean {
-        return item.id != "header"
+        return true
     }
 
     override fun canBeSwiped(item: ToolItem, viewHolder: BaseViewHolder, position: Int): Boolean {
@@ -81,9 +64,7 @@ class ToolAdapter(
         } else null
     }
 
-    open class BaseViewHolder(itemView: View) : DragDropSwipeAdapter.ViewHolder(itemView)
-
-    class HeaderViewHolder(itemView: View) : BaseViewHolder(itemView)
+    open class BaseViewHolder(itemView: View) : ViewHolder(itemView)
 
     class ItemViewHolder(itemView: View) : BaseViewHolder(itemView) {
         private val cardView: View = itemView.findViewById(R.id.tool_card)

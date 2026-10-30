@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:elevation="32dp">
+
+    <!-- This is the actual visible panel -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/panel_margin"
+        android:background="@drawable/half_toast"
+        android:backgroundTint="?attr/colorSurface"
+        android:clickable="true"
+        android:focusable="true">
+
+        <FrameLayout
+            android:id="@+id/drag_frame_ion"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:clickable="true"
+            android:elevation="0dp"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="16dp"
+                android:alpha="0.85"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorOnSecondaryContainer"
+                android:elevation="4dp"
+                android:gravity="center_horizontal" />
+        </FrameLayout>
+
+        <ScrollView
+            android:id="@+id/scroll_ion"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_marginTop="36dp"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:paddingBottom="48dp">
+
+                <TextView
+                    android:id="@+id/ion_detail_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Element Ionization"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="24dp" />
+
+                <LinearLayout
+                    android:id="@+id/detail_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Ionization values -->
+                    <TextView android:id="@+id/ion_text_1" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_2" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_3" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_4" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_5" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_6" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_7" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_8" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_9" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_10" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_11" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_12" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_13" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_14" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_15" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_16" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_17" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_18" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_19" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_20" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_21" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_22" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_23" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_24" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_25" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_26" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_27" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_28" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_29" style="@style/IonDetailText" />
+                    <TextView android:id="@+id/ion_text_30" style="@style/IonDetailText" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </FrameLayout>
+
+</FrameLayout>

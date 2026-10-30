@@ -1,91 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:elevation="28dp">
+    android:elevation="32dp">
 
     <TextView
         android:id="@+id/l_background_e"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.4"
+        android:alpha="0.6"
         android:background="#000000"
-        android:visibility="visible" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="360dp"
-        android:background="@drawable/toast"
-        android:backgroundTint="?attr/colorSurface"
-        android:elevation="18dp"
         android:clickable="true"
-        android:focusable="true"
-        android:layout_marginBottom="80dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="36dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:focusable="true" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.11"/>
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        app:cardElevation="12dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:strokeWidth="0dp"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.LargeComponent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <ImageView
-            android:id="@+id/e_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="54dp"
-            android:layout_marginEnd="18dp"
-            app:srcCompat="@drawable/e_density" />
+            android:orientation="vertical"
+            android:padding="20dp">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/e_back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:backgroundTint="@color/transparent"
-            android:elevation="0dp"
-            android:src="@drawable/ic_close"
-            app:tint="?attr/colorPrimary"
-            app:borderWidth="0dp"
-            app:elevation="0dp"
-            app:fabSize="normal" />
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="136dp"
-            android:layout_weight="0.5">
-
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/e_back_btn"
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:icon="@drawable/ic_close"
+                    app:iconTint="?attr/colorOnSurfaceVariant"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/e_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:maxHeight="80dp"
+                android:scaleType="centerInside"
+                app:srcCompat="@drawable/e_density"
+                app:tint="?attr/colorPrimary" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:maxHeight="300dp">
 
                 <TextView
                     android:id="@+id/e_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginTop="9dp"
-                    android:layout_marginEnd="18dp"
-                    android:layout_marginBottom="18dp"
-                    android:alpha="0.7"
-                    android:text="e_text"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </ScrollView>
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="15sp"
+                    android:lineSpacingExtra="4sp" />
+            </ScrollView>
 
-    </FrameLayout>
-
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

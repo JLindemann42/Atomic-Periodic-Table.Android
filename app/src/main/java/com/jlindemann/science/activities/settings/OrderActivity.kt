@@ -5,8 +5,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
@@ -16,9 +14,11 @@ import com.jlindemann.science.activities.BaseActivity
 import com.jlindemann.science.adapter.OrderAdapter
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.ToastUtil
+import com.jlindemann.science.utils.UnifiedTitleBarController
 import java.util.*
 
 class OrderActivity : BaseActivity()  {
+    private lateinit var titleBar: UnifiedTitleBarController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,9 +41,12 @@ class OrderActivity : BaseActivity()  {
         mList.dragListener = onItemDragListener
 
         findViewById<ConstraintLayout>(R.id.view_ord).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-        findViewById<ImageButton>(R.id.back_btn_ord).setOnClickListener {
-            this.onBackPressed()
-        }
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.settings_order_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
     }
 
     private val onItemDragListener = object : OnItemDragListener<String> {
@@ -63,9 +66,9 @@ class OrderActivity : BaseActivity()  {
             0,
             resources.getDimensionPixelSize(R.dimen.title_bar))
 
-        val params2 = findViewById<FrameLayout>(R.id.common_title_back_ord).layoutParams as ViewGroup.LayoutParams
+        val params2 = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_ord).layoutParams = params2
+        titleBar.container.layoutParams = params2
     }
 
 
@@ -73,6 +76,3 @@ class OrderActivity : BaseActivity()  {
 
 
 }
-
-
-

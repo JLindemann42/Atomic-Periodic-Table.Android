@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_ai_quick_ask_widget"
+    android:backgroundTint="@android:color/system_accent1_100"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/ic_widget_ai"
+        android:tint="@android:color/system_accent1_800"
+        android:contentDescription="@null"
+        android:layout_marginEnd="16dp" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/ask_atomic"
+        android:textSize="18sp"
+        android:textColor="@android:color/system_accent1_800"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:alpha="0.8" />
+
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_widget_search"
+        android:tint="@android:color/system_accent1_800"
+        android:contentDescription="@null"
+        android:layout_marginStart="12dp" />
+
+</LinearLayout>

@@ -12,7 +12,7 @@ if len(sys.argv) > 1:
 else:
     repo_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-assets_path = os.path.join(repo_path, "app/src/main/assets")
+assets_path = os.path.join(repo_path, "shared/elements")
 
 # Element file language mapping
 ELEMENT_FILES = {

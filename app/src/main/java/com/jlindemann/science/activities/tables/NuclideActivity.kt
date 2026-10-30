@@ -24,6 +24,7 @@ import org.json.JSONObject
 import java.io.IOException
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.jlindemann.science.activities.IsotopesActivityExperimental
 import com.jlindemann.science.preferences.ElementSendAndLoad
@@ -37,6 +38,9 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class NuclideActivity : BaseActivity() {
+    /** A chat opened here starts with this screen's questions (roadmap 2.9). */
+    override val chatScreen = com.jlindemann.science.ai.chat.Screens.NUCLIDES
+
     private val elementLists = ArrayList<Element>()
     var mScale = 1f
     lateinit var mScaleDetector: ScaleGestureDetector
@@ -170,7 +174,7 @@ class NuclideActivity : BaseActivity() {
     }
 
     private fun setupBackButton() {
-        findViewById<ImageButton>(R.id.nuc_back_btn).setOnClickListener { this.onBackPressed() }
+        findViewById<View>(R.id.nuc_back_btn).setOnClickListener { this.onBackPressed() }
     }
 
     override fun dispatchTouchEvent(event: MotionEvent): Boolean {
@@ -328,7 +332,7 @@ class NuclideActivity : BaseActivity() {
             // update interception after hiding
             setBackInterceptionEnabled(anyOverlayOpen())
         }
-        findViewById<FloatingActionButton>(R.id.nuc_info_close_btn).setOnClickListener {
+        findViewById<MaterialButton>(R.id.nuc_info_close_btn).setOnClickListener {
             closeInfoPanel()
             // update interception after hiding
             setBackInterceptionEnabled(anyOverlayOpen())

@@ -22,7 +22,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="6dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/nickel_number"
@@ -78,7 +78,7 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/palladium_number"
@@ -135,7 +135,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/platinum_number"
@@ -192,7 +192,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/darmstadtium_number"
@@ -248,7 +248,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/europium_number"
@@ -305,7 +305,7 @@
             android:layout_gravity="center"
             android:background="@drawable/element_nodetail"
 
-            android:elevation="1dp" />
+            android:elevation="0dp" />
 
         <TextView
             android:id="@+id/americium_number"

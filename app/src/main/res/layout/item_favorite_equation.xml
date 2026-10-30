@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  A saved equation, as typed above its balanced form.
+
+  Its own row rather than item_favorite_compound: that row sizes both texts to wrap_content and
+  lets them run under the options button, which is fine for "H2O" but not for
+  "KMnO4 + HCl -> KCl + MnCl2 + H2O + Cl2". Here the text column is weighted, so an equation
+  wraps to a second line instead of sliding behind the button.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/toast_outline"
+    android:foreground="@drawable/toast_card_outline_ripple"
+    android:layout_marginBottom="@dimen/margin"
+    android:clickable="true"
+    android:elevation="0dp"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/equation_input_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/equation_balanced_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/options_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="18dp"
+        android:alpha="0.8"
+        android:drawableEnd="@drawable/ic_arrow"
+        android:drawablePadding="4dp"
+        android:drawableTint="?attr/colorTertiary"
+        android:elegantTextHeight="true"
+        android:textColor="?attr/colorTertiary" />
+
+</LinearLayout>

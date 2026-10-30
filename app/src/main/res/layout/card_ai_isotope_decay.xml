@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  A chat answer's visual card.
+
+  Explicit width and height are load-bearing, not styling: the bubble that hosts this is
+  wrap_content, and none of these custom views override onMeasure, so inside a wrap_content parent
+  they would measure to zero and draw nothing at all.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/ai_card_width"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.jlindemann.science.views.IsotopeDecayView
+        android:id="@+id/ai_card_isotope"
+        android:layout_width="@dimen/ai_card_width"
+        android:layout_height="190dp" />
+
+    <TextView
+        android:id="@+id/ai_card_caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        android:textSize="11sp"
+        android:visibility="gone" />
+
+</LinearLayout>

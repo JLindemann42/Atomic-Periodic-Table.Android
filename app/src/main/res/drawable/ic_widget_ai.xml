@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Widget copy of ic_ai_mascot: no theme attributes, and heavier strokes so the
+     orbits stay legible at widget icon sizes. Tinted by the layout instead. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Electron orbits -->
+    <path
+        android:pathData="M 12,12 m -8,0 a 8,8 0 0,1 16,0 a 8,8 0 0,1 -16,0"
+        android:strokeWidth="1.4"
+        android:strokeColor="#FF000000"
+        android:fillColor="@android:color/transparent" />
+
+    <path
+        android:pathData="M 12,12 m -6,0 a 6,6 0 0,1 12,0 a 6,6 0 0,1 -12,0"
+        android:strokeWidth="1.4"
+        android:strokeColor="#FF000000"
+        android:fillColor="@android:color/transparent"
+        android:rotation="60"
+        android:pivotX="12"
+        android:pivotY="12" />
+
+    <!-- Electrons -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M 20,12 m -1.4,0 a 1.4,1.4 0 1,0 2.8,0 a 1.4,1.4 0 1,0 -2.8,0" />
+
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M 4,12 m -1.4,0 a 1.4,1.4 0 1,0 2.8,0 a 1.4,1.4 0 1,0 -2.8,0" />
+
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M 12,20 m -1.4,0 a 1.4,1.4 0 1,0 2.8,0 a 1.4,1.4 0 1,0 -2.8,0" />
+
+    <!-- Nucleus -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M 12,12 m -2,0 a 2,2 0 1,0 4,0 a 2,2 0 1,0 -4,0" />
+
+</vector>

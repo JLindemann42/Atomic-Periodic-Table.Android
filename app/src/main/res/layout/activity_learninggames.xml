@@ -1,313 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/view_learn"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="?attr/backgroundColor">
 
-    <!-- Title bar -->
-    <FrameLayout
-        android:id="@+id/common_title_back_learn"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:elevation="1dp"
-        android:gravity="center|center_vertical"
-        android:orientation="horizontal">
-        <FrameLayout
-            android:id="@+id/common_title_back_learn_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.0"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:orientation="vertical">
-            <FrameLayout
-                android:id="@+id/title_box"
-                android:layout_width="match_parent"
-                android:layout_height="56dp">
-                <ImageButton
-                    android:id="@+id/back_btn_learn"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
-                    android:layout_margin="12dp"
-                    android:layout_gravity="center_vertical"
-                    android:rotation="180"
-                    android:src="@drawable/ic_arrow_back_whit"
-                    android:background="@drawable/bg_round_accent"
-                    android:tint="?attr/colorOnSecondaryContainer" />
-                <TextView
-                    android:id="@+id/learn_title"
-                    android:layout_width="wrap_content"
-                    android:layout_marginStart="70dp"
-                    android:alpha="0.9"
-                    android:layout_height="56dp"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/flashcards_title"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-                <TextView
-                    android:id="@+id/tv_lives_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="5"
-                    android:layout_gravity="center_vertical|end"
-                    android:textSize="20sp"
-                    android:drawableStart="@drawable/ic_heart"
-                    android:drawableTint="?attr/colorError"
-                    android:paddingEnd="24dp"
-                    android:drawablePadding="9dp"
-                    android:textAlignment="center"
-                    android:gravity="center_vertical"
-                    android:textColor="?attr/colorOnSurface"
-                    android:textAppearance="?attr/textAppearanceSubtitle1"
-                    android:textStyle="bold"
-                    android:layout_marginStart="4dp"/>
-            </FrameLayout>
-        </LinearLayout>
-    </FrameLayout>
-
-    <!-- Effect overlay should be under quiz_content for visual stacking -->
     <com.jlindemann.science.views.ScienceBackgroundView
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <ScrollView
+        android:id="@+id/quiz_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
+
+        <LinearLayout
+            android:id="@+id/quiz_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="80dp"
+            android:paddingHorizontal="16dp">
+
+            <TextView
+                android:id="@+id/tv_question_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1/8"
+                android:textSize="16sp"
+                android:textColor="?attr/colorOnSurface"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:id="@+id/tv_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Question text"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"
+                android:gravity="center"
+                android:layout_marginBottom="24dp"/>
+
+            <ProgressBar
+                android:id="@+id/time_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:max="100"
+                android:progress="100"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="12dp" />
+
+            <GridLayout
+                android:id="@+id/grid_answers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="2"
+                android:alignmentMode="alignMargins"
+                android:useDefaultMargins="true"
+                android:layout_gravity="center">
+
+                <!-- ANSWER CARD 1 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/answer_1"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="0dp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium">
+                    <TextView
+                        android:id="@+id/answer_text_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Option 1"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:padding="8dp"/>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- ANSWER CARD 2 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/answer_2"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="0dp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium">
+                    <TextView
+                        android:id="@+id/answer_text_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Option 2"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:padding="8dp"/>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- ANSWER CARD 3 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/answer_3"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="0dp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium">
+                    <TextView
+                        android:id="@+id/answer_text_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Option 3"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:padding="8dp"/>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- ANSWER CARD 4 -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/answer_4"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                    app:cardElevation="2dp"
+                    app:strokeWidth="0dp"
+                    app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium">
+                    <TextView
+                        android:id="@+id/answer_text_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Option 4"
+                        android:textColor="?attr/colorOnSurfaceVariant"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:padding="8dp"/>
+                </com.google.android.material.card.MaterialCardView>
+            </GridLayout>
+
+            <TextView
+                android:id="@+id/tv_lives"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lives: 5"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                android:textColor="?attr/colorError"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Shown while questions are generated off the main thread. -->
+    <LinearLayout
+        android:id="@+id/quiz_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:indeterminate="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/quiz_loading"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:textColor="?attr/colorOnSurface" />
+    </LinearLayout>
+
+    <include
+        android:id="@+id/unified_titlebar_include"
+        layout="@layout/view_unified_titlebar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_lives_count"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="5"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="?attr/colorOnSurface"
+        app:drawableStartCompat="@drawable/ic_heart"
+        app:drawableTint="?attr/colorError"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/unified_titlebar_include"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <FrameLayout
         android:id="@+id/effect_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:elevation="0dp"
+        android:elevation="10dp"
         android:clickable="false"
         android:focusable="false"
         android:visibility="gone" />
 
-    <!-- Result card overlay (shows Correct/Wrong/Lost 1 life between questions) -->
     <FrameLayout
         android:id="@+id/result_card_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        android:gravity="center">
+        android:elevation="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="24dp"
             android:background="@drawable/toast_card"
             android:backgroundTint="?attr/colorSurfaceVariant"
-            android:orientation="vertical"
-            android:padding="32dp"
-            android:layout_margin="24dp"
             android:elevation="8dp"
-            android:layout_gravity="center"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="32dp">
 
             <TextView
                 android:id="@+id/result_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Correct"
-                android:textSize="26sp"
-                android:textColor="?attr/colorOnSurfaceVariant"
-                android:textStyle="bold"
                 android:gravity="center"
-                android:paddingBottom="12dp"/>
+                android:paddingBottom="12dp"
+                android:text="Correct"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/result_subtext"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="?attr/colorAccent"
+                android:gravity="center"
                 android:text=""
-                android:textSize="18sp"
-                android:gravity="center"/>
+                android:textColor="?attr/colorAccent"
+                android:textSize="18sp" />
         </LinearLayout>
     </FrameLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <LinearLayout
-        android:id="@+id/quiz_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="72dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp">
-
-        <TextView
-            android:id="@+id/tv_question_number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1/8"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnSurface"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="8dp"/>
-
-        <TextView
-            android:id="@+id/tv_question"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Question text"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="?attr/colorOnSurface"
-            android:gravity="center"
-            android:layout_marginBottom="24dp"/>
-
-        <!-- Progress bar for timer -->
-        <ProgressBar
-            android:id="@+id/time_progress"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="8dp"
-            android:max="100"
-            android:progress="100"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="12dp" />
-
-        <GridLayout
-            android:id="@+id/grid_answers"
-            android:layout_width="match_parent"
-            android:elevation="1dp"
-            android:layout_height="wrap_content"
-            android:columnCount="2"
-            android:rowCount="2"
-            android:alignmentMode="alignMargins"
-            android:useDefaultMargins="true"
-            android:layout_gravity="center">
-
-            <!-- ANSWER CARD 1 -->
-            <LinearLayout
-                android:id="@+id/answer_1"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:orientation="vertical"
-                android:background="@drawable/card_button_bg"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:gravity="center"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_margin="8dp"
-                android:padding="4dp">
-                <TextView
-                    android:id="@+id/answer_text_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Option 1"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    android:padding="8dp"/>
-            </LinearLayout>
-
-            <!-- ANSWER CARD 2 -->
-            <LinearLayout
-                android:id="@+id/answer_2"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:orientation="vertical"
-                android:background="@drawable/card_button_bg"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:gravity="center"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_margin="8dp"
-                android:padding="4dp">
-                <TextView
-                    android:id="@+id/answer_text_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Option 2"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    android:padding="8dp"/>
-            </LinearLayout>
-
-            <!-- ANSWER CARD 3 -->
-            <LinearLayout
-                android:id="@+id/answer_3"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:orientation="vertical"
-                android:background="@drawable/card_button_bg"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:gravity="center"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_margin="8dp"
-                android:padding="4dp">
-                <TextView
-                    android:id="@+id/answer_text_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Option 3"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    android:padding="8dp"/>
-            </LinearLayout>
-
-            <!-- ANSWER CARD 4 -->
-            <LinearLayout
-                android:id="@+id/answer_4"
-                android:layout_width="0dp"
-                android:layout_height="120dp"
-                android:layout_columnWeight="1"
-                android:layout_rowWeight="1"
-                android:orientation="vertical"
-                android:background="@drawable/card_button_bg"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:gravity="center"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_margin="8dp"
-                android:padding="4dp">
-                <TextView
-                    android:id="@+id/answer_text_4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Option 4"
-                    android:textColor="?attr/colorOnSurfaceVariant"
-                    android:textSize="18sp"
-                    android:gravity="center"
-                    android:padding="8dp"/>
-            </LinearLayout>
-        </GridLayout>
-
-        <TextView
-            android:id="@+id/tv_lives"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lives: 5"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:visibility="invisible"
-            android:textColor="?attr/colorError"
-            android:gravity="center"
-            android:layout_marginTop="24dp"
-            android:layout_gravity="center"/>
-    </LinearLayout>
-    </ScrollView>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

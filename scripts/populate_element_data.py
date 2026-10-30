@@ -666,7 +666,7 @@ def main():
     """Main function to populate element data across all language files."""
     script_dir = os.path.dirname(os.path.abspath(__file__))
     repo_root = os.path.dirname(script_dir)
-    assets_dir = os.path.join(repo_root, "app", "src", "main", "assets")
+    assets_dir = os.path.join(repo_root, "shared", "elements")
     
     # Language files to update
     language_files = [

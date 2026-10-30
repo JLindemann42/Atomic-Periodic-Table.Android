@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:elevation="32dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/panel_margin"
+        android:background="@drawable/half_toast"
+        android:backgroundTint="?attr/colorSurface"
+        android:clickable="true"
+        android:focusable="true">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/half_toast"
+            android:backgroundTint="?attr/colorPrimary"
+            android:alpha="0.11"
+            android:visibility="gone"/>
+
+        <FrameLayout
+            android:id="@+id/drag_frame_equation"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:clickable="true"
+            android:elevation="0dp"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="48dp"
+                android:layout_height="2dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="16dp"
+                android:alpha="0.85"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorOnSecondaryContainer"
+                android:elevation="4dp"
+                android:gravity="center_horizontal" />
+        </FrameLayout>
+
+        <ScrollView
+            android:id="@+id/scroll_equation"
+            android:scrollbarStyle="insideOverlay"
+            android:scrollbars="vertical"
+            android:layout_width="match_parent"
+            android:layout_marginTop="36dp"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp"
+                android:paddingBottom="48dp">
+
+                <ImageView
+                    android:id="@+id/e_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="120dp"
+                    android:scaleType="centerInside"
+                    app:tint="?attr/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/e_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="16sp"
+                    android:lineSpacingExtra="4sp" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </FrameLayout>
+
+</FrameLayout>

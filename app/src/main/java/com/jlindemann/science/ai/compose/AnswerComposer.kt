@@ -1,0 +1,1172 @@
+package com.jlindemann.science.ai.compose
+
+import com.jlindemann.science.R
+import com.jlindemann.science.ai.core.Aggregation
+import com.jlindemann.science.ai.core.Citation
+import com.jlindemann.science.ai.core.ExecutionResult
+import com.jlindemann.science.ai.core.QueryPlan
+import com.jlindemann.science.ai.core.StringProvider
+import com.jlindemann.science.ai.data.FieldRegistry
+import com.jlindemann.science.ai.data.KnowledgeStore
+import com.jlindemann.science.ai.data.LocalizedView
+import com.jlindemann.science.ai.cards.CardSelector
+import com.jlindemann.science.ai.cards.ChatCardPolicy
+import com.jlindemann.science.ai.cards.NfpaLabeller
+import com.jlindemann.science.ai.data.UnitConverter
+
+/**
+ * Rendered answer text, the actions it offers, and the visual that goes with it.
+ *
+ * [card] is defaulted so every existing construction site compiles untouched, and null far more
+ * often than not — most answers have no visual worth adding.
+ */
+data class ComposedAnswer(
+    val text: String,
+    val actions: List<ChatAction>,
+    val card: com.jlindemann.science.ai.cards.ChatCard? = null
+)
+
+/**
+ * Turns an [ExecutionResult] into the markdown the chat adapter can actually render.
+ *
+ * The renderer supports only `###` headings and `**bold**`, so the vocabulary here is headings,
+ * literal `• ` bullets and emphasis. Links are not renderable at all, which is why citations
+ * become tappable action chips instead of inline URLs.
+ */
+class AnswerComposer(
+    private val store: KnowledgeStore,
+    private val localized: LocalizedView?,
+    private val strings: StringProvider,
+    /**
+     * Runtime switches for the visual cards — offline mode, Pro gating, minimum data thresholds.
+     * Defaulted so every existing construction site compiles untouched.
+     */
+    private val cardPolicy: ChatCardPolicy = ChatCardPolicy.DEFAULT
+) {
+
+    /**
+     * Render without the sources block.
+     *
+     * A compound answer composes each clause separately and then emits one merged Sources
+     * section, rather than repeating the heading after every part.
+     */
+    fun composeBody(result: ExecutionResult, plan: QueryPlan): ComposedAnswer =
+        compose(result, plan, includeCitations = false)
+
+    fun compose(result: ExecutionResult, plan: QueryPlan): ComposedAnswer =
+        compose(result, plan, includeCitations = true)
+
+    private fun compose(
+        result: ExecutionResult,
+        plan: QueryPlan,
+        includeCitations: Boolean
+    ): ComposedAnswer {
+        val body = when (result) {
+            is ExecutionResult.Property -> property(result)
+            is ExecutionResult.Comparison -> comparison(result) + uncoveredAspects(plan)
+            is ExecutionResult.ElementList -> elementList(result, plan)
+            is ExecutionResult.Aggregate -> aggregate(result)
+            is ExecutionResult.Formula -> formula(result) + steps(plan) { workings.formula(result.result) }
+            is ExecutionResult.Comparative -> comparative(result)
+            is ExecutionResult.Neighbour -> neighbour(result)
+            is ExecutionResult.Nuclide -> nuclide(result)
+            is ExecutionResult.IsotopeComparison -> isotopeComparison(result)
+            is ExecutionResult.MoleConversion -> moleConversion(result) + steps(plan) { workings.moles(result) }
+            is ExecutionResult.UnitConversion -> unitConversion(result)
+            is ExecutionResult.BalancedEquation ->
+                stepsInstead(plan, { balancedEquation(result, it) }) { workings.balance(result) }
+            is ExecutionResult.SolutionCalc ->
+                stepsInstead(plan, { solutionCalc(result, it) }) { workings.solution(result) }
+            is ExecutionResult.Decay -> stepsInstead(plan, { decay(result, it) }) { workings.decay(result) }
+            is ExecutionResult.Isotopes -> isotopes(result)
+            is ExecutionResult.Safety -> safety(result)
+            is ExecutionResult.EmissionSpectrum -> emissionSpectrum(result)
+            is ExecutionResult.Dataset -> dataset(result)
+            is ExecutionResult.Trend -> trend(result)
+            is ExecutionResult.Explanation -> explanation(result)
+            is ExecutionResult.GasLaw -> stepsInstead(plan, { gasLaw(result, it) }) { workings.gasLaw(result) }
+            is ExecutionResult.Ph -> stepsInstead(plan, { ph(result, it) }) { workings.ph(result) }
+            is ExecutionResult.IonConfiguration -> ionConfiguration(result) + steps(plan) { workings.ion(result) }
+            is ExecutionResult.EmpiricalFormula -> empirical(result) + steps(plan) { workings.empirical(result) }
+            is ExecutionResult.Stoichiometry -> stoichiometry(result) + steps(plan) { workings.stoichiometry(result) }
+            is ExecutionResult.NoData -> noData(result)
+            is ExecutionResult.Locked -> locked(result)
+            is ExecutionResult.Empty -> strings.get(R.string.ai_filter_none)
+        }
+        return ComposedAnswer(
+            text = if (includeCitations) body + citationBlock(result.citations) else body,
+            actions = (
+                result.citations.map { it.toAction(strings) } +
+                        // A locked answer offers the way out, using the same chip row as citations
+                        // rather than a second affordance nobody has seen before.
+                        listOfNotNull(upgradeAction(result))
+                ).distinctBy { it.label },
+            // Derived from the typed result, never from the query text — so the picture can only
+            // show what the prose above it has already asserted.
+            card = CardSelector.select(result, plan, store, strings, localized, cardPolicy)
+        )
+    }
+
+    private val workings = Workings(strings)
+
+    /** A calculation's steps as a numbered section, when the plan asks for them (roadmap 2.2). */
+    private fun steps(plan: QueryPlan, lines: () -> List<String>): String {
+        if (!plan.showSteps) return ""
+        val steps = lines().takeIf { it.isNotEmpty() } ?: return ""
+        return "\n\n### " + strings.get(R.string.ai_steps_header) + "\n" +
+                steps.mapIndexed { i, line -> "${i + 1}. $line" }.joinToString("\n")
+    }
+
+    /**
+     * An answer whose short working the steps replace rather than repeat: [render] is called with
+     * whether to include its own working.
+     */
+    private fun stepsInstead(plan: QueryPlan, render: (Boolean) -> String, lines: () -> List<String>): String {
+        val steps = steps(plan, lines)
+        return if (steps.isEmpty()) render(true) else render(false) + steps
+    }
+
+    /** The "Get PRO" chip shown beside a withheld answer, or null when nothing was withheld. */
+    private fun upgradeAction(result: ExecutionResult): ChatAction? {
+        if (result !is ExecutionResult.Locked) return null
+        val label = strings.get(
+            if (result.tier == com.jlindemann.science.ai.data.Tier.PRO_PLUS) R.string.get_pro_plus_button
+            else R.string.get_pro_button
+        )
+        return ChatAction(label, com.jlindemann.science.ai.data.DeepLinkTarget.PRO_PAGE)
+    }
+
+    /** The sources section on its own, for a caller assembling several parts. */
+    fun citationsFor(citations: List<Citation>): String = citationBlock(citations)
+
+    // ---- Per-result rendering -----------------------------------------------------------
+
+    /**
+     * A property answer, with enough context to mean something.
+     *
+     * A bare figure is not an answer to most people: "19.3 g/cm³" only lands if you already
+     * know the range it sits in. Adding where the value ranks, and what kind of element this is,
+     * turns a lookup into something a reader learns from.
+     */
+    private fun property(result: ExecutionResult.Property): String {
+        val name = displayName(result.element.key)
+        val label = fieldLabel(result.fieldId)
+        val builder = StringBuilder(
+            strings.get(R.string.ai_property_is, name, label, result.display)
+        )
+
+        result.quantity?.let { q ->
+            if (q.isRange) builder.append("\n").append(strings.get(R.string.ai_value_is_range))
+            q.note?.let { builder.append("\n").append(it) }
+        }
+
+        rankSentence(result)?.let { builder.append("\n").append(it) }
+        return builder.toString()
+    }
+
+    /** "That is the highest of 105 elements…", or where it ranks. Null when not rankable. */
+    private fun rankSentence(result: ExecutionResult.Property): String? {
+        val rank = result.rank ?: return null
+        if (result.rankedOutOf < 2) return null
+        val label = fieldLabel(result.fieldId).lowercase()
+        return when (rank) {
+            1 -> strings.get(R.string.ai_rank_highest, result.rankedOutOf, label)
+            result.rankedOutOf -> strings.get(R.string.ai_rank_lowest, result.rankedOutOf, label)
+            else -> strings.get(R.string.ai_rank_nth, rank, result.rankedOutOf, label)
+        }
+    }
+
+    private fun comparative(result: ExecutionResult.Comparative): String {
+        val winner = displayName(result.winner.key)
+        val loser = displayName(result.loser.key)
+        val label = fieldLabel(result.fieldId).lowercase()
+        val winnerValue = result.winnerValue.display
+        val loserValue = result.loserValue.display
+
+        val headline = when {
+            // A yes/no question gets a yes or a no, before any figures.
+            result.claimHolds == true ->
+                strings.get(R.string.ai_comparative_yes, winner, winnerValue, loser, loserValue, label)
+            result.claimHolds == false ->
+                strings.get(R.string.ai_comparative_no, winner, winnerValue, loser, loserValue, label)
+            else ->
+                strings.get(R.string.ai_comparative_winner, winner, winnerValue, loser, loserValue, label)
+        }
+
+        val ratio = result.ratio ?: return headline
+        return headline + "\n" + strings.get(
+            R.string.ai_comparative_ratio,
+            winner, format(ratio), loser, "$winnerValue ${strings.get(R.string.ai_versus)} $loserValue", label
+        )
+    }
+
+    private fun neighbour(result: ExecutionResult.Neighbour): String {
+        val target = displayName(result.to.key)
+        val from = displayName(result.from.key)
+        val sentence = strings.get(
+            if (result.forward) R.string.ai_neighbour_after else R.string.ai_neighbour_before,
+            target, result.to.atomicNumber, from
+        )
+        return sentence + "\n" + elementContext(result.to)
+    }
+
+    /** One line placing an element: what family it belongs to and which period. */
+    private fun elementContext(element: com.jlindemann.science.ai.data.ElementRecord): String {
+        val series = localized?.elements?.get(element.key)?.seriesName?.takeIf { it.isNotBlank() }
+            ?: element.series.name.lowercase().replace('_', ' ')
+        return strings.get(
+            R.string.ai_context_series, displayName(element.key), series, element.period
+        )
+    }
+
+    private fun comparison(result: ExecutionResult.Comparison): String {
+        // A single element is a category lookup, not a comparison: render it as a labelled
+        // property list rather than "Comparing Gold:".
+        if (result.elements.size == 1) {
+            val element = result.elements.first()
+            val builder = StringBuilder("### ").append(displayName(element.key))
+            for (fieldId in result.fieldIds) {
+                val row = result.values[fieldId]?.firstOrNull() ?: continue
+                if (row.display.isBlank()) continue
+                builder.append("\n").append(
+                    strings.get(R.string.ai_list_row, fieldLabel(fieldId), row.display)
+                )
+            }
+            return builder.toString()
+        }
+
+        val names = result.elements.joinToString(", ") { displayName(it.key) }
+        val builder = StringBuilder(strings.get(R.string.ai_comparing_title, names))
+        for (fieldId in result.fieldIds) {
+            val rows = result.values[fieldId].orEmpty()
+            if (rows.all { it.display.isBlank() }) continue
+            builder.append("\n\n### ").append(fieldLabel(fieldId))
+            for (row in rows) {
+                val shown = row.display.ifBlank { strings.get(R.string.ai_no_data_right_now) }
+                builder.append("\n").append(
+                    strings.get(R.string.ai_list_row, displayName(row.element.key), shown)
+                )
+            }
+        }
+        verdict(result)?.let { builder.append("\n\n").append(it) }
+        return builder.toString()
+    }
+
+    /**
+     * Who came out ahead, for a two-element comparison.
+     *
+     * A table of five properties against two elements is data, not an answer — it leaves the reader
+     * to do the comparison the question asked for. Counting the fields where each element holds the
+     * higher value turns it back into an answer, without claiming that higher is *better*: the
+     * sentence says "has the higher value", which is the only thing the numbers support.
+     *
+     * Two elements only. With three or more, "leads on 2 of 5" hides more than it says, and the
+     * table really is the right shape for the answer.
+     */
+    private fun verdict(result: ExecutionResult.Comparison): String? {
+        if (result.elements.size != 2) return null
+        val wins = HashMap<String, Int>()
+        var decided = 0
+        for (fieldId in result.fieldIds) {
+            val rows = result.values[fieldId].orEmpty().filter { it.quantity != null }
+            if (rows.size != 2) continue
+            val top = rows.maxByOrNull { it.quantity!!.value } ?: continue
+            val bottom = rows.minByOrNull { it.quantity!!.value } ?: continue
+            if (top.quantity!!.value == bottom.quantity!!.value) continue
+            decided++
+            wins[top.element.key] = (wins[top.element.key] ?: 0) + 1
+        }
+        if (decided < MIN_FIELDS_TO_JUDGE) return null
+        val leader = wins.maxByOrNull { it.value } ?: return null
+        // An even split has no verdict worth stating.
+        if (wins.values.count { it == leader.value } > 1) return null
+        return strings.get(
+            R.string.ai_comparison_verdict, displayName(leader.key), leader.value, decided
+        )
+    }
+
+    /**
+     * Name the aspects a multi-part comparison asked for but could not cover.
+     *
+     * "Compare lithium, sodium and potassium on reactivity, density and applications" can only
+     * answer density from stored fields. Saying so is the difference between an incomplete
+     * answer and a misleading one.
+     */
+    private fun uncoveredAspects(plan: QueryPlan): String {
+        val named = plan.evidence
+            .filter { it.startsWith("no field for ") }
+            .map { it.removePrefix("no field for ") }
+            .distinct()
+        // Drop terms contained in another, so "application, applications" reads as one aspect.
+        val missing = named.filter { term -> named.none { it != term && it.contains(term) } }
+        if (missing.isEmpty()) return ""
+        return "\n\n" + strings.get(R.string.ai_aspects_not_compared, missing.joinToString(", "))
+    }
+
+    private fun elementList(result: ExecutionResult.ElementList, plan: QueryPlan): String {
+        if (result.results.isEmpty()) return strings.get(R.string.ai_filter_none)
+
+        // A superlative asks for one element, so answer it as a sentence rather than a list.
+        if (result.fieldId != null && plan.limit == 1) {
+            val top = result.results.first()
+            val direction = strings.get(
+                if (result.descending) R.string.ai_superlative_highest else R.string.ai_superlative_lowest
+            )
+            val sentence = if (result.rankOffset > 0) {
+                // "the third densest element" — say which place, or the answer looks wrong.
+                val place = result.rankOffset + 1
+                strings.get(
+                    R.string.ai_superlative_nth, place, ordinalSuffix(place),
+                    direction, fieldLabel(result.fieldId).lowercase(),
+                    displayName(top.element.key), top.display
+                )
+            } else {
+                strings.get(
+                    R.string.ai_superlative_result,
+                    direction, fieldLabel(result.fieldId), displayName(top.element.key), top.display
+                )
+            }
+            val builder = StringBuilder(sentence)
+
+            // Say what the winner won against. A plain property lookup already reports "the 6th
+            // densest of 105 elements with a recorded density"; a superlative was answering with a
+            // bare winner and no sense of the field it topped. Reuses the same two strings, so this
+            // costs no new translation in any of the fourteen locales.
+            val withAValue = result.matched - result.missing
+            if (withAValue >= MIN_POOL_TO_REPORT && result.rankOffset == 0) {
+                builder.append("\n").append(
+                    strings.get(
+                        if (result.descending) R.string.ai_rank_highest else R.string.ai_rank_lowest,
+                        withAValue,
+                        fieldLabel(result.fieldId).lowercase()
+                    )
+                )
+            }
+
+            // The next one down turns a bare winner into a sense of the margin.
+            result.runnerUp?.let {
+                builder.append("\n").append(
+                    strings.get(R.string.ai_runner_up, displayName(it.element.key), it.display)
+                )
+            }
+            if (result.missing > 0) {
+                builder.append("\n").append(
+                    strings.get(R.string.ai_aggregate_missing_note, result.missing)
+                )
+            }
+            return builder.toString()
+        }
+
+        // Say plainly when the shown rows are only the top slice of a larger match set.
+        val truncated = result.results.size < result.matched
+        val builder = StringBuilder(
+            if (truncated && result.fieldId != null)
+                strings.get(R.string.ai_filter_top, result.results.size, result.matched)
+            else strings.get(R.string.ai_filter_matched, result.matched)
+        )
+        for (row in result.results) {
+            builder.append("\n").append(
+                if (row.display.isBlank() || result.fieldId == null)
+                    strings.get(R.string.ai_list_row_plain, displayName(row.element.key))
+                else strings.get(R.string.ai_list_row, displayName(row.element.key), row.display)
+            )
+        }
+        val remaining = result.matched - result.results.size
+        if (remaining > 0) builder.append("\n").append(strings.get(R.string.ai_list_more, remaining))
+
+        // Give the list a shape: the span it covers is more informative than the rows alone.
+        if (result.fieldId != null && result.results.size > 2) {
+            val values = result.results.mapNotNull { it.display.takeIf { d -> d.isNotBlank() } }
+            if (values.size > 2) {
+                builder.append("\n\n").append(
+                    strings.get(R.string.ai_list_spread, values.first(), values.last())
+                )
+            }
+        }
+        if (result.missing > 0 && result.fieldId != null) {
+            builder.append("\n").append(strings.get(R.string.ai_aggregate_missing_note, result.missing))
+        }
+        return builder.toString()
+    }
+
+    /**
+     * A field across a set of elements (roadmap 2.3): the values in atomic-number order, which way
+     * they run from the first to the last, and where they peak and bottom out. The card draws it; the
+     * text says what the drawing shows, so the answer stands without the picture.
+     *
+     * A whole-table trend is a map, not a line, and has no direction to state - the values are not
+     * read in one order - so it gives the span and the extremes only.
+     */
+    private fun trend(result: ExecutionResult.Trend): String {
+        val label = fieldLabel(result.fieldId)
+        val points = result.points
+        val highest = points.maxBy { it.quantity!!.mid }
+        val lowest = points.minBy { it.quantity!!.mid }
+        val builder = StringBuilder()
+        if (result.wholeTable) {
+            builder.append(strings.get(R.string.ai_trend_table_header, label, points.size))
+        } else {
+            builder.append(strings.get(R.string.ai_trend_header, label, points.size))
+            // Symbols rather than names: a period is up to eighteen entries, and the line is read
+            // as a sequence, the way the table itself is.
+            builder.append("\n").append(points.joinToString(" · ") { "${it.element.symbol} ${it.display}" })
+            val first = points.first()
+            val last = points.last()
+            val steps = points.zipWithNext { a, b -> b.quantity!!.mid.compareTo(a.quantity!!.mid) }.filter { it != 0 }
+            val rises = steps.count { it > 0 }
+            val direction = when {
+                steps.isEmpty() -> null
+                rises >= steps.size * STEADY_SHARE -> R.string.ai_trend_rises
+                steps.size - rises >= steps.size * STEADY_SHARE -> R.string.ai_trend_falls
+                else -> R.string.ai_trend_mixed
+            }
+            direction?.let {
+                builder.append("\n\n").append(
+                    strings.get(it, displayName(first.element.key), first.display, displayName(last.element.key), last.display)
+                )
+            }
+        }
+        builder.append("\n").append(
+            strings.get(
+                R.string.ai_trend_extremes,
+                displayName(highest.element.key), highest.display, displayName(lowest.element.key), lowest.display
+            )
+        )
+        if (result.missing > 0) builder.append("\n").append(strings.get(R.string.ai_aggregate_missing_note, result.missing))
+        return builder.toString()
+    }
+
+    /**
+     * A reviewed explanation (roadmap 2.4). The card beside it shows the data; an explanation only
+     * written in English so far says so, as a dictionary entry does.
+     */
+    private fun explanation(result: ExecutionResult.Explanation): String =
+        if (result.language == ENGLISH || strings.language == ENGLISH) result.text
+        else result.text + "\n\n" + strings.get(R.string.ai_dataset_english_note)
+
+    /** PV = nRT solved (roadmap 2.8): the unknown, and the three it came from as the working. */
+    private fun gasLaw(result: ExecutionResult.GasLaw, working: Boolean = true): String {
+        val s = result.solution
+        val answer = when (s.unknown) {
+            com.jlindemann.science.ai.data.GasLaw.Unknown.PRESSURE -> "P = ${format(s.atm)} atm"
+            com.jlindemann.science.ai.data.GasLaw.Unknown.VOLUME -> "V = ${format(s.litres)} L"
+            com.jlindemann.science.ai.data.GasLaw.Unknown.MOLES -> "n = ${format(s.moles)} mol"
+            com.jlindemann.science.ai.data.GasLaw.Unknown.TEMPERATURE -> "T = ${format(s.kelvin)} K (${format(s.kelvin - 273.15)} °C)"
+        }
+        val builder = StringBuilder(strings.get(R.string.ai_gas_result, answer))
+        if (working) {
+            val given = listOfNotNull(
+                "P = ${format(s.atm)} atm".takeIf { s.unknown != com.jlindemann.science.ai.data.GasLaw.Unknown.PRESSURE },
+                "V = ${format(s.litres)} L".takeIf { s.unknown != com.jlindemann.science.ai.data.GasLaw.Unknown.VOLUME },
+                "n = ${format(s.moles)} mol".takeIf { s.unknown != com.jlindemann.science.ai.data.GasLaw.Unknown.MOLES },
+                "T = ${format(s.kelvin)} K".takeIf { s.unknown != com.jlindemann.science.ai.data.GasLaw.Unknown.TEMPERATURE }
+            )
+            builder.append("\n").append(given.joinToString(", "))
+        }
+        if (result.stp) builder.append("\n").append(strings.get(R.string.ai_gas_stp))
+        return builder.toString()
+    }
+
+    /** An empirical formula, and the molecular formula when a molar mass was given (roadmap 2.8). */
+    private fun empirical(result: ExecutionResult.EmpiricalFormula): String {
+        val r = result.result
+        val builder = StringBuilder(
+            when {
+                r.from == null -> strings.get(R.string.ai_empirical_result, r.formula)
+                r.divisor > 1 -> strings.get(R.string.ai_empirical_reduced, r.from, r.formula, r.divisor)
+                else -> strings.get(R.string.ai_empirical_same, r.from)
+            }
+        )
+        r.molecular?.let { m ->
+            builder.append("\n").append(strings.get(R.string.ai_empirical_molecular, format(m.molarMass), m.formula, m.factor, r.formula))
+        }
+        return builder.toString()
+    }
+
+    /** Amounts through a balanced equation, or the limiting reagent and what it makes (roadmap 2.8). */
+    private fun stoichiometry(result: ExecutionResult.Stoichiometry): String {
+        val r = result.result
+        val lines = r.lines
+        fun amount(i: Int) = r.amounts[i]
+        val builder = StringBuilder()
+        val limiting = r.limiting
+        if (limiting != null) {
+            builder.append(strings.get(R.string.ai_stoich_limiting, r.equation, lines[limiting].formula))
+            val shown = result.targets.filter { !lines[it].reactant }.ifEmpty { lines.indices.filter { !lines[it].reactant } }
+            for (i in shown) {
+                builder.append("\n").append(strings.get(R.string.ai_stoich_product, format(amount(i).grams), lines[i].formula, format(amount(i).moles)))
+            }
+            for (left in r.leftovers) {
+                builder.append("\n").append(strings.get(R.string.ai_stoich_excess, format(left.grams), lines[left.index].formula))
+            }
+            return builder.toString()
+        }
+        val given = r.givens.first()
+        val givenText = (given.grams?.let { "${format(it)} g" } ?: "${format(given.moles)} mol") + " " + lines[given.index].formula
+        val givenIsReactant = lines[given.index].reactant
+        // Asked about nothing in particular: the other side of the equation.
+        val shown = result.targets.ifEmpty { lines.indices.filter { lines[it].reactant != givenIsReactant } }
+        shown.forEachIndexed { n, i ->
+            val template = when {
+                lines[i].reactant -> R.string.ai_stoich_needs
+                givenIsReactant -> R.string.ai_stoich_makes
+                else -> R.string.ai_stoich_matches
+            }
+            if (n > 0) builder.append("\n")
+            builder.append(strings.get(template, r.equation, givenText, format(amount(i).grams), lines[i].formula, format(amount(i).moles)))
+        }
+        return builder.toString()
+    }
+
+    /** A strong acid's or base's pH (roadmap 2.8). */
+    private fun ph(result: ExecutionResult.Ph, working: Boolean = true): String {
+        val r = result.result
+        return if (r.base) strings.get(R.string.ai_ph_base, r.formula, format(r.molarity), format(r.hydroxide), format(r.pOH), format(r.pH))
+        else strings.get(R.string.ai_ph_acid, r.formula, format(r.molarity), format(r.hydrogen), format(r.pH))
+    }
+
+    /** An ion's configuration beside the neutral atom's, and the rule that got from one to the other (roadmap 2.8). */
+    private fun ionConfiguration(result: ExecutionResult.IonConfiguration): String {
+        val label = com.jlindemann.science.ai.data.IonConfig.ionLabel(result.element.symbol, result.charge)
+        val builder = StringBuilder(
+            strings.get(R.string.ai_ion_config, label, result.ion.toString(), displayName(result.element.key), result.neutral.toString())
+        )
+        builder.append("\n").append(strings.get(if (result.charge > 0) R.string.ai_ion_cation else R.string.ai_ion_anion))
+        result.ion.isoelectronicWith?.let { noble ->
+            val name = store.bySymbol(noble)?.let { displayName(it.key) } ?: noble
+            builder.append("\n").append(strings.get(R.string.ai_ion_isoelectronic, name))
+        }
+        return builder.toString()
+    }
+
+    /** English ordinal suffix: 1st, 2nd, 3rd, 4th, with the teens handled. */
+    private fun ordinalSuffix(n: Int): String = strings.get(
+        when {
+            n % 100 in 11..13 -> R.string.ai_ordinal_suffix_th
+            n % 10 == 1 -> R.string.ai_ordinal_suffix_st
+            n % 10 == 2 -> R.string.ai_ordinal_suffix_nd
+            n % 10 == 3 -> R.string.ai_ordinal_suffix_rd
+            else -> R.string.ai_ordinal_suffix_th
+        }
+    )
+
+    /**
+     * The unit to print beside an aggregate.
+     *
+     * [ExecutionResult.Aggregate.unit] carries the field's canonical token, which is chosen so
+     * values can be grouped and converted rather than read — the solar reservoirs canonicalise to
+     * `Si=10^6`. Where the field declares a reader-facing unit, that wins.
+     */
+    private fun aggregateUnit(result: ExecutionResult.Aggregate): String? {
+        val labelRes = FieldRegistry.byId[result.fieldId]?.unitLabelRes ?: return result.unit
+        val label = runCatching { strings.get(labelRes) }.getOrNull()?.trim()
+        return if (label.isNullOrEmpty() || label.startsWith("str:")) result.unit else label
+    }
+
+    private fun aggregate(result: ExecutionResult.Aggregate): String {
+        if (result.aggregation == Aggregation.COUNT) {
+            val builder = StringBuilder(strings.get(R.string.ai_count_result, result.value.toInt()))
+            result.contributors.take(LIST_PREVIEW).forEach {
+                builder.append("\n").append(strings.get(R.string.ai_list_row_plain, displayName(it.element.key)))
+            }
+            val remaining = result.contributors.size - LIST_PREVIEW
+            if (remaining > 0) builder.append("\n").append(strings.get(R.string.ai_list_more, remaining))
+            return builder.toString()
+        }
+
+        val label = when (result.aggregation) {
+            Aggregation.MEDIAN -> strings.get(R.string.ai_aggregate_median, fieldLabel(result.fieldId))
+            Aggregation.SUM -> strings.get(R.string.ai_aggregate_sum, fieldLabel(result.fieldId))
+            else -> strings.get(R.string.ai_aggregate_average, fieldLabel(result.fieldId))
+        }
+        val rendered = UnitConverter.formatValue(result.value) + (aggregateUnit(result)?.let { " $it" } ?: "")
+        val builder = StringBuilder(strings.get(R.string.ai_aggregate_result, label, rendered))
+
+        // An average with no spread is the classic misleading statistic: the mean density of the
+        // transition metals is about 10 g/cm³, and nothing in that number hints that the set runs
+        // from scandium at 3 to osmium at 22.6. Both ends are already in `contributors`, so this
+        // costs a scan rather than another pass over the table. Sums are excluded — the endpoints of
+        // a total say nothing about it.
+        if (result.aggregation != Aggregation.SUM && result.contributors.size >= MIN_POOL_TO_REPORT) {
+            val ordered = result.contributors
+                .filter { it.quantity != null }
+                .sortedBy { it.quantity!!.value }
+            val low = ordered.firstOrNull()
+            val high = ordered.lastOrNull()
+            if (low != null && high != null && low.element.key != high.element.key) {
+                builder.append("\n").append(
+                    strings.get(
+                        R.string.ai_aggregate_spread,
+                        low.display, displayName(low.element.key),
+                        high.display, displayName(high.element.key)
+                    )
+                )
+            }
+        }
+
+        // A partial statistic is always disclosed as partial.
+        val total = result.contributors.size + result.missing
+        builder.append("\n").append(strings.get(R.string.ai_aggregate_over, result.contributors.size, total))
+        if (result.missing > 0) {
+            builder.append(" ").append(strings.get(R.string.ai_aggregate_missing_note, result.missing))
+        }
+        return builder.toString()
+    }
+
+    private fun formula(result: ExecutionResult.Formula): String {
+        val r = result.result
+        val builder = StringBuilder()
+        // "Mass percent of oxygen in water" leads with oxygen's share (roadmap 2.8).
+        r.parts.firstOrNull { it.symbol == result.focus }?.let { part ->
+            val name = store.bySymbol(part.symbol)?.let { displayName(it.key) } ?: part.symbol
+            builder.append(strings.get(R.string.ai_composition_element, name, format(part.percent) + "%", r.formula)).append("\n")
+        }
+        builder.append(strings.get(R.string.ai_formula_mass, r.formula, format(r.molarMass)))
+        // The per-element breakdown *is* the calculation, so a compound shows it whether or not the
+        // word "composition" was used. Asked for the molar mass of Ca(NO3)2 the agent gave the total
+        // and nothing else, and the follow-up "show the calculation step by step" then retrieved the
+        // dictionary definition of stoichiometry. A single-element formula is excluded: one row
+        // restating the total is noise. Reuses the existing rows, so no locale gains a string.
+        if (result.wantsComposition || r.parts.size >= MIN_PARTS_TO_BREAK_DOWN) {
+            builder.append("\n\n### ").append(strings.get(R.string.ai_composition_header, r.formula))
+            for (part in r.parts) {
+                builder.append("\n").append(
+                    strings.get(
+                        R.string.ai_composition_row, part.symbol, part.count,
+                        format(part.massContribution), format(part.percent)
+                    )
+                )
+            }
+        }
+        return builder.toString()
+    }
+
+    private fun nuclide(result: ExecutionResult.Nuclide): String {
+        val name = displayName(result.element.key)
+        return "### " + strings.get(R.string.ai_nuclide_header, name, result.massNumber) +
+                "\n" + strings.get(
+            R.string.ai_nuclide_explain, result.massNumber, result.protons, result.neutrons
+        ) + "\n" + strings.get(
+            R.string.ai_nuclide_body, result.protons, result.neutrons, result.massNumber
+        )
+    }
+
+    private fun isotopeComparison(result: ExecutionResult.IsotopeComparison): String {
+        val left = result.left
+        val right = result.right
+        val leftName = nuclideName(left)
+        val rightName = nuclideName(right)
+
+        val builder = StringBuilder("### ")
+            .append(strings.get(R.string.ai_isotope_compare_header, leftName, rightName))
+
+        // The interesting fact for two isotopes of one element is that only the neutrons differ,
+        // so lead with that rather than repeating the shared proton count as a difference.
+        if (left.element.key == right.element.key) {
+            builder.append("\n").append(
+                strings.get(
+                    R.string.ai_isotope_same_element,
+                    displayName(left.element.key), left.protons
+                )
+            )
+            builder.append("\n").append(
+                strings.get(
+                    R.string.ai_isotope_neutron_diff, leftName, left.neutrons,
+                    rightName, right.neutrons, kotlin.math.abs(left.neutrons - right.neutrons)
+                )
+            )
+        } else {
+            builder.append("\n").append(
+                row(R.string.ai_label_protons, left.protons.toString(), right.protons.toString())
+            )
+        }
+
+        builder.append("\n").append(
+            row(R.string.ai_label_mass_number, left.massNumber.toString(), right.massNumber.toString())
+        )
+        builder.append("\n").append(
+            row(R.string.ai_label_neutrons, left.neutrons.toString(), right.neutrons.toString())
+        )
+        builder.append("\n").append(
+            row(R.string.ai_label_half_life, halfLife(left), halfLife(right))
+        )
+        val decayLeft = left.isotope?.decayType
+        val decayRight = right.isotope?.decayType
+        if (decayLeft != null || decayRight != null) {
+            builder.append("\n").append(
+                row(R.string.ai_label_decay, decayLeft ?: "—", decayRight ?: "—")
+            )
+        }
+        return builder.toString()
+    }
+
+    private fun row(labelRes: Int, left: String, right: String): String =
+        strings.get(R.string.ai_isotope_compare_row, strings.get(labelRes), left, right)
+
+    private fun nuclideName(facts: ExecutionResult.NuclideFacts): String =
+        "${displayName(facts.element.key)}-${facts.massNumber}"
+
+    /** The authored half-life, "stable", or an admission that the nuclide is not listed. */
+    private fun halfLife(facts: ExecutionResult.NuclideFacts): String {
+        val isotope = facts.isotope ?: return strings.get(R.string.ai_isotope_unlisted)
+        if (isotope.stable) return strings.get(R.string.ai_stable_label)
+        val display = isotope.halfLifeDisplay.ifBlank {
+            return strings.get(R.string.ai_isotope_unlisted)
+        }
+        return groupDigits(display)
+    }
+
+    /**
+     * Insert thin spaces into long digit runs, so a half-life reads as "703 800 000 years"
+     * rather than an unbroken nine-digit string. Uses spaces rather than a locale separator
+     * because the value is authored text being made legible, not a number being formatted.
+     */
+    private fun groupDigits(text: String): String =
+        Regex("""\d{5,}""").replace(text) { match ->
+            match.value.reversed().chunked(3).joinToString(" ").reversed()
+        }
+
+    private fun moleConversion(result: ExecutionResult.MoleConversion): String {
+        val moles = result.moles ?: return ""
+        val particles = scientific(result.particles)
+
+        // Mass to moles is the question the other way round, and it is the one users actually ask —
+        // they have a mass on a balance. It answers with the mole count rather than a particle
+        // count, so the Avogadro note below would be answering something else.
+        result.grams?.let { grams ->
+            return strings.get(
+                R.string.ai_grams_to_moles,
+                format(grams),
+                result.substance.orEmpty(),
+                format(moles)
+            )
+        }
+
+        val sentence = if (result.substance != null) {
+            strings.get(R.string.ai_moles_of, format(moles), result.substance, particles)
+        } else {
+            strings.get(R.string.ai_moles_to_particles, format(moles), particles)
+        }
+        return sentence + "\n" + strings.get(R.string.ai_avogadro_note)
+    }
+
+    /** Two significant decimals, trailing zeroes trimmed. */
+    private fun unitConversion(result: ExecutionResult.UnitConversion): String {
+        val body = strings.get(
+            R.string.ai_unit_converted,
+            format(result.value), result.fromUnit,
+            format(result.converted), result.toUnit
+        )
+        // A crossed dimension is named rather than glossed over. eV and kJ/mol measure the same
+        // energy counted per particle and per mole, and a reader who is not told that is entitled
+        // to conclude the two are the same quantity.
+        return if (result.bridged) body + "\n\n" + strings.get(R.string.ai_unit_bridge_note) else body
+    }
+
+    private fun balancedEquation(result: ExecutionResult.BalancedEquation, working: Boolean = true): String {
+        result.reason?.let { reason ->
+            // A one-sided element is named when the solver identified it. "An element appears on
+            // only one side" leaves the reader to find which; saying "O appears on only one side"
+            // is the same sentence with the work done.
+            val named = reason == com.jlindemann.science.ai.data.EquationBalancer.Reason
+                .ONE_SIDED_ELEMENT && result.detail != null
+            return if (named) {
+                strings.get(R.string.ai_equation_one_sided_named, result.detail!!)
+            } else {
+                strings.get(reasonString(reason))
+            }
+        }
+
+        val left = result.reactants.joinToString(" + ") { term(it) }
+        val right = result.products.joinToString(" + ") { term(it) }
+        val builder = StringBuilder(strings.get(R.string.ai_equation_balanced, left, right))
+        if (!working) return builder.toString()
+
+        // The tally is the proof. A balancer that prints only coefficients is asking to be
+        // trusted; one that shows both sides' atom counts can be checked in a few seconds.
+        builder.append("\n\n### ").append(strings.get(R.string.ai_equation_check_header))
+        for (t in result.tally) {
+            builder.append("\n")
+                .append(strings.get(R.string.ai_equation_tally_row, t.symbol, t.left, t.right))
+        }
+        return builder.toString()
+    }
+
+    /** A coefficient of 1 is written, not printed — "1Fe" is how a bug looks, not chemistry. */
+    private fun term(t: com.jlindemann.science.ai.data.Term): String =
+        if (t.coefficient == 1) t.formula else "${t.coefficient}${t.formula}"
+
+    private fun reasonString(reason: com.jlindemann.science.ai.data.EquationBalancer.Reason): Int =
+        when (reason) {
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.ONE_SIDED_ELEMENT ->
+                R.string.ai_equation_one_sided
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.UNDERDETERMINED ->
+                R.string.ai_equation_underdetermined
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.TOO_LARGE ->
+                R.string.ai_equation_too_large
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.PARSE_FAILED ->
+                R.string.ai_equation_parse_failed
+            com.jlindemann.science.ai.data.EquationBalancer.Reason.NO_SOLUTION ->
+                R.string.ai_equation_no_solution
+        }
+
+    private fun solutionCalc(result: ExecutionResult.SolutionCalc, working: Boolean = true): String {
+        val substance = result.substance.orEmpty()
+
+        result.dilution?.let { d ->
+            val added = com.jlindemann.science.ai.data.SolutionMath.solventToAdd(d.v1, d.v2)
+            val builder = StringBuilder(
+                strings.get(
+                    R.string.ai_dilution_result,
+                    format(d.c1), format(d.v1 * 1000), format(d.c2), format(d.v2 * 1000)
+                )
+            )
+            if (added > 0) {
+                builder.append("\n").append(
+                    strings.get(R.string.ai_dilution_add_solvent, format(added * 1000))
+                )
+            }
+            if (!working) return builder.toString()
+            builder.append("\n\n### ").append(strings.get(R.string.ai_solution_working_header))
+            builder.append("\n").append(
+                strings.get(
+                    R.string.ai_solution_working_c1v1,
+                    format(d.c1), format(d.v1 * 1000), format(d.c2), format(d.v2 * 1000)
+                )
+            )
+            return builder.toString()
+        }
+
+        val moles = result.moles ?: return ""
+        val molarity = result.molarity ?: return ""
+        val litres = result.litres ?: return ""
+
+        val lead = when (result.kind) {
+            ExecutionResult.SolutionCalc.Kind.MASS_NEEDED -> strings.get(
+                R.string.ai_solution_mass_needed,
+                format(result.grams ?: 0.0), substance, format(litres * 1000), format(molarity)
+            )
+            ExecutionResult.SolutionCalc.Kind.MOLARITY ->
+                strings.get(R.string.ai_solution_molarity, format(molarity), substance)
+            ExecutionResult.SolutionCalc.Kind.VOLUME ->
+                strings.get(R.string.ai_solution_volume, format(litres * 1000), format(molarity))
+            else -> strings.get(R.string.ai_solution_moles, format(moles), substance)
+        }
+
+        // The working is shown for the same reason the composition breakdown is: a number a reader
+        // cannot reproduce is a number they have to take on faith.
+        val builder = StringBuilder(lead)
+        if (!working) return builder.toString()
+        builder.append("\n\n### ").append(strings.get(R.string.ai_solution_working_header))
+        builder.append("\n").append(
+            strings.get(
+                R.string.ai_solution_working_nvc,
+                format(moles), format(molarity), format(litres)
+            )
+        )
+        result.molarMass?.let { mass ->
+            builder.append("\n").append(
+                strings.get(
+                    R.string.ai_solution_working_mass,
+                    format(result.grams ?: 0.0), format(moles), format(mass)
+                )
+            )
+        }
+        return builder.toString()
+    }
+
+    private fun decay(result: ExecutionResult.Decay, working: Boolean = true): String {
+        val nuclide = "${displayName(result.element.key)}-${result.massNumber}"
+
+        when (result.mode) {
+            ExecutionResult.Decay.Mode.STABLE ->
+                return strings.get(R.string.ai_decay_stable, nuclide)
+            ExecutionResult.Decay.Mode.NO_HALF_LIFE ->
+                // Two different gaps, and the display string is what tells them apart: an empty
+                // one means the nuclide is not listed at all, a non-empty one means it is listed
+                // with a half-life the source records as unknown.
+                return if (result.halfLifeDisplay.isBlank()) {
+                    strings.get(R.string.ai_decay_unlisted, nuclide)
+                } else {
+                    strings.get(R.string.ai_decay_no_half_life, nuclide, result.halfLifeDisplay)
+                }
+            else -> Unit
+        }
+
+        if (result.halfLifeSeconds == null) return ""
+        val n = result.halfLivesElapsed ?: return ""
+        val elapsedUnit = result.elapsedUnit ?: "s"
+        val elapsedInUnit = result.elapsedSeconds
+            ?.let { UnitConverter.convert(it, "s", elapsedUnit) }
+            ?: 0.0
+
+        val lead = when {
+            // Past sixty half-lives less than one part in 10^18 survives. Printing 3.2e-25 g would
+            // imply a measurement nobody could make from data this app does not have.
+            n > com.jlindemann.science.ai.data.DecayMath.EFFECTIVELY_GONE ->
+                strings.get(
+                    R.string.ai_decay_effectively_none,
+                    nuclide, format(elapsedInUnit), elapsedUnit
+                )
+            result.mode == ExecutionResult.Decay.Mode.ELAPSED ->
+                strings.get(
+                    R.string.ai_decay_elapsed,
+                    format(result.initialAmount ?: 0.0), format(result.finalAmount ?: 0.0),
+                    nuclide, groupDigits(format(elapsedInUnit)), elapsedUnit
+                )
+            result.mode == ExecutionResult.Decay.Mode.REMAINING ->
+                strings.get(
+                    R.string.ai_decay_remaining,
+                    format(result.finalAmount ?: 0.0), result.amountUnit.orEmpty(),
+                    format(result.initialAmount ?: 0.0), nuclide,
+                    groupDigits(format(elapsedInUnit)), elapsedUnit
+                )
+            else ->
+                strings.get(
+                    R.string.ai_decay_half_lives,
+                    nuclide, format(n), format((result.fractionRemaining ?: 0.0) * 100)
+                )
+        }
+
+        val builder = StringBuilder(lead)
+        if (!working) return builder.toString()
+        builder.append("\n\n### ").append(strings.get(R.string.ai_decay_working_header))
+        builder.append("\n").append(
+            strings.get(R.string.ai_decay_working_half_life, nuclide, groupDigits(result.halfLifeDisplay))
+        )
+        builder.append("\n").append(
+            strings.get(R.string.ai_decay_working_n, format(n), format((result.fractionRemaining ?: 0.0) * 100))
+        )
+        return builder.toString()
+    }
+
+    private fun format(value: Double): String = UnitConverter.formatValue(value)
+
+    /** Renders a large count in scientific notation, e.g. 1.2 × 10²⁴. */
+    private fun scientific(value: Double): String {
+        if (value == 0.0) return "0"
+        val exponent = kotlin.math.floor(kotlin.math.log10(kotlin.math.abs(value))).toInt()
+        val mantissa = value / Math.pow(10.0, exponent.toDouble())
+        return "${format(mantissa)} × 10${superscript(exponent)}"
+    }
+
+    private fun superscript(n: Int): String {
+        val digits = "⁰¹²³⁴⁵⁶⁷⁸⁹"
+        val sign = if (n < 0) "⁻" else ""
+        return sign + kotlin.math.abs(n).toString().map { digits[it - '0'] }.joinToString("")
+    }
+
+    private fun isotopes(result: ExecutionResult.Isotopes): String {
+        val builder = StringBuilder("### ")
+            .append(strings.get(R.string.ai_isotopes_header, displayName(result.element.key)))
+        builder.append("\n").append(
+            strings.get(R.string.ai_isotopes_summary, result.total, result.stableCount)
+        )
+        for (isotope in result.shown) {
+            builder.append("\n").append(
+                when {
+                    isotope.stable -> strings.get(R.string.ai_isotope_stable, isotope.name)
+                    isotope.decayType != null -> strings.get(
+                        R.string.ai_isotope_decays, isotope.name, isotope.decayType, isotope.halfLifeDisplay
+                    )
+                    else -> strings.get(
+                        R.string.ai_isotope_halflife_only, isotope.name, isotope.halfLifeDisplay
+                    )
+                }
+            )
+        }
+        val remaining = result.total - result.shown.size
+        if (remaining > 0) builder.append("\n").append(strings.get(R.string.ai_list_more, remaining))
+        return builder.toString()
+    }
+
+    private fun safety(result: ExecutionResult.Safety): String {
+        val builder = StringBuilder("### ")
+            .append(strings.get(R.string.ai_safety_header, displayName(result.element.key)))
+        val nfpa = result.nfpa
+        var anyRating = false
+        nfpa.health?.let {
+            anyRating = true
+            builder.append("\n").append(strings.get(R.string.ai_safety_health, it, healthLabel(it)))
+        }
+        nfpa.flammability?.let {
+            anyRating = true
+            builder.append("\n").append(
+                strings.get(R.string.ai_safety_flammability, it, flammabilityLabel(it))
+            )
+        }
+        nfpa.instability?.let {
+            anyRating = true
+            builder.append("\n").append(strings.get(R.string.ai_safety_instability, it))
+        }
+        if (!anyRating) {
+            builder.append("\n").append(
+                strings.get(R.string.ai_safety_none_recorded, displayName(result.element.key))
+            )
+        }
+        if (result.radioactive) {
+            builder.append("\n").append(strings.get(R.string.ai_safety_radioactive_note))
+        }
+        return builder.toString()
+    }
+
+    /**
+     * The emission spectrum, which is a picture and a disclaimer.
+     *
+     * The sentence says what the card below it shows and, in the same breath, that the app holds no
+     * wavelengths — so the agent is never asked to name a line it does not have. Offline the card is
+     * dropped by [ChatCardPolicy], and the text says so rather than describing an image that is not
+     * going to appear, reusing the same wording the element screen shows in that situation.
+     */
+    private fun emissionSpectrum(result: ExecutionResult.EmissionSpectrum): String {
+        val name = displayName(result.element.key)
+        val body = strings.get(R.string.ai_emission_spectrum, name)
+        if (cardPolicy.allowNetworkCards) return body
+        return body + "\n" + strings.get(R.string.go_online_for_emission)
+    }
+
+    // Delegated rather than duplicated: NfpaLabeller owns the rating-to-wording mapping, because
+    // the hazard diamond card and the element screen need exactly the same table. It used to exist
+    // here and again, as hardcoded English, inside InfoExtension.
+    private fun healthLabel(rating: Int): String =
+        strings.get(NfpaLabeller.healthDescription(rating))
+
+    private fun flammabilityLabel(rating: Int): String =
+        strings.get(NfpaLabeller.flammabilityDescription(rating))
+
+    /**
+     * A row from one of the app's reference tables.
+     *
+     * Those tables are English-only, which `DatasetIndex` documents and says the composer "flags
+     * rather than pretending otherwise". It did not flag it, so a Swedish user asking what an
+     * isotope is got an English definition with no indication why. Said once, and only when the
+     * conversation is not already in English.
+     */
+    private fun dataset(result: ExecutionResult.Dataset): String {
+        // The title in the reader's language when the shared data has it (roadmap 1.3), with the
+        // English one beside it, because the row's text below is still English.
+        val translated = localized?.datasetTitles(result.row)?.firstOrNull()?.takeIf { it != result.row.title }
+        val heading = if (translated != null) "**$translated** (${result.row.title})" else "**${result.row.title}**"
+        val body = "$heading\n${result.row.detail}"
+        if (strings.language == ENGLISH) return body
+        val note = runCatching { strings.get(R.string.ai_dataset_english_note) }.getOrNull()
+        return if (note == null || note.startsWith("str:")) body else "$body\n\n$note"
+    }
+
+    /**
+     * An answer withheld behind the paywall.
+     *
+     * Deliberately different from [noData]: this says the app *has* the value and is not showing it,
+     * rather than claiming not to know. Telling a user "I don't have that" about a figure their
+     * element screen visibly displays as a lock would be a lie, and a confusing one.
+     *
+     * The fields are named. Knowing *what* is behind the paywall is not the same as being told the
+     * value, and it is what makes the upsell concrete rather than a blank refusal.
+     */
+    private fun locked(result: ExecutionResult.Locked): String {
+        val labels = result.fieldIds.mapNotNull { FieldRegistry.byId[it] }
+            .joinToString(", ") { fieldLabel(it.id).lowercase() }
+            .ifBlank { null }
+        val tierName = strings.get(
+            if (result.tier == com.jlindemann.science.ai.data.Tier.PRO_PLUS) R.string.get_pro_plus
+            else R.string.get_pro
+        )
+        return if (labels == null) {
+            strings.get(R.string.ai_locked_generic, tierName)
+        } else {
+            strings.get(R.string.ai_locked_fields, labels, tierName)
+        }
+    }
+
+    /**
+     * The honest failure. Names the field, says it was checked, and reports how sparse it is —
+     * rather than printing the raw sentinel or drifting to an unrelated answer.
+     */
+    private fun noData(result: ExecutionResult.NoData): String {
+        val label = fieldLabel(result.fieldId)
+        val name = result.element?.let { displayName(it.key) }
+        val sentence = if (name != null) strings.get(R.string.ai_no_property_data, name, label)
+        else strings.get(R.string.ai_no_data_right_now)
+        val coverage = strings.get(R.string.ai_coverage_note, label, result.coverage, store.size)
+        val builder = StringBuilder(sentence).append("\n").append(coverage)
+
+        // Say what *is* known. "Tungsten has no recorded Curie point" is honest and a dead end; the
+        // same answer plus the neighbouring properties that are recorded gives the reader somewhere
+        // to go, and costs nothing — those values are already loaded.
+        result.element?.let { element ->
+            val siblings = FieldRegistry.byId[result.fieldId]?.category?.let { category ->
+                FieldRegistry.ALL
+                    .filter { it.category == category && it.id != result.fieldId }
+                    // value() returns FieldValue.Missing, never null, so a `!= null` check here
+                    // kept every field and offered properties the element is also missing.
+                    .filter { !element.value(it.id).isMissing }
+                    .take(MAX_ALTERNATIVES)
+                    .map { fieldLabel(it.id) }
+            }.orEmpty()
+            if (siblings.isNotEmpty()) {
+                builder.append("\n").append(
+                    strings.get(
+                        R.string.ai_no_data_alternatives,
+                        displayName(element.key),
+                        siblings.joinToString(", ")
+                    )
+                )
+            }
+        }
+        return builder.toString()
+    }
+
+    // ---- Citations ------------------------------------------------------------------------
+
+    private fun citationBlock(citations: List<Citation>): String {
+        if (citations.isEmpty()) return ""
+        val lines = citations.distinctBy { it.label to it.source }.take(MAX_CITATIONS).map {
+            if (it.fromTable) strings.get(R.string.ai_source_table, it.label, it.source)
+            else strings.get(R.string.ai_source_element_data, it.label, it.source)
+        }
+        return "\n\n### ${strings.get(R.string.ai_sources_header)}\n" + lines.joinToString("\n") { "• $it" }
+    }
+
+    // ---- Helpers ----------------------------------------------------------------------------
+
+    private fun displayName(key: String): String =
+        localized?.name(key)?.takeIf { it.isNotBlank() } ?: key.replaceFirstChar { it.uppercase() }
+
+    private fun fieldLabel(fieldId: String): String {
+        val spec = FieldRegistry.byId[fieldId] ?: return fieldId.replace('_', ' ')
+        // The sentence form where one is defined: the shipped labels are table headings, and the
+        // abundance ones are prepositional phrases that read as nonsense inside a sentence.
+        val label = runCatching { strings.get(spec.sentenceLabel()) }.getOrNull()
+            ?.takeIf { !it.startsWith("str:") }
+            ?: runCatching { strings.get(spec.labelRes) }.getOrNull()
+        return if (label == null || label.startsWith("str:")) fieldId.replace('_', ' ')
+        else label.replace(":", "").replace("：", "").trim()
+    }
+
+    private companion object {
+        const val MAX_CITATIONS = 4
+        const val LIST_PREVIEW = 10
+
+        /** The one language the app's reference tables are written in. */
+        const val ENGLISH = "en"
+
+        /** Below this, naming the pool a superlative won against adds noise rather than context. */
+        const val MIN_POOL_TO_REPORT = 3
+
+        /** Below this many distinct elements a formula breakdown just repeats the total. */
+        const val MIN_PARTS_TO_BREAK_DOWN = 2
+
+        /**
+         * The share of steps that must go one way for a trend to be called rising or falling. Period
+         * 3's electronegativity rises at every step; ionization energy across a period dips twice and
+         * still rises, which is what a reader means by the trend.
+         */
+        const val STEADY_SHARE = 0.7
+
+        /** Below this many decided fields, a tally of wins says less than the table above it. */
+        const val MIN_FIELDS_TO_JUDGE = 2
+
+        /** Longest list of neighbouring properties offered beside a missing one. */
+        const val MAX_ALTERNATIVES = 4
+    }
+}

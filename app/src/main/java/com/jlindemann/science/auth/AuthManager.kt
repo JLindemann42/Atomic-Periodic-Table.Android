@@ -21,6 +21,9 @@ object AuthManager {
     fun getUserEmail(): String? = firebaseAuth.currentUser?.email
 
     fun signOut(googleClient: GoogleSignInClient? = null, onComplete: (() -> Unit)? = null) {
+        // Clear the sync throttle, so signing in as somebody else syncs immediately rather than
+        // waiting out the previous account's interval.
+        com.jlindemann.science.sync.AutoSync.reset()
         try {
             firebaseAuth.signOut()
         } catch (_: Exception) { }
@@ -48,6 +51,6 @@ object AuthManager {
             .requestIdToken(webClientId)
             .requestEmail()
             .build()
-        return GoogleSignIn.getClient(activity, gso)
+        return GoogleSignIn.getClient(activity.applicationContext, gso)
     }
 }

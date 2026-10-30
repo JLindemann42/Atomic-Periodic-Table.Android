@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@drawable/half_up_toast"
+    android:background="@drawable/toast"
     android:backgroundTint="?attr/colorSurface"
     android:layout_height="52dp">
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        android:background="@drawable/half_up_toast"
+        android:background="@drawable/toast"
         android:backgroundTint="?attr/colorPrimary"
         android:alpha="0.11"/>
 
@@ -451,20 +451,20 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageButton
         android:id="@+id/edit_fav_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        app:materialThemeOverlay="@style/ThemeOverlay.Material3Expressive.FloatingActionButton.Tertiary"
         android:layout_gravity="center"
-        android:layout_marginEnd="9dp"
+        android:layout_marginEnd="4dp"
         android:alpha="0.85"
         android:elevation="0dp"
         android:foregroundGravity="center"
-        android:tint="?attr/colorOnSecondaryContainer"
-        android:src="@drawable/ic_edit"
-        app:backgroundTint="@color/transparent"
-        app:borderWidth="0dp"
-        app:elevation="0dp"
-        app:fabSize="mini" />
+        android:background="@drawable/circle"
+        android:backgroundTint="?attr/colorTertiary"
+        app:tint="?attr/colorOnTertiary"
+        android:src="@drawable/ic_edit" />
+
 </LinearLayout>
 </FrameLayout>

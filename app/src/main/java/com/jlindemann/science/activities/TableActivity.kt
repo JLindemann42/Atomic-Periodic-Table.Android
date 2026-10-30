@@ -6,23 +6,22 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
+import com.google.android.material.button.MaterialButton
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tables.*
-import com.jlindemann.science.activities.tools.TitleBarAnimator
 import com.jlindemann.science.adapter.TableAdapter
 import com.jlindemann.science.model.TableItem
 import com.jlindemann.science.preferences.MostUsedPreference
 import com.jlindemann.science.preferences.ProVersion
 import com.jlindemann.science.preferences.TableOrderPreference
 import com.jlindemann.science.preferences.ThemePreference
+import com.jlindemann.science.utils.UnifiedTitleBarController
 
 class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
 
@@ -30,7 +29,8 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
     private lateinit var recyclerView: DragDropSwipeRecyclerView
     private lateinit var tableOrderPref: TableOrderPreference
     private var isReorderMode = false
-    private lateinit var reorderBtn: ImageButton
+    private lateinit var reorderBtn: MaterialButton
+    private lateinit var titleBar: UnifiedTitleBarController
 
     private var headerView: View? = null
     private var lastTopInset = 0
@@ -55,15 +55,6 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
         tableOrderPref = TableOrderPreference(this)
         setupRecyclerView()
         setupTitleBar()
-
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
-            this.onBackPressed()
-        }
-
-        reorderBtn = findViewById(R.id.reorder_btn)
-        reorderBtn.setOnClickListener {
-            toggleReorderMode()
-        }
     }
 
     private fun setupRecyclerView() {
@@ -73,15 +64,8 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
         val proPrefValue = proPref.getValue()
         
         val tables = getTableItems(proPrefValue)
-        val tablesWithHeader = mutableListOf(TableItem("header", 0, 0))
-        tablesWithHeader.addAll(tables)
         
-        adapter = TableAdapter(this, tablesWithHeader, this)
-        adapter.setHeaderBindingAction { view ->
-            headerView = view
-            applyHeaderInsets(view, lastTopInset)
-            mostUsedBar(view)
-        }
+        adapter = TableAdapter(this, tables, this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
@@ -113,7 +97,8 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
             TableItem("nuc", R.string.table_nuclide, R.string.table_nuclide_text, proPrefValue == 1, 7),
             TableItem("con", R.string.constants_tite, R.string.table_constants_text, proPrefValue == 1, 8),
             TableItem("geo", R.string.table_geology, R.string.table_geology_text, proPrefValue == 1, 9),
-            TableItem("emi", R.string.emission_title, R.string.emission_text, proPrefValue == 1, 10)
+            TableItem("emi", R.string.emission_title, R.string.emission_text, proPrefValue == 1, 10),
+            TableItem("alo", R.string.table_alloy, R.string.table_alloy_text, proPrefValue == 1, 11)
         )
 
         val savedOrder = tableOrderPref.getOrder()
@@ -131,8 +116,7 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
     }
 
     private fun saveTableOrder() {
-        // Filter out the header before saving
-        val currentOrder = adapter.dataSet.filter { it.id != "header" }.map { it.id }
+        val currentOrder = adapter.dataSet.map { it.id }
         tableOrderPref.saveOrder(currentOrder)
     }
 
@@ -141,14 +125,16 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
         adapter.setReorderMode(isReorderMode)
         
         if (isReorderMode) {
-            reorderBtn.setImageResource(R.drawable.ic_check_2)
+            reorderBtn.setIconResource(R.drawable.ic_check_2)
             val typedValue = android.util.TypedValue()
             theme.resolveAttribute(R.attr.colorAccent, typedValue, true)
-            reorderBtn.setColorFilter(typedValue.data)
+            reorderBtn.iconTint = android.content.res.ColorStateList.valueOf(typedValue.data)
             reorderBtn.alpha = 1.0f
         } else {
-            reorderBtn.setImageResource(R.drawable.ic_edit)
-            reorderBtn.clearColorFilter()
+            reorderBtn.setIconResource(R.drawable.ic_edit)
+            val typedValue = android.util.TypedValue()
+            theme.resolveAttribute(com.google.android.material.R.attr.colorOnSecondaryContainer, typedValue, true)
+            reorderBtn.iconTint = android.content.res.ColorStateList.valueOf(typedValue.data)
             reorderBtn.alpha = 1.0f
             saveTableOrder()
         }
@@ -160,6 +146,11 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
         val proPref = ProVersion(this)
         val proPrefValue = proPref.getValue()
 
+        if (item.requiresPro && proPrefValue != 100) {
+            goToProPage()
+            return
+        }
+
         val activityClass = when (item.id) {
             "iso" -> IsotopesActivityExperimental::class.java
             "phi" -> phActivity::class.java
@@ -167,11 +158,12 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
             "eqe" -> EquationsActivity::class.java
             "ion" -> IonActivity::class.java
             "sol" -> SolubilityActivity::class.java
-            "poi" -> if (proPrefValue == 100) PoissonActivity::class.java else ProActivity::class.java
-            "nuc" -> if (proPrefValue == 100) NuclideActivity::class.java else ProActivity::class.java
-            "con" -> if (proPrefValue == 100) ConstantsActivity::class.java else ProActivity::class.java
-            "geo" -> if (proPrefValue == 100) GeologyActivity::class.java else ProActivity::class.java
-            "emi" -> if (proPrefValue == 100) EmissionActivity::class.java else ProActivity::class.java
+            "poi" -> PoissonActivity::class.java
+            "nuc" -> NuclideActivity::class.java
+            "con" -> ConstantsActivity::class.java
+            "geo" -> GeologyActivity::class.java
+            "emi" -> EmissionActivity::class.java
+            "alo" -> AlloyActivity::class.java
             else -> return
         }
 
@@ -180,10 +172,14 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
     }
 
     private fun setupTitleBar() {
-        /// Title Controller with animated visibility
-        findViewById<FrameLayout>(R.id.common_title_table_color).visibility = View.VISIBLE
-        findViewById<TextView>(R.id.tables_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_tab).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.activity_table_title)
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+        titleBar.setAction(R.drawable.ic_edit) { toggleReorderMode() }
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+        reorderBtn = titleBar.actionButton
         
         var totalScrollY = 0
         var isTitleVisible = false // Track animation state
@@ -198,41 +194,15 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
                     totalScrollY -= distance
                 }
 
-                val threshold = 150
-                val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_table_color)
-                val titleText = findViewById<TextView>(R.id.tables_title)
-                val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_tab)
-
-                // Header view might contain the downstate title now
-                val headerView = recyclerView.findViewHolderForAdapterPosition(0)?.itemView
-                val titleDownstateText = headerView?.findViewById<TextView>(R.id.tables_title_downstate)
-
-                if (totalScrollY > threshold) {
-                    if (!isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
-                        TitleBarAnimator.animateVisibility(titleText, true)
-                        titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, false) }
-                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
-                        isTitleVisible = true
-                    }
-                } else {
-                    if (isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
-                        TitleBarAnimator.animateVisibility(titleText, false)
-                        titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, true) }
-                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
-                        isTitleVisible = false
-                    }
-                }
             }
         }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         lastTopInset = top
-        val params = findViewById<FrameLayout>(R.id.common_title_back_tab).layoutParams as ViewGroup.LayoutParams
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_tab).layoutParams = params
+        titleBar.container.layoutParams = params
 
         headerView?.let {
             applyHeaderInsets(it, top)
@@ -240,10 +210,6 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
     }
 
     private fun applyHeaderInsets(view: View, top: Int) {
-        val titleDownstate = view.findViewById<TextView>(R.id.tables_title_downstate)
-        val params = titleDownstate.layoutParams as ViewGroup.MarginLayoutParams
-        params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
-        titleDownstate.layoutParams = params
     }
 
     private fun mostUsedBar(rootView: View) {
@@ -286,27 +252,33 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
                     "ele" -> getString(R.string.ele)
                     "iso" -> getString(R.string.iso)
                     "emi" -> getString(R.string.emi)
+                    "alo" -> getString(R.string.alo)
                     else -> ""
                 }
 
                 textView.setOnClickListener {
-                    val activityClass = when (pair.first) {
-                        "iso" -> IsotopesActivityExperimental::class.java
-                        "phi" -> phActivity::class.java
-                        "eqe" -> EquationsActivity::class.java
-                        "ion" -> IonActivity::class.java
-                        "sol" -> SolubilityActivity::class.java
-                        "ele" -> ElectrodeActivity::class.java
-                        "poi" -> if (proPrefValue == 100) PoissonActivity::class.java else ProActivity::class.java
-                        "nuc" -> if (proPrefValue == 100) NuclideActivity::class.java else ProActivity::class.java
-                        "con" -> if (proPrefValue == 100) ConstantsActivity::class.java else ProActivity::class.java
-                        "geo" -> if (proPrefValue == 100) GeologyActivity::class.java else ProActivity::class.java
-                        "emi" -> if (proPrefValue == 100) EmissionActivity::class.java else ProActivity::class.java
-                        else -> null
-                    }
-                    activityClass?.let {
-                        val intent = Intent(this, it)
-                        startActivity(intent)
+                    if (proPrefValue != 100 && listOf("poi", "nuc", "con", "geo", "emi", "alo").contains(pair.first)) {
+                        goToProPage()
+                    } else {
+                        val activityClass = when (pair.first) {
+                            "iso" -> IsotopesActivityExperimental::class.java
+                            "phi" -> phActivity::class.java
+                            "eqe" -> EquationsActivity::class.java
+                            "ion" -> IonActivity::class.java
+                            "sol" -> SolubilityActivity::class.java
+                            "ele" -> ElectrodeActivity::class.java
+                            "poi" -> PoissonActivity::class.java
+                            "nuc" -> NuclideActivity::class.java
+                            "con" -> ConstantsActivity::class.java
+                            "geo" -> GeologyActivity::class.java
+                            "emi" -> EmissionActivity::class.java
+                            "alo" -> AlloyActivity::class.java
+                            else -> null
+                        }
+                        activityClass?.let {
+                            val intent = Intent(this, it)
+                            startActivity(intent)
+                        }
                     }
                 }
             }
@@ -314,5 +286,3 @@ class TableActivity : BaseActivity(), TableAdapter.OnTableItemClickListener {
     }
 
 }
-
-

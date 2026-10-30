@@ -7,20 +7,19 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.button.MaterialButton
 import com.jlindemann.science.R
 import com.jlindemann.science.activities.BaseActivity
-import com.jlindemann.science.animations.Anim
+import com.jlindemann.science.animations.TitleBarAnimator
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.utils.TabUtil
+import com.jlindemann.science.utils.UnifiedTitleBarController
 
 class CreditsActivity : BaseActivity() {
 
@@ -28,6 +27,7 @@ class CreditsActivity : BaseActivity() {
     private var backCallback: OnBackPressedCallback? = null
     private var onBackInvokedCb: android.window.OnBackInvokedCallback? = null
     private val uiHandler = Handler(Looper.getMainLooper())
+    private lateinit var titleBar: UnifiedTitleBarController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,7 @@ class CreditsActivity : BaseActivity() {
         if (themePrefValue == 1) { setTheme(R.style.AppThemeDark) }
         setContentView(R.layout.activity_settings_credits) //REMEMBER: Never move any function calls above this
 
-        findViewById<FrameLayout>(R.id.view_cre).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        findViewById<ConstraintLayout>(R.id.view_cre).systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 
         // Register lifecycle-aware OnBackPressedCallback (disabled by default).
         backCallback = object : OnBackPressedCallback(false) {
@@ -66,42 +66,60 @@ class CreditsActivity : BaseActivity() {
         // Start with platform OnBackInvoked interception disabled; enable when overlays appear.
         setBackInterceptionEnabled(false)
 
-        //Title Controller
-        findViewById<FrameLayout>(R.id.common_title_back_cre_color).visibility = View.INVISIBLE
-        findViewById<TextView>(R.id.credits_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_cre).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.credits_title)
+        titleBar.hideAction()
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+        val titleSurface = titleBar.container.findViewById<View>(R.id.unified_titlebar_surface)
+        titleSurface.visibility = View.INVISIBLE
+        titleBar.titleView.visibility = View.INVISIBLE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+
         findViewById<ScrollView>(R.id.credits_scroll).viewTreeObserver
-            .addOnScrollChangedListener(object : ViewTreeObserver.OnScrollChangedListener {
-                var y = 300f
+            .addOnScrollChangedListener(object : android.view.ViewTreeObserver.OnScrollChangedListener {
+                private var isTitleVisible = false
+
                 override fun onScrollChanged() {
-                    if (findViewById<ScrollView>(R.id.credits_scroll).scrollY > 150) {
-                        findViewById<FrameLayout>(R.id.common_title_back_cre_color).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.credits_title).visibility = View.VISIBLE
-                        findViewById<TextView>(R.id.credits_title_downstate).visibility = View.INVISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_cre).elevation = (resources.getDimension(R.dimen.one_elevation))
+                    val scrollY = findViewById<ScrollView>(R.id.credits_scroll).scrollY
+                    val threshold = 158
+
+                    val titleColorBackground = titleSurface
+                    val titleText = titleBar.titleView
+                    val titleDownstateText = findViewById<TextView>(R.id.credits_title_downstate)
+                    val titleBackground = titleBar.container
+
+                    if (scrollY > threshold) {
+                        if (!isTitleVisible) {
+                            TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
+                            TitleBarAnimator.animateVisibility(titleText, true)
+                            TitleBarAnimator.animateVisibility(titleDownstateText, false)
+                            titleBackground.elevation = resources.getDimension(R.dimen.one_elevation)
+                            isTitleVisible = true
+                        }
                     } else {
-                        findViewById<FrameLayout>(R.id.common_title_back_cre_color).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.credits_title).visibility = View.INVISIBLE
-                        findViewById<TextView>(R.id.credits_title_downstate).visibility = View.VISIBLE
-                        findViewById<FrameLayout>(R.id.common_title_back_cre).elevation = (resources.getDimension(R.dimen.zero_elevation))
+                        if (isTitleVisible) {
+                            TitleBarAnimator.animateVisibility(titleColorBackground, false)
+                            TitleBarAnimator.animateVisibility(titleText, false)
+                            TitleBarAnimator.animateVisibility(titleDownstateText, true)
+                            titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
+                            isTitleVisible = false
+                        }
                     }
-                    y = findViewById<ScrollView>(R.id.credits_scroll).scrollY.toFloat()
                 }
             })
 
         listeners()
-        findViewById<ImageButton>(R.id.back_btn_cre).setOnClickListener {
-            this.onBackPressed()
-        }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
-        val params2 = findViewById<FrameLayout>(R.id.common_title_back_cre).layoutParams as ViewGroup.LayoutParams
+        val params2 = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params2.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_cre).layoutParams = params2
+        titleBar.container.layoutParams = params2
 
         val params3 = findViewById<TextView>(R.id.credits_title_downstate).layoutParams as ViewGroup.MarginLayoutParams
-        params3.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
+        params3.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar)
         findViewById<TextView>(R.id.credits_title_downstate).layoutParams = params3
     }
 

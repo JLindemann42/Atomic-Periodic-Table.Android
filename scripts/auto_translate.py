@@ -139,7 +139,7 @@ def translate_element_descriptions(repo_path):
     print("TRANSLATING ELEMENT DESCRIPTIONS")
     print("=" * 80)
     
-    assets_path = os.path.join(repo_path, "app/src/main/assets")
+    assets_path = os.path.join(repo_path, "shared/elements")
     
     # Read English elements as reference
     en_file = os.path.join(assets_path, "elements_en.json")

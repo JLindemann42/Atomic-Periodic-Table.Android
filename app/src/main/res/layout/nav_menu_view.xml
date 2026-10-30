@@ -1,418 +1,434 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.androidx.com/tools"
+    android:layout_height="wrap_content"
     android:elevation="100dp"
     android:orientation="vertical">
 
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout
-        android:id="@+id/sliding_layout"
+    <LinearLayout
+        android:id="@+id/navLin"
         android:layout_width="match_parent"
-        android:layout_height="366dp"
-        android:elevation="101dp"
-        android:gravity="bottom"
-        sothree:umanoFadeColor="@android:color/transparent"
-        sothree:umanoInitialState="collapsed"
-        sothree:umanoPanelHeight="0dp"
-        sothree:umanoShadowHeight="0dp">
+        android:layout_height="wrap_content"
+        android:background="@drawable/half_toast"
+        android:backgroundTint="?attr/colorSurface"
+        android:gravity="center|top"
+        android:orientation="vertical"
+        android:textSize="16sp">
 
-        <TextView
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:textSize="16sp" />
-
-        <LinearLayout
-            android:id="@+id/navLin"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/half_toast"
-            android:backgroundTint="?attr/colorSurface"
-            android:gravity="center|top"
-            android:orientation="vertical"
-            android:textSize="16sp">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:backgroundTint="?attr/colorPrimary"
-                    android:background="@drawable/half_toast"
-                    android:alpha="0.11"/>
-
-                <TextView
-                    android:id="@+id/drag_icon"
-                    android:layout_width="36dp"
-                    android:layout_height="8dp"
-                    android:layout_margin="18dp"
-                    android:alpha="0.85"
-                    android:background="@drawable/toast"
-                    android:backgroundTint="?attr/colorOnSecondaryContainer"
-                    android:elevation="4dp"
-                    android:textAlignment="center"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:id="@+id/drag_icon2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="42dp"
-                    android:alpha="0.85"
-                    android:background="?attr/colorOnSecondaryContainer"
-                    android:elevation="1dp" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="54dp">
-
-                <TextView
-                    android:id="@+id/pro_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:background="?attr/colorSurface"
-                    android:backgroundTint="?attr/colorSurface"
-                    android:clickable="true"
-                    android:drawableStart="@drawable/ic_star"
-                    android:drawablePadding="18dp"
-                    android:drawableTint="?attr/colorPrimary"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple"
-                    android:gravity="center_vertical"
-                    android:paddingStart="18dp"
-                    android:paddingEnd="18dp"
-                    android:paddingTop="9dp"
-                    android:paddingBottom="9dp"
-                    android:text="Go Pro - more features"
-                    style="@style/TextAppearance.AppCompat.Button"
-                    android:textAllCaps="false"
-                    android:textColor="?attr/colorPrimary"
-                    android:textColorHighlight="?attr/colorOnSecondaryContainer"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:elevation="0dp"
-                    android:background="?attr/colorPrimary"
-                    android:alpha="0.11"/>
-
-            </FrameLayout>
-
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="54dp">
-                <TextView
-                    android:id="@+id/blog_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:background="?attr/colorSurface"
-                    android:backgroundTint="?attr/colorSurface"
-                    android:clickable="true"
-                    android:drawableStart="@drawable/ic_blog"
-                    android:drawablePadding="18dp"
-                    android:drawableTint="?attr/colorOnSecondaryContainer"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple"
-                    android:gravity="center_vertical"
-                    android:paddingStart="18dp"
-                    android:paddingEnd="18dp"
-                    android:paddingTop="9dp"
-                    android:paddingBottom="9dp"
-                    android:text="@string/blog"
-                    style="@style/TextAppearance.AppCompat.Button"
-                    android:textAllCaps="false"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textColorHighlight="?attr/colorOnSecondaryContainer"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:elevation="0dp"
-                    android:background="?attr/colorPrimary"
-                    android:alpha="0.11"/>
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="54dp">
-
-                <TextView
-                    android:id="@+id/solubility_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:background="?attr/colorSurface"
-                    android:backgroundTint="?attr/colorSurface"
-                    android:clickable="true"
-                    android:drawableStart="@drawable/ic_menu"
-                    android:drawablePadding="18dp"
-                    android:drawableTint="?attr/colorOnSecondaryContainer"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple"
-                    android:gravity="center_vertical"
-                    android:paddingStart="18dp"
-                    android:paddingEnd="18dp"
-                    android:paddingTop="9dp"
-                    android:paddingBottom="9dp"
-                    android:text="@string/Tables"
-                    android:textAllCaps="false"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textColorHighlight="?attr/colorOnSecondaryContainer"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:elevation="0dp"
-                    android:background="?attr/colorPrimary"
-                    android:alpha="0.11"/>
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:visibility="gone"
-                android:layout_height="54dp">
-
-                <TextView
-                    android:id="@+id/electronegativity_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:background="?attr/colorSecondaryContainer"
-                    android:backgroundTint="?attr/colorSecondaryContainer"
-                    android:clickable="true"
-                    android:drawableStart="@drawable/fav_electronegativity"
-                    android:drawablePadding="18dp"
-                    android:drawableTint="?attr/colorOnSecondaryContainer"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple"
-                    android:gravity="center_vertical"
-                    android:paddingStart="18dp"
-                    android:paddingEnd="18dp"
-                    android:paddingTop="9dp"
-                    android:paddingBottom="9dp"
-                    android:shadowColor="?attr/colorAccent"
-                    android:text="Electronegativity Table"
-                    android:textAllCaps="false"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textColorHighlight="?attr/colorOnSecondaryContainer"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:elevation="0dp"
-                    android:background="?attr/colorPrimary"
-                    android:alpha="0.11"/>
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="54dp">
-
-                <TextView
-                    android:id="@+id/calculator_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:background="?attr/colorSurface"
-                    android:backgroundTint="?attr/colorSurface"
-                    android:clickable="true"
-                    android:drawableStart="@drawable/ic_tools"
-                    android:drawablePadding="18dp"
-                    android:drawableTint="?attr/colorOnSecondaryContainer"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple"
-                    android:gravity="center_vertical"
-                    android:paddingStart="18dp"
-                    android:paddingEnd="18dp"
-                    android:paddingTop="9dp"
-                    android:paddingBottom="9dp"
-                    android:text="@string/tools_title"
-                    android:textAllCaps="false"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textColorHighlight="?attr/colorOnSecondaryContainer"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:elevation="0dp"
-                    android:background="?attr/colorPrimary"
-                    android:alpha="0.11"/>
-
-                <!-- "New" Badge -->
-                <TextView
-                    android:id="@+id/new_badge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="22dp"
-                    android:layout_gravity="end|center_vertical"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/toast_card"
-                    android:backgroundTint="?attr/colorError"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp"
-                    android:gravity="center"
-                    android:text="NEW"
-                    android:textAllCaps="true"
-                    android:textColor="?attr/colorOnPrimary"
-                    android:textSize="11sp" />
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="54dp">
-
-                <TextView
-                    android:id="@+id/dictionary_btn"
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:background="?attr/colorSurface"
-                    android:backgroundTint="?attr/colorSurface"
-                    android:clickable="true"
-                    android:drawableStart="@drawable/ic_dictionary"
-                    android:drawablePadding="18dp"
-                    android:drawableTint="?attr/colorOnSecondaryContainer"
-                    android:elevation="0dp"
-                    android:focusable="true"
-                    android:foreground="@drawable/d_ripple"
-                    android:gravity="center_vertical"
-                    android:paddingStart="18dp"
-                    android:paddingEnd="18dp"
-                    android:paddingTop="9dp"
-                    android:paddingBottom="9dp"
-                    android:text="@string/dictionary"
-                    android:textAllCaps="false"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textColorHighlight="?attr/colorOnSecondaryContainer"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="54dp"
-                    android:elevation="0dp"
-                    android:background="?attr/colorPrimary"
-                    android:alpha="0.11"/>
-
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/space5"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?attr/colorOnSecondaryContainer" />
+            android:layout_height="wrap_content">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="?attr/colorSurface">
+                android:backgroundTint="?attr/colorPrimary"
+                android:background="@drawable/half_toast"
+                android:alpha="0.11"/>
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="?attr/colorPrimary"
-                    android:elevation="1dp"
-                    android:alpha="0.11"/>
+            <TextView
+                android:id="@+id/drag_icon"
+                android:layout_width="36dp"
+                android:layout_height="8dp"
+                android:layout_margin="18dp"
+                android:alpha="0.85"
+                android:background="@drawable/toast"
+                android:backgroundTint="?attr/colorOnSecondaryContainer"
+                android:elevation="4dp"
+                android:textAlignment="center"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center"/>
 
-                <LinearLayout
-                    android:id="@+id/socialmedia_layout"
+            <TextView
+                android:id="@+id/drag_icon2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="42dp"
+                android:alpha="0.85"
+                android:background="?attr/colorOnSecondaryContainer"
+                android:elevation="1dp" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+
+            <TextView
+                android:id="@+id/pro_btn"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="?attr/colorSurface"
+                android:backgroundTint="?attr/colorSurface"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_star"
+                android:drawablePadding="18dp"
+                android:drawableTint="?attr/colorPrimary"
+                android:elevation="0dp"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple"
+                android:gravity="center_vertical"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:text="Go Pro - more features"
+                style="@style/TextAppearance.AppCompat.Button"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorPrimary"
+                android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:elevation="0dp"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11"/>
+
+        </FrameLayout>
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+            <TextView
+                android:id="@+id/blog_btn"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="?attr/colorSurface"
+                android:backgroundTint="?attr/colorSurface"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_blog"
+                android:drawablePadding="18dp"
+                android:drawableTint="?attr/colorOnSecondaryContainer"
+                android:elevation="0dp"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple"
+                android:gravity="center_vertical"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:text="@string/blog"
+                style="@style/TextAppearance.AppCompat.Button"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:elevation="0dp"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+
+            <TextView
+                android:id="@+id/solubility_btn"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="?attr/colorSurface"
+                android:backgroundTint="?attr/colorSurface"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_menu"
+                android:drawablePadding="18dp"
+                android:drawableTint="?attr/colorOnSecondaryContainer"
+                android:elevation="0dp"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple"
+                android:gravity="center_vertical"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:text="@string/Tables"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:elevation="0dp"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="54dp">
+
+            <TextView
+                android:id="@+id/electronegativity_btn"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="?attr/colorSecondaryContainer"
+                android:backgroundTint="?attr/colorSecondaryContainer"
+                android:clickable="true"
+                android:drawableStart="@drawable/fav_electronegativity"
+                android:drawablePadding="18dp"
+                android:drawableTint="?attr/colorOnSecondaryContainer"
+                android:elevation="0dp"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple"
+                android:gravity="center_vertical"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:shadowColor="?attr/colorAccent"
+                android:text="Electronegativity Table"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:elevation="0dp"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11"/>
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+
+            <TextView
+                android:id="@+id/calculator_btn"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="?attr/colorSurface"
+                android:backgroundTint="?attr/colorSurface"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_tools"
+                android:drawablePadding="18dp"
+                android:drawableTint="?attr/colorOnSecondaryContainer"
+                android:elevation="0dp"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple"
+                android:gravity="center_vertical"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:text="@string/tools_title"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:elevation="0dp"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11"/>
+
+            <!-- "New" Badge -->
+            <TextView
+                android:id="@+id/new_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/toast_card"
+                android:backgroundTint="?attr/colorError"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:gravity="center"
+                android:text="NEW"
+                android:textAllCaps="true"
+                android:textColor="?attr/colorOnPrimary"
+                android:textSize="11sp" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+
+            <TextView
+                android:id="@+id/dictionary_btn"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="?attr/colorSurface"
+                android:backgroundTint="?attr/colorSurface"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_dictionary"
+                android:drawablePadding="18dp"
+                android:drawableTint="?attr/colorOnSecondaryContainer"
+                android:elevation="0dp"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple"
+                android:gravity="center_vertical"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:text="@string/dictionary"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:elevation="0dp"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/space5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp">
+
+            <TextView
+                android:id="@+id/ai_chat_btn"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:background="?attr/colorSurface"
+                android:backgroundTint="?attr/colorSurface"
+                android:clickable="true"
+                android:drawableStart="@drawable/ic_ai_mascot"
+                android:drawablePadding="18dp"
+                android:drawableTint="?attr/colorOnSecondaryContainer"
+                android:elevation="0dp"
+                android:focusable="true"
+                android:foreground="@drawable/d_ripple"
+                android:gravity="center_vertical"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:text="@string/ask_atomic"
+                android:textAllCaps="false"
+                android:textColor="?attr/colorOnSecondaryContainer"
+                android:textColorHighlight="?attr/colorOnSecondaryContainer"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:elevation="0dp"
+                android:background="?attr/colorPrimary"
+                android:alpha="0.11"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/space6"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?attr/colorOnSecondaryContainer" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorSurface">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/colorPrimary"
+                android:elevation="1dp"
+                android:alpha="0.11"/>
+
+            <LinearLayout
+                android:id="@+id/socialmedia_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="0dp"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/bluesky_button"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
                     android:elevation="0dp"
-                    android:layout_gravity="center"
-                    android:orientation="horizontal">
+                    android:focusable="true"
+                    android:src="@drawable/ic_bluesky"
+                    android:tint="?attr/colorOnSecondaryContainer"
+                    app:backgroundTint="@color/transparent"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp" />
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/bluesky_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:elevation="0dp"
-                        android:focusable="true"
-                        android:src="@drawable/ic_bluesky"
-                        android:tint="?attr/colorOnSecondaryContainer"
-                        app:borderWidth="0dp"
-                        app:elevation="0dp"
-                        sothree:backgroundTint="@color/transparent"
-                        sothree:borderWidth="0dp"
-                        sothree:elevation="0dp" />
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/instagram_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:src="@drawable/ic_instagram_outline"
+                    android:tint="?attr/colorOnSecondaryContainer"
+                    app:backgroundTint="@color/transparent"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp" />
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/instagram_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:elevation="0dp"
-                        android:focusable="true"
-                        android:src="@drawable/ic_instagram_outline"
-                        android:tint="?attr/colorOnSecondaryContainer"
-                        app:borderWidth="0dp"
-                        app:elevation="0dp"
-                        sothree:backgroundTint="@color/transparent"
-                        sothree:borderWidth="0dp"
-                        sothree:elevation="0dp" />
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/facebook_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:src="@drawable/ic_facebook_outline"
+                    android:tint="?attr/colorOnSecondaryContainer"
+                    app:backgroundTint="@color/transparent"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp" />
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/facebook_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:elevation="0dp"
-                        android:focusable="true"
-                        android:src="@drawable/ic_facebook_outline"
-                        android:tint="?attr/colorOnSecondaryContainer"
-                        app:borderWidth="0dp"
-                        app:elevation="0dp"
-                        sothree:backgroundTint="@color/transparent"
-                        sothree:borderWidth="0dp"
-                        sothree:elevation="0dp" />
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/homepage_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:elevation="0dp"
+                    android:focusable="true"
+                    android:src="@drawable/ic_web_outline"
+                    android:tint="?attr/colorOnSecondaryContainer"
+                    android:visibility="visible"
+                    app:backgroundTint="@color/transparent"
+                    app:borderWidth="0dp"
+                    app:elevation="0dp" />
+            </LinearLayout>
 
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/homepage_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:clickable="true"
-                        android:elevation="0dp"
-                        android:focusable="true"
-                        android:src="@drawable/ic_web_outline"
-                        android:tint="?attr/colorOnSecondaryContainer"
-                        android:visibility="visible"
-                        app:borderWidth="0dp"
-                        app:elevation="0dp"
-                        sothree:backgroundTint="@color/transparent"
-                        sothree:borderWidth="0dp"
-                        sothree:elevation="0dp" />
-                </LinearLayout>
+        </FrameLayout>
 
-            </FrameLayout>
-
-        </LinearLayout>
-
-    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
+    </LinearLayout>
 
 </FrameLayout>

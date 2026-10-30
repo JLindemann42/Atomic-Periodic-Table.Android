@@ -9,7 +9,7 @@ import sys
 
 # Determine repo path
 repo_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-assets_path = os.path.join(repo_path, "app/src/main/assets")
+assets_path = os.path.join(repo_path, "shared/elements")
 
 # Language configuration with translation priorities
 LANGUAGES = {

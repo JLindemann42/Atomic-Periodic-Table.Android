@@ -1,165 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:id="@+id/view_lic"
     android:layout_width="match_parent"
-    android:background="?attr/backgroundColor"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor">
 
-    <FrameLayout
-        android:id="@+id/view_lic"
+    <ScrollView
+        android:id="@+id/license_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/backgroundColor"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent">
-
-        <FrameLayout
-            android:id="@+id/common_title_back_lic"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="?attr/colorSurface"
-            android:elevation="1dp"
-            android:gravity="center|center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <FrameLayout
-                android:id="@+id/common_title_back_lic_color"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:elevation="1dp"
-                android:alpha="0.11"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:id="@+id/title_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp">
-
-                    <ImageButton
-                        android:id="@+id/back_btn_d"
-                        style="?android:attr/borderlessButtonStyle"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_gravity="center_vertical"
-                        android:rotation="180"
-                        android:elevation="8dp"
-                        app:tint="?attr/colorOnPrimaryContainer"
-                        android:src="@drawable/ic_arrow_back_whit" />
-
-                    <TextView
-                        android:id="@+id/license_title"
-                        android:layout_width="wrap_content"
-                        android:layout_marginStart="70dp"
-                        android:alpha="0.9"
-                        android:layout_height="56dp"
-                        android:gravity="center"
-                        android:paddingStart="0dp"
-                        android:paddingEnd="0dp"
-                        android:text="@string/license_title"
-                        android:textAlignment="center"
-                        android:textColor="?attr/colorOnSecondaryContainer"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                </FrameLayout>
-
-            </LinearLayout>
-        </FrameLayout>
-
-        <ScrollView
-            android:id="@+id/license_scroll"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
 
         <LinearLayout
             android:id="@+id/licenses_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/license_title_downstate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="0dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="28dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:paddingTop="80dp"
+                android:paddingBottom="24dp"
                 android:text="@string/license_title"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="32sp"
-                android:textStyle="normal" />
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:letterSpacing="-0.02" />
 
-            <FrameLayout
-                android:id="@+id/l_wiki_btn"
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Science.Expressive.SectionCard"
                 android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="@dimen/margin"
-                android:layout_marginBottom="@dimen/margin_space_card"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:clickable="true"
-                android:elevation="2dp"
-                android:focusable="true">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:text="@string/wikipedia_commons"
-                    android:textColor="?attr/colorOnSurfaceVariant" />
+                    android:orientation="vertical">
 
-            </FrameLayout>
+                    <LinearLayout
+                        android:id="@+id/l_wiki_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/wikipedia_commons"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/l_sothree_btn"
-                android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginTop="@dimen/margin_space_card"
-                android:layout_marginEnd="@dimen/margin"
-                android:layout_marginBottom="@dimen/margin_space_card"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorSurfaceVariant"
-                android:clickable="true"
-                android:elevation="2dp"
-                android:focusable="true">
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="16dp" android:background="?attr/colorOutlineVariant" android:alpha="0.2" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin"
-                    android:text="@string/sothree_android_sliding_up_panel"
-                    android:textColor="?attr/colorOnSurfaceVariant" />
+                    <LinearLayout
+                        android:id="@+id/l_sothree_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:padding="16dp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sothree_android_sliding_up_panel"
+                            android:textColor="?attr/colorOnSurface"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
-            </FrameLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
-        </ScrollView>
+    </ScrollView>
 
+    <include
+        android:id="@+id/unified_titlebar_include"
+        layout="@layout/view_unified_titlebar"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <include
-            android:id="@+id/l_inc"
-            layout="@layout/license_info"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
-
-    </FrameLayout>
+    <include
+        android:id="@+id/l_inc"
+        layout="@layout/license_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,17 +12,14 @@
         android:layout_margin="2dp"
         android:layout_marginStart="2dp"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="2dp"
-        android:elevation="0dp">
+        android:layout_marginEnd="2dp">
 
         <TextView
             android:id="@+id/chromium_btn"
             android:layout_width="80dp"
             android:layout_height="78dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-
-            android:elevation="6dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/chromium_number"
@@ -31,7 +28,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="24"
             android:textAlignment="gravity"
@@ -42,7 +38,6 @@
             android:id="@+id/chromium_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="Cr"
             android:textColor="?attr/actionMenuTextColor"
@@ -54,7 +49,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Chromium"
             android:textColor="?attr/actionMenuTextColor"
@@ -69,17 +63,14 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
-        android:elevation="0dp">
+        android:layout_marginEnd="6dp">
 
         <TextView
             android:id="@+id/molybdenum_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/molybdenum_number"
@@ -88,7 +79,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="42"
             android:textAlignment="gravity"
@@ -99,7 +89,6 @@
             android:id="@+id/molybdenum_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="Mo"
             android:textColor="?attr/actionMenuTextColor"
@@ -111,7 +100,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Molybdenum"
             android:textColor="?attr/actionMenuTextColor"
@@ -126,17 +114,14 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
-        android:elevation="0dp">
+        android:layout_marginEnd="6dp">
 
         <TextView
             android:id="@+id/tungsten_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/tungsten_number"
@@ -145,7 +130,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="74"
             android:textAlignment="gravity"
@@ -156,7 +140,6 @@
             android:id="@+id/tungsten_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="W"
             android:textColor="?attr/actionMenuTextColor"
@@ -168,7 +151,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Tungsten"
             android:textColor="?attr/actionMenuTextColor"
@@ -183,17 +165,14 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
-        android:elevation="0dp">
+        android:layout_marginEnd="6dp">
 
         <TextView
             android:id="@+id/seaborgium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/seaborgium_number"
@@ -202,7 +181,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="106"
             android:textAlignment="gravity"
@@ -213,7 +191,6 @@
             android:id="@+id/seaborgium_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="Sg"
             android:textColor="?attr/actionMenuTextColor"
@@ -225,7 +202,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Seaborgium"
             android:textColor="?attr/actionMenuTextColor"
@@ -239,17 +215,14 @@
         android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="2dp"
-        android:elevation="0dp">
+        android:layout_marginEnd="2dp">
 
         <TextView
             android:id="@+id/praseodymium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/praseodymium_number"
@@ -258,7 +231,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="59"
             android:textAlignment="gravity"
@@ -269,7 +241,6 @@
             android:id="@+id/praseodymium_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="Pr"
             android:textColor="?attr/actionMenuTextColor"
@@ -281,7 +252,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Praseodymium"
             android:textColor="?attr/actionMenuTextColor"
@@ -296,17 +266,14 @@
         android:layout_marginStart="4dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
-        android:layout_marginEnd="6dp"
-        android:elevation="0dp">
+        android:layout_marginEnd="6dp">
 
         <TextView
             android:id="@+id/protactinium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/protactinium_number"
@@ -315,7 +282,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="91"
             android:textAlignment="gravity"
@@ -326,7 +292,6 @@
             android:id="@+id/protactinium_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="Pa"
             android:textColor="?attr/actionMenuTextColor"
@@ -338,7 +303,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Protactinium"
             android:textColor="?attr/actionMenuTextColor"

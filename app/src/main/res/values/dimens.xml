@@ -17,6 +17,8 @@
     <dimen name="zero_elevation">0dp</dimen>
     <dimen name="one_elevation">1dp</dimen>
 
+    <dimen name="bottom_bar_height">80dp</dimen>
+
     <dimen name="header_down_margin">48dp</dimen>
 
     <dimen name="groups">8dp</dimen>
@@ -25,14 +27,17 @@
 
     <dimen name="status_bar_height">30dp</dimen>
     <dimen name="title_bar">63dp</dimen>
+    <dimen name="title_bar_height_box">64dp</dimen>
     <dimen name="title_bar_main">68dp</dimen>
-    <dimen name="title_bar_ph">100dp</dimen>
+    <dimen name="title_bar_ph">112dp</dimen>
     <dimen name="nav_bar">68dp</dimen>
     <dimen name="nav_view">366dp</dimen>
     <dimen name="left_bar">32dp</dimen>
     <dimen name="art_margin">40dp</dimen>
 
     <dimen name="default_padding">16dp</dimen>
+
+    <dimen name="pro_text">53dp</dimen>
 
     <dimen name="first_item">98dp</dimen>
 
@@ -48,5 +53,15 @@ Refer to App Widget Documentation for margin information
 http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
     -->
     <dimen name="widget_margin">0dp</dimen>
+    <!-- Gutter between quick-nav tiles, and the tile icon size. -->
+    <dimen name="widget_tile_gap">4dp</dimen>
+    <dimen name="widget_tile_icon">28dp</dimen>
     <dimen name="bottom_sheet_element_list_height">400dp</dimen>
+
+    <!-- Chat answer cards. Fixed rather than match_parent: the bubble is wrap_content, so a card
+         with no intrinsic size would measure to zero. -->
+    <dimen name="ai_card_width">280dp</dimen>
+
+    <!-- Extra breathing room between the chat input and the top of the keyboard. -->
+    <dimen name="ai_input_keyboard_gap">8dp</dimen>
 </resources>

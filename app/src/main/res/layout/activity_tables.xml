@@ -25,75 +25,8 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/common_title_back_tab"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/title_bar"
-        android:alpha="1"
-        android:background="?attr/colorSurface"
-        android:elevation="0dp"
-        android:gravity="center|center_vertical"
-        android:orientation="horizontal">
-
-        <FrameLayout
-            android:id="@+id/common_title_table_color"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/colorPrimary"
-            android:alpha="0.11"
-            android:visibility="visible"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:orientation="vertical">
-
-            <FrameLayout
-                android:id="@+id/title_box"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/title_bar">
-
-                <ImageButton
-                    android:id="@+id/back_btn"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:layout_gravity="center_vertical"
-                    android:rotation="180"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:src="@drawable/ic_arrow_back_whit" />
-
-                <TextView
-                    android:id="@+id/tables_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/title_bar"
-                    android:layout_marginStart="70dp"
-                    android:gravity="center"
-                    android:paddingStart="0dp"
-                    android:alpha="0.9"
-                    android:paddingEnd="0dp"
-                    android:text="@string/activity_table_title"
-                    android:textAlignment="center"
-                    android:textColor="?attr/colorOnSecondaryContainer"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:visibility="invisible" />
-
-                <ImageButton
-                    android:id="@+id/reorder_btn"
-                    style="?android:attr/borderlessButtonStyle"
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:layout_gravity="center_vertical|end"
-                    android:layout_marginEnd="4dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:src="@drawable/ic_edit"
-                    app:tint="?attr/actionMenuTextColor" />
-            </FrameLayout>
-        </LinearLayout>
-    </FrameLayout>
+    <include
+        android:id="@+id/unified_titlebar_include"
+        layout="@layout/view_unified_titlebar" />
 
 </FrameLayout>

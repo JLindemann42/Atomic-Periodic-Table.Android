@@ -5,168 +5,140 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSurface"
-    android:elevation="30dp"
-    android:orientation="vertical">
+    android:elevation="30dp">
 
-    <FrameLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/element_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="60dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical" />
+
+    <LinearLayout
+        android:id="@+id/empty_search_box"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/empty_search_box"
+        <ImageView
+            android:id="@+id/empty_ele_search_image"
+            android:layout_width="164dp"
+            android:layout_height="164dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="44dp"
+            app:srcCompat="@drawable/graphic_light_search" />
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="56dp"
-            android:visibility="gone"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="42dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:text="@string/no_results"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="24sp" />
 
-            <ImageView
-                android:id="@+id/empty_ele_search_image"
-                android:layout_width="164dp"
-                android:layout_marginTop="44dp"
-                android:layout_height="164dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/graphic_light_search" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginEnd="42dp"
+            android:gravity="center_horizontal"
+            android:text="@string/try_another_search"
+            android:textColor="?attr/actionMenuTextColor"
+            android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginStart="42dp"
-                android:layout_marginEnd="42dp"
-                android:textColor="?attr/actionMenuTextColor"
-                android:textSize="24sp"
-                android:text="@string/no_results"/>
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textColor="?attr/actionMenuTextColor"
-                android:layout_marginStart="42dp"
-                android:layout_marginEnd="42dp"
-                android:textSize="16sp"
-                android:text="@string/try_another_search"/>
-
-        </LinearLayout>
+    <FrameLayout
+        android:id="@+id/common_title_back_search"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:background="?attr/colorSurface"
+        android:elevation="8dp">
 
         <FrameLayout
-            android:id="@+id/common_title_back_search"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:alpha="0.975"
-            android:background="?attr/colorSurface"
-            android:elevation="8dp"
-            android:gravity="center|center_vertical"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="?attr/colorPrimary"
-                android:alpha="0.12"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:id="@+id/title_box"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp">
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/filter_btn"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_gravity="center_vertical|end"
-                        android:clickable="true"
-                        android:elevation="0dp"
-                        android:focusable="true"
-                        android:src="@drawable/ic_sort"
-                        android:tint="?attr/colorOnSecondaryContainer"
-                        app:backgroundTint="@color/transparent"
-                        app:borderWidth="0dp"
-                        app:elevation="0dp"
-                        app:fabSize="auto" />
-
-                    <FrameLayout
-                        android:id="@+id/search_bar_element"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="56dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="56dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/toast"
-                        android:backgroundTint="?attr/colorSurface"
-                        android:elevation="0dp"
-                        android:visibility="visible">
-
-
-                        <EditText
-                            android:id="@+id/edit_element"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@android:color/transparent"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:hint="@string/search_elements"
-                            android:imeOptions="actionSearch"
-                            android:inputType="text"
-                            android:maxLines="1"
-                            android:paddingStart="18dp"
-                            android:textColor="?attr/colorOnSurface"
-                            android:textColorHint="?attr/colorOnSurface"
-                            android:textSize="14sp" />
-
-                    </FrameLayout>
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/close_element_search"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
-                        android:layout_gravity="center_vertical"
-                        android:clickable="true"
-                        android:elevation="0dp"
-                        android:focusable="true"
-                        android:src="@drawable/ic_close"
-                        android:tint="?attr/colorOnSecondaryContainer"
-                        app:backgroundTint="@color/transparent"
-                        app:borderWidth="0dp"
-                        app:elevation="0dp"
-                        app:fabSize="auto" />
-
-                </FrameLayout>
-
-            </LinearLayout>
-        </FrameLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/element_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingTop="9dp"
-            android:paddingBottom="60dp"
-            android:scrollbarStyle="insideOverlay"
-            android:scrollbars="vertical"
-            android:verticalScrollbarPosition="defaultPosition">
+            android:alpha="0.12"
+            android:background="?attr/colorPrimary" />
 
-        </androidx.recyclerview.widget.RecyclerView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_box"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:paddingBottom="8dp">
 
+            <ImageButton
+                android:id="@+id/close_element_search"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_close"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="?attr/colorOnSurfaceVariant" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/search_bar_element"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                app:strokeWidth="0dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.LargeComponent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/filter_btn"
+                app:layout_constraintStart_toEndOf="@id/close_element_search">
+
+                <EditText
+                    android:id="@+id/edit_element"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:hint="@string/search_elements"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textColorHint="?attr/colorOnSurfaceVariant"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageButton
+                android:id="@+id/filter_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/ic_sort"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:tint="?attr/colorOnSurfaceVariant" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 
     <TextView
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone"
         android:clickable="true"
         android:focusable="true" />
 
@@ -176,10 +148,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="9dp"
-        android:clickable="true"
-        android:elevation="8dp"
-        android:focusable="true" />
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone" />
 
 </FrameLayout>

@@ -6,14 +6,13 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ernestoyaquello.dragdropswiperecyclerview.DragDropSwipeRecyclerView
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnItemDragListener
 import com.ernestoyaquello.dragdropswiperecyclerview.listener.OnListScrollListener
+import com.google.android.material.button.MaterialButton
 import com.jlindemann.science.R
-import com.jlindemann.science.activities.settings.ProActivity
 import com.jlindemann.science.activities.tools.*
 import com.jlindemann.science.adapter.ToolAdapter
 import com.jlindemann.science.model.ToolItem
@@ -22,6 +21,7 @@ import com.jlindemann.science.preferences.ProPlusVersion
 import com.jlindemann.science.preferences.ThemePreference
 import com.jlindemann.science.preferences.ToolOrderPreference
 import com.jlindemann.science.utils.ProPlusTimeUtil
+import com.jlindemann.science.utils.UnifiedTitleBarController
 
 class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
 
@@ -29,7 +29,8 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
     private lateinit var recyclerView: DragDropSwipeRecyclerView
     private lateinit var toolOrderPref: ToolOrderPreference
     private var isReorderMode = false
-    private lateinit var reorderBtn: ImageButton
+    private lateinit var reorderBtn: MaterialButton
+    private lateinit var titleBar: UnifiedTitleBarController
     private var headerView: View? = null
     private var lastTopInset = 0
 
@@ -53,15 +54,6 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
         toolOrderPref = ToolOrderPreference(this)
         setupRecyclerView()
         setupTitleBar()
-
-        findViewById<ImageButton>(R.id.back_btn).setOnClickListener {
-            this.onBackPressed()
-        }
-
-        reorderBtn = findViewById(R.id.reorder_btn)
-        reorderBtn.setOnClickListener {
-            toggleReorderMode()
-        }
     }
 
     private fun setupRecyclerView() {
@@ -72,15 +64,8 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
         val isBeforeDeadline = ProPlusTimeUtil.isBeforeJanuary2026()
         
         val tools = getToolItems(proPlusPrefValue, isBeforeDeadline)
-        val toolsWithHeader = mutableListOf(ToolItem("header", 0, 0))
-        toolsWithHeader.addAll(tools)
         
-        adapter = ToolAdapter(this, toolsWithHeader, this)
-        adapter.setHeaderBindingAction { view ->
-            headerView = view
-            applyHeaderInsets(view, lastTopInset)
-            mostUsedBar(view)
-        }
+        adapter = ToolAdapter(this, tools, this)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
         recyclerView.orientation = DragDropSwipeRecyclerView.ListOrientation.VERTICAL_LIST_WITH_VERTICAL_DRAGGING
@@ -124,7 +109,7 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
     }
 
     private fun saveToolOrder() {
-        val currentOrder = adapter.dataSet.filter { it.id != "header" }.map { it.id }
+        val currentOrder = adapter.dataSet.map { it.id }
         toolOrderPref.saveOrder(currentOrder)
     }
 
@@ -133,14 +118,16 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
         adapter.setReorderMode(isReorderMode)
         
         if (isReorderMode) {
-            reorderBtn.setImageResource(R.drawable.ic_check_2)
+            reorderBtn.setIconResource(R.drawable.ic_check_2)
             val typedValue = android.util.TypedValue()
             theme.resolveAttribute(R.attr.colorAccent, typedValue, true)
-            reorderBtn.setColorFilter(typedValue.data)
+            reorderBtn.iconTint = android.content.res.ColorStateList.valueOf(typedValue.data)
             reorderBtn.alpha = 1.0f
         } else {
-            reorderBtn.setImageResource(R.drawable.ic_edit)
-            reorderBtn.clearColorFilter()
+            reorderBtn.setIconResource(R.drawable.ic_edit)
+            val typedValue = android.util.TypedValue()
+            theme.resolveAttribute(com.google.android.material.R.attr.colorOnSecondaryContainer, typedValue, true)
+            reorderBtn.iconTint = android.content.res.ColorStateList.valueOf(typedValue.data)
             reorderBtn.alpha = 1.0f
             saveToolOrder()
         }
@@ -153,17 +140,16 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
         val proPlusPrefValue = proPlusPref.getValue()
         val isBeforeDeadline = ProPlusTimeUtil.isBeforeJanuary2026()
 
+        if (item.requiresProPlus && proPlusPrefValue != 100 && isBeforeDeadline) {
+            goToProPage()
+            return
+        }
+
         val activityClass = when (item.id) {
             "cal" -> CalculatorActivity::class.java
             "uni" -> UnitConversionActivity::class.java
             "fla" -> FlashCardActivity::class.java
-            "gas" -> {
-                if (proPlusPrefValue != 100 && isBeforeDeadline) {
-                    ProActivity::class.java
-                } else {
-                    IdealGasCalculatorActivity::class.java
-                }
-            }
+            "gas" -> IdealGasCalculatorActivity::class.java
             else -> return
         }
 
@@ -172,9 +158,14 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
     }
 
     private fun setupTitleBar() {
-        findViewById<FrameLayout>(R.id.common_title_tool_color).visibility = View.VISIBLE
-        findViewById<TextView>(R.id.tools_title).visibility = View.INVISIBLE
-        findViewById<FrameLayout>(R.id.common_title_back_tab).elevation = (resources.getDimension(R.dimen.zero_elevation))
+        titleBar = UnifiedTitleBarController(findViewById(R.id.unified_titlebar_include))
+        titleBar.setTitle(R.string.tools)
+        titleBar.backButton.setOnClickListener { onBackPressed() }
+        titleBar.setAction(R.drawable.ic_edit) { toggleReorderMode() }
+        titleBar.hideCategories()
+        titleBar.searchRow.visibility = View.GONE
+        titleBar.container.elevation = resources.getDimension(R.dimen.zero_elevation)
+        reorderBtn = titleBar.actionButton
         
         recyclerView.scrollListener = object : OnListScrollListener {
             private var isTitleVisible = false
@@ -191,37 +182,15 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
                 
                 val threshold = 150
 
-                val titleColorBackground = findViewById<FrameLayout>(R.id.common_title_tool_color)
-                val titleText = findViewById<TextView>(R.id.tools_title)
-                val titleDownstateText = recyclerView.findViewHolderForAdapterPosition(0)?.itemView?.findViewById<TextView>(R.id.tools_title_downstate)
-                val titleBackground = findViewById<FrameLayout>(R.id.common_title_back_tab)
-
-                if (totalScrolledY > threshold) {
-                    if (!isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
-                        TitleBarAnimator.animateVisibility(titleText, true)
-                        titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, false) }
-                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
-                        isTitleVisible = true
-                    }
-                } else {
-                    if (isTitleVisible) {
-                        TitleBarAnimator.animateVisibility(titleColorBackground, true, visibleAlpha = 0.11f)
-                        TitleBarAnimator.animateVisibility(titleText, false)
-                        titleDownstateText?.let { TitleBarAnimator.animateVisibility(it, true) }
-                        titleBackground.elevation = resources.getDimension(R.dimen.zero_elevation)
-                        isTitleVisible = false
-                    }
-                }
             }
         }
     }
 
     override fun onApplySystemInsets(top: Int, bottom: Int, left: Int, right: Int) {
         lastTopInset = top
-        val params = findViewById<FrameLayout>(R.id.common_title_back_tab).layoutParams as ViewGroup.LayoutParams
+        val params = titleBar.container.layoutParams as ViewGroup.LayoutParams
         params.height = top + resources.getDimensionPixelSize(R.dimen.title_bar)
-        findViewById<FrameLayout>(R.id.common_title_back_tab).layoutParams = params
+        titleBar.container.layoutParams = params
 
         headerView?.let {
             applyHeaderInsets(it, top)
@@ -229,10 +198,7 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
     }
 
     private fun applyHeaderInsets(view: View, top: Int) {
-        val titleDownstate = view.findViewById<TextView>(R.id.tools_title_downstate)
-        val params = titleDownstate.layoutParams as ViewGroup.MarginLayoutParams
-        params.topMargin = top + resources.getDimensionPixelSize(R.dimen.title_bar) + resources.getDimensionPixelSize(R.dimen.header_down_margin)
-        titleDownstate.layoutParams = params
+
     }
 
     private fun mostUsedBar(rootView: View) {
@@ -266,8 +232,7 @@ class ToolsActivity : BaseActivity(), ToolAdapter.OnToolItemClickListener {
 
                 textViewList[index].setOnClickListener {
                     if (pair.first == "gas" && proPlusPrefValue != 100 && isBeforeDeadline) {
-                        val intent = Intent(this, ProActivity::class.java)
-                        startActivity(intent)
+                        goToProPage()
                     } else {
                         val activity = when (pair.first) {
                             "cal" -> CalculatorActivity::class.java

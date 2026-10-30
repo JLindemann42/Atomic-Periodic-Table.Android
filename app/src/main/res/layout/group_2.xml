@@ -12,17 +12,14 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:elevation="0dp">
+        android:layout_marginBottom="2dp">
 
         <TextView
             android:id="@+id/beryllium_btn"
             android:layout_width="80dp"
             android:layout_height="78dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-
-            android:elevation="6dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/beryllium_number"
@@ -31,7 +28,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="4"
             android:textAlignment="gravity"
@@ -42,7 +38,6 @@
             android:id="@+id/beryllium_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="Be"
             android:textColor="?attr/actionMenuTextColor"
@@ -54,7 +49,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Beryllium"
             android:textColor="?attr/actionMenuTextColor"
@@ -69,17 +63,14 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:elevation="0dp">
+        android:layout_marginBottom="2dp">
 
         <TextView
             android:id="@+id/magnesium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/magnesium_number"
@@ -88,7 +79,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="12"
             android:textAlignment="gravity"
@@ -99,7 +89,6 @@
             android:id="@+id/magnesium_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="Mg"
             android:textColor="?attr/actionMenuTextColor"
@@ -111,7 +100,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Magnesium"
             android:textColor="?attr/actionMenuTextColor"
@@ -126,17 +114,14 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:elevation="0dp">
+        android:layout_marginBottom="2dp">
 
         <TextView
             android:id="@+id/calcium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/calcium_number"
@@ -145,7 +130,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="20"
             android:textAlignment="gravity"
@@ -156,7 +140,6 @@
             android:id="@+id/calcium_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="Ca"
             android:textColor="?attr/actionMenuTextColor"
@@ -168,7 +151,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Calcium"
             android:textColor="?attr/actionMenuTextColor"
@@ -183,17 +165,14 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:elevation="0dp">
+        android:layout_marginBottom="2dp">
 
         <TextView
             android:id="@+id/strontium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/strontium_number"
@@ -202,7 +181,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="38"
             android:textAlignment="gravity"
@@ -213,7 +191,6 @@
             android:id="@+id/strontium_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="Sr"
             android:textColor="?attr/actionMenuTextColor"
@@ -225,7 +202,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Strontium"
             android:textColor="?attr/actionMenuTextColor"
@@ -240,17 +216,14 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:elevation="0dp">
+        android:layout_marginBottom="2dp">
 
         <TextView
             android:id="@+id/barium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/barium_number"
@@ -259,7 +232,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="56"
             android:textAlignment="gravity"
@@ -270,7 +242,6 @@
             android:id="@+id/barium_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="Ba"
             android:textColor="?attr/actionMenuTextColor"
@@ -282,7 +253,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Barium"
             android:textColor="?attr/actionMenuTextColor"
@@ -297,17 +267,14 @@
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:elevation="0dp">
+        android:layout_marginBottom="2dp">
 
         <TextView
             android:id="@+id/radium_btn"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/element_nodetail"
-
-            android:elevation="1dp" />
+            android:background="@drawable/element_nodetail" />
 
         <TextView
             android:id="@+id/radium_number"
@@ -316,7 +283,6 @@
             android:layout_marginTop="14dp"
             android:layout_marginEnd="14dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="top|end"
             android:text="88"
             android:textAlignment="gravity"
@@ -327,7 +293,6 @@
             android:id="@+id/radium_element"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="24dp"
             android:gravity="center"
             android:text="Ra"
             android:textColor="?attr/actionMenuTextColor"
@@ -339,7 +304,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             android:alpha="0.9"
-            android:elevation="24dp"
             android:gravity="bottom|center_horizontal"
             android:text="Radium"
             android:textColor="?attr/actionMenuTextColor"

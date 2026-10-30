@@ -34,5 +34,10 @@
         <item>fourth</item>
         <item>fifth</item>
     </array>
+
+    <array name="poisson_default_values">
+        <item>0.1</item>
+        <item>0.4</item>
+    </array>
     
 </resources>

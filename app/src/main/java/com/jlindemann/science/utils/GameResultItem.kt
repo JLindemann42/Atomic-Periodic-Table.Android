@@ -1,3 +1,5 @@
+package com.jlindemann.science.utils
+
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 

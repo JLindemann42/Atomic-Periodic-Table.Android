@@ -11,61 +11,72 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <FrameLayout
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/notes_frame"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="?attr/colorPrimaryContainer"
+            app:strokeWidth="0dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.Science.Expressive.Medium">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="?attr/colorPrimary"
-                android:background="@drawable/half_down_toast"
-                android:alpha="0.11" />
-
-            <TextView
-                android:id="@+id/notes_sync_status"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:background="@drawable/ic_cloud_done"
-                android:backgroundTint="?attr/colorAccent"
-                android:foreground="@drawable/c_ripple"
-                android:clickable="true"
-                android:focusable="true"
-                android:layout_gravity="end"
-                android:elevation="1dp"
-                android:padding="4dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="2dp"/>
-
-            <EditText
-                android:id="@+id/notes_edit_text"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="@dimen/margin"
-                android:layout_marginBottom="@dimen/margin"
-                android:background="@drawable/toast"
-                android:backgroundTint="?attr/colorSurface"
-                android:text="@string/take_notes_for_element"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="top"
-                android:minLines="1"
-                android:hint="@string/take_notes_for_element"
-                android:imeOptions="actionSearch"
-                android:inputType="textMultiLine"
-                android:paddingStart="18dp"
-                android:paddingTop="18dp"
-                android:paddingEnd="18dp"
-                android:paddingBottom="18dp"
-                android:textColor="?attr/colorOnSurface"
-                android:textColorHint="?attr/colorOnSurface"
-                android:textSize="14sp" />
+                android:padding="12dp">
 
-        </FrameLayout>
+                <ImageView
+                    android:id="@+id/notes_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_edit"
+                    app:tint="?attr/colorPrimary"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/notes_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Notes"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="@+id/notes_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/notes_icon"
+                    app:layout_constraintStart_toEndOf="@+id/notes_icon"
+                    app:layout_constraintEnd_toStartOf="@+id/notes_sync_status" />
+
+                <ImageView
+                    android:id="@+id/notes_sync_status"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@drawable/ic_cloud_done"
+                    app:tint="?attr/colorAccent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <EditText
+                    android:id="@+id/notes_edit_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/take_notes_for_element"
+                    android:inputType="textMultiLine"
+                    android:minLines="1"
+                    android:padding="4dp"
+                    android:textColor="?attr/colorOnPrimaryContainer"
+                    android:textColorHint="?attr/colorOnPrimaryContainer"
+                    android:alpha="0.7"
+                    android:textSize="15sp"
+                    app:layout_constraintTop_toBottomOf="@+id/notes_icon" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Container with center icon -->
         <LinearLayout

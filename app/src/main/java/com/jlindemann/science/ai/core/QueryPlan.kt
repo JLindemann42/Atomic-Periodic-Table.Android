@@ -1,0 +1,285 @@
+package com.jlindemann.science.ai.core
+
+import com.jlindemann.science.ai.data.Block
+import com.jlindemann.science.ai.data.ElementKey
+import com.jlindemann.science.ai.data.ElementRecord
+import com.jlindemann.science.ai.data.KnowledgeStore
+import com.jlindemann.science.ai.data.Quantity
+import com.jlindemann.science.ai.data.SeriesId
+
+/** What the user is asking for. */
+enum class Intent {
+    /** One field of one element, optionally in a requested unit. */
+    PROPERTY_LOOKUP,
+
+    /**
+     * A whole family of fields for one element — "the thermal properties of gold".
+     * Only fields the element actually has a value for are returned.
+     */
+    CATEGORY_LOOKUP,
+
+    /** Two or more elements compared on one or more fields. */
+    COMPARISON,
+
+    /** The extreme of a field, optionally within a subset: "densest nonmetal". */
+    SUPERLATIVE,
+
+    /** Every element matching a set of conditions: "transition metals melting above 2000 °C". */
+    FILTER_LIST,
+
+    /** A statistic over a subset: "average electronegativity of the halogens". */
+    AGGREGATE,
+
+    /** An element's isotopes: mass numbers, decay modes and half-lives. */
+    ISOTOPES,
+
+    /** An element's NFPA 704 hazard ratings. */
+    SAFETY,
+
+    /**
+     * An element's emission spectrum.
+     *
+     * Not a field lookup: the app holds the spectrum only as a rendered image per element, so the
+     * answer is the picture plus what can honestly be said around it.
+     */
+    EMISSION_SPECTRUM,
+
+    /** Molar mass and percentage composition of a chemical formula. */
+    FORMULA_MASS,
+
+    /** Neutron count of a specific nuclide, e.g. uranium-238. */
+    NUCLIDE_COUNT,
+
+    /** Two nuclides set side by side, e.g. uranium-235 vs uranium-238. */
+    ISOTOPE_COMPARISON,
+
+    /**
+     * A question with a direct answer about two elements: "is gold denser than lead",
+     * "which is heavier, gold or silver", "how much denser is gold than aluminium".
+     */
+    COMPARATIVE,
+
+    /** The element before or after another in atomic-number order. */
+    NEIGHBOUR,
+
+    /** Conversion between moles and particle counts. */
+    MOLE_CONVERSION,
+
+    /**
+     * A standalone unit conversion: "convert 500 K to °C", "96 kJ/mol in eV".
+     *
+     * Distinct from a property lookup carrying a target unit. "The density of gold in kg/m³" is a
+     * value the app holds, expressed differently; this is arithmetic on a number the user brought.
+     */
+    UNIT_CONVERT,
+
+    /** A chemical equation to balance: "Fe + O2 -> Fe2O3". */
+    BALANCE_EQUATION,
+
+    /** Molarity, mass↔moles↔concentration, and dilution. */
+    SOLUTION_CALC,
+
+    /** How much of a radioisotope is left after a time, or how long a decay takes. */
+    DECAY_CALC,
+
+    /** A row from one of the app's tables: a constant, equation, mineral, dictionary term. */
+    DATASET_LOOKUP,
+
+    /**
+     * One field across a set of elements in atomic-number order (roadmap 2.3): "electronegativity
+     * across period 3", or with no subset the whole table, "a heat map of density".
+     */
+    TREND,
+
+    /**
+     * A reviewed explanation of a mechanism (roadmap 2.4): "why does atomic radius increase down a
+     * group", shown with the trend it explains. [QueryPlan.literal] is its key.
+     */
+    EXPLANATION,
+
+    /** PV = nRT given three of the four (roadmap 2.8). */
+    GAS_LAW,
+
+    /** The pH of a strong acid or base at a given molarity (roadmap 2.8). [QueryPlan.literal] is its formula. */
+    PH_CALC,
+
+    /** An ion's electron configuration, Fe³⁺ (roadmap 2.8). [QueryPlan.literal] is "symbol:charge". */
+    ION_CONFIG,
+
+    /**
+     * An empirical formula from element percentages or masses, or from a molecular formula; with a
+     * molar mass, the molecular formula too (roadmap 2.8). [QueryPlan.literal] is "C=40;H=6.7;O=53.3"
+     * or "formula:C6H12O6", either followed by "|180" for a molar mass.
+     */
+    EMPIRICAL_FORMULA,
+
+    /** Amounts through a balanced equation, and the limiting reagent (roadmap 2.8). [QueryPlan.literal] is the equation. */
+    STOICHIOMETRY,
+
+    /** Nothing recognised. The caller should fall back. */
+    UNKNOWN;
+
+    companion object {
+        /** The intents that compute an answer from numbers, and so have steps to show (roadmap 2.2). */
+        val CALCULATIONS = setOf(
+            FORMULA_MASS, MOLE_CONVERSION, BALANCE_EQUATION, SOLUTION_CALC, DECAY_CALC, GAS_LAW, PH_CALC, ION_CONFIG,
+            EMPIRICAL_FORMULA, STOICHIOMETRY
+        )
+    }
+}
+
+/** Comparison operators available in a filter. */
+enum class Op { GT, GTE, LT, LTE, EQ, BETWEEN }
+
+/** Statistics available over a filtered set. */
+enum class Aggregation { NONE, MIN, MAX, AVG, SUM, COUNT, MEDIAN, RANGE }
+
+/** Something the query referred to. */
+sealed class EntityRef {
+    data class Element(val key: ElementKey) : EntityRef()
+    data class DatasetRow(val dataset: String, val id: String) : EntityRef()
+
+    /** A specific isotope, e.g. uranium-238. [massNumber] is the nucleon count. */
+    data class Nuclide(val key: ElementKey, val massNumber: Int) : EntityRef()
+}
+
+/** A condition an element must satisfy. */
+sealed class Filter {
+
+    data class FieldCompare(val fieldId: String, val op: Op, val value: Quantity, val high: Double? = null) : Filter()
+    data class InSeries(val series: Set<SeriesId>) : Filter()
+    data class InBlock(val block: Block) : Filter()
+    data class InPhase(val phase: String) : Filter()
+    data class IsRadioactive(val radioactive: Boolean) : Filter()
+    data class InPeriod(val period: Int) : Filter()
+    data class InGroup(val group: Int) : Filter()
+    data class IsMetal(val metal: Boolean) : Filter()
+
+    /** Whether the element occurs in nature, as opposed to being made in a reactor. */
+    data class IsSynthetic(val synthetic: Boolean) : Filter()
+
+    /** Any element but these: "what **else** is in that group" leaves out the one it was read off (roadmap 1.7). */
+    data class Excludes(val keys: Set<ElementKey>) : Filter()
+
+    /**
+     * Whether an element satisfies this condition.
+     *
+     * An element with no value for the compared field never matches, rather than defaulting to
+     * zero — otherwise "elements denser than 5" would silently include everything unmeasured.
+     */
+    fun matches(element: ElementRecord, store: KnowledgeStore): Boolean = when (this) {
+        is FieldCompare -> {
+            val actual = store.quantityIn(element, fieldId, value.unit)
+            if (actual == null) false else when (op) {
+                Op.GT -> actual.mid > value.value
+                Op.GTE -> actual.mid >= value.value
+                Op.LT -> actual.mid < value.value
+                Op.LTE -> actual.mid <= value.value
+                Op.EQ -> kotlin.math.abs(actual.mid - value.value) < 1e-6
+                Op.BETWEEN -> high != null && actual.mid >= value.value && actual.mid <= high
+            }
+        }
+        is InSeries -> element.series in series
+        is InBlock -> element.block == block
+        is InPhase -> element.phase == phase
+        is IsRadioactive -> element.radioactive == radioactive
+        is InPeriod -> element.period == period
+        is InGroup -> element.groupNumber == group
+        is IsMetal -> element.series.isMetal == metal
+        is IsSynthetic -> element.synthetic == synthetic
+        is Excludes -> element.key !in keys
+    }
+}
+
+/**
+ * Why the engine said no, reported with each declined turn (roadmap 0.7).
+ *
+ * A decline used to look the same in the data whatever caused it, so the only way to learn what
+ * goes unanswered was a user's screenshot. These say which door the question hit — never what it
+ * said. The planner sets the first eight; [AiEngine] adds the last two.
+ */
+enum class DeclineReason {
+    /** A greeting, thanks or small talk: the personality layer's to answer. */
+    CONVERSATIONAL,
+
+    /** "Element 119": a definite no, better said than guessed. */
+    NO_SUCH_ELEMENT,
+
+    /** Names a concept no field holds, such as reactivity, without a property to compare. */
+    UNBACKED_CONCEPT,
+
+    /** Asks what an element is used for or does in the body: prose, not a field. */
+    NARRATIVE,
+
+    /** Asks where a name comes from. */
+    ETYMOLOGY,
+
+    /** A "why" with no dictionary entry to explain it. */
+    UNEXPLAINED_WHY,
+
+    /**
+     * Names a compound and asks for something the app holds only for elements - its density,
+     * its melting point (roadmap 1.2). It used to be answered with the first element in the name.
+     */
+    COMPOUND_PROPERTY,
+
+    /** Nothing in the question matched a field, an element, an operator or a dataset row. */
+    NO_MATCH,
+
+    /** A plan was formed but fell below the planner's confidence threshold. */
+    LOW_CONFIDENCE,
+
+    /** Planned confidently, but executing it produced nothing to say. */
+    NO_RESULT
+}
+
+/**
+ * A natural-language question turned into something executable.
+ *
+ * This is what makes multi-hop answers possible: "which transition metals melt above 2000 °C"
+ * becomes an [InSeries] filter plus a [Filter.FieldCompare], which the executor runs across all
+ * 118 elements. The previous agent could only match a query against a fixed keyword branch, so
+ * it had no way to express a question of that shape at all.
+ *
+ * @property confidence 0..1; below the planner's threshold the caller should not use this plan
+ * @property evidence human-readable reasons the planner chose this, for debugging and tests
+ * @property declined why the planner declined, on an [Intent.UNKNOWN] plan; see [DeclineReason]
+ */
+data class QueryPlan(
+    val intent: Intent,
+    val entities: List<EntityRef> = emptyList(),
+    val fieldIds: List<String> = emptyList(),
+    val fieldOrdinal: Int? = null,
+    val filters: List<Filter> = emptyList(),
+    val aggregation: Aggregation = Aggregation.NONE,
+    val sortField: String? = null,
+    val sortDescending: Boolean = true,
+    val limit: Int = 1,
+    val targetUnit: String? = null,
+    /**
+     * A token the planner lifted verbatim out of the query — a chemical formula, an equation.
+     *
+     * Kept apart from [rawQuery] because the two are read differently downstream: [rawQuery] is
+     * re-scanned for the numbers the user wrote, so it has to stay the whole sentence, while this
+     * is the one substring the planner has already decided the answer is about.
+     */
+    val literal: String? = null,
+    val confidence: Double = 0.0,
+    val rawQuery: String = "",
+    val evidence: List<String> = emptyList(),
+    val declined: DeclineReason? = null,
+    /**
+     * Whether to show the calculation step by step rather than only its short working (roadmap
+     * 2.2): asked for in the question, or as "show the steps" after a calculation.
+     */
+    val showSteps: Boolean = false
+) {
+    val primaryField: String? get() = fieldIds.firstOrNull()
+
+    val elementKeys: List<ElementKey>
+        get() = entities.filterIsInstance<EntityRef.Element>().map { it.key }
+
+    /** Elements matching every filter, in atomic-number order. */
+    fun candidates(store: KnowledgeStore): List<ElementRecord> =
+        store.elements.filter { element -> filters.all { it.matches(element, store) } }
+}

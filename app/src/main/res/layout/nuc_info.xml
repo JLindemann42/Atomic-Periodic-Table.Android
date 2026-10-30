@@ -49,16 +49,16 @@
             android:textColor="?attr/colorOnSecondaryContainer"
             android:textSize="18sp" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/nuc_info_close_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_gravity="end"
-            android:backgroundTint="@color/transparent"
             android:elevation="0dp"
-            android:src="@drawable/ic_close"
+            app:icon="@drawable/ic_close"
+            app:iconTint="?attr/colorOnSecondaryContainer"
             app:borderWidth="0dp"
-            android:tint="?attr/colorPrimary"
             app:elevation="0dp"
             app:fabSize="normal" />
 

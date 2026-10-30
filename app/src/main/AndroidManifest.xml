@@ -7,6 +7,7 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
+        android:name=".AtomicApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -31,6 +32,36 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/element_of_the_day_widget_info" />
+        </receiver>
+
+        <receiver android:name=".ScienceDailyWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/science_daily_widget_info" />
+        </receiver>
+
+        <receiver android:name=".AIQuickAskWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/ai_quick_ask_widget_info" />
+        </receiver>
+
+        <receiver android:name=".ElementQuickNavWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/element_quick_nav_widget_info" />
         </receiver>
 
         <receiver android:name=".activities.tools.StreakReminderReceiver"
@@ -75,7 +106,7 @@
             android:name=".activities.ElementInfoActivity"
             android:label="ELEMENTINFOACTIVITY"
             android:exported="true"
-             
+            android:windowSoftInputMode="adjustNothing"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="package.OtherActivity" />
@@ -186,6 +217,11 @@
                 <action android:name="package.OtherActivity" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.tools.EquationBalancerActivity"
+            android:label="EQUATIONBALANCERPAGE"
+            android:exported="false"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.tools.IdealGasCalculatorActivity"
             android:label="IDEALGASCALCULATORPAGE"
@@ -404,6 +440,27 @@
                 <action android:name="package.OtherActivity" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.tables.AlloyActivity"
+            android:label="ALLOYACTIVITY"
+            android:exported="true"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustNothing">
+            <intent-filter>
+                <action android:name="package.OtherActivity" />
+            </intent-filter>
+        </activity>
+        <!-- Hands a shared answer image to the app the user picks (roadmap 2.10). -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/share_paths" />
+        </provider>
+
     </application>
 
 </manifest>

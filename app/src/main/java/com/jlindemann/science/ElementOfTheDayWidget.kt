@@ -130,7 +130,12 @@ class ElementOfTheDayWidget : AppWidgetProvider() {
                     val elementName = jsonObject.optString("element", "---")
                     val symbol = jsonObject.optString("short", "---")
                     val atomicNumber = jsonObject.optString("element_atomic_number", "---")
-                    val description = jsonObject.optString("description", "---")
+                    // Where the element stands out in the data leads, when it does (roadmap 2.7).
+                    val language = ElementDataLoader.getAppLanguage(context)
+                    val description = listOfNotNull(
+                        com.jlindemann.science.ai.AIPersonality.getElementFact(context, language, elementKey),
+                        jsonObject.optString("description", "---")
+                    ).joinToString("\n\n")
                     
                     // Update widget views
                     views.setTextViewText(R.id.widget_element_name, elementName)
