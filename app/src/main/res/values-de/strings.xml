@@ -1277,6 +1277,10 @@
     <string name="ai_stoich_product">Es entstehen **%1$s g %2$s** (%3$s mol).</string>
     <string name="ai_stoich_excess">Übrig bleiben %1$s g %2$s.</string>
     <string name="ai_steps_stoich">Jede Menge in Mol, dann über die Koeffizienten:</string>
+    <string name="ai_share_image">Als Bild teilen</string>
+    <string name="ai_share_footer">Beantwortet von Atomic, der Periodensystem-App</string>
+    <string name="ai_share_failed">Das Bild konnte nicht erstellt werden</string>
+    <string name="ai_copy_image">Bild kopieren</string>
     <string name="ai_card_heat_map_title">%1$s im Periodensystem</string>
 
     <!-- Equation Balancer tool -->

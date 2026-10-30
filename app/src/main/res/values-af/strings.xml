@@ -1345,6 +1345,10 @@ Hulle deel soortgelyke chemiese gedrag as gevolg van hul valenselektrone!</strin
     <string name="ai_stoich_product">Dit lewer **%1$s g %2$s** (%3$s mol).</string>
     <string name="ai_stoich_excess">%1$s g %2$s bly oor.</string>
     <string name="ai_steps_stoich">Elke hoeveelheid in mol, dan deur die koëffisiënte:</string>
+    <string name="ai_share_image">Deel as prent</string>
+    <string name="ai_share_footer">Beantwoord deur Atomic, die periodieke tabel-toep</string>
+    <string name="ai_share_failed">Kon nie die prent skep nie</string>
+    <string name="ai_copy_image">Kopieer prent</string>
     <string name="ai_card_heat_map_title">%1$s oor die tabel</string>
 
     <!-- Equation Balancer tool -->

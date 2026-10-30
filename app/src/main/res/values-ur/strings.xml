@@ -741,6 +741,10 @@
     <string name="ai_stoich_product">اس سے **%1$s g %2$s** (%3$s mol) بنتا ہے۔</string>
     <string name="ai_stoich_excess">%1$s g %2$s بچ جاتا ہے۔</string>
     <string name="ai_steps_stoich">ہر مقدار کو مول میں بدلیں، پھر ضربی عددوں کے ذریعے:</string>
+    <string name="ai_share_image">تصویر کے طور پر شیئر کریں</string>
+    <string name="ai_share_footer">Atomic کا جواب، دوری جدول کی ایپ</string>
+    <string name="ai_share_failed">تصویر نہیں بن سکی</string>
+    <string name="ai_copy_image">تصویر کاپی کریں</string>
     <string name="ai_card_heat_map_title">جدول میں %1$s</string>
 
     <!-- Equation Balancer tool -->

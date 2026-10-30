@@ -754,6 +754,10 @@
     <string name="ai_stoich_product">Se forman **%1$s g de %2$s** (%3$s mol).</string>
     <string name="ai_stoich_excess">Sobran %1$s g de %2$s.</string>
     <string name="ai_steps_stoich">Cada cantidad en moles y luego a través de los coeficientes:</string>
+    <string name="ai_share_image">Compartir como imagen</string>
+    <string name="ai_share_footer">Respondido por Atomic, la app de la tabla periódica</string>
+    <string name="ai_share_failed">No se pudo crear la imagen</string>
+    <string name="ai_copy_image">Copiar imagen</string>
     <string name="ai_card_heat_map_title">%1$s en la tabla</string>
 
     <!-- Equation Balancer tool -->

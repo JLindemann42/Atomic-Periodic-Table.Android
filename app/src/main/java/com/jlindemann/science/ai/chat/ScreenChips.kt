@@ -22,7 +22,6 @@ object Screens {
     const val UNIT_CONVERTER = "unit_converter"
     const val IDEAL_GAS = "ideal_gas"
     const val BALANCER = "balancer"
-    const val GAMES = "games"
 }
 
 /**

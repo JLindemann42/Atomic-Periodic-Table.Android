@@ -27,6 +27,9 @@ object AnalyticsEvent {
     const val AI_CARD_LOCKED = "ai_card_locked"
     const val AI_UPGRADE_TAP = "ai_upgrade_tap"
 
+    /** An answer shared as an image (roadmap 2.10). Carries whether it had a card, never the text. */
+    const val AI_ANSWER_SHARED = "ai_answer_shared"
+
     /** The user confirmed sending a declined question (roadmap 0.7). Carries no text. */
     const val AI_QUESTION_SENT = "ai_question_sent"
 }

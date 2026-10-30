@@ -2,7 +2,7 @@
     <string name="app_name">Atomic</string>
 
     <string name="personalization_settings">Personalization</string>
-    <string name="app_version" translatable="false">v5.1.0m-Build.231</string>
+    <string name="app_version" translatable="false">v5.2.0m-Build.232</string>
     <string name="next_sale_start" translatable="false" >2024/08/05</string>
     <string name="next_sale_end" translatable="false" >2024/09/15</string>
 
@@ -1595,6 +1595,10 @@
     <string name="ai_stoich_product">It makes **%1$s g %2$s** (%3$s mol).</string>
     <string name="ai_stoich_excess">%1$s g %2$s is left over.</string>
     <string name="ai_steps_stoich">Each amount in moles, then through the coefficients:</string>
+    <string name="ai_share_image">Share as image</string>
+    <string name="ai_share_footer">Answered by Atomic, the periodic table app</string>
+    <string name="ai_share_failed">Could not create the image</string>
+    <string name="ai_copy_image">Copy image</string>
     <string name="ai_card_heat_map_title">%1$s across the table</string>
 
     <!-- Equation Balancer tool -->

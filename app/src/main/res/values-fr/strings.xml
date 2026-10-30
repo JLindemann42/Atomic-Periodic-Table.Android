@@ -1351,6 +1351,10 @@ Ils partagent des comportements chimiques similaires grâce à leurs électrons 
     <string name="ai_stoich_product">Il se forme **%1$s g de %2$s** (%3$s mol).</string>
     <string name="ai_stoich_excess">Il reste %1$s g de %2$s.</string>
     <string name="ai_steps_stoich">Chaque quantité en moles, puis à travers les coefficients :</string>
+    <string name="ai_share_image">Partager en image</string>
+    <string name="ai_share_footer">Répondu par Atomic, l\'application du tableau périodique</string>
+    <string name="ai_share_failed">Impossible de créer l\'image</string>
+    <string name="ai_copy_image">Copier l\'image</string>
     <string name="ai_card_heat_map_title">%1$s dans le tableau</string>
 
     <!-- Equation Balancer tool -->

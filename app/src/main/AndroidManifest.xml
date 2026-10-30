@@ -450,6 +450,17 @@
                 <action android:name="package.OtherActivity" />
             </intent-filter>
         </activity>
+        <!-- Hands a shared answer image to the app the user picks (roadmap 2.10). -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/share_paths" />
+        </provider>
+
     </application>
 
 </manifest>

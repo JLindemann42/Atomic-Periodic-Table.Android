@@ -1347,6 +1347,10 @@ Condividono comportamenti chimici simili grazie ai loro elettroni di valenza!</s
     <string name="ai_stoich_product">Si formano **%1$s g di %2$s** (%3$s mol).</string>
     <string name="ai_stoich_excess">Avanzano %1$s g di %2$s.</string>
     <string name="ai_steps_stoich">Ogni quantità in moli, poi attraverso i coefficienti:</string>
+    <string name="ai_share_image">Condividi come immagine</string>
+    <string name="ai_share_footer">Risposta di Atomic, l\'app della tavola periodica</string>
+    <string name="ai_share_failed">Impossibile creare l\'immagine</string>
+    <string name="ai_copy_image">Copia immagine</string>
     <string name="ai_card_heat_map_title">%1$s nella tavola</string>
 
     <!-- Equation Balancer tool -->

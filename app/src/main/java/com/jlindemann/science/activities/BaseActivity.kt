@@ -71,8 +71,13 @@ abstract class BaseActivity : AppCompatActivity(), View.OnApplyWindowInsetsListe
             setImageResource(R.drawable.ic_ai_mascot)
             contentDescription = getString(R.string.ask_atomic)
             val primary = android.util.TypedValue()
+            val typedValue = android.util.TypedValue()
             if (theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, primary, true)) {
                 backgroundTintList = android.content.res.ColorStateList.valueOf(primary.data)
+            }
+
+            if (theme.resolveAttribute(com.google.android.material.R.attr.colorOnPrimary, typedValue, true)) {
+                imageTintList = android.content.res.ColorStateList.valueOf(typedValue.data)
             }
         }
         content.addView(fab, FrameLayout.LayoutParams(

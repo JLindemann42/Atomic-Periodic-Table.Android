@@ -1337,6 +1337,10 @@
     <string name="ai_stoich_product">इससे **%1$s g %2$s** (%3$s mol) बनता है।</string>
     <string name="ai_stoich_excess">%1$s g %2$s बच जाता है।</string>
     <string name="ai_steps_stoich">हर मात्रा को मोल में बदलें, फिर गुणांकों के ज़रिए:</string>
+    <string name="ai_share_image">छवि के रूप में साझा करें</string>
+    <string name="ai_share_footer">Atomic द्वारा उत्तर, आवर्त सारणी ऐप</string>
+    <string name="ai_share_failed">छवि नहीं बन सकी</string>
+    <string name="ai_copy_image">छवि कॉपी करें</string>
     <string name="ai_card_heat_map_title">सारणी में %1$s</string>
 
     <!-- Equation Balancer tool -->

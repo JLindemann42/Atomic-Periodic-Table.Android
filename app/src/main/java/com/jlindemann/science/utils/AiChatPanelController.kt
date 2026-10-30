@@ -49,16 +49,6 @@ import kotlinx.coroutines.withContext
 import java.util.UUID
 
 /**
- * Drives the AI chat panel for whichever screen hosts it.
- *
- * The panel was previously implemented twice — once in `MainActivity`, once in
- * `ElementInfoActivity` — in about 860 near-identical lines that had already drifted apart in
- * null-handling and in which coroutine scope they used. This owns that behaviour once, so a
- * change to the chat lands in both places by construction.
- *
- * All seventeen views are resolved a single time in [setup]; the previous code re-walked the view
- * tree on every suggestion refresh, message send and panel open.
- *
  * @param scope the host's coroutine scope. The host still owns and cancels it.
  * @param contextElement supplies the element the screen is about, so an element page can ground
  *   answers in it. Returns null on screens with no element context.
@@ -166,7 +156,8 @@ class AiChatPanelController(
             // purchase unlocks the cards already on screen at the next rebind rather than needing
             // the chat reopened.
             isProPlusUser = { ProPlusVersion(activity).getValue() == PRO_PLUS_UNLOCKED },
-            onUpgrade = { goToPro() }
+            onUpgrade = { goToPro() },
+            onShare = { message, shown, card -> shareAnswer(message, shown, card) }
         )
         recycler.layoutManager = LinearLayoutManager(activity).apply { stackFromEnd = true }
         recycler.adapter = adapter
@@ -436,6 +427,25 @@ class AiChatPanelController(
                 putExtra("show_pro", true)
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             }
+        )
+    }
+
+    /** Share an answer as a branded image (roadmap 2.10). */
+    private fun shareAnswer(message: ChatMessage, shown: CharSequence, card: View?) {
+        // The question is the user's message just before this answer.
+        val index = messages.indexOfFirst { it.id == message.id }
+        val question = messages.getOrNull(index - 1)?.takeIf { it.isFromUser }?.text
+        runCatching {
+            AnswerShareImage.share(activity, AnswerShareImage.render(activity, question, shown, card))
+        }.onFailure {
+            Toast.makeText(activity, R.string.ai_share_failed, Toast.LENGTH_SHORT).show()
+            return
+        }
+        AnalyticsHelper.logEvent(
+            activity,
+            AnalyticsEvent.AI_ANSWER_SHARED,
+            AnalyticsParam.HOST to host,
+            AnalyticsParam.HAS_CARD to (card != null)
         )
     }
 

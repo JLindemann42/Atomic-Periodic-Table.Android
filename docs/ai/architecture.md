@@ -244,6 +244,20 @@ chips fill the remaining places, less any that would repeat the question ("Atomi
 under the atomic mass of gold). `FollowUpsTest` asks each locale's own seed questions and then
 every chip they produce, and fails if any is declined.
 
+**Shareable answer cards** (roadmap 2.10, free). Every answer to a question has a share button
+under it; the greeting has none. It shares the answer as a branded image:
+- **Layout.** `utils/AnswerShareImage` lays out `share_answer_image.xml` off screen, at 400 dp, so an
+  image looks the same whichever phone shared it. It shows the Ask Atomic mark, the question, the
+  answer as the chat shows it, the card, and the footer `ai_share_footer`.
+- **Card.** The card is a snapshot of the one in the conversation. A locked card is left out, so a
+  share never shows what the paywall hides; the text is not gated and always goes in.
+- **Sharing.** The PNG is written to `cache/shared/` and handed to the share sheet through a new
+  FileProvider (`res/xml/share_paths.xml`, authority `<applicationId>.fileprovider`), which exposes
+  that folder only.
+- **Why a button.** It is not a long press, because the answer text is selectable: a long press
+  selects text. The selection bar already offers Copy and Share for the text.
+- **Analytics.** `ai_answer_shared` records whether the image had a card, never the text.
+
 **Context from any screen** (roadmap 2.9). Before this, only the main screen and the element pages
 hosted the chat; an element page focused its element. Now every table and tool screen hosts it too,
 and the chat knows which screen it was opened from.

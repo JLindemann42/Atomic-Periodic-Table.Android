@@ -1349,6 +1349,10 @@ I：不溶"</string>
     <string name="ai_stoich_product">生成 **%1$s g %2$s**（%3$s mol）。</string>
     <string name="ai_stoich_excess">剩余 %1$s g %2$s。</string>
     <string name="ai_steps_stoich">把每个量换算成摩尔，再按系数计算：</string>
+    <string name="ai_share_image">以图片分享</string>
+    <string name="ai_share_footer">由 Atomic（元素周期表应用）回答</string>
+    <string name="ai_share_failed">无法生成图片</string>
+    <string name="ai_copy_image">复制图片</string>
     <string name="ai_card_heat_map_title">周期表中的%1$s</string>
 
     <!-- Equation Balancer tool -->

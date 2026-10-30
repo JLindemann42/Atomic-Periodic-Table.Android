@@ -198,6 +198,22 @@
                     app:chipSpacingVertical="0dp"
                     app:singleLine="false" />
 
+                <!-- Shares the answer as a branded image (roadmap 2.10). A button rather than a
+                     long press: the answer text is selectable, so a long press selects text. -->
+                <ImageButton
+                    android:id="@+id/aiShareButton"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="6dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/ai_share_image"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_share"
+                    android:visibility="gone"
+                    app:tint="?attr/colorPrimary" />
+
             </LinearLayout>
 
         </FrameLayout>

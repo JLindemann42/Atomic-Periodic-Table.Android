@@ -1346,6 +1346,10 @@ Nagbabahagi sila ng mga katulad na gawi sa kemikal dahil sa kanilang mga valence
     <string name="ai_stoich_product">Nakagagawa ito ng **%1$s g %2$s** (%3$s mol).</string>
     <string name="ai_stoich_excess">May natitirang %1$s g %2$s.</string>
     <string name="ai_steps_stoich">Bawat dami sa mole, saka sa mga coefficient:</string>
+    <string name="ai_share_image">Ibahagi bilang larawan</string>
+    <string name="ai_share_footer">Sinagot ng Atomic, ang app ng periodic table</string>
+    <string name="ai_share_failed">Hindi magawa ang larawan</string>
+    <string name="ai_copy_image">Kopyahin ang larawan</string>
     <string name="ai_card_heat_map_title">%1$s sa buong table</string>
 
     <!-- Equation Balancer tool -->
