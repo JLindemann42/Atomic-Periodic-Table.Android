@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scroll_settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/element_title_downstate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="80dp"
+                android:text="@string/learn_title"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                android:letterSpacing="-0.02" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                app:singleSelection="true"
+                app:selectionRequired="true"
+                android:spacing="8dp">
+
+                <!-- Guides Chip (Selected State) -->
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipGuides"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/guide_title"
+                    android:checked="true"
+                    app:chipStrokeWidth="0dp"/>
+
+                <!-- Articles Chip (Unselected State) -->
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipArticles"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/articles_title"
+                    android:checked="false"
+                    app:chipStrokeWidth="0dp"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <com.google.android.material.search.SearchBar
+                android:id="@+id/searchBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_guides_and_articles"
+                app:navIcon="@drawable/ic_search"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginVertical="4dp" />
+
+
+                <!-- Expressive Header Title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/subjects"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnSurface"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp" />
+
+                <!-- 2x2 Expressive Grid Layout using Material 3 Color Roles -->
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:rowCount="2"
+                    android:layout_marginHorizontal="16dp"
+                    android:alignmentMode="alignMargins"
+                    android:columnOrderPreserved="false">
+
+                    <!-- CHEMISTRY CARD (Primary Container Role) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginEnd="3dp"
+                        android:layout_marginBottom="3dp"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="24dp"
+                        app:cardBackgroundColor="?attr/colorPrimaryContainer"
+                        style="@style/Widget.Material3.CardView.Filled">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="20dp">
+
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@drawable/ic_chemistry"
+                                app:tint="?attr/colorOnPrimaryContainer"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Chemistry"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:textColor="?attr/colorOnPrimaryContainer"
+                                android:layout_marginTop="16dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="24 guides"
+                                android:textSize="14sp"
+                                android:textColor="?attr/colorOnPrimaryContainer"
+                                android:alpha="0.7"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- PHYSICS CARD (Secondary Container Role) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginBottom="3dp"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="24dp"
+                        app:cardBackgroundColor="?attr/colorSecondaryContainer"
+                        style="@style/Widget.Material3.CardView.Filled">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="20dp">
+
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@drawable/ic_physics"
+                                app:tint="?attr/colorOnSecondaryContainer"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Physics"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:textColor="?attr/colorOnSecondaryContainer"
+                                android:layout_marginTop="16dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="18 guides"
+                                android:textSize="14sp"
+                                android:textColor="?attr/colorOnSecondaryContainer"
+                                android:alpha="0.7"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- MATHEMATICS CARD (Tertiary Container Role) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginEnd="3dp"
+                        android:layout_marginTop="3dp"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="24dp"
+                        app:cardBackgroundColor="?attr/colorTertiaryContainer"
+                        style="@style/Widget.Material3.CardView.Filled">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="20dp">
+
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@drawable/ic_math"
+                                app:tint="?attr/colorOnTertiaryContainer"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Mathematics"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:textColor="?attr/colorOnTertiaryContainer"
+                                android:layout_marginTop="16dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="16 guides"
+                                android:textSize="14sp"
+                                android:textColor="?attr/colorOnTertiaryContainer"
+                                android:alpha="0.7"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- BIOLOGY CARD (Surface Variant Role) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_columnWeight="1"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginTop="3dp"
+                        app:cardElevation="0dp"
+                        app:cardCornerRadius="24dp"
+                        app:cardBackgroundColor="?attr/colorSurfaceVariant"
+                        style="@style/Widget.Material3.CardView.Filled">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="20dp">
+
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:src="@drawable/ic_biology"
+                                app:tint="?attr/colorOnSurfaceVariant"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Biology"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:layout_marginTop="16dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="12 guides"
+                                android:textSize="14sp"
+                                android:textColor="?attr/colorOnSurfaceVariant"
+                                android:alpha="0.7"/>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </GridLayout>
+
+            <TextView
+                android:id="@+id/subject_separator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="32dp"
+                android:background="?attr/actionMenuTextColor"
+                android:alpha="0.4"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/unified_titlebar_include"
+        layout="@layout/view_unified_titlebar"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

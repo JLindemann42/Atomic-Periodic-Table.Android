@@ -1618,4 +1618,11 @@
     <string name="ai_send_question_confirm">Send</string>
     <string name="ai_send_question_sent">Thanks — your question was sent.</string>
     <string name="ai_send_question_failed">Couldn\'t send the question. Check your connection and try again.</string>
+
+    <!-- Guides -->
+    <string name="learn_title" translatable="false">Learn</string>
+    <string name="guide_title" translatable="false">Guides</string>
+    <string name="articles_title" translatable="false">Articles</string>
+    <string name="search_guides_and_articles" translatable="false">Search guides and articles</string>
+    <string name="subjects" translatable="false">Subjects</string>
 </resources>
